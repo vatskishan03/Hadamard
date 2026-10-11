@@ -107,7 +107,45 @@ def build_cooper_wallis(cert):
     return H, None
 
 
-BUILDERS = {"goethals-seidel": build_goethals_seidel, "cooper-wallis": build_cooper_wallis}
+def build_spence(cert):
+    """Spence's bordered construction. Four +-1 sequences on an abelian group G of order v
+    (elements in mixed-radix order of `group`) whose autocorrelations sum to -4 off the
+    identity, with row sums (2, 0, 0, 0), give a Hadamard matrix of order 4v + 4:
+
+        H = [ K        Q (x) 1^T ]
+            [ P (x) 1  M         ]
+
+    where M is the group-developed Goethals-Seidel array, P and Q are the 4 x 4 Hadamard
+    matrices in the certificate, and K = -QP/2."""
+    mods = cert["group"]
+    v = int(np.prod(mods))
+    coords = np.array(np.unravel_index(np.arange(v), mods)).T
+    index = lambda c: np.ravel_multi_index(tuple(np.moveaxis(c % mods, -1, 0)), mods)
+    seqs = [np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["sequences"]]
+    if [int(x.sum()) for x in seqs] != [2, 0, 0, 0]:
+        raise ValueError("row sums must be (2, 0, 0, 0)")
+    total = np.zeros(v, dtype=np.int64)
+    for s in range(v):
+        shift = index(coords + coords[s])
+        total[s] = sum(int(x @ x[shift]) for x in seqs)
+    if total[0] != 4 * v or np.any(total[1:] != -4):
+        raise ValueError("sequences do not satisfy the Spence condition")
+    sub = index(coords[None, :, :] - coords[:, None, :])          # X[g, h] = x(h - g)
+    R = np.zeros((v, v), dtype=np.int64)
+    R[np.arange(v), index(-coords)] = 1
+    A, B, C, D = (x[sub] for x in seqs)
+    M = np.block([[A, B @ R, C @ R, D @ R],
+                  [-B @ R, A, D.T @ R, -C.T @ R],
+                  [-C @ R, -D.T @ R, A, B.T @ R],
+                  [-D @ R, C.T @ R, -B.T @ R, A]])
+    P, Q = np.array(cert["P"], dtype=np.int64), np.array(cert["Q"], dtype=np.int64)
+    one = np.ones((1, v), dtype=np.int64)
+    K = -(Q @ P) // 2
+    return np.vstack([np.hstack([K, np.kron(Q, one)]), np.hstack([np.kron(P, one.T), M])]), None
+
+
+BUILDERS = {"goethals-seidel": build_goethals_seidel, "cooper-wallis": build_cooper_wallis,
+            "spence": build_spence}
 
 
 def canonical_csv(H):
