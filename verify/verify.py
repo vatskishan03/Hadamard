@@ -77,6 +77,11 @@ def build_goethals_seidel(cert):
         seqs.append(x)
     if [int(x.sum()) for x in seqs] != cert["rowsums"]:
         raise ValueError("row sums differ from the certificate")
+    mu = cert.get("spin_multiplier")
+    if mu is not None:
+        t = np.arange(v)
+        if not all(np.array_equal(seqs[k + 1], seqs[1][t * pow(mu, k, v) % v]) for k in range(3)):
+            raise ValueError("the last three blocks are not multiplier images of each other")
     paf = paf_sum(seqs)
     if paf[0] != 4 * v or np.any(paf[1:] != 0):
         raise ValueError("sequences are not complementary")

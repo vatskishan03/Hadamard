@@ -85,6 +85,75 @@ makes the row sums (1, 1, 1, 2m + 1) admissible automatically. The pools are abo
 matching. Spence's construction covers the same orders only when m is a prime
 power.
 
+## Block symmetries
+
+A multiplier can also move blocks. Let L = ⟨H, −1⟩ and let μ have order d > 1
+modulo L. Suppose the blocks are images of one another under powers of μ, along a
+permutation of order d. Then the sum of autocorrelations is invariant under
+⟨L, μ⟩, and the equations only have to hold on its classes. Two cases matter:
+
+- **d = 3, blocks (X₀, X₁, μX₁, μ²X₁).** X₁ is invariant under H and X₀ under
+  K = ⟨H, μ⟩ [4]. There are a third as many equations, and the row sums satisfy
+  r₀² + 3r₁² = 4p.
+- **d = 2.** The blocks are (A, μA, C, D) with C and D invariant under ⟨H, μ⟩, or
+  (A, μA, B, μB). There are half as many equations.
+
+Both keep the ratio of free signs to equations at 8, as in the plain structure.
+The number of expected solutions drops to about E^(1/3) or E^(1/2) of the plain
+value. In exchange, the d = 3 case becomes a join of only two lists, one of which
+is small enough to enumerate completely.
+
+**Which primes admit them.** For prime p the quotient ℤ_p*/L is cyclic of order
+(p − 1)/(2h), with h odd.
+
+- If p ≡ 3 (mod 4) that order is odd, so d = 2 and d = 4 are impossible.
+- If p ≡ 11 (mod 12), d = 3 is impossible as well.
+- Translations and negations add nothing over ℤ_p. An affine invariance of a block
+  is conjugate to a linear one, and a signed invariance X(ut) = −X(t) forces
+  X(0) = 0.
+
+So for the 58 unresolved primes p ≡ 11 (mod 12), every symmetric structure over ℤ_p
+is of the plain kind, and the √p bound below applies.
+
+For d = 3 the bound becomes sharper. The K-orbits have size 3h, so
+r₀ ≡ ±1 (mod 6h). Moreover, 4p has exactly two representations r₀² + 3r₁² with
+r₀ and r₁ odd and positive. Unless r₀ = 1, which happens exactly when
+p = 3m² + 3m + 1, h is again of order √p/3. The prime 919 = 3 · 17² + 3 · 17 + 1
+behind order 3676 is of this special form.
+
+**Survey.** We ran both cases over all unresolved entries, for Goethals–Seidel over
+ℤ_n and for Spence's construction over ℤ_(n−1). Only three d = 3 structures have
+a usable cost:
+
+| n | \|H\| | μ | orbits of X₀, X₁ | classes | log₁₀ E | log₁₀ lookups per solution |
+|---:|---:|---:|---|---:|---:|---:|
+| 571 | 5 | 109 | 39, 115 | 19 | 17.4 | 10.2 |
+| 1893 | 30 | 2 | 30, 86 | 15 | 2.1 | 14.7 |
+| 1051 | 7 | 57 | 51, 151 | 25 | 19.7 | 16.7 |
+
+The last column counts exactly centred X₁ that must be checked against the full X₀
+pool per expected solution. For the d = 2 cases nothing was cheaper.
+
+We checked the Gaussian estimate of E against exhaustive counts on small d = 3
+structures:
+
+- For Goethals–Seidel it agreed within a factor of two. For example, for p = 73 it
+  predicted 10^5.3 solutions and the count was 161,808.
+- For Spence it was off by up to a factor of 100 in both directions.
+
+**The join.** For p = 571 the first block has C(38, 18) ≈ 3.4 · 10¹⁰ choices.
+
+1. All of them are enumerated, and those whose class values lie near the centre of
+   their distribution are kept in a hash table in memory.
+2. A tabu walk over the second block evaluates every swap neighbour of each point
+   it visits.
+3. Every neighbour whose class values lie near the centre is looked up, not just
+   the walk's own position.
+
+This produces about 10⁸ checked candidates per second on 14 cores, four orders of
+magnitude more than descent from random starts. It found [order 2284](2284) after
+33 minutes, close to the model's prediction.
+
 ## Limitations
 
 The method needs a multiplier subgroup with admissible row sums and a moderate
@@ -114,3 +183,5 @@ compete with the combinatorial pairing of the k-tree.
 2. L. Minder, A. Sinclair, The extended k-tree algorithm, J. Cryptology 25 (2012) 349–382.
 3. D. Ž. Đoković, O. Golubitsky, I. S. Kotsireas, Some new orders of Hadamard and
    skew-Hadamard matrices, J. Combin. Des. 22 (2014) 270–277.
+4. D. Ž. Đoković, Two classes of Hadamard matrices of Goethals–Seidel type,
+   arXiv:2404.14375 (2024).
