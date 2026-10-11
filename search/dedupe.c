@@ -2,7 +2,7 @@
  * Remove duplicate candidates (equal masks) from a file written by generate.py.
  *
  *     cc -O2 search/dedupe.c -o dedupe
- *     ./dedupe CLASSES in.bin out.bin
+ *     ./dedupe CLASSES in.bin out.bin       ("-" reads standard input)
  *
  * CLASSES is the number of autocorrelation classes C; records are 8 + C bytes.
  */
@@ -29,22 +29,26 @@ int main(int argc, char **argv)
         return 2;
     }
     long len = 8 + atol(argv[1]);
-    FILE *in = fopen(argv[2], "rb");
+    FILE *in = strcmp(argv[2], "-") ? fopen(argv[2], "rb") : stdin;
     if (!in) {
         perror(argv[2]);
         return 1;
     }
-    fseek(in, 0, SEEK_END);
-    long size = ftell(in);
-    fseek(in, 0, SEEK_SET);
+    size_t cap = (size_t)1 << 30, size = 0, got;
+    unsigned char *buf = malloc(cap);
+    while (buf && (got = fread(buf + size, 1, cap - size, in)) > 0) {
+        size += got;
+        if (size == cap)
+            buf = realloc(buf, cap *= 2);
+    }
+    if (in != stdin)
+        fclose(in);
     long n = size / len;
-    unsigned char *buf = malloc(size);
     Key *keys = malloc(n * sizeof(Key));
-    if (!buf || !keys || fread(buf, 1, size, in) != (size_t)size) {
-        fprintf(stderr, "cannot read %s\n", argv[2]);
+    if (!buf || !keys) {
+        fprintf(stderr, "out of memory\n");
         return 1;
     }
-    fclose(in);
 
     for (long i = 0; i < n; i++) {
         memcpy(&keys[i].mask, buf + i * len, 8);

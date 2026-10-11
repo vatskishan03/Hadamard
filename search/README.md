@@ -8,6 +8,7 @@ These are the programs that found the Goethals–Seidel orders in this repositor
 | `triage.py` | ranks multiplier structures for a target n by predicted matching work |
 | `generate.py` | generates candidate sequences by batched local search (JAX; runs on TPU, GPU or CPU) |
 | `dedupe.c` | removes duplicate candidates |
+| `expand.c` | adds the multiplier images of each candidate (free list growth) |
 | `match.c` | extended k-tree matcher; prints complementary quadruples |
 | `certify.py` | writes `certificate.json`, `sequences.txt` and the matrix for a match |
 
