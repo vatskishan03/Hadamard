@@ -60,6 +60,7 @@ Other top-level contents:
 - [`t-matrices`](t-matrices): the T-matrices of orders 97 to 197 found during this work.
 - [`search`](search): the programs that found the Goethals–Seidel orders.
 - [`METHOD.md`](METHOD.md): how the search works.
+- [`FRONTIER.md`](FRONTIER.md): the unresolved orders up to 4 · 2999, with the cheapest structure for each and its predicted cost.
 
 ## References
 

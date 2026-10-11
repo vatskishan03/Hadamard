@@ -53,6 +53,14 @@ The values τ are processed in decreasing order of probability, and every match 
 checked exactly. With lists of 10⁸ elements, one value of τ takes a few seconds
 on 44 cores.
 
+**Multiplier images.** If x is constant on the cosets of H, then so is
+x_u(t) = x(ut) for any unit u, and its class values are a permutation of those of
+x. Every candidate therefore yields up to C candidates of the same quality at no
+generation cost (`search/expand.c`). In practice the deepest candidates for a
+given structure occupy a small region that is nearly closed under this action.
+For p = 919, five images per candidate gave 1.8 times as many distinct sequences,
+and the expected yield per τ rose by a factor of 39.
+
 ## Cost model
 
 Fix a structure (p, h and a row-sum pattern). Let N be the number of sequences
@@ -80,9 +88,21 @@ power.
 ## Limitations
 
 The method needs a multiplier subgroup with admissible row sums and a moderate
-number of cosets. For most unresolved orders no such structure exists, as for
-[2148](2148), or the predicted cost exceeds the available computation by several
-orders of magnitude, as for [4412](4412).
+number of cosets. For prime p this is a real constraint.
+
+**The √p bound.** Every row sum satisfies r ≡ ±1 (mod 2h). The pattern
+(±1, ±1, ±1, ±1) is excluded because 4p > 4, so some |r| is at least 2h − 1. Then
+(2h − 1)² ≤ 4p, which forces h ≤ √p + 1/2 and at least √p − 1 cosets. Pools
+therefore grow like 2^√p, while the class values spread more as p grows. Above
+p ≈ 2000 no structure is cheap. For [4412](4412), a pilot measured 10⁻⁹ expected
+solutions per τ.
+
+For [2148](2148) no usable structure exists at all.
+
+**Small structures.** Structures too small for the Gaussian model to be trusted
+were checked exhaustively instead. There were 1,319 such structures across the
+unresolved entries; 1,159 were searched completely, and none contains a
+solution. See [FRONTIER.md](FRONTIER.md).
 
 We also tested generating pairs of sequences jointly so as to concentrate their
 pair sums. It reduces the pair variance by a factor of about 2.5, but it cannot
