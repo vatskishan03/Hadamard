@@ -27,7 +27,8 @@ is not complete (nine of its entries were settled in [4]), so these claims carry
 that caveat.
 
 Orders under investigation: [2148](2148), the smallest order we know to be
-unresolved, [3676](3676) and [4412](4412).
+unresolved, and [4412](4412). [3676](3676) was settled by Schumer [8] while our
+search for it was running.
 
 ## Verification
 
@@ -79,3 +80,5 @@ Other top-level contents:
    Canad. J. Math. 19 (1967) 1001–1010.
 7. J. Cooper, J. Wallis, A construction for Hadamard arrays,
    Bull. Austral. Math. Soc. 7 (1972) 269–278.
+8. Schumer, Hadamard matrices of orders 3676, 5436, 6644 and 7852, Zenodo,
+   September 17, 2026, doi:10.5281/zenodo.22820997.
