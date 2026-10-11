@@ -55,8 +55,11 @@ Each order has its own directory containing
 - `H<n>.csv.gz`: the matrix, one row per line, entries separated by commas,
 - `README.md`: construction details and status.
 
-[`t-matrices`](t-matrices) holds the T-matrices of orders 97 to 197 found during
-this work. [`METHOD.md`](METHOD.md) describes the search.
+Other top-level contents:
+
+- [`t-matrices`](t-matrices): the T-matrices of orders 97 to 197 found during this work.
+- [`search`](search): the programs that found the Goethals–Seidel orders.
+- [`METHOD.md`](METHOD.md): how the search works.
 
 ## References
 
