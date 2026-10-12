@@ -26,3 +26,5 @@ attack/lp_open_hits.json
 attack/skew_hits.json
 attack/match4
 attack/ls/gs_rsa
+attack/spin_ls
+attack/*.log

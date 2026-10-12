@@ -46,8 +46,10 @@ def main():
     cert = {"order": order, "construction": "goethals-seidel", "skew": True, "group": f"Z_{n}", "v": n}
     if len(gens) == 1: cert["multiplier"] = gens[0]
     else: cert["multipliers"] = gens
-    cert.update({"subgroup_order": len(H), "rowsums": [int(x.sum()) for x in seqs], "blocks": blocks,
-                 "sha256": hashlib.sha256(data).hexdigest()})
+    cert.update({"subgroup_order": len(H), "rowsums": [int(x.sum()) for x in seqs]})
+    if "spin_multiplier" in h:
+        cert["spin_multiplier"] = h["spin_multiplier"]
+    cert.update({"blocks": blocks, "sha256": hashlib.sha256(data).hexdigest()})
     write_certificate(cert, out / "certificate.json")
     (out / "sequences.txt").write_text("".join("".join("+" if v > 0 else "-" for v in x) + "\n" for x in seqs))
     with gzip.open(out / f"H{order}.csv.gz", "wb", compresslevel=9) as f: f.write(data)

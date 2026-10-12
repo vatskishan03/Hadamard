@@ -376,12 +376,31 @@ lists 234 odd v ≤ 999 for which no skew matrix of order 4v is known. The FRONT
   right pairs from the other two. With lists of very different sizes, the yield per τ grows with the
   smaller pair list, so the clamp S is set as loose as memory allows (pair lists ≤ 2.5·10⁷).
   Pools beyond 4·10⁶ are replaced by uniform samples (`--maxpool`), at a cost of L/N per list.
-- **New orders** (each found in seconds to a minute on 4 cores): 836, 1148, 1236, 1364, 1508,
-  1852, 2404, i.e. v = 209, 287, 309, 341, 377, 463, 601.
+- **New orders**: 836, 1036, 1148, 1236, 1364, 1508, 1852, 1876, 2404, 3676, i.e.
+  v = 209, 259, 287, 309, 341, 377, 463, 469, 601, 919. Each took seconds to minutes on 4 cores.
+  - 259 used sampled lists: 3.9·10⁶ of 3–4·10⁷ per pool.
+  - 469 (⟨9⟩, predicted 0.2) gave 192 solutions in the exact matcher. The k-tree had missed them
+    because 36 values of τ with the top-6 values per class do not cover the solutions. For pools
+    of ≤ 10⁵, run the exact matcher.
+- **Spin structure** (`spin_skew.py`, `spin_ls.c`), the type of Đoković's skew 4·397.
+  - A is invariant under K = ⟨H, μ⟩ with μ of order 3, and C = B∘μ, D = B∘μ².
+  - The condition P_A + P_B + P_B∘μ + P_B∘μ² = 0 lives on the ⟨K, −1⟩-classes, a third as many as
+    the ⟨H, −1⟩-classes. It is a 2-list problem: B ranges over 10¹³–10¹⁵ choices, and a tabu
+    search on (A, B) in C does about 5·10⁴ moves/s.
+  - The row sums are forced: 1 + 3b² = 4v. For open v ≤ 999 that leaves v = 469, 721, 817 and 919.
+  - 919 (|H| = 17, μ = 52, 9 classes, predicted 2·10⁵ solutions) was solved in 37 s.
+  - 721 (|H| = 17, μ = 46, predicted 200) is still open after 6·10⁶ moves; the best residual is
+    two classes off by 4.
+  - 817 has no structure with predicted E > 10⁻³.
+- **General local search.** The same C engine handles plain skew GS: B, C, D are stacked into one
+  vector with a block-diagonal form, and swaps stay inside a block (`spin_skew.py gsearch`). It
+  solves 209/⟨26⟩ in under a second.
 - **No hits:**
-  - 201 with ⟨22⟩ (exhaustive);
+  - 201 with ⟨22⟩ and 301 with ⟨4⟩ (both exhaustive; 301 was predicted at 4);
   - 265 with ⟨16⟩ (400 values of τ);
-  - 301 with ⟨4⟩ and 469 with ⟨9⟩ (36 values of τ each; exact runs pending).
+  - 623 with ⟨2⟩ (400 values of τ on both patterns).
+  - `skew_sweep.py` runs the exact matcher on every structure with ≤ 33 orbits and pair work
+    ≤ 1.5·10⁹.
 - **Hadamard orders through Yamada's theorem.** If q ≡ 5 (mod 8) is a prime power and a skew matrix
   of order (q + 3)/2 exists, then H(4(q + 2)) exists. Among FRONTIER orders this needs exactly the
   skew orders 940, 1108 and 1192, for n = 1879, 2215 and 2383. All three are out of reach of skew

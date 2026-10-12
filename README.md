@@ -42,16 +42,20 @@ skew first block. All four blocks are invariant under a multiplier subgroup H �
 | Order | v | H | Row sums | Table 5 entry |
 |------:|---|---|---|---|
 | [836](skew/836) | 209 (11 · 19) | ⟨26⟩, order 15 | 1, 9, 15, 23 | 209(4) |
+| [1036](skew/1036) | 259 (7 · 37) | ⟨9⟩, order 9 | 1, 5, 7, 31 | 259(4) |
 | [1148](skew/1148) | 287 (7 · 41) | ⟨16⟩, order 15 | 1, 3, 7, 33 | 287(4) |
 | [1236](skew/1236) | 309 (3 · 103) | ⟨13⟩, order 17 | 1, 1, 3, 35 | 309(3) |
 | [1364](skew/1364) | 341 (11 · 31) | ⟨14⟩, order 15 | 1, 9, 21, 29 | 341(4) |
 | [1508](skew/1508) | 377 (13 · 29) | ⟨16⟩, order 21 | 1, 7, 27, 27 | 377(5) |
 | [1852](skew/1852) | 463 (prime) | ⟨33⟩, order 21 | 1, 1, 1, 43 | 463(7) |
+| [1876](skew/1876) | 469 (7 · 67) | ⟨9⟩, order 33 | 1, 1, 5, 43 | 469(3) |
 | [2404](skew/2404) | 601 (prime) | ⟨2⟩, order 25 | 1, 1, 1, 49 | 601(5) |
+| [3676](skew/3676) | 919 (prime) | ⟨58⟩, order 17; spin μ = 52 | 1, 35, 35, 35 | 919(3) |
 
 Doubling (Seberry) then gives skew matrices of orders 2ᵏ · 4v for every k ≥ 0, which settles every
-entry v(m) above at m = 2. The searches use `attack/skew_triage.py`, `attack/skew_ktree.py` and
-`attack/match4.c`, and each directory's README describes its search. `verify/verify.py` checks
+entry v(m) above at m = 2. The searches use `attack/skew_triage.py`, `attack/skew_rank.py`, `attack/skew_ktree.py` with
+`attack/match4.c`, and, for the spin structure of 3676, `attack/spin_skew.py` with `attack/spin_ls.c`.
+Each directory's README describes its search. `verify/verify.py` checks
 H + Hᵀ = 2I for these certificates.
 
 ## Verification

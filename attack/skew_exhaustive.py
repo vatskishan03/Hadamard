@@ -8,7 +8,7 @@ import spence_lib as L, count_exact as X
 import verify
 HERE = '/home/user/Hadamard/attack'
 
-def run(n, gens, cap=4e10, K=5, verbose=True):
+def run(n, gens, cap=4e10, K=2, verbose=True):
     G = L.AbGroup([n]); st = L.Structure(G, [G.perm_from_matrix(np.array([[g]])) for g in gens])
     rep = np.array([np.flatnonzero(st.orb == o)[0] for o in range(st.O)])
     partner = st.orb[G.neg()[rep]]
@@ -59,9 +59,9 @@ def run(n, gens, cap=4e10, K=5, verbose=True):
             seqs = [Ls[k][0][ids[k]].astype(np.int64)[st.orb] for k in range(4)]
             tot = verify.paf_sum(seqs)
             if not (tot[0] == 4 * n and not tot[1:].any()): continue
-            H = verify.goethals_seidel(*map(verify.circulant, seqs)).astype(np.int64)
-            had = np.array_equal(H @ H.T, 4 * n * np.eye(4 * n, dtype=np.int64))
-            skew = np.array_equal(H + H.T, 2 * np.eye(4 * n, dtype=np.int64))
+            H = verify.goethals_seidel(*map(verify.circulant, seqs)).astype(np.float64)   # BLAS; exact below 2^53
+            had = np.array_equal(H @ H.T, 4 * n * np.eye(4 * n))
+            skew = np.array_equal(H + H.T, 2 * np.eye(4 * n))
             found.append(dict(n=n, gens=list(gens), pattern=list(q), hadamard=bool(had), skew=bool(skew),
                               seqs=[''.join('+' if x > 0 else '-' for x in sq) for sq in seqs]))
             if verbose: print(f"    VERIFIED: Hadamard={had} skew={skew}", flush=True)
