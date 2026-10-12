@@ -75,6 +75,7 @@ blocks are invariant under a group H of automorphisms with −1 ∉ H.
 | [1612](skew/1612) | 403 (13 · 31) | ⟨100⟩, order 15 | 1, 5, 25, 31 | 403(5) |
 | [1876](skew/1876) | 469 (7 · 67) | ⟨9⟩, order 33 | 1, 1, 5, 43 | 469(3) |
 | [2404](skew/2404) | 601 (prime) | ⟨2⟩, order 25 | 1, 1, 1, 49 | 601(5) |
+| [2452](skew/2452) | 613 (prime) | ⟨37⟩, order 17 | 1, 1, 35, 35 | 613(3) |
 | [2812](skew/2812) | 703 (19 · 37) | ⟨16, 26⟩, order 27 | 1, 1, 1, 53 | 703(3) |
 | [3052](skew/3052) | 763 (7 · 109) | ⟨9⟩, order 27 | 1, 1, 5, 55 | 763(4) |
 | [3556](skew/3556) | 889 (7 · 127) | ⟨2,25⟩, order 63 | 1, 5, 41, 43 | 889(4) |
@@ -106,7 +107,7 @@ records the result of each check.
 The searches use `attack/skew_triage.py`, `attack/skew_rank.py`, `attack/skew_ktree.py` with `attack/match4.c`,
 `attack/skew_exhaustive.py`, `attack/skew_group.py`, `attack/skew_field.py`, the exact compression-chain search
 `attack/chain.py` (driven over the census by `attack/census_screen.py` and `attack/screen_chain.py`, which found
-2812 and 3052), and, for the spin structure, `attack/spin_skew.py` with `attack/spin_ls.c`. Each directory's README
+2812 and 3052), the unequal-list low-energy search `attack/skew_lowE.py` (which found 2452), and, for the spin structure, `attack/spin_skew.py` with `attack/spin_ls.c`. Each directory's README
 records the command, code commit, seed and caps of its search. `verify/verify.py` checks H + Hᵀ = 2I for
 these certificates.
 

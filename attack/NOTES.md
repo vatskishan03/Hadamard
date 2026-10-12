@@ -665,4 +665,15 @@ two-block array. The script checks H Hᵀ = (2w + 2)I and H + Hᵀ = 2I.
   breadth first, and within a branch the largest second-level combinations first.
 - 253 = 11 · 23 with ⟨12⟩ (33 orbits): the heaviest branches are truncated at the fibre cap
   (`--maxfibre 3e6`), so this structure is not searched yet.
+- **613 (prime) is solved** by the unequal-list low-energy k-tree: skew order 2452, see [skew/2452](../skew/2452).
+  - Structure: H = ⟨37⟩ of order 17, rows (1, 1, 35, 35).
+  - Lists: all 262,144 skew A; 1.29·10⁶ low-energy B (row sum 1); 7.1·10⁶ low-energy C = D (row sum 35, one
+    shared list). The estimate inside the lists was 10^1.65.
+  - The matcher found 4 solutions in 3.6 hours (match4 stops at 4).
+  - The first 40,000 values of τ hold only about 4% of the τ-weight, which predicts about 2. In this
+    regime the k-tree needs about 4 hours of work per solution.
+  - An earlier run with smaller and deeper lists (estimate 10^−1.3) found nothing in 3000 values of τ. List
+    size and diversity matter more than descent depth.
+  - Yamada: the skew order 8 · 2452 = 19616 gives q = 39229, prime, and so H(156924). That order lies far
+    beyond every table and was not pursued.
 
