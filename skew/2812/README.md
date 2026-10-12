@@ -55,6 +55,34 @@ To our knowledge this is the first skew-Hadamard matrix of order 2812.
 - Cati and Pasechnik, *A database of constructions of Hadamard matrices*, arXiv:2411.18897v2 (Aug. 2025), Table 5, lists 703(3). So the smallest known skew order of the form 2ᵐ · 703 was 5624, and 2812 was unknown.
 - A literature search in October 2026 found no later construction.
 
+**Novelty checklist** (audit of 2026-10-12 by a research agent):
+
+1. Table 5 of Cati–Pasechnik lists 703(3), from Paley I at 5624 (5623 is prime). So the smallest known
+   skew order with odd part 703 was 2³ · 703 = 5624. This order is above 1208, the range they checked
+   against implemented constructions, so the entry was not taken on trust (items 2 and 3).
+2. Đoković's papers (1992–2025, alone and with Kotsireas, Golubitsky or Balonin), Koukouvinos–Stylianou
+   (Discrete Math. 2008) and the Đoković–Seberry census of skew orders 4v for odd v < 2500 (May 2025) do not
+   construct it. The census lists 703 among its 737 undecided values, and not in its Paley, Szekeres,
+   Szekeres–Whiteman or Spence series or among its sporadic values.
+3. The 2025–2026 papers and deposits we checked do not contain it:
+   - arXiv;
+   - Zenodo: Schumer, Kline and Piza;
+   - the JD-Jones-ASES repositories Hadamard-T/M/B;
+   - Alpöge et al. and Schneider.
+
+   SageMath's `unknown_skew_hadamard` list stops at 1196, below this order.
+4. No infinite family reaches it:
+   - Paley I (2811 = 3 · 937);
+   - 2ᵗ ∏(qᵢ + 1);
+   - Szekeres, Whiteman and Momihara–Xiang 2(q + 1), with q = 1405 = 5 · 281;
+   - Wallis–Whiteman and Momihara–Xiang 4(q + 1), with q = 702;
+   - (|t| + 1)(q + 1);
+   - Spence 4(q² + q + 1), with q = 26;
+   - (p − 1)ᵘ + 1;
+   - products and amicable products.
+
+This is a finding of nothing, not a proof that no earlier construction exists.
+
 ## Verification
 
 ```
