@@ -38,7 +38,10 @@ is then a Hadamard matrix of order 1012. Because A + Aᵀ = 2I, it satisfies H +
    - the four-list matcher `attack/match4.c` found 96 solutions at the first value of τ, after 1.7 s of matching, and all 96 were verified as skew-Hadamard matrices.
 3. **The Gaussian models were wrong by six orders of magnitude.** `attack/skew_rank.py` gave the structure 10^2.6 solutions, and the estimate inside the lists above was 10^−1.8. The 16 classes are strongly correlated here (covariance eigenvalues from 31 to 4,858; for the prime 613 they lie between 494 and 633), and a full-covariance model still gives only 10^−2.4 for lists of 65,536, 33,230, 42,858 and 42,429 candidates that hold
    19,320 solutions (counted exactly with `attack/join4x.c`). See `attack/NOTES.md` §15.
-4. **Why: a Paley product.** Write the blocks over ℤ₁₁ × ℤ₂₃ as u ⊗ 1 + w ⊗ J + z ⊗ χ, where χ is the Legendre sequence of ℤ₂₃, J the all-ones sequence and u, w, z sequences on ℤ₁₁. Then the conditions reduce to two complementary quadruples (u_k) and (z_k) over ℤ₁₁ and one cross condition, with w nonzero at only two places. `attack/paley_config.py` searches this reduced problem exactly. It lists 9,520 u-quadruples, and the first of them already extends in 100 ways.
+4. **Why: a Paley product.** Write the blocks over ℤ₁₁ × ℤ₂₃ as u ⊗ 1 + w ⊗ J + z ⊗ χ, where χ is the Legendre sequence of ℤ₂₃, J the all-ones sequence and u, w, z sequences on ℤ₁₁. Then the conditions reduce to two complementary quadruples (u_k) and (z_k) over ℤ₁₁ and one cross condition, with w nonzero at only two places. `attack/paley_config.py` searches this reduced problem exactly. It lists 9,520 u-quadruples, and the first of them already extends in 100 ways. The counting identity behind
+   the reduction, (q + 1)N_w − 4N₋ = 4m, is the classical one of Seberry Wallis (J. Combin. Theory A, 1976), Lemma 8,
+   where J, J − 2I and a Paley-core block fill an orthogonal design of order 2ᵗ; here the outer structure is a
+   Goethals–Seidel quadruple over ℤ₁₁ instead.
 
 ## Reproduction
 

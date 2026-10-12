@@ -74,6 +74,8 @@ blocks are invariant under a group H of automorphisms with −1 ∉ H.
 | [1412](skew/1412) | 353 (prime) | ⟨22⟩, order 11 | 1, 21, 21, 23 | 353(4) |
 | [1508](skew/1508) | 377 (13 · 29) | ⟨16⟩, order 21 | 1, 7, 27, 27 | 377(5) |
 | [1612](skew/1612) | 403 (13 · 31) | ⟨100⟩, order 15 | 1, 5, 25, 31 | 403(5) |
+| [1804](skew/1804) | 451 (11 · 41) | ⟨16, 42⟩, order 25 | 1, 1, 11, 41 | none (implicit 2, unexplained); 451(3) in Seberry–Yamada 1992 and Koukouvinos–Stylianou 2008; census: undecided |
+| [1860](skew/1860) | 465 (3 · 5 · 31) | ⟨226⟩, order 15 (Paley product) | 1, 25, 35, 3 | 465(3) |
 | [1876](skew/1876) | 469 (7 · 67) | ⟨9⟩, order 33 | 1, 1, 5, 43 | 469(3) |
 | [2404](skew/2404) | 601 (prime) | ⟨2⟩, order 25 | 1, 1, 1, 49 | 601(5) |
 | [2452](skew/2452) | 613 (prime) | ⟨37⟩, order 17 | 1, 1, 35, 35 | 613(3) |

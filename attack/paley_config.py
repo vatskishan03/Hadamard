@@ -44,22 +44,74 @@ def allpm(n):
     return (1 - 2 * ((np.arange(2 ** n)[:, None] >> np.arange(n)) & 1)).astype(np.int8)
 
 
+class Orbits:
+    """Orbits of a multiplier group K <= Z_m^* (K = {1} by default) on Z_m, and generators of K-invariant sequences.
+    A skew-type sequence needs -a outside K a for every a != 0; pairs lists the orbit pairs {O, -O}."""
+    def __init__(self, m, K=(1,)):
+        self.m = m; K = sorted(set(K))
+        oid = -np.ones(m, np.int64); reps = []
+        for a in range(m):
+            if oid[a] < 0:
+                for k in K: oid[a * k % m] = len(reps)
+                reps.append(a)
+        self.oid, self.reps, self.n = oid, reps, len(reps)
+        neg = [int(oid[(-r) % m]) for r in reps]
+        self.selfneg = [i for i in range(1, self.n) if neg[i] == i]
+        self.pairs = [(i, neg[i]) for i in range(1, self.n) if i < neg[i]]
+        self.trivial = len(K) == 1
+
+    def expand(self, V):                          # values on orbits (n_rows x n) -> sequences (n_rows x m)
+        return V[:, self.oid]
+
+    def skew_type(self, x0=1):
+        if self.selfneg: return np.zeros((0, self.m), np.int8)
+        S = allpm(len(self.pairs)); V = np.zeros((len(S), self.n), np.int8); V[:, 0] = x0
+        for j, (i, k) in enumerate(self.pairs): V[:, i] = S[:, j]; V[:, k] = -S[:, j]
+        return self.expand(V)
+
+    def symmetric(self, zero_at_0=False):
+        free_ = [i for i, _ in self.pairs] + self.selfneg
+        S = allpm(len(free_) + (0 if zero_at_0 else 1)); V = np.zeros((len(S), self.n), np.int8)
+        off = 0
+        if not zero_at_0: V[:, 0] = S[:, 0]; off = 1
+        for j, i in enumerate(free_): V[:, i] = S[:, j + off]
+        for i, k in self.pairs: V[:, k] = V[:, i]
+        return self.expand(V)
+
+    def free(self, zero_at_0=False, at0=None):
+        S = allpm(self.n - 1); V = np.zeros((len(S), self.n), np.int16); V[:, 1:] = S
+        V[:, 0] = 0 if zero_at_0 else (at0 if at0 is not None else 1)
+        X = self.expand(V)
+        if zero_at_0 or at0 is not None: return X
+        return np.concatenate([X, -X])            # both values at 0
+
+    def joint12(self):
+        """(u1, u2) with u1(0) = 0, u2(0) = -2 and u1(s) + u1(-s) = -(u2(s) + u2(-s)): 6 options per orbit pair,
+        2 per self-negative orbit (where u2 = -u1)."""
+        opts = []
+        for p1, p2 in itertools.product((1, -1), repeat=2):
+            for c2 in ([(-p1, -p1)] if p1 == p2 else [(1, -1), (-1, 1)]): opts.append(((p1, p2), c2))
+        O6 = np.array(opts, dtype=np.int8)
+        npair, nself = len(self.pairs), len(self.selfneg)
+        N = 6 ** npair * 2 ** nself
+        idx = np.arange(N, dtype=np.int64)
+        V1 = np.zeros((N, self.n), np.int8); V2 = np.zeros((N, self.n), np.int8); V2[:, 0] = -2
+        r = idx.copy()
+        for (i, k) in self.pairs:
+            o = O6[r % 6]; r //= 6
+            V1[:, i] = o[:, 0, 0]; V1[:, k] = o[:, 0, 1]; V2[:, i] = o[:, 1, 0]; V2[:, k] = o[:, 1, 1]
+        for i in self.selfneg:
+            b = 1 - 2 * (r % 2); r //= 2
+            V1[:, i] = b; V2[:, i] = -b
+        return self.expand(V1), self.expand(V2)
+
+
 def skew_type(m, x0=1):
-    h = (m - 1) // 2
-    S = allpm(h); X = np.zeros((len(S), m), np.int8); X[:, 0] = x0
-    for a in range(1, h + 1): X[:, a] = S[:, a - 1]; X[:, m - a] = -S[:, a - 1]
-    return X
+    return Orbits(m).skew_type(x0)
 
 
 def symmetric(m, zero_at_0=False):
-    h = (m - 1) // 2
-    S = allpm(h + (0 if zero_at_0 else 1)); X = np.zeros((len(S), m), np.int8)
-    if zero_at_0:
-        for a in range(1, h + 1): X[:, a] = S[:, a - 1]; X[:, m - a] = S[:, a - 1]
-    else:
-        X[:, 0] = S[:, 0]
-        for a in range(1, h + 1): X[:, a] = S[:, a]; X[:, m - a] = S[:, a]
-    return X
+    return Orbits(m).symmetric(zero_at_0)
 
 
 def free(m, zero_at_0=False, at0=None):
@@ -82,14 +134,15 @@ def canonical_translates(X):
     return np.unique(best, axis=0)
 
 
-def join(lists, C, K, budget=8000000):
-    """Exact 4-list join (join4x) of int16 class vectors to target 0; returns (total, [(i,j,k,l), ...])."""
+def join(lists, C, K, budget=8000000, target=None):
+    """Exact 4-list join (join4x) of int16 class vectors to target (default 0); returns (total, [(i,j,k,l), ...])."""
     sz = [len(x) for x in lists]
     if min(sz) == 0: return 0, []
     order = np.argsort(sz); perm = [order[0], order[3], order[1], order[2]]
     path = os.path.join(W.tmpdir(), f'pc_{os.getpid()}.bin')
+    T = np.zeros(C, np.int16) if target is None else np.asarray(target, dtype=np.int16)
     with open(path, 'wb') as f:
-        f.write(struct.pack('iiiii', *[sz[k] for k in perm], C)); f.write(np.zeros(C, np.int16).tobytes())
+        f.write(struct.pack('iiiii', *[sz[k] for k in perm], C)); f.write(T.tobytes())
         for k in perm: f.write(np.ascontiguousarray(lists[k].astype(np.int16)).tobytes())
     r = subprocess.run([W.bin('join4x'), path, str(K), str(budget)], capture_output=True, text=True, check=True)
     os.remove(path)
@@ -112,69 +165,233 @@ def lift(v, m, q, U, Wv, Z):
     return [(u[a] * (b == 0) + w[a] + z[a] * chi[b]).astype(np.int64) for u, w, z in zip(U, Wv, Z)]
 
 
+def gf_model(p, k):
+    """GF(p^k) = F_p[x]/(f) with f irreducible: (multiplication function on coordinate vectors, quadratic character
+    on all p^k coordinate vectors in mixed-radix order, the multiplication matrix of a generator of the squares)."""
+    import itertools as it
+    def mulpoly(a, b, f):
+        r = [0] * (2 * k - 1)
+        for i, x in enumerate(a):
+            for j, y in enumerate(b): r[i + j] = (r[i + j] + x * y) % p
+        for d in range(2 * k - 2, k - 1, -1):            # reduce by monic f (f[k] = 1)
+            c = r[d]
+            if c:
+                for i in range(k + 1): r[d - k + i] = (r[d - k + i] - c * f[i]) % p
+        return tuple(r[:k])
+    for f in it.product(range(p), repeat=k):
+        f = list(f) + [1]
+        if f[0] == 0: continue
+        if all(sum(f[i] * pow(x, i, p) for i in range(k + 1)) % p for x in range(p)) or k > 3:
+            elems = list(it.product(range(p), repeat=k))
+            nz = [e for e in elems if any(e)]
+            # find a primitive element
+            for g in nz:
+                seen, x = set(), (1,) + (0,) * (k - 1)
+                for _ in range(p ** k - 1):
+                    seen.add(x); x = mulpoly(x, g, f)
+                if len(seen) == p ** k - 1 and x == (1,) + (0,) * (k - 1): break
+            else:
+                continue
+            sq = set(); x = (1,) + (0,) * (k - 1); g2 = mulpoly(g, g, f)
+            for _ in range((p ** k - 1) // 2): sq.add(x); x = mulpoly(x, g2, f)
+            # coordinates (b_0..b_{k-1}) in mixed-radix order with b_0 slowest
+            chi = np.array([0 if not any(e) else (1 if e in sq else -1) for e in elems], np.int64)
+            M = np.array([mulpoly(tuple(int(i == j) for i in range(k)), g2, f) for j in range(k)], np.int64).T
+            return chi, M
+    raise ValueError('no irreducible polynomial found')
+
+
+def lift_field(m, p, k, U, Wv, Z):
+    """Sequences on Z_m x GF(p^k) (mixed radix, Z_m slowest): X(a, b) = u(a)[b = 0] + w(a) + z(a) chi(b)."""
+    chi, M = gf_model(p, k)
+    Q = p ** k
+    a = np.repeat(np.arange(m), Q); b = np.tile(np.arange(Q), m)
+    return [(u[a] * (b == 0) + w[a] + z[a] * chi[b]).astype(np.int64) for u, w, z in zip(U, Wv, Z)], M
+
+
+def check_group(mods, seqs):
+    cert = dict(group=list(mods), sequences=[''.join('+' if x > 0 else '-' for x in sq) for sq in seqs],
+                rowsums=[int(x.sum()) for x in seqs])
+    Hm, _ = verify.build_goethals_seidel_group(cert)
+    n = Hm.shape[0]; Hm = Hm.astype(np.float64)
+    return np.array_equal(Hm @ Hm.T, n * np.eye(n)) and np.array_equal(Hm + Hm.T, 2 * np.eye(n))
+
+
 def check(v, seqs):
     tot = verify.paf_sum(seqs)
     if not (tot[0] == 4 * v and not tot[1:].any()): return False
     Hm = verify.goethals_seidel(*map(verify.circulant, seqs)).astype(np.float64)
     return np.array_equal(Hm @ Hm.T, 4 * v * np.eye(4 * v)) and np.array_equal(Hm + Hm.T, 2 * np.eye(4 * v))
 
+def general_search(v, m, q, hgen, Nw, Nm, a, log, field=None):
+    """One w-position in each of the blocks 1..N_w (translated to 0, w = +1 after negating the block), none in A.
+    For N_w <= 3 this is forced (two w-positions in one block, or a pair in A, leave a q^2 term in the
+    autocorrelation of the compressions that only another such pair could cancel). No decoupling is assumed:
+      stage 1: y_k = u_k + q w_k (the Z_m-compressions) with sum_k PAF_{y_k} = 0;
+      stage 2: z-quadruples with sum_k PAF_{z_k}(s) = R(s) = sum_{k <= N_w} (u_k(s) + u_k(-s)) and zero cross terms."""
+    h = (m - 1) // 2; t0 = time.time()
+    orb = getattr(a, 'orbits', None) or Orbits(m)
+    YA = orb.skew_type()
+    lists, roles = [YA], ['A']
+    for k in range(1, 4):
+        if k <= Nw:
+            big = q - 2 if k <= Nm else q              # the first N_- w-blocks have u(0) = -2
+            lists.append(orb.free(at0=big)); roles.append(f'w{"-" if k <= Nm else "+"}')
+        else:
+            X = orb.free()
+            lists.append(canonical_translates(X) if (k == 3 and orb.trivial) else X); roles.append('free')
+    P = [pafs(Y.astype(np.int64), h) for Y in lists]
+    total_u, sols = join(P, h, K=(10 ** 6 if a.all else a.maxu))
+    log(f"v={v} m={m} q={q} N_w={Nw} N_-={Nm} (general, roles {roles}): stage 1 lists {[len(x) for x in lists]}, "
+        f"y-quadruples {total_u} [{time.time()-t0:.0f}s]")
+    if not total_u: return 0
+    ZA = orb.symmetric(); Z0 = orb.free(zero_at_0=True); Zf = orb.free()
+    zl = [ZA] + [Z0 if k <= Nw else Zf for k in range(1, 4)]
+    found = 0
+    for qi, sol in enumerate(sols):
+        y = [lists[k][sol[k]].astype(np.int64) for k in range(4)]
+        Wv = [np.zeros(m, np.int64) for _ in range(4)]
+        for k in range(1, Nw + 1): Wv[k][0] = 1
+        u = [y[k] - q * Wv[k] for k in range(4)]
+        R = sum(np.array([u[k][s_] + u[k][(-s_) % m] for s_ in range(1, h + 1)]) for k in range(1, Nw + 1))
+        V = [np.concatenate([pafs(Z.astype(np.int64), h), accs(Z.astype(np.int64), u[k][None, :], h)], axis=1)
+             for k, Z in enumerate(zl)]
+        target = np.concatenate([R, np.zeros(h, np.int64)]) if Nw else np.zeros(2 * h, np.int64)
+        tz, sz = join(V, 2 * h, K=a.nsol, target=target)
+        for s_ in sz:
+            Z = [zl[k][s_[k]].astype(np.int64) for k in range(4)]
+            if field:
+                p_, k_ = field
+                seqs, Mg = lift_field(m, p_, k_, u, Wv, Z)
+                ok = check_group([m] + [p_] * k_, seqs)
+            else:
+                seqs = lift(v, m, q, u, Wv, Z)
+                ok = check(v, seqs)
+            log(f"  y-quadruple {qi}: {tz} z-solutions; lifted to {'Z_%d x GF(%d^%d)' % (m, *field) if field else 'Z_%d' % v}: skew-Hadamard {ok}")
+            if ok:
+                found += 1
+                rec = dict(n=v, gens=(hgen if isinstance(hgen, list) else [hgen]), pattern=[int(x.sum()) for x in seqs], hadamard=True, skew=True,
+                           method=f'paley_config general N_w={Nw}', seqs=[''.join('+' if x > 0 else '-' for x in sq) for sq in seqs])
+                if field:
+                    rec.update(group=[m] + [field[0]] * field[1], automorphisms=[
+                        np.block([[np.eye(1, dtype=np.int64), np.zeros((1, field[1]), np.int64)],
+                                  [np.zeros((field[1], 1), np.int64), Mg]]).tolist()])
+                with open(W.hits(), 'a') as f: f.write(json.dumps(rec) + '\n')
+        if qi < 5 or qi % 50 == 0: log(f"  y-quadruple {qi}: z-solutions {tz} [{time.time()-t0:.0f}s]")
+        if found and not a.all: break
+    log(f"v={v} N_w={Nw} (general): {min(len(sols), qi + 1)} of {total_u} y-quadruples tried, {found} verified hits [{time.time()-t0:.0f}s]")
+    return found
+
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('v', type=int); ap.add_argument('--maxu', type=int, default=200)
     ap.add_argument('--all', action='store_true'); ap.add_argument('--nsol', type=int, default=2)
+    ap.add_argument('--general', action='store_true', help='use the general one-w-per-block search (N_w <= 3)')
+    ap.add_argument('--field', help='p,k: q = p^k a prime power = 3 (mod 4); group Z_m x GF(q) with m = v / q')
+    ap.add_argument('--kgen', help='generators (mod m) of an extra multiplier group K on Z_m; u, z constant on its orbits')
+    ap.add_argument('--korder', type=int, default=1,
+                    help='also require u, z constant on the orbits of the subgroup of Z_m^* of this odd order (m prime)')
     a = ap.parse_args()
     v = a.v
     log = lambda s: print(s, flush=True)
+    if a.field:
+        p_, k_ = map(int, a.field.split(',')); q = p_ ** k_; m = v // q
+        assert v == m * q and q % 4 == 3 and m % p_
+        for Nw in (1, 2, 3):
+            Nm = (q + 1) * Nw - 4 * m
+            if Nm % 4 == 0 and 0 <= Nm // 4 <= Nw:
+                general_search(v, m, q, 0, Nw, Nm // 4, a, log, field=(p_, k_))
+        return
     cases = []
     for m, q, hgen in structures(v, 10 ** 6):
-        for Nw in (1, 2):
+        for Nw in (1, 2, 3):
             Nm = ((q + 1) * Nw - 4 * m)
             if Nm % 4 == 0 and 0 <= Nm // 4 <= Nw: cases.append((m, q, hgen, Nw, Nm // 4))
     if not cases: sys.exit(f"{v}: no Paley-product structure with N_w = 1 or 2 ((q+1)N_w - 4N_- = 4m has no solution)")
     for m, q, hgen, Nw, Nm in cases:
         h = (m - 1) // 2
+        K = [1]
+        if a.korder > 1:
+            if (m - 1) % a.korder or any(m % p == 0 for p in range(2, int(m ** 0.5) + 1)):
+                log(f"v={v} m={m}: --korder {a.korder} needs m prime and korder | m - 1"); continue
+            g = next(g for g in range(2, m) if all(pow(g, (m - 1) // f, m) != 1 for f in range(2, m) if (m - 1) % f == 0
+                                                     and all(f % r for r in range(2, f))))
+            k0 = pow(g, (m - 1) // a.korder, m); K = sorted({pow(k0, e, m) for e in range(a.korder)})
+        if a.kgen:
+            gens_ = [int(x) % m for x in a.kgen.split(',')]; K = {1}
+            while True:
+                K2 = K | {k * g % m for k in K for g in gens_}
+                if K2 == K: break
+                K = K2
+            K = sorted(K)
+            if len(K) % 2 == 0: log(f"v={v} m={m}: K={K} has even order"); continue
+        orb = Orbits(m, K)
+        a.orbits = orb
+        if orb.selfneg: log(f"v={v} m={m} K={K}: -1 fixes an orbit, no skew-type block"); continue
+        # the K-symmetric version of the generators (identical to the plain ones when K = {1})
+        gen_skew = (lambda x0=1: orb.skew_type(x0)) if not orb.trivial else (lambda x0=1: skew_type(m, x0))
+        gen_sym = (lambda zero_at_0=False: orb.symmetric(zero_at_0)) if not orb.trivial else (lambda zero_at_0=False: symmetric(m, zero_at_0))
+        gen_free = (lambda zero_at_0=False: orb.free(zero_at_0)) if not orb.trivial else (lambda zero_at_0=False: free(m, zero_at_0))
+        canon = (lambda X: X) if not orb.trivial else canonical_translates
+        hgen_all = [hgen] + [next(x for x in range(1, v) if x % q == 1 and x % m == k) for k in K if k != 1][:1]
+        if Nw == 3 or a.general:
+            general_search(v, m, q, hgen_all, Nw, Nm, a, log); continue
         t0 = time.time()
-        UA = skew_type(m)
+        UA = gen_skew()
         if Nw == 1:
             if not any(x * x + y * y == 4 * m - 2 for x in range(1, 2 * m, 2) for y in range(1, 2 * m, 2)):
                 log(f"v={v} m={m} q={q} N_w=1: 4m - 2 = {4 * m - 2} is not a sum of two odd squares, so no solution"); continue
-            U1 = skew_type(m, x0=(0 if Nm == 0 else -2))
-            U2 = free(m); U3 = canonical_translates(free(m))
+            U1 = gen_skew(x0=(0 if Nm == 0 else -2))
+            U2 = gen_free(); U3 = canon(gen_free())
             P = [pafs(UA, h), pafs(U1, h), pafs(U2, h), pafs(U3, h)]
             lists_u = [UA, U1, U2, U3]
+            total_u, sols_u = join(P, h, K=(10 ** 6 if a.all else a.maxu))
+            sols_u = [tuple(lists_u[k][sol[k]] for k in range(4)) for sol in sols_u]
         else:
             # joint (u1, u2): u1(0) = 0, u2(0) = -2, symmetric parts opposite
             # per pair {a, -a}: u1 = (s, s) forces u2 = (-s, -s); u1 = (s, -s) leaves u2 = (t, -t) free: 6 options
             opts = []
             for p1, p2 in itertools.product((1, -1), repeat=2):
                 for c2 in ([(-p1, -p1)] if p1 == p2 else [(1, -1), (-1, 1)]): opts.append(((p1, p2), c2))
-            if h > 8: sys.exit("N_w = 2 stage 1 is materialised in memory; m <= 17 only")
-            idx = np.array(list(itertools.product(range(6), repeat=h)), dtype=np.int64)
-            U1 = np.zeros((len(idx), m), np.int8); U2 = np.zeros((len(idx), m), np.int8); U2[:, 0] = -2
-            for p in range(h):
-                o = np.array(opts, dtype=np.int8)[idx[:, p]]          # (n, 2, 2)
-                U1[:, p + 1] = o[:, 0, 0]; U1[:, m - 1 - p] = o[:, 0, 1]
-                U2[:, p + 1] = o[:, 1, 0]; U2[:, m - 1 - p] = o[:, 1, 1]
-            U12 = np.concatenate([U1, U2], axis=1)
-            U3 = canonical_translates(free(m))
-            P = [pafs(UA, h), pafs(U1, h) + pafs(U2, h), pafs(U3, h), np.zeros((1, h), np.int64)]
-            lists_u = [UA, U12, U3, np.zeros((1, m), np.int8)]
-        total_u, sols_u = join(P, h, K=10 ** 7)
-        log(f"v={v} m={m} q={q} N_w={Nw} N_-={Nm}: stage 1 lists {[len(x) for x in lists_u]}, u-quadruples {total_u} [{time.time()-t0:.0f}s]")
+            O6 = np.array(opts, dtype=np.int8)                                  # (6, 2, 2)
+            U3 = canon(gen_free())
+            PA, P3 = pafs(UA, h), pafs(U3, h)
+            total_u, sols_u, lists_u = 0, [], None
+            N12 = 6 ** h if orb.trivial else 1; step = 1 << 21
+            for c0 in range(0, N12, step):                                     # the joint (u1, u2) list in chunks
+                if orb.trivial:
+                    idx = np.arange(c0, min(N12, c0 + step), dtype=np.int64)
+                    U1 = np.zeros((len(idx), m), np.int8); U2 = np.zeros((len(idx), m), np.int8); U2[:, 0] = -2
+                    r = idx.copy()
+                    for p in range(h):
+                        o = O6[r % 6]; r //= 6
+                        U1[:, p + 1] = o[:, 0, 0]; U1[:, m - 1 - p] = o[:, 0, 1]
+                        U2[:, p + 1] = o[:, 1, 0]; U2[:, m - 1 - p] = o[:, 1, 1]
+                else:
+                    U1, U2 = orb.joint12()
+                U12 = np.concatenate([U1, U2], axis=1)
+                t_c, s_c = join([PA, pafs(U1, h) + pafs(U2, h), P3, np.zeros((1, h), np.int64)], h,
+                                K=(10 ** 6 if a.all else a.maxu))
+                total_u += t_c
+                for sol in s_c:
+                    sols_u.append((UA[sol[0]], U12[sol[1]], U3[sol[2]]))
+                if not a.all and len(sols_u) >= a.maxu: break
+            lists_u = None
+        log(f"v={v} m={m} q={q} K={K if len(K) < 12 else len(K)} N_w={Nw} N_-={Nm}: stage 1 u-quadruples {total_u}"
+            f"{'' if a.all or Nw == 1 else ' (stopped at --maxu)'} [{time.time()-t0:.0f}s]")
         if not total_u: continue
-        ZA = symmetric(m); Z0 = free(m, zero_at_0=True); Zf = free(m)
+        ZA = gen_sym(); Z0 = gen_free(zero_at_0=True); Zf = gen_free()
         found = 0; tried = 0
         for qi, sol in enumerate(sols_u):
             if not a.all and tried >= a.maxu: break
             tried += 1
             if Nw == 1:
-                u = [lists_u[k][sol[k]].astype(np.int64) for k in range(4)]
+                u = [x.astype(np.int64) for x in sol]
                 zl = [ZA, Z0, Zf, Zf]
             else:
-                u12 = lists_u[1][sol[1]]
-                u = [lists_u[0][sol[0]].astype(np.int64), u12[:m].astype(np.int64), u12[m:].astype(np.int64),
-                     lists_u[2][sol[2]].astype(np.int64)]
+                uA, u12, u3 = sol
+                u = [uA.astype(np.int64), u12[:m].astype(np.int64), u12[m:].astype(np.int64), u3.astype(np.int64)]
                 zl = [ZA, Z0, Z0, Zf]
             V = [np.concatenate([pafs(Z.astype(np.int64), h), accs(Z.astype(np.int64), u[k][None, :], h)], axis=1)
                  for k, Z in enumerate(zl)]
@@ -190,7 +407,7 @@ def main():
                     log(f"  u-quadruple {qi}: {tz} z-solutions; lifted to Z_{v}: skew-Hadamard {ok}")
                     if ok:
                         found += 1
-                        rec = dict(n=v, gens=[hgen], pattern=[int(x.sum()) for x in seqs], hadamard=True, skew=True,
+                        rec = dict(n=v, gens=hgen_all, pattern=[int(x.sum()) for x in seqs], hadamard=True, skew=True,
                                    method=f'paley_config N_w={Nw}', seqs=[''.join('+' if x > 0 else '-' for x in sq) for sq in seqs])
                         with open(W.hits(), 'a') as f: f.write(json.dumps(rec) + '\n')
                 if found and not a.all: break
