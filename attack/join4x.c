@@ -179,7 +179,8 @@ int main(int argc, char **argv) {
         }
         memset(sa, 0xFF, 4 * slots);
         int klo[NP], khi[NP]; dec(id0, klo); dec(id1 - 1, khi);
-        /* insert the build pairs of this chunk */
+        /* insert the build pairs of this chunk (threads claim slots with a compare-and-swap) */
+        #pragma omp parallel for schedule(dynamic, 1)
         for (long x = 0; x < cl[0].n; x++) {
             int a[NP], b[NP];
             for (int j = 0; j < NP; j++) { a[j] = klo[j] - cl[0].v[x * NP + j]; b[j] = khi[j] - cl[0].v[x * NP + j]; }
@@ -194,8 +195,13 @@ int main(int argc, char **argv) {
                         uint32_t ib = cl[1].idx[q];
                         uint64_t hv = h[0][ia] + h[1][ib];
                         uint64_t sl = (hv * 0x9E3779B97F4A7C15ULL) >> (64 - bits);
-                        while (sa[base + sl] != 0xFFFFFFFFu) sl = (sl + 1) & mask;
-                        sh[base + sl] = hv; sa[base + sl] = ia; sb[base + sl] = ib;
+                        for (;;) {
+                            uint32_t empty = 0xFFFFFFFFu;
+                            if (__atomic_compare_exchange_n(&sa[base + sl], &empty, ia, 0, __ATOMIC_RELAXED, __ATOMIC_RELAXED)) {
+                                sh[base + sl] = hv; sb[base + sl] = ib; break;
+                            }
+                            sl = (sl + 1) & mask;
+                        }
                     }
                 }
             }

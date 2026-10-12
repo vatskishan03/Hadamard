@@ -30,7 +30,9 @@ def bin(name):
     if not out.exists() or out.stat().st_mtime < src.stat().st_mtime:
         flags = _FLAGS.get(name, ['-O3', '-march=native'])
         libs = [f for f in flags if f.startswith('-l')]
-        subprocess.run(['cc', *[f for f in flags if not f.startswith('-l')], str(src), '-o', str(out), *libs], check=True)
+        tmp = out.with_name(f'.{name}.{os.getpid()}')        # compile aside, then rename: a running copy keeps its inode
+        subprocess.run(['cc', *[f for f in flags if not f.startswith('-l')], str(src), '-o', str(tmp), *libs], check=True)
+        os.replace(tmp, out)
     return str(out)
 
 
