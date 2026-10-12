@@ -560,3 +560,48 @@ primality matters.
 | 7112, 7408, 14816 | 14221, 14813, 29629 | 56892, 59260, 118524 | known (Paley I, Paley II, Williamson-type routes) |
 
 So the new skew order 1612 (4·403), doubled twice, gives the Hadamard order 51580, which is probably new.
+
+`verify/verify.py 51580` was run separately (2026-10-12, 40 minutes, about 3.5 GB): `51580 ok`, with the recorded digest.
+
+## 14. The census of undecided skew orders: leads and calibration
+
+The Đoković–Seberry census lists 737 odd v < 2500 with no skew-Hadamard matrix of order 4v (May 2025;
+`attack/data/skew_census_undecided.txt`). Leaving out the 13 orders of this repository and Schumer's 919,
+723 remain: 233 primes and 490 composites.
+
+**Spin structures on the centred hexagonal census primes.** A skew block has row sum 1, so the spin
+structure needs 4v = 1 + 3b². Then |H| is forced by b ≡ ±1 (mod |H|). The census primes of this form above
+1000 all have one spin structure with about 10⁵ predicted solutions (`spin_skew.py rank`):
+
+| v | 4v | \|H\| | μ | H-orbits | K-classes | log₁₀ E |
+|---:|---:|---:|---:|---:|---:|---:|
+| 1657 | 6628 | 23 | 27 | 73 | 12 | 5.3 |
+| 1801 | 7204 | 25 | 21 | 73 | 12 | 5.1 |
+| 1951 | 7804 | 25 | 13 | 79 | 13 | 5.2 |
+| 2269 | 9076 | 27 | 59 | 85 | 14 | 5.1 |
+| 2437 | 9748 | 29 | 31 | 85 | 14 | 4.8 |
+
+The composite ones (1141, 1261, 1387, 2107) have no structure with E > 10⁻¹. A literature check on
+2026-10-12 found none of these five orders: Đoković (arXiv:2404.14375v3) lists spin families only up to
+v = 631, and Schumer's 919 is the largest published.
+
+The obstacle is the search, not the count. The joint tabu search (`spin_ls.c`) solves 919 (9 classes) in
+under a minute. On 1657, 1000 restarts of 3000 steps leave about ten of the twelve classes off by ±4.
+Two alternatives did worse on 919:
+- a B-only tabu search scored against the nearest of all 2048 skew A: no solution in 2 × 400 s;
+- a CP-SAT model with the products of signs as XNOR literals (OR-Tools 9.12): UNKNOWN after 600 s on 2
+  workers.
+
+**Census primes ranked for the four-list search** (`skew_rank.py`, lists of 1.2·10⁷): from 1009 to 2473
+only 1123 (|H| = 33, rows 1, 1, 1, 67) and 1483 (|H| = 39, rows 1, 1, 1, 77) have admissible structures.
+Below 1000 the best is 613 (|H| = 17, rows 1, 1, 35, 35). The rank's low-energy column (0.21 per class)
+is optimistic for these.
+
+**Calibration of `skew_lowE.py`.** The script prints the Gaussian estimate of the number of solutions
+inside its actual lists, using their class means and variances.
+- On 353 (low-energy lists of 4.7·10⁵ and full A) it estimated 10^1.7, and the k-tree found 16 solutions in
+  80 s of matching. So the estimate is good to a factor of a few when v is prime.
+- With lists of about 10⁶, 10⁶ and 2·10⁶, the estimates are 10^−1.3 for 613 and 10^−2.7 for 1123. Neither run
+  is worth finishing at that size.
+- `skew_gen` saturates: of 4·10⁶ requested minima only 2.1·10⁶ are distinct. Larger lists need shallower
+  descents, which trade spread for diversity.
