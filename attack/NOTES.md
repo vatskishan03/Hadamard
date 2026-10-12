@@ -376,11 +376,13 @@ lists 234 odd v ≤ 999 for which no skew matrix of order 4v is known. The FRONT
   right pairs from the other two. With lists of very different sizes, the yield per τ grows with the
   smaller pair list, so the clamp S is set as loose as memory allows (pair lists ≤ 2.5·10⁷).
   Pools beyond 4·10⁶ are replaced by uniform samples (`--maxpool`), at a cost of L/N per list.
-- **New orders**: 836, 1036, 1148, 1236, 1364, 1412, 1508, 1852, 1876, 2404, 3556, 3676, i.e.
-  v = 209, 259, 287, 309, 341, 353, 377, 463, 469, 601, 889, 919. 889 came from the exact sweep, on
+- **New orders**: 836, 1036, 1148, 1236, 1364, 1412, 1508, 1612, 1852, 1876, 2404, 3556, 3676,
+  i.e. v = 209, 259, 287, 309, 341, 353, 377, 403, 463, 469, 601, 889, 919. 889 came from the exact sweep, on
   H = ⟨2, 25⟩ of order 63 with 21 orbits. Each took seconds to minutes on 4 cores.
   - 259 used sampled lists: 3.9·10⁶ of 3–4·10⁷ per pool.
   - 353 (⟨22⟩) also used sampled lists: 1.2·10⁷ of 5.7·10⁸ per pool, 2 solutions in 33 values of τ.
+  - 403 (⟨100⟩) used sampled lists of 1.05·10⁷ of 4–6·10⁷: 4 solutions in 154 values of τ on
+    rows (1, 5, 25, 31). A 119 run with low-energy lists (8·10⁶ per role) found nothing.
   - 469 (⟨9⟩, predicted 0.2) gave 192 solutions in the exact matcher. The k-tree had missed them
     because 36 values of τ with the top-6 values per class do not cover the solutions. For pools
     of ≤ 10⁵, run the exact matcher.
