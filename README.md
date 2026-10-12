@@ -20,6 +20,7 @@ smallest unresolved orders were 2060 and 2092.
 | [5932](5932) | 4 · 1483 | Goethals–Seidel, ℤ₁₄₈₃, multiplier subgroup of order 39 | New |
 | [21748](21748) | 4 · 5437 | Miyamoto's theorem from a Cooper–Wallis matrix of order 5436 (T-matrices of order 151, Williamson order 9) | Probably new; above the range of [3] |
 | [24124](24124) | 4 · 6031 | Yamada's theorem (q = 6029) from a skew-Hadamard matrix of order 3016, the double of a skew Goethals–Seidel matrix of order 1508 over ℤ₃₇₇ | Probably new; above the range of [3] |
+| [24412](24412) | 4 · 6103 | Yamada's theorem (Kiyasu), q = 6101, from this repository's [skew 3052](skew/3052) (no doubling) | Probably new; Handbook Table 1.53 lists 6103 with t = 3 |
 | [31316](31316) | 4 · 7829 | Miyamoto's theorem from a Cooper–Wallis matrix of order 7828 (T-matrices of order 103, Williamson order 19) | Probably new; above the range of [3] |
 | [31412](31412) | 4 · 7853 | Miyamoto's theorem from a Cooper–Wallis matrix of order 7852 (T-matrices of order 151, Williamson order 13) | Probably new; above the range of [3] |
 | [51580](51580) | 4 · 12895 | Yamada's theorem (Kiyasu), q = 12893, from the skew-Hadamard matrix of order 6448 = 16 · 403: this repository's [skew 1612](skew/1612), doubled twice | Probably new; above the range of [3] |
@@ -33,17 +34,19 @@ construction was found in a literature search in October 2026. The table in [3]
 is not complete (nine of its entries were settled in [4]), so these claims carry
 that caveat.
 
-The five orders above 4 · 2999 lie beyond [3]. For the four with n < 10000 we used
-Table 1.53 of the Handbook of Combinatorial Designs (2007) together with the updates
-in [4, 5]. For 51580 (n = 12895), which is beyond that table too, we checked Paley,
-the Williamson-type families of Seberry–Yamada's 1992 survey and the 2026 deposits.
-The README of each order gives the details. Their matrices are not stored (up to
-7 GB as CSV); `verify/verify.py` rebuilds them from the certificates.
+The six orders above 4 · 2999 lie beyond [3]. For the five with n < 10000 we used Table 1.53 of the
+Handbook of Combinatorial Designs (2007) together with the updates in [4, 5]. For 51580 (n = 12895), which is
+beyond that table too, we checked Paley, the Williamson-type families of Seberry–Yamada's 1992 survey and the
+2026 deposits. The README of each order gives the details. Their matrices are not stored (up to 7 GB as CSV);
+`verify/verify.py` rebuilds them from the certificates.
 
-Two of these orders come from this repository's skew-Hadamard matrices through
-Yamada's theorem: 24124 from skew 1508 (doubled once) and 51580 from skew 1612
-(doubled twice). 24124 is also reachable by Cooper–Wallis from T-matrices of
-order 163 and Williamson matrices of order 37; see its README.
+Three of these orders come from this repository's skew-Hadamard matrices through Yamada's theorem:
+- 24124 from skew 1508, doubled once;
+- 24412 from skew 3052;
+- 51580 from skew 1612, doubled twice.
+
+24124 is also reachable by Cooper–Wallis from T-matrices of order 163 and Williamson matrices of order 37;
+see its README.
 
 Orders under investigation: [2148](2148), the smallest order we know to be
 unresolved, and [4412](4412). [3676](3676) was settled by Schumer [8] while our

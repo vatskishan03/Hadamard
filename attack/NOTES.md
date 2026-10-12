@@ -646,4 +646,11 @@ two-block array. The script checks H Hᵀ = (2w + 2)I and H + Hᵀ = 2I.
 - The model predicted 10^5.5 solutions for this structure, so it is off by orders of magnitude here as
   well. The sampled k-tree (400 values of τ, §10) had missed the order.
 - Through Yamada's theorem, skew 3052 gives q = 6101, which is prime and ≡ 5 (mod 8), so a Hadamard
-  matrix of order 4 · 6103 = 24412 exists. Whether that order is new is being checked.
+  matrix of order 4 · 6103 = 24412 exists. It is **probably new**, see [24412](../24412):
+  - Handbook Table 1.53 lists 6103 with t = 3, read from an unofficial copy and checked against known
+    entries. Paley I gives 8 · 6103.
+  - No later update or 2026 deposit mentions it.
+  - Cooper–Wallis would need Williamson-type or T-matrices of order 359.
+
+  Its doubled skew input, 6104, gives q = 12205, which is not a prime power. The next one, 12208, gives
+  q = 24413, prime, and so H(97660).

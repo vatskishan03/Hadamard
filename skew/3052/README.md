@@ -57,6 +57,37 @@ To our knowledge this is the first skew-Hadamard matrix of order 3052.
 
 The doubling construction (Seberry) then also gives a skew-Hadamard matrix of order 6104.
 
+**Novelty checklist** (audit of 2026-10-12 by a research agent):
+
+1. Table 5 of Cati–Pasechnik lists 763(4). So the smallest known skew order with odd part 763 was
+   2⁴ · 763 = 12208. This order is above 1208, the range they checked against implemented constructions,
+   so the entry was not taken on trust (items 2 and 3).
+2. Đoković's papers (1992–2024, alone and with Kotsireas, Golubitsky or Balonin), Koukouvinos–Stylianou
+   (Discrete Math. 2008) and the Đoković–Seberry census of skew orders 4v for odd v < 2500 (May 2025) do not
+   construct it. The census lists 763 among its 737 undecided values and not among its sporadic ones.
+3. The 2025–2026 papers and deposits we checked do not contain it:
+   - arXiv;
+   - Zenodo: Schumer, Piza, Karoui and Kline;
+   - the JD-Jones-ASES repositories Hadamard-T/M/B;
+   - Alpöge et al. and Schneider.
+
+   SageMath's `unknown_skew_hadamard` list stops at 1196, below this order.
+4. No infinite family reaches it:
+   - Paley I (3051 = 3³ · 113);
+   - Szekeres and Whiteman 2(q + 1) (q = 1525);
+   - Wallis–Whiteman 4(q + 1);
+   - (|t| + 1)(q + 1);
+   - Spence 4(q² + q + 1);
+   - Momihara–Xiang;
+   - (p − 1)ᵘ + 1;
+   - the product theorem 2ᵗ ∏(pᵏ + 1);
+   - skew × amicable products.
+
+This is a finding of nothing, not a proof that no earlier construction exists.
+
+**Consequence.** By Yamada's theorem (q = 6101), this matrix gives a Hadamard matrix of order 24412, which
+is probably new; see [24412](../../24412).
+
 ## Verification
 
 ```
