@@ -462,3 +462,19 @@ lists 234 odd v ≤ 999 for which no skew matrix of order 4v is known. The FRONT
   - **1192 = 8 · 149.** A skew Goethals–Seidel block needs a group of odd order, so this order must
     come from skew 596 by doubling. For v = 149, H has order 37 (row sums ±1 + 74ℤ: no pattern) or
     1 (unstructured).
+
+## 11. Hadamard orders: the next tier of small structures
+
+FRONTIER.md's exact sweep stopped at 22 orbits. `had_sweep.py` extends it.
+- **Scope.** All 151 unresolved n, every subgroup H ≤ ℤ_n* with 19–40 orbits, every row-sum
+  pattern a² + b² + c² + d² = 4n with exact pair work ≤ 2·10¹¹.
+- **Filter.** Each pattern passes through the compression test of §10, now for plain (non-skew)
+  blocks. On n = 63 it agrees with exhaustive search: patterns marked feasible have solutions
+  (49,104 for H = ⟨2⟩, rows (1, 1, 5, 15)), and patterns marked dead have none.
+- **Result.** Only two structure–pattern pairs are within the work bound, and both are dead:
+  - n = 1981, H = ⟨4⟩ (|H| = 141, 21 orbits), rows (1, 1, 1, 89): the ℤ₇ compressions cannot
+    meet the norm equations;
+  - n = 933, H = ⟨20⟩ (|H| = 62, 22 orbits), rows (1, 1, 3, 61): dead at d = 3.
+
+So no Goethals–Seidel multiplier structure with at most 40 orbits that can be searched exactly
+holds an unresolved Hadamard order. Larger structures are the FRONTIER regime (≥ 10¹⁴·⁵ operations).
