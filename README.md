@@ -44,10 +44,11 @@ search for it was running.
 ## Skew-Hadamard results
 
 A Hadamard matrix H is skew if H + Hᵀ = 2I. Skew-Hadamard matrices are conjectured to exist for every
-order divisible by 4. Table 5 of Cati and Pasechnik [3] lists, for odd v ≤ 999, the smallest m for
-which a skew-Hadamard matrix of order 2ᵐv is known. The orders below have m ≥ 3 there, so no skew
-matrix of order 4v was known. Each matrix comes from a Goethals–Seidel difference family over ℤᵥ (for 1100 and 1372, over the non-cyclic
-groups ℤ₅ × ℤ₅ × ℤ₁₁ and GF(343) = ℤ₇³) with a skew first block. All four blocks are invariant under a multiplier subgroup H ≤ ℤᵥ* with −1 ∉ H.
+order divisible by 4. Each matrix below comes from a Goethals–Seidel difference family with a skew
+first block. The group is ℤᵥ, except for 1100 (ℤ₅ × ℤ₅ × ℤ₁₁) and 1372 (GF(343) = ℤ₇³). All four
+blocks are invariant under a group H of automorphisms with −1 ∉ H.
+
+**New orders** (to our knowledge; see the checklist below):
 
 | Order | v | H | Row sums | Table 5 entry |
 |------:|---|---|---|---|
@@ -61,17 +62,39 @@ groups ℤ₅ × ℤ₅ × ℤ₁₁ and GF(343) = ℤ₇³) with a skew first b
 | [1412](skew/1412) | 353 (prime) | ⟨22⟩, order 11 | 1, 21, 21, 23 | 353(4) |
 | [1508](skew/1508) | 377 (13 · 29) | ⟨16⟩, order 21 | 1, 7, 27, 27 | 377(5) |
 | [1612](skew/1612) | 403 (13 · 31) | ⟨100⟩, order 15 | 1, 5, 25, 31 | 403(5) |
-| [1852](skew/1852) | 463 (prime) | ⟨33⟩, order 21 | 1, 1, 1, 43 | 463(7) |
 | [1876](skew/1876) | 469 (7 · 67) | ⟨9⟩, order 33 | 1, 1, 5, 43 | 469(3) |
 | [2404](skew/2404) | 601 (prime) | ⟨2⟩, order 25 | 1, 1, 1, 49 | 601(5) |
 | [3556](skew/3556) | 889 (7 · 127) | ⟨2,25⟩, order 63 | 1, 5, 41, 43 | 889(4) |
-| [3676](skew/3676) | 919 (prime) | ⟨58⟩, order 17; spin μ = 52 | 1, 35, 35, 35 | 919(3) |
 
-Doubling (Seberry) then gives skew matrices of orders 2ᵏ · 4v for every k ≥ 0, which settles every
-entry v(m) above at m = 2. The searches use `attack/skew_triage.py`, `attack/skew_rank.py`, `attack/skew_ktree.py` with
-`attack/match4.c`, and, for the spin structure of 3676, `attack/spin_skew.py` with `attack/spin_ls.c`.
-Each directory's README describes its search. `verify/verify.py` checks
-H + Hᵀ = 2I for these certificates.
+**Known orders, independent matrices.** These orders were claimed as new at first. Both claims are
+withdrawn:
+
+| Order | v | H | Row sums | Prior construction |
+|------:|---|---|---|---|
+| [1852](skew/1852) | 463 (prime) | ⟨33⟩, order 21 | 1, 1, 1, 43 | Đoković, Australas. J. Combin. 10 (1994) 259–264 |
+| [3676](skew/3676) | 919 (prime) | ⟨58⟩, order 17; spin μ = 52 | 1, 35, 35, 35 | Schumer, Zenodo 2026-09-17, doi:10.5281/zenodo.22820997 (same spin structure) |
+
+Doubling (Seberry) then gives skew matrices of orders 2ᵏ · 4v for every k ≥ 0.
+
+**Novelty checklist.** An order is called new only if all of the following hold. Each order's README
+records the result of each check.
+
+1. **Cati–Pasechnik Table 5** (arXiv:2411.18897v2) lists v with m ≥ 3. That table is verified by
+   implemented constructions only up to order 1208. Beyond that it copies the older Seberry–Yamada
+   Table 9.2 and can be outdated: 463 is an example.
+2. **Đoković's papers** (1992–2024, alone and with Kotsireas and Golubitsky), Koukouvinos–Stylianou
+   (Discrete Math. 2008, Tables 1 and 3), and Đoković–Seberry's census of skew orders 4v for v < 2500
+   do not list the order.
+3. **2026 public deposits** (Schumer; Alpöge et al.; JD-Jones-ASES; Schneider; Karoui; Piza) do not
+   contain the order. SageMath's `unknown_skew_hadamard` list is consulted as well.
+4. **No infinite family reaches it.** The families checked are Paley I, Szekeres 2(q + 1),
+   Wallis–Whiteman, Spence, Momihara–Xiang, the product theorem n(pᵏ + 1), and amicable products.
+
+The searches use `attack/skew_triage.py`, `attack/skew_rank.py`, `attack/skew_ktree.py` with `attack/match4.c`,
+`attack/skew_exhaustive.py`, `attack/skew_group.py`, `attack/skew_field.py`, the exact compression-chain search
+`attack/chain.py`, and, for the spin structure, `attack/spin_skew.py` with `attack/spin_ls.c`. Each directory's README
+records the command, code commit, seed and caps of its search. `verify/verify.py` checks H + Hᵀ = 2I for
+these certificates.
 
 ## Verification
 

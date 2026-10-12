@@ -1,4 +1,4 @@
-# Skew-Hadamard matrix of order 3676
+# Skew-Hadamard matrix of order 3676 (order previously known)
 
 3676 = 4 · 919 (prime).
 
@@ -62,10 +62,15 @@ the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.
 
 ## Status
 
-To our knowledge this is the first skew-Hadamard matrix of order 3676. (A Hadamard matrix of order 3676 was published by Schumer in 2026, see [3676](../../3676). That matrix is not skew.)
+**Not a new order.** A. Schumer published a skew-Hadamard matrix of order 3676 on Zenodo on 2026-09-17,
+doi:10.5281/zenodo.22820997, 25 days before this one. Main's [3676](../../3676) README has noted this
+since then.
 
-- Cati and Pasechnik, *A database of constructions of Hadamard matrices*, arXiv:2411.18897v2 (Aug. 2025), Table 5, lists 919(3). So the smallest known skew order of the form 2ᵐ · 919 was 7352, and 3676 was unknown.
-- A literature search in October 2026 found no later construction.
+- His witness has the same spin structure: H = ⟨703⟩ of order 17, μ = 866 of order 3, the first block skew,
+  and row sums (1, 35, 35, 35).
+- An earlier version of this README said that Schumer's matrix is not skew. That was wrong, and the novelty
+  claim is withdrawn.
+- The matrix here was found independently (spin tabu search, below) and is a second explicit witness.
 
 ## Verification
 

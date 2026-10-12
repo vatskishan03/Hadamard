@@ -1,4 +1,4 @@
-# Skew-Hadamard matrix of order 1852
+# Skew-Hadamard matrix of order 1852 (order previously known)
 
 1852 = 4 · 463 (prime).
 
@@ -54,12 +54,17 @@ the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.
 
 ## Status
 
-To our knowledge this is the first skew-Hadamard matrix of order 1852.
+**Not a new order.** Đoković constructed a skew-Hadamard matrix of order 1852 = 4 · 463 in 1994:
+D. Ž. Đoković, *Five new orders for Hadamard matrices of skew type*, Australasian J. Combin. 10 (1994)
+259–264. It is listed again as a sporadic skew order in Koukouvinos–Stylianou, Discrete Math. 308 (2008),
+Table 3, and in Đoković–Seberry's census of skew orders 4v, v < 2500.
 
-- Cati and Pasechnik, *A database of constructions of Hadamard matrices*, arXiv:2411.18897v2 (Aug. 2025), Table 5, lists 463(7). So the smallest known skew order of the form 2ᵐ · 463 was 59264, and 1852 was unknown.
-- A literature search in October 2026 found no later construction.
-
-The doubling construction (Seberry) then also gives skew-Hadamard matrices of orders 3704, 7408, 14816, 29632.
+- Đoković's difference family uses the same multiplier subgroup as ours: ⟨251⟩ = ⟨33⟩, of order 21. His
+  skew block is the set of quadratic residues. Ours is a different skew block, so the matrix here is a
+  different explicit matrix of a known order.
+- Cati–Pasechnik Table 5 still lists 463(7) because, past order 1208, it copies the older Seberry–Yamada
+  table without re-implementing it.
+- We first labelled this order new. That claim is withdrawn.
 
 ## Verification
 
