@@ -105,7 +105,8 @@ records the result of each check.
 
 The searches use `attack/skew_triage.py`, `attack/skew_rank.py`, `attack/skew_ktree.py` with `attack/match4.c`,
 `attack/skew_exhaustive.py`, `attack/skew_group.py`, `attack/skew_field.py`, the exact compression-chain search
-`attack/chain.py`, and, for the spin structure, `attack/spin_skew.py` with `attack/spin_ls.c`. Each directory's README
+`attack/chain.py` (driven over the census by `attack/census_screen.py` and `attack/screen_chain.py`, which found
+2812 and 3052), and, for the spin structure, `attack/spin_skew.py` with `attack/spin_ls.c`. Each directory's README
 records the command, code commit, seed and caps of its search. `verify/verify.py` checks H + Hᵀ = 2I for
 these certificates.
 
