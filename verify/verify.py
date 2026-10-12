@@ -176,6 +176,73 @@ def build_spence(cert):
     return np.vstack([np.hstack([K, np.kron(Q, one)]), np.hstack([np.kron(P, one.T), M])]), None
 
 
+def build_bordered_gs(cert):
+    """Bordered Goethals-Seidel construction over an abelian group G of order v with a
+    subgroup K of index q. Four +-1 sequences on G whose autocorrelations sum to
+    `autocorrelation["subgroup"]` on K \\ {0} and to `autocorrelation["elsewhere"]` off K
+    give, with a suitable border of size m (K = G and m = 4 is Spence's construction),
+
+        H = [ X  R ]      R[x, (i, g)] = Rhat[x, i, g + K]
+            [ C  M ]      C[(i, g), x] = Chat[i, g + K, x]
+
+    where M is the Goethals-Seidel array developed over G:
+
+        [ A    B2    C2    D2  ]      A[g, h]  = a(h - g)
+        [-B2   A     D2'  -C2' ]      Y2[g, h] = y(g + h)
+        [-C2  -D2'   A     B2' ]      Y2'[g, h] = y(-g - h)
+        [-D2   C2'  -B2'   A   ]
+
+    Elements of G are numbered in mixed-radix order of `group` (first factor slowest),
+    and the cosets of K in order of their smallest element."""
+    mods = cert["group"]
+    v = int(np.prod(mods))
+    coords = np.array(np.unravel_index(np.arange(v), mods)).T
+    index = lambda c: np.ravel_multi_index(tuple(np.moveaxis(c % mods, -1, 0)), mods)
+    K, frontier = {0}, [0]
+    gens = [index(np.array(g)) for g in cert["subgroup_generators"]]
+    while frontier:
+        x = frontier.pop()
+        for g in gens:
+            y = int(index(coords[x] + coords[g]))
+            if y not in K:
+                K.add(y)
+                frontier.append(y)
+    K = np.array(sorted(K))
+    cos = -np.ones(v, dtype=np.int64)
+    q = 0
+    for g in range(v):
+        if cos[g] < 0:
+            cos[index(coords[g] + coords[K])] = q
+            q += 1
+    seqs = [np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["sequences"]]
+    if [int(x.sum()) for x in seqs] != cert["rowsums"]:
+        raise ValueError("row sums differ from the certificate")
+    for M_ in cert.get("symmetries", []):
+        img = index((coords @ np.array(M_).T))
+        if not all(np.array_equal(x[img], x) for x in seqs):
+            raise ValueError("sequences are not invariant under the stated symmetries")
+    target = np.where(cos == 0, cert["autocorrelation"]["subgroup"], cert["autocorrelation"]["elsewhere"])
+    for s in range(1, v):
+        shift = index(coords + coords[s])
+        if sum(int(x @ x[shift]) for x in seqs) != target[s]:
+            raise ValueError("sequences do not satisfy the autocorrelation condition")
+    k = cert["border"]
+    X = np.array([[SIGN[c] for c in r] for r in k["X"]], dtype=np.int64)
+    m = X.shape[0]
+    Rhat = np.array([[SIGN[c] for c in r] for r in k["Rhat"]], dtype=np.int64).reshape(m, 4, q)
+    Chat = np.array([[SIGN[c] for c in r] for r in k["Chat"]], dtype=np.int64).reshape(4, q, m)
+    one = index(coords[:, None, :] - coords[None, :, :]).T          # one[g, h] = h - g
+    two = index(coords[:, None, :] + coords[None, :, :])            # two[g, h] = g + h
+    neg = index(-coords)
+    A = seqs[0][one]
+    B, C, D = (x[two] for x in seqs[1:])
+    Br, Cr, Dr = (x[neg][two] for x in seqs[1:])
+    M = np.block([[A, B, C, D], [-B, A, Dr, -Cr], [-C, -Dr, A, Br], [-D, Cr, -Br, A]])
+    R = Rhat[:, :, cos].reshape(m, 4 * v)
+    Cb = Chat[:, cos, :].reshape(4 * v, m)
+    return np.block([[X, R], [Cb, M]]), seqs
+
+
 def paley_conference(q):
     """Paley's symmetric conference matrix of order q + 1 for a prime q = 1 (mod 4).
     Index 0 is the point at infinity and index 1 + x is x in Z_q: C[0, 0] = 0,
@@ -264,7 +331,8 @@ def build_miyamoto(cert):
 
 
 BUILDERS = {"goethals-seidel": build_goethals_seidel, "cooper-wallis": build_cooper_wallis,
-            "spence": build_spence, "miyamoto": build_miyamoto}
+            "spence": build_spence, "miyamoto": build_miyamoto,
+            "bordered-goethals-seidel": build_bordered_gs}
 
 
 def csv_chunks(H, rows=512):

@@ -15,6 +15,7 @@ smallest unresolved orders were 2060 and 2092.
 |------:|---|---|---|
 | [2092](2092) | 4 · 523 | Goethals–Seidel array, supplementary difference set in ℤ₅₂₃ invariant under a multiplier subgroup of order 9 | New |
 | [2284](2284) | 4 · 571 | Goethals–Seidel, ℤ₅₇₁, multiplier subgroup of order 5; three blocks related by a multiplier of order 3 | New |
+| [3964](3964) | 4 · 991 | Bordered Goethals–Seidel array over ℤ₂ × ℤ₂ × ℤ₂₄₇ with a border of size 12; sequences invariant under a group of order 27 | New |
 | [4492](4492) | 4 · 1123 | Goethals–Seidel, ℤ₁₁₂₃, multiplier subgroup of order 33 | New |
 | [5932](5932) | 4 · 1483 | Goethals–Seidel, ℤ₁₄₈₃, multiplier subgroup of order 39 | New |
 | [21748](21748) | 4 · 5437 | Miyamoto's theorem from a Cooper–Wallis matrix of order 5436 (T-matrices of order 151, Williamson order 9) | Probably new; above the range of [3] |
