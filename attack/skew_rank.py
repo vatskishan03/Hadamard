@@ -27,9 +27,14 @@ def patterns(st, n):
 
 def rank(n, gens, cap, samples=2500, rng=None):
     G = L.AbGroup([n]); st = L.Structure(G, [G.perm_from_matrix(np.array([[g]])) for g in gens])
+    return st, rank_structure(st, n, cap, samples, rng)
+
+
+def rank_structure(st, n, cap, samples=2500, rng=None):
+    G = st.G
     rep = np.array([np.flatnonzero(st.orb == o)[0] for o in range(st.O)])
     partner = st.orb[G.neg()[rep]]
-    if np.any(partner[1:] == np.arange(1, st.O)): return st, []
+    if np.any(partner[1:] == np.arange(1, st.O)): return []
     pairs = [(o, partner[o]) for o in range(1, st.O) if o < partner[o]]
     lNA = len(pairs) * log10(2)
     YA = np.zeros((samples, st.O)); YA[:, 0] = 1
@@ -62,7 +67,7 @@ def rank(n, gens, cap, samples=2500, rng=None):
         lE = sum(lN) + sum(t for _, t in lp[:-1])
         lE2 = lE + sum(min(0.0, log10(cap) - x) for x in lN)
         out.append((lE2, lE, q, lN))
-    return st, out
+    return out
 
 
 if __name__ == '__main__':

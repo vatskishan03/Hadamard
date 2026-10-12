@@ -44,6 +44,22 @@ def values(st, Y, pm):
     return V.astype(np.int8), ok
 
 
+def gen_pool(st, r, count, steps, rng, v):
+    """count low-energy candidates from skew_gen (local minima of sum_c w_c (P_c - mean)^2), deduplicated."""
+    S2 = np.rint(st.S + st.S.transpose(0, 2, 1)).astype(np.int32)
+    x0 = st.sample(r, 1, rng)[0].astype(np.int32)
+    tag = f"{os.getpid()}_{r}"
+    inp, out = os.path.join(HERE, f"gen_{tag}.bin"), os.path.join(HERE, f"gen_{tag}.signs")
+    with open(inp, 'wb') as f:
+        np.array([st.O, st.C, v, r], np.int32).tofile(f); st.sizes.astype(np.int32).tofile(f)
+        st.csize.astype(np.int32).tofile(f); S2.tofile(f); x0.tofile(f)
+    subprocess.run([os.path.join(HERE, 'skew_gen'), inp, str(int(count)), str(steps), str(int(rng.integers(1 << 30))), out], check=True)
+    Y = np.fromfile(out, dtype=np.int8).reshape(-1, st.O)
+    os.remove(inp); os.remove(out)
+    assert np.all((Y.astype(np.int64) @ st.sizes) == r)
+    return np.unique(Y, axis=0)
+
+
 def pool(st, r, maxpool, rng):
     """All sign vectors with row sum r if there are at most maxpool of them (and the orbits are few enough
     to enumerate), else maxpool distinct uniform samples."""
@@ -74,7 +90,7 @@ def clamp(Vl, Vr, cap=2.5e7):
     return S
 
 
-def run(n, gens, maxtau=200, top=6, only=None, sols=4, clampS=None, maxpool=4e6, seed=1, verbose=True):
+def run(n, gens, maxtau=200, top=6, only=None, sols=4, clampS=None, maxpool=4e6, seed=1, gen=0, afrac=1.0, verbose=True):
     G = L.AbGroup([n]); st = L.Structure(G, [G.perm_from_matrix(np.array([[g]])) for g in gens])
     rng = np.random.default_rng(seed); maxpool = int(maxpool)
     rep = np.array([np.flatnonzero(st.orb == o)[0] for o in range(st.O)])
@@ -89,6 +105,11 @@ def run(n, gens, maxtau=200, top=6, only=None, sols=4, clampS=None, maxpool=4e6,
     for j, (o, q) in enumerate(pairs): YA[:, o] = s[:, j]; YA[:, q] = -s[:, j]
     pm = n % 4
     VA, ok = values(st, YA, pm); YA, VA = YA[ok], VA[ok]
+    if afrac < 1:   # keep the skew first blocks whose autocorrelations are closest to their mean
+        mA = (1 - n) / (n - 1)
+        e = (((VA.astype(np.float64) * 4 + pm) - mA) ** 2 * st.csize).sum(1)
+        keep = np.argsort(e)[:max(1, int(len(e) * afrac))]
+        YA, VA = YA[keep], VA[keep]
     lim = int(math.isqrt(4 * n)); pats = []
     for b in range(1, lim + 1, 2):
         for c in range(b, lim + 1, 2):
@@ -103,7 +124,8 @@ def run(n, gens, maxtau=200, top=6, only=None, sols=4, clampS=None, maxpool=4e6,
         t0 = time.time()
         pools, vals = {}, {}
         for r in set(q):
-            Y = pool(st, r, maxpool, rng); V, ok = values(st, Y, pm)
+            Y = gen_pool(st, r, maxpool, gen, rng, n) if gen and st.pool(r) > maxpool else pool(st, r, maxpool, rng)
+            V, ok = values(st, Y, pm)
             pools[r], vals[r] = Y[ok], V[ok]
         big = max(range(3), key=lambda k: len(pools[q[k]]))
         rest = [q[k] for k in range(3) if k != big]
@@ -147,9 +169,10 @@ if __name__ == '__main__':
     ap.add_argument('--maxtau', type=int, default=200); ap.add_argument('--top', type=int, default=6)
     ap.add_argument('--pattern'); ap.add_argument('--sols', type=int, default=4); ap.add_argument('--clamp', type=int)
     ap.add_argument('--maxpool', type=float, default=4e6); ap.add_argument('--seed', type=int, default=1)
+    ap.add_argument('--gen', type=int, default=0); ap.add_argument('--afrac', type=float, default=1.0)
     a = ap.parse_args()
     found = run(a.n, [int(g) for g in a.gens.split(',')], a.maxtau, a.top,
-                [int(x) for x in a.pattern.split(',')] if a.pattern else None, a.sols, a.clamp, a.maxpool, a.seed)
+                [int(x) for x in a.pattern.split(',')] if a.pattern else None, a.sols, a.clamp, a.maxpool, a.seed, a.gen, a.afrac)
     if found:
         with open(os.path.join(HERE, 'skew_hits.json'), 'a') as f:
             for h in found: f.write(json.dumps(h) + '\n')

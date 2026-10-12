@@ -226,7 +226,7 @@ if __name__ == '__main__':
                     if e is None: continue
                     print(f"v={v} |H|={len(Hs)} gens={gens} mu={mu} OH={sp.stH.O} OK={sp.stK.O} classesK={sp.stK.C} "
                           f"log10E={e[0]:.2f} log10NA={e[1]:.1f} log10NB={e[2]:.1f}", flush=True)
-                    break
+                    pass
     elif sys.argv[1] == 'gsearch':
         v = int(sys.argv[2]); hg = [int(x) for x in sys.argv[3].split(',')]; pat = [int(x) for x in sys.argv[4].split(',')]
         gs_local(v, hg, pat, int(sys.argv[5]), int(sys.argv[6]), int(sys.argv[7]) if len(sys.argv) > 7 else 1)

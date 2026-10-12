@@ -1,0 +1,17 @@
+{
+ "order": 3556,
+ "construction": "goethals-seidel",
+ "skew": true,
+ "group": "Z_889",
+ "v": 889,
+ "multipliers": [2, 25],
+ "subgroup_order": 63,
+ "rowsums": [1, 5, 41, 43],
+ "blocks": [
+  [5, 7, 15, 17, 21, 23, 45, 51, 203, 381],
+  [0, 3, 7, 13, 15, 19, 21, 29, 51, 63],
+  [0, 7, 9, 13, 19, 29, 45, 51, 63, 381],
+  [1, 3, 5, 7, 9, 15, 21, 45, 381]
+ ],
+ "sha256": "a7342b20c2d9a65bc38e2ff4ed4e36a3e90fd9856eec207e7c96a30e9dad34be"
+}
