@@ -85,6 +85,47 @@ class Orbits:
         if zero_at_0 or at0 is not None: return X
         return np.concatenate([X, -X])            # both values at 0
 
+    def fixed(self, base, pos_vals, skew=False, sym=False, zero_pos=()):
+        """K-invariant sequences of the given kind ('free', or skew-type with skew=True, or symmetric with sym=True)
+        with prescribed values at singleton-orbit positions pos_vals {a: value} and zeros at zero_pos."""
+        fixed_orb = {}
+        for a_, val in list(pos_vals.items()) + [(z_, 0) for z_ in zero_pos]:
+            i = int(self.oid[a_ % self.m])
+            if self.reps[i] != a_ % self.m and np.count_nonzero(self.oid == i) > 1: return np.zeros((0, self.m), np.int16)
+            fixed_orb[i] = val
+        if skew:
+            free_ = []
+            for i, k in self.pairs:
+                if i in fixed_orb or k in fixed_orb:
+                    vi = fixed_orb.get(i, None); vk = fixed_orb.get(k, None)
+                    if vi is not None and vk is not None and vi != -vk: return np.zeros((0, self.m), np.int16)
+                    if vi is None: fixed_orb[i] = -vk
+                    if vk is None: fixed_orb[k] = -fixed_orb[i]
+                else: free_.append((i, k))
+            S = allpm(len(free_)); V = np.zeros((len(S), self.n), np.int16); V[:, 0] = fixed_orb.get(0, 1)
+            for i, val in fixed_orb.items(): V[:, i] = val
+            for j, (i, k) in enumerate(free_): V[:, i] = S[:, j]; V[:, k] = -S[:, j]
+            return self.expand(V)
+        if sym:
+            groups = [(0,)] + [(i, k) for i, k in self.pairs] + [(i,) for i in self.selfneg]
+            free_ = []
+            for g_ in groups:
+                vals = {fixed_orb[i] for i in g_ if i in fixed_orb}
+                if len(vals) > 1: return np.zeros((0, self.m), np.int16)
+                if vals:
+                    for i in g_: fixed_orb[i] = vals.pop() if len(vals) else fixed_orb[g_[0]] if g_[0] in fixed_orb else fixed_orb[i]
+                else: free_.append(g_)
+            S = allpm(len(free_)); V = np.zeros((len(S), self.n), np.int16)
+            for i, val in fixed_orb.items(): V[:, i] = val
+            for j, g_ in enumerate(free_):
+                for i in g_: V[:, i] = S[:, j]
+            return self.expand(V)
+        free_ = [i for i in range(self.n) if i not in fixed_orb]
+        S = allpm(len(free_)); V = np.zeros((len(S), self.n), np.int16)
+        for i, val in fixed_orb.items(): V[:, i] = val
+        for j, i in enumerate(free_): V[:, i] = S[:, j]
+        return self.expand(V)
+
     def joint12(self):
         """(u1, u2) with u1(0) = 0, u2(0) = -2 and u1(s) + u1(-s) = -(u2(s) + u2(-s)): 6 options per orbit pair,
         2 per self-negative orbit (where u2 = -u1)."""
@@ -282,6 +323,98 @@ def general_search(v, m, q, hgen, Nw, Nm, a, log, field=None):
     log(f"v={v} N_w={Nw} (general): {min(len(sols), qi + 1)} of {total_u} y-quadruples tried, {found} verified hits [{time.time()-t0:.0f}s]")
     return found
 
+def layouts(m, q, Nw, Nm, orb):
+    """w-layouts with paired w-positions for N_w = 4, 5: each layout is a list of 4 dicts {position: (w, u)}
+    (block 0 = A). The q^2-sized terms of PAF_y must cancel, so pairs come as {0, d} in two blocks, or as {a, -a} in A
+    against {0, 2a} in another block; any remaining w-position sits alone at 0 in a free block. Multipliers normalise
+    d (or a) to the smallest K-fixed position."""
+    fixedpos = [a_ for a_ in range(1, m) if np.count_nonzero(orb.oid == orb.oid[a_]) == 1]
+    if not fixedpos: return []
+    d = fixedpos[0]
+    out = []
+    singles = Nw - 4
+    if singles not in (0, 1): return []
+    def utypes(n):
+        return [t for t in itertools.product((0, 1), repeat=n)]
+    # type (ii): blocks 1, 2 with pairs {0, d}; optional single in block 3
+    for s1 in (1, -1):
+        for s2 in (1, -1):
+            npos = 4 + singles
+            for ut in utypes(npos):
+                if sum(ut) != Nm: continue
+                L = [dict(), {0: (1, ut[0]), d: (s1, ut[1])}, {0: (1, ut[2]), d: (s2, ut[3])}, dict()]
+                if singles: L[3] = {0: (1, ut[4])}
+                out.append(('pairs', L))
+    # type (i): A pair {a, -a} (w(a) = +1, w(-a) = -1, equal u-types), block 1 pair {0, 2a}
+    a_ = d; two = (2 * a_) % m
+    if two in fixedpos or np.count_nonzero(orb.oid == orb.oid[two]) == 1:
+        for s1 in (1, -1):
+            for ut in utypes(3 + singles):
+                nm = 2 * ut[0] + sum(ut[1:])
+                if nm != Nm: continue
+                L = [{a_: (1, ut[0]), (-a_) % m: (-1, ut[0])}, {0: (1, ut[1]), two: (s1, ut[2])}, dict(), dict()]
+                if singles: L[2] = {0: (1, ut[3])}
+                out.append(('Apair', L))
+    return out
+
+
+def layout_search(v, m, q, hgen, Nw, Nm, a, log):
+    h = (m - 1) // 2; t0 = time.time()
+    orb = getattr(a, 'orbits', None) or Orbits(m)
+    Ls = layouts(m, q, Nw, Nm, orb)
+    log(f"v={v} m={m} q={q} N_w={Nw} N_-={Nm}: {len(Ls)} layouts")
+    total_found = 0
+    for name, L in Ls:
+        lists, Wv, U0 = [], [], []
+        for k in range(4):
+            spec = L[k]
+            yv = {p_: (q - 2) * wv if ut else q * wv for p_, (wv, ut) in spec.items()}
+            if k == 0:
+                Y = orb.fixed(None, yv, skew=True) if spec else orb.skew_type()
+            else:
+                Y = orb.fixed(None, yv) if spec else orb.free()
+            lists.append(Y)
+            wk = np.zeros(m, np.int64)
+            for p_, (wv, ut) in spec.items(): wk[p_] = wv
+            Wv.append(wk)
+        if any(len(Y) == 0 for Y in lists): continue
+        P = [pafs(Y.astype(np.int64), h) for Y in lists]
+        tot, sols = join(P, h, K=(10 ** 6 if a.all else a.maxu))
+        log(f"  layout {name} {[sorted((p_, wv, ut) for p_, (wv, ut) in sp.items()) for sp in L]}: lists {[len(x) for x in lists]}, y-quadruples {tot}")
+        for qi, sol in enumerate(sols):
+            y = [lists[k][sol[k]].astype(np.int64) for k in range(4)]
+            u = [y[k] - q * Wv[k] for k in range(4)]
+            R = np.zeros(h, np.int64)
+            for k in range(4):
+                for s_ in range(1, h + 1):
+                    R[s_ - 1] += sum(Wv[k][b] * (u[k][(b + s_) % m] + u[k][(b - s_) % m]) for b in np.flatnonzero(Wv[k]))
+                    R[s_ - 1] += q * int(np.dot(Wv[k], np.roll(Wv[k], -s_)))
+            zl = []
+            for k in range(4):
+                zero = list(np.flatnonzero(Wv[k]))
+                if k == 0: Z = orb.fixed(None, {}, sym=True, zero_pos=zero) if zero else orb.symmetric()
+                else: Z = orb.fixed(None, {}, zero_pos=zero) if zero else orb.free()
+                zl.append(Z)
+            V = [np.concatenate([pafs(Z.astype(np.int64), h), accs(Z.astype(np.int64), u[k][None, :], h)], axis=1)
+                 for k, Z in enumerate(zl)]
+            tz, sz = join(V, 2 * h, K=a.nsol, target=np.concatenate([R, np.zeros(h, np.int64)]))
+            for s_ in sz:
+                Z = [zl[k][s_[k]].astype(np.int64) for k in range(4)]
+                seqs = lift(v, m, q, u, Wv, Z)
+                ok = check(v, seqs)
+                log(f"    y-quadruple {qi}: {tz} z-solutions; lifted: skew-Hadamard {ok}")
+                if ok:
+                    total_found += 1
+                    rec = dict(n=v, gens=(hgen if isinstance(hgen, list) else [hgen]), pattern=[int(x.sum()) for x in seqs],
+                               hadamard=True, skew=True, method=f'paley_config layout N_w={Nw}',
+                               seqs=[''.join('+' if x > 0 else '-' for x in sq) for sq in seqs])
+                    with open(W.hits(), 'a') as f: f.write(json.dumps(rec) + '\n')
+            if qi < 3: log(f"    y-quadruple {qi}: z-solutions {tz} [{time.time()-t0:.0f}s]")
+            if total_found and not a.all: break
+        if total_found and not a.all: break
+    log(f"v={v} N_w={Nw} (layouts): {total_found} verified hits [{time.time()-t0:.0f}s]")
+    return total_found
+
 
 def main():
     ap = argparse.ArgumentParser()
@@ -305,7 +438,7 @@ def main():
         return
     cases = []
     for m, q, hgen in structures(v, 10 ** 6):
-        for Nw in (1, 2, 3):
+        for Nw in (1, 2, 3, 4, 5):
             Nm = ((q + 1) * Nw - 4 * m)
             if Nm % 4 == 0 and 0 <= Nm // 4 <= Nw: cases.append((m, q, hgen, Nw, Nm // 4))
     if not cases: sys.exit(f"{v}: no Paley-product structure with N_w = 1 or 2 ((q+1)N_w - 4N_- = 4m has no solution)")
@@ -335,6 +468,8 @@ def main():
         gen_free = (lambda zero_at_0=False: orb.free(zero_at_0)) if not orb.trivial else (lambda zero_at_0=False: free(m, zero_at_0))
         canon = (lambda X: X) if not orb.trivial else canonical_translates
         hgen_all = [hgen] + [next(x for x in range(1, v) if x % q == 1 and x % m == k) for k in K if k != 1][:1]
+        if Nw >= 4:
+            layout_search(v, m, q, hgen_all, Nw, Nm, a, log); continue
         if Nw == 3 or a.general:
             general_search(v, m, q, hgen_all, Nw, Nm, a, log); continue
         t0 = time.time()

@@ -67,12 +67,15 @@ blocks are invariant under a group H of automorphisms with −1 ∉ H.
 | [1012](skew/1012) | 253 (11 · 23) | ⟨12⟩, order 11 (Paley product) | 1, 5, 19, 25 | 253(4) |
 | [1036](skew/1036) | 259 (7 · 37) | ⟨9⟩, order 9 | 1, 5, 7, 31 | 259(4) |
 | [1100](skew/1100) | 275 (5² · 11), group ℤ₅ × ℤ₅ × ℤ₁₁ | Singer-3 on ℤ₅² × ⟨3⟩ on ℤ₁₁, order 15 | 1, 1, 3, 33 | 275(4) |
+| [1140](skew/1140) | 285 (3 · 5 · 19) | ⟨61⟩, order 9 (Paley product) | 1, 17, 15, 25 | 285(3); first recorded, but Seberry's 1978 theorem gives it from an OD(60; 1, 3, 56), see its README |
 | [1148](skew/1148) | 287 (7 · 41) | ⟨16⟩, order 15 | 1, 3, 7, 33 | 287(4) |
 | [1236](skew/1236) | 309 (3 · 103) | ⟨13⟩, order 17 | 1, 1, 3, 35 | 309(3) |
 | [1364](skew/1364) | 341 (11 · 31) | ⟨14⟩, order 15 | 1, 9, 21, 29 | 341(4) |
 | [1372](skew/1372) | 343 (7³), group GF(343) = ℤ₇³ | cyclotomic subgroup of order 19 of GF(343)* | 1, 1, 1, 37 | 343(4) |
+| [1380](skew/1380) | 345 (3 · 5 · 23) | ⟨301⟩, order 11 (Paley product) | 1, 19, 17, 27 | 345(4) |
 | [1412](skew/1412) | 353 (prime) | ⟨22⟩, order 11 | 1, 21, 21, 23 | 353(4) |
 | [1508](skew/1508) | 377 (13 · 29) | ⟨16⟩, order 21 | 1, 7, 27, 27 | 377(5) |
+| [1564](skew/1564) | 391 (17 · 23) | ⟨324⟩, order 11 (Paley product) | 1, 19, 19, 29 | 391(4) |
 | [1612](skew/1612) | 403 (13 · 31) | ⟨100⟩, order 15 | 1, 5, 25, 31 | 403(5) |
 | [1804](skew/1804) | 451 (11 · 41) | ⟨16, 42⟩, order 25 | 1, 1, 11, 41 | none (implicit 2, unexplained); 451(3) in Seberry–Yamada 1992 and Koukouvinos–Stylianou 2008; census: undecided |
 | [1860](skew/1860) | 465 (3 · 5 · 31) | ⟨226⟩, order 15 (Paley product) | 1, 25, 35, 3 | 465(3) |

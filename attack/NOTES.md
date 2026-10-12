@@ -664,7 +664,7 @@ two-block array. The script checks H Hᵀ = (2w + 2)I and H + Hᵀ = 2I.
 - In both hits, the solutions sat in the heaviest level-1 branch. That is why the pass tries branches
   breadth first, and within a branch the largest second-level combinations first.
 - 253 = 11 · 23 with ⟨12⟩ (33 orbits): the heaviest branches are truncated at the fibre cap
-  (`--maxfibre 3e6`), so this structure is not searched yet.
+  (`--maxfibre 3e6`), so the chain cannot search it. The low-energy k-tree solved it (§15).
 - **613 (prime) is solved** by the unequal-list low-energy k-tree: skew order 2452, see [skew/2452](../skew/2452).
   - Structure: H = ⟨37⟩ of order 17, rows (1, 1, 35, 35).
   - Lists: all 262,144 skew A; 1.29·10⁶ low-energy B (row sum 1); 7.1·10⁶ low-energy C = D (row sum 35, one
@@ -686,4 +686,118 @@ two-block array. The script checks H Hᵀ = (2w + 2)I and H + Hᵀ = 2I.
     the same 288 solutions as the two-level chain.
   - The per-prime screen also uses the full state cap now. Intermediate DP states can exceed the final count
     a hundredfold; for 451 at level 41 there are 2·10⁵ final states.
+  - `split_join` turned out not to be needed: the exhaustive joiner `attack/join4x.c` makes the single-level
+    final joins cheap (next item), and the extra level is now off by default (`--split`).
+- **The exhaustive joiner `join4x.c`.** It partitions both pair sides exactly on the three classes with the
+  largest spread and probes small open-addressing tables keyed by a 64-bit hash of all classes. Partition keys
+  are processed in lexicographic chunks that bound the build side; since lexicographic order is translation
+  invariant, the probe cells that complete a chunk form an interval, found by binary search. The build phase
+  inserts in parallel with compare-and-swap. It agrees with `find4b` on random instances and reproduces the
+  288 solutions of 209/⟨26⟩. On the heaviest 623 branch (fibres 1,120, 3.4·10⁵, 2.7·10⁵, 2.2·10⁵) it
+  finishes in 103 s; `find4b` had timed out at 900 s.
+- **Exhaustive results with the new joiner** (`python3 attack/chain.py v gens rows --budget 30000`):
+  - 623 = 7 · 89, ⟨2⟩, rows (1, 5, 21, 45): **ruled out** (16 level-1 branches, 16 combinations, 0 solutions,
+    28 minutes). The model had predicted 10^1.6 solutions.
+  - 451 = 11 · 41, ⟨16, 42⟩, rows (1, 1, 29, 31): **ruled out** (20 branches, 12 minutes).
+  - 451, ⟨16, 42⟩, rows (1, 1, 11, 41): **found** in the fifth of 60 level-1 branches, 16 solutions, 4 minutes:
+    skew order 1804, see [skew/1804](../skew/1804).
+
+## 15. Paley-product structures, and where the Gaussian model fails
+
+**253 = 11 · 23 fell at once.** `skew_lowE.py 253 12 5,19,25` (seed 41) built all 65,536 skew A and 406,765,
+506,562 and 872,916 low-energy candidates with row sums 5, 19 and 25 (`skew_gen` saturated far below the
+requested sizes). The Gaussian estimate inside these lists was 10^−1.8. `match4` found 96 solutions at the
+first value of τ, after 1.7 s, and all were verified: skew order 1012, see [skew/1012](../skew/1012).
+Table 5 lists 253(4), SageMath lists 1012 as unknown, and the census lists 253 as undecided.
+
+**Calibration with exact counts** (`join4x` counts every solution inside the lists):
+
+| lists (A, B, C, D) | exact solutions | diagonal model | full covariance |
+|---|---:|---:|---:|
+| 253/⟨12⟩ (5, 19, 25): 65,536, 33,230, 42,858, 42,429 | 19,320 (10^4.29) | 10^−5.0 | 10^−2.4 |
+| same, distinct class vectors only: 32,736, 14,362, 20,045, 20,467 | 245 | 10^−6.4 | 10^−4.1 |
+| 253/⟨12⟩ (1, 13, 29), class vectors 32,736, 22,113, 3,251, 8,032 | 0 | 10^−7.6 | 10^−5.3 |
+
+- The models of `skew_rank.py` and `skew_lowE.py` multiply per-class densities. For 253 the 16 classes are
+  strongly correlated: the covariance of a block's class values has eigenvalues from 31 to 4,858, against 494
+  to 633 for the prime 613. A full-covariance Gaussian gains two to three orders and is still off by six.
+- Solutions also come in clumps. H fixes ℤ₁₁ × {0} pointwise, so B, C and D can each be translated by it
+  without changing their autocorrelations: a solution has up to 11³ translates.
+- For composite v the model fails in both directions: it gave 10^1.6 for 623/⟨2⟩, which has no solution.
+  It should only order a list of structures; every structure deserves a cheap exact test.
+
+**The mechanism: Paley products.** Let v = m q with q ≡ 3 (mod 4) prime, q ∤ m, and H = {h : h ≡ 1 (mod m),
+h a square mod q}, of odd order (q − 1)/2. Then H has 3m orbits {(a, 0)}, {a} × QR, {a} × NQR. With χ the
+Legendre sequence of ℤ_q and J the all-ones sequence, every block is
+
+    X = u ⊗ 1 + w ⊗ J + z ⊗ χ,    u, w, z sequences on ℤ_m,
+
+where at each a either w(a) = 0 and u(a), z(a) = ±1 (a z-position), or z(a) = 0, w(a) = ±1 and
+u(a) ∈ {0, −2w(a)} (a w-position). Using J² = qJ, Jχ = 0 and χχ* = q·1 − J, the condition ΣX_kX_k* = 4v
+splits into three equations over ℤ[ℤ_m]:
+
+    (I)   Σ u_k u_k* + q Σ z_k z_k*                   = 4mq · 1
+    (II)  Σ (u_k w_k* + w_k u_k*) + q Σ w_k w_k*       = Σ z_k z_k*
+    (III) Σ (z_k u_k* − u_k z_k*)                       = 0
+
+- **A counting identity.** Let N_w be the number of w-positions in all four blocks and N₋ the number with
+  u = −2w. The coefficient of the identity in (II) gives (q + 1)N_w − 4N₋ = 4m with 0 ≤ N₋ ≤ N_w. So there
+  is **no solution** unless some integer N_w satisfies it. In particular there is none when q > 4m + 3. This
+  excludes every census value v = 3q, 5q, 7q, 9q with a prime q ≡ 3 (mod 4).
+- **Census values that pass** (`paley_product.structures`, all factorisations): 119 (N_w = 9–17), 253 (2),
+  285 (3), 345 (3), 391 (3), 465 (2), 473 (1), 475 (5), 517 (1), 575 (5), 621 (5), 667 (5), 899 (4), 903 (2),
+  1081 (2), 1139 (1), 1207 (1), 1209 (5), 1333 (3), 1501 (1), 1645 (3), 1711 (2), 1763 (4), 2193 (5),
+  2279 (5), 2365 (5), 2485 (2).
+- **N_w = 1** (q = 4m − 1 or 4m + 3). A skew A has its w-positions in pairs ±a, so the single one lies in
+  another block j, translated to a = 0. Since |Σ PAF_u(s)| ≤ 4m < 2q, u_j must be skew-type away from 0,
+  and then (u_k) and (z_k) are complementary quadruples and (III) holds. The row-sum identity of the
+  compressions gives r_B² + r_C² = 4m − 2, so **2m − 1 must be a sum of two squares**. For m = 11 (21) and
+  m = 17 (33) it is not. Hence **473, 517, 1139 and 1207 have no solution in this structure**. Only 1501
+  (m = 19, 37 = 1 + 36) remains among the N_w = 1 cases.
+- **N_w = 2 in two different blocks** forces q = 2m + 1 and N₋ = 1. The same bound gives complementary
+  (u_k) and (z_k), with u₁(0) = 0, u₂(0) = −2 and u₁(s) + u₁(−s) = −(u₂(s) + u₂(−s)).
+- In both cases q enters only through the counting identity: the problem is a search over ℤ_m.
+
+- **N_w = 3.** Two w-positions in one block (or a pair ±a in A) put a term of size about q² into the
+  autocorrelation of the compressions y_k = u_k + q w_k, which only another such pair could cancel. So for N_w ≤ 3
+  each w-position sits alone in its own non-A block. Without any decoupling assumption the system is then:
+  stage 1, the compressions y_k (±1 with one entry q or q − 2 at 0 in each w-block) have Σ PAF_y = 0; stage 2, the
+  z_k have Σ PAF_z(s) = R(s) = Σ_{w-blocks} (u_k(s) + u_k(−s)) and zero cross terms. This general search reproduces
+  the u-quadruple counts of the decoupled N_w = 2 search exactly (9,520 and 209,536).
+- **Precedent.** The counting identity is classical in another setting. Seberry Wallis (J. Combin. Theory A, 1976),
+  Lemma 8, fills an orthogonal design of order 2ᵗ with J, J − 2I and a Paley-core block under
+  a(v + 1) + b(v − 3) = 2ᵗ, which is our identity with a = N_w − N₋ and b = N₋. Seberry (Ars Combin., 1978),
+  Theorems 6 and 7, give skew orders 2q(q − 1) and mn(n − 1) from orthogonal designs, and Wallis (1969, 1970) uses
+  the same J, J − 2I, Paley-core blocks. In every version we found, the outer structure is an orthogonal design or
+  a Kronecker product. Here it is a Goethals–Seidel quadruple over ℤ_m, and no located theorem produces the orders
+  below (research-agent audit, 2026-10-12).
+- **Prime powers.** Nothing above uses that q is prime: with χ the quadratic character of GF(q), q = pᵏ ≡ 3 (mod 4),
+  the group becomes ℤ_m × GF(q)⁺ (non-cyclic for k > 1). The census has one such case, 513 = 19 · 27 (N_w = 3, N₋ = 2);
+  `--field 3,3` lifts to ℤ₁₉ × ℤ₃³ and verifies with the `goethals-seidel-group` builder.
+
+**`attack/paley_config.py`** solves the reduced problem exactly. Stage 1 lists the u-quadruples (or, in the general
+search, the y-quadruples) by an exact join. Stage 2 joins, for each of them, all z_A (symmetric), the z_k with a zero
+at each w-position and the free z_k on the PAF_z and cross classes with `join4x`. Each hit is lifted to ℤ_v and
+verified.
+
+| v = m · q | N_w | N₋ | stage-1 quadruples | z-solutions of the first | time | result |
+|---|---:|---:|---:|---:|---:|---|
+| 253 = 11 · 23 | 2 | 1 | 9,520 | 100 | 1 s | skew 1012 again |
+| 465 = 15 · 31 | 2 | 1 | 209,536 | 28 | 16 s | **skew 1860**, see [skew/1860](../skew/1860) |
+| 285 = 15 · 19 | 3 | 0 | 2,046,720 | 28 | 20 s | **skew 1140**, see [skew/1140](../skew/1140) |
+| 345 = 15 · 23 | 3 | 3 | 2,040,192 | 22 | 21 s | **skew 1380**, see [skew/1380](../skew/1380) |
+| 391 = 17 · 23 | 3 | 1 | 1,620,096 | 18 | 252 s | **skew 1564**, see [skew/1564](../skew/1564) |
+
+Over 40 random u-quadruples of 253 every one extends (mean 82 z-solutions, minimum above 0, maximum 124); over 12 of
+465 the mean is 20 (minimum 4, maximum 42). The counts are stable, so the first quadruple is representative.
+
+**Extra multiplier symmetry K ≤ ℤ_m*** (`--kgen`, u and z constant on K-orbits) shrinks the search but has found
+nothing: no stage-1 quadruple for 903/⟨4⟩, 1081/order 11, 1711/order 7 or 1501/order 9; four for 1333/⟨5⟩ and four
+for 1333/⟨2⟩, none of which extends; and no extension among the first 20 of 4,992 (1645/⟨11⟩) or the first 50 of
+2,560 (2485/⟨11⟩).
+
+A fit of these two counts gives a per-class density of about 0.12·(11/m)^{1/2}. That predicts about 3.6
+z-solutions per u-quadruple for m = 21 (903), 1.3 for m = 23 (1081), 0.04 for m = 29 (1711) and 5·10⁻⁴ for
+m = 35 (2485). Stage 2 costs about 2^{2m−2} probes per u-quadruple, so 903 and 1081 are in reach and the
+larger two need a better stage 2.
 
