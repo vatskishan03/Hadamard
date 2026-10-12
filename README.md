@@ -72,6 +72,7 @@ blocks are invariant under a group H of automorphisms with −1 ∉ H.
 | [1612](skew/1612) | 403 (13 · 31) | ⟨100⟩, order 15 | 1, 5, 25, 31 | 403(5) |
 | [1876](skew/1876) | 469 (7 · 67) | ⟨9⟩, order 33 | 1, 1, 5, 43 | 469(3) |
 | [2404](skew/2404) | 601 (prime) | ⟨2⟩, order 25 | 1, 1, 1, 49 | 601(5) |
+| [3052](skew/3052) | 763 (7 · 109) | ⟨9⟩, order 27 | 1, 1, 5, 55 | 763(4) |
 | [3556](skew/3556) | 889 (7 · 127) | ⟨2,25⟩, order 63 | 1, 5, 41, 43 | 889(4) |
 
 **Known orders, independent matrices.** These orders were claimed as new at first. Both claims are

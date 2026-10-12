@@ -632,3 +632,18 @@ two-block array. The script checks H Hᵀ = (2w + 2)I and H + Hᵀ = 2I.
   doubling), 940 (Z₄₆₉, for 7516) and 1108 (Z₅₅₃, for 8860).
 - The generic count is against this family: two free signs per class equation leave (4P)^C ≪ 1. Only
   algebraic coincidences could appear, and none did in these structures.
+
+**Composite census orders: exact screen, then the chain.**
+- `census_screen.py` lists, for each composite census v, every multiplier structure with 8–50 orbits and
+  every row-sum pattern. It applies the exact compression test at each prime divisor. 903 of 1643
+  structure-patterns survive, spread over 131 values of v.
+- `screen_chain.py` runs `chain.py` on the survivors, ordered by the model estimate. That model is
+  unreliable for composite v, so it only sets the order.
+- **763 = 7 · 109 is solved:** H = ⟨9⟩ of order 27, rows (1, 1, 5, 55). Of the 40 level-1 branches, the
+  first held 31 second-level combinations. Their final joins counted 3 solutions, and two were verified as
+  skew-Hadamard matrices: skew order 3052, see [skew/3052](../skew/3052). Table 5 lists 763(4), and the
+  census lists 763 as undecided.
+- The model predicted 10^5.5 solutions for this structure, so it is off by orders of magnitude here as
+  well. The sampled k-tree (400 values of τ, §10) had missed the order.
+- Through Yamada's theorem, skew 3052 gives q = 6101, which is prime and ≡ 5 (mod 8), so a Hadamard
+  matrix of order 4 · 6103 = 24412 exists. Whether that order is new is being checked.
