@@ -58,6 +58,36 @@ To our knowledge this is the first skew-Hadamard matrix of order 2452.
 - Cati and Pasechnik, *A database of constructions of Hadamard matrices*, arXiv:2411.18897v2 (Aug. 2025), Table 5, lists 613(3). So the smallest known skew order of the form 2ᵐ · 613 was 4904, and 2452 was unknown.
 - A literature search in October 2026 found no later construction.
 
+**Novelty checklist** (audit of 2026-10-12 by a research agent):
+
+1. Table 5 of Cati–Pasechnik lists 613(3) as a value carried over from Seberry–Yamada. Paley I gives 4904,
+   since 4903 is prime. So the smallest known skew order with odd part 613 was 2³ · 613 = 4904. This order
+   is above 1208, the range they checked against implemented constructions, so the entry was not taken on
+   trust (items 2 and 3).
+2. Đoković's papers (1992–2025, alone and with Kotsireas, Golubitsky or Balonin), Koukouvinos–Stylianou
+   (Discrete Math. 2008) and the Đoković–Seberry census of skew orders 4v for odd v < 2500 (May 2025) do not
+   construct it. The census lists 613 among its 737 undecided values, and not in its Paley, Szekeres,
+   Szekeres–Whiteman or Spence series or among its sporadic values.
+   - A symmetric Hadamard matrix of order 2452 is known (Turyn), but no skew one is.
+3. The 2025–2026 papers and deposits we checked do not contain it:
+   - arXiv;
+   - Zenodo: Schumer, Piza, Kline and Karoui;
+   - the JD-Jones-ASES repositories;
+   - Alpöge et al. and Schneider.
+
+   SageMath's `unknown_skew_hadamard` list stops at 1196, below this order.
+4. No infinite family reaches it:
+   - Paley I (2451 = 3 · 19 · 43);
+   - Szekeres, Whiteman and Momihara–Xiang 2(q + 1), with q = 1225 = 35²;
+   - Wallis–Whiteman 4(q + 1), with q = 612;
+   - (|t| + 1)(q + 1);
+   - Spence 4(q² + q + 1);
+   - (p − 1)ᵘ + 1;
+   - products and amicable products;
+   - Đoković's Szekeres + D-optimal route, which would need a D-optimal family of length 613; none is known.
+
+This is a finding of nothing, not a proof that no earlier construction exists.
+
 ## Verification
 
 ```

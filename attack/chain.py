@@ -218,6 +218,30 @@ def final_join(ch, lists, K=2):
     return total, sols
 
 
+
+def split_join(ch, lists, extra):
+    """Final join through extra compression levels computed from the enumerated fibres (used when the joint DP
+    over all levels does not fit). Each list is grouped by its compressions to the extra primes, the compressed
+    autocorrelations are joined exactly, and find4b runs only on the consistent sub-lists. Exact."""
+    groups = []
+    for Y in lists:
+        keys = np.concatenate([Y.astype(np.int64) @ e.lev[0][4] for e in extra], axis=1)
+        u, inv = np.unique(keys, axis=0, return_inverse=True)
+        groups.append((u, inv.ravel()))
+    P = []
+    for (u, _) in groups:
+        parts, a = [], 0
+        for e in extra:
+            h = e.lev[0][4].shape[1]
+            parts.append(e.paf(0, u[:, a:a + h])); a += h
+        P.append(np.concatenate(parts, axis=1))
+    total, sols = 0, []
+    for q in join4(P):
+        sub = [lists[k][groups[k][1] == q[k]] for k in range(4)]
+        t, s = final_join(ch, sub)
+        total += t; sols += s
+    return total, sols
+
 def verify_sol(ch, Ys):
     seqs = [y.astype(np.int64)[ch.st.orb] for y in Ys]
     tot = verify.paf_sum(seqs)
@@ -229,7 +253,7 @@ def verify_sol(ch, Ys):
 
 
 def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, maxstates=20_000_000, verbose=True, budget=3600,
-        maxbranches=None, join_timeout=None):
+        maxbranches=None, join_timeout=None, levels=None):
     global JOIN_TIMEOUT
     JOIN_TIMEOUT = join_timeout
     """pat = (b, c, d) for skew families (first block skew, row sum 1); pat = (a, b, c, d) for plain Hadamard GS."""
@@ -255,7 +279,7 @@ def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, ma
         print(f"  state space too large at every level", flush=True); return dict(status='too-large')
     best = sorted(counts1, key=lambda p: counts1[p])
     S = None
-    for levels_ in ([best[0], best[1]] if len(best) > 1 else [], [best[0]]):
+    for levels_ in ([list(levels)] if levels else [[best[0], best[1]] if len(best) > 1 else [], [best[0]]]):
         if not levels_: continue
         ch = Chain(v, gens, levels_, skew=skew)
         S = [ch.states(r, maxstates) for r in roles]
@@ -271,6 +295,7 @@ def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, ma
             out.append((u.astype(np.int64), inv.ravel(), np.bincount(inv.ravel(), weights=c)))
         return out
     L1 = 0; L2 = 1 if len(ch.ds) > 1 else None
+    extra = [Chain(v, gens, [p], skew=skew) for p in ps if p not in ch.ds and p < v]   # levels the joint DP left out
     d1, d2 = ch.ds[0], (ch.ds[1] if L2 is not None else 0)
     proj = project(L1)
     P1 = [ch.paf(L1, u) for u, _, _ in proj]
@@ -324,7 +349,7 @@ def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, ma
             combos_done += 1
             if any(len(Y) == 0 for Y in lists): continue
             try:
-                total, sols = final_join(ch, lists)
+                total, sols = split_join(ch, lists, extra) if extra else final_join(ch, lists)
             except JoinTimeout:
                 truncated += 1; continue
             nsol += total
