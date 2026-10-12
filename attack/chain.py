@@ -218,8 +218,27 @@ def run(v, gens, pat, d1, d2, exhaustive=False, maxfibre=3_000_000, maxstates=20
     """pat = (b, c, d) for skew families (first block skew, row sum 1); pat = (a, b, c, d) for plain Hadamard GS."""
     t0 = time.time()
     skew = len(pat) == 3
-    ch = Chain(v, gens, [d1, d2] if d2 else [d1], skew=skew)
     roles = ([None] if skew else []) + list(pat)
+    # Screen every prime divisor on its own: an empty level-1 join at any d rules the pattern out at once,
+    # and the divisor with the fewest level-1 solutions makes the best first level.
+    cands = sorted({d for d in (d1, d2) if d} | {p for p in range(2, v) if v % p == 0 and all(p % r for r in range(2, int(p ** 0.5) + 1))})
+    screen = {}
+    for d in cands:
+        c1 = Chain(v, gens, [d], skew=skew)
+        Sd = [c1.states(r, 2_000_000) for r in roles]
+        if any(x is None for x in Sd): continue
+        U = [np.unique(K_, axis=0) for K_, _ in Sd]
+        if any(len(u) == 0 for u in U):
+            screen[d] = 0
+        else:
+            screen[d] = len(join4([c1.paf(0, u) for u in U]))
+        if screen[d] == 0:
+            print(f"  RESULT v={v} H={gens} rows=(1,{pat}): ruled out at d={d} (empty level-1 join) [{time.time() - t0:.0f}s]", flush=True)
+            return dict(status='ruled out', found=[], branches=0, truncated=0, solutions=0, reason=f'd={d}')
+    if screen:
+        order = sorted(screen, key=lambda d: screen[d])
+        d1 = order[0]; d2 = order[1] if len(order) > 1 else 0
+    ch = Chain(v, gens, [d1, d2] if d2 else [d1], skew=skew)
     S = []
     for r in roles:
         s = ch.states(r, maxstates)
