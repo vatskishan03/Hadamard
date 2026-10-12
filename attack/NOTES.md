@@ -292,3 +292,13 @@ structure over ℤ₁₈₉₃ in METHOD.md (10^14.7).
   candidates per row sum and no match in 600 s; the original runs used 1.6·10⁸.
   The 4412 search (pilot: 10⁻⁹ expected solutions per τ) is about four orders of
   magnitude beyond this machine.
+- **The d = 3 structure for 7572, run here** (`d3/prep1893.py`, `d3/walk.c`). This
+  is the METHOD.md structure over ℤ₁₈₉₃: H = ⟨8⟩ of order 30, K = ⟨8, 2⟩ of
+  order 90, 30 and 86 orbits, 15 classes, row sums (87; 1, 1, 1).
+  - The complete first-block pool has 24,608,948 sequences, all stored in an exact
+    hash table.
+  - The model gives log₁₀ E = 2.15, and log₁₀(success per exactly centred lookup)
+    = −14.7, matching METHOD.md.
+  - The tabu walk over the second block checks every row-sum-preserving swap
+    neighbour: 6.5·10⁶ lookups/s on 4 threads. That is at least 900 days per
+    expected solution on this machine.

@@ -12,3 +12,6 @@ attack/lp_hits.json
 attack/find4b
 attack/gs_sweep_hits.json
 attack/spence_sweep_hits.json
+attack/d3/*.bin
+attack/d3/orb.npy
+attack/d3/walk
