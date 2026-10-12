@@ -376,10 +376,11 @@ lists 234 odd v ≤ 999 for which no skew matrix of order 4v is known. The FRONT
   right pairs from the other two. With lists of very different sizes, the yield per τ grows with the
   smaller pair list, so the clamp S is set as loose as memory allows (pair lists ≤ 2.5·10⁷).
   Pools beyond 4·10⁶ are replaced by uniform samples (`--maxpool`), at a cost of L/N per list.
-- **New orders**: 836, 1036, 1148, 1236, 1364, 1508, 1852, 1876, 2404, 3556, 3676, i.e.
-  v = 209, 259, 287, 309, 341, 377, 463, 469, 601, 889, 919. 889 came from the exact sweep, on
+- **New orders**: 836, 1036, 1148, 1236, 1364, 1412, 1508, 1852, 1876, 2404, 3556, 3676, i.e.
+  v = 209, 259, 287, 309, 341, 353, 377, 463, 469, 601, 889, 919. 889 came from the exact sweep, on
   H = ⟨2, 25⟩ of order 63 with 21 orbits. Each took seconds to minutes on 4 cores.
   - 259 used sampled lists: 3.9·10⁶ of 3–4·10⁷ per pool.
+  - 353 (⟨22⟩) also used sampled lists: 1.2·10⁷ of 5.7·10⁸ per pool, 2 solutions in 33 values of τ.
   - 469 (⟨9⟩, predicted 0.2) gave 192 solutions in the exact matcher. The k-tree had missed them
     because 36 values of τ with the top-6 values per class do not cover the solutions. For pools
     of ≤ 10⁵, run the exact matcher.
@@ -396,8 +397,21 @@ lists 234 odd v ≤ 999 for which no skew matrix of order 4v is known. The FRONT
 - **General local search.** The same C engine handles plain skew GS: B, C, D are stacked into one
   vector with a block-diagonal form, and swaps stay inside a block (`spin_skew.py gsearch`). It
   solves 209/⟨26⟩ in under a second.
+- **Compression obstruction** (`skew_compress.py`). This explains the Gaussian model's misses.
+  - For d | v, the compressions to ℤ_d must satisfy Σ_X |X̂(χ)|² = 4v for every character χ of
+    ℤ_d. They are also constant on the H-orbits of ℤ_d, and the skew block has x₀ = 1 and
+    x₋ⱼ = −xⱼ.
+  - Enumerating each role's achievable compressed vectors and meeting the norm equations is exact
+    and cheap for small d. These are the coarse characters of §1 again.
+  - It proves there are no solutions for:
+    - 201/⟨22⟩, rows (1, 1, 19, 21): d = 3, predicted 10³;
+    - 301/⟨4⟩, rows (1, 1, 19, 29): d = 7, predicted 4;
+    - 265/⟨16⟩, rows (1, 1, 23, 23): d = 5.
+  - The solved structures pass. 209/⟨26⟩ has 7 and 15 feasible norm combinations at d = 11
+    and 19; 469/⟨9⟩ has 1 at d = 7.
+  - Any triage of composite v should apply this test before the Gaussian estimate.
 - **No hits:**
-  - 201 with ⟨22⟩ and 301 with ⟨4⟩ (both exhaustive; 301 was predicted at 4);
+  - 201 with ⟨22⟩ and 301 with ⟨4⟩ (both exhaustive; both obstructed, see above);
   - 265 with ⟨16⟩ (400 values of τ);
   - 623 with ⟨2⟩ (400 values of τ on both patterns).
   - `skew_sweep.py` runs the exact matcher on every structure with ≤ 33 orbits and pair work
