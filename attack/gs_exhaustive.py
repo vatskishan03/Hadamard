@@ -38,7 +38,7 @@ def run(n, gens_ints, max_pairs=4e10, K=5, verbose=True):
                 f.write(np.full(st.C, target, dtype=np.int16).tobytes())
                 for l in lists: f.write(np.ascontiguousarray(l[1]).tobytes())
             t = time.time()
-            out = subprocess.run([os.path.join(HERE, "find4"), path, str(K)], capture_output=True, text=True, check=True).stdout
+            out = subprocess.run([os.path.join(HERE, "find4b" if os.path.exists(os.path.join(HERE, "find4b")) else "find4"), path, str(K)], capture_output=True, text=True, check=True).stdout
         finally:
             os.remove(path)
         total = int(out.strip().split("TOTAL")[-1])

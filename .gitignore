@@ -9,3 +9,6 @@ attack/count4
 attack/find4
 attack/__pycache__/
 attack/lp_hits.json
+attack/find4b
+attack/gs_sweep_hits.json
+attack/spence_sweep_hits.json
