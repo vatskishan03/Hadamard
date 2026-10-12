@@ -248,3 +248,47 @@ structure over ℤ₁₈₉₃ in METHOD.md (10^14.7).
   (Pöschel). So for prime n the only sequence families whose autocorrelations stay
   in a fixed proper subring are the multiplier structures, and the √p bound of
   METHOD.md covers all of them.
+
+## 8. Second pass: twisted Legendre pairs, local search, base sequences
+
+- **Twisted Legendre pairs** (`tlp_model.py`, `tlp_search.py`). This is the pair
+  (A, A∘μ) with μ² ∈ ⟨H, −1⟩ and μ ∉ ⟨H, −1⟩. It is the form of the cyclotomic
+  pairs for primes ℓ ≡ 1 (mod 4), and composite ℓ = 2n − 1 has many such μ. The
+  condition P_A(s) + P_A(μs) = −2 holds on the classes of ⟨H, μ, −1⟩. The search
+  is a 1-list problem, linear in the pool. It recovers verified pairs for
+  ℓ = 37, 41, 61, 73 and 89.
+  - For 2148 (ℓ = 1073) the best structures are |H| = 63, 25 orbits, 6 classes,
+    pool 4.6·10⁵, with Gaussian E ≈ 10⁻¹·⁴ for each of two choices of μ.
+  - All twisted structures with ≤ 28 orbits for n = 537 and 573 were searched
+    exhaustively, with no pair.
+  - Every other open order has E < 10⁻³·⁴ in its best twisted structure.
+- **Open Legendre-pair lengths.** The lengths below 200 open as of the RICAM
+  report on lengths 85 and 87 are 115, 145, 159, 161, 169, 175, 177, 185, 187 and
+  195. Plain and twisted multiplier structures with ≤ 26 orbits were searched
+  exhaustively for all of them (`lp_open.py`), with no pair.
+- **Local search.** These are steepest-descent tabu searches with all single flips,
+  in C (`ls/`).
+  - Unstructured Goethals–Seidel: v = 41 is solved in seconds, v ≥ 51 is not solved
+    in 10⁸ steps.
+  - The steps needed grow like (solution density)^−0.42. That predicts about 10¹⁹
+    steps for the 4412 structure and about 10⁴⁰ for an unstructured length of 167.
+  - In orbit coordinates the search fails even on the 4492 structure (17 classes),
+    which the k-tree solves in seconds. Large orbits make every move a large jump in
+    the class values.
+  - Base sequences BS(m + 1, m): m = 15 is solved in 4 s, and m ≥ 20 stalls at
+    energy 4.
+- **Base sequences as a universal route.**
+  - Turyn: BS(m + 1, m) gives T-sequences of length 2m + 1, which give T-matrices.
+    So BS(90, 89) would give T(179) and, with Williamson matrices of order 3, 11
+    and 13, the orders 2148, 7876 and 9308.
+  - Gaussian count for BS(90, 89): 358 signs against 89 aperiodic equations whose
+    spread shrinks with the shift, about 2³⁸ solutions. They should exist.
+  - Known methods (end-in backtracking, compression) stop near m = 40.
+- **Composite-t Cooper–Wallis** (`tmat_composite.py`). Combining the heuristic
+  E_T ≈ E_GS·2^{−(k−1)} for the condition A·B·C·D = 1 with the Goethals–Seidel
+  estimates, every structure over a composite t = n/w (w ≤ 17) has E_T < 10⁻⁷.
+- **Throughput here.** The repository's JAX generator runs at 2.3·10⁴ candidates/s
+  on this 4-core CPU. Calibration on the 4492 structure gave 7.6·10⁵ distinct
+  candidates per row sum and no match in 600 s; the original runs used 1.6·10⁸.
+  The 4412 search (pilot: 10⁻⁹ expected solutions per τ) is about four orders of
+  magnitude beyond this machine.
