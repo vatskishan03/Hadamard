@@ -356,3 +356,42 @@ structure over ℤ₁₈₉₃ in METHOD.md (10^14.7).
     n − 1 = p. They never land on 0.
   - For the bordered Spence group ℤ₂ × ℤ_m with Legendre slices, the cross-slice
     correlations have spikes of size m that cannot be cancelled.
+
+## 10. Skew-Hadamard orders
+
+Skew-Hadamard matrices (H + Hᵀ = 2I) have their own open problem: Table 5 of Cati–Pasechnik
+lists 234 odd v ≤ 999 for which no skew matrix of order 4v is known. The FRONTIER obstruction
+(large coarse-character classes) is milder here, so small multiplier structures still work.
+
+- **Structure.** Goethals–Seidel over ℤᵥ, all four blocks invariant under H ≤ ℤᵥ* with −1 ∉ H, and the
+  first block of skew type (A(0) = 1, A(−x) = −A(x)). Negation pairs the H-orbits, so there are
+  2^{(O−1)/2} skew first blocks, and the row sums satisfy 1 + b² + c² + d² = 4v.
+- **Triage** (`skew_triage.py`, `skew_rank.py`) uses the Gaussian model of §2 with the skew A pool. It
+  is only a rough guide here.
+  - Under: 209 with ⟨26⟩ was predicted at 3 solutions and has 288.
+  - Over: 201 with ⟨22⟩ (|H| = 11, rows 1, 1, 19, 21) was predicted at 10³ and has none
+    (exhaustive `find4b`).
+  - Under: 377 with ⟨16⟩ was predicted at 0.1 and gave 64 in the first τ.
+- **Matching.** `match4.c` is `search/match.c` with four distinct lists: left pairs (A, largest pool),
+  right pairs from the other two. With lists of very different sizes, the yield per τ grows with the
+  smaller pair list, so the clamp S is set as loose as memory allows (pair lists ≤ 2.5·10⁷).
+  Pools beyond 4·10⁶ are replaced by uniform samples (`--maxpool`), at a cost of L/N per list.
+- **New orders** (each found in seconds to a minute on 4 cores): 836, 1148, 1236, 1364, 1508,
+  1852, 2404, i.e. v = 209, 287, 309, 341, 377, 463, 601.
+- **No hits:**
+  - 201 with ⟨22⟩ (exhaustive);
+  - 265 with ⟨16⟩ (400 values of τ);
+  - 301 with ⟨4⟩ and 469 with ⟨9⟩ (36 values of τ each; exact runs pending).
+- **Hadamard orders through Yamada's theorem.** If q ≡ 5 (mod 8) is a prime power and a skew matrix
+  of order (q + 3)/2 exists, then H(4(q + 2)) exists. Among FRONTIER orders this needs exactly the
+  skew orders 940, 1108 and 1192, for n = 1879, 2215 and 2383. All three are out of reach of skew
+  multiplier structures:
+  - **940 = 4 · 235.** −1 ∉ H forces the projections of H to ℤ₅* and ℤ₄₇* to avoid −1, so
+    H ≤ {1} × QR₄₇. There are then 15 orbits (five fixed points and ten of size 23), and
+    b² + c² + d² = 939 has no solution with b, c, d ∈ ±{1, 3, 5} + 46ℤ.
+  - **1108 = 4 · 277.** The orders of H with −1 ∉ H are 1, 3, 23 and 69. Order 23 leaves row sums
+    ±1 + 46ℤ, and 1107 is not a sum of three such squares. Order 3 has 46 classes and pools near
+    10²⁷, beyond the k-tree.
+  - **1192 = 8 · 149.** A skew Goethals–Seidel block needs a group of odd order, so this order must
+    come from skew 596 by doubling. For v = 149, H has order 37 (row sums ±1 + 74ℤ: no pattern) or
+    1 (unstructured).

@@ -8,11 +8,11 @@ A skew-Hadamard matrix is a Hadamard matrix H with H + Hᵀ = 2I.
 
 **Difference family.** Four ±1 sequences x₁, …, x₄ on ℤ₂₀₉ satisfy two conditions:
 
-- each is constant on the cosets of the multiplier subgroup
+- each is constant on the orbits of the multiplier subgroup
   H = ⟨26⟩ = {1, 20, 26, 45, 49, 58, 64, 102, 115, 125, 144, 159, 163, 191, 201} ≤ ℤ₂₀₉*, of order 15;
 - their periodic autocorrelations sum to zero at every nonzero shift.
 
-`certificate.json` lists, for each sequence, one representative r of each coset rH on which the sequence is −1.
+`certificate.json` lists, for each sequence, one representative r of each orbit rH on which the sequence is −1.
 
 **Skew first block.** The first sequence is of skew type: x₁(0) = 1 and x₁(−t) = −x₁(t) for t ≠ 0. This is possible because −1 ∉ H, so negation pairs the cosets.
 
