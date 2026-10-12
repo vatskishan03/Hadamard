@@ -12,6 +12,7 @@ import numpy as np
 sys.path.insert(0, '/home/user/Hadamard/attack')
 import spence_lib as L
 from gs_sweep_subgroups import subgroups
+GAIN = 0.21   # log10 gain per class from low-energy B, C, D (spread 2.4x narrower), measured on v = 205
 
 
 def patterns(st, n):
@@ -80,6 +81,7 @@ if __name__ == '__main__':
             if O > maxo or O < 6: continue
             st, res = rank(n, list(gens), cap, rng=rng)
             for lE2, lE, q, lN in sorted(res, reverse=True)[:2]:
-                if lE2 < -3: continue
-                print(f"{lE2:7.2f} n={n} 4n={4*n} |H|={len(H)} gens={','.join(map(str, gens))} orbits={st.O} classes={st.C} "
+                lG = lE2 + GAIN * (st.C - 1)        # low-energy lists (skew_gen) for B, C, D; A uniform
+                if max(lE2, lG) < -3: continue
+                print(f"{lE2:7.2f} gen {lG:6.2f} n={n} 4n={4*n} |H|={len(H)} gens={','.join(map(str, gens))} orbits={st.O} classes={st.C} "
                       f"rows=(1,{q[0]},{q[1]},{q[2]}) log10E={lE:.2f} log10N=({','.join(f'{x:.1f}' for x in lN)})", flush=True)

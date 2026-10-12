@@ -198,6 +198,27 @@ def gs_local(v, hgens, pattern, restarts, steps, seed, verbose=True):
     return None
 
 
+def spin_exhaustive(v, hgens, mu, maxpool=2e7):
+    """Exact 2-list join for small spin structures: every skew A (K-invariant) against every B."""
+    sp = Spin(v, hgens, mu)
+    NB = sp.stH.pool(sp.b)
+    if NB > maxpool or len(sp.pairs) > 24 or sp.stH.O > 44: return None
+    import skew_ktree as K
+    YB = K.pool_exact(sp.stH, sp.b).astype(np.float64)
+    s = 1 - 2 * ((np.arange(2 ** len(sp.pairs))[:, None] >> np.arange(len(sp.pairs))) & 1)
+    YA = sp.A_vectors(s.astype(np.float64))
+    PA = np.rint(sp.PA(YA)).astype(np.int64)
+    table = {}
+    for i, row in enumerate(PA): table.setdefault(tuple(-row), []).append(i)
+    hits = []
+    for s0 in range(0, len(YB), 200000):
+        TB = np.rint(sp.TB(YB[s0:s0 + 200000])).astype(np.int64)
+        for j, row in enumerate(TB):
+            for i in table.get(tuple(row), ()):
+                hits.append((YA[i], YB[s0 + j]))
+    return sp, hits
+
+
 def order3(v, K0):
     """Elements of order 3 in Z_v^*, one per coset of K0."""
     out, seen = [], set()
@@ -230,6 +251,30 @@ if __name__ == '__main__':
     elif sys.argv[1] == 'gsearch':
         v = int(sys.argv[2]); hg = [int(x) for x in sys.argv[3].split(',')]; pat = [int(x) for x in sys.argv[4].split(',')]
         gs_local(v, hg, pat, int(sys.argv[5]), int(sys.argv[6]), int(sys.argv[7]) if len(sys.argv) > 7 else 1)
+    elif sys.argv[1] == 'exhaust':
+        rng = np.random.default_rng(1)
+        for v in map(int, sys.argv[2:]):
+            for Hs, gens in subgroups(v).items():
+                if (v - 1) in Hs or len(Hs) % 2 == 0: continue
+                for mu in order3(v, Hs):
+                    if (v - 1) in closure(list(gens) + [mu], v): continue
+                    try:
+                        r = spin_exhaustive(v, list(gens), mu)
+                    except AssertionError:
+                        continue
+                    if r is None: continue
+                    sp, hits = r
+                    print(f"v={v} |H|={len(Hs)} gens={gens} mu={mu} A={2 ** len(sp.pairs)} B={sp.stH.pool(sp.b):.0f}: {len(hits)} solutions", flush=True)
+                    if hits:
+                        A, B = hits[0]; seqs = sp.sequences(A, B)
+                        tot = verify.paf_sum(seqs); ok = tot[0] == 4 * v and not tot[1:].any()
+                        H = verify.goethals_seidel(*map(verify.circulant, seqs)).astype(np.float64)
+                        had = np.array_equal(H @ H.T, 4 * v * np.eye(4 * v)); skew = np.array_equal(H + H.T, 2 * np.eye(4 * v))
+                        print(f"  VERIFIED complementary={ok} Hadamard={had} skew={skew}", flush=True)
+                        if ok and had and skew:
+                            with open(os.path.join(HERE, 'skew_hits.json'), 'a') as f:
+                                f.write(json.dumps(dict(n=v, gens=list(gens), spin_multiplier=mu, pattern=[int(x.sum()) for x in seqs],
+                                                        hadamard=True, skew=True, seqs=[''.join('+' if x > 0 else '-' for x in q) for q in seqs])) + '\n')
     elif sys.argv[1] == 'csearch':
         ap = argparse.ArgumentParser(); ap.add_argument('cmd'); ap.add_argument('v', type=int); ap.add_argument('h')
         ap.add_argument('mu', type=int); ap.add_argument('--restarts', type=int, default=100000)

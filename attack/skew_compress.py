@@ -71,6 +71,34 @@ def feasible(v, gens, pattern, d, verbose=True):
     return hits > 0
 
 
+def role_filters(st, v, d, pattern, cap=2_000_000):
+    """For each role (A, then the row sums in pattern), the set of compressed norm vectors that occur in at
+    least one feasible combination; None if the enumeration is too large."""
+    opts = [compressed_options(st, v, d, skew=True, cap=cap)] + [compressed_options(st, v, d, r=r, cap=cap) for r in pattern]
+    if any(o is None for o in opts): return None
+    Ns = [sorted(norms(o, d)) for o in opts]
+    target = 4 * v
+    left = defaultdict(list)
+    for a in Ns[0]:
+        for b in Ns[1]: left[tuple(x + y for x, y in zip(a, b))].append((a, b))
+    keep = [set(), set(), set(), set()]
+    for c in Ns[2]:
+        for e in Ns[3]:
+            need = tuple(target - x - y for x, y in zip(c, e))
+            for a, b in left.get(need, ()):
+                keep[0].add(a); keep[1].add(b); keep[2].add(c); keep[3].add(e)
+    return keep
+
+
+def norm_rows(Y, st, d):
+    """Compressed norm vectors (k = 1..d-1) of orbit sign vectors Y (rows)."""
+    contrib = np.zeros((st.O, d))
+    for t in range(st.G.v): contrib[st.orb[t], t % d] += 1
+    X = Y.astype(np.float64) @ contrib
+    F = np.fft.fft(X, axis=1)
+    return np.rint((F.real ** 2 + F.imag ** 2)[:, 1:]).astype(np.int64)
+
+
 if __name__ == '__main__':
     v = int(sys.argv[1]); gens = [int(x) for x in sys.argv[2].split(',')]; pat = [int(x) for x in sys.argv[3].split(',')]
     ds = [int(x) for x in sys.argv[4:]] or [p for p in range(2, v) if v % p == 0 and all(p % q for q in range(2, int(p ** 0.5) + 1))]

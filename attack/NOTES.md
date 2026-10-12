@@ -394,6 +394,12 @@ lists 234 odd v ≤ 999 for which no skew matrix of order 4v is known. The FRONT
   - 721 (|H| = 17, μ = 46, predicted 200) is still open after 6·10⁶ moves; the best residual is
     two classes off by 4.
   - 817 has no structure with predicted E > 10⁻³.
+  - Since a skew block has row sum 1, spin needs 4v = 1 + 3b², i.e. v = 3m² + 3m + 1, a centred
+    hexagonal number. Đoković's 397 and the DGK order 631 are of this form, as are the four values
+    above.
+  - `spin_skew.py exhaust` joins all A against all B exactly when the pools are small. For 817
+    (|H| = 63, μ = 49 or 552) and 721 (|H| = 51) it finds no solutions; most of these
+    structures have no B with row sum b at all.
 - **General local search.** The same C engine handles plain skew GS: B, C, D are stacked into one
   vector with a block-diagonal form, and swaps stay inside a block (`spin_skew.py gsearch`). It
   solves 209/⟨26⟩ in under a second.

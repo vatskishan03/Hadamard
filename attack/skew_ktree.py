@@ -11,6 +11,7 @@ import numpy as np
 sys.path.insert(0, '/home/user/Hadamard/attack'); sys.path.insert(0, '/home/user/Hadamard/verify')
 import spence_lib as L
 import verify
+import skew_compress as SC
 HERE = '/home/user/Hadamard/attack'
 
 
@@ -90,7 +91,7 @@ def clamp(Vl, Vr, cap=2.5e7):
     return S
 
 
-def run(n, gens, maxtau=200, top=6, only=None, sols=4, clampS=None, maxpool=4e6, seed=1, gen=0, afrac=1.0, verbose=True):
+def run(n, gens, maxtau=200, top=6, only=None, sols=4, clampS=None, maxpool=4e6, seed=1, gen=0, afrac=1.0, compress=(), verbose=True):
     G = L.AbGroup([n]); st = L.Structure(G, [G.perm_from_matrix(np.array([[g]])) for g in gens])
     rng = np.random.default_rng(seed); maxpool = int(maxpool)
     rep = np.array([np.flatnonzero(st.orb == o)[0] for o in range(st.O)])
@@ -119,14 +120,51 @@ def run(n, gens, maxtau=200, top=6, only=None, sols=4, clampS=None, maxpool=4e6,
             if d * d == d2 and all(st.pool(r) > 0 for r in (b, c, d)): pats.append((b, c, d))
     if only: pats = [p for p in pats if p == tuple(only)]
     if verbose: print(f"n={n} gens={gens} orbits={st.O} classes={st.C} skew pool={len(YA)} patterns={pats}", flush=True)
+    YA0, VA0 = YA, VA
     found = []
     for q in pats:
         t0 = time.time()
+        filt = []      # per d: feasible norm vectors for each role (A, q[0], q[1], q[2])
+        for d in compress:
+            keep = SC.role_filters(st, n, d, list(q))
+            if keep is None: continue
+            if not all(keep):
+                if verbose: print(f"  pattern {q}: compression to Z_{d} is infeasible", flush=True)
+                filt = None; break
+            filt.append((d, keep))
+        if filt is None: continue
+        def admissible(Y, role):
+            ok = np.ones(len(Y), bool)
+            for d, keep in filt:
+                N = SC.norm_rows(Y, st, d)
+                ok &= np.array([tuple(row) in keep[role] for row in N])
+            return ok
         pools, vals = {}, {}
         for r in set(q):
-            Y = gen_pool(st, r, maxpool, gen, rng, n) if gen and st.pool(r) > maxpool else pool(st, r, maxpool, rng)
+            role = 1 + list(q).index(r)       # equal row sums share a list; their filters coincide only if roles agree
+            roles_r = [1 + k for k in range(3) if q[k] == r]
+            if filt and st.pool(r) > maxpool and not gen:
+                got, tries = [], 0
+                while sum(len(g) for g in got) < maxpool and tries < 200:
+                    Y = np.unique(st.sample(r, int(maxpool), rng).astype(np.int8), axis=0)
+                    ok = np.zeros(len(Y), bool)
+                    for rr in roles_r: ok |= admissible(Y, rr)
+                    got.append(Y[ok]); tries += 1
+                    if verbose: print(f"    row sum {r}: compression filter keeps {ok.mean():.4f}", flush=True)
+                Y = np.unique(np.concatenate(got), axis=0)[:int(maxpool)]
+            else:
+                Y = gen_pool(st, r, maxpool, gen, rng, n) if gen and st.pool(r) > maxpool else pool(st, r, maxpool, rng)
+                if filt:
+                    ok = np.zeros(len(Y), bool)
+                    for rr in roles_r: ok |= admissible(Y, rr)
+                    if verbose: print(f"    row sum {r}: compression filter keeps {ok.mean():.4f}", flush=True)
+                    Y = Y[ok]
             V, ok = values(st, Y, pm)
             pools[r], vals[r] = Y[ok], V[ok]
+        YA, VA = YA0, VA0
+        if filt:
+            okA = admissible(YA, 0); YA, VA = YA[okA], VA[okA]
+            if verbose: print(f"    skew A: compression filter keeps {okA.mean():.4f}", flush=True)
         big = max(range(3), key=lambda k: len(pools[q[k]]))
         rest = [q[k] for k in range(3) if k != big]
         roles = [(YA, VA), (pools[rest[0]], vals[rest[0]]), (pools[rest[1]], vals[rest[1]]), (pools[q[big]], vals[q[big]])]
@@ -170,9 +208,11 @@ if __name__ == '__main__':
     ap.add_argument('--pattern'); ap.add_argument('--sols', type=int, default=4); ap.add_argument('--clamp', type=int)
     ap.add_argument('--maxpool', type=float, default=4e6); ap.add_argument('--seed', type=int, default=1)
     ap.add_argument('--gen', type=int, default=0); ap.add_argument('--afrac', type=float, default=1.0)
+    ap.add_argument('--compress', default='')
     a = ap.parse_args()
     found = run(a.n, [int(g) for g in a.gens.split(',')], a.maxtau, a.top,
-                [int(x) for x in a.pattern.split(',')] if a.pattern else None, a.sols, a.clamp, a.maxpool, a.seed, a.gen, a.afrac)
+                [int(x) for x in a.pattern.split(',')] if a.pattern else None, a.sols, a.clamp, a.maxpool, a.seed, a.gen, a.afrac,
+                [int(x) for x in a.compress.split(',') if x])
     if found:
         with open(os.path.join(HERE, 'skew_hits.json'), 'a') as f:
             for h in found: f.write(json.dumps(h) + '\n')
