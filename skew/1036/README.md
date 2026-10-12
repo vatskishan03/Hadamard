@@ -61,6 +61,19 @@ To our knowledge this is the first skew-Hadamard matrix of order 1036.
 
 The doubling construction (Seberry) then also gives skew-Hadamard matrices of orders 2072.
 
+**Novelty checklist** (audit of 2026-10-12, by independent agents that also re-verified the matrix):
+
+1. Table 5 of Cati–Pasechnik lists 259(4): the smallest known skew order with odd part 259 was 2⁴ · 259 = 4144. This order is inside the range (≤ 1208) that they checked against implemented constructions.
+2. Đoković's papers (1992–2024, alone and with Kotsireas, Golubitsky or Balonin), Koukouvinos–Stylianou
+   (Discrete Math. 2008, Tables 1 and 3) and the Đoković–Seberry census of skew orders 4v for odd v < 2500
+   (May 2025) do not construct it. The census lists 259 among its 737 undecided values.
+3. The 2026 public deposits (Schumer; Alpöge et al.; JD-Jones-ASES; Schneider; Karoui; Piza) do not contain
+   it. SageMath's `unknown_skew_hadamard` list (develop branch, fetched 2026-10-12) contains 1036.
+4. No infinite family reaches it: Paley I, Szekeres 2(q + 1), Wallis–Whiteman, Spence, Momihara–Xiang,
+   the product theorem n(pᵏ + 1) and amicable products were checked.
+
+This is a finding of nothing, not a proof that no earlier construction exists.
+
 ## Verification
 
 ```
