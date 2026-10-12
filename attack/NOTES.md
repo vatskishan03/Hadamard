@@ -366,12 +366,15 @@ lists 234 odd v ≤ 999 for which no skew matrix of order 4v is known. The FRONT
 - **Structure.** Goethals–Seidel over ℤᵥ, all four blocks invariant under H ≤ ℤᵥ* with −1 ∉ H, and the
   first block of skew type (A(0) = 1, A(−x) = −A(x)). Negation pairs the H-orbits, so there are
   2^{(O−1)/2} skew first blocks, and the row sums satisfy 1 + b² + c² + d² = 4v.
-- **Triage** (`skew_triage.py`, `skew_rank.py`) uses the Gaussian model of §2 with the skew A pool. It
-  is only a rough guide here.
+- **Triage** (`skew_triage.py`, `skew_rank.py`) uses the Gaussian model of §2 with the skew A pool.
+  **For composite v it is not to be trusted at all**: it is off by 10²–10⁵ in both directions, which is
+  the same lesson as main's order 3964. Composite v are searched exactly (`chain.py`, below); the model only
+  orders work for prime v.
   - Under: 209 with ⟨26⟩ was predicted at 3 solutions and has 288.
   - Over: 201 with ⟨22⟩ (|H| = 11, rows 1, 1, 19, 21) was predicted at 10³ and has none
     (exhaustive `find4b`).
-  - Under: 377 with ⟨16⟩ was predicted at 0.1 and gave 64 in the first τ.
+  - Under: 377 with ⟨16⟩ was predicted at 0.1 and gave 64 in the first τ; 469 with ⟨9⟩ was predicted
+    at 0.2 and has 192; 889 with ⟨2, 25⟩ came from the exact sweep, not from the model.
 - **Matching.** `match4.c` is `search/match.c` with four distinct lists: left pairs (A, largest pool),
   right pairs from the other two. With lists of very different sizes, the yield per τ grows with the
   smaller pair list, so the clamp S is set as loose as memory allows (pair lists ≤ 2.5·10⁷).
@@ -395,7 +398,10 @@ lists 234 odd v ≤ 999 for which no skew matrix of order 4v is known. The FRONT
   - 919 (|H| = 17, μ = 52, 9 classes, predicted 2·10⁵ solutions) was solved in 37 s.
   - 721 (|H| = 17, μ = 46, predicted 200) is still open after 6·10⁶ moves; the best residual is
     two classes off by 4.
-  - 817 has no structure with predicted E > 10⁻³.
+  - 817: an earlier version required μ³ = 1 and found no structure with E > 10⁻³. That was too
+    narrow, because μ³ ∈ H suffices: the blocks B, B∘μ, B∘μ² close up since B is H-invariant. With
+    μ³ ∈ H, H = ⟨11⟩ (order 21) and μ ∈ {6, 9, 17, 24} give spin structures with 8 classes and model
+    E ≈ 10³·². Tabu searches on them are running.
   - Since a skew block has row sum 1, spin needs 4v = 1 + 3b², i.e. v = 3m² + 3m + 1, a centred
     hexagonal number. Đoković's 397 and the DGK order 631 are of this form, as are the four values
     above.
@@ -406,17 +412,20 @@ lists 234 odd v ≤ 999 for which no skew matrix of order 4v is known. The FRONT
   vector with a block-diagonal form, and swaps stay inside a block (`spin_skew.py gsearch`). It
   solves 209/⟨26⟩ in under a second.
 - **Compression obstruction** (`skew_compress.py`). This explains the Gaussian model's misses.
-  - For d | v, the compressions to ℤ_d must satisfy Σ_X |X̂(χ)|² = 4v for every character χ of
-    ℤ_d. They are also constant on the H-orbits of ℤ_d, and the skew block has x₀ = 1 and
-    x₋ⱼ = −xⱼ.
-  - Enumerating each role's achievable compressed vectors and meeting the norm equations is exact
+  - For d | v, the compressions to ℤ_d are complementary: Σ_X PAF_x(k) = 4v·[k = 0] for k ∈ ℤ_d. This
+    is an identity of integers, equivalent to Σ_X |X̂(χ)|² = 4v at every character. The compressions
+    are also constant on the H-orbits of ℤ_d, and the skew block has x₀ = 1 and x₋ⱼ = −xⱼ.
+  - Enumerating each role's achievable compressed vectors and meeting the integer equations is exact
     and cheap for small d. These are the coarse characters of §1 again.
+  - **Correction.** The first version compared the norms |X̂(χ)|² after rounding them to integers.
+    For d ≥ 5 they are not rational integers (they lie in ℚ(ζ_d)⁺), so that test was not exact; only its
+    d = 3 verdicts were sound. Every verdict below was re-checked with the integer test.
   - It proves there are no solutions for:
     - 201/⟨22⟩, rows (1, 1, 19, 21): d = 3, predicted 10³;
     - 301/⟨4⟩, rows (1, 1, 19, 29): d = 7, predicted 4;
     - 265/⟨16⟩, rows (1, 1, 23, 23): d = 5.
-  - The solved structures pass. 209/⟨26⟩ has 7 and 15 feasible norm combinations at d = 11
-    and 19; 469/⟨9⟩ has 1 at d = 7.
+  - The solved structures pass. 209/⟨26⟩ has 11 and 21 feasible combinations at d = 11 and 19;
+    469/⟨9⟩ has 1 at d = 7.
   - Any triage of composite v should apply this test before the Gaussian estimate.
 - **Which tool when.** The k-tree enumerates every left pair (A, D) and every right pair (B, C) once
   over all values of τ. Its work per solution is therefore (N_A·N_D + N_B·N_C)/E′, with E′ the yield
@@ -436,13 +445,20 @@ lists 234 odd v ≤ 999 for which no skew matrix of order 4v is known. The FRONT
   For the spin structure, a walk that looks up all 512 skew A's at every swap neighbour (the
   METHOD.md technique for 2284, `spin_walk.c`) did 4·10⁹ lookups in 300 s without finding 919,
   which the joint tabu finds in under a minute.
-- **Second-tier exact sweep** (pair work 1.5·10⁹–5·10¹⁰, ≤ 37 orbits). Of the 48 structure-pattern
-  pairs, the compression test proves almost all empty, for example:
-  - 605/⟨16⟩;
-  - 793/⟨9, 16⟩;
-  - 903/⟨4, 25⟩;
-  - 759/⟨4⟩ and 549/⟨13, 16⟩;
-  - 441/⟨4, 22⟩ (all patterns).
+- **Second-tier sweep** (pair work 1.5·10⁹–5·10¹⁰, ≤ 37 orbits). The first list of verdicts came
+  from the rounded-norm test and is **withdrawn**. The lists are being recomputed with the integer test,
+  and the structures are covered exactly by the compression-chain sweep below.
+- **Compression-chain engine** (`chain.py`, `chain_sweep.py`), after main's 3964 search. For v = p·q
+  (or a prime power):
+  1. A DP over the H-orbits lists every block's pairs of compressions (ℤ_d1, ℤ_d2) with multiplicities.
+  2. The ℤ_d1 compressions are joined exactly. Inside each branch, the ℤ_d2 compressions are joined.
+  3. Each consistent combination is expanded by meet in the middle, and the four lists are joined on all
+     classes with find4b.
+  
+  No step samples, so with no truncation a structure that yields nothing is ruled out completely.
+  **Validation:** on 209/⟨26⟩, rows (9, 15, 23), the exhaustive chain counts 288 solutions, exactly the
+  count of the direct four-list join. The sweep runs over the 140 composite unsolved v of Table 5,
+  for every H with −1 ∉ H and up to 46 orbits, ignoring the Gaussian model.
 - **No hits:**
   - 201 with ⟨22⟩ and 301 with ⟨4⟩ (both exhaustive; both obstructed, see above);
   - 265 with ⟨16⟩ (400 values of τ);
@@ -471,9 +487,10 @@ FRONTIER.md's exact sweep stopped at 22 orbits. `had_sweep.py` extends it.
 - **Filter.** Each pattern passes through the compression test of §10, now for plain (non-skew)
   blocks. On n = 63 it agrees with exhaustive search: patterns marked feasible have solutions
   (49,104 for H = ⟨2⟩, rows (1, 1, 5, 15)), and patterns marked dead have none.
-- **Result.** Only two structure–pattern pairs are within the work bound, and both are dead:
+- **Result.** Only two structure–pattern pairs are within the work bound, and both are dead. Both
+  verdicts were re-checked with the integer test of §10:
   - n = 1981, H = ⟨4⟩ (|H| = 141, 21 orbits), rows (1, 1, 1, 89): the ℤ₇ compressions cannot
-    meet the norm equations;
+    be complementary;
   - n = 933, H = ⟨20⟩ (|H| = 62, 22 orbits), rows (1, 1, 3, 61): dead at d = 3.
 
 So no Goethals–Seidel multiplier structure with at most 40 orbits that can be searched exactly

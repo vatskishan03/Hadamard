@@ -40,6 +40,20 @@ is then a Hadamard matrix of order 836. Because A + Aᵀ = 2I, it satisfies H + 
 
 The whole search takes under two minutes on four cores.
 
+## Reproduction
+
+| | |
+|---|---|
+| Code | commit `0cdf392` of this branch (the options used behave the same at later commits) |
+| Command | `python3 attack/skew_exhaustive.py 209 26` |
+| Randomness and caps | exact (no sampling, no seed); pair-work cap 4·10¹⁰ |
+| Result of that run | pattern (1; 9, 15, 23): 288 solutions; the other two patterns: none |
+
+The tools write their hit logs, temporary list files and compiled helpers to `$HADAMARD_WORK` (default
+`<tmp>/hadamard-work`), never into the repository. `attack/skew_certify.py` (or `skew_group.py certify` for the
+non-cyclic orders) turns a logged hit into the files in this directory. The certificate does not depend on
+the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.json` alone.
+
 ## Status
 
 To our knowledge this is the first skew-Hadamard matrix of order 836.

@@ -46,6 +46,20 @@ works over any abelian group. It gives a Hadamard matrix of order 1100, and H + 
    - 1.2·10⁶, 1.0·10⁶ and 2.3·10⁶ sequences for row sums 3, 33 and 1.
 3. **Result.** It found 32 solutions in about four minutes.
 
+## Reproduction
+
+| | |
+|---|---|
+| Code | commit `d36ee6f` of this branch (the options used behave the same at later commits) |
+| Command | `python3 attack/skew_group.py ktree 275 singer3+u3 1,3,33 3000` |
+| Randomness and caps | complete pools (no sampling); maxpool 1.2·10⁷, top 8 values per class, at most 3000 values of τ, seed 1 |
+| Result of that run | 32 solutions at τ #810, after 233 s |
+
+The tools write their hit logs, temporary list files and compiled helpers to `$HADAMARD_WORK` (default
+`<tmp>/hadamard-work`), never into the repository. `attack/skew_certify.py` (or `skew_group.py certify` for the
+non-cyclic orders) turns a logged hit into the files in this directory. The certificate does not depend on
+the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.json` alone.
+
 ## Status
 
 To our knowledge this is the first skew-Hadamard matrix of order 1100.

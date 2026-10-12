@@ -45,6 +45,20 @@ is a Hadamard matrix of order 1372 with H + Hᵀ = 2I.
    work 2·10⁹).
 3. **Result.** It found 4,211,424 solutions in a few minutes.
 
+## Reproduction
+
+| | |
+|---|---|
+| Code | commit `58b1460` of this branch (the options used behave the same at later commits) |
+| Command | `python3 attack/skew_field.py run 7 3 19 1,1,37` |
+| Randomness and caps | exact (no sampling, no seed); pair-work cap 6·10¹⁰ |
+| Result of that run | 4,211,424 solutions |
+
+The tools write their hit logs, temporary list files and compiled helpers to `$HADAMARD_WORK` (default
+`<tmp>/hadamard-work`), never into the repository. `attack/skew_certify.py` (or `skew_group.py certify` for the
+non-cyclic orders) turns a logged hit into the files in this directory. The certificate does not depend on
+the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.json` alone.
+
 ## Status
 
 To our knowledge this is the first skew-Hadamard matrix of order 1372.

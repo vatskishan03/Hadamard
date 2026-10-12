@@ -1,6 +1,6 @@
 """Write skew/<order>/README.md from the certificate.
 
-    python3 attack/skew_readme.py ORDER M "search sentence"
+    python3 attack/skew_readme.py ORDER M "search sentence" [COMMIT "command" "randomness and caps" "result"]
 
 M is the exponent listed for v = ORDER/4 in Table 5 of Cati-Pasechnik (smallest m with a known skew-Hadamard
 matrix of order 2^m v)."""
@@ -13,6 +13,7 @@ SUB = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
 
 def main():
     order, m, search = int(sys.argv[1]), int(sys.argv[2]), sys.argv[3]
+    repro = sys.argv[4:8] if len(sys.argv) >= 8 else None
     d = ROOT / "skew" / str(order)
     c = json.loads((d / "certificate.json").read_text())
     v = c["v"]; gens = c.get("multipliers", [c.get("multiplier")])
@@ -63,7 +64,7 @@ is then a Hadamard matrix of order {order}. Because A + Aᵀ = 2I, it satisfies 
 
 {search}
 
-## Status
+{repro_section}## Status
 
 To our knowledge this is the first skew-Hadamard matrix of order {order}.
 
@@ -82,6 +83,14 @@ gzip -dc skew/{order}/H{order}.csv.gz | ./check_matrix
 SHA-256 of `H{order}.csv`:
 `{c["sha256"]}`
 """
+    repro_section = ""
+    if repro:
+        commit, cmd, caps, result = repro
+        repro_section = (f"## Reproduction\n\n| | |\n|---|---|\n| Code | commit `{commit}` |\n| Command | `{cmd}` |\n"
+                         f"| Randomness and caps | {caps} |\n| Result of that run | {result} |\n\n"
+                         "The tools write hit logs, temporary files and compiled helpers to `$HADAMARD_WORK` (default `<tmp>/hadamard-work`). "
+                         "The certificate does not depend on the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.json` alone.\n\n")
+    text = text.replace("{repro_section}", repro_section)
     if m <= 3:
         text = text.replace("\nThe doubling construction (Seberry) then also gives skew-Hadamard matrices of orders .\n", "")
     (d / "README.md").write_text(text)

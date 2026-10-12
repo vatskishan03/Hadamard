@@ -8,11 +8,12 @@ Stops at the first v-structure with a verified hit (one order is enough) and rec
 """
 import json, math, os, sys, time
 import numpy as np
-sys.path.insert(0, '/home/user/Hadamard/attack')
+from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
+import workdir as W
 import spence_lib as L
 from gs_sweep_subgroups import subgroups
 import skew_exhaustive as SE
-HERE = '/home/user/Hadamard/attack'
+HERE = str(W.HERE)
 
 
 def structures(v, maxo):
@@ -35,7 +36,7 @@ if __name__ == '__main__':
                 continue
             print(f"v={v} |H|={h} gens={gens} orbits={O}: {len(found)} verified [{time.time()-t:.0f}s]", flush=True)
             if found:
-                with open(os.path.join(HERE, 'skew_hits.json'), 'a') as f:
+                with open(W.hits(), 'a') as f:
                     for x in found: f.write(json.dumps(x) + '\n')
                 print(f"HIT v={v} 4v={4*v} gens={gens}", flush=True)
                 break

@@ -38,6 +38,20 @@ is then a Hadamard matrix of order 1876. Because A + Aᵀ = 2I, it satisfies H +
 2. `attack/skew_exhaustive.py` matches the four lists exactly (`attack/find4b.c`).
 3. The only admissible row-sum pattern, (1; 1, 5, 43), gives 192 solutions in about a minute.
 
+## Reproduction
+
+| | |
+|---|---|
+| Code | commit `f6f42b2` of this branch (the options used behave the same at later commits) |
+| Command | `python3 attack/skew_exhaustive.py 469 9` |
+| Randomness and caps | exact (no sampling, no seed); pair-work cap 4·10¹⁰ |
+| Result of that run | pattern (1; 1, 5, 43): 192 solutions |
+
+The tools write their hit logs, temporary list files and compiled helpers to `$HADAMARD_WORK` (default
+`<tmp>/hadamard-work`), never into the repository. `attack/skew_certify.py` (or `skew_group.py certify` for the
+non-cyclic orders) turns a logged hit into the files in this directory. The certificate does not depend on
+the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.json` alone.
+
 ## Status
 
 To our knowledge this is the first skew-Hadamard matrix of order 1876.

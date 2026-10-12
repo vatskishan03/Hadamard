@@ -3,11 +3,12 @@ B, C, D constant on H-orbits, all admissible row-sum patterns, 4-list exact matc
 Each solution is verified: GS array H with H H^T = 4n I and H + H^T = 2 I (skew-Hadamard)."""
 import os, struct, subprocess, sys, tempfile, time, json, math
 import numpy as np
-sys.path.insert(0, '/home/user/Hadamard/attack'); sys.path.insert(0, '/home/user/Hadamard/verify')
+from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
+import workdir as W
 import spence_lib as L, count_exact as X
 import verify
 from skew_ktree import pool_exact
-HERE = '/home/user/Hadamard/attack'
+HERE = str(W.HERE)
 
 def run(n, gens, cap=4e10, K=2, verbose=True, only=None):
     G = L.AbGroup([n]); st = L.Structure(G, [G.perm_from_matrix(np.array([[g]])) for g in gens])
@@ -48,13 +49,13 @@ def run(n, gens, cap=4e10, K=2, verbose=True, only=None):
             if verbose: print(f"  pattern {q}: pools {sizes} work {work:.2e} > cap", flush=True)
             continue
         Ls = [(YA.astype(np.int8), VA)] + [vecs(r) for r in q]
-        fd, path = tempfile.mkstemp(suffix='.bin', dir=HERE); os.close(fd)
+        fd, path = tempfile.mkstemp(suffix='.bin', dir=W.tmpdir()); os.close(fd)
         try:
             with open(path, 'wb') as f:
                 f.write(struct.pack('iiiii', *sizes, st.C)); f.write(np.full(st.C, -pm, dtype=np.int16).tobytes())
                 for l in Ls: f.write(np.ascontiguousarray(l[1]).tobytes())
             t = time.time()
-            out = subprocess.run([os.path.join(HERE, 'find4b'), path, str(K)], capture_output=True, text=True, check=True).stdout
+            out = subprocess.run([W.bin('find4b'), path, str(K)], capture_output=True, text=True, check=True).stdout
         finally:
             os.remove(path)
         total = int(out.strip().split('TOTAL')[-1])
@@ -79,6 +80,6 @@ if __name__ == '__main__':
     only = [tuple(int(x) for x in p.split(',')) for p in sys.argv[4:]] or None
     found = run(n, gens, cap=cap, only=only)
     if found:
-        with open(f'{HERE}/skew_hits.json', 'a') as f:
+        with open(W.hits(), 'a') as f:
             for h in found: f.write(json.dumps(h) + '\n')
     print(f"done: {len(found)} verified")

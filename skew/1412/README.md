@@ -38,6 +38,20 @@ is then a Hadamard matrix of order 1412. Because A + Aᵀ = 2I, it satisfies H +
 2. `attack/skew_ktree.py` (four-list k-tree matcher `attack/match4.c`) matched uniform samples of 1.2·10⁷ sequences from each pool.
 3. It found 2 solutions among the 33 most likely partial-sum values.
 
+## Reproduction
+
+| | |
+|---|---|
+| Code | commit `03c9a52` of this branch (the options used behave the same at later commits) |
+| Command | `python3 attack/skew_ktree.py 353 22 --maxpool 1.2e7 --maxtau 400 --top 6 --sols 2 --seed 1` |
+| Randomness and caps | uniform samples of at most 1.2·10⁷ distinct sequences per pool (seed 1); clamp S = 6; top 6; at most 400 values of τ |
+| Result of that run | 2 solutions at τ #32 |
+
+The tools write their hit logs, temporary list files and compiled helpers to `$HADAMARD_WORK` (default
+`<tmp>/hadamard-work`), never into the repository. `attack/skew_certify.py` (or `skew_group.py certify` for the
+non-cyclic orders) turns a logged hit into the files in this directory. The certificate does not depend on
+the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.json` alone.
+
 ## Status
 
 To our knowledge this is the first skew-Hadamard matrix of order 1412.

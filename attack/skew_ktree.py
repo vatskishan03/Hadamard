@@ -8,11 +8,12 @@ Pools larger than L are replaced by L distinct uniform samples (the expected yie
 """
 import argparse, json, math, os, subprocess, sys, tempfile, time
 import numpy as np
-sys.path.insert(0, '/home/user/Hadamard/attack'); sys.path.insert(0, '/home/user/Hadamard/verify')
+from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
+import workdir as W
 import spence_lib as L
 import verify
 import skew_compress as SC
-HERE = '/home/user/Hadamard/attack'
+HERE = str(W.HERE)
 
 
 def pool_exact(st, r):
@@ -50,11 +51,11 @@ def gen_pool(st, r, count, steps, rng, v):
     S2 = np.rint(st.S + st.S.transpose(0, 2, 1)).astype(np.int32)
     x0 = st.sample(r, 1, rng)[0].astype(np.int32)
     tag = f"{os.getpid()}_{r}"
-    inp, out = os.path.join(HERE, f"gen_{tag}.bin"), os.path.join(HERE, f"gen_{tag}.signs")
+    inp, out = os.path.join(W.tmpdir(), f"gen_{tag}.bin"), os.path.join(W.tmpdir(), f"gen_{tag}.signs")
     with open(inp, 'wb') as f:
         np.array([st.O, st.C, v, r], np.int32).tofile(f); st.sizes.astype(np.int32).tofile(f)
         st.csize.astype(np.int32).tofile(f); S2.tofile(f); x0.tofile(f)
-    subprocess.run([os.path.join(HERE, 'skew_gen'), inp, str(int(count)), str(steps), str(int(rng.integers(1 << 30))), out], check=True)
+    subprocess.run([W.bin('skew_gen'), inp, str(int(count)), str(steps), str(int(rng.integers(1 << 30))), out], check=True)
     Y = np.fromfile(out, dtype=np.int8).reshape(-1, st.O)
     os.remove(inp); os.remove(out)
     assert np.all((Y.astype(np.int64) @ st.sizes) == r)
@@ -177,10 +178,10 @@ def run(n, gens, maxtau=200, top=6, only=None, sols=4, clampS=None, maxpool=4e6,
         S = max(1, min(S, st.C - 2))
         if verbose: print(f"  pattern {q}: full pools {[st.pool(r) for r in q]:}")
         if verbose: print(f"  pattern {q}: roles A,{rest[0]},{rest[1]},{q[big]} sizes {sizes} clamp S={S} [{time.time()-t0:.0f}s prep]", flush=True)
-        tmp = tempfile.mkdtemp(dir=HERE)
+        tmp = tempfile.mkdtemp(dir=W.tmpdir())
         paths = [os.path.join(tmp, f"{k}.bin") for k in range(4)]
         for p, (Y, V) in zip(paths, roles): write(p, V)
-        cmd = [os.path.join(HERE, 'match4'), '-s', str(S), '-t', str(-pm), '-n', str(maxtau), '-k', str(sols), '-m', str(top)] + paths + [str(st.C)]
+        cmd = [W.bin('match4'), '-s', str(S), '-t', str(-pm), '-n', str(maxtau), '-k', str(sols), '-m', str(top)] + paths + [str(st.C)]
         res = subprocess.run(cmd, capture_output=True, text=True)
         for p in paths: os.remove(p)
         os.rmdir(tmp)
@@ -223,6 +224,6 @@ if __name__ == '__main__':
                 [int(x) for x in a.pattern.split(',')] if a.pattern else None, a.sols, a.clamp, a.maxpool, a.seed, a.gen, a.afrac,
                 [int(x) for x in a.compress.split(',') if x])
     if found:
-        with open(os.path.join(HERE, 'skew_hits.json'), 'a') as f:
+        with open(W.hits(), 'a') as f:
             for h in found: f.write(json.dumps(h) + '\n')
     print(f"done: {len(found)} verified", flush=True)

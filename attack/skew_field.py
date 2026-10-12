@@ -6,11 +6,12 @@ subgroup of the multiplicative group (cyclotomy): H = <w^((q-1)/d)> for a primit
 """
 import itertools, json, math, os, sys
 import numpy as np
-sys.path.insert(0, '/home/user/Hadamard/attack')
+from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
+import workdir as W
 import spence_lib as L
 import skew_rank as R
 import skew_group as SG
-HERE = '/home/user/Hadamard/attack'
+HERE = str(W.HERE)
 
 
 def primitive_companion(p, k):
@@ -67,6 +68,6 @@ if __name__ == '__main__':
             for had, skew, seqs in res[1]:
                 print(f"  VERIFIED Hadamard={had} skew={skew}", flush=True)
                 if had and skew:
-                    with open(os.path.join(HERE, 'skew_group_hits.json'), 'a') as f:
+                    with open(W.hits('skew_group_hits.jsonl'), 'a') as f:
                         f.write(json.dumps(dict(n=q, mods=[p] * k, structure=f"singer{d}", generator=g.tolist(), hadamard=True,
                                                 skew=True, pattern=[1, *pat], seqs=[''.join('+' if x > 0 else '-' for x in s) for s in seqs])) + '\n')

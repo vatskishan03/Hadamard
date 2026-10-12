@@ -1,4 +1,4 @@
-"""Write a repository certificate for a skew Goethals-Seidel hit recorded in skew_hits.json.
+"""Write a repository certificate for a skew Goethals-Seidel hit recorded in $HADAMARD_WORK/skew_hits.jsonl.
 
     python3 attack/skew_certify.py n [index]      # index-th verified hit for n (default 0)
 
@@ -8,8 +8,9 @@ import gzip, hashlib, json, sys
 from pathlib import Path
 import numpy as np
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / "verify")); sys.path.insert(0, str(ROOT / "search"))
+sys.path[:0] = [str(ROOT / "attack"), str(ROOT / "verify"), str(ROOT / "search")]
 import verify
+import workdir as W
 from certify import write_certificate
 
 
@@ -23,7 +24,7 @@ def subgroup(gens, v):
 
 def main():
     n = int(sys.argv[1]); k = int(sys.argv[2]) if len(sys.argv) > 2 else 0
-    hits = [json.loads(l) for l in open(ROOT / "attack" / "skew_hits.json")]
+    hits = [json.loads(l) for l in open(W.hits())]
     hits = [h for h in hits if h["n"] == n and h["hadamard"] and h["skew"]]
     h = hits[k]
     seqs = [np.array([1 if c == '+' else -1 for c in s], dtype=np.int64) for s in h["seqs"]]

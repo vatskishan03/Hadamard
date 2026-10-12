@@ -11,13 +11,14 @@ blocks A(g, h) = a(h - g) with R(g, h) = [g + h = 0] give a Goethals-Seidel arra
 import itertools, json, math, os, struct, subprocess, sys, tempfile, time
 from math import gcd, log10
 import numpy as np
-sys.path.insert(0, '/home/user/Hadamard/attack'); sys.path.insert(0, '/home/user/Hadamard/verify')
+from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
+import workdir as W
 import spence_lib as L
 from gs_sweep_subgroups import subgroups
 import skew_rank as R
 from skew_ktree import pool_exact
 import skew_noncyclic as NC
-HERE = '/home/user/Hadamard/attack'
+HERE = str(W.HERE)
 
 
 def odd(n):
@@ -135,12 +136,12 @@ def exact(v, G, st, q, cap=6e10, K=2):
         step = max(1000, int(1.5e8 // (st.C * st.O)))
         for s0 in range(0, len(Y), step): V[s0:s0 + step] = np.rint((st.class_values(Y[s0:s0 + step]) - pm) / 4)
         Vs.append(V)
-    fd, path = tempfile.mkstemp(suffix='.bin', dir=HERE); os.close(fd)
+    fd, path = tempfile.mkstemp(suffix='.bin', dir=W.tmpdir()); os.close(fd)
     try:
         with open(path, 'wb') as f:
             f.write(struct.pack('iiiii', *[len(V) for V in Vs], st.C)); f.write(np.full(st.C, -pm, dtype=np.int16).tobytes())
             for V in Vs: f.write(np.ascontiguousarray(V).tobytes())
-        out = subprocess.run([os.path.join(HERE, 'find4b'), path, str(K)], capture_output=True, text=True, check=True).stdout
+        out = subprocess.run([W.bin('find4b'), path, str(K)], capture_output=True, text=True, check=True).stdout
     finally:
         os.remove(path)
     total = int(out.strip().split('TOTAL')[-1])
@@ -176,7 +177,7 @@ if __name__ == '__main__' and sys.argv[1] != 'certify':
             found = K.run(v, [], maxtau=maxtau, top=8, only=q, sols=2, maxpool=1.2e7, prebuilt=(G, st))
             for h in found:
                 h.update(mods=[int(x) for x in G.mods], structure=name)
-                with open(os.path.join(HERE, 'skew_group_hits.json'), 'a') as f: f.write(json.dumps(h) + '\n')
+                with open(W.hits('skew_group_hits.jsonl'), 'a') as f: f.write(json.dumps(h) + '\n')
             print(f"done: {len(found)} verified", flush=True)
             break
     else:
@@ -192,7 +193,7 @@ if __name__ == '__main__' and sys.argv[1] != 'certify':
                 for had, skew, seqs in res[1]:
                     print(f"  VERIFIED Hadamard={had} skew={skew}", flush=True)
                     if had and skew:
-                        with open(os.path.join(HERE, 'skew_group_hits.json'), 'a') as f:
+                        with open(W.hits('skew_group_hits.jsonl'), 'a') as f:
                             f.write(json.dumps(dict(v=v, mods=[int(x) for x in G.mods], structure=name, rows=[1, *q],
                                                     seqs=[''.join('+' if x > 0 else '-' for x in s) for s in seqs])) + '\n')
             break
@@ -217,9 +218,9 @@ def automorphism_matrices(v, name):
 
 def certify(v, k=0):
     import gzip, hashlib
-    sys.path.insert(0, '/home/user/Hadamard/search')
+    sys.path.insert(0, str(W.ROOT / 'search'))
     from certify import write_certificate
-    hits = [json.loads(l) for l in open(os.path.join(HERE, 'skew_group_hits.json'))]
+    hits = [json.loads(l) for l in open(W.hits('skew_group_hits.jsonl'))]
     h = [x for x in hits if x['n'] == v and x['hadamard'] and x['skew']][k]
     mods = h['mods']
     mats = [np.array(h['generator'], dtype=np.int64)] if 'generator' in h else automorphism_matrices(v, h['structure'])
@@ -236,14 +237,14 @@ def certify(v, k=0):
     Hm = gs_group(seqs, G)
     import io
     buf = io.BytesIO(); np.savetxt(buf, Hm, fmt="%d", delimiter=","); data = buf.getvalue()
-    order = 4 * v; out = os.path.join('/home/user/Hadamard/skew', str(order)); os.makedirs(out, exist_ok=True)
+    order = 4 * v; out = os.path.join(str(W.ROOT / 'skew'), str(order)); os.makedirs(out, exist_ok=True)
     cert = {"order": order, "construction": "goethals-seidel-group", "skew": True, "group": [int(x) for x in mods],
             "structure": h['structure'], "automorphisms": [M.tolist() for M in mats], "subgroup_order": len(seen),
             "rowsums": [int(x.sum()) for x in seqs], "sequences": h['seqs'], "sha256": hashlib.sha256(data).hexdigest()}
     with open(os.path.join(out, 'certificate.json'), 'w') as f: json.dump(cert, f, indent=1)
     with open(os.path.join(out, 'sequences.txt'), 'w') as f: f.write(''.join(s + '\n' for s in h['seqs']))
     with gzip.open(os.path.join(out, f'H{order}.csv.gz'), 'wb', compresslevel=9) as f: f.write(data)
-    sys.path.insert(0, '/home/user/Hadamard/verify'); import verify
+    import verify
     from pathlib import Path
     n_, digest = verify.check(Path(out))
     print(f"skew order {n_}: group {mods}, |H| = {len(seen)}, rows {cert['rowsums']}, sha256 {digest}")

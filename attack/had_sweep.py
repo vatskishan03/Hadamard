@@ -15,13 +15,14 @@ model.
 import itertools, json, math, os, struct, subprocess, sys, tempfile, time
 from collections import defaultdict
 import numpy as np
-sys.path.insert(0, '/home/user/Hadamard/attack'); sys.path.insert(0, '/home/user/Hadamard/verify')
+from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
+import workdir as W
 import spence_lib as L
 from gs_sweep_subgroups import subgroups
 import skew_compress as SC
 from skew_ktree import pool_exact
 import verify
-HERE = '/home/user/Hadamard/attack'
+HERE = str(W.HERE)
 
 
 def structure(n, gens):
@@ -45,13 +46,14 @@ def compression_ok(st, n, pat, d, cap=150_000):
     """False if the compressions to Z_d cannot satisfy the norm equations; None if too large to decide."""
     opts = [SC.compressed_options(st, n, d, r=r, cap=cap) for r in pat]
     if any(o is None for o in opts): return None
-    Ns = [SC.norms(o, d) for o in opts]
+    Ns = [SC.pafs(o, d) for o in opts]
+    T = SC.target(n, d)
     left = set()
     for a in Ns[0]:
         for b in Ns[1]: left.add(tuple(x + y for x, y in zip(a, b)))
     for c in Ns[2]:
         for e in Ns[3]:
-            if tuple(4 * n - x - y for x, y in zip(c, e)) in left: return True
+            if tuple(t - x - y for t, x, y in zip(T, c, e)) in left: return True
     return False
 
 
@@ -79,13 +81,13 @@ def run(n, gens, pat, cap=1e11, K=2):
         return cache[r]
     # find4b pairs (list0, list3) on the left and (list1, list2) on the right
     Ls = [vecs(roles[0]), vecs(roles[1]), vecs(roles[2]), vecs(roles[3])]
-    fd, path = tempfile.mkstemp(suffix='.bin', dir=HERE); os.close(fd)
+    fd, path = tempfile.mkstemp(suffix='.bin', dir=W.tmpdir()); os.close(fd)
     t = time.time()
     try:
         with open(path, 'wb') as f:
             f.write(struct.pack('iiiii', *[len(l[1]) for l in Ls], st.C)); f.write(np.full(st.C, -pm, dtype=np.int16).tobytes())
             for l in Ls: f.write(np.ascontiguousarray(l[1]).tobytes())
-        out = subprocess.run([os.path.join(HERE, 'find4b'), path, str(K)], capture_output=True, text=True, check=True).stdout
+        out = subprocess.run([W.bin('find4b'), path, str(K)], capture_output=True, text=True, check=True).stdout
     finally:
         os.remove(path)
     total = int(out.strip().split('TOTAL')[-1])
@@ -104,7 +106,7 @@ def run(n, gens, pat, cap=1e11, K=2):
             rec = dict(n=n, gens=list(gens), pattern=[int(x.sum()) for x in seqs], hadamard=True,
                        seqs=[''.join('+' if x > 0 else '-' for x in s) for s in seqs])
             found.append(rec)
-            with open(os.path.join(HERE, 'had_hits.json'), 'a') as f: f.write(json.dumps(rec) + '\n')
+            with open(W.hits('had_hits.jsonl'), 'a') as f: f.write(json.dumps(rec) + '\n')
     return found
 
 

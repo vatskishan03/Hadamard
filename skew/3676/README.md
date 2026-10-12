@@ -46,6 +46,20 @@ is then a Hadamard matrix of order 3676. Because A + Aᵀ = 2I, it satisfies H +
 
 `certificate.json` records μ as `spin_multiplier`, and `verify/verify.py` checks that the last three blocks are its images.
 
+## Reproduction
+
+| | |
+|---|---|
+| Code | commit `f6f42b2` of this branch (the options used behave the same at later commits) |
+| Command | `python3 attack/spin_skew.py csearch 919 58 52 --restarts 5000 --steps 3000 --seed 1` |
+| Randomness and caps | tabu search in C (attack/spin_ls.c), seed 1, at most 5000 restarts of 3000 moves |
+| Result of that run | solution at restart 399, step 1915, after 37 s |
+
+The tools write their hit logs, temporary list files and compiled helpers to `$HADAMARD_WORK` (default
+`<tmp>/hadamard-work`), never into the repository. `attack/skew_certify.py` (or `skew_group.py certify` for the
+non-cyclic orders) turns a logged hit into the files in this directory. The certificate does not depend on
+the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.json` alone.
+
 ## Status
 
 To our knowledge this is the first skew-Hadamard matrix of order 3676. (A Hadamard matrix of order 3676 was published by Schumer in 2026, see [3676](../../3676). That matrix is not skew.)

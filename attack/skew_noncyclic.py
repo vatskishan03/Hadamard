@@ -8,7 +8,8 @@ element of odd order never has eigenvalue -1, so every such H admits a skew firs
 import math, sys, itertools
 from math import gcd, log10
 import numpy as np
-sys.path.insert(0, '/home/user/Hadamard/attack')
+from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
+import workdir as W
 import spence_lib as L
 import skew_rank as R
 

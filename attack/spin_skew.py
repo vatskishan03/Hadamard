@@ -13,11 +13,12 @@ on the orbits of <K, -1>. The row sums are (1, b, b, b) with 1 + 3 b^2 = 4v.
 import argparse, json, math, os, sys, time
 from math import gcd, log10, pi
 import numpy as np
-sys.path.insert(0, '/home/user/Hadamard/attack'); sys.path.insert(0, '/home/user/Hadamard/verify')
+from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
+import workdir as W
 import spence_lib as L
 from gs_sweep_subgroups import subgroups
 import verify
-HERE = '/home/user/Hadamard/attack'
+HERE = str(W.HERE)
 
 
 def closure(gens, v):
@@ -170,14 +171,14 @@ def gs_local(v, hgens, pattern, restarts, steps, seed, verbose=True):
     rng = np.random.default_rng(seed)
     X0 = np.concatenate([st.sample(r, 1, rng)[0] for r in pattern]).astype(np.int32)
     tags = np.concatenate([st.sizes + 100000 * k for k in range(3)]).astype(np.int32)
-    path = os.path.join(HERE, f'gsls_{v}_{seed}.bin')
+    path = os.path.join(W.tmpdir(), f'gsls_{v}_{seed}.bin')
     with open(path, 'wb') as f:
         np.array([3 * O, C, O, len(pairs)], np.int32).tofile(f)
         st.csize.astype(np.int32).tofile(f); tags.tofile(f)
         M2.tofile(f); S2.tofile(f); np.array(pairs, np.int32).ravel().tofile(f); X0.tofile(f)
     import subprocess
     t = time.time()
-    out = subprocess.run([os.path.join(HERE, os.environ.get('SPIN_LS', 'spin_ls')), path, str(restarts), str(steps), str(seed)] + os.environ.get('SPIN_LS_ARGS', '').split(), capture_output=True, text=True)
+    out = subprocess.run([W.bin(os.environ.get('SPIN_LS', 'spin_ls')), path, str(restarts), str(steps), str(seed)] + os.environ.get('SPIN_LS_ARGS', '').split(), capture_output=True, text=True)
     os.remove(path)
     if verbose: print(f"v={v} gens={hgens} rows=(1,{pattern}) orbits={O} classes={C}:", out.stderr.strip().splitlines()[-1], f"[{time.time()-t:.0f}s]", flush=True)
     sol = [l for l in out.stdout.splitlines() if l.startswith('SOL')]
@@ -191,7 +192,7 @@ def gs_local(v, hgens, pattern, restarts, steps, seed, verbose=True):
     had = np.array_equal(H @ H.T, 4 * v * np.eye(4 * v)); skew = np.array_equal(H + H.T, 2 * np.eye(4 * v))
     print(f"FOUND: complementary={ok} Hadamard={had} skew={skew}", flush=True)
     if ok and had and skew:
-        with open(os.path.join(HERE, 'skew_hits.json'), 'a') as f:
+        with open(W.hits(), 'a') as f:
             f.write(json.dumps(dict(n=v, gens=list(hgens), pattern=[int(x.sum()) for x in seqs], hadamard=True, skew=True,
                                     seqs=[''.join('+' if x > 0 else '-' for x in s) for s in seqs])) + '\n')
         return seqs
@@ -220,14 +221,15 @@ def spin_exhaustive(v, hgens, mu, maxpool=2e7):
 
 
 def order3(v, K0):
-    """Elements of order 3 in Z_v^*, one per coset of K0."""
+    """Multipliers mu of order 3 modulo K0: mu not in K0 and mu^3 in K0 (mu^3 = 1 is not required: the blocks
+    B, B o mu, B o mu^2 close up because B is K0-invariant). One representative per coset mu K0, mu and mu^-1
+    counted separately (they give mirror-image structures)."""
     out, seen = [], set()
     for u in range(2, v):
-        if gcd(u, v) == 1 and pow(u, 3, v) == 1 and u not in K0:
+        if gcd(u, v) == 1 and u not in K0 and pow(u, 3, v) in K0:
             c = frozenset(u * k % v for k in K0)
             if c not in seen: seen.add(c); out.append(u)
     return out
-
 
 if __name__ == '__main__':
     if sys.argv[1] == 'rank':
@@ -272,7 +274,7 @@ if __name__ == '__main__':
                         had = np.array_equal(H @ H.T, 4 * v * np.eye(4 * v)); skew = np.array_equal(H + H.T, 2 * np.eye(4 * v))
                         print(f"  VERIFIED complementary={ok} Hadamard={had} skew={skew}", flush=True)
                         if ok and had and skew:
-                            with open(os.path.join(HERE, 'skew_hits.json'), 'a') as f:
+                            with open(W.hits(), 'a') as f:
                                 f.write(json.dumps(dict(n=v, gens=list(gens), spin_multiplier=mu, pattern=[int(x.sum()) for x in seqs],
                                                         hadamard=True, skew=True, seqs=[''.join('+' if x > 0 else '-' for x in q) for q in seqs])) + '\n')
     elif sys.argv[1] == 'csearch':
@@ -286,7 +288,7 @@ if __name__ == '__main__':
         M2 = np.rint(2 * sp.M).astype(np.int32); S2 = np.rint(2 * sp.SA).astype(np.int32)
         assert np.allclose(M2, 2 * sp.M) and np.allclose(S2, 2 * sp.SA)
         B0 = stH.sample(sp.b, 1, np.random.default_rng(a.seed))[0].astype(np.int32)
-        path = os.path.join(HERE, f'spin_{a.v}_{a.seed}.bin')
+        path = os.path.join(W.tmpdir(), f'spin_{a.v}_{a.seed}.bin')
         with open(path, 'wb') as f:
             np.array([stH.O, stK.C, stK.O, len(sp.pairs)], np.int32).tofile(f)
             stK.csize.astype(np.int32).tofile(f); stH.sizes.astype(np.int32).tofile(f)
@@ -294,9 +296,9 @@ if __name__ == '__main__':
         import subprocess
         t = time.time()
         if os.environ.get('SPIN_WALK'):      # neighbour-lookup walk: SPIN_WALK = seconds
-            out = subprocess.run([os.path.join(HERE, 'spin_walk'), path, os.environ['SPIN_WALK'], str(a.seed)], capture_output=True, text=True)
+            out = subprocess.run([W.bin('spin_walk'), path, os.environ['SPIN_WALK'], str(a.seed)], capture_output=True, text=True)
         else:
-            out = subprocess.run([os.path.join(HERE, os.environ.get('SPIN_LS', 'spin_ls')), path, str(a.restarts), str(a.steps), str(a.seed)]
+            out = subprocess.run([W.bin(os.environ.get('SPIN_LS', 'spin_ls')), path, str(a.restarts), str(a.steps), str(a.seed)]
                                  + os.environ.get('SPIN_LS_ARGS', '').split(), capture_output=True, text=True)
         os.remove(path)
         print(out.stderr.strip().splitlines()[-1], f"[{time.time()-t:.0f}s]", flush=True)
@@ -311,7 +313,7 @@ if __name__ == '__main__':
         had = np.array_equal(H @ H.T, 4 * a.v * np.eye(4 * a.v)); skew = np.array_equal(H + H.T, 2 * np.eye(4 * a.v))
         print(f"FOUND: complementary={ok} Hadamard={had} skew={skew}", flush=True)
         if ok and had and skew:
-            with open(os.path.join(HERE, 'skew_hits.json'), 'a') as f:
+            with open(W.hits(), 'a') as f:
                 f.write(json.dumps(dict(n=a.v, gens=sorted(int(x) for x in a.h.split(',')), spin_multiplier=a.mu,
                                         pattern=[int(x.sum()) for x in seqs], hadamard=True, skew=True,
                                         seqs=[''.join('+' if x > 0 else '-' for x in s) for s in seqs])) + '\n')
@@ -335,7 +337,7 @@ if __name__ == '__main__':
         had = np.array_equal(H @ H.T, 4 * a.v * np.eye(4 * a.v)); skew = np.array_equal(H + H.T, 2 * np.eye(4 * a.v))
         print(f"FOUND restart {r} step {it} [{time.time()-t:.0f}s]: complementary={ok} Hadamard={had} skew={skew}", flush=True)
         if ok and had and skew:
-            with open(os.path.join(HERE, 'skew_hits.json'), 'a') as f:
+            with open(W.hits(), 'a') as f:
                 f.write(json.dumps(dict(n=a.v, gens=sorted(int(x) for x in a.h.split(',')), spin_multiplier=a.mu,
                                         pattern=[int(x.sum()) for x in seqs], hadamard=True, skew=True,
                                         seqs=[''.join('+' if x > 0 else '-' for x in s) for s in seqs])) + '\n')

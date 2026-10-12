@@ -9,7 +9,8 @@ keep a fraction prod_i min(1, L / N_i) of them:  E' = E * prod_i min(1, L / N_i)
 import math, sys
 from math import gcd, log10, pi
 import numpy as np
-sys.path.insert(0, '/home/user/Hadamard/attack')
+from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
+import workdir as W
 import spence_lib as L
 from gs_sweep_subgroups import subgroups
 GAIN = 0.21   # log10 gain per class from low-energy B, C, D (spread 2.4x narrower), measured on v = 205
