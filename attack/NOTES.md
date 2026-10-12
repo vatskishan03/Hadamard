@@ -302,3 +302,57 @@ structure over ℤ₁₈₉₃ in METHOD.md (10^14.7).
   - The tabu walk over the second block checks every row-sum-preserving swap
     neighbour: 6.5·10⁶ lookups/s on 4 threads. That is at least 900 days per
     expected solution on this machine.
+
+## 9. Structural ideas checked in the third pass
+
+- **How the August 2026 matrices are built.** E. Piza (Zenodo 10.5281/zenodo.23244254)
+  verified all twelve and identifies their structure:
+  - 668, 716, 1676 and 1772 are bordered (Wallis–Whiteman/Spence). The 668 seed is
+    four cyclic sequences over ℤ₁₆₆ with sums (2, 0, 0, 0), a
+    (166; 82, 83, 83, 83; 164) supplementary difference set.
+  - 892, 1132, 1244, 1948 and 1964 are Goethals–Seidel.
+  - The other three are not identified.
+  
+  So the 716 matrix carries no T-matrices of order 179, and the 2148 Cooper–Wallis
+  route does not open.
+  
+  Their Goethals–Seidel orders have small odd multiplier subgroups. The Gaussian
+  model gives E ≈ 10^39.3 and k-tree work ≈ 10^10.5 for p = 223 with h = 3. The
+  triage in FRONTIER.md stops at 110 orbits, but for p ≳ 400 small h means
+  hundreds of orbits and astronomically large W, so nothing comparable exists for
+  the open orders.
+- **Bordered T-matrices: a parity obstruction.** Suppose T₁..T₄ are 0/±1 sequences
+  over a group of order t − 1 with partitioning supports, Σ P = −1 and row sums
+  (±1, 0, 0, 0). The Cooper–Wallis array with border −Q, Q⊗1ᵀ, GS(c)⊗1 would then
+  be an OD(4t; t, t, t, t), hence H(4tw) for every Williamson order w; the algebra
+  checks.
+  - They cannot exist. The trivial character forces Σ r_k² = 1, so A = ΣT_k is a
+    ±1 sequence of even length with odd row sum.
+  - Exhaustive checks over all groups of order 4 and 8 find none.
+  - (The order-2 character would separately force t ≡ 1 mod 4.)
+- **Recursive chains with the 2026 matrices.**
+  - Miyamoto: H(q − 1) ⇒ H(4q) for a prime power q ≡ 1 (mod 4).
+  - Yamada: H((q − 1)/2) ⇒ H(4q) for q ≡ 1 (mod 8).
+  
+  Applied to all newly known orders, these settle no FRONTIER entry:
+  - 7796 (n = 1949) is already credited (Miyamoto from 1948).
+  - 5732 and 11108 were never open.
+  - 17972 and 15332 are Paley I orders.
+  - 15716, 14132, 14708, 21748 and 31412 lie beyond n = 2999, where no authoritative
+    open list exists.
+- **Singer cycles on the 2-part of Spence groups.** Example: 2148, G = ℤ₂³ × ℤ₆₇, with
+  τ ∈ GL(3,2) of order 7 combined with a multiplier.
+  - The seven order-2 characters collapse into one condition,
+    (1 − 4α₁)² + 16Σα² = 537, which is solvable.
+  - But the Gaussian estimates for τ-twisted structures are below 10⁻¹⁷⁰, the
+    characteristic-2 degeneracy of §3.2. Plain multipliers on ℤ₆₇ reach only
+    E ≈ 10⁻⁰·⁵ with 31 classes.
+- **Algebraic-curve sequences.** Take A(x) = χ(x² − a), the Legendre symbol of a
+  quadratic.
+  - P_A(s) = −1 − a_p(E_{a,s}) + O(1) boundary terms, where E_{a,s} is the elliptic
+    curve y² = (x² − a)((x + s)² − a).
+  - Quadratic twists (λ ↦ 1 − λ, with χ(−1) = −1) cancel the traces in pairs. Such
+    quadruples land naturally on Σ P = −4, the Spence target for a group of order
+    n − 1 = p. They never land on 0.
+  - For the bordered Spence group ℤ₂ × ℤ_m with Legendre slices, the cross-slice
+    correlations have spikes of size m that cannot be cancelled.
