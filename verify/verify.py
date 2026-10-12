@@ -4,7 +4,7 @@
 Every order directory holds a certificate.json. For each certificate this script
   1. expands the construction data,
   2. checks the defining identities of the ingredients (complementary sequences,
-     T-matrices, Williamson matrices, conference matrices),
+     T-matrices, Williamson matrices, conference matrices, skew inputs),
   3. assembles the matrix H and checks H H^T = nI, and
   4. compares the SHA-256 of the canonical CSV encoding with the recorded value.
 
@@ -15,8 +15,9 @@ Products are formed in float32, one block of rows at a time. The matrices multip
 have entries 0 and +-1 and fewer than 2^24 columns, so every partial sum is an integer
 of absolute value below 2^24 and the computation is exact.
 
-The matrices of the Miyamoto orders (21748, 31316, 31412) are not stored. Rebuilding and
-checking one of them takes 30 to 80 seconds on six cores and at most 2 GB of memory.
+The matrices of the orders above 20000 (21748, 24124, 31316, 31412) are not stored.
+Rebuilding and checking one of them takes 30 to 80 seconds on six cores and at most 2 GB
+of memory.
 
     python3 verify/verify.py              check every order in the repository
     python3 verify/verify.py 2092 4492    check the named orders
@@ -330,9 +331,129 @@ def build_miyamoto(cert):
     return miyamoto(C, K), None
 
 
+def is_skew(X, block=2048):
+    """True if X + X^T = 2I (checked a block of rows at a time)."""
+    n = X.shape[0]
+    for i in range(0, n, block):
+        E = X[i:i + block].astype(np.int16) + X[:, i:i + block].T
+        E[np.arange(E.shape[0]), i + np.arange(E.shape[0])] -= 2
+        if E.any():
+            return False
+    return True
+
+
+def build_skew_doubling(cert):
+    """[[S, S], [-S^T, S^T]] is a skew-Hadamard matrix of order 2m when S is one of order m.
+    The certificate gives, under "S", the complete certificate of S, which is rebuilt and
+    checked like any other certificate and then checked to satisfy S + S^T = 2I."""
+    if 2 * cert["S"]["order"] != cert["order"]:
+        raise ValueError("S must have half the order")
+    try:
+        S = build_checked(cert["S"])[0].astype(np.int8)
+    except ValueError as exc:
+        raise ValueError(f"S: {exc}") from None
+    if not is_skew(S):
+        raise ValueError("S is not skew (S + S^T != 2I)")
+    return np.block([[S, S], [-S.T, S.T]]), None
+
+
+def build_yamada(cert):
+    """Yamada's construction (M. Yamada, J. Austral. Math. Soc. Ser. A 46 (1989) 371-383,
+    Theorem 4, which he credits to Z. Kiyasu): a prime q = 5 (mod 8) and a skew-Hadamard
+    matrix Q of order (q + 3)/2 give a Hadamard matrix of order 4(q + 2).
+
+    Let n0 = (q + 1)/2, F = GF(q)[w]/(w^2 - r) with r a non-square, xi a primitive element
+    of F, psi the quadratic character of GF(q) with psi(0) = 0 and Tr(a + bw) = 2a. The
+    circulants alpha, beta of order n0 with first rows psi(Tr xi^(4m)) and
+    psi(Tr xi^(4m + n0)), m = 0, ..., n0 - 1, are symmetric with
+    alpha alpha^T + beta beta^T = qI (Yamada's Lemma 3). Normalise Q to [[1, e^T], [-e, S + I]].
+    With P = [[1, -1], [-1, 1]] and J2 the all-one matrix of order 2,
+
+        A = P (x) beta + J2 (x) I,   B = P (x) alpha,   C = D = J2 (x) S + P (x) I
+
+    satisfy A A^T + B B^T + C C^T + D D^T = 4(q + 2)I - 4J, and Theorem 1 gives
+
+        H = [ L          K4 (x) e^T ]      H0 = [  A     B     C     D   ]
+            [ M^T (x) e  H0         ]           [ -B^T   A^T  -D^T   C^T ]
+                                                [ -C^T   D     A^T  -B   ]
+                                                [ -D^T  -C     B^T   A   ]
+
+    with L = 2I - J4, M as below and K4 = -LM/2. The certificate gives q, r, xi and, under
+    "Q", the complete certificate of Q."""
+    q, r, (xa, xb) = cert["q"], cert["r"], cert["xi"]
+    if q % 8 != 5 or any(q % d == 0 for d in range(2, math.isqrt(q) + 1)):
+        raise ValueError("q must be a prime = 5 (mod 8)")
+    if cert["Q"]["order"] != (q + 3) // 2:
+        raise ValueError("Q must have order (q + 3)/2")
+    psi = -np.ones(q, dtype=np.int64)
+    psi[np.arange(1, q) ** 2 % q] = 1
+    psi[0] = 0
+    if psi[r % q] != -1:
+        raise ValueError("r is a square")
+    mul = lambda x, y: ((x[0] * y[0] + r * x[1] * y[1]) % q, (x[0] * y[1] + x[1] * y[0]) % q)
+
+    def power(x, e):
+        y = (1, 0)
+        while e:
+            if e & 1:
+                y = mul(y, x)
+            x, e = mul(x, x), e >> 1
+        return y
+    N, primes, m, d = q * q - 1, [], q * q - 1, 2
+    while d * d <= m:                                           # prime divisors of |F*|
+        if m % d == 0:
+            primes.append(d)
+            while m % d == 0:
+                m //= d
+        d += 1
+    if m > 1:
+        primes.append(m)
+    if any(power((xa, xb), N // p) == (1, 0) for p in primes):
+        raise ValueError("xi is not primitive")
+    n0 = (q + 1) // 2
+    alpha, beta = np.empty(n0, dtype=np.int64), np.empty(n0, dtype=np.int64)
+    a, b, x4 = (1, 0), power((xa, xb), n0), power((xa, xb), 4)
+    for m in range(n0):
+        alpha[m], beta[m] = psi[2 * a[0] % q], psi[2 * b[0] % q]
+        a, b = mul(a, x4), mul(b, x4)
+    s = np.arange(n0)
+    if not (np.array_equal(alpha, alpha[-s % n0]) and np.array_equal(beta, beta[-s % n0])):
+        raise ValueError("alpha or beta is not symmetric")
+    paf = np.array([alpha @ np.roll(alpha, -k) + beta @ np.roll(beta, -k) for k in range(n0)])
+    if paf[0] != q or np.any(paf[1:] != 0):
+        raise ValueError("alpha alpha^T + beta beta^T != qI")
+    try:
+        Q = build_checked(cert["Q"])[0].astype(np.int8)
+    except ValueError as exc:
+        raise ValueError(f"Q: {exc}") from None
+    if not is_skew(Q):
+        raise ValueError("Q is not skew (Q + Q^T != 2I)")
+    d = Q[0].copy()
+    d[0] = 1
+    S = (Q * d[:, None] * d[None, :])[1:, 1:] - np.eye(n0, dtype=np.int8)
+    P, J2, I = np.array([[1, -1], [-1, 1]], dtype=np.int8), np.ones((2, 2), dtype=np.int8), np.eye(n0, dtype=np.int8)
+    A = np.kron(P, circulant(beta).astype(np.int8)) + np.kron(J2, I)
+    B = np.kron(P, circulant(alpha).astype(np.int8))
+    C = np.kron(J2, S) + np.kron(P, I)
+    D = C
+    L = 2 * np.eye(4, dtype=np.int64) - np.ones((4, 4), dtype=np.int64)
+    M = np.array([[1, 1, 1, 1], [1, -1, -1, 1], [1, 1, -1, -1], [1, -1, 1, -1]], dtype=np.int64)
+    K4 = -(L @ M) // 2
+    n = q + 1
+    H = np.empty((4 * n + 4, 4 * n + 4), dtype=np.int8)
+    H[:4, :4] = L
+    H[:4, 4:] = np.kron(K4, np.ones((1, n), dtype=np.int64))
+    H[4:, :4] = np.kron(M.T, np.ones((n, 1), dtype=np.int64))
+    for i, row in enumerate([[A, B, C, D], [-B.T, A.T, -D.T, C.T], [-C.T, D, A.T, -B], [-D.T, -C, B.T, A]]):
+        for j, X in enumerate(row):
+            H[4 + i * n:4 + (i + 1) * n, 4 + j * n:4 + (j + 1) * n] = X
+    return H, None
+
+
 BUILDERS = {"goethals-seidel": build_goethals_seidel, "cooper-wallis": build_cooper_wallis,
             "spence": build_spence, "miyamoto": build_miyamoto,
-            "bordered-goethals-seidel": build_bordered_gs}
+            "bordered-goethals-seidel": build_bordered_gs, "skew-doubling": build_skew_doubling,
+            "yamada": build_yamada}
 
 
 def csv_chunks(H, rows=512):
