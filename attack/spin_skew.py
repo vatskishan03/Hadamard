@@ -237,6 +237,7 @@ if __name__ == '__main__':
         for v in map(int, sys.argv[2:]):
             for Hs, gens in subgroups(v).items():
                 if (v - 1) in Hs or len(Hs) % 2 == 0: continue
+                if (v - 1) // len(Hs) + 1 > 120: continue      # too many H-orbits (and avoids building huge tensors)
                 for mu in order3(v, Hs):
                     K = closure(list(gens) + [mu], v)
                     if (v - 1) in K: continue

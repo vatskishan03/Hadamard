@@ -205,6 +205,26 @@ The best split (k₁ = 15, fixed types with parity, a 2-list join over the signs
 costs about 10^13.6 operations per solution. This is no better than the d = 3
 structure over ℤ₁₈₉₃ in METHOD.md (10^14.7).
 
+**A four-list split** (`tmatrix.py`). Fix E = supp T₁ ∪ supp T₂ and put X₁ = T₁ + T₂, X₃ = T₁ − T₂
+(±1 on E) and X₂ = T₃ + T₄, X₄ = T₃ − T₄ (±1 off E). Then ΣPAF(Xᵢ) = 2·ΣPAF(Tᵢ), and conversely any four
+such ±1 sequences give T-matrices. So for fixed E the four lists are independent, and the
+Goethals–Seidel matchers apply (find4b exactly, match4 by k-tree). Base sequences are the case where E is
+an interval. Validation: for each of the three ways to pair up main's T(113) blocks, the exact join on
+that E finds the known solution.
+
+The split does not change the count. A plain structure has 3 bits per orbit and C ≈ O/2 classes. With P
+the chance that one class sums to zero, it holds (64P)^C T-matrices, but only (16P)^C of them on a fixed
+E. Here P ≈ 1/(2.5·√(t/4)), which falls below 1/16 near t ≈ 160. Per E, the Gaussian model predicts:
+
+| t | h | classes | solutions per E |
+|---:|---:|---:|---:|
+| 113 | 7 | 8 | 10^0.6 |
+| 251 | 5 | 25 | 10^−2.4 |
+| 463 | 11 | 21 | 10^−4.8 |
+
+With full lists of 2^{O/2}, the cost is 10^17 or more per solution for every open-order route in the table
+above. This matches where main's T-matrices stop (t ≤ 197, at most 36 orbits).
+
 ## 7. Other routes checked
 
 - **Recursive constructions.** Yamada (J. Austral. Math. Soc. 1989) gives
