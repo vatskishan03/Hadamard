@@ -2,3 +2,10 @@
 __pycache__/
 *.csv
 check_matrix
+
+# attack scratch
+attack/*.bin
+attack/count4
+attack/find4
+attack/__pycache__/
+attack/lp_hits.json
