@@ -585,8 +585,22 @@ The composite ones (1141, 1261, 1387, 2107) have no structure with E > 10⁻¹. 
 2026-10-12 found none of these five orders: Đoković (arXiv:2404.14375v3) lists spin families only up to
 v = 631, and Schumer's 919 is the largest published.
 
-The obstacle is the search, not the count. The joint tabu search (`spin_ls.c`) solves 919 (9 classes) in
-under a minute. On 1657, 1000 restarts of 3000 steps leave about ten of the twelve classes off by ±4.
+The obstacle is the search, not the count. Restarts (of 3000 steps) that the joint tabu search `spin_ls.c` needs
+per solution, measured over several seeds:
+
+| v | K-classes | restarts per solution |
+|---:|---:|---|
+| 397 | 6 | 1, 2, 1 |
+| 631 | 7 | 52, 30, 38, 46, 89, 45 |
+| 919 | 9 | 4049, 5885, 6628, 2244 (and 261, 399 from csearch) |
+
+That is roughly a factor 8 per class, or about 2·10⁶ restarts for 12 classes. At about 3 restarts/s per core
+this is a week per order. The runs on 1657 and 1801 (16,000 restarts each) and 1951 (10,000) found nothing.
+Their best residual had six (1657) and eight (1801) classes off by ±4. The runs were stopped in favour of
+the four-list searches below.
+
+Restarting half the time from the best state so far, perturbed by six swaps, cut the restarts on 631 to
+10, 8, 29, 15, 2 and 103. That is a factor 2–4, which does not change the conclusion.
 Two alternatives did worse on 919:
 - a B-only tabu search scored against the nearest of all 2048 skew A: no solution in 2 × 400 s;
 - a CP-SAT model with the products of signs as XNOR literals (OR-Tools 9.12): UNKNOWN after 600 s on 2
