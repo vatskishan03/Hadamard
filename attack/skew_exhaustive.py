@@ -9,7 +9,7 @@ import verify
 from skew_ktree import pool_exact
 HERE = '/home/user/Hadamard/attack'
 
-def run(n, gens, cap=4e10, K=2, verbose=True):
+def run(n, gens, cap=4e10, K=2, verbose=True, only=None):
     G = L.AbGroup([n]); st = L.Structure(G, [G.perm_from_matrix(np.array([[g]])) for g in gens])
     rep = np.array([np.flatnonzero(st.orb == o)[0] for o in range(st.O)])
     partner = st.orb[G.neg()[rep]]
@@ -28,6 +28,7 @@ def run(n, gens, cap=4e10, K=2, verbose=True):
             if d2 < c * c: continue
             d = math.isqrt(d2)
             if d * d == d2 and all(st.pool(r) > 0 for r in (b, c, d)): pats.append((b, c, d))
+    if only: pats = [p for p in pats if p in only]
     if verbose: print(f"n={n} gens={gens} orbits={st.O} classes={st.C} skew pool={len(YA)} patterns={pats}", flush=True)
     cache = {}
     def vecs(r):
@@ -75,7 +76,8 @@ def run(n, gens, cap=4e10, K=2, verbose=True):
 if __name__ == '__main__':
     n = int(sys.argv[1]); gens = [int(g) for g in sys.argv[2].split(',')]
     cap = float(sys.argv[3]) if len(sys.argv) > 3 else 4e10
-    found = run(n, gens, cap=cap)
+    only = [tuple(int(x) for x in p.split(',')) for p in sys.argv[4:]] or None
+    found = run(n, gens, cap=cap, only=only)
     if found:
         with open(f'{HERE}/skew_hits.json', 'a') as f:
             for h in found: f.write(json.dumps(h) + '\n')
