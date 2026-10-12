@@ -676,4 +676,14 @@ two-block array. The script checks H Hᵀ = (2w + 2)I and H + Hᵀ = 2I.
     size and diversity matter more than descent depth.
   - Yamada: the skew order 8 · 2452 = 19616 gives q = 39229, prime, and so H(156924). That order lies far
     beyond every table and was not pursued.
+- **Single-level structures** were a blind spot of the chain. For 623 = 7 · 89 and 451 = 11 · 41, the joint
+  DP over both primes does not fit in memory (the 451 joint DP was killed at 15 GB). The chain then used one
+  level, and each branch ended in a single find4b over fibres of up to 3·10⁶, which never finishes.
+  - `split_join` now groups the enumerated fibres of each branch by their compressions to the primes the
+    joint DP left out. It joins those compressed autocorrelations exactly and runs find4b only on the
+    consistent sub-lists.
+  - It is exact: on 209/⟨26⟩, rows (9, 15, 23), the one-level chain plus the on-the-fly level-19 split counts
+    the same 288 solutions as the two-level chain.
+  - The per-prime screen also uses the full state cap now. Intermediate DP states can exceed the final count
+    a hundredfold; for 451 at level 41 there are 2·10⁵ final states.
 
