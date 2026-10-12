@@ -229,8 +229,8 @@ structure over ℤ₁₈₉₃ in METHOD.md (10^14.7).
   bracket is below 1 for ℓ > 326. Legendre pairs of length ℓ ≥ 1073, the smallest
   length an open order needs, can only come from algebraic structures (Paley, twin
   primes) or from a few orbits by luck. `lp_sweep.py 3 24` searches every
-  multiplier structure with at most 24 orbits for every open n, exhaustively.
-  Hits are written to `lp_hits.json`.
+  multiplier structure with at most 24 orbits for every open n, exhaustively:
+  3,703 structures across all 151 orders, with no Legendre pair.
 - **Projection methods.** The Elser RRR / difference-map iteration on
   A = {±1}^{4v}, B = {Σᵢ|X̂ᵢ(k)|² = 4v ∀k} (`dm/rrr_gs.py`) solves unstructured
   quadruples for v ≤ 21 in about 10⁴ iterations, but none for v = 23 to 31 in
