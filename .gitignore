@@ -32,3 +32,5 @@ attack/skew_gen
 attack/spin_ls_gls
 attack/spin_walk
 attack/tmp*/
+attack/skew_group_hits.json
+attack/had_hits.json
