@@ -289,6 +289,10 @@ def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, ma
             sols2 = join4(P2)
             cands = [[fib[k][0][s[k]] for k in range(4)] for s in sols2]
             counts = [[fib[k][1][s[k]] for k in range(4)] for s in sols2]
+            # largest fibres first: the expected yield of a final join grows like the product of the four fibre
+            # sizes, its work like the larger pair product, so yield per unit of work favours big combinations
+            order = sorted(range(len(cands)), key=lambda i: -float(np.prod([float(c) for c in counts[i]])))
+            cands = [cands[i] for i in order]; counts = [counts[i] for i in order]
         else:
             cands = [[S[k][0][np.flatnonzero(proj[k][1] == q[k])[0]] for k in range(4)]]
             counts = [[proj[k][2][q[k]] for k in range(4)]]
