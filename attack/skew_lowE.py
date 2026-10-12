@@ -8,7 +8,7 @@ autocorrelations from their mean), which narrows each class distribution about t
 
   python3 attack/skew_lowE.py v g[,g2] b,c,d --nbc N --nd M [--steps S] [--maxtau T] [--top K] [--seed R]
 
-When b = c, B and C share one list. Before matching, the Gaussian estimate of the number of solutions
+Roles with equal row sums share one list. Before matching, the Gaussian estimate of the number of solutions
 in the four lists is printed (computed from the lists' own class means and variances; v prime). Hits are
 verified (H H^T = 4vI and H + H^T = 2I) and appended to $HADAMARD_WORK/skew_hits.jsonl.
 """
@@ -21,14 +21,17 @@ import skew_ktree as K
 import verify
 
 
-def log10_yield(Vs, pm, mult):
-    """Gaussian estimate of log10 #{quadruples with sum_i v_i = -pm on every class}; mult[i] = list size."""
+def log10_yield(Vs, pm, mult, csize):
+    """Gaussian estimate of log10 #{quadruples with sum_i v_i = -pm on every class}; mult[i] = list size.
+    The row sums fix sum_c csize_c (sum_i P_i(c)), so one class is implied and left out (as in skew_rank.py)."""
     lg = sum(math.log10(m) for m in mult)
+    terms = []
     for c in range(Vs[0].shape[1]):
         mu = sum(V[:, c].astype(np.float64).mean() for V in Vs) + pm
         var = sum(V[:, c].astype(np.float64).var() for V in Vs)
-        lg += (-mu * mu / (2 * var)) / math.log(10) - 0.5 * math.log10(2 * math.pi * var)
-    return lg
+        terms.append((csize[c] * math.sqrt(var), (-mu * mu / (2 * var)) / math.log(10) - 0.5 * math.log10(2 * math.pi * var)))
+    terms.sort()
+    return lg + sum(t for _, t in terms[:-1])
 
 
 def main():
@@ -52,22 +55,25 @@ def main():
     for j, (o, q) in enumerate(pairs): YA[:, o] = s[:, j]; YA[:, q] = -s[:, j]
     VA, ok = K.values(st, YA, pm); YA, VA = YA[ok], VA[ok]
     t0 = time.time()
-    YB = K.gen_pool(st, b, int(a.nbc), a.steps, rng, v); VB, ok = K.values(st, YB, pm); YB, VB = YB[ok], VB[ok]
-    if c == b: YC, VC = YB, VB
-    else:
-        YC = K.gen_pool(st, c, int(a.nbc), a.steps, rng, v); VC, ok = K.values(st, YC, pm); YC, VC = YC[ok], VC[ok]
-    YD = K.gen_pool(st, d, int(a.nd), a.steps, rng, v); VD, ok = K.values(st, YD, pm); YD, VD = YD[ok], VD[ok]
+    # one list per distinct row sum, as large as the largest role that uses it; roles with equal row sums share it
+    want = {}
+    for r, n in ((b, a.nbc), (c, a.nbc), (d, a.nd)): want[r] = max(want.get(r, 0), int(n))
+    lists = {}
+    for r, n in want.items():
+        Y = K.gen_pool(st, r, n, a.steps, rng, v); V, ok = K.values(st, Y, pm); lists[r] = (Y[ok], V[ok])
+    (YB, VB), (YC, VC), (YD, VD) = lists[b], lists[c], lists[d]
     log(f"lists A={len(YA)} B={len(YB)} C={len(YC)} D={len(YD)} [{time.time()-t0:.0f}s]; full pools "
         f"{st.pool(b):.3g} {st.pool(c):.3g} {st.pool(d):.3g}")
-    log(f"Gaussian estimate of solutions inside the lists: 10^{log10_yield([VA, VB, VC, VD], pm, [len(YA), len(YB), len(YC), len(YD)]):.2f}")
+    log(f"Gaussian estimate of solutions inside the lists: 10^{log10_yield([VA, VB, VC, VD], pm, [len(YA), len(YB), len(YC), len(YD)], st.csize):.2f}")
     roles = [(YA, VA), (YB, VB), (YC, VC), (YD, VD)]          # match4 pairs (A, D) and (B, C)
     S = K.clamp((VA, VD), (VB, VC), a.cap); S = max(1, min(S, st.C - 2))
     tmp = tempfile.mkdtemp(dir=W.tmpdir())
     paths = [os.path.join(tmp, f"{k}.bin") for k in range(4)]
-    K.write(paths[0], VA); K.write(paths[1], VB)
-    if c == b: paths[2] = paths[1]
-    else: K.write(paths[2], VC)
-    K.write(paths[3], VD)
+    K.write(paths[0], VA)
+    byrow = {}
+    for k, r in ((1, b), (2, c), (3, d)):
+        if r in byrow: paths[k] = byrow[r]
+        else: K.write(paths[k], roles[k][1]); byrow[r] = paths[k]
     cmd = [W.bin('match4'), '-s', str(S), '-t', str(-pm), '-n', str(a.maxtau), '-k', str(a.sols), '-m', str(a.top)] + paths + [str(st.C)]
     log(f"clamp S={S}; {' '.join(cmd[:11])} ...")
     t0 = time.time()
