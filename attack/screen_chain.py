@@ -29,7 +29,8 @@ while True:
     pat = tuple(r['pattern'])
     t = time.time()
     try:
-        res = chain.run(r['v'], r['gens'], pat, exhaustive=False, verbose=True, budget=budget, maxbranches=maxbranches)
+        res = chain.run(r['v'], r['gens'], pat, exhaustive=False, verbose=True, budget=budget, maxbranches=maxbranches,
+                        join_timeout=900)
     except Exception as e:
         res = dict(status=f'error: {e!r}')
     rec = dict(v=r['v'], gens=r['gens'], H=r['H'], O=r['O'], pattern=list(pat), log10E_gen=r['log10E_gen'],

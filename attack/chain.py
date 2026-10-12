@@ -180,6 +180,13 @@ class Halves:
         return Y
 
 
+JOIN_TIMEOUT = None          # seconds per final join (None: no limit); set by run(join_timeout=...)
+
+
+class JoinTimeout(Exception):
+    pass
+
+
 def final_join(ch, lists, K=2):
     st = ch.st; pm = ch.v % 4
     Vs = []
@@ -193,7 +200,11 @@ def final_join(ch, lists, K=2):
         with open(path, 'wb') as f:
             f.write(struct.pack('iiiii', *[len(Vs[k]) for k in perm], st.C)); f.write(np.full(st.C, -pm, dtype=np.int16).tobytes())
             for k in perm: f.write(np.ascontiguousarray(Vs[k]).tobytes())
-        out = subprocess.run([W.bin('find4b'), path, str(K)], capture_output=True, text=True, check=True).stdout
+        try:
+            out = subprocess.run([W.bin('find4b'), path, str(K)], capture_output=True, text=True, check=True,
+                                 timeout=JOIN_TIMEOUT).stdout
+        except subprocess.TimeoutExpired:
+            raise JoinTimeout()
     finally:
         os.remove(path)
     total = int(out.strip().split('TOTAL')[-1])
@@ -218,7 +229,9 @@ def verify_sol(ch, Ys):
 
 
 def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, maxstates=20_000_000, verbose=True, budget=3600,
-        maxbranches=None):
+        maxbranches=None, join_timeout=None):
+    global JOIN_TIMEOUT
+    JOIN_TIMEOUT = join_timeout
     """pat = (b, c, d) for skew families (first block skew, row sum 1); pat = (a, b, c, d) for plain Hadamard GS."""
     t0 = time.time()
     skew = len(pat) == 3
@@ -308,7 +321,10 @@ def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, ma
             if lists is None: truncated += 1; continue
             combos_done += 1
             if any(len(Y) == 0 for Y in lists): continue
-            total, sols = final_join(ch, lists)
+            try:
+                total, sols = final_join(ch, lists)
+            except JoinTimeout:
+                truncated += 1; continue
             nsol += total
             for Ys in sols:
                 seqs = verify_sol(ch, Ys)
@@ -338,8 +354,9 @@ if __name__ == '__main__':
     ap.add_argument('--exhaustive', action='store_true')
     ap.add_argument('--maxfibre', type=float, default=3e6); ap.add_argument('--maxstates', type=float, default=2e7)
     ap.add_argument('--budget', type=float, default=3600); ap.add_argument('--maxbranches', type=int)
+    ap.add_argument('--join-timeout', type=float)
     a = ap.parse_args()
     v = a.v; ps = [p for p in range(2, v) if v % p == 0 and all(p % q for q in range(2, int(p ** 0.5) + 1))]
     d1 = a.d1 or ps[0]; d2 = a.d2 if a.d2 is not None else (ps[1] if len(ps) > 1 else 0)
     run(v, [int(x) for x in a.gens.split(',')], tuple(int(x) for x in a.pattern.split(',')), d1, d2, a.exhaustive,
-        int(a.maxfibre), int(a.maxstates), budget=a.budget, maxbranches=a.maxbranches)
+        int(a.maxfibre), int(a.maxstates), budget=a.budget, maxbranches=a.maxbranches, join_timeout=a.join_timeout)
