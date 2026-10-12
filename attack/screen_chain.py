@@ -16,7 +16,8 @@ done = set()
 if out.exists():
     for l in open(out):
         r = json.loads(l); done.add((r['v'], tuple(r['gens']), tuple(r['pattern'])))
-solved = {json.loads(l)['n'] for l in open(W.hits())} if W.hits().exists() else set()
+import os
+solved = {json.loads(l)['n'] for l in open(W.hits())} if os.path.exists(W.hits()) else set()
 while True:
     recs = [json.loads(l) for l in open(W.WORK / 'census_screen.jsonl')]
     todo = [r for r in recs if r['alive'] and r['O'] <= maxo and r['v'] not in solved
