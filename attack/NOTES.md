@@ -654,3 +654,15 @@ two-block array. The script checks H Hᵀ = (2w + 2)I and H + Hᵀ = 2I.
 
   Its doubled skew input, 6104, gives q = 12205, which is not a prime power. The next one, 12208, gives
   q = 24413, prime, and so H(97660).
+- **703 = 19 · 37 is solved**, in the breadth-first pass, which tries at most two level-1 branches per
+  structure.
+  - Structure: H = ⟨16, 26⟩ of order 27, a non-cyclic subgroup of ℤ₇₀₃* ≅ ℤ₁₈ × ℤ₃₆, with rows (1, 1, 1, 53).
+  - Branches: 704 level-1 branches. The heaviest held 49 combinations, which counted 3 solutions in
+    47 minutes.
+  - This gives skew order 2812; see [skew/2812](../skew/2812). Table 5 lists 703(3).
+  - No Yamada consequence: 2s − 3 is composite for s = 2812, 5624, 11248, 22496 and 44992.
+- In both hits, the solutions sat in the heaviest level-1 branch. That is why the pass tries branches
+  breadth first, and within a branch the largest second-level combinations first.
+- 253 = 11 · 23 with ⟨12⟩ (33 orbits): the heaviest branches are truncated at the fibre cap
+  (`--maxfibre 3e6`), so this structure is not searched yet.
+
