@@ -36,8 +36,8 @@ search for it was running.
 A Hadamard matrix H is skew if H + Hᵀ = 2I. Skew-Hadamard matrices are conjectured to exist for every
 order divisible by 4. Table 5 of Cati and Pasechnik [3] lists, for odd v ≤ 999, the smallest m for
 which a skew-Hadamard matrix of order 2ᵐv is known. The orders below have m ≥ 3 there, so no skew
-matrix of order 4v was known. Each matrix comes from a Goethals–Seidel difference family over ℤᵥ (for 1100, over the non-cyclic
-group ℤ₅ × ℤ₅ × ℤ₁₁) with a skew first block. All four blocks are invariant under a multiplier subgroup H ≤ ℤᵥ* with −1 ∉ H.
+matrix of order 4v was known. Each matrix comes from a Goethals–Seidel difference family over ℤᵥ (for 1100 and 1372, over the non-cyclic
+groups ℤ₅ × ℤ₅ × ℤ₁₁ and GF(343) = ℤ₇³) with a skew first block. All four blocks are invariant under a multiplier subgroup H ≤ ℤᵥ* with −1 ∉ H.
 
 | Order | v | H | Row sums | Table 5 entry |
 |------:|---|---|---|---|
@@ -47,6 +47,7 @@ group ℤ₅ × ℤ₅ × ℤ₁₁) with a skew first block. All four blocks ar
 | [1148](skew/1148) | 287 (7 · 41) | ⟨16⟩, order 15 | 1, 3, 7, 33 | 287(4) |
 | [1236](skew/1236) | 309 (3 · 103) | ⟨13⟩, order 17 | 1, 1, 3, 35 | 309(3) |
 | [1364](skew/1364) | 341 (11 · 31) | ⟨14⟩, order 15 | 1, 9, 21, 29 | 341(4) |
+| [1372](skew/1372) | 343 (7³), group GF(343) = ℤ₇³ | cyclotomic subgroup of order 19 of GF(343)* | 1, 1, 1, 37 | 343(4) |
 | [1412](skew/1412) | 353 (prime) | ⟨22⟩, order 11 | 1, 21, 21, 23 | 353(4) |
 | [1508](skew/1508) | 377 (13 · 29) | ⟨16⟩, order 21 | 1, 7, 27, 27 | 377(5) |
 | [1612](skew/1612) | 403 (13 · 31) | ⟨100⟩, order 15 | 1, 5, 25, 31 | 403(5) |

@@ -221,7 +221,8 @@ def certify(v, k=0):
     from certify import write_certificate
     hits = [json.loads(l) for l in open(os.path.join(HERE, 'skew_group_hits.json'))]
     h = [x for x in hits if x['n'] == v and x['hadamard'] and x['skew']][k]
-    mods = h['mods']; mats = automorphism_matrices(v, h['structure'])
+    mods = h['mods']
+    mats = [np.array(h['generator'], dtype=np.int64)] if 'generator' in h else automorphism_matrices(v, h['structure'])
     G = L.AbGroup(mods)
     # subgroup order: closure of the generator permutations
     perms = [G.perm_from_matrix(M) for M in mats]

@@ -377,7 +377,7 @@ lists 234 odd v ≤ 999 for which no skew matrix of order 4v is known. The FRONT
   smaller pair list, so the clamp S is set as loose as memory allows (pair lists ≤ 2.5·10⁷).
   Pools beyond 4·10⁶ are replaced by uniform samples (`--maxpool`), at a cost of L/N per list.
 - **New orders**: 836, 1036, 1100, 1148, 1236, 1364, 1412, 1508, 1612, 1852, 1876, 2404, 3556,
-  3676, i.e. v = 209, 259, 275, 287, 309, 341, 353, 377, 403, 463, 469, 601, 889, 919. 889 came from the exact sweep, on
+  3676 and 1372, i.e. v = 209, 259, 275, 287, 309, 341, 343, 353, 377, 403, 463, 469, 601, 889, 919. 889 came from the exact sweep, on
   H = ⟨2, 25⟩ of order 63 with 21 orbits. Each took seconds to minutes on 4 cores.
   - 259 used sampled lists: 3.9·10⁶ of 3–4·10⁷ per pool.
   - 353 (⟨22⟩) also used sampled lists: 1.2·10⁷ of 5.7·10⁸ per pool, 2 solutions in 33 values of τ.
@@ -493,3 +493,9 @@ Goethals–Seidel array works over any abelian group, and `verify.py` checks it 
   - Structures containing the unipotent group get model estimates of 10⁻⁴⁰ or below.
 - **275 is solved:** skew-Hadamard order 1100, 32 solutions in four minutes of k-tree matching on
   the complete pools.
+- **Cyclotomy over GF(pᵏ)** (`skew_field.py`). For v = q = pᵏ, the additive group of GF(q) with H an
+  odd-order subgroup of GF(q)* is the field analogue of a multiplier structure.
+  - **343 = 7³:** H of order 19 has 19 orbits, 9 classes and pair work 2·10⁹. The exact matcher finds
+    4,211,424 solutions, giving skew-Hadamard order 1372 (Table 5: 343(4)).
+  - **625 = 5⁴ and 729 = 3⁶:** the small cyclotomic structures (orders 39 and 13, and 91 and 13)
+    have no admissible row sums.
