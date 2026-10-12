@@ -77,8 +77,12 @@ def main():
     cmd = [W.bin('match4'), '-s', str(S), '-t', str(-pm), '-n', str(a.maxtau), '-k', str(a.sols), '-m', str(a.top)] + paths + [str(st.C)]
     log(f"clamp S={S}; {' '.join(cmd[:11])} ...")
     t0 = time.time()
-    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    out, err = proc.communicate()
+    errlog = W.WORK / 'logs' / f'match4_{v}_{a.seed}.log'          # progress of the matcher, one line per tau
+    errlog.parent.mkdir(parents=True, exist_ok=True)
+    with open(errlog, 'w') as ef:
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=ef, text=True)
+        out, _ = proc.communicate()
+    err = errlog.read_text()
     for p in set(paths): os.remove(p)
     os.rmdir(tmp)
     for line in err.strip().splitlines()[-4:]: log("   " + line)
