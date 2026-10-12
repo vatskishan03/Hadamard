@@ -3,16 +3,20 @@
 
 Every order directory holds a certificate.json. For each certificate this script
   1. expands the construction data,
-  2. checks the defining identity (periodic autocorrelations of the four sequences
-     sum to zero off the origin),
+  2. checks the defining identities of the ingredients (complementary sequences,
+     T-matrices, Williamson matrices, conference matrices),
   3. assembles the matrix H and checks H H^T = nI, and
   4. compares the SHA-256 of the canonical CSV encoding with the recorded value.
 
 The canonical encoding is one row per line, entries 1 / -1 separated by commas, each
 line terminated by "\\n" (numpy.savetxt with fmt="%d", delimiter=",").
 
-Products are formed in float64. Every entry of H H^T is an integer of absolute value
-at most n < 2^53, so the computation is exact.
+Products are formed in float32, one block of rows at a time. The matrices multiplied
+have entries 0 and +-1 and fewer than 2^24 columns, so every partial sum is an integer
+of absolute value below 2^24 and the computation is exact.
+
+The matrices of the Miyamoto orders (21748, 31316, 31412) are not stored. Rebuilding and
+checking one of them takes 30 to 80 seconds on six cores and at most 2 GB of memory.
 
     python3 verify/verify.py              check every order in the repository
     python3 verify/verify.py 2092 4492    check the named orders
@@ -20,8 +24,8 @@ at most n < 2^53, so the computation is exact.
 """
 import argparse
 import hashlib
-import io
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -62,6 +66,29 @@ def paf_sum(rows):
         x = np.asarray(x, dtype=np.int64)
         total += np.array([x @ np.roll(x, -s) for s in range(n)], dtype=np.int64)
     return total
+
+
+def is_pm1(X, block=2048):
+    """True if every entry of X is 1 or -1 (checked a block of rows at a time)."""
+    return all((np.abs(X[i:i + block]) == 1).all() for i in range(0, X.shape[0], block))
+
+
+def gram_is_scalar(X, c, block=2048):
+    """True if X X^T = cI, for X with entries 0, +-1. The product is formed in float32
+    one pair of row blocks at a time (exact, see the module docstring); only blocks on
+    and above the diagonal are needed."""
+    n, k = X.shape
+    if k >= 2 ** 24:
+        raise ValueError("too many columns for an exact float32 product")
+    for i in range(0, n, block):
+        A = X[i:i + block].astype(np.float32)
+        for j in range(i, n, block):
+            G = A @ (A if j == i else X[j:j + block].astype(np.float32)).T
+            if j == i:
+                G[np.diag_indices_from(G)] -= c
+            if G.any():
+                return False
+    return True
 
 
 def build_goethals_seidel(cert):
@@ -149,39 +176,151 @@ def build_spence(cert):
     return np.vstack([np.hstack([K, np.kron(Q, one)]), np.hstack([np.kron(P, one.T), M])]), None
 
 
+def paley_conference(q):
+    """Paley's symmetric conference matrix of order q + 1 for a prime q = 1 (mod 4).
+    Index 0 is the point at infinity and index 1 + x is x in Z_q: C[0, 0] = 0,
+    C[0, j] = C[j, 0] = 1 for j > 0, and C[1 + x, 1 + y] = chi(y - x), where chi is the
+    quadratic character (chi(0) = 0)."""
+    chi = -np.ones(q, dtype=np.int64)
+    chi[np.arange(1, q) ** 2 % q] = 1
+    chi[0] = 0
+    C = np.ones((q + 1, q + 1), dtype=np.int8)
+    C[0, 0] = 0
+    C[1:, 1:] = circulant(chi)
+    return C
+
+
+def miyamoto(C, K):
+    """Miyamoto's array, in the block layout of SageMath's
+    hadamard_matrix_miyamoto_construction.
+
+    C is a symmetric conference matrix of order q + 1 whose row and column 0 are
+    (0, 1, ..., 1), K is a Hadamard matrix of order q - 1, and m = (q - 1)/2. First, as
+    in SageMath, the k-th index j in 2..m+1 with C[1, j] = -1 is exchanged with the k-th
+    index j in m+2..q with C[1, j] = 1 (rows and columns), so that row 1 becomes
+    (1, 0, 1, ..., 1, -1, ..., -1). In blocks of order m write
+
+        C[2:, 2:] = [[-C1, C2], [C2^T, C4]],        K = [[K1, K2], [-K3, K4]],
+
+        U = [[C1,   C2, 0,    0 ],          V = [[I,    0,    K1, K2],
+             [C2^T, C4, 0,    0 ],               [0,    I,    K3, K4],
+             [0,    0,  C1,   C2],               [K1^T, K3^T, I,  0 ],
+             [0,    0,  C2^T, C4]],              [K2^T, K4^T, 0,  I ]],
+
+    and T_rc = [[U_rc + V_rc, U_rc - V_rc], [U_rc - V_rc, U_rc + V_rc]], 0 <= r, c < 4.
+    H is the 4 x 4 array of blocks of order q
+
+        H_rc = S_rc [[1, s e], [s e^T, T_rc]],   s = -1 if r = c, else 1,
+
+    with e the all-ones row of length q - 1 and S the skew Hadamard matrix below."""
+    q = C.shape[0] - 1
+    m = (q - 1) // 2
+    neg = [j for j in range(2, m + 2) if C[1, j] == -1]
+    pos = [j for j in range(m + 2, q + 1) if C[1, j] == 1]
+    p = np.arange(q + 1)
+    p[neg], p[pos] = p[pos], p[neg]
+    C = C[np.ix_(p, p)]
+    C1, C2, C4 = -C[2:m + 2, 2:m + 2], C[2:m + 2, m + 2:], C[m + 2:, m + 2:]
+    K1, K2, K3, K4 = K[:m, :m], K[:m, m:], -K[m:, :m], K[m:, m:]
+    I, O = np.eye(m, dtype=np.int8), np.zeros((m, m), dtype=np.int8)
+    U = [[C1, C2, O, O], [C2.T, C4, O, O], [O, O, C1, C2], [O, O, C2.T, C4]]
+    V = [[I, O, K1, K2], [O, I, K3, K4], [K1.T, K3.T, I, O], [K2.T, K4.T, O, I]]
+    S = np.array([[1, 1, 1, 1], [-1, 1, 1, -1], [-1, -1, 1, 1], [-1, 1, -1, 1]], dtype=np.int8)
+    H = np.empty((4 * q, 4 * q), dtype=np.int8)
+    for r in range(4):
+        for c in range(4):
+            s, B = S[r, c], H[r * q:(r + 1) * q, c * q:(c + 1) * q]
+            B[0, 0] = s
+            B[0, 1:] = B[1:, 0] = -s if r == c else s
+            B[1:m + 1, 1:m + 1] = B[m + 1:, m + 1:] = s * (U[r][c] + V[r][c])
+            B[1:m + 1, m + 1:] = B[m + 1:, 1:m + 1] = s * (U[r][c] - V[r][c])
+    return H
+
+
+def build_miyamoto(cert):
+    """Miyamoto's construction (M. Miyamoto, J. Combin. Theory Ser. A 57 (1991) 86-108):
+    for q = 1 (mod 4), a symmetric conference matrix of order q + 1 and a Hadamard matrix
+    of order q - 1 give a Hadamard matrix of order 4q, assembled as in `miyamoto`.
+
+    The certificate gives q, the conference matrix ("paley": Paley's matrix, which needs
+    q prime here) and, under "K", the complete certificate of the Hadamard matrix of
+    order q - 1. K is rebuilt with its own builder and checked like any other
+    certificate, including its SHA-256."""
+    q = cert["q"]
+    if q % 4 != 1 or q < 5 or any(q % d == 0 for d in range(2, math.isqrt(q) + 1)):
+        raise ValueError("q must be a prime = 1 (mod 4)")
+    if cert["conference_matrix"] != "paley":
+        raise ValueError(f"unknown conference matrix {cert['conference_matrix']!r}")
+    if cert["K"]["order"] != q - 1:
+        raise ValueError("K must have order q - 1")
+    try:
+        K = build_checked(cert["K"])[0].astype(np.int8)
+    except ValueError as exc:
+        raise ValueError(f"K: {exc}") from None
+    C = paley_conference(q)
+    if not np.array_equal(C, C.T) or np.diagonal(C).any() or not gram_is_scalar(C, q):
+        raise ValueError("C is not a symmetric conference matrix")
+    return miyamoto(C, K), None
+
+
 BUILDERS = {"goethals-seidel": build_goethals_seidel, "cooper-wallis": build_cooper_wallis,
-            "spence": build_spence}
+            "spence": build_spence, "miyamoto": build_miyamoto}
+
+
+def csv_chunks(H, rows=512):
+    """The canonical CSV encoding of a +-1 matrix, a block of rows at a time. The bytes
+    are those of numpy.savetxt(f, H, fmt="%d", delimiter=","), but the text of the whole
+    matrix is never held in memory."""
+    for i in range(0, H.shape[0], rows):
+        X = H[i:i + rows]
+        if not (np.abs(X) == 1).all():
+            raise ValueError("entries are not all +-1")
+        cell = np.empty(X.shape + (3,), dtype=np.uint8)    # "-1," or "1,"; 0 = no byte
+        cell[..., 0] = np.where(X < 0, ord("-"), 0)
+        cell[..., 1] = ord("1")
+        cell[..., 2] = ord(",")
+        cell[:, -1, 2] = ord("\n")
+        cell = cell.ravel()
+        yield cell[cell != 0].tobytes()
 
 
 def canonical_csv(H):
-    buf = io.BytesIO()
-    np.savetxt(buf, H, fmt="%d", delimiter=",")
-    return buf.getvalue()
+    return b"".join(csv_chunks(H))
 
 
-def check(directory, write=False):
-    cert = json.loads((directory / "certificate.json").read_text())
+def build_checked(cert):
+    """Build the matrix of a certificate and check its order, its entries, H H^T = nI and
+    the SHA-256 of its canonical CSV. Returns H, the sequences (or None) and the digest."""
     H, seqs = BUILDERS[cert["construction"]](cert)
     n = H.shape[0]
     if n != cert["order"]:
         raise ValueError(f"built order {n}, certificate says {cert['order']}")
-    if not np.isin(H, (-1, 1)).all():
+    if not is_pm1(H):
         raise ValueError("entries are not all +-1")
-    Hf = H.astype(np.float64)
-    if not np.array_equal(Hf @ Hf.T, n * np.eye(n)):
+    if not gram_is_scalar(H, n):
         raise ValueError("H H^T != nI")
+    sha = hashlib.sha256()
+    for chunk in csv_chunks(H):
+        sha.update(chunk)
+    digest = sha.hexdigest()
+    if digest != cert["sha256"]:
+        raise ValueError(f"SHA-256 mismatch: {digest}")
+    return H, seqs, digest
+
+
+def check(directory, write=False):
+    cert = json.loads((directory / "certificate.json").read_text())
+    H, seqs, digest = build_checked(cert)
     seq_file = directory / "sequences.txt"
     if seqs is not None and seq_file.exists():
         rows = [ln.strip() for ln in seq_file.read_text().splitlines() if ln.strip()]
         if rows != ["".join("+" if v > 0 else "-" for v in x) for x in seqs]:
             raise ValueError("sequences.txt does not match the certificate")
-    data = canonical_csv(H)
-    digest = hashlib.sha256(data).hexdigest()
-    if digest != cert["sha256"]:
-        raise ValueError(f"SHA-256 mismatch: {digest}")
     if write:
-        (directory / f"H{n}.csv").write_bytes(data)
-    return n, digest
+        with open(directory / f"H{H.shape[0]}.csv", "wb") as f:
+            for chunk in csv_chunks(H):
+                f.write(chunk)
+    return H.shape[0], digest
 
 
 def check_t_matrices(path):
