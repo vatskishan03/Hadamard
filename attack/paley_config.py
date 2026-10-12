@@ -40,8 +40,22 @@ def accs(Z, U, h):
     return np.stack([(np.roll(Z, -s, axis=1) * U - np.roll(U, -s, axis=1) * Z).sum(1) for s in range(1, h + 1)], axis=1)
 
 
+def classvec(Z, u, h, chunk=1 << 20):
+    """[PAF_z(s), cross(z, u)(s)] for s = 1..h, as int16, computed in chunks (lists of 2^23 rows stay small)."""
+    out = np.empty((len(Z), 2 * h), np.int16)
+    for c0 in range(0, len(Z), chunk):
+        X = Z[c0:c0 + chunk].astype(np.int64)
+        out[c0:c0 + chunk, :h] = pafs(X, h)
+        out[c0:c0 + chunk, h:] = accs(X, u[None, :], h)
+    return out
+
+
 def allpm(n):
-    return (1 - 2 * ((np.arange(2 ** n)[:, None] >> np.arange(n)) & 1)).astype(np.int8)
+    """All 2^n sign vectors of length n (row i has -1 where bit j of i is set), built column by column."""
+    idx = np.arange(2 ** n, dtype=np.uint32)
+    out = np.empty((2 ** n, n), np.int8)
+    for j in range(n): out[:, j] = 1 - 2 * ((idx >> np.uint32(j)) & np.uint32(1)).astype(np.int8)
+    return out
 
 
 class Orbits:
@@ -295,8 +309,7 @@ def general_search(v, m, q, hgen, Nw, Nm, a, log, field=None):
         for k in range(1, Nw + 1): Wv[k][0] = 1
         u = [y[k] - q * Wv[k] for k in range(4)]
         R = sum(np.array([u[k][s_] + u[k][(-s_) % m] for s_ in range(1, h + 1)]) for k in range(1, Nw + 1))
-        V = [np.concatenate([pafs(Z.astype(np.int64), h), accs(Z.astype(np.int64), u[k][None, :], h)], axis=1)
-             for k, Z in enumerate(zl)]
+        V = [classvec(Z, u[k], h) for k, Z in enumerate(zl)]
         target = np.concatenate([R, np.zeros(h, np.int64)]) if Nw else np.zeros(2 * h, np.int64)
         tz, sz = join(V, 2 * h, K=a.nsol, target=target)
         for s_ in sz:
@@ -395,8 +408,7 @@ def layout_search(v, m, q, hgen, Nw, Nm, a, log):
                 if k == 0: Z = orb.fixed(None, {}, sym=True, zero_pos=zero) if zero else orb.symmetric()
                 else: Z = orb.fixed(None, {}, zero_pos=zero) if zero else orb.free()
                 zl.append(Z)
-            V = [np.concatenate([pafs(Z.astype(np.int64), h), accs(Z.astype(np.int64), u[k][None, :], h)], axis=1)
-                 for k, Z in enumerate(zl)]
+            V = [classvec(Z, u[k], h) for k, Z in enumerate(zl)]
             tz, sz = join(V, 2 * h, K=a.nsol, target=np.concatenate([R, np.zeros(h, np.int64)]))
             for s_ in sz:
                 Z = [zl[k][s_[k]].astype(np.int64) for k in range(4)]
@@ -528,8 +540,7 @@ def main():
                 uA, u12, u3 = sol
                 u = [uA.astype(np.int64), u12[:m].astype(np.int64), u12[m:].astype(np.int64), u3.astype(np.int64)]
                 zl = [ZA, Z0, Z0, Zf]
-            V = [np.concatenate([pafs(Z.astype(np.int64), h), accs(Z.astype(np.int64), u[k][None, :], h)], axis=1)
-                 for k, Z in enumerate(zl)]
+            V = [classvec(Z, u[k], h) for k, Z in enumerate(zl)]
             tz, sz = join(V, 2 * h, K=a.nsol)
             if tz:
                 Wv = [np.zeros(m, np.int64) for _ in range(4)]
