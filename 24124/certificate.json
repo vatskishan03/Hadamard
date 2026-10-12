@@ -1,0 +1,29 @@
+{
+ "order": 24124,
+ "construction": "yamada",
+ "q": 6029,
+ "r": 2,
+ "xi": [1, 4],
+ "Q": {
+  "order": 3016,
+  "construction": "skew-doubling",
+  "S": {
+   "order": 1508,
+   "construction": "goethals-seidel",
+   "group": "Z_377",
+   "v": 377,
+   "multiplier": 16,
+   "subgroup_order": 21,
+   "rowsums": [1, 27, 27, 7],
+   "blocks": [
+    [1, 3, 5, 8, 13, 15, 17, 23, 33, 104, 116, 203],
+    [0, 2, 3, 4, 9, 10, 13, 26, 33, 45, 52, 58, 203],
+    [0, 1, 2, 5, 7, 11, 13, 17, 26, 27, 29, 104, 116],
+    [1, 9, 10, 11, 13, 15, 17, 26, 33, 45, 116]
+   ],
+   "sha256": "5e8c4b88b6ffec13f5da23d7a441a836a3f16a041b106fe89b72c9392049169b"
+  },
+  "sha256": "c36403477ad29e224eba66e64cf2d26a709ad44a9c1e5594847a8d83864a9dec"
+ },
+ "sha256": "4e3b57c4c1c3d1a8661a15899a687318aa3632c3672cee0cd9f7257c8330e3f7"
+}

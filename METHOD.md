@@ -154,6 +154,41 @@ This produces about 10⁸ checked candidates per second on 14 cores, four orders
 magnitude more than descent from random starts. It found [order 2284](2284) after
 33 minutes, close to the model's prediction.
 
+## Bordered structures
+
+[Order 3964](3964) uses a bordered Goethals–Seidel array. Four sequences on a group
+G of order n + 1 − q, with a subgroup K of index q, have autocorrelations summing
+to −4(q − 1) on K and to 4 off K, and a border of size 4(q − 1) completes the
+matrix. As in Spence's construction, G need not be cyclic, and a symmetry group
+can mix the factors of G. For 3964 it combines an automorphism of order 3 of
+ℤ₂ × ℤ₂ with multipliers of ℤ₂₄₇.
+
+The Gaussian estimate fails badly for these structures, in the direction of too
+few solutions. In the structure of Alpöge et al.'s matrix of order 1916 it predicts
+7 solutions, and one branch of the search below holds more than 7800. So we search
+them exactly rather than by sampling.
+
+**Compression.** Let N be a subgroup of G invariant under the symmetry group. The
+sums of each sequence over the cosets of N satisfy
+
+```
+Σᵢ PAF_Cᵢ(s + N) = Σ_{d ∈ s + N} F(d),
+```
+
+where F is the target above and F(0) = 4|G|. The search uses a chain of such
+subgroups.
+
+1. List every compressed vector of each sequence for the first subgroup N₁ and
+   join the four lists exactly.
+2. For each solution, find the distinct compressed vectors for a second subgroup
+   N₂ that occur in its fibre. A dynamic program over the N₁-blocks does this, so
+   fibres of 10⁹ sequences are never listed. Join those vectors.
+3. Expand only the consistent combinations. Split them by further subgroups, and
+   finish with a four-list join on all the equations.
+
+Every step is exact, so a structure that yields nothing has been ruled out
+completely.
+
 ## Limitations
 
 The method needs a multiplier subgroup with admissible row sums and a moderate

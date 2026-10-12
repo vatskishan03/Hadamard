@@ -3,16 +3,21 @@
 
 Every order directory holds a certificate.json. For each certificate this script
   1. expands the construction data,
-  2. checks the defining identity (periodic autocorrelations of the four sequences
-     sum to zero off the origin),
+  2. checks the defining identities of the ingredients (complementary sequences,
+     T-matrices, Williamson matrices, conference matrices, skew inputs),
   3. assembles the matrix H and checks H H^T = nI, and
   4. compares the SHA-256 of the canonical CSV encoding with the recorded value.
 
 The canonical encoding is one row per line, entries 1 / -1 separated by commas, each
 line terminated by "\\n" (numpy.savetxt with fmt="%d", delimiter=",").
 
-Products are formed in float64. Every entry of H H^T is an integer of absolute value
-at most n < 2^53, so the computation is exact.
+Products are formed in float32, one block of rows at a time. The matrices multiplied
+have entries 0 and +-1 and fewer than 2^24 columns, so every partial sum is an integer
+of absolute value below 2^24 and the computation is exact.
+
+The matrices of the orders above 20000 (21748, 24124, 31316, 31412) are not stored.
+Rebuilding and checking one of them takes 30 to 80 seconds on six cores and at most 2 GB
+of memory.
 
     python3 verify/verify.py              check every order in the repository
     python3 verify/verify.py 2092 4492    check the named orders
@@ -20,8 +25,8 @@ at most n < 2^53, so the computation is exact.
 """
 import argparse
 import hashlib
-import io
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -62,6 +67,29 @@ def paf_sum(rows):
         x = np.asarray(x, dtype=np.int64)
         total += np.array([x @ np.roll(x, -s) for s in range(n)], dtype=np.int64)
     return total
+
+
+def is_pm1(X, block=2048):
+    """True if every entry of X is 1 or -1 (checked a block of rows at a time)."""
+    return all((np.abs(X[i:i + block]) == 1).all() for i in range(0, X.shape[0], block))
+
+
+def gram_is_scalar(X, c, block=2048):
+    """True if X X^T = cI, for X with entries 0, +-1. The product is formed in float32
+    one pair of row blocks at a time (exact, see the module docstring); only blocks on
+    and above the diagonal are needed."""
+    n, k = X.shape
+    if k >= 2 ** 24:
+        raise ValueError("too many columns for an exact float32 product")
+    for i in range(0, n, block):
+        A = X[i:i + block].astype(np.float32)
+        for j in range(i, n, block):
+            G = A @ (A if j == i else X[j:j + block].astype(np.float32)).T
+            if j == i:
+                G[np.diag_indices_from(G)] -= c
+            if G.any():
+                return False
+    return True
 
 
 def build_goethals_seidel(cert):
@@ -189,41 +217,343 @@ def build_goethals_seidel_group(cert):
     return H, None
 
 
-BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": build_goethals_seidel_group, "cooper-wallis": build_cooper_wallis,
-            "spence": build_spence}
+
+def build_bordered_gs(cert):
+    """Bordered Goethals-Seidel construction over an abelian group G of order v with a
+    subgroup K of index q. Four +-1 sequences on G whose autocorrelations sum to
+    `autocorrelation["subgroup"]` on K \\ {0} and to `autocorrelation["elsewhere"]` off K
+    give, with a suitable border of size m (K = G and m = 4 is Spence's construction),
+
+        H = [ X  R ]      R[x, (i, g)] = Rhat[x, i, g + K]
+            [ C  M ]      C[(i, g), x] = Chat[i, g + K, x]
+
+    where M is the Goethals-Seidel array developed over G:
+
+        [ A    B2    C2    D2  ]      A[g, h]  = a(h - g)
+        [-B2   A     D2'  -C2' ]      Y2[g, h] = y(g + h)
+        [-C2  -D2'   A     B2' ]      Y2'[g, h] = y(-g - h)
+        [-D2   C2'  -B2'   A   ]
+
+    Elements of G are numbered in mixed-radix order of `group` (first factor slowest),
+    and the cosets of K in order of their smallest element."""
+    mods = cert["group"]
+    v = int(np.prod(mods))
+    coords = np.array(np.unravel_index(np.arange(v), mods)).T
+    index = lambda c: np.ravel_multi_index(tuple(np.moveaxis(c % mods, -1, 0)), mods)
+    K, frontier = {0}, [0]
+    gens = [index(np.array(g)) for g in cert["subgroup_generators"]]
+    while frontier:
+        x = frontier.pop()
+        for g in gens:
+            y = int(index(coords[x] + coords[g]))
+            if y not in K:
+                K.add(y)
+                frontier.append(y)
+    K = np.array(sorted(K))
+    cos = -np.ones(v, dtype=np.int64)
+    q = 0
+    for g in range(v):
+        if cos[g] < 0:
+            cos[index(coords[g] + coords[K])] = q
+            q += 1
+    seqs = [np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["sequences"]]
+    if [int(x.sum()) for x in seqs] != cert["rowsums"]:
+        raise ValueError("row sums differ from the certificate")
+    for M_ in cert.get("symmetries", []):
+        img = index((coords @ np.array(M_).T))
+        if not all(np.array_equal(x[img], x) for x in seqs):
+            raise ValueError("sequences are not invariant under the stated symmetries")
+    target = np.where(cos == 0, cert["autocorrelation"]["subgroup"], cert["autocorrelation"]["elsewhere"])
+    for s in range(1, v):
+        shift = index(coords + coords[s])
+        if sum(int(x @ x[shift]) for x in seqs) != target[s]:
+            raise ValueError("sequences do not satisfy the autocorrelation condition")
+    k = cert["border"]
+    X = np.array([[SIGN[c] for c in r] for r in k["X"]], dtype=np.int64)
+    m = X.shape[0]
+    Rhat = np.array([[SIGN[c] for c in r] for r in k["Rhat"]], dtype=np.int64).reshape(m, 4, q)
+    Chat = np.array([[SIGN[c] for c in r] for r in k["Chat"]], dtype=np.int64).reshape(4, q, m)
+    one = index(coords[:, None, :] - coords[None, :, :]).T          # one[g, h] = h - g
+    two = index(coords[:, None, :] + coords[None, :, :])            # two[g, h] = g + h
+    neg = index(-coords)
+    A = seqs[0][one]
+    B, C, D = (x[two] for x in seqs[1:])
+    Br, Cr, Dr = (x[neg][two] for x in seqs[1:])
+    M = np.block([[A, B, C, D], [-B, A, Dr, -Cr], [-C, -Dr, A, Br], [-D, Cr, -Br, A]])
+    R = Rhat[:, :, cos].reshape(m, 4 * v)
+    Cb = Chat[:, cos, :].reshape(4 * v, m)
+    return np.block([[X, R], [Cb, M]]), seqs
+
+
+def paley_conference(q):
+    """Paley's symmetric conference matrix of order q + 1 for a prime q = 1 (mod 4).
+    Index 0 is the point at infinity and index 1 + x is x in Z_q: C[0, 0] = 0,
+    C[0, j] = C[j, 0] = 1 for j > 0, and C[1 + x, 1 + y] = chi(y - x), where chi is the
+    quadratic character (chi(0) = 0)."""
+    chi = -np.ones(q, dtype=np.int64)
+    chi[np.arange(1, q) ** 2 % q] = 1
+    chi[0] = 0
+    C = np.ones((q + 1, q + 1), dtype=np.int8)
+    C[0, 0] = 0
+    C[1:, 1:] = circulant(chi)
+    return C
+
+
+def miyamoto(C, K):
+    """Miyamoto's array, in the block layout of SageMath's
+    hadamard_matrix_miyamoto_construction.
+
+    C is a symmetric conference matrix of order q + 1 whose row and column 0 are
+    (0, 1, ..., 1), K is a Hadamard matrix of order q - 1, and m = (q - 1)/2. First, as
+    in SageMath, the k-th index j in 2..m+1 with C[1, j] = -1 is exchanged with the k-th
+    index j in m+2..q with C[1, j] = 1 (rows and columns), so that row 1 becomes
+    (1, 0, 1, ..., 1, -1, ..., -1). In blocks of order m write
+
+        C[2:, 2:] = [[-C1, C2], [C2^T, C4]],        K = [[K1, K2], [-K3, K4]],
+
+        U = [[C1,   C2, 0,    0 ],          V = [[I,    0,    K1, K2],
+             [C2^T, C4, 0,    0 ],               [0,    I,    K3, K4],
+             [0,    0,  C1,   C2],               [K1^T, K3^T, I,  0 ],
+             [0,    0,  C2^T, C4]],              [K2^T, K4^T, 0,  I ]],
+
+    and T_rc = [[U_rc + V_rc, U_rc - V_rc], [U_rc - V_rc, U_rc + V_rc]], 0 <= r, c < 4.
+    H is the 4 x 4 array of blocks of order q
+
+        H_rc = S_rc [[1, s e], [s e^T, T_rc]],   s = -1 if r = c, else 1,
+
+    with e the all-ones row of length q - 1 and S the skew Hadamard matrix below."""
+    q = C.shape[0] - 1
+    m = (q - 1) // 2
+    neg = [j for j in range(2, m + 2) if C[1, j] == -1]
+    pos = [j for j in range(m + 2, q + 1) if C[1, j] == 1]
+    p = np.arange(q + 1)
+    p[neg], p[pos] = p[pos], p[neg]
+    C = C[np.ix_(p, p)]
+    C1, C2, C4 = -C[2:m + 2, 2:m + 2], C[2:m + 2, m + 2:], C[m + 2:, m + 2:]
+    K1, K2, K3, K4 = K[:m, :m], K[:m, m:], -K[m:, :m], K[m:, m:]
+    I, O = np.eye(m, dtype=np.int8), np.zeros((m, m), dtype=np.int8)
+    U = [[C1, C2, O, O], [C2.T, C4, O, O], [O, O, C1, C2], [O, O, C2.T, C4]]
+    V = [[I, O, K1, K2], [O, I, K3, K4], [K1.T, K3.T, I, O], [K2.T, K4.T, O, I]]
+    S = np.array([[1, 1, 1, 1], [-1, 1, 1, -1], [-1, -1, 1, 1], [-1, 1, -1, 1]], dtype=np.int8)
+    H = np.empty((4 * q, 4 * q), dtype=np.int8)
+    for r in range(4):
+        for c in range(4):
+            s, B = S[r, c], H[r * q:(r + 1) * q, c * q:(c + 1) * q]
+            B[0, 0] = s
+            B[0, 1:] = B[1:, 0] = -s if r == c else s
+            B[1:m + 1, 1:m + 1] = B[m + 1:, m + 1:] = s * (U[r][c] + V[r][c])
+            B[1:m + 1, m + 1:] = B[m + 1:, 1:m + 1] = s * (U[r][c] - V[r][c])
+    return H
+
+
+def build_miyamoto(cert):
+    """Miyamoto's construction (M. Miyamoto, J. Combin. Theory Ser. A 57 (1991) 86-108):
+    for q = 1 (mod 4), a symmetric conference matrix of order q + 1 and a Hadamard matrix
+    of order q - 1 give a Hadamard matrix of order 4q, assembled as in `miyamoto`.
+
+    The certificate gives q, the conference matrix ("paley": Paley's matrix, which needs
+    q prime here) and, under "K", the complete certificate of the Hadamard matrix of
+    order q - 1. K is rebuilt with its own builder and checked like any other
+    certificate, including its SHA-256."""
+    q = cert["q"]
+    if q % 4 != 1 or q < 5 or any(q % d == 0 for d in range(2, math.isqrt(q) + 1)):
+        raise ValueError("q must be a prime = 1 (mod 4)")
+    if cert["conference_matrix"] != "paley":
+        raise ValueError(f"unknown conference matrix {cert['conference_matrix']!r}")
+    if cert["K"]["order"] != q - 1:
+        raise ValueError("K must have order q - 1")
+    try:
+        K = build_checked(cert["K"])[0].astype(np.int8)
+    except ValueError as exc:
+        raise ValueError(f"K: {exc}") from None
+    C = paley_conference(q)
+    if not np.array_equal(C, C.T) or np.diagonal(C).any() or not gram_is_scalar(C, q):
+        raise ValueError("C is not a symmetric conference matrix")
+    return miyamoto(C, K), None
+
+
+def is_skew(X, block=2048):
+    """True if X + X^T = 2I (checked a block of rows at a time)."""
+    n = X.shape[0]
+    for i in range(0, n, block):
+        E = X[i:i + block].astype(np.int16) + X[:, i:i + block].T
+        E[np.arange(E.shape[0]), i + np.arange(E.shape[0])] -= 2
+        if E.any():
+            return False
+    return True
+
+
+def build_skew_doubling(cert):
+    """[[S, S], [-S^T, S^T]] is a skew-Hadamard matrix of order 2m when S is one of order m.
+    The certificate gives, under "S", the complete certificate of S, which is rebuilt and
+    checked like any other certificate and then checked to satisfy S + S^T = 2I."""
+    if 2 * cert["S"]["order"] != cert["order"]:
+        raise ValueError("S must have half the order")
+    try:
+        S = build_checked(cert["S"])[0].astype(np.int8)
+    except ValueError as exc:
+        raise ValueError(f"S: {exc}") from None
+    if not is_skew(S):
+        raise ValueError("S is not skew (S + S^T != 2I)")
+    return np.block([[S, S], [-S.T, S.T]]), None
+
+
+def build_yamada(cert):
+    """Yamada's construction (M. Yamada, J. Austral. Math. Soc. Ser. A 46 (1989) 371-383,
+    Theorem 4, which he credits to Z. Kiyasu): a prime q = 5 (mod 8) and a skew-Hadamard
+    matrix Q of order (q + 3)/2 give a Hadamard matrix of order 4(q + 2).
+
+    Let n0 = (q + 1)/2, F = GF(q)[w]/(w^2 - r) with r a non-square, xi a primitive element
+    of F, psi the quadratic character of GF(q) with psi(0) = 0 and Tr(a + bw) = 2a. The
+    circulants alpha, beta of order n0 with first rows psi(Tr xi^(4m)) and
+    psi(Tr xi^(4m + n0)), m = 0, ..., n0 - 1, are symmetric with
+    alpha alpha^T + beta beta^T = qI (Yamada's Lemma 3). Normalise Q to [[1, e^T], [-e, S + I]].
+    With P = [[1, -1], [-1, 1]] and J2 the all-one matrix of order 2,
+
+        A = P (x) beta + J2 (x) I,   B = P (x) alpha,   C = D = J2 (x) S + P (x) I
+
+    satisfy A A^T + B B^T + C C^T + D D^T = 4(q + 2)I - 4J, and Theorem 1 gives
+
+        H = [ L          K4 (x) e^T ]      H0 = [  A     B     C     D   ]
+            [ M^T (x) e  H0         ]           [ -B^T   A^T  -D^T   C^T ]
+                                                [ -C^T   D     A^T  -B   ]
+                                                [ -D^T  -C     B^T   A   ]
+
+    with L = 2I - J4, M as below and K4 = -LM/2. The certificate gives q, r, xi and, under
+    "Q", the complete certificate of Q."""
+    q, r, (xa, xb) = cert["q"], cert["r"], cert["xi"]
+    if q % 8 != 5 or any(q % d == 0 for d in range(2, math.isqrt(q) + 1)):
+        raise ValueError("q must be a prime = 5 (mod 8)")
+    if cert["Q"]["order"] != (q + 3) // 2:
+        raise ValueError("Q must have order (q + 3)/2")
+    psi = -np.ones(q, dtype=np.int64)
+    psi[np.arange(1, q) ** 2 % q] = 1
+    psi[0] = 0
+    if psi[r % q] != -1:
+        raise ValueError("r is a square")
+    mul = lambda x, y: ((x[0] * y[0] + r * x[1] * y[1]) % q, (x[0] * y[1] + x[1] * y[0]) % q)
+
+    def power(x, e):
+        y = (1, 0)
+        while e:
+            if e & 1:
+                y = mul(y, x)
+            x, e = mul(x, x), e >> 1
+        return y
+    N, primes, m, d = q * q - 1, [], q * q - 1, 2
+    while d * d <= m:                                           # prime divisors of |F*|
+        if m % d == 0:
+            primes.append(d)
+            while m % d == 0:
+                m //= d
+        d += 1
+    if m > 1:
+        primes.append(m)
+    if any(power((xa, xb), N // p) == (1, 0) for p in primes):
+        raise ValueError("xi is not primitive")
+    n0 = (q + 1) // 2
+    alpha, beta = np.empty(n0, dtype=np.int64), np.empty(n0, dtype=np.int64)
+    a, b, x4 = (1, 0), power((xa, xb), n0), power((xa, xb), 4)
+    for m in range(n0):
+        alpha[m], beta[m] = psi[2 * a[0] % q], psi[2 * b[0] % q]
+        a, b = mul(a, x4), mul(b, x4)
+    s = np.arange(n0)
+    if not (np.array_equal(alpha, alpha[-s % n0]) and np.array_equal(beta, beta[-s % n0])):
+        raise ValueError("alpha or beta is not symmetric")
+    paf = np.array([alpha @ np.roll(alpha, -k) + beta @ np.roll(beta, -k) for k in range(n0)])
+    if paf[0] != q or np.any(paf[1:] != 0):
+        raise ValueError("alpha alpha^T + beta beta^T != qI")
+    try:
+        Q = build_checked(cert["Q"])[0].astype(np.int8)
+    except ValueError as exc:
+        raise ValueError(f"Q: {exc}") from None
+    if not is_skew(Q):
+        raise ValueError("Q is not skew (Q + Q^T != 2I)")
+    d = Q[0].copy()
+    d[0] = 1
+    S = (Q * d[:, None] * d[None, :])[1:, 1:] - np.eye(n0, dtype=np.int8)
+    P, J2, I = np.array([[1, -1], [-1, 1]], dtype=np.int8), np.ones((2, 2), dtype=np.int8), np.eye(n0, dtype=np.int8)
+    A = np.kron(P, circulant(beta).astype(np.int8)) + np.kron(J2, I)
+    B = np.kron(P, circulant(alpha).astype(np.int8))
+    C = np.kron(J2, S) + np.kron(P, I)
+    D = C
+    L = 2 * np.eye(4, dtype=np.int64) - np.ones((4, 4), dtype=np.int64)
+    M = np.array([[1, 1, 1, 1], [1, -1, -1, 1], [1, 1, -1, -1], [1, -1, 1, -1]], dtype=np.int64)
+    K4 = -(L @ M) // 2
+    n = q + 1
+    H = np.empty((4 * n + 4, 4 * n + 4), dtype=np.int8)
+    H[:4, :4] = L
+    H[:4, 4:] = np.kron(K4, np.ones((1, n), dtype=np.int64))
+    H[4:, :4] = np.kron(M.T, np.ones((n, 1), dtype=np.int64))
+    for i, row in enumerate([[A, B, C, D], [-B.T, A.T, -D.T, C.T], [-C.T, D, A.T, -B], [-D.T, -C, B.T, A]]):
+        for j, X in enumerate(row):
+            H[4 + i * n:4 + (i + 1) * n, 4 + j * n:4 + (j + 1) * n] = X
+    return H, None
+
+
+BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": build_goethals_seidel_group,
+            "cooper-wallis": build_cooper_wallis,
+            "spence": build_spence, "miyamoto": build_miyamoto,
+            "bordered-goethals-seidel": build_bordered_gs, "skew-doubling": build_skew_doubling,
+            "yamada": build_yamada}
+
+
+def csv_chunks(H, rows=512):
+    """The canonical CSV encoding of a +-1 matrix, a block of rows at a time. The bytes
+    are those of numpy.savetxt(f, H, fmt="%d", delimiter=","), but the text of the whole
+    matrix is never held in memory."""
+    for i in range(0, H.shape[0], rows):
+        X = H[i:i + rows]
+        if not (np.abs(X) == 1).all():
+            raise ValueError("entries are not all +-1")
+        cell = np.empty(X.shape + (3,), dtype=np.uint8)    # "-1," or "1,"; 0 = no byte
+        cell[..., 0] = np.where(X < 0, ord("-"), 0)
+        cell[..., 1] = ord("1")
+        cell[..., 2] = ord(",")
+        cell[:, -1, 2] = ord("\n")
+        cell = cell.ravel()
+        yield cell[cell != 0].tobytes()
 
 
 def canonical_csv(H):
-    buf = io.BytesIO()
-    np.savetxt(buf, H, fmt="%d", delimiter=",")
-    return buf.getvalue()
+    return b"".join(csv_chunks(H))
 
 
-def check(directory, write=False):
-    cert = json.loads((directory / "certificate.json").read_text())
+def build_checked(cert):
+    """Build the matrix of a certificate and check its order, its entries, H H^T = nI and
+    the SHA-256 of its canonical CSV. Returns H, the sequences (or None) and the digest."""
     H, seqs = BUILDERS[cert["construction"]](cert)
     n = H.shape[0]
     if n != cert["order"]:
         raise ValueError(f"built order {n}, certificate says {cert['order']}")
-    if not np.isin(H, (-1, 1)).all():
+    if not is_pm1(H):
         raise ValueError("entries are not all +-1")
-    Hf = H.astype(np.float64)
-    if not np.array_equal(Hf @ Hf.T, n * np.eye(n)):
+    if not gram_is_scalar(H, n):
         raise ValueError("H H^T != nI")
     if cert.get("skew") and not np.array_equal(H + H.T, 2 * np.eye(n, dtype=H.dtype)):
         raise ValueError("certificate claims a skew-Hadamard matrix, but H + H^T != 2I")
+    sha = hashlib.sha256()
+    for chunk in csv_chunks(H):
+        sha.update(chunk)
+    digest = sha.hexdigest()
+    if digest != cert["sha256"]:
+        raise ValueError(f"SHA-256 mismatch: {digest}")
+    return H, seqs, digest
+
+
+def check(directory, write=False):
+    cert = json.loads((directory / "certificate.json").read_text())
+    H, seqs, digest = build_checked(cert)
     seq_file = directory / "sequences.txt"
     if seqs is not None and seq_file.exists():
         rows = [ln.strip() for ln in seq_file.read_text().splitlines() if ln.strip()]
         if rows != ["".join("+" if v > 0 else "-" for v in x) for x in seqs]:
             raise ValueError("sequences.txt does not match the certificate")
-    data = canonical_csv(H)
-    digest = hashlib.sha256(data).hexdigest()
-    if digest != cert["sha256"]:
-        raise ValueError(f"SHA-256 mismatch: {digest}")
     if write:
-        (directory / f"H{n}.csv").write_bytes(data)
-    return n, digest
+        with open(directory / f"H{H.shape[0]}.csv", "wb") as f:
+            for chunk in csv_chunks(H):
+                f.write(chunk)
+    return H.shape[0], digest
 
 
 def check_t_matrices(path):
