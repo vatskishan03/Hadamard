@@ -126,7 +126,8 @@ solution would have been rebuilt and checked as a Hadamard matrix.
 | 1981 | 141 | 21 | 10 | (1,1,1,89) | 4.0·10⁴ ×3, 1.9·10⁴ | 2.4·10⁹ | −3.2 | 0 |
 
 `lottery_rank.py 4 40` ranks every Goethals–Seidel structure of every open order
-with 4 to 40 orbits (−1 ∉ H). Besides the two above, only these have finite E:
+with 4 to 40 orbits (−1 ∉ H). Eleven structures are admissible. Besides the two
+above, the ones with log₁₀ E > −6 are:
 
 | n | \|H\| | orbits | log₁₀ E | exhaustive pairs |
 |---:|---:|---:|---:|---:|
@@ -136,8 +137,21 @@ with 4 to 40 orbits (−1 ∉ H). Besides the two above, only these have finite 
 | 2973 | 110 | 38 | −4.6 | 6.5·10¹⁹ |
 | 1255 | 50 | 33 | −5.0 | 6.3·10¹⁶ |
 
-None of these is affordable here. The small-structure lottery is therefore
-exhausted, apart from n = 933 with |H| = 31, which has about two expected
+None of these is affordable here.
+
+`spence_rank.py 44` does the same for Spence structures ℤ₂ × ℤ_m (n ≡ 3 mod 4)
+that pass the slice condition of §3.1. There are 502 with at most 44 orbits.
+
+| n | \|H\| | orbits | pairs | log₁₀ E |
+|---:|---:|---:|---:|---:|
+| 599 | 33 | 30 | 1.9·10¹⁴ | −6.8 |
+| 947 | 35 | 42 | 1.7·10²¹ | −8.4 |
+| 647 | 24 | 36 | 7.7·10¹⁷ | −10.5 |
+
+Every other structure is below 10⁻¹¹. METHOD.md reports that the Gaussian model
+for Spence can be off by a factor of 100, which does not change the conclusion. So
+neither small Goethals–Seidel nor small Spence structures leave a useful lottery
+ticket. The only exception is n = 933 with |H| = 31, which has about two expected
 solutions but needs about 10¹⁷ pair operations.
 
 ## 6. Cooper–Wallis routes: T-matrices for the open orders

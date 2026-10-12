@@ -31,7 +31,7 @@ def search(n, H, cap=3e10, K=3):
             f.write(struct.pack("iiiii", len(VA), len(VB), len(VB), len(VB), st.C))
             f.write(np.full(st.C, target, dtype=np.int16).tobytes())
             for V in (VA, VB, VB, VB): f.write(np.ascontiguousarray(V).tobytes())
-        out = subprocess.run([os.path.join(HERE, "find4"), path, str(K)], capture_output=True, text=True, check=True).stdout
+        out = subprocess.run([os.path.join(HERE, "find4b"), path, str(K)], capture_output=True, text=True, check=True).stdout
     finally:
         os.remove(path)
     found = []
