@@ -156,7 +156,40 @@ def build_spence(cert):
     return np.vstack([np.hstack([K, np.kron(Q, one)]), np.hstack([np.kron(P, one.T), M])]), None
 
 
-BUILDERS = {"goethals-seidel": build_goethals_seidel, "cooper-wallis": build_cooper_wallis,
+def build_goethals_seidel_group(cert):
+    """Goethals-Seidel array over a non-cyclic abelian group G = Z_m1 x ... x Z_mk.
+
+    The four sequences are listed over G in mixed-radix order. Block X is the group-developed matrix
+    X[g, h] = x(h - g), and R[g, h] = 1 when g + h = 0. Each sequence must be invariant under the stated
+    automorphisms (integer matrices acting on coordinates).
+    """
+    mods = np.array(cert["group"], dtype=np.int64)
+    v = int(np.prod(mods))
+    coords = np.array(np.unravel_index(np.arange(v), tuple(int(m) for m in mods))).T.astype(np.int64)
+    index = lambda C: np.ravel_multi_index(tuple((C % mods).T), tuple(int(m) for m in mods))
+    seqs = [np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["sequences"]]
+    if any(len(x) != v for x in seqs):
+        raise ValueError("sequence length differs from the group order")
+    if [int(x.sum()) for x in seqs] != cert["rowsums"]:
+        raise ValueError("row sums differ from the certificate")
+    for M in cert.get("automorphisms", []):
+        p = index(coords @ np.array(M, dtype=np.int64).T)
+        if len(np.unique(p)) != v:
+            raise ValueError("an automorphism is not a bijection")
+        if not all(np.array_equal(x[p], x) for x in seqs):
+            raise ValueError("a sequence is not invariant under the stated automorphisms")
+    diff = index(coords[None, :, :] - coords[:, None, :])
+    A, B, C, D = (x[diff] for x in seqs)
+    R = np.zeros((v, v), dtype=np.int64)
+    R[np.arange(v), index(-coords)] = 1
+    H = np.block([[A, B @ R, C @ R, D @ R],
+                  [-B @ R, A, D.T @ R, -C.T @ R],
+                  [-C @ R, -D.T @ R, A, B.T @ R],
+                  [-D @ R, C.T @ R, -B.T @ R, A]])
+    return H, None
+
+
+BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": build_goethals_seidel_group, "cooper-wallis": build_cooper_wallis,
             "spence": build_spence}
 
 

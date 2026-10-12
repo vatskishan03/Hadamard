@@ -91,8 +91,12 @@ def clamp(Vl, Vr, cap=2.5e7):
     return S
 
 
-def run(n, gens, maxtau=200, top=6, only=None, sols=4, clampS=None, maxpool=4e6, seed=1, gen=0, afrac=1.0, compress=(), verbose=True):
-    G = L.AbGroup([n]); st = L.Structure(G, [G.perm_from_matrix(np.array([[g]])) for g in gens])
+def run(n, gens, maxtau=200, top=6, only=None, sols=4, clampS=None, maxpool=4e6, seed=1, gen=0, afrac=1.0, compress=(), verbose=True,
+        prebuilt=None):
+    if prebuilt:                 # (G, st) for a non-cyclic group (skew_group.py); verification uses gs_group
+        G, st = prebuilt
+    else:
+        G = L.AbGroup([n]); st = L.Structure(G, [G.perm_from_matrix(np.array([[g]])) for g in gens])
     rng = np.random.default_rng(seed); maxpool = int(maxpool)
     rep = np.array([np.flatnonzero(st.orb == o)[0] for o in range(st.O)])
     partner = st.orb[G.neg()[rep]]
@@ -188,9 +192,14 @@ def run(n, gens, maxtau=200, top=6, only=None, sols=4, clampS=None, maxpool=4e6,
             ids = [int(x, 16) for x in line.split()[1:]]
             seqs = [roles[k][0][ids[k]].astype(np.int64)[st.orb] for k in range(4)]
             rs = [int(x.sum()) for x in seqs]
-            tot = verify.paf_sum(seqs)
-            if not (tot[0] == 4 * n and not tot[1:].any()): continue
-            H = verify.goethals_seidel(*map(verify.circulant, seqs)).astype(np.float64)   # BLAS; exact below 2^53
+            if not prebuilt:
+                tot = verify.paf_sum(seqs)
+                if not (tot[0] == 4 * n and not tot[1:].any()): continue
+            if prebuilt:
+                import skew_group as SG
+                H = SG.gs_group(seqs, G).astype(np.float64)
+            else:
+                H = verify.goethals_seidel(*map(verify.circulant, seqs)).astype(np.float64)   # BLAS; exact below 2^53
             had = np.array_equal(H @ H.T, 4 * n * np.eye(4 * n))
             skew = np.array_equal(H + H.T, 2 * np.eye(4 * n))
             found.append(dict(n=n, gens=list(gens), pattern=rs, hadamard=bool(had), skew=bool(skew),

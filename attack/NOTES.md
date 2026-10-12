@@ -376,8 +376,8 @@ lists 234 odd v ≤ 999 for which no skew matrix of order 4v is known. The FRONT
   right pairs from the other two. With lists of very different sizes, the yield per τ grows with the
   smaller pair list, so the clamp S is set as loose as memory allows (pair lists ≤ 2.5·10⁷).
   Pools beyond 4·10⁶ are replaced by uniform samples (`--maxpool`), at a cost of L/N per list.
-- **New orders**: 836, 1036, 1148, 1236, 1364, 1412, 1508, 1612, 1852, 1876, 2404, 3556, 3676,
-  i.e. v = 209, 259, 287, 309, 341, 353, 377, 403, 463, 469, 601, 889, 919. 889 came from the exact sweep, on
+- **New orders**: 836, 1036, 1100, 1148, 1236, 1364, 1412, 1508, 1612, 1852, 1876, 2404, 3556,
+  3676, i.e. v = 209, 259, 275, 287, 309, 341, 353, 377, 403, 463, 469, 601, 889, 919. 889 came from the exact sweep, on
   H = ⟨2, 25⟩ of order 63 with 21 orbits. Each took seconds to minutes on 4 cores.
   - 259 used sampled lists: 3.9·10⁶ of 3–4·10⁷ per pool.
   - 353 (⟨22⟩) also used sampled lists: 1.2·10⁷ of 5.7·10⁸ per pool, 2 solutions in 33 values of τ.
@@ -478,3 +478,18 @@ FRONTIER.md's exact sweep stopped at 22 orbits. `had_sweep.py` extends it.
 
 So no Goethals–Seidel multiplier structure with at most 40 orbits that can be searched exactly
 holds an unresolved Hadamard order. Larger structures are the FRONTIER regime (≥ 10¹⁴·⁵ operations).
+
+## 12. Skew orders over non-cyclic groups
+
+For p² | v, ℤ_v can be replaced by ℤ_p × ℤ_p × ℤ_{v/p²}. Its automorphism group contains GL(2, p),
+whose odd-order subgroups (Singer, split torus, unipotent, Borel) give orbit structures that ℤ_v
+does not have (`skew_group.py`). A subgroup of odd order always admits a skew first block. The
+Goethals–Seidel array works over any abelian group, and `verify.py` checks it under the construction
+`goethals-seidel-group`.
+
+- **Survey** of the 26 open v ≤ 999 with a square factor (10–60 orbits):
+  - The only structures with E near 1 are 275 (Singer-3 × ⟨3⟩, E ≈ 10⁰·⁴, 13 classes) and
+    423 (E ≈ 10⁻¹·³).
+  - Structures containing the unipotent group get model estimates of 10⁻⁴⁰ or below.
+- **275 is solved:** skew-Hadamard order 1100, 32 solutions in four minutes of k-tree matching on
+  the complete pools.
