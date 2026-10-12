@@ -44,8 +44,8 @@ def h_orbits_mod(d, H):
 
 
 class Chain:
-    def __init__(self, v, gens, ds):
-        self.v = v
+    def __init__(self, v, gens, ds, skew=True):
+        self.v = v; self.skew = skew
         G = L.AbGroup([v]); self.G = G
         self.st = st = L.Structure(G, [G.perm_from_matrix(np.array([[g]])) for g in gens])
         H = {1}
@@ -56,8 +56,9 @@ class Chain:
         self.H = sorted(H)
         rep = np.array([np.flatnonzero(st.orb == o)[0] for o in range(st.O)])
         partner = st.orb[G.neg()[rep]]
-        assert not np.any(partner[1:] == np.arange(1, st.O)), "-1 fixes an orbit"
-        self.pairs = [(o, int(partner[o])) for o in range(1, st.O) if o < partner[o]]
+        if skew:
+            assert not np.any(partner[1:] == np.arange(1, st.O)), "-1 fixes an orbit"
+        self.pairs = [(o, int(partner[o])) for o in range(1, st.O) if o < partner[o]] if skew else []
         self.ds = ds
         self.lev = []                       # per level: (d, oid, reps, sizes, contrib_red[O, h_d])
         for d in ds:
@@ -208,14 +209,17 @@ def verify_sol(ch, Ys):
     tot = verify.paf_sum(seqs)
     if not (tot[0] == 4 * ch.v and not tot[1:].any()): return None
     Hm = verify.goethals_seidel(*map(verify.circulant, seqs)).astype(np.float64)
-    ok = np.array_equal(Hm @ Hm.T, 4 * ch.v * np.eye(4 * ch.v)) and np.array_equal(Hm + Hm.T, 2 * np.eye(4 * ch.v))
+    ok = np.array_equal(Hm @ Hm.T, 4 * ch.v * np.eye(4 * ch.v))
+    if ch.skew: ok = ok and np.array_equal(Hm + Hm.T, 2 * np.eye(4 * ch.v))
     return seqs if ok else None
 
 
 def run(v, gens, pat, d1, d2, exhaustive=False, maxfibre=3_000_000, maxstates=20_000_000, verbose=True):
+    """pat = (b, c, d) for skew families (first block skew, row sum 1); pat = (a, b, c, d) for plain Hadamard GS."""
     t0 = time.time()
-    ch = Chain(v, gens, [d1, d2] if d2 else [d1])
-    roles = [None] + list(pat)
+    skew = len(pat) == 3
+    ch = Chain(v, gens, [d1, d2] if d2 else [d1], skew=skew)
+    roles = ([None] if skew else []) + list(pat)
     S = []
     for r in roles:
         s = ch.states(r, maxstates)
@@ -272,9 +276,9 @@ def run(v, gens, pat, d1, d2, exhaustive=False, maxfibre=3_000_000, maxstates=20
             for Ys in sols:
                 seqs = verify_sol(ch, Ys)
                 if seqs is not None:
-                    rec = dict(n=v, gens=list(gens), pattern=[int(x.sum()) for x in seqs], hadamard=True, skew=True,
+                    rec = dict(n=v, gens=list(gens), pattern=[int(x.sum()) for x in seqs], hadamard=True, skew=skew,
                                method=f'chain d1={d1} d2={d2}', seqs=[''.join('+' if x > 0 else '-' for x in s) for s in seqs])
-                    with open(W.hits(), 'a') as f: f.write(json.dumps(rec) + '\n')
+                    with open(W.hits() if skew else W.hits('had_hits.jsonl'), 'a') as f: f.write(json.dumps(rec) + '\n')
                     found.append(rec)
             if found and not exhaustive: break
         if verbose and (bi < 5 or bi % 50 == 0 or found):
