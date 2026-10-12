@@ -243,7 +243,7 @@ def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, ma
     counts1 = {}
     for p in ps:
         c1 = Chain(v, gens, [p], skew=skew)
-        Sd = [c1.states(r, maxstates // 4) for r in roles]
+        Sd = [c1.states(r, maxstates) for r in roles]      # intermediate DP states can exceed the final count 100-fold
         if any(x is None for x in Sd): continue
         U = [np.unique(K_, axis=0).astype(np.int64) for K_, _ in Sd]
         n1 = 0 if any(len(u) == 0 for u in U) else len(join4([c1.paf(0, u) for u in U]))
