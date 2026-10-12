@@ -31,3 +31,4 @@ attack/*.log
 attack/skew_gen
 attack/spin_ls_gls
 attack/spin_walk
+attack/tmp*/
