@@ -74,25 +74,28 @@ class Chain:
 
     # ---- dynamic program over orbits: distinct joint compressions with multiplicities ----------------
     def states(self, role_rowsum, maxstates):
-        """role_rowsum None = skew block A. Returns (keys [n x dim] int64, counts [n] float)."""
-        Ct = self.Ctot
+        """role_rowsum None = skew block A. Returns (keys [n x dim] int16, counts [n] float64).
+        Rows are deduplicated through a byte view (much faster than np.unique(axis=0))."""
+        Ct = self.Ctot.astype(np.int16)
+        dim = Ct.shape[1]
+        vt = np.dtype((np.void, 2 * dim))
+        def dedup(K, cnt):
+            key = np.ascontiguousarray(K).view(vt).ravel()
+            u, idx, inv = np.unique(key, return_index=True, return_inverse=True)
+            return K[idx], np.bincount(inv.ravel(), weights=cnt)
         if role_rowsum is None:
-            items = [Ct[o] - Ct[q] for o, q in self.pairs]
             K = Ct[0][None, :].copy(); cnt = np.ones(1)
-            for it in items:
-                K = np.concatenate([K + it, K - it]); cnt = np.concatenate([cnt, cnt])
-                K, inv = np.unique(K, axis=0, return_inverse=True); cnt = np.bincount(inv.ravel(), weights=cnt)
+            for o, q in self.pairs:
+                it = Ct[o] - Ct[q]
+                K, cnt = dedup(np.concatenate([K + it, K - it]), np.concatenate([cnt, cnt]))
                 if len(K) > maxstates: return None
             return K, cnt
-        K = -Ct.sum(0)[None, :]; cnt = np.ones(1)
-        sizes = self.st.sizes
-        # row sum is tracked through the first level's weights; filter at the end
+        K = (-Ct.sum(0))[None, :].astype(np.int16); cnt = np.ones(1)
         for o in range(self.st.O):
-            K = np.concatenate([K, K + 2 * Ct[o]]); cnt = np.concatenate([cnt, cnt])
-            K, inv = np.unique(K, axis=0, return_inverse=True); cnt = np.bincount(inv.ravel(), weights=cnt)
+            K, cnt = dedup(np.concatenate([K, K + 2 * Ct[o]]), np.concatenate([cnt, cnt]))
             if len(K) > maxstates: return None
         w = self.lev[0][3]
-        rs = K[:, :len(w)] @ w
+        rs = K[:, :len(w)].astype(np.int64) @ w
         keep = rs == role_rowsum
         return K[keep], cnt[keep]
 
@@ -214,44 +217,41 @@ def verify_sol(ch, Ys):
     return seqs if ok else None
 
 
-def run(v, gens, pat, d1, d2, exhaustive=False, maxfibre=3_000_000, maxstates=20_000_000, verbose=True):
+def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, maxstates=20_000_000, verbose=True, budget=3600):
     """pat = (b, c, d) for skew families (first block skew, row sum 1); pat = (a, b, c, d) for plain Hadamard GS."""
     t0 = time.time()
     skew = len(pat) == 3
     roles = ([None] if skew else []) + list(pat)
-    # Screen every prime divisor on its own: an empty level-1 join at any d rules the pattern out at once,
-    # and the divisor with the fewest level-1 solutions makes the best first level.
-    cands = sorted({d for d in (d1, d2) if d} | {p for p in range(2, v) if v % p == 0 and all(p % r for r in range(2, int(p ** 0.5) + 1))})
-    screen = {}
-    for d in cands:
-        c1 = Chain(v, gens, [d], skew=skew)
-        Sd = [c1.states(r, 2_000_000) for r in roles]
-        if any(x is None for x in Sd): continue
-        U = [np.unique(K_, axis=0) for K_, _ in Sd]
-        if any(len(u) == 0 for u in U):
-            screen[d] = 0
-        else:
-            screen[d] = len(join4([c1.paf(0, u) for u in U]))
-        if screen[d] == 0:
-            print(f"  RESULT v={v} H={gens} rows=(1,{pat}): ruled out at d={d} (empty level-1 join) [{time.time() - t0:.0f}s]", flush=True)
-            return dict(status='ruled out', found=[], branches=0, truncated=0, solutions=0, reason=f'd={d}')
-    if screen:
-        order = sorted(screen, key=lambda d: screen[d])
-        d1 = order[0]; d2 = order[1] if len(order) > 1 else 0
-    ch = Chain(v, gens, [d1, d2] if d2 else [d1], skew=skew)
+    # One joint DP over all prime levels. Screen each level: an empty join rules the pattern out at once;
+    # the level with the fewest solutions is used first.
+    ps = [p for p in range(2, v) if v % p == 0 and all(p % r for r in range(2, int(p ** 0.5) + 1))]
+    ch = Chain(v, gens, ps, skew=skew)
     S = []
     for r in roles:
         s = ch.states(r, maxstates)
         if s is None:
             print(f"  state space too large for role {r}", flush=True); return dict(status='too-large')
         S.append(s)
-    h1 = ch.splits[1]
-    # level 1
-    proj = []
-    for K_, c in S:
-        u, inv = np.unique(K_[:, :h1], axis=0, return_inverse=True)
-        proj.append((u, inv.ravel(), np.bincount(inv.ravel(), weights=c)))
-    P1 = [ch.paf(0, u) for u, _, _ in proj]
+    def project(level):
+        a, b = ch.splits[level], ch.splits[level + 1]
+        out = []
+        for K_, c in S:
+            u, inv = np.unique(K_[:, a:b], axis=0, return_inverse=True)
+            out.append((u.astype(np.int64), inv.ravel(), np.bincount(inv.ravel(), weights=c)))
+        return out
+    counts1 = {}
+    for lv in range(len(ps)):
+        pr = project(lv)
+        n1 = len(join4([ch.paf(lv, u) for u, _, _ in pr]))
+        counts1[lv] = n1
+        if n1 == 0:
+            print(f"  RESULT v={v} H={gens} rows=(1,{pat}): ruled out at d={ps[lv]} (empty level-1 join) [{time.time() - t0:.0f}s]", flush=True)
+            return dict(status='ruled out', found=[], branches=0, truncated=0, solutions=0, reason=f'd={ps[lv]}')
+    lv_order = sorted(counts1, key=lambda l: counts1[l])
+    L1 = lv_order[0]; L2 = lv_order[1] if len(lv_order) > 1 else None
+    d1, d2 = ps[L1], (ps[L2] if L2 is not None else 0)
+    proj = project(L1)
+    P1 = [ch.paf(L1, u) for u, _, _ in proj]
     sols1 = join4(P1)
     if verbose:
         print(f"v={v} H={gens} |H|={len(ch.H)} O={ch.st.O} C={ch.st.C} rows=(1,{pat}) d1={d1} d2={d2}: "
@@ -260,18 +260,21 @@ def run(v, gens, pat, d1, d2, exhaustive=False, maxfibre=3_000_000, maxstates=20
     # order branches by the number of sequences they contain (largest first)
     weight = [np.prod([proj[k][2][q[k]] for k in range(4)]) for q in sols1]
     branches = [sols1[i] for i in np.argsort(weight)[::-1]]
-    truncated, found, combos_done, nsol = 0, [], 0, 0
+    truncated, found, combos_done, nsol, timed_out = 0, [], 0, 0, False
     halves = [None] * 4
     if max(ch.st.O, len(ch.pairs)) > 46:
         print('  too many orbits for the meet-in-the-middle expansion', flush=True); return dict(status='too-large')
     for bi, q in enumerate(branches):
+        if time.time() - t0 > budget:
+            truncated += 1; timed_out = True; break
         if d2:
             fib = []
             for k in range(4):
                 rows = np.flatnonzero(proj[k][1] == q[k])
                 Kf, cf = S[k][0][rows], S[k][1][rows]
                 fib.append((Kf, cf))
-            P2 = [ch.paf(1, Kf[:, h1:]) for Kf, _ in fib]
+            a2, b2 = ch.splits[L2], ch.splits[L2 + 1]
+            P2 = [ch.paf(L2, Kf[:, a2:b2].astype(np.int64)) for Kf, _ in fib]
             sols2 = join4(P2)
             cands = [[fib[k][0][s[k]] for k in range(4)] for s in sols2]
             counts = [[fib[k][1][s[k]] for k in range(4)] for s in sols2]
@@ -304,7 +307,8 @@ def run(v, gens, pat, d1, d2, exhaustive=False, maxfibre=3_000_000, maxstates=20
             print(f"  branch {bi + 1}/{len(branches)}: combos done {combos_done}, truncated {truncated}, verified {len(found)} "
                   f"[{time.time() - t0:.0f}s]", flush=True)
         if found and not exhaustive: break
-    status = 'found' if found else ('ruled out' if truncated == 0 else f'nothing found ({truncated} combinations truncated)')
+    status = 'found' if found else ('ruled out' if truncated == 0 else
+              (f'nothing found (time budget of {budget}s reached)' if timed_out else f'nothing found ({truncated} combinations truncated)'))
     print(f"  RESULT v={v} H={gens} rows=(1,{pat}): {status}; level-1 branches {len(branches)}, combos {combos_done}, solutions counted {nsol} "
           f"[{time.time() - t0:.0f}s]", flush=True)
     return dict(status=status, found=found, branches=len(branches), truncated=truncated, solutions=nsol)

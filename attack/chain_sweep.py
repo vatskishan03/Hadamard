@@ -68,7 +68,7 @@ if __name__ == '__main__':
             if d1 is None: continue
             t = time.time()
             try:
-                r = chain.run(v, gens, pat, d1, d2, exhaustive=False, verbose=False)
+                r = chain.run(v, gens, pat, exhaustive=False, verbose=False, budget=2400)
             except Exception as e:  # record and continue
                 r = dict(status=f'error: {e!r}')
             rec = dict(v=v, gens=gens, H=len(Hs), O=O, pattern=list(pat), d1=d1, d2=d2, status=r['status'],

@@ -45,7 +45,7 @@ if __name__ == '__main__':
             d1, d2 = levels(n, Hs)
             t = time.time()
             try:
-                r = chain.run(n, gens, pat, d1, d2, exhaustive=False, verbose=False)
+                r = chain.run(n, gens, pat, exhaustive=False, verbose=False, budget=2400)
             except Exception as e:
                 r = dict(status=f'error: {e!r}')
             rec = dict(n=n, gens=gens, H=len(Hs), O=O, pattern=list(pat), d1=d1, d2=d2, status=r['status'],
