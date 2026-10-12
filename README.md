@@ -33,10 +33,17 @@ construction was found in a literature search in October 2026. The table in [3]
 is not complete (nine of its entries were settled in [4]), so these claims carry
 that caveat.
 
-The four orders above 4 · 2999 lie beyond [3]. For them we used Table 1.53 of the
-Handbook of Combinatorial Designs (2007) together with the updates in [4, 5]; the
-README of each order gives the details. Their matrices are not stored (up to 2.5 GB
-as CSV); `verify/verify.py` rebuilds them from the certificates.
+The five orders above 4 · 2999 lie beyond [3]. For the four with n < 10000 we used
+Table 1.53 of the Handbook of Combinatorial Designs (2007) together with the updates
+in [4, 5]. For 51580 (n = 12895), which is beyond that table too, we checked Paley,
+the Williamson-type families of Seberry–Yamada's 1992 survey and the 2026 deposits.
+The README of each order gives the details. Their matrices are not stored (up to
+7 GB as CSV); `verify/verify.py` rebuilds them from the certificates.
+
+Two of these orders come from this repository's skew-Hadamard matrices through
+Yamada's theorem: 24124 from skew 1508 (doubled once) and 51580 from skew 1612
+(doubled twice). 24124 is also reachable by Cooper–Wallis from T-matrices of
+order 163 and Williamson matrices of order 37; see its README.
 
 Orders under investigation: [2148](2148), the smallest order we know to be
 unresolved, and [4412](4412). [3676](3676) was settled by Schumer [8] while our

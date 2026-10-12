@@ -66,4 +66,5 @@ python3 verify/verify.py 51580
 
 rebuilds the skew input from `skew/1612/certificate.json`, doubles it twice, applies Yamada's
 construction, checks H Hᵀ = 51580·I exactly (float32 blocks, as for main's Miyamoto orders) and compares
-the SHA-256 of the canonical CSV.
+the SHA-256 of the canonical CSV. A separate run of this command (2026-10-12, 40 minutes, about 3.5 GB of memory) reported
+`51580 ok  H H^T = 51580 I` with the digest above.
