@@ -170,6 +170,8 @@ def check(directory, write=False):
     Hf = H.astype(np.float64)
     if not np.array_equal(Hf @ Hf.T, n * np.eye(n)):
         raise ValueError("H H^T != nI")
+    if cert.get("skew") and not np.array_equal(H + H.T, 2 * np.eye(n, dtype=H.dtype)):
+        raise ValueError("certificate claims a skew-Hadamard matrix, but H + H^T != 2I")
     seq_file = directory / "sequences.txt"
     if seqs is not None and seq_file.exists():
         rows = [ln.strip() for ln in seq_file.read_text().splitlines() if ln.strip()]
@@ -203,12 +205,14 @@ def main():
     ap.add_argument("--write", action="store_true", help="write H<n>.csv next to each certificate")
     args = ap.parse_args()
     dirs = [ROOT / o for o in args.orders] if args.orders else \
-        sorted((p.parent for p in ROOT.glob("*/certificate.json")), key=lambda p: int(p.name))
+        sorted((p.parent for p in ROOT.glob("*/certificate.json")), key=lambda p: int(p.name)) + \
+        sorted((p.parent for p in ROOT.glob("skew/*/certificate.json")), key=lambda p: int(p.name))
     failed = 0
     for d in dirs:
         try:
             n, digest = check(d, args.write)
-            print(f"{d.name:>6}  ok    H H^T = {n} I   sha256 {digest}")
+            kind = "  (skew: H + H^T = 2I)" if json.loads((d / "certificate.json").read_text()).get("skew") else ""
+            print(f"{d.name:>6}  ok    H H^T = {n} I   sha256 {digest}{kind}")
         except Exception as exc:  # report and continue with the remaining orders
             failed += 1
             print(f"{d.name:>6}  FAIL  {exc}")
