@@ -22,6 +22,7 @@ smallest unresolved orders were 2060 and 2092.
 | [24124](24124) | 4 · 6031 | Yamada's theorem (q = 6029) from a skew-Hadamard matrix of order 3016, the double of a skew Goethals–Seidel matrix of order 1508 over ℤ₃₇₇ | Probably new; above the range of [3] |
 | [31316](31316) | 4 · 7829 | Miyamoto's theorem from a Cooper–Wallis matrix of order 7828 (T-matrices of order 103, Williamson order 19) | Probably new; above the range of [3] |
 | [31412](31412) | 4 · 7853 | Miyamoto's theorem from a Cooper–Wallis matrix of order 7852 (T-matrices of order 151, Williamson order 13) | Probably new; above the range of [3] |
+| [51580](51580) | 4 · 12895 | Yamada's theorem (Kiyasu), q = 12893, from the skew-Hadamard matrix of order 6448 = 16 · 403: this repository's [skew 1612](skew/1612), doubled twice | Probably new; above the range of [3] |
 | [2060](2060) | 4 · 515 | Cooper–Wallis: T-matrices of order 103 and Williamson matrices of order 5 | Independent construction; the order was first settled publicly on 2026-08-23 [2] |
 | [3532](3532) | 4 · 883 | Goethals–Seidel, ℤ₈₈₃, multiplier subgroup of order 21 | Order known [4]; new explicit matrix |
 

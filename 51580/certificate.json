@@ -1,0 +1,108 @@
+{
+ "order": 51580,
+ "construction": "yamada",
+ "q": 12893,
+ "r": 2,
+ "xi": [
+  3,
+  1
+ ],
+ "Q": {
+  "order": 6448,
+  "construction": "skew-doubling",
+  "S": {
+   "order": 3224,
+   "construction": "skew-doubling",
+   "S": {
+    "order": 1612,
+    "construction": "goethals-seidel",
+    "skew": true,
+    "group": "Z_403",
+    "v": 403,
+    "multiplier": 100,
+    "subgroup_order": 15,
+    "rowsums": [
+     1,
+     5,
+     25,
+     31
+    ],
+    "blocks": [
+     [
+      1,
+      3,
+      5,
+      6,
+      10,
+      11,
+      12,
+      20,
+      22,
+      30,
+      34,
+      39,
+      44,
+      124,
+      217
+     ],
+     [
+      0,
+      1,
+      3,
+      4,
+      6,
+      9,
+      10,
+      15,
+      22,
+      30,
+      33,
+      34,
+      39,
+      44,
+      62
+     ],
+     [
+      3,
+      5,
+      6,
+      7,
+      10,
+      11,
+      13,
+      17,
+      19,
+      22,
+      27,
+      33,
+      62,
+      124,
+      217
+     ],
+     [
+      4,
+      5,
+      9,
+      10,
+      11,
+      12,
+      20,
+      25,
+      31,
+      33,
+      35,
+      39,
+      44,
+      217
+     ]
+    ],
+    "sha256": "34b140336882e45a3af6f21c499d2242280292d973a831150c1489974868cb6a"
+   },
+   "sha256": "211142e49573a1074d0fdd92729724ccfc87d59f6c559e6cb5fceabdb9b018fd",
+   "skew": true
+  },
+  "sha256": "d6ac5c0af324252db1fbf1934d5cd1464e4551818a2882e19fe2ef90e9c39de7",
+  "skew": true
+ },
+ "sha256": "de5fd6da01bf62b744026b8e92169e75eb8f36176985e578fa5150439de71cbd"
+}
