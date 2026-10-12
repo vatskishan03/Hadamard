@@ -619,3 +619,16 @@ inside its actual lists, using their class means and variances.
   is worth finishing at that size.
 - `skew_gen` saturates: of 4·10⁶ requested minima only 2.1·10⁶ are distinct. Larger lists need shallower
   descents, which trade spread for diversity.
+
+**Szekeres difference sets** (`szekeres.py`). A Legendre pair (a, b) on a group of order w, with a of skew
+type and b symmetric (both with row sum 1), gives a skew-Hadamard matrix of order 2(w + 1) through a bordered
+two-block array. The script checks H Hᵀ = (2w + 2)I and H + Hᵀ = 2I.
+- Validation: with H the fourth powers it finds Szekeres' cyclotomic sets for w = 13, 29 and 53. It finds
+  none for 37 and 61, where q = s² + 4t² has t = ±3.
+- The census through this route: w = 2u − 1 for every undecided u, cyclic groups with odd multiplier
+  subgroups, and the split GL(2, p) structures. All 988 structures with at most 18 sign pairs give nothing.
+  767 have no symmetric b with row sum 1, and in the other 221 the exact join is empty.
+- The three Kiyasu routes are covered with up to 22 pairs. They need skew 596 (Z₂₉₇, for 9532 after a
+  doubling), 940 (Z₄₆₉, for 7516) and 1108 (Z₅₅₃, for 8860).
+- The generic count is against this family: two free signs per class equation leave (4P)^C ≪ 1. Only
+  algebraic coincidences could appear, and none did in these structures.
