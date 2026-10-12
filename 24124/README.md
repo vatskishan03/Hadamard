@@ -42,8 +42,9 @@ order-24124 matrix we checked the same code on six known cases, orders 60 to 700
 Probably new. In Table 1.53 of the Handbook of Combinatorial Designs (2nd ed.,
 2007), n = 6031 has t = 3: the smallest known Hadamard matrix with odd part 6031 had
 order 8 · 6031. The entry does not appear in Đoković's updates (arXiv:0912.5091,
-arXiv:1008.2043). We read Table 1.53 from an unofficial copy, so treat this claim
-with that caveat. The order is above the range of Cati–Pasechnik Table 4, which
+arXiv:1008.2043). The order has followed from published objects since August 29,
+2026 (the second route below), but we found no construction or statement of it. We
+read Table 1.53 from an unofficial copy, so treat this claim with that caveat. The order is above the range of Cati–Pasechnik Table 4, which
 stops at n = 2999.
 
 The skew input is new as far as we know. Cati–Pasechnik Table 5 lists 377(5), so the
@@ -51,12 +52,15 @@ smallest known skew-Hadamard matrix with odd part 377 had order 2⁵ · 377. The
 table is only implemented and checked up to order 1208, so this is less certain
 than the main claim.
 
-A second route reaches the same order: Cooper–Wallis with the T-matrices of order
-163 in [`t-matrices/T163.txt`](../t-matrices/T163.txt) and Williamson matrices of
-order 37, which exist (Holzmann, Kharaghani, Tayfeh-Rezaie, Des. Codes Cryptogr. 46
-(2008) 343–352). T-matrices of order 163 may already appear in Lou, Xia, Xia, *On
-T-matrices of order 6m + 1* (2019/2022), which we could not read. If they do, the
-order follows from published objects, although we found no statement of it.
+A second route reaches the same order: Cooper–Wallis with T-matrices of order 163
+(ours are in [`t-matrices/T163.txt`](../t-matrices/T163.txt)) and Williamson matrices
+of order 37, which exist (Holzmann, Kharaghani, Tayfeh-Rezaie, Des. Codes Cryptogr. 46
+(2008) 343–352). JD-Jones-ASES/Hadamard-T published T-matrices of order 163 on
+August 29, 2026, together with their products for Williamson orders 11 and 13
+(orders 7172 and 8476). Since then the order has followed from published objects,
+but we found no construction or statement of it. T-matrices of order 163 may appear
+earlier in Lou, Xia, Xia, *On T-matrices of order 6m + 1* (2019/2022), which we could
+not read.
 
 ## Files
 
