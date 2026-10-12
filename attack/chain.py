@@ -310,6 +310,8 @@ def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, ma
             cands = [[S[k][0][np.flatnonzero(proj[k][1] == q[k])[0]] for k in range(4)]]
             counts = [[proj[k][2][q[k]] for k in range(4)]]
         for keys, cnt in zip(cands, counts):
+            if time.time() - t0 > budget:                 # the budget also bounds the work inside a branch
+                truncated += 1; timed_out = True; break
             if max(cnt) > maxfibre:
                 truncated += 1; continue
             lists = []
