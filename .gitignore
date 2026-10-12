@@ -15,3 +15,11 @@ attack/spence_sweep_hits.json
 attack/d3/*.bin
 attack/d3/orb.npy
 attack/d3/walk
+attack/ls/*.bin
+attack/ls/bs_tabu
+attack/ls/gs_sa
+attack/ls/gs_tabu
+attack/ls/gs_tabu_l1
+attack/ls/orb_tabu
+attack/tlp_hits.json
+attack/lp_open_hits.json
