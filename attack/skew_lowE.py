@@ -6,7 +6,7 @@ fixed memory budget it is better to take N_B N_C close to N_A N_D: a long list f
 B and C. B, C and D are low-energy candidates from skew_gen.c (local minima of the distance of the
 autocorrelations from their mean), which narrows each class distribution about twofold.
 
-  python3 attack/skew_lowE.py v g[,g2] b,c,d --nbc N --nd M [--steps S] [--maxtau T] [--top K] [--seed R]
+  python3 attack/skew_lowE.py v g[,g2] b,c,d --nbc N --nd M [--steps S] [--maxtau T] [--top K] [--seed R] [--amax N]
 
 Roles with equal row sums share one list. Before matching, the Gaussian estimate of the number of solutions
 in the four lists is printed (computed from the lists' own class means and variances; v prime). Hits are
@@ -41,6 +41,7 @@ def main():
     ap.add_argument('--steps', type=int, default=8); ap.add_argument('--maxtau', type=int, default=1000)
     ap.add_argument('--top', type=int, default=8); ap.add_argument('--seed', type=int, default=1)
     ap.add_argument('--cap', type=float, default=2.5e7); ap.add_argument('--sols', type=int, default=4)
+    ap.add_argument('--amax', type=float, default=2 ** 22, help='enumerate all skew A up to this many, else sample this many')
     a = ap.parse_args()
     v = a.v; gens = [int(g) for g in a.gens.split(',')]; b, c, d = map(int, a.pattern.split(','))
     G = L.AbGroup([v]); st = L.Structure(G, [G.perm_from_matrix(np.array([[g]])) for g in gens])
@@ -50,7 +51,10 @@ def main():
     rep = np.array([np.flatnonzero(st.orb == o)[0] for o in range(st.O)])
     partner = st.orb[G.neg()[rep]]
     pairs = [(o, partner[o]) for o in range(1, st.O) if o < partner[o]]
-    s = 1 - 2 * ((np.arange(2 ** len(pairs))[:, None] >> np.arange(len(pairs))) & 1)
+    if 2 ** len(pairs) <= a.amax:                                  # every skew A
+        s = 1 - 2 * ((np.arange(2 ** len(pairs))[:, None] >> np.arange(len(pairs))) & 1)
+    else:                                                          # a uniform sample of distinct skew A
+        s = np.unique(rng.choice(np.array([-1, 1], dtype=np.int8), size=(int(a.amax * 1.02), len(pairs))), axis=0)[:int(a.amax)]
     YA = np.zeros((len(s), st.O), dtype=np.int8); YA[:, 0] = 1
     for j, (o, q) in enumerate(pairs): YA[:, o] = s[:, j]; YA[:, q] = -s[:, j]
     VA, ok = K.values(st, YA, pm); YA, VA = YA[ok], VA[ok]

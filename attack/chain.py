@@ -14,7 +14,7 @@ orbit representatives (reduced coordinates).
 2. **Second level.** For each solution of the first level, the Z_d2 compressions inside the four fibres are
    joined exactly.
 3. **Final join.** For each consistent combination, every sign vector with that pair of compressions is listed
-   (meet in the middle over the orbits). The four lists are joined on all autocorrelation classes (find4b).
+   (meet in the middle over the orbits). The four lists are joined on all autocorrelation classes (join4x).
    Hits are verified as skew-Hadamard matrices.
 
 Nothing is sampled. With --exhaustive and no truncation, a run that finds nothing rules the structure and
@@ -106,13 +106,19 @@ class Chain:
         return np.stack([(X * np.roll(X, -k, axis=1)).sum(1) for k in range(1, d // 2 + 1)], axis=1)
 
 
-def join4(P, target=None):
-    """All (i, j, k, l) with P0[i] + P1[j] + P2[k] + P3[l] == target (integer vectors). Pair-sum hash join."""
+class JoinTooLarge(Exception):
+    pass
+
+
+def join4(P, target=None, maxpairs=6e7):
+    """All (i, j, k, l) with P0[i] + P1[j] + P2[k] + P3[l] == target (integer vectors). Pair-sum hash join.
+    Raises JoinTooLarge when the stored pair sums (two smallest lists) would exceed maxpairs."""
     sizes = [len(p) for p in P]
     if min(sizes) == 0: return []
     perm = list(np.argsort(sizes))            # two smallest lists form the stored pair sums
+    if float(sizes[perm[0]]) * sizes[perm[1]] > maxpairs: raise JoinTooLarge()
     if perm != [0, 1, 2, 3]:
-        sub = join4([P[k] for k in perm], target)
+        sub = join4([P[k] for k in perm], target, maxpairs)
         inv = np.argsort(perm)
         return [tuple(t[inv[k]] for k in range(4)) for t in sub]
     dim = P[0].shape[1]
@@ -163,21 +169,30 @@ class Halves:
         kn = (need.astype(np.uint64) * self.R).sum(dtype=np.uint64)
         want = kn - self.k1
         lo = np.searchsorted(self.ks, want, 'left'); hi = np.searchsorted(self.ks, want, 'right')
-        if int((hi - lo).sum()) > cap: return None
-        rows = []
-        for i in np.flatnonzero(hi > lo):
-            for p in range(lo[i], hi[i]):
-                j = self.order[p]
-                if np.array_equal(self.s1[i].astype(np.int64) + self.s2[j], need): rows.append(np.concatenate([self.b1[i], self.b2[j]]))
-        Y = np.zeros((len(rows), self.O), dtype=np.int8)
-        if not rows: return Y
-        B = np.array(rows, dtype=np.int64)
-        if self.skew:
-            Y[:, 0] = 1
-            for c, (o, q) in enumerate(self.items): Y[:, o] = 2 * B[:, c] - 1; Y[:, q] = -(2 * B[:, c] - 1)
-        else:
-            for c, o in enumerate(self.items): Y[:, o] = 2 * B[:, c] - 1
-        return Y
+        cnt = hi - lo
+        tot = int(cnt.sum())
+        if tot > cap: return None
+        Y = np.zeros((0, self.O), dtype=np.int8)
+        parts = []
+        nz = np.flatnonzero(cnt)
+        for c0 in range(0, len(nz), 1 << 16):                 # vectorised over all hash matches, in chunks
+            ii = nz[c0:c0 + (1 << 16)]
+            k = cnt[ii]
+            I = np.repeat(ii, k)
+            off = np.arange(int(k.sum())) - np.repeat(np.cumsum(k) - k, k)
+            J = self.order[lo[I] + off]
+            ok = np.all(self.s1[I].astype(np.int64) + self.s2[J] == need, axis=1)
+            I, J = I[ok], J[ok]
+            if len(I) == 0: continue
+            B = np.concatenate([self.b1[I], self.b2[J]], axis=1).astype(np.int8)
+            Yc = np.zeros((len(I), self.O), dtype=np.int8)
+            if self.skew:
+                Yc[:, 0] = 1
+                for c, (o, q) in enumerate(self.items): Yc[:, o] = 2 * B[:, c] - 1; Yc[:, q] = -(2 * B[:, c] - 1)
+            else:
+                for c, o in enumerate(self.items): Yc[:, o] = 2 * B[:, c] - 1
+            parts.append(Yc)
+        return np.concatenate(parts) if parts else Y
 
 
 JOIN_TIMEOUT = None          # seconds per final join (None: no limit); set by run(join_timeout=...)
@@ -193,7 +208,7 @@ def final_join(ch, lists, K=2):
     for Y in lists:
         Yf = Y.astype(np.float64)
         Vs.append(np.rint((st.class_values(Yf) - pm) / 4).astype(np.int16))
-    # find4b pairs (0,1) and (2,3): balance the pair products
+    # join4x builds the smaller of the pair products (0,1), (2,3): pair the smallest list with the largest
     order = np.argsort([len(x) for x in Vs]); perm = [order[0], order[3], order[1], order[2]]
     fd, path = tempfile.mkstemp(suffix='.bin', dir=W.tmpdir()); os.close(fd)
     try:
@@ -201,7 +216,7 @@ def final_join(ch, lists, K=2):
             f.write(struct.pack('iiiii', *[len(Vs[k]) for k in perm], st.C)); f.write(np.full(st.C, -pm, dtype=np.int16).tobytes())
             for k in perm: f.write(np.ascontiguousarray(Vs[k]).tobytes())
         try:
-            out = subprocess.run([W.bin('find4b'), path, str(K)], capture_output=True, text=True, check=True,
+            out = subprocess.run([W.bin('join4x'), path, str(K)], capture_output=True, text=True, check=True,
                                  timeout=JOIN_TIMEOUT).stdout
         except subprocess.TimeoutExpired:
             raise JoinTimeout()
@@ -222,7 +237,7 @@ def final_join(ch, lists, K=2):
 def split_join(ch, lists, extra):
     """Final join through extra compression levels computed from the enumerated fibres (used when the joint DP
     over all levels does not fit). Each list is grouped by its compressions to the extra primes, the compressed
-    autocorrelations are joined exactly, and find4b runs only on the consistent sub-lists. Exact."""
+    autocorrelations are joined exactly, and join4x runs only on the consistent sub-lists. Exact."""
     groups = []
     for Y in lists:
         keys = np.concatenate([Y.astype(np.int64) @ e.lev[0][4] for e in extra], axis=1)
@@ -236,7 +251,11 @@ def split_join(ch, lists, extra):
             parts.append(e.paf(0, u[:, a:a + h])); a += h
         P.append(np.concatenate(parts, axis=1))
     total, sols = 0, []
-    for q in join4(P):
+    try:
+        quads = join4(P)
+    except JoinTooLarge:
+        return final_join(ch, lists)
+    for q in quads:
         sub = [lists[k][groups[k][1] == q[k]] for k in range(4)]
         t, s = final_join(ch, sub)
         total += t; sols += s
@@ -253,7 +272,7 @@ def verify_sol(ch, Ys):
 
 
 def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, maxstates=20_000_000, verbose=True, budget=3600,
-        maxbranches=None, join_timeout=None, levels=None):
+        maxbranches=None, join_timeout=None, levels=None, split=False):
     global JOIN_TIMEOUT
     JOIN_TIMEOUT = join_timeout
     """pat = (b, c, d) for skew families (first block skew, row sum 1); pat = (a, b, c, d) for plain Hadamard GS."""
@@ -270,7 +289,10 @@ def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, ma
         Sd = [c1.states(r, maxstates) for r in roles]      # intermediate DP states can exceed the final count 100-fold
         if any(x is None for x in Sd): continue
         U = [np.unique(K_, axis=0).astype(np.int64) for K_, _ in Sd]
-        n1 = 0 if any(len(u) == 0 for u in U) else len(join4([c1.paf(0, u) for u in U]))
+        try:
+            n1 = 0 if any(len(u) == 0 for u in U) else len(join4([c1.paf(0, u) for u in U]))
+        except JoinTooLarge:
+            continue
         counts1[p] = n1
         if n1 == 0:
             print(f"  RESULT v={v} H={gens} rows=(1,{pat}): ruled out at d={p} (empty level-1 join) [{time.time() - t0:.0f}s]", flush=True)
@@ -295,11 +317,14 @@ def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, ma
             out.append((u.astype(np.int64), inv.ravel(), np.bincount(inv.ravel(), weights=c)))
         return out
     L1 = 0; L2 = 1 if len(ch.ds) > 1 else None
-    extra = [Chain(v, gens, [p], skew=skew) for p in ps if p not in ch.ds and p < v]   # levels the joint DP left out
+    extra = [Chain(v, gens, [p], skew=skew) for p in ps if p not in ch.ds and p < v] if split else []   # levels the joint DP left out
     d1, d2 = ch.ds[0], (ch.ds[1] if L2 is not None else 0)
     proj = project(L1)
     P1 = [ch.paf(L1, u) for u, _, _ in proj]
-    sols1 = join4(P1)
+    try:
+        sols1 = join4(P1)
+    except JoinTooLarge:
+        print(f"  level-1 join too large", flush=True); return dict(status='too-large')
     if verbose:
         print(f"v={v} H={gens} |H|={len(ch.H)} O={ch.st.O} C={ch.st.C} rows=(1,{pat}) d1={d1} d2={d2}: "
               f"joint states {[len(s[0]) for s in S]}, level-1 vectors {[len(p[0]) for p in proj]}, level-1 solutions {len(sols1)} "
@@ -324,7 +349,10 @@ def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, ma
                 fib.append((Kf, cf))
             a2, b2 = ch.splits[L2], ch.splits[L2 + 1]
             P2 = [ch.paf(L2, Kf[:, a2:b2].astype(np.int64)) for Kf, _ in fib]
-            sols2 = join4(P2)
+            try:
+                sols2 = join4(P2)
+            except JoinTooLarge:
+                truncated += 1; continue
             cands = [[fib[k][0][s[k]] for k in range(4)] for s in sols2]
             counts = [[fib[k][1][s[k]] for k in range(4)] for s in sols2]
             # largest fibres first: the expected yield of a final join grows like the product of the four fibre
@@ -382,8 +410,10 @@ if __name__ == '__main__':
     ap.add_argument('--maxfibre', type=float, default=3e6); ap.add_argument('--maxstates', type=float, default=2e7)
     ap.add_argument('--budget', type=float, default=3600); ap.add_argument('--maxbranches', type=int)
     ap.add_argument('--join-timeout', type=float)
+    ap.add_argument('--split', action='store_true', help='group the final join by the compressions the joint DP left out')
     a = ap.parse_args()
     v = a.v; ps = [p for p in range(2, v) if v % p == 0 and all(p % q for q in range(2, int(p ** 0.5) + 1))]
     d1 = a.d1 or ps[0]; d2 = a.d2 if a.d2 is not None else (ps[1] if len(ps) > 1 else 0)
     run(v, [int(x) for x in a.gens.split(',')], tuple(int(x) for x in a.pattern.split(',')), d1, d2, a.exhaustive,
-        int(a.maxfibre), int(a.maxstates), budget=a.budget, maxbranches=a.maxbranches, join_timeout=a.join_timeout)
+        int(a.maxfibre), int(a.maxstates), budget=a.budget, maxbranches=a.maxbranches, join_timeout=a.join_timeout,
+        split=a.split)
