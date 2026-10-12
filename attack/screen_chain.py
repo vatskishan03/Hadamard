@@ -1,6 +1,6 @@
 """Run the exact compression-chain search (chain.py) on the survivors of census_screen.py, best model estimate first.
 
-  python3 attack/screen_chain.py [BUDGET] [MAXO]   -> $HADAMARD_WORK/screen_chain.jsonl
+  python3 attack/screen_chain.py [BUDGET] [MAXO] [MAXBRANCHES]   -> $HADAMARD_WORK/screen_chain[bK].jsonl
 
 The model estimate only sets the order (for composite v it is unreliable); each structure gets the full chain
 search with the given time budget. A v is skipped once it has a verified hit."""
@@ -11,7 +11,9 @@ import chain
 
 budget = float(sys.argv[1]) if len(sys.argv) > 1 else 1800
 maxo = int(sys.argv[2]) if len(sys.argv) > 2 else 46
-out = W.WORK / 'screen_chain.jsonl'
+maxbranches = int(sys.argv[3]) if len(sys.argv) > 3 else None     # breadth-first pass: heaviest branches only
+tag = f'b{maxbranches}' if maxbranches else ''
+out = W.WORK / f'screen_chain{tag}.jsonl'
 done = set()
 if out.exists():
     for l in open(out):
@@ -27,7 +29,7 @@ while True:
     pat = tuple(r['pattern'])
     t = time.time()
     try:
-        res = chain.run(r['v'], r['gens'], pat, exhaustive=False, verbose=True, budget=budget)
+        res = chain.run(r['v'], r['gens'], pat, exhaustive=False, verbose=True, budget=budget, maxbranches=maxbranches)
     except Exception as e:
         res = dict(status=f'error: {e!r}')
     rec = dict(v=r['v'], gens=r['gens'], H=r['H'], O=r['O'], pattern=list(pat), log10E_gen=r['log10E_gen'],

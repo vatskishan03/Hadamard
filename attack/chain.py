@@ -217,7 +217,8 @@ def verify_sol(ch, Ys):
     return seqs if ok else None
 
 
-def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, maxstates=20_000_000, verbose=True, budget=3600):
+def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, maxstates=20_000_000, verbose=True, budget=3600,
+        maxbranches=None):
     """pat = (b, c, d) for skew families (first block skew, row sum 1); pat = (a, b, c, d) for plain Hadamard GS."""
     t0 = time.time()
     skew = len(pat) == 3
@@ -275,6 +276,8 @@ def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, ma
     for bi, q in enumerate(branches):
         if time.time() - t0 > budget:
             truncated += 1; timed_out = True; break
+        if maxbranches is not None and bi >= maxbranches:          # breadth-first passes: heaviest branches only
+            truncated += 1; break
         if d2:
             fib = []
             for k in range(4):
@@ -316,7 +319,9 @@ def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, ma
                   f"[{time.time() - t0:.0f}s]", flush=True)
         if found and not exhaustive: break
     status = 'found' if found else ('ruled out' if truncated == 0 else
-              (f'nothing found (time budget of {budget}s reached)' if timed_out else f'nothing found ({truncated} combinations truncated)'))
+              (f'nothing found (time budget of {budget}s reached)' if timed_out else
+               (f'nothing found in the first {maxbranches} of {len(branches)} branches' if maxbranches is not None and len(branches) > maxbranches
+                else f'nothing found ({truncated} combinations truncated)')))
     print(f"  RESULT v={v} H={gens} rows=(1,{pat}): {status}; level-1 branches {len(branches)}, combos {combos_done}, solutions counted {nsol} "
           f"[{time.time() - t0:.0f}s]", flush=True)
     return dict(status=status, found=found, branches=len(branches), truncated=truncated, solutions=nsol)
@@ -328,8 +333,9 @@ if __name__ == '__main__':
     ap.add_argument('--d1', type=int); ap.add_argument('--d2', type=int)
     ap.add_argument('--exhaustive', action='store_true')
     ap.add_argument('--maxfibre', type=float, default=3e6); ap.add_argument('--maxstates', type=float, default=2e7)
+    ap.add_argument('--budget', type=float, default=3600); ap.add_argument('--maxbranches', type=int)
     a = ap.parse_args()
     v = a.v; ps = [p for p in range(2, v) if v % p == 0 and all(p % q for q in range(2, int(p ** 0.5) + 1))]
     d1 = a.d1 or ps[0]; d2 = a.d2 if a.d2 is not None else (ps[1] if len(ps) > 1 else 0)
     run(v, [int(x) for x in a.gens.split(',')], tuple(int(x) for x in a.pattern.split(',')), d1, d2, a.exhaustive,
-        int(a.maxfibre), int(a.maxstates))
+        int(a.maxfibre), int(a.maxstates), budget=a.budget, maxbranches=a.maxbranches)
