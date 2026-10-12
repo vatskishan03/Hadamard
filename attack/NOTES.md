@@ -416,6 +416,31 @@ lists 234 odd v ≤ 999 for which no skew matrix of order 4v is known. The FRONT
   - The solved structures pass. 209/⟨26⟩ has 7 and 15 feasible norm combinations at d = 11
     and 19; 469/⟨9⟩ has 1 at d = 7.
   - Any triage of composite v should apply this test before the Gaussian estimate.
+- **Which tool when.** The k-tree enumerates every left pair (A, D) and every right pair (B, C) once
+  over all values of τ. Its work per solution is therefore (N_A·N_D + N_B·N_C)/E′, with E′ the yield
+  of the (sampled) lists. At about 10⁷ pairs/s on this machine:
+  - 353 (E′ = 10⁴, lists 1.2·10⁷): about 10 minutes;
+  - 763 (E′ = 10²·⁶): about 10 hours, and it gave no hit in 400 τ;
+  - 703 (E′ = 10¹·⁸): days.
+  
+  Low-energy lists (`skew_gen.c`) narrow each list's class spread by 2–2.4×. With A uniform
+  this adds roughly 0.21 per class to log₁₀ E′, which matters most at 15–25 classes.
+  
+  Joint tabu search on (A, B, C, D) works up to about 10 classes:
+  - 209 (10 classes) and the spin structure of 919 (9 classes): seconds;
+  - 353 (16 classes, E = 10⁹, solved by k-tree): no solution in 20 minutes;
+  - 205 (22 classes, E = 10¹¹): best residual about 6 classes off by 4 after 8·10⁶ moves.
+  
+  For the spin structure, a walk that looks up all 512 skew A's at every swap neighbour (the
+  METHOD.md technique for 2284, `spin_walk.c`) did 4·10⁹ lookups in 300 s without finding 919,
+  which the joint tabu finds in under a minute.
+- **Second-tier exact sweep** (pair work 1.5·10⁹–5·10¹⁰, ≤ 37 orbits). Of the 48 structure-pattern
+  pairs, the compression test proves almost all empty, for example:
+  - 605/⟨16⟩;
+  - 793/⟨9, 16⟩;
+  - 903/⟨4, 25⟩;
+  - 759/⟨4⟩ and 549/⟨13, 16⟩;
+  - 441/⟨4, 22⟩ (all patterns).
 - **No hits:**
   - 201 with ⟨22⟩ and 301 with ⟨4⟩ (both exhaustive; both obstructed, see above);
   - 265 with ⟨16⟩ (400 values of τ);

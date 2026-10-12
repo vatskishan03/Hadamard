@@ -177,7 +177,7 @@ def gs_local(v, hgens, pattern, restarts, steps, seed, verbose=True):
         M2.tofile(f); S2.tofile(f); np.array(pairs, np.int32).ravel().tofile(f); X0.tofile(f)
     import subprocess
     t = time.time()
-    out = subprocess.run([os.path.join(HERE, 'spin_ls'), path, str(restarts), str(steps), str(seed)], capture_output=True, text=True)
+    out = subprocess.run([os.path.join(HERE, os.environ.get('SPIN_LS', 'spin_ls')), path, str(restarts), str(steps), str(seed)] + os.environ.get('SPIN_LS_ARGS', '').split(), capture_output=True, text=True)
     os.remove(path)
     if verbose: print(f"v={v} gens={hgens} rows=(1,{pattern}) orbits={O} classes={C}:", out.stderr.strip().splitlines()[-1], f"[{time.time()-t:.0f}s]", flush=True)
     sol = [l for l in out.stdout.splitlines() if l.startswith('SOL')]
@@ -293,8 +293,11 @@ if __name__ == '__main__':
             M2.tofile(f); S2.tofile(f); np.array(sp.pairs, np.int32).ravel().tofile(f); B0.tofile(f)
         import subprocess
         t = time.time()
-        out = subprocess.run([os.path.join(HERE, 'spin_ls'), path, str(a.restarts), str(a.steps), str(a.seed)],
-                             capture_output=True, text=True)
+        if os.environ.get('SPIN_WALK'):      # neighbour-lookup walk: SPIN_WALK = seconds
+            out = subprocess.run([os.path.join(HERE, 'spin_walk'), path, os.environ['SPIN_WALK'], str(a.seed)], capture_output=True, text=True)
+        else:
+            out = subprocess.run([os.path.join(HERE, os.environ.get('SPIN_LS', 'spin_ls')), path, str(a.restarts), str(a.steps), str(a.seed)]
+                                 + os.environ.get('SPIN_LS_ARGS', '').split(), capture_output=True, text=True)
         os.remove(path)
         print(out.stderr.strip().splitlines()[-1], f"[{time.time()-t:.0f}s]", flush=True)
         sol = [l for l in out.stdout.splitlines() if l.startswith('SOL')]
