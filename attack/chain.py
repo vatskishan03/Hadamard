@@ -222,16 +222,33 @@ def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, ma
     t0 = time.time()
     skew = len(pat) == 3
     roles = ([None] if skew else []) + list(pat)
-    # One joint DP over all prime levels. Screen each level: an empty join rules the pattern out at once;
-    # the level with the fewest solutions is used first.
+    # Screen each prime level with its own DP (levels whose state space is too large are skipped). An
+    # empty join at any level rules the pattern out. The chain then uses the two feasible levels with the
+    # fewest level-1 solutions, jointly if their joint DP fits, else the single best level.
     ps = [p for p in range(2, v) if v % p == 0 and all(p % r for r in range(2, int(p ** 0.5) + 1))]
-    ch = Chain(v, gens, ps, skew=skew)
-    S = []
-    for r in roles:
-        s = ch.states(r, maxstates)
-        if s is None:
-            print(f"  state space too large for role {r}", flush=True); return dict(status='too-large')
-        S.append(s)
+    counts1 = {}
+    for p in ps:
+        c1 = Chain(v, gens, [p], skew=skew)
+        Sd = [c1.states(r, maxstates // 4) for r in roles]
+        if any(x is None for x in Sd): continue
+        U = [np.unique(K_, axis=0).astype(np.int64) for K_, _ in Sd]
+        n1 = 0 if any(len(u) == 0 for u in U) else len(join4([c1.paf(0, u) for u in U]))
+        counts1[p] = n1
+        if n1 == 0:
+            print(f"  RESULT v={v} H={gens} rows=(1,{pat}): ruled out at d={p} (empty level-1 join) [{time.time() - t0:.0f}s]", flush=True)
+            return dict(status='ruled out', found=[], branches=0, truncated=0, solutions=0, reason=f'd={p}')
+    if not counts1:
+        print(f"  state space too large at every level", flush=True); return dict(status='too-large')
+    best = sorted(counts1, key=lambda p: counts1[p])
+    S = None
+    for levels_ in ([best[0], best[1]] if len(best) > 1 else [], [best[0]]):
+        if not levels_: continue
+        ch = Chain(v, gens, levels_, skew=skew)
+        S = [ch.states(r, maxstates) for r in roles]
+        if all(x is not None for x in S): break
+        S = None
+    if S is None:
+        print(f"  joint state space too large", flush=True); return dict(status='too-large')
     def project(level):
         a, b = ch.splits[level], ch.splits[level + 1]
         out = []
@@ -239,17 +256,8 @@ def run(v, gens, pat, d1=None, d2=None, exhaustive=False, maxfibre=3_000_000, ma
             u, inv = np.unique(K_[:, a:b], axis=0, return_inverse=True)
             out.append((u.astype(np.int64), inv.ravel(), np.bincount(inv.ravel(), weights=c)))
         return out
-    counts1 = {}
-    for lv in range(len(ps)):
-        pr = project(lv)
-        n1 = len(join4([ch.paf(lv, u) for u, _, _ in pr]))
-        counts1[lv] = n1
-        if n1 == 0:
-            print(f"  RESULT v={v} H={gens} rows=(1,{pat}): ruled out at d={ps[lv]} (empty level-1 join) [{time.time() - t0:.0f}s]", flush=True)
-            return dict(status='ruled out', found=[], branches=0, truncated=0, solutions=0, reason=f'd={ps[lv]}')
-    lv_order = sorted(counts1, key=lambda l: counts1[l])
-    L1 = lv_order[0]; L2 = lv_order[1] if len(lv_order) > 1 else None
-    d1, d2 = ps[L1], (ps[L2] if L2 is not None else 0)
+    L1 = 0; L2 = 1 if len(ch.ds) > 1 else None
+    d1, d2 = ch.ds[0], (ch.ds[1] if L2 is not None else 0)
     proj = project(L1)
     P1 = [ch.paf(L1, u) for u, _, _ in proj]
     sols1 = join4(P1)

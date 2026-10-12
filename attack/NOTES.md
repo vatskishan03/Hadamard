@@ -516,3 +516,27 @@ Goethals–Seidel array works over any abelian group, and `verify.py` checks it 
     4,211,424 solutions, giving skew-Hadamard order 1372 (Table 5: 343(4)).
   - **625 = 5⁴ and 729 = 3⁶:** the small cyclotomic structures (orders 39 and 13, and 91 and 13)
     have no admissible row sums.
+
+## 13. Hadamard orders from the skew orders (Yamada's Theorem 4, after Kiyasu)
+
+Yamada, J. Austral. Math. Soc. (A) 46 (1989) 371–383, Theorem 4: if q ≡ 5 (mod 8) is a prime power and a
+skew-Hadamard matrix of order (q + 3)/2 exists, then a Hadamard matrix of order 4(q + 2) exists. Main's
+`verify.py` has the `yamada` builder, and `attack/make_yamada.py` nests one of our skew certificates in it,
+after k doublings. For a skew order s (≡ 0 mod 4), q = 2s − 3 is automatically 5 (mod 8), so only its
+primality matters.
+
+| skew order s | q = 2s − 3 | Hadamard order 4(q + 2) | status of that order (agent audit, Oct 2026) |
+|---|---|---|---|
+| 836 | 1669 | 6684 (n = 1671) | known; n ≤ 2999 not in the open list; built as a pipeline test |
+| 1036, 1100, 1148, 1372 | 2069, 2197 = 13³, 2293, 2741 | 8284, 8796, 9180, 10972 | known (n ≤ 2999, not open) |
+| 1612 | 3221 | 12892 | known: T-matrices of order 11 × Williamson-type of order 293 |
+| 1852 (Đoković 1994) | 3701 | 14812 | known: T(7) × Williamson-type 529; also Kiyasu from Đoković's 1852 |
+| 2200 = 2·1100 | 4397 | 17596 | known: T-sequences of length 53 × Williamson-type 83 |
+| 3016 = 2·1508 | 6029 | 24124 | implied since 2026-08-30 by T-matrices of order 163 (JD-Jones-ASES/Hadamard-T) × Williamson 37, but stated nowhere we found; main's lead |
+| 3556 | 7109 | 28444 | known: Paley II (q = 14221) |
+| 3676 (Schumer 2026) | 7349 | 29404 | implied since 2026-09-17 by Schumer's skew 3676, stated nowhere we found |
+| 4808 = 2·2404 | 9613 | 38460 | known: Paley I (q = 38459) |
+| **6448 = 4·1612** | **12893** | **51580 (n = 12895 = 5·2579)** | **probably open**: Paley I/II fail (51579, 25789 composite); no Williamson-type family reaches 2579 or 12895; Seberry–Yamada 1992 Table A.2 gives only 8·2579; n > 10000 is beyond Handbook Table 1.53; no 2026 deposit mentions it |
+| 7112, 7408, 14816 | 14221, 14813, 29629 | 56892, 59260, 118524 | known (Paley I, Paley II, Williamson-type routes) |
+
+So the new skew order 1612 (4·403), doubled twice, gives the Hadamard order 51580, which is probably new.
