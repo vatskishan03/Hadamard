@@ -6,6 +6,7 @@ import numpy as np
 sys.path.insert(0, '/home/user/Hadamard/attack'); sys.path.insert(0, '/home/user/Hadamard/verify')
 import spence_lib as L, count_exact as X
 import verify
+from skew_ktree import pool_exact
 HERE = '/home/user/Hadamard/attack'
 
 def run(n, gens, cap=4e10, K=2, verbose=True):
@@ -31,17 +32,21 @@ def run(n, gens, cap=4e10, K=2, verbose=True):
     cache = {}
     def vecs(r):
         if r not in cache:
-            Y = X.pool_vectors(st, r)
-            cache[r] = (Y.astype(np.int8), np.rint((st.class_values(Y) - pm) / 4).astype(np.int16))
+            Y = pool_exact(st, r).astype(np.float64)
+            V = np.empty((len(Y), st.C), np.int16)
+            step = max(1000, int(1.5e8 // (st.C * st.O)))
+            for s0 in range(0, len(Y), step):
+                V[s0:s0 + step] = np.rint((st.class_values(Y[s0:s0 + step]) - pm) / 4)
+            cache[r] = (Y.astype(np.int8), V)
         return cache[r]
     found = []
     for q in pats:
-        Ls = [(YA.astype(np.int8), VA)] + [vecs(r) for r in q]
-        sizes = [len(l[1]) for l in Ls]
+        sizes = [len(YA)] + [int(st.pool(r)) for r in q]
         work = sizes[0] * sizes[3] + sizes[1] * sizes[2]
         if work > cap:
             if verbose: print(f"  pattern {q}: pools {sizes} work {work:.2e} > cap", flush=True)
             continue
+        Ls = [(YA.astype(np.int8), VA)] + [vecs(r) for r in q]
         fd, path = tempfile.mkstemp(suffix='.bin', dir=HERE); os.close(fd)
         try:
             with open(path, 'wb') as f:
