@@ -1171,3 +1171,44 @@ multipliers H needs every h ∈ H to move each nonzero t off −t, which leaves 
   2⁹² members per block, far beyond exhaustive enumeration.
 So these routes need families with (almost) no symmetry. ℤ₂₃₅ is the only group of order 235 and ℤ₁₄₉ the only one
 of order 149.
+
+## 21. Legendre pairs for the open orders (negative), prime-power fibres, faster enumeration and joins
+
+**Legendre pairs over the same structures do not reach the open orders.** A Legendre pair of length l = 2n − 1
+gives a Hadamard matrix of order 4n, and a two-list join keeps far more solutions in low-energy lists than a
+four-list one: for equal covariances the key of A in a solution has covariance Σ_A/2, and the whitened offsets of A
+and B coincide up to sign, so a list of 10⁻³ of a block with rank 40 still holds about a third of the solutions.
+`attack/lp_lowe.py` implements it (stage 1 on ℤ_m with spike costs summing to 2(m − 1)e, PAF sums −2q; level B target
+−2m, level C −2; exact hash join) and `attack/lp_hunt.py` runs it over the FRONTIER orders. It finds Legendre pairs
+of length 143 (ℤ₁₁ × GF(13), e = 4, K₁₁ = ⟨3⟩: the twin-prime class). But the count is against it:
+- An H-invariant pair has two blocks of O orbits each, so about 2 · 0.3 · O decimal digits of freedom, against about
+  O/2 conditions that each cost log₁₀(√(4πl)/4). That gives log₁₀ E ≈ O (0.6 − 0.5 log₁₀(√(4πl)/4)), which is
+  negative for l ≳ 320. Goethals–Seidel structures have twice the freedom per condition (four blocks of length n
+  against two of length 2n − 1), which is why their FRONTIER estimates are 10²⁰ and more.
+- Measured: l = 1501 (n = 751), ℤ₇₉ × GF(19), e = 6, K₇₉ of order 13, the only stage-1 class: blocks of
+  7.2 · 10⁸ and 2.2 · 10⁸ members, Gaussian estimate 10^−24.8 (rank 20).
+So the route is closed for these lengths except through algebraic families.
+
+**Prime-power fibres** (`attack/cp_field.py`, `cp_lowe.py --field p,k`). The cyclotomic product ℤ_m × GF(p^k) lives
+on the group ℤ_m × ℤ_p^k: field elements are coordinate vectors in the basis 1, w, …, w^{k−1} (w a root of a
+primitive polynomial), the correlation table comes from a k-dimensional FFT, and the generators of H are integer
+matrices on the coordinates, as `verify.build_goethals_seidel_group` checks them. Hits are checked by the group PAF,
+the group negation and the automorphisms, and `skew_certify_group.py` writes the certificate.
+- Validation: 205 = 5 · 41 as ℤ₅ × ℤ₄₁ (k = 1) gives 2 verified solutions in the class that gave skew 820.
+- 75 census values have a prime-power fibre with F ≥ 3 odd and at most 2 · 10⁵ patterns per position, e.g.
+  GF(25) with e = 8 (F = 3) for 325, 475, 575, 725, …, GF(49) with e = 16 for 245, 441, 539, 637, …, GF(121) for
+  605, 1089, 1573, GF(169) for 845, 1183, 1859.
+- 325 = 13 · 25 with K₁₃ = ⟨3⟩: class 0 of the sampled stage 1 has blocks of 0.6–8.6 · 10⁸ members and a Gaussian
+  estimate of 10^−0.44 (rank 19). Not promising; the hunt ranks the other classes and structures.
+
+**Speed.**
+- `cp_enum.c` scans the last position in a transposed structure-of-arrays layout, with the patterns of each class sum
+  contiguous. The kept members are bit for bit those of the generic recursion (checked on blocks of 261, 301, 409 and
+  571); prime-field blocks run 2.3 times faster, composite ones about 1.2 times.
+- `kt4.c` sorts all four lists by their merge tuples and finds the matching groups by one merge pass (by binary
+  search when one list has few groups). The pairs of two groups then read contiguous memory instead of a binary
+  search and a random hash load per member. On the 261 lists the same 12 solutions come in 79 s instead of 395 s.
+
+**The 1123 run.** With lists of 5.8 · 10⁷, 10⁷ and 10⁷ (10^2.23 solutions expected inside), the old `kt4` processed
+72 of 6000 split values in 830 s without a solution before it was killed for memory (another job was running). It
+is being rerun with lists of 3 · 10⁷, 10⁷, 10⁷ (10^1.98) and the new `kt4`.
