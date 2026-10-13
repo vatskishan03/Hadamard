@@ -47,6 +47,14 @@ def symmetric_matrix(A, B, D):
     return np.block([[cA, cD, BR, BR], [cD, -cA, BR, -BR], [BR, BR, -cD, -cA], [BR, -BR, -cA, cD]])
 
 
+def symmetric_matrix_v3(A, B, D):
+    """Variant needing only A symmetric: [[A, B, B, D], [Bᵀ, DR, −A, −BR], [Bᵀ, −A, −DR, BR], [Dᵀ, −BR, BR, −A]]."""
+    cA, cB, cD = (verify.circulant(x) for x in (A, B, D))
+    R = verify.back_identity(len(A))
+    BR, DR = cB @ R, cD @ R
+    return np.block([[cA, cB, cB, cD], [cB.T, DR, -cA, -BR], [cB.T, -cA, -DR, BR], [cD.T, -BR, BR, -cA]])
+
+
 def patterns(v):
     out = []
     lim = math.isqrt(4 * v)
@@ -55,7 +63,7 @@ def patterns(v):
             rest = 4 * v - ra * ra - 2 * rb * rb
             if rest < 1: continue
             rd = math.isqrt(rest)
-            if rd * rd == rest and rd % 2 and ra <= rd: out.append((ra, rb, rd))
+            if rd * rd == rest and rd % 2: out.append((ra, rb, rd))
     return out
 
 
@@ -68,15 +76,17 @@ def structures(v, gens, symB):
     return st_ad, st_b
 
 
-def search(v, gens, symB=False, maxpool=3e7, K=1, log=print):
+def search(v, gens, symB=False, maxpool=3e7, K=1, log=print, freeD=False):
     st_ad, st_b = structures(v, gens, symB)
+    st_a, st_d = st_ad, (st_b if freeD else st_ad)
     pm = v % 4
     found = []
     pats = patterns(v)
-    log(f"v={v} gens={gens} symB={symB}: orbits A/D {st_ad.O}, B {st_b.O}, classes {st_ad.C}, patterns {len(pats)}")
+    log(f"v={v} gens={gens} symB={symB} freeD={freeD}: orbits A {st_a.O}, B {st_b.O}, D {st_d.O}, classes {st_ad.C}, patterns {len(pats)}")
     for ra, rb, rd in pats:
         # signs: negating A, B or D gives an equivalent solution, so positive row sums suffice
-        sizes = [st_ad.pool(ra), st_b.pool(rb), st_ad.pool(rd)]
+        if not freeD and ra > rd: continue                 # A and D interchangeable when both are symmetric
+        sizes = [st_a.pool(ra), st_b.pool(rb), st_d.pool(rd)]
         if min(sizes) == 0 or max(sizes) > maxpool:
             log(f"  rows ({ra}, {rb}, {rd}): pools {[int(s) for s in sizes]} skipped"); continue
         t = time.time()
@@ -85,9 +95,9 @@ def search(v, gens, symB=False, maxpool=3e7, K=1, log=print):
             for c0 in range(0, len(Y), chunk):
                 out[c0:c0 + chunk] = scale * np.rint((st.class_values(Y[c0:c0 + chunk].astype(np.float64)) - pm) / 4)
             return out
-        Ya = pool_vectors(st_ad, ra); Yb = pool_vectors(st_b, rb)
-        Yd = Ya if rd == ra else pool_vectors(st_ad, rd)
-        Va = vals(st_ad, Ya, 1); Vb = vals(st_b, Yb, 2); Vd = Va if rd == ra else vals(st_ad, Yd, 1)
+        Ya = pool_vectors(st_a, ra); Yb = pool_vectors(st_b, rb)
+        Yd = Ya if (rd == ra and not freeD) else pool_vectors(st_d, rd)
+        Va = vals(st_a, Ya, 1); Vb = vals(st_b, Yb, 2); Vd = Va if (rd == ra and not freeD) else vals(st_d, Yd, 1)
         Z = np.zeros((1, st_ad.C), dtype=np.int16)
         lists = [Va, Vd, Vb, Z]                     # join4x stores the smaller pair product: A x D against B
         fd, path = tempfile.mkstemp(suffix='.bin', dir=W.tmpdir()); os.close(fd)
@@ -104,14 +114,14 @@ def search(v, gens, symB=False, maxpool=3e7, K=1, log=print):
         for line in out.splitlines():
             if not line.startswith('SOL'): continue
             ia, idd, ib, _ = map(int, line.split()[1:])
-            A = Ya[ia].astype(np.int64)[st_ad.orb]; B = Yb[ib].astype(np.int64)[st_b.orb]; D = Yd[idd].astype(np.int64)[st_ad.orb]
+            A = Ya[ia].astype(np.int64)[st_a.orb]; B = Yb[ib].astype(np.int64)[st_b.orb]; D = Yd[idd].astype(np.int64)[st_d.orb]
             tot = verify.paf_sum([A, B, B, D])
             if not (tot[0] == 4 * v and not tot[1:].any()): log('  WRONG autocorrelations'); continue
-            Hm = symmetric_matrix(A, B, D)
+            Hm = symmetric_matrix_v3(A, B, D) if freeD else symmetric_matrix(A, B, D)
             ok = np.array_equal(Hm, Hm.T) and np.array_equal(Hm @ Hm.T, 4 * v * np.eye(4 * v, dtype=Hm.dtype))
             log(f"  hit: symmetric Hadamard {ok}")
             if ok:
-                rec = dict(n=v, gens=list(gens), symB=symB, rows=[int(A.sum()), int(B.sum()), int(D.sum())],
+                rec = dict(n=v, gens=list(gens), symB=symB, freeD=freeD, rows=[int(A.sum()), int(B.sum()), int(D.sum())],
                            seqs=[''.join('+' if x > 0 else '-' for x in s) for s in (A, B, D)])
                 with open(W.hits('sym_hits.jsonl'), 'a') as fh: fh.write(json.dumps(rec) + '\n')
                 found.append(rec)
@@ -148,6 +158,7 @@ if __name__ == '__main__':
     ap.add_argument('--symB', action='store_true'); ap.add_argument('--maxpool', type=float, default=3e7)
     ap.add_argument('--K', type=int, default=1); ap.add_argument('--sweep', action='store_true')
     ap.add_argument('--maxo', type=int, default=30); ap.add_argument('--mino', type=int, default=1)
+    ap.add_argument('--freeD', action='store_true', help='only A symmetric (array of symmetric_matrix_v3)')
     a = ap.parse_args()
     log = lambda s: print(s, flush=True)
     if a.sweep:
@@ -162,11 +173,11 @@ if __name__ == '__main__':
         jobs.sort()
         log(f"v={v}: {len(jobs)} structures")
         for _, gs in jobs:
-            for symB in (True, False):
+            for symB, freeD in ((True, False), (False, False), (False, True)):
                 try:
-                    if search(v, gs, symB, a.maxpool, a.K, log): log(f"HIT v={v} gens={gs} symB={symB}"); sys.exit(0)
+                    if search(v, gs, symB, a.maxpool, a.K, log, freeD): log(f"HIT v={v} gens={gs} symB={symB} freeD={freeD}"); sys.exit(0)
                 except AssertionError as e:
                     log(f"  skipped: {e}")
     else:
         gens = [int(x) for x in a.gens.split(',')]
-        search(a.v, gens, a.symB, a.maxpool, a.K, log)
+        search(a.v, gens, a.symB, a.maxpool, a.K, log, a.freeD)

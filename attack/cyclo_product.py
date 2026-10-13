@@ -30,6 +30,7 @@ e = 10 (F = 31) exactly one spike fits, with s = +-2 and f = -sign(s), so y = +-
       --kgen k     also impose invariance under the multipliers <k> of Z_m (acting on the Z_m coordinate)
       --config I   which stage-1 class to search (default 0; --list prints them)
       --sub G      keep only the G largest level-B groups of every list (partial search)
+      --bkey b,..  add the autocorrelations at the shifts (b, C_c) to the group key (finer groups)
   Hits go to $HADAMARD_WORK/skew_hits.jsonl (skew) or had_hits.jsonl (plain).
 """
 import argparse, itertools, json, math, os, struct, subprocess, sys, tempfile, time
@@ -256,14 +257,15 @@ def members(S, y, skewblock):
 
 
 def level_vectors(S, Pm, idx, CC, chunk=1 << 21):
-    """Level-B (e/2) and level-C ((m-1)/2 * e) vectors of the members Pm [n x m] (pattern ids -> rows of CC via idx)."""
+    """Level-B and level-C vectors of the members Pm [n x m] (pattern ids -> rows of CC via idx). Level B is the
+    GF(q)-compression (S.nb classes) plus, for each shift b in S.bkey, the autocorrelations at (b, C_c)."""
     m, e, h = S.m, S.e, S.nb
-    n = len(Pm); B = np.empty((n, h), dtype=np.int16); C = np.empty((n, (m // 2) * e), dtype=np.int16)
+    n = len(Pm); B = np.empty((n, S.dkey), dtype=np.int16); C = np.empty((n, (m // 2) * e), dtype=np.int16)
     for c0 in range(0, n, chunk):
         X = idx[Pm[c0:c0 + chunk]]
         paf = [sum(CC[X[:, (a + b) % m], X[:, a], :].astype(np.int32) for a in range(m)) for b in range(m)]
         lb = sum(paf[b][:, 1:1 + h] for b in range(m))                 # sum over Z_m: classes C_0 .. C_{h-1}
-        B[c0:c0 + chunk] = lb
+        B[c0:c0 + chunk] = np.concatenate([lb] + [paf[b][:, 1:1 + e] for b in S.bkey], axis=1) if S.bkey else lb
         C[c0:c0 + chunk] = np.concatenate([paf[b][:, 1:1 + e] for b in range(1, m // 2 + 1)], axis=1)
     return B, C
 
@@ -276,9 +278,10 @@ def grouped(B, C):
     return B[order[brk]], offs, C[order], order.astype(np.int64)
 
 
-def run(v, q, e, plain=False, config=0, K=5, sub=0, maxquads=-1, threads=None, listonly=False, kgen=1):
+def run(v, q, e, plain=False, config=0, K=5, sub=0, maxquads=-1, threads=None, listonly=False, kgen=1, bkey=()):
     t0 = time.time(); log = lambda s: print(s, flush=True)
     S = Structure(v, q, e, skew=not plain, kgen=kgen)
+    S.bkey = [int(b) for b in bkey]; S.dkey = S.nb + S.e * len(S.bkey)
     quads = stage1(S)
     log(f"v={v} = {S.m}*{q}, e={e}, F={S.F}, H=<{', '.join(map(str, S.gens))}> of order {S.F * len(S.K)}, {'plain' if plain else 'skew'}: "
         f"{len(quads)} stage-1 classes [{time.time() - t0:.0f}s]")
@@ -308,7 +311,7 @@ def run(v, q, e, plain=False, config=0, K=5, sub=0, maxquads=-1, threads=None, l
             for k0 in range(4):
                 with open(parts[k0], 'rb') as f:
                     nG, _, N = struct.unpack('iiq', f.read(16))
-                    Bg = np.frombuffer(f.read(2 * S.nb * nG), np.int16).reshape(nG, S.nb)
+                    Bg = np.frombuffer(f.read(2 * S.dkey * nG), np.int16).reshape(nG, S.dkey)
                     offs = np.frombuffer(f.read(8 * (nG + 1)), np.int64)
                     Cs = np.frombuffer(f.read(2 * dc * N), np.int16).reshape(N, dc)
                     ids = np.frombuffer(f.read(8 * N), np.int64)
@@ -326,7 +329,7 @@ def run(v, q, e, plain=False, config=0, K=5, sub=0, maxquads=-1, threads=None, l
         fd, path = tempfile.mkstemp(suffix='.bin', dir=W.tmpdir()); os.close(fd)
         parts.append(path)
         with open(path, 'wb') as f:
-            f.write(struct.pack('ii', S.nb, (S.m // 2) * S.e))
+            f.write(struct.pack('ii', S.dkey, (S.m // 2) * S.e))
             for k in order:
                 with open(parts[k], 'rb') as g:
                     while True:
@@ -371,5 +374,6 @@ if __name__ == '__main__':
     ap.add_argument('--K', type=int, default=5); ap.add_argument('--sub', type=int, default=0)
     ap.add_argument('--maxquads', type=int, default=-1); ap.add_argument('--threads', type=int)
     ap.add_argument('--list', action='store_true'); ap.add_argument('--kgen', type=int, default=1)
+    ap.add_argument('--bkey', default='', help='comma-separated shifts b whose autocorrelations (b, C_c) join the group key')
     a = ap.parse_args()
-    run(a.v, a.q, a.e, a.plain, a.config, a.K, a.sub, a.maxquads, a.threads, a.list, a.kgen)
+    run(a.v, a.q, a.e, a.plain, a.config, a.K, a.sub, a.maxquads, a.threads, a.list, a.kgen, [b for b in a.bkey.split(',') if b])

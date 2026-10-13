@@ -909,3 +909,50 @@ e = 18, a single spike and 4.9 · 10⁴ patterns per position) are not covered.
 
 **1081 = 23 · 47 (Paley, N_w = 2).** `paley_config.py 1081 --maxu 3` went through all 6¹¹ joint (u₁, u₂) options in
 2,759 s: stage 1 is empty, so 1081 has no solution in the Paley product with N_w = 2 (the only admissible N_w).
+
+**1341 = 9 · 149 (skew, e = 4), partial.** `cyclo_product.py 1341 --q 149 --e 4 --config 0 --K 3 --threads 3 --bkey 3
+--sub 8000` (level-B key extended by the shifts (3, C_c)): lists of 5,184, 10,077,696, 10,077,696 and 6,718,464 members,
+of which the 8,000 largest groups kept 100 %, 13 %, 22 % and 3.3 %; 2,604,080 group quadruples, 2.0 · 10¹⁰ member
+operations, 1,961 s, no solution. This covers about 10⁻³ of the configuration's product space and rules nothing out.
+
+## 17. Symmetric Hadamard matrices from (A, B, B, D)
+
+The Đoković–Seberry census also lists 595 odd v < 2500 for which no *symmetric* Hadamard matrix of order 4v is
+known; the smallest are 65, 89, 101, 107, 119, 133, 149, 153 and 163, and only 12 values (29, 43, 47, 59, 67, 73,
+93, 103, 109, 127, 151, 191) were settled by computer searches.
+
+**Arrays.** A search over 4 × 4 arrays with blocks ±X, ±XR, ±Xᵀ, ±XᵀR (X ∈ {A, B, D}, C = B, R the back identity)
+for arrays that are symmetric and orthogonal for every admissible quadruple gives two useful forms. With
+AAᵀ + 2BBᵀ + DDᵀ = 4v I for circulants A, B, D:
+
+- A and D symmetric: [[A, D, BR, BR], [D, −A, BR, −BR], [BR, BR, −D, −A], [BR, −BR, −A, D]];
+- only A symmetric: [[A, B, B, D], [Bᵀ, DR, −A, −BR], [Bᵀ, −A, −DR, BR], [Dᵀ, −BR, BR, −A]].
+
+Both are symmetric Hadamard matrices of order 4v. In sequence terms: PAF_A + 2 PAF_B + PAF_D = 4v δ with A symmetric
+(and D symmetric for the first form). `attack/propus.py` searches multiplier structures exhaustively: A on the orbits
+of ⟨H, −1⟩, B and D on the orbits of H (or of ⟨H, −1⟩), every row-sum pattern r_A² + 2r_B² + r_D² = 4v, exact
+three-list joins with join4x, and every hit is rebuilt as a matrix and checked (H = Hᵀ, H Hᵀ = 4v I).
+
+**Checks.** v = 13: thousands of solutions in both forms (orders 52, all verified). v = 29: with A and D symmetric
+and B arbitrary there is no cyclic solution at all (both row-sum patterns (3, 7, 3) and (7, 3, 7) exhausted, pools of
+2–3 · 10³ symmetric and 3.5–6.8 · 10⁷ arbitrary sequences), so the known symmetric matrix of order 116 is not a
+cyclic instance of the first form. It is an instance of the second: the family of Di Matteo, Đoković and Kotsireas
+(Spec. Matrices 3 (2015) 227–234, arXiv:1503.04226) with −1 entries A = {0, 4, 5, 6, 7, 9, 13, 16, 20, 22, 23, 24, 25},
+B = C = {0, 1, 2, 5, 6, 8, 11, 12, 14, 16, 22}, D = {0, 1, 2, 3, 5, 8, 10, 13, 14, 15, 18, 22, 25} gives a symmetric
+Hadamard matrix of order 116 in `symmetric_matrix_v3` (checked).
+
+**Literature (survey of October 2026).** Every computer-found symmetric matrix of the census is of the second kind:
+one non-repeated block symmetric, the repeated block B = C neither symmetric nor skew (except v = 43, where it is the
+skew Paley set), the fourth block arbitrary (Seberry–Balonin's propus construction, Australas. J. Combin. 69 (2017),
+and Balonin–Đoković's "propus difference families", arXiv:1803.08787). Both blocks A and D symmetric is known only for
+v = 13 and Turyn's series (arXiv:1708.05098). Cyclic propus searches are exhaustive for odd v ≤ 63 only. Since the
+census, Đoković (arXiv:2508.17141, August 2025) proved that a symmetric Hadamard matrix of order q(q + 1) exists for every
+prime power q ≡ 3 (mod 8), which settles 4 · 189 (q = 27) and 4 · 473 (q = 43); the paper also builds q = 67, which
+gives 4 · 1139, an order on the census list. Nothing settles 65, 89, 101, 107, 119, 133, 149, 153, 163 or 167; the
+symmetric orders 668, 716, 892, … remain open (the matrices of Alpöge et al. are not symmetric).
+
+**Sweep.** `propus.py v --sweep --maxo 24 --maxpool 2e7` runs, for every subgroup of ℤ_v* (cyclic subgroups and
+products of two) whose structures have at most 24 orbits, all three variants (A, D symmetric with B symmetric or
+not; only A symmetric). For v = 65, 89, 101, 107 and 119 (24, 6, 6, 2 and 17 subgroups) every row-sum pattern either
+has an empty pool for some block (the orbit sizes cannot reach the row sum) or was joined completely: no symmetric
+Hadamard matrix of order 4v in these structures. All pools fit in 2 · 10⁷, so nothing was skipped for size.
