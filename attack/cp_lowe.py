@@ -330,6 +330,15 @@ def decode(blk, mask, bits):
     return blk.ids(I)[0]
 
 
+def colvar(L, chunk=1 << 20):
+    """Column variances of an integer array, in chunks (lists of 10^7 keys do not fit in float64 at once)."""
+    s = np.zeros(L.shape[1]); s2 = np.zeros(L.shape[1])
+    for i in range(0, len(L), chunk):
+        X = L[i:i + chunk].astype(float); s += X.sum(0); s2 += (X * X).sum(0)
+    m = s / len(L)
+    return s2 / len(L) - m * m
+
+
 def choose_sigmas(lists, S_idx, t, nsig, M, rng):
     """Split values sigma of the merge classes, ranked by the expected number of solutions per unit of kt4 work.
     AB(sigma) and CD(sigma) (pairs (a, b) with (a + b)_S = sigma and pairs (c, d) with (c + d)_S = t_S - sigma) are
@@ -597,8 +606,8 @@ def main():
         log(f'block {k}: {msg} (tau {tau:.2f}, rank {rk})')
     est, rank, off = gauss_estimate(lists, t)
     log(f'Gaussian estimate of the class: 10^{est0:.2f}; inside the kept lists {[len(l) for l in lists]}: 10^{est:.2f} (rank {rank}, null offset {off:.2f})')
-    spread = sum(l.astype(float).var(0) for l in lists)
-    fits = np.max([np.abs(l).max(0) for l in lists], axis=0) <= 1000      # kt4 packs the merge classes in 12 bits
+    spread = sum(colvar(l) for l in lists)
+    fits = np.max([np.maximum(l.max(0).astype(np.int64), -l.min(0).astype(np.int64)) for l in lists], axis=0) <= 1000   # kt4 packs the merge classes in 12 bits
     S_idx = [int(x) for x in a.S.split(',')] if a.S else sorted([int(c) for c in np.argsort(-spread) if fits[c]][:5])
     sigmas, info = choose_sigmas(lists, S_idx, np.zeros(D, np.int64), a.nsig, a.mcpairs, rng)
     log(f'split values: {len(sigmas)} chosen from {info["candidates"]} sampled; expected share of the solutions they hold '

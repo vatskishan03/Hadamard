@@ -1080,7 +1080,7 @@ that give 10^6.88 for 177, against an exact count of 10^7.42, and 10^13.18 for 5
 537 structure is special: an odd F, few classes and exactly two spikes.
 
 
-## 20. Low-energy k-trees on cyclotomic products: skew orders 820 and 1044
+## 20. Low-energy k-trees on cyclotomic products: skew orders 820, 1044 and 1204
 
 **Why the earlier sweeps stopped short.** The cyclotomic-product engine of §16 lists every member of each block and
 groups the lists by their level-B keys, so it needs blocks of at most about 2 · 10⁷ members. The sweeps of §16 and §19
@@ -1124,6 +1124,7 @@ log₁₀ E = 11 for the whole structure.
 |---|---|---|---|---|
 | 205 = 5 · 41 | e = 8, F = 5, K_m = 1, H = ⟨51⟩ of order 5; 1084 stage-1 classes, class 0 | 78,400; 5.2, 4.8, 4.9 · 10⁶ of 1.7 · 10⁹, 1.1 · 10⁹, 4.3 · 10⁸ | 10^8.47; 10^3.84 | 6 solutions at the first split value, 20 in 268 s: **skew order 820**, [skew/820](../skew/820) |
 | 261 = 9 · 29 | e = 4, F = 7, K_m = 1, H = ⟨190⟩ of order 7; stage 1 sampled (3.3 · 10⁶ options per block), class 0 of 5 | 5,184; all 6.7, 4.5, 4.5 · 10⁶ | 10^3.62 | 2 solutions within the first 65 split values: **skew order 1044**, [skew/1044](../skew/1044) |
+| 301 = 7 · 43 | e = 6, F = 7, K_m = 1, H = ⟨127⟩ of order 7; stage 1 sampled (seed 1), class 0 of 3; chosen by `cp_hunt.py` | 64,000; 9.9, 10.1, 9.9 · 10⁶ of 9.6, 5.4, 7.2 · 10⁸ | 10^6.03; 10^2.52 | first solution at the 24th split value, about 6 minutes: **skew order 1204**, [skew/1204](../skew/1204) |
 
 **Negative and cost results.**
 - **553 = 7 · 79** (e = 6, F = 13; 36 stage-1 classes, all ≈ 10^4.5). Over the list allocations tried, the Gaussian
@@ -1131,7 +1132,8 @@ log₁₀ E = 11 for the whole structure.
   three days at 5 · 10⁷ pairs per second. Not run.
 - **589 = 19 · 31 and 817 = 19 · 43.** Untwisted K₁₉ = ⟨7⟩ and the twisted variants (order-3 twists of e = 6) give
   10^−3.5 per class.
-- **301 = 7 · 43** with K₇ = ⟨2⟩ and e = 14 needs a correlation table over 15,873 slice patterns (7 GB). Not run.
+- **301 = 7 · 43** with K₇ = ⟨2⟩ and e = 14 needs a correlation table over 15,873 slice patterns (7 GB). Not run
+  (301 itself was then settled with e = 6 and K₇ trivial, above).
 - **Exact chain** on the census-screen survivors with at most 33 orbits, smallest first
   (`screen_chain.py 3600 33 0 --order orbits`):
   - ruled out: 539/⟨4⟩ with rows (15, 29, 33) and (3, 11, 45), 1333/⟨66⟩ (11, 13, 71), 1269/⟨4⟩ (3, 29, 65) and
@@ -1140,3 +1142,32 @@ log₁₀ E = 11 for the whole structure.
 
 **Sweeps.** `attack/cp_hunt.py` runs this estimate-then-search loop over every census composite and, in plain mode,
 every composite n of FRONTIER.md (`attack/cp_sweep.py` records the estimates only).
+
+**Prime v (m = 1).** For v = q prime there is no ℤ_m to enumerate over, so `PrimeBlock` cuts the e classes of a
+block into G groups (default 4) that play the part of positions. A member is one sign pattern per group; its key,
+PAF(d_c) for c < nb, is a quadratic form in the class signs whose coefficients are the cyclotomic numbers of order e,
+so it splits into pair terms between groups. The class sum s is fixed through tags in `cp_enum.c`: the search
+prunes on the reachable tag range and buckets the last group's patterns by tag. Stage 1 is exact
+(`stage1_prime`: row sums y = f + F s with Σ y² = 4v).
+- Stage 1 is empty, i.e. no four admissible row sums have Σ y² = 4v, for every structure that `cp_hunt.py` admits
+  (blocks of 10⁵ to 3 · 10¹⁰ members) at these census primes, with their indices e: 101 (20), 191 (38), 409 (24),
+  419 (22, 38), 443 (26, 34), 457 (24), 541 (36), 571 (30, 38), 599 (26), 647 (34, 38), 673 (32), 751 (30),
+  829 (36), 929 (32), 1051 (42), 1103 (38), 1117 (36), 1303 (42), 1321 (40) and 1471 (42). 883 (e = 42) ran out of
+  memory building the pair tables of 4 groups.
+- 761 (e = 40, F = 19): the best class has 10^9.5 solutions, but only 10^−0.2 inside lists of 10⁷ members, at a
+  predicted 10^14.2 pairs per solution. Not run. 1483 (e = 38): 10^6.35 and 10^−1.7. Not run.
+- 1123 (e = 34, F = 33, rows 1, 1, 1, 67, one class): 10^6.63 for the class and 10^2.24 inside lists of
+  6 · 10⁷, 10⁷ and 10⁷ members (all 131,072 members of the skew block). Predicted 10^11.8 pairs per solution. Running.
+
+**The Yamada–Kiyasu routes of FRONTIER.md have no usable multiplier structure.** H(7516), H(8860) and H(9532) need
+skew orders 940 = 4 · 235, 1108 = 4 · 277 and 1192 = 2 · 596 = 8 · 149. A skew Goethals–Seidel family over ℤ_v with
+multipliers H needs every h ∈ H to move each nonzero t off −t, which leaves H of odd order:
+- v = 149 (148 = 4 · 37): H = 1 or the fourth powers (F = 37). With F = 37 a spike has |y| ≥ 73 and 73² > 596, so
+  every class sum is 0 and Σ y² = 4 ≠ 596.
+- v = 235 = 5 · 47 (ℤ₂₃₅* ≅ ℤ₄ × ℤ₄₆): H = 1 or the squares of GF(47) (h ≡ 1 mod 5), with F = 23 and 45² > 940.
+  Even H ∋ −1 with a sign character on the skew block fails: the character must be trivial on the stabilisers of
+  (a, 0) and (0, y), which forces χ(−1) = 1, unless |H| ≤ 2.
+- v = 277 (276 = 4 · 3 · 23): the orders 69 and 23 (F = 69, 23) fail in the same way; order 3 leaves 92 classes, so
+  2⁹² members per block, far beyond exhaustive enumeration.
+So these routes need families with (almost) no symmetry. ℤ₂₃₅ is the only group of order 235 and ℤ₁₄₉ the only one
+of order 149.

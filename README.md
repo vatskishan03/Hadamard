@@ -74,12 +74,15 @@ first block. The group is ℤᵥ, except for 1100 (ℤ₅ × ℤ₅ × ℤ₁₁
 
 | Order | v | H | Row sums | Table 5 entry |
 |------:|---|---|---|---|
+| [820](skew/820) | 205 (5 · 41) | ⟨51⟩, order 5 (cyclotomic product of index 8) | 1, 1, −17, −23 | 205(3) |
 | [836](skew/836) | 209 (11 · 19) | ⟨26⟩, order 15 | 1, 9, 15, 23 | 209(4) |
 | [1012](skew/1012) | 253 (11 · 23) | ⟨12⟩, order 11 (Paley product) | 1, 5, 19, 25 | 253(4) |
 | [1036](skew/1036) | 259 (7 · 37) | ⟨9⟩, order 9 | 1, 5, 7, 31 | 259(4) |
+| [1044](skew/1044) | 261 (3² · 29) | ⟨190⟩, order 7 (cyclotomic product of index 4) | 1, 9, −1, 31 | 261(3) |
 | [1100](skew/1100) | 275 (5² · 11), group ℤ₅ × ℤ₅ × ℤ₁₁ | Singer-3 on ℤ₅² × ⟨3⟩ on ℤ₁₁, order 15 | 1, 1, 3, 33 | 275(4) |
 | [1140](skew/1140) | 285 (3 · 5 · 19) | ⟨61⟩, order 9 (Paley product) | 1, 17, 15, 25 | 285(3); first recorded, but Seberry's 1978 theorem gives it from an OD(60; 1, 3, 56), see its README |
 | [1148](skew/1148) | 287 (7 · 41) | ⟨16⟩, order 15 | 1, 3, 7, 33 | 287(4) |
+| [1204](skew/1204) | 301 (7 · 43) | ⟨127⟩, order 7 (cyclotomic product of index 6) | 1, −11, −11, −31 | 301(3) |
 | [1236](skew/1236) | 309 (3 · 103) | ⟨13⟩, order 17 | 1, 1, 3, 35 | 309(3) |
 | [1364](skew/1364) | 341 (11 · 31) | ⟨14⟩, order 15 | 1, 9, 21, 29 | 341(4) |
 | [1372](skew/1372) | 343 (7³), group GF(343) = ℤ₇³ | cyclotomic subgroup of order 19 of GF(343)* | 1, 1, 1, 37 | 343(4) |
