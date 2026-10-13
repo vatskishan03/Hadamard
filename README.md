@@ -84,6 +84,7 @@ first block. The group is ℤᵥ, except for 1100 (ℤ₅ × ℤ₅ × ℤ₁₁
 | [1148](skew/1148) | 287 (7 · 41) | ⟨16⟩, order 15 | 1, 3, 7, 33 | 287(4) |
 | [1204](skew/1204) | 301 (7 · 43) | ⟨127⟩, order 7 (cyclotomic product of index 6) | 1, −11, −11, −31 | 301(3) |
 | [1236](skew/1236) | 309 (3 · 103) | ⟨13⟩, order 17 | 1, 1, 3, 35 | 309(3) |
+| [1276](skew/1276) | 319 (11 · 29) | ⟨45⟩, order 7 (cyclotomic product of index 4) | 1, 25, 19, 17 | 319(3) |
 | [1364](skew/1364) | 341 (11 · 31) | ⟨14⟩, order 15 | 1, 9, 21, 29 | 341(4) |
 | [1372](skew/1372) | 343 (7³), group GF(343) = ℤ₇³ | cyclotomic subgroup of order 19 of GF(343)* | 1, 1, 1, 37 | 343(4) |
 | [1380](skew/1380) | 345 (3 · 5 · 23) | ⟨301⟩, order 11 (Paley product) | 1, 19, 17, 27 | 345(4) |
