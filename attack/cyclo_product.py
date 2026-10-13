@@ -124,9 +124,10 @@ class Structure:
 
 
 # ---- stage 1: compressions on Z_m ---------------------------------------------------------------------------
-def stage1(S, maxpairs=3e7, maxopts=3e6):
-    """All quadruples of compressions (one class per orbit of negation, translation and reversal of the non-skew
-    blocks), as tuples of 4 y-vectors."""
+def stage1_options(S, skewblock, maxopts=None):
+    """Compressions y on Z_m of one block, constant on the K_m-orbits (skew block: f = 1, s = 0 at 0 and odd under
+    negation), with their spike costs C (sum over the 4 blocks = 4 m e) and autocorrelations P at the shifts
+    1 .. m/2. With maxopts, a RuntimeError is raised before generating more options than that."""
     m, e, F = S.m, S.e, S.F
     T = 4 * m * e
     cost = lambda s, f: F * s * s + 2 * f * s
@@ -135,45 +136,53 @@ def stage1(S, maxpairs=3e7, maxopts=3e6):
     orbits = [[a for a in range(m) if S.korb[a] == o] for o in range(len(S.kreps))]
     def placements(units, budget):
         """(unit indices, (f, s) per spike) with total cost <= budget; units[i] = cost multiplier of unit i."""
-        out = [((), ())]
+        out = [((), ())]; tot = [1 << len(units)]
         def rec(start, used, cur, c):
             for i in range(start, len(units)):
                 for f, s in spikes:
                     cc = c + units[i] * cost(s, f)
                     if cc > budget: continue
                     out.append((used + (i,), cur + ((f, s),)))
+                    tot[0] += 1 << (len(units) - len(used) - 1)
+                    if maxopts and tot[0] > maxopts: raise RuntimeError(f'stage 1: more than {maxopts:.0f} options per block')
                     rec(i + 1, used + (i,), cur + ((f, s),), cc)
         rec(0, (), (), 0)
         return out
-    def options(skewblock):
-        """Compressions constant on the K_m-orbits (skew block: f = 1, s = 0 at 0 and odd under negation)."""
-        if skewblock:
-            free, seen = [], {S.korb[0]}
-            for o, orb in enumerate(orbits):
-                if o in seen: continue
-                neg = S.korb[(-orb[0]) % m]
-                free.append((orb, orbits[neg])); seen |= {o, neg}
-            units = [2 * len(orb) for orb, _ in free]
-        else:
-            free = [(orb, None) for orb in orbits]
-            units = [len(orb) for orb, _ in free]
-        Y, C = [], []
-        for pos, fsl in placements(units, T):
-            rest = [i for i in range(len(free)) if i not in pos]
-            c0 = sum(units[i] * cost(s, f) for i, (f, s) in zip(pos, fsl))
-            for signs in itertools.product((1, -1), repeat=len(rest)):
-                y = [0] * m
-                if skewblock: y[0] = 1
-                assign = dict(zip(pos, fsl)); assign.update({i: (sg, 0) for i, sg in zip(rest, signs)})
-                for i, (f, s) in assign.items():
-                    orb, neg = free[i]
-                    for a in orb: y[a] = f + F * s
-                    if neg is not None:
-                        for a in neg: y[a] = -(f + F * s)
-                Y.append(y); C.append(c0)
-        Y = np.array(Y, dtype=np.int64).reshape(-1, m); C = np.array(C, dtype=np.int64)
-        P = np.stack([(Y * np.roll(Y, -b, axis=1)).sum(1) for b in range(1, m // 2 + 1)], axis=1) if m > 1 else np.zeros((len(Y), 0), np.int64)
-        return Y, C, P
+    if skewblock:
+        free, seen = [], {S.korb[0]}
+        for o, orb in enumerate(orbits):
+            if o in seen: continue
+            neg = S.korb[(-orb[0]) % m]
+            free.append((orb, orbits[neg])); seen |= {o, neg}
+        units = [2 * len(orb) for orb, _ in free]
+    else:
+        free = [(orb, None) for orb in orbits]
+        units = [len(orb) for orb, _ in free]
+    Y, C = [], []
+    for pos, fsl in placements(units, T):
+        rest = [i for i in range(len(free)) if i not in pos]
+        c0 = sum(units[i] * cost(s, f) for i, (f, s) in zip(pos, fsl))
+        for signs in itertools.product((1, -1), repeat=len(rest)):
+            y = [0] * m
+            if skewblock: y[0] = 1
+            assign = dict(zip(pos, fsl)); assign.update({i: (sg, 0) for i, sg in zip(rest, signs)})
+            for i, (f, s) in assign.items():
+                orb, neg = free[i]
+                for a in orb: y[a] = f + F * s
+                if neg is not None:
+                    for a in neg: y[a] = -(f + F * s)
+            Y.append(y); C.append(c0)
+    Y = np.array(Y, dtype=np.int64).reshape(-1, m); C = np.array(C, dtype=np.int64)
+    P = np.stack([(Y * np.roll(Y, -b, axis=1)).sum(1) for b in range(1, m // 2 + 1)], axis=1) if m > 1 else np.zeros((len(Y), 0), np.int64)
+    return Y, C, P
+
+
+def stage1(S, maxpairs=3e7, maxopts=3e6):
+    """All quadruples of compressions (one class per orbit of negation, translation and reversal of the non-skew
+    blocks), as tuples of 4 y-vectors."""
+    m, e, F = S.m, S.e, S.F
+    T = 4 * m * e
+    options = lambda skewblock: stage1_options(S, skewblock)
     L = [options(S.skew and k == 0) for k in range(4)]
     if max(len(x[0]) for x in L) > maxopts: raise RuntimeError(f'stage 1: {max(len(x[0]) for x in L)} options per block')
     def canon_ids(Y):

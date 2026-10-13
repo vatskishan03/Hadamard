@@ -10,6 +10,8 @@
  *
  * input: int32 nA nB nC nD D; int16 T[D]; int16 VA[nA][D] VB[nB][D] VC[nC][D] VD[nD][D]
  *   cc -O3 -march=native -fopenmp kt4.c -o kt4 ;  ./kt4 input.bin S0,S1,.. NSIG [K]
+ * NSIG may also be @file: the split values are then read from the file (one line of |S| integers per value, in the
+ * order given) instead of being generated around the centre.
  * Prints "SOL a b c d" (at most K, default 1e9), progress on stderr, and "TOTAL found pairsAB pairsCD".
  */
 #include <omp.h>
@@ -73,7 +75,7 @@ int main(int argc, char **argv) {
     for (int i = 0; i < 4; i++) { V[i] = malloc(2 * (size_t)D * n[i]); rd(V[i], 2, (size_t)D * n[i], f); }
     fclose(f);
     NS = 0; for (char *p = strtok(argv[2], ","); p && NS < 5; p = strtok(NULL, ",")) Sx[NS++] = atoi(p);
-    long NSIG = atol(argv[3]); long K = argc > 4 ? atol(argv[4]) : 1000000000L;
+    long NSIG = argv[3][0] == '@' ? 0 : atol(argv[3]); long K = argc > 4 ? atol(argv[4]) : 1000000000L;
     if (argc > 5) MAXPAIRS = atol(argv[5]);
     uint64_t seed = 0x243F6A8885A308D3ULL;
     for (int c = 0; c < D; c++) { seed ^= seed << 13; seed ^= seed >> 7; seed ^= seed << 17; Rh[c] = isS(c) ? 0 : (seed | 1); }
@@ -115,9 +117,22 @@ int main(int argc, char **argv) {
         cen[s] = mu[0][s] + mu[1][s] + 0.5 * (T[Sx[s]] - tot);
         sd[s] = 1.0;
     }
+    long nc; int *cand; long *ord;
+    if (argv[3][0] == '@') {                                     /* explicit split values */
+        FILE *sf = fopen(argv[3] + 1, "r"); if (!sf) { perror(argv[3] + 1); return 1; }
+        long capc = 1024; cand = malloc(sizeof(int) * capc * NS); nc = 0;
+        while (1) {
+            if (nc == capc) { capc *= 2; cand = realloc(cand, sizeof(int) * capc * NS); }
+            int ok = 1; for (int s = 0; s < NS; s++) if (fscanf(sf, "%d", &cand[nc * NS + s]) != 1) { ok = 0; break; }
+            if (!ok) break;
+            nc++;
+        }
+        fclose(sf); NSIG = nc; ord = malloc(sizeof(long) * (nc + 1)); for (long t = 0; t < nc; t++) ord[t] = t;
+        goto search;
+    }
     int R = 1; long ncand = 1; while (ncand < 4 * NSIG) { R++; ncand = 1; for (int s = 0; s < NS; s++) ncand *= (2 * R + 1); }
-    long nc = 1; for (int s = 0; s < NS; s++) nc *= (2 * R + 1);
-    int *cand = malloc(sizeof(int) * nc * NS); double *dist = malloc(sizeof(double) * nc); long *ord = malloc(sizeof(long) * nc);
+    nc = 1; for (int s = 0; s < NS; s++) nc *= (2 * R + 1);
+    cand = malloc(sizeof(int) * nc * NS); double *dist = malloc(sizeof(double) * nc); ord = malloc(sizeof(long) * nc);
     /* residue of sigma_s: sum of a value of A and of B is congruent to (vA + vB) mod g */
     int base[5]; for (int s = 0; s < NS; s++) base[s] = V[0][Sx[s]] + V[1][Sx[s]];
     for (long t = 0; t < nc; t++) {
@@ -131,6 +146,7 @@ int main(int argc, char **argv) {
     }
     /* sort candidates by distance (simple insertion into an index array by qsort on dist) */
     { double *dk = dist; for (long i = 1; i < nc; i++) { long x = ord[i]; long j = i - 1; while (j >= 0 && dk[ord[j]] > dk[x]) { ord[j + 1] = ord[j]; j--; } ord[j + 1] = x; } }
+  search:;
     long found = 0; long long totAB = 0, totCD = 0; double t0 = now();
     for (long ci = 0; ci < NSIG && ci < nc && found < K; ci++) {
         const int *sig = cand + ord[ci] * NS;

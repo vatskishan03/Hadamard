@@ -1079,3 +1079,64 @@ independent classes instead of 23: the full-covariance estimates (computed in th
 that give 10^6.88 for 177, against an exact count of 10^7.42, and 10^13.18 for 537) are 10^−9.8 and 10^−11.4. The
 537 structure is special: an odd F, few classes and exactly two spikes.
 
+
+## 20. Low-energy k-trees on cyclotomic products: skew orders 820 and 1044
+
+**Why the earlier sweeps stopped short.** The cyclotomic-product engine of §16 lists every member of each block and
+groups the lists by their level-B keys, so it needs blocks of at most about 2 · 10⁷ members. The sweeps of §16 and §19
+therefore skipped every structure with many spikes or wide fibres. Yet a structure's expected number of solutions
+grows with its size. In the Gaussian model each condition is met with probability ~4/(2.5 · 2√v), so small v with big
+blocks are the most promising. For example, the census survivor 205 with H = ⟨16⟩ (45 orbits; `census_screen.py`) has
+log₁₀ E = 11 for the whole structure.
+
+**The tool** (`attack/cp_lowe.py`, `attack/cp_enum.c`).
+
+- **Additive keys.** In ℤ_m × GF(q) a member of a block is one slice pattern per K_m-orbit representative. Its key,
+  the autocorrelations of level B (the compression to GF(q), classes C_0 .. C_{nb−1}) and level C (the shifts
+  (b, C_c), 1 ≤ b ≤ m/2), is a sum of pair terms between representatives. So `cp_enum.c` enumerates every member of a
+  block, up to about 10¹⁰ of them at about 2 · 10⁷ per second on three threads, and updates the key incrementally.
+- **Low-energy filter.** With μ_k and Σ_k the mean and covariance of block k's keys (from 2 · 10⁵ uniform samples),
+  a member is kept when |Σ_k^{−1/2}(key − c_k)|² ≤ τ_k. Here c_k = μ_k + Σ_k Σ⁺(t − Σ_j μ_j) is the conditional
+  mean given that the four keys sum to the target t, and τ_k is the quantile that keeps about L members.
+- **Join.** The kept lists go to `kt4.c`, which now also takes explicit split values (`@file`). The split values σ of
+  the five merge classes are ranked by AB(σ) CD(σ) ρ(σ) / (AB + CD + |A| + |C|):
+  - AB and CD are estimated from 4 · 10⁶ random pairs per side, which respects sublattices;
+  - ρ is the ratio of the Gaussian law of the split of a solution (conditional on all classes, since the level-B
+    classes are sums of level-C ones) to the product of the pair laws.
+- **Twists.** Representatives carry a class twist when K_m acts as (a, y) ↦ (k a, g^t y). For skew blocks, t must
+  be a multiple of 2^{v₂(e)}, or position 0 has no pattern that is both skew and twist-invariant.
+- **Sampled stage 1.** When stage 1 is too large to list, `stage1_sample` hashes block 3's compressions by (cost,
+  autocorrelations) and completes random triples from the other blocks. In 205 every class has nearly the same
+  estimate (10^8.4–10^8.6 over the sampled classes), so a few sampled classes suffice.
+- **Verification.** Every reported solution is rebuilt as four ±1 sequences and checked: the PAF sums, skewness, and
+  invariance under the generators of H.
+
+**Validation.**
+- 933: a known solution planted in the lists is found at its split value.
+- 1417 (K₁₃ = ⟨3⟩, config 2): all 8 solutions of the class are found.
+- Pitfall, now fixed: ranking split values by AB · CD alone holds a vanishing share of the solutions. In 933, the
+  conditional spread of a solution's split is about 49 per merge class (lattice step 4), so solutions are spread over
+  about 10⁷ split values, centred where ρ puts them.
+
+**Results.**
+
+| v | structure | lists (A; B, C, D) | Gaussian E (class; in lists) | result |
+|---|---|---|---|---|
+| 205 = 5 · 41 | e = 8, F = 5, K_m = 1, H = ⟨51⟩ of order 5; 1084 stage-1 classes, class 0 | 78,400; 5.2, 4.8, 4.9 · 10⁶ of 1.7 · 10⁹, 1.1 · 10⁹, 4.3 · 10⁸ | 10^8.47; 10^3.84 | 6 solutions at the first split value, 20 in 268 s: **skew order 820**, [skew/820](../skew/820) |
+| 261 = 9 · 29 | e = 4, F = 7, K_m = 1, H = ⟨190⟩ of order 7; stage 1 sampled (3.3 · 10⁶ options per block), class 0 of 5 | 5,184; all 6.7, 4.5, 4.5 · 10⁶ | 10^3.62 | 2 solutions within the first 65 split values: **skew order 1044**, [skew/1044](../skew/1044) |
+
+**Negative and cost results.**
+- **553 = 7 · 79** (e = 6, F = 13; 36 stage-1 classes, all ≈ 10^4.5). Over the list allocations tried, the Gaussian
+  estimate inside the lists is at most 10^0.16. The pair work per solution is at least about 1.4 · 10¹³, roughly
+  three days at 5 · 10⁷ pairs per second. Not run.
+- **589 = 19 · 31 and 817 = 19 · 43.** Untwisted K₁₉ = ⟨7⟩ and the twisted variants (order-3 twists of e = 6) give
+  10^−3.5 per class.
+- **301 = 7 · 43** with K₇ = ⟨2⟩ and e = 14 needs a correlation table over 15,873 slice patterns (7 GB). Not run.
+- **Exact chain** on the census-screen survivors with at most 33 orbits, smallest first
+  (`screen_chain.py 3600 33 0 --order orbits`):
+  - ruled out: 539/⟨4⟩ with rows (15, 29, 33) and (3, 11, 45), 1333/⟨66⟩ (11, 13, 71), 1269/⟨4⟩ (3, 29, 65) and
+    621/⟨4⟩ (23, 27, 35);
+  - 1313/⟨16⟩ (7, 51, 51) was not finished in 3600 s.
+
+**Sweeps.** `attack/cp_hunt.py` runs this estimate-then-search loop over every census composite and, in plain mode,
+every composite n of FRONTIER.md (`attack/cp_sweep.py` records the estimates only).
