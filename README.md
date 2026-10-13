@@ -7,13 +7,15 @@ A Hadamard matrix of order n is an n × n matrix H with entries ±1 and HHᵀ = 
 Such a matrix can exist only if n = 1, 2 or n ≡ 0 (mod 4), and the Hadamard
 conjecture states that it exists for every multiple of 4. After the constructions
 announced in August 2026 for the twelve unresolved orders below 2000 [1], the
-smallest unresolved orders were 2060 and 2092.
+smallest unresolved orders were 2060 and 2092. This repository constructs 2092 and 2148; with 2060 (Schneider,
+August 2026), the smallest order we know to be unresolved is now 2292 = 4 · 573.
 
 ## Results
 
 | Order | n | Construction | Status |
 |------:|---|---|---|
 | [2092](2092) | 4 · 523 | Goethals–Seidel array, supplementary difference set in ℤ₅₂₃ invariant under a multiplier subgroup of order 9 | New |
+| [2148](2148) | 4 · 537 | Bordered Goethals–Seidel array over ℤ₅₃₄ ≅ ℤ₆ × GF(89) with a border of size 12 (G/K ≅ ℤ₃), sequences invariant under a multiplier subgroup of order 11; found by splitting the conditions along ℤ₂ ([attack/NOTES.md](attack/NOTES.md) §19) | New |
 | [2284](2284) | 4 · 571 | Goethals–Seidel, ℤ₅₇₁, multiplier subgroup of order 5; three blocks related by a multiplier of order 3 | New |
 | [3732](3732) | 4 · 933 | Goethals–Seidel array, skew; ℤ₉₃₃ ≅ ℤ₃ × GF(311), sequences invariant under the multiplier subgroup of order 31 (h ≡ 1 mod 3, h a 10th power mod 311): a cyclotomic product of index 10 | New; also gives 7464 by doubling |
 | [3964](3964) | 4 · 991 | Bordered Goethals–Seidel array over ℤ₂ × ℤ₂ × ℤ₂₄₇ with a border of size 12; sequences invariant under a group of order 27 | New |
@@ -58,9 +60,8 @@ Four of these orders come from this repository's skew-Hadamard matrices through 
 24124 is also reachable by Cooper–Wallis from T-matrices of order 163 and Williamson matrices of order 37;
 see its README.
 
-Orders under investigation: [2148](2148), the smallest order we know to be
-unresolved, and [4412](4412). [3676](3676) was settled by Schumer [8] while our
-search for it was running.
+Orders under investigation: [4412](4412). [2148](2148), listed here before as the smallest order we knew to be
+unresolved, is now settled above. [3676](3676) was settled by Schumer [8] while our search for it was running.
 
 ## Skew-Hadamard results
 

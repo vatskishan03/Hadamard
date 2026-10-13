@@ -67,9 +67,49 @@ The certificate does not depend on the search.
 
 ## Status
 
-Novelty audit in progress. Before this construction the order was unresolved as far as we know: 537(3) is
-unresolved in Cati–Pasechnik Table 4 and not covered by Đoković's updates, and after 2060 and 2092 it was the
-smallest order we knew to be unresolved.
+To our knowledge this is the first Hadamard matrix of order 2148. Doubling gives 4296, which was already known.
+
+**Novelty checklist** (audit of 2026-10-13 by a research agent):
+
+1. Cati–Pasechnik Table 4 (arXiv:2411.18897, v1 of 2024-11-28 and v2 of 2025-08-30, with identical rows; there is no
+   later version) lists 537(3), so the smallest known order 2ᵐ · 537 was 4296. Table 5 (skew) lists 537(5).
+2. Seberry–Yamada (1992): Table A.2 lists "537 3 O3" (order 4296). Table A.1 has no Williamson or Williamson-type
+   matrices of order 537 and only 8-Williamson matrices of order 179. The Handbook (2007), Table 1.53, lists 537 → 3
+   (read from an unofficial copy).
+3. Đoković's updates (arXiv:0912.5091, arXiv:1008.2043) and Đoković–Golubitsky–Kotsireas (arXiv:1301.3671) do not
+   contain 537. The Đoković–Seberry census (May 2025) lists 537 as undecided for symmetric and for skew matrices of
+   order 4 · 537; this matrix is neither symmetric nor skew.
+4. SageMath: `hadamard_matrix(2148, existence=True)` returns Unknown (passagemath 10.8.13). The develop branch
+   (2026-10-11) last changed `hadamard_matrix.py` on 2026-09-30, to add order 2060, and contains none of 2148, 537 or
+   1073.
+5. arXiv: the e-print sources of 854 Hadamard-related papers (up to 2026-10-08, plus the listings to 2026-10-12) contain
+   537 only in Cati–Pasechnik's tables and 2148 nowhere as an order. They contain no Legendre pair of length 1073, no
+   T-matrices or T-sequences of order 179 or 537, no base sequences BS(90, 89) and no Williamson-type matrices of order
+   179 or 537.
+6. The 2026 constructions and deposits do not contain it:
+   - Alpöge et al. (twelve orders below 2000) and Schneider (2060);
+   - JD-Jones-ASES (Hadamard-T, -M, -B and -formal) and Schumer;
+   - Piza (orders up to 2060), Kline, Bedani and Karoui;
+   - Zenodo (metadata of 2,079 records, files of 32) and 27 GitHub repositories. Two of them list 2148 as open, on
+     2026-08-13 and 2026-08-29.
+   - The Palomar registry, Balonin's catalogue, the OEIS, MathOverflow and Wikipedia have nothing on it.
+7. No recursive construction reaches it:
+   - Paley I (2147 = 19 · 113) and II (1073 = 29 · 37);
+   - Miyamoto (537 is not a prime power), Yamada and Kiyasu (q = 535 = 5 · 107), Mathon, Spence 4(q² + q + 1), the
+     Williamson-type families of Seberry–Yamada Table A.1, and 4q²;
+   - Cooper–Wallis and Baumert–Hall: T-matrices of order 179 or 537 and Williamson-type matrices of order 179 or 537
+     are unknown. The 2026 H(716) is bordered and its circulant blocks are not amicable. Kline (Zenodo 21776269,
+     2026-08-03) shows that no Turyn pair exists at q = 1073, so there are no Williamson matrices of order 537 of
+     Turyn's form.
+   - Legendre pairs of length 1073 (no family covers it), and a symmetric conference matrix of order 1074 (not
+     excluded, since 1073 = 7² + 32², but unknown);
+   - product and multiplication theorems, since 2148 ≡ 4 (mod 8).
+
+Not checked: Miyamoto (1991) §7 itself (inaccessible; JD-Jones-ASES's reading of it gives the list-(2) entries ≡ 3
+(mod 4) as 83, 103, 127 and 151, and Seberry–Yamada, who applied Miyamoto's constructions, still list 537 → 3), the
+Seberry–Yamada (2020) book, the official Handbook, X/Twitter, paywalled 2025–2026 journals beyond Crossref metadata,
+Zenodo files beyond 32 records, and unannounced arXiv submissions. This is a finding of nothing, not a proof that no
+earlier construction exists.
 
 ## Files
 
