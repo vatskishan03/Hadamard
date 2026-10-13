@@ -30,11 +30,11 @@ First explicit construction we know of, with one caveat.
 - **Caveat.** Handbook Table 1.53 marks n = 3733 with "." (t = 2), that is, as already known. We found no construction
   behind that entry: Paley I and II fail (14931 = 3³ · 7 · 79, 7465 = 5 · 1493), Miyamoto needed H(3732), which the
   same table lists as unknown, Yamada needs q ≡ 1 (mod 8), Yamada–Kiyasu at q + 2 = 3733 needs q = 3731 = 7 · 13 · 41,
-  and no Williamson-type or T-matrix construction of the needed orders is known. 3733 is one of six primes q ≡ 1
-  (mod 4) below 10000 (3733, 3821, 4157, 5021, 5693, 7517) that the table marks with t = 2 without a visible
-  reason; all six are ≡ 5 (mod 8) with a skew-Hadamard matrix of order (q + 3)/2, which is the hypothesis of the
-  Yamada–Kiyasu theorem whose conclusion is H(4(q + 2)), not H(4q). An index slip is a plausible explanation, but
-  we could not confirm it, and we read the table from an unofficial copy.
+  and no Williamson-type or T-matrix construction of the needed orders is known. For five other primes q ≡ 1 (mod 4)
+  below 10000 that the table marks "." without a visible route (3821, 4157, 5021, 5693, 7517), 2q − 3 is a prime
+  ≡ 3 (mod 4), so Paley I gives H(2(q − 1)) rather than H(q − 1); that pattern does not cover 3733
+  (2 · 3733 − 3 = 7463 = 17 · 439). We read the table from an unofficial copy, so the entry may also be a
+  transcription error.
 - Cati–Pasechnik and Seberry–Yamada (1992) stop at n ≤ 2999, so they do not cover 3733. No 2026 deposit, arXiv
   paper or Zenodo record we checked mentions 14932 or 3733 (audit of 2026-10-13 by a research agent).
 

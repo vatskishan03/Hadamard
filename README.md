@@ -18,9 +18,10 @@ smallest unresolved orders were 2060 and 2092.
 | [3732](3732) | 4 · 933 | Goethals–Seidel array, skew; ℤ₉₃₃ ≅ ℤ₃ × GF(311), sequences invariant under the multiplier subgroup of order 31 (h ≡ 1 mod 3, h a 10th power mod 311): a cyclotomic product of index 10 | New; also gives 7464 by doubling |
 | [3964](3964) | 4 · 991 | Bordered Goethals–Seidel array over ℤ₂ × ℤ₂ × ℤ₂₄₇ with a border of size 12; sequences invariant under a group of order 27 | New |
 | [4492](4492) | 4 · 1123 | Goethals–Seidel, ℤ₁₁₂₃, multiplier subgroup of order 33 | New |
-| [5020](5020) | 4 · 1255 | Goethals–Seidel; ℤ₁₂₅₅ ≅ ℤ₅ × GF(251), multiplier subgroup of order 50 (h ≡ ±1 mod 5, h a 10th power mod 251) | New (audit in progress) |
+| [5020](5020) | 4 · 1255 | Goethals–Seidel; ℤ₁₂₅₅ ≅ ℤ₅ × GF(251), multiplier subgroup of order 50 (h ≡ ±1 mod 5, h a 10th power mod 251) | New |
 | [5932](5932) | 4 · 1483 | Goethals–Seidel, ℤ₁₄₈₃, multiplier subgroup of order 39 | New |
 | [14932](14932) | 4 · 3733 | Miyamoto's theorem (q = 3733) from the matrix of order 3732 | First explicit construction we know of; Handbook Table 1.53 lists 3733 with t = 2, with no construction we could trace |
+| [20084](20084) | 4 · 5021 | Miyamoto's theorem (q = 5021) from the matrix of order 5020 | First explicit construction we know of; Handbook Table 1.53 lists 5021 with t = 2, with no construction we could trace |
 | [21748](21748) | 4 · 5437 | Miyamoto's theorem from a Cooper–Wallis matrix of order 5436 (T-matrices of order 151, Williamson order 9) | Probably new; above the range of [3] |
 | [24124](24124) | 4 · 6031 | Yamada's theorem (q = 6029) from a skew-Hadamard matrix of order 3016, the double of a skew Goethals–Seidel matrix of order 1508 over ℤ₃₇₇ | Probably new; above the range of [3] |
 | [24412](24412) | 4 · 6103 | Yamada's theorem (Kiyasu), q = 6101, from this repository's [skew 3052](skew/3052) (no doubling) | Probably new; Handbook Table 1.53 lists 6103 with t = 3 |
@@ -37,9 +38,9 @@ construction was found in a literature search in October 2026. The table in [3]
 is not complete (nine of its entries were settled in [4]), so these claims carry
 that caveat.
 
-The seven orders above 4 · 2999 lie beyond [3]. For the six with n < 10000 we used Table 1.53 of the
-Handbook of Combinatorial Designs (2007) together with the updates in [4, 5]. For 14932 (n = 3733) that table
-claims t = 2, but we could not trace a construction behind the entry; see its README. For 51580 (n = 12895), which is
+The eight orders above 4 · 2999 lie beyond [3]. For the seven with n < 10000 we used Table 1.53 of the
+Handbook of Combinatorial Designs (2007) together with the updates in [4, 5]. For 14932 (n = 3733) and 20084
+(n = 5021) that table claims t = 2, but we could not trace a construction behind either entry; see their READMEs. For 51580 (n = 12895), which is
 beyond that table too, we checked Paley, the Williamson-type families of Seberry–Yamada's 1992 survey and the
 2026 deposits. The README of each order gives the details. Their matrices are not stored (up to 7 GB as CSV);
 `verify/verify.py` rebuilds them from the certificates.
@@ -49,7 +50,7 @@ Three of these orders come from this repository's skew-Hadamard matrices through
 - 24412 from skew 3052;
 - 51580 from skew 1612, doubled twice.
 
-14932 comes from this repository's matrix of order 3732 through Miyamoto's theorem.
+14932 and 20084 come from this repository's matrices of orders 3732 and 5020 through Miyamoto's theorem.
 
 24124 is also reachable by Cooper–Wallis from T-matrices of order 163 and Williamson matrices of order 37;
 see its README.

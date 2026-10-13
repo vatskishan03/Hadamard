@@ -68,11 +68,43 @@ checks the matrix from `certificate.json` alone.
 
 ## Status
 
-To our knowledge no Hadamard matrix of order 5020 was known before this one. 5020 is among the unresolved orders in
-[FRONTIER.md](../FRONTIER.md) (Cati–Pasechnik Table 4 together with the 2026 constructions). A full literature audit
-is in progress; this section will carry its checklist.
+New, to our knowledge: no Hadamard matrix of order 5020 was known before this one.
 
-5021 is a prime ≡ 1 (mod 4), so Miyamoto's theorem gives a Hadamard matrix of order 4 · 5021 = 20084 from this one.
+- Cati and Pasechnik, *A database of constructions of Hadamard matrices*, arXiv:2411.18897 (v1 and v2), Table 4, lists
+  1255(3): the smallest known Hadamard order of the form 2ᵐ · 1255 was 10040 (Paley I, 10039 being a prime
+  ≡ 3 (mod 4)), so 5020 was unknown. Seberry–Yamada (1992, Table A.2: "1255 3 a1") and the Handbook of Combinatorial
+  Designs (2007, Table 1.53: 1255 → 3) agree, and 5020 is among the unresolved orders of [FRONTIER.md](../FRONTIER.md).
+- The Đoković–Seberry census (May 2025) lists 1255 as undecided for symmetric and for skew matrices of order 4 · 1255;
+  this matrix is neither.
+- A literature search in October 2026 found no later construction.
+
+Doubling gives 10040, which was already known. 5021 is a prime ≡ 1 (mod 4), so Miyamoto's theorem gives a Hadamard
+matrix of order 4 · 5021 = 20084; see [20084](../20084).
+
+**Novelty checklist** (audit of 2026-10-13 by a research agent):
+
+1. Cati–Pasechnik Table 4 (v1 and v2, identical tables): "1123(3) & 1133(3) & 1169(4) & 1187(3) & 1223(6) & 1255(3)
+   & 1257(3) & 1259(4)". The JD-Jones-ASES transcription has 1255: 3.
+2. Seberry–Yamada (1992): Table A.2 "1255 3 a1" (Paley I at 10040); Table A.1 has no Williamson or Williamson-type
+   matrices of order 1255, and only 8-Williamson matrices of order 251 ("251 3 w#q").
+3. Handbook (2007) Table 1.53: 1255 → 3 and 251 → 3 (read from an unofficial copy).
+4. Đoković's updates (math/0703312, arXiv:0912.5091, arXiv:1008.2043) do not contain 1255; Đoković–Golubitsky–Kotsireas
+   (arXiv:1301.3671) settled 4 · 251 = 1004, not 4 · 1255.
+5. SageMath: `hadamard_matrix(5020, existence=True)` and the skew version return Unknown (passagemath 10.8.13, run;
+   develop branch traced).
+6. arXiv: in the sources of 554 relevant papers (2000 to October 2026), 1255 appears only in Cati–Pasechnik Table 4.
+7. 2026 constructions and deposits (Alpöge et al., Schneider, JD-Jones-ASES, Schumer, Piza, Kline, Bedani, Karoui, the
+   Palomar registry, Zenodo, Balonin's catalogue): none has 5020.
+8. No recursive construction reaches it: Paley I (5019 = 3 · 7 · 239) and II (2509 = 13 · 193); Miyamoto (1255 is
+   neither a prime power nor ≡ 1 (mod 4)); Yamada and Kiyasu (q = 1253 = 7 · 179); Mathon; Turyn, Whiteman and
+   Spence; Cooper–Wallis with T(5) and Williamson-type matrices of order 251, with T(251) or with T(1255) (none known);
+   a symmetric conference matrix of order 2510 (not excluded, since 2509 = 50² + 3², but not known); products, since
+   5020 ≡ 4 (mod 8).
+
+Not checked: the lists in §7 of Miyamoto (J. Combin. Theory Ser. A 57, 1991), which Cati–Pasechnik could not verify
+either (by its Corollary 4, 1255 would need a W(250, 249) or a W(1254, 1253), and neither can exist, since 249 and
+1253 are not sums of two squares); the Seberry–Yamada (2020) book itself; the official Handbook; and journal-only
+papers not on arXiv. This is a finding of nothing, not a proof that no earlier construction exists.
 
 ## Verification
 

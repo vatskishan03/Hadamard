@@ -15,7 +15,7 @@ Products are formed in float32, one block of rows at a time. The matrices multip
 have entries 0 and +-1 and fewer than 2^24 columns, so every partial sum is an integer
 of absolute value below 2^24 and the computation is exact.
 
-The matrices of 14932 and of the orders above 20000 (21748, 24124, 31316, 31412) are not stored.
+The matrices of 14932 and of the orders above 20000 (20084, 21748, 24124, 31316, 31412) are not stored.
 Rebuilding and checking one of them takes 30 to 80 seconds on six cores and at most 2 GB
 of memory.
 
