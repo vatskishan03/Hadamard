@@ -68,7 +68,11 @@ checks the matrix from `certificate.json` alone.
 
 ## Status
 
-STATUS_PLACEHOLDER
+To our knowledge no Hadamard matrix of order 5020 was known before this one. 5020 is among the unresolved orders in
+[FRONTIER.md](../FRONTIER.md) (Cati–Pasechnik Table 4 together with the 2026 constructions). A full literature audit
+is in progress; this section will carry its checklist.
+
+5021 is a prime ≡ 1 (mod 4), so Miyamoto's theorem gives a Hadamard matrix of order 4 · 5021 = 20084 from this one.
 
 ## Verification
 

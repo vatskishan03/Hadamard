@@ -1,13 +1,14 @@
 # Unresolved orders
 
-This page covers the 150 entries of Cati–Pasechnik Table 4 (n ≤ 2999) that are
-still unresolved. The other 45 were settled as follows:
+This page covers the 148 entries of Cati–Pasechnik Table 4 (n ≤ 2999) that are
+still unresolved. The other 47 were settled as follows:
 
 - 12 by Alpöge et al.,
 - 19 by other public constructions from 2026 (Schneider; JD-Jones-ASES/Hadamard-T
   and Hadamard-M; Schumer),
 - 9 by Đoković in 2010,
-- 5 in this repository.
+- 7 in this repository (3732 and 5020 by the cyclotomic products of
+  [attack/NOTES.md](attack/NOTES.md) §16).
 
 **Columns.** For each order the table lists the cheapest structure of each kind
 found by `search/triage.py` that is expected to contain at least ten solutions:
@@ -58,7 +59,6 @@ squares.
 | 3436 | 859 | 13 | 67 | 33 | 25.7 | 17.2 | ℤ2 × ℤ3 × ℤ11 × ℤ13 | 61.8 | Yamada from a symmetric conference matrix of order 430 (cannot exist) |
 | 3452 | 863 | – | – | – | – | – | – | – |  |
 | 3628 | 907 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ151 | 33.3 |  |
-| 3732 | 933 | – | – | – | – | – | – | – |  |
 | 3788 | 947 | – | – | – | – | – | ℤ2 × ℤ11 × ℤ43 | 37.4 |  |
 | 3820 | 955 | 19 | 55 | 27 | 2.9 | 28.8 | ℤ2 × ℤ3xℤ3 × ℤ53 | 52.8 | Yamada from a symmetric conference matrix of order 478 |
 | 3884 | 971 | – | – | – | – | – | – | – |  |
@@ -72,7 +72,6 @@ squares.
 | 4676 | 1169 | – | – | – | – | – | ℤ16 × ℤ73 | 50.2 |  |
 | 4748 | 1187 | – | – | – | – | – | ℤ2 × ℤ593 | 15.2 |  |
 | 4892 | 1223 | 13 | 95 | 47 | 33.7 | 32.4 | ℤ2 × ℤ13 × ℤ47 | 48.8 |  |
-| 5020 | 1255 | – | – | – | – | – | – | – |  |
 | 5028 | 1257 | 22 | 78 | 39 | 12.7 | 37.8 | ℤ8 × ℤ157 | 58.9 |  |
 | 5036 | 1259 | – | – | – | – | – | – | – |  |
 | 5132 | 1283 | – | – | – | – | – | – | – |  |
