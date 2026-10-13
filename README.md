@@ -67,8 +67,8 @@ unresolved, is now settled above. [3676](3676) was settled by Schumer [8] while 
 
 A Hadamard matrix H is skew if H + Hᵀ = 2I. Skew-Hadamard matrices are conjectured to exist for every
 order divisible by 4. Each matrix below comes from a Goethals–Seidel difference family with a skew
-first block. The group is ℤᵥ, except for 1100 (ℤ₅ × ℤ₅ × ℤ₁₁), 1372 (GF(343) = ℤ₇³) and
-2052 (ℤ₁₉ × GF(27) = ℤ₁₉ × ℤ₃³). All four blocks are invariant under a group H of automorphisms with −1 ∉ H.
+first block. The group is ℤᵥ, except for 1100 (ℤ₅ × ℤ₅ × ℤ₁₁), 1372 (GF(343) = ℤ₇³),
+2052 (ℤ₁₉ × GF(27) = ℤ₁₉ × ℤ₃³) and 3380 (ℤ₅ × GF(169) = ℤ₅ × ℤ₁₃²). All four blocks are invariant under a group H of automorphisms with −1 ∉ H.
 
 **New orders** (to our knowledge; see the checklist below):
 
@@ -100,6 +100,7 @@ first block. The group is ℤᵥ, except for 1100 (ℤ₅ × ℤ₅ × ℤ₁₁
 | [2452](skew/2452) | 613 (prime) | ⟨37⟩, order 17 | 1, 1, 35, 35 | 613(3) |
 | [2812](skew/2812) | 703 (19 · 37) | ⟨16, 26⟩, order 27 | 1, 1, 1, 53 | 703(3) |
 | [3052](skew/3052) | 763 (7 · 109) | ⟨9⟩, order 27 | 1, 1, 5, 55 | 763(4) |
+| [3380](skew/3380) | 845 (5 · 13²), group ℤ₅ × GF(169) | ⟨w⁸⟩ on GF(169), order 21 (cyclotomic product of index 8) | 1, 43, −3, −39 | 845(4); census: undecided; smallest known before was 16 · 845 = 13520 |
 | [3556](skew/3556) | 889 (7 · 127) | ⟨2,25⟩, order 63 | 1, 5, 41, 43 | 889(4) |
 | [3732](3732) | 933 (3 · 311) | ⟨7⟩, order 31 (cyclotomic product of index 10) | 1, 61, 3, 1 | 933(10); census: undecided; also an unresolved Hadamard order |
 | [3612](skew/3612) | 903 (3 · 7 · 43) | ⟨568⟩, order 21 (Paley product) | 1, 43, 41, 9 | 903(4) |
@@ -133,7 +134,7 @@ records the result of each check.
 The searches use `attack/skew_triage.py`, `attack/skew_rank.py`, `attack/skew_ktree.py` with `attack/match4.c`,
 `attack/skew_exhaustive.py`, `attack/skew_group.py`, `attack/skew_field.py`, the exact compression-chain search
 `attack/chain.py` (driven over the census by `attack/census_screen.py` and `attack/screen_chain.py`, which found
-2812 and 3052), the unequal-list low-energy search `attack/skew_lowE.py` (which found 2452 and 1012), the Paley-product configuration search `attack/paley_config.py` (§15 of `attack/NOTES.md`), the cyclotomic-product search `attack/cyclo_product.py` with `attack/join3.c` (driven over the census by `attack/skew_kmult_sweep.py`, which found 5668), and, for the spin structure, `attack/spin_skew.py` with `attack/spin_ls.c`. Each directory's README
+2812 and 3052), the unequal-list low-energy search `attack/skew_lowE.py` (which found 2452 and 1012), the Paley-product configuration search `attack/paley_config.py` (§15 of `attack/NOTES.md`), the cyclotomic-product search `attack/cyclo_product.py` with `attack/join3.c` (driven over the census by `attack/skew_kmult_sweep.py`, which found 5668), the low-energy four-list k-tree `attack/cp_lowe.py` with `attack/cp_enum.c` and `attack/kt4.c` (which found 820, 1044, 1204, 1276 and 3380), and, for the spin structure, `attack/spin_skew.py` with `attack/spin_ls.c`. Each directory's README
 records the command, code commit, seed and caps of its search. `verify/verify.py` checks H + Hᵀ = 2I for
 these certificates.
 
