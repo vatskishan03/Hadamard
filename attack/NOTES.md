@@ -900,5 +900,12 @@ join is out of reach. Keeping the 8,000 largest groups of every list (about 8 % 
 17,273 group quadruples (6 minutes); see [5020](../5020). An FFT-based Gaussian estimate with the K_m symmetry gives
 log₁₀ E ≈ 1.5 for the whole structure, which the run shows to be far too low.
 
+**Sweep of the plain structures for the open orders.** For every composite n of FRONTIER.md (47 orders) and every
+product Z_m × GF(q), even index e with (q − 1)/e ≥ 3 and at most about eight spikes, and every cyclic multiplier
+group K_m ≤ ℤ_m* (including those containing −1) whose lists have at most 2 · 10⁷ members per block, stage 1 was
+run exactly: 239 structures. Only 1255 (e = 10, K₅ = {±1}) has a compression quadruple; 933 had been solved
+already. Every other structure has no solution. Structures with larger lists (for instance 2973 = 3 · 991 with
+e = 18, a single spike and 4.9 · 10⁴ patterns per position) are not covered.
+
 **1081 = 23 · 47 (Paley, N_w = 2).** `paley_config.py 1081 --maxu 3` went through all 6¹¹ joint (u₁, u₂) options in
 2,759 s: stage 1 is empty, so 1081 has no solution in the Paley product with N_w = 2 (the only admissible N_w).
