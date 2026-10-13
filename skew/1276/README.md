@@ -71,14 +71,44 @@ The certificate does not depend on the search: `verify/verify.py` rebuilds and c
 
 To our knowledge this is the first skew-Hadamard matrix of order 1276.
 
-- The Đoković–Seberry census of skew orders 4v for odd v < 2500 (PDF of 2025-05-28) lists 319 among its undecided
+- The Đoković–Seberry census of skew orders 4v for odd v < 2500 (PDF of 2025-05-28) lists 319 among its 737 undecided
   values.
-- Cati–Pasechnik Table 5 (arXiv:2411.18897) gives 319(3): the smallest known skew order with odd part 319 was
-  8 · 319 = 2552.
-- An *ordinary* Hadamard matrix of order 1276 is known (319 is not among the unresolved n of Cati–Pasechnik Table 4).
-  Only the skew property is new.
+- Cati–Pasechnik Table 5 (arXiv:2411.18897, v1 and v2) gives 319(3): the smallest known skew order with odd part 319 was
+  8 · 319 = 2552, from Paley I (2551 is a prime ≡ 3 (mod 4)).
+- An *ordinary* Hadamard matrix of order 1276 is known (Cati–Pasechnik Table 4 has no entry for 319; Piza's table
+  gives it by Cooper–Wallis from orders 11 and 29). Only the skew property is new.
 
-**Novelty checklist:** pending (a literature audit in the format of [skew/1204](../1204/README.md) is being run).
+**Novelty checklist** (audit of 2026-10-13 by a research agent):
+
+1. **The Đoković–Seberry census** (PDF of 2025-05-28, downloaded again; byte-identical to the cached copy)
+   - It lists 319 among the undecided v ("… 317, 319, 325, …").
+   - 319 is in none of its Paley-3, Szekeres, Szekeres–Whiteman or Spence series, nor among its 41 sporadic values.
+   - No later version was found.
+2. **Cati–Pasechnik** (arXiv:2411.18897, v1 of 2024-11-28 and v2 of 2025-08-30)
+   - Table 5 gives 319(3), in plain font. Their Table 3 (skew constructions) ends at n = 299.
+   - They state that the first skew order missing from Sage is 1252.
+3. **Surveys and Đoković's papers.** Seberry–Yamada 1992, Table 7.1 (p. 499): "319 3". The full texts of 26
+   Đoković-coauthored arXiv papers (0704.0640 to 2508.17141) contain no 1276 or 2552.
+4. **SageMath** (develop 11.0.beta2 of 2026-10-11, stable 10.10, passagemath): the source contains neither 1276 nor
+   319, and every branch of `skew_hadamard_matrix(1276, existence=True)` fails, so it returns Unknown (read from the
+   source; Sage was not run). Its list of unknown skew orders stops at 1196.
+5. **2026 deposits**: none has a skew matrix of order 1276.
+   - Checked: Alpöge et al. (twelve ordinary orders from 668 to 1964), Schneider (2060), JD-Jones-ASES (Hadamard-T,
+     Hadamard-M and related repositories), Schumer (skew 3676–7852), Piza (CW(11, 29), ordinary), Kline (smallest
+     skew order 1376), Bedani (668), Karoui (1252).
+   - Zenodo and GitHub code searches for skew 1276 and for 319 found nothing else.
+6. **arXiv**: 70 full texts (43 of 2024–2026) and metadata searches: no 1276, 2552 or 1275.
+7. **No classical construction gives skew 1276**:
+   - Paley I: 1275 = 3 · 5² · 17. Szekeres, Szekeres–Whiteman, Spence's G-matrices and Momihara–Xiang 2(q + 1):
+     q = 637 = 7² · 13. Wallis–Whiteman and Momihara–Xiang 4(q + 1): q = 318.
+   - Spence 4(q² + q + 1): q² + q + 1 = 319 has no integer root. The product theorem n(pᵏ + 1) would need n = 29 or
+     319, which are odd. Amicable products need 16 | 1276.
+   - Seberry's mn(n − 1) works only with n = 2, which needs an OD(1276; 1, 638, 637), i.e. a skew matrix of order
+     1276 already. Doubling needs 8 | 1276.
+
+Not checked: Koukouvinos–Stylianou 2008 (Table 1), the Handbook (2007) Table 1.51, the Seberry–Yamada 2020 book
+(Table 9.2), Seberry 2017 (Table 4.5) and paywalled 2025–2026 journals. This is a finding of nothing, not a proof that
+no earlier construction exists.
 
 Doubling (Seberry) gives skew orders 2552 (already known, see above), 5104, …
 
