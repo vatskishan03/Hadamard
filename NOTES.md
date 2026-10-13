@@ -182,7 +182,9 @@ H((q−1)/2) exists, then WT(q) exists.
 **Orders above 4·2999 from near-Williamson matrices.** Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev
 (arXiv:2605.08661, 2026) give near-Williamson matrices: circulant ±1 matrices A, B, C, D with B, C, D symmetric and
 ΣXXᵀ = 4w I. Then (AR, B, C, D) are Williamson-type matrices. They exist for w = 47, 59, 65, 67, 103 and 133, among
-others, and Williamson matrices do not exist for w = 47, 59 and 65.
+others. Williamson matrices do not exist for w = 35, 47, 53 and 59 (Đoković 1993; Holzmann, Kharaghani and
+Tayfeh-Rezaie 2008) and have not been found for w = 65 and 67 (the paper's §2.3: "either known not to exist or have
+not yet been found, namely n ∈ {53, 59, 65, 67}").
 - **Five new orders.** Combined with the T-matrices of orders 103, 151 and 163 by Cooper–Wallis, they give 24308,
   27604, 35636, 38468 and 39260. See their READMEs.
 - **Further candidates** (by the same audit):
