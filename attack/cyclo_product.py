@@ -104,30 +104,46 @@ class Structure:
 
 
 # ---- stage 1: compressions on Z_m ---------------------------------------------------------------------------
-def stage1(S, maxpairs=5e7):
+def stage1(S, maxpairs=3e7, maxopts=3e6):
     """All quadruples of compressions (one class per orbit of negation, translation and reversal of the non-skew
     blocks), as tuples of 4 y-vectors."""
     m, e, F = S.m, S.e, S.F
     T = 4 * m * e
     cost = lambda s, f: F * s * s + 2 * f * s
     vals = [(1, 0), (-1, 0)] + [(f, s) for s in range(-e, e + 1, 2) if s for f in (1, -1) if cost(s, f) <= T]
+    spikes = [(f, s) for f, s in vals if s]
+    def placements(npos, budget):
+        """(positions, (f, s) per spike) with total spike cost <= budget, spikes at distinct positions."""
+        out = [((), ())]
+        def rec(start, used, cur, c):
+            for a in range(start, npos):
+                for f, s in spikes:
+                    cc = c + cost(s, f)
+                    if cc > budget: continue
+                    out.append((used + (a,), cur + ((f, s),)))
+                    rec(a + 1, used + (a,), cur + ((f, s),), cc)
+        rec(0, (), (), 0)
+        return out
     def options(skewblock):
         Y, C = [], []
-        if skewblock:
-            for half in itertools.product(vals, repeat=m // 2):
-                fs = [(1, 0)] + list(half) + [(-f, -s) for f, s in reversed(half)]
-                c = sum(cost(s, f) for f, s in fs)
-                if c <= T: Y.append([f + F * s for f, s in fs]); C.append(c)
-        else:
-            for fs in itertools.product(vals, repeat=m):
-                c = sum(cost(s, f) for f, s in fs)
-                if c <= T: Y.append([f + F * s for f, s in fs]); C.append(c)
+        npos = m // 2 if skewblock else m
+        for pos, fsl in placements(npos, T // 2 if skewblock else T):
+            free = [a for a in range(npos) if a not in pos]
+            c0 = sum(cost(s, f) for f, s in fsl) * (2 if skewblock else 1)
+            for signs in itertools.product((1, -1), repeat=len(free)):
+                fs = [None] * npos
+                for a, (f, s) in zip(pos, fsl): fs[a] = (f, s)
+                for a, f in zip(free, signs): fs[a] = (f, 0)
+                if skewblock:
+                    fs = [(1, 0)] + fs + [(-f, -s) for f, s in reversed(fs)]
+                Y.append([f + F * s for f, s in fs]); C.append(c0)
         Y = np.array(Y, dtype=np.int64).reshape(-1, m); C = np.array(C, dtype=np.int64)
         P = np.stack([(Y * np.roll(Y, -b, axis=1)).sum(1) for b in range(1, m // 2 + 1)], axis=1) if m > 1 else np.zeros((len(Y), 0), np.int64)
         return Y, C, P
     L = [options(S.skew and k == 0) for k in range(4)]
-    # canonical id of every option under negation, translation and reversal
+    if max(len(x[0]) for x in L) > maxopts: raise RuntimeError(f'stage 1: {max(len(x[0]) for x in L)} options per block')
     def canon_ids(Y):
+        """Integer id of the class of each row under negation, translation and reversal."""
         best = None
         for sgn in (1, -1):
             for r in (1, -1):
@@ -138,34 +154,36 @@ def stage1(S, maxpairs=5e7):
                     for a in range(m):
                         lt |= eq & (Z[:, a] < best[:, a]); eq &= Z[:, a] == best[:, a]
                     best[lt] = Z[lt]
-        return best
-    R = np.random.default_rng(5).integers(1, 2 ** 61, size=1 + m // 2)
-    def key(c, P): return c * R[0] + (P * R[1:]).sum(1)
-    pairs = []
-    for (i, j) in ((0, 1), (2, 3)):
-        Ci, Cj = L[i][1], L[j][1]
-        I, J = np.nonzero(Ci[:, None] + Cj[None, :] <= T)
-        if len(I) > maxpairs: raise RuntimeError(f'stage 1: {len(I)} pairs')
-        pairs.append((I, J, Ci[I] + Cj[J], L[i][2][I] + L[j][2][J]))
-    I01, J01, c01, p01 = pairs[0]; I23, J23, c23, p23 = pairs[1]
-    k01 = key(c01, p01); o = np.argsort(k01); ks = k01[o]
-    need = key(T - c23, -p23)
-    lo = np.searchsorted(ks, need, 'left'); hi = np.searchsorted(ks, need, 'right')
-    sel = np.flatnonzero(hi > lo)
-    quads = []
-    for r in sel:
-        for pos in range(lo[r], hi[r]):
-            a = o[pos]
-            quads.append((I01[a], J01[a], I23[r], J23[r]))
-    if not quads: return []
-    Q = np.array(quads, dtype=np.int64)
-    canon = [canon_ids(L[k][0]) for k in range(4)]
-    keys = {}
-    for row in Q:
-        cs = [tuple(canon[k][row[k]]) for k in range(4)]
-        kk = (tuple(L[0][0][row[0]]),) + tuple(sorted(cs[1:])) if S.skew else tuple(sorted(cs))
-        if kk not in keys: keys[kk] = tuple(tuple(int(x) for x in L[k][0][row[k]]) for k in range(4))
-    return [keys[k] for k in sorted(keys)]
+        u, inv = np.unique(best, axis=0, return_inverse=True)
+        return inv.ravel()
+    cid = [canon_ids(L[k][0]) for k in range(4)]
+    if S.skew: cid[0] = np.arange(len(L[0][0]))                     # the skew block is not reduced
+    R = np.random.default_rng(5).integers(1, 2 ** 61, size=max(1, m // 2))
+    hk = [(L[k][2] * R[:L[k][2].shape[1]]).sum(1) for k in range(4)]
+    buckets = [{int(c): np.flatnonzero(L[k][1] == c) for c in np.unique(L[k][1])} for k in range(4)]
+    found = {}
+    for c0, i0 in buckets[0].items():
+        for c1, i1 in buckets[1].items():
+            for c2, i2 in buckets[2].items():
+                c3 = T - c0 - c1 - c2
+                if c3 not in buckets[3]: continue
+                i3 = buckets[3][c3]
+                if len(i0) * len(i1) > maxpairs or len(i2) * len(i3) > maxpairs:
+                    raise RuntimeError(f'stage 1: {len(i0) * len(i1)} x {len(i2) * len(i3)} pairs')
+                A, B = np.meshgrid(i0, i1, indexing='ij'); A, B = A.ravel(), B.ravel()
+                k01 = hk[0][A] + hk[1][B]; o = np.argsort(k01); ks = k01[o]
+                Cg, Dg = np.meshgrid(i2, i3, indexing='ij'); Cg, Dg = Cg.ravel(), Dg.ravel()
+                need = -(hk[2][Cg] + hk[3][Dg])
+                lo = np.searchsorted(ks, need, 'left'); hi = np.searchsorted(ks, need, 'right')
+                for r in np.flatnonzero(hi > lo):
+                    for pos in range(lo[r], hi[r]):
+                        a, b, c, d = A[o[pos]], B[o[pos]], Cg[r], Dg[r]
+                        if np.any(L[0][2][a] + L[1][2][b] + L[2][2][c] + L[3][2][d]): continue
+                        ids = (cid[0][a], cid[1][b], cid[2][c], cid[3][d])
+                        key = (ids[0],) + tuple(sorted(ids[1:])) if S.skew else tuple(sorted(ids))
+                        if key not in found:
+                            found[key] = tuple(tuple(int(x) for x in L[k][0][j]) for k, j in enumerate((a, b, c, d)))
+    return [found[k] for k in sorted(found)]
 
 
 # ---- lists and levels -----------------------------------------------------------------------------------------
