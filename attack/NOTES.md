@@ -549,17 +549,23 @@ primality matters.
 |---|---|---|---|
 | 836 | 1669 | 6684 (n = 1671) | known; n ≤ 2999 not in the open list; built as a pipeline test |
 | 1036, 1100, 1148, 1372 | 2069, 2197 = 13³, 2293, 2741 | 8284, 8796, 9180, 10972 | known (n ≤ 2999, not open) |
+| 1564 | 3125 = 5⁵ | 12508 (n = 3127 = 53 · 59) | known: T-sequences of length 59 × Williamson-type of order 53 (Handbook "."); built as a test of the prime-power case |
 | 1612 | 3221 | 12892 | known: T-matrices of order 11 × Williamson-type of order 293 |
 | 1852 (Đoković 1994) | 3701 | 14812 | known: T(7) × Williamson-type 529; also Kiyasu from Đoković's 1852 |
 | 2200 = 2·1100 | 4397 | 17596 | known: T-sequences of length 53 × Williamson-type 83 |
 | 3016 = 2·1508 | 6029 | 24124 | implied since 2026-08-30 by T-matrices of order 163 (JD-Jones-ASES/Hadamard-T) × Williamson 37, but stated nowhere we found; main's lead |
 | 3556 | 7109 | 28444 | known: Paley II (q = 14221) |
-| 3676 (Schumer 2026) | 7349 | 29404 | implied since 2026-09-17 by Schumer's skew 3676, stated nowhere we found |
+| 3676 (Schumer 2026) | 7349 | **29404** (n = 7351) | implied since 2026-09-17 by Schumer's skew 3676, stated nowhere we found; Handbook Table 1.53 marks 7351 ".", apparently in error (every twin-prime n ≡ 3 mod 4 without a Paley route between 4000 and 9999 is marked "."); built from our skew 3676: [29404](../29404) |
 | 4808 = 2·2404 | 9613 | 38460 | known: Paley I (q = 38459) |
 | **6448 = 4·1612** | **12893** | **51580 (n = 12895 = 5·2579)** | **probably open**: Paley I/II fail (51579, 25789 composite); no Williamson-type family reaches 2579 or 12895; Seberry–Yamada 1992 Table A.2 gives only 8·2579; n > 10000 is beyond Handbook Table 1.53; no 2026 deposit mentions it |
 | 7112, 7408, 14816 | 14221, 14813, 29629 | 56892, 59260, 118524 | known (Paley I, Paley II, Williamson-type routes) |
 
-So the new skew order 1612 (4·403), doubled twice, gives the Hadamard order 51580, which is probably new.
+So the new skew order 1612 (4·403), doubled twice, gives the Hadamard order 51580, which is probably new, and
+Schumer's (and our) skew order 3676 gives 29404, whose Handbook entry we could not trace.
+
+**Prime powers.** `build_yamada` and `make_yamada.py` also accept q = p^k: GF(q) is given by a primitive polynomial
+over GF(p) in the certificate (fields `p`, `poly`), and r and ξ are encoded by base-p digits. Checked on q = 13, 29
+and 5³ (orders 60, 124, 508) and on q = 5⁵ with skew 1564 (order 12508, H Hᵀ = 12508 I, 42 s).
 
 `verify/verify.py 51580` was run separately (2026-10-12, 40 minutes, about 3.5 GB): `51580 ok`, with the recorded digest.
 
@@ -910,6 +916,15 @@ e = 18, a single spike and 4.9 · 10⁴ patterns per position) are not covered.
 **1081 = 23 · 47 (Paley, N_w = 2).** `paley_config.py 1081 --maxu 3` went through all 6¹¹ joint (u₁, u₂) options in
 2,759 s: stage 1 is empty, so 1081 has no solution in the Paley product with N_w = 2 (the only admissible N_w).
 
+**Skew sweep with a multiplier on ℤ_m (`attack/skew_kmult_sweep.py`, 2026-10-13).** Every census value v = m q with q prime,
+e | q − 1 even and (q − 1)/e odd, and every cyclic K_m ≤ ℤ_m* without −1 such that the structure has at most 22
+position orbits and at most 2·10⁷ members per block: stage 1 run for 210 structures, 8 with stage-1 classes, all 8
+joined (`cyclo_product.py`, `--sub 8000`, K = 1 per class). One hit: **v = 1417 = 13 · 109**, e = 4, K_m = ⟨3⟩,
+H = ⟨1405, 328⟩ of order 81: skew-Hadamard matrix of order 5668 ([skew/5668](../skew/5668)). The structure is tiny
+(lists of 144, 7,776, 5,184 and 5,184 members, 12 stage-1 classes); an exhaustive join of all 12 classes gives
+8 solutions in each of the classes 2, 3, 6 and 11 and none in the others, 1 s per class. No hit for 1313 = 13 · 101
+and 481 = 13 · 37 (e = 4, K_m = ⟨3⟩), 759, 261 and 1333.
+
 **1341 = 9 · 149 (skew, e = 4), partial.** `cyclo_product.py 1341 --q 149 --e 4 --config 0 --K 3 --threads 3 --bkey 3
 --sub 8000` (level-B key extended by the shifts (3, C_c)): lists of 5,184, 10,077,696, 10,077,696 and 6,718,464 members,
 of which the 8,000 largest groups kept 100 %, 13 %, 22 % and 3.3 %; 2,604,080 group quadruples, 2.0 · 10¹⁰ member
@@ -956,3 +971,47 @@ products of two) whose structures have at most 24 orbits, all three variants (A,
 not; only A symmetric). For v = 65, 89, 101, 107 and 119 (24, 6, 6, 2 and 17 subgroups) every row-sum pattern either
 has an empty pool for some block (the orbit sizes cannot reach the row sum) or was joined completely: no symmetric
 Hadamard matrix of order 4v in these structures. All pools fit in 2 · 10⁷, so nothing was skipped for size.
+
+## 18. Bordered Goethals–Seidel arrays with a character set T
+
+**Construction.** Let G be abelian, K ≤ G of index q, Q = G/K, and T a set of t characters of Q that is a union of
+Galois orbits; put Γ = 4 Σ_{χ∈T} χ (an integer function on Q, Γ(0) = 4t). If four ±1 sequences on G satisfy
+Σᵢ PAFᵢ(g) = −Γ(g + K) for g ≠ 0, a border of 4t rows and columns that are constant on the cosets of K completes
+the Goethals–Seidel array developed over G to a Hadamard matrix of order 4n, n = |G| + t, provided the *border
+problem* has a solution: X (Hadamard of order 4t), R̂ (4t × 4q, orthogonal rows), Ĉ (4q × 4t, Ĉ Ĉᵀ = I₄ ⊗ Γ) with
+X Ĉᵀ + R̂ Mcᵀ = 0, where Mc is the Goethals–Seidel array over Q of the compressions yᵢ (sums over the cosets of K).
+Equivalently the matrix [[X, √|K| R̂], [√|K| Ĉ, Mc]] of order 4t + 4q is orthogonal with Gram 4n I; the border
+problem does not depend on |K| beyond |K| > 18 (which forces X and R̂ to be Hadamard-like). Consequences:
+Σᵢ |ŷᵢ(χ)|² = 4t for χ ∈ T and 4n for χ ∉ T; rows of R̂ and columns of Ĉ have Fourier support in T, so for odd q
+the trivial character must lie in T. Spence's construction is Q = 1, T = {1}; the matrices of Alpöge et al. and
+main's order 3964 use Q = ℤ₂ × ℤ₂ with T the three nontrivial characters (n ≡ 3 mod 4).
+
+**The family Q = ℤ_q, T = all characters.** Here Γ = 4q δ_K: the targets are −4q on K \ 0 and 0 off K, the border has
+size 4q and X, R̂, Ĉ are Hadamard of order 4q. For q = 3 it applies to every n divisible by 3 (|G| = n − 3), in
+particular to n ≡ 1 (mod 4), where Alpöge's family does not exist. The compressions to ℤ₃ satisfy
+Σᵢ PAF_{yᵢ} = 12 δ; for even |K| they are three single ±2 entries in three different blocks (4 · 27 · 8 = 864
+patterns). `attack/bordered.py patterns` (C solver `attack/border3.c`) finds a border for all 864 patterns (4 min).
+`attack/bordered.py validate` assembles complete examples: orders 36 (G = ℤ₃ × ℤ₂) and 60 (G = ℤ₃ × ℤ₄ and
+ℤ₃ × ℤ₂ × ℤ₂), each with H Hᵀ = nI. Negation on the ℤ₃ factor seems unusable as a symmetry: the structures tried have no solution (n = 15, 21, 27,
+exhaustive) or no row pattern whose lattice classes contain the targets (n = 573, all single generators).
+
+**2148 = 4 · 537 in this family.** G = ℤ₅₃₄ = ℤ₆ × GF(89) is forced (t = 3). As a cyclotomic product (multiplier
+classes of index 8, F = 11) the compression identity becomes Σ over the 24 positions of (11 s² + 2 f s) = 96: exactly
+two spikes, ±23 at (0, 0) and ∓23 at (0, 1) of the block whose ℤ₃-compression is zero (`attack/bgs.py`, one stage-1
+class). No further multiplier is compatible: −1 on ℤ₃ forces equal compression values at ±1 and breaks the delta
+condition, and twisted multipliers force s ∈ 4ℤ at the spikes. The lists then have 1.2 · 10¹¹ members per block, too
+many for any of our joins, although the Gaussian estimate of the structure is 10⁷ (with all symmetric copies,
+about 20 inequivalent solutions). The other orders 537 − t with a usable quotient (t = 9: |G| = 528, t = 15: 522)
+give much smaller estimates. `bgs.py scan` (cyclic G = ℤ_m × GF(r), m ≤ 30, t ≤ 30, at most four spikes) found no
+other order with a feasible stage 1 among the FRONTIER orders up to n = 1423.
+
+**Q = ℤ₂² × ℤ₃, T = (nontrivial on ℤ₂²) × (all on ℤ₃), t = 9.** This product of Alpöge's set and the ℤ₃ set applies to
+every n ≡ 9 (mod 12), i.e. to all open n ≡ 1 (mod 4) divisible by 3, and allows Alpöge's order-3 automorphism α of
+ℤ₂² coupled with multipliers of K. Gaussian estimates (`attack/bgs_gauss.py`, summed over all row patterns): 789 (K = ℤ₅ × ℤ₁₃,
+σ = (α, ×2, ×4), 84 orbits, 47 classes) 10^8.1; 789 with (α, ×4, ×2) 10^3.4; 537 at best 10^−3.1 (G = ℤ₂⁴ × ℤ₃₃);
+669, 1437, 2661 below 10^−10. The border problem becomes: two orthogonal bases of the 36-dimensional space V_T made of
+"fibre-character" vectors (one signed character of ℤ₂² on each of the 12 fibres (block, a)), with all mutual inner
+products ±2 (in units where the norm is 12) for the single-spike compressions, i.e. a pair of unbiased weighing
+matrices W(36, 12) with this fibre structure. The twisted-product ansatz (rows h_j(f) e_{π_f(u)} from a Hadamard
+matrix of order 12) cannot work: it would need four columns of a Hadamard matrix of order 12 with constant product.
+A meet-in-the-middle search over all 6¹² candidate columns found none for random bases of this kind. Open.

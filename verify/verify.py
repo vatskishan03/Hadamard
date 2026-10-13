@@ -15,9 +15,11 @@ Products are formed in float32, one block of rows at a time. The matrices multip
 have entries 0 and +-1 and fewer than 2^24 columns, so every partial sum is an integer
 of absolute value below 2^24 and the computation is exact.
 
-The matrices of 14932 and of the orders above 20000 (20084, 21748, 24124, 31316, 31412) are not stored.
-Rebuilding and checking one of them takes 30 to 80 seconds on six cores and at most 2 GB
-of memory.
+The matrices of 14708, 14932 and of the orders above 20000 (20084, 21748, 24124, 24412, 29404, 31316, 31412, 51580)
+are not stored. Rebuilding and checking one of them takes from 30 seconds (six cores) to 40 minutes (51580, about
+3.5 GB of memory).
+
+Yamada certificates accept a prime q or a prime power q = p^k (fields "p" and "poly" give GF(q)).
 
     python3 verify/verify.py              check every order in the repository
     python3 verify/verify.py 2092 4492    check the named orders
@@ -422,6 +424,8 @@ def build_yamada(cert):
     with L = 2I - J4, M as below and K4 = -LM/2. The certificate gives q, r, xi and, under
     "Q", the complete certificate of Q."""
     q, r, (xa, xb) = cert["q"], cert["r"], cert["xi"]
+    if "poly" in cert:                                          # q = p^k: GF(q) = GF(p)[x]/(poly)
+        return _build_yamada_field(cert)
     if q % 8 != 5 or any(q % d == 0 for d in range(2, math.isqrt(q) + 1)):
         raise ValueError("q must be a prime = 5 (mod 8)")
     if cert["Q"]["order"] != (q + 3) // 2:
@@ -457,6 +461,73 @@ def build_yamada(cert):
     for m in range(n0):
         alpha[m], beta[m] = psi[2 * a[0] % q], psi[2 * b[0] % q]
         a, b = mul(a, x4), mul(b, x4)
+    return _yamada_matrix(cert, q, alpha, beta)
+
+
+def _build_yamada_field(cert):
+    """build_yamada for a prime power q = p^k = 5 (mod 8). Elements of GF(q) are integers 0 .. q - 1 whose base-p
+    digits (least significant first) are the coefficients of a polynomial in x modulo cert["poly"] (monic, given by
+    its coefficients c_0 .. c_{k-1}: x^k = -(c_0 + c_1 x + ... + c_{k-1} x^{k-1})). r is a non-square of GF(q) and
+    xi = (xa, xb) = xa + xb w a primitive element of GF(q^2) = GF(q)[w]/(w^2 - r), in the same encoding."""
+    q, r, (xa, xb), poly = cert["q"], cert["r"], cert["xi"], cert["poly"]
+    p, k = cert["p"], len(poly)
+    if p ** k != q or q % 8 != 5 or any(p % d == 0 for d in range(2, math.isqrt(p) + 1)):
+        raise ValueError("q must be a prime power p^k = 5 (mod 8)")
+    if cert["Q"]["order"] != (q + 3) // 2:
+        raise ValueError("Q must have order (q + 3)/2")
+    digits = np.array([[(e // p ** j) % p for j in range(k)] for e in range(q)], dtype=np.int64)
+    weights = p ** np.arange(k)
+    enc = lambda d: int((np.asarray(d) % p) @ weights)
+    def xmul(e):                                                # e * x
+        d = np.zeros(k + 1, dtype=np.int64); d[1:] = digits[e]
+        top = d[k]; d = d[:k] - top * np.asarray(poly, dtype=np.int64)
+        return enc(d)
+    # log tables from the element x; check that x generates GF(q)* (so poly is primitive, hence irreducible)
+    exp = np.empty(q - 1, dtype=np.int64); log = -np.ones(q, dtype=np.int64)
+    e = 1
+    for i in range(q - 1):
+        if log[e] >= 0:
+            raise ValueError("poly is not primitive")
+        exp[i], log[e] = e, i
+        e = xmul(e)
+    if e != 1:
+        raise ValueError("poly is not primitive")
+    add = lambda u, v: enc(digits[u] + digits[v])
+    fm = lambda u, v: 0 if u == 0 or v == 0 else int(exp[(log[u] + log[v]) % (q - 1)])
+    psi = np.where(log % 2 == 0, 1, -1).astype(np.int64); psi[0] = 0
+    if psi[r] != -1:
+        raise ValueError("r is a square")
+    mul = lambda x, y: (add(fm(x[0], y[0]), fm(r, fm(x[1], y[1]))), add(fm(x[0], y[1]), fm(x[1], y[0])))
+    def power(x, e):
+        y = (1, 0)
+        while e:
+            if e & 1:
+                y = mul(y, x)
+            x, e = mul(x, x), e >> 1
+        return y
+    N, primes, m, d = q * q - 1, [], q * q - 1, 2
+    while d * d <= m:
+        if m % d == 0:
+            primes.append(d)
+            while m % d == 0:
+                m //= d
+        d += 1
+    if m > 1:
+        primes.append(m)
+    if any(power((xa, xb), N // f) == (1, 0) for f in primes):
+        raise ValueError("xi is not primitive")
+    n0 = (q + 1) // 2
+    alpha, beta = np.empty(n0, dtype=np.int64), np.empty(n0, dtype=np.int64)
+    a, b, x4 = (1, 0), power((xa, xb), n0), power((xa, xb), 4)
+    two = lambda u: add(u, u)                                   # Tr(a + b w) = 2a
+    for m in range(n0):
+        alpha[m], beta[m] = psi[two(a[0])], psi[two(b[0])]
+        a, b = mul(a, x4), mul(b, x4)
+    return _yamada_matrix(cert, q, alpha, beta)
+
+
+def _yamada_matrix(cert, q, alpha, beta):
+    n0 = (q + 1) // 2
     s = np.arange(n0)
     if not (np.array_equal(alpha, alpha[-s % n0]) and np.array_equal(beta, beta[-s % n0])):
         raise ValueError("alpha or beta is not symmetric")
