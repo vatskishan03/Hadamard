@@ -288,12 +288,13 @@ if __name__ == '__main__':
         print(f"v={a.v} |H|={len(sp.H)} |K|={len(sp.K)} OH={stH.O} OK={stK.O} classesK={stK.C} b={sp.b}", flush=True)
         M2 = np.rint(2 * sp.M).astype(np.int32); S2 = np.rint(2 * sp.SA).astype(np.int32)
         assert np.allclose(M2, 2 * sp.M) and np.allclose(S2, 2 * sp.SA)
-        B0 = stH.sample(sp.b, 1, np.random.default_rng(a.seed))[0].astype(np.int32)
+        B0s = stH.sample(sp.b, 4096, np.random.default_rng(a.seed)).astype(np.int32)   # starts for the restarts
         path = os.path.join(W.tmpdir(), f'spin_{a.v}_{a.seed}.bin')
         with open(path, 'wb') as f:
             np.array([stH.O, stK.C, stK.O, len(sp.pairs)], np.int32).tofile(f)
             stK.csize.astype(np.int32).tofile(f); stH.sizes.astype(np.int32).tofile(f)
-            M2.tofile(f); S2.tofile(f); np.array(sp.pairs, np.int32).ravel().tofile(f); B0.tofile(f)
+            M2.tofile(f); S2.tofile(f); np.array(sp.pairs, np.int32).ravel().tofile(f); B0s[0].tofile(f)
+            np.array([len(B0s)], np.int32).tofile(f); B0s.tofile(f)
         import subprocess
         t = time.time()
         if os.environ.get('SPIN_WALK'):      # neighbour-lookup walk: SPIN_WALK = seconds

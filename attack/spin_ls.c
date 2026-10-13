@@ -7,7 +7,11 @@
  * Moves: swap a + and a - B-orbit of equal size (keeps the row sum); flip one A pair.
  *
  * input (int32): OB C NA NP ; w[C] ; sizeB[OB] ; MB[C][OB][OB] ; SA[C][NA][NA] ; pairs[NP][2] ;
- *                B0[OB] (a start with the right row sum)
+ *                B0[OB] (a start with the right row sum) [; NB0 ; B0s[NB0][OB] (optional: more starts)]
+ * Each restart takes one of the starts at random and shuffles it within orbits of equal size. With a single start
+ * the numbers of + signs per orbit size stay those of B0 for the whole run, which for composite v (orbits of several
+ * sizes) confines the search to one row-sum split; the extra starts (uniform samples of all B with the row sum)
+ * remove that restriction.
  *   cc -O3 -march=native spin_ls.c -o spin_ls ;  ./spin_ls in.bin restarts steps seed
  * prints "SOL A <NA signs> B <OB signs>" on success.
  */
@@ -31,6 +35,8 @@ int main(int argc, char **argv) {
     OB = hdr[0]; C = hdr[1]; NA = hdr[2]; NP = hdr[3];
     w = rd(f, C); szB = rd(f, OB); MB = rd(f, (long)C * OB * OB); SA = rd(f, (long)C * NA * NA);
     pr = rd(f, 2L * NP); B0 = rd(f, OB);
+    int NB0 = 1, nb0x;
+    if (fread(&nb0x, 4, 1, f) == 1 && nb0x > 0) { free(B0); NB0 = nb0x; B0 = rd(f, (long)NB0 * OB); }
     fclose(f);
     long restarts = atol(argv[2]), steps = atol(argv[3]); rs = 0x9E3779B97F4A7C15ULL ^ (uint64_t)atol(argv[4]) * 0x2545F4914F6CDD1DULL;
     int *B = malloc(OB * 4), *A = malloc(NA * 4);
@@ -40,7 +46,7 @@ int main(int argc, char **argv) {
     long best_all = -1;
     for (long r = 0; r < restarts; r++) {
         /* random B with the same row sum: shuffle B0 within equal-size orbits */
-        memcpy(B, B0, OB * 4);
+        memcpy(B, B0 + (long)(rnd() % NB0) * OB, OB * 4);
         for (int i = 1; i < OB; i++) {
             int j = 1 + rnd() % (OB - 1);
             if (szB[i] == szB[j]) { int t = B[i]; B[i] = B[j]; B[j] = t; }

@@ -42,6 +42,7 @@ def main():
     ap.add_argument('--maxenum', type=float, default=4e10, help='largest block that cp_enum may enumerate')
     ap.add_argument('--estimate-only', action='store_true', help='record the estimates without searching')
     ap.add_argument('--out', default='cp_hunt.jsonl')
+    ap.add_argument('--fibre-only', action='store_true', help='only the structures with a prime-power fibre GF(p^k), k >= 2')
     a = ap.parse_args()
     skew = a.mode == 'skew'
     out = W.WORK / a.out
@@ -55,6 +56,7 @@ def main():
         for q, m, e, F, k, t, S, mem in SW.structures(v, skew, a.minm, a.maxm):
             if solved(v, skew): break
             if (v, a.mode, q, e, k, t) in done: continue
+            if a.fibre_only and not hasattr(S, 'automorphisms'): continue
             base = dict(v=v, mode=a.mode, q=q, m=m, e=e, F=F, k=k, K=len(S.K), twist=t, reps=len(S.kreps),
                         mem0=round(math.log10(mem), 1))
             t0 = time.time()

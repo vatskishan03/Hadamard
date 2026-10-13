@@ -1241,3 +1241,72 @@ autocorrelation part of stage 1 or have class estimates below 1 (e.g. 481: 10^1.
 method has a natural frontier in the census; most undecided v admit no multiplier structure of searchable size at all.
 - Non-cyclic K_m (two generators, no twist, m ≤ 120) add a single census structure that passes the norm and
   row-sum condition with blocks of 10⁵–10^11.5 per class: 2223 = 117 · 19, e = 2, |K| = 9, 25 position orbits.
+
+
+## 22. Bordered arrays over ℤ₄, pair-spin structures, and calibrations (October 13, evening)
+
+**The skew 4492 run is negative.** `cp_lowe.py 1123 --q 1123 --e 34 --config 0 --L 3e7,1e7,1e7 --nsig 6000 --threads 3
+--K 5` (seed 1): lists of 131,072 (the whole skew block), 2.9 · 10⁷, 1.0 · 10⁷ and 1.0 · 10⁷ members, 6000 split values
+holding a predicted share of 0.0746 of the 10^1.98 solutions inside the lists, 7.4 · 10⁸ AB and 2.3 · 10¹¹ CD pairs in
+4932 s: no solution. With about 7 expected, the prime-field estimate inside low-energy lists is optimistic by a
+factor of at least 2.4 (95 %). For comparison, the four blocks of the known plain solution of 4492 (same H and rows
+1, 1, 1, 67) lie at energy quantiles 2 · 10⁻⁴ to 1 · 10⁻³ of their plain blocks (ranks 5 · 10⁵ to 2 · 10⁶ of 2.3 · 10⁹),
+well inside lists of 10⁷. That solution was found by a search that favours low energy, so this does not test the
+estimate.
+
+**Faster joins and resumable runs.** On the lists of the 319 run (AB tables of 3–5 · 10⁶ pairs per split value), the
+radix-partitioned join of `kt4.c` takes 27 s per split value against 39 s (same four values, same solutions).
+`cp_lowe.py --skip-sigmas FILE` drops split values already searched (kt4 log lines) when a run is restarted; with
+`--S` fixed the merge classes stay the same. The 319 run was restarted this way (131 of its first 267 values recur in
+the new ranking).
+
+**Spin local search on composite v.** `spin_ls.c` swaps signs only between H-orbits of equal size, and each run
+started from one random B: for composite v the number of + signs per orbit size then stays that of the start for the
+whole run. For 817 (orbit sizes 1, 3, 7, 21) four such splits are possible, with 67, 27, 5 and 1.4 % of the B pool, so
+a run explored one of them. `spin_skew.py csearch` now passes 4096 uniform starts and each restart draws one. (721 has
+a single split: sizes 1 and 17.) Runs: 817, |H| = 21, μ = 9 (8 K-classes, estimate 10^3.2), and 721, |H| = 17, μ = 58
+(10^2.3), 3000 steps per restart, about 24 restarts per second.
+
+**Pair-spin structures** (`attack/pairspin.py`). With μ ∉ H, μ² ∈ H and K = ⟨H, μ⟩, a pair of blocks (X, X ∘ μ)
+contributes T_X(s) = P_X(s) + P_X(μs), which is K-invariant.
+- A skew block invariant under K needs −1 outside the image of K in ℤ_p^* for every prime p | v (otherwise an orbit
+  of elements of order p is closed under negation), so every such image has odd order, and so has K (the kernel of
+  ℤ_v^* → Π ℤ_p^* has odd order). Hence no layout with a K-invariant skew block and [K : H] = 2 exists; the spin
+  structure of §10 (μ of order 3) is consistent with this.
+- The remaining layouts are (A, A ∘ μ, C, D) with C, D K-invariant (2 + c² + d² = 4v) and (A, A ∘ μ, C, C ∘ μ)
+  (2v − 1 = c²). Both are exact two-list joins.
+- Validation: v = 63, |H| = 3, μ = 2, rows (1, 1, 9, 13): skew-Hadamard matrices of order 252 (the Gaussian estimate
+  was 10^−2.5). Among the composite v < 100 with 2v − 1 a sum of two squares, solutions exist for 15, 21 and 63; for
+  25, 27, 33, 45, 55, 57, 75, 77, 87, 91 and 93 every structure within the caps (2²² skew members, 3 · 10⁸ pairs) is
+  empty (`pairspin.py sweep ... --maxA 22 --maxpairs 3e8 --maxlist 2e7`). A census sweep (largest H first) found
+  nothing for 201, 253, 261 and 265 and was paused: the family thins out quickly.
+
+**Border problems over ℤ_q** (`attack/border_probe.py`). The rows of R̂ and the columns of Ĉ are ±1 vectors of
+V_T (four blocks, Fourier support in T) and form orthogonal bases of it, and Mc Mcᵀ = 4t on V_T. For a fixed basis
+R̂, the border condition becomes Ĉ = −(1/4t) Mc R̂ᵀ X: the columns of X are the sign vectors ε with
+|Mc R̂ᵀ ε| = 4t entrywise (a set S_R found by enumerating 2^{4t−1} vectors), and a border exists for R̂ iff S_R holds
+4t mutually orthogonal vectors. Only the components of the compressions at the characters in T enter.
+- Calibration: Q = ℤ₃, T = all characters (solved by `border3.c`): random bases R̂ give a border at once.
+- **Q = ℤ₄ with T = {1, χ, χ³} (the trivial and the two characters of order 4) and with T = {χ, χ², χ³}:** both
+  border problems are solvable. `border_probe.py validate 4 3 2 1,4` and `... 2,4` search all sequences on
+  G = ℤ₁₂ = ℤ₄ × ℤ₃ (targets −Γ(g mod 4): −12, −4, +4, −4 and −12, +4, +4, +4), find borders for their compressions
+  and assemble Hadamard matrices of order 60 (H Hᵀ = 60 I for all six tested). The second set has the targets of
+  Alpöge et al.'s ℤ₂ × ℤ₂ family. So every n ≡ 3 (mod 4) has bordered structures with border 12 over the cyclic group
+  ℤ_{n−3} (and over ℤ₄ × K), where the ℤ₂ × ℤ₂ family needs a non-cyclic group. A census of these structures for the
+  FRONTIER orders n ≡ 3 (mod 4) is the next step.
+- Q = ℤ₈, T = {1} ∪ {characters of order 8} (t = 5, the 573 lead of §21): the compressions have row sums (±4, ±2, 0,
+  0) and an antiperiodic part with five ±1 cells and Σ NPAF = 0 off 0 (48,640 patterns). Random bases give S_R = ∅
+  (each R̂ is compatible with about 12.5 % of all ±1 vectors of V_T per row). Unresolved.
+
+**The large bordered totals of §21 were artifacts.** The totals of `btotal_scan.py` average over random sequences and
+ignore the exact compression budget Σ (F s² + 2 f s) = 4(m − t)e of `bgs.stage1`:
+- 573, ℤ₈ × GF(71), e = 10, T = {1} ∪ {order 8}: stage 1 is empty for K_m = ⟨3⟩ and ⟨7⟩ (the 10^16.6 structures);
+  with K_m trivial (88 orbits per block) it is too large for the exact join.
+- 643, ℤ₁₂ × GF(53), e = 4, T of orders {1, 3, 12} or {1, 4, 12}: stage 1 empty (10^16.3).
+- 599, ℤ₄ × GF(149), e = 4 (T of orders {1, 4}): the budget is 16 while a spike costs at least 4F − 4 = 144, so stage 1
+  is empty (the total was 10^3.8).
+
+**Prime-power fibres.** `cp_hunt.py --fibre-only --estimate-only` over the 76 census values with a fibre GF(p^k):
+GF(25) and GF(49) structures (F = 3) come out between 10^−67 and 10^−0.04 per class; the best lead is 845 = 5 · 13²,
+ℤ₅ × GF(169), e = 8, F = 21, K₅ trivial, class 1 of the sampled stage 1, rows (1, 43, −3, −39): 10^4.54 for the
+class and 10^1.48 inside lists of 5 · 10⁷, 2.5 · 10⁷ and 2.5 · 10⁷ members (blocks of 1.3–1.7 · 10⁹). Queued after 319.

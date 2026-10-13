@@ -406,6 +406,21 @@ def choose_sigmas(lists, S_idx, t, nsig, M, rng, sizes=None):
     return sig[order].astype(np.int64), dict(candidates=len(common), share=float(share), ab=float(nab[order].sum()), cd=float(ncd[order].sum()))
 
 
+def skip_done(a, sigmas, info, log):
+    """Drop the split values listed in a.skip_sigmas (one tuple per line, as kt4 logs them: 'kt4: sigma i/N (s0,..)' or
+    plain integers) and keep at most a.nsig of the rest; used to resume a run whose lists are rebuilt identically."""
+    if not a.skip_sigmas: return sigmas[:a.nsig]
+    import re
+    done = set()
+    for line in open(a.skip_sigmas):
+        m = re.search(r'\(([-0-9,]+)\)', line)
+        vals = m.group(1).split(',') if m else line.split()
+        if vals: done.add(tuple(int(x) for x in vals))
+    keep = [i for i, sg in enumerate(sigmas.tolist()) if tuple(sg) not in done]
+    log(f'skipping {len(sigmas) - len(keep)} split values done before ({len(done)} listed)')
+    return sigmas[keep][:a.nsig]
+
+
 def stage1_cached(S, plain):
     """Stage-1 classes of the structure, cached in $HADAMARD_WORK."""
     cache = W.WORK / f'cp_stage1_{S.v}_{S.q}_{S.e}_{S.kgen}_{"plain" if plain else "skew"}.json'
@@ -626,9 +641,11 @@ def stream_search(a, S, P, gens, t, Sp, mu, Lk, est0, log, rng, nsamp=2000000, c
         log(f'Gaussian estimate of the class: 10^{est0:.2f}; inside the kept lists {sizes}: 10^{est:.2f} (rank {rank}, null offset {off:.2f})')
         fits = absmax <= 1000
         S_idx = [int(x) for x in a.S.split(',')] if a.S else sorted([int(c) for c in np.argsort(-varsum) if fits[c]][:5])
-        sigmas, info = choose_sigmas(samples, S_idx, np.rint(t).astype(np.int64), a.nsig, a.mcpairs, rng, sizes=sizes)
+        extra = sum(1 for _ in open(a.skip_sigmas)) if a.skip_sigmas else 0
+        sigmas, info = choose_sigmas(samples, S_idx, np.rint(t).astype(np.int64), a.nsig + extra, a.mcpairs, rng, sizes=sizes)
         log(f'split values: {len(sigmas)} chosen from {info["candidates"]} sampled; expected share of the solutions they hold '
             f'{info["share"]:.3g}, predicted pairs AB {info["ab"]:.3g} CD {info["cd"]:.3g}')
+        sigmas = skip_done(a, sigmas, info, log)
         del samples
         found = run_kt4(a, S, gens, path, S_idx, sigmas, recs, blocks, Pm0, log)
     finally:
@@ -692,6 +709,7 @@ def main():
     ap.add_argument('--K', type=int, default=10)
     ap.add_argument('--field', default='', help='p,k: the fibre is GF(p^k) (q = p^k; cp_field.FieldStructure)')
     ap.add_argument('--stream', action='store_true', help='stream the lists to the kt4 file (keeps only samples, masks)')
+    ap.add_argument('--skip-sigmas', default='', help='file of split values already searched (kt4 log lines or tuples): resume')
     a = ap.parse_args()
     t0 = time.time(); log = lambda s: print(f'{s} [{time.time() - t0:.0f}s]', flush=True)
     Ls = [float(x) for x in a.L.split(',')]
@@ -761,9 +779,11 @@ def main():
     spread = sum(colvar(l) for l in lists)
     fits = np.max([np.maximum(l.max(0).astype(np.int64), -l.min(0).astype(np.int64)) for l in lists], axis=0) <= 1000   # kt4 packs the merge classes in 12 bits
     S_idx = [int(x) for x in a.S.split(',')] if a.S else sorted([int(c) for c in np.argsort(-spread) if fits[c]][:5])
-    sigmas, info = choose_sigmas(lists, S_idx, np.zeros(D, np.int64), a.nsig, a.mcpairs, rng)
+    extra = sum(1 for _ in open(a.skip_sigmas)) if a.skip_sigmas else 0
+    sigmas, info = choose_sigmas(lists, S_idx, np.zeros(D, np.int64), a.nsig + extra, a.mcpairs, rng)
     log(f'split values: {len(sigmas)} chosen from {info["candidates"]} sampled; expected share of the solutions they hold '
         f'{info["share"]:.3g}, predicted pairs AB {info["ab"]:.3g} CD {info["cd"]:.3g}')
+    sigmas = skip_done(a, sigmas, info, log)
     fd, path = tempfile.mkstemp(suffix='.kt4', dir=W.tmpdir()); os.close(fd)
     try:
         with open(path, 'wb') as f:
