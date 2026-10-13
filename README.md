@@ -20,6 +20,7 @@ smallest unresolved orders were 2060 and 2092.
 | [4492](4492) | 4 · 1123 | Goethals–Seidel, ℤ₁₁₂₃, multiplier subgroup of order 33 | New |
 | [5020](5020) | 4 · 1255 | Goethals–Seidel; ℤ₁₂₅₅ ≅ ℤ₅ × GF(251), multiplier subgroup of order 50 (h ≡ ±1 mod 5, h a 10th power mod 251) | New |
 | [5932](5932) | 4 · 1483 | Goethals–Seidel, ℤ₁₄₈₃, multiplier subgroup of order 39 | New |
+| [14708](14708) | 4 · 3677 | Miyamoto's theorem from a skew-Hadamard matrix of order 3676 (Goethals–Seidel over ℤ₉₁₉, multiplier subgroup of order 17, spin structure) | Probably new; above the range of [3] |
 | [14932](14932) | 4 · 3733 | Miyamoto's theorem (q = 3733) from the matrix of order 3732 | First explicit construction we know of; Handbook Table 1.53 lists 3733 with t = 2, with no construction we could trace |
 | [20084](20084) | 4 · 5021 | Miyamoto's theorem (q = 5021) from the matrix of order 5020 | First explicit construction we know of; Handbook Table 1.53 lists 5021 with t = 2, with no construction we could trace |
 | [21748](21748) | 4 · 5437 | Miyamoto's theorem from a Cooper–Wallis matrix of order 5436 (T-matrices of order 151, Williamson order 9) | Probably new; above the range of [3] |
@@ -38,7 +39,7 @@ construction was found in a literature search in October 2026. The table in [3]
 is not complete (nine of its entries were settled in [4]), so these claims carry
 that caveat.
 
-The eight orders above 4 · 2999 lie beyond [3]. For the seven with n < 10000 we used Table 1.53 of the
+The nine orders above 4 · 2999 lie beyond [3]. For the eight with n < 10000 we used Table 1.53 of the
 Handbook of Combinatorial Designs (2007) together with the updates in [4, 5]. For 14932 (n = 3733) and 20084
 (n = 5021) that table claims t = 2, but we could not trace a construction behind either entry; see their READMEs. For 51580 (n = 12895), which is
 beyond that table too, we checked Paley, the Williamson-type families of Seberry–Yamada's 1992 survey and the
