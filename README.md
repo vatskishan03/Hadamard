@@ -21,8 +21,13 @@ smallest unresolved orders were 2060 and 2092.
 | [14708](14708) | 4 · 3677 | Miyamoto's theorem from a skew-Hadamard matrix of order 3676 (Goethals–Seidel over ℤ₉₁₉, multiplier subgroup of order 17, spin structure) | Probably new; above the range of [3] |
 | [21748](21748) | 4 · 5437 | Miyamoto's theorem from a Cooper–Wallis matrix of order 5436 (T-matrices of order 151, Williamson order 9) | Probably new; above the range of [3] |
 | [24124](24124) | 4 · 6031 | Yamada's theorem (q = 6029) from a skew-Hadamard matrix of order 3016, the double of a skew Goethals–Seidel matrix of order 1508 over ℤ₃₇₇ | Probably new; above the range of [3] |
+| [24308](24308) | 4 · 6077 | Cooper–Wallis: T-matrices of order 103 and Williamson-type matrices of order 59 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
+| [27604](27604) | 4 · 6901 | Cooper–Wallis: T-matrices of order 103 and Williamson-type matrices of order 67 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
 | [31316](31316) | 4 · 7829 | Miyamoto's theorem from a Cooper–Wallis matrix of order 7828 (T-matrices of order 103, Williamson order 19) | Probably new; above the range of [3] |
 | [31412](31412) | 4 · 7853 | Miyamoto's theorem from a Cooper–Wallis matrix of order 7852 (T-matrices of order 151, Williamson order 13) | Probably new; above the range of [3] |
+| [35636](35636) | 4 · 8909 | Cooper–Wallis: T-matrices of order 151 and Williamson-type matrices of order 59 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
+| [38468](38468) | 4 · 9617 | Cooper–Wallis: T-matrices of order 163 and Williamson-type matrices of order 59 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
+| [39260](39260) | 4 · 9815 | Cooper–Wallis: T-matrices of order 151 and Williamson-type matrices of order 65 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
 | [2060](2060) | 4 · 515 | Cooper–Wallis: T-matrices of order 103 and Williamson matrices of order 5 | Independent construction; the order was first settled publicly on 2026-08-23 [2] |
 | [3532](3532) | 4 · 883 | Goethals–Seidel, ℤ₈₈₃, multiplier subgroup of order 21 | Order known [4]; new explicit matrix |
 
@@ -33,7 +38,7 @@ construction was found in a literature search in October 2026. The table in [3]
 is not complete (nine of its entries were settled in [4]), so these claims carry
 that caveat.
 
-The five orders above 4 · 2999 lie beyond [3]. For them we used Table 1.53 of the
+The ten orders above 4 · 2999 lie beyond [3]. For them we used Table 1.53 of the
 Handbook of Combinatorial Designs (2007) together with the updates in [4, 5]; the
 README of each order gives the details. Their matrices are not stored (up to 2.5 GB
 as CSV); `verify/verify.py` rebuilds them from the certificates.
@@ -71,6 +76,8 @@ Each order has its own directory containing
 Other top-level contents:
 
 - [`t-matrices`](t-matrices): the T-matrices of orders 97 to 197 found during this work.
+- [`near-williamson`](near-williamson): near-Williamson matrices of Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev
+  (2026), used as Williamson-type matrices for the orders 24308 to 39260.
 - [`search`](search): the programs that found the Goethals–Seidel orders.
 - [`METHOD.md`](METHOD.md): how the search works.
 - [`FRONTIER.md`](FRONTIER.md): the unresolved orders up to 4 · 2999, with the cheapest structure for each and its predicted cost.
