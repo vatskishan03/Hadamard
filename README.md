@@ -98,6 +98,7 @@ first block. The group is ℤᵥ, except for 1100 (ℤ₅ × ℤ₅ × ℤ₁₁
 | [3556](skew/3556) | 889 (7 · 127) | ⟨2,25⟩, order 63 | 1, 5, 41, 43 | 889(4) |
 | [3732](3732) | 933 (3 · 311) | ⟨7⟩, order 31 (cyclotomic product of index 10) | 1, 61, 3, 1 | 933(10); census: undecided; also an unresolved Hadamard order |
 | [3612](skew/3612) | 903 (3 · 7 · 43) | ⟨568⟩, order 21 (Paley product) | 1, 43, 41, 9 | 903(4) |
+| [5668](skew/5668) | 1417 (13 · 109) | ⟨1405, 328⟩, order 81 (cyclotomic product of index 4 with ⟨3⟩ on ℤ₁₃) | 1, 7, −53, −53 | beyond Table 5 (n ≤ 999); census: undecided; smallest known before was 32 · 1417 = 45344 |
 | [6004](skew/6004) | 1501 (19 · 79) | ⟨799⟩, order 39 (Paley product) | 1, 77, 7, −5 | beyond Table 5 (n ≤ 999); census: undecided; smallest known before was 8 · 1501 = 12008 |
 
 **Known orders, independent matrices.** These orders were claimed as new at first. Both claims are
@@ -127,7 +128,7 @@ records the result of each check.
 The searches use `attack/skew_triage.py`, `attack/skew_rank.py`, `attack/skew_ktree.py` with `attack/match4.c`,
 `attack/skew_exhaustive.py`, `attack/skew_group.py`, `attack/skew_field.py`, the exact compression-chain search
 `attack/chain.py` (driven over the census by `attack/census_screen.py` and `attack/screen_chain.py`, which found
-2812 and 3052), the unequal-list low-energy search `attack/skew_lowE.py` (which found 2452 and 1012), the Paley-product configuration search `attack/paley_config.py` (§15 of `attack/NOTES.md`), and, for the spin structure, `attack/spin_skew.py` with `attack/spin_ls.c`. Each directory's README
+2812 and 3052), the unequal-list low-energy search `attack/skew_lowE.py` (which found 2452 and 1012), the Paley-product configuration search `attack/paley_config.py` (§15 of `attack/NOTES.md`), the cyclotomic-product search `attack/cyclo_product.py` with `attack/join3.c` (driven over the census by `attack/skew_kmult_sweep.py`, which found 5668), and, for the spin structure, `attack/spin_skew.py` with `attack/spin_ls.c`. Each directory's README
 records the command, code commit, seed and caps of its search. `verify/verify.py` checks H + Hᵀ = 2I for
 these certificates.
 
