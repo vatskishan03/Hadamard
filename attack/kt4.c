@@ -158,14 +158,15 @@ int main(int argc, char **argv) {
     for (int L = 0; L < 4; L++) {
         hs[L] = malloc(8 * n[L]);
         for (long i = 0; i < n[L]; i++) hs[L][i] = h[L][IX[L]->idx[i]];
+        free(h[L]); h[L] = NULL;                                  /* only the sorted copies are used below */
     }
     /* the S-tuple of each group (decoded from its key) */
-    int *tup[4];
+    int16_t *tup[4];
     for (int L = 0; L < 4; L++) {
-        tup[L] = malloc(sizeof(int) * NS * (IX[L]->m + 1));
+        tup[L] = malloc(sizeof(int16_t) * NS * (IX[L]->m + 1));
         for (long gi = 0; gi < IX[L]->m; gi++) {
             uint64_t k = IX[L]->key[gi];
-            for (int s = NS - 1; s >= 0; s--) { tup[L][gi * NS + s] = (int)(k & 0xFFF) - 2048; k >>= 12; }
+            for (int s = NS - 1; s >= 0; s--) { tup[L][gi * NS + s] = (int16_t)((int)(k & 0xFFF) - 2048); k >>= 12; }
         }
     }
     long found = 0; long long totAB = 0, totCD = 0; double t0 = now();
@@ -176,7 +177,7 @@ int main(int argc, char **argv) {
         /* match groups: (L1, L2) = (A, B) with vA + vB = sig, then (C, D) with vC + vD = T - sig */
         long nm[2] = {0, 0}; long start[2] = {0, 0}; long long npairs[2] = {0, 0};
         for (int side = 0; side < 2; side++) {
-            const Index *I1 = IX[2 * side], *I2 = IX[2 * side + 1]; const int *t1 = tup[2 * side], *t2 = tup[2 * side + 1];
+            const Index *I1 = IX[2 * side], *I2 = IX[2 * side + 1]; const int16_t *t1 = tup[2 * side], *t2 = tup[2 * side + 1];
             const int *want = side == 0 ? sig : tgt;
             long j = I2->m - 1; start[side] = nm[0];
             if ((double)I1->m * log2((double)I2->m + 2) < (double)(I1->m + I2->m)) {   /* few groups: binary search */
