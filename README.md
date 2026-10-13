@@ -138,6 +138,17 @@ The searches use `attack/skew_triage.py`, `attack/skew_rank.py`, `attack/skew_kt
 records the command, code commit, seed and caps of its search. `verify/verify.py` checks H + Hᵀ = 2I for
 these certificates.
 
+## Symmetric Hadamard results
+
+A Hadamard matrix H is symmetric if H = Hᵀ. The Đoković–Seberry census lists 595 odd v < 2500 for which no
+symmetric Hadamard matrix of order 4v was known. The matrix below comes from a propus-type quadruple (A, B, B, D) of
+circulants with A symmetric and A Aᵀ + 2 B Bᵀ + D Dᵀ = 4v I, invariant under a multiplier group H
+(`attack/propus.py`, `attack/NOTES.md` §17).
+
+| Order | v | H | Row sums (A, B, D) | Census |
+|------:|---|---|---|---|
+| [532](symmetric/532) | 133 (7 · 19) | ⟨26⟩, order 6 | 11, 5, 19 | undecided |
+
 ## Verification
 
 ```
@@ -167,6 +178,7 @@ Each order has its own directory containing
 Other top-level contents:
 
 - [`skew`](skew): skew-Hadamard matrices, one directory per order, in the same layout.
+- [`symmetric`](symmetric): symmetric Hadamard matrices, one directory per order, in the same layout.
 - [`t-matrices`](t-matrices): the T-matrices of orders 97 to 197 found during this work.
 - [`search`](search): the programs that found the Goethals–Seidel orders.
 - [`METHOD.md`](METHOD.md): how the search works.

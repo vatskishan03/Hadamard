@@ -125,6 +125,49 @@ def build_goethals_seidel(cert):
     return goethals_seidel(*map(circulant, seqs)), seqs
 
 
+def build_propus(cert):
+    """Symmetric Hadamard matrix of order 4v from circulant +-1 matrices A, B, D of order v with
+    A symmetric and A A^T + 2 B B^T + D D^T = 4v I (a propus-type quadruple (A, B, B, D)):
+
+        [ A    B    B    D  ]
+        [ B^T  DR  -A   -BR ]
+        [ B^T -A   -DR   BR ]
+        [ D^T -BR   BR  -A  ]
+
+    (R the back-diagonal identity; XR is symmetric for circulant X and A is symmetric, so H = H^T.) The three
+    sequences are given like Goethals-Seidel blocks: constant on the orbits of the multiplier
+    subgroup, by one representative of each orbit on which the sequence is -1."""
+    v = cert["v"]
+    gens = cert["multipliers"]
+    H = {1}
+    while True:
+        grown = H | {h * g % v for h in H for g in gens}
+        if grown == H:
+            break
+        H = grown
+    H = sorted(H)
+    if len(H) != cert["subgroup_order"]:
+        raise ValueError("multipliers do not generate a subgroup of the stated order")
+    seqs = []
+    for reps in cert["blocks"]:
+        x = np.ones(v, dtype=np.int64)
+        for r in reps:
+            x[[r * h % v for h in H]] = -1
+        seqs.append(x)
+    if [int(x.sum()) for x in seqs] != cert["rowsums"]:
+        raise ValueError("row sums differ from the certificate")
+    A, B, D = seqs
+    if not np.array_equal(A, A[(-np.arange(v)) % v]):
+        raise ValueError("the first sequence is not symmetric")
+    paf = paf_sum([A, B, D]) + paf_sum([B])
+    if paf[0] != 4 * v or np.any(paf[1:] != 0):
+        raise ValueError("PAF_A + 2 PAF_B + PAF_D is not 4v at 0 and 0 elsewhere")
+    cA, cB, cD = map(circulant, seqs)
+    R = back_identity(v)
+    BR, DR = cB @ R, cD @ R
+    return np.block([[cA, cB, cB, cD], [cB.T, DR, -cA, -BR], [cB.T, -cA, -DR, BR], [cD.T, -BR, BR, -cA]]), seqs
+
+
 def build_cooper_wallis(cert):
     """T-matrices of order t (Cooper-Wallis) give OD(4t; t, t, t, t); substituting
     Williamson matrices of order w for its four variables gives H of order 4tw."""
@@ -566,7 +609,7 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "cooper-wallis": build_cooper_wallis,
             "spence": build_spence, "miyamoto": build_miyamoto,
             "bordered-goethals-seidel": build_bordered_gs, "skew-doubling": build_skew_doubling,
-            "yamada": build_yamada}
+            "yamada": build_yamada, "propus": build_propus}
 
 
 def csv_chunks(H, rows=512):
@@ -603,6 +646,8 @@ def build_checked(cert):
         raise ValueError("H H^T != nI")
     if cert.get("skew") and not np.array_equal(H + H.T, 2 * np.eye(n, dtype=H.dtype)):
         raise ValueError("certificate claims a skew-Hadamard matrix, but H + H^T != 2I")
+    if cert.get("symmetric") and not np.array_equal(H, H.T):
+        raise ValueError("certificate claims a symmetric Hadamard matrix, but H != H^T")
     sha = hashlib.sha256()
     for chunk in csv_chunks(H):
         sha.update(chunk)
@@ -647,12 +692,14 @@ def main():
     args = ap.parse_args()
     dirs = [ROOT / o for o in args.orders] if args.orders else \
         sorted((p.parent for p in ROOT.glob("*/certificate.json")), key=lambda p: int(p.name)) + \
-        sorted((p.parent for p in ROOT.glob("skew/*/certificate.json")), key=lambda p: int(p.name))
+        sorted((p.parent for p in ROOT.glob("skew/*/certificate.json")), key=lambda p: int(p.name)) + \
+        sorted((p.parent for p in ROOT.glob("symmetric/*/certificate.json")), key=lambda p: int(p.name))
     failed = 0
     for d in dirs:
         try:
             n, digest = check(d, args.write)
-            kind = "  (skew: H + H^T = 2I)" if json.loads((d / "certificate.json").read_text()).get("skew") else ""
+            c = json.loads((d / "certificate.json").read_text())
+            kind = "  (skew: H + H^T = 2I)" if c.get("skew") else "  (symmetric: H = H^T)" if c.get("symmetric") else ""
             print(f"{d.name:>6}  ok    H H^T = {n} I   sha256 {digest}{kind}")
         except Exception as exc:  # report and continue with the remaining orders
             failed += 1
