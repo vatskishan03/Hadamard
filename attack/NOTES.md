@@ -1000,8 +1000,8 @@ classes of index 8, F = 11) the compression identity becomes Σ over the 24 posi
 two spikes, ±23 at (0, 0) and ∓23 at (0, 1) of the block whose ℤ₃-compression is zero (`attack/bgs.py`, one stage-1
 class). No further multiplier is compatible: −1 on ℤ₃ forces equal compression values at ±1 and breaks the delta
 condition, and twisted multipliers force s ∈ 4ℤ at the spikes. The lists then have 1.2 · 10¹¹ members per block, too
-many for any of our joins, although the Gaussian estimate of the structure is 10⁷ (with all symmetric copies,
-about 20 inequivalent solutions). The other orders 537 − t with a usable quotient (t = 9: |G| = 528, t = 15: 522)
+many for the joins of §16. (The diagonal Gaussian estimate of 10⁷ given here earlier ignores the strong correlations
+between the classes; the full-covariance estimate is 10^13.2.) §19 solves this structure: order 2148. The other orders 537 − t with a usable quotient (t = 9: |G| = 528, t = 15: 522)
 give much smaller estimates. `bgs.py scan` (cyclic G = ℤ_m × GF(r), m ≤ 30, t ≤ 30, at most four spikes) found no
 other order with a feasible stage 1 among the FRONTIER orders up to n = 1423.
 
@@ -1015,3 +1015,67 @@ products ±2 (in units where the norm is 12) for the single-spike compressions, 
 matrices W(36, 12) with this fibre structure. The twisted-product ansatz (rows h_j(f) e_{π_f(u)} from a Hadamard
 matrix of order 12) cannot work: it would need four columns of a Hadamard matrix of order 12 with constant product.
 A meet-in-the-middle search over all 6¹² candidate columns found none for random bases of this kind. Open.
+
+## 19. The ℤ₂-split of a bordered cyclotomic product: order 2148
+
+**Structure** (§18): G = ℤ₆ × GF(89) ≅ ℤ₅₃₄, K = {a ≡ 0 mod 3} × GF(89), Q = ℤ₃ with T = all characters (border of
+size 12), sequences invariant under the eighth powers of GF(89)* (e = 8, F = 11), and the single stage-1 class
+y = (1, 1, −1, 1, −1, 1), (1, −1, −1, −1, 1, −1), (1, 1, 1, 1, −1, −1), (−23, 1, 1, 23, −1, −1).
+
+**The split.** ℤ₆ ≅ ℤ₂ × ℤ₃ pairs the positions a and a + 3. Put U = (x(a) + x(a + 3))/2 and W = (x(a) − x(a + 3))/2
+on ℤ₃ × GF(89) (α = a mod 3). Both are 0/±1 with complementary supports, x is recovered as U ± W, and the bordered
+condition is equivalent to
+
+- Σ_k PAF_{U_k}(β, d) = −6 [β = 0] for (β, d) ≠ 0 (the compression of x to G/⟨3⟩), and
+- Σ_k PAF_{W_k}(β, d) = 0 for (β, d) ≠ 0 (the part odd under a ↦ a + 3).
+
+At (0, 0) the first reads Σ_k |supp U_k| = 531 = 3 + 11 · 48: exactly 48 of the 96 class cells are nonzero in the U's.
+The other U-classes are (0, C_t) for t < 4, (1, 0) and (1, C_t) for t < 8, with two linear relations from stage 1
+(12 independent equations); the W-condition has 11 independent classes, and its values lie on a parity lattice of index
+2¹¹ once the supports are fixed. Given the U's, the W of each slice is a sign vector on the zero cells of U with a sum
+fixed by stage 1 (C(4, 2) = 6 choices for four zero cells), so each U-solution leaves a small exact four-list problem
+of about 200 vectors per block. This is the four-list split of T-matrices (§6) applied inside one block.
+
+**Calibration on n = 177** (G = ℤ₆ × GF(29), e = 4, F = 7: the same stage-1 pattern with spikes ±13):
+- the structure holds exactly 26,095,424 solutions in its stage-1 class (`join3.c` on the full lists of 46,656 and
+  20,736 members, 46 minutes); the full-covariance Gaussian estimate is 10^6.87, the diagonal one 10^4.17;
+- 157,482,016 U-solutions (`join4x.c`), with 0.166 W-completions each on average;
+- reconstructed solutions give Hadamard matrices of order 708 (H Hᵀ = 708 I, border from `border3.c`).
+
+**The search for 537** (`attack/bgs_uw.py`, `attack/kt4.c`):
+1. Each block's U-vectors with exactly 12 nonzero class cells: 1.55 · 10⁸ (all U-vectors: 1.36 · 10⁹, 1.27 · 10⁹ for
+   the spike block). Lists of 10⁷ random members per block, keyed by the 14 U-classes.
+2. `kt4.c`: a four-list k-tree merging on five of the classes (1, C_t), t = 0..4, at the split values nearest the
+   centre. Merging on four classes made 7 · 10⁸ pairs per split value and ran out of memory; five give 9 · 10⁶. One
+   split value yields about 142,000 U-solutions in 8 s, sixty times the Gaussian estimate (10^14.7 U-solutions with 12
+   nonzero class cells per block).
+3. W-completion: an exact join of the four W-lists per U-solution (`UW.wjoin_fast`, about 9 ms; it reproduces
+   `UW.wjoin` exactly on 60 U-solutions each for n = 177 and 537), four processes.
+4. The Gaussian estimate of the W-completion probability is 10^−8.7 per U-solution, or 10^−5.4 with the parity
+   lattice; on n = 177 the same estimate gives 10^−2.2 against an observed 10^−0.68. The first 1,000 U-solutions
+   (seed 1) gave no completion.
+5. `python3 attack/bgs_uw.py search 89 8 --L 10000000 --sigmas 2 --maxu 300000 --threads 4 --seed 2`: 284,292
+   U-solutions, **one completion**, verified as a Hadamard matrix of order 2148 (197 s on 4 shared cores); see
+   [2148](../2148). The observed rate 3.5 · 10⁻⁶ matches the lattice-corrected estimate.
+
+So the structure that §18 judged out of reach takes minutes once the ℤ₂-split separates the conditions: the U-problem
+has 12 equations and very many solutions, and each U-solution leaves a W-problem small enough to solve exactly.
+
+**Generalization** (`UWG` in `attack/bgs_uw.py`). For any even m = 2m′ the pairs (α, α + m′) give
+PAF_x(β + j m′, d) = 2 (PAF_U(β, d) + (−1)^j PAF_W(β, d)), with PAF_U cyclic and PAF_W negacyclic over ℤ_m′, so the
+targets of U and W are (t(β) ± t(β + m′))/4. A multiplier group K_m = ⟨k⟩ on ℤ_m maps pairs to pairs (k is odd), with
+W changing sign when a slice lands on the second position of its image pair; an orbit that maps a slice to itself with
+a flip forces W = 0 there. Validation: on small structures with K_m (n = 24 with ℤ₄ × GF(5), n = 30 with ℤ₄ × GF(7))
+the U/W counts equal exhaustive counts over all x-quadruples (36 and 128), and for n = 177 the class `UWG` reproduces
+the completion rates of `UW`.
+
+**Other open orders in this shape.** `python3 attack/bgs_uw.py scan <the 148 n of FRONTIER.md>` looks at cyclic
+ℤ_m × GF(r) with m even, K_m trivial, t ≤ 40, F ≥ 3 and at most six spikes. It finds nonempty stage 1 only for 537,
+1367 and 2027 (m = 2, Spence-type, 44 to 62 classes per fibre) and 1689 = 6 · 281 + 3 (the 537 pattern with e = 14 or
+20). It does not cover about 4,800 structures (145 orders) with more than 22 position orbits or more than 4 · 10⁵
+stage-1 options per block. For 1689, F = (281 − 1)/e is even,
+so −1 lies in C₀, the classes are no longer paired by negation, and the condition has 55 (e = 14) or 79 (e = 20)
+independent classes instead of 23: the full-covariance estimates (computed in the same level-B/level-C coordinates
+that give 10^6.88 for 177, against an exact count of 10^7.42, and 10^13.18 for 537) are 10^−9.8 and 10^−11.4. The
+537 structure is special: an odd F, few classes and exactly two spikes.
+

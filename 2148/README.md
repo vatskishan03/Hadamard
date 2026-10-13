@@ -57,7 +57,7 @@ with `attack/join3.c`).
 
 | | |
 |---|---|
-| Code | `attack/bgs_uw.py`, `attack/kt4.c` (this commit) |
+| Code | commit `99ce7ad` (`attack/bgs_uw.py`, class `UW`, and `attack/kt4.c`) |
 | Command | `python3 attack/bgs_uw.py search 89 8 --L 10000000 --sigmas 2 --maxu 300000 --threads 4 --seed 2` |
 | Randomness and caps | `--seed 2` (numpy `default_rng`) draws the four lists of 10⁷ u-vectors; the k-tree uses the two split values nearest the centre; all U-solutions found (below the cap `--maxu`) are completed, so the set of completions does not depend on the thread schedule |
 | Result of that run | 284,292 U-solutions, one completion, verified; 197 s on 4 shared cores (2026-10-13) |
