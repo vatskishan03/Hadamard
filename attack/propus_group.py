@@ -175,12 +175,13 @@ def main():
     ap.add_argument('v', type=int); ap.add_argument('--mino', type=int, default=1); ap.add_argument('--maxo', type=int, default=30)
     ap.add_argument('--maxpool', type=float, default=3e7); ap.add_argument('--K', type=int, default=1)
     ap.add_argument('--maxwork', type=float, default=float('inf'), help='skip row patterns whose pair work exceeds this')
+    ap.add_argument('--only-freeD', action='store_true', help='sweep only the variant with A symmetric and B, D free')
     a = ap.parse_args()
     log = lambda s: print(s, flush=True)
     jobs = sorted(structures(a.v, a.mino, a.maxo), key=lambda j: j[3].O + j[4].O)
     log(f"v={a.v}: {len(jobs)} non-cyclic structures")
     for name, G, mats, st_ad, st_b in jobs:
-        for symB, freeD in ((True, False), (False, False), (False, True)):
+        for symB, freeD in (((False, True),) if a.only_freeD else ((True, False), (False, False), (False, True))):
             if search(a.v, name, G, mats, st_ad, st_b, symB, freeD, a.maxpool, a.K, log, a.maxwork):
                 log(f"HIT v={a.v} {name} symB={symB} freeD={freeD}"); sys.exit(0)
 

@@ -137,10 +137,9 @@ class Structure:
         matrix product per block of rows (M[o, c O + p] = S[c, o, p])."""
         if not hasattr(self, "_M"):
             self._M = np.ascontiguousarray(self.S.transpose(1, 0, 2).reshape(self.O, self.C * self.O))
-        Y = np.asarray(Y, dtype=np.float64)
         out = np.empty((len(Y), self.C))
         for i in range(0, len(Y), block):
-            B = Y[i:i + block]
+            B = np.asarray(Y[i:i + block], dtype=np.float64)          # convert one block at a time (int8 pools stay small)
             out[i:i + block] = np.einsum("bcp,bp->bc", (B @ self._M).reshape(len(B), self.C, self.O), B)
         return out
 

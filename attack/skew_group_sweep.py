@@ -34,7 +34,11 @@ def main():
             pats = SG.patterns(st, v)
             for q in pats:
                 t = time.time()
-                res, work = SG.exact(v, G, st, q, a.cap)
+                try:
+                    res, work = SG.exact(v, G, st, q, a.cap)
+                except Exception as e:          # e.g. find4b out of memory on a large exact join: fall back to the k-tree
+                    log(f"v={v} {name} rows=(1,{q}): exact join failed ({type(e).__name__}), using the k-tree")
+                    res, work = None, float('inf')
                 if res is None:
                     if not a.maxtau:
                         log(f"v={v} {name} mods={list(G.mods)} O={st.O} C={st.C} rows=(1,{q}) work={work:.1e}: skipped"); continue

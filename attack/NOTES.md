@@ -1374,3 +1374,40 @@ group with 14–44 orbits): 30, 437 and 192 structures, stage 1 empty in every o
 301, 319 and 553 (already run) no structure reaches the threshold; 481 (ℤ₁₃ × GF(37), e = 4) has 10^1.46 for its
 best class but only 10^−3.95 inside lists of 10⁷; most other values have empty stage-1 samples or blocks above the
 enumeration cap (627: 1.15 · 10¹¹ members). Stopped at 627 to free the cores for the symmetric sweeps.
+
+## 24. Symmetric and non-cyclic sweeps (October 13, late night)
+
+**Tools.**
+- `attack/propus_group.py`: the propus search over non-cyclic groups G = ℤ_p² × … × ℤ_m (group-developed blocks,
+  R[g, h] = [g + h = 0]; the arrays of §17 hold over any abelian group). Structures: subgroups of GL(2, p) of any order
+  (Singer, diagonal, torus, unipotent, Borel) on each split prime times any subgroup of ℤ_m*. Check: symmetric
+  matrices of order 100 over ℤ₅² (Singer subgroup of order 3).
+- `attack/propus.py --plain`: Goethals–Seidel quadruples (A, B, B, D) on H-orbits for ordinary Hadamard matrices
+  (hits in `gs_propus_hits.jsonl`); `--maxwork` skips row patterns whose pair work exceeds a cap, the two smallest
+  lists now form the pairs, and `--only-freeD` sweeps only the variant with A symmetric and B, D free (the form of
+  every computer-found symmetric matrix of the census, §17).
+- `attack/skew_group_sweep.py`: every skew structure over a non-cyclic group (`skew_group.py`, odd-order subgroups)
+  with 8–30 orbits and every row pattern, exactly (find4b) when the pair work is at most 3 · 10¹⁰ and otherwise by the
+  k-tree of `skew_ktree.run` with 2000 split values (it finds the 1100 solutions at the 810th).
+- Speed: `Structure.class_values` is one matrix product per block of rows (7 times faster, identical values) and
+  propus pools are enumerated by meet in the middle (`pool_exact`; 400 times faster at 26 orbits). The 133 pattern
+  that holds the 532 solutions takes 26 s instead of 175 s.
+
+**Symmetric Paley products** (`attack/propus_paley.py`). For v = m q with q ≡ 1 (mod 4) a prime power and
+H = {h ≡ 1 (mod m), h a square in GF(q)}, the quadratic character χ is symmetric, and every block is
+X = u ⊗ δ + w ⊗ J + z ⊗ χ as in §15. The propus condition with weights c = (1, 2, 1) becomes
+(I) Σ c_k [u_k u_k* + q z_k z_k*] = 4mq δ, (II) Σ c_k [u_k w_k* + w_k u_k* + q w_k w_k*] = Σ c_k z_k z_k*,
+(III) Σ c_k [u_k z_k* + z_k u_k*] = 0, and the identity coefficient of (II) gives (q + 1) N_w − 4 N₋ = 4m with
+c-weighted counts, so N_w is even. N_w = 2 needs q ∈ {2m − 1, 2m + 1, 2m + 3}; with one w-position in B the size bound
+forces u_B to be skew away from 0 and R = 0, so the z-part is itself a propus-type system with z_B(0) = 0.
+- Equations checked on the symmetric matrices of order 60 (v = 15, which use N_w = 4).
+- N_w = 2, exact (both layouts): **no solution** for 65, 119, 153, 377, 435 and 629 (all stage-1 triples tried; 703
+  and 779 were stopped). For m = 13 the u-systems (1,664) and z-systems (74,776) exist separately but no pair has
+  zero cross terms (III); the cross values are ≡ 0 (mod 4) with no further congruence, so this is a count, not an
+  obstruction. Unlike the skew products of §15, the symmetric ones look thin.
+
+**Ordinary Hadamard: (A, B, B, D) for the open orders** (`propus.py n --sweep --plain --maxo 30 --maxwork 5e9`). For
+the first 47 open orders of FRONTIER.md (n = 573 to 1553; the run was stopped there, and n = 1169 was interrupted),
+every multiplier structure with at most 30 orbits has an empty pool for some block in every row pattern (the orbit
+sizes cannot reach the row sums), so nothing was joined. Small structures do not exist for these n, as for the
+four-block lottery of §5.

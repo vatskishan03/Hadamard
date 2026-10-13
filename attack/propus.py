@@ -174,6 +174,7 @@ if __name__ == '__main__':
     ap.add_argument('--freeD', action='store_true', help='only A symmetric (array of symmetric_matrix_v3)')
     ap.add_argument('--maxwork', type=float, default=float('inf'), help='skip row patterns whose pair work exceeds this')
     ap.add_argument('--plain', action='store_true', help='ordinary Hadamard: Goethals-Seidel quadruples (A, B, B, D) on H-orbits')
+    ap.add_argument('--only-freeD', action='store_true', help='sweep only the variant with A symmetric and B, D free')
     a = ap.parse_args()
     log = lambda s: print(s, flush=True)
     if a.sweep:
@@ -188,7 +189,7 @@ if __name__ == '__main__':
         jobs.sort()
         log(f"v={v}: {len(jobs)} structures")
         for _, gs in jobs:
-            variants = ((False, False),) if a.plain else ((True, False), (False, False), (False, True))
+            variants = ((False, False),) if a.plain else ((False, True),) if a.only_freeD else ((True, False), (False, False), (False, True))
             for symB, freeD in variants:
                 try:
                     if search(v, gs, symB, a.maxpool, a.K, log, freeD, a.maxwork, a.plain):
