@@ -1411,3 +1411,41 @@ the first 47 open orders of FRONTIER.md (n = 573 to 1553; the run was stopped th
 every multiplier structure with at most 30 orbits has an empty pool for some block in every row pattern (the orbit
 sizes cannot reach the row sums), so nothing was joined. Small structures do not exist for these n, as for the
 four-block lottery of §5.
+
+## 25. Compressed propus searches, D-optimal designs and Legendre pairs (October 13, night)
+
+**`attack/propus_chain.py`: compressions make large symmetric structures cheap.** For d | v the compressions of the
+three blocks to ℤ_d satisfy PAF_a′ + 2 PAF_b′ + PAF_d′ = 0 off 0 and are constant on the H-orbits of ℤ_d. Stage 1
+lists every compression each block attains (a dynamic program over the orbits, vectorised over mixed-radix codes) and
+joins the three lists; stage 2 lists the members of each compatible triple by meet in the middle (the two halves of
+the orbits are built once per structure and keyed by row sum and compression) and joins them with join4x. Nothing is
+sampled. The modulus is the largest prime factor whose H-orbits on ℤ_d number at most 10.
+- Check: 133/⟨26⟩, rows (11, 5, 19): with d = 19, 15,096 compatible triples and pair work 1.1 · 10⁸ against
+  2.3 · 10⁹ for the direct join, and the 532 solution is found; with d = 7, two triples hold all 72 solutions.
+- 119 = 7 · 17, structures with 31–40 orbits: pair work 6 · 10⁷ – 5.5 · 10⁸ per row pattern against 3 · 10¹² direct
+  (four to five orders of magnitude). 65 = 5 · 13 with 31–44 orbits: 50 compatible triples, 3.1 · 10⁸ against
+  1.6 · 10¹⁴.
+- `--plain` runs the same search for Goethals–Seidel quadruples (A, B, B, D) with A on the H-orbits (ordinary
+  Hadamard matrices); checked on n = 21 and 33.
+- Running: all composite symmetric census values v ≤ 1000, every structure with at most 44 orbits (freeD form);
+  the composite open orders of FRONTIER.md with `--plain` and 20–44 orbits.
+
+**D-optimal designs and Legendre pairs** (`attack/two_circ.py`, `attack/two_chain.py`). Two ±1 sequences with
+PAF_A + PAF_B = 2 off 0 give a D-optimal design of order 2v ([[A, B], [−Bᵀ, Aᵀ]], over any abelian group); with −2
+they form a Legendre pair. Open according to Đoković (arXiv:2210.03931): D-optimal designs of order 2v for
+v = 99, 115, 123, 135, 141, 147, 153, 159, 163, 167, 169, 175, 177, 185, 187, 195, 199 (his Conjecture 1 allows any
+abelian group); Legendre pairs of lengths 115, 145, 159, 161, 169, 175, 177, 185, 187, 195 (arXiv:2111.02105v3).
+`two_circ.py` joins complete pools exactly (sorted 64-bit keys) and sends larger pools through the power-spectrum test
+|X̂(χ)|² ≤ 2v − T of `psd_pool.c` (meet in the middle in C); `two_chain.py` is the compressed version.
+- Checks: D-optimal designs for v = 13, 25, 41 and Legendre pairs for 13 and 21 are found and verified.
+- **No solution** in the cyclic structures with at most 48 orbits whose pools (or PSD survivors) fit in 2 · 10⁷:
+  D-optimal for all 17 values above; Legendre pairs for 115, 145, 159, 161, 169, 175, 177, 185 and 187 (195 was
+  stopped). Non-cyclic groups (ℤ₃² × ℤ₁₁ for 99): no D-optimal design with at most 48 orbits. Structures whose pools
+  exceed the caps were skipped and are listed in the logs. The power-spectrum test alone empties several pools
+  (for instance Z145⟨28, 86⟩ and the non-cyclic 99 structures singer2 and unip with ℤ₁₁* of order 10: no sequence
+  passes), which rules those structures out at once.
+
+**Williamson matrices of orders 65 and 67** (`attack/williamson.py`; the only odd orders below 71 for which
+Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev, arXiv:2605.08661, list Williamson matrices as not yet found):
+four symmetric ±1 sequences on the orbits of ⟨H, −1⟩, all row patterns, exact four-list joins. Checked on n = 13, 25
+and 37. Running.

@@ -13,6 +13,7 @@ Variant: A on the orbits of <H, -1> (symmetric), B and D on the orbits of H (the
 
   python3 attack/propus_chain.py v gens [--d D] [--rows ra,rb,rd] [--maxwork W] [--maxtriples N] [--K 1]
   python3 attack/propus_chain.py v --sweep [--mino 31] [--maxo 44] ...   (every subgroup structure in the range)
+  ... --plain: ordinary Hadamard matrices, Goethals-Seidel quadruples (A, B, B, D) with A on the H-orbits too
 """
 import argparse, json, math, os, struct, subprocess, sys, tempfile, time
 from collections import defaultdict
@@ -123,6 +124,7 @@ def members(st, comp, r, key, cap):
 
 def search(v, gens, rows, d, a, log):
     st_ad, st_b = PR.structures(v, gens, False)
+    if a.plain: st_ad = st_b                     # ordinary Hadamard: A on the H-orbits too, Goethals-Seidel (A, B, B, D)
     Hs = set([1])
     while True:
         n2 = Hs | {x * g % v for x in Hs for g in gens}
@@ -130,7 +132,7 @@ def search(v, gens, rows, d, a, log):
         Hs = n2
     Hd = sorted({h % d for h in Hs})
     Hd_sym = sorted({h % d for h in Hs} | {(-h) % d for h in Hs})
-    ca = Comp(st_ad, v, d, Hd_sym); cb = Comp(st_b, v, d, Hd)
+    ca = Comp(st_ad, v, d, Hd if a.plain else Hd_sym); cb = Comp(st_b, v, d, Hd)
     ra, rb, rd = rows; pm = v % 4
     t0 = time.time()
     Da = ca.dp(st_ad, ra); Db = cb.dp(st_b, rb); Dd = cb.dp(st_b, rd)
@@ -185,13 +187,18 @@ def search(v, gens, rows, d, a, log):
             D = Yd[ids[slot[1]]].astype(np.int64)[st_b.orb]
             tot = verify.paf_sum([A, B, D]) + verify.paf_sum([B])
             if not (tot[0] == 4 * v and not tot[1:].any()): log('  WRONG autocorrelations'); continue
-            Hm = PR.symmetric_matrix_v3(A, B, D)
-            ok = np.array_equal(Hm, Hm.T) and np.array_equal(Hm @ Hm.T, 4 * v * np.eye(4 * v, dtype=Hm.dtype))
-            log(f"  hit: symmetric Hadamard {ok}")
+            if a.plain:
+                Hm = verify.goethals_seidel(*(verify.circulant(x) for x in (A, B, B, D)))
+                ok = np.array_equal(Hm @ Hm.T, 4 * v * np.eye(4 * v, dtype=Hm.dtype))
+                log(f"  hit: Hadamard (Goethals-Seidel, C = B) {ok}")
+            else:
+                Hm = PR.symmetric_matrix_v3(A, B, D)
+                ok = np.array_equal(Hm, Hm.T) and np.array_equal(Hm @ Hm.T, 4 * v * np.eye(4 * v, dtype=Hm.dtype))
+                log(f"  hit: symmetric Hadamard {ok}")
             if ok:
-                rec = dict(n=v, gens=list(gens), symB=False, freeD=True, rows=[int(A.sum()), int(B.sum()), int(D.sum())],
+                rec = dict(n=v, gens=list(gens), symB=False, freeD=True, plain=bool(a.plain), rows=[int(A.sum()), int(B.sum()), int(D.sum())],
                            method=f'propus_chain d={d}', seqs=[''.join('+' if x > 0 else '-' for x in s) for s in (A, B, D)])
-                with open(W.hits('sym_hits.jsonl'), 'a') as fh: fh.write(json.dumps(rec) + '\n')
+                with open(W.hits('gs_propus_hits.jsonl' if a.plain else 'sym_hits.jsonl'), 'a') as fh: fh.write(json.dumps(rec) + '\n')
                 found.append(rec)
         if found: break
     log(f"  done: {min(len(triples), i + 1) if triples else 0} of {len(triples)} triples, work {done_work:.2e}, "
@@ -211,6 +218,7 @@ def main():
     ap.add_argument('--maxwork', type=float, default=3e11); ap.add_argument('--maxtriples', type=int, default=10 ** 7)
     ap.add_argument('--maxlist', type=float, default=3e7); ap.add_argument('--K', type=int, default=1)
     ap.add_argument('--sweep', action='store_true'); ap.add_argument('--mino', type=int, default=31)
+    ap.add_argument('--plain', action='store_true', help='ordinary Hadamard: Goethals-Seidel quadruples (A, B, B, D) on H-orbits')
     ap.add_argument('--maxo', type=int, default=44)
     a = ap.parse_args()
     log = lambda s: print(s, flush=True)
@@ -221,17 +229,25 @@ def main():
         jobs = []
         for S, gs in PR.subgroup_gens(v).items():
             Ob = len({min(t * h % v for h in S) for t in range(v)})
-            if a.mino <= Ob <= a.maxo and (v - 1) not in S: jobs.append((Ob, gs))
+            if a.mino <= Ob <= a.maxo and (a.plain or (v - 1) not in S): jobs.append((Ob, gs))
         jobs.sort()
         log(f"v={v}: {len(jobs)} structures with {a.mino}..{a.maxo} orbits")
     else:
         jobs = [(0, [int(x) for x in a.gens.split(',')])]
     for _, gs in jobs:
-        pats = [tuple(int(x) for x in a.rows.split(','))] if a.rows else PR.patterns(v)
+        pats = [tuple(int(x) for x in a.rows.split(','))] if a.rows else [p for p in PR.patterns(v) if not a.plain or p[0] <= p[2]]
         st_ad, st_b = PR.structures(v, gs, False)
+        if a.plain: st_ad = st_b
+        Hs = {1}
+        while True:
+            n2 = Hs | {x * g % v for x in Hs for g in gs}
+            if n2 == Hs: break
+            Hs = n2
+        kd = {p: len(residue_orbits(p, sorted({h % p for h in Hs}))[1]) for p in ds}
+        small = [p for p in ds if kd[p] <= 10]
+        d = max(small) if small else min(ds, key=lambda p: kd[p])    # the largest modulus whose compressions stay small
         for rows in pats:
             if min(st_ad.pool(rows[0]), st_b.pool(rows[1]), st_b.pool(rows[2])) == 0: continue
-            d = max(ds)                               # the largest prime factor splits the most
             if search(v, gs, rows, d, a, log):
                 log(f"HIT v={v} gens={gs} rows={rows}"); return
 
