@@ -890,5 +890,15 @@ for 2973 = 3 · 991 (e = 18, a single spike). For Spence's bordered construction
 about (2F)², cannot give −4q at every shift. This rules out, for example, 947 (ℤ₂₂ × GF(43), e = 2) and 537
 (ℤ₈ × GF(67), e = 6).
 
+**A multiplier on ℤ_m: 1255 = 5 · 251, e = 10 (order 5020).** `--kgen k` adds the multipliers ⟨k⟩ of ℤ_m (acting on
+the ℤ_m coordinate) to H. For plain structures K_m may contain −1. For 1255, H = {h ≡ ±1 (mod 5), h a 10th power
+mod 251} has order 50 and 33 orbits per block; this is the |H| = 50 structure that the lottery ranking of §5 rated
+at log₁₀ E = −5.0. With F = 25 a spike costs 96 or 104 at position 0 and twice that on the orbits {±1}, {±2}, so the
+identity (Σ = 200) forces one spike of each kind at position 0 of two blocks, and stage 1 has a single class (rows
+1, −1, −53, −47). The lists have 1.3–1.6 · 10⁷ members, but level B splits them into about 10⁶ groups, so a complete
+join is out of reach. Keeping the 8,000 largest groups of every list (about 8 % of the members) gave 32 solutions in
+17,273 group quadruples (6 minutes); see [5020](../5020). An FFT-based Gaussian estimate with the K_m symmetry gives
+log₁₀ E ≈ 1.5 for the whole structure, which the run shows to be far too low.
+
 **1081 = 23 · 47 (Paley, N_w = 2).** `paley_config.py 1081 --maxu 3` went through all 6¹¹ joint (u₁, u₂) options in
 2,759 s: stage 1 is empty, so 1081 has no solution in the Paley product with N_w = 2 (the only admissible N_w).

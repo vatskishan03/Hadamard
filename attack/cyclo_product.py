@@ -131,34 +131,46 @@ def stage1(S, maxpairs=3e7, maxopts=3e6):
     cost = lambda s, f: F * s * s + 2 * f * s
     vals = [(1, 0), (-1, 0)] + [(f, s) for s in range(-e, e + 1, 2) if s for f in (1, -1) if cost(s, f) <= T]
     spikes = [(f, s) for f, s in vals if s]
-    def placements(npos, budget):
-        """(positions, (f, s) per spike) with total spike cost <= budget, spikes at distinct positions."""
+    orbits = [[a for a in range(m) if S.korb[a] == o] for o in range(len(S.kreps))]
+    def placements(units, budget):
+        """(unit indices, (f, s) per spike) with total cost <= budget; units[i] = cost multiplier of unit i."""
         out = [((), ())]
         def rec(start, used, cur, c):
-            for a in range(start, npos):
+            for i in range(start, len(units)):
                 for f, s in spikes:
-                    cc = c + cost(s, f)
+                    cc = c + units[i] * cost(s, f)
                     if cc > budget: continue
-                    out.append((used + (a,), cur + ((f, s),)))
-                    rec(a + 1, used + (a,), cur + ((f, s),), cc)
+                    out.append((used + (i,), cur + ((f, s),)))
+                    rec(i + 1, used + (i,), cur + ((f, s),), cc)
         rec(0, (), (), 0)
         return out
     def options(skewblock):
+        """Compressions constant on the K_m-orbits (skew block: f = 1, s = 0 at 0 and odd under negation)."""
+        if skewblock:
+            free, seen = [], {S.korb[0]}
+            for o, orb in enumerate(orbits):
+                if o in seen: continue
+                neg = S.korb[(-orb[0]) % m]
+                free.append((orb, orbits[neg])); seen |= {o, neg}
+            units = [2 * len(orb) for orb, _ in free]
+        else:
+            free = [(orb, None) for orb in orbits]
+            units = [len(orb) for orb, _ in free]
         Y, C = [], []
-        npos = m // 2 if skewblock else m
-        for pos, fsl in placements(npos, T // 2 if skewblock else T):
-            free = [a for a in range(npos) if a not in pos]
-            c0 = sum(cost(s, f) for f, s in fsl) * (2 if skewblock else 1)
-            for signs in itertools.product((1, -1), repeat=len(free)):
-                fs = [None] * npos
-                for a, (f, s) in zip(pos, fsl): fs[a] = (f, s)
-                for a, f in zip(free, signs): fs[a] = (f, 0)
-                if skewblock:
-                    fs = [(1, 0)] + fs + [(-f, -s) for f, s in reversed(fs)]
-                Y.append([f + F * s for f, s in fs]); C.append(c0)
+        for pos, fsl in placements(units, T):
+            rest = [i for i in range(len(free)) if i not in pos]
+            c0 = sum(units[i] * cost(s, f) for i, (f, s) in zip(pos, fsl))
+            for signs in itertools.product((1, -1), repeat=len(rest)):
+                y = [0] * m
+                if skewblock: y[0] = 1
+                assign = dict(zip(pos, fsl)); assign.update({i: (sg, 0) for i, sg in zip(rest, signs)})
+                for i, (f, s) in assign.items():
+                    orb, neg = free[i]
+                    for a in orb: y[a] = f + F * s
+                    if neg is not None:
+                        for a in neg: y[a] = -(f + F * s)
+                Y.append(y); C.append(c0)
         Y = np.array(Y, dtype=np.int64).reshape(-1, m); C = np.array(C, dtype=np.int64)
-        if len(S.K) > 1:                                              # K_m-invariant compressions only
-            keep = np.all(Y == Y[:, (S.kgen * np.arange(m)) % m], axis=1); Y, C = Y[keep], C[keep]
         P = np.stack([(Y * np.roll(Y, -b, axis=1)).sum(1) for b in range(1, m // 2 + 1)], axis=1) if m > 1 else np.zeros((len(Y), 0), np.int64)
         return Y, C, P
     L = [options(S.skew and k == 0) for k in range(4)]
