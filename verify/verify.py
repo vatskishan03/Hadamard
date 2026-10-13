@@ -15,9 +15,10 @@ Products are formed in float32, one block of rows at a time. The matrices multip
 have entries 0 and +-1 and fewer than 2^24 columns, so every partial sum is an integer
 of absolute value below 2^24 and the computation is exact.
 
-The matrices of 14708, 14932 and of the orders above 20000 (20084, 21748, 24124, 24412, 29404, 31316, 31412, 51580)
-are not stored. Rebuilding and checking one of them takes from 30 seconds (six cores) to 40 minutes (51580, about
-3.5 GB of memory).
+The matrices of 14708, 14932 and of the orders above 20000 (20084, 21748, 24124, 24308, 24412, 27604, 29404,
+31316, 31412, 35636, 38468, 39260, 51580) are not stored. Rebuilding and checking one of them takes from 30 seconds
+(six cores) to 40 minutes (51580, about 3.5 GB of memory); the orders 24308 to 39260 from near-Williamson matrices
+are assembled in int8 (0.6 to 1.5 GB).
 
 Yamada certificates accept a prime q or a prime power q = p^k (fields "p" and "poly" give GF(q)).
 
@@ -189,6 +190,59 @@ def build_cooper_wallis(cert):
     H = 0
     for k in range(4):
         H = H + np.kron(goethals_seidel(*(coeff[c][k] for c in "ABCD")), W[k])
+    return H, None
+
+
+def build_cooper_wallis_near_williamson(cert):
+    """Cooper-Wallis with Williamson-type matrices that are not Williamson matrices.
+
+    As in `build_cooper_wallis`, T-matrices of order t give an orthogonal design OD(4t; t, t, t, t) and
+    four +-1 matrices W_1, ..., W_4 of order w with W_k W_l^T = W_l W_k^T (k != l) and
+    W_1 W_1^T + ... + W_4 W_4^T = 4w I substituted for its variables give a Hadamard matrix of order 4tw.
+    The Williamson-type matrices come from near-Williamson matrices (Kharaghani, Mohammadian and
+    Tayfeh-Rezaie, arXiv:2605.08661): circulant +-1 matrices A, B, C, D of order w, with B, C, D symmetric
+    and A arbitrary, such that A A^T + B B^T + C C^T + D D^T = 4w I. Then (A R, B, C, D), with R the
+    back-identity, are Williamson-type matrices: A R is symmetric and commutes with the symmetric circulants.
+    The certificate gives the first rows of A, B, C, D under "near_williamson". Unlike `build_cooper_wallis`
+    the matrix is assembled block by block in int8 (a Kronecker product in int64 would need 8 bytes per
+    entry, 12 GB at order 38468)."""
+    T = [np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["t_matrices"]]
+    t = len(T[0])
+    if len(T) != 4 or not np.all(np.count_nonzero(np.array(T), axis=0) == 1):
+        raise ValueError("T-matrix supports do not partition Z_t")
+    paf = paf_sum(T)
+    if paf[0] != t or np.any(paf[1:] != 0):
+        raise ValueError("T-matrix condition fails")
+    seq = [np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["near_williamson"]]
+    w = len(seq[0])
+    if len(seq) != 4 or any(len(s) != w or not np.all(np.abs(s) == 1) for s in seq):
+        raise ValueError("near-Williamson sequences must be four +-1 sequences of equal length")
+    if any(not np.array_equal(s, s[-np.arange(w) % w]) for s in seq[1:]):
+        raise ValueError("B, C, D must be symmetric circulants")
+    paf = paf_sum(seq)
+    if paf[0] != 4 * w or np.any(paf[1:] != 0):
+        raise ValueError("near-Williamson condition fails")
+    R = back_identity(w)
+    W = [circulant(seq[0]) @ R] + [circulant(s) for s in seq[1:]]
+    if not all(np.array_equal(W[k] @ W[l].T, W[l] @ W[k].T) for k in range(4) for l in range(k + 1, 4)) or \
+            not np.array_equal(sum(m @ m.T for m in W), 4 * w * np.eye(w, dtype=np.int64)):
+        raise ValueError("Williamson-type condition fails")
+    X = [circulant(x) for x in T]
+    coeff = {"A": (X[0], X[1], X[2], X[3]), "B": (X[1], -X[0], -X[3], X[2]),
+             "C": (X[2], X[3], -X[0], -X[1]), "D": (X[3], -X[2], X[1], -X[0])}
+    E = [goethals_seidel(*(coeff[c][k] for c in "ABCD")) for k in range(4)]
+    I4t = np.eye(4 * t, dtype=np.int64)
+    if not all(np.array_equal(E[k] @ E[k].T, t * I4t) for k in range(4)) or \
+            any((E[k] @ E[l].T + E[l] @ E[k].T).any() for k in range(4) for l in range(k + 1, 4)):
+        raise ValueError("T-matrices do not give an OD(4t; t, t, t, t)")
+    if not np.all(sum(np.abs(e) for e in E) == 1):
+        raise ValueError("an entry of the orthogonal design carries more or less than one variable")
+    which, sign = np.argmax(np.stack([np.abs(e) for e in E]), axis=0), sum(E).astype(np.int8)
+    W8 = np.stack(W).astype(np.int8)
+    N = 4 * t * w
+    H = np.empty((N, N), dtype=np.int8)
+    for i in range(4 * t):                                   # block row i: blocks sign[i, j] * W[which[i, j]]
+        H[i * w:(i + 1) * w] = (W8[which[i]] * sign[i][:, None, None]).transpose(1, 0, 2).reshape(w, N)
     return H, None
 
 
@@ -607,6 +661,7 @@ def _yamada_matrix(cert, q, alpha, beta):
 
 BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": build_goethals_seidel_group,
             "cooper-wallis": build_cooper_wallis,
+            "cooper-wallis-near-williamson": build_cooper_wallis_near_williamson,
             "spence": build_spence, "miyamoto": build_miyamoto,
             "bordered-goethals-seidel": build_bordered_gs, "skew-doubling": build_skew_doubling,
             "yamada": build_yamada, "propus": build_propus}
@@ -685,6 +740,21 @@ def check_t_matrices(path):
     return t
 
 
+def check_near_williamson(path):
+    """Four rows over + and -: A circulant, B, C, D symmetric circulants and
+    A A^T + B B^T + C C^T + D D^T = 4w I (checked through the periodic autocorrelations)."""
+    S = [[SIGN[c] for c in ln.strip()] for ln in path.read_text().splitlines() if ln.strip()]
+    w = len(S[0])
+    if len(S) != 4 or any(len(r) != w or 0 in r for r in S):
+        raise ValueError("expected four +-1 rows of equal length")
+    if any(r != [r[-k % w] for k in range(w)] for r in S[1:]):
+        raise ValueError("rows 2 to 4 must be symmetric")
+    paf = paf_sum(S)
+    if paf[0] != 4 * w or np.any(paf[1:] != 0):
+        raise ValueError("near-Williamson condition fails")
+    return w
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("orders", nargs="*", help="order directories to check (default: all)")
@@ -708,6 +778,12 @@ def main():
         for f in sorted((ROOT / "t-matrices").glob("T*.txt"), key=lambda p: int(p.stem[1:])):
             try:
                 print(f"{f.stem:>6}  ok    T-matrices of order {check_t_matrices(f)}")
+            except Exception as exc:
+                failed += 1
+                print(f"{f.stem:>6}  FAIL  {exc}")
+        for f in sorted((ROOT / "near-williamson").glob("NW*.txt"), key=lambda p: int(p.stem[2:])):
+            try:
+                print(f"{f.stem:>6}  ok    near-Williamson matrices of order {check_near_williamson(f)}")
             except Exception as exc:
                 failed += 1
                 print(f"{f.stem:>6}  FAIL  {exc}")

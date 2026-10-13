@@ -27,10 +27,15 @@ August 2026), the smallest order we know to be unresolved is now 2292 = 4 · 573
 | [20084](20084) | 4 · 5021 | Miyamoto's theorem (q = 5021) from the matrix of order 5020 | First explicit construction we know of; Handbook Table 1.53 lists 5021 with t = 2, with no construction we could trace |
 | [21748](21748) | 4 · 5437 | Miyamoto's theorem from a Cooper–Wallis matrix of order 5436 (T-matrices of order 151, Williamson order 9) | Probably new; above the range of [3] |
 | [24124](24124) | 4 · 6031 | Yamada's theorem (q = 6029) from a skew-Hadamard matrix of order 3016, the double of a skew Goethals–Seidel matrix of order 1508 over ℤ₃₇₇ | Probably new; above the range of [3] |
+| [24308](24308) | 4 · 6077 | Cooper–Wallis: T-matrices of order 103 and Williamson-type matrices of order 59 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
 | [24412](24412) | 4 · 6103 | Yamada's theorem (Kiyasu), q = 6101, from this repository's [skew 3052](skew/3052) (no doubling) | Probably new; Handbook Table 1.53 lists 6103 with t = 3 |
+| [27604](27604) | 4 · 6901 | Cooper–Wallis: T-matrices of order 103 and Williamson-type matrices of order 67 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
 | [29404](29404) | 4 · 7351 | Yamada's theorem (q = 7349) from this repository's [skew 3676](skew/3676) (an order first published by Schumer in September 2026) | First explicit construction we know of; Handbook Table 1.53 lists 7351 with t = 2, with no construction we could trace |
 | [31316](31316) | 4 · 7829 | Miyamoto's theorem from a Cooper–Wallis matrix of order 7828 (T-matrices of order 103, Williamson order 19) | Probably new; above the range of [3] |
 | [31412](31412) | 4 · 7853 | Miyamoto's theorem from a Cooper–Wallis matrix of order 7852 (T-matrices of order 151, Williamson order 13) | Probably new; above the range of [3] |
+| [35636](35636) | 4 · 8909 | Cooper–Wallis: T-matrices of order 151 and Williamson-type matrices of order 59 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
+| [38468](38468) | 4 · 9617 | Cooper–Wallis: T-matrices of order 163 and Williamson-type matrices of order 59 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
+| [39260](39260) | 4 · 9815 | Cooper–Wallis: T-matrices of order 151 and Williamson-type matrices of order 65 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
 | [51580](51580) | 4 · 12895 | Yamada's theorem (Kiyasu), q = 12893, from the skew-Hadamard matrix of order 6448 = 16 · 403: this repository's [skew 1612](skew/1612), doubled twice | Probably new; above the range of [3] |
 | [2060](2060) | 4 · 515 | Cooper–Wallis: T-matrices of order 103 and Williamson matrices of order 5 | Independent construction; the order was first settled publicly on 2026-08-23 [2] |
 | [3532](3532) | 4 · 883 | Goethals–Seidel, ℤ₈₈₃, multiplier subgroup of order 21 | Order known [4]; new explicit matrix |
@@ -42,7 +47,7 @@ construction was found in a literature search in October 2026. The table in [3]
 is not complete (nine of its entries were settled in [4]), so these claims carry
 that caveat.
 
-The ten orders above 4 · 2999 lie beyond [3]. For the nine with n < 10000 we used Table 1.53 of the
+The fifteen orders above 4 · 2999 lie beyond [3]. For the fourteen with n < 10000 we used Table 1.53 of the
 Handbook of Combinatorial Designs (2007) together with the updates in [4, 5]. For 14932 (n = 3733), 20084
 (n = 5021) and 29404 (n = 7351) that table claims t = 2, but we could not trace a construction behind any of these entries; see their READMEs. For 51580 (n = 12895), which is
 beyond that table too, we checked Paley, the Williamson-type families of Seberry–Yamada's 1992 survey and the
@@ -180,6 +185,8 @@ Other top-level contents:
 - [`skew`](skew): skew-Hadamard matrices, one directory per order, in the same layout.
 - [`symmetric`](symmetric): symmetric Hadamard matrices, one directory per order, in the same layout.
 - [`t-matrices`](t-matrices): the T-matrices of orders 97 to 197 found during this work.
+- [`near-williamson`](near-williamson): near-Williamson matrices of Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev
+  (2026), used as Williamson-type matrices for the orders 24308 to 39260.
 - [`search`](search): the programs that found the Goethals–Seidel orders.
 - [`METHOD.md`](METHOD.md): how the search works.
 - [`FRONTIER.md`](FRONTIER.md): the unresolved orders up to 4 · 2999, with the cheapest structure for each and its predicted cost.

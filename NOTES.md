@@ -135,3 +135,57 @@ points, so the row sums satisfy (±1 + |H|a)² + |H|²(b² + c² + d²) = t. For
 - 191 admits no nontrivial multiplier group (|H| = 5, 19 and 95 also fail the equation);
 - 263 admits none (|H| = 131 fails);
 - 223 admits only |H| = 3 (rows −5, 9, 9, 6; 74 cosets, 37 classes).
+
+## 7. Audits and Williamson-type routes (October 14)
+
+**1823 is not open.** Seberry and Whiteman (Graphs Combin. 4 (1988) 355–377) construct symmetric conference matrices of
+order 5·9^(2t+1) + 1. For t = 1 the order is 3646 = 2·1823, and [[C+I, C−I], [C−I, −C−I]] is a Hadamard matrix of
+order 7292 = 4·1823; their abstract states this matrix.
+- Seberry–Yamada's 1992 Table A.2 lists 1823 with t = 3, and Cati–Pasechnik and FRONTIER.md inherited the entry.
+- We rebuilt C from the 3×3-cell iteration in Balonin's catalogue (one sign of the printed formula has to be flipped).
+- Exact checks: C = Cᵀ, zero diagonal, C² = 3645 I and H Hᵀ = 7292 I.
+- SHA-256 of the canonical CSV of H: `4f2289bc0e2ce8f8212457c3e1044b63396eca8179b0b0703debf0b0b365b9ef`.
+
+**1747.** Handbook Table 1.53 (2007) prints t = 2. Seberry–Yamada (1992) give t = 3, from Miyamoto's 8q class, and no
+construction for t = 2 could be traced. It is probably a table error, so 1747 stays on the list.
+
+**Corollary 29(i) of Seberry–Yamada (1990).** It states: if q ≡ 1 (mod 4) is a prime power and WT((q−1)/4) or
+H((q−1)/2) exists, then WT(q) exists.
+- **What the proof forces.** The proof uses their Lemma 26 with Yamada's matrices as U₁ and U₂. This forces U₃ = U₄ = 0,
+  V₁ = I and V₂ = 0. So V₃ and V₄ must be symmetric, commuting ±1 matrices with V₃² + V₄² = (q−1) I: a symmetric
+  quaternary Hadamard matrix of order (q−1)/2.
+- **Repeated block.** A WT((q−1)/4) with a repeated block (Y, X, X, Z) supplies V₃ = [[Y, X], [Xᵀ, −Z]] and
+  V₄ = [[Z, X], [Xᵀ, −Y]]; X need not be symmetric. Checked for q = 29, 37, 53 and 61: WT(q) and the Williamson array
+  H(4q) verify exactly.
+- **Four distinct blocks.** For every class of Williamson matrices of order m ≤ 19, a signed 2×2 arrangement of the
+  blocks exists exactly when a block repeats.
+- **Order 67.** The three known WT(67) (near-Williamson, see below) give no arrangement. The repeated-block structure at
+  67 with H = {1, 29, 37} is empty, by an exhaustive search. Other multiplier orders fail on row sums. So
+  1883 = 7·269 is not reached this way.
+- **Consequences.** Đoković (Int. Math. Forum 6 (2011)) settled 1527 = 3·509, 2545 = 5·509 and 2571 = 3·857 through
+  Cor. 29(i), using WT(509) from good matrices of order 127, and H(428). Under the Lemma 26 proof these need a symmetric
+  BH(254, 4) and a symmetric BH(428, 4); we found neither.
+- **Open point.** We could not read Miyamoto's 1991 paper (J. Combin. Theory A 57), which is credited with the
+  Williamson version. Unless it uses a different construction, these three orders are only conditionally settled.
+
+**Spence-W: Williamson-type matrices from Spence sequences.** Take four ±1 sequences on ℤ₂ × ℤ_n with ΣPAF = −4 off zero
+(Spence's condition for order 4(2n+1)), one invariant under a multiplier group H and three under ⟨H, −1⟩.
+- **What they give.** Through the ℤ₂-split they give the U and V of Lemma 26, hence WT(2n+1). With any
+  OD(4w; w, w, w, w) this gives a Hadamard matrix of order 4(2n+1)w.
+- **Why it helps.** The symmetry comes from ℤ_n, so the route applies to primes 2n+1 whose own multiplier groups are
+  useless. For example, T-matrices of order 191 or 263 admit no multiplier group (section 6).
+- **Checks.** The Williamson array H(4(2n+1)) verifies exactly for each of:
+  - WT(21) and WT(25), with n even and no multiplier;
+  - WT(83), with n = 41 and |H| = 5.
+- **269.** The structure with n = 134 and |H| = 11 (15 classes) is exhaustively empty, so it does not give 1883.
+
+**Orders above 4·2999 from near-Williamson matrices.** Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev
+(arXiv:2605.08661, 2026) give near-Williamson matrices: circulant ±1 matrices A, B, C, D with B, C, D symmetric and
+ΣXXᵀ = 4w I. Then (AR, B, C, D) are Williamson-type matrices. They exist for w = 47, 59, 65, 67, 103 and 133, among
+others, and Williamson matrices do not exist for w = 47, 59 and 65.
+- **Five new orders.** Combined with the T-matrices of orders 103, 151 and 163 by Cooper–Wallis, they give 24308,
+  27604, 35636, 38468 and 39260. See their READMEs.
+- **Further candidates** (by the same audit):
+  - 4·3149 = 4·47·67, 4·4757 = 4·67·71, 4·4841 = 4·47·103, using T-sequences of lengths 47 and 71;
+  - 4·8549 = 4·83·103, which needs only T103 and the classical WT(83).
+- None of these products lands on an unresolved n ≤ 2999.
