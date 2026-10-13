@@ -1,8 +1,8 @@
 # Notes on structured searches (October 2026)
 
 What we learned while searching for the unresolved orders in [FRONTIER.md](FRONTIER.md), including the
-searches that found nothing. Section 1 is a mechanism, sections 2–4 are negative results, section 5 is the
-literature as of October 2026.
+searches that found nothing. Section 1 is a mechanism, sections 2–4 and 6 are negative results, section 5 is
+the literature as of October 2026.
 
 ## 1. Why some structures have many solutions
 
@@ -102,3 +102,36 @@ Other hosts of this type are larger and untested: 1823 (35 · 13), 1879 (7 · 67
   difference families.
 - **Cocyclic matrices.** For order 4p with p ≡ 3 (mod 4), every cocyclic Hadamard matrix is of
   Williamson type or a transposed Ito matrix (Barrera Acevedo, Ó Catháin, Dietrich 2019).
+
+## 6. The two-spike shape and T-matrix obstructions (October 13)
+
+**Two-spike bordered shape** (the structure of order 2148 on the progress branch). It is a bordered
+Goethals–Seidel array over ℤ₂q × GF(r) with Q = ℤ_q, T = all characters, index e and F = (r − 1)/e odd.
+
+- The budget identity Σ(F s² + 2 f s) = 4qe and the target −4qr at the spike distance q force
+  F ∈ {qe/2 − 1, qe/2, qe/2 + 1}, so n = q(2r + 1) with r = eF + 1.
+- Among the unresolved n ≤ 2999 only 537 (q = 3, e = 8) and 2515 (q = 5, e = 10, r = 251, F = 25) have this form.
+- For 2515, an exact meet-in-the-middle over the compressions to ℤ₁₀ finds no stage-1 class. It covers all eight
+  sign choices of the spikes ±49, ±51 at distance 5 and all ±1 completions. The same code returns the single class
+  of the branch for 537 and for its analogue 177.
+- So the shape does not reach any other unresolved order up to 2999.
+
+**Spence over ℤ₂ × GF(419) (n = 839).**
+- Through the ℤ₂-split, the w-sums satisfy Σ s_w² = n, with s_w = ε + F a in the three blocks whose zero cell is a
+  w-cell and s_w = F d in the fourth.
+- This gives F A + 2B = 2e with A = Σ a² and |B| ≤ A. It has no solution for F ∈ {11, 19, 22, 38}.
+- So no Spence structure over ℤ₈₃₈ with a multiplier group of order at least 11 exists.
+
+**T-matrices.** By Cooper–Wallis, T-matrices of order t give H(4tw) for every Williamson order w.
+
+- T(191) would settle 573, 955, 1719 and 2865. With Miyamoto's theorem, 573 also gives 2293.
+- T(223) would settle 669, 1115 and 2899, and 669 gives 2677.
+- T(263) would settle 789, 1315, 1841 and 2893.
+
+For prime t and a multiplier group H ≤ ℤ_t^*, one T-matrix holds the point 0 and every other orbit has |H|
+points, so the row sums satisfy (±1 + |H|a)² + |H|²(b² + c² + d²) = t. For t ≡ 3 (mod 4) the left side is
+≡ 1 (mod 4) whenever |H| is even, so H has odd order. Hence:
+
+- 191 admits no nontrivial multiplier group (|H| = 5, 19 and 95 also fail the equation);
+- 263 admits none (|H| = 131 fails);
+- 223 admits only |H| = 3 (rows −5, 9, 9, 6; 74 cosets, 37 classes).
