@@ -32,13 +32,9 @@ import verify
 
 
 def pool_vectors(st, r):
-    """All sign vectors (int8, one entry per orbit) with row sum r."""
-    O = st.O; out = []; step = 1 << 20; sz = st.sizes.astype(np.int64)
-    for start in range(0, 1 << O, step):
-        idx = np.arange(start, min(start + step, 1 << O), dtype=np.int64)
-        Y = (1 - 2 * ((idx[:, None] >> np.arange(O)) & 1)).astype(np.int8)
-        out.append(Y[(Y.astype(np.int64) @ sz) == r])
-    return np.concatenate(out)
+    """All sign vectors (int8, one entry per orbit) with row sum r (meet in the middle over two halves of the orbits)."""
+    from skew_ktree import pool_exact
+    return pool_exact(st, r)
 
 
 def symmetric_matrix(A, B, D):

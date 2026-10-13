@@ -132,9 +132,17 @@ class Structure:
         assert np.all(rem == 0)
         return Y
 
-    def class_values(self, Y):
-        """Periodic autocorrelation on each class rep, for each sign vector."""
-        return np.einsum("bo,cop,bp->bc", Y, self.S, Y, optimize=True)
+    def class_values(self, Y, block=1 << 15):
+        """Periodic autocorrelation on each class rep, for each sign vector: Y S_c Y^T for every class c, as one
+        matrix product per block of rows (M[o, c O + p] = S[c, o, p])."""
+        if not hasattr(self, "_M"):
+            self._M = np.ascontiguousarray(self.S.transpose(1, 0, 2).reshape(self.O, self.C * self.O))
+        Y = np.asarray(Y, dtype=np.float64)
+        out = np.empty((len(Y), self.C))
+        for i in range(0, len(Y), block):
+            B = Y[i:i + block]
+            out[i:i + block] = np.einsum("bcp,bp->bc", (B @ self._M).reshape(len(B), self.C, self.O), B)
+        return out
 
     # ---- Gaussian estimate -------------------------------------------------------
     def estimate(self, samples=3000, log_list=8.0, seed=1):
