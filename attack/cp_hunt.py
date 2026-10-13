@@ -39,6 +39,7 @@ def main():
     ap.add_argument('--threads', type=int, default=3); ap.add_argument('--samples', type=int, default=60000)
     ap.add_argument('--minm', type=float, default=1e5); ap.add_argument('--maxm', type=float, default=3e10)
     ap.add_argument('--nsig', type=int, default=3000)
+    ap.add_argument('--maxenum', type=float, default=4e10, help='largest block that cp_enum may enumerate')
     ap.add_argument('--estimate-only', action='store_true', help='record the estimates without searching')
     ap.add_argument('--out', default='cp_hunt.jsonl')
     a = ap.parse_args()
@@ -73,9 +74,17 @@ def main():
                             e_ = CL.estimate_in_lists(P_, lambda kk: a.L)[0]
                             if best is None or e_ > best[0]: best = (e_, ci, P_)
                         _, cfg, P = best
-                    else:
-                        P = CL.prepare(S, O, quads[0], a.samples, np.random.default_rng(1))
+                    else:                                         # up to three sampled classes: the best estimate
+                        best = None
+                        for ci, qd in enumerate(quads[:3]):
+                            P_ = CL.prepare(S, O, qd, a.samples, np.random.default_rng(1))
+                            if S.skew and len(P_['Pm0']) == 0: continue
+                            e_ = CL.estimate_in_lists(P_, lambda kk: a.L)[0]
+                            if best is None or e_ > best[0]: best = (e_, ci, P_)
+                        if best is None: raise RuntimeError('no skew block member')
+                        _, cfg, P = best
                     if S.skew and len(P['Pm0']) == 0: raise RuntimeError('no skew block member')
+                    if max(P['sizes']) > a.maxenum: raise RuntimeError(f'block of {max(P["sizes"]):.3g} members (enumeration cap {a.maxenum:.0e})')
                     # list sizes: block 1 large and blocks 2, 3 smaller balance the pair work of kt4 (A + B against C + D)
                     best = None
                     for LB in (a.L, 2 * a.L):
@@ -94,7 +103,8 @@ def main():
                     if est >= a.mine and work <= a.maxwork and not a.estimate_only:
                         log = logd / f'cp_hunt_{v}_{q}_{e}_{k}_{t}.log'
                         cmd = [sys.executable, '-u', str(HERE / 'cp_lowe.py'), str(v), '--q', str(q), '--e', str(e), '--kgen', str(k),
-                               '--twist', str(t)] + ([] if S.m == 1 else ['--sample-stage1', '3']) + ['--config', str(cfg), '--L', f'{LB:g},{LB:g},{LC:g},{LC:g}', '--nsig', str(a.nsig),
+                               '--twist', str(t)] + (['--field', f'{S.p},{S.k}'] if hasattr(S, 'automorphisms') else []) \
+                              + ([] if S.m == 1 else ['--sample-stage1', '3']) + ['--config', str(cfg), '--L', f'{LB:g},{LB:g},{LC:g},{LC:g}', '--nsig', str(a.nsig),
                                '--threads', str(a.threads), '--K', '3'] + ([] if skew else ['--plain'])
                         try:
                             with open(log, 'w') as fh:
@@ -110,7 +120,8 @@ def main():
                         rec.update(search=status, cmd=' '.join(cmd[1:]), verified=nver, log=str(log))
                         if nver == 0 and 'hit: autocorrelations ok' in txt and solved(v, skew): rec['verified'] = 1
                         if rec['verified'] and skew:
-                            subprocess.run([sys.executable, str(HERE / 'skew_certify.py'), str(v), '0'], timeout=1800)
+                            certifier = 'skew_certify_group.py' if hasattr(S, 'automorphisms') else 'skew_certify.py'
+                            subprocess.run([sys.executable, str(HERE / certifier), str(v), '0'], timeout=1800)
             except (RuntimeError, MemoryError, AssertionError, ValueError, StopIteration) as ex:
                 rec = dict(base, error=repr(ex)[:100])
             rec['sec'] = round(time.time() - t0)

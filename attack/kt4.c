@@ -3,8 +3,10 @@
  * D classes, among sampled lists.
  *
  * For each split value sigma of the merge classes S (|S| <= 5, values within +-2047), the pairs (a, b) with (VA[a] + VB[b])_S = sigma and
- * the pairs (c, d) with (VC[c] + VD[d])_S = (T - sigma)_S are formed through a sorted index of VB and VD on S, and
- * joined on a 64-bit linear hash of the other classes; hash matches are re-checked on all classes. The values of
+ * the pairs (c, d) with (VC[c] + VD[d])_S = (T - sigma)_S are formed group by group: every list is sorted by its S-tuple, and
+ * the matching groups are found by one merge pass (or by binary search when one list has few groups), so the pairs of two
+ * groups read contiguous memory. The pairs are joined on a 64-bit linear hash of the other classes; hash matches are
+ * re-checked on all classes. (The set of solutions found for a given sigma does not depend on this organisation.) The values of
  * sigma are taken in order of increasing distance from the centre mu_A + mu_B + (T - mu)/2 (on S), stepping by the
  * lattice of each merge class (the gcd of the differences of its values within each list, combined).
  *
@@ -147,68 +149,119 @@ int main(int argc, char **argv) {
     /* sort candidates by distance (simple insertion into an index array by qsort on dist) */
     { double *dk = dist; for (long i = 1; i < nc; i++) { long x = ord[i]; long j = i - 1; while (j >= 0 && dk[ord[j]] > dk[x]) { ord[j + 1] = ord[j]; j--; } ord[j + 1] = x; } }
   search:;
+    /* All four lists indexed by their S-keys (groups in increasing key order). The S-key order is the lexicographic
+     * order of the S-tuples, so for a split value sigma the partners of the A-groups in increasing order are the
+     * B-groups with keys sigma - vA in decreasing order: one merge pass per side instead of a binary search per
+     * member. The hashes are copied in index order, so the pairs of two groups read contiguous memory. */
+    Index IA = build_index(0, off), IC = build_index(2, off);
+    uint64_t *hs[4]; Index *IX[4] = {&IA, &IB, &IC, &ID};
+    for (int L = 0; L < 4; L++) {
+        hs[L] = malloc(8 * n[L]);
+        for (long i = 0; i < n[L]; i++) hs[L][i] = h[L][IX[L]->idx[i]];
+    }
+    /* the S-tuple of each group (decoded from its key) */
+    int *tup[4];
+    for (int L = 0; L < 4; L++) {
+        tup[L] = malloc(sizeof(int) * NS * (IX[L]->m + 1));
+        for (long gi = 0; gi < IX[L]->m; gi++) {
+            uint64_t k = IX[L]->key[gi];
+            for (int s = NS - 1; s >= 0; s--) { tup[L][gi * NS + s] = (int)(k & 0xFFF) - 2048; k >>= 12; }
+        }
+    }
     long found = 0; long long totAB = 0, totCD = 0; double t0 = now();
+    long *mp = NULL; long mcap = 0;                                   /* matched group pairs (g1, g2) */
     for (long ci = 0; ci < NSIG && ci < nc && found < K; ci++) {
         const int *sig = cand + ord[ci] * NS;
-        /* pairs (a, b) with (VA[a] + VB[b])_S = sigma: hash table keyed by hA + hB */
-        long cap = 1 << 20, cnt = 0;
-        uint64_t *hk = NULL; uint32_t *ha = NULL, *hb = NULL;
-        /* count pass */
-        long *cntA = calloc(n[0] + 1, sizeof(long));
-        #pragma omp parallel for schedule(static)
-        for (long a = 0; a < n[0]; a++) {
-            const int16_t *va = V[0] + (size_t)D * a;
-            uint64_t k = 0; for (int s = 0; s < NS; s++) k = (k << 12) | pk(sig[s] - va[Sx[s]]);
-            long gi = find(&IB, k); cntA[a + 1] = gi < 0 ? 0 : IB.start[gi + 1] - IB.start[gi];
-        }
-        for (long a = 0; a < n[0]; a++) cntA[a + 1] += cntA[a];
-        cnt = cntA[n[0]];
-        if (cnt > MAXPAIRS) { fprintf(stderr, "kt4: sigma %ld: %ld pairs exceed the cap, skipped\n", ci + 1, cnt); free(cntA); continue; }
-        cap = 1; while (cap < 2 * cnt + 2) cap <<= 1;
-        hk = malloc(8 * cap); ha = malloc(4 * cap); hb = malloc(4 * cap);
-        memset(hk, 0xff, 8 * cap);
-        uint64_t mask = cap - 1;
-        #pragma omp parallel for schedule(dynamic, 1024)
-        for (long a = 0; a < n[0]; a++) {
-            if (cntA[a + 1] == cntA[a]) continue;
-            const int16_t *va = V[0] + (size_t)D * a; uint64_t k = 0;
-            for (int s = 0; s < NS; s++) k = (k << 12) | pk(sig[s] - va[Sx[s]]);
-            long gi = find(&IB, k);
-            for (long p = IB.start[gi]; p < IB.start[gi + 1]; p++) {
-                long b = IB.idx[p]; uint64_t x = h[0][a] + h[1][b]; if (x == ~0ULL) x--;
-                uint64_t slot = (x * 0x9E3779B97F4A7C15ULL) & mask;
-                while (1) {
-                    uint64_t cur = __atomic_load_n(&hk[slot], __ATOMIC_RELAXED);
-                    if (cur == ~0ULL && __atomic_compare_exchange_n(&hk[slot], &cur, x, 0, __ATOMIC_RELAXED, __ATOMIC_RELAXED)) {
-                        ha[slot] = (uint32_t)a; hb[slot] = (uint32_t)b; break;
+        int tgt[5]; for (int s = 0; s < NS; s++) tgt[s] = T[Sx[s]] - sig[s];
+        /* match groups: (L1, L2) = (A, B) with vA + vB = sig, then (C, D) with vC + vD = T - sig */
+        long nm[2] = {0, 0}; long start[2] = {0, 0}; long long npairs[2] = {0, 0};
+        for (int side = 0; side < 2; side++) {
+            const Index *I1 = IX[2 * side], *I2 = IX[2 * side + 1]; const int *t1 = tup[2 * side], *t2 = tup[2 * side + 1];
+            const int *want = side == 0 ? sig : tgt;
+            long j = I2->m - 1; start[side] = nm[0];
+            if ((double)I1->m * log2((double)I2->m + 2) < (double)(I1->m + I2->m)) {   /* few groups: binary search */
+                for (long gi = 0; gi < I1->m; gi++) {
+                    uint64_t k = 0; int ok = 1;
+                    for (int s = 0; s < NS; s++) {
+                        int part = want[s] - t1[gi * NS + s];
+                        if (part < -2048 || part > 2047) { ok = 0; break; }
+                        k = (k << 12) | pk(part);
                     }
-                    slot = (slot + 1) & mask;
+                    if (!ok) continue;
+                    long jj = find(I2, k); if (jj < 0) continue;
+                    long idx_ = side == 0 ? nm[0] : nm[0] + nm[1];
+                    if (2 * (idx_ + 1) > mcap) { mcap = mcap ? 2 * mcap : 1 << 20; mp = realloc(mp, sizeof(long) * mcap); }
+                    mp[2 * idx_] = gi; mp[2 * idx_ + 1] = jj; nm[side]++;
+                    npairs[side] += (long long)(I1->start[gi + 1] - I1->start[gi]) * (I2->start[jj + 1] - I2->start[jj]);
+                }
+                continue;
+            }
+            for (long gi = 0; gi < I1->m && j >= 0; gi++) {
+                /* key of the partner: want - t1[gi]; advance j (decreasing) while key(t2[j]) > partner */
+                int part[5]; int ok = 1;
+                for (int s = 0; s < NS; s++) { part[s] = want[s] - t1[gi * NS + s]; if (part[s] < -2048 || part[s] > 2047) ok = 0; }
+                if (!ok) continue;
+                while (j >= 0) {
+                    int cmp = 0;
+                    for (int s = 0; s < NS; s++) { int x = t2[j * NS + s]; if (x != part[s]) { cmp = x > part[s] ? 1 : -1; break; } }
+                    if (cmp > 0) { j--; continue; }
+                    if (cmp == 0) {
+                        long idx_ = side == 0 ? nm[0] : nm[0] + nm[1];
+                        if (2 * (idx_ + 1) > mcap) { mcap = mcap ? 2 * mcap : 1 << 20; mp = realloc(mp, sizeof(long) * mcap); }
+                        mp[2 * idx_] = gi; mp[2 * idx_ + 1] = j; nm[side]++;
+                        npairs[side] += (long long)(I1->start[gi + 1] - I1->start[gi]) * (I2->start[j + 1] - I2->start[j]);
+                    }
+                    break;
                 }
             }
         }
-        free(cntA);
-        /* probe with pairs (c, d) with (VC[c] + VD[d])_S = (T - sigma)_S */
-        long long ncd = 0; long fnd = 0;
-        #pragma omp parallel for schedule(dynamic, 1024) reduction(+:ncd, fnd)
-        for (long c = 0; c < n[2]; c++) {
-            const int16_t *vc = V[2] + (size_t)D * c; uint64_t k = 0;
-            for (int s = 0; s < NS; s++) k = (k << 12) | pk(T[Sx[s]] - sig[s] - vc[Sx[s]]);
-            long gi = find(&ID, k); if (gi < 0) continue;
-            for (long p = ID.start[gi]; p < ID.start[gi + 1]; p++) {
-                long d = ID.idx[p]; ncd++;
-                uint64_t x = hT - h[2][c] - h[3][d]; if (x == ~0ULL) x--;
-                uint64_t slot = (x * 0x9E3779B97F4A7C15ULL) & mask;
-                while (hk[slot] != ~0ULL) {
-                    if (hk[slot] == x) {
-                        long a = ha[slot], b = hb[slot]; const int16_t *va = V[0] + (size_t)D * a, *vb = V[1] + (size_t)D * b, *vd = V[3] + (size_t)D * d;
-                        int ok = 1; for (int q = 0; q < D; q++) if (va[q] + vb[q] + vc[q] + vd[q] != T[q]) { ok = 0; break; }
-                        if (ok) {
-                            fnd++;
-                            #pragma omp critical
-                            { if (found < K) { printf("SOL %ld %ld %ld %ld\n", a, b, c, d); fflush(stdout); } found++; }
+        long cnt = npairs[0];
+        if (cnt > MAXPAIRS) { fprintf(stderr, "kt4: sigma %ld: %ld pairs exceed the cap, skipped\n", ci + 1, cnt); continue; }
+        long cap = 1; while (cap < 2 * cnt + 2) cap <<= 1;
+        uint64_t *hk = malloc(8 * cap); uint32_t *ha = malloc(4 * cap), *hb = malloc(4 * cap);
+        memset(hk, 0xff, 8 * cap);
+        uint64_t mask = cap - 1;
+        #pragma omp parallel for schedule(dynamic, 64)
+        for (long u = 0; u < nm[0]; u++) {
+            long ga = mp[2 * u], gb = mp[2 * u + 1];
+            for (long pa = IA.start[ga]; pa < IA.start[ga + 1]; pa++) {
+                uint64_t xa = hs[0][pa];
+                for (long pb = IB.start[gb]; pb < IB.start[gb + 1]; pb++) {
+                    uint64_t x = xa + hs[1][pb]; if (x == ~0ULL) x--;
+                    uint64_t slot = (x * 0x9E3779B97F4A7C15ULL) & mask;
+                    while (1) {
+                        uint64_t cur = __atomic_load_n(&hk[slot], __ATOMIC_RELAXED);
+                        if (cur == ~0ULL && __atomic_compare_exchange_n(&hk[slot], &cur, x, 0, __ATOMIC_RELAXED, __ATOMIC_RELAXED)) {
+                            ha[slot] = (uint32_t)IA.idx[pa]; hb[slot] = (uint32_t)IB.idx[pb]; break;
                         }
+                        slot = (slot + 1) & mask;
                     }
-                    slot = (slot + 1) & mask;
+                }
+            }
+        }
+        long long ncd = 0; long fnd = 0;
+        #pragma omp parallel for schedule(dynamic, 64) reduction(+:ncd, fnd)
+        for (long u = nm[0]; u < nm[0] + nm[1]; u++) {
+            long gc = mp[2 * u], gd = mp[2 * u + 1];
+            for (long pc = IC.start[gc]; pc < IC.start[gc + 1]; pc++) {
+                uint64_t xc = hT - hs[2][pc];
+                for (long pd = ID.start[gd]; pd < ID.start[gd + 1]; pd++) {
+                    ncd++;
+                    uint64_t x = xc - hs[3][pd]; if (x == ~0ULL) x--;
+                    uint64_t slot = (x * 0x9E3779B97F4A7C15ULL) & mask;
+                    while (hk[slot] != ~0ULL) {
+                        if (hk[slot] == x) {
+                            long a = ha[slot], b = hb[slot], c = IC.idx[pc], d = ID.idx[pd];
+                            const int16_t *va = V[0] + (size_t)D * a, *vb = V[1] + (size_t)D * b, *vc = V[2] + (size_t)D * c, *vd = V[3] + (size_t)D * d;
+                            int ok = 1; for (int q = 0; q < D; q++) if (va[q] + vb[q] + vc[q] + vd[q] != T[q]) { ok = 0; break; }
+                            if (ok) {
+                                fnd++;
+                                #pragma omp critical
+                                { if (found < K) { printf("SOL %ld %ld %ld %ld\n", a, b, c, d); fflush(stdout); } found++; }
+                            }
+                        }
+                        slot = (slot + 1) & mask;
+                    }
                 }
             }
         }

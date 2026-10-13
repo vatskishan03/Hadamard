@@ -63,6 +63,23 @@ def structures(v, skew, minm, maxm):
                     if t and len(S.K) == 1: continue
                     if skew and t % v2: continue
                     yield q, m, e, F, k, t, S, mem
+    # prime-power fibres GF(p^k), k >= 2 (cp_field.FieldStructure; the group is Z_m x Z_p^k)
+    import cp_field as FF
+    for p, kk, e, F in FF.fibre_structures(v, skew):
+        q = p ** kk; m = v // q
+        if 4 * F - 4 > 4 * m * e: continue
+        for k in (cyclic_subgroups(m) if m > 1 else [1]):
+            try: S = FF.FieldStructure(v, p, kk, e, skew=skew, kgen=k)
+            except AssertionError: continue
+            R = len(S.kreps)
+            mem = comb(e, e // 2) ** R
+            if mem < minm or mem > maxm * 30: continue
+            v2 = (e & -e)
+            for t in range(e):
+                if len(S.K) * t % e: continue
+                if t and len(S.K) == 1: continue
+                if skew and t % v2: continue
+                yield q, m, e, F, k, t, S, mem
 
 
 def main():

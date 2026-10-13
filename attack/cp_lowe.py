@@ -196,11 +196,37 @@ def cyclotomic_numbers(S):
     """N[c, i, j] = #{y in C_i : y + d_c in C_j} for the class representatives d_c, c < nb."""
     q, e = S.q, S.e
     N = np.zeros((S.nb, e, e), dtype=np.int64)
+    if hasattr(S, 'add'):                                          # prime-power field: indices are coordinates
+        y = np.flatnonzero(S.cls >= 0)
+        for c in range(S.nb):
+            z = S.add[y, S.reps[1 + c]]; ok = S.cls[z] >= 0
+            np.add.at(N[c], (S.cls[y[ok]], S.cls[z[ok]]), 1)
+        return N
     y = np.arange(1, q)
     for c in range(S.nb):
         d = S.reps[1 + c]; z = (y + d) % q; ok = z != 0
         np.add.at(N[c], (S.cls[y[ok]], S.cls[z[ok]]), 1)
     return N
+
+
+def paf_vector(S, seqs):
+    """Sum of the PAFs of the sequences on the group of S (cyclic Z_v, or Z_m x Z_p^k for a prime-power fibre)."""
+    return S.paf_sum(seqs) if hasattr(S, 'paf_sum') else verify.paf_sum(seqs)
+
+
+def check_hit(S, seqs, gens):
+    """(Goethals-Seidel condition, skew first block, invariance under the generators of H)."""
+    tot = paf_vector(S, seqs)
+    ok = tot[0] == 4 * S.v and not tot[1:].any()
+    skew_ok = True
+    if S.skew:
+        neg = S.neg() if hasattr(S, 'neg') else (-np.arange(S.v)) % S.v
+        x = seqs[0]; skew_ok = x[0] == 1 and bool(np.all(x[neg[1:]] == -x[1:]))
+    inv = True
+    for g_ in gens:
+        perm = S.perm_of(g_) if hasattr(S, 'perm_of') else (np.arange(S.v) * g_) % S.v
+        inv = inv and all(np.array_equal(x[perm], x) for x in seqs)
+    return bool(ok), bool(skew_ok), bool(inv)
 
 
 def prime_key(S, N, X, f):
@@ -229,7 +255,7 @@ def prepare_prime(S, y, samples, rng, G=4):
         if k == 1 or (not S.skew and k == 0):                       # cross-check against the PAF of the sequences
             for t in range(5):
                 x = S.sequence(blk.ids(I[t:t + 1])[0])
-                paf = np.rint(np.fft.irfft(np.abs(np.fft.rfft(x)) ** 2, n=S.v)).astype(np.int64)
+                paf = paf_vector(S, [x])
                 assert np.array_equal(paf[[S.reps[1 + c] for c in range(S.nb)]], K[t]), 'prime pair tables disagree with the PAF'
         blocks.append((blk, I, K)); full.append(None); mus.append(K.mean(0)); sigs.append(np.cov(K.T.astype(float)))
     D = S.nb
@@ -474,7 +500,9 @@ def stage1_sample(S, n, rng, tries=2000000, O=None, maxopts=4e6, M=2000000):
 
 
 def generators(S, O):
-    """Generators of the multiplier group H: h (e-th powers on GF(q)) and the (twisted) generator of K_m."""
+    """Generators of the multiplier group H: h (e-th powers on GF(q)) and the (twisted) generator of K_m. For a
+    prime-power fibre (cp_field.FieldStructure) they are coordinate matrices of automorphisms of Z_m x Z_p^k."""
+    if hasattr(S, 'automorphisms'): return S.automorphisms(O.tw)
     if len(S.K) == 1: return [S.h]
     return [S.h, next(t for t in range(1, S.v) if t % S.m == S.kgen and t % S.q == pow(S.g, O.tw, S.q))]
 
@@ -549,11 +577,18 @@ def main():
     ap.add_argument('--mcpairs', type=int, default=4000000, help='random pairs per side for ranking the split values')
     ap.add_argument('--threads', type=int); ap.add_argument('--estimate-only', action='store_true')
     ap.add_argument('--K', type=int, default=10)
+    ap.add_argument('--field', default='', help='p,k: the fibre is GF(p^k) (q = p^k; cp_field.FieldStructure)')
     a = ap.parse_args()
     t0 = time.time(); log = lambda s: print(f'{s} [{time.time() - t0:.0f}s]', flush=True)
     Ls = [float(x) for x in a.L.split(',')]
     Lk = lambda k: Ls[0] if len(Ls) == 1 else Ls[k - 1 if len(Ls) == 3 else k]
-    S = CP.Structure(a.v, a.q, a.e, skew=not a.plain, kgen=a.kgen)
+    if a.field:
+        import cp_field as FF
+        pf, kf = (int(x) for x in a.field.split(','))
+        assert pf ** kf == a.q, '--field p,k must give q'
+        S = FF.FieldStructure(a.v, pf, kf, a.e, skew=not a.plain, kgen=a.kgen)
+    else:
+        S = CP.Structure(a.v, a.q, a.e, skew=not a.plain, kgen=a.kgen)
     O = Orbits(S, a.twist)
     if S.m == 1:
         quads = stage1_prime(S)
@@ -636,18 +671,18 @@ def main():
                 if kind == 'full': ids.append(Pm0[data[sol[k]]].astype(np.int64))
                 else: ids.append(decode(blocks[k][0], data[0][sol[k]], data[1]))
             seqs = [S.sequence(ids[k]) for k in range(4)]
-            tot = verify.paf_sum(seqs)
-            ok = tot[0] == 4 * a.v and not tot[1:].any()
-            if S.skew: ok = ok and seqs[0][0] == 1 and all(seqs[0][(-x) % a.v] == -seqs[0][x] for x in range(1, a.v))
+            paf_ok, skew_ok, inv_ok = check_hit(S, seqs, gens)
+            ok = paf_ok and skew_ok
             log(f'hit: autocorrelations {"ok" if ok else "WRONG"}, row sums {[int(x.sum()) for x in seqs]}')
             if ok:
-                for g_ in gens:
-                    ok = ok and all(np.array_equal(x[(np.arange(a.v) * g_) % a.v], x) for x in seqs)
+                ok = inv_ok
                 log(f'hit: invariant under H = <{gens}>: {ok}')
             if ok:
                 rec = dict(n=a.v, gens=gens, pattern=[int(x.sum()) for x in seqs], hadamard=True, skew=S.skew,
-                           method=f'cp_lowe q={a.q} e={a.e} kgen={a.kgen} twist={a.twist} config={a.config} L={a.L} seed={a.seed}',
+                           method=f'cp_lowe q={a.q} e={a.e} kgen={a.kgen} twist={a.twist} config={a.config} L={a.L} seed={a.seed}'
+                                  + (f' field={a.field}' if a.field else ''),
                            seqs=[''.join('+' if z > 0 else '-' for z in x) for x in seqs])
+                if a.field: rec.update(group=S.mods, automorphisms=gens)
                 with open(W.hits() if S.skew else W.hits('had_hits.jsonl'), 'a') as fh: fh.write(json.dumps(rec) + '\n')
                 found.append(rec)
         p.wait()
