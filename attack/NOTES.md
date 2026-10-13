@@ -1449,3 +1449,53 @@ abelian group); Legendre pairs of lengths 115, 145, 159, 161, 169, 175, 177, 185
 Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev, arXiv:2605.08661, list Williamson matrices as not yet found):
 four symmetric ±1 sequences on the orbits of ⟨H, −1⟩, all row patterns, exact four-list joins. Checked on n = 13, 25
 and 37. Running.
+
+## 26. Local search without symmetry, and the skew hunt beyond 627 (October 13, late night)
+
+**Why unstructured searches are tempting.** A crude Gaussian count for cyclic families without multipliers (each
+equation P(s) = 0 met with probability about 4/(σ√(2π)), σ² the variance of P(s); about 10 bits for the row-sum
+pattern) gives log₂ E ≈ v (2.5 − ½ log₂(0.63 √(7v))) − 10 for propus triples (A symmetric, B and D free), that is
+about 2³³ triples for v = 65 and 2³⁵ for v = 89, positive up to v ≈ 370; for skew Goethals–Seidel quadruples
+log₂ E ≈ v (3.5 − ½ log₂(0.63 √(5v))) − 13, about 2¹³⁴ for v = 89. Under the same count a multiplier group of order 2
+leaves about 2⁻⁴ propus triples for v = 65: symmetry discards almost all of the expected solutions, and for the
+smallest open symmetric order (260) and skew order (356) only the unstructured space is large. The question is
+whether a solution can be *found* there.
+
+**It cannot, by local search** (tabu search, every move evaluated exactly, restart after 20,000 steps without a new
+best; `attack/propus_ls.c`, the general `attack/gs_ls.c` for the types skew / symmetric / free with weights, and
+`attack/orbit_ls.c` with `orbit_ls.py` for multiplier-orbit structures). Steps per solution:
+
+| v | 25 | 29 | 33 | 35 | 37 | 41 | 45 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| propus (A symmetric, B, D free) | 3.0 · 10⁴ | 3.8 · 10⁵ | 9.4 · 10⁵ | 3 · 10⁶ | 5.1 · 10⁶ | 1.0 · 10⁸ | none in 9 CPU-min |
+| skew Goethals–Seidel | | 5 · 10³ | | | 1.0 · 10⁶ | | none in 7 CPU-min |
+
+Every solution is checked (the propus ones as matrices: v = 29 gives a symmetric Hadamard matrix of order 116 with
+H = Hᵀ and H Hᵀ = 116 I). The cost grows by about a factor 1.7 per unit of v for propus and 2 for skew quadruples,
+which puts v = 65 near 10¹³ steps (about three CPU-years at the rate reached for v = 41) and v = 89 far beyond.
+Two refinements do not help:
+- **Fixed compressions** (`attack/comp_ls.c`, `comp_margins.py`): for v = p q every block is kept on the arrays with
+  given compressions to ℤ_p and ℤ_q (margin-preserving 2 × 2 switches, mirrored for symmetric and skew blocks), so the
+  compressed equations hold throughout. With the margins of a known v = 35 solution it finds nothing in 40 CPU-s
+  (6.2 · 10⁵ steps, best energy 320) where the unconstrained search finds two solutions.
+- **Multiplier orbits** (`orbit_ls`): on the 1276 structure (ℤ₃₁₉, ⟨45⟩ of order 7, 55 orbits, 27 classes, where the
+  k-tree of §23 found a solution) no solution in 3.1 · 10⁶ steps (300 s; best energy 2176), and on the 532 structure
+  (ℤ₁₃₃, ⟨26⟩, 26 orbits) none in 3.8 · 10⁶ steps (best 288), against 26 s for the exact join.
+So the exact joins and low-energy k-trees remain the tools; local search is only competitive below about 40 free
+positions per block.
+
+**Compression DP.** `Comp.dp` (propus_chain.py, used by two_chain.py) drops partial row sums that can no longer reach
+the target and gives up above 3 · 10⁷ states (numpy codes) or 3.75 · 10⁶ states (dictionary); the structure is then
+reported as skipped instead of exhausting memory. The 133 check gives the same 15,096 compatible triples and the
+solution. The v = 99 and 123 D-optimal runs that died in the DP are being repeated.
+
+**Skew census hunt beyond 627** (`cp_hunt.py --trivial-k`, then all K_m). Of the 410 remaining composite census values
+in 629..2499, 213 have cyclotomic-product structures within the member caps (477 structures, 89 with K_m trivial). The
+trivial-K structures have large class sizes (F = 11 … 45) and their sampled stage 1 is empty except for 1565
+(ℤ₅ × GF(313), e = 8, F = 39: 10^1.93 for the class but 10^−2.45 inside lists of 10⁷, blocks of 10^9.2), 1313
+(10^−1.86) and 927 (a block of 3.8 · 10¹¹ members, above the enumeration cap). With F > me a spike alone exceeds
+the budget Σ y² = 4v, so large-F structures are infeasible as soon as F ≳ me. The structures with K_m nontrivial
+are running.
+
+**Operational note.** The container schedules by autogroup: `nice` acts only inside a session. Priorities between
+the background searches are set with `echo N > /proc/PID/autogroup`.

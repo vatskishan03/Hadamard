@@ -50,11 +50,13 @@ class Comp:
         """Compression on all of Z_d from its values at the representatives."""
         return np.asarray(key, np.int64)[self.roid]
 
-    def dp(self, st, r):
+    def dp(self, st, r, maxstates=3e7):
         """{(compression key): count} over all sign vectors with row sum r (numpy over mixed-radix codes when they
-        fit in 63 bits, a dictionary otherwise)."""
+        fit in 63 bits, a dictionary otherwise). Partial row sums that can no longer reach r are dropped; None when
+        the number of states exceeds maxstates."""
         tot = np.concatenate([[int(st.sizes.sum())], self.cnt.sum(0)])          # bound of each coordinate
         rad = 2 * tot + 1
+        rem = np.concatenate([np.cumsum(st.sizes[::-1])[::-1][1:], [0]]).astype(np.int64)   # sizes after orbit o
         if float(np.prod(rad.astype(np.float64))) < 2 ** 62:
             mult = np.cumprod(np.concatenate([[1], rad[:-1]])).astype(np.int64)
             off = int((tot * mult).sum())                                       # code of the all-zero key
@@ -62,8 +64,12 @@ class Comp:
             for o in range(st.O):
                 dlt = int(st.sizes[o]) * int(mult[0]) + int((self.cnt[o] * mult[1:]).sum())
                 codes = np.concatenate([codes + dlt, codes - dlt]); counts = np.concatenate([counts, counts])
+                keep = np.abs(r - (codes % int(rad[0]) - int(tot[0]))) <= rem[o]
+                codes = codes[keep]; counts = counts[keep]
+                if len(codes) > 2 * maxstates: return None
                 codes, inv = np.unique(codes, return_inverse=True)
                 counts = np.bincount(inv, weights=counts)
+                if len(codes) > maxstates: return None
             out = {}
             for c, n in zip(codes.tolist(), counts.tolist()):
                 x = c; vals = []
@@ -78,7 +84,8 @@ class Comp:
             for key, n in states.items():
                 for sg in (1, -1):
                     nk = (key[0] + sg * s,) + tuple(key[1 + i] + sg * int(c[i]) for i in range(self.k))
-                    new[nk] += n
+                    if abs(r - nk[0]) <= rem[o]: new[nk] += n
+                if len(new) > maxstates / 8: return None          # tuples cost about 8 times a numpy code
             states = new
         return {k[1:]: n for k, n in states.items() if k[0] == r}
 
@@ -136,6 +143,8 @@ def search(v, gens, rows, d, a, log):
     ra, rb, rd = rows; pm = v % 4
     t0 = time.time()
     Da = ca.dp(st_ad, ra); Db = cb.dp(st_b, rb); Dd = cb.dp(st_b, rd)
+    if Da is None or Db is None or Dd is None:
+        log(f"v={v} gens={gens} d={d} rows={rows}: compression DP above its cap; skipped"); return []
     log(f"v={v} gens={gens} d={d} rows={rows}: orbits A {st_ad.O}, B/D {st_b.O}, classes {st_ad.C}; compressions "
         f"A {len(Da)}, B {len(Db)}, D {len(Dd)} [{time.time() - t0:.1f}s]")
     pa = {k: cpaf(ca.full(k)) for k in Da}; pb = {k: 2 * cpaf(cb.full(k)) for k in Db}; pd = {k: cpaf(cb.full(k)) for k in Dd}

@@ -38,6 +38,8 @@ def search(kind, v, gens, d, a, log):
         if min(st.pool(ra), st.pool(rb)) == 0: continue
         t0 = time.time()
         Da = comp.dp(st, ra); Db = Da if rb == ra else comp.dp(st, rb)
+        if Da is None or Db is None:
+            log(f"{kind} v={v} gens={gens} d={d} rows ({ra}, {rb}): compression DP above its cap; skipped"); continue
         target = np.full(d // 2, T * (v // d), np.int64)
         pb = defaultdict(list)
         for k in Db: pb[PC.cpaf(comp.full(k)).tobytes()].append(k)
