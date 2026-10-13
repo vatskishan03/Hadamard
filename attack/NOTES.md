@@ -1212,3 +1212,32 @@ the group negation and the automorphisms, and `skew_certify_group.py` writes the
 **The 1123 run.** With lists of 5.8 · 10⁷, 10⁷ and 10⁷ (10^2.23 solutions expected inside), the old `kt4` processed
 72 of 6000 split values in 830 s without a solution before it was killed for memory (another job was running). It
 is being rerun with lists of 3 · 10⁷, 10⁷, 10⁷ (10^1.98) and the new `kt4`.
+
+**Bordered structures through the same machinery** (`attack/bcp.py`: `bgs.Structure` seen as a cyclotomic product,
+level-B/level-C targets −(m/q) Σ_α Γ(α) and −Γ(b mod q)). On the 2148 structure (ℤ₆ × GF(89), e = 8, Q = ℤ₃) the class
+estimate is 10^12.6 and the estimate inside low-energy lists of 10⁷ members per block is 10^3.98, so the direct
+four-list search would find it without the U/W split. (In-list estimates need about 10⁶ samples per block when the
+lists keep less than 10⁻⁴ of a block; with 6 · 10⁴ samples the 2148 figure came out as 10^−56.)
+- Total Gaussian estimates (all row patterns and stage-1 classes; random H-invariant sequences, PAF at the orbits of
+  ⟨H, −1⟩ on nonzero shifts) for 573: with Q = ℤ₃ (border 12) every structure with at most 64 orbits per block is below
+  10^−0.6; Spence-type (t = 1) ℤ₅₂ × GF(11), e = 2, K₅₂ of order 3: 10^10.9 over 60 orbits, spread over very many
+  stage-1 classes.
+- Larger totals need character sets whose border problem is not known to be solvable: 573 with ℤ₈ × GF(71), e = 10,
+  Q = ℤ₈, T = characters of order 1 and 8 (t = 5): 10^16.6 (55 orbits); 643 with ℤ₁₂ × GF(53), e = 4, Q = ℤ₁₂, T of
+  orders 1, 3, 12 (t = 7): 10^16.3 (60 orbits); 599 with ℤ₁₆ × GF(37), Q = ℤ₈, orders 1, 4, 8: 10^7.6. For Q = ℤ₈ and
+  T = {1} ∪ {order 8}, a ±1 row of R̂ is on each block either constant or antiperiodic (f(α + 4) = −f(α)), since its
+  compression to ℤ₄ must be constant. Whether such borders exist is open here.
+
+**Reach of the low-energy four-list search.** In the tail regime a list of L members drawn from a block of N members
+keeps a share of about g·L/N of the solutions (g ≈ (4/3)^{r/2} for rank r and equal covariances; the factor is
+(1/2)^{−r/2} for the two-list case). So the expected number inside the lists is E_class · Π_k g L_k/N_k, while the
+join costs about |A| L_B + L_C L_D pairs. Enlarging a structure (bigger N, larger r) at a fixed list size therefore
+lowers the yield; the useful structures are those whose blocks can be kept nearly whole, N ≲ 10¹⁰, with
+E_class ≳ 10³. The census map (`census_reach.py`, necessary norm and row-sum condition only, blocks of 10⁵–10¹¹ per
+class) finds such structures for 44 of the undecided composite v up to 1089 — 119, 225, 319, 325, 369, 429, 473, 475,
+481, 539, 553, 575, 589, 609, 623, 627, 637, 657, 689, 693, 707, 725, 737, 777, 781, 783, 793, 817, 845, 851, 891, 897,
+899, 925, 927, 933, 943, 949, 957, 989, 1073, 1075, 1081, 1089 — and for none of the others. Many of these fail the
+autocorrelation part of stage 1 or have class estimates below 1 (e.g. 481: 10^1.5; 589: at most 10^−2.6), so the
+method has a natural frontier in the census; most undecided v admit no multiplier structure of searchable size at all.
+- Non-cyclic K_m (two generators, no twist, m ≤ 120) add a single census structure that passes the norm and
+  row-sum condition with blocks of 10⁵–10^11.5 per class: 2223 = 117 · 19, e = 2, |K| = 9, 25 position orbits.

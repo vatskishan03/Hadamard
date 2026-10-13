@@ -32,7 +32,7 @@ static int D, NS, Sx[5];
 static long MAXPAIRS = 300000000L;
 static int16_t *T, *V[4];   /* point into the mapped input */
 static long n[4];
-static uint64_t Rh[256];
+static uint64_t Rh[256], hT;
 
 static double now(void) { struct timespec t; clock_gettime(CLOCK_MONOTONIC, &t); return t.tv_sec + 1e-9 * t.tv_nsec; }
 static void rd(void *p, size_t sz, size_t k, FILE *f) { if (fread(p, sz, k, f) != k) { fprintf(stderr, "kt4: short read\n"); exit(1); } }
@@ -74,6 +74,149 @@ static long find(const Index *I, uint64_t key) {                         /* grou
     return -1;
 }
 
+
+#ifndef RADIX_MIN
+#define RADIX_MIN (1L << 18)
+#endif
+static inline uint64_t mixp(uint64_t x) { return x * 0xD6E8FEB86659FD93ULL; }
+/* Partitioned hash join of the AB pairs (built) and the CD pairs (probed) of one split value. The pairs are scattered
+ * into P = 2^pbits partitions by the top bits of a mixed hash; each partition's table holds about 2^15 entries, so
+ * probes stay in cache. The CD pairs are processed in chunks of about 2^23. */
+static void radix_join(const long *nm, const long *mp, long cnt, const Index *IA, const Index *IB, const Index *IC,
+                       const Index *ID, uint64_t *const *hs, long long *ncd_out, long *fnd_out, long *found, long K) {
+    int pbits = 0; while ((cnt >> pbits) > 32768 && pbits < 16) pbits++;
+    const long P = 1L << pbits; const int sh = 64 - pbits;
+    int nt = omp_get_max_threads();
+    /* AB: count, offsets, fill */
+    long *pc = calloc((size_t)nt * P, sizeof(long));
+    #pragma omp parallel
+    {
+        long *my = pc + (size_t)omp_get_thread_num() * P;
+        #pragma omp for schedule(static)
+        for (long u = 0; u < nm[0]; u++) {
+            long ga = mp[2 * u], gb = mp[2 * u + 1];
+            for (long pa = IA->start[ga]; pa < IA->start[ga + 1]; pa++)
+                for (long pb = IB->start[gb]; pb < IB->start[gb + 1]; pb++) {
+                    uint64_t x = hs[0][pa] + hs[1][pb]; if (x == ~0ULL) x--;
+                    my[pbits ? mixp(x) >> sh : 0]++;
+                }
+        }
+    }
+    long *off = malloc(sizeof(long) * (size_t)nt * P), *pstart = malloc(sizeof(long) * (P + 1)); long run = 0;
+    for (long p = 0; p < P; p++) { pstart[p] = run; for (int t = 0; t < nt; t++) { off[(size_t)t * P + p] = run; run += pc[(size_t)t * P + p]; } }
+    pstart[P] = run;
+    uint64_t *ek = malloc(8 * run); uint32_t *ea = malloc(4 * run), *eb = malloc(4 * run);
+    #pragma omp parallel
+    {
+        long *my = off + (size_t)omp_get_thread_num() * P;
+        #pragma omp for schedule(static)
+        for (long u = 0; u < nm[0]; u++) {
+            long ga = mp[2 * u], gb = mp[2 * u + 1];
+            for (long pa = IA->start[ga]; pa < IA->start[ga + 1]; pa++)
+                for (long pb = IB->start[gb]; pb < IB->start[gb + 1]; pb++) {
+                    uint64_t x = hs[0][pa] + hs[1][pb]; if (x == ~0ULL) x--;
+                    long i = my[pbits ? mixp(x) >> sh : 0]++;
+                    ek[i] = x; ea[i] = IA->idx[pa]; eb[i] = IB->idx[pb];
+                }
+        }
+    }
+    /* per-partition tables of entry indices (+1; 0 = empty) */
+    long *tstart = malloc(sizeof(long) * (P + 1)); long tt = 0;
+    for (long p = 0; p < P; p++) { long n_ = pstart[p + 1] - pstart[p], c_ = 1; while (c_ < 2 * n_ + 2) c_ <<= 1; tstart[p] = tt; tt += c_; }
+    tstart[P] = tt;
+    uint32_t *tab = calloc(tt, sizeof(uint32_t));
+    #pragma omp parallel for schedule(dynamic, 1)
+    for (long p = 0; p < P; p++) {
+        uint32_t *tb = tab + tstart[p]; uint64_t m_ = tstart[p + 1] - tstart[p] - 1;
+        for (long i = pstart[p]; i < pstart[p + 1]; i++) {
+            uint64_t slot = (ek[i] * 0x9E3779B97F4A7C15ULL) & m_;
+            while (tb[slot]) slot = (slot + 1) & m_;
+            tb[slot] = (uint32_t)(i - pstart[p] + 1);
+        }
+    }
+    /* CD in chunks */
+    long long ncd = 0; long fnd = 0;
+    const long CH = 1L << 23;
+    long u0 = nm[0], uend = nm[0] + nm[1];
+    uint64_t *ck = malloc(8 * (CH + (1L << 20))); uint32_t *cc_ = malloc(4 * (CH + (1L << 20))), *cd_ = malloc(4 * (CH + (1L << 20)));
+    while (u0 < uend) {
+        /* chunk [u0, u1): at most about CH pairs (a single group pair larger than CH is taken alone) */
+        long u1 = u0; long npair = 0;
+        while (u1 < uend) {
+            long gc = mp[2 * u1], gd = mp[2 * u1 + 1];
+            long k_ = (long)(IC->start[gc + 1] - IC->start[gc]) * (ID->start[gd + 1] - ID->start[gd]);
+            if (npair && npair + k_ > CH) break;
+            npair += k_; u1++;
+        }
+        if (npair > CH + (1L << 20)) {                        /* a huge single group pair: enlarge the buffers */
+            ck = realloc(ck, 8 * npair); cc_ = realloc(cc_, 4 * npair); cd_ = realloc(cd_, 4 * npair);
+        }
+        memset(pc, 0, sizeof(long) * (size_t)nt * P);
+        #pragma omp parallel
+        {
+            long *my = pc + (size_t)omp_get_thread_num() * P;
+            #pragma omp for schedule(static)
+            for (long u = u0; u < u1; u++) {
+                long gc = mp[2 * u], gd = mp[2 * u + 1];
+                for (long pcx = IC->start[gc]; pcx < IC->start[gc + 1]; pcx++) {
+                    uint64_t xc = hT - hs[2][pcx];
+                    for (long pd = ID->start[gd]; pd < ID->start[gd + 1]; pd++) {
+                        uint64_t x = xc - hs[3][pd]; if (x == ~0ULL) x--;
+                        my[pbits ? mixp(x) >> sh : 0]++;
+                    }
+                }
+            }
+        }
+        long *cstart = malloc(sizeof(long) * (P + 1)); run = 0;
+        for (long p = 0; p < P; p++) { cstart[p] = run; for (int t = 0; t < nt; t++) { off[(size_t)t * P + p] = run; run += pc[(size_t)t * P + p]; } }
+        cstart[P] = run;
+        #pragma omp parallel
+        {
+            long *my = off + (size_t)omp_get_thread_num() * P;
+            #pragma omp for schedule(static)
+            for (long u = u0; u < u1; u++) {
+                long gc = mp[2 * u], gd = mp[2 * u + 1];
+                for (long pcx = IC->start[gc]; pcx < IC->start[gc + 1]; pcx++) {
+                    uint64_t xc = hT - hs[2][pcx];
+                    for (long pd = ID->start[gd]; pd < ID->start[gd + 1]; pd++) {
+                        uint64_t x = xc - hs[3][pd]; if (x == ~0ULL) x--;
+                        long i = my[pbits ? mixp(x) >> sh : 0]++;
+                        ck[i] = x; cc_[i] = IC->idx[pcx]; cd_[i] = ID->idx[pd];
+                    }
+                }
+            }
+        }
+        ncd += run;
+        #pragma omp parallel for schedule(dynamic, 1) reduction(+:fnd)
+        for (long p = 0; p < P; p++) {
+            const uint32_t *tb = tab + tstart[p]; uint64_t m_ = tstart[p + 1] - tstart[p] - 1;
+            const uint64_t *pk_ = ek + pstart[p];
+            for (long i = cstart[p]; i < cstart[p + 1]; i++) {
+                uint64_t x = ck[i];
+                uint64_t slot = (x * 0x9E3779B97F4A7C15ULL) & m_;
+                while (tb[slot]) {
+                    long j = tb[slot] - 1;
+                    if (pk_[j] == x) {
+                        long a = ea[pstart[p] + j], b = eb[pstart[p] + j], c = cc_[i], d = cd_[i];
+                        const int16_t *va = V[0] + (size_t)D * a, *vb = V[1] + (size_t)D * b, *vc = V[2] + (size_t)D * c, *vd = V[3] + (size_t)D * d;
+                        int ok = 1; for (int q = 0; q < D; q++) if (va[q] + vb[q] + vc[q] + vd[q] != T[q]) { ok = 0; break; }
+                        if (ok) {
+                            fnd++;
+                            #pragma omp critical
+                            { if (*found < K) { printf("SOL %ld %ld %ld %ld\n", a, b, c, d); fflush(stdout); } (*found)++; }
+                        }
+                    }
+                    slot = (slot + 1) & m_;
+                }
+            }
+        }
+        free(cstart);
+        u0 = u1;
+    }
+    free(ck); free(cc_); free(cd_); free(tab); free(tstart); free(ek); free(ea); free(eb); free(off); free(pstart); free(pc);
+    *ncd_out = ncd; *fnd_out = fnd;
+}
+
 int main(int argc, char **argv) {
     if (argc < 4) { fprintf(stderr, "usage: kt4 input.bin S0,S1,.. NSIG [K]\n"); return 2; }
     /* the lists are memory-mapped from the input file (read-only, paged in on demand) */
@@ -98,7 +241,7 @@ int main(int argc, char **argv) {
         #pragma omp parallel for
         for (long i = 0; i < n[L]; i++) { uint64_t x = 0; const int16_t *v = V[L] + (size_t)D * i; for (int c = 0; c < D; c++) x += Rh[c] * (uint64_t)(int64_t)v[c]; h[L][i] = x; }
     }
-    uint64_t hT = 0; for (int c = 0; c < D; c++) hT += Rh[c] * (uint64_t)(int64_t)T[c];
+    hT = 0; for (int c = 0; c < D; c++) hT += Rh[c] * (uint64_t)(int64_t)T[c];
     /* means, lattices and offsets for the S classes */
     double mu[4][5]; int g[5], vmin[5], vmax[5];
     for (int s = 0; s < NS; s++) {
@@ -228,50 +371,54 @@ int main(int argc, char **argv) {
         }
         long cnt = npairs[0];
         if (cnt > MAXPAIRS) { fprintf(stderr, "kt4: sigma %ld: %ld pairs exceed the cap, skipped\n", ci + 1, cnt); continue; }
-        long cap = 1; while (cap < 2 * cnt + 2) cap <<= 1;
-        uint64_t *hk = malloc(8 * cap); uint32_t *ha = malloc(4 * cap), *hb = malloc(4 * cap);
-        memset(hk, 0xff, 8 * cap);
-        uint64_t mask = cap - 1;
-        #pragma omp parallel for schedule(dynamic, 64)
-        for (long u = 0; u < nm[0]; u++) {
-            long ga = mp[2 * u], gb = mp[2 * u + 1];
-            for (long pa = IA.start[ga]; pa < IA.start[ga + 1]; pa++) {
-                uint64_t xa = hs[0][pa];
-                for (long pb = IB.start[gb]; pb < IB.start[gb + 1]; pb++) {
-                    uint64_t x = xa + hs[1][pb]; if (x == ~0ULL) x--;
-                    uint64_t slot = (x * 0x9E3779B97F4A7C15ULL) & mask;
-                    while (1) {
-                        uint64_t cur = __atomic_load_n(&hk[slot], __ATOMIC_RELAXED);
-                        if (cur == ~0ULL && __atomic_compare_exchange_n(&hk[slot], &cur, x, 0, __ATOMIC_RELAXED, __ATOMIC_RELAXED)) {
-                            ha[slot] = (uint32_t)IA.idx[pa]; hb[slot] = (uint32_t)IB.idx[pb]; break;
+        long long ncd = 0; long fnd = 0;
+        if (cnt >= RADIX_MIN) {                                       /* partitioned join: every table fits in cache */
+            radix_join(nm, mp, cnt, &IA, &IB, &IC, &ID, hs, &ncd, &fnd, &found, K);
+        } else {
+            long cap = 1; while (cap < 2 * cnt + 2) cap <<= 1;
+            uint64_t *hk = malloc(8 * cap); uint32_t *ha = malloc(4 * cap), *hb = malloc(4 * cap);
+            memset(hk, 0xff, 8 * cap);
+            uint64_t mask = cap - 1;
+            #pragma omp parallel for schedule(dynamic, 64)
+            for (long u = 0; u < nm[0]; u++) {
+                long ga = mp[2 * u], gb = mp[2 * u + 1];
+                for (long pa = IA.start[ga]; pa < IA.start[ga + 1]; pa++) {
+                    uint64_t xa = hs[0][pa];
+                    for (long pb = IB.start[gb]; pb < IB.start[gb + 1]; pb++) {
+                        uint64_t x = xa + hs[1][pb]; if (x == ~0ULL) x--;
+                        uint64_t slot = (x * 0x9E3779B97F4A7C15ULL) & mask;
+                        while (1) {
+                            uint64_t cur = __atomic_load_n(&hk[slot], __ATOMIC_RELAXED);
+                            if (cur == ~0ULL && __atomic_compare_exchange_n(&hk[slot], &cur, x, 0, __ATOMIC_RELAXED, __ATOMIC_RELAXED)) {
+                                ha[slot] = (uint32_t)IA.idx[pa]; hb[slot] = (uint32_t)IB.idx[pb]; break;
+                            }
+                            slot = (slot + 1) & mask;
                         }
-                        slot = (slot + 1) & mask;
                     }
                 }
             }
-        }
-        long long ncd = 0; long fnd = 0;
-        #pragma omp parallel for schedule(dynamic, 64) reduction(+:ncd, fnd)
-        for (long u = nm[0]; u < nm[0] + nm[1]; u++) {
-            long gc = mp[2 * u], gd = mp[2 * u + 1];
-            for (long pc = IC.start[gc]; pc < IC.start[gc + 1]; pc++) {
-                uint64_t xc = hT - hs[2][pc];
-                for (long pd = ID.start[gd]; pd < ID.start[gd + 1]; pd++) {
-                    ncd++;
-                    uint64_t x = xc - hs[3][pd]; if (x == ~0ULL) x--;
-                    uint64_t slot = (x * 0x9E3779B97F4A7C15ULL) & mask;
-                    while (hk[slot] != ~0ULL) {
-                        if (hk[slot] == x) {
-                            long a = ha[slot], b = hb[slot], c = IC.idx[pc], d = ID.idx[pd];
-                            const int16_t *va = V[0] + (size_t)D * a, *vb = V[1] + (size_t)D * b, *vc = V[2] + (size_t)D * c, *vd = V[3] + (size_t)D * d;
-                            int ok = 1; for (int q = 0; q < D; q++) if (va[q] + vb[q] + vc[q] + vd[q] != T[q]) { ok = 0; break; }
-                            if (ok) {
-                                fnd++;
-                                #pragma omp critical
-                                { if (found < K) { printf("SOL %ld %ld %ld %ld\n", a, b, c, d); fflush(stdout); } found++; }
+            #pragma omp parallel for schedule(dynamic, 64) reduction(+:ncd, fnd)
+            for (long u = nm[0]; u < nm[0] + nm[1]; u++) {
+                long gc = mp[2 * u], gd = mp[2 * u + 1];
+                for (long pc = IC.start[gc]; pc < IC.start[gc + 1]; pc++) {
+                    uint64_t xc = hT - hs[2][pc];
+                    for (long pd = ID.start[gd]; pd < ID.start[gd + 1]; pd++) {
+                        ncd++;
+                        uint64_t x = xc - hs[3][pd]; if (x == ~0ULL) x--;
+                        uint64_t slot = (x * 0x9E3779B97F4A7C15ULL) & mask;
+                        while (hk[slot] != ~0ULL) {
+                            if (hk[slot] == x) {
+                                long a = ha[slot], b = hb[slot], c = IC.idx[pc], d = ID.idx[pd];
+                                const int16_t *va = V[0] + (size_t)D * a, *vb = V[1] + (size_t)D * b, *vc = V[2] + (size_t)D * c, *vd = V[3] + (size_t)D * d;
+                                int ok = 1; for (int q = 0; q < D; q++) if (va[q] + vb[q] + vc[q] + vd[q] != T[q]) { ok = 0; break; }
+                                if (ok) {
+                                    fnd++;
+                                    #pragma omp critical
+                                    { if (found < K) { printf("SOL %ld %ld %ld %ld\n", a, b, c, d); fflush(stdout); } found++; }
+                                }
                             }
+                            slot = (slot + 1) & mask;
                         }
-                        slot = (slot + 1) & mask;
                     }
                 }
             }
@@ -280,7 +427,6 @@ int main(int argc, char **argv) {
         fprintf(stderr, "kt4: sigma %ld/%ld (", ci + 1, NSIG);
         for (int s = 0; s < NS; s++) fprintf(stderr, "%d%s", sig[s], s + 1 < NS ? "," : "");
         fprintf(stderr, "): pairs AB %ld CD %lld, found %ld (total %ld) [%.0fs]\n", cnt, ncd, fnd, found, now() - t0);
-        free(hk); free(ha); free(hb);
     }
     printf("TOTAL %ld %lld %lld\n", found, totAB, totCD);
     return 0;
