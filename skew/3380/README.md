@@ -67,16 +67,49 @@ The certificate does not depend on the search: `verify/verify.py` rebuilds and c
 
 ## Status
 
-To our knowledge this is the first skew-Hadamard matrix of order 3380, and the doubling 6760 = 8 · 845 is new too.
+To our knowledge this is the first skew-Hadamard matrix of order 3380, and its doubling 6760 is new too.
 
-- The Đoković–Seberry census of skew orders 4v for odd v < 2500 (PDF of 2025-05-28) lists 845 among its undecided
+- The Đoković–Seberry census of skew orders 4v for odd v < 2500 (PDF of 2025-05-28) lists 845 among its 737 undecided
   values.
-- Cati–Pasechnik Table 5 (arXiv:2411.18897) gives 845(4): the smallest known skew order with odd part 845 was
-  16 · 845 = 13520.
+- Cati–Pasechnik Table 5 (arXiv:2411.18897, v1 and v2) gives 845(4), one of their own updates (Williamson's product
+  theorem): the smallest known skew order with odd part 845 was 16 · 845 = 13520 = 676 · (19 + 1).
+- An *ordinary* Hadamard matrix of order 3380 is known (Cati–Pasechnik Table 4 has no entry for 845). Only the skew
+  property is new.
 
-**Novelty checklist:** pending (a literature audit in the format of [skew/1204](../1204/README.md) is being run).
+**Novelty checklist** (audit of 2026-10-13 by a research agent):
 
-Doubling (Seberry) gives skew orders 6760, 13520 (already known), …
+1. **The Đoković–Seberry census** (PDF of 2025-05-28, downloaded again; byte-identical to the cached copy)
+   - It lists 845 among the undecided v ("… 841, 845, 849 …").
+   - 845 is in none of its series (Paley-3 would need 3379 = 31 · 109 a prime power, Szekeres 1689 = 3 · 563) nor
+     among its 41 sporadic values. No later version was found.
+2. **Cati–Pasechnik** (v1 and v2): Table 5 gives 845(4), marked as their update by Williamson's construction (their
+   Theorem 9). Table 3 ends at n = 299. The first skew order missing from Sage is 1252.
+3. **Surveys and papers.** Seberry–Yamada 1992, Table 7.1 (p. 500): "845 6". The e-prints of 40 Đoković and
+   Đoković–Kotsireas papers (including those on abelian groups, arXiv:1801.07627 and 1802.00556) and of Momihara–Xiang
+   contain none of 3380, 6760, 13520 or 845.
+4. **SageMath** (develop of 2026-10-11, master and passagemath; read from the source, not run):
+   `skew_hadamard_matrix(n, existence=True)` gives Unknown for 3380 and 6760 and True for 13520 (Williamson, 19 and
+   676).
+5. **2026 deposits**: none mentions 3380 or 6760 (Alpöge et al., Schneider, JD-Jones-ASES, Schumer, Piza, Kline,
+   Bedani, Karoui). Zenodo searches for skew 3380 and for Hadamard 3380, 6760 and 13520 return nothing; GitHub code
+   search gives only false positives.
+6. **arXiv**: the e-prints of 157 Hadamard-related papers of 2024–2026 and 94 older ones; the only match is Cati–
+   Pasechnik's Table 5 entry.
+7. **No classical construction gives skew 3380 or 6760**:
+   - Paley I: 3379 and 6759 are not prime powers. Szekeres, Spence, Wallis–Whiteman and Momihara–Xiang (2(qᵉ + 1) and
+     4(qᵉ + 1)): 1689, 3379 and 844 are not prime powers. Spence 4(q² + q + 1): no q.
+   - Williamson's product n(pᵏ + 1): the cofactors 845, 169, 1690, 338 and 65 are not skew orders.
+   - Seberry's mn(n − 1) works only with n = 2, which needs an OD(3380; 1, 1690, 1689) or OD(6760; 1, 3380, 3379); no
+     source gives either.
+   - Skew times amicable (order hg): every split needs a skew matrix of order 3380 itself. A halved product rule
+     (order hg/2) would give 6760 from 676 and 20, but Seberry–Yamada state only hg, and Cati–Pasechnik's 177(4) and
+     253(4) would read 3 under such a rule.
+   - Doubling: 8 ∤ 3380, and 6760 needs 3380.
+
+Not checked: Koukouvinos–Stylianou 2008 (Table 1), the Seberry–Yamada 2020 book (Table 9.2), Seberry 2017, the Handbook
+(2007) and paywalled 2025–2026 journals. This is a finding of nothing, not a proof that no earlier construction exists.
+
+Doubling (Seberry) gives skew orders 6760 (new, see above), 13520 (already known), …
 
 ## Files
 

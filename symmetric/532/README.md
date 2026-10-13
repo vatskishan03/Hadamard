@@ -64,10 +64,41 @@ To our knowledge this is the first symmetric Hadamard matrix of order 532.
 
 - The Đoković–Seberry census of symmetric and skew Hadamard matrices of order 4v for odd v < 2500 (PDF of
   2025-05-28) lists 133 among its 595 undecided values for symmetric matrices.
-- Ordinary and skew Hadamard matrices of order 532 are known (133 is not among the census's undecided skew values);
-  only the symmetry is new.
+- Ordinary and skew Hadamard matrices of order 532 are classical (Cati–Pasechnik Table 2: "133 CW(7)"; Table 3:
+  "133 SDS"); only the symmetry is new.
 
-**Novelty checklist:** pending (a literature audit is being run).
+**Novelty checklist** (audit of 2026-10-13 by a research agent):
+
+1. **The Đoković–Seberry census** (PDF of 2025-05-28, downloaded again, unchanged): "the 595 odd values of v < 2500
+   for which the existence of symmetric Hadamard matrices of order 4v is undecided: 65, 89, 101, 107, 119, 133, …".
+   133 is in none of its eight symmetric series nor among its 12 sporadic values. No later version was found.
+2. **The propus literature** lists 133 as open and contains no 532: Seberry–Balonin (arXiv:1512.01732; Australas. J.
+   Combin. 69 (2017)): unresolved n < 200 include 133; Balonin–Đoković (arXiv:1803.08787): "all odd v < 200 except
+   for 59, 65, 81, 89, 93, 101, 107, 119, 127, 133, …"; Đoković (arXiv:2101.05429v2): "reduces to v = 65, 89, 93,
+   101, 107, 119, 133, …". Also read: arXiv:1503.04226, 1708.05098, 1710.03037, 1802.00556, 1801.07627, 1508.00640,
+   2301.02751, 2404.14375, 2508.17141 (which settles 4 · 189 and 4 · 473) and Abuzin et al. (2019).
+3. **Cati–Pasechnik** (v2 of 2025-08-30) have no symmetric tables ("a similar programme for symmetric Hadamard
+   matrices … is planned"). **SageMath** (develop of 2026-10-11, read from the source) has no general symmetric
+   constructor; its symmetric routes (regular symmetric matrices with constant diagonal, conference matrices of order
+   266, amicable pairs with 531 a prime power) do not apply.
+4. **Handbook of Combinatorial Designs (2007), Table V.1.52** (web copy): "Odd n < 200 for which a symmetric Hadamard
+   matrix of order 4n is not known … 133(3)".
+5. **2026 deposits**: none contains a symmetric matrix of order 532 (Alpöge et al., Schneider, JD-Jones-ASES,
+   Schumer, Kline, Bedani, Karoui; Piza gives "532 = CW(7, 19)", an ordinary matrix). Kharaghani, Mohammadian,
+   Tayfeh-Rezaie and Zaitsev (arXiv:2605.08661v2, September 2026) publish near-Williamson matrices of order 133, which
+   give an ordinary matrix of order 532; no two of their four blocks share an autocorrelation, so they do not fill
+   the propus array. Searches of Zenodo, GitHub and arXiv found nothing else.
+6. **No classical route gives a symmetric matrix of order 532**: Paley II needs q = 265 = 5 · 53; a conference matrix
+   of order 266 is unknown (it needs an SRG(265, 132, 65, 66), marked "?" in Brouwer's table); Kronecker products and
+   doubling would need Hadamard matrices of order 266 or 133, which cannot exist; the families of Seberry–Whiteman,
+   Turyn, Mathon, Muzychuk–Xiang, Seberry–Balonin (q = 131 ≡ 3 (mod 4)) and Đoković's q(q + 1) fail by arithmetic;
+   Miyamoto would need a conference matrix of order 134 (133 is not a sum of two squares); two-circulant
+   constructions need 532 = a² + b², which is impossible.
+
+Not checked: the Seberry–Yamada 2020 book, a print copy of the Handbook, MathSciNet and zbMATH, and paywalled
+2025–2026 journals. This is a finding of nothing, not a proof that no earlier construction exists.
+
+Doubling ([[H, H], [H, −H]]) gives symmetric Hadamard matrices of orders 1064, 2128, …
 
 ## Files
 
