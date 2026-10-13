@@ -25,10 +25,11 @@ e = 10 (F = 31) exactly one spike fits, with s = +-2 and f = -sign(s), so y = +-
 4. join3.c joins the four lists exactly: level-B group quadruples by hash, then the level-C vectors inside each
    quadruple. Each hit is rebuilt on Z_v and its autocorrelations are checked before it is recorded.
 
-  python3 attack/cyclo_product.py v --q Q --e E [--plain] [--config I] [--K N] [--sub G] [--maxquads N]
+  python3 attack/cyclo_product.py v --q Q --e E [--plain] [--kgen k] [--config I] [--K N] [--sub G] [--maxquads N]
       --plain      ordinary Goethals-Seidel quadruple (no skew block)
+      --kgen k     also impose invariance under the multipliers <k> of Z_m (acting on the Z_m coordinate)
       --config I   which stage-1 class to search (default 0; --list prints them)
-      --sub G      keep only the G largest level-B groups of list 0 (partial search, for plain structures)
+      --sub G      keep only the G largest level-B groups of every list (partial search)
   Hits go to $HADAMARD_WORK/skew_hits.jsonl (skew) or had_hits.jsonl (plain).
 """
 import argparse, itertools, json, math, os, struct, subprocess, sys, tempfile, time
@@ -45,20 +46,38 @@ def primitive_root(p):
 
 
 class Structure:
-    def __init__(self, v, q, e, skew=True):
+    def __init__(self, v, q, e, skew=True, kgen=1):
         assert v % q == 0 and (v // q) % q, "q must divide v exactly once"
         self.v, self.q, self.e, self.m, self.skew = v, q, e, v // q, skew
-        assert (q - 1) % e == 0 and ((q - 1) // e) % 2 == 1, "need e | q - 1 with (q - 1)/e odd"
+        assert (q - 1) % e == 0, "need e | q - 1"
+        assert not skew or ((q - 1) // e) % 2 == 1, "skew needs (q - 1)/e odd (-1 not an e-th power)"
         self.F = (q - 1) // e
         g = primitive_root(q); self.g = g
         ind = np.zeros(q, dtype=np.int64); x = 1
         for k in range(q - 1): ind[x] = k; x = x * g % q
         self.cls = np.full(q, -1, dtype=np.int64); self.cls[1:] = ind[1:] % e
-        self.half = int(self.cls[q - 1])                      # class of -1, = e/2
-        assert self.half == e // 2
+        assert e % 2 == 0, "e must be even"
+        self.half = int(self.cls[q - 1])                      # class of -1: e/2 if (q-1)/e is odd, else 0
+        self.nb = e // 2 if self.half else e                  # level-B dimensions: classes up to negation
         ge = pow(g, e, q)
         self.h = next(t for t in range(1, v) if t % self.m == 1 and t % q == ge)
         self.reps = [0] + [int(np.flatnonzero(self.cls == c)[0]) for c in range(e)]
+        # optional multiplier subgroup K_m = <kgen> of Z_m^*, acting on the Z_m coordinate
+        m = self.m; self.kgen = kgen % m if m > 1 else 1
+        K = {1}
+        while True:
+            K2 = K | {k * self.kgen % m for k in K}
+            if K2 == K: break
+            K = K2
+        self.K = sorted(K)
+        self.korb = np.full(m, -1, dtype=np.int64); self.kreps = []
+        for a in range(m):
+            if self.korb[a] < 0:
+                for k in self.K: self.korb[a * k % m] = len(self.kreps)
+                self.kreps.append(a)
+        if skew and m > 1:
+            assert all(self.korb[(-a) % m] != self.korb[a] for a in range(1, m)), "-1 in K_m: no skew block"
+        self.gens = [self.h] + ([next(t for t in range(1, v) if t % m == self.kgen and t % q == 1)] if len(self.K) > 1 else [])
 
     # ---- slice patterns: id = (fbit << e) | mask, f = 1 - 2 fbit, x_j = 1 - 2 bit_j ------------------------------
     def pattern(self, pid):
@@ -138,6 +157,8 @@ def stage1(S, maxpairs=3e7, maxopts=3e6):
                     fs = [(1, 0)] + fs + [(-f, -s) for f, s in reversed(fs)]
                 Y.append([f + F * s for f, s in fs]); C.append(c0)
         Y = np.array(Y, dtype=np.int64).reshape(-1, m); C = np.array(C, dtype=np.int64)
+        if len(S.K) > 1:                                              # K_m-invariant compressions only
+            keep = np.all(Y == Y[:, (S.kgen * np.arange(m)) % m], axis=1); Y, C = Y[keep], C[keep]
         P = np.stack([(Y * np.roll(Y, -b, axis=1)).sum(1) for b in range(1, m // 2 + 1)], axis=1) if m > 1 else np.zeros((len(Y), 0), np.int64)
         return Y, C, P
     L = [options(S.skew and k == 0) for k in range(4)]
@@ -147,7 +168,7 @@ def stage1(S, maxpairs=3e7, maxopts=3e6):
         best = None
         for sgn in (1, -1):
             for r in (1, -1):
-                for t in range(m):
+                for t in (range(m) if len(S.K) == 1 else [0]):     # translations break K_m-invariance
                     Z = sgn * Y[:, (r * np.arange(m) + t) % m]
                     if best is None: best = Z.copy(); continue
                     lt = np.zeros(len(Y), bool); eq = np.ones(len(Y), bool)
@@ -194,24 +215,37 @@ def fs_of(S, yv):
 
 
 def members(S, y, skewblock):
-    """Array [n x m] of pattern ids, position by position."""
-    m = S.m
+    """Array [n x m] of pattern ids, position by position (constant on the K_m-orbits of positions)."""
+    m = S.m; R = S.kreps; orb = S.korb
     if skewblock:
-        half = [S.patterns(*fs_of(S, y[a])) for a in range(1, m // 2 + 1)]
+        pairs = []                                     # orbit representatives r with -r in a different orbit, r first
+        seen = {0}
+        for r in R:
+            if orb[r] in seen: continue
+            pairs.append(r); seen.add(orb[r]); seen.add(orb[(-r) % m])
+        half = [S.patterns(*fs_of(S, y[r])) for r in pairs]
         rows = []
         for p0 in S.skew0():
             for combo in itertools.product(*half):
-                row = [p0] + list(combo) + [S.partner(p) for p in reversed(combo)]
+                row = [0] * m
+                for a in range(m):
+                    if orb[a] == orb[0]: row[a] = p0
+                for r, p in zip(pairs, combo):
+                    pp = S.partner(p)
+                    for a in range(m):
+                        if orb[a] == orb[r]: row[a] = p
+                        elif orb[a] == orb[(-r) % m]: row[a] = pp
                 rows.append(row)
         return np.array(rows, dtype=np.int64)
-    cols = [np.array(S.patterns(*fs_of(S, y[a])), dtype=np.int64) for a in range(m)]
+    cols = [np.array(S.patterns(*fs_of(S, y[r])), dtype=np.int16) for r in R]
     grids = np.meshgrid(*cols, indexing='ij')
-    return np.stack([g.ravel() for g in grids], axis=1)
+    G = np.stack([g.ravel() for g in grids], axis=1)
+    return G[:, orb]
 
 
 def level_vectors(S, Pm, idx, CC, chunk=1 << 21):
     """Level-B (e/2) and level-C ((m-1)/2 * e) vectors of the members Pm [n x m] (pattern ids -> rows of CC via idx)."""
-    m, e, h = S.m, S.e, S.e // 2
+    m, e, h = S.m, S.e, S.nb
     n = len(Pm); B = np.empty((n, h), dtype=np.int16); C = np.empty((n, (m // 2) * e), dtype=np.int16)
     for c0 in range(0, n, chunk):
         X = idx[Pm[c0:c0 + chunk]]
@@ -230,42 +264,65 @@ def grouped(B, C):
     return B[order[brk]], offs, C[order], order.astype(np.int64)
 
 
-def run(v, q, e, plain=False, config=0, K=5, sub=0, maxquads=-1, threads=None, listonly=False):
+def run(v, q, e, plain=False, config=0, K=5, sub=0, maxquads=-1, threads=None, listonly=False, kgen=1):
     t0 = time.time(); log = lambda s: print(s, flush=True)
-    S = Structure(v, q, e, skew=not plain)
+    S = Structure(v, q, e, skew=not plain, kgen=kgen)
     quads = stage1(S)
-    log(f"v={v} = {S.m}*{q}, e={e}, F={S.F}, H=<{S.h}> of order {S.F}, {'plain' if plain else 'skew'}: "
+    log(f"v={v} = {S.m}*{q}, e={e}, F={S.F}, H=<{', '.join(map(str, S.gens))}> of order {S.F * len(S.K)}, {'plain' if plain else 'skew'}: "
         f"{len(quads)} stage-1 classes [{time.time() - t0:.0f}s]")
     for i, qd in enumerate(quads):
         rs = [int(sum(y)) for y in qd]
         log(f"  config {i}: y = {qd}, row sums {rs}")
     if listonly or not quads: return []
     qd = quads[config]
-    Pms = [members(S, qd[k], S.skew and k == 0) for k in range(4)]
-    used = sorted(set(np.concatenate([P.ravel() for P in Pms]).tolist()))
+    Pms = [members(S, qd[k], S.skew and k == 0).astype(np.int16) for k in range(4)]   # pattern ids < 2^(e+1)
+    used = sorted(set(np.concatenate([np.unique(P) for P in Pms]).tolist()))
     idx = np.full(1 << (e + 1), -1, dtype=np.int64); idx[used] = np.arange(len(used))
     CC = S.cc_table(used)
     log(f"  config {config}: list sizes {[len(P) for P in Pms]}, {len(used)} slice patterns [{time.time() - t0:.0f}s]")
-    G = []
-    for k in range(4):
-        B, C = level_vectors(S, Pms[k], idx, CC)
-        G.append(grouped(B, C))
-    order = sorted(range(4), key=lambda k: len(G[k][0]))            # fewest level-B groups first (hashed pair)
-    if sub:
-        Bg, offs, Cs, ids = G[order[0]]
-        sz = np.diff(offs); pick = np.sort(np.argsort(-sz)[:sub])
-        rows = np.concatenate([np.arange(offs[g], offs[g + 1]) for g in pick])
-        G[order[0]] = (Bg[pick], np.r_[0, np.cumsum(sz[pick])].astype(np.int64), Cs[rows], ids[rows])
-    log(f"  level-B groups {[len(G[k][0]) for k in range(4)]}, join order {order} [{time.time() - t0:.0f}s]")
-    fd, path = tempfile.mkstemp(suffix='.bin', dir=W.tmpdir()); os.close(fd)
+    parts, ngroups = [], []
     try:
-        with open(path, 'wb') as f:
-            f.write(struct.pack('ii', S.e // 2, (S.m // 2) * S.e))
-            for k in order:
-                Bg, offs, Cs, ids = G[k]
+        for k in range(4):                         # one block at a time, grouped and written to its own file
+            B, C = level_vectors(S, Pms[k], idx, CC)
+            Bg, offs, Cs, ids = grouped(B, C); del B, C
+            fd, pk = tempfile.mkstemp(suffix=f'.b{k}', dir=W.tmpdir()); os.close(fd)
+            with open(pk, 'wb') as f:
                 f.write(struct.pack('iiq', len(Bg), 0, len(ids))); f.write(np.ascontiguousarray(Bg).tobytes())
                 f.write(offs.tobytes()); f.write(np.ascontiguousarray(Cs).tobytes()); f.write(ids.tobytes())
-        del G
+            parts.append(pk); ngroups.append(len(Bg)); del Bg, offs, Cs, ids
+        order = sorted(range(4), key=lambda k: ngroups[k])           # fewest level-B groups first (hashed pair)
+        if sub:                                    # keep the `sub` largest level-B groups of every list (partial search)
+            dc = (S.m // 2) * S.e
+            for k0 in range(4):
+                with open(parts[k0], 'rb') as f:
+                    nG, _, N = struct.unpack('iiq', f.read(16))
+                    Bg = np.frombuffer(f.read(2 * S.nb * nG), np.int16).reshape(nG, S.nb)
+                    offs = np.frombuffer(f.read(8 * (nG + 1)), np.int64)
+                    Cs = np.frombuffer(f.read(2 * dc * N), np.int16).reshape(N, dc)
+                    ids = np.frombuffer(f.read(8 * N), np.int64)
+                if nG <= sub: continue
+                sz = np.diff(offs); pick = np.sort(np.argsort(-sz, kind='stable')[:sub])
+                rows = np.concatenate([np.arange(offs[g], offs[g + 1]) for g in pick])
+                with open(parts[k0], 'wb') as f:
+                    f.write(struct.pack('iiq', len(pick), 0, len(rows))); f.write(np.ascontiguousarray(Bg[pick]).tobytes())
+                    f.write(np.r_[0, np.cumsum(sz[pick])].astype(np.int64).tobytes())
+                    f.write(np.ascontiguousarray(Cs[rows]).tobytes()); f.write(ids[rows].tobytes())
+                log(f"  list {k0}: kept the {len(pick)} largest groups, {len(rows)} of {N} members")
+                ngroups[k0] = len(pick)
+            order = sorted(range(4), key=lambda k: ngroups[k])
+        log(f"  level-B groups {ngroups}, join order {order} [{time.time() - t0:.0f}s]")
+        fd, path = tempfile.mkstemp(suffix='.bin', dir=W.tmpdir()); os.close(fd)
+        parts.append(path)
+        with open(path, 'wb') as f:
+            f.write(struct.pack('ii', S.nb, (S.m // 2) * S.e))
+            for k in order:
+                with open(parts[k], 'rb') as g:
+                    while True:
+                        buf = g.read(1 << 26)
+                        if not buf: break
+                        f.write(buf)
+        for k in range(4): os.remove(parts[k])
+        parts = [path]
         env = dict(os.environ)
         if threads: env['OMP_NUM_THREADS'] = str(threads)
         p = subprocess.Popen([W.bin('join3'), path, str(K), str(maxquads)], stdout=subprocess.PIPE, text=True, env=env)
@@ -275,14 +332,14 @@ def run(v, q, e, plain=False, config=0, K=5, sub=0, maxquads=-1, threads=None, l
                 ids = list(map(int, line.split()[1:]))
                 mem = [None] * 4
                 for slot, k in enumerate(order): mem[k] = ids[slot]
-                seqs = [S.sequence(Pms[k][mem[k]]) for k in range(4)]
+                seqs = [S.sequence(Pms[k][mem[k]].astype(np.int64)) for k in range(4)]
                 tot = verify.paf_sum(seqs)
                 ok = tot[0] == 4 * v and not tot[1:].any()
                 if S.skew: ok = ok and seqs[0][0] == 1 and all(seqs[0][(-t) % v] == -seqs[0][t] for t in range(1, v))
                 log(f"  hit: autocorrelations {'ok' if ok else 'WRONG'}, row sums {[int(x.sum()) for x in seqs]} [{time.time() - t0:.0f}s]")
                 if ok:
-                    rec = dict(n=v, gens=[S.h], pattern=[int(x.sum()) for x in seqs], hadamard=True, skew=S.skew,
-                               method=f'cyclo_product q={q} e={e} config={config}',
+                    rec = dict(n=v, gens=S.gens, pattern=[int(x.sum()) for x in seqs], hadamard=True, skew=S.skew,
+                               method=f'cyclo_product q={q} e={e} kgen={kgen} config={config}',
                                seqs=[''.join('+' if z > 0 else '-' for z in x) for x in seqs])
                     with open(W.hits() if S.skew else W.hits('had_hits.jsonl'), 'a') as fh: fh.write(json.dumps(rec) + '\n')
                     found.append(rec)
@@ -290,7 +347,8 @@ def run(v, q, e, plain=False, config=0, K=5, sub=0, maxquads=-1, threads=None, l
                 log(f"  join3: {line.strip()} [{time.time() - t0:.0f}s]")
         p.wait()
     finally:
-        os.remove(path)
+        for pth in parts:
+            if os.path.exists(pth): os.remove(pth)
     return found
 
 
@@ -300,6 +358,6 @@ if __name__ == '__main__':
     ap.add_argument('--plain', action='store_true'); ap.add_argument('--config', type=int, default=0)
     ap.add_argument('--K', type=int, default=5); ap.add_argument('--sub', type=int, default=0)
     ap.add_argument('--maxquads', type=int, default=-1); ap.add_argument('--threads', type=int)
-    ap.add_argument('--list', action='store_true')
+    ap.add_argument('--list', action='store_true'); ap.add_argument('--kgen', type=int, default=1)
     a = ap.parse_args()
-    run(a.v, a.q, a.e, a.plain, a.config, a.K, a.sub, a.maxquads, a.threads, a.list)
+    run(a.v, a.q, a.e, a.plain, a.config, a.K, a.sub, a.maxquads, a.threads, a.list, a.kgen)
