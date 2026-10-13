@@ -17,6 +17,7 @@ WORK.mkdir(parents=True, exist_ok=True)
 _FLAGS = {'find4b': ['-O3', '-march=native', '-fopenmp'],
           'join3': ['-O3', '-march=native', '-fopenmp'],
           'join4x': ['-O3', '-march=native', '-fopenmp'],
+          'kt4': ['-O3', '-march=native', '-fopenmp', '-lm'],
           'match4': ['-O3', '-march=native', '-fopenmp', '-lm'],
           'skew_gen': ['-O3', '-march=native', '-fopenmp'],
           'spin_ls': ['-O3', '-march=native'],
