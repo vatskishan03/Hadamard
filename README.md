@@ -165,6 +165,7 @@ Other top-level contents:
 - [`search`](search): the programs that found the Goethals–Seidel orders.
 - [`METHOD.md`](METHOD.md): how the search works.
 - [`FRONTIER.md`](FRONTIER.md): the unresolved orders up to 4 · 2999, with the cheapest structure for each and its predicted cost.
+- [`NOTES.md`](NOTES.md): what the October 2026 searches showed, including the structures that turned out empty.
 
 ## References
 
