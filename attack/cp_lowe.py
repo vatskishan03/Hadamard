@@ -15,6 +15,7 @@ The Gaussian estimate of the number of solutions inside the kept lists is printe
 to $HADAMARD_WORK/skew_hits.jsonl (had_hits.jsonl for plain structures)."""
 import argparse, itertools, json, math, os, struct, subprocess, sys, tempfile, time
 import numpy as np
+from math import comb
 from pathlib import Path as _P
 sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
 import workdir as W
@@ -135,6 +136,128 @@ class Block:
         return self.O.expand(rep_ids)
 
 
+class PrimeBlock:
+    """A non-skew block over GF(q) itself (m = 1): f at 0 and one sign per cyclotomic class, with a fixed class sum s.
+    The classes are split into G groups that play the part of positions: a member is one sub-pattern per group, its
+    key PAF(d_c), c < nb, is a quadratic form in the class signs (cyclotomic numbers) and splits into pair terms between
+    groups; the class sum is imposed through the tags of cp_enum."""
+
+    def __init__(self, S, y, G, N):
+        e, nb = S.e, S.nb
+        self.S, self.f, self.s = S, *CP.fs_of(S, y[0])
+        self.groups = [list(range(g * e // G, (g + 1) * e // G)) for g in range(G)]
+        self.n = [1 << len(g) for g in self.groups]
+        self.D = nb
+        self.sub = [np.array([[1 - 2 * ((i >> b) & 1) for b in range(len(g))] for i in range(1 << len(g))], dtype=np.int64)
+                    for g in self.groups]                          # sub-pattern index -> signs (bit set = -1)
+        self.tags = [x.sum(1) for x in self.sub]
+        h = S.half
+        self.T = {}
+        for a in range(G):
+            for b in range(a + 1):
+                ga, gb = self.groups[a], self.groups[b]
+                if a == b:
+                    M = N[:, ga][:, :, ga]                          # [c, i, j]
+                    quad = np.einsum('pi,cij,pj->pc', self.sub[a], M, self.sub[a])
+                    lin = np.zeros((self.n[a], nb), dtype=np.int64)
+                    for c in range(nb):                             # f (x_c + x_(c+h)) for the classes in this group
+                        for cc in (c, (c + h) % e):
+                            if cc in ga: lin[:, c] += self.f * self.sub[a][:, ga.index(cc)]
+                    T = np.zeros((self.n[a], self.n[a], nb), dtype=np.int64)
+                    d = np.arange(self.n[a]); T[d, d] = quad + lin
+                else:
+                    M = N[:, ga][:, :, gb] + N[:, gb][:, :, ga].transpose(0, 2, 1)
+                    T = np.einsum('pi,cij,qj->pqc', self.sub[a], M, self.sub[b])
+                self.T[a, b] = T
+        self.size = comb(e, (e + self.s) // 2)
+
+    def keys(self, I):
+        K = np.zeros((len(I), self.D), dtype=np.int64)
+        for (r1, r2), T in self.T.items(): K += T[I[:, r1], I[:, r2]]
+        return K
+
+    def sample(self, N_, rng):
+        """Uniform members: random sign vectors with class sum s, cut into groups."""
+        e = self.S.e; npos = (e + self.s) // 2
+        X = -np.ones((N_, e), dtype=np.int64)
+        idx = np.argsort(rng.random((N_, e)), axis=1)[:, :npos]
+        np.put_along_axis(X, idx, 1, axis=1)
+        return np.stack([((X[:, g] < 0) * (1 << np.arange(len(g)))).sum(1) for g in self.groups], axis=1)
+
+    def ids(self, I):
+        e = self.S.e; fb = 0 if self.f == 1 else 1
+        mask = np.zeros(len(I), dtype=np.int64)
+        for gi, g in enumerate(self.groups):
+            for b, c in enumerate(g): mask |= ((I[:, gi] >> b) & 1) << c
+        return ((fb << e) | mask)[:, None]
+
+
+def cyclotomic_numbers(S):
+    """N[c, i, j] = #{y in C_i : y + d_c in C_j} for the class representatives d_c, c < nb."""
+    q, e = S.q, S.e
+    N = np.zeros((S.nb, e, e), dtype=np.int64)
+    y = np.arange(1, q)
+    for c in range(S.nb):
+        d = S.reps[1 + c]; z = (y + d) % q; ok = z != 0
+        np.add.at(N[c], (S.cls[y[ok]], S.cls[z[ok]]), 1)
+    return N
+
+
+def prime_key(S, N, X, f):
+    """Keys PAF(d_c), c < nb, of sign vectors X [n x e] with value f at 0."""
+    h = S.half
+    K = np.einsum('ni,cij,nj->nc', X, N, X)
+    for c in range(S.nb): K[:, c] += f * (X[:, c] + X[:, (c + h) % S.e])
+    return K
+
+
+def prepare_prime(S, y, samples, rng, G=4):
+    """prepare() for m = 1: the skew block (2^(e/2) members) is enumerated directly, the other blocks are PrimeBlocks."""
+    e, h = S.e, S.e // 2
+    N = cyclotomic_numbers(S)
+    blocks, mus, sigs, full, Pm0 = [], [], [], [], None
+    for k in range(4):
+        if S.skew and k == 0:
+            half = np.array([[1 - 2 * ((i >> b) & 1) for b in range(h)] for i in range(1 << h)], dtype=np.int64)
+            X = np.concatenate([half, -half], axis=1)
+            K0 = np.concatenate([prime_key(S, N, X[i:i + 65536], 1) for i in range(0, len(X), 65536)])
+            Pm0 = (((X < 0) * (1 << np.arange(e))).sum(1))[:, None]
+            blocks.append(None); full.append(K0); mus.append(K0.mean(0)); sigs.append(np.cov(K0.T.astype(float)))
+            continue
+        blk = PrimeBlock(S, y[k], G, N)
+        I = blk.sample(samples, rng); K = blk.keys(I)
+        if k == 1 or (not S.skew and k == 0):                       # cross-check against the PAF of the sequences
+            for t in range(5):
+                x = S.sequence(blk.ids(I[t:t + 1])[0])
+                paf = np.rint(np.fft.irfft(np.abs(np.fft.rfft(x)) ** 2, n=S.v)).astype(np.int64)
+                assert np.array_equal(paf[[S.reps[1 + c] for c in range(S.nb)]], K[t]), 'prime pair tables disagree with the PAF'
+        blocks.append((blk, I, K)); full.append(None); mus.append(K.mean(0)); sigs.append(np.cov(K.T.astype(float)))
+    D = S.nb
+    sizes = [len(f) if f is not None else b[0].size for f, b in zip(full, blocks)]
+    est0, rank0, _ = gauss_estimate([f if f is not None else b[2] for f, b in zip(full, blocks)], np.zeros(D))
+    est0 += sum(math.log10(b[0].size / len(b[2])) for b in blocks if b is not None)
+    return dict(blocks=blocks, full=full, mus=mus, sigs=sigs, Pm0=Pm0, D=D, sizes=sizes, est0=est0, rank0=rank0)
+
+
+def stage1_prime(S):
+    """Stage-1 classes for m = 1: compressions y = f + F s of the blocks (skew block y = 1) with sum of squares 4v, up to
+    negation and order of the non-skew blocks."""
+    e, F, v = S.e, S.F, S.v
+    vals = sorted({abs(f + F * s) for s in range(-e, e + 1, 2) for f in (1, -1)})
+    lead = [1] if S.skew else vals
+    out = []
+    for y0 in lead:
+        for i, a in enumerate(vals):
+            for j, b in enumerate(vals[i:], i):
+                c2 = 4 * v - y0 * y0 - a * a - b * b
+                if c2 < b * b: continue
+                c = math.isqrt(c2)
+                if c * c != c2 or c not in vals: continue
+                if not S.skew and not (y0 <= a): continue
+                out.append(((y0,), (a,), (b,), (c,)))
+    return out
+
+
 def pair_terms(S, CC, X, Y, a1, a2, out, diag):
     """Add to out the key contribution of the positions a1, a2 carrying the CC rows X (at a1) and Y (at a2): every
     pair (X[i], Y[k]) into out[i, k], or only (X[i], Y[i]) into out[i] when diag."""
@@ -188,6 +311,9 @@ def run_enum(blk, Wk, ck, tau, path_out, threads=None):
                     T = blk.T[r1, r2]
                     f.write(T.astype(np.int32).tobytes())
                     f.write((T.astype(np.float64) @ Wk.T).astype(np.float32).tobytes())
+            if isinstance(blk, PrimeBlock):                        # class sum s through the tags
+                f.write(struct.pack('i', blk.s))
+                for tg in blk.tags: f.write(np.asarray(tg, np.int32).tobytes())
         env = dict(os.environ)
         if threads: env['OMP_NUM_THREADS'] = str(threads)
         r = subprocess.run([W.bin('cp_enum'), path_in, path_out], capture_output=True, text=True, env=env, check=True)
@@ -262,15 +388,59 @@ def admissible(S, O, Y):
     return np.array([all(ok(y[r], r) for r in O.reps) for y in Y], dtype=bool)
 
 
-def stage1_sample(S, n, rng, tries=2000000, O=None, maxopts=4e6):
+def random_options(S, skewblock, M, rng, O=None):
+    """M random compressions of one block (as stage1_options, without listing them all): a random set of spiked orbit
+    units within the budget, random spike types and random signs elsewhere. Returns (Y, C, P) like stage1_options."""
+    m, e, F = S.m, S.e, S.F
+    T = 4 * m * e
+    cost = lambda s_, f_: F * s_ * s_ + 2 * f_ * s_
+    spikes = [(f_, s_) for s_ in range(-e, e + 1, 2) if s_ for f_ in (1, -1) if cost(s_, f_) <= T]
+    orbits = [[a for a in range(m) if S.korb[a] == o] for o in range(len(S.kreps))]
+    if skewblock:
+        free, seen = [], {S.korb[0]}
+        for o, orb in enumerate(orbits):
+            if o in seen: continue
+            neg = S.korb[(-orb[0]) % m]; free.append((orb, orbits[neg])); seen |= {o, neg}
+        units = [2 * len(orb) for orb, _ in free]
+    else:
+        free = [(orb, None) for orb in orbits]; units = [len(orb) for orb, _ in free]
+    R = len(free)
+    SF = np.array([f_ for f_, _ in spikes]); SS = np.array([s_ for _, s_ in spikes]); SC = np.array([cost(s_, f_) for f_, s_ in spikes])
+    U = np.array(units)
+    nsp = rng.integers(0, min(R, 8) + 1, size=M)
+    order = np.argsort(rng.random((M, R)), axis=1)
+    rank = np.empty_like(order); rank[np.arange(M)[:, None], order] = np.arange(R)[None, :]
+    spiked = rank < nsp[:, None]
+    stype = rng.integers(0, len(spikes), size=(M, R))
+    fval = np.where(spiked, SF[stype], np.where(rng.random((M, R)) < 0.5, 1, -1))
+    sval = np.where(spiked, SS[stype], 0)
+    C = (spiked * U[None, :] * SC[stype]).sum(1)
+    yunit = fval + F * sval
+    Y = np.zeros((M, m), dtype=np.int64)
+    for u, (orb, neg) in enumerate(free):
+        Y[:, orb] = yunit[:, u][:, None]
+        if neg is not None: Y[:, neg] = -yunit[:, u][:, None]
+    if skewblock: Y[:, 0] = 1
+    keep = C <= T; Y, C = Y[keep], C[keep]
+    ok = admissible if (O is not None and O.tw) else None
+    if ok is not None:
+        keep = admissible(S, O, Y); Y, C = Y[keep], C[keep]
+    P = np.stack([(Y * np.roll(Y, -b, axis=1)).sum(1) for b in range(1, m // 2 + 1)], axis=1) if m > 1 else np.zeros((len(Y), 0), np.int64)
+    return Y, C, P
+
+
+def stage1_sample(S, n, rng, tries=2000000, O=None, maxopts=4e6, M=2000000):
     """Up to n stage-1 quadruples found by sampling: block 3's options are hashed by (cost, autocorrelations), and random
     options of blocks 0, 1, 2 from cost buckets that can still meet the budget are completed through the hash. For
     structures whose stage 1 is too large to list (every class tends to have a similar number of solutions). With a
     twist, only compressions that admit twist-invariant patterns at every representative are used."""
     T = 4 * S.m * S.e
-    L = [CP.stage1_options(S, S.skew and k == 0, maxopts) for k in range(4)]
-    if O is not None and O.tw:
-        L = [tuple(x[admissible(S, O, Lk[0])] for x in Lk) for Lk in L]
+    try:
+        L = [CP.stage1_options(S, S.skew and k == 0, maxopts) for k in range(4)]
+        if O is not None and O.tw:
+            L = [tuple(x[admissible(S, O, Lk[0])] for x in Lk) for Lk in L]
+    except RuntimeError:                                          # too many to list: random options instead
+        L = [random_options(S, S.skew and k == 0, M if k == 3 else M // 4, rng, O) for k in range(4)]
     Y3, C3, P3 = L[3]
     table = {}
     for i in range(len(Y3)): table.setdefault((int(C3[i]), P3[i].tobytes()), []).append(i)
@@ -360,6 +530,7 @@ def main():
     ap.add_argument('v', type=int); ap.add_argument('--q', type=int, required=True); ap.add_argument('--e', type=int, required=True)
     ap.add_argument('--plain', action='store_true'); ap.add_argument('--config', type=int, default=0)
     ap.add_argument('--kgen', type=int, default=1); ap.add_argument('--twist', type=int, default=0)
+    ap.add_argument('--groups', type=int, default=4, help='class groups used as positions when v is prime (q = v)')
     ap.add_argument('--sample-stage1', type=int, default=0, help='sample this many stage-1 quadruples (seeded) instead of listing all')
     ap.add_argument('--L', default='2e7', help='members kept per non-skew block: one value, or one per block 1,2,3 (comma-separated)')
     ap.add_argument('--keepA', type=float, default=0, help='members kept in block 0 (0: all, when it is enumerated in full)')
@@ -375,7 +546,10 @@ def main():
     Lk = lambda k: Ls[0] if len(Ls) == 1 else Ls[k - 1 if len(Ls) == 3 else k]
     S = CP.Structure(a.v, a.q, a.e, skew=not a.plain, kgen=a.kgen)
     O = Orbits(S, a.twist)
-    if a.sample_stage1:
+    if S.m == 1:
+        quads = stage1_prime(S)
+        assert quads, 'no stage-1 class'
+    elif a.sample_stage1:
         quads = stage1_sample(S, a.sample_stage1, np.random.default_rng(a.seed), O=O)
         assert quads, 'no stage-1 quadruple found by sampling'
     else:
@@ -386,7 +560,7 @@ def main():
     log(f'v={a.v} = {S.m}*{a.q}, e={a.e}, F={S.F}, K_m={S.K} (twist {O.tw}), H=<{gens}>, {"plain" if a.plain else "skew"}, '
         f'config {a.config} of {len(quads)}: y = {y}')
     rng = np.random.default_rng(a.seed)
-    P = prepare(S, O, y, a.samples, rng)
+    P = prepare_prime(S, y, a.samples, rng, a.groups) if S.m == 1 else prepare(S, O, y, a.samples, rng)
     blocks, full, mus, sigs, Pm0, D = P['blocks'], P['full'], P['mus'], P['sigs'], P['Pm0'], P['D']
     t = np.zeros(D)
     Sig = sum(sigs); Sp = np.linalg.pinv(Sig, rcond=1e-10); mu = sum(mus)

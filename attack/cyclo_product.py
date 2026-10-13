@@ -61,12 +61,12 @@ class Structure:
         self.half = int(self.cls[q - 1])                      # class of -1: e/2 if (q-1)/e is odd, else 0
         self.nb = e // 2 if self.half else e                  # level-B dimensions: classes up to negation
         ge = pow(g, e, q)
-        self.h = next(t for t in range(1, v) if t % self.m == 1 and t % q == ge)
+        self.h = next(t for t in range(1, v) if t % self.m == 1 % self.m and t % q == ge)
         self.reps = [0] + [int(np.flatnonzero(self.cls == c)[0]) for c in range(e)]
         # optional multiplier subgroup K_m = <kgen> of Z_m^*, acting on the Z_m coordinate
         m = self.m; self.kgen = kgen % m if m > 1 else 1
         K = {1}
-        while True:
+        while m > 1:
             K2 = K | {k * self.kgen % m for k in K}
             if K2 == K: break
             K = K2

@@ -7,7 +7,9 @@
  * records (uint64 mask, int16 key[D]), the mask holding the pattern indices in BITS bits per position.
  *
  * input (int32 unless noted): R D Z BITS; n_0 .. n_{R-1}; float tau; float z0[Z]; int32 key0[D];
- *        for r1 = 0..R-1, r2 = 0..r1: int32 Ti[n_r1][n_r2][D], float Tz[n_r1][n_r2][Z]
+ *        for r1 = 0..R-1, r2 = 0..r1: int32 Ti[n_r1][n_r2][D], float Tz[n_r1][n_r2][Z];
+ *        optionally (when present): int32 TAG; for r = 0..R-1: int32 tag_r[n_r]. Then only members whose tags sum to
+ *        TAG are considered (used for a fixed class sum when the positions are groups of classes).
  *   cc -O3 -march=native -fopenmp cp_enum.c -o cp_enum ;  ./cp_enum input.bin output.bin
  * Prints "KEPT k OF n" on stdout.
  */
@@ -26,8 +28,10 @@ static int32_t *Ti[MAXR][MAXR];
 static float *Tz[MAXR][MAXR];
 static FILE *out;
 static long kept = 0;
+static int usetag = 0, TAG = 0, *tag[MAXR], tmin[MAXR + 1], tmax[MAXR + 1];   /* tmin/tmax[j]: range of the tags of positions j.. */
+static int *lastby, *laststart, lastlo, lasthi;   /* patterns of the last position grouped by tag */
 
-typedef struct { int idx[MAXR]; float zs[MAXR + 1][MAXZ]; char *buf; size_t nb, cap; } State;
+typedef struct { int idx[MAXR]; float zs[MAXR + 1][MAXZ]; char *buf; size_t nb, cap; int ts[MAXR + 1]; } State;
 
 static void rd(void *p, size_t sz, size_t k, FILE *f) { if (fread(p, sz, k, f) != k) { fprintf(stderr, "cp_enum: short read\n"); exit(1); } }
 
@@ -56,9 +60,18 @@ static void leaf(State *s) {
 }
 
 static void dfs(State *s, int j) {
-    if (j == R) { leaf(s); return; }
-    for (int i = 0; i < nr[j]; i++) {
+    if (j == R) { if (!usetag || s->ts[R] == TAG) leaf(s); return; }
+    if (usetag && (s->ts[j] + tmin[j] > TAG || s->ts[j] + tmax[j] < TAG)) return;
+    int lo = 0, hi = nr[j]; const int *list = NULL;
+    if (usetag && j == R - 1) {                                  /* only the patterns that complete the class sum */
+        int need = TAG - s->ts[j];
+        if (need < lastlo || need > lasthi) return;
+        list = lastby; lo = laststart[need - lastlo]; hi = laststart[need - lastlo + 1];
+    }
+    for (int ii = lo; ii < hi; ii++) {
+        int i = list ? list[ii] : ii;
         s->idx[j] = i;
+        if (usetag) s->ts[j + 1] = s->ts[j] + tag[j][i];
         float *zn = s->zs[j + 1]; const float *zo = s->zs[j];
         for (int k = 0; k < Z; k++) zn[k] = zo[k];
         for (int r = 0; r <= j; r++) {
@@ -81,6 +94,26 @@ int main(int argc, char **argv) {
             Ti[r1][r2] = malloc(cnt * D * 4); Tz[r1][r2] = malloc(cnt * Z * 4);
             rd(Ti[r1][r2], 4, cnt * D, f); rd(Tz[r1][r2], 4, cnt * Z, f);
         }
+    if (fread(&TAG, 4, 1, f) == 1) {
+        usetag = 1;
+        for (int r = 0; r < R; r++) { tag[r] = malloc(4 * nr[r]); rd(tag[r], 4, nr[r], f); }
+        tmin[R] = tmax[R] = 0;
+        {   /* bucket the last position's patterns by tag */
+            int r = R - 1; lastlo = 1 << 30; lasthi = -(1 << 30);
+            for (int i = 0; i < nr[r]; i++) { if (tag[r][i] < lastlo) lastlo = tag[r][i]; if (tag[r][i] > lasthi) lasthi = tag[r][i]; }
+            int nb_ = lasthi - lastlo + 1; laststart = calloc(nb_ + 1, sizeof(int)); lastby = malloc(sizeof(int) * nr[r]);
+            for (int i = 0; i < nr[r]; i++) laststart[tag[r][i] - lastlo + 1]++;
+            for (int t = 0; t < nb_; t++) laststart[t + 1] += laststart[t];
+            int *fill = calloc(nb_, sizeof(int));
+            for (int i = 0; i < nr[r]; i++) { int t = tag[r][i] - lastlo; lastby[laststart[t] + fill[t]++] = i; }
+            free(fill);
+        }
+        for (int r = R - 1; r >= 0; r--) {
+            int lo = 1 << 30, hi = -(1 << 30);
+            for (int i = 0; i < nr[r]; i++) { if (tag[r][i] < lo) lo = tag[r][i]; if (tag[r][i] > hi) hi = tag[r][i]; }
+            tmin[r] = tmin[r + 1] + lo; tmax[r] = tmax[r + 1] + hi;
+        }
+    }
     fclose(f);
     out = fopen(argv[2], "wb"); if (!out) { perror("output"); return 1; }
     long total = 1; for (int r = 0; r < R; r++) total *= nr[r];
@@ -91,6 +124,11 @@ int main(int argc, char **argv) {
         #pragma omp for schedule(dynamic, 1)
         for (int t = 0; t < n01; t++) {
             s->idx[0] = t / nr[1]; s->idx[1] = t % nr[1];
+            s->ts[0] = 0;
+            if (usetag) {
+                s->ts[1] = tag[0][s->idx[0]]; s->ts[2] = s->ts[1] + tag[1][s->idx[1]];
+                if (s->ts[2] + tmin[2] > TAG || s->ts[2] + tmax[2] < TAG) continue;
+            }
             for (int k = 0; k < Z; k++) s->zs[0][k] = z0[k];
             for (int j = 0; j < 2; j++) {
                 for (int k = 0; k < Z; k++) s->zs[j + 1][k] = s->zs[j][k];

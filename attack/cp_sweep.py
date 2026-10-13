@@ -44,13 +44,13 @@ def structures(v, skew, minm, maxm):
     for q in range(3, v + 1):
         if v % q or not is_prime(q): continue
         m = v // q
-        if m < 2 or m % q == 0: continue
+        if (m < 2 and q != v) or m % q == 0: continue           # m = 1: v prime, the cyclotomy of GF(v) itself
         for e in range(2, q - 1, 2):
             if (q - 1) % e: continue
             F = (q - 1) // e
             if F < 2 or (skew and F % 2 == 0): continue
             if 4 * F - 4 > 4 * m * e: continue                    # a spike would exceed the budget alone
-            for k in cyclic_subgroups(m):
+            for k in (cyclic_subgroups(m) if m > 1 else [1]):
                 try: S = CP.Structure(v, q, e, skew=skew, kgen=k)
                 except AssertionError: continue
                 R = len(S.kreps)
