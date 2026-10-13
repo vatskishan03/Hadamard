@@ -841,3 +841,54 @@ passes (34 = 3² + 5²) with the single row pattern (1, 3, 5, 73).
   - Stage 2 has six channel patterns per position against two in the Paley case. A direct low-energy test on 1341
     (O = 45) needed 8 GB in the exact join and was stopped; a dedicated search is still to be written.
 
+
+## 16. Cyclotomic products of higher index, and the order 3732
+
+**Structure.** Let v = m q with q a prime not dividing m, e | q − 1 and F = (q − 1)/e odd, so −1 is not an e-th power.
+H = {h : h ≡ 1 (mod m), h mod q an e-th power} has order F and avoids −1. Over ℤ_m × GF(q) an H-invariant block is
+given at each a ∈ ℤ_m by f(a) (the value at (a, 0)) and x₀(a), …, x_{e−1}(a) (the values on (a, C_j), C_j the
+cyclotomic classes of index e). e = 2 is the Paley product of §15. The compression to ℤ_m is y(a) = f(a) + F s(a),
+s(a) = Σ_j x_j(a), and Σ_k Σ_a y_k(a)² = 4mq becomes
+
+  Σ over the 4m positions of (F s² + 2 f s) = 4 m e.
+
+A position with s ≠ 0 (a spike) costs at least 4F − 4. In the character basis a block is fδ + Σ_i ĉ_i Ψ_i
+(Ψ_i the multiplicative characters of order dividing e, extended by 0), and the products Ψ_i Ψ_j are Jacobi sums
+J(χ^i, χ^j) Ψ_{i+j} of absolute value √q. Unlike the Paley case there is no separation of the equations by size, so
+the search uses the two compressions as exact intermediate levels instead (`attack/cyclo_product.py`, `join3.c`):
+
+1. stage 1: the compressions to ℤ_m, up to negation, translation and reversal of the blocks;
+2. level B: the compression to GF(q) (summing over ℤ_m), whose autocorrelations on the classes C_t, t < e/2, are
+   the group key;
+3. level C: the autocorrelations at the shifts (b, C_c), 1 ≤ b ≤ (m − 1)/2; stage 1 + B + C is the full condition.
+
+**Single-spike family.** One spike with s = ±2 and f = −sign(s) costs 4F − 4, which equals 4me iff F = m e + 1, i.e.
+q = m e² + e + 1. For m = 3: q = 53 (e = 4, v = 159), 311 (e = 10, v = 933), 991 (e = 18, v = 2973), 1753 (e = 24,
+v = 5259). For m = 9: 149 (e = 4, v = 1341), 331 (e = 6, v = 2979).
+
+**933 = 3 · 311, e = 10 (order 3732).** The single spike leaves one compression quadruple up to symmetry, rows
+(1, 61, 3, 1). The lists have 8,064 (skew block), 13,335,840 (spike block) and 16,003,008 members; level B groups
+them into 512, 55,915, 57,892 and 57,917 groups. join3 found 24 solutions among the first 6,978 of about 6 · 10⁷
+matching group quadruples (5 minutes on 3 threads): of the order of 10⁵ skew solutions in all. A Gaussian model over
+the 14 independent equations conditioned on the compressions predicts 10^4.2 to 10^4.6 (skew) and 10^8.1 (plain).
+The lottery estimate in §5 for the same subgroup was 10^0.3 with 10¹⁷ pair operations. This settles the order 3732,
+which FRONTIER.md listed as unresolved; see [3732](../3732).
+  - Since 3733 is prime and ≡ 1 (mod 4), Miyamoto's theorem gives H(4 · 3733) = H(14932) from H(3732). The repository's
+    Miyamoto builder rebuilds and checks it (H Hᵀ = 14932 I) in about 4 minutes.
+
+**Other skew census values.** Exact stage-1 results (no compression quadruple at all, so no solution in the
+structure): 201 = 3 · 67 (e = 6), 265 = 5 · 53 (e = 4), 305 = 5 · 61 (e = 4), 335 = 5 · 67 (e = 6), 515 = 5 · 103
+(e = 6), 549 = 9 · 61 (e = 4), 573 = 3 · 191 (e = 10), 695 = 5 · 139 (e = 6), 707 = 7 · 101 (e = 4) and 909 = 9 · 101
+(e = 4). 1341 = 9 · 149 (e = 4) has 36 stage-1 classes with a Gaussian estimate of about 1 solution each, but its
+GF(149) level has only two dimensions, so the final joins would cost about 10¹⁴ each; not run. 261 = 9 · 29 (e = 4)
+has 3.3 · 10⁶ compression options per block and was not finished.
+
+**Plain orders.** Among the composite open n of FRONTIER.md, 933 is the only one whose cyclotomic product has lists
+small enough to enumerate: log₂ of the per-block list is 24 for 933, 40 for 1255 = 5 · 251 (e = 10, two spikes) and 47
+for 2973 = 3 · 991 (e = 18, a single spike). For Spence's bordered construction the compressed target off zero is
+−4q while the row sums satisfy Σ r_k² = 4, so the spikes must cancel inside a block, and their products, of size
+about (2F)², cannot give −4q at every shift. This rules out, for example, 947 (ℤ₂₂ × GF(43), e = 2) and 537
+(ℤ₈ × GF(67), e = 6).
+
+**1081 = 23 · 47 (Paley, N_w = 2).** `paley_config.py 1081 --maxu 3` went through all 6¹¹ joint (u₁, u₂) options in
+2,759 s: stage 1 is empty, so 1081 has no solution in the Paley product with N_w = 2 (the only admissible N_w).

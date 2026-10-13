@@ -65,7 +65,7 @@ Together with the ℤ₃-level these are equivalent to the full condition.
 by hashing, and inside each one the members are joined on the level-C vectors. Every hit is rebuilt on ℤ₉₃₃ and its
 autocorrelations are checked before it is recorded.
 
-The search is exact, but it was stopped early. After 6,992 of the roughly 6 · 10⁷ matching group quadruples it had
+The search is exact, but it was stopped early. After 6,978 of the roughly 6 · 10⁷ matching group quadruples it had
 found 24 solutions. Extrapolated, the structure holds of the order of 10⁵ skew solutions. A multivariate Gaussian
 model over the 14 independent equations, conditioned on the forced compressions, predicts 10^4.6. The lottery ranking
 of this subgroup in `attack/NOTES.md` §5 (log₁₀ E = 0.3, about 10¹⁷ pair operations) was too pessimistic by about five
@@ -75,10 +75,10 @@ orders of magnitude, in solutions and in work.
 
 | | |
 |---|---|
-| Code | the commit that adds this directory (`attack/cyclo_product.py`, `attack/join3.c`) |
-| Command | `python3 attack/cyclo_product.py 933 --q 311 --e 10 --config 1 --K 3 --threads 3` |
+| Code | commit `a2ec964` (`attack/cyclo_product.py`, `attack/join3.c`) |
+| Command | `python3 attack/cyclo_product.py 933 --q 311 --e 10 --config 0 --K 3 --threads 3` |
 | Randomness and caps | none in the search (exact enumeration); which solutions appear first depends on the OpenMP schedule; `--K 3` stops after three printed solutions |
-| Result of that run | 24 solutions in 6,992 group quadruples, 267 s on 3 threads (lists 55 s, level vectors 100 s, join 110 s) |
+| Result of that run | 24 solutions in 6,978 group quadruples, 306 s on 3 threads (lists 54 s, level vectors 125 s, join 127 s) |
 
 The matrix in this directory comes from the first solution of an earlier run of the same search (a scratchpad
 prototype of the same code). The tools write hit logs, temporary files and compiled helpers to `$HADAMARD_WORK`
