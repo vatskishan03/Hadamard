@@ -85,6 +85,7 @@ blocks are invariant under a group H of automorphisms with −1 ∉ H.
 | [2812](skew/2812) | 703 (19 · 37) | ⟨16, 26⟩, order 27 | 1, 1, 1, 53 | 703(3) |
 | [3052](skew/3052) | 763 (7 · 109) | ⟨9⟩, order 27 | 1, 1, 5, 55 | 763(4) |
 | [3556](skew/3556) | 889 (7 · 127) | ⟨2,25⟩, order 63 | 1, 5, 41, 43 | 889(4) |
+| [3612](skew/3612) | 903 (3 · 7 · 43) | ⟨568⟩, order 21 (Paley product) | 1, 43, 41, 9 | 903(4) |
 
 **Known orders, independent matrices.** These orders were claimed as new at first. Both claims are
 withdrawn:
