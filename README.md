@@ -56,8 +56,8 @@ search for it was running.
 
 A Hadamard matrix H is skew if H + Hᵀ = 2I. Skew-Hadamard matrices are conjectured to exist for every
 order divisible by 4. Each matrix below comes from a Goethals–Seidel difference family with a skew
-first block. The group is ℤᵥ, except for 1100 (ℤ₅ × ℤ₅ × ℤ₁₁) and 1372 (GF(343) = ℤ₇³). All four
-blocks are invariant under a group H of automorphisms with −1 ∉ H.
+first block. The group is ℤᵥ, except for 1100 (ℤ₅ × ℤ₅ × ℤ₁₁), 1372 (GF(343) = ℤ₇³) and
+2052 (ℤ₁₉ × GF(27) = ℤ₁₉ × ℤ₃³). All four blocks are invariant under a group H of automorphisms with −1 ∉ H.
 
 **New orders** (to our knowledge; see the checklist below):
 
@@ -80,6 +80,7 @@ blocks are invariant under a group H of automorphisms with −1 ∉ H.
 | [1804](skew/1804) | 451 (11 · 41) | ⟨16, 42⟩, order 25 | 1, 1, 11, 41 | none (implicit 2, unexplained); 451(3) in Seberry–Yamada 1992 and Koukouvinos–Stylianou 2008; census: undecided |
 | [1860](skew/1860) | 465 (3 · 5 · 31) | ⟨226⟩, order 15 (Paley product) | 1, 25, 35, 3 | 465(3) |
 | [1876](skew/1876) | 469 (7 · 67) | ⟨9⟩, order 33 | 1, 1, 5, 43 | 469(3) |
+| [2052](skew/2052) | 513 (3³ · 19), group ℤ₁₉ × GF(27) | squares of GF(27)*, order 13 (Paley product) | 1, 27, 19, 31 | 513(4) |
 | [2404](skew/2404) | 601 (prime) | ⟨2⟩, order 25 | 1, 1, 1, 49 | 601(5) |
 | [2452](skew/2452) | 613 (prime) | ⟨37⟩, order 17 | 1, 1, 35, 35 | 613(3) |
 | [2812](skew/2812) | 703 (19 · 37) | ⟨16, 26⟩, order 27 | 1, 1, 1, 53 | 703(3) |
