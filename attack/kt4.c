@@ -23,10 +23,14 @@
 #include <string.h>
 #include <math.h>
 #include <time.h>
+#include <fcntl.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 static int D, NS, Sx[5];
 static long MAXPAIRS = 300000000L;
-static int16_t *T, *V[4];
+static int16_t *T, *V[4];   /* point into the mapped input */
 static long n[4];
 static uint64_t Rh[256];
 
@@ -41,25 +45,26 @@ static inline uint64_t skey(const int16_t *v, const int *off) {          /* pack
 }
 static inline int isS(int c) { for (int s = 0; s < NS; s++) if (Sx[s] == c) return 1; return 0; }
 
-typedef struct { long m; uint64_t *key; long *start; long *idx; } Index;      /* list sorted by S-key, CSR */
+typedef struct { long m; uint64_t *key; uint32_t *start; uint32_t *idx; } Index;      /* list sorted by S-key, CSR */
 
 static int cmpk_base;
 static uint64_t *cmp_keys;
 static int cmpk(const void *a, const void *b) {
-    uint64_t x = cmp_keys[*(const long *)a], y = cmp_keys[*(const long *)b];
+    uint64_t x = cmp_keys[*(const uint32_t *)a], y = cmp_keys[*(const uint32_t *)b];
     return x < y ? -1 : x > y;
 }
 
 static Index build_index(int L, const int *off) {
     Index I; long N = n[L];
-    uint64_t *k = malloc(8 * N); long *o = malloc(sizeof(long) * N);
-    for (long i = 0; i < N; i++) { k[i] = skey(V[L] + (size_t)D * i, off); o[i] = i; }
-    cmp_keys = k; qsort(o, N, sizeof(long), cmpk);
-    I.idx = o; I.key = malloc(8 * (N + 1)); I.start = malloc(sizeof(long) * (N + 1)); I.m = 0;
+    uint64_t *k = malloc(8 * N); uint32_t *o = malloc(sizeof(uint32_t) * N);
+    for (long i = 0; i < N; i++) { k[i] = skey(V[L] + (size_t)D * i, off); o[i] = (uint32_t)i; }
+    cmp_keys = k; qsort(o, N, sizeof(uint32_t), cmpk);
+    I.idx = o; I.key = malloc(8 * (N + 1)); I.start = malloc(sizeof(uint32_t) * (N + 1)); I.m = 0;
     for (long i = 0; i < N; i++) {
         if (i == 0 || k[o[i]] != k[o[i - 1]]) { I.key[I.m] = k[o[i]]; I.start[I.m] = i; I.m++; }
     }
-    I.start[I.m] = N; free(k);
+    I.start[I.m] = (uint32_t)N; free(k);
+    I.key = realloc(I.key, 8 * (I.m + 1)); I.start = realloc(I.start, sizeof(uint32_t) * (I.m + 1));
     return I;
 }
 
@@ -71,11 +76,16 @@ static long find(const Index *I, uint64_t key) {                         /* grou
 
 int main(int argc, char **argv) {
     if (argc < 4) { fprintf(stderr, "usage: kt4 input.bin S0,S1,.. NSIG [K]\n"); return 2; }
-    FILE *f = fopen(argv[1], "rb"); if (!f) { perror(argv[1]); return 1; }
-    int hdr[5]; rd(hdr, 4, 5, f); for (int i = 0; i < 4; i++) n[i] = hdr[i]; D = hdr[4];
-    T = malloc(2 * D); rd(T, 2, D, f);
-    for (int i = 0; i < 4; i++) { V[i] = malloc(2 * (size_t)D * n[i]); rd(V[i], 2, (size_t)D * n[i], f); }
-    fclose(f);
+    /* the lists are memory-mapped from the input file (read-only, paged in on demand) */
+    int fdin = open(argv[1], O_RDONLY); if (fdin < 0) { perror(argv[1]); return 1; }
+    struct stat stt; fstat(fdin, &stt);
+    const char *mbase = mmap(NULL, stt.st_size, PROT_READ, MAP_PRIVATE, fdin, 0);
+    if (mbase == MAP_FAILED) { perror("mmap"); return 1; }
+    { const int32_t *hdr = (const int32_t *)mbase; for (int i = 0; i < 4; i++) n[i] = hdr[i]; D = hdr[4]; }
+    T = (int16_t *)(mbase + 20);
+    { int16_t *p = T + D; for (int i = 0; i < 4; i++) { V[i] = p; p += (size_t)D * n[i]; } }
+    if ((size_t)(20 + 2 * D) + 2 * (size_t)D * (n[0] + n[1] + n[2] + n[3]) > (size_t)stt.st_size) { fprintf(stderr, "kt4: short file\n"); return 1; }
+    for (int i = 0; i < 4; i++) if (n[i] >= 4294967295L) { fprintf(stderr, "kt4: list too long\n"); return 1; }
     NS = 0; for (char *p = strtok(argv[2], ","); p && NS < 5; p = strtok(NULL, ",")) Sx[NS++] = atoi(p);
     long NSIG = argv[3][0] == '@' ? 0 : atol(argv[3]); long K = argc > 4 ? atol(argv[4]) : 1000000000L;
     if (argc > 5) MAXPAIRS = atol(argv[5]);

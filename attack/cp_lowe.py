@@ -305,14 +305,15 @@ def whitening(Sig, tol=1e-9):
     return (U[:, keep] / np.sqrt(ev[keep])).T, int(keep.sum())
 
 
-def gauss_estimate(lists, t, cap=10 ** 6, rng=None):
+def gauss_estimate(lists, t, cap=10 ** 6, rng=None, sizes=None):
     """log10 of the expected number of quadruples summing to t, from the means and covariances of the four key lists
-    (lattice 4 per coordinate of the range)."""
+    (lattice 4 per coordinate of the range). With sizes, the lists are samples of lists of those sizes."""
     rng = rng or np.random.default_rng(1)
     mus, sigs, logN = [], [], 0.0
-    for K in lists:
+    for i, K in enumerate(lists):
         X = K if len(K) <= cap else K[rng.choice(len(K), cap, replace=False)]
-        X = X.astype(float); mus.append(X.mean(0)); sigs.append(np.cov(X.T)); logN += math.log10(len(K))
+        X = X.astype(float); mus.append(X.mean(0)); sigs.append(np.cov(X.T))
+        logN += math.log10(sizes[i] if sizes is not None else len(K))
     mu = sum(mus); Sig = sum(sigs)
     ev, U = np.linalg.eigh(Sig); keep = ev > 1e-9 * ev.max()
     z = U[:, keep].T @ (np.asarray(t, float) - mu)
@@ -321,8 +322,9 @@ def gauss_estimate(lists, t, cap=10 ** 6, rng=None):
     return logN + dens + int(keep.sum()) * math.log10(4), int(keep.sum()), off
 
 
-def run_enum(blk, Wk, ck, tau, path_out, threads=None):
-    """Write the cp_enum input for block blk and run it; returns the kept records as (masks, keys, bits, message)."""
+def run_enum(blk, Wk, ck, tau, path_out, threads=None, stream=False):
+    """Write the cp_enum input for block blk and run it; returns the kept records as (masks, keys, bits, message)
+    (with stream, the records stay in path_out and masks, keys are None)."""
     m, D = len(blk.n), blk.D
     Z = Wk.shape[0]
     bits = max(1, max(int(n - 1).bit_length() for n in blk.n))
@@ -343,6 +345,7 @@ def run_enum(blk, Wk, ck, tau, path_out, threads=None):
         env = dict(os.environ)
         if threads: env['OMP_NUM_THREADS'] = str(threads)
         r = subprocess.run([W.bin('cp_enum'), path_in, path_out], capture_output=True, text=True, env=env, check=True)
+        if stream: return None, None, bits, r.stdout.strip()
         arr = np.fromfile(path_out, dtype=np.dtype([('mask', '<u8'), ('key', '<i2', (D,))]))
         masks = arr['mask'].copy(); keys = arr['key'].copy(); del arr
         return masks, keys, bits, r.stdout.strip()
@@ -365,7 +368,7 @@ def colvar(L, chunk=1 << 20):
     return s2 / len(L) - m * m
 
 
-def choose_sigmas(lists, S_idx, t, nsig, M, rng):
+def choose_sigmas(lists, S_idx, t, nsig, M, rng, sizes=None):
     """Split values sigma of the merge classes, ranked by the expected number of solutions per unit of kt4 work.
     AB(sigma) and CD(sigma) (pairs (a, b) with (a + b)_S = sigma and pairs (c, d) with (c + d)_S = t_S - sigma) are
     estimated from M random pairs per side, which respects sublattices of the key values. With X = a + b and Y = c + d,
@@ -393,10 +396,11 @@ def choose_sigmas(lists, S_idx, t, nsig, M, rng):
     enc = lambda X: np.ravel_multi_index((X - lo).T, span)
     ua, ca = np.unique(enc(ab), return_counts=True); uc, cc = np.unique(enc(cd), return_counts=True)
     common, ia, ic = np.intersect1d(ua, uc, return_indices=True)
-    nab = ca[ia] / M * len(lists[0]) * len(lists[1]); ncd = cc[ic] / M * len(lists[2]) * len(lists[3])
+    n_ = sizes if sizes is not None else [len(l) for l in lists]
+    nab = ca[ia] / M * n_[0] * n_[1]; ncd = cc[ic] / M * n_[2] * n_[3]
     sig = (np.array(np.unravel_index(common, span)).T + lo).astype(float)
     lrho = logN(sig, m, C) - logN(sig, muX[S_idx], SX[np.ix_(S_idx, S_idx)]) - logN(t[S_idx] - sig, muY[S_idx], SY[np.ix_(S_idx, S_idx)])
-    gain = nab * ncd * np.exp(lrho - lrho.max()); cost = nab + ncd + len(lists[0]) + len(lists[2])
+    gain = nab * ncd * np.exp(lrho - lrho.max()); cost = nab + ncd + n_[0] + n_[2]
     order = np.argsort(-gain / cost)[:nsig]
     share = gain[order].sum() / gain.sum() if gain.sum() else 0.0
     return sig[order].astype(np.int64), dict(candidates=len(common), share=float(share), ab=float(nab[order].sum()), cd=float(ncd[order].sum()))
@@ -562,6 +566,115 @@ def estimate_in_lists(P, Lk):
     return est + corr, rank, off
 
 
+def stream_search(a, S, P, gens, t, Sp, mu, Lk, est0, log, rng, nsamp=2000000, chunk=1 << 22):
+    """The search of main() with the lists streamed to the kt4 file: in memory stay the masks, column statistics
+    and a random sample of each list (for the estimate and the split values); kt4 maps the file."""
+    blocks, full, mus, sigs, Pm0, D = P['blocks'], P['full'], P['mus'], P['sigs'], P['Pm0'], P['D']
+    srng = np.random.default_rng(12345)
+    fd, path = tempfile.mkstemp(suffix='.kt4', dir=W.tmpdir()); os.close(fd)
+    sizes, samples, recs, varsum, absmax = [], [], [], np.zeros(D), np.zeros(D, np.int64)
+    found = []
+    try:
+        with open(path, 'wb') as fk:
+            fk.write(struct.pack('5i', 0, 0, 0, 0, D)); fk.write(np.rint(t).astype(np.int16).tobytes())
+            for k in range(4):
+                ck = mus[k] + sigs[k] @ Sp @ (t - mu)
+                Wk, rk = whitening(sigs[k])
+                if blocks[k] is None:
+                    K0 = full[k]
+                    keep = np.arange(len(K0))
+                    if a.keepA and a.keepA < len(K0):
+                        en = (((K0 - ck) @ Wk.T) ** 2).sum(1); keep = np.argsort(en)[:int(a.keepA)]
+                    L0 = K0[keep]
+                    fk.write(np.ascontiguousarray(L0, dtype=np.int16).tobytes())
+                    sizes.append(len(L0)); recs.append(('full', keep))
+                    samples.append(L0 if len(L0) <= nsamp else L0[srng.choice(len(L0), nsamp, replace=False)])
+                    varsum += colvar(L0); absmax = np.maximum(absmax, np.abs(L0).max(0))
+                    log(f'block {k}: {len(L0)} of {len(K0)} members (skew block)')
+                    continue
+                blk, I, K = blocks[k]
+                en = (((K - ck) @ Wk.T) ** 2).sum(1)
+                frac = min(1.0, Lk(k) / blk.size)
+                tau = float(np.quantile(en, frac)) if frac < 1 else 3.0e38
+                fd2, pout = tempfile.mkstemp(suffix=f'.b{k}', dir=W.tmpdir()); os.close(fd2)
+                try:
+                    _, _, bits, msg = run_enum(blk, Wk, ck, tau, pout, a.threads, stream=True)
+                    dt = np.dtype([('mask', '<u8'), ('key', '<i2', (D,))])
+                    n = os.path.getsize(pout) // dt.itemsize
+                    mm = np.memmap(pout, dtype=dt, mode='r')
+                    masks = np.empty(n, dtype=np.uint64)
+                    s1 = np.zeros(D); s2 = np.zeros(D)
+                    pick = np.sort(srng.choice(n, min(n, nsamp), replace=False))
+                    samp = np.empty((len(pick), D), dtype=np.int16); filled = 0
+                    for i in range(0, n, chunk):
+                        part = mm[i:i + chunk]; keys = np.ascontiguousarray(part['key'])
+                        masks[i:i + len(part)] = part['mask']
+                        fk.write(keys.tobytes())
+                        X = keys.astype(float); s1 += X.sum(0); s2 += (X * X).sum(0)
+                        absmax = np.maximum(absmax, np.abs(keys.astype(np.int64)).max(0))
+                        sel = pick[(pick >= i) & (pick < i + len(part))] - i
+                        samp[filled:filled + len(sel)] = keys[sel]; filled += len(sel)
+                    del mm
+                finally:
+                    if os.path.exists(pout): os.remove(pout)
+                m1 = s1 / max(n, 1); varsum += s2 / max(n, 1) - m1 * m1
+                sizes.append(n); samples.append(samp); recs.append(('enum', (masks, bits)))
+                blocks[k] = (blk, None, None)
+                log(f'block {k}: {msg} (tau {tau:.2f}, rank {rk})')
+        with open(path, 'r+b') as fk: fk.write(struct.pack('4i', *sizes))
+        est, rank, off = gauss_estimate(samples, t, sizes=sizes)
+        log(f'Gaussian estimate of the class: 10^{est0:.2f}; inside the kept lists {sizes}: 10^{est:.2f} (rank {rank}, null offset {off:.2f})')
+        fits = absmax <= 1000
+        S_idx = [int(x) for x in a.S.split(',')] if a.S else sorted([int(c) for c in np.argsort(-varsum) if fits[c]][:5])
+        sigmas, info = choose_sigmas(samples, S_idx, np.rint(t).astype(np.int64), a.nsig, a.mcpairs, rng, sizes=sizes)
+        log(f'split values: {len(sigmas)} chosen from {info["candidates"]} sampled; expected share of the solutions they hold '
+            f'{info["share"]:.3g}, predicted pairs AB {info["ab"]:.3g} CD {info["cd"]:.3g}')
+        del samples
+        found = run_kt4(a, S, gens, path, S_idx, sigmas, recs, blocks, Pm0, log)
+    finally:
+        for pth in (path, path + '.sig'):
+            if os.path.exists(pth): os.remove(pth)
+    log(f'{len(found)} verified solutions')
+
+
+def run_kt4(a, S, gens, path, S_idx, sigmas, recs, blocks, Pm0, log):
+    """Run kt4 on the list file at path with the given split values; rebuild, check and record every solution."""
+    found = []
+    env = dict(os.environ)
+    if a.threads: env['OMP_NUM_THREADS'] = str(a.threads)
+    spath = path + '.sig'
+    np.savetxt(spath, sigmas, fmt='%d')
+    log(f'kt4: merge classes {S_idx}, {len(sigmas)} split values')
+    p = subprocess.Popen([W.bin('kt4'), path, ','.join(map(str, S_idx)), '@' + spath, str(a.K), str(int(a.maxpairs))],
+                         stdout=subprocess.PIPE, text=True, env=env)
+    for line in p.stdout:
+        if line.startswith('TOTAL'): log(f'kt4: {line.strip()}'); continue
+        if not line.startswith('SOL'): continue
+        sol = list(map(int, line.split()[1:]))
+        ids = []
+        for k in range(4):
+            kind, data = recs[k]
+            if kind == 'full': ids.append(Pm0[data[sol[k]]].astype(np.int64))
+            else: ids.append(decode(blocks[k][0], data[0][sol[k]], data[1]))
+        seqs = [S.sequence(ids[k]) for k in range(4)]
+        paf_ok, skew_ok, inv_ok = check_hit(S, seqs, gens)
+        ok = paf_ok and skew_ok
+        log(f'hit: autocorrelations {"ok" if ok else "WRONG"}, row sums {[int(x.sum()) for x in seqs]}')
+        if ok:
+            ok = inv_ok
+            log(f'hit: invariant under H = <{gens}>: {ok}')
+        if ok:
+            rec = dict(n=a.v, gens=gens, pattern=[int(x.sum()) for x in seqs], hadamard=True, skew=S.skew,
+                       method=f'cp_lowe q={a.q} e={a.e} kgen={a.kgen} twist={a.twist} config={a.config} L={a.L} seed={a.seed}'
+                              + (f' field={a.field}' if a.field else ''),
+                       seqs=[''.join('+' if z > 0 else '-' for z in x) for x in seqs])
+            if a.field: rec.update(group=S.mods, automorphisms=gens)
+            with open(W.hits() if S.skew else W.hits('had_hits.jsonl'), 'a') as fh: fh.write(json.dumps(rec) + '\n')
+            found.append(rec)
+    p.wait()
+    return found
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('v', type=int); ap.add_argument('--q', type=int, required=True); ap.add_argument('--e', type=int, required=True)
@@ -578,6 +691,7 @@ def main():
     ap.add_argument('--threads', type=int); ap.add_argument('--estimate-only', action='store_true')
     ap.add_argument('--K', type=int, default=10)
     ap.add_argument('--field', default='', help='p,k: the fibre is GF(p^k) (q = p^k; cp_field.FieldStructure)')
+    ap.add_argument('--stream', action='store_true', help='stream the lists to the kt4 file (keeps only samples, masks)')
     a = ap.parse_args()
     t0 = time.time(); log = lambda s: print(f'{s} [{time.time() - t0:.0f}s]', flush=True)
     Ls = [float(x) for x in a.L.split(',')]
@@ -614,6 +728,9 @@ def main():
         est, rank, off = estimate_in_lists(P, Lk)
         log(f'Gaussian estimate of the class: 10^{est0:.2f}; inside low-energy lists of about {a.L}: 10^{est:.2f} (rank {rank}, null offset {off:.2f})')
         return
+    if a.stream:
+        stream_search(a, S, P, gens, t, Sp, mu, Lk, est0, log, rng)
+        return
     lists, recs = [], []
     for k in range(4):
         ck = mus[k] + sigs[k] @ Sp @ (t - mu)
@@ -648,44 +765,12 @@ def main():
     log(f'split values: {len(sigmas)} chosen from {info["candidates"]} sampled; expected share of the solutions they hold '
         f'{info["share"]:.3g}, predicted pairs AB {info["ab"]:.3g} CD {info["cd"]:.3g}')
     fd, path = tempfile.mkstemp(suffix='.kt4', dir=W.tmpdir()); os.close(fd)
-    found = []
     try:
         with open(path, 'wb') as f:
             f.write(struct.pack('5i', *[len(l) for l in lists], D)); f.write(np.zeros(D, np.int16).tobytes())
             for l in lists: f.write(np.ascontiguousarray(l, dtype=np.int16).tobytes())
         del lists                                            # kt4 holds its own copy
-        env = dict(os.environ)
-        if a.threads: env['OMP_NUM_THREADS'] = str(a.threads)
-        spath = path + '.sig'
-        np.savetxt(spath, sigmas, fmt='%d')
-        log(f'kt4: merge classes {S_idx}, {len(sigmas)} split values')
-        p = subprocess.Popen([W.bin('kt4'), path, ','.join(map(str, S_idx)), '@' + spath, str(a.K), str(int(a.maxpairs))],
-                             stdout=subprocess.PIPE, text=True, env=env)
-        for line in p.stdout:
-            if line.startswith('TOTAL'): log(f'kt4: {line.strip()}'); continue
-            if not line.startswith('SOL'): continue
-            sol = list(map(int, line.split()[1:]))
-            ids = []
-            for k in range(4):
-                kind, data = recs[k]
-                if kind == 'full': ids.append(Pm0[data[sol[k]]].astype(np.int64))
-                else: ids.append(decode(blocks[k][0], data[0][sol[k]], data[1]))
-            seqs = [S.sequence(ids[k]) for k in range(4)]
-            paf_ok, skew_ok, inv_ok = check_hit(S, seqs, gens)
-            ok = paf_ok and skew_ok
-            log(f'hit: autocorrelations {"ok" if ok else "WRONG"}, row sums {[int(x.sum()) for x in seqs]}')
-            if ok:
-                ok = inv_ok
-                log(f'hit: invariant under H = <{gens}>: {ok}')
-            if ok:
-                rec = dict(n=a.v, gens=gens, pattern=[int(x.sum()) for x in seqs], hadamard=True, skew=S.skew,
-                           method=f'cp_lowe q={a.q} e={a.e} kgen={a.kgen} twist={a.twist} config={a.config} L={a.L} seed={a.seed}'
-                                  + (f' field={a.field}' if a.field else ''),
-                           seqs=[''.join('+' if z > 0 else '-' for z in x) for x in seqs])
-                if a.field: rec.update(group=S.mods, automorphisms=gens)
-                with open(W.hits() if S.skew else W.hits('had_hits.jsonl'), 'a') as fh: fh.write(json.dumps(rec) + '\n')
-                found.append(rec)
-        p.wait()
+        found = run_kt4(a, S, gens, path, S_idx, sigmas, recs, blocks, Pm0, log)
     finally:
         for pth in (path, path + '.sig'):
             if os.path.exists(pth): os.remove(pth)
