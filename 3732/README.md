@@ -87,10 +87,53 @@ the matrix from `certificate.json` alone.
 
 ## Status
 
-To our knowledge no Hadamard matrix of order 3732 was known before this one. 3732 is among the unresolved orders in
-[FRONTIER.md](../FRONTIER.md) (Cati–Pasechnik Table 4 together with the 2026 constructions), and 933 is undecided in
-the Đoković–Seberry census of skew orders 4v (May 2025). A full literature audit is in progress; this section will
-carry its checklist.
+New, to our knowledge: no Hadamard matrix of order 3732 was known before this one, skew or not.
+
+- Cati and Pasechnik, *A database of constructions of Hadamard matrices*, arXiv:2411.18897 (v1 and v2), Table 4,
+  lists 933(4): the smallest known Hadamard order of the form 2ᵐ · 933 was 14928, so 3732 and 7464 were unknown.
+  Seberry–Yamada (1992, Table A.2: "933 4 d1") and the Handbook of Combinatorial Designs (2007, Table 1.53: 933 → 4)
+  agree, and 3732 is among the unresolved orders of [FRONTIER.md](../FRONTIER.md).
+- For skew matrices Table 5 lists 933(10), filled in by Paley's construction (955391 is prime): the smallest known
+  skew order of the form 2ᵐ · 933 was 955392. The Đoković–Seberry census (May 2025) lists 933 among its 737 undecided
+  values, and Seberry–Yamada (1992, Table 7.1) has 933 as unknown.
+- A literature search in October 2026 found no later construction.
+
+**Consequences.**
+
+- Doubling gives Hadamard matrices of order 2ᵗ · 3732 for every t ≥ 0, so 7464 = 8 · 933 is new as well, and
+  skew-Hadamard matrices of all orders 2ᵐ · 933 with m ≥ 2, of which m = 2, …, 9 were unknown.
+- 3733 is a prime ≡ 1 (mod 4), so Miyamoto's theorem gives a Hadamard matrix of order 4 · 3733 = 14932; see
+  [14932](../14932).
+
+**Novelty checklist** (audit of 2026-10-13 by a research agent):
+
+1. Cati–Pasechnik Table 4 (v1 and v2, identical TeX): "907(3) & 917(3) & 919(3) & 933(4) & 947(3)". The JD-Jones-ASES
+   transcription of Table 4 also has 933: 4. Table 4 has no update markup; 933 is not among the entries dropped from
+   Seberry–Yamada (2020) Table A.17.
+2. Cati–Pasechnik Table 5: 933(10), marked as their own Paley update ("14 entries … with m listed as unknown in
+   [Seberry2020], are filled in via Paley construction"); 2ᵐ · 933 − 1 is composite for m = 2, …, 9.
+3. Seberry–Yamada (1992): Table A.2 "933 4 d1" (Agayan multiplication); Table A.1 has no Williamson or
+   Williamson-type matrices of order 311 or 933; Table 7.1 (skew) "933 ." (unknown).
+4. Handbook (2007) Table 1.53: 933 → 4 and 311 → 3 (read from an unofficial copy; the parse reproduces Đoković's count
+   of 1006 entries with t ≥ 3).
+5. Đoković's updates (arXiv:0912.5091, arXiv:1008.2043, math/0703312) and Đoković–Golubitsky–Kotsireas
+   (arXiv:1301.3671) do not contain 933.
+6. SageMath: `hadamard_matrix(3732, existence=True)` and `skew_hadamard_matrix(3732, existence=True)` return Unknown
+   (passagemath 10.8.13, run; develop branch traced).
+7. arXiv: the sources of 554 relevant papers (2000 to October 2026) contain 3732 or 933 only in Cati–Pasechnik.
+8. 2026 constructions and deposits: Alpöge et al. (twelve orders below 2000), Schneider (2060), JD-Jones-ASES
+   (Hadamard-T, -M, -B, -formal), Schumer (3676, 5436, 6644, 7852), Piza (orders up to 2060), Kline, Bedani, Karoui,
+   the Palomar registry and Balonin's catalogue: none has 3732. The 2026 H(1244) over ℤ₃₁₁ is a plain
+   Goethals–Seidel matrix, not Williamson-type, so no Cooper–Wallis or tripling route takes it to 3732.
+9. No recursive construction reaches it: Paley I (3731 = 7 · 13 · 41) and II (1865 = 5 · 373); Miyamoto (933 is not
+   a prime power, and a symmetric conference matrix of order 934 cannot exist since 933 is not a sum of two squares);
+   Yamada and Kiyasu (q = 931 = 7² · 19); Mathon; Turyn, Whiteman and Spence; T-matrices or Williamson-type matrices
+   of order 311 or 933 (unknown); Wallis–Whiteman and Spence skew families; and every product theorem, since
+   3732 ≡ 4 (mod 8).
+
+Not checked: the Seberry–Yamada (2020) book itself (seen only through Cati–Pasechnik), the lists in §7 of Miyamoto
+(J. Combin. Theory Ser. A 57, 1991), the official Handbook, and journal-only papers not on arXiv. This is a finding
+of nothing, not a proof that no earlier construction exists.
 
 ## Verification
 
