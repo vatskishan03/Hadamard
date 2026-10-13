@@ -1310,3 +1310,67 @@ ignore the exact compression budget Σ (F s² + 2 f s) = 4(m − t)e of `bgs.sta
 GF(25) and GF(49) structures (F = 3) come out between 10^−67 and 10^−0.04 per class; the best lead is 845 = 5 · 13²,
 ℤ₅ × GF(169), e = 8, F = 21, K₅ trivial, class 1 of the sampled stage 1, rows (1, 43, −3, −39): 10^4.54 for the
 class and 10^1.48 inside lists of 5 · 10⁷, 2.5 · 10⁷ and 2.5 · 10⁷ members (blocks of 1.3–1.7 · 10⁹). Queued after 319.
+
+## 23. Skew orders 1276 and 3380, a symmetric order 532, and calibrations (October 13, night)
+
+**Skew-Hadamard matrix of order 1276** ([skew/1276](../skew/1276)). The 319 run of §21–22 (ℤ₁₁ × GF(29), e = 4,
+F = 7, H = ⟨45⟩ of order 7, stage-1 class 0 of the sampled three, rows 1, 25, 19, 17; lists of 31,104 (skew block),
+60,466,176 (the whole second block), 9,966,434 and 10,012,823 members; estimate 10^1.64 inside the lists, share 0.09
+in 6000 split values) found a solution at the 321st split value of the resumed run (the first run had searched 267
+values; 131 recurred), about 450 distinct split values in all. With about 4 solutions expected over 6000 values and the
+densest values first, this is in line with the estimate for composite v (unlike the prime-field 1123 run of §22).
+Census: undecided; Cati–Pasechnik Table 5: 319(3); the audit found no earlier skew 1276 (its README).
+
+**Skew-Hadamard matrix of order 3380** ([skew/3380](../skew/3380)), the lead of §22: ℤ₅ × GF(169), e = 8, F = 21,
+H = ⟨w⁸⟩ of order 21, stage-1 class 1, rows 1, 43, −3, −39. Lists of 78,400 (skew block), 50,002,409, 25,105,989 and
+25,135,175 members (estimate 10^1.48 inside them); four solutions at the 26th split value, 732 s in all on three
+shared cores. The group is non-cyclic; the certificate uses the `goethals-seidel-group` builder with the automorphism
+w ↦ w⁸ written as a matrix on ℤ₅ × ℤ₁₃². Census: undecided; Table 5: 845(4), so 6760 is new as well.
+
+**Layer separation for F > 4m.** In a cyclotomic product ℤ_m × GF(q) of index e (class size F), the autocorrelation of
+a block at the shift (b, 0) is P(b, 0) = PAF_f(b) + F · Σ_i PAF_{ε_i}(b), where f(a) is the value at (a, 0) and
+ε_i(a) the value on (a, C_i). Since |Σ_k PAF_{f_k}(b)| ≤ 4m, the condition Σ_k P_k(b, 0) = 0 splits when F > 4m:
+- the f-layer (f₁, …, f₄) is a Goethals–Seidel quadruple over ℤ_m, with f₁ of skew type in the skew case (a
+  skew-Hadamard matrix of order 4m of Goethals–Seidel type);
+- the 4e class sequences ε_{k,i} of length m are periodic complementary (Σ PAF = 4em δ).
+Both hold in the 3380 solution (m = 5, F = 21): its f-layer has rows 1, 1, −3, 3, and the 32 class sequences of
+length 5 have PAF sum 160 δ. Stage 1 already implies the first statement (y = f + F s fixes f), so this is a
+description, not a new filter; it says which ℤ_m-level objects a large-F solution contains.
+
+**A symmetric Hadamard matrix of order 532** ([symmetric/532](../symmetric/532)). The exhaustive propus sweep of §17,
+with the orbit cap raised from 24 to 30 (`propus.py 133 --sweep --mino 1 --maxo 30 --maxpool 5e7`), found 72 solutions
+in the structure H = ⟨26⟩ of order 6 (A on the 14 orbits of ⟨H, −1⟩; B and D on the 26 orbits of H), only A
+symmetric, rows (11, 5, 19). The census lists 133 among the undecided symmetric values; ordinary and skew matrices of
+order 532 are known. `verify.py` gained the construction `propus` (it checks H = Hᵀ).
+- **The Gaussian estimate misses by a factor 10⁹ here.** `propus_rank.py` gives log₁₀ E = −7.33 for exactly this
+  structure and row pattern (pools 10^3.0, 10^6.5, 10^6.4; 12 independent classes), against 72 solutions (about two
+  up to the multipliers and reversals that preserve the structure). The other row patterns of the structure (also
+  about 10^−7.3) have none. The calibration below already showed factors of 10³–10⁷; propus structures must be
+  searched exhaustively, not ranked.
+- Sweeps (`--maxo 30`) are now running over the symmetric census values 89 < v ≤ 400 and 400 < v ≤ 1000
+  (`$HADAMARD_WORK/logs/sym_queueA.log`, `sym_queueB.log`). v = 89 has no structure with a non-empty pool pattern
+  within the cap.
+
+**Symmetric Hadamard matrices: the propus estimate is far too pessimistic.** `attack/propus_rank.py` (Gaussian estimate
+of the propus structures of `propus.py`, full covariance and lattice of sampled class values) gives, for the structures
+in which Balonin and Đoković found propus difference families: v = 67, H of order 3 (A symmetric, D free) 10^−2.9;
+v = 109, H of order 3, 10^−6.6; v = 151, H of order 5, 10^−6.5. Solutions exist in all three (six, three and one
+families in their Table 1).
+- v = 65 (the smallest open symmetric order, 260): every cyclic propus structure scores at most 10^−4.7 (H of order 3,
+  25 orbits); the exhaustive sweep `propus.py 65 --sweep --maxo 30 --maxpool 1e8` (all structures up to 30 orbits,
+  207 row patterns, including the 25- and 26-orbit structures beyond the earlier cap of 24) finds no solution.
+- Larger structures (v = 163 with H of order 3: 28/55/55 orbits, 10^−12.1; v = 193: 10^−15.5) need a low-energy
+  three-list search, not written yet.
+
+**Parallel tempering for the spin structures** (`attack/spin_pt.c`, same input as `spin_ls.c`; replicas at geometric
+temperatures, swap or pair-flip moves in O(C), replica exchange after every sweep). On 631 it needs 5–23 s per
+solution (tabu: about 1 s); on 919 none in 10 CPU-minutes with 24 replicas between T = 20 and 20,000. It does not
+beat the tabu search with restarts.
+
+**ℤ₄ bordered families (§22) for 599, 643 and 647** (`attack/z4triage.py`, both character sets T, every multiplier
+group with 14–44 orbits): 30, 437 and 192 structures, stage 1 empty in every one.
+
+**Census hunt** (`cp_hunt.py skew`, composite census values up to 627 in the order of the list, `--mine 0.5`): beyond
+301, 319 and 553 (already run) no structure reaches the threshold; 481 (ℤ₁₃ × GF(37), e = 4) has 10^1.46 for its
+best class but only 10^−3.95 inside lists of 10⁷; most other values have empty stage-1 samples or blocks above the
+enumeration cap (627: 1.15 · 10¹¹ members). Stopped at 627 to free the cores for the symmetric sweeps.
