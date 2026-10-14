@@ -13,13 +13,22 @@ import cchain4, ssxx, bsz, bnw
 from bnw import Struct, subgroups
 
 
-def structures(N, minwork, maxo, mode="ssxx"):
+def cyclotomic_product(N, H):
+    """H acts trivially on the cofactor m = N / p of the largest prime factor p (a cyclotomic product Z_m x GF(p))"""
+    p = max(d for d in range(2, N + 1) if N % d == 0 and all(d % r for r in range(2, int(d ** 0.5) + 1)))
+    m = N // p
+    return m > 1 and m % p != 0 and all(h % m == 1 for h in H)
+
+
+def structures(N, minwork, maxo, mode="ssxx", cyclo=False):
     out = []
     bordered = cchain4.MODES[mode][2]
     kinds = cchain4.MODES[mode][0]
     v = N - 1 if bordered else N
     for H, gens in subgroups(v).items():
         if mode == "ssxx" and (N - 1) in H:
+            continue
+        if cyclo and not cyclotomic_product(v, H):
             continue
         st = Struct(N, gens, plain=not bordered)
         OA, OL = len(st.sizesA), len(st.sizesL)
@@ -56,10 +65,11 @@ def main():
     ap.add_argument("--budget", type=float, default=3600)
     ap.add_argument("--log")
     ap.add_argument("--mode", default="ssxx", choices=list(cchain4.MODES))
+    ap.add_argument("--cyclo", action="store_true", help="only cyclotomic products Z_m x GF(p) (H trivial mod m)")
     a = ap.parse_args()
     for N in a.N:
         t0 = time.time()
-        sts = structures(N, a.minwork, a.maxo, a.mode)
+        sts = structures(N, a.minwork, a.maxo, a.mode, a.cyclo)
         print(f"N = {N}: {len(sts)} structures for the chain", flush=True)
         done = False
         for OA, h, gens, pats in sts:
