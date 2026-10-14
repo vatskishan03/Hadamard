@@ -7,8 +7,8 @@ A Hadamard matrix of order n is an n × n matrix H with entries ±1 and HHᵀ = 
 Such a matrix can exist only if n = 1, 2 or n ≡ 0 (mod 4), and the Hadamard
 conjecture states that it exists for every multiple of 4. After the constructions
 announced in August 2026 for the twelve unresolved orders below 2000 [1], the
-smallest unresolved orders were 2060 and 2092. This repository constructs 2092 and 2148; with 2060 (Schneider,
-August 2026), the smallest order we know to be unresolved is now 2292 = 4 · 573.
+smallest unresolved orders were 2060 and 2092. This repository constructs 2092, 2148 and 2292; with 2060 (Schneider,
+August 2026), the smallest order we know to be unresolved is now 2396 = 4 · 599.
 
 ## Results
 
@@ -17,11 +17,13 @@ August 2026), the smallest order we know to be unresolved is now 2292 = 4 · 573
 | [2092](2092) | 4 · 523 | Goethals–Seidel array, supplementary difference set in ℤ₅₂₃ invariant under a multiplier subgroup of order 9 | New |
 | [2148](2148) | 4 · 537 | Bordered Goethals–Seidel array over ℤ₅₃₄ ≅ ℤ₆ × GF(89) with a border of size 12 (G/K ≅ ℤ₃), sequences invariant under a multiplier subgroup of order 11; found by splitting the conditions along ℤ₂ ([attack/NOTES.md](attack/NOTES.md) §19) | New |
 | [2284](2284) | 4 · 571 | Goethals–Seidel, ℤ₅₇₁, multiplier subgroup of order 5; three blocks related by a multiplier of order 3 | New |
+| [2292](2292) | 4 · 573 | Spence's bordered construction over ℤ₂ × ℤ₂ × ℤ₁₄₃; three blocks related by an automorphism of order 15 that couples the order-3 automorphism of ℤ₂ × ℤ₂ with multiplication by 3 | New |
 | [3732](3732) | 4 · 933 | Goethals–Seidel array, skew; ℤ₉₃₃ ≅ ℤ₃ × GF(311), sequences invariant under the multiplier subgroup of order 31 (h ≡ 1 mod 3, h a 10th power mod 311): a cyclotomic product of index 10 | New; also gives 7464 by doubling |
 | [3964](3964) | 4 · 991 | Bordered Goethals–Seidel array over ℤ₂ × ℤ₂ × ℤ₂₄₇ with a border of size 12; sequences invariant under a group of order 27 | New |
 | [4492](4492) | 4 · 1123 | Goethals–Seidel, ℤ₁₁₂₃, multiplier subgroup of order 33 | New |
 | [5020](5020) | 4 · 1255 | Goethals–Seidel; ℤ₁₂₅₅ ≅ ℤ₅ × GF(251), multiplier subgroup of order 50 (h ≡ ±1 mod 5, h a 10th power mod 251) | New |
 | [5932](5932) | 4 · 1483 | Goethals–Seidel, ℤ₁₄₈₃, multiplier subgroup of order 39 | New |
+| [9172](9172) | 4 · 2293 | Miyamoto's theorem (q = 2293) from the matrix of order 2292 | New |
 | [14708](14708) | 4 · 3677 | Miyamoto's theorem from a skew-Hadamard matrix of order 3676 (Goethals–Seidel over ℤ₉₁₉, multiplier subgroup of order 17, spin structure) | Probably new; above the range of [3] |
 | [14932](14932) | 4 · 3733 | Miyamoto's theorem (q = 3733) from the matrix of order 3732 | First explicit construction we know of; Handbook Table 1.53 lists 3733 with t = 2, with no construction we could trace |
 | [20084](20084) | 4 · 5021 | Miyamoto's theorem (q = 5021) from the matrix of order 5020 | First explicit construction we know of; Handbook Table 1.53 lists 5021 with t = 2, with no construction we could trace |
@@ -65,8 +67,9 @@ Four of these orders come from this repository's skew-Hadamard matrices through 
 24124 is also reachable by Cooper–Wallis from T-matrices of order 163 and Williamson matrices of order 37;
 see its README.
 
-Orders under investigation: [4412](4412). [2148](2148), listed here before as the smallest order we knew to be
-unresolved, is now settled above. [3676](3676) was settled by Schumer [8] while our search for it was running.
+Orders under investigation: [4412](4412). [2148](2148) and then [2292](2292), each listed here before as the smallest
+order we knew to be unresolved, are now settled above; the smallest we know of is 2396 = 4 · 599. [3676](3676) was
+settled by Schumer [8] while our search for it was running.
 
 ## Skew-Hadamard results
 
@@ -188,7 +191,7 @@ Other top-level contents:
 - [`t-matrices`](t-matrices): the T-matrices of orders 97 to 197 found during this work.
 - [`near-williamson`](near-williamson): near-Williamson matrices of Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev
   (2026), used as Williamson-type matrices for the orders 24308 to 39260.
-- [`search`](search): the programs that found the Goethals–Seidel orders.
+- [`search`](search): the programs that found the Goethals–Seidel orders, and [`search/spence_spin`](search/spence_spin) for 2292.
 - [`METHOD.md`](METHOD.md): how the search works.
 - [`FRONTIER.md`](FRONTIER.md): the unresolved orders up to 4 · 2999, with the cheapest structure for each and its predicted cost.
 - [`NOTES.md`](NOTES.md): what the October 2026 searches showed, including the structures that turned out empty.
