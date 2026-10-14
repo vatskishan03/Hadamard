@@ -1910,3 +1910,58 @@ average part) stopped with "part 0 overflows its table" after its B passes. The 
 all e/2 classes with fixed pseudo-random μ_k (μ₀ = 1), which is still additive over the rows of D and splits into an
 A part and a B part for a needed vector. The planted tests (join3 and join4) recover their solutions; 213/⟨25⟩ was
 restarted with it.
+
+**Skew audit (5700, 2652, 9900).** The skew audit (statuses in the READMEs) found no earlier construction for 5700 and
+9900, and none for amicable orders 52, 76, 100: Seberry's tables of amicable orders 2ᵗq (1978, 1991, 1992) give
+t = 3 for q = 13, 19, 25. The 1992 summary line "AV 2(q + 1), q ≡ 5 (mod 8); J. Wallis" is the |t| = 1 case
+(q = s² + 4) of the line above it; q = 37 = 1 + 4 · 3² gives (|t| + 1)(q + 1) = 152, consistent with the table entry
+"19 3". 2652 is the exception: the census lists 663 as undecided, but Seberry–Yamada 1992 (Table 7.1, a blank
+meaning t = 2) and Cati–Pasechnik (Table 5, m = 2 not shown) both imply that 4 · 663 is known, without a construction
+that we could find (every classical family fails by arithmetic). Both tables also disagree with the census on other
+values (783, 879; 451, 921), so we read them as errors, but say so in the README. G-matrices of orders 13, 19, 25
+(and 31) are in Georgiou–Koukouvinos, JCMCC 40 (2002) (Đoković, arXiv:0903.5053, Table 1).
+
+### Seberry's Theorem 7 with m ≥ 3: skew 7956 = 4 · 1989
+
+The theorem holds for any m: an OD(mn; 1, m, mn − m − 1) aI + bB + cC and amicable cores (W, D) of order n − 1 give
+H = I ⊗ (I + W) + B ⊗ J + C ⊗ D of order mn(n − 1), since (I + W)(I + W)ᵀ + m(n − 1)J + (mn − m − 1)(nI − J)
+= mn(n − 1)I (the J terms cancel exactly because of the weight m). `skew_seberry` and the verify.py builder
+(`"od"` form) take any m. With n = 4k (k odd) the order is 4 · m k(4k − 1), so the census values in reach are
+v = m k(4k − 1), 4k an amicable order, m odd. Among the undecided ones (`attack/thm7_census.py`; n = 4 gives every
+multiple of 3, but needs an OD of order 4v/3, as hard as the original):
+
+| n (amicable) | v (m) |
+|---|---|
+| 52 (new) | **1989 (3): done, [skew/7956](../skew/7956)** |
+| 20 (q = 19) | 475 (5), 1045 (11), 1235 (13), 2185 (23), 2375 (25); 285 (3) is [skew/1140](../skew/1140), 1425 (15) is [skew/5700](../skew/5700) |
+| 12 (q = 11) | 429 (13), 627 (19), 693 (21), 759 (23), 891 (27), 957 (29), 1089 (33), 1221 (37), 1353 (41), 1617 (49), 1683 (51), 1749 (53), 1815 (55), 1947 (59), 2013 (61), 2145 (65), 2277 (69), 2409 (73); 2475 (75) is [skew/9900](../skew/9900) (n = 100) |
+| 28 (q = 27) | 1323 (7), 2457 (13) |
+| 44 (q = 43) | 2365 (5) |
+
+**m = 3 in Goethals–Seidel form.** The b part must be three single entries in A₂, A₃, A₄. A block with two or more
+b entries has off-peak b² autocorrelation that, at total weight 3, nothing can cancel; three entries in one block
+never cancel (on a coset of order 3 the off-peak sum is ±1 or 3); and A₁ can only hold paired, skew b entries. Shift
+each to 0. Write A₁ = aI + cW₀ (W₀ skew) and Aᵢ = bI + cWᵢ. The bc terms then say that on every pair {s, −s} the
+symmetric parts of W₂, W₃, W₄ are (0, 0, 0) or a permutation of (1, −1, 0): 20 patterns per pair, an exact
+invariant of the moves in `od13.c`. The cross terms between the symmetric and skew parts of one sequence cancel, so
+PAF(Wᵢ) = PAF(Sᵢ) + PAF(Kᵢ). Row sums: r₂ + r₃ + r₄ = 0 and Σ rᵢ² = 4t − 4, so with rᵢ = 2ρᵢ,
+ρ₂² + ρ₂ρ₃ + ρ₃² = (t − 1)/2 must be a value of the Eisenstein norm form. Annealing finds nothing at t = 5, 11 and 13
+(impossible by this condition) and solves t ≤ 27 at once. `od13b.c` holds the row sums fixed, with moves that keep them; it still does not
+reach t = 39 in 20 minutes. `od13x.c` is exhaustive over H-invariant designs: hash the 2^(orbits) skew W₀ on their
+PAF at orbit representatives, then enumerate the pattern assignments with the right row sums (one target suffices:
+permutations of W₂, W₃, W₄ and a global sign act transitively on them), with the PAF updated from tables of
+orbit-pair contributions. Results:
+
+- t = 19, H = ⟨7⟩: solutions.
+- t = 27, H = ⟨10⟩: none (1.0 · 10⁷ assignments).
+- t = 33, H = ⟨4⟩ (order 5): none.
+- **t = 39, H = ⟨16⟩ = {1, 16, 22}**: 2688 solutions out of 4.3 · 10⁶ assignments, in 6 s. This is the largest
+  admissible H: it may not contain −1 mod 3 or mod 13.
+
+With the amicable pair of order 52 this gives the skew-Hadamard matrix of order 7956 = 4 · 1989. 1989 is undecided in
+both census lists. The symmetric 7956 would need a symmetric OD(156; 3, 153) (the weighted variant above), which is
+still open.
+
+**m ≥ 5 (next).** The b part is no longer forced. For m = 5, for example, b parts δ₀ + δ_d, δ₀ − δ_d and δ₀ in A₂,
+A₃, A₄ have autocorrelation sum 4δ + δ. The bc condition then couples W at s and d ± s, and H-invariance needs d
+fixed by H. The targets 475 (OD(100; 1, 5, 94), t = 25) and 2365 (OD(220; 1, 5, 214), t = 55) come first.

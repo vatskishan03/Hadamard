@@ -858,7 +858,11 @@ def build_skew_amicable_plug(cert):
        (B, C skew, checked).
     4. H = I (x) (I + W) + B (x) J + C (x) D. Then H + H^T = 2I, and
        H H^T = I (x) [(I + W)(I + W)^T + J^2 + (m - 2) D^2] + (B + B^T) (x) J - C (x) (W D + D W)
-               + (B C^T + C B^T) (x) J D = I (x) [mI - J + (m - 1) J + (m - 2)(mI - J)] = m (m - 1) I."""
+               + (B C^T + C B^T) (x) J D = I (x) [mI - J + (m - 1) J + (m - 2)(mI - J)] = m (m - 1) I.
+    General form (Seberry's Theorem 7): instead of "g", "od" = {"type": [1, k, N - k - 1], "blocks": four
+    length-t lists of codes 1 (a, only at the first entry of the first block), +-2 (b), +-3 (c)} gives in the
+    Goethals-Seidel array a skew-type OD aI + bB + cC of order N = 4t = k m (checked), and then
+    H H^T = I (x) [mI - J + k(m - 1) J + (N - k - 1)(mI - J)] = N (m - 1) I."""
     n = cert["n"]
     m = 4 * n
     P, N, seqs = _skew_propus_od(n, cert["blocks"], cert["rowsums"])
@@ -881,32 +885,56 @@ def build_skew_amicable_plug(cert):
             and np.array_equal(D, D.T) and np.array_equal(D @ e1, -e1) and np.array_equal(D @ D, m * I1 - J1)
             and not (W @ D + D @ W).any()):
         raise ValueError("the cores W, D are not amicable cores")
-    g = []
-    for reps in cert["g"]:
-        x = np.ones(n, dtype=np.int64)
-        x[reps] = -1
-        g.append(x)
-    k0, k1, g2, g3 = g
-    idx = (-np.arange(n)) % n
-    for k in (k0, k1):
-        if k[0] != 1 or not np.array_equal(k[1:], -k[idx][1:]):
-            raise ValueError("k0 or k1 is not of skew type")
-    for x in (g2, g3):
-        if not np.array_equal(x, x[idx]):
-            raise ValueError("g2 or g3 is not symmetric")
-    paf = paf_sum(g)
-    if paf[0] != m or np.any(paf[1:] != 0):
-        raise ValueError("the four sequences of g do not have PAF sum 4n delta")
-    In = np.eye(n, dtype=np.int64)
-    Zn = np.zeros((n, n), dtype=np.int64)
-    Bm = goethals_seidel(Zn, In, Zn, Zn)
-    Cm = goethals_seidel(circulant(k0) - In, circulant(k1) - In, circulant(g2), circulant(g3))
-    if not (np.array_equal(Bm.T, -Bm) and np.array_equal(Cm.T, -Cm) and np.array_equal(Bm @ Bm.T, I)
-            and np.array_equal(Cm @ Cm.T, (m - 2) * I) and not (Bm @ Cm.T + Cm @ Bm.T).any()
-            and np.array_equal(np.abs(Bm) + np.abs(Cm) + I, np.ones((m, m), dtype=np.int64))):
-        raise ValueError("a I + b B + c C is not a skew-type OD(m; 1, 1, m - 2)")
-    H = (np.kron(np.eye(m, dtype=np.int8), (I1 + W).astype(np.int8)) + np.kron(Bm.astype(np.int8), J1.astype(np.int8))
-         + np.kron(Cm.astype(np.int8), D.astype(np.int8)))
+    if "od" in cert:
+        typ, blocks = cert["od"]["type"], cert["od"]["blocks"]
+        t = len(blocks[0])
+        No = 4 * t
+        if (len(blocks) != 4 or any(len(b) != t for b in blocks) or typ[0] != 1 or sum(typ) != No
+                or typ[1] * m != No):
+            raise ValueError("od: need four blocks of one length t, type (1, k, 4t - k - 1) and 4t = k m")
+        if any(c not in (1, 2, -2, 3, -3) for b in blocks for c in b) or [c == 1 for b in blocks for c in b].count(True) != 1 \
+                or blocks[0][0] != 1:
+            raise ValueError("od: codes must be 1 (once, first entry of block 1), +-2 or +-3")
+        parts = {}
+        for v in (1, 2, 3):
+            parts[v] = goethals_seidel(*[circulant(np.array([int(np.sign(c)) if abs(c) == v else 0 for c in b],
+                                                            dtype=np.int64)) for b in blocks])
+        Am, Bm, Cm = parts[1], parts[2], parts[3]
+        Io = np.eye(No, dtype=np.int64)
+        k, c = typ[1], typ[2]
+        if not (np.array_equal(Am, Io) and np.array_equal(Bm.T, -Bm) and np.array_equal(Cm.T, -Cm)
+                and np.array_equal(Bm @ Bm.T, k * Io) and np.array_equal(Cm @ Cm.T, c * Io)
+                and not (Bm @ Cm.T + Cm @ Bm.T).any()
+                and np.array_equal(np.abs(Am) + np.abs(Bm) + np.abs(Cm), np.ones((No, No), dtype=np.int64))):
+            raise ValueError(f"a I + b B + c C is not a skew-type OD({No}; 1, {k}, {c})")
+        g = []
+    else:
+        g = []
+        for reps in cert["g"]:
+            x = np.ones(n, dtype=np.int64)
+            x[reps] = -1
+            g.append(x)
+        k0, k1, g2, g3 = g
+        idx = (-np.arange(n)) % n
+        for k in (k0, k1):
+            if k[0] != 1 or not np.array_equal(k[1:], -k[idx][1:]):
+                raise ValueError("k0 or k1 is not of skew type")
+        for x in (g2, g3):
+            if not np.array_equal(x, x[idx]):
+                raise ValueError("g2 or g3 is not symmetric")
+        paf = paf_sum(g)
+        if paf[0] != m or np.any(paf[1:] != 0):
+            raise ValueError("the four sequences of g do not have PAF sum 4n delta")
+        In = np.eye(n, dtype=np.int64)
+        Zn = np.zeros((n, n), dtype=np.int64)
+        Bm = goethals_seidel(Zn, In, Zn, Zn)
+        Cm = goethals_seidel(circulant(k0) - In, circulant(k1) - In, circulant(g2), circulant(g3))
+        if not (np.array_equal(Bm.T, -Bm) and np.array_equal(Cm.T, -Cm) and np.array_equal(Bm @ Bm.T, I)
+                and np.array_equal(Cm @ Cm.T, (m - 2) * I) and not (Bm @ Cm.T + Cm @ Bm.T).any()
+                and np.array_equal(np.abs(Bm) + np.abs(Cm) + I, np.ones((m, m), dtype=np.int64))):
+            raise ValueError("a I + b B + c C is not a skew-type OD(m; 1, 1, m - 2)")
+    H = (np.kron(np.eye(Bm.shape[0], dtype=np.int8), (I1 + W).astype(np.int8))
+         + np.kron(Bm.astype(np.int8), J1.astype(np.int8)) + np.kron(Cm.astype(np.int8), D.astype(np.int8)))
     return H, seqs + g
 
 

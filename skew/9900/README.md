@@ -46,7 +46,9 @@ H + Hᵀ = 2I because W, B and C are skew and J, D symmetric, and
 `attack/sym_mm1.py propus 25` searches skew-propus quadruples of length 25 exhaustively (row sums (a3, a1) with
 a3² + 2a1² = 99: (1, 7), (7, 5), (9, 3); A1 tabulated on its autocorrelations up to shifts, all pairs (A3, A0)
 probed); the first solution, in the pattern (9, 3), came after 18 minutes (one core, Python). The G-matrices of order
-25 are the first found by `g_matrices(25)` (row sums 1, 1, 7, 7; 22 s). Only the amicable pair of order 100 is new.
+25 are the first found by `g_matrices(25)` (row sums 1, 1, 7, 7; 22 s). G-matrices of order 25 are known
+(Georgiou–Koukouvinos, JCMCC 40 (2002), list 13 of them, as tabulated in Đoković, arXiv:0903.5053, Table 1); only the
+amicable pair of order 100 is new.
 
 ## Reproduction
 
@@ -64,10 +66,36 @@ H + Hᵀ = 2I and the SHA-256 of the canonical CSV.
 
 ## Status
 
-The Đoković–Seberry census of skew Hadamard matrices of order 4v for odd v < 2500 (PDF of 2025-05-28) lists 2475
-among its 737 undecided values. The skew-specific literature audit is in progress; until it is recorded here, read
-this as "found by us", not as "new". (A symmetric Hadamard matrix of order 9900 is known; 2475 is not undecided in the
+To our knowledge this is the first skew-Hadamard matrix of order 9900, and the pair of order 100 the first amicable
+Hadamard matrices of that order. (A symmetric Hadamard matrix of order 9900 is known; 2475 is not undecided in the
 symmetric list of the census.)
+
+**Novelty checklist** (audit of 2026-10-14 by a research agent; downloaded sources were read as text, never
+executed):
+
+1. **The Đoković–Seberry census** (PDF of 2025-05-28, md5 `79eb782c…5be`): "Finally we list the 737 undecided cases
+   of odd v < 2500: … 2469, 2473, 2475, 2485, 2489, …". 2475 is in none of its skew series and not among its 41
+   sporadic values.
+2. **Tables of skew orders 2ᵗq**: Cati–Pasechnik, arXiv:2411.18897, Table 5 stops at n ≤ 999; Seberry–Yamada 1992,
+   Table 7.1, stops at q = 999.
+3. **Amicable orders**: no classical family gives 100 (p^r + 1: 99 = 3² · 11; 2(q + 1) with 2q + 1 a prime power:
+   2 · 49 + 1 = 99; Wallis's 2(q + 1) needs q ≡ 5 (mod 8), and 49 ≡ 1; (p − 1)^u + 1 and products: no). The tables
+   of amicable orders 2ᵗq of Seberry (1978), Seberry–Yamada (1991) and Seberry–Yamada (1992, Table 6.1) give t = 3
+   for q = 25.
+4. **Classical skew families** (arithmetic): Paley needs 9899 = 19 · 521; 2(q + 1) needs q = 4949 = 7² · 101;
+   4(q + 1), q ≡ 9 (mod 16), needs q = 2474; Spence's q² + q + 1 skips 2475 (2451, 2551); Seberry's q(q + 1) needs
+   q = 99; her 2ʳn(2ʳn − 1) needs amicable orders 50 or 25; Wallis's 1971 theorem has no solution with an integral
+   auxiliary order of a skew matrix; (p − 1)^u + 1 and (|t| + 1)(q + 1) fail; products and doubling are impossible
+   since 4950 is not a Hadamard order. The other splits of Seberry's theorem need OD(900; 1, 75, 824) (n = 12) or
+   OD(3300; 1, 825, 2474) (n = 4); we found no source for either.
+5. **SageMath** (develop branch of 2026-10-11, traced, not executed): `skew_hadamard_matrix(9900, existence=True)`
+   is `Unknown`.
+6. **Đoković's skew papers**, Momihara–Xiang, Cati, Seberry 2013 and the 2026 deposits (as listed for
+   [skew/5700](../5700)): no mention of 2475, 9900 or amicable 100.
+
+Not checked: Seberry–Yamada's book (Wiley 2020), Seberry's Orthogonal Designs (Springer 2017), the Handbook of
+Combinatorial Designs, Koukouvinos–Stylianou (Discrete Math. 308 (2008); abstract only), MathSciNet and zbMATH. This
+is a finding of nothing, not a proof that no earlier construction exists.
 
 ## Files
 

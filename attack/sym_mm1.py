@@ -235,15 +235,42 @@ def skew_od_from_g(k0, k1, g2, g3):
     return Bm, Cm
 
 
+def skew_od_from_codes(blocks):
+    """Coefficient matrices (A, B, C) of the orthogonal design xA + yB + zC of order 4t given by four circulant
+    blocks in the Goethals-Seidel array, each block a length-t list of codes 0, +-1 (x), +-2 (y), +-3 (z)."""
+    t = len(blocks[0])
+    R = verify.back_identity(t)
+    def gs(A, B, C, D):
+        return np.block([[A, B @ R, C @ R, D @ R], [-B @ R, A, D.T @ R, -C.T @ R],
+                         [-C @ R, -D.T @ R, A, B.T @ R], [-D @ R, C.T @ R, -B.T @ R, A]])
+    out = []
+    for v in (1, 2, 3):
+        parts = [verify.circulant([int(np.sign(c)) if abs(c) == v else 0 for c in b]) for b in blocks]
+        out.append(gs(*parts))
+    return tuple(out)
+
+
+def check_skew_od(A, B, C, weights):
+    """xI + yB + zC is a skew-type OD of type (1, b, c): A = I, B and C skew, BB^T = bI, CC^T = cI,
+    BC^T + CB^T = 0, supports partitioning the matrix."""
+    n = A.shape[0]
+    b, c = weights
+    I = np.eye(n, dtype=np.int64)
+    ok = (np.array_equal(A, I) and np.array_equal(B.T, -B) and np.array_equal(C.T, -C)
+          and np.array_equal(B @ B.T, b * I) and np.array_equal(C @ C.T, c * I) and not (B @ C.T + C @ B.T).any()
+          and np.array_equal(np.abs(A) + np.abs(B) + np.abs(C), np.ones((n, n), dtype=np.int64)))
+    return bool(ok)
+
+
 def skew_seberry(P, N, Bm, Cm):
-    """Seberry's 1978 plug-in with m = 1: H = I (x) (I + W) + B (x) J + C (x) D, a skew-Hadamard matrix of order
-    m'(m' - 1) from the amicable cores (W, D) of order m' - 1 and a skew-type OD(m'; 1, 1, m' - 2) aI + bB + cC."""
+    """Seberry's 1978 plug-in (Ars Combin. 6, Theorem 7): H = I (x) (I + W) + B (x) J + C (x) D, a skew-Hadamard
+    matrix of order N(m' - 1) from the amicable cores (W, D) of order m' - 1 (m' = order of P) and a skew-type
+    OD(N; 1, k, N - k - 1) aI + bB + cC with N = k m' (k = 1: G-matrices, OD(m'; 1, 1, m' - 2))."""
     W, D = amicable_cores(P, N)
-    m = P.shape[0]
-    r = m - 1
+    r = P.shape[0] - 1
     I = np.eye(r, dtype=np.int8)
     J = np.ones((r, r), dtype=np.int8)
-    return (np.kron(np.eye(m, dtype=np.int8), I + W.astype(np.int8)) + np.kron(Bm.astype(np.int8), J)
+    return (np.kron(np.eye(Bm.shape[0], dtype=np.int8), I + W.astype(np.int8)) + np.kron(Bm.astype(np.int8), J)
             + np.kron(Cm.astype(np.int8), D.astype(np.int8))).astype(np.int8)
 
 
