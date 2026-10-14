@@ -209,9 +209,17 @@ def sweep(Ns, sub=1e6, log=None, minexp=0.0, maxtries=3, seed=1):
         for exp, cost, gens, h, pat in rows[:maxtries]:
             if exp < minexp:
                 break
+            # adaptive sample size: the expected count grows like S^k (k sampled lists), the join cost like S
+            st = Struct(N, gens, plain=True)
+            pools = [st.counts(kk).get(r, 0) for kk, r in zip(ssxx.KINDS, pat)]
+            k = sum(1 for p in pools if p > sub)
+            S = sub
+            if k and exp > math.log10(8):
+                S = max(5e4, sub * 10 ** ((math.log10(8) - exp) / k))
+                exp = exp + sum(math.log10(min(1.0, S / p)) - math.log10(min(1.0, sub / p)) for p in pools)
             print(f"N = {N}: H = <{','.join(map(str, gens))}> (order {h}), rows {tuple(int(x) for x in pat)}, "
-                  f"expected 10^{exp:.2f} in samples of {sub:.0g}, pair work {cost:.2g}", flush=True)
-            f = run_one(N, gens, pat, sub, seed, log)
+                  f"expected 10^{exp:.2f} in samples of {S:.2g}", flush=True)
+            f = run_one(N, gens, pat, S, seed, log)
             if f:
                 print(f"N = {N}: FOUND", flush=True); done = True
                 break

@@ -14,7 +14,8 @@ attack/data/complex_known_1992.txt) or one of these gives it:
   94, 100 (Lebedev and Verma 2026), and the two families of Jedwab and Pender (2025): (q - 1)/2 for prime powers
   q = 1 (mod 4), and 2p for primes p with 2p - 1 a prime power;
 - Szöllősi's order 94;
-- Seberry-Yamada (1992) Corollaries 11.15 (orders n^j (n + 1)) and 11.17 (an explicit list, which includes 105).
+- Seberry-Yamada (1992) Corollaries 11.15 (orders n^j (n + 1)) and 11.17 (an explicit list, which includes 105),
+  and the conference matrices of their codes c2 ((h - 1)^2 + 1, h skew) and c5 ((m - 1)^s + 1, m a conference order).
 This is our reading of the literature, not a complete table (Table 11.2 of Seberry and Yamada's 2020 book, which
 the 2026 papers cite, was not available to us).
 
@@ -83,6 +84,29 @@ def cor_11_15(N):
     return False
 
 
+def conference_c2_c5(n):
+    """Symmetric conference matrices of order n from the 1992 survey's codes c2 and c5:
+    c2: n = (h - 1)^2 + 1 with h a skew Hadamard order (every 4k with k < 89 is one);
+    c5: n = (m - 1)^s + 1, s >= 2, m the order of a conference matrix (Paley q + 1, Mathon, 46, c2)."""
+    for k in range(1, 89):
+        if (4 * k - 1) ** 2 + 1 == n:
+            return True
+    base = {46}
+    for q in range(5, 2000, 4):
+        if prime_power(q):
+            base.add(q + 1)
+    for k in range(1, 89):
+        base.add((4 * k - 1) ** 2 + 1)
+    for m in base:
+        x = m - 1
+        y = x * x
+        while y + 1 <= n:
+            if y + 1 == n:
+                return True
+            y *= x
+    return False
+
+
 def qlp_known(l):
     if l <= 100:
         return l not in QLP_OPEN_TO_100
@@ -114,6 +138,8 @@ def known_reason(N):
         return "Paley conference matrix"
     if N in mathon_orders(2 * N):
         return "Mathon conference matrix"
+    if conference_c2_c5(2 * N):
+        return "conference matrix (Seberry-Yamada 1992, codes c2/c5)"
     if qlp_known(N - 1):
         return "quaternary Legendre pair"
     if N == 47:

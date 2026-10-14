@@ -60,6 +60,7 @@ N the Gaussian estimate of the hits inside the samples is accurate: 1445 expecte
 | 238 | 119 = 7 · 17 | ⟨8⟩, order 8 | 1, 5; 15, 15 | [C238.json](C238.json) |
 | 262 | 131 | ⟨53⟩, order 5 | 9, 9; 1, 19 | [C262.json](C262.json) |
 | 286 | 143 = 11 · 13 | ⟨3⟩, order 15 | 3, 9; 11, 19 | [C286.json](C286.json) |
+| 302 | 151 | ⟨8⟩, order 5 | 9, 9; 9, 19 | [C302.json](C302.json) |
 | 326 | 163 | ⟨38⟩, order 9 | 17, 19; 1, 1 | [C326.json](C326.json) |
 | 370 | 185 = 5 · 37 | ⟨9⟩, order 18 | 3, 3; 19, 19 | [C370.json](C370.json) |
 
