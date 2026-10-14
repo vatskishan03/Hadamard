@@ -76,6 +76,49 @@ def candidates(nmax):
     return [N for N in range(3, nmax, 2) if known_reason(N) is None]
 
 
+def plan(N, maxo=40, maxpairs=2e11):
+    """Every (H, pattern) with -1 not in H, in order of the pair work of its exact join (cheapest first). The
+    Gaussian model is not used: for composite N it underestimates product structures by orders of magnitude
+    (154: 10^-1.7 predicted, 2352 found)."""
+    out = []
+    for H, gens in subgroups(N).items():
+        if (N - 1) in H:
+            continue
+        st = Struct(N, gens, plain=True)
+        if len(st.sizesA) > maxo:
+            continue
+        for pat in ssxx.patterns(st):
+            sizes = [st.counts(k).get(r, 0) for k, r in zip(ssxx.KINDS, pat)]
+            if min(sizes) == 0:
+                continue
+            cost = ssxx.pair_cost(sizes, ssxx.best_pairing(sizes))
+            if cost <= maxpairs:
+                out.append((cost, len(H), gens, pat))
+    out.sort(key=lambda r: (r[0], -r[1]))
+    return out
+
+
+def run_exhaustive(N, maxo=40, maxpairs=2e11, log=None, budget_s=3600):
+    t0 = time.time()
+    jobs = plan(N, maxo, maxpairs)
+    print(f"N = {N}: {len(jobs)} structure/pattern pairs within {maxpairs:.0g} pair work", flush=True)
+    groups = {}
+    for cost, h, gens, pat in jobs:                     # one Struct per group, patterns in cost order
+        groups.setdefault(gens, []).append(pat)
+    for gens, pats in groups.items():
+        if time.time() - t0 > budget_s:
+            print(f"N = {N}: budget exhausted", flush=True)
+            break
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            found = ssxx.search(N, gens, K=2, log=log, pats=pats, maxpairs=maxpairs, stop=True,
+                                deadline=t0 + budget_s)
+        if found:
+            print(buf.getvalue(), end="", flush=True)
+            return found
+    return []
+
+
 def run(N, maxo=40, maxpairs=2e11, log=None, budget_s=3600):
     """Structures in order of the Gaussian estimate; stop at the first verified matrix."""
     buf = io.StringIO()
@@ -106,6 +149,7 @@ def main():
     p = sub.add_parser("run"); p.add_argument("N", type=int, nargs="+"); p.add_argument("--maxo", type=int, default=40)
     p.add_argument("--maxpairs", type=float, default=2e11); p.add_argument("--log")
     p.add_argument("--budget", type=float, default=3600)
+    p.add_argument("--exhaustive", action="store_true", help="cost-ordered exact joins, no Gaussian ranking")
     a = ap.parse_args()
     if a.cmd == "list":
         c = candidates(a.max)
@@ -116,7 +160,8 @@ def main():
             r = known_reason(N)
             if r:
                 print(f"N = {N}: known ({r}), skipped"); continue
-            found = run(N, a.maxo, a.maxpairs, a.log, a.budget)
+            found = run_exhaustive(N, a.maxo, a.maxpairs, a.log, a.budget) if a.exhaustive else \
+                run(N, a.maxo, a.maxpairs, a.log, a.budget)
             print(f"N = {N}: {'FOUND' if found else 'nothing'}", flush=True)
 
 

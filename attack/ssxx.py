@@ -182,16 +182,16 @@ def best_pairing(sizes):
     return min(([0, 1, 2, 3], [0, 2, 1, 3], [0, 3, 1, 2]), key=lambda o: pair_cost(sizes, o))
 
 
-def search(N, gens, K=20, log=None, pats=None, maxpairs=2e11, stop=False):
+def search(N, gens, K=20, log=None, pats=None, maxpairs=2e11, stop=False, deadline=None):
     st = Struct(N, gens, plain=True)
     if (N - 1) in st.H:
         raise ValueError("-1 in H")
     print(f"N = {N}, H = <{','.join(map(str, gens))}> of order {len(st.H)}: O_A = {len(st.sizesA)}, "
           f"O_L = {len(st.sizesL)}, classes = {st.C}", flush=True)
     found = []
-    for pat in patterns(st):
-        if pats and pat not in pats:
-            continue
+    for pat in (pats if pats else patterns(st)):
+        if deadline and time.time() > deadline:
+            break
         t0 = time.time()
         lists, masks = [], []
         for kind, r in zip(KINDS, pat):

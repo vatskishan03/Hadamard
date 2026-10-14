@@ -194,3 +194,72 @@ not yet been found, namely n ∈ {53, 59, 65, 67}").
 - All four candidates are now built: [12596](12596) and [19364](19364) with the bordered WT(47) of
   [williamson-type](williamson-type), [34196](34196) with the bordered WT(83), and [19028](19028) with T-sequences of
   length 71 (from Turyn-type TT(24)) and the near-Williamson WT(67).
+
+## 8. Complex Hadamard matrices, the order-3 twist and quaternary Legendre pairs (October 14)
+
+**Szöllősi's two-symmetric array.** If A, B, C, D are circulant ±1 matrices of odd order N with ΣXXᵀ = 4N I and only A
+and B symmetric, Theorem 4 of arXiv:2603.09572 gives a quaternary Hadamard matrix of order 2N. Williamson-type
+matrices (all four symmetric up to R) are not needed. With a multiplier group H ∌ −1, C and D are H-invariant, A and B
+are ⟨H, −1⟩-invariant, and the condition lives on the ⟨H, −1⟩-classes (`attack/ssxx.py`, exact four-list joins).
+- **N = 71**, H = ⟨5⟩ of order 5. The Gaussian model gives 10^3.8 per row pattern; the exact joins find 5992 and 6076
+  solutions. This gives order 142, which no Williamson-type matrices of order 71 provide: Table A.1 of Seberry–Yamada
+  1992 is blank at 71, and the 2026 near-Williamson results stop at 69.
+- **N = 77**, H = ⟨15⟩ of order 5, with 15 ≡ 1 (mod 7) and the squares mod 11. Here the model is wrong by four
+  orders: it predicts 10^−1.7 to 10^−2.1, and the exact joins find 2352, 2352, 2352 and 1176 solutions in four
+  patterns. These are Paley-product structures, X = u ⊗ 1 + w ⊗ J + z ⊗ χ over ℤ₇ × ℤ₁₁. The repository's §15 (attack)
+  already noted that the per-class densities are strongly correlated for them.
+- **Safe primes are out of reach.** For N with (N − 1)/2 prime (107, 167, 179, 227, 263, …), the only subgroup of
+  odd order is the squares. Then A and B are constant on ℤ_N*, C and D are of Legendre type, and their PAFs cannot
+  sum to 0.
+- **Known orders.** The order 2N counts as known if it comes from one of:
+  - Williamson-type matrices of order N;
+  - a Paley conference matrix (2N − 1 a prime power);
+  - complex Golay sequences;
+  - a quaternary Legendre pair of length N − 1;
+  - Szöllősi's 94.
+
+  The sweep over the remaining odd N < 1000 is `attack/ssxx_sweep.py`.
+
+**The order-3 twist on the bordered form** (`attack/wt_twist.py`, `attack/twist_join.c`). The twist of arXiv:2605.08661
+§4.4, type (ii), is (A; B, B∘u, B∘u²) with u of order 3. It can be placed on ℤ_(N−1), where the bordered construction
+of [williamson-type](williamson-type) applies; for prime N with 3 ∤ N − 1 there is no order-3 multiplier on ℤ_N
+itself. The B-list is streamed in Gray order against a hash table of the A-list, with an O(1) hash update per step,
+so the search of a structure is exact. Exact counts agree with brute force (N = 31 plain: 180 and 510; N = 19
+bordered: 72), and the hits rebuild verified Williamson arrays. The twist cannot reach N ≡ 2 (mod 3):
+- **Bordered.** The rows are (±2, 0, 0, 0), and the reduction ℤ_m → ℤ₂ gives d_A² + 3d_B² = 4N with d = (even sum) −
+  (odd sum). A symmetric B with row sum 0 has d_B = 2e_B, so N = (d_A/2)² + 3e_B². This holds for m ≡ 2 (mod 4),
+  where e_B is odd, and for m ≡ 0 (mod 4), where e_B is even.
+- **Plain.** Here r_A² + 3r_B² = 4N.
+- **Consequence.** In both forms N must be a norm from ℤ[ω], so N ≢ 2 (mod 3).
+
+This excludes 71, 77, 107, 119, 131, 143, 155, 161, 167, 179, 185 and 191, among them 191 (573) and 263 (789).
+**Order 111.** The plain twist at N = 111 (u = 10, K′ = ⟨38⟩, 13 classes) predicted 10^−0.16 and holds 36 quadruples
+with rows (21, 1, 1, 1): near-Williamson matrices of order 111
+([near-williamson/NW111.txt](near-williamson/NW111.txt), 23 minutes for the 2^38-step B-stream). They give
+Williamson-type matrices of order 111, which are not among the 2026 near-Williamson orders and appear in
+Table A.1 only with t = 3, and through them the complex Hadamard order 222. The
+other two orders those FRONTIER rows need, 223 and 163, fail on cost:
+- 223, which would settle 669, 1115 and 2899, has one admissible twisted structure, K′ = 1, with 10^0.2 expected
+  solutions but A- and B-lists of 10^22 and 10^32.
+- 163 is at most 10^−17 in every twisted structure.
+
+**Quaternary Legendre pairs** (qLP; open lengths up to 100 after Lebedev and Verma 2026: 70, 76, 88, 92, 94 and 100). In
+Gray rows A = ((p + q) + i(p − q))/2 and B = ((r + s) + i(r − s))/2, a qLP is ΣPAF = −4 over the four rows plus an
+amicability condition. Amicability is automatic when each pair (p, q), (r, s) is symmetric about a common centre.
+Lebedev exhausted the family with all centres at 0, at lengths 64, 70 and 76.
+
+*Half-integer centres.* A row symmetric about −1/2 pairs each even position with an odd one, so its alternating sum
+vanishes. A row symmetric about 0 has alternating sum d ≡ 2 (mod 4) or ≡ 0 (mod 4) by its row sum. The condition at
+frequency ℓ/2, Σ_rows d² = 4ℓ + 4, then forces:
+- All four rows centred at −1/2: impossible.
+- One pair at each kind of centre: (d_p/2)² + (d_q/2)² = ℓ + 1, so ℓ + 1 must be a sum of two squares.
+  - Impossible for ℓ = 70 (71), 76 (77), 92 (93) and 94 (95).
+  - Possible for ℓ = 88 (89) and ℓ = 100 (101). This mixed family lies outside Lebedev's queues.
+
+So at lengths 70 and 76 a qLP must have a pair of Gray rows that is not symmetric about a common centre.
+
+*A binary.* Verma's length-64 pair has A binary. For binary A and symmetric (r, s) the condition is
+2PAF_A + PAF_r + PAF_s = −4, with r_A = 0 and (r_r, r_s) = (2, 0). `attack/qlp_bin.py` searches it with A on the
+H-orbits and r, s on the ⟨H, −1⟩-orbits; it finds pairs at lengths 14 and 26 and verifies them exactly. At the open
+lengths every multiplier structure has a Gaussian estimate of 10^−2.2 or less: 70: 10^−4.4 (⟨11⟩); 76: 10^−2.3 (⟨45⟩);
+94: 10^−2.2 (⟨3⟩).

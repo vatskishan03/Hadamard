@@ -54,6 +54,7 @@ Code: `attack/ssxx.py` (triage, search), `attack/ssxx_sweep.py` (the candidate o
 |---:|---:|---|---|---:|---|
 | 142 | 71 | ⟨5⟩, order 5 | 9, 9; 1, 11 | 5992 (and 6076 with 9, 11; 1, 9) | [C142.json](C142.json) |
 | 154 | 77 = 7 · 11 | ⟨15⟩, order 5 (15 ≡ 1 mod 7, the squares mod 11) | 3, 3; 1, 17 | 2352 (also 2352, 2352 and 1176 for three other patterns; the Gaussian model predicts 10^−1.7) | [C154.json](C154.json) |
+| 222 | 111 = 3 · 37 | from the near-Williamson matrices of order 111 in [`near-williamson/NW111.txt`](../near-williamson/NW111.txt) (order-3 twist, `attack/wt_twist.py`), with (B, C) as the symmetric pair and (A, D) as the other | 1, 1; 21, 1 (in the order B, C; A, D) | 36 near-Williamson quadruples with these rows | [C222.json](C222.json) |
 
 Each certificate gives N, the multiplier group, the row sums, the first rows of A, B, C, D (`+`, `-`) and the
 SHA-256 of the canonical text of K: 2N lines of 2N digits, digit e standing for the entry iᵉ.
