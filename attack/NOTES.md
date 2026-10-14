@@ -2025,3 +2025,27 @@ The condition fails for 627, 759, 1045, 1221, 1235, 1323, 1425, 1683, 1815, 2145
 exists for these. (1425 is [skew/5700](../skew/5700) by another route.) It holds for 429, 475, 693, 891, 957, 1089,
 1353, 1617, 1749, 1947, 1989, 2013, 2277, 2365, 2409 and 2457. Of these, 429, 475, 1989 and 2457 are done; the rest
 are open.
+
+**Harvest table (Theorem 7, Goethals–Seidel form over ℤ_t, H-invariant).** "templates" are the H-invariant b parts of
+weight m with autocorrelation sum mδ, up to equivalence. The c parts are exhaustive over H-invariant blocks
+(`odm_engine.py`; `odm_join.py` with join4x for large lists; `--bjoin` builds the templates with join4x from numpy
+candidate arrays).
+
+| v | t | m | n | H | b part | outcome |
+|---:|---:|---:|---:|---|---|---|
+| 1989 | 39 | 3 | 52 (new) | {1, 16, 22} | three singletons | **2688 solutions → skew 7956** |
+| 475 | 25 | 5 | 20 | none (annealing) | δ₀ ± δ₁₀, δ₀ | **found → skew 1900** |
+| 429 | 39 | 13 | 12 | {1, 16, 22} | on 3ℤ₃₉ | **18 solutions → skew 1716** |
+| 2457 | 91 | 13 | 28 | ⟨79, 29⟩, order 9 | on 7ℤ₉₁ (found also unrestricted) | **8 solutions → skew 9828** |
+| 2365 | 55 | 5 | 44 | ⟨36⟩, order 5 (the only one) | all 3 templates | none |
+| 627 | 57 | 19 | 12 | order 9: no template; order 3: no template passes | — | Eades fails |
+| 957 | 87 | 29 | 12 | ⟨7⟩, order 7 (the only one) | no template (110 763 candidates per block) | none |
+| 1749 | 159 | 53 | 12 | ⟨10⟩, order 13 (the only one) | no template | none |
+| 2013 | 183 | 61 | 12 | ⟨16⟩, order 15 | no template | none (order 5: 39 orbits, too large) |
+| 1947 | 177 | 59 | 12 | ⟨4⟩, order 29 (the only one) | no template | none |
+| 1089 | 99 | 33 | 12 | ⟨4⟩, order 15 | 278 templates (b on 33ℤ) | no c part |
+| 177, 201, 249, 309 | 59, 67, 83, 103 | t | 4 | the squares (and orders 11, 17) | no template | none |
+| 2375 | 125 | 25 | 20 | ⟨6⟩, order 25 | no template | Eades fails anyway |
+| 891 | 81 | 27 | 12 | ⟨4⟩, order 27 | no template | (order 9: running) |
+| 693 | 63 | 21 | 12 | ⟨4⟩ = {1, 4, 16} | on 3ℤ₆₃; 1848 templates from 200 000 of 1 054 944 b quadruples (cap) | **4 solutions → skew 2772** |
+| 1617 | 147 | 49 | 12 | ⟨4⟩, order 21 | 3169 templates from 200 000 of 81 450 144 (cap) | none passes the row-sum screen |
