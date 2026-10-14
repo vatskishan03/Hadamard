@@ -6,7 +6,7 @@
 
 A skew-Hadamard matrix is a Hadamard matrix H with H + Hᵀ = 2I.
 
-**Group.** Unlike the other orders in this directory, the difference family lives on the
+**Group.** Unlike most orders in this directory, the difference family lives on the
 **non-cyclic** group G = ℤ₅ × ℤ₅ × ℤ₁₁. Elements are triples (x, y, z), listed in mixed-radix order
 (z fastest).
 

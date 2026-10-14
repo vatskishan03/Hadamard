@@ -65,8 +65,8 @@ checked against implemented constructions.
   undecided values.
 - SageMath's `unknown_skew_hadamard` list stops at 1196, below this order.
 - The known families do not reach 1372:
-  - the skew Hadamard difference families of Momihara and Xiang need q ≡ 2ᵘ + 1 (mod 2ᵘ⁺¹) with u ≥ 2, but 343 ≡ 7
-    (mod 16);
+  - the skew Hadamard difference families of Momihara and Xiang need q ≡ 2ᵘ + 1 (mod 2ᵘ⁺¹) with u ≥ 2, hence q ≡ 1
+    (mod 4), but 343 ≡ 3 (mod 4);
   - the Szekeres construction gives order 2(q + 1);
   - the product theorem would need 1372 = n(pᵏ + 1) with a skew order n;
   - Paley I, Wallis–Whiteman, Spence and amicable products were also checked.
