@@ -33,6 +33,7 @@ August 2026), the smallest order we know to be unresolved is now 2292 = 4 · 573
 | [29404](29404) | 4 · 7351 | Yamada's theorem (q = 7349) from this repository's [skew 3676](skew/3676) (an order first published by Schumer in September 2026) | First explicit construction we know of; Handbook Table 1.53 lists 7351 with t = 2, with no construction we could trace |
 | [31316](31316) | 4 · 7829 | Miyamoto's theorem from a Cooper–Wallis matrix of order 7828 (T-matrices of order 103, Williamson order 19) | Probably new; above the range of [3] |
 | [31412](31412) | 4 · 7853 | Miyamoto's theorem from a Cooper–Wallis matrix of order 7852 (T-matrices of order 151, Williamson order 13) | Probably new; above the range of [3] |
+| [34196](34196) | 4 · 8549 | Cooper–Wallis: T-matrices of order 103 and bordered Williamson-type matrices of order 83 (four sequences on ℤ₈₂, [williamson-type](williamson-type)) | Probably new; above the range of [3] |
 | [35636](35636) | 4 · 8909 | Cooper–Wallis: T-matrices of order 151 and Williamson-type matrices of order 59 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
 | [38468](38468) | 4 · 9617 | Cooper–Wallis: T-matrices of order 163 and Williamson-type matrices of order 59 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
 | [39260](39260) | 4 · 9815 | Cooper–Wallis: T-matrices of order 151 and Williamson-type matrices of order 65 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
@@ -186,6 +187,8 @@ Other top-level contents:
 - [`skew`](skew): skew-Hadamard matrices, one directory per order, in the same layout.
 - [`symmetric`](symmetric): symmetric Hadamard matrices, one directory per order, in the same layout.
 - [`t-matrices`](t-matrices): the T-matrices of orders 97 to 197 found during this work.
+- [`williamson-type`](williamson-type): bordered Williamson-type matrices of order w from four sequences on ℤ_(w−1)
+  (construction, proof, calibration and limits).
 - [`near-williamson`](near-williamson): near-Williamson matrices of Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev
   (2026), used as Williamson-type matrices for the orders 24308 to 39260.
 - [`search`](search): the programs that found the Goethals–Seidel orders.
