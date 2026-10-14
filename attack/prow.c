@@ -328,13 +328,19 @@ static long long join2(Seq *qb, Seq *qd, long long nd, long long partcap) {
  * the part of a D is c(d_0) + c(d_1) + c(d_2) mod nparts; the part of a needed class vector is computed from its
  * entries 0 and 1 in the same way. */
 static inline int pmod(int a, int n) { a %= n; return a < 0 ? a + n : a; }
-static int KMUL = 7;                  /* key multiplier: coprime to the (prime) number of parts */
+static int KMUL = 7;                  /* (unused since the key uses every x = 0 class; kept for the record) */
+static int MU[16];                    /* key multipliers, one per x = 0 class, nonzero mod the (prime) number of parts */
 static int nextprime(int n) { for (;; n++) { int ok = n > 1; for (int d = 2; d * d <= n; d++) if (n % d == 0) { ok = 0; break; } if (ok) return n; } }
-static inline int rowkey(int m, int np) { return pmod((Pt[(size_t)m * E2] - 1) / 4 + KMUL * ((Pt[(size_t)m * E2 + 1] - 1) / 4), np); }
+/* The part key is sum_k MU[k] (F_k - 3) / 4 mod np over all x = 0 classes k: additive over the rows of D (every row
+ * PAF is 1 mod 4) and, for a needed vector, the sum of an A part and a B part. With only two classes (as before) the
+ * key took a few hundred values whatever np was, so a handful of parts held everything (213/<25>: part 0 overflowed). */
+static void setmu(int np) { uint64_t x = 0x9e3779b97f4a7c15ULL; for (int k = 0; k < E2; k++) { x = x * 6364136223846793005ULL + 1442695040888963407ULL; MU[k] = np > 1 ? 1 + (int)((x >> 33) % (uint64_t)(np - 1)) : 0; } MU[0] = np > 1 ? 1 : 0; }
+static inline int rowkey(int m, int np) { long t = 0; for (int k = 0; k < E2; k++) t += (long)MU[k] * ((Pt[(size_t)m * E2 + k] - 1) / 4); return (int)(((t % np) + np) % np); }
+static inline int needkey(const signed char *need, int np) { long t = 0; for (int k = 0; k < E2; k++) t += (long)MU[k] * ((need[k] - 3) / 4); return (int)(((t % np) + np) % np); }
 static long long join3(Seq *qb, Seq *qd, long long nd, long long partcap) {
     Store sb = {0};
     seq_iter(qb, store_cb, &sb);
-    int np = nextprime((int)((nd + partcap - 1) / partcap)); KMUL = np == 7 ? 3 : 7;
+    int np = nextprime((int)((nd + partcap - 1) / partcap)); setmu(np);
     int *c0 = malloc(sizeof(int) * qd->n[0]), *c1 = malloc(sizeof(int) * qd->n[1]);
     for (int i = 0; i < qd->n[0]; i++) c0[i] = rowkey(qd->L[0][i], np);
     for (int i = 0; i < qd->n[1]; i++) c1[i] = rowkey(qd->L[1][i], np);
@@ -369,13 +375,11 @@ static long long join3(Seq *qb, Seq *qd, long long nd, long long partcap) {
             const signed char *FA = Al[ia].F;
             for (long long ib = 0; ib < sb.n; ib++) {
                 const signed char *FB = sb.e[ib].F;
-                int n0 = tgtC[0] - FA[0] - 2 * FB[0], n1 = tgtC[1] - FA[1] - 2 * FB[1];
-                if (pmod(n0, 4) != 3 || pmod(n1, 4) != 3) continue;
-                if (pmod((n0 - 3) / 4 + KMUL * ((n1 - 3) / 4), np) != part) continue;
                 signed char need[MAXC]; int ok = 1;
                 memset(need, 0, MAXC);
-                for (int k = 0; k < C; k++) { int s = tgtC[k] - FA[k] - 2 * FB[k]; if (s < -127 || s > 127) { ok = 0; break; } need[k] = (signed char)s; }
+                for (int k = 0; k < C; k++) { int s = tgtC[k] - FA[k] - 2 * FB[k]; if (s < -127 || s > 127 || (k < E2 && pmod(s, 4) != 3)) { ok = 0; break; } need[k] = (signed char)s; }
                 if (!ok) continue;
+                if (needkey(need, np) != part) continue;
                 probes++;
                 uint64_t h = hkey(need), s = h & d.mask;
                 while (d.t[s].used) {
@@ -409,7 +413,7 @@ static void cstore_cb(const Seq *q, int i0, int i1, int i2, void *ctx) {
     x->i0 = i0; x->i1 = i1; x->i2 = i2; memcpy(x->F, F, C);
 }
 typedef struct { int np; long long *cnt, *pos; CEnt *bs; } BCtx;
-static inline int bkey(const signed char *F, int np) { return pmod(-2 * ((F[0] - 3) / 4) - 2 * KMUL * ((F[1] - 3) / 4), np); }
+static inline int bkey(const signed char *F, int np) { long t = 0; for (int k = 0; k < E2; k++) t -= 2L * MU[k] * ((F[k] - 3) / 4); return (int)(((t % np) + np) % np); }
 static void bcount_cb(const Seq *q, int i0, int i1, int i2, void *ctx) {
     BCtx *c = ctx; signed char F[MAXC]; memset(F, 0, MAXC); classvals(q, i0, i1, i2, F); c->cnt[bkey(F, c->np) + 1]++;
 }
@@ -421,7 +425,7 @@ static long long join4(Seq *qb, Seq *qd, long long nd, long long partcap) {
     if (C > MAXC - 6) { fprintf(stderr, "too many classes for join4\n"); exit(2); }
     /* B in two passes: count per key bucket, then place each survivor directly (no second copy) */
     long long nb = seq_iter(qb, NULL, NULL);
-    int np = nextprime((int)((nd + partcap - 1) / partcap)); KMUL = np == 7 ? 3 : 7;
+    int np = nextprime((int)((nd + partcap - 1) / partcap)); setmu(np);
     BCtx bc; bc.np = np; bc.cnt = calloc(np + 1, sizeof(long long)); bc.bs = NULL; bc.pos = NULL;
     seq_iter(qb, bcount_cb, &bc);
     for (int b = 0; b < np; b++) bc.cnt[b + 1] += bc.cnt[b];
@@ -431,8 +435,9 @@ static long long join4(Seq *qb, Seq *qd, long long nd, long long partcap) {
     CEnt *bs = bc.bs; long long *bcnt = bc.cnt; free(bc.pos);
     int *ka = malloc(sizeof(int) * (nA + 1));
     for (int ia = 0; ia < nA; ia++) {
-        int a0 = (Al[ia].F[0] - 3) / 4, a1 = (Al[ia].F[1] - 3) / 4;
-        ka[ia] = pmod((tgtC[0] - 12) / 4 - a0 + KMUL * ((tgtC[1] - 12) / 4 - a1), np);
+        long t = 0;
+        for (int k = 0; k < E2; k++) t += (long)MU[k] * ((tgtC[k] - 12) / 4 - (Al[ia].F[k] - 3) / 4);
+        ka[ia] = (int)(((t % np) + np) % np);
     }
     /* D rows bucketed by row key */
     int *c0 = malloc(sizeof(int) * qd->n[0]), *c1 = malloc(sizeof(int) * qd->n[1]);

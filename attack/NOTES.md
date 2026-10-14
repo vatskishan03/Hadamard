@@ -1893,4 +1893,13 @@ twelfth powers on GF(61), trivial on ℤ₃; 20 orbits for A, 39 for B and D, 19
 fifth ℤ₃-compatible triple (rows (21, 1, 17); A (−1, 11, 11), B (−9, 1, 9), D (−1, 9, 9) by rows; |A| = 464,
 B 3.8 · 10⁶, D 4.3 · 10⁸, 1.75 · 10⁹ pairs), in part 3 of 29, after about 1.5 hours with two processes on eight
 triples. The corrected estimate of `propus_rank.py` for the structure was 0.69 expected solution orbits (|Γ| = 432),
-0.06 for this row pattern. The remaining triples were not finished.
+0.06 for this row pattern. The remaining triples were not finished; the rerun of the fifth triple alone (commit
+`a0fc82d`) finishes it with exactly the two solutions.
+
+**prow.c part keys (fix).** The D parts of `join3`/`join4` were chosen by the additive key
+(F₀ − 3)/4 + 7 (F₁ − 3)/4 mod np of the first two x = 0 classes. Those class values span only a few hundred residues,
+so with np in the thousands almost all D landed in a few parts: the 213/⟨25⟩ run (np = 1811, table sized for the
+average part) stopped with "part 0 overflows its table" after its B passes. The key is now Σ_k μ_k (F_k − 3)/4 over
+all e/2 classes with fixed pseudo-random μ_k (μ₀ = 1), which is still additive over the rows of D and splits into an
+A part and a B part for a needed vector. The planted tests (join3 and join4) recover their solutions; 213/⟨25⟩ was
+restarted with it.
