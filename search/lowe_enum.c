@@ -220,7 +220,9 @@ int main(int argc, char **argv) {
             if (!keep_prefix(pfx)) continue;
             for (int o = 0; o < d; o++) if ((pfx >> o) & 1) flip(&s, o);
             int64_t need = (int64_t)r - s.sum;
-            if (need >= 0 && need < RW && REACH[(int64_t)d * RW + need]) dfs(&s, d, r, &bufs[tid]);
+            int ok = 1;                                  /* prefix checks at depths inside the parallel prefix */
+            for (int q = 1; HASPFX && ok && q < d; q++) ok = prefix_ok(&s, q);
+            if (ok && need >= 0 && need < RW && REACH[(int64_t)d * RW + need]) dfs(&s, d, r, &bufs[tid]);
             for (int o = d - 1; o >= 0; o--) if ((pfx >> o) & 1) flip(&s, o);
         }
         free(s.R); free(s.v);
