@@ -5,13 +5,17 @@ T-matrices: circulant 0/+-1 matrices T_1..T_4 of order t with partitioning suppo
 are constant on the orbits of a multiplier group H <= Z_t^*. Fix E = the orbits in supp T_1 u supp T_2; then
 X_1 = T_1 + T_2 and X_3 = T_1 - T_2 are +-1 on E, X_2 = T_3 + T_4 and X_4 = T_3 - T_4 are +-1 off E, and
 sum PAF(X_i) = 2 sum PAF(T_i). So for a fixed E the four lists are independent: each is every sign vector on its
-orbits, and they are joined exactly on the classes of <H, -1> (numpy sort join). E is drawn at random until a
+orbits, and they are joined exactly on the classes of <H, -1> (numpy sort join, or attack/join4x.c for large lists). E is drawn at random until a
 quadruple is found.
 
     python3 attack/tmat_mult.py t g [--tries N] [--seed S] [--out FILE]
 """
-import argparse, itertools, sys
+import argparse, itertools, os, struct, subprocess, sys
+from pathlib import Path
 import numpy as np
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import workdir as W
 
 
 def closure(gens, m):
@@ -41,8 +45,22 @@ def lists_for(orbits, sel, t, reps):
 
 
 def join(L1, L2, L3, L4):
-    """(i, j, k, l) with L1[i] + L2[j] + L3[k] + L4[l] = 0 on every class: sort-intersection of the pair sums."""
+    """(i, j, k, l) with L1[i] + L2[j] + L3[k] + L4[l] = 0 on every class: sort-intersection of the pair sums
+    (numpy) for small lists, attack/join4x.c otherwise."""
     C = L1.shape[1]
+    if len(L1) * len(L2) > 4e6 or len(L3) * len(L4) > 4e6:
+        path = W.WORK / f"tmat_{os.getpid()}.bin"
+        with open(path, "wb") as f:
+            f.write(struct.pack("5i", len(L1), len(L2), len(L3), len(L4), C))
+            f.write(np.zeros(C, np.int16).tobytes())
+            for x in (L1, L2, L3, L4):
+                f.write(np.ascontiguousarray(x, np.int16).tobytes())
+        out = subprocess.run([W.bin("join4x"), str(path), "1"], capture_output=True, text=True, check=True).stdout
+        path.unlink()
+        for ln in out.splitlines():
+            if ln.startswith("SOL"):
+                return tuple(map(int, ln.split()[1:5]))
+        return None
     L1, L2, L3, L4 = (x.astype(np.int16) for x in (L1, L2, L3, L4))
     left = (L1[:, None, :] + L2[None, :, :]).reshape(-1, C)
     right = (-(L3[:, None, :] + L4[None, :, :])).reshape(-1, C)
