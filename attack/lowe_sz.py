@@ -160,13 +160,70 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
     return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0)
 
 
-def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0):
+def sigma_file(lists, Sx, target, nsig, path):
+    """split values for kt4, in order of the Gaussian law of a solution's split: with mu_k, Sigma_k the mean and
+    covariance of each kept list (subsampled), a solution's (a + c) on the merge classes has mean
+    m = mu_A + mu_C + (Sigma_A + Sigma_C) Sigma^+ (t - sum mu) and covariance V = (Sigma_A + Sigma_C)
+    - (Sigma_A + Sigma_C) Sigma^+ (Sigma_A + Sigma_C). The lattice points sigma (step and residue of a + c in each
+    class) closest to m in the metric V^-1 are written, nsig of them."""
+    mus, sigs, lat = [], [], []
+    for k in range(4):
+        v = np.asarray(lists[k][1][::max(1, len(lists[k][1]) // 200000)], np.float64)
+        mus.append(v.mean(0)); sigs.append(np.cov(v.T) if len(v) > 1 else np.zeros((v.shape[1], v.shape[1])))
+        vi = np.asarray(lists[k][1][::max(1, len(lists[k][1]) // 20000)], np.int64)
+        lat.append(vi)
+    C = len(mus[0]); t = np.full(C, float(target))
+    Sig = sum(sigs)
+    w, U = np.linalg.eigh(Sig); inv = np.where(w > 1e-9 * w.max(), 1 / np.where(w > 0, w, 1), 0)
+    Sp = (U * inv) @ U.T
+    SAC = sigs[0] + sigs[2]
+    m = (mus[0] + mus[2] + SAC @ Sp @ (t - sum(mus)))[Sx]
+    V = (SAC - SAC @ Sp @ SAC)[np.ix_(Sx, Sx)]
+    Vi = np.linalg.inv(V + 1e-6 * np.eye(len(Sx)))
+    g, res = [], []
+    for s in Sx:
+        gs = 0
+        for vi in (lat[0], lat[2]):
+            col = vi[:, s]
+            gs = int(np.gcd(gs, np.gcd.reduce(np.abs(col - col[0])))) if len(col) > 1 else gs
+        gs = max(gs, 1)
+        g.append(gs); res.append(int(lat[0][0, s] + lat[2][0, s]) % gs)
+    g = np.array(g, np.float64)
+    nd = len(Sx)
+    vol = {1: 2.0, 2: math.pi, 3: 4 * math.pi / 3, 4: math.pi ** 2 / 2, 5: 8 * math.pi ** 2 / 15}[nd]
+    r = (1.3 * nsig * np.prod(g) / (vol * math.sqrt(max(np.linalg.det(V), 1e-300)))) ** (1 / nd)
+    half = np.ceil(r * np.sqrt(np.diag(V)) / g).astype(int) + 1
+    base = np.array([res[i] + g[i] * np.round((m[i] - res[i]) / g[i]) for i in range(nd)])
+    axes = [base[i] + g[i] * np.arange(-half[i], half[i] + 1) for i in range(nd)]
+    keep_pts, keep_d = [], []
+    rest = np.stack(np.meshgrid(*axes[1:], indexing="ij"), -1).reshape(-1, nd - 1) if nd > 1 else np.zeros((1, 0))
+    for x0 in axes[0]:
+        P = np.concatenate([np.full((len(rest), 1), x0), rest], 1)
+        D = P - m
+        d2 = np.einsum("ij,jk,ik->i", D, Vi, D)
+        sel = d2 <= r * r
+        keep_pts.append(P[sel]); keep_d.append(d2[sel])
+    P = np.concatenate(keep_pts); d2 = np.concatenate(keep_d)
+    o = np.argsort(d2)[:int(nsig)]
+    np.savetxt(path, P[o].astype(np.int64), fmt="%d")
+    return len(o), float(np.sqrt(d2[o[-1]])) if len(o) else 0.0
+
+
+def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ordered=True):
     order = [0, 2, 1, 3]
     # merge classes: largest variance, from a subsample of every list (a full int64 copy would need gigabytes)
     var = sum(np.asarray(lists[k][1][::max(1, len(lists[k][1]) // 200000)], np.float64).var(0) for k in order)
     Sx = [int(c) for c in np.argsort(-var)[:nS]]
-    print(f"  kt4: merge classes {Sx}, {int(nsig)} split values", flush=True)
-    p = subprocess.run([W.bin("kt4"), str(inp), ",".join(map(str, Sx)), str(int(nsig)), str(maxsol)],
+    sigarg = str(int(nsig))
+    if ordered:
+        sf = Path(str(inp) + ".sig")
+        n, rad = sigma_file([lists[k] for k in order], Sx, st.target, nsig, sf)
+        sigarg = "@" + str(sf)
+        print(f"  kt4: merge classes {Sx}, {n} split values by the solution law (Mahalanobis radius {rad:.2f})",
+              flush=True)
+    else:
+        print(f"  kt4: merge classes {Sx}, {int(nsig)} split values", flush=True)
+    p = subprocess.run([W.bin("kt4"), str(inp), ",".join(map(str, Sx)), sigarg, str(maxsol)],
                        capture_output=True, text=True)
     tail = [l for l in p.stdout.splitlines() if l.startswith("TOTAL")]
     sols = [list(map(int, l.split()[1:5])) for l in p.stdout.splitlines() if l.startswith("SOL")]
