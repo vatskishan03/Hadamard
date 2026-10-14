@@ -2076,3 +2076,226 @@ from scratch per template: about 25 minutes per template at t = 63 with |H| = 3.
 - The lists are cached across templates, and each template's row-sum vectors are joined by `join4x.c`.
 - Validation: at t = 39 it reproduces odm_join's counts exactly (120 per row-sum vector for template 0), and a decoded
   solution checks as an OD.
+
+## 32. The symmetric weighted plug-in in Balonin form; generic group engines (October 14, afternoon)
+
+**The plug-in.** A symmetric OD(4t; μ, 4t − μ) xP + yN (P, N symmetric with complementary supports, P² = μI,
+N² = (4t − μ)I, PN + NP = 0) and a symmetric Hadamard matrix of order h with 4t = μh give the symmetric Hadamard matrix
+P ⊗ J_{h−1} + N ⊗ D of order μh(h − 1), D the core of the symmetric matrix (§31: the J terms cancel exactly when the
+weight of P is μ = 4t/h). No amicable pair is needed, only a symmetric matrix of order h = 4k, so on paper the census
+values v = μk(4k − 1) are in reach: 125 symmetric-undecided values in 139 splits, 122 in 134 without the values
+already settled here (k = 1, h = 4 alone covers every multiple of 3), e.g. 475 (t = 25, μ = 5, h = 20), 891 (t = 81, μ = 27, h = 12), 1989 (t = 39, μ = 3, h = 52).
+
+**Balonin form.** With A symmetric and B, D any circulants (or group-developed matrices),
+
+    [ −A   BR   BR   DR ]
+    [ BR   RD   A   −RB ]
+    [ BR   A   −RD   RB ]
+    [ DR  −RB   RB   A  ]
+
+is symmetric and orthogonal whenever AAᵀ + 2BBᵀ + DDᵀ is scalar (the off-diagonal blocks cancel identically, also
+with variables, provided both parts of A are symmetric). Splitting each block into an x part and a y part, the design
+conditions are PAF(A_x) + 2PAF(B_x) + PAF(D_x) = μδ, the same for y with 4t − μ, and X_A + 2X_B + X_D = 0 for the
+cross terms X(s) = Σ_g x(g)[y(g + s) + y(g − s)]. Summing the cross condition over s gives the row-sum screen
+r_Aρ_A + 2r_Bρ_B + r_Dρ_D = 0 with r_A² + 2r_B² + r_D² = μ and ρ_A² + 2ρ_B² + ρ_D² = 4t − μ
+(`search/symod_reach.py`). It removes 1989 (μ = 3), 693 (μ = 21), 1235, 1353, 2013, 2093 (μ = 1, as in §31) and most of the
+n = 4 splits; it keeps 475, 891, 1089, 2185, 2375, 1617, 1749, 1815, 1947, 2277, 513, 657, 669 and 723.
+
+Small x parts are rigid. For μ = 3 the cross condition forces B and D to be of skew type around their single x
+entries, so PAF(A) + 2PAF(B) + PAF(D) = 4tδ with A symmetric and a² = 4t − 3 for the row sum of A.
+
+**Exhaustive results (`search/symod_g.py`, H trivial, every Balonin design over the group).**
+
+| t | μ with a design | μ without one |
+|---:|---|---|
+| 3 | 1, 3 | — |
+| 5 | 1 | 3, 5 |
+| 7 | 1, 3 | 5, 7 |
+| 9 | — | 1, 3, 5, 7, 9 |
+| 11 | 1 | 3, 5, 7, 9, 11 |
+| 13, 15 | 1 | 3, 5, 7 |
+| 17 | 1 | 3, 5 |
+| 19 | 1 | 3 |
+| 21 | 1 | 3, 7 |
+| 25 (ℤ₂₅ and ℤ₅²) | — | 5 (symmetric 475) |
+
+No design with μ ≥ 5 exists in any of these cases, and μ = 3 only for t = 3 and 7. So the weighted variant in Balonin
+form looks barren; 475 is out over both groups of order 25 (2 and 1 x templates up to equivalence, one row-sum class
+each, joins empty). The H-invariant run for 891 (ℤ₈₁, H = ⟨10⟩, x part on 3ℤ₈₁) found 151 templates in a capped sample
+of 200 000 x triples and no design.
+
+**Generic engines.** `search/gsgroup.py` (groups ∏ ℤ_n^k, automorphisms as matrices, orbit and cross tables),
+`search/gdfs.c` (depth-first lists with incremental PAF and cross vectors), `search/symod_g.py` (symmetric Balonin)
+and `search/odm_g.py` (skew Goethals–Seidel, Theorem 7) work over any such group with H of odd order:
+- templates by join4x;
+- canonical forms by row-wise lexicographic minima over the normaliser, block signs, and translations by H-fixed
+  elements and negation of the non-skew blocks;
+- `--hb` puts the b (x) part under a larger group than the c part;
+- `--b4w` bounds the b weight of one of blocks 2–4, which turns the template join into a three-list join;
+- `--anneal` replaces the exhaustive c lists by `search/osa.c`, annealing over the orbit variables with the row sums
+  held.
+
+Checks: the engines reproduce the 1716 designs (12 solutions over ℤ₃₉ with H = ⟨16⟩, b on 3ℤ₃₉; the annealer finds one
+too), μ = 1 skew-propus designs, and the ℤ₂₅ negative. Fixed on the way: the signed row-sum size of a skew pair is 0,
+not its weight. verify.py's Theorem-7 "od" form takes an optional "group" (blocks over ∏ ℤ_n^k, R the negation).
+
+**Theorem 7 with n = 4.** A skew OD(4t; 1, t, 3t − 1) gives a skew-Hadamard matrix of order 12t, so t = v/3 reaches
+every undecided skew v divisible by 3 (172 of them). Exhaustively over ℤ_t (H trivial, Goethals–Seidel form):
+- t = 3, 5, 9: designs exist;
+- t = 7: impossible, since 7 is not a sum of three squares (Eades), as for every t ≡ 7 (mod 8).
+- t = 11: a design exists (template from a capped sample of 2 · 10⁶ b quadruples).
+- t = 13: running.
+In every design found the b parts sit in a short window around 0, where periodic and aperiodic autocorrelations agree.
+They are four short ternary complementary sequences with u₁ antisymmetric. For t = 11:
+- u₁ = (1, 0, −1) on positions (−1, 0, 1);
+- u₂ = −(δ₀ + δ₁ + δ₂);
+- u₃ = (1, −1, −1) on (−1, 0, 1);
+- u₄ = (−1, 1, −1) on (−2, −1, 0).
+
+Their aperiodic autocorrelations at shifts 1 and 2 sum to 0, and the weights sum to 2 + 3 + 3 + 3 = 11. So b parts
+of any weight are plentiful (from complementary ternary sequences); the c part is the hard half.
+
+The census sweep (`n4sweep.py` in the work directory) covers every cyclic H of odd order with at most 15 orbits for
+the 120 targets with t a sum of three squares: 3-orbit groups (squares) and most 5–9-orbit groups have no b
+template at all, and no c part was found in any run (results in the table below when complete).
+
+**Theorem-7 targets: what the H-invariant searches can and cannot reach.**
+- Non-cyclic groups, exhaustive. Over ℤ₃² × ℤ₁₁ (H = unipotent × ⟨3⟩, order 15, 15 orbits) 1089 has 5 templates
+  (88 128 b quadruples, complete) and no c part. Over ℤ₃² × ℤ₂₃ (order 33, 15 orbits) 2277 has no b template. Over
+  ℤ₃ × ℤ₇² (order 21, 15 orbits) 1617 has 42 templates in a capped sample of 2 · 10⁵ quadruples, and none passes the
+  row-sum screen. Over ℤ₃⁴ with the order-13 automorphism (9 orbits) 891 has no b template.
+- Cyclic groups with 27 orbits per block (1353/⟨10⟩, 1089/⟨91⟩, 2409/⟨4⟩, 2277/⟨163⟩): the c lists reach about
+  2 · 10⁷ per block. A single template's join ran for more than 40 minutes (1353, 233 templates), so these are beyond
+  exhaustive joins. With one b block of weight ≤ 3 there is no template at all for 2409/⟨4⟩ and 2277/⟨163⟩.
+- `search/odm_estimate.py` (Gaussian model: exact list sizes times the per-coordinate probability of a zero sum)
+  under-counts badly. The known hits sit 3 (1716) to 5 (2772) orders of magnitude above the model, so it cannot rule
+  a structure out; for 1353/⟨10⟩ it gives 10⁻¹¹ per template and for 1089/⟨91⟩ 10⁻¹⁵.
+- Orbit annealing (`osa.c`) finds the 1716 design. For 1089 with H of order 3 (55 H-orbits, about 52 variables per block) the energy
+  never drops below about 10⁵ (random level), at T₀ = 40 or 3000. This agrees with §26: local search is not
+  competitive above about 40 free positions per block.
+
+**A second plug for Theorem 7 (negative).** In H = I ⊗ (I + W) + B ⊗ X + C ⊗ D, any symmetric ±1 X with WX = −XW,
+XD = DX and X² = αI + βJ works, and the weights must satisfy c = m(r − 4n') − 1, N = m(r + 1 − 4n') for
+X² = 4n'I + (r − 4n')J (r = n − 1). X = J (n' = 0) is Theorem 7. X = J − 2P (n' = 1, P an involutive permutation)
+would give skew orders m r(r − 3), e.g. skew 4 · 575 from the OD(100; 1, 5, 94) of 1900 with the Paley cores of
+order 23, and skew orders 28t from the n = 4 designs. But no permutation P with PWP = −W and PDP = D exists for the
+Paley cores, q = 7, …, 47 (exhaustive backtracking). Among the back-circulant ±1 matrices on GF(q), which all
+anticommute with the Jacobsthal W, the only ones commuting with D = (I + Q)U with a two-level square are ±J and the
+core itself (q = 7, 11, 19, 23, all 2^q sets). So the plug needs amicable cores with a different symmetry.
+
+**Two-block skew matrices with a general second block (`search/szek2.py`).** The bordered array
+[[1, 1, e, e], [−1, 1, e, −e], [−eᵀ, −eᵀ, A, B], [−eᵀ, eᵀ, −Bᵀ, Aᵀ]] is skew-Hadamard of order 2(w + 1) whenever A is
+of skew type, both row sums are 1 and PAF_a + PAF_b = −2 off 0. H + Hᵀ = 2I only uses A + Aᵀ = 2I, because the
+off-diagonal blocks pair B with −Bᵀ; every row product reduces to the PAF condition and the row sums. So b need not
+be symmetric. `szekeres.py` (§15) required it (the classical Szekeres difference sets), and 767 of its 988 census
+structures had no symmetric b at all.
+
+With b only H-invariant the free signs per class equation rise from 2 to 3. The symmetric analogue (A symmetric, b
+any, row sums −1, the Legendre-pair array of §29) has the same count. Exhaustively with H trivial:
+- skew: w = 5, 9, 13, 21 give matrices, 17 and 25 none;
+- symmetric: w = 5, 9, 13, 17, 21 give matrices, 25 none.
+
+The census sweeps (w = 2v − 1 for every undecided v, cyclic ℤ_w, every odd-order cyclic H with both lists ≤ 3 · 10⁷)
+are complete and empty: 631 skew structures and 504 symmetric ones, no hit (most symmetric ones have no symmetric a
+with row sum −1 at all, nA = 0). The Kiyasu routes are empty in this form for the largest groups: 235 (ℤ₄₆₉, |H| = 33), 277 (ℤ₅₅₃,
+|H| = 39) and 149 (ℤ₂₉₇, |H| = 45). verify.py has a construction "two-block" (kinds skew and symmetric, any abelian
+group) ready for certificates.
+
+## 33. Plug-in balances, two weight-1 symmetric variables, and cyclotomic plugs (October 14, evening)
+
+**Theorem 7 outside Goethals–Seidel form (negative).** Eades' condition (§31) only rules out 4-type designs. A
+skew-type OD(n; 1, m, c) of order n ≡ 4 (mod 8) in any form gives a rational family, which exists only if
+⟨1, m, c, mc⟩ ≅ 4⟨1⟩, i.e. the Hilbert symbols (−m, −c)_p are 1 at every odd prime p (the transpose is the canonical
+involution of the quaternion algebra (−m, −c) generated by the two skew variable matrices, so the trace form is a
+multiple of its norm form). For the twelve Theorem-7 census targets where Eades fails this test fails as well:
+627 (p = 13), 759 (7), 1045 (13), 1221 (7, 29), 1235 (3, 41), 1323 (47), 1683 (7), 1815 (151), 2145 (7, 17), 2185 (109),
+2375 (3, 79). So no array of any kind (two-block, non-abelian groups, bordered) can give these designs. The test passes
+for 429, 475, 693, 891, 957, 1089, 1353, 1617, 1749, 1947, 1989, 2013, 2277, 2365, 2409 and 2457, exactly Eades'
+list. (`/tmp` script `hilbert.py`; the same test for symmetric designs is not valid: their transpose is an
+orthogonal involution, and the symmetric OD(76; 1, 75) of §31 would fail it.)
+
+**No symmetric OD(4n; 1, 1, 4n − 2) for n > 1.** In the symmetric plug-in (§31) the balance s_J r + s_P (r − 4) = s_core
+with weight 1 on J, weight 1 on J − 2I and the rest on cores gives r = 2n + 1, i.e. symmetric Hadamard matrices of
+order 4n(2n + 1) (census: 903, 1953) from a symmetric OD(4n; 1, 1, 4n − 2) and any symmetric Hadamard matrix of order
+2n + 2. No such design exists. Let P₁, P₂ be its weight-1 matrices (symmetric signed permutations with underlying
+involutions τ₁, τ₂, which commute because P₁P₂ = −P₂P₁) and N the rest, N anticommuting with both. Evaluate
+NP₁ + P₁N at (i, τ₂(i)) and NP₂ + P₂N at (i, τ₁(i)): with x = N[i, τ₁τ₂(i)] and y = N[τ₁(i), τ₂(i)] they give
+x s₁(τ₂i) = −s₁(i) y and x s₂(τ₁i) = −s₂(i) y, while P₁P₂ = −P₂P₁ gives s₁(i)s₁(τ₂i) = −s₂(i)s₂(τ₁i). So x = 0. Since N
+vanishes only on the supports of P₁ and P₂, every i is fixed by exactly one of τ₁, τ₂. On X₁ = Fix(τ₂), P₂ is a
+diagonal ±1 matrix D₂ with D₂(τ₁i) = −D₂(i), and NP₂ = −P₂N forces N[i, j] = 0 whenever D₂(i) = D₂(j); but N[i, j] ≠ 0
+for all j ∉ {i, τ₁(i)} in X₁, so |X₁| ≤ 2, likewise |X₂| ≤ 2, and the order is at most 4 (where the design exists).
+This also explains the empty Balonin-form searches for this type (§31).
+
+**Weighted cyclotomic plugs (negative).** Generalising Theorem 7's plug, a skew-type OD(4t; 1, s₂, …, s_k) with
+I ⊗ A + Σ X_i ⊗ Y_iR, A group-developed of skew type a and Y_i of symmetric y_i over GF(p), is skew-Hadamard of order
+4tp iff PAF_a + Σ s_i PAF_{y_i} = 0 off 0 (R-type symmetric blocks commute with each other and are amicable with any
+group-developed A, so nothing else is needed). With a, y_i constant on cyclotomic classes of order e (−1 ∈ C_{e/2})
+the condition is e/2 linear equations in the class PAF vectors; a meet in the middle over all sign patterns
+(`/tmp` script `wplug.py`, primes p ≤ 700, e = 4, 6, 3- and 4-variable types of orders 4–28 with square products)
+finds only p = 5, 7, 13, 19 (orders up to 4 · 91). The class PAFs are q/e² (Σ f)² plus a few Jacobi-sum
+parameters times √q, so the equations force relations like q = s² + 4 (the classical families) rather than behaving
+like independent Gaussian constraints. The 3-sequence version with free weights (m, c solved from the equations)
+gives only q = 5 and 7.
+
+**Theorem 7 for 891 with b on 3ℤ₈₁ (negative, capped).** `odm_g.py 81 10 27 --bsub 27` with b-block weights
+(9, 3) and (12, 5) in blocks 3 and 4 (template joins capped at 2 · 10⁵ b quadruples): 5 and 9 templates up to
+equivalence, 0 and 8 pass the row-sum screen, and the exhaustive c joins (39 distinct c lists) give no design.
+
+**Difference map for spin structures (`search/spin_rrr.py`, `search/spin_check.py`).** In Fourier form the spin
+condition reads |Â(k)|² + |B̂(k)|² + |B̂(μk)|² + |B̂(μ²k)|² = 4v, so per K-class the three H-orbit values of B̂ form a
+vector in ℂ³ of prescribed norm 4v − |Â|² (A from the precomputed pool of K-invariant skew blocks). RRR alternates
+this projection (rescale each triple, best A per step) with the ±1 projection (top-k rounding at the forced row sum).
+It finds Đoković's spin structure for 397 (|H| = 11, μ = 34, 6 classes) in 18 200 iterations (seconds; rebuilt and
+checked as a skew-Hadamard matrix of order 1588 by `spin_check.py`), but not 631 (7 classes) in 10 minutes or 919
+(9 classes) in about 45 restarts of 3 · 10⁴ iterations, which the tabu search of `spin_ls.c` solves in about a
+minute and twenty minutes. Treating A as continuous variables too (one 7-vector per class) fails even for 397. The
+general skew Goethals–Seidel version (four independent blocks, 7-vector per character class) does not find 353/⟨22⟩
+(16 classes, 10⁹ solutions) in 20 restarts. So the projection method is not a substitute for the tabu search here.
+
+**Faster spin tabu (`spin_ls2.c`, `SPIN_LS=spin_ls2 spin_skew.py csearch ...`).** The same moves and acceptance
+rule as `spin_ls.c` (identical trajectories for a given seed: the best residual after 60 restarts on 1657 is 26 496
+in both), but the swap scan evaluates, for each + orbit i, all partner orbits j at once in single precision with
+the j-dependent terms (2g_cj + 2M_cjj and the row i of M_c) laid out contiguously, so the compiler vectorises it; the
+exact integer objective is recomputed after every move. 2.75 times faster: 60 restarts of 3000 steps on 1657 take 4 s
+instead of 11 s. Measured restarts per solution on 919 (|H| = 17, μ = 8, 9 classes): 1361, 3753, 8848 (steps 3000),
+328 and 1695 (steps 8000), 14 543 (steps 1000), i.e. one to five minutes per solution on a loaded machine, against
+twenty minutes before; on 631 (|H| = 7, μ = 2, 7 classes) 7–50 restarts (under a second). Two variants did not
+help on 631: jumping A to the best of the 2^NP pool every 10 or 50 steps, and restarting half the time from the best
+state so far perturbed by six swaps. The census queue (817 and 721 on their 8-class structures, then 1657, 1801 and
+1951 in two-hour slices) runs with it.
+
+## 34. Spence's skew 4(1 + q + q²) construction, made explicit; the missing ingredient is a cyclic CDS (October 14, evening)
+
+Spence (Canad. J. Math. 27 (1975) 555–560) builds a skew-Hadamard matrix of Goethals–Seidel type of order
+4(1 + q + q²) from a cyclic projective plane of order q and complementary difference sets (CDS) in ℤ_v,
+v = 1 + q + q². The plane part, as implemented in `search/spence_plane.py`:
+- Q = q², N = Q² + Q + 1 = v w with w = q² − q + 1 (coprime to v). D = {i mod N : Tr(αⁱ) = 0} is the Singer
+  (N, Q + 1, 1) difference set of PG(2, Q); it is fixed by the multiplier q.
+- f(r) = #{d ∈ D : d ≡ r mod v} takes values 0, 1, 2 (the fibres are orbits of the subgroup of order w, arcs).
+  Every difference of D occurs once, so Σ_r f(r) f(r + s) = w for s ≢ 0, and u = f − 1 has PAF_u = w − 2(Q + 1) + v = 0
+  off 0: a perfect ternary sequence.
+- With D₁ = {f = 1} and D₂ = {f = 2}, R = +1 on D₁ ∪ D₂ and S = +1 on D₂ are R = u + 1_{D₁}, S = u − 1_{D₁}, so
+  PAF_R + PAF_S = 2 λ_{D₁}(s). D₁ is a planar (v, q + 1, 1) difference set, so the sum is the constant +2. Row sums 1
+  and −(2q + 1).
+- Checked for q = 2, 3, 4, 5, 7, 8, 9 and 23. With the Paley CDS (a = b = Legendre, a(0) = 1) the Goethals–Seidel
+  matrix GS(a, b, R, S) is skew-Hadamard for q = 2 (order 28) and q = 5 (order 124).
+
+(R, S) is the classical D-optimal pair of order 2v. So Spence's theorem is "CDS + D-optimal pair over the same group".
+The census-undecided Spence values are v = 553 (q = 23), 1057 (32), 1407 (37), 1893 (43) and 2257 (47). For none of
+them is there a classical CDS: v is not a prime ≡ 3, 5, 7 (mod 8), and 2v + 1 = 1107, 2115, 2815, 3787, 4515 are not
+prime powers. All five v are squarefree, so ℤ_v is the only abelian group of order v.
+
+**CDS search (negative).** A CDS in ℤ_v is a two-block skew pair (a of skew type, b any, PAF_a + PAF_b = −2), which
+is exactly what `szek2.py` searches. It was run on every odd-order multiplier subgroup with at most 34 H-orbits:
+- the structures: 553 with |H| = 117 and 39 (four), 1057 with |H| = 225 and 75 (four), 1407 with |H| = 99, 1893 with
+  |H| = 315 and 105, 2257 with |H| = 135;
+- this includes the non-cyclic H of orders 117 and 225 that the census sweep (§33) skipped;
+- all are empty;
+- 1057/⟨2, 85⟩ (|H| = 45) and 1893/⟨91⟩ (|H| = 63) have b lists of 1.2 · 10⁸ and 4.7 · 10⁸ and were skipped.
+
+The heuristic count says why. Per ⟨H, −1⟩-class a CDS has 3 free signs (one for a, two for b). The class equation
+costs log₂(√(πv)/2) ≈ 4.4 bits at v = 553: a sum of two PAFs has variance about 2v on the lattice 4ℤ + 2. So the
+expected count falls like 2^(−1.4 · classes) for every multiplier structure (about 10⁻³ at four classes), and only
+algebra can supply these pairs. The same holds for any twist of the plane pair: signs y on D₁ give
+PAF_R + PAF_S = 2ε(s) with ε(d − d′) = y(d)y(d′), which only changes the target of the same two-block problem. The
+route stays closed for these v unless a CDS family for v = pq (or 3pq) appears.
