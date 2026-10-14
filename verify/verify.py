@@ -866,8 +866,10 @@ def build_skew_amicable_plug(cert):
     Goethals-Seidel array a skew-type OD aI + bB + cC of order N = 4t = k m (checked), and then
     H H^T = I (x) [mI - J + k(m - 1) J + (N - k - 1)(mI - J)] = N (m - 1) I."""
     if "paley" in cert:
-        # amicable pair from Paley's symmetric OD(q + 1; 1, q), q = 3 (mod 4) prime (the classical amicable order q + 1)
-        P, N = _paley_sym_od(cert["paley"])
+        # amicable pair from Paley's symmetric OD(q + 1; 1, q), q = 3 (mod 4) (the classical amicable order q + 1):
+        # "paley": q for a prime q, or {"p": p, "poly": [...]} for q = p^k
+        pal = cert["paley"]
+        P, N = _paley_sym_od(pal) if isinstance(pal, int) else _paley_sym_od_field(pal["p"], pal["poly"])
         _check_sym_od(P, N)
         m = P.shape[0]
         n, seqs = None, []
@@ -998,6 +1000,45 @@ def _paley_sym_od(q):
     P = np.zeros((m, m), dtype=np.int64)
     P[0, 0] = -1
     P[1 + np.arange(q), 1 + (-np.arange(q)) % q] = 1
+    return P, C @ P
+
+
+def _paley_sym_od_field(p, poly):
+    """_paley_sym_od for a prime power q = p^k = 3 (mod 4). Elements of GF(q) are integers 0 .. q - 1 whose base-p
+    digits (least significant first) are the coefficients of a polynomial in x modulo the monic poly given by its
+    coefficients c_0 .. c_{k-1} (x^k = -(c_0 + ... + c_{k-1} x^{k-1})); poly must be primitive (checked)."""
+    k = len(poly)
+    q = p ** k
+    if not (_is_prime(p) and q % 4 == 3):
+        raise ValueError("q must be a prime power = 3 (mod 4)")
+    digits = np.array([[(e // p ** j) % p for j in range(k)] for e in range(q)], dtype=np.int64)
+    weights = p ** np.arange(k)
+    enc = lambda d: int((np.asarray(d) % p) @ weights)
+    def xmul(e):
+        d = np.zeros(k + 1, dtype=np.int64); d[1:] = digits[e]
+        top = d[k]; d = d[:k] - top * np.asarray(poly, dtype=np.int64)
+        return enc(d)
+    log = -np.ones(q, dtype=np.int64)
+    e = 1
+    for i in range(q - 1):
+        if log[e] >= 0:
+            raise ValueError("poly is not primitive")
+        log[e] = i
+        e = xmul(e)
+    if e != 1:
+        raise ValueError("poly is not primitive")
+    chi = np.where(log % 2 == 0, 1, -1).astype(np.int64)
+    chi[0] = 0
+    neg = np.array([enc(-digits[u]) for u in range(q)], dtype=np.int64)
+    sub = np.array([[enc(digits[y] - digits[x]) for y in range(q)] for x in range(q)], dtype=np.int64)   # y - x
+    m = q + 1
+    C = np.zeros((m, m), dtype=np.int64)
+    C[0, 1:] = 1
+    C[1:, 0] = -1
+    C[1:, 1:] = chi[sub]
+    P = np.zeros((m, m), dtype=np.int64)
+    P[0, 0] = -1
+    P[1 + np.arange(q), 1 + neg] = 1
     return P, C @ P
 
 

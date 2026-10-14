@@ -1980,3 +1980,27 @@ classical amicable pair of order 20 (Paley, q = 19) this gives the skew-Hadamard
   but H = ⟨16⟩ is incompatible. The orthogonality of row sums forces 3ρ_CW + 2ρ_pair = 0, i.e. ρ_pair ≡ 0 (mod 3),
   while the pair block has one free fixed point and so ρ_pair ≡ ±1 (mod 3).
 - The others (1045, 1235, 627, 693, …) have t ≥ 55.
+
+**Multiplier-invariant designs for every b part: skew 9828 = 4 · 2457.** `attack/odm_engine.py` automates the search
+for a given t, H and m. It enumerates all H-invariant b parts of weight m: ternary combinations of H-orbits, with
+block 1 skew, found by a meet in the middle on the PAF vectors at the pair-orbit representatives; the enumeration is
+weight-bounded and uses tables of orbit-pair counts. It reduces them modulo multipliers, permutations of blocks 2–4
+and signs, screens the row sums (each block's c-part row sum must be a signed sum of its free orbit sizes, and
+(0, r₂, r₃, r₄) must satisfy Σ rᵢ² = 4t − m − 1 and Σ rowsum(uᵢ) rᵢ = 0), and runs `odmx` on each survivor.
+
+**t = 91, H = ⟨79, 29⟩ (order 9), m = 13 (v = 2457, n = 28).** There are 18 templates; four of them carry 2
+solutions each, in 12 seconds. The b parts live on 7ℤ₉₁ ≅ ℤ₁₃: u₂ = −δ₀ + 1_S, u₃ = −1_{7·{1,3,9}} + 1_{7·{4,10,12}},
+u₄ = −1_S with S = 7 · {7, 8, 11}, weights 4 + 6 + 3. With the Paley amicable pair of order 28 (over GF(27);
+verify.py now builds Paley pairs over GF(pᵏ)) this gives the skew-Hadamard matrix of order 13 · 28 · 27 = 9828
+([skew/9828](../skew/9828)). 2457 is undecided in the skew census. Its Szekeres-type candidate 2(q + 1) has
+q = 17³ ≡ 1 (mod 8), outside the series.
+
+**No H-invariant b part at all** (0 templates) for:
+- t = 57, |H| = 9, m = 19 (627);
+- t = 59, 67, 83, 103 with H the squares (n = 4, m = t: 177, 201, 249, 309);
+- t = 67 and 103 with |H| = 11 and 17;
+- t = 125, |H| = 25, m = 25 (2375);
+- t = 81, |H| = 27, m = 27 (891).
+
+Theorem 7 with n = 4 (m = t = v/3, OD(4t; 1, t, 3t − 1)) reaches every undecided v divisible by 3. With prime t the
+squares give only three orbits and no b part of weight t.
