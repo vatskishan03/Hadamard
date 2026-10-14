@@ -1,4 +1,4 @@
-"""Locations shared by the attack tools.
+"""Locations shared by the search tools.
 
 Code is found relative to this file; nothing is written inside the repository.
 - WORK is $HADAMARD_WORK, or <tmpdir>/hadamard-work when it is unset. It holds hit logs, temporary list files and compiled helpers.

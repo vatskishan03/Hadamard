@@ -8,7 +8,7 @@ import gzip, hashlib, json, sys
 from pathlib import Path
 import numpy as np
 ROOT = Path(__file__).resolve().parent.parent
-sys.path[:0] = [str(ROOT / "attack"), str(ROOT / "verify"), str(ROOT / "search")]
+sys.path[:0] = [str(ROOT / "verify"), str(ROOT / "search")]
 import verify
 import workdir as W
 from certify import write_certificate

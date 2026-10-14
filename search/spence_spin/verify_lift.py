@@ -1,4 +1,4 @@
-"""Verify a lift solution: python verify573.py <wit.npy> <maskA> <maskB> <tag>"""
+"""Verify a lift solution: python3 verify_lift.py <wit.npy> <maskA> <maskB> <tag>"""
 import sys, json, hashlib, numpy as np
 import os; sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'verify'))
 import verify
