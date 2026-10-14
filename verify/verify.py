@@ -317,6 +317,63 @@ def build_goethals_seidel_group(cert):
 
 
 
+def build_propus_bordered(cert):
+    """Bordered propus array: a symmetric Hadamard matrix of order 4(m + 1) over an abelian group
+    G = Z_m1 x ... x Z_mk of order m.
+
+    A, B, D are +-1 sequences over G (mixed-radix order) with A(-g) = A(g) and
+    PAF_A + 2 PAF_B + PAF_D = -4 at every g != 0 (4m at 0); their row sums satisfy a^2 + 2b^2 + d^2 = 4.
+    With group-developed blocks X[g, h] = x(h - g), R[g, h] = [g + h = 0] and the propus array
+        P = [[A, B, B, D], [B^T, DR, -A, -BR], [B^T, -A, -DR, BR], [D^T, -BR, BR, -A]],
+    the matrix H = [[L, K (x) e^T], [K^T (x) e, P]] with K a Hadamard matrix of order 4 (certificate field "K") and
+    L = -K S K^T / 4 (S the same array on the row sums) is symmetric with H H^T = 4(m + 1) I: P P^T = 4(m + 1) I - 4 J
+    blockwise, K^T K = 4 I, L K + K S = 0 and L^2 = 4 I."""
+    mods = np.array(cert["group"], dtype=np.int64)
+    m = int(np.prod(mods))
+    coords = np.array(np.unravel_index(np.arange(m), tuple(int(x) for x in mods))).T.astype(np.int64)
+    index = lambda C: np.ravel_multi_index(tuple((C % mods).T), tuple(int(x) for x in mods))
+    seqs = [np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["sequences"]]
+    if len(seqs) != 3 or any(len(x) != m for x in seqs):
+        raise ValueError("need three sequences of length |G|")
+    if [int(x.sum()) for x in seqs] != cert["rowsums"]:
+        raise ValueError("row sums differ from the certificate")
+    a, b, d = cert["rowsums"]
+    if a * a + 2 * b * b + d * d != 4:
+        raise ValueError("row sums do not satisfy a^2 + 2b^2 + d^2 = 4")
+    for M in cert.get("automorphisms", []):
+        p = index(coords @ np.array(M, dtype=np.int64).T)
+        if len(np.unique(p)) != m:
+            raise ValueError("an automorphism is not a bijection")
+        if not all(np.array_equal(x[p], x) for x in seqs):
+            raise ValueError("a sequence is not invariant under the stated automorphisms")
+    A, B, D = seqs
+    neg = index(-coords)
+    if not np.array_equal(A, A[neg]):
+        raise ValueError("the first sequence is not symmetric")
+    paf = lambda x: np.array([int(np.dot(x, x[index(coords + coords[g])])) for g in range(m)], dtype=np.int64)
+    tot = paf(A) + 2 * paf(B) + paf(D)
+    if tot[0] != 4 * m or np.any(tot[1:] != -4):
+        raise ValueError("PAF_A + 2 PAF_B + PAF_D is not 4m at 0 and -4 elsewhere")
+    K = np.array(cert["K"], dtype=np.int64)
+    if K.shape != (4, 4) or not np.all(np.abs(K) == 1) or not np.array_equal(K.T @ K, 4 * np.eye(4, dtype=np.int64)):
+        raise ValueError("K is not a Hadamard matrix of order 4")
+    S = np.array([[a, b, b, d], [b, d, -a, -b], [b, -a, -d, b], [d, -b, b, -a]], dtype=np.int64)
+    L4 = -(K @ S @ K.T)
+    if not np.all(np.abs(L4) == 4):
+        raise ValueError("-K S K^T / 4 is not a +-1 matrix")
+    diff = index(coords[None, :, :] - coords[:, None, :])
+    cA, cB, cD = (x[diff] for x in seqs)
+    R = np.zeros((m, m), dtype=np.int64)
+    R[np.arange(m), neg] = 1
+    BR, DR = cB @ R, cD @ R
+    P = np.block([[cA, cB, cB, cD], [cB.T, DR, -cA, -BR], [cB.T, -cA, -DR, BR], [cD.T, -BR, BR, -cA]])
+    Mb = np.kron(K, np.ones((1, m), dtype=np.int64))
+    H = np.block([[L4 // 4, Mb], [Mb.T, P]])
+    if not np.array_equal(H, H.T):
+        raise ValueError("the bordered array is not symmetric")
+    return H, None
+
+
 def build_bordered_gs(cert):
     """Bordered Goethals-Seidel construction over an abelian group G of order v with a
     subgroup K of index q. Four +-1 sequences on G whose autocorrelations sum to
@@ -664,7 +721,7 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "cooper-wallis-near-williamson": build_cooper_wallis_near_williamson,
             "spence": build_spence, "miyamoto": build_miyamoto,
             "bordered-goethals-seidel": build_bordered_gs, "skew-doubling": build_skew_doubling,
-            "yamada": build_yamada, "propus": build_propus}
+            "yamada": build_yamada, "propus": build_propus, "propus-bordered": build_propus_bordered}
 
 
 def csv_chunks(H, rows=512):

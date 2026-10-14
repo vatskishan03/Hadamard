@@ -53,6 +53,36 @@ def symmetric_matrix_v3(A, B, D):
     return np.block([[cA, cB, cB, cD], [cB.T, DR, -cA, -BR], [cB.T, -cA, -DR, BR], [cD.T, -BR, BR, -cA]])
 
 
+_K4 = None
+
+
+def hadamard4():
+    """All 768 Hadamard matrices of order 4."""
+    global _K4
+    if _K4 is None:
+        import itertools
+        rows = [np.array(r) for r in itertools.product((1, -1), repeat=4)]
+        _K4 = [K for K in (np.array(t) for t in itertools.product(rows, repeat=4)) if np.array_equal(K.T @ K, 4 * np.eye(4, dtype=int))]
+    return _K4
+
+
+def bordered_matrix(A, B, D):
+    """Bordered propus array (symmetric Hadamard of order 4(m + 1)) from A (symmetric), B, D on Z_m with
+    PAF_A + 2 PAF_B + PAF_D = -4 off 0 and row sums a^2 + 2 b^2 + d^2 = 4:
+        H = [[L, K (x) e^T], [K^T (x) e, P]],  P = symmetric_matrix_v3(A, B, D),  L = -K S K^T / 4,
+    S the propus array of the row sums and K a Hadamard matrix of order 4 for which L has entries +-1.
+    Returns (H, K) or (None, None) if no K works."""
+    m = len(A); a, b, d = int(A.sum()), int(B.sum()), int(D.sum())
+    S = np.array([[a, b, b, d], [b, d, -a, -b], [b, -a, -d, b], [d, -b, b, -a]])
+    for K in hadamard4():
+        L4 = -(K @ S @ K.T)
+        if np.all(np.abs(L4) == 4):
+            P = symmetric_matrix_v3(A, B, D)
+            M = np.kron(K, np.ones((1, m), dtype=P.dtype))
+            return np.block([[L4 // 4, M], [M.T, P]]), K
+    return None, None
+
+
 def patterns(v):
     out = []
     lim = math.isqrt(4 * v)
@@ -74,18 +104,20 @@ def structures(v, gens, symB):
     return st_ad, st_b
 
 
-def search(v, gens, symB=False, maxpool=3e7, K=1, log=print, freeD=False, maxwork=float('inf'), plain=False):
+def search(v, gens, symB=False, maxpool=3e7, K=1, log=print, freeD=False, maxwork=float('inf'), plain=False, border=False):
     st_ad, st_b = structures(v, gens, symB)
     st_a, st_d = st_ad, (st_b if freeD else st_ad)
     if plain:            # ordinary Hadamard matrices: A, B, D all on the H-orbits, Goethals-Seidel array with C = B
         st_a = st_d = st_b
     pm = v % 4
     found = []
-    pats = patterns(v)
+    # border: blocks on Z_m (m = v here) with sum of weighted PAFs -4 off 0, rows a^2 + 2b^2 + d^2 = 4, order 4(m + 1)
+    pats = [(2, 0, 0), (0, 0, 2)] if border else patterns(v)
+    T = -4 if border else 0
     log(f"v={v} gens={gens} symB={symB} freeD={freeD}: orbits A {st_a.O}, B {st_b.O}, D {st_d.O}, classes {st_ad.C}, patterns {len(pats)}")
     for ra, rb, rd in pats:
         # signs: negating A, B or D gives an equivalent solution, so positive row sums suffice
-        if (plain or not freeD) and ra > rd: continue      # A and D interchangeable when they have the same structure
+        if (plain or not freeD) and ra > rd and not border: continue      # A and D interchangeable when they have the same structure
         sizes = [st_a.pool(ra), st_b.pool(rb), st_d.pool(rd)]
         if min(sizes) == 0 or max(sizes) > maxpool:
             log(f"  rows ({ra}, {rb}, {rd}): pools {[int(s) for s in sizes]} skipped"); continue
@@ -111,7 +143,7 @@ def search(v, gens, symB=False, maxpool=3e7, K=1, log=print, freeD=False, maxwor
         try:
             with open(path, 'wb') as f:
                 f.write(struct.pack('iiiii', *[len(x) for x in lists], st_ad.C))
-                f.write(np.full(st_ad.C, -pm, dtype=np.int16).tobytes())
+                f.write(np.full(st_ad.C, (T - 4 * pm) // 4, dtype=np.int16).tobytes())
                 for x in lists: f.write(np.ascontiguousarray(x).tobytes())
             out = subprocess.run([W.bin('join4x'), path, str(K)], capture_output=True, text=True, check=True).stdout
         finally:
@@ -124,8 +156,14 @@ def search(v, gens, symB=False, maxpool=3e7, K=1, log=print, freeD=False, maxwor
             ia, idd, ib = ids[slot[0]], ids[slot[1]], ids[slot[2]]
             A = Ya[ia].astype(np.int64)[st_a.orb]; B = Yb[ib].astype(np.int64)[st_b.orb]; D = Yd[idd].astype(np.int64)[st_d.orb]
             tot = verify.paf_sum([A, B, B, D])
-            if not (tot[0] == 4 * v and not tot[1:].any()): log('  WRONG autocorrelations'); continue
-            if plain:
+            if not (tot[0] == 4 * v and np.all(tot[1:] == T)): log('  WRONG autocorrelations'); continue
+            Kb = None
+            if border:
+                Hm, Kb = bordered_matrix(A, B, D)
+                n4 = 4 * (v + 1)
+                ok = Hm is not None and np.array_equal(Hm, Hm.T) and np.array_equal(Hm @ Hm.T, n4 * np.eye(n4, dtype=Hm.dtype))
+                log(f"  hit: bordered symmetric Hadamard of order {n4} {ok}")
+            elif plain:
                 Hm = verify.goethals_seidel(*(verify.circulant(x) for x in (A, B, B, D)))
                 ok = np.array_equal(Hm @ Hm.T, 4 * v * np.eye(4 * v, dtype=Hm.dtype))
                 log(f"  hit: Hadamard (Goethals-Seidel, C = B) {ok}")
@@ -136,6 +174,7 @@ def search(v, gens, symB=False, maxpool=3e7, K=1, log=print, freeD=False, maxwor
             if ok:
                 rec = dict(n=v, gens=list(gens), symB=symB, freeD=freeD, plain=plain, rows=[int(A.sum()), int(B.sum()), int(D.sum())],
                            seqs=[''.join('+' if x > 0 else '-' for x in s) for s in (A, B, D)])
+                if border: rec.update(border=True, order=4 * (v + 1), K=Kb.tolist())
                 with open(W.hits('gs_propus_hits.jsonl' if plain else 'sym_hits.jsonl'), 'a') as fh: fh.write(json.dumps(rec) + '\n')
                 found.append(rec)
         if found: break
@@ -175,6 +214,7 @@ if __name__ == '__main__':
     ap.add_argument('--maxwork', type=float, default=float('inf'), help='skip row patterns whose pair work exceeds this')
     ap.add_argument('--plain', action='store_true', help='ordinary Hadamard: Goethals-Seidel quadruples (A, B, B, D) on H-orbits')
     ap.add_argument('--only-freeD', action='store_true', help='sweep only the variant with A symmetric and B, D free')
+    ap.add_argument('--border', action='store_true', help='bordered propus on Z_v (any v): sum of PAFs -4, symmetric Hadamard of order 4(v + 1)')
     a = ap.parse_args()
     log = lambda s: print(s, flush=True)
     if a.sweep:
@@ -189,13 +229,13 @@ if __name__ == '__main__':
         jobs.sort()
         log(f"v={v}: {len(jobs)} structures")
         for _, gs in jobs:
-            variants = ((False, False),) if a.plain else ((False, True),) if a.only_freeD else ((True, False), (False, False), (False, True))
+            variants = ((False, False),) if a.plain else ((False, True),) if (a.only_freeD or a.border) else ((True, False), (False, False), (False, True))
             for symB, freeD in variants:
                 try:
-                    if search(v, gs, symB, a.maxpool, a.K, log, freeD, a.maxwork, a.plain):
+                    if search(v, gs, symB, a.maxpool, a.K, log, freeD, a.maxwork, a.plain, a.border):
                         log(f"HIT v={v} gens={gs} symB={symB} freeD={freeD} plain={a.plain}"); sys.exit(0)
                 except AssertionError as e:
                     log(f"  skipped: {e}")
     else:
         gens = [int(x) for x in a.gens.split(',')]
-        search(a.v, gens, a.symB, a.maxpool, a.K, log, a.freeD, a.maxwork, a.plain)
+        search(a.v, gens, a.symB, a.maxpool, a.K, log, a.freeD or a.border, a.maxwork, a.plain, a.border)
