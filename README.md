@@ -183,6 +183,8 @@ multiplier groups and exact joins (`attack/ssxx.py`, `attack/ssxx_sweep.py`).
 | 370 | 185 = 5 · 37 | Szöllősi array |
 | 494 | 247 = 13 · 19 | Szöllősi array |
 | 534 | 267 = 3 · 89 | Szöllősi array, multiplier group of order 11 |
+| 742 | 371 = 7 · 53 | Szöllősi array, multiplier group of order 26 |
+| 754 | 377 = 13 · 29 | Szöllősi array, multiplier group of order 42 |
 
 All of these orders are blank in Table 11.2 of Seberry–Yamada (1992), the table of known complex Hadamard
 orders that the 2026 papers update, and none comes from later work: Đoković 1993, Szöllősi 2026, the near-Williamson

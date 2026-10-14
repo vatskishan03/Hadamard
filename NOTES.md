@@ -346,3 +346,49 @@ operations, for the open N.
 prime:
 - ℤ₁₀₇* and ℤ₁₀₆* have no useful multiplier groups.
 - The only bordered structure the row sums admit, H = {±1}, rates 10^1.0 but has pools of 5 · 10¹⁴.
+
+## 10. Exact compression chains and streaming joins for complex Hadamard orders (October 14)
+
+**Compression chain (`attack/cchain4.py`, `attack/cchain_sweep.py`).** The method of order 3964 (and of
+`attack/chain.py` for skew families), generalised to four blocks with per-block symmetry. Blocks are of kind L
+(⟨H, −1⟩-orbits) or A (H-orbits). Four problems are covered:
+
+| mode | group | blocks | target ΣPAF |
+|---|---|---|---|
+| Szöllősi | ℤ_N | L L A A | 0 |
+| bordered Szöllősi | ℤ_(N−1) | L L A A | −4 |
+| near-Williamson | ℤ_N | A L L L | 0 |
+| bordered Williamson-type | ℤ_(N−1) | A L L L | −4 |
+
+For d | v the compressions to ℤ_d satisfy the same identity with target T·v/d. The steps:
+- A dynamic program lists the joint compressions to ℤ_d₁ × ℤ_d₂ of each block, with multiplicities.
+- The level-1 join is exact.
+- For each level-1 solution, the level-2 join inside the fibres is exact.
+- The fibres are expanded by meet in the middle over the orbits.
+- The last join groups each list by its compressions to the prime-power levels the joint program left out,
+  joins them exactly, and only then runs join4x on all classes.
+
+Nothing is sampled. A pattern with an empty level-1 join is ruled out at once, and most are. Positive controls
+(N = 77, 143, 185, 247 and bordered N = 21) recover known solutions in seconds.
+
+*Order 310.* N = 155 = 5 · 31 with H = ⟨16⟩ of order 5 has 35 orbits and lists of 1.3 · 10⁴, 6.4 · 10³, 7 · 10⁸ and
+6 · 10⁸, far beyond the exact join. The Gaussian estimate is 10^1.4 for several row-sum patterns, but the best of these,
+(9, 13; 3, 19) and (7, 11; 3, 21), are ruled out by their ℤ₅ compressions. Patterns (9, 9; 13, 17) and (9, 13; 9, 17)
+pass level 1 with 600 branches each, and both gave verified solutions within 5 minutes (`complex-hadamard/C310.json`).
+
+**Streaming k-tree (`attack/kstream.c`, `attack/kstream.py`).** For prime N there is no compression. When A and B
+(symmetric) are small but C and D have 10¹⁰ or more members, C and D are enumerated without being stored:
+- a depth-first search over their orbits, with class values updated incrementally (vectorised int32 tables);
+- pass 1 joins each C to the A list on k classes, for a set of targets near the centre, and stores
+  (fingerprint of the other classes, A, C);
+- pass 2 streams D against B on the same classes and probes the stored fingerprints;
+- every match is verified on all classes, then as a complex Hadamard matrix.
+
+A pseudo-random fraction of the depth-first prefixes may be enumerated in either pass. With the pass-1 table held
+at a fixed size, the expected yield is E · (fraction of D) · P(a + c ∈ targets) and does not depend on the fraction
+of C. Positive control N = 131 (⟨53⟩): 4372 verified solutions from complete passes in 4 minutes, 144 from 10% / 20%
+of the two blocks in 34 s.
+
+The target is N = 191, the only open prime with a large estimate. H = ⟨39⟩ of order 5 gives 39 orbits and
+19 classes. Lists are 9.2 · 10⁴ for A and B and 3.4 · 10¹⁰, 2.9 · 10¹⁰ for C and D. The Gaussian estimate is 10^7.55
+solutions, and for prime N the estimate has been accurate (71: 1445 predicted, 1430 found; 131: 10^4.0, 12618).
