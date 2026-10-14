@@ -151,7 +151,7 @@ def candidates(nmax):
     return [N for N in range(3, nmax, 2) if known_reason(N) is None]
 
 
-def plan(N, maxo=40, maxpairs=2e11):
+def plan(N, maxo=40, maxpairs=2e11, maxenum=2 ** 31):
     """Every (H, pattern) with -1 not in H, in order of the pair work of its exact join (cheapest first). The
     Gaussian model is not used: for composite N it underestimates product structures by orders of magnitude
     (154: 10^-1.7 predicted, 2352 found)."""
@@ -167,8 +167,10 @@ def plan(N, maxo=40, maxpairs=2e11):
             if min(sizes) == 0:
                 continue
             cost = ssxx.pair_cost(sizes, ssxx.best_pairing(sizes))
-            if cost <= maxpairs:
-                out.append((cost, len(H), gens, pat))
+            # the Gray-code enumeration of a block costs 2^O steps whatever its list size: cap it as well
+            enum = sum(2.0 ** len(st.sizes(k)) for k in ssxx.KINDS)
+            if cost <= maxpairs and enum <= maxenum:
+                out.append((cost + enum, len(H), gens, pat))
     out.sort(key=lambda r: (r[0], -r[1]))
     return out
 
@@ -185,9 +187,13 @@ def run_exhaustive(N, maxo=40, maxpairs=2e11, log=None, budget_s=3600):
             print(f"N = {N}: budget exhausted", flush=True)
             break
         buf = io.StringIO()
-        with contextlib.redirect_stdout(buf):
-            found = ssxx.search(N, gens, K=2, log=log, pats=pats, maxpairs=maxpairs, stop=True,
-                                deadline=t0 + budget_s)
+        try:
+            with contextlib.redirect_stdout(buf):
+                found = ssxx.search(N, gens, K=2, log=log, pats=pats, maxpairs=maxpairs, stop=True,
+                                    deadline=t0 + budget_s)
+        except Exception as ex:
+            print(f"  H = <{','.join(map(str, gens))}>: error {ex!r}", flush=True)
+            continue
         if found:
             print(buf.getvalue(), end="", flush=True)
             return found

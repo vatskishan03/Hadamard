@@ -257,8 +257,7 @@ def search(N, gens, K=20, log=None, maxpairs=2e10, pats=None, stop=True):
         if work > maxpairs:
             print(f"  2 in {name}: lists {sizes}, skipped (pair work {work:.2g})", flush=True); continue
         sols, total = join4([lists[k] for k in order], st.C, K, None, target=-4)
-        print(f"  2 in {name}: lists {sizes}, {total} solutions, estimate 10^{gauss(st, pat):.2f} "
-              f"({time.time() - t0:.1f}s)", flush=True)
+        print(f"  2 in {name}: lists {sizes}, {total} solutions ({time.time() - t0:.1f}s)", flush=True)
         for sol in sols:
             idx = [0] * 4
             for pos, k in enumerate(order):

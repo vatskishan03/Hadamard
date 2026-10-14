@@ -24,8 +24,9 @@ def plan(N, maxpairs):
             s = sorted(pools)
             work = min(pools[o[0]] * pools[o[1]] + pools[o[2]] * pools[o[3]]
                        for o in ([0, 1, 2, 3], [0, 2, 1, 3], [0, 3, 1, 2]))
-            if work <= maxpairs and max(pools) <= 3e8 and bsz.z2_ok(st, pat):
-                jobs.append((work, "cyc", gens, name, None))
+            enum = sum(2.0 ** len(st.sizes(k)) for k in bsz.KINDS)
+            if work <= maxpairs and max(pools) <= 3e8 and enum <= 2 ** 31 and bsz.z2_ok(st, pat):
+                jobs.append((work + enum, "cyc", gens, name, None))
     if (N - 1) % 4 == 0:
         for mods, mats, tag, O in bsz_group.spin_structures(N, maxo=64):
             bs = bsz_group.BStruct(N, mods, mats, tag)
@@ -35,8 +36,9 @@ def plan(N, maxpairs):
                     continue
                 work = min(pools[o[0]] * pools[o[1]] + pools[o[2]] * pools[o[3]]
                            for o in ([0, 1, 2, 3], [0, 2, 1, 3], [0, 3, 1, 2]))
-                if work <= maxpairs and max(pools) <= 3e8:
-                    jobs.append((work, "spin", (mods, mats, tag), name, None))
+                enum = 2 * 2.0 ** bs.stL.O + 2 * 2.0 ** bs.stA.O
+                if work <= maxpairs and max(pools) <= 3e8 and enum <= 2 ** 31:
+                    jobs.append((work + enum, "spin", (mods, mats, tag), name, None))
     jobs.sort(key=lambda j: j[0])
     return jobs
 
