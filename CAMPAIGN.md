@@ -40,8 +40,20 @@ that the 2026 papers update, and none comes from the later work we checked (§ S
 the smallest complex Hadamard order left open by the 2026 papers. After 310 the smallest open order in our accounting is 214 (N = 107, a safe prime with no
 usable multiplier structure), then 322 (N = 161).
 
-## Negative and structural results (NOTES.md §7–8)
+## New construction
 
+**Bordered Szöllősi array** ([complex-hadamard/BORDERED.md](complex-hadamard/BORDERED.md)): complex Hadamard
+matrices of order 2N from four ±1 sequences on an abelian group of order N − 1, only two of them symmetric, with
+ΣPAF = −4 and a quaternary border. Stated, proved and machine-checked. It is the complex analogue of Spence's
+construction and of the bordered Williamson-type matrices.
+
+## Negative and structural results (NOTES.md §7–10)
+
+- **3-bordered Williamson-type matrices** (border rows constant on the cosets of an index-4 subgroup) do not exist:
+  an algebraic contradiction for character borders and a SAT proof at p = 11. That closes the bordered route to
+  the FRONTIER orders 2676, 3156, 3820, … through WT(223), WT(263), WT(191).
+- **Order 214** (N = 107, a safe prime) is the smallest open complex Hadamard order in our accounting. No
+  multiplier structure, bordered structure or quaternary Legendre pair family reaches it.
 - **Order-3 twist.** It cannot reach N ≡ 2 (mod 3): reduction to ℤ₂ forces N = x² + 3y². That excludes 71, 77,
   107, 191 (573), 263 (789), …
 - **Quaternary Legendre pairs of lengths 70 and 76.** Any such pair needs a Gray pair without a common centre of
@@ -60,5 +72,8 @@ usable multiplier structure), then 322 (N = 161).
 (T-matrices by multipliers); `attack/ssxx.py`, `attack/ssxx_sweep.py`, `attack/ssxx_sample.py`,
 `attack/ssxx_group.py`, `attack/ssxx_certify.py`, `attack/ssxx_table.py` (Szöllősi array: cyclic, sampled,
 non-cyclic); `attack/qlp_bin.py` (binary-A quaternary Legendre pairs); `attack/lp_mult.py` (Legendre pairs with
-multipliers); `verify/verify_complex.py`; data tables `attack/data/wt_known_1992.txt` and
+multipliers); `attack/bsz.py`, `attack/bsz_group.py`, `attack/bsz_sweep.py` (bordered Szöllősi array, cyclic and
+spin structures); `attack/cchain4.py`, `attack/cchain_sweep.py` (exact compression chains for four-block problems);
+`attack/kstream.c`, `attack/kstream.py` (streaming k-tree join for structures with two huge blocks);
+`attack/complex_status.py` (known / constructed / open complex orders); `verify/verify_complex.py`; data tables `attack/data/wt_known_1992.txt` and
 `attack/data/complex_known_1992.txt` (parsed from Seberry–Yamada 1992).
