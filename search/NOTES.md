@@ -2361,10 +2361,39 @@ keeps 2 · 10⁻⁶ of the quadruple space. The information is in the combinatio
 The compressions also fix linear functionals of the class values: the PAF of the compression to ℤ_d at j is the sum
 of PAF(g) over the shifts g ≡ j (mod d). A trial energy conditioned the Gaussian on these 5–7 directions (of 10–17
 classes). It was worse everywhere: 267 kept 0 of 576 even at L = 2 · 10⁵, and 119 without fibres 0 of 4704 at
-5000. Those directions carry most of the filter's discriminating power, so the option was dropped.
+5000. Those directions carry most of the filter's discriminating power, so the option was dropped. A second trial
+used the joint fibres directly. Each C member got a mixture energy: the Gaussian density of t − x, summed over the
+level-1 solutions that complete its compression, with the other blocks' means taken per fibre (exact, from the
+enumerated pools). At d = 89 this ranks 267's solution members at the 18.6th (C) and 31.8th (D) percentiles, no
+better than the energies above. The 576 solutions use 48 members of C and 48 of D but only 8 distinct class-value
+vectors in each block. A structure's solutions are a handful of distinct points, and no refinement of a Gaussian
+filter makes their survival more than a lottery.
 
 **The exact chain cannot take these structures either.** For 453 the joint state space of the levels 3 and 151
 exceeds 5 · 10⁶ (and 2 · 10⁷ ran out of memory). At level 3 alone each of the 3 level-1 branches has fibres of about
 1.6 · 10⁷ members, above `cchain4.py`'s listing limit of 3 · 10⁶. The fibre filter reaches the same structure from
 the other side: its allowed pools are 4.8 · 10⁷ (C) and 1.6 · 10⁷ (D), so lists of 5 · 10⁷ keep every allowed member,
 and the low-energy search becomes a complete search of its lists, limited only by the split values kt4 processes.
+
+**kt4 on a shared machine.** For each split value kt4 opens two or three OpenMP parallel regions over about 10⁵
+pairs. With several joins and sweeps on 4 cores (load 11) their barriers wait for descheduled threads. On the 453
+lists a single thread processes 128 split values per second, two threads 57, and the default four 4. The earlier
+runs of this section and of §32–§34 thus covered about 30 times fewer split values than their running time allowed.
+`lowe_sz.py` now runs kt4 with one thread (`--kt4-threads`).
+
+**Where a solution's split value lies.** At N = 203 (⟨36⟩, rows 3, 25, 3, 13) the kept lists had no live split value
+at all (§36). The filter's centring explains it (simulation on uniform samples, `lowe_sz` filter at 3.6% kept).
+- On two classes the target lies 2.66 standard deviations (of the four-block sum) away from Σ μ.
+- The filter centres each big block at z_k = t − Σ_{j≠k} μ_j, assigning the whole offset to that block, and it does so
+  for C and for D at once. On those classes the kept C and D lie 5.5 of their own standard deviations from where a
+  solution's C and D lie.
+- The kept A + C and t − B − D sums are 2 pooled standard deviations apart, so random pairs never meet.
+- Centring at the solution law instead (c_k = μ_k + Σ_k Σ⁻¹(t − Σ μ), consistent by construction) does not help: the
+  separation becomes 2.6. On these classes A and B carry most of the variance, so a solution's split a + c lies in
+  the tails of both sides, where sampling never looks.
+
+The split values are therefore now also taken from the lattice. The values of A + C on the merge classes lie in a
+coset of Λ_A + Λ_C (a Hermite basis of the differences within each list; for 371 it has rank 4 on 5 merge classes).
+The points of that coset in a box around the solution law's mean that also lie in the coset of t − B − D are added
+to the sampled live values, and all are ordered by the law. kt4 discards a split value without pairs in about a
+millisecond.

@@ -146,7 +146,8 @@ def enum_block(st, kind, r, center, Wm, tau, maxkeep, tag, threads, filt=()):
     return masks, vals, en, p.stdout.strip()
 
 
-def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5, energy="full", time_limit=None):
+def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5, energy="full", time_limit=None,
+           kt4_threads=1):
     """rerun the join on the lists saved by an earlier run (WORK/lowe), with more split values"""
     st = Struct(N, gens, plain=not bordered)
     keepdir = W.WORK / "lowe"
@@ -164,7 +165,8 @@ def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5, en
     lists = [None] * 4
     for pos, k in enumerate(order):
         lists[k] = (masks[k], vals[pos])
-    return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, time.time(), time_limit=time_limit)
+    return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, time.time(), time_limit=time_limit,
+                kt4_threads=kt4_threads)
 
 
 def unit_classes(st):
@@ -173,7 +175,7 @@ def unit_classes(st):
 
 
 def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4, estimate_only=False, log=None,
-        seed=1, maxsol=5, energy="full", time_limit=None, precheck=True, fibre=True):
+        seed=1, maxsol=5, energy="full", time_limit=None, precheck=True, fibre=True, kt4_threads=1):
     """energy="units": the filter's energy uses only the unit classes. On exact solution sets of composite N the
     solution members sit at arithmetically fixed values on the compression classes, away from the Gaussian centre;
     without those classes they rank much higher at N = 119 and 267 (search/NOTES.md section 34). fibre: the blocks
@@ -278,7 +280,8 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
     # law); dropping the full value arrays saves about 1 GB per kept list while kt4 runs
     lists = [(m, np.array(v[::max(1, len(v) // 200000)])) for m, v in lists]
     import gc; gc.collect()
-    return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, time_limit=time_limit)
+    return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, time_limit=time_limit,
+                kt4_threads=kt4_threads)
 
 
 def live_splits(lists, Sx, target, M=2 * 10 ** 7, seed=1):
@@ -312,6 +315,54 @@ def live_splits(lists, Sx, target, M=2 * 10 ** 7, seed=1):
     return P, cac[ia], cbd[ib]
 
 
+def coset_basis(arrays, Sx, nvec=3000, seed=2):
+    """reduced Hermite basis (rows, upper triangular in pivot order) of the lattice spanned by the differences of the
+    values on the merge classes within each array (the lattice of the sums of one member of each array), and the sum of
+    their first sampled members as base point"""
+    from gauss_lat import hnf_basis
+    rng = np.random.default_rng(seed)
+    diffs, base = [], np.zeros(len(Sx), np.int64)
+    for vals in arrays:
+        X = np.asarray(vals[np.sort(rng.integers(0, len(vals), nvec))], np.int64)[:, Sx]
+        diffs.append(X[1:] - X[0]); base += X[0]
+    B, piv = hnf_basis(np.concatenate(diffs), len(Sx))
+    B = [row if row[j] > 0 else [-x for x in row] for row, j in zip(B, piv)]
+    for i in range(len(B)):                          # reduce each row modulo the pivots of the later rows
+        for l in range(i + 1, len(B)):
+            q = B[i][piv[l]] // B[l][piv[l]]
+            if q:
+                B[i] = [a - q * b for a, b in zip(B[i], B[l])]
+    return B, piv, [int(x) for x in base]
+
+
+def in_coset(x, B, piv, base):
+    r = [int(a) - b for a, b in zip(x, base)]
+    for row, j in zip(B, piv):
+        if r[j] % row[j]:
+            return False
+        k = r[j] // row[j]
+        if k:
+            r = [a - k * b for a, b in zip(r, row)]
+    return not any(r)
+
+
+def coset_points(B, piv, base, m, half, cap):
+    """the points of base + lattice in the box |x - m| <= half, at most cap (coordinates that are not pivots are
+    fixed by the others when the lattice has lower rank, and checked at the end)"""
+    X = np.array([base], np.int64)
+    for row, j in zip(B, piv):
+        g = row[j]
+        lo = np.ceil((m[j] - half[j] - X[:, j]) / g).astype(np.int64)
+        hi = np.floor((m[j] + half[j] - X[:, j]) / g).astype(np.int64)
+        n = np.maximum(hi - lo + 1, 0)
+        if n.sum() == 0 or n.sum() > cap:
+            return np.zeros((0, len(m)), np.int64)
+        rep = np.repeat(np.arange(len(X)), n)
+        k = lo[rep] + (np.arange(int(n.sum())) - np.repeat(np.cumsum(n) - n, n))
+        X = X[rep] + k[:, None] * np.asarray(row, np.int64)[None, :]
+    return X[np.all(np.abs(X - np.asarray(m)) <= np.asarray(half), axis=1)]
+
+
 def sigma_file(lists, Sx, target, nsig, path, seed=1):
     """split values for kt4, in order of the Gaussian law of a solution's split: with mu_k, Sigma_k the mean and
     covariance of each kept list (subsampled), a solution's (a + c) on the merge classes has mean
@@ -331,6 +382,29 @@ def sigma_file(lists, Sx, target, nsig, path, seed=1):
     V = (SAC - SAC @ Sp @ SAC)[np.ix_(Sx, Sx)]
     Vi = np.linalg.inv(V + 1e-6 * np.eye(len(Sx)))
     P, nac, nbd = live_splits(lists, Sx, target, seed=seed)
+    nlive = len(P)
+    # Random pairs see only the bulk of each side. When the target lies off the centre on classes where the small
+    # blocks carry the variance, a solution's split sits in the tails of both sides and is never sampled. So the
+    # lattice points nearest the solution law are added too: the points of the (A + C) coset that also lie in the
+    # (t - B - D) coset, in a box around m (kt4 skips a split value without pairs in about a millisecond).
+    try:
+        Ba, pa, ba = coset_basis([lists[0][1], lists[1][1]], Sx)
+        Bb, pb, bsum = coset_basis([lists[2][1], lists[3][1]], Sx)
+        bb = [int(target) - x for x in bsum]          # t - b - d = (t - b0 - d0) - (lattice); the lattice is symmetric
+        sd = np.sqrt(np.clip(np.diag(V), 1, None))
+        Q = np.zeros((0, len(Sx)), np.int64)
+        for R in (1.0, 1.5, 2.0, 2.5, 3.0, 4.0):
+            X = coset_points(Ba, pa, ba, m, R * sd, 4 * int(nsig) + 10 ** 5)
+            if len(X) == 0 and R > 1.0:
+                break
+            Q = X
+            if len(X) >= 2 * nsig:
+                break
+        if len(Q):
+            Q = Q[[in_coset(x, Bb, pb, bb) for x in Q]]
+        P = np.unique(np.concatenate([P, Q]), axis=0) if len(Q) else P
+    except Exception as e:                          # (the lattice step is an addition; never lose the live values)
+        print(f"  kt4: lattice split values skipped ({e})", flush=True)
     if len(P) == 0:
         np.savetxt(path, np.zeros((0, len(Sx)), np.int64), fmt="%d")
         return 0, 0.0, 0
@@ -338,10 +412,11 @@ def sigma_file(lists, Sx, target, nsig, path, seed=1):
     d2 = np.einsum("ij,jk,ik->i", D, Vi, D)
     o = np.argsort(d2)[:int(nsig)]
     np.savetxt(path, P[o].astype(np.int64), fmt="%d")
-    return len(o), float(np.sqrt(d2[o[-1]])), len(P)
+    return len(o), float(np.sqrt(d2[o[-1]])), nlive
 
 
-def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ordered=True, time_limit=None):
+def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ordered=True, time_limit=None,
+         kt4_threads=1):
     order = [0, 2, 1, 3]
     # merge classes: largest variance, from a subsample of every list (a full int64 copy would need gigabytes)
     var = sum(np.asarray(lists[k][1][::max(1, len(lists[k][1]) // 200000)], np.float64).var(0) for k in order)
@@ -351,8 +426,8 @@ def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ord
         sf = Path(str(inp) + ".sig")
         n, rad, nlive = sigma_file([lists[k] for k in order], Sx, st.target, nsig, sf)
         sigarg = "@" + str(sf)
-        print(f"  kt4: merge classes {Sx}, {n} of {nlive} live split values, nearest the solution law "
-              f"(Mahalanobis radius {rad:.2f})", flush=True)
+        print(f"  kt4: merge classes {Sx}, {n} split values nearest the solution law ({nlive} sampled live, the rest "
+              f"lattice points; Mahalanobis radius {rad:.2f})", flush=True)
         if n == 0:
             print(f"  kt4: no live split value [{time.time() - t0:.0f}s]", flush=True)
             return []
@@ -360,8 +435,12 @@ def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ord
         print(f"  kt4: merge classes {Sx}, {int(nsig)} split values", flush=True)
     try:
         with open(str(inp) + ".progress", "w") as errf:            # one line per split value
+            # one thread by default: each split value opens several parallel regions over ~1e5 pairs, and on a shared
+            # machine their barriers cost more than the work (128 split values per second with one thread against 4
+            # with four, N = 453, load 11 on 4 cores)
+            env = dict(os.environ, OMP_NUM_THREADS=str(kt4_threads))
             p = subprocess.run([W.bin("kt4"), str(inp), ",".join(map(str, Sx)), sigarg, str(maxsol)],
-                               stdout=subprocess.PIPE, stderr=errf, text=True, timeout=time_limit)
+                               stdout=subprocess.PIPE, stderr=errf, text=True, timeout=time_limit, env=env)
         out, rc = p.stdout, p.returncode
     except subprocess.TimeoutExpired as e:                          # the join's time budget is spent
         out = e.stdout.decode() if isinstance(e.stdout, bytes) else (e.stdout or "")
@@ -414,13 +493,15 @@ def main():
                     help="classes in the filter's energy: all, or only those prime to the group order")
     ap.add_argument("--no-precheck", action="store_true", help="skip the exact compression check")
     ap.add_argument("--no-fibre", action="store_true", help="do not restrict the blocks to allowed compressions")
+    ap.add_argument("--kt4-threads", type=int, default=1, help="OpenMP threads of the kt4 join (default 1)")
     a = ap.parse_args()
     rows = tuple(int(x) for x in a.rows.split(","))
     if a.resume:
-        resume(a.N, a.gens, rows, a.bordered, a.nsig, a.S, a.log, energy=a.energy, time_limit=a.time)
+        resume(a.N, a.gens, rows, a.bordered, a.nsig, a.S, a.log, energy=a.energy, time_limit=a.time,
+               kt4_threads=a.kt4_threads)
     else:
         run(a.N, a.gens, rows, a.bordered, a.L, a.nsig, a.S, a.K, a.threads, a.estimate_only, a.log, energy=a.energy,
-            time_limit=a.time, precheck=not a.no_precheck, fibre=not a.no_fibre)
+            time_limit=a.time, precheck=not a.no_precheck, fibre=not a.no_fibre, kt4_threads=a.kt4_threads)
 
 
 if __name__ == "__main__":
