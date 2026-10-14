@@ -178,10 +178,12 @@ multiplier groups and exact joins (`attack/ssxx.py`, `attack/ssxx_sweep.py`).
 | 262 | 131 | Szöllősi array, multiplier group of order 5 (sampled lists) |
 | 286 | 143 = 11 · 13 | Szöllősi array, multiplier group of order 15 |
 | 326 | 163 | Szöllősi array, multiplier group of order 9 |
+| 370 | 185 = 5 · 37 | Szöllősi array |
 
-Orders 142 and 154 are the two smallest that the classical constructions do not give: Williamson-type matrices
-(Seberry–Yamada 1992 Table A.1, the 2026 near-Williamson orders), conference matrices, complex Golay sequences and
-known quaternary Legendre pairs. The near-Williamson matrices of order 111 are also, to our knowledge, the first
+All of these orders are blank in Table 11.2 of Seberry–Yamada (1992), the table of known complex Hadamard
+orders that the 2026 papers update, and none comes from later work: Đoković 1993, Szöllősi 2026, the near-Williamson
+paper, and the quaternary Legendre pairs of 2022–2026. Orders 142 and 154 are the two smallest orders that
+remained. The near-Williamson matrices of order 111 are also, to our knowledge, the first
 Williamson-type matrices of that order. `python3 verify/verify_complex.py` checks every certificate exactly.
 
 ## Verification

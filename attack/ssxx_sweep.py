@@ -2,7 +2,8 @@
 """Sweep of complex (quaternary) Hadamard matrices of order 2N, N odd, through Szöllősi's (ssxx) construction
 (attack/ssxx.py), over the N for which we know no earlier construction.
 
-An order 2N counts as known when one of these gives it:
+An order 2N counts as known when Table 11.2 of Seberry-Yamada (1992) gives it (N < 1000,
+attack/data/complex_known_1992.txt) or one of these gives it:
 - Williamson-type matrices of order N (construction (3) of arXiv:2605.08661; Turyn): Table A.1 of Seberry-Yamada
   (1992) as parsed in attack/data/wt_known_1992.txt, good matrices of orders 35 and 127 (Đoković 1993), and the
   near-Williamson matrices of Kharaghani-Mohammadian-Tayfeh-Rezaie-Zaitsev (2026): every odd N <= 69 and
@@ -29,6 +30,7 @@ import ssxx
 from bnw import Struct, subgroups
 
 DATA = Path(__file__).resolve().parent / "data" / "wt_known_1992.txt"
+CDATA = Path(__file__).resolve().parent / "data" / "complex_known_1992.txt"
 KMT = set(range(1, 70, 2)) | {73, 79, 91, 93, 95, 97, 103, 109, 127, 133, 181}
 DJOKOVIC_1993 = {35, 127}
 QLP_OPEN_TO_100 = {70, 76, 88, 92, 94, 100}
@@ -56,11 +58,11 @@ def mathon_orders(nmax):
     """N with a Mathon conference matrix of order 2N = q^2 (q + 2) + 1 (q = 3 mod 4 and q + 2 prime powers), and
     Seberry-Whiteman's 5 * 9^(2t+1) + 1."""
     out = set()
-    for q in range(3, int(round(nmax ** (1 / 3))) + 2):
-        if q % 4 == 3 and prime_power(q) and prime_power(q + 2):
-            n = q * q * (q + 2) + 1
-            if n <= nmax:
-                out.add(n // 2)
+    for q in range(3, int(round(nmax ** (1 / 3))) + 4):
+        if q % 4 == 3 and prime_power(q):
+            for p in (q + 2, q - 2):                       # both forms appear (1992 Table 11.2 uses q - 2)
+                if p > 1 and prime_power(p) and q * q * p + 1 <= nmax:
+                    out.add((q * q * p + 1) // 2)
     t = 0
     while 5 * 9 ** (2 * t + 1) + 1 <= nmax:
         out.add((5 * 9 ** (2 * t + 1) + 1) // 2); t += 1
@@ -89,8 +91,15 @@ def qlp_known(l):
     return l % 2 == 0 and is_prime(l // 2) and prime_power(l - 1)
 
 
+def load(path):
+    return {int(l) for l in path.read_text().splitlines() if l.strip().isdigit()}
+
+
 def known_reason(N):
-    wt = {int(x) for x in DATA.read_text().split() if x.isdigit()}
+    wt = load(DATA)
+    cx = load(CDATA)
+    if N in cx:
+        return "complex Hadamard (Seberry-Yamada 1992, Table 11.2)"
     if N in wt:
         return "WT (Seberry-Yamada 1992, Table A.1)"
     if N in SY1992_COR_11_17:

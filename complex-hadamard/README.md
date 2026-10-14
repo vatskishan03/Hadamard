@@ -61,6 +61,7 @@ N the Gaussian estimate of the hits inside the samples is accurate: 1445 expecte
 | 262 | 131 | ⟨53⟩, order 5 | 9, 9; 1, 19 | [C262.json](C262.json) |
 | 286 | 143 = 11 · 13 | ⟨3⟩, order 15 | 3, 9; 11, 19 | [C286.json](C286.json) |
 | 326 | 163 | ⟨38⟩, order 9 | 17, 19; 1, 1 | [C326.json](C326.json) |
+| 370 | 185 = 5 · 37 | ⟨9⟩, order 18 | 3, 3; 19, 19 | [C370.json](C370.json) |
 
 Each certificate gives N, the multiplier group, the row sums, the first rows of A, B, C, D (`+`, `-`) and the
 SHA-256 of the canonical text of K: 2N lines of 2N digits, digit e standing for the entry iᵉ.
@@ -75,34 +76,23 @@ on the real and imaginary parts.
 
 ## Status
 
-To our knowledge, these orders had no construction. Our reading of the literature counts 2N as known when one of the
-following gives it:
+**Primary source.** Table 11.2 of J. Seberry and M. Yamada, "Hadamard matrices, sequences, and block designs"
+(Contemporary Design Theory, Wiley, 1992) records, for every odd q < 1000, whether a complex Hadamard matrix of
+order 2q was known. Its constructions are conference matrices (codes c1–c6) and Williamson-type matrices (Turyn;
+Kharaghani–Seberry, codes x2 and x6). Every order in this directory is **blank** in that table. The parsed table is
+[`attack/data/complex_known_1992.txt`](../attack/data/complex_known_1992.txt).
 
-- **Williamson-type matrices of order N** (Turyn; construction (3) of arXiv:2605.08661). Sources:
-  - Table A.1 of Seberry and Yamada (1992), parsed in [`attack/data/wt_known_1992.txt`](../attack/data/wt_known_1992.txt);
-  - Đoković's good matrices of orders 35 and 127 (1993);
-  - the 2026 near-Williamson orders: every odd N ≤ 69, and 73, 79, 91, 93, 95, 97, 103, 109, 127, 133, 181.
-- **A conference matrix of order 2N**, via C + iI: Paley's (2N − 1 a prime power), Mathon's (2N = q²(q + 2) + 1)
-  and Seberry–Whiteman's (2N = 5 · 9^(2t+1) + 1).
-- **Complex Golay sequences of length N** (N = 1, 3, 5, 11, 13).
-- **A quaternary Legendre pair of length N − 1:**
-  - every even length up to 100 except 70, 76, 88, 92, 94 and 100 (Kotsireas–Winterhof; Kotsireas–Koutschan–Winterhof;
-    Lebedev and Verma 2026);
-  - the two families of Jedwab and Pender (2025).
-- **Szöllősi's order 94.**
-- **The complex Hadamard section of Seberry and Yamada (1992), §11:**
-  - the orders 2c of Corollary 11.17, which include 210 = 2 · 105, although Table A.1 has t = 3 at 105;
-  - the orders n^j (n + 1) of Corollary 11.15.
+**Results since 1992** that we checked, none of which gives these orders:
+- Đoković's good matrices of orders 35 and 127 (1993): 70 and 254.
+- Szöllősi (2026): 94.
+- Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev (2026): 118, 130, 134, 206 and 266.
+- Quaternary Legendre pairs, giving order 2ℓ + 2 (Kotsireas–Winterhof 2022; Kotsireas–Koutschan–Winterhof 2025;
+  Jedwab–Pender 2025; Lebedev and Verma 2026): every even length ℓ up to 100 except 70, 76, 88, 92, 94 and 100,
+  plus two infinite families. Order 142 needs ℓ = 70 and 154 needs ℓ = 76, both open. Our larger orders fall
+  outside both families.
+- Mathon's conference matrices (q²(q ± 2) + 1). We also count them as known where the 1992 table is blank
+  (N = 221, 787).
 
-  Its Theorem 11.14 (Kharaghani–Seberry) needs auxiliary matrices that we cannot enumerate, and it is the main
-  gap in this check.
-
-Orders 142 and 154 are the two smallest orders that none of these give.
-- 141 = 3 · 47 and 153 = 3² · 17 are not prime powers.
-- 71 and 77 are absent from Table A.1 as orders of four Williamson-type matrices (71 is blank; 77 has only
-  Williamson-type matrices of order 154), and from the 2026 near-Williamson list.
-- Quaternary Legendre pairs of lengths 70 and 76 are open; Lebedev's exhaustive searches of the reversible family
-  at these lengths found none.
-
-The 2026 papers above cite Table 11.2 of Seberry and Yamada's 2020 book for the list of open orders. We could not
-consult it, so these claims carry that caveat.
+The sweep's candidate list (`python3 attack/ssxx_sweep.py list`) is exactly the blank entries of the 1992 table
+minus these. The 2026 papers cite the updated Table 11.2 of Seberry and Yamada's 2020 book (Wiley), which we could
+not consult. A construction published between 1992 and 2020 and recorded only there is the remaining caveat.
