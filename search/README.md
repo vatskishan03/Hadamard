@@ -138,7 +138,12 @@ start-up, is close to the list size.
 | `tsz.py`, `tsz.c` | twisted Szöllősi quadruples |
 | `cchain4.py`, `cchain_sweep.py` | exact compression chains for four-block problems (310, 518) |
 | `kstream.py`, `kstream.c` | the streaming k-tree (382) |
-| `lowe_sz.py`, `lowe_enum.c`, `lowe_scan.py`, `sls_sz.c` | low-energy k-tree and annealing for Szöllősi structures |
+| `lowe_sz.py`, `lowe_enum.c`, `lowe_scan.py`, `lowe_dispatch.py`, `sls_sz.c` | low-energy k-tree (342, 426, 430, 454) and annealing for Szöllősi structures; `lowe_dispatch.py` runs the best candidates of a scan one at a time |
+| `gauss_mc.py`, `gauss_full.py`, `gauss_lat.py` | estimates of the number of solutions of a structure: hybrid Monte Carlo and Gaussian, full covariance, joint lattice of the class values |
+| `frontier_scan.py`, `hybrid_rank.py` | every multiplier structure of the open orders with pools up to 10¹³, ranked by the per-class and the hybrid estimate |
+| `calib_bsz.py`, `retention_test.py`, `retention_diag.py`, `joint_retention.py` | calibration against exact solution sets: the estimates, and the retention of the low-energy filter |
+| `gs_hybrid.py` | the same estimates for Goethals–Seidel structures |
+| `rrr.py`, `rrr.c` | Elser's RRR (difference map) for four-sequence problems (negative, [NOTES.md](NOTES.md) §35) |
 | `qlp_bin.py` | quaternary Legendre pairs with one binary sequence |
 | `complex_status.py`, `data/` | known, constructed and open complex orders; tables parsed from Seberry–Yamada (1992) |
 
