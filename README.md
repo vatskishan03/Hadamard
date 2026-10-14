@@ -174,6 +174,9 @@ multiplier groups and exact joins (`attack/ssxx.py`, `attack/ssxx_sweep.py`).
 | 142 | 71 | Szöllősi array, multiplier group of order 5 |
 | 154 | 77 = 7 · 11 | Szöllősi array, Paley-product multiplier group of order 5 |
 | 222 | 111 = 3 · 37 | near-Williamson matrices of order 111 ([near-williamson/NW111.txt](near-williamson/NW111.txt)), found by the order-3 twist search `attack/wt_twist.py` |
+| 238 | 119 = 7 · 17 | Szöllősi array, multiplier group of order 8 |
+| 286 | 143 = 11 · 13 | Szöllősi array, multiplier group of order 15 |
+| 326 | 163 | Szöllősi array, multiplier group of order 9 |
 
 Orders 142 and 154 are the two smallest that the classical constructions do not give: Williamson-type matrices
 (Seberry–Yamada 1992 Table A.1, the 2026 near-Williamson orders), conference matrices, complex Golay sequences and

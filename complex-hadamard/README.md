@@ -50,11 +50,14 @@ Code: `attack/ssxx.py` (triage, search), `attack/ssxx_sweep.py` (the candidate o
 
 ## Matrices
 
-| order 2N | N | H | row sums (a, b; c, d) | solutions in the structure (exact join) | file |
-|---:|---:|---|---|---:|---|
-| 142 | 71 | ⟨5⟩, order 5 | 9, 9; 1, 11 | 5992 (and 6076 with 9, 11; 1, 9) | [C142.json](C142.json) |
-| 154 | 77 = 7 · 11 | ⟨15⟩, order 5 (15 ≡ 1 mod 7, the squares mod 11) | 3, 3; 1, 17 | 2352 (also 2352, 2352 and 1176 for three other patterns; the Gaussian model predicts 10^−1.7) | [C154.json](C154.json) |
-| 222 | 111 = 3 · 37 | from the near-Williamson matrices of order 111 in [`near-williamson/NW111.txt`](../near-williamson/NW111.txt) (order-3 twist, `attack/wt_twist.py`), with (B, C) as the symmetric pair and (A, D) as the other | 1, 1; 21, 1 (in the order B, C; A, D) | 36 near-Williamson quadruples with these rows | [C222.json](C222.json) |
+| order 2N | N | multiplier group / source | row sums (a, b; c, d) | file |
+|---:|---|---|---|---|
+| 142 | 71 | ⟨5⟩, order 5 | 9, 9; 1, 11 | [C142.json](C142.json) |
+| 154 | 77 = 7 · 11 | ⟨15⟩, order 5 | 3, 3; 1, 17 | [C154.json](C154.json) |
+| 222 | 111 = 3 · 37 | near-Williamson matrices of order 111 (near-williamson/NW111.txt), reordered (B, C, A, D) | 1, 1; 21, 1 | [C222.json](C222.json) |
+| 238 | 119 = 7 · 17 | ⟨8⟩, order 8 | 1, 5; 15, 15 | [C238.json](C238.json) |
+| 286 | 143 = 11 · 13 | ⟨3⟩, order 15 | 3, 9; 11, 19 | [C286.json](C286.json) |
+| 326 | 163 | ⟨38⟩, order 9 | 17, 19; 1, 1 | [C326.json](C326.json) |
 
 Each certificate gives N, the multiplier group, the row sums, the first rows of A, B, C, D (`+`, `-`) and the
 SHA-256 of the canonical text of K: 2N lines of 2N digits, digit e standing for the entry iᵉ.
@@ -84,6 +87,12 @@ following gives it:
     Lebedev and Verma 2026);
   - the two families of Jedwab and Pender (2025).
 - **Szöllősi's order 94.**
+- **The complex Hadamard section of Seberry and Yamada (1992), §11:**
+  - the orders 2c of Corollary 11.17, which include 210 = 2 · 105, although Table A.1 has t = 3 at 105;
+  - the orders n^j (n + 1) of Corollary 11.15.
+
+  Its Theorem 11.14 (Kharaghani–Seberry) needs auxiliary matrices that we cannot enumerate, and it is the main
+  gap in this check.
 
 Orders 142 and 154 are the two smallest orders that none of these give.
 - 141 = 3 · 47 and 153 = 3² · 17 are not prime powers.

@@ -12,7 +12,8 @@ An order 2N counts as known when one of these gives it:
 - a quaternary Legendre pair of length N - 1 (order 2(N-1) + 2): every even length <= 100 except 70, 76, 88, 92,
   94, 100 (Lebedev and Verma 2026), and the two families of Jedwab and Pender (2025): (q - 1)/2 for prime powers
   q = 1 (mod 4), and 2p for primes p with 2p - 1 a prime power;
-- Szöllősi's order 94.
+- Szöllősi's order 94;
+- Seberry-Yamada (1992) Corollaries 11.15 (orders n^j (n + 1)) and 11.17 (an explicit list, which includes 105).
 This is our reading of the literature, not a complete table (Table 11.2 of Seberry and Yamada's 2020 book, which
 the 2026 papers cite, was not available to us).
 
@@ -31,6 +32,9 @@ DATA = Path(__file__).resolve().parent / "data" / "wt_known_1992.txt"
 KMT = set(range(1, 70, 2)) | {73, 79, 91, 93, 95, 97, 103, 109, 127, 133, 181}
 DJOKOVIC_1993 = {35, 127}
 QLP_OPEN_TO_100 = {70, 76, 88, 92, 94, 100}
+# Seberry-Yamada (1992), Corollary 11.17: complex Hadamard matrices of orders 2c from Williamson-type matrices
+SY1992_COR_11_17 = {33, 39, 53, 73, 81, 83, 89, 93, 101, 105, 109, 113, 125, 137, 149, 153, 173, 189, 193, 197,
+                    233, 241, 243, 257, 277, 281, 293}
 
 
 def prime_power(n):
@@ -63,6 +67,20 @@ def mathon_orders(nmax):
     return out
 
 
+def cor_11_15(N):
+    """2N = n^j (n + 1) with n + 1 the order of a symmetric conference matrix (Paley: n = 1 mod 4 a prime power)."""
+    for n in range(5, 2 * N, 4):
+        if not prime_power(n):
+            continue
+        if (n + 1) % 2 == 0 and (2 * N) % (n + 1) == 0:
+            r = 2 * N // (n + 1)
+            while r % n == 0:
+                r //= n
+            if r == 1:
+                return True
+    return False
+
+
 def qlp_known(l):
     if l <= 100:
         return l not in QLP_OPEN_TO_100
@@ -75,6 +93,10 @@ def known_reason(N):
     wt = {int(x) for x in DATA.read_text().split() if x.isdigit()}
     if N in wt:
         return "WT (Seberry-Yamada 1992, Table A.1)"
+    if N in SY1992_COR_11_17:
+        return "complex Hadamard (Seberry-Yamada 1992, Cor. 11.17)"
+    if cor_11_15(N):
+        return "complex Hadamard n^j (n + 1) (Seberry-Yamada 1992, Cor. 11.15)"
     if N in DJOKOVIC_1993:
         return "good matrices (Đoković 1993)"
     if N in KMT:
