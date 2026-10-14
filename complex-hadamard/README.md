@@ -46,7 +46,9 @@ For each row-sum pattern (a, b, c, d) with a² + b² + c² + d² = 4N:
 - every hit is turned into K and checked exactly, and the real Goethals–Seidel matrix of order 4N is checked as well.
 
 Code: `attack/ssxx.py` (triage, search), `attack/ssxx_sweep.py` (the candidate orders and the sweep),
-`attack/ssxx_certify.py` (certificates).
+`attack/ssxx_sample.py` (for structures too large to list: uniform samples of the large lists, joined exactly; for prime
+N the Gaussian estimate of the hits inside the samples is accurate: 1445 expected and 1430 found at N = 71, 10^4.0 and
+12618 at N = 131), `attack/ssxx_certify.py` (certificates).
 
 ## Matrices
 
@@ -56,6 +58,7 @@ Code: `attack/ssxx.py` (triage, search), `attack/ssxx_sweep.py` (the candidate o
 | 154 | 77 = 7 · 11 | ⟨15⟩, order 5 | 3, 3; 1, 17 | [C154.json](C154.json) |
 | 222 | 111 = 3 · 37 | near-Williamson matrices of order 111 (near-williamson/NW111.txt), reordered (B, C, A, D) | 1, 1; 21, 1 | [C222.json](C222.json) |
 | 238 | 119 = 7 · 17 | ⟨8⟩, order 8 | 1, 5; 15, 15 | [C238.json](C238.json) |
+| 262 | 131 | ⟨53⟩, order 5 | 9, 9; 1, 19 | [C262.json](C262.json) |
 | 286 | 143 = 11 · 13 | ⟨3⟩, order 15 | 3, 9; 11, 19 | [C286.json](C286.json) |
 | 326 | 163 | ⟨38⟩, order 9 | 17, 19; 1, 1 | [C326.json](C326.json) |
 
