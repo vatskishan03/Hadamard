@@ -92,7 +92,7 @@ def qborder_solve(Mc, q):
     import itertools
     key = (q, Mc.tobytes())
     if key in _QB: return _QB[key]
-    if q > 5: raise ValueError(f'no border solver for q = {q} (the clique search enumerates 2^{4 * q - 1} rows)')
+    if q > 7: raise ValueError(f'no border solver for q = {q} (the clique search enumerates 2^{4 * q - 1} rows)')
     if q > 3: return qborder_solve_c(Mc, q)
     N = 4 * q
     vecs = np.array([(1,) + t for t in itertools.product((1, -1), repeat=N - 1)], np.int64)
@@ -113,9 +113,10 @@ def qborder_solve(Mc, q):
     return R
 
 
-def qborder_solve_c(Mc, q, tlimit=3600, seed=1):
-    """The border problem for q >= 5 with the C clique search (qborder_clique.c); solved borders are cached in
-    $HADAMARD_WORK/qborder_cache.jsonl. Returns R (4q x 4q) or None (no border found within the time limit)."""
+def qborder_solve_c(Mc, q, tlimit=1800, seed=1):
+    """The border problem for q = 5, 7 with the C clique search (qborder_clique.c); solved borders are cached in
+    $HADAMARD_WORK/qborder_cache.jsonl. Returns R (4q x 4q); ValueError when none is found within the time limit (the
+    caller then keeps the sequences in qborder_pending.jsonl)."""
     import hashlib
     N = 4 * q
     key = hashlib.sha256(np.ascontiguousarray(Mc, dtype=np.int64).tobytes()).hexdigest()
@@ -123,17 +124,17 @@ def qborder_solve_c(Mc, q, tlimit=3600, seed=1):
     if cache.exists():
         for line in open(cache):
             r = json.loads(line)
-            if r['key'] == key: return None if r['R'] is None else np.array(r['R'], np.int64)
+            if r['key'] == key and r['R'] is not None: return np.array(r['R'], np.int64)
     inp = f"{N}\n" + "\n".join(" ".join(str(int(x)) for x in row) for row in Mc) + "\n"
-    out = subprocess.run([W.bin('qborder_clique'), str(tlimit), str(seed)], input=inp, capture_output=True, text=True).stdout
+    out = subprocess.run([W.bin('qborder_clique'), str(tlimit), str(seed), '80000'], input=inp, capture_output=True, text=True).stdout
     lines = out.strip().splitlines()
     R = None
     if lines and lines[0].startswith('SOLVED'):
         R = np.array([[int(x) for x in l.split()] for l in lines[1:N + 1]], np.int64)
         if not (R.shape == (N, N) and np.array_equal(R @ R.T, N * np.eye(N, dtype=np.int64)) and np.all(np.abs(R @ Mc @ R.T) == N)):
             R = None
-    if R is not None or (lines and lines[0].startswith('NONE')):     # timeouts are not cached
-        with open(cache, 'a') as f: f.write(json.dumps(dict(key=key, q=q, R=None if R is None else R.tolist())) + '\n')
+    if R is None: raise ValueError(f'no border found for q = {q} within {tlimit} s')   # not cached: a longer run may succeed
+    with open(cache, 'a') as f: f.write(json.dumps(dict(key=key, q=q, R=R.tolist())) + '\n')
     return R
 
 
