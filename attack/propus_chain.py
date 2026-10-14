@@ -181,7 +181,7 @@ def search(v, gens, rows, d, a, log):
         ka, kb, kd = KA[i], KB[j], KD[k]
         triples.append((Da[ka] * Dd[kd], Da[ka], Db[kb], Dd[kd], ka, kb, kd))
     triples.sort(key=lambda x: -x[0])
-    if max(st_ad.O, st_b.O) > 46:
+    if max(st_ad.O, st_b.O) > a.maxmitm:
         log(f"  stage 1: {len(triples)} compatible triples; {st_b.O} orbits is too many for the meet in the middle, skipped")
         return []
     work = sum(t[0] for t in triples)
@@ -263,6 +263,7 @@ def main():
     ap.add_argument('--plain', action='store_true', help='ordinary Hadamard: Goethals-Seidel quadruples (A, B, B, D) on H-orbits')
     ap.add_argument('--maxo', type=int, default=44)
     ap.add_argument('--border', action='store_true', help='bordered propus on Z_v: PAF sum -4, symmetric Hadamard of order 4(v + 1)')
+    ap.add_argument('--maxmitm', type=int, default=46, help='largest orbit count for the meet in the middle (memory ~ 2^(O/2))')
     a = ap.parse_args()
     log = lambda s: print(s, flush=True)
     v = a.v
