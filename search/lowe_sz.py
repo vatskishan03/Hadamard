@@ -208,8 +208,13 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
     for k, (kd, r) in enumerate(zip(KINDS, rows)):
         if (kd, r, fid[k]) not in cache:            # blocks with the same pool and filter share their statistics
             Y, a = fibre_sample(st, kd, r, K, rng, filt[k])
-            if len(Y) >= 500:
+            if len(Y) < 500 and pools[k] > 2e9:      # too large to list: sample harder
+                Y, a = fibre_sample(st, kd, r, K, rng, filt[k], maxdraw=400)
+            if len(Y) >= 500 or (len(Y) >= 50 and pools[k] > 2e9):
                 V = st.values(kd, Y)
+            elif pools[k] > 2e9:
+                print(f"N = {N} rows {rows}: block {'ABCD'[k]}: {len(Y)} allowed in {400 * K} samples, too few to model")
+                return []
             else:                                   # tiny allowed sub-pool: list it exactly (no energy cut)
                 _, Vall, _, _ = enum_block(st, kd, r, np.zeros(C), np.zeros((C, C)), 1e30, 2 * 10 ** 7, "F" + str(k),
                                            threads, filt[k])
