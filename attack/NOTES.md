@@ -1847,7 +1847,10 @@ for a symmetric design N with a polarity. With r odd the cores must balance the 
 the route gives v = k · n(4n − 1) (r + 1 = 4n); designs in place of J would need symmetric designs whose ±1
 matrices commute with a core, which we have not looked for.
 
-**Order m(m + 3): the plug-in J − 2I (order 4828 = 4 · 1207).** In the balance above, X = J − 2I has β = r − 4, so
+**Order m(m + 3): the plug-in J − 2I (order 4828 = 4 · 1207).** (The non-symmetric version is classical: Wallis,
+J. Austral. Math. Soc. 11 (1970), Corollary 10 (iv), and Linear and Multilinear Algebra 3 (1975), Corollary 4, which
+lists 1207, 1827, 2185, 2575 as new Williamson-type orders; our symmetric matrix is (P ⊗ I) times Wallis's. Found by
+the audit agent; the same holds for X = J and Williamson's k(k − 1).) In the balance above, X = J − 2I has β = r − 4, so
 a symmetric OD(m; 1, m − 1) with x ↦ J − 2I and y ↦ a core of a symmetric Hadamard matrix of order r + 1 works when
 r − 4 = m − 1: H = P ⊗ (J − 2I) + N ⊗ D is a symmetric Hadamard matrix of order m(m + 3) whenever a symmetric
 OD(m; 1, m − 1) and a symmetric Hadamard matrix of order m + 4 exist ((J − 2I)² = 4I + (m − 1)J; (m − 1)D² =
@@ -1880,8 +1883,12 @@ The same route works for every skew-propus length n for which G-matrices of orde
 2475 (25). For 473 and 1139 the classical amicable pairs exist (Paley, q = 43, 67) but 42 and 66 are not sums of two
 squares, so there are no G-matrices; 2093 lacks the design. **663: skew-propus quadruples of length 13 exist, so
 amicable Hadamard matrices of order 52 (not a classical amicable order) and, with G-matrices of order 13, a
-skew-Hadamard matrix of order 52 · 51 = 2652** ([skew/2652](../skew/2652)). For 2475 the exhaustive skew-propus search
-of length 25 is running.
+skew-Hadamard matrix of order 52 · 51 = 2652** ([skew/2652](../skew/2652)). **2475: the exhaustive skew-propus search
+of length 25 finds a quadruple (row sums 9, 3, 1; 18 minutes), so amicable Hadamard matrices of order 100 and, with
+G-matrices of order 25, a skew-Hadamard matrix of order 100 · 99 = 9900** ([skew/9900](../skew/9900); not stored,
+verify.py rebuilds it). The new amicable orders 52, 76, 100 (and 124 from n = 31) are ≡ 4 (mod 8) but not of the
+classical form q + 1 with q ≡ 3 (mod 8) a prime power. No Szekeres-type pair of length 49 exists in ℤ₄₉ or ℤ₇²
+(`szek_group`), so 100 comes only from the skew-propus quadruple.
 
 **Weighted variant (not realised).** v = k n (4n − 1)-type census values (475 = 5 · 95 with h = 20, 1989 = 3 · 663
 with h = 52, 693, 1235, 2185, 2375, and 33k for k = 27, 33, 41, …) would need symmetric OD(kh; k, k(h − 1)) with

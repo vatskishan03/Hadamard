@@ -47,7 +47,9 @@ because J and D commute. Every block of H is ±J or ±D, so H has entries ±1.
 The general statement (`attack/NOTES.md` §31): a skew-Hadamard matrix of order m with an involutive anti-automorphism
 (a symmetric OD(m; 1, m − 1)) gives a symmetric Hadamard matrix of order m(m − 1); D may be taken from any symmetric
 Hadamard matrix of order m. Đoković's theorem is the case of the Xia–Xia–Seberry–Wu difference families for prime
-powers q = m − 1 ≡ 3 (mod 8), where D is built from the Paley core.
+powers q = m − 1 ≡ 3 (mod 8), where D is built from the Paley core. Without symmetry this is Williamson's classical
+theorem (1944) that a skew-Hadamard matrix of order k gives a Hadamard matrix of order k(k − 1); an ordinary Hadamard
+matrix of order 5700 is therefore classical, and only the symmetry is new.
 
 ## Search
 

@@ -115,7 +115,7 @@ first block. The group is ℤᵥ, except for 1100 (ℤ₅ × ℤ₅ × ℤ₁₁
 | [5668](skew/5668) | 1417 (13 · 109) | ⟨1405, 328⟩, order 81 (cyclotomic product of index 4 with ⟨3⟩ on ℤ₁₃) | 1, 7, −53, −53 | beyond Table 5 (n ≤ 999); census: undecided; smallest known before was 32 · 1417 = 45344 |
 | [6004](skew/6004) | 1501 (19 · 79) | ⟨799⟩, order 39 (Paley product) | 1, 77, 7, −5 | beyond Table 5 (n ≤ 999); census: undecided; smallest known before was 8 · 1501 = 12008 |
 
-Two more skew orders come from a different construction, Seberry's 1978 theorem (amicable Hadamard matrices of
+Three more skew orders come from a different construction, Seberry's 1978 theorem (amicable Hadamard matrices of
 order n and a skew-type OD(n; 1, 1, n − 2) give a skew-Hadamard matrix of order n(n − 1)), with amicable pairs that
 were not known: they come from skew-propus quadruples, i.e. from symmetric orthogonal designs of type (1, n − 1)
 (`attack/NOTES.md` §31). The skew-type ODs come from G-matrices.
@@ -124,6 +124,7 @@ were not known: they come from skew-propus quadruples, i.e. from symmetric ortho
 |------:|---|---|---|---|
 | [2652](skew/2652) | 663 (3 · 13 · 17) = 13 · 51 | order 52, skew-propus quadruple of length 13 | order 13 | undecided |
 | [5700](skew/5700) | 1425 (3 · 5² · 19) = 19 · 75 | order 76, the design of [symmetric/5700](symmetric/5700) | order 19 | undecided; beyond Table 5 |
+| [9900](skew/9900) | 2475 (3² · 5² · 11) = 25 · 99 | order 100, skew-propus quadruple of length 25 | order 25 | undecided; beyond Table 5; matrix not stored |
 
 **Known orders, independent matrices.** These orders were claimed as new at first. Both claims are
 withdrawn:
@@ -179,7 +180,8 @@ m − 1 = q ≡ 3 (mod 8) a prime power; the design can also come from a skew-pr
 (m = 4n), found here by exhaustive search, or from a Legendre pair with one skew and one symmetric block.
 
 Replacing x by J − 2I instead of J, with the core of a symmetric Hadamard matrix of order m + 4, gives order
-m(m + 3) (new as far as we know; `attack/NOTES.md` §31).
+m(m + 3) (`attack/NOTES.md` §31): the symmetric form of Wallis's construction of (non-symmetric) Hadamard and
+Williamson-type matrices of order m(m + 3) (1970, 1975).
 
 | Order | v | Design and plug-in | Census |
 |------:|---|---|---|
