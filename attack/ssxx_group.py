@@ -97,7 +97,7 @@ class GStruct:
     def enum(self, kind, r):
         st = self.st(kind)
         d = W.WORK / "ssxxg"; d.mkdir(exist_ok=True)
-        tag = "_".join(f"{e}-{u}" for e, u in self.gens)
+        tag = "_".join(f"{e}-{u}" for e, u in self.gens).replace(".", "-").replace("+", "_")
         base = d / f"g{self.N}_{self.p}^{self.k}_{tag}_{kind}_{r}"
         vals, masks = base.with_suffix(".v"), base.with_suffix(".m")
         if not vals.exists():
@@ -219,8 +219,110 @@ def main():
     ap.add_argument("--maxo", type=int, default=44); ap.add_argument("--maxpairs", type=float, default=2e10)
     ap.add_argument("--log")
     a = ap.parse_args()
-    r = run(a.N, a.p, a.k, a.maxo, a.maxpairs, a.log)
+    r = run_gl2(a.N, a.maxo, a.maxpairs, a.log) if a.cmd == "gl2" else run(a.N, a.p, a.k, a.maxo, a.maxpairs, a.log)
     print(f"N = {a.N}: {'FOUND' if r else 'nothing'}")
+
+
+
+# ---- Z_p^2 parts with odd-order subgroups of GL(2, p) (attack/skew_group.py, attack/skew_noncyclic.py) ----------
+
+class PStruct(GStruct):
+    """Same interface as GStruct, built from explicit automorphism permutations."""
+
+    def __init__(self, N, G, perms, name):
+        self.N, self.G, self.perms, self.name = N, G, perms, name
+        self.p = self.k = 0
+        self.gens = [(name, 0)]
+        self.stA = L.Structure(G, perms)
+        self.stL = L.Structure(G, perms + [G.neg()])
+        assert np.array_equal(self.stA.cls, self.stL.cls)
+        self.C = self.stA.C
+
+
+def gl2_structures(N, maxo=44):
+    import skew_group as SG
+    ps, m = SG.split(N)
+    if not ps:
+        return
+    parts = [SG.gl2_odd(p) for p in ps] + ([SG.unit_odd(m)] if m > 1 else [])
+    seen = set()
+    for choice in itertools.product(*parts):
+        if all(not c[1] for c in choice):
+            continue
+        mods = []
+        for p in ps: mods += [p, p]
+        if m > 1: mods.append(m)
+        G = L.AbGroup(mods); kdim = len(mods)
+        perms, off = [], 0
+        try:
+            for p, (name, gens) in zip(ps, choice[:len(ps)]):
+                for Mx in gens:
+                    A = np.eye(kdim, dtype=np.int64); A[off:off + 2, off:off + 2] = np.asarray(Mx) % p
+                    perms.append(G.perm_from_matrix(A))
+                off += 2
+            if m > 1:
+                for u in choice[-1][1]:
+                    A = np.eye(kdim, dtype=np.int64); A[off, off] = u % m
+                    perms.append(G.perm_from_matrix(A))
+        except ValueError:
+            continue
+        if not perms:
+            continue
+        name = "+".join(c[0] for c in choice)
+        try:
+            gs = PStruct(N, G, perms, name)
+        except AssertionError:
+            continue
+        if (G.neg() == np.arange(G.v)).all():
+            continue
+        if gs.stA.O > maxo or gs.stL.O > 62:
+            continue
+        # -1 must not lie in H: the H-orbit of a nonzero element must not contain its negative everywhere
+        neg = G.neg()
+        if all(gs.stA.orb[neg[x]] == gs.stA.orb[x] for x in range(1, G.v)):
+            continue
+        key = (tuple(sorted(gs.stA.sizes.tolist())), gs.C)
+        if key in seen:
+            continue
+        seen.add(key)
+        yield gs
+
+
+def run_gl2(N, maxo=44, maxpairs=2e10, log=None, K=2):
+    structs = sorted(gl2_structures(N, maxo), key=lambda g: g.stA.O)
+    print(f"N = {N}: {len(structs)} GL(2, p) structures with <= {maxo} orbits", flush=True)
+    for gs in structs:
+        for pat in gs.patterns():
+            sizes = [gs.counts(kd).get(r, 0) for kd, r in zip(ssxx.KINDS, pat)]
+            order = ssxx.best_pairing(sizes)
+            if ssxx.pair_cost(sizes, order) > maxpairs:
+                continue
+            t0 = time.time()
+            lists, masks = [], []
+            for kd, r in zip(ssxx.KINDS, pat):
+                V, M = gs.enum(kd, r); lists.append(V); masks.append(M)
+            sols, total = join4([lists[i] for i in order], gs.C, K, None, target=0)
+            print(f"  {gs.name}, {gs.stA.O} orbits: rows {pat}, lists {sizes}, {total} solutions ({time.time() - t0:.1f}s)",
+                  flush=True)
+            for sol in sols:
+                idx = [0] * 4
+                for pos, i in enumerate(order):
+                    idx[i] = sol[pos]
+                seqs = []
+                for i, (kd, j) in enumerate(zip(ssxx.KINDS, idx)):
+                    st = gs.st(kd)
+                    y = np.array([-1 if (int(masks[i][j]) >> b) & 1 else 1 for b in range(st.O)])
+                    seqs.append(y[st.orb])
+                complex_hadamard_group(seqs, gs.G)
+                rec = {"N": N, "group": [int(x) for x in gs.G.mods], "field": [0, 0], "generator": gs.name,
+                       "subgroup_order": None, "rowsums": [int(x.sum()) for x in seqs],
+                       "sequences": ["".join("+" if v > 0 else "-" for v in x) for x in seqs]}
+                if log:
+                    with open(log, "a") as f:
+                        f.write(json.dumps(rec) + "\n")
+                print(f"  verified: complex Hadamard matrix of order {2 * N} over {gs.G.mods.tolist()}", flush=True)
+                return rec
+    return None
 
 
 if __name__ == "__main__":
