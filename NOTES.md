@@ -467,6 +467,8 @@ Calibration, N = 131, H = ⟨53⟩, rows (9, 9; 1, 19):
   solutions' members, about 2.4× their share.
 - The estimate inside the lists is 10^3.37.
 - kt4 found 8 verified solutions within its first split values (whole run: 30 s).
+- An exhaustive join of the same lists (all 3.4 · 10⁸ pairs per side, kt4 on two merge classes) counts 2560
+  solutions inside them, against the 10^3.37 = 2344 predicted. The retention model is accurate.
 
 At N = 183, H = ⟨34⟩, keeping 2 · 10⁷ of 2.6 · 10¹⁰ members retains 3–5% of solutions' members: a boost of about 50
 per block. That turns the structure's 10^5.0 into 10^2.2 solutions inside the lists, against about 0.1 expected from
