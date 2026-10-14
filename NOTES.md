@@ -398,3 +398,53 @@ solutions, and for prime N the estimate has been accurate (71: 1445 predicted, 1
 fingerprints in 36 minutes on 4 cores. Pass 2 found a verified solution 6.5 minutes into the D stream (30% of the D
 pool was scheduled). This gives the complex Hadamard matrix of order 382 (`complex-hadamard/C382.json`). The order is
 blank in Table 11.2, and 191 is prime, so no compression or product reaches it.
+
+## 11. Twisted Szöllősi quadruples (October 14)
+
+**Construction** (`attack/tsz.py`, `attack/tsz.c`). Let H ≤ ℤ_N^* with −1 ∉ H, L = ⟨H, −1⟩, and μ a unit with μ ∉ L and
+μ² ∈ L. Every quadruple below satisfies Szöllősi's hypotheses (A, B symmetric, ΣPAF = 0 off 0), so it gives a complex
+Hadamard matrix of order 2N and a Goethals–Seidel matrix of order 4N.
+
+- *Full twist.* A is L-invariant, C is H-invariant, B = A∘μ, D = C∘μ.
+  - B is symmetric because A is, and PAF_{X∘μ}(s) = PAF_X(μs).
+  - So ΣPAF(s) = F(s) + F(μs) with F = PAF_A + PAF_C, and the condition holds on the orbits of ⟨L, μ⟩.
+  - The row sums satisfy r_A² + r_C² = 2N, so N is a sum of two squares.
+  - Parity: F ≡ 2N ≡ 2 (mod 4). So no class may be mapped to itself by μ (on such a class the condition reads
+    F(s) = 0).
+- *Half twist.* A and B are invariant under L′ = ⟨L, μ⟩, C is H-invariant, D = C∘μ.
+  - The condition PAF_A + PAF_B + PAF_C(s) + PAF_C(μs) = 0 holds on the L′-classes.
+  - The row sums satisfy r_A² + r_B² + 2r_C² = 4N.
+  - It needs [L′ : L] = 2, which is impossible for a prime N ≡ 3 (mod 4): there ℤ_N^* is cyclic of order 2 · odd.
+    Every composite N with two distinct prime factors has such twists.
+- *Bordered half twist.* The same on ℤ_{N−1} with ΣPAF = −4 and row sums (0, 2, 0) ([BORDERED.md](complex-hadamard/BORDERED.md)).
+  The full twist cannot be bordered: it forces r_A = r_B.
+
+**Cost against yield.** The unknowns are about 1.5 · O bits, where O is the number of H-orbits. The constraints are
+about O/4 classes. The search is a two-list join: the A side is hashed (or, for the half twist, the pairs (A, B)),
+and the C pool is streamed by the depth-first search of `kstream.c`. Its cost is about the size of the C pool, so
+structures with O ≤ 40 are exhaustive in minutes. The untwisted search has twice the exponent in its estimate
+(about 2^0.7O against 2^0.35O) but needs a four-list join over pools of 2^O. At equal cost the untwisted structure
+wins, but the twisted structures are other lottery tickets: other (H, μ), reachable where the untwisted join is not.
+
+**Calibration** (`python3 attack/tsz.py test`; every hit rebuilt and checked exactly):
+
+| N | kind | Gaussian estimate | solutions found |
+|---:|---|---:|---:|
+| 13 | full, H = 1 | 10^3.15 | 780 |
+| 17 | full, H = 1 | 10^3.87 | 6256 |
+| 29 | full, H = 1 | 10^5.91 | 989016 |
+| 41 | full, H = ⟨10⟩ | 10^1.76 | 48 |
+| 61 | full, H = ⟨13⟩ | 10^3.57 | 4680 |
+| 21 | half, H = 1 | 10^2.61 | 1008 |
+| 39 | half, H = ⟨25⟩ | 10^1.01 | 144 |
+| 51 | half, H = ⟨16⟩ | 10^1.41 | 288 |
+| 27 | bordered half, H = 1 | 10^4.42 | 406224 |
+| 31 | bordered half, H = 1 | 10^3.83 | 61440 |
+
+As for the untwisted array, the estimate is accurate for primes and low for composites.
+
+**A two-block array that does not help.** With X = αA + ᾱDR and Y = αB + ᾱCR (α = (1 + i)/2, R the reversal), XX* + YY*
+equals (ΣXXᵀ)/2 for *any* four circulants. Then K = [[X, Y], [−Ȳ, X̄]] is complex Hadamard iff ΣPAF = 0 and
+ABᵀ + CDᵀ is symmetric. This needs neither A nor B symmetric, but it replaces 2 · (N − 1)/2 symmetry bits by
+(N − 1)/2 integer constraints of about 4 bits each. Its estimate is lower than Szöllősi's by about 2^−N, so it was
+not searched.
