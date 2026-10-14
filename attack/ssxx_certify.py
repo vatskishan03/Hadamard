@@ -21,7 +21,12 @@ def main():
         N = h["N"]
         if N in done or (want and N not in want):
             continue
-        if "group" in h:
+        if "border" in h:
+            cert = {"order": 2 * N, "construction": "szollosi-bordered-group" if "automorphisms" in h else
+                    "szollosi-bordered", "N": N, "group": h.get("group", [N - 1]),
+                    "symmetry": h.get("automorphisms", h.get("gens")), "rowsums": h["rowsums"], "border": h["border"],
+                    "sequences": h["sequences"]}
+        elif "group" in h:
             cert = {"order": 2 * N, "construction": "szollosi-ssxx-group", "N": N, "group": h["group"],
                     "field": h["field"], "generator": h["generator"], "subgroup_order": h["subgroup_order"],
                     "rowsums": h["rowsums"], "sequences": h["sequences"]}

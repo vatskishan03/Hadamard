@@ -11,6 +11,9 @@ with A and B symmetric and A A^T + B B^T + C C^T + D D^T = 4N I, and the matrix 
 
 Certificates with construction "szollosi-ssxx-group" use group-developed matrices over G = Z_{m_1} x ... x Z_{m_r}
 (field "group"; elements in mixed-radix order, the last factor fastest) and R the matrix of g -> -g.
+Certificates with construction "szollosi-bordered" (or "-group") give four sequences on a group of order N - 1
+with sum of PAFs -4 off 0 and the border (x, s, t, y, u, v) of the bordered array (attack/bsz.py):
+K = [[X, Y], [Y^*, -X^*]], X = [[x, s e^T], [t e, (A+B)/2 + i(A-B)/2]], Y = [[y, u e^T], [v e, (C+DR)/2 + i(C-DR)/2]].
 
 This script rebuilds K from the sequences alone, checks every entry and K K* = n I exactly in integer arithmetic
 (real and imaginary parts separately), and compares the SHA-256 of the canonical text of K: n lines of n digits,
@@ -42,7 +45,42 @@ def group_developed(s, mods):
     return x[np.ravel_multi_index(tuple(np.moveaxis(d, 2, 0)), tuple(mods))], coords, mods
 
 
+def bordered_build(cert):
+    """Bordered Szöllősi array: sequences on G of order N - 1 (cyclic Z_(N-1) or the mixed-radix group "group"),
+    A and B symmetric, sum of PAFs -4 off 0; X = [[x, s e^T], [t e, (A+B)/2 + i(A-B)/2]], Y = [[y, u e^T],
+    [v e, (C+DR)/2 + i(C-DR)/2]], K = [[X, Y], [Y^*, -X^*]], border (x, s, t, y, u, v) from the certificate."""
+    seqs = cert["sequences"]
+    m = len(seqs[0]); N = m + 1
+    mods = cert.get("group", [m])
+    mats = [group_developed(s, mods) for s in seqs]
+    A, B, C, D = (M[0] for M in mats)
+    coords, mods = mats[0][1], mats[0][2]
+    if 2 * N != cert["order"]:
+        raise ValueError("lengths")
+    if not (np.array_equal(A, A.T) and np.array_equal(B, B.T)):
+        raise ValueError("A and B must be symmetric")
+    I = np.eye(m, dtype=np.int64)
+    if not np.array_equal(A @ A.T + B @ B.T + C @ C.T + D @ D.T, 4 * m * I - 4 * (np.ones((m, m), np.int64) - I)):
+        raise ValueError("A A^T + B B^T + C C^T + D D^T != 4(N-1) I - 4(J - I)")
+    neg = np.ravel_multi_index(tuple(((-coords) % np.array(mods)).T), tuple(mods))
+    R = np.zeros((m, m), np.int64); R[np.arange(m), neg] = 1
+    DR = D @ R
+    (xr, xi), (sr, si), (tr, ti), (yr, yi), (ur, ui), (vr, vi) = cert["border"]
+
+    def bordered(c, top, left, Mr, Mi):
+        Kr = np.empty((N, N), np.int64); Ki = np.empty((N, N), np.int64)
+        Kr[0, 0], Ki[0, 0] = c; Kr[0, 1:], Ki[0, 1:] = top; Kr[1:, 0], Ki[1:, 0] = left
+        Kr[1:, 1:], Ki[1:, 1:] = Mr, Mi
+        return Kr, Ki
+
+    XR, XI = bordered((xr, xi), (sr, si), (tr, ti), (A + B) // 2, (A - B) // 2)
+    YR, YI = bordered((yr, yi), (ur, ui), (vr, vi), (C + DR) // 2, (C - DR) // 2)
+    return np.block([[XR, YR], [YR.T, -XR.T]]), np.block([[XI, YI], [-YI.T, XI.T]])
+
+
 def build(cert):
+    if cert["construction"] in ("szollosi-bordered", "szollosi-bordered-group"):
+        return bordered_build(cert)
     if cert["construction"] == "szollosi-ssxx-group":
         mats = [group_developed(s, cert["group"]) for s in cert["sequences"]]
         A, B, C, D = (m[0] for m in mats)

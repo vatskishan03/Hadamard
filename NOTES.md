@@ -274,3 +274,75 @@ So at lengths 70 and 76 a qLP must have a pair of Gray rows that is not symmetri
 H-orbits and r, s on the ⟨H, −1⟩-orbits; it finds pairs at lengths 14 and 26 and verifies them exactly. At the open
 lengths every multiplier structure has a Gaussian estimate of 10^−2.2 or less: 70: 10^−4.4 (⟨11⟩); 76: 10^−2.3 (⟨45⟩);
 94: 10^−2.2 (⟨3⟩).
+
+## 9. Bordered Szöllősi arrays and routes to the open orders (October 14)
+
+**Which new objects would settle FRONTIER orders.** Factoring the 145 open n ≤ 2999 of FRONTIER.md as n = t·w
+against the known T-matrix orders and Williamson-type orders (Table A.1 of 1992, the 2026 near-Williamson orders,
+47, 83, 111) shows that no product is overlooked. A single new order would settle several entries. Every such w is a
+prime ≡ 3 (mod 4): for q ≡ 1 (mod 4) Williamson-type matrices of order (q + 1)/2 are classical, and none of these
+2w − 1 is a prime power.
+
+| new object | settles (Cooper–Wallis with the other factor) |
+|---|---|
+| WT(263) or T(263) | 789, 1315, 1841, 2893 |
+| WT(191) or T(191) | 955, 1719, 2865 |
+| WT(223) or T(223) | 669, 1115, 2899 |
+| WT(167), WT(179), WT(227), WT(359) | 1169 and 2171; 1969 and 2327; 1589 and 2951; 1795 and 2513 |
+
+The bordered Williamson-type structures of [williamson-type](williamson-type) rate every multiplier group at about
+10^−4 for these w. The FRONTIER rows 7516, 8860 and 9532 need skew matrices of orders 940, 1108 and 1192 (Kiyasu's
+theorem as proved by Yamada, J. Austral. Math. Soc. 1989, Theorem 4.1: q ≡ 5 (mod 8) a prime power and a skew matrix
+of order (q + 3)/2 give H(4(q + 2))). These are the skew orders the progress branch found out of reach
+(v = 235, 277, 149).
+
+**A 3-bordered Williamson-type structure does not exist.** Try G = ℤ₂² × ℤ_m with p = 4m + 3. Take three border
+points whose border rows and columns are constant on the cosets of K = 0 × ℤ_m, and group-developed blocks with
+three of them symmetric. The ΣPAF condition is then the one of the 3964 construction: −12 on K \ 0 and +4 off K.
+But amicability fails:
+- For each nontrivial character χ of ℤ₂², Σ_k x̂_k(χ)² = 12 forces three of the four character sums to be ±2.
+- Every assignment of characters to border rows then leads to a contradiction in the χ-coefficients of the
+  cross-term equations. The case analysis covers one, two, three or four blocks per border coordinate.
+
+A SAT model of the general coset-constant border (CaDiCaL, `pysat`) confirms this: it is unsatisfiable at p = 11.
+The GS version escapes because the Goethals–Seidel array needs no amicability.
+
+**Bordered Szöllősi array (`attack/bsz.py`, `attack/bsz_group.py`).** Spence's bordered condition carries over to
+Szöllősi's complex array with only two symmetric blocks. Let A, B, C, D be ±1 sequences on an abelian group G of
+order N − 1 with:
+- A and B symmetric;
+- ΣPAF = −4 off 0;
+- hence row sums (±2, 0, 0, 0) in some order.
+
+Put X′ = αA + ᾱB and Y′ = αC + ᾱDR (α = (1 + i)/2, group-developed matrices, R the matrix of g ↦ −g) and
+
+    X = [[x, s eᵀ], [t e, X′]],   Y = [[y, u eᵀ], [v e, Y′]],   K = [[X, Y], [Y*, −X*]].
+
+Then K is a complex Hadamard matrix of order 2N when the border entries x, s, t, y, u, v ∈ {±1, ±i} satisfy five
+scalar equations in the eigenvalues ρ_X = αr_A + ᾱr_B and ρ_Y = αr_C + ᾱr_D of e. The derivation:
+- X′ is symmetric, so X′Y′ = Y′X′.
+- X′X′* + Y′Y′* = (AAᵀ + BBᵀ + CCᵀ + DDᵀ)/2 = 2NI − 2J.
+
+For r_A = 2 one solution is x = 1, s = −t̄, u = −iyt̄, v = ity, with t and y free. Every row-sum pattern has 32
+border solutions.
+
+Checks:
+- Exhaustively over ℤ₆: all 2304 quadruples give complex Hadamard matrices of order 14.
+- Over ℤ₂² × ℤ_m: orders 26, 42 and 50, with 12672 and 4.6 · 10⁷ solutions at N = 13 and 21 against Gaussian
+  estimates of 10^4.25 and 10^7.02.
+- The model misses arithmetic obstructions: N = 17 over ℤ₂² × ℤ₄ is empty against 10^5.6.
+
+`verify/verify_complex.py` accepts the constructions `szollosi-bordered` and `szollosi-bordered-group`.
+
+This is the complex analogue of the hierarchy GS (no symmetric block) → Szöllősi (two) → near-Williamson (three)
+on ℤ_N, one level down: Spence (none) → bordered Szöllősi (two) → bordered Williamson-type (three) on a group of
+order N − 1. The point is the same as for [williamson-type](williamson-type): it moves the search to a group of
+order N − 1, which helps exactly where ℤ_N has no usable multipliers. `attack/bsz_sweep.py` runs every cyclic
+multiplier structure and every spin structure on ℤ₂² × ℤ_((N−1)/4) whose complete lists join within 2 · 10¹⁰ pair
+operations, for the open N.
+
+**Order 214 (N = 107) is now the smallest open complex Hadamard order** in our accounting. It is blank in Table
+11.2. No near-Williamson or quaternary Legendre pair of the matching size (ℓ = 106) is known to us, and 107 is a safe
+prime:
+- ℤ₁₀₇* and ℤ₁₀₆* have no useful multiplier groups.
+- The only bordered structure the row sums admit, H = {±1}, rates 10^1.0 but has pools of 5 · 10¹⁴.
