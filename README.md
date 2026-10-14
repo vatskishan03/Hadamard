@@ -146,13 +146,14 @@ these certificates.
 ## Symmetric Hadamard results
 
 A Hadamard matrix H is symmetric if H = Hᵀ. The Đoković–Seberry census lists 595 odd v < 2500 for which no
-symmetric Hadamard matrix of order 4v was known. The matrix below comes from a propus-type quadruple (A, B, B, D) of
+symmetric Hadamard matrix of order 4v was known. The matrices below come from propus-type quadruples (A, B, B, D) of
 circulants with A symmetric and A Aᵀ + 2 B Bᵀ + D Dᵀ = 4v I, invariant under a multiplier group H
-(`attack/propus.py`, `attack/NOTES.md` §17).
+(`attack/propus.py`, `attack/NOTES.md` §17; 876 through compressions, `attack/propus_chain.py`, §25 and §28).
 
 | Order | v | H | Row sums (A, B, D) | Census |
 |------:|---|---|---|---|
 | [532](symmetric/532) | 133 (7 · 19) | ⟨26⟩, order 6 | 11, 5, 19 | undecided |
+| [876](symmetric/876) | 219 (3 · 73) | ⟨4⟩, order 9 (cyclotomic product ℤ₃ × GF(73) of index 8) | 3, 17, 17 | undecided |
 
 ## Verification
 

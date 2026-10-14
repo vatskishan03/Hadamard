@@ -1542,3 +1542,30 @@ construction `propus-bordered`, `border_certify.py`.
 **All census values v ≤ 1000** (197 values): ℤ_{v−1} with at most 30 orbits (direct) and 31–44 orbits
 (compressions), and the 319 non-cyclic groups of order v − 1 whose endomorphisms number at most 2 · 10⁶, are
 queued (`border_queue.sh`, `bgroup_census.sh`).
+
+## 28. A symmetric Hadamard matrix of order 876, and the lottery of small product structures (October 14)
+
+**Order 876 = 4 · 219** ([symmetric/876](../symmetric/876)). The compressed propus sweep of the composite census
+values (`propus_chain.py v --sweep --mino 1 --maxo 36`, smallest structures first) found it in ℤ₂₁₉ with H = ⟨4⟩ of
+order 9: H fixes the ℤ₃ coordinate of ℤ₃ × ℤ₇₃ and acts on ℤ₇₃* as the eighth powers, so the structure is the
+cyclotomic product ℤ₃ × GF(73) of index 8 (27 orbits for B and D, 14 for A, 13 classes). Row pattern (3, 17, 17):
+compressions to ℤ₇₃ give 768 compatible triples (pair work 3.4 · 10⁷ against 6.9 · 10⁹ for the direct join); the
+573rd holds 18 solutions, and all 768 together hold 288, in 16 triples (the 16 cosets of H in ℤ₂₁₉* permute them).
+Verified by `verify.py`, by `check_matrix` and by an independent rebuild; reproduced from scratch with the same
+sequences.
+
+**The Gaussian model misses by 10^10.6.** `propus_rank.py` gives 10^−8.1 solutions for this structure and pattern
+(pools 10^3.0, 10^6.9, 10^6.9; 13 classes, full covariance), against 288. For 532 the miss was 10^9.6 (§23). Both
+structures are products ℤ_m × GF(q) in which H meets GF(q)* in a cyclotomic subgroup: for 876, H is the eighth powers
+and fixes ℤ₃; for 532 (ℤ₇ × GF(19)), H = {(h, φ(h))} is the graph of a homomorphism φ: ℤ₇* → ⟨7⟩ ≤ GF(19)* of order 3,
+so its orbits on ℤ₇* × GF(19)* are indexed by GF(19)* (an index-18 cyclotomic product with a twist). There the class values
+are linear in a few quadratic invariants of short ℤ_m-sequences (the f-layer autocorrelations and the
+cross-correlations of the class sequences, weighted by cyclotomic numbers), so they sit on a sparse lattice that a
+Gaussian with the right covariance badly underweights near 0. Practical consequence: rank nothing by the Gaussian in
+these families; exhaust them, smallest first. Running on the same principle:
+- the compressed propus sweep of the composite census values ≤ 1000 up to 36 orbits (now with priority), then
+  37–44 orbits, then the composite values 1000 < v < 2500 up to 44 orbits;
+- the bordered sweeps of §27 over ℤ_{v−1} and the non-cyclic groups of order v − 1;
+- for skew orders, the exact chain (`screen_chain.py 3600 36 0 --order orbits`) over the 102 census-screen survivors
+  with at most 36 orbits that no chain run had touched (§17–§22 ranked them by the Gaussian, which is unreliable
+  here).
