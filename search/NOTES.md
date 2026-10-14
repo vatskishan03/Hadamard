@@ -2397,3 +2397,37 @@ coset of Λ_A + Λ_C (a Hermite basis of the differences within each list; for 3
 The points of that coset in a box around the solution law's mean that also lie in the coset of t − B − D are added
 to the sampled live values, and all are ordered by the law. kt4 discards a split value without pairs in about a
 millisecond.
+
+**Other centres for the filters** (`retention_test.py --center`).
+- Two alternatives to z_k were tried: splitting the offset t − Σ μ between C and D by their covariances, and the
+  solution law's mean c_k. Neither helped on the exact solution sets.
+- 163 (prime): 0 of 8352 at 5% kept for all three centres, about 850 at 21%.
+- 93: 1224 of 21384 at 15000 with z_k, 0 with the other two.
+- 371: 24 and 48 of 96 at 500 and 1000 with z_k, 0 with the others.
+- 267: 0 for all three.
+
+z_k ranks members by the likelihood ratio, which is optimal for each block alone. The joint losses come from the
+few discrete values of a solution's a + b, not from the centre.
+
+## 38. Order 366 (October 14)
+
+N = 183 = 3 · 61, bordered array over ℤ₁₈₂ ([complex-hadamard/BORDERED.md](../complex-hadamard/BORDERED.md)),
+H = ⟨3⟩ of order 6 (trivial on ℤ₂, order 6 on ℤ₇, order 3 on ℤ₁₃), 36 orbits, rows (0, 0, 2, 0).
+- **Check.** It passes the exact compression check at d = 2, 7 and 13 (16, 8 and 60216 level-1 solutions).
+- **Estimates.** The hybrid estimate is 10^3.18 solutions; with fibre filters the model's retention at L = 3 · 10⁷ is
+  10^−0.13 (`fibre_rank`).
+- **Lists.** The fibres at d = 2, 7 and 13 allow 6.9% of A and B (3880 of 55968), 2.1% of C (2.68 · 10⁷ of
+  1.28 · 10⁹, all kept) and 3.6% of D (9.35 · 10⁷ of 2.57 · 10⁹, of which 3 · 10⁷ were kept).
+- **Join.** kt4 (one thread) took 32423 split values in the law's order: 12599 sampled live values and the rest
+  lattice points. It found 1536 solutions at the 146th, about 440 s into the join, after 1.7 · 10⁹ (A, C) and
+  7.6 · 10⁹ (B, D) pairs. That split value was among the sampled live values, so the lattice points did not matter
+  here.
+- **Earlier runs.** Without fibre filters the same structure was run three times: full energy, a resume of it, and
+  unit-class energy. The lists kept 2.3% of C and 1.2% of D, and the runs processed 642, 694 and 3358 split values
+  (four threads, in part dead split values) without a solution.
+- **Certificate.** C366.json (construction `szollosi-bordered`, border x = s = t = y = 1, u = v = −i), checked by
+  `verify/verify_complex.py`. Order 366 is blank in Seberry–Yamada's Table 11.2 (label **New**, NOVELTY.md).
+
+The hybrid estimate of 10^3.2 for the structure and retention near 1 for the filtered lists put about 10^3
+solutions in the lists; 1536 at a single split value is consistent with that. For 183 ⟨87⟩, a different subgroup of
+order 6 with the same estimate, the run is in progress.
