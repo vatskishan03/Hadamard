@@ -1,7 +1,7 @@
 # Method
 
-The Goethals–Seidel orders in this repository came from a structured search for
-supplementary difference sets in ℤ_p. This note describes the search space, the
+The Goethals–Seidel orders 2092, 2284, 3532, 4492 and 5932 came from a structured search for
+supplementary difference sets in ℤ_p, and 3964 from its bordered form. This note describes the search space, the
 algorithm, and the cost model used to choose targets.
 
 ## Search space
@@ -201,7 +201,8 @@ therefore grow like 2^√p, while the class values spread more as p grows. Above
 p ≈ 2000 no structure is cheap. For 4412, a pilot measured 10⁻⁹ expected
 solutions per τ.
 
-For [2148](hadamard/2148) no usable structure exists at all.
+For 2148 = 4 · 537 no structure over ℤ₅₃₇ is usable; that order came from a bordered array
+([search/NOTES.md](search/NOTES.md) §19).
 
 **Small structures.** Structures too small for the Gaussian model to be trusted
 were checked exhaustively instead. There were 1,319 such structures across the

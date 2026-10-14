@@ -1,8 +1,10 @@
 # Notes on structured searches (October 2026)
 
-What we learned while searching for the unresolved orders in [FRONTIER.md](FRONTIER.md), including the
-searches that found nothing. Section 1 is a mechanism, sections 2–4 and 6 are negative results, section 5 is
-the literature as of October 2026.
+What we learned while searching for the unresolved orders in [FRONTIER.md](FRONTIER.md), including the searches
+that found nothing. Section 1 is a mechanism, sections 2–4 and 6 are negative results, and section 5 is the literature
+as of October 2026. Section 7 collects corrections to the tables and the Williamson-type routes, sections 8–12 the
+complex Hadamard matrices, and section 13 the Spence spin structures behind order 2292. The notes on the individual
+search programs are in [search/NOTES.md](search/NOTES.md).
 
 ## 1. Why some structures have many solutions
 
@@ -15,8 +17,7 @@ difference of the modes.
 
 - **f = 2 (a Paley product).** Every fibre is either constant ("w-type") or ±(Legendre sequence)
   ("z-type"). The identity coefficient forces (p + 1)N_w − 4N₋ = 4|M| for the numbers of w-type fibres,
-  and the equations split by powers of p. This is what makes the skew Paley-product orders on the skew
-  branch easy.
+  and the equations split by powers of p. This is what makes the skew Paley-product orders of [skew](skew) easy.
 - **f = 6 (order 3964).** For our matrix of order 3964, M = ℤ₂² × ℤ₁₃, p = 19, C = ⟨11⟩ of order 3,
   so f = 6 and t = 3. Its group of order 27 also contains (α², 3, 1), which pairs the order-3
   automorphism α of ℤ₂² with an order-3 multiplier of ℤ₁₃. Of its 208 fibres, 75 are ±Legendre (36%,
@@ -29,8 +30,8 @@ coset sums forbid (section 2). With f = 6 or 8 the fibre sums move in steps of 2
 can balance it.
 
 As a rough model, the Gaussian estimate of the solution count misses a factor of about √p for each
-class whose character is nontrivial on ℤ_p. On the skew branch's exact count for v = 253 this brings
-the prediction to within 10^0.8–10^1.8 of the truth; the uncorrected model is off by 10^6–10^9.
+class whose character is nontrivial on ℤ_p. On the exact count for v = 253 ([search/NOTES.md](search/NOTES.md) §15)
+this brings the prediction to within 10^0.8–10^1.8 of the truth; the uncorrected model is off by 10^6–10^9.
 
 The shape is necessary but not sufficient. 9,677 of the structures in section 3 have it (p ≥ 11,
 4 ≤ f ≤ 12, t ≥ 2), and 108 of those are exactly empty.
@@ -83,7 +84,7 @@ Other hosts of this type are larger and untested: 1823 (35 · 13), 1879 (7 · 67
 - **join4c.** It materialises every pair sum: about 1.5·10¹¹ per side for 3964's level 1, hours on
   two cores. A cap on the number of level-1 solutions gives an early exit, but solutions are rare per
   partition, so it helps little here.
-- **Memory.** Container memory includes /dev/shm. Per-run address-space caps are needed when lifts
+- **Memory.** Files in /dev/shm count against the memory limit. Per-run address-space caps are needed when lifts
   can take tens of GB.
 - **Threads.** Pin OPENBLAS_NUM_THREADS per process, or every run starts one BLAS thread per visible
   core.
@@ -105,15 +106,15 @@ Other hosts of this type are larger and untested: 1823 (35 · 13), 1879 (7 · 67
 
 ## 6. The two-spike shape and T-matrix obstructions (October 13)
 
-**Two-spike bordered shape** (the structure of order 2148 on the progress branch). It is a bordered
+**Two-spike bordered shape** (the structure of order [2148](hadamard/2148)). It is a bordered
 Goethals–Seidel array over ℤ₂q × GF(r) with Q = ℤ_q, T = all characters, index e and F = (r − 1)/e odd.
 
 - The budget identity Σ(F s² + 2 f s) = 4qe and the target −4qr at the spike distance q force
   F ∈ {qe/2 − 1, qe/2, qe/2 + 1}, so n = q(2r + 1) with r = eF + 1.
 - Among the unresolved n ≤ 2999 only 537 (q = 3, e = 8) and 2515 (q = 5, e = 10, r = 251, F = 25) have this form.
 - For 2515, an exact meet-in-the-middle over the compressions to ℤ₁₀ finds no stage-1 class. It covers all eight
-  sign choices of the spikes ±49, ±51 at distance 5 and all ±1 completions. The same code returns the single class
-  of the branch for 537 and for its analogue 177.
+  sign choices of the spikes ±49, ±51 at distance 5 and all ±1 completions. The same code returns the single
+  stage-1 class of the 2148 search for 537, and the class of its analogue 177.
 - So the shape does not reach any other unresolved order up to 2999.
 
 **Spence over ℤ₂ × GF(419) (n = 839).**
@@ -138,8 +139,8 @@ points, so the row sums satisfy (±1 + |H|a)² + |H|²(b² + c² + d²) = t. For
 
 ## 7. Audits and Williamson-type routes (October 14)
 
-**1823 is not open.** Seberry and Whiteman (Graphs Combin. 4 (1988) 355–377) construct symmetric conference matrices of
-order 5·9^(2t+1) + 1. For t = 1 the order is 3646 = 2·1823, and [[C+I, C−I], [C−I, −C−I]] is a Hadamard matrix of
+**1823 is not open.** Seberry and Whiteman (Graphs Combin. 4 (1988) 355–377) construct symmetric conference matrices
+of order 5·9^(2t+1) + 1. For t = 1 the order is 3646 = 2·1823, and [[C+I, C−I], [C−I, −C−I]] is a Hadamard matrix of
 order 7292 = 4·1823; their abstract states this matrix.
 - Seberry–Yamada's 1992 Table A.2 lists 1823 with t = 3, and Cati–Pasechnik and FRONTIER.md inherited the entry.
 - We rebuilt C from the 3×3-cell iteration in Balonin's catalogue (one sign of the printed formula has to be flipped).
@@ -151,27 +152,27 @@ construction for t = 2 could be traced. It is probably a table error, so 1747 st
 
 **Corollary 29(i) of Seberry–Yamada (1990).** It states: if q ≡ 1 (mod 4) is a prime power and WT((q−1)/4) or
 H((q−1)/2) exists, then WT(q) exists.
-- **What the proof forces.** The proof uses their Lemma 26 with Yamada's matrices as U₁ and U₂. This forces U₃ = U₄ = 0,
-  V₁ = I and V₂ = 0. So V₃ and V₄ must be symmetric, commuting ±1 matrices with V₃² + V₄² = (q−1) I: a symmetric
+- **What the proof forces.** The proof uses their Lemma 26 with Yamada's matrices as U₁ and U₂. This forces U₃ = U₄ =
+  0, V₁ = I and V₂ = 0. So V₃ and V₄ must be symmetric, commuting ±1 matrices with V₃² + V₄² = (q−1) I: a symmetric
   quaternary Hadamard matrix of order (q−1)/2.
-- **Repeated block.** A WT((q−1)/4) with a repeated block (Y, X, X, Z) supplies V₃ = [[Y, X], [Xᵀ, −Z]] and
-  V₄ = [[Z, X], [Xᵀ, −Y]]; X need not be symmetric. Checked for q = 29, 37, 53 and 61: WT(q) and the Williamson array
-  H(4q) verify exactly.
+- **Repeated block.** A WT((q−1)/4) with a repeated block (Y, X, X, Z) supplies V₃ = [[Y, X], [Xᵀ, −Z]] and V₄ = [[Z,
+  X], [Xᵀ, −Y]]; X need not be symmetric. Checked for q = 29, 37, 53 and 61: WT(q) and the Williamson array H(4q)
+  verify exactly.
 - **Four distinct blocks.** For every class of Williamson matrices of order m ≤ 19, a signed 2×2 arrangement of the
   blocks exists exactly when a block repeats.
-- **Order 67.** The three known WT(67) (near-Williamson, see below) give no arrangement. The repeated-block structure at
-  67 with H = {1, 29, 37} is empty, by an exhaustive search. Other multiplier orders fail on row sums. So
-  1883 = 7·269 is not reached this way.
+- **Order 67.** The three known WT(67) (near-Williamson, see below) give no arrangement. The repeated-block structure
+  at 67 with H = {1, 29, 37} is empty, by an exhaustive search. Other multiplier orders fail on row sums. So 1883 =
+  7·269 is not reached this way.
 - **Consequences.** Đoković (Int. Math. Forum 6 (2011)) settled 1527 = 3·509, 2545 = 5·509 and 2571 = 3·857 through
-  Cor. 29(i), using WT(509) from good matrices of order 127, and H(428). Under the Lemma 26 proof these need a symmetric
-  BH(254, 4) and a symmetric BH(428, 4); we found neither.
+  Cor. 29(i), using WT(509) from good matrices of order 127, and H(428). Under the Lemma 26 proof these need a
+  symmetric BH(254, 4) and a symmetric BH(428, 4); we found neither.
 - **Open point.** We could not read Miyamoto's 1991 paper (J. Combin. Theory A 57), which is credited with the
   Williamson version. Unless it uses a different construction, these three orders are only conditionally settled.
 
-**Spence-W: Williamson-type matrices from Spence sequences.** Take four ±1 sequences on ℤ₂ × ℤ_n with ΣPAF = −4 off zero
-(Spence's condition for order 4(2n+1)), one invariant under a multiplier group H and three under ⟨H, −1⟩.
-- **What they give.** Through the ℤ₂-split they give the U and V of Lemma 26, hence WT(2n+1). With any
-  OD(4w; w, w, w, w) this gives a Hadamard matrix of order 4(2n+1)w.
+**Spence-W: Williamson-type matrices from Spence sequences.** Take four ±1 sequences on ℤ₂ × ℤ_n with ΣPAF = −4 off
+zero (Spence's condition for order 4(2n+1)), one invariant under a multiplier group H and three under ⟨H, −1⟩.
+- **What they give.** Through the ℤ₂-split they give the U and V of Lemma 26, hence WT(2n+1). With any OD(4w; w, w, w,
+  w) this gives a Hadamard matrix of order 4(2n+1)w.
 - **Why it helps.** The symmetry comes from ℤ_n, so the route applies to primes 2n+1 whose own multiplier groups are
   useless. For example, T-matrices of order 191 or 263 admit no multiplier group (section 6).
 - **Checks.** The Williamson array H(4(2n+1)) verifies exactly for each of:
@@ -192,8 +193,8 @@ not yet been found, namely n ∈ {53, 59, 65, 67}").
   - 4·8549 = 4·83·103, which needs only T103 and the classical WT(83).
 - None of these products lands on an unresolved n ≤ 2999.
 - All four candidates are now built: [12596](hadamard/12596) and [19364](hadamard/19364) with the bordered WT(47) of
-  [williamson-type](williamson-type), [34196](hadamard/34196) with the bordered WT(83), and [19028](hadamard/19028) with T-sequences of
-  length 71 (from Turyn-type TT(24)) and the near-Williamson WT(67).
+  [williamson-type](williamson-type), [34196](hadamard/34196) with the bordered WT(83), and [19028](hadamard/19028)
+  with T-sequences of length 71 (from Turyn-type TT(24)) and the near-Williamson WT(67).
 
 ## 8. Complex Hadamard matrices, the order-3 twist and quaternary Legendre pairs (October 14)
 
@@ -206,8 +207,8 @@ are ⟨H, −1⟩-invariant, and the condition lives on the ⟨H, −1⟩-classe
   1992 is blank at 71, and the 2026 near-Williamson results stop at 69.
 - **N = 77**, H = ⟨15⟩ of order 5, with 15 ≡ 1 (mod 7) and the squares mod 11. Here the model is wrong by four
   orders: it predicts 10^−1.7 to 10^−2.1, and the exact joins find 2352, 2352, 2352 and 1176 solutions in four
-  patterns. These are Paley-product structures, X = u ⊗ 1 + w ⊗ J + z ⊗ χ over ℤ₇ × ℤ₁₁. The repository's §15 (attack)
-  already noted that the per-class densities are strongly correlated for them.
+  patterns. These are Paley-product structures, X = u ⊗ 1 + w ⊗ J + z ⊗ χ over ℤ₇ × ℤ₁₁.
+  [search/NOTES.md](search/NOTES.md) §15 shows that the per-class densities are strongly correlated for them.
 - **The sweep** (`search/ssxx_sweep.py`, exact joins in order of cost; `search/ssxx_sample.py`, uniform samples of the
   large lists when they cannot be listed). For prime N the Gaussian estimate of the hits inside the samples is
   accurate: at 71 it predicts 1445 and the join finds 1430, and at 131 it predicts 10^4.0 and the join finds 12618.
@@ -231,15 +232,15 @@ are ⟨H, −1⟩-invariant, and the condition lives on the ⟨H, −1⟩-classe
 
   The sweep over the remaining odd N < 1000 is `search/ssxx_sweep.py`.
 
-**The order-3 twist on the bordered form** (`search/wt_twist.py`, `search/twist_join.c`). The twist of arXiv:2605.08661
-§4.4, type (ii), is (A; B, B∘u, B∘u²) with u of order 3. It can be placed on ℤ_(N−1), where the bordered construction
-of [williamson-type](williamson-type) applies; for prime N with 3 ∤ N − 1 there is no order-3 multiplier on ℤ_N
-itself. The B-list is streamed in Gray order against a hash table of the A-list, with an O(1) hash update per step,
-so the search of a structure is exact. Exact counts agree with brute force (N = 31 plain: 180 and 510; N = 19
-bordered: 72), and the hits rebuild verified Williamson arrays. The twist cannot reach N ≡ 2 (mod 3):
+**The order-3 twist on the bordered form** (`search/wt_twist.py`, `search/twist_join.c`). The twist of
+arXiv:2605.08661 §4.4, type (ii), is (A; B, B∘u, B∘u²) with u of order 3. It can be placed on ℤ_(N−1), where the
+bordered construction of [williamson-type](williamson-type) applies; for prime N with 3 ∤ N − 1 there is no order-3
+multiplier on ℤ_N itself. The B-list is streamed in Gray order against a hash table of the A-list, with an O(1) hash
+update per step, so the search of a structure is exact. Exact counts agree with brute force (N = 31 plain: 180 and
+510; N = 19 bordered: 72), and the hits rebuild verified Williamson arrays. The twist cannot reach N ≡ 2 (mod 3):
 - **Bordered.** The rows are (±2, 0, 0, 0), and the reduction ℤ_m → ℤ₂ gives d_A² + 3d_B² = 4N with d = (even sum) −
-  (odd sum). A symmetric B with row sum 0 has d_B = 2e_B, so N = (d_A/2)² + 3e_B². This holds for m ≡ 2 (mod 4),
-  where e_B is odd, and for m ≡ 0 (mod 4), where e_B is even.
+  (odd sum). A symmetric B with row sum 0 has d_B = 2e_B, so N = (d_A/2)² + 3e_B². This holds for m ≡ 2 (mod 4), where
+  e_B is odd, and for m ≡ 0 (mod 4), where e_B is even.
 - **Plain.** Here r_A² + 3r_B² = 4N.
 - **Consequence.** In both forms N must be a norm from ℤ[ω], so N ≢ 2 (mod 3).
 
@@ -254,8 +255,8 @@ other two orders those FRONTIER rows need, 223 and 163, fail on cost:
   solutions but A- and B-lists of 10^22 and 10^32.
 - 163 is at most 10^−17 in every twisted structure.
 
-**Quaternary Legendre pairs** (qLP; open lengths up to 100 after Lebedev and Verma 2026: 70, 76, 88, 92, 94 and 100). In
-Gray rows A = ((p + q) + i(p − q))/2 and B = ((r + s) + i(r − s))/2, a qLP is ΣPAF = −4 over the four rows plus an
+**Quaternary Legendre pairs** (qLP; open lengths up to 100 after Lebedev and Verma 2026: 70, 76, 88, 92, 94 and 100).
+In Gray rows A = ((p + q) + i(p − q))/2 and B = ((r + s) + i(r − s))/2, a qLP is ΣPAF = −4 over the four rows plus an
 amicability condition. Amicability is automatic when each pair (p, q), (r, s) is symmetric about a common centre.
 Lebedev exhausted the family with all centres at 0, at lengths 64, 70 and 76.
 
@@ -292,9 +293,9 @@ prime ≡ 3 (mod 4): for q ≡ 1 (mod 4) Williamson-type matrices of order (q + 
 
 The bordered Williamson-type structures of [williamson-type](williamson-type) rate every multiplier group at about
 10^−4 for these w. The FRONTIER rows 7516, 8860 and 9532 need skew matrices of orders 940, 1108 and 1192 (Kiyasu's
-theorem as proved by Yamada, J. Austral. Math. Soc. 1989, Theorem 4.1: q ≡ 5 (mod 8) a prime power and a skew matrix
-of order (q + 3)/2 give H(4(q + 2))). These are the skew orders the progress branch found out of reach
-(v = 235, 277, 149).
+theorem as proved by Yamada, J. Austral. Math. Soc. 1989, Theorem 4: q ≡ 5 (mod 8) a prime power and a skew matrix
+of order (q + 3)/2 give H(4(q + 2))). These skew orders (v = 235, 277, 149) are out of reach of the skew searches
+([search/NOTES.md](search/NOTES.md) §10).
 
 **A 3-bordered Williamson-type structure does not exist.** Try G = ℤ₂² × ℤ_m with p = 4m + 3. Take three border
 points whose border rows and columns are constant on the cosets of K = 0 × ℤ_m, and group-developed blocks with
@@ -371,8 +372,8 @@ For d | v the compressions to ℤ_d satisfy the same identity with target T·v/d
 Nothing is sampled. A pattern with an empty level-1 join is ruled out at once, and most are. Positive controls
 (N = 77, 143, 185, 247 and bordered N = 21) recover known solutions in seconds.
 
-*Order 310.* N = 155 = 5 · 31 with H = ⟨16⟩ of order 5 has 35 orbits and lists of 1.3 · 10⁴, 6.4 · 10³, 7 · 10⁸ and
-6 · 10⁸, far beyond the exact join. The Gaussian estimate is 10^1.4 for several row-sum patterns, but the best of these,
+*Order 310.* N = 155 = 5 · 31 with H = ⟨16⟩ of order 5 has 35 orbits and lists of 1.3 · 10⁴, 6.4 · 10³, 7 · 10⁸ and 6
+· 10⁸, far beyond the exact join. The Gaussian estimate is 10^1.4 for several row-sum patterns, but the best of these,
 (9, 13; 3, 19) and (7, 11; 3, 21), are ruled out by their ℤ₅ compressions. Patterns (9, 9; 13, 17) and (9, 13; 9, 17)
 pass level 1 with 600 branches each, and both gave verified solutions within 5 minutes (`complex-hadamard/C310.json`).
 
@@ -401,30 +402,30 @@ blank in Table 11.2, and 191 is prime, so no compression or product reaches it.
 
 ## 11. Twisted Szöllősi quadruples (October 14)
 
-**Construction** (`search/tsz.py`, `search/tsz.c`). Let H ≤ ℤ_N^* with −1 ∉ H, L = ⟨H, −1⟩, and μ a unit with μ ∉ L and
-μ² ∈ L. Every quadruple below satisfies Szöllősi's hypotheses (A, B symmetric, ΣPAF = 0 off 0), so it gives a complex
-Hadamard matrix of order 2N and a Goethals–Seidel matrix of order 4N.
+**Construction** (`search/tsz.py`, `search/tsz.c`). Let H ≤ ℤ_N^* with −1 ∉ H, L = ⟨H, −1⟩, and μ a unit with μ ∉ L
+and μ² ∈ L. Every quadruple below satisfies Szöllősi's hypotheses (A, B symmetric, ΣPAF = 0 off 0), so it gives a
+complex Hadamard matrix of order 2N and a Goethals–Seidel matrix of order 4N.
 
 - *Full twist.* A is L-invariant, C is H-invariant, B = A∘μ, D = C∘μ.
   - B is symmetric because A is, and PAF_{X∘μ}(s) = PAF_X(μs).
   - So ΣPAF(s) = F(s) + F(μs) with F = PAF_A + PAF_C, and the condition holds on the orbits of ⟨L, μ⟩.
   - The row sums satisfy r_A² + r_C² = 2N, so N is a sum of two squares.
-  - Parity: F ≡ 2N ≡ 2 (mod 4). So no class may be mapped to itself by μ (on such a class the condition reads
-    F(s) = 0).
+  - Parity: F ≡ 2N ≡ 2 (mod 4). So no class may be mapped to itself by μ (on such a class the condition reads F(s) =
+    0).
 - *Half twist.* A and B are invariant under L′ = ⟨L, μ⟩, C is H-invariant, D = C∘μ.
   - The condition PAF_A + PAF_B + PAF_C(s) + PAF_C(μs) = 0 holds on the L′-classes.
   - The row sums satisfy r_A² + r_B² + 2r_C² = 4N.
   - It needs [L′ : L] = 2, which is impossible for a prime N ≡ 3 (mod 4): there ℤ_N^* is cyclic of order 2 · odd.
     Every composite N with two distinct prime factors has such twists.
-- *Bordered half twist.* The same on ℤ_{N−1} with ΣPAF = −4 and row sums (0, 2, 0) ([BORDERED.md](complex-hadamard/BORDERED.md)).
-  The full twist cannot be bordered: it forces r_A = r_B.
+- *Bordered half twist.* The same on ℤ_{N−1} with ΣPAF = −4 and row sums (0, 2, 0)
+  ([BORDERED.md](complex-hadamard/BORDERED.md)). The full twist cannot be bordered: it forces r_A = r_B.
 
 **Cost against yield.** The unknowns are about 1.5 · O bits, where O is the number of H-orbits. The constraints are
 about O/4 classes. The search is a two-list join: the A side is hashed (or, for the half twist, the pairs (A, B)),
 and the C pool is streamed by the depth-first search of `kstream.c`. Its cost is about the size of the C pool, so
 structures with O ≤ 40 are exhaustive in minutes. The untwisted search has twice the exponent in its estimate
 (about 2^0.7O against 2^0.35O) but needs a four-list join over pools of 2^O. At equal cost the untwisted structure
-wins, but the twisted structures are other lottery tickets: other (H, μ), reachable where the untwisted join is not.
+wins; the twisted structures add other pairs (H, μ), reachable where the untwisted join is not.
 
 **Calibration** (`python3 search/tsz.py test`; every hit rebuilt and checked exactly):
 
@@ -443,16 +444,15 @@ wins, but the twisted structures are other lottery tickets: other (H, μ), reach
 
 As for the untwisted array, the estimate is accurate for primes and low for composites.
 
-**A two-block array that does not help.** With X = αA + ᾱDR and Y = αB + ᾱCR (α = (1 + i)/2, R the reversal), XX* + YY*
-equals (ΣXXᵀ)/2 for *any* four circulants. Then K = [[X, Y], [−Ȳ, X̄]] is complex Hadamard iff ΣPAF = 0 and
-ABᵀ + CDᵀ is symmetric. This needs neither A nor B symmetric, but it replaces 2 · (N − 1)/2 symmetry bits by
-(N − 1)/2 integer constraints of about 4 bits each. Its estimate is lower than Szöllősi's by about 2^−N, so it was
-not searched.
+**A two-block array that does not help.** With X = αA + ᾱDR and Y = αB + ᾱCR (α = (1 + i)/2, R the reversal), XX* +
+YY* equals (ΣXXᵀ)/2 for *any* four circulants. Then K = [[X, Y], [−Ȳ, X̄]] is complex Hadamard iff ΣPAF = 0 and ABᵀ +
+CDᵀ is symmetric. This needs neither A nor B symmetric, but it replaces 2 · (N − 1)/2 symmetry bits by (N − 1)/2
+integer constraints of about 4 bits each. Its estimate is lower than Szöllősi's by about 2^−N, so it was not searched.
 
 ## 12. Low-energy k-tree for Szöllősi structures (October 14)
 
 `search/lowe_sz.py` (with `search/lowe_enum.c` and the four-list join `search/kt4.c` of the low-energy skew searches,
-NOTES of the progress branch §20) for structures whose blocks C, D have 10⁹–10¹¹ members.
+[search/NOTES.md](search/NOTES.md) §20) for structures whose blocks C, D have 10⁹–10¹¹ members.
 - Every member of a big block is visited by the depth-first search of `kstream.c`.
 - A member is kept when its energy E_k(x) = (x − z_k)ᵀ Σ_{−k}⁺ (x − z_k) is small, where z_k = t − Σ_{j≠k} μ_j and
   Σ_{−k} is the covariance of the other three blocks' sum. Under the Gaussian model, exp(−E_k/2) is proportional to
@@ -477,17 +477,17 @@ the streaming k-tree of §10.
 ## 13. Spence spin structures: orders 2292 and 9172 (October 14)
 
 **Structure.** Spence's bordered construction over a group G of order n − 1 (ΣPAF = −4 off zero, row sums 2, 0, 0, 0),
-with blocks (A, B, B∘μ, B∘μ²). Here H is a group of automorphisms, μ normalises H and μ³ ∈ H. A is invariant under
-K = ⟨H, μ⟩ and B under H. The condition holds on the orbits of ⟨K, −1⟩.
+with blocks (A, B, B∘μ, B∘μ²). Here H is a group of automorphisms, μ normalises H and μ³ ∈ H. A is invariant under K =
+⟨H, μ⟩ and B under H. The condition holds on the orbits of ⟨K, −1⟩.
 - **Small cases.** Exhaustive solution sets exist at n = 13 (G = ℤ₂² × ℤ₃, 720 solutions) and n = 19 (ℤ₁₈, 23328).
   Both give Hadamard matrices through `build_spence`.
-- **Arithmetic gate.** A real character χ with χ∘μ in the H-orbit of χ forces n = a² + 3b². For the other n, μ must act
-  without fixed points on Hom(G, ℤ₂), which needs every part size of the 2-part of G to occur an even number of times.
-  That leaves 17 of the non-Eisenstein open n, among them 573, 789, 1169, 1437, 1473 and 1509.
+- **Arithmetic gate.** A real character χ with χ∘μ in the H-orbit of χ forces n = a² + 3b². For the other n, μ must
+  act without fixed points on Hom(G, ℤ₂), which needs every part size of the 2-part of G to occur an even number of
+  times. That leaves 17 of the non-Eisenstein open n, among them 573, 789, 1169, 1437, 1473 and 1509.
 
 **573.** G = ℤ₂² × ℤ₁₄₃, H = ⟨27⟩ (quadratic residues on ℤ₁₁), μ = (α, ×3) with α of order 3 on ℤ₂².
-- **Size.** 27 classes, 54 K-orbits and 156 H-orbits. The Gaussian estimate is 10^7.5 solutions (10^10.9 with the
-  full covariance). A plain join would cost about 10^34.
+- **Size.** 27 classes, 54 K-orbits and 156 H-orbits. The Gaussian estimate is 10^7.5 solutions (10^10.9 with the full
+  covariance). A plain join would cost about 10^34.
 - **Exact gates.** For μ-invariant N, the compressed vectors to G/N are products of per-orbit value sets: each orbit
   lies over one orbit of G/N and meets each fibre in the same number of points. The structure passes ℤ₂², ℤ₁₁, ℤ₁₃,
   ℤ₂² × ℤ₁₁, ℤ₁₄₃ and ℤ₂² × ℤ₁₃, and a lattice test on the class values.
@@ -498,8 +498,9 @@ K = ⟨H, μ⟩ and B under H. The condition holds on the orbits of ⟨K, −1�
   force everything. This leaves 61–63 signs, 8 linear equations and the rest quadratic.
 - **Lift solver.** An exhaustive four-list meet in the middle on the linear equations (about 10⁷ solutions per lift,
   15–40 s), followed by the full 27-class check. On planted targets it returned the planted signs every time.
-- **Results.** Two of the first five level solutions lifted, against the Gaussian estimate of about 0.2 each. Both give
-  Hadamard matrices of order 2292; the first is [2292](hadamard/2292). Miyamoto with q = 2293 gives [9172](hadamard/9172).
+- **Results.** Two of the first five level solutions lifted, against the Gaussian estimate of about 0.2 each. Both
+  give Hadamard matrices of order 2292; the first is [2292](hadamard/2292). Miyamoto with q = 2293 gives
+  [9172](hadamard/9172).
 
 **Other survivors** of the same gates, not yet searched:
 - 1169 over ℤ₂⁴ × ℤ₇₃ (Singer cycle of order 15 coupled with an order-3 multiplier): 17 classes, estimate 10^4–10^6,

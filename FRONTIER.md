@@ -1,15 +1,18 @@
 # Unresolved orders
 
-This page covers the 145 entries of Cati–Pasechnik Table 4 (n ≤ 2999) that are
-still unresolved. The other 50 were settled as follows:
+This page lists the 144 entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard matrix of order 4n
+is known. The other 51 entries are settled:
 
-- 12 by Alpöge et al.,
-- 19 by other public constructions from 2026 (Schneider; JD-Jones-ASES/Hadamard-T
-  and Hadamard-M; Schumer),
-- 9 by Đoković in 2010,
-- 10 in this repository (3732 and 5020 by the cyclotomic products of
-  [search/NOTES.md](search/NOTES.md) §16, 2148 by the bordered array of §19, 573 by the Spence spin
-  structure of [2292](hadamard/2292), and 2293 from it by Miyamoto's theorem, [9172](hadamard/9172)).
+- 12 by Alpöge, Voinov and Reynolds-Haertle (2026);
+- 19 by other public constructions of 2026 (Schneider; the JD-Jones-ASES repositories Hadamard-T and Hadamard-M;
+  Schumer);
+- 9 by Đoković in 2010;
+- 1 in 1988: n = 1823, from the symmetric conference matrix of order 3646 of Seberry and Whiteman, which the tables
+  missed ([NOTES.md](NOTES.md) §7);
+- 10 in this repository: n = 523, 537, 571, 573, 933, 991, 1123, 1255, 1483 and 2293 (the orders
+  [2092](hadamard/2092), [2148](hadamard/2148), [2284](hadamard/2284), [2292](hadamard/2292),
+  [3732](hadamard/3732), [3964](hadamard/3964), [4492](hadamard/4492), [5020](hadamard/5020),
+  [5932](hadamard/5932) and [9172](hadamard/9172)).
 
 **Columns.** For each order the table lists the cheapest structure of each kind
 found by `search/triage.py` that is expected to contain at least ten solutions:
@@ -37,7 +40,7 @@ describe reliably, were searched exhaustively:
 order from a smaller object, where one applies:
 
 - Miyamoto: an Hadamard matrix of order n − 1.
-- Kiyasu: a skew Hadamard matrix of order (n + 1)/2.
+- Kiyasu: a skew-Hadamard matrix of order (n + 1)/2.
 - Yamada: a symmetric conference matrix of order (n + 1)/2.
 
 A conference matrix of that order cannot exist when (n − 1)/2 is not a sum of two
@@ -108,7 +111,6 @@ squares.
 | 7132 | 1783 | – | – | – | – | – | ℤ2 × ℤ3xℤ3xℤ3xℤ3 × ℤ11 | 54.1 |  |
 | 7148 | 1787 | 19 | 95 | 47 | 30.0 | 36.1 | – | – |  |
 | 7180 | 1795 | – | – | – | – | – | – | – |  |
-| 7292 | 1823 | – | – | – | – | – | ℤ2 × ℤ911 | 26.5 |  |
 | 7324 | 1831 | – | – | – | – | – | – | – |  |
 | 7364 | 1841 | – | – | – | – | – | – | – |  |
 | 7388 | 1847 | – | – | – | – | – | ℤ2 × ℤ13 × ℤ71 | 72.5 |  |

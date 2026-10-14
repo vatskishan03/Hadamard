@@ -5,12 +5,12 @@ partition ℤ_t and with Σ TᵢTᵢᵀ = t I. By the Cooper–Wallis constructi
 an orthogonal design OD(4t; t, t, t, t). Replacing its variables with Williamson
 matrices of order w gives a Hadamard matrix of order 4tw.
 
-Each file `T<t>.txt` lists the first rows of T₁, …, T₄, one per line, written over
-`0`, `+`, `-`. Order 71 is classical (see the table). Orders 67, 101 and 131 come from `search/tmat_mult.py`: a multiplier subgroup, a random split
-of the orbits into the supports of T₁ + T₂ and T₃ + T₄, and an exact join of the four complete sign lists (numpy
+Each file `T<t>.txt` lists the first rows of T₁, …, T₄, one per line, written over `0`, `+`, `-`. Order 71 is
+classical (see the table). Orders 67, 101 and 131 come from `search/tmat_mult.py`: a multiplier subgroup, a random
+split of the orbits into the supports of T₁ + T₂ and T₃ + T₄, and an exact join of the four complete sign lists (numpy
 for small lists, `search/join4x.c` for large ones). The others were found by the search described in
-[order 2060](../hadamard/2060): a small multiplier subgroup, parity conditions over GF(2), and meet-in-the-middle over the
-signs.
+[order 2060](../hadamard/2060): a small multiplier subgroup, parity conditions over GF(2), and meet-in-the-middle over
+the signs.
 
 | t | Earlier appearances known to us |
 |----:|---|

@@ -46,14 +46,14 @@ For each row-sum pattern (a, b, c, d) with a² + b² + c² + d² = 4N:
 - every hit is turned into K and checked exactly, and the real Goethals–Seidel matrix of order 4N is checked as well.
 
 Code: `search/ssxx.py` (triage, search), `search/ssxx_sweep.py` (the candidate orders and the sweep),
-`search/ssxx_sample.py` (for structures too large to list: uniform samples of the large lists, joined exactly; for prime
-N the Gaussian estimate of the hits inside the samples is accurate: 1445 expected and 1430 found at N = 71, 10^4.0 and
-12618 at N = 131), `search/ssxx_group.py` (the same array over the non-cyclic groups GF(p^k) × ℤ_m and ℤ_p² × ℤ_m,
-with diagonal field multiplications or odd-order subgroups of GL(2, p): the theorem holds verbatim for group-developed
-matrices over any abelian group, and `verify/verify_complex.py` checks such certificates), `search/ssxx_certify.py`
-(certificates), `search/cchain4.py` and `search/cchain_sweep.py` (structures whose complete lists are too large to
-join: an exact compression chain over the subgroups of ℤ_N, as for order 3964; order 310 came from ⟨16⟩ on ℤ₁₅₅ with
-lists of 10⁴, 10⁴, 7 · 10⁸ and 6 · 10⁸, compressed to ℤ₅ and split on ℤ₃₁).
+`search/ssxx_sample.py` (for structures too large to list: uniform samples of the large lists, joined exactly; for
+prime N the Gaussian estimate of the hits inside the samples is accurate: 1445 expected and 1430 found at N = 71,
+10^4.0 and 12618 at N = 131), `search/ssxx_group.py` (the same array over the non-cyclic groups GF(p^k) × ℤ_m and ℤ_p²
+× ℤ_m, with diagonal field multiplications or odd-order subgroups of GL(2, p): the theorem holds verbatim for
+group-developed matrices over any abelian group, and `verify/verify_complex.py` checks such certificates),
+`search/ssxx_certify.py` (certificates), `search/cchain4.py` and `search/cchain_sweep.py` (structures whose complete
+lists are too large to join: an exact compression chain over the subgroups of ℤ_N, as for order 3964; order 310 came
+from ⟨16⟩ on ℤ₁₅₅ with lists of 10⁴, 10⁴, 7 · 10⁸ and 6 · 10⁸, compressed to ℤ₅ and split on ℤ₃₁).
 
 A second construction, the bordered Szöllősi array on a group of order N − 1, is stated and proved in
 [BORDERED.md](BORDERED.md). Two twisted specialisations of both arrays (B = A∘μ, D = C∘μ, and a half twist), which
@@ -65,7 +65,7 @@ turn the four-sequence search into a two-list search, are in [TWISTED.md](TWISTE
 |---:|---|---|---|---|
 | 142 | 71 | ⟨5⟩, order 5 | 9, 9; 1, 11 | [C142.json](C142.json) |
 | 154 | 77 = 7 · 11 | ⟨15⟩, order 5 | 3, 3; 1, 17 | [C154.json](C154.json) |
-| 222 | 111 = 3 · 37 | near-Williamson matrices of order 111 (near-williamson/NW111.txt), reordered (B, C, A, D) | 1, 1; 21, 1 | [C222.json](C222.json) |
+| 222 | 111 = 3 · 37 | near-Williamson matrices of order 111 ([NW111.txt](../near-williamson/NW111.txt)), reordered (B, C, A, D) | 1, 1; 21, 1 | [C222.json](C222.json) |
 | 238 | 119 = 7 · 17 | ⟨8⟩, order 8 | 1, 5; 15, 15 | [C238.json](C238.json) |
 | 262 | 131 | ⟨53⟩, order 5 | 9, 9; 1, 19 | [C262.json](C262.json) |
 | 286 | 143 = 11 · 13 | ⟨3⟩, order 15 | 3, 9; 11, 19 | [C286.json](C286.json) |
@@ -114,4 +114,8 @@ The sweep's candidate list (`python3 search/ssxx_sweep.py list`) is exactly the 
 minus these. The 2026 papers cite the updated Table 11.2 of Seberry and Yamada's 2020 book (Wiley), which we could
 not consult. A construction published between 1992 and 2020 and recorded only there is the remaining caveat.
 
-**What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 214 values of N < 1000 have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 214, 322, 330, 334, 342, 358, 366, 406, 414, 418, 426, 430, …. Order 214 (N = 107) is out of reach of every structure we have: 107 and 53 = (107 − 1)/2 are both prime, so neither ℤ₁₀₇ nor ℤ₁₀₆ has a usable multiplier group, and no quaternary Legendre pair family covers length 106.
+**What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 214 values of N < 1000
+have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 214, 322, 330, 334, 342, 358,
+366, 406, 414, 418, 426, 430, …. Order 214 (N = 107) is out of reach of every structure we have: 107 and 53 = (107 −
+1)/2 are both prime, so neither ℤ₁₀₇ nor ℤ₁₀₆ has a usable multiplier group, and no quaternary Legendre pair family
+covers length 106.

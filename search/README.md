@@ -1,73 +1,166 @@
-# Search tools
+# Search programs
 
-These are the programs that found the Goethals–Seidel orders in this repository.
-[METHOD.md](../METHOD.md) gives the background.
+The programs that found the matrices in this repository, and the experiments recorded in [NOTES.md](NOTES.md) and
+[../NOTES.md](../NOTES.md). This is research code: each program was written for one family of searches and is
+documented by its docstring and by the notes. No certificate depends on it; `verify/` checks every matrix on its own.
+
+**Requirements.** Python 3 with NumPy; JAX for `generate.py`; a C compiler with OpenMP. A few experiments use
+OR-Tools or PySAT. The C helpers are compiled on first use by `workdir.py`. Hit logs, temporary list files and
+binaries go to `$HADAMARD_WORK` (default `<tmp>/hadamard-work`); only the `*_certify.py` scripts write into the
+repository.
+
+**Commit hashes.** The order READMEs give the commit at which each search was run. Until commit `44c347c` this
+directory was named `attack/`, so in a checkout of an earlier commit read `attack/` for `search/`.
+
+## The Goethals–Seidel search over ℤ_p
+
+The pipeline of [METHOD.md](../METHOD.md), which found the orders 2092, 3532, 4492 and 5932.
 
 | Program | Role |
 |---|---|
-| `triage.py` | ranks multiplier structures for a target n by predicted matching work |
-| `generate.py` | generates candidate sequences by batched local search (JAX; runs on TPU, GPU or CPU) |
+| `triage.py` | ranks the multiplier structures of a target n by predicted matching work |
+| `generate.py` | generates candidate sequences by batched local search (JAX on TPU, GPU or CPU) |
 | `dedupe.c` | removes duplicate candidates |
-| `expand.c` | adds the multiplier images of each candidate (free list growth) |
+| `expand.c` | adds the multiplier images of each candidate |
 | `match.c` | extended k-tree matcher; prints complementary quadruples |
 | `certify.py` | writes `certificate.json`, `sequences.txt` and the matrix for a match |
 
-## Build
+**Example: order 4492.**
 
 ```
-pip install numpy jax
 cc -O2 search/dedupe.c -o dedupe
 cc -O3 -march=native -fopenmp search/match.c -o match -lm
-```
-
-## Example: order 4492
-
-**1. Pick a structure.**
-
-```
 python3 search/triage.py 1123
 ```
 
-The best row is H = ⟨60⟩ (order 33, 35 orbits, 17 classes) with row sums
-(1, 1, 1, 67).
-
-**2. Generate candidates for each row sum.**
+The best row is H = ⟨60⟩ (order 33, 35 orbits, 17 classes) with row sums (1, 1, 1, 67). Generate candidates for each
+row sum, remove duplicates, and match. Roles A and D form the left pairs; B supplies both middle sequences, so the
+repeated row sum goes in the second file. The target is −(p mod 4).
 
 ```
 python3 search/generate.py 1123 60 --rowsum 1  --count 160000000 --out r1.bin  --greedy 3 --polish 1 --width 4 --rounds 0
 python3 search/generate.py 1123 60 --rowsum 67 --count 160000000 --out r67.bin --greedy 3 --polish 1 --width 4 --rounds 0
-```
-
-Each command reports the number of classes; for 1123 it is 17.
-
-**3. Remove duplicates.**
-
-```
 ./dedupe 17 r1.bin u1.bin
 ./dedupe 17 r67.bin u67.bin
-```
-
-**4. Match.** Roles A and D form the left pairs. B supplies both middle
-sequences, so the repeated row sum goes in the second file. The target is
-−(p mod 4).
-
-```
 ./match -s 6 -t -3 u1.bin u1.bin u67.bin 17 > solutions.txt
-```
-
-**5. Write and check the certificate.**
-
-```
 python3 search/certify.py 1123 60 "$(head -1 solutions.txt)" 4492
 ```
 
-## Notes
+Small structures (pools up to about 10¹⁰ sequences) need only light descent, as here. For orders like 2092 use the
+default settings of `generate.py`, which add iterated local search; they run at about 1.3·10⁵ candidates per second on
+one TPU v6e chip for p = 523. `match` holds about 20 bytes per list element plus the pair lists of one value of τ, so
+lists of 10⁹ elements fit in 172 GB. Choose the clamp `-s` so that the expected number of pairs per τ, printed at
+start-up, is close to the list size.
 
-- **Candidate depth.** Small structures (pools of up to about 10¹⁰ sequences) need
-  only light descent, as in the example. For orders like 2092, use the default
-  settings, which add iterated local search. These run at about 1.3·10⁵ candidates
-  per second on one TPU v6e chip for p = 523.
-- **Memory.** `match` holds about 20 bytes per list element plus the pair lists for
-  one value of τ. Lists of 10⁹ elements fit in 172 GB.
-- **Choosing `-s`.** Choose the clamp `-s` so that the expected number of pairs per
-  τ (printed at start-up) is close to the list size.
+## Index
+
+**Exact joins and local search** (shared by many searches)
+
+| Program | Role |
+|---|---|
+| `find4.c`, `find4b.c`, `join4x.c` | exact four-list joins of class-value vectors |
+| `count4.c`, `count_exact.py`, `exact4.py` | exact solution counts |
+| `kt4.c`, `match4.c` | four-list k-tree on sampled lists |
+| `join3.c` | three-level exact join for cyclotomic-product structures |
+| `lattice.py` | integer lattices: Hermite normal form and membership |
+| `orbit_ls.py`, `orbit_ls.c`, `gs_ls.c`, `ls/` | tabu search, simulated annealing and parallel tempering for sequence families |
+| `dm/` | relaxed-reflect-reflect (Elser) searches for Goethals–Seidel quadruples |
+| `psd_pool.c` | orbit vectors whose power spectrum stays below a bound |
+| `workdir.py` | the work directory and the compilation of the C helpers |
+
+**Goethals–Seidel structures for the unresolved orders**
+
+| Program | Role |
+|---|---|
+| `gs_lib.py` | Goethals–Seidel structures over abelian groups with a group of automorphisms |
+| `gs_sweep.py`, `gs_sweep_subgroups.py`, `gs_exhaustive.py`, `had_sweep.py` | exhaustive sweeps of small multiplier structures |
+| `lottery_rank.py` | ranks small structures by Gaussian estimate and exact pair work |
+| `had_chain_sweep.py` | the compression chain of `chain.py` for plain Goethals–Seidel structures |
+| `cyclo_product.py`, `cp_lowe.py`, `cp_enum.c`, `cp_field.py`, `cp_sweep.py`, `cp_hunt.py`, `cp_breadth.py` | cyclotomic products ℤ_m × GF(q) and the low-energy k-tree (3732, 5020, skew orders) |
+| `spin_walk.c` | the walk with neighbour lookups of [METHOD.md](../METHOD.md) (2284) |
+| `d3_model.py`, `d3/` | the d = 3 structure (X₀, X₁, μX₁, μ²X₁): Gaussian model, and the walk for n = 1893 |
+| `gs_1719.py`, `gs_anti.py`, `gs_array_gf2.py` | individual structures and array tests |
+
+**Bordered arrays** (2148, 3964)
+
+| Program | Role |
+|---|---|
+| `bordered.py`, `border3.c` | bordered Goethals–Seidel arrays with Q = ℤ₃ and a border of size 12, and their border solver |
+| `bgs.py`, `bgs_gauss.py`, `bgs_uw.py`, `bcp.py` | bordered cyclotomic products, their Gaussian estimates and the ℤ₂-split of order 2148 |
+| `border_probe.py`, `z4triage.py` | border problems over ℤ_q, and the families over ℤ₄ |
+
+**Spence's construction** (2292)
+
+| Program | Role |
+|---|---|
+| `spence_spin/` | the search for order 2292; see [spence_spin/README.md](spence_spin/README.md) |
+| `spence_lib.py`, `spence_singer.py`, `spp.py` | Spence structures with symmetry, over ℤ₂³ × ℤ_m and over ℤ_m × GF(q) |
+| `spence_sweep.py`, `spence_rank.py`, `spence_slice_check.py`, `calibrate.py` | sweeps, ranking, admissibility, and exact counts against the Gaussian estimate |
+
+**Skew-Hadamard matrices**
+
+| Program | Role |
+|---|---|
+| `skew_triage.py`, `skew_rank.py`, `skew_rank2.py` | triage and ranking of skew multiplier structures |
+| `skew_exhaustive.py`, `skew_sweep.py`, `skew_ktree.py`, `skew_lowE.py`, `lowE_plan.py`, `lowE_sweep.py`, `skew_gen.c` | exact and k-tree searches, and low-energy candidate lists |
+| `chain.py`, `chain_sweep.py`, `census_screen.py`, `screen_chain.py`, `skew_compress.py`, `comp_ls.c`, `comp_margins.py` | the exact compression chain and the census screen |
+| `paley_product.py`, `paley_config.py`, `pcg.py` | Paley-product structures |
+| `skew_kmult_sweep.py` | cyclotomic products with an extra multiplier group on ℤ_m |
+| `skew_group.py`, `skew_group_sweep.py`, `skew_field.py`, `skew_noncyclic.py` | non-cyclic groups and fields |
+| `spin_skew.py`, `spin_compress.py`, `spin_ls.c`, `spin_ls_gls.c`, `spin_pt.c`, `spin_sol.py`, `twin_skew.py`, `pairspin.py` | spin structures: blocks permuted by a multiplier (3676) |
+| `szekeres.py`, `szek_pair.c`, `szek_group.c` | Szekeres difference sets and Szekeres pairs |
+| `make_yamada.py` | the Yamada–Kiyasu certificates (24124, 24412, 29404, 51580) |
+
+**Symmetric Hadamard matrices**
+
+| Program | Role |
+|---|---|
+| `propus.py`, `propus_group.py`, `propus_chain.py`, `propus_gchain.py`, `propus_bgroup.py`, `propus_paley.py` | propus quadruples (A, B, B, D): cyclic, non-cyclic, with compressions, bordered |
+| `propus_rank.py`, `propus_sat.py`, `propus_ls.c` | estimates, a CP-SAT model, local search |
+| `prow.c`, `p65.c`, `pz5.c`, `hit2rec.py` | dedicated row searches (732) |
+| `qborder_clique.c` | the border problem of the ℤ_q-bordered propus array |
+| `sym_mm1.py`, `spropus.c`, `symod.c` | symmetric Hadamard matrices of order m(m − 1) and m(m + 3) (4828, 5700) |
+
+**Orthogonal designs for Seberry's theorem**
+
+| Program | Role |
+|---|---|
+| `odm_engine.py`, `odmx.c`, `odm_join.py`, `odm_join2.py`, `odmc.c` | exhaustive searches for skew-type OD(4t; 1, m, 4t − m − 1) |
+| `od13.c`, `od13b.c`, `od13x.c`, `odm_sa.c` | annealing and exhaustive searches for small m |
+| `thm7_census.py` | census values reachable by Seberry's theorem with m ≥ 3 |
+
+**Complex Hadamard matrices**
+
+| Program | Role |
+|---|---|
+| `ssxx.py`, `ssxx_group.py`, `ssxx_sample.py`, `ssxx_sweep.py`, `ssxx_table.py` | Szöllősi's array: cyclic, non-cyclic and sampled searches, and the sweep |
+| `bsz.py`, `bsz_group.py`, `bsz_sweep.py` | the bordered Szöllősi array |
+| `tsz.py`, `tsz.c` | twisted Szöllősi quadruples |
+| `cchain4.py`, `cchain_sweep.py` | exact compression chains for four-block problems (310, 518) |
+| `kstream.py`, `kstream.c` | the streaming k-tree (382) |
+| `lowe_sz.py`, `lowe_enum.c`, `lowe_scan.py`, `sls_sz.c` | low-energy k-tree and annealing for Szöllősi structures |
+| `qlp_bin.py` | quaternary Legendre pairs with one binary sequence |
+| `complex_status.py`, `data/` | known, constructed and open complex orders; tables parsed from Seberry–Yamada (1992) |
+
+**T-matrices, Williamson-type matrices and Legendre pairs**
+
+| Program | Role |
+|---|---|
+| `tmatrix.py`, `tmat_mult.py`, `tmat_scan.py`, `tmat_composite.py`, `tmat_t3_model.py` | T-matrices by support splits and multiplier structures |
+| `bt/` | bordered T-matrices |
+| `williamson.py` | Williamson matrices with multiplier symmetry |
+| `bnw.py`, `bnw_enum.c` | bordered Williamson-type matrices ([williamson-type](../williamson-type)) |
+| `wt_twist.py`, `twist_join.c`, `twist_scan.py` | the order-3 twist of near-Williamson matrices (111) |
+| `lp_search.py`, `lp_sweep.py`, `lp_hunt.py`, `lp_lowe.py`, `lp_mult.py`, `lp_open.py`, `lp_rank_big.py` | Legendre pairs for the unresolved orders |
+| `tlp_model.py`, `tlp_rank.py`, `tlp_search.py` | twisted Legendre pairs |
+| `two_circ.py`, `two_chain.py` | two-block searches: D-optimal designs and Legendre pairs |
+
+**Certificates**
+
+| Program | Writes |
+|---|---|
+| `certify.py`, `gs_certify.py` | Goethals–Seidel orders in `hadamard/` |
+| `skew_certify.py`, `skew_certify_group.py`, `skew_readme.py` | skew orders in `skew/` |
+| `sym_certify.py`, `border_certify.py` | symmetric orders in `symmetric/` |
+| `bnw_certify.py` | Cooper–Wallis orders with bordered Williamson-type matrices |
+| `ssxx_certify.py` | complex orders in `complex-hadamard/` |
