@@ -24,8 +24,11 @@ August 2026), the smallest order we know to be unresolved is now 2396 = 4 · 599
 | [5020](5020) | 4 · 1255 | Goethals–Seidel; ℤ₁₂₅₅ ≅ ℤ₅ × GF(251), multiplier subgroup of order 50 (h ≡ ±1 mod 5, h a 10th power mod 251) | New |
 | [5932](5932) | 4 · 1483 | Goethals–Seidel, ℤ₁₄₈₃, multiplier subgroup of order 39 | New |
 | [9172](9172) | 4 · 2293 | Miyamoto's theorem (q = 2293) from the matrix of order 2292 | New |
+| [12596](12596) | 4 · 3149 | Cooper–Wallis: T-matrices of order 67 and bordered Williamson-type matrices of order 47 ([williamson-type](williamson-type)) | Probably new; above the range of [3] |
 | [14708](14708) | 4 · 3677 | Miyamoto's theorem from a skew-Hadamard matrix of order 3676 (Goethals–Seidel over ℤ₉₁₉, multiplier subgroup of order 17, spin structure) | Probably new; above the range of [3] |
 | [14932](14932) | 4 · 3733 | Miyamoto's theorem (q = 3733) from the matrix of order 3732 | First explicit construction we know of; Handbook Table 1.53 lists 3733 with t = 2, with no construction we could trace |
+| [19028](19028) | 4 · 4757 | Cooper–Wallis: T-sequences of length 71 (classical, from Turyn-type sequences) and Williamson-type matrices of order 67 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
+| [19364](19364) | 4 · 4841 | Cooper–Wallis: T-matrices of order 103 and bordered Williamson-type matrices of order 47 | Probably new; above the range of [3] |
 | [20084](20084) | 4 · 5021 | Miyamoto's theorem (q = 5021) from the matrix of order 5020 | First explicit construction we know of; Handbook Table 1.53 lists 5021 with t = 2, with no construction we could trace |
 | [21748](21748) | 4 · 5437 | Miyamoto's theorem from a Cooper–Wallis matrix of order 5436 (T-matrices of order 151, Williamson order 9) | Probably new; above the range of [3] |
 | [24124](24124) | 4 · 6031 | Yamada's theorem (q = 6029) from a skew-Hadamard matrix of order 3016, the double of a skew Goethals–Seidel matrix of order 1508 over ℤ₃₇₇ | Probably new; above the range of [3] |
@@ -35,6 +38,7 @@ August 2026), the smallest order we know to be unresolved is now 2396 = 4 · 599
 | [29404](29404) | 4 · 7351 | Yamada's theorem (q = 7349) from this repository's [skew 3676](skew/3676) (an order first published by Schumer in September 2026) | First explicit construction we know of; Handbook Table 1.53 lists 7351 with t = 2, with no construction we could trace |
 | [31316](31316) | 4 · 7829 | Miyamoto's theorem from a Cooper–Wallis matrix of order 7828 (T-matrices of order 103, Williamson order 19) | Probably new; above the range of [3] |
 | [31412](31412) | 4 · 7853 | Miyamoto's theorem from a Cooper–Wallis matrix of order 7852 (T-matrices of order 151, Williamson order 13) | Probably new; above the range of [3] |
+| [34196](34196) | 4 · 8549 | Cooper–Wallis: T-matrices of order 103 and bordered Williamson-type matrices of order 83 (four sequences on ℤ₈₂, [williamson-type](williamson-type)) | Probably new; above the range of [3] |
 | [35636](35636) | 4 · 8909 | Cooper–Wallis: T-matrices of order 151 and Williamson-type matrices of order 59 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
 | [38468](38468) | 4 · 9617 | Cooper–Wallis: T-matrices of order 163 and Williamson-type matrices of order 59 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
 | [39260](39260) | 4 · 9815 | Cooper–Wallis: T-matrices of order 151 and Williamson-type matrices of order 65 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
@@ -49,7 +53,7 @@ construction was found in a literature search in October 2026. The table in [3]
 is not complete (nine of its entries were settled in [4]), so these claims carry
 that caveat.
 
-The fifteen orders above 4 · 2999 lie beyond [3]. For the fourteen with n < 10000 we used Table 1.53 of the
+The nineteen orders above 4 · 2999 lie beyond [3]. For the eighteen with n < 10000 we used Table 1.53 of the
 Handbook of Combinatorial Designs (2007) together with the updates in [4, 5]. For 14932 (n = 3733), 20084
 (n = 5021) and 29404 (n = 7351) that table claims t = 2, but we could not trace a construction behind any of these entries; see their READMEs. For 51580 (n = 12895), which is
 beyond that table too, we checked Paley, the Williamson-type families of Seberry–Yamada's 1992 survey and the
@@ -202,6 +206,41 @@ Williamson-type matrices of order m(m + 3) (1970, 1975).
 | [4828](symmetric/4828) | 1207 (17 · 71) = 17 · (4 · 17 + 3) | Paley's symmetric OD(68; 1, 67) (q = 67); x ↦ J − 2I, y ↦ the core of a symmetric Hadamard matrix of order 72 | undecided |
 | [5700](symmetric/5700) | 1425 (3 · 5² · 19) = 19 · 75 | skew-propus quadruple of length 19 (row sums 5, 5, 1, invariant under the multiplier 7), symmetric OD(76; 1, 75); x ↦ J, y ↦ the core of P + N | undecided |
 
+## Complex Hadamard results
+
+A complex (quaternary) Hadamard matrix of order n has entries 1, −1, i, −i and K K* = n I. Orders divisible by 4 are
+covered by real Hadamard matrices; the open cases are 2N with N odd. In 2026, Szöllősi constructed order 94, and the
+near-Williamson paper of Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev gave 118, 130, 134, 206 and 266.
+
+[complex-hadamard](complex-hadamard) holds matrices of orders that, to our knowledge, had no construction. They come
+from Szöllősi's array: four circulants with ΣXXᵀ = 4N I of which only two need be symmetric. We search it with
+multiplier groups and exact joins (`attack/ssxx.py`, `attack/ssxx_sweep.py`).
+
+| Order | N | Source |
+|------:|---|---|
+| 142 | 71 | Szöllősi array, multiplier group of order 5 |
+| 154 | 77 = 7 · 11 | Szöllősi array, Paley-product multiplier group of order 5 |
+| 222 | 111 = 3 · 37 | near-Williamson matrices of order 111 ([near-williamson/NW111.txt](near-williamson/NW111.txt)), found by the order-3 twist search `attack/wt_twist.py` |
+| 238 | 119 = 7 · 17 | Szöllősi array, multiplier group of order 8 |
+| 262 | 131 | Szöllősi array, multiplier group of order 5 (sampled lists) |
+| 286 | 143 = 11 · 13 | Szöllősi array, multiplier group of order 15 |
+| 302 | 151 | Szöllősi array, multiplier group of order 5 (sampled lists) |
+| 310 | 155 = 5 · 31 | Szöllősi array, multiplier group of order 5 (exact compression chain) |
+| 326 | 163 | Szöllősi array, multiplier group of order 9 |
+| 370 | 185 = 5 · 37 | Szöllősi array |
+| 382 | 191 | Szöllősi array, multiplier group of order 5 (streaming k-tree over lists of 3 · 10¹⁰) |
+| 494 | 247 = 13 · 19 | Szöllősi array |
+| 518 | 259 = 7 · 37 | Szöllősi array, multiplier group of order 9 (exact compression chain) |
+| 534 | 267 = 3 · 89 | Szöllősi array, multiplier group of order 11 |
+| 742 | 371 = 7 · 53 | Szöllősi array, multiplier group of order 26 |
+| 754 | 377 = 13 · 29 | Szöllősi array, multiplier group of order 42 |
+
+All of these orders are blank in Table 11.2 of Seberry–Yamada (1992), the table of known complex Hadamard
+orders that the 2026 papers update, and none comes from later work: Đoković 1993, Szöllősi 2026, the near-Williamson
+paper, and the quaternary Legendre pairs of 2022–2026. Orders 142 and 154 are the two smallest orders that
+remained. The near-Williamson matrices of order 111 are also, to our knowledge, the first
+Williamson-type matrices of that order. `python3 verify/verify_complex.py` checks every certificate exactly.
+
 ## Verification
 
 ```
@@ -211,6 +250,12 @@ python3 verify/verify.py
 rebuilds every matrix from its `certificate.json`, checks the defining identity,
 checks HHᵀ = nI exactly and compares the SHA-256 digest of the canonical CSV
 encoding with the recorded value. It needs NumPy and takes about five minutes.
+
+The complex Hadamard matrices are checked separately, from their sequences alone and in exact integer arithmetic:
+
+```
+python3 verify/verify_complex.py
+```
 
 An independent checker in C verifies the shipped matrices directly:
 
@@ -232,9 +277,13 @@ Other top-level contents:
 
 - [`skew`](skew): skew-Hadamard matrices, one directory per order, in the same layout.
 - [`symmetric`](symmetric): symmetric Hadamard matrices, one directory per order, in the same layout.
-- [`t-matrices`](t-matrices): the T-matrices of orders 97 to 197 found during this work.
+- [`complex-hadamard`](complex-hadamard): quaternary Hadamard matrices of orders 2N, N odd (Szöllősi's array; one
+  `C<n>.json` certificate per order).
+- [`t-matrices`](t-matrices): T-matrices of orders 67 to 197 used or found during this work.
+- [`williamson-type`](williamson-type): bordered Williamson-type matrices of order w from four sequences on ℤ_(w−1)
+  (construction, proof, calibration and limits).
 - [`near-williamson`](near-williamson): near-Williamson matrices of Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev
-  (2026), used as Williamson-type matrices for the orders 24308 to 39260.
+  (2026), used as Williamson-type matrices for the orders 19028 to 39260, and our order 111.
 - [`search`](search): the programs that found the Goethals–Seidel orders, and [`search/spence_spin`](search/spence_spin) for 2292.
 - [`METHOD.md`](METHOD.md): how the search works.
 - [`FRONTIER.md`](FRONTIER.md): the unresolved orders up to 4 · 2999, with the cheapest structure for each and its predicted cost.

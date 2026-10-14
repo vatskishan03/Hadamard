@@ -2,7 +2,7 @@
 
 The programs that found the Hadamard matrix of order 2292 = 4 · 573 ([2292](../../2292)).
 Structure: Spence's construction over G = ℤ₂ × ℤ₂ × ℤ₁₄₃, with blocks
-(A, B, B∘μ, B∘μ²), H = ⟨27⟩ and μ = (α, ×3). See [NOTES.md](../../NOTES.md) §8.
+(A, B, B∘μ, B∘μ²), H = ⟨27⟩ and μ = (α, ×3). See [NOTES.md](../../NOTES.md) §13.
 
 Requirements: Python 3 with NumPy, and a C compiler.
 

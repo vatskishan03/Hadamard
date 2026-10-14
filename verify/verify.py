@@ -246,6 +246,77 @@ def build_cooper_wallis_near_williamson(cert):
     return H, None
 
 
+def bordered_williamson_type(seq):
+    """Williamson-type matrices of order N = m + 1 from four +-1 sequences x_1, ..., x_4 on Z_m (attack/bnw.py,
+    williamson-type/README.md): x_2, x_3, x_4 symmetric and PAF_1 + ... + PAF_4 = -4 off 0. Then the row sums are
+    +-2 at one index j and 0 elsewhere; with M_k the circulant of x_k (M_1 replaced by M_1 R) and s = r_j / 2,
+    W_k = [[1, b_k e^T], [c_k e, M_k]] with c_k = 1, b_k = s for k != j and c_j = -1, b_j = -s. Checked here:
+    W_k W_l^T = W_l W_k^T and sum W_k W_k^T = 4N I."""
+    m = len(seq[0])
+    if len(seq) != 4 or any(len(s) != m or not np.all(np.abs(s) == 1) for s in seq):
+        raise ValueError("expected four +-1 sequences of equal length")
+    if any(not np.array_equal(s, s[-np.arange(m) % m]) for s in seq[1:]):
+        raise ValueError("x_2, x_3, x_4 must be symmetric")
+    paf = paf_sum(seq)
+    if paf[0] != 4 * m or np.any(paf[1:] != -4):
+        raise ValueError("the PAFs do not sum to -4 off 0")
+    r = [int(s.sum()) for s in seq]
+    if sorted(abs(x) for x in r) != [0, 0, 0, 2]:
+        raise ValueError(f"row sums {r}")
+    j = [abs(x) for x in r].index(2)
+    s, N = r[j] // 2, m + 1
+    Ms = [circulant(seq[0]) @ back_identity(m)] + [circulant(x) for x in seq[1:]]
+    W = []
+    for k in range(4):
+        Wk = np.empty((N, N), dtype=np.int64)
+        Wk[0, 0] = 1
+        Wk[0, 1:] = -s if k == j else s
+        Wk[1:, 0] = -1 if k == j else 1
+        Wk[1:, 1:] = Ms[k]
+        W.append(Wk)
+    if not all(np.array_equal(W[k] @ W[l].T, W[l] @ W[k].T) for k in range(4) for l in range(k + 1, 4)) or \
+            not np.array_equal(sum(x @ x.T for x in W), 4 * N * np.eye(N, dtype=np.int64)):
+        raise ValueError("Williamson-type condition fails")
+    return W
+
+
+def assemble_cooper_wallis(T, W):
+    """OD(4t; t, t, t, t) from T-matrices T_1..T_4 of order t (checked), with the four Williamson-type matrices W
+    substituted for its variables; assembled block by block in int8, as in build_cooper_wallis_near_williamson."""
+    t = len(T[0])
+    if len(T) != 4 or not np.all(np.count_nonzero(np.array(T), axis=0) == 1):
+        raise ValueError("T-matrix supports do not partition Z_t")
+    paf = paf_sum(T)
+    if paf[0] != t or np.any(paf[1:] != 0):
+        raise ValueError("T-matrix condition fails")
+    X = [circulant(x) for x in T]
+    coeff = {"A": (X[0], X[1], X[2], X[3]), "B": (X[1], -X[0], -X[3], X[2]),
+             "C": (X[2], X[3], -X[0], -X[1]), "D": (X[3], -X[2], X[1], -X[0])}
+    E = [goethals_seidel(*(coeff[c][k] for c in "ABCD")) for k in range(4)]
+    I4t = np.eye(4 * t, dtype=np.int64)
+    if not all(np.array_equal(E[k] @ E[k].T, t * I4t) for k in range(4)) or \
+            any((E[k] @ E[l].T + E[l] @ E[k].T).any() for k in range(4) for l in range(k + 1, 4)):
+        raise ValueError("T-matrices do not give an OD(4t; t, t, t, t)")
+    if not np.all(sum(np.abs(e) for e in E) == 1):
+        raise ValueError("an entry of the orthogonal design carries more or less than one variable")
+    which, sign = np.argmax(np.stack([np.abs(e) for e in E]), axis=0), sum(E).astype(np.int8)
+    W8 = np.stack(W).astype(np.int8)
+    w = W8.shape[1]
+    N = 4 * t * w
+    H = np.empty((N, N), dtype=np.int8)
+    for i in range(4 * t):
+        H[i * w:(i + 1) * w] = (W8[which[i]] * sign[i][:, None, None]).transpose(1, 0, 2).reshape(w, N)
+    return H
+
+
+def build_cooper_wallis_bordered(cert):
+    """Cooper-Wallis with bordered Williamson-type matrices (bordered_williamson_type): T-matrices of order t under
+    "t_matrices" and the four sequences on Z_(w-1) under "bordered_williamson" give a Hadamard matrix of order 4tw."""
+    T = [np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["t_matrices"]]
+    seq = [np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["bordered_williamson"]]
+    return assemble_cooper_wallis(T, bordered_williamson_type(seq)), None
+
+
 def build_spence(cert):
     """Spence's bordered construction. Four +-1 sequences on an abelian group G of order v
     (elements in mixed-radix order of `group`) whose autocorrelations sum to -4 off the
@@ -1099,6 +1170,7 @@ def build_sym_od_plug(cert):
 BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": build_goethals_seidel_group,
             "cooper-wallis": build_cooper_wallis,
             "cooper-wallis-near-williamson": build_cooper_wallis_near_williamson,
+            "cooper-wallis-bordered": build_cooper_wallis_bordered,
             "spence": build_spence, "miyamoto": build_miyamoto,
             "bordered-goethals-seidel": build_bordered_gs, "skew-doubling": build_skew_doubling,
             "yamada": build_yamada, "propus": build_propus, "propus-bordered": build_propus_bordered,
