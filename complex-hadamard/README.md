@@ -111,3 +111,5 @@ Kharaghani–Seberry, codes x2 and x6). Every order in this directory is **blank
 The sweep's candidate list (`python3 attack/ssxx_sweep.py list`) is exactly the blank entries of the 1992 table
 minus these. The 2026 papers cite the updated Table 11.2 of Seberry and Yamada's 2020 book (Wiley), which we could
 not consult. A construction published between 1992 and 2020 and recorded only there is the remaining caveat.
+
+**What remains open** (`python3 attack/complex_status.py`): after the orders in this directory, 215 values of N < 1000 have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 214, 322, 330, 334, 342, 358, 366, 382, 406, 414, 418, 426, …. Order 214 (N = 107) is out of reach of every structure we have: 107 and 53 = (107 − 1)/2 are both prime, so neither ℤ₁₀₇ nor ℤ₁₀₆ has a usable multiplier group, and no quaternary Legendre pair family covers length 106.
