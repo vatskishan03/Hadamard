@@ -46,10 +46,13 @@ typedef struct { uint64_t key; int32_t start, cnt; } hent;
 typedef struct { hent *h; uint64_t mask; int32_t *idx; } htab;
 static htab TA, TB;
 
+/* linear key: sum_q RK[q] * w_q (mod 2^64), so key(t - v) = key(t) - key(v); the table stores key | 1 is avoided by
+   storing key + 1 and never 0 */
+static uint64_t RK[16];
 static inline uint64_t vkey(const int *w) {
-    uint64_t h = 0x84222325CBF29CE4ULL;
-    for (int q = 0; q < K; q++) h = mix(h, (uint64_t)(int64_t)w[q]);
-    return h | 1;                                     /* never 0 (the empty marker) */
+    uint64_t h = 0;
+    for (int q = 0; q < K; q++) h += RK[q] * (uint64_t)(int64_t)w[q];
+    return h;
 }
 
 static void build_table(int16_t *V, int n, htab *T) {
@@ -74,22 +77,23 @@ static void build_table(int16_t *V, int n, htab *T) {
     for (int i = 0; i < n;) {
         int j = i;
         while (j < n && a[j].k == a[i].k) j++;
-        uint64_t pos = a[i].k & T->mask;
+        uint64_t kk = a[i].k + 1, pos = (kk * 0x9E3779B97F4A7C15ULL) >> 20 & T->mask;
         while (T->h[pos].key) pos = (pos + 1) & T->mask;
-        T->h[pos].key = a[i].k; T->h[pos].start = i; T->h[pos].cnt = j - i;
+        T->h[pos].key = kk; T->h[pos].start = i; T->h[pos].cnt = j - i;
         i = j;
     }
     free(a); free(key); free(ord);
 }
 
-static inline const hent *lookup(const htab *T, const int *want) {
-    uint64_t k = vkey(want), pos = k & T->mask;
+static inline const hent *lookup_key(const htab *T, uint64_t key) {
+    uint64_t k = key + 1, pos = (k * 0x9E3779B97F4A7C15ULL) >> 20 & T->mask;
     while (T->h[pos].key) {
         if (T->h[pos].key == k) return &T->h[pos];
         pos = (pos + 1) & T->mask;
     }
     return NULL;
 }
+static uint64_t *KT;      /* key(targets) */
 
 /* per-thread DFS state; TM[o][p*CP + c] = 2 (S_c[p][o] + S_c[o][p]), D4[o][c] = 4 S_c[o][o] (int32, padded) */
 static int CP;                       /* C rounded up to a multiple of 8 */
@@ -153,10 +157,12 @@ static void leaf1(state *s, void *vctx) {
     p1ctx *x = (p1ctx *)vctx;
     if (x->overflow) return;
     int want[16];
+    uint64_t kv = 0;
+    for (int q = 0; q < K; q++) kv += RK[q] * (uint64_t)(int64_t)s->v[K1[q]];
     for (int t = 0; t < NT; t++) {
-        for (int q = 0; q < K; q++) want[q] = TG[t * K + q] - (int)s->v[K1[q]];
-        const hent *e = lookup(&TA, want);
+        const hent *e = lookup_key(&TA, KT[t] - kv);
         if (!e) continue;
+        for (int q = 0; q < K; q++) want[q] = TG[t * K + q] - (int)s->v[K1[q]];
         for (int u = 0; u < e->cnt; u++) {
             int ai = TA.idx[e->start + u];
             const int16_t *a0 = AV + (int64_t)ai * C;
@@ -198,10 +204,12 @@ static void class_values(uint64_t code, int64_t *v) {
 static void leaf2(state *s, void *vctx) {
     p2ctx *x = (p2ctx *)vctx;
     int want[16];
+    uint64_t kv = 0, kT = 0;
+    for (int q = 0; q < K; q++) { kv += RK[q] * (uint64_t)(int64_t)s->v[K1[q]]; kT += RK[q] * (uint64_t)(int64_t)TT[K1[q]]; }
     for (int t = 0; t < NT; t++) {
-        for (int q = 0; q < K; q++) want[q] = TT[K1[q]] - TG[t * K + q] - (int)s->v[K1[q]];
-        const hent *e = lookup(&TB, want);
+        const hent *e = lookup_key(&TB, kT - KT[t] - kv);
         if (!e) continue;
+        for (int q = 0; q < K; q++) want[q] = TT[K1[q]] - TG[t * K + q] - (int)s->v[K1[q]];
         for (int u = 0; u < e->cnt; u++) {
             int bi = TB.idx[e->start + u];
             const int16_t *b0 = BV + (int64_t)bi * C;
@@ -299,6 +307,12 @@ int main(int argc, char **argv) {
     for (int o = 0; o < O; o++) for (int p = 0; p < O; p++) for (int c = 0; c < CP; c++)
         TM[((int64_t)o * O + p) * CP + c] = c < C ? 2 * (SI(c, p, o) + SI(c, o, p)) : 0;
     for (int o = 0; o < O; o++) for (int c = 0; c < CP; c++) D4[o * CP + c] = c < C ? 4 * SI(c, o, o) : 0;
+    {
+        uint64_t x = 0x243F6A8885A308D3ULL;
+        for (int q = 0; q < K; q++) { x ^= x << 13; x ^= x >> 7; x ^= x << 17; RK[q] = x | 1; }
+        KT = malloc(sizeof(uint64_t) * NT);
+        for (int t = 0; t < NT; t++) KT[t] = vkey(TG + t * K);
+    }
     build_table(AV, NA, &TA);
     build_table(BV, NB, &TB);
     /* pass 1 */
