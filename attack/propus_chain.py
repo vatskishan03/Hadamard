@@ -133,6 +133,64 @@ def join3(PA, PB, PD, target):
 _HALVES = {}
 
 
+def _halves(st, comp):
+    O = st.O; h = O // 2
+    ck = (id(st), id(comp))
+    if ck in _HALVES and (_HALVES[ck][0] is not st or _HALVES[ck][1] is not comp):
+        del _HALVES[ck]
+    if ck not in _HALVES:
+        members(st, comp, 0, (0,) * comp.k, 0)                # builds and caches the halves
+    return _HALVES[ck]
+
+
+_QH = {}
+
+
+def members_idx(st, comp, r, key, cap):
+    """(I, J): the members with row sum r and compression key are concat(Y1[I], Y2[J]) (halves as in members())."""
+    _, _, Y1, K1, k1, Y2, K2, k2s, o2, w = _halves(st, comp)
+    target = np.array((r,) + tuple(key), np.int64)
+    need = (target @ w) - k1
+    lo = np.searchsorted(k2s, need, 'left'); hi = np.searchsorted(k2s, need, 'right')
+    ii = np.flatnonzero(hi > lo)
+    if len(ii) == 0: return np.zeros(0, np.int64), np.zeros(0, np.int64)
+    cnt = hi[ii] - lo[ii]
+    if cnt.sum() > 4 * cap + 10: return None
+    I = np.repeat(ii, cnt)
+    starts = np.repeat(lo[ii] - np.concatenate([[0], np.cumsum(cnt)[:-1]]), cnt)
+    J = o2[np.arange(len(I)) + starts]
+    ok = np.all(K1[I] + K2[J] == target[None, :], axis=1)        # drop hash collisions
+    I, J = I[ok], J[ok]
+    if len(I) > cap: return None
+    return I, J
+
+
+def half_vals(st, comp, I, J, chunk=1 << 16):
+    """Class values of the members concat(Y1[I], Y2[J]): Y S_c Y^T = Q1[i] + Q2[j] + Y1[i] (S12 + S21^T) Y2[j]^T, with
+    the half forms Q1, Q2 cached per structure and the cross term computed per chunk (about C (O - h) operations per
+    member instead of C O^2)."""
+    _, _, Y1, K1, k1, Y2, K2, k2s, o2, w = _halves(st, comp)
+    O = st.O; h = O // 2; C = st.C
+    ck = (id(st), id(comp))
+    if ck not in _QH or _QH[ck][0] is not st:
+        S = st.S.astype(np.float32)                        # C x O x O
+        S11, S22 = S[:, :h, :h], S[:, h:, h:]
+        X = S[:, :h, h:] + np.transpose(S[:, h:, :h], (0, 2, 1))   # C x h x (O - h)
+        Yf1 = Y1.astype(np.float32); Yf2 = Y2.astype(np.float32)
+        Q1 = np.stack([np.einsum('ij,jk,ik->i', Yf1, S11[c], Yf1) for c in range(C)], 1)
+        Q2 = np.stack([np.einsum('ij,jk,ik->i', Yf2, S22[c], Yf2) for c in range(C)], 1)
+        M12 = np.ascontiguousarray(np.transpose(X, (1, 0, 2)).reshape(h, C * (O - h)))   # h x (C (O - h))
+        while len(_QH) >= 2: _QH.pop(next(iter(_QH)))
+        _QH[ck] = (st, Q1, Q2, M12)
+    _, Q1, Q2, M12 = _QH[ck]
+    out = np.empty((len(I), C), np.float32)
+    for c0 in range(0, len(I), chunk):
+        Ii, Jj = I[c0:c0 + chunk], J[c0:c0 + chunk]
+        T = (Y1[Ii].astype(np.float32) @ M12).reshape(len(Ii), C, O - h)
+        out[c0:c0 + chunk] = Q1[Ii] + Q2[Jj] + np.einsum('nck,nk->nc', T, Y2[Jj].astype(np.float32))
+    return out
+
+
 def members(st, comp, r, key, cap):
     """All sign vectors (int8) with row sum r and compression key (meet in the middle; the two halves are cached)."""
     O = st.O; h = O // 2
@@ -174,17 +232,20 @@ def search(v, gens, rows, d, a, log):
         n2 = Hs | {x * g % v for x in Hs for g in gens}
         if n2 == Hs: break
         Hs = n2
-    Hd = sorted({h % d for h in Hs})
-    Hd_sym = sorted({h % d for h in Hs} | {(-h) % d for h in Hs})
-    ca = Comp(st_ad, v, d, Hd if a.plain else Hd_sym); cb = Comp(st_b, v, d, Hd)
     ra, rb, rd = rows; pm = v % 4
     qb = a.qb                                    # Z_qb-bordered propus: weighted PAF sum -4qb on qb Z_v (off 0), 0 off it
     tgt = np.zeros(v, np.int64)                  # (qb = 1: -4 everywhere, order 4(v + 1); qb = 0: plain propus)
     if qb: tgt[::qb] = -4 * qb
     t0 = time.time()
-    Da = ca.dp(st_ad, ra); Db = cb.dp(st_b, rb); Dd = cb.dp(st_b, rd)
-    if Da is None or Db is None or Dd is None:
-        log(f"v={v} gens={gens} d={d} rows={rows}: compression DP above its cap; skipped"); return []
+    for d in (d if isinstance(d, (list, tuple)) else [d]):   # candidate moduli, finest first: the first whose DP fits
+        Hd = sorted({h % d for h in Hs})
+        Hd_sym = sorted({h % d for h in Hs} | {(-h) % d for h in Hs})
+        ca = Comp(st_ad, v, d, Hd if a.plain else Hd_sym); cb = Comp(st_b, v, d, Hd)
+        Da = ca.dp(st_ad, ra); Db = cb.dp(st_b, rb) if Da is not None else None; Dd = cb.dp(st_b, rd) if Db is not None else None
+        if Da is not None and Db is not None and Dd is not None: break
+        log(f"v={v} gens={gens} d={d} rows={rows}: compression DP above its cap")
+    else:
+        log(f"v={v} gens={gens} rows={rows}: no modulus with a compression DP under the cap; skipped"); return []
     log(f"v={v} gens={gens} d={d} rows={rows}: orbits A {st_ad.O}, B/D {st_b.O}, classes {st_ad.C}; compressions "
         f"A {len(Da)}, B {len(Db)}, D {len(Dd)} [{time.time() - t0:.1f}s]")
     KA, KB, KD = list(Da), list(Db), list(Dd)
@@ -202,18 +263,37 @@ def search(v, gens, rows, d, a, log):
     log(f"  stage 1: {len(triples)} compatible triples, pair work {work:.2e} (direct join: "
         f"{st_ad.pool(ra) * min(st_b.pool(rb), st_b.pool(rd)):.2e}) [{time.time() - t0:.1f}s]")
     found = []; done_work = 0.0
+    if len(triples) > 100:
+        # group the triples by their D key (heaviest groups first) so that the cached lists are reused
+        gw = defaultdict(float)
+        for t_ in triples: gw[t_[6]] += t_[0]
+        triples.sort(key=lambda t_: (-gw[t_[6]], t_[6], -t_[0]))
+    cache = {}; cache_n = [0]                               # (role, key) -> (I, J, values); members held, bounded
+    def lst(role, st, comp, r, key, scale):
+        ck_ = (role, r, key)
+        if ck_ in cache:
+            cache[ck_] = cache.pop(ck_); return cache[ck_]      # most recently used last
+        IJ = members_idx(st, comp, r, key, a.maxlist)
+        if IJ is None: return None
+        I_, J_ = IJ
+        V = np.empty((len(I_), st.C), np.int16)
+        for c0 in range(0, len(I_), 1 << 18):
+            V[c0:c0 + (1 << 18)] = scale * np.rint((half_vals(st, comp, I_[c0:c0 + (1 << 18)], J_[c0:c0 + (1 << 18)]) - pm) / 4)
+        cache[ck_] = (I_.astype(np.int32), J_.astype(np.int32), V); cache_n[0] += len(I_)
+        while cache_n[0] > a.cache and len(cache) > 3:
+            old_ = cache.pop(next(iter(cache))); cache_n[0] -= len(old_[0])
+        return cache[ck_]
+    def rows_of(st, comp, I_, J_, idx):
+        _, _, Y1, _, _, Y2, _, _, _, _ = _halves(st, comp)
+        return np.concatenate([Y1[I_[idx]], Y2[J_[idx]]])
     for i, (w_, na, nb, nd, ka, kb, kd) in enumerate(triples[:a.maxtriples]):
         if done_work + w_ > a.maxwork:
             log(f"  work cap reached after {i} triples ({done_work:.2e})"); break
-        Ya = members(st_ad, ca, ra, ka, a.maxlist); Yb = members(st_b, cb, rb, kb, a.maxlist); Yd = members(st_b, cb, rd, kd, a.maxlist)
-        if Ya is None or Yb is None or Yd is None:
+        LA = lst('A', st_ad, ca, ra, ka, 1); LB = lst('B', st_b, cb, rb, kb, 2); LD = lst('D', st_b, cb, rd, kd, 1)
+        if LA is None or LB is None or LD is None:
             log(f"  triple {i}: a list exceeds {a.maxlist:.0e}; skipped"); continue
-        def vals(st, Y, scale, chunk=1 << 18):
-            out = np.empty((len(Y), st.C), dtype=np.int16)          # chunked: float64 class values of 10^7 rows would not fit
-            for c0 in range(0, len(Y), chunk):
-                out[c0:c0 + chunk] = scale * np.rint((st.class_values(Y[c0:c0 + chunk]) - pm) / 4)
-            return out
-        Va, Vb, Vd = vals(st_ad, Ya, 1), vals(st_b, Yb, 2), vals(st_b, Yd, 1)
+        Va, Vb, Vd = LA[2], LB[2], LD[2]
+        Ya = Yb = Yd = None
         Z = np.zeros((1, st_ad.C), np.int16)
         roles = sorted([(len(Va), 0), (len(Vd), 1), (len(Vb), 2)]); byrole = {0: Va, 1: Vd, 2: Vb}
         lists = [byrole[roles[0][1]], byrole[roles[1][1]], byrole[roles[2][1]], Z]
@@ -229,12 +309,13 @@ def search(v, gens, rows, d, a, log):
             os.remove(path)
         total = int(out.strip().split('TOTAL')[-1]); done_work += w_
         if i < 5 or i % 200 == 0 or total:
-            log(f"  triple {i}: lists {len(Ya)}, {len(Yb)}, {len(Yd)}: {total} solutions [{time.time() - t0:.0f}s]")
+            log(f"  triple {i}: lists {len(Va)}, {len(Vb)}, {len(Vd)}: {total} solutions [{time.time() - t0:.0f}s]")
         for line in out.splitlines():
             if not line.startswith('SOL'): continue
             ids = list(map(int, line.split()[1:]))
-            A = Ya[ids[slot[0]]].astype(np.int64)[st_ad.orb]; B = Yb[ids[slot[2]]].astype(np.int64)[st_b.orb]
-            D = Yd[ids[slot[1]]].astype(np.int64)[st_b.orb]
+            A = rows_of(st_ad, ca, LA[0], LA[1], ids[slot[0]]).astype(np.int64)[st_ad.orb]
+            B = rows_of(st_b, cb, LB[0], LB[1], ids[slot[2]]).astype(np.int64)[st_b.orb]
+            D = rows_of(st_b, cb, LD[0], LD[1], ids[slot[1]]).astype(np.int64)[st_b.orb]
             tot = verify.paf_sum([A, B, D]) + verify.paf_sum([B])
             if not (tot[0] == 4 * v and np.array_equal(tot[1:], tgt[1:])): log('  WRONG autocorrelations'); continue
             Kb = None
@@ -282,6 +363,8 @@ def main():
     ap.add_argument('--maxo', type=int, default=44)
     ap.add_argument('--border', action='store_true', help='bordered propus on Z_v: PAF sum -4, symmetric Hadamard of order 4(v + 1)')
     ap.add_argument('--maxmitm', type=int, default=46, help='largest orbit count for the meet in the middle (memory ~ 2^(O/2))')
+    ap.add_argument('--kdmax', type=int, default=16, help='largest number of compression coordinates tried first')
+    ap.add_argument('--cache', type=float, default=2e7, help='members kept in the stage-2 list cache')
     ap.add_argument('--qborder', type=int, default=0, help='Z_q-bordered propus on Z_v (q | v): PAF sum -4q on qZ_v, 0 off it; order 4(v + q)')
     a = ap.parse_args()
     a.qb = a.qborder or (1 if a.border else 0)
@@ -310,8 +393,23 @@ def main():
             if n2 == Hs: break
             Hs = n2
         kd = {p: len(residue_orbits(p, sorted({h % p for h in Hs}))[1]) for p in ds}
+        # candidate moduli: the earlier choice (the largest modulus with at most 10 orbit coordinates), unless that is
+        # coarse (at most 4 coordinates) while a finer modulus has at most KDMAX coordinates and an estimated compression
+        # space (product over the coordinates of the number of attainable values) of at most 1e8: then the finer ones
+        # first. This sends a cyclotomic product Z_r x GF(p) of index e >= 10 to Z_p (1 + e coordinates) instead of Z_r,
+        # whose pair work was infeasible (v = 183 = 3 * 61 with index 12: 4e11 instead of 1e14).
+        def space(p):
+            c = Comp(st_b, v, p, sorted({h % p for h in Hs})).cnt
+            tot = 1.0
+            for r in range(c.shape[1]):
+                nz = c[:, r][c[:, r] > 0]
+                tot *= (len(nz) + 1) if len(set(nz.tolist())) <= 1 else min(int(nz.sum()) + 1, 2 ** len(nz))
+            return tot
         small = [p for p in ds if kd[p] <= 10]
-        d = max(small) if small else min(ds, key=lambda p: kd[p])    # the largest modulus whose compressions stay small
+        old = max(small) if small else min(ds, key=lambda p: kd[p])    # the earlier choice
+        fine = [] if kd[old] > 4 else \
+            sorted([p for p in ds if kd[old] < kd[p] <= a.kdmax and space(p) <= 1e8], key=lambda p: (-kd[p], -p))
+        d = (fine + [old] + [p for p in sorted(ds, key=lambda p: kd[p]) if p not in fine and p != old]) if not a.d else ds
         for rows in pats:
             if min(st_ad.pool(rows[0]), st_b.pool(rows[1]), st_b.pool(rows[2])) == 0: continue
             if search(v, gs, rows, d, a, log):
