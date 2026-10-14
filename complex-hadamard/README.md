@@ -48,7 +48,10 @@ For each row-sum pattern (a, b, c, d) with a² + b² + c² + d² = 4N:
 Code: `attack/ssxx.py` (triage, search), `attack/ssxx_sweep.py` (the candidate orders and the sweep),
 `attack/ssxx_sample.py` (for structures too large to list: uniform samples of the large lists, joined exactly; for prime
 N the Gaussian estimate of the hits inside the samples is accurate: 1445 expected and 1430 found at N = 71, 10^4.0 and
-12618 at N = 131), `attack/ssxx_certify.py` (certificates).
+12618 at N = 131), `attack/ssxx_group.py` (the same array over the non-cyclic groups GF(p^k) × ℤ_m and ℤ_p² × ℤ_m,
+with diagonal field multiplications or odd-order subgroups of GL(2, p): the theorem holds verbatim for group-developed
+matrices over any abelian group, and `verify/verify_complex.py` checks such certificates), `attack/ssxx_certify.py`
+(certificates).
 
 ## Matrices
 
