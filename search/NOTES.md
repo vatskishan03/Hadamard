@@ -2496,3 +2496,13 @@ lie in different H-orbits of ℤ_d, for the symmetric blocks).
   1.6 · 10⁸ against 1.28 · 10⁹ (4.3 times faster); 341 A 19305 against 51480; 219 C 1.2 · 10⁷ against 6.0 · 10⁷.
 - For bordered 203 ⟨87⟩ the only level is d = 2. The even orbits come first and the check at depth 21 keeps 4
   values of the ℤ₂-compression, about 41% of the leaves.
+
+**Runs of this round** (fibres, live and lattice split values, one kt4 thread):
+- 403 ⟨16⟩, rows (9, 9, 15, 35). The fibres at d = 13 leave 4.7% of C and 5.6% of D, so C and D are complete
+  (2.04 · 10⁷ and 2.31 · 10⁷). 1.3 · 10⁶ split values (all 575692 sampled live values and lattice points) give no
+  solution; the hybrid estimate was 10^0.72.
+- 219 ⟨10⟩, rows (11, 25, 7, 9) and (9, 11, 7, 25). The fibres at d = 3 leave C and D complete (1.2 · 10⁷ and
+  6 · 10⁶). The first 3 · 10⁵ of about 1.9 · 10⁶ live split values in the law's order give no solution; the hybrid
+  estimate was 10^−1.
+- Bordered 161 (ℤ₁₆₀): all four multiplier groups of order 4 (per-class estimates 10^−0.7–10^−1.5) fail at d = 2 in
+  every pattern, so order 322 stays out of reach. The map has no structure for N = 179 in its orbit range.
