@@ -147,8 +147,9 @@ def enum_block(st, kind, r, center, Wm, tau, maxkeep, tag, threads, filt=()):
 
 
 def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5, energy="full", time_limit=None,
-           kt4_threads=1):
-    """rerun the join on the lists saved by an earlier run (WORK/lowe), with more split values"""
+           kt4_threads=1, skip=0):
+    """rerun the join on the lists saved by an earlier run (WORK/lowe), with more split values; skip leaves out the
+    first split values of the law's order (those an earlier run processed)"""
     st = Struct(N, gens, plain=not bordered)
     keepdir = W.WORK / "lowe"
     tagname = f"{N}{'b' if bordered else ''}_{'_'.join(map(str, gens))}_{'_'.join(map(str, rows))}" + \
@@ -166,7 +167,7 @@ def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5, en
     for pos, k in enumerate(order):
         lists[k] = (masks[k], vals[pos])
     return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, time.time(), time_limit=time_limit,
-                kt4_threads=kt4_threads)
+                kt4_threads=kt4_threads, skip=skip)
 
 
 def unit_classes(st):
@@ -363,7 +364,7 @@ def coset_points(B, piv, base, m, half, cap):
     return X[np.all(np.abs(X - np.asarray(m)) <= np.asarray(half), axis=1)]
 
 
-def sigma_file(lists, Sx, target, nsig, path, seed=1):
+def sigma_file(lists, Sx, target, nsig, path, seed=1, skip=0):
     """split values for kt4, in order of the Gaussian law of a solution's split: with mu_k, Sigma_k the mean and
     covariance of each kept list (subsampled), a solution's (a + c) on the merge classes has mean
     m = mu_A + mu_C + (Sigma_A + Sigma_C) Sigma^+ (t - sum mu) and covariance V = (Sigma_A + Sigma_C)
@@ -410,13 +411,16 @@ def sigma_file(lists, Sx, target, nsig, path, seed=1):
         return 0, 0.0, 0
     D = P - m
     d2 = np.einsum("ij,jk,ik->i", D, Vi, D)
-    o = np.argsort(d2)[:int(nsig)]
+    o = np.argsort(d2)[int(skip):int(skip) + int(nsig)]
+    if len(o) == 0:
+        np.savetxt(path, np.zeros((0, len(Sx)), np.int64), fmt="%d")
+        return 0, 0.0, nlive
     np.savetxt(path, P[o].astype(np.int64), fmt="%d")
     return len(o), float(np.sqrt(d2[o[-1]])), nlive
 
 
 def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ordered=True, time_limit=None,
-         kt4_threads=1):
+         kt4_threads=1, skip=0):
     order = [0, 2, 1, 3]
     # merge classes: largest variance, from a subsample of every list (a full int64 copy would need gigabytes)
     var = sum(np.asarray(lists[k][1][::max(1, len(lists[k][1]) // 200000)], np.float64).var(0) for k in order)
@@ -424,7 +428,7 @@ def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ord
     sigarg = str(int(nsig))
     if ordered:
         sf = Path(str(inp) + ".sig")
-        n, rad, nlive = sigma_file([lists[k] for k in order], Sx, st.target, nsig, sf)
+        n, rad, nlive = sigma_file([lists[k] for k in order], Sx, st.target, nsig, sf, skip=skip)
         sigarg = "@" + str(sf)
         print(f"  kt4: merge classes {Sx}, {n} split values nearest the solution law ({nlive} sampled live, the rest "
               f"lattice points; Mahalanobis radius {rad:.2f})", flush=True)
@@ -494,11 +498,12 @@ def main():
     ap.add_argument("--no-precheck", action="store_true", help="skip the exact compression check")
     ap.add_argument("--no-fibre", action="store_true", help="do not restrict the blocks to allowed compressions")
     ap.add_argument("--kt4-threads", type=int, default=1, help="OpenMP threads of the kt4 join (default 1)")
+    ap.add_argument("--skip", type=float, default=0, help="with --resume: leave out the first split values")
     a = ap.parse_args()
     rows = tuple(int(x) for x in a.rows.split(","))
     if a.resume:
         resume(a.N, a.gens, rows, a.bordered, a.nsig, a.S, a.log, energy=a.energy, time_limit=a.time,
-               kt4_threads=a.kt4_threads)
+               kt4_threads=a.kt4_threads, skip=int(a.skip))
     else:
         run(a.N, a.gens, rows, a.bordered, a.L, a.nsig, a.S, a.K, a.threads, a.estimate_only, a.log, energy=a.energy,
             time_limit=a.time, precheck=not a.no_precheck, fibre=not a.no_fibre, kt4_threads=a.kt4_threads)
