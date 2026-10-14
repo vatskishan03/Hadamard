@@ -62,7 +62,8 @@ def qpaf(Q, x):
 
 
 def search(G, name, mats, gens, st_ad, st_b, a, log):
-    m = G.v; pm = m % 4; T = -4; found = []
+    m = G.v; pm = m % 4; found = []
+    T, pats, build, n4 = BG.mode(G)
     neg = G.neg()
     best = None
     for qname, Q, q in quotients(G):
@@ -74,7 +75,7 @@ def search(G, name, mats, gens, st_ad, st_b, a, log):
     qname, Q, q = best
     K = m // Q.v
     ca = make_comp(st_ad, q, Q, induced(gens + [neg], q, Q.v)); cb = make_comp(st_b, q, Q, induced(gens, q, Q.v))
-    for ra, rb, rd in ((2, 0, 0), (0, 0, 2)):
+    for ra, rb, rd in pats:
         if min(st_ad.pool(ra), st_b.pool(rb), st_b.pool(rd)) == 0: continue
         t0 = time.time()
         Da = ca.dp(st_ad, ra); Db = cb.dp(st_b, rb); Dd = cb.dp(st_b, rd)
@@ -123,14 +124,13 @@ def search(G, name, mats, gens, st_ad, st_b, a, log):
                 B = Yb[ids[slot[2]]].astype(np.int64)[st_b.orb]
                 tot = PG.group_paf(G, A) + 2 * PG.group_paf(G, B) + PG.group_paf(G, D)
                 if not (tot[0] == 4 * m and np.all(tot[1:] == T)): log('  WRONG autocorrelations'); continue
-                Hm, Kb = BG.bordered_group_matrix(G, A, B, D)
-                n4 = 4 * (m + 1)
+                Hm, Kb = build(A, B, D)
                 ok = Hm is not None and np.array_equal(Hm, Hm.T) and np.array_equal(Hm @ Hm.T, n4 * np.eye(n4, dtype=Hm.dtype))
-                log(f"  hit: bordered symmetric Hadamard of order {n4} {ok}")
+                log(f"  hit: {'' if BG.UNBORDERED else 'bordered '}symmetric Hadamard of order {n4} {ok}")
                 if ok:
-                    rec = dict(n=m, order=n4, border=True, group=[int(x) for x in G.mods], structure=name,
+                    rec = dict(n=m, order=n4, border=not BG.UNBORDERED, group=[int(x) for x in G.mods], structure=name,
                                automorphisms=[x.tolist() for x in mats], freeD=True, rows=[int(A.sum()), int(B.sum()), int(D.sum())],
-                               method=f'propus_gchain {qname}', K=Kb.tolist(),
+                               method=f'propus_gchain {qname}', K=None if Kb is None else Kb.tolist(),
                                seqs=[''.join('+' if x > 0 else '-' for x in s) for s in (A, B, D)])
                     with open(W.hits('sym_hits.jsonl'), 'a') as fh: fh.write(json.dumps(rec) + '\n')
                     found.append(rec)
@@ -144,7 +144,9 @@ def main():
     ap.add_argument('mods'); ap.add_argument('--mino', type=int, default=31); ap.add_argument('--maxo', type=int, default=46)
     ap.add_argument('--maxwork', type=float, default=3e10); ap.add_argument('--maxlist', type=float, default=3e7)
     ap.add_argument('--maxend', type=float, default=2e6); ap.add_argument('--pairs', action='store_true')
+    ap.add_argument('--unbordered', action='store_true', help='plain propus on G (order 4|G|, |G| odd)')
     a = ap.parse_args()
+    BG.UNBORDERED = a.unbordered
     log = lambda s: print(s, flush=True)
     G = L.AbGroup([int(x) for x in a.mods.split(',')])
     auts = BG.automorphisms(G, a.maxend)
