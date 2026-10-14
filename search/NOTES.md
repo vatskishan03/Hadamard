@@ -2482,3 +2482,12 @@ The same question for the other Theorem 7 designs of the repository, whose order
 
 So symmetric matrices of orders 7956 and 1900 along these lines need a P₁ that mixes blocks within a row of blocks,
 a design outside Goethals–Seidel form, or a symmetric OD built some other way.
+
+**The skew matrices themselves.** A skew-Hadamard matrix S of order 4v with an involutive signed anti-automorphism P
+gives the symmetric Hadamard matrix SP of the same order ((SP)ᵀ = PSᵀ = SP), and 24 of the skew orders of this
+repository have v in the symmetric census. For the 29 cyclic Goethals–Seidel certificates, `od_anti.py gs` tests
+every block-monomial P with affine maps r ↦ d_i + kr (k² = 1, every d_i; each block of S is circulant or
+back-circulant, so each pair condition depends only on d_j − d_i or d_i + d_j). None has one. (The test finds the
+anti-automorphisms of the n = 5 and n = 7 solutions of `gs_anti.py`.) This is what §31 predicts: such a P either
+leaves (n + 3)/2 free classes or forces the skew-propus layout, a special propus quadruple, which the symmetric
+sweeps search directly.
