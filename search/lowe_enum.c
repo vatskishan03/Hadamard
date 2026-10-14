@@ -12,6 +12,10 @@
  * optionally int32 nf and, for each of the nf fibre filters, uint64 K[O], int64 nk, uint64 keys[nk] (ascending).
  * A filter is a linear key of the member's compression to some Z_d, key(y) = sum_o y_o K[o] (mod 2^64); members whose
  * key is not among the allowed keys (compressions that occur in a level-1 solution) are dropped before the energy.
+ * Optionally (int32 1 after the filters) each filter has prefix checks: int32 nb, then nb times int32 depth, uint64
+ * T, uint64 KJ[O], int64 nk, uint64 keys[nk] (ascending). KJ[o] is orbit o's key restricted to the coordinates that are
+ * final at that depth (all orbits that fill them are assigned) and T = sum_o KJ[o]. A subtree whose partial key
+ * sum_o y_o KJ[o] is not among the keys holds no allowed member and is skipped.
  * OUTPUT: int64 n; uint64 masks[n]; int16 values[n][C]; float energy[n]. If more than maxkeep members pass, the
  * maxkeep of lowest energy are written. Prints "STATS leaves L fibre F passed P kept K tau T seconds S".
  */
@@ -28,6 +32,9 @@ static unsigned char *REACH; static int64_t RW;
 static float *MC, *WM, TAU;
 #define MAXF 8
 static int NF = 0; static uint64_t *FK[MAXF], *FKEYS[MAXF]; static int64_t FN[MAXF];
+static int *BIDX[MAXF]; static uint64_t *BMASK[MAXF], *BTOT[MAXF]; static uint64_t **BKEYS[MAXF], **BKJ[MAXF];
+static int64_t *BN[MAXF];
+static int HASPFX = 0;
 
 #define SI(c, i, j) S[((int64_t)(c) * O + (i)) * O + (j)]
 
@@ -66,10 +73,21 @@ static inline void flip(state *s, int o) {
 
 typedef struct { uint64_t *mask; int16_t *val; float *en; int64_t n, cap; int64_t leaves, fibre; } buf_t;
 
-static inline int allowed(uint64_t key, int f) {
-    int64_t lo = 0, hi = FN[f];
-    while (lo < hi) { int64_t mid = (lo + hi) >> 1; if (FKEYS[f][mid] < key) lo = mid + 1; else hi = mid; }
-    return lo < FN[f] && FKEYS[f][lo] == key;
+static inline int inkeys(const uint64_t *K, int64_t n, uint64_t key) {
+    int64_t lo = 0, hi = n;
+    while (lo < hi) { int64_t mid = (lo + hi) >> 1; if (K[mid] < key) lo = mid + 1; else hi = mid; }
+    return lo < n && K[lo] == key;
+}
+static inline int allowed(uint64_t key, int f) { return inkeys(FKEYS[f], FN[f], key); }
+static inline int prefix_ok(const state *s, int pos) {
+    for (int f = 0; f < NF; f++) {
+        int bi = BIDX[f][pos];
+        if (bi < 0) continue;
+        uint64_t on = BMASK[f][bi] & s->code, acc = 0;
+        while (on) { int o = __builtin_ctzll(on); acc += BKJ[f][bi][o]; on &= on - 1; }
+        if (!inkeys(BKEYS[f][bi], BN[f][bi], 2 * acc - BTOT[f][bi])) return 0;
+    }
+    return 1;
 }
 
 static inline float energy(const int32_t *v) {
@@ -103,6 +121,7 @@ static void leaf(state *s, buf_t *b) {
 }
 
 static void dfs(state *s, int pos, int64_t target, buf_t *b) {
+    if (HASPFX && !prefix_ok(s, pos)) return;
     int64_t need = target - s->sum;
     if (need == 0) { leaf(s, b); return; }
     if (pos >= O || need < 0 || need >= RW || !REACH[(int64_t)pos * RW + need]) return;
@@ -147,6 +166,29 @@ int main(int argc, char **argv) {
             fprintf(stderr, "short filter\n"); return 2; }
         FKEYS[k] = malloc(sizeof(uint64_t) * (FN[k] + 1));
         if (fread(FKEYS[k], sizeof(uint64_t), FN[k], f) != (size_t)FN[k]) { fprintf(stderr, "short keys\n"); return 2; }
+    }
+    if (NF > 0 && fread(&HASPFX, sizeof(int), 1, f) != 1) HASPFX = 0;
+    for (int k = 0; k < NF; k++) {
+        BIDX[k] = malloc(sizeof(int) * (O + 1));
+        for (int d = 0; d <= O; d++) BIDX[k][d] = -1;
+        if (!HASPFX) continue;
+        int nb;
+        if (fread(&nb, sizeof(int), 1, f) != 1) { fprintf(stderr, "short prefix\n"); return 2; }
+        BMASK[k] = malloc(sizeof(uint64_t) * (nb + 1)); BTOT[k] = malloc(sizeof(uint64_t) * (nb + 1));
+        BN[k] = malloc(sizeof(int64_t) * (nb + 1)); BKEYS[k] = malloc(sizeof(uint64_t *) * (nb + 1));
+        BKJ[k] = malloc(sizeof(uint64_t *) * (nb + 1));
+        for (int i = 0; i < nb; i++) {
+            int dep;
+            BKJ[k][i] = malloc(sizeof(uint64_t) * O);
+            if (fread(&dep, sizeof(int), 1, f) != 1 || fread(&BTOT[k][i], 8, 1, f) != 1 ||
+                fread(BKJ[k][i], 8, O, f) != (size_t)O || fread(&BN[k][i], 8, 1, f) != 1) {
+                fprintf(stderr, "short prefix\n"); return 2; }
+            BMASK[k][i] = 0;
+            for (int o = 0; o < O; o++) if (BKJ[k][i][o]) BMASK[k][i] |= 1ULL << o;
+            BKEYS[k][i] = malloc(sizeof(uint64_t) * (BN[k][i] + 1));
+            if (fread(BKEYS[k][i], 8, BN[k][i], f) != (size_t)BN[k][i]) { fprintf(stderr, "short prefix keys\n"); return 2; }
+            if (dep >= 0 && dep <= O) BIDX[k][dep] = i;
+        }
     }
     fclose(f);
     int threads = argc > 3 ? atoi(argv[3]) : omp_get_max_threads();

@@ -91,14 +91,14 @@ def fibre_filters(st, rows, bordered, dmax=32, maxstates=2_000_000, seed=5):
                 P[:, j] = np.bincount(orb[(t % d) == rr], minlength=O)
             Ko = (P.astype(np.uint64) * R[None, :]).sum(1, dtype=np.uint64)
             keys = np.unique((U[k][al].astype(np.uint64) * R[None, :]).sum(1, dtype=np.uint64))
-            out[k].append((d, Ko, keys, mass, P, R))
+            out[k].append((d, Ko, keys, mass, P, R, U[k][al]))
     return out
 
 
 def fibre_ok(filt, Y):
     """members (rows of Y, signs on the orbits) whose compressions pass every filter of the block"""
     ok = np.ones(len(Y), bool)
-    for d, Ko, keys, mass, P, R in filt:
+    for d, Ko, keys, mass, P, R, *_ in filt:
         comp = np.rint(Y).astype(np.int64) @ P
         key = (comp.astype(np.uint64) * R[None, :]).sum(1, dtype=np.uint64)
         ok &= np.isin(key, keys)
@@ -121,20 +121,65 @@ def fibre_sample(st, kind, r, K, rng, filt, maxdraw=40):
     return Y, acc
 
 
+def prefix_plan(filt, O):
+    """orbit order for lowe_enum's prefix checks: orbits grouped by the compression coordinates they fill, the most
+    restrictive level first; then, per level, each depth at which coordinates become final (every orbit that fills
+    them is assigned), with each orbit's key restricted to those coordinates and the keys of the allowed partial
+    compressions"""
+    if not filt:
+        return list(range(O)), []
+    touch = [[tuple(np.flatnonzero(f[4][o])) for o in range(O)] for f in filt]
+    lev = sorted(range(len(filt)), key=lambda i: filt[i][3])
+    perm = sorted(range(O), key=lambda o: tuple(touch[i][o] for i in lev))
+    pos = np.empty(O, np.int64); pos[perm] = np.arange(O)
+    plans = []
+    for f, tc in zip(filt, touch):
+        d, Ko, keys, mass, P, R = f[:6]
+        allowed_u = f[6]
+        nd = P.shape[1]
+        last = np.full(nd, -1)
+        for o in range(O):
+            for j in tc[o]:
+                last[j] = max(last[j], pos[o])
+        bounds = []
+        for depth in sorted({int(x) + 1 for x in last if x >= 0}):
+            done = [j for j in range(nd) if 0 <= last[j] < depth]
+            if len(done) == nd:                       # the full key is checked at the leaves anyway
+                continue
+            Pp = P[perm][:, done].astype(np.uint64)
+            KJ = (Pp * R[done][None, :]).sum(1, dtype=np.uint64)  # in the permuted orbit order
+            tot = int(KJ.sum(dtype=np.uint64))
+            pk = np.unique((allowed_u[:, done].astype(np.uint64) * R[done][None, :]).sum(1, dtype=np.uint64))
+            bounds.append((depth, tot, KJ, pk))
+        plans.append(bounds)
+    return perm, plans
+
+
 def enum_block(st, kind, r, center, Wm, tau, maxkeep, tag, threads, filt=()):
-    """run lowe_enum; returns (masks, values int16 [n, C], energies)"""
+    """run lowe_enum; returns (masks, values int16 [n, C], energies). With fibre filters the orbits are reordered so
+    that whole compression coordinates are assigned early and lowe_enum can skip subtrees (prefix checks); the masks
+    are returned in the original orbit order."""
     d = W.WORK / "tmp"; d.mkdir(exist_ok=True)
     inp = d / f"lowe_{st.N}_{tag}_{os.getpid()}.in"; out = d / f"lowe_{st.N}_{tag}_{os.getpid()}.out"
-    sz = st.sizes(kind); S = st.S[kind]
+    sz = np.asarray(st.sizes(kind)); S = np.asarray(st.S[kind]); O = len(sz)
+    perm, plans = prefix_plan(list(filt), O)
+    sz_p = sz[perm]; S_p = S[:, perm][:, :, perm]
     with open(inp, "wb") as f:
         f.write(struct.pack("4i", len(sz), st.C, int(r), int(min(maxkeep, 2 ** 31 - 1))))
-        f.write(np.asarray(sz, np.int32).tobytes()); f.write(np.asarray(S, np.int32).tobytes())
+        f.write(np.asarray(sz_p, np.int32).tobytes()); f.write(np.asarray(S_p, np.int32).tobytes())
         f.write(np.asarray(center, np.float32).tobytes()); f.write(np.asarray(Wm, np.float32).tobytes())
         f.write(struct.pack("f", float(tau)))
         f.write(struct.pack("i", len(filt)))
         for d_, Ko, keys, *_ in filt:
-            f.write(np.asarray(Ko, np.uint64).tobytes()); f.write(struct.pack("q", len(keys)))
+            f.write(np.asarray(Ko, np.uint64)[perm].tobytes()); f.write(struct.pack("q", len(keys)))
             f.write(np.asarray(keys, np.uint64).tobytes())
+        if filt:
+            f.write(struct.pack("i", 1))
+            for bounds in plans:
+                f.write(struct.pack("i", len(bounds)))
+                for depth, tot, KJ, pk in bounds:
+                    f.write(struct.pack("=iQ", depth, tot)); f.write(np.asarray(KJ, np.uint64).tobytes())
+                    f.write(struct.pack("=q", len(pk))); f.write(np.asarray(pk, np.uint64).tobytes())
     p = subprocess.run([W.bin("lowe_enum"), str(inp), str(out), str(threads)], capture_output=True, text=True, check=True)
     inp.unlink()
     with open(out, "rb") as f:
@@ -143,6 +188,11 @@ def enum_block(st, kind, r, center, Wm, tau, maxkeep, tag, threads, filt=()):
         vals = np.frombuffer(f.read(2 * n * st.C), np.int16).reshape(n, st.C)
         en = np.frombuffer(f.read(4 * n), np.float32)
     out.unlink()
+    if perm != list(range(O)):                                   # bit i of a mask is orbit perm[i]
+        orig = np.zeros(len(masks), np.uint64)
+        for i, o in enumerate(perm):
+            orig |= ((masks >> np.uint64(i)) & np.uint64(1)) << np.uint64(o)
+        masks = orig
     return masks, vals, en, p.stdout.strip()
 
 
