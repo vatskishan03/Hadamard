@@ -92,7 +92,8 @@ def qborder_solve(Mc, q):
     import itertools
     key = (q, Mc.tobytes())
     if key in _QB: return _QB[key]
-    if q > 3: raise ValueError(f'the clique border solver handles q <= 3 (2^{4 * q - 1} candidate rows for q = {q})')
+    if q > 5: raise ValueError(f'no border solver for q = {q} (the clique search enumerates 2^{4 * q - 1} rows)')
+    if q > 3: return qborder_solve_c(Mc, q)
     N = 4 * q
     vecs = np.array([(1,) + t for t in itertools.product((1, -1), repeat=N - 1)], np.int64)
     V = vecs[np.abs(np.einsum('ij,jk,ik->i', vecs, Mc, vecs)) == N]
@@ -112,6 +113,30 @@ def qborder_solve(Mc, q):
     return R
 
 
+def qborder_solve_c(Mc, q, tlimit=3600, seed=1):
+    """The border problem for q >= 5 with the C clique search (qborder_clique.c); solved borders are cached in
+    $HADAMARD_WORK/qborder_cache.jsonl. Returns R (4q x 4q) or None (no border found within the time limit)."""
+    import hashlib
+    N = 4 * q
+    key = hashlib.sha256(np.ascontiguousarray(Mc, dtype=np.int64).tobytes()).hexdigest()
+    cache = W.WORK / 'qborder_cache.jsonl'
+    if cache.exists():
+        for line in open(cache):
+            r = json.loads(line)
+            if r['key'] == key: return None if r['R'] is None else np.array(r['R'], np.int64)
+    inp = f"{N}\n" + "\n".join(" ".join(str(int(x)) for x in row) for row in Mc) + "\n"
+    out = subprocess.run([W.bin('qborder_clique'), str(tlimit), str(seed)], input=inp, capture_output=True, text=True).stdout
+    lines = out.strip().splitlines()
+    R = None
+    if lines and lines[0].startswith('SOLVED'):
+        R = np.array([[int(x) for x in l.split()] for l in lines[1:N + 1]], np.int64)
+        if not (R.shape == (N, N) and np.array_equal(R @ R.T, N * np.eye(N, dtype=np.int64)) and np.all(np.abs(R @ Mc @ R.T) == N)):
+            R = None
+    if R is not None or (lines and lines[0].startswith('NONE')):     # timeouts are not cached
+        with open(cache, 'a') as f: f.write(json.dumps(dict(key=key, q=q, R=None if R is None else R.tolist())) + '\n')
+    return R
+
+
 def qbordered_matrix(A, B, D, q):
     """Z_q-bordered propus array: symmetric Hadamard matrix of order 4(m + q) from A (symmetric), B, D on Z_m,
     q | m, with PAF_A + 2 PAF_B + PAF_D = -4q on the subgroup qZ_m (off 0) and 0 off it:
@@ -121,7 +146,14 @@ def qbordered_matrix(A, B, D, q):
     m = len(A)
     ys = [np.array([int(np.asarray(x)[c::q].sum()) for c in range(q)], np.int64) for x in (A, B, D)]
     Mc = symmetric_matrix_v3(*ys)
-    Rh = qborder_solve(Mc, q)
+    try:
+        Rh = qborder_solve(Mc, q)
+    except ValueError:                               # no border solver for this q yet: keep the sequences
+        rec = dict(n=m, q=q, order=4 * (m + q), rows=[int(np.sum(x)) for x in (A, B, D)], compressions=[y.tolist() for y in ys],
+                   seqs=[''.join('+' if x > 0 else '-' for x in s) for s in (A, B, D)])
+        with open(W.hits('qborder_pending.jsonl'), 'a') as fh: fh.write(json.dumps(rec) + '\n')
+        print(f"  SEQ-HIT: Z_{q}-bordered sequences for order {4 * (m + q)} (border pending), compressions {rec['compressions']}", flush=True)
+        return None, None
     if Rh is None: return None, None
     X = -(Rh @ Mc @ Rh.T)
     if not np.all(np.abs(X) == 4 * q): return None, None

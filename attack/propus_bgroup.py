@@ -55,15 +55,16 @@ def subgroup_perms(p, v):
 
 
 def invariant(G, perms):
-    """Isomorphism-type invariant of the action of a cyclic group of automorphisms (orbit sizes on G with element
-    orders, for the group and for <group, -1>)."""
+    """Isomorphism-type invariant of the action of a group of automorphisms (orbit sizes on G with element orders, for
+    the group and for <group, -1>; with a Z_q border also whether each orbit lies in the kernel of phi)."""
     v = G.v
     order = np.array([math.lcm(*[int(m // math.gcd(int(c), int(m))) for c, m in zip(G.coords[g], G.mods)]) if g else 1
                       for g in range(v)])
+    ink = (G.coords @ PHI) % QB == 0 if QB > 1 else np.ones(v, bool)
     lab, k = L.closure_partition(v, perms)
-    sig = sorted((int(np.sum(lab == o)), int(order[np.argmax(lab == o)])) for o in range(k))
+    sig = sorted((int(np.sum(lab == o)), int(order[np.argmax(lab == o)]), bool(ink[np.argmax(lab == o)])) for o in range(k))
     lab2, k2 = L.closure_partition(v, list(perms) + [G.neg()])
-    sig2 = sorted((int(np.sum(lab2 == o)), int(order[np.argmax(lab2 == o)])) for o in range(k2))
+    sig2 = sorted((int(np.sum(lab2 == o)), int(order[np.argmax(lab2 == o)]), bool(ink[np.argmax(lab2 == o)])) for o in range(k2))
     return (len(perms), tuple(sig), tuple(sig2))
 
 
@@ -80,19 +81,40 @@ def bordered_group_matrix(G, A, B, D):
 
 
 UNBORDERED = False       # --unbordered: plain propus on G itself (PAF sum 0, order 4|G|, any row-sum pattern)
+QB, PHI = 1, None        # --qborder q: Z_q-bordered propus, phi(g) = PHI . g (mod q), target -4q on ker phi \ 0, 0 off it
+
+
+def qb_group_matrix(G, A, B, D):
+    """Z_q-bordered propus matrix over G, built by verify.build_propus_qbordered (border solved in its convention)."""
+    import border_certify as BC
+    import verify
+    seqs = [''.join('+' if x > 0 else '-' for x in s) for s in (A, B, D)]
+    group = [int(x) for x in G.mods]; cs = [int(c) for c in PHI]
+    h = dict(seqs=seqs)
+    try:
+        R = BC.qborder_R(h, group, cs, QB)
+    except (SystemExit, ValueError):
+        return None, None
+    cert = {"order": 4 * (G.v + QB), "group": group, "q": QB, "quotient": cs, "rowsums": [int(A.sum()), int(B.sum()), int(D.sum())],
+            "R": R, "sequences": seqs}
+    H, _ = verify.build_propus_qbordered(cert)
+    return H, np.array(R)
 
 
 def mode(G):
     """(T, row patterns, matrix builder returning (H, K), order) for the bordered or the plain propus problem on G."""
     m = G.v
     if UNBORDERED:
-        return 0, [p for p in PR.patterns(m)], (lambda A, B, D: (PG.propus_matrix(G, A, B, D), None)), 4 * m
-    return -4, [(2, 0, 0), (0, 0, 2)], (lambda A, B, D: bordered_group_matrix(G, A, B, D)), 4 * (m + 1)
+        return np.zeros(m, np.int64), [p for p in PR.patterns(m)], (lambda A, B, D: (PG.propus_matrix(G, A, B, D), None)), 4 * m
+    if QB > 1:
+        tgt = np.where((G.coords @ PHI) % QB == 0, -4 * QB, 0).astype(np.int64)
+        return tgt, PR.qborder_patterns(QB), (lambda A, B, D: qb_group_matrix(G, A, B, D)), 4 * (m + QB)
+    return np.full(m, -4, np.int64), [(2, 0, 0), (0, 0, 2)], (lambda A, B, D: bordered_group_matrix(G, A, B, D)), 4 * (m + 1)
 
 
 def search(G, name, mat, st_ad, st_b, maxpool, maxwork, log):
     m = G.v; pm = m % 4
-    T, pats, build, n4 = mode(G)
+    tgt, pats, build, n4 = mode(G)
     found = []
     log(f"m={m} G={list(map(int, G.mods))} {name}: orbits A {st_ad.O}, B/D {st_b.O}, classes {st_ad.C}")
     for ra, rb, rd in pats:
@@ -119,7 +141,7 @@ def search(G, name, mat, st_ad, st_b, maxpool, maxwork, log):
         try:
             with open(path, 'wb') as f:
                 f.write(struct.pack('iiiii', *[len(x) for x in lists], st_ad.C))
-                f.write(np.full(st_ad.C, (T - 4 * pm) // 4, dtype=np.int16).tobytes())
+                f.write(np.array([(tgt[g] - 4 * pm) // 4 for g in st_ad.reps], dtype=np.int16).tobytes())
                 for x in lists: f.write(np.ascontiguousarray(x).tobytes())
             out = subprocess.run([W.bin('join4x'), path, '1'], capture_output=True, text=True, check=True).stdout
         finally:
@@ -132,16 +154,17 @@ def search(G, name, mat, st_ad, st_b, maxpool, maxwork, log):
             A = Ya[ids[slot[0]]].astype(np.int64)[st_ad.orb]; D = Yd[ids[slot[1]]].astype(np.int64)[st_b.orb]
             B = Yb[ids[slot[2]]].astype(np.int64)[st_b.orb]
             tot = PG.group_paf(G, A) + 2 * PG.group_paf(G, B) + PG.group_paf(G, D)
-            if not (tot[0] == 4 * m and np.all(tot[1:] == T)): log('  WRONG autocorrelations'); continue
+            if not (tot[0] == 4 * m and np.array_equal(tot[1:], tgt[1:])): log('  WRONG autocorrelations'); continue
             if not np.array_equal(A, A[G.neg()]): log('  A not symmetric'); continue
             Hm, Kb = build(A, B, D)
             ok = Hm is not None and np.array_equal(Hm, Hm.T) and np.array_equal(Hm @ Hm.T, n4 * np.eye(n4, dtype=Hm.dtype))
-            log(f"  hit: {'' if UNBORDERED else 'bordered '}symmetric Hadamard of order {n4} {ok}")
+            log(f"  hit: {'' if UNBORDERED else f'Z_{QB}-bordered '}symmetric Hadamard of order {n4} {ok}")
             if ok:
                 mats = [mat] if mat.ndim == 2 else list(mat)
                 rec = dict(n=m, order=n4, border=not UNBORDERED, group=[int(x) for x in G.mods], structure=name,
                            automorphisms=[x.tolist() for x in mats], freeD=True, rows=[int(A.sum()), int(B.sum()), int(D.sum())],
-                           K=None if Kb is None else Kb.tolist(), seqs=[''.join('+' if x > 0 else '-' for x in s) for s in (A, B, D)])
+                           K=None if Kb is None or QB > 1 else Kb.tolist(), seqs=[''.join('+' if x > 0 else '-' for x in s) for s in (A, B, D)])
+                if QB > 1 and not UNBORDERED: rec.update(q=QB, quotient=[int(c) for c in PHI], R=Kb.tolist())
                 with open(W.hits('sym_hits.jsonl'), 'a') as fh: fh.write(json.dumps(rec) + '\n')
                 found.append(rec)
         if found: break
@@ -156,14 +179,29 @@ def main():
     ap.add_argument('--pairs', action='store_true', help='also subgroups generated by two automorphisms (one per invariant '
                     'class of the first, any second); only the structures not already seen are searched')
     ap.add_argument('--unbordered', action='store_true', help='plain propus on G (order 4|G|, |G| odd)')
+    ap.add_argument('--qborder', type=int, default=1, help='Z_q-bordered propus (q prime dividing |G|): order 4(|G| + q)')
+    ap.add_argument('--phi', default='', help='coefficients of phi: G -> Z_q (default: 1 on the first coordinate q divides)')
     a = ap.parse_args()
-    global UNBORDERED
+    global UNBORDERED, QB, PHI
     UNBORDERED = a.unbordered
     log = lambda s: print(s, flush=True)
     G = L.AbGroup([int(x) for x in a.mods.split(',')])
+    QB = a.qborder
+    if QB > 1:
+        mods = [int(x) for x in G.mods]
+        PHI = np.array([int(x) for x in a.phi.split(',')] if a.phi else
+                       [1 if i == next(j for j, n in enumerate(mods) if n % QB == 0) else 0 for i in range(len(mods))], np.int64)
+        if any((int(c) * n) % QB for c, n in zip(PHI, mods)) or math.gcd(QB, *[int(c) for c in PHI]) != 1:
+            log(f"phi {PHI.tolist()} is not a surjection G -> Z_{QB}"); return
     t0 = time.time()
     auts = automorphisms(G, a.maxend)
     if auts is None: log(f"G={a.mods}: too many endomorphisms"); return
+    if QB > 1:                                   # keep the automorphisms that preserve ker phi (phi o M = c phi)
+        def keeps(M):
+            img = (PHI @ M) % QB                 # phi(M e_j) for each generator e_j
+            return any(np.array_equal(img, (c * PHI) % QB) for c in range(1, QB) if math.gcd(c, QB) == 1)
+        auts = [(M, p) for M, p in auts if keeps(M)]
+        log(f"phi = {PHI.tolist()} (mod {QB}): {len(auts)} automorphisms preserve its kernel")
     log(f"G={a.mods} (order {G.v}): {len(auts)} automorphisms [{time.time() - t0:.1f}s]")
     seen = {}; jobs = []
     for M, p in auts:
