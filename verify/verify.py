@@ -783,13 +783,80 @@ def _yamada_matrix(cert, q, alpha, beta):
     return H, None
 
 
+def build_skew_propus_plug(cert):
+    """Symmetric Hadamard matrix of order m(m - 1), m = 4n, from a skew-propus quadruple of odd length n.
+
+    A3 (symmetric), A1 and A0 (of skew type: a0[0] = 1, a0[-g] = -a0[g]) are +-1 sequences on Z_n with
+    PAF_A3 + 2 PAF_A1 + PAF_A0 = 4n delta. With A = A3, B = A1, D0 = A0 - I (circulants) and R the back identity,
+
+        N = [ -A     BR     BR     D0 R ]        P = [ 0  0   0  R ]
+            [ BR     R D0   A     -RB   ]            [ 0  R   0  0 ]
+            [ BR     A     -R D0   RB   ]            [ 0  0  -R  0 ]
+            [ D0 R  -RB     RB     A    ]            [ R  0   0  0 ]
+
+    gives the symmetric orthogonal design x P + y N of type (1, m - 1) (Dokovic, arXiv:2508.17141, Theorem 1,
+    Balonin array): P and N are symmetric with complementary supports, P^2 = I, N^2 = (m - 1) I, PN + NP = 0;
+    all of this is checked. M = P + N is a symmetric Hadamard matrix of order m. Moving its first diagonal entry
+    -1 to position 0 and normalising row and column 0 to (-1, 1, ..., 1) by a diagonal +-1 similarity leaves a
+    symmetric D of order m - 1 with D J = J and D^2 = m I - J (checked), and
+
+        H = P (x) J_{m-1} + N (x) D
+
+    is symmetric with H H^T = I (x) ((m - 1) J) + (PN + NP) (x) J + N^2 (x) D^2 = m (m - 1) I."""
+    n = cert["n"]
+    m = 4 * n
+    seqs = []
+    for reps in cert["blocks"]:
+        x = np.ones(n, dtype=np.int64)
+        x[reps] = -1
+        seqs.append(x)
+    A3, A1, A0 = seqs
+    if [int(x.sum()) for x in seqs] != cert["rowsums"]:
+        raise ValueError("row sums differ from the certificate")
+    idx = (-np.arange(n)) % n
+    if not np.array_equal(A3, A3[idx]):
+        raise ValueError("A3 is not symmetric")
+    if A0[0] != 1 or not np.array_equal(A0[1:], -A0[idx][1:]):
+        raise ValueError("A0 is not of skew type")
+    paf = paf_sum([A3, A1, A1, A0])
+    if paf[0] != m or np.any(paf[1:] != 0):
+        raise ValueError("PAF_A3 + 2 PAF_A1 + PAF_A0 is not 4n at 0 and 0 elsewhere")
+    R = back_identity(n)
+    A, B = circulant(A3), circulant(A1)
+    D0 = circulant(A0) - np.eye(n, dtype=np.int64)
+    Z = np.zeros((n, n), dtype=np.int64)
+    BR, RB = B @ R, R @ B
+    N = np.block([[-A, BR, BR, D0 @ R], [BR, R @ D0, A, -RB], [BR, A, -R @ D0, RB], [D0 @ R, -RB, RB, A]])
+    P = np.block([[Z, Z, Z, R], [Z, R, Z, Z], [Z, Z, -R, Z], [R, Z, Z, Z]])
+    I = np.eye(m, dtype=np.int64)
+    if not (np.array_equal(P, P.T) and np.array_equal(N, N.T)):
+        raise ValueError("P or N is not symmetric")
+    if not np.array_equal(np.abs(P) + np.abs(N), np.ones((m, m), dtype=np.int64)):
+        raise ValueError("P and N do not have complementary supports")
+    if not (np.array_equal(P @ P, I) and np.array_equal(N @ N, (m - 1) * I) and not (P @ N + N @ P).any()):
+        raise ValueError("x P + y N is not an orthogonal design of type (1, m - 1)")
+    M = P + N
+    r = int(np.flatnonzero(np.diag(M) == -1)[0])
+    order = [r] + [i for i in range(m) if i != r]
+    M = M[np.ix_(order, order)]
+    e = M[0].copy()
+    e[0] = 1
+    M = M * e[:, None] * e[None, :]
+    D = M[1:, 1:]
+    J = np.ones((m - 1, m - 1), dtype=np.int64)
+    if not (np.array_equal(D, D.T) and np.array_equal(D @ J, J) and np.array_equal(D @ D, m * np.eye(m - 1, dtype=np.int64) - J)):
+        raise ValueError("the core D of P + N is not symmetric with D J = J and D^2 = m I - J")
+    H = np.kron(P.astype(np.int8), J.astype(np.int8)) + np.kron(N.astype(np.int8), D.astype(np.int8))
+    return H, seqs
+
+
 BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": build_goethals_seidel_group,
             "cooper-wallis": build_cooper_wallis,
             "cooper-wallis-near-williamson": build_cooper_wallis_near_williamson,
             "spence": build_spence, "miyamoto": build_miyamoto,
             "bordered-goethals-seidel": build_bordered_gs, "skew-doubling": build_skew_doubling,
             "yamada": build_yamada, "propus": build_propus, "propus-bordered": build_propus_bordered,
-            "propus-qbordered": build_propus_qbordered}
+            "propus-qbordered": build_propus_qbordered, "skew-propus-plug": build_skew_propus_plug}
 
 
 def csv_chunks(H, rows=512):

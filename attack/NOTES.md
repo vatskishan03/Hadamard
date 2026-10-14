@@ -1774,3 +1774,77 @@ against r_X² + 9 r_Y² = 130. So this route to 260 is closed as well.
 
 **Unsearched small structures.** 247/⟨35⟩, ⟨9⟩, ⟨49⟩, ⟨30⟩, ⟨68, 87⟩, ⟨107⟩, ⟨126⟩ and 259/⟨44⟩, ⟨9⟩ (0.02–0.04 expected
 orbits each) never appeared in any sweep log; they are being run with the current chain (no solution so far).
+
+## 31. Symmetric Hadamard matrices of order m(m − 1), and orders 5700 and 732 (October 14)
+
+**The construction.** A symmetric orthogonal design OD(m; 1, m − 1) is Y = xP + yN with P a symmetric signed
+permutation matrix (P² = I), N symmetric with zeros exactly where P is non-zero, N² = (m − 1)I and PN + NP = 0.
+Equivalently (C = NP): S = I + C is a skew-Hadamard matrix and P an involutive signed permutation with PCP = −C, an
+anti-automorphism of S of order 2 (then Y = (xI + yC)P is symmetric). Taking x = y = 1, M = P + N is a symmetric
+Hadamard matrix of order m (trace 0, since P and N have trace 0 — in each 2-dimensional invariant subspace of the pair
+they act as two reflections). Normalising M symmetrically so that row and column 0 are (−1, 1, …, 1) leaves a
+symmetric D of order m − 1 with DJ = J and D² = mI − J, and
+
+    H = P ⊗ J_{m−1} + N ⊗ D,   H Hᵀ = I ⊗ (m − 1)J + (PN + NP) ⊗ J + N² ⊗ D² = m(m − 1) I,
+
+is a symmetric Hadamard matrix of order m(m − 1) (`attack/sym_mm1.py`, verify.py construction `skew-propus-plug`).
+This is Đoković's proof of arXiv:2508.17141, Theorem 2, with two changes: D may come from any symmetric Hadamard
+matrix of order m (there it is (I + Q)R with Q the Paley core), and the design need not come from the
+Xia–Xia–Seberry–Wu families, so m − 1 need not be a prime power. The plug-in only needs J and D symmetric and
+commuting with J² = (m − 1)J, D² = mI − J; for a symmetric OD(kh; k, k(h − 1)) the same argument with J_{h−1} and the
+core of a symmetric Hadamard matrix of order h gives order kh(h − 1) (unused: see below).
+
+**Sources of the design.**
+- *Paley*: q ≡ 3 (mod 4) a prime, S Paley's skew matrix of order q + 1, P = (−1) ⊕ (x ↦ −x) (the sign on ∞ is
+  needed). Checked for q = 3, 7, 11, 19, 23 (orders 12, 56, 132, 380, 552). For q ≡ 7 (mod 8) the order q(q + 1) is
+  8 · odd, nothing new for the census.
+- *Skew-propus quadruples* (Đoković's Theorem 1): A3 symmetric, A1 used twice, A0 of skew type on ℤ_n (n odd),
+  PAF_A3 + 2 PAF_A1 + PAF_A0 = 4nδ, in the Balonin array with D = xI + y(A0 − I). The row sum of A0 is 1, so
+  a3² + 2a1² = 4n − 1 is necessary. `sym_mm1.py propus n` searches exhaustively (A1 hashed on its autocorrelations,
+  up to shifts; (A3, A0) pairs probed); solutions exist for n = 3, 5, 7, 11, 13, 15 (all verified up to order 3540),
+  none for n = 9 (35 is not a² + 2b²).
+- *Szekeres-type pairs*: a Legendre pair (M, N) of odd length v' with M of skew type and N symmetric gives the
+  bordered two-block skew-Hadamard matrix [[1, 1, e, −e], [−1, 1, −e, −e], [−e, e, A, B], [e, e, −B, Aᵀ]] of
+  order 2v' + 2 (orthogonality forces the border signs up to the choices a, α, β with γ = aβ, δ = −aα), and
+  P = (border swap) ⊕ diag(R, −R) is an involutive anti-automorphism. `attack/szek_pair.c` (cyclic) and
+  `attack/szek_group.c` (any abelian group) search exhaustively: pairs exist for v' = 5, 9, 13, 21, 29, 33, 41 and
+  not for 17, 25 (ℤ₂₅ and ℤ₅²), 37, 45 (ℤ₄₅ and ℤ₃ × ℤ₁₅). For q ≡ 5 (mod 8) prime, M = C₀ ∪ C₁ (quartic classes) and
+  N = C₀ ∪ C₂ work for q = 5, 13, 29 (q = s² + 4) but not for 37, so the classical Szekeres difference sets do not
+  have a symmetric N in general.
+
+**The census.** v = n(4n − 1) with n odd: 189, 473 and 1139 are in the 2025 census and were settled by
+arXiv:2508.17141 (q = 27, 43, 67); 315, 663, 885, 1743, 2475 are not in the census. **1425 = 19 · 75**: the exhaustive
+search of length 19 finds two skew-propus quadruples up to equivalence (row sums 5, 5, 1; 7 s), so a symmetric
+OD(76; 1, 75) and a symmetric Hadamard matrix of order 5700 = 4 · 1425 ([symmetric/5700](../symmetric/5700)).
+**2093 = 23 · 91** stays open: 91 = 7 · 13 is not a² + 2b², so there is no skew-propus quadruple of length 23. More
+generally, for a Goethals–Seidel skew matrix over ℤ₂₃ whose automorphism group has a normal Sylow 23-subgroup, an
+involutive anti-automorphism normalises the ℤ₂₃ action (it normalises the automorphism group, and the Sylow
+subgroup is characteristic): it permutes the four blocks with a constant sign on each and acts on each by
+g ↦ ug + t with the same u = ±1 on all blocks; the diagonal blocks force u = −1 (a reflection transposes a circulant,
+so A − I goes to −(A − I)), and the block equations then force two of B, C, D to have equal autocorrelations (one
+is a shift of the other or of its transpose: the transpositions (12), (13), (14), (23), (24), (34)) or are
+contradictory (the double transpositions give ε₁ε₃ = 1 and ε₁ε₄ = −1 with ε₃ = ε₄). With b² + c² + d² = 91 only {1, 3, 9} is possible, so this fails. The Szekeres-type structures over
+the two groups of order 45 need a symmetric partner (an involutive multiplier u other than −1 would need u ± 1
+invertible, which no involution of ℤ₄₅ or ℤ₃ × ℤ₁₅ satisfies), and there is none. Order 92 needs another source.
+
+**Beyond the census.** `attack/spropus.c` (the same search on the orbits of a multiplier group H of odd order,
+−1 ∉ H, hashed on the orbit-level autocorrelations) over every odd n ≤ 267 with 4n − 1 not a prime power and
+a3² + 2a1² = 4n − 1 solvable, every H with at most 29 orbits: the only solution is n = 31, H = ⟨5⟩ (order 3, 11
+orbits), with row sums 5, 7, 1 (q = 123 = 3 · 41 = 5² + 2 · 7²), e.g. A3 = −++−−++−+++−+−+−−+−+−+++−++−−++,
+A1 = +++−++++−−++−−−−+−+++−−−+++++−+, A0 = ++++++−+−−+−−+−+−+−++−++−+−−−−− (`sym_mm1.py mpropus 31 5`), hence a
+symmetric Hadamard matrix of order 124 · 123 = 15252 = 4 · 3813 (built and checked by `sym_mm1.py build`). Paley II (q = 7625), XXSW (q = 15251 =
+101 · 151) and Đoković's q(q + 1) (q = 123) do not reach 15252, and the census stops at v < 2500. The Szekeres-type
+pairs on multiplier orbits (`sym_mm1.py mszek`, every odd subgroup with at most 34 orbits) for
+v' = 45, 57, 73, 77, 85, 93, 97, 101, 109, 117, 129, 133, 137, 145, 149, 153, 157 found nothing.
+
+**Weighted variant (not realised).** v = k n (4n − 1)-type census values (475 = 5 · 95 with h = 20, 1989 = 3 · 663
+with h = 52, 693, 1235, 2185, 2375, and 33k for k = 27, 33, 41, …) would need symmetric OD(kh; k, k(h − 1)) with
+k ≥ 3 odd. In Balonin form over ℤ₅ (order 20) only the types (1, 19) and (2, 18) exist (`symod.c`, §30), and a
+circulant weighing block CW(n, k) for the x-part needs k to be a square; no such design is known to us.
+
+**Order 732 = 4 · 183** ([symmetric/732](../symmetric/732)). The row search `prow 61 12` (ℤ₃ × GF(61), H = ⟨34⟩, the
+twelfth powers on GF(61), trivial on ℤ₃; 20 orbits for A, 39 for B and D, 19 classes; §30) found two solutions in the
+fifth ℤ₃-compatible triple (rows (21, 1, 17); A (−1, 11, 11), B (−9, 1, 9), D (−1, 9, 9) by rows; |A| = 464,
+B 3.8 · 10⁶, D 4.3 · 10⁸, 1.75 · 10⁹ pairs), in part 3 of 29, after about 1.5 hours with two processes on eight
+triples. The corrected estimate of `propus_rank.py` for the structure was 0.69 expected solution orbits (|Γ| = 432),
+0.06 for this row pattern. The remaining triples were not finished.

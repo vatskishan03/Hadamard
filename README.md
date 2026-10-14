@@ -149,14 +149,28 @@ these certificates.
 ## Symmetric Hadamard results
 
 A Hadamard matrix H is symmetric if H = Hᵀ. The Đoković–Seberry census lists 595 odd v < 2500 for which no
-symmetric Hadamard matrix of order 4v was known. The matrices below come from propus-type quadruples (A, B, B, D) of
-circulants with A symmetric and A Aᵀ + 2 B Bᵀ + D Dᵀ = 4v I, invariant under a multiplier group H
-(`attack/propus.py`, `attack/NOTES.md` §17; 876 through compressions, `attack/propus_chain.py`, §25 and §28).
+symmetric Hadamard matrix of order 4v was known (2025-05-28; three of them, 189, 473 and 1139, were settled by
+Đoković in August 2025, arXiv:2508.17141). The matrices of orders 532, 732 and 876 come from propus-type quadruples
+(A, B, B, D) of circulants with A symmetric and A Aᵀ + 2 B Bᵀ + D Dᵀ = 4v I, invariant under a multiplier group H
+(`attack/propus.py`, `attack/NOTES.md` §17; 876 through compressions, `attack/propus_chain.py`, §25 and §28; 732 by
+the row search `attack/prow.c`, §30 and §31).
 
 | Order | v | H | Row sums (A, B, D) | Census |
 |------:|---|---|---|---|
 | [532](symmetric/532) | 133 (7 · 19) | ⟨26⟩, order 6 | 11, 5, 19 | undecided |
+| [732](symmetric/732) | 183 (3 · 61) | ⟨34⟩, order 5 (cyclotomic product ℤ₃ × GF(61) of index 12) | 21, 1, 17 | undecided |
 | [876](symmetric/876) | 219 (3 · 73) | ⟨4⟩, order 9 (cyclotomic product ℤ₃ × GF(73) of index 8) | 3, 17, 17 | undecided |
+
+**Order m(m − 1).** A skew-Hadamard matrix S = I + C of order m with an involutive signed permutation P such that
+PCP = −C is the same thing as a symmetric orthogonal design xP + yN of type (1, m − 1) (N = CP); replacing x by
+J and y by the core D of the symmetric Hadamard matrix P + N gives the symmetric Hadamard matrix P ⊗ J + N ⊗ D of
+order m(m − 1) (`attack/NOTES.md` §31, `attack/sym_mm1.py`). Đoković's theorem (arXiv:2508.17141) is the case
+m − 1 = q ≡ 3 (mod 8) a prime power; the design can also come from a skew-propus quadruple of any odd length n
+(m = 4n), found here by exhaustive search, or from a Legendre pair with one skew and one symmetric block.
+
+| Order | v | Design | Census |
+|------:|---|---|---|
+| [5700](symmetric/5700) | 1425 (3 · 5² · 19) = 19 · 75 | skew-propus quadruple of length 19 (row sums 5, 5, 1, invariant under the multiplier 7), symmetric OD(76; 1, 75) | undecided |
 
 ## Verification
 

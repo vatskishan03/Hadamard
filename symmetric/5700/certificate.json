@@ -1,0 +1,14 @@
+{
+ "order": 5700,
+ "construction": "skew-propus-plug",
+ "symmetric": true,
+ "n": 19,
+ "m": 76,
+ "rowsums": [5, 5, 1],
+ "blocks": [
+  [0, 4, 6, 9, 10, 13, 15],
+  [0, 1, 2, 3, 7, 11, 14],
+  [5, 8, 10, 12, 13, 15, 16, 17, 18]
+ ],
+ "sha256": "feb4a76215d22c517781071defac29c1b01d1f18dc31e6544ce5e64257051ee5"
+}
