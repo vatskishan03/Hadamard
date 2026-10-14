@@ -1499,3 +1499,42 @@ are running.
 
 **Operational note.** The container schedules by autogroup: `nice` acts only inside a session. Priorities between
 the background searches are set with `echo N > /proc/PID/autogroup`.
+
+## 27. Bordered propus: symmetric Hadamard matrices of order 4(m + 1) from groups of order m (October 14)
+
+**Construction.** Let G be an abelian group of order m, A, B, D ±1 functions on G with A(−g) = A(g), and
+PAF_A + 2 PAF_B + PAF_D = −4 at every g ≠ 0. Let P be the propus array of §17 on the group-developed blocks
+(P = Pᵀ and P² = I₄ ⊗ (AAᵀ + 2BBᵀ + DDᵀ) = I₄ ⊗ (4(m + 1) I − 4J)), S the same 4 × 4 array on the row sums
+(a, b, d), K a Hadamard matrix of order 4 and L = −K S Kᵀ / 4. Then
+    H = [[L, K ⊗ eᵀ], [Kᵀ ⊗ e, P]]
+is symmetric, and H² = 4(m + 1) I exactly when Kᵀ K = 4I (the J-blocks of P² are cancelled), L K + K S = 0 (this
+defines L) and L² = 4I, which holds iff a² + 2b² + d² = 4. For even m the row sums are even, so (a, b, d) is
+(±2, 0, 0) or (0, 0, ±2); a K with L ∈ {±1}^{4×4} exists in every case we met. A census value v is thus reached
+through any abelian group of order v − 1, in place of ℤ_v.
+- Checks: every triple of ℤ_m, m = 2, 4, …, 10, satisfying the conditions (16, 96, 576, 4096 and 1600 triples)
+  gives a symmetric Hadamard matrix of order 4(m + 1); the searches below find and verify orders 36 … 84 on ℤ_m
+  and 52 on ℤ₂ × ℤ₆.
+- Real characters: at a character χ of order 2 the transforms are even integers with Â² + 2B̂² + D̂² = 4v. For
+  v = 65 this forces B̂(χ) = 0 (65 − 2β² is a sum of two squares only for β = 0), so B sums to 0 on every coset of
+  2G; on ℤ₂⁶ every character is real, B would be constant, and the group is excluded.
+- Literature: the propus papers we checked (Seberry–Balonin 2017, Balonin–Đoković arXiv:1803.08787, Đoković
+  arXiv:2101.05429, whose propus conjecture is verified for v ≤ 63) use ℤ_v only; we have not seen this bordered
+  form, but have not made an exhaustive search for it.
+- Character-based blocks χ(αᵗ + c), χ(αᵗ + α⁻ᵗ + c), χ(α²ᵗ + c) and χ((αᵗ + c)(α⁻ᵗ + c)) on GF(q)* ≅ ℤ_{q−1}
+  (q prime, 13 ≤ q ≤ 113, both values at the zero of the argument, both signs) give no triple: no cheap algebraic
+  family of this shape.
+
+**Tools.** `propus.py --border` (direct joins over ℤ_m), `propus_chain.py --border` (compressions to any divisor
+of m), `propus_bgroup.py` (non-cyclic groups: all automorphisms by enumeration of the matrices with
+M_ij ∈ (n_i / gcd(n_i, n_j))ℤ, cyclic and 2-generated subgroups up to an invariant of the action), verify.py
+construction `propus-bordered`, `border_certify.py`.
+
+**Order 260 (v = 65, the smallest open symmetric order).** ℤ₆₄: every multiplier structure with at most 25 orbits
+is empty (12 structures, both row patterns); ⟨17⟩ (32 orbits) by compressions to ℤ₈ (640 compatible triples);
+⟨31, 33⟩, ⟨31⟩, ⟨33⟩, ⟨63⟩ by compressions. Non-cyclic groups of order 64 with cyclic automorphism groups and at
+most 30 orbits: ℤ₂ × ℤ₃₂ (6 structures), ℤ₄ × ℤ₁₆ (12), ℤ₂² × ℤ₁₆ (14), ℤ₂ × ℤ₄ × ℤ₈ (21), ℤ₈² — no solution;
+ℤ₄³, ℤ₂³ × ℤ₈, ℤ₂² × ℤ₄² and the 2-generated subgroups of all of them are running.
+
+**All census values v ≤ 1000** (197 values): ℤ_{v−1} with at most 30 orbits (direct) and 31–44 orbits
+(compressions), and the 319 non-cyclic groups of order v − 1 whose endomorphisms number at most 2 · 10⁶, are
+queued (`border_queue.sh`, `bgroup_census.sh`).
