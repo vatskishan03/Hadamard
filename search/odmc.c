@@ -2,7 +2,9 @@
  * built by a depth-first search over the orbit variables with incremental vectors.
  *
  * Block 1 (skew): one variable per pair of opposite orbits (values v on O, -v on -O), position 0 holds a.
- * Blocks 2-4: one variable per orbit not carrying b.  Each list entry is the int16 vector
+ * Blocks 2-4: one variable per orbit not carrying b.
+ * Block 5 (symmetric, for the Balonin form of search/symod_join.py): one variable per pair of opposite orbits with
+ *   the same value on both, and one for the orbit {0} unless it carries b.  Each list entry is the int16 vector
  *   (PAF(w)(s_k) for the pair-orbit representatives s_k, X(s_k) = sum_a u(a)[w(a + s_k) + w(a - s_k)])
  * in the representative order of odmx.c, and the mask of the variable values (bit j set: variable j = -1).
  *
@@ -112,7 +114,12 @@ int main(int argc, char **argv) {
         int r = orep[o];
         if (r == 0 && (blk == 1 || U[0])) continue;
         if (U[r]) continue;
-        if (blk == 1) {
+        if (blk == 5 && r != 0) {           /* symmetric block: one variable per pair of opposite orbits, same value */
+            int oo = orb[(t - r) % t];
+            if (orep[oo] < r) continue;
+            vorb[nv][0] = o; vcoef[nv][0] = 1; vorb[nv][1] = oo; vcoef[nv][1] = 1; vlen[nv] = 2;
+            vsize[nv] = osz[o] + osz[oo];
+        } else if (blk == 1) {
             int oo = orb[(t - r) % t];
             if (orep[oo] < r) continue;
             vorb[nv][0] = o; vcoef[nv][0] = 1; vorb[nv][1] = oo; vcoef[nv][1] = -1; vlen[nv] = 2; vsize[nv] = 0;

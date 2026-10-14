@@ -67,6 +67,7 @@ start-up, is close to the list size.
 | `dm/` | relaxed-reflect-reflect (Elser) searches for Goethals–Seidel quadruples |
 | `psd_pool.c` | orbit vectors whose power spectrum stays below a bound |
 | `workdir.py` | the work directory and the compilation of the C helpers |
+| `gsgroup.py`, `gdfs.c`, `osa.c` | orbit tables of H-invariant blocks over any abelian group, their exhaustive lists (PAF and cross vectors), and orbit annealing |
 
 **Goethals–Seidel structures for the unresolved orders**
 
@@ -108,7 +109,10 @@ start-up, is close to the list size.
 | `skew_kmult_sweep.py` | cyclotomic products with an extra multiplier group on ℤ_m |
 | `skew_group.py`, `skew_group_sweep.py`, `skew_field.py`, `skew_noncyclic.py` | non-cyclic groups and fields |
 | `spin_skew.py`, `spin_compress.py`, `spin_ls.c`, `spin_ls_gls.c`, `spin_pt.c`, `spin_sol.py`, `twin_skew.py`, `pairspin.py` | spin structures: blocks permuted by a multiplier (3676) |
+| `spin_ls2.c`, `spin_rrr.py`, `spin_check.py` | the vectorised spin tabu search (`SPIN_LS=spin_ls2`), the difference map for spin structures, and a checker that rebuilds a spin solution |
 | `szekeres.py`, `szek_pair.c`, `szek_group.c` | Szekeres difference sets and Szekeres pairs |
+| `szek2.py` | two-block skew (and symmetric) matrices of order 2(w + 1) with a general second block |
+| `spence_plane.py` | the plane pair of Spence's skew 4(1 + q + q²) construction, from the Singer set of PG(2, q²) |
 | `make_yamada.py` | the Yamada–Kiyasu certificates (24124, 24412, 29404, 51580) |
 
 **Symmetric Hadamard matrices**
@@ -120,12 +124,14 @@ start-up, is close to the list size.
 | `prow.c`, `p65.c`, `pz5.c`, `hit2rec.py` | dedicated row searches (732) |
 | `qborder_clique.c` | the border problem of the ℤ_q-bordered propus array |
 | `sym_mm1.py`, `spropus.c`, `symod.c` | symmetric Hadamard matrices of order m(m − 1) and m(m + 3) (4828, 5700) |
+| `symod_g.py`, `symod_engine.py`, `symod_join.py`, `symod_reach.py`, `symtpl.c` | symmetric ODs in Balonin form over abelian groups for the weighted plug-in |
 
 **Orthogonal designs for Seberry's theorem**
 
 | Program | Role |
 |---|---|
 | `odm_engine.py`, `odmx.c`, `odm_join.py`, `odm_join2.py`, `odmc.c` | exhaustive searches for skew-type OD(4t; 1, m, 4t − m − 1) |
+| `odm_g.py`, `odm_estimate.py` | the same over any abelian group (`gsgroup.py`), and a Gaussian estimate per template |
 | `od13.c`, `od13b.c`, `od13x.c`, `odm_sa.c` | annealing and exhaustive searches for small m |
 | `thm7_census.py` | census values reachable by Seberry's theorem with m ≥ 3 |
 

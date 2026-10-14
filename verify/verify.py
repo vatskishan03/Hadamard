@@ -30,6 +30,7 @@ Yamada certificates accept a prime q or a prime power q = p^k (fields "p" and "p
 import argparse
 import hashlib
 import json
+import itertools
 import math
 import sys
 from pathlib import Path
@@ -56,6 +57,37 @@ def back_identity(n):
 
 def goethals_seidel(A, B, C, D):
     R = back_identity(A.shape[0])
+    return np.block([[A, B @ R, C @ R, D @ R],
+                     [-B @ R, A, D.T @ R, -C.T @ R],
+                     [-C @ R, -D.T @ R, A, B.T @ R],
+                     [-D @ R, C.T @ R, -B.T @ R, A]])
+
+
+def abelian_group(spec):
+    """G = Z_{n1}^{k1} x ... from a spec such as "3^2x11": (order, addition table, negation), elements indexed in
+    mixed radix over the coordinates (the convention of search/gsgroup.py)."""
+    mods = []
+    for part in spec.split('x'):
+        n, k = (part.split('^') + ['1'])[:2]
+        mods += [int(n)] * int(k)
+    elts = np.array(list(itertools.product(*[range(m) for m in mods])), dtype=np.int64).reshape(-1, len(mods))
+    mods_a = np.array(mods, dtype=np.int64)
+    radix = np.array([int(np.prod(mods[i + 1:])) for i in range(len(mods))], dtype=np.int64)
+    add = ((elts[:, None, :] + elts[None, :, :]) % mods_a) @ radix
+    neg = ((-elts) % mods_a) @ radix
+    return len(elts), add, neg
+
+
+def group_matrix(add, neg, x):
+    """X[g, h] = x(h - g)"""
+    return np.asarray(x, dtype=np.int64)[add[:, neg].T]
+
+
+def goethals_seidel_group(add, neg, A, B, C, D):
+    """the Goethals-Seidel array over an abelian group, with R[g, h] = [g + h = 0]"""
+    t = len(neg)
+    R = np.zeros((t, t), dtype=np.int64)
+    R[np.arange(t), neg] = 1
     return np.block([[A, B @ R, C @ R, D @ R],
                      [-B @ R, A, D.T @ R, -C.T @ R],
                      [-C @ R, -D.T @ R, A, B.T @ R],
@@ -979,9 +1011,18 @@ def build_skew_amicable_plug(cert):
                 or blocks[0][0] != 1:
             raise ValueError("od: codes must be 1 (once, first entry of block 1), +-2 or +-3")
         parts = {}
-        for v in (1, 2, 3):
-            parts[v] = goethals_seidel(*[circulant(np.array([int(np.sign(c)) if abs(c) == v else 0 for c in b],
-                                                            dtype=np.int64)) for b in blocks])
+        if "group" in cert["od"]:
+            # blocks over an abelian group (mixed-radix element order, see abelian_group), R = negation
+            tg, add, neg = abelian_group(cert["od"]["group"])
+            if tg != t:
+                raise ValueError("od: the group order differs from the block length")
+            for v in (1, 2, 3):
+                parts[v] = goethals_seidel_group(add, neg, *[group_matrix(add, neg, [int(np.sign(c)) if abs(c) == v
+                                                                                    else 0 for c in b]) for b in blocks])
+        else:
+            for v in (1, 2, 3):
+                parts[v] = goethals_seidel(*[circulant(np.array([int(np.sign(c)) if abs(c) == v else 0 for c in b],
+                                                                dtype=np.int64)) for b in blocks])
         Am, Bm, Cm = parts[1], parts[2], parts[3]
         Io = np.eye(No, dtype=np.int64)
         k, c = typ[1], typ[2]
@@ -1168,6 +1209,49 @@ def build_sym_od_plug(cert):
     return np.kron(P.astype(np.int8), X.astype(np.int8)) + np.kron(N.astype(np.int8), D.astype(np.int8)), None
 
 
+def build_two_block(cert):
+    """Bordered two-block Hadamard matrices of order 2(w + 1) over an abelian group G of odd order w (search/szek2.py).
+
+    "kind": "skew": a of skew type (a(0) = 1, a(-x) = -a(x)), b any +-1 function, both with row sum 1,
+        PAF_a + PAF_b = -2 off 0, and with A, B group-developed (X[g, h] = x(h - g))
+            [[1, 1, e, e], [-1, 1, e, -e], [-e^T, -e^T, A, B], [-e^T, e^T, -B^T, A^T]]
+        is skew-Hadamard (H + H^T = 2I uses only A + A^T = 2I; b need not be symmetric).
+    "kind": "symmetric": a symmetric, b any, both with row sum -1, PAF_a + PAF_b = -2 off 0, and
+            [[X, E], [E^T, M]],  X = [[1, 1], [1, -1]], E = [[e, e], [e, -e]], M = [[A, B], [B^T, -A]]
+        is a symmetric Hadamard matrix.
+    "group": spec of G as in abelian_group (default: cyclic of order len(a)); "a", "b": the sequences as lists of
+    +-1 in the mixed-radix element order. Every hypothesis and the result are checked."""
+    a = np.array(cert["a"], dtype=np.int64)
+    b = np.array(cert["b"], dtype=np.int64)
+    w = len(a)
+    tg, add, neg = abelian_group(cert.get("group", str(w)))
+    if tg != w or len(b) != w or w % 2 == 0:
+        raise ValueError("two-block: a and b must have the (odd) group order")
+    if not (np.abs(a) == 1).all() or not (np.abs(b) == 1).all():
+        raise ValueError("two-block: entries must be +-1")
+    pa = np.array([int(a @ a[add[:, s]]) for s in range(w)])
+    pb = np.array([int(b @ b[add[:, s]]) for s in range(w)])
+    if pa[0] != w or pb[0] != w or np.any((pa + pb)[1:] != -2):
+        raise ValueError("two-block: PAF_a + PAF_b is not -2 off 0")
+    A, B = group_matrix(add, neg, a), group_matrix(add, neg, b)
+    e = np.ones((1, w), dtype=np.int64)
+    if cert["kind"] == "skew":
+        if a[0] != 1 or np.any(a[neg][1:] != -a[1:]) or a.sum() != 1 or b.sum() != 1:
+            raise ValueError("two-block skew: a must be of skew type and both row sums 1")
+        one = np.ones((1, 1), dtype=np.int64)
+        H = np.vstack([np.hstack([one, one, e, e]), np.hstack([-one, one, e, -e]),
+                       np.hstack([-e.T, -e.T, A, B]), np.hstack([-e.T, e.T, -B.T, A.T])])
+    elif cert["kind"] == "symmetric":
+        if np.any(a[neg] != a) or a.sum() != -1 or b.sum() != -1:
+            raise ValueError("two-block symmetric: a must be symmetric and both row sums -1")
+        X = np.array([[1, 1], [1, -1]], dtype=np.int64)
+        E = np.vstack([np.hstack([e, e]), np.hstack([e, -e])])
+        H = np.block([[X, E], [E.T, np.block([[A, B], [B.T, -A]])]])
+    else:
+        raise ValueError("two-block: unknown kind")
+    return H, [a, b]
+
+
 BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": build_goethals_seidel_group,
             "cooper-wallis": build_cooper_wallis,
             "cooper-wallis-near-williamson": build_cooper_wallis_near_williamson,
@@ -1176,7 +1260,8 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "bordered-goethals-seidel": build_bordered_gs, "skew-doubling": build_skew_doubling,
             "yamada": build_yamada, "propus": build_propus, "propus-bordered": build_propus_bordered,
             "propus-qbordered": build_propus_qbordered, "skew-propus-plug": build_skew_propus_plug,
-            "sym-od-plug": build_sym_od_plug, "skew-amicable-plug": build_skew_amicable_plug}
+            "sym-od-plug": build_sym_od_plug, "skew-amicable-plug": build_skew_amicable_plug,
+            "two-block": build_two_block}
 
 
 def csv_chunks(H, rows=512):
