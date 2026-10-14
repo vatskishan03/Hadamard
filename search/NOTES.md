@@ -2484,3 +2484,15 @@ allowed fraction; the hybrid estimate was then computed for the best:
 - Bordered 235 over ℤ₂₃₄: ⟨185⟩ and ⟨29⟩ (per-class 10^−3.1 and 10^−3.4) fail at d = 3 in every pattern. ⟨43⟩ and
   ⟨121⟩ pass, with hybrid 10^0.4–10^1.6, but about 8% of 1.6 · 10¹² members stay allowed in C and D.
 - Cyclic 273 (pools 10¹²) and 455 (hybrid at most 10^−1.6) are out of reach.
+
+**Pruning the enumeration.** Each orbit fills one or two coordinates of a block's compression to ℤ_d (two when ±r
+lie in different H-orbits of ℤ_d, for the symmetric blocks).
+- `lowe_sz.py` orders the orbits so that whole coordinates are assigned early, most restrictive level first.
+- At each depth where a coordinate becomes final, `lowe_enum` compares the partial compression with the allowed
+  ones (64-bit keys of the finished coordinates) and skips the subtree on a miss.
+- On eleven blocks of eight structures the kept members and their class values are identical with and without the
+  checks.
+- Leaves visited: 287 bordered D 2.3 · 10⁵ against 1.5 · 10⁷; 273 bordered A 2824 against 104676; 183 bordered C
+  1.6 · 10⁸ against 1.28 · 10⁹ (4.3 times faster); 341 A 19305 against 51480; 219 C 1.2 · 10⁷ against 6.0 · 10⁷.
+- For bordered 203 ⟨87⟩ the only level is d = 2. The even orbits come first and the check at depth 21 keeps 4
+  values of the ℤ₂-compression, about 41% of the leaves.
