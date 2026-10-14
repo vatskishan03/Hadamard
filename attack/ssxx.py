@@ -35,7 +35,8 @@ def patterns(st):
     """Row sums (a, b; c, d) with a^2 + b^2 + c^2 + d^2 = 4N, a <= b (A, B symmetric), c <= d, all positive (a block
     and its negative have the same PAF), restricted to the values the orbit structure allows."""
     N = st.N
-    ok = {k: {r for r in st.counts(k) if r > 0} for k in ("A", "L")}
+    lim = math.isqrt(4 * N)                 # every row sum satisfies r^2 <= 4N
+    ok = {k: {r for r in st.counts(k) if 0 < r <= lim} for k in ("A", "L")}
     out = []
     for a in sorted(ok["L"]):
         for b in sorted(ok["L"]):
