@@ -76,8 +76,9 @@ def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5):
     masks = [z[f"arr_{k}"] for k in range(4)]
     with open(inp, "rb") as f:
         hdr = struct.unpack("5i", f.read(20)); C = hdr[4]
-        f.read(2 * C)
-        vals = [np.frombuffer(f.read(2 * C * n), np.int16).reshape(n, C) for n in hdr[:4]]
+    vals, off = [], 20 + 2 * C
+    for n in hdr[:4]:                               # memory-mapped, not copied
+        vals.append(np.memmap(inp, np.int16, "r", off, (n, C))); off += 2 * C * n
     order = [0, 2, 1, 3]
     lists = [None] * 4
     for pos, k in enumerate(order):
@@ -161,9 +162,9 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
 
 def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0):
     order = [0, 2, 1, 3]
-    allv = np.concatenate([lists[k][1] for k in order]).astype(np.int64)
-    Sx = [int(c) for c in np.argsort(-allv.var(0))[:nS]]
-    del allv
+    # merge classes: largest variance, from a subsample of every list (a full int64 copy would need gigabytes)
+    var = sum(np.asarray(lists[k][1][::max(1, len(lists[k][1]) // 200000)], np.float64).var(0) for k in order)
+    Sx = [int(c) for c in np.argsort(-var)[:nS]]
     print(f"  kt4: merge classes {Sx}, {int(nsig)} split values", flush=True)
     p = subprocess.run([W.bin("kt4"), str(inp), ",".join(map(str, Sx)), str(int(nsig)), str(maxsol)],
                        capture_output=True, text=True)
