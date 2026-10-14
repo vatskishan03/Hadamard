@@ -46,7 +46,7 @@ is then a Hadamard matrix of order 1876. Because A + Aᵀ = 2I, it satisfies H +
 
 | | |
 |---|---|
-| Code | commit `f6f42b2` (the options used behave the same at later commits) |
+| Code | commit `42b3ba6` (the options used behave the same at later commits) |
 | Command | `python3 search/skew_exhaustive.py 469 9` |
 | Randomness and caps | exact (no sampling, no seed); pair-work cap 4·10¹⁰ |
 | Result | pattern (1; 1, 5, 43): 192 solutions |

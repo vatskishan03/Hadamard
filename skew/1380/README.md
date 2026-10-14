@@ -48,7 +48,7 @@ is then a Hadamard matrix of order 1380. Because A + Aᵀ = 2I, it satisfies H +
 
 | | |
 |---|---|
-| Code | commit `520f0b6` |
+| Code | commit `5a713a9` |
 | Command | `python3 search/paley_config.py 345 --maxu 6` |
 | Randomness and caps | none in the search (exact enumeration); which solutions join4x prints first depends on the OpenMP schedule. |
 | Result | 2,040,192 y-quadruples; the first extends to 22 z-solutions; 2 verified skew-Hadamard matrices after 21 s on 4 cores |

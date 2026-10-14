@@ -49,7 +49,7 @@ is a Hadamard matrix of order 1372 with H + Hᵀ = 2I.
 
 | | |
 |---|---|
-| Code | commit `58b1460` (the options used behave the same at later commits) |
+| Code | commit `f904af6` (the options used behave the same at later commits) |
 | Command | `python3 search/skew_field.py run 7 3 19 1,1,37` |
 | Randomness and caps | exact (no sampling, no seed); pair-work cap 6·10¹⁰ |
 | Result | 4,211,424 solutions |

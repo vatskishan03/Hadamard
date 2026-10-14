@@ -64,7 +64,7 @@ are exactly two solutions, with the same A3 and A0 (7 seconds). The certificate 
 
 | | |
 |---|---|
-| Code | commit `942c64b` (`search/sym_mm1.py`) |
+| Code | commit `2770ccf` (`search/sym_mm1.py`) |
 | Command | `python3 search/sym_mm1.py propus 19 --all`; then `python3 search/sym_mm1.py certify -- 19 -+++-+-++--++-+-+++ ----+++-+++-++-++++ +++++-++-+-+--+----` |
 | Randomness and caps | none: the search is exhaustive and deterministic |
 | Result | two solutions; `sym_mm1.py test` also rebuilds the designs for the Paley primes 3–23 and for every skew-propus length up to 15, and the Szekeres-type designs of `search/szek_pair.c` |

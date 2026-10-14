@@ -54,7 +54,7 @@ is then a Hadamard matrix of order 1204. Because A + Aᵀ = 2I, it satisfies H +
 
 | | |
 |---|---|
-| Code | commit `15deec6` (`search/cp_lowe.py`, `search/cp_enum.c`, `search/kt4.c`) |
+| Code | commit `ed9f756` (`search/cp_lowe.py`, `search/cp_enum.c`, `search/kt4.c`) |
 | Command | `python3 search/cp_lowe.py 301 --q 43 --e 6 --kgen 1 --twist 0 --sample-stage1 3 --config 0 --L 1e7 --nsig 3000 --threads 3 --K 3` |
 | Randomness and caps | `--seed 1` (default) draws the sampled stage-1 quadruples, the 2·10⁵ samples per block for the energy statistics and the 4·10⁶ pairs per side that rank the split values; `--L 1e7` members kept per non-skew block |
 | Result | first verified solution after about 6 minutes on 3 threads (enumeration 121 s, split values 1–24 in 172 s); the certificate is the first hit recorded |

@@ -9,7 +9,7 @@ OR-Tools or PySAT. The C helpers are compiled on first use by `workdir.py`. Hit 
 binaries go to `$HADAMARD_WORK` (default `<tmp>/hadamard-work`); only the `*_certify.py` scripts write into the
 repository.
 
-**Commit hashes.** The order READMEs give the commit at which each search was run. Until commit `44c347c` this
+**Commit hashes.** The order READMEs give the commit at which each search was run. Until commit `b7bfde3` this
 directory was named `attack/`, so in a checkout of an earlier commit read `attack/` for `search/`.
 
 ## The Goethals–Seidel search over ℤ_p

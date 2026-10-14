@@ -51,7 +51,7 @@ is unreliable, and an earlier sampled k-tree estimate for 703 had put the work a
 
 | | |
 |---|---|
-| Code | commit `a4cf889` |
+| Code | commit `4e24d65` |
 | Command | `python3 search/chain.py 703 16,26 1,1,53 --maxbranches 2` |
 | Randomness and caps | none (exact search); default caps --maxfibre 3e6, --maxstates 2e7 |
 | Result | found in level-1 branch 1 of 704, after 49 combinations, in 47 minutes on 4 cores |

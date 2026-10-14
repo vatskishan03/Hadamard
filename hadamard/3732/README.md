@@ -75,7 +75,7 @@ pessimistic by about five orders of magnitude, in solutions and in work.
 
 | | |
 |---|---|
-| Code | commit `a2ec964` (`search/cyclo_product.py`, `search/join3.c`) |
+| Code | commit `3d9645a` (`search/cyclo_product.py`, `search/join3.c`) |
 | Command | `python3 search/cyclo_product.py 933 --q 311 --e 10 --config 0 --K 3 --threads 3` |
 | Randomness and caps | none in the search (exact enumeration); which solutions appear first depends on the OpenMP schedule; `--K 3` stops after three printed solutions |
 | Result | 24 solutions in 6,978 group quadruples, 306 s on 3 threads (lists 54 s, level vectors 125 s, join 127 s) |

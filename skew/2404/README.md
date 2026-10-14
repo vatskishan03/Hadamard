@@ -46,7 +46,7 @@ is then a Hadamard matrix of order 2404. Because A + Aᵀ = 2I, it satisfies H +
 
 | | |
 |---|---|
-| Code | commit `90ab79d` (the options used behave the same at later commits) |
+| Code | commit `40ade7e` (the options used behave the same at later commits) |
 | Command | `python3 search/skew_ktree.py 601 2 --maxtau 400 --sols 2` |
 | Randomness and caps | complete pools (no sampling, no seed); clamp S = 5; top 6; at most 400 values of τ |
 | Result | 16 solutions by τ #14 |

@@ -57,7 +57,7 @@ on ℤ₁₂₅₅ and checked.
 
 | | |
 |---|---|
-| Code | commit `81b18b6` (`search/cyclo_product.py`, `search/join3.c`) |
+| Code | commit `eddf924` (`search/cyclo_product.py`, `search/join3.c`) |
 | Command | `python3 search/cyclo_product.py 1255 --q 251 --e 10 --plain --kgen 4 --config 0 --K 3 --threads 3 --sub 8000` |
 | Randomness and caps | none in the search; `--sub 8000` keeps the 8,000 largest level-B groups of each list (ties broken by a stable sort); which solutions appear first depends on the OpenMP schedule |
 | Result | 32 solutions in 17,273 group quadruples, 349 s on 3 threads (lists 19 s, levels and grouping 280 s, join 48 s) |

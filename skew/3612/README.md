@@ -50,7 +50,7 @@ is then a Hadamard matrix of order 3612. Because A + Aᵀ = 2I, it satisfies H +
 
 | | |
 |---|---|
-| Code | commit `ec11d71` |
+| Code | commit `ba1a359` |
 | Command | `python3 search/pcg.py 903 --lmax 131072 --lzmax 2097152 --maxu 20 --stop --seed 2` |
 | Randomness and caps | seed 2 for the sampled y-lists; the z-join is exhaustive; which solutions join4x prints first depends on the OpenMP schedule |
 | Result | y-lists of 1,024 (complete), 129,029, 129,037 and 131,072 (uniform samples of 2²⁰, 2²⁰ and 2²¹), 118,922 y-quadruples; for the first, the complete z-lists (2,048, 1,048,576, 1,048,576 and 2,097,152) give exactly 2 z-solutions, both lifted to ℤ₉₀₃ and verified; 10 minutes on 40 cores |

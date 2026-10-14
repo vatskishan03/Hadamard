@@ -51,7 +51,7 @@ is unreliable, and an earlier sampled k-tree run (400 values of τ) had found no
 
 | | |
 |---|---|
-| Code | commit `cd8c03a` |
+| Code | commit `8fd4a10` |
 | Command | `python3 search/chain.py 763 9 1,5,55` |
 | Randomness and caps | none (exact search); default caps --maxfibre 3e6, --maxstates 2e7 |
 | Result | found in level-1 branch 1 of 40, after 31 combinations, in 86 minutes on 4 cores |

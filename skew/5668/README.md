@@ -55,7 +55,7 @@ is then a Hadamard matrix of order 5668. Because A + Aᵀ = 2I, it satisfies H +
 
 | | |
 |---|---|
-| Code | commit `2281188` (`search/cyclo_product.py`); the sweep script is `search/skew_kmult_sweep.py` (commit `c789279`) |
+| Code | commit `75a2fce` (`search/cyclo_product.py`); the sweep script is `search/skew_kmult_sweep.py` (commit `f2e587c`) |
 | Command | `python3 search/cyclo_product.py 1417 --q 109 --e 4 --kgen 3 --config 2 --K 1 --sub 8000 --threads 2` |
 | Randomness and caps | none (exact enumeration; `--sub 8000` keeps every level-B group here, since no list has more than 246 groups); which solution join3 reports first depends on the thread schedule. `--K 1000` instead of `--K 1` counts all solutions of the class |
 | Result | 12 stage-1 classes; class 2 has lists of 144, 7,776, 5,184 and 5,184 members and gives the solution of the certificate; under 1 s on 2 cores |

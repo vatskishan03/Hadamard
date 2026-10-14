@@ -55,7 +55,7 @@ is a Hadamard matrix of order 3380 with H + Hᵀ = 2I.
 
 | | |
 |---|---|
-| Code | commit `c29fd15` (`search/cp_lowe.py`, `search/cp_field.py`, `search/cp_enum.c`, `search/kt4.c`) |
+| Code | commit `45afdab` (`search/cp_lowe.py`, `search/cp_field.py`, `search/cp_enum.c`, `search/kt4.c`) |
 | Command | `python3 search/cp_lowe.py 845 --q 169 --field 13,2 --e 8 --sample-stage1 3 --config 1 --L 5e7,2.5e7,2.5e7 --nsig 3000 --threads 3 --K 3 --stream --samples 1000000` |
 | Randomness and caps | `--seed 1` (default) draws the sampled stage-1 quadruples, the 10⁶ samples per block for the energy statistics and the 4·10⁶ pairs per side that rank the split values; `--L 5e7,2.5e7,2.5e7` members kept per non-skew block; `--K 3` stops after three solutions |
 | Determinism | the lists are the same sets on every run, but their order follows the threaded enumeration and the split values are ranked from samples drawn by position, so the ranking can differ between runs |

@@ -48,7 +48,7 @@ D, beyond the cap of 24 of the first symmetric sweep (§17).
 
 | | |
 |---|---|
-| Code | commit `2281188` (`search/propus.py`, `search/join4x.c`) |
+| Code | commit `75a2fce` (`search/propus.py`, `search/join4x.c`) |
 | Command | `python3 search/propus.py 133 --sweep --mino 1 --maxo 30 --maxpool 5e7` |
 | Randomness and caps | none: the search is exhaustive and deterministic; `--maxpool 5e7` skips row patterns with a larger pool (none in this structure), and the sweep stops at the first structure with a solution |
 | Result | 72 solutions of the row pattern (11, 5, 19); the certificate is the first (`search/sym_certify.py 133`) |

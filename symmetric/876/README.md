@@ -56,7 +56,7 @@ dropped the lattice factor and gave 10^−8.1; see [search/NOTES.md](../../searc
 
 | | |
 |---|---|
-| Code | commit `13d8d89` (`search/propus_chain.py`, `search/join4x.c`) |
+| Code | commit `8bdb70d` (`search/propus_chain.py`, `search/join4x.c`) |
 | Command | `python3 search/propus_chain.py 219 --sweep --mino 1 --maxo 36 --maxwork 2e10` (as run, in `chain_queue.sh` under `ulimit -v 6000000`); the structure alone: `python3 search/propus_chain.py 219 4 --rows 3,17,17` |
 | Randomness and caps | none: the hash weights are fixed (seeds 7 and 11), the search is exhaustive; `--maxwork` (not reached) caps the pair work, and the sweep stops at the first structure with a solution |
 | Result | 18 solutions in the 573rd compatible triple after 4 minutes (135 s when rerun alone); the certificate is the first (`search/sym_certify.py 219`); the rerun gives the same sequences |

@@ -50,7 +50,7 @@ is then a Hadamard matrix of order 1804. Because A + Aᵀ = 2I, it satisfies H +
 
 | | |
 |---|---|
-| Code | commit `f2e5a51` |
+| Code | commit `27b785a` |
 | Command | `python3 search/chain.py 451 16,42 1,11,41 --budget 30000` |
 | Randomness and caps | none (exact search); default caps --maxfibre 3e6, --maxstates 2e7 |
 | Result | found in level-1 branch 5 of 60 (16 solutions counted) after 241 s on 4 cores |

@@ -46,7 +46,7 @@ is then a Hadamard matrix of order 1564. Because A + Aᵀ = 2I, it satisfies H +
 
 | | |
 |---|---|
-| Code | commit `520f0b6` |
+| Code | commit `5a713a9` |
 | Command | `python3 search/paley_config.py 391 --maxu 6` |
 | Randomness and caps | none in the search (exact enumeration); which solutions join4x prints first depends on the OpenMP schedule |
 | Result | 1,620,096 y-quadruples; the first extends to 18 z-solutions; 2 verified skew-Hadamard matrices after 252 s on 4 cores |

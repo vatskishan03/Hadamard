@@ -56,7 +56,7 @@ reversal has 432 elements).
 
 | | |
 |---|---|
-| Code | commit `7a9f079` (`search/prow.c`, the version that ran); reproduced with commit `a0fc82d` (`prow.c` as of `b407e96`, which changed only the part sizes of the join) |
+| Code | commit `cf6d589` (`search/prow.c`, the version that ran); reproduced with commit `913f7b5` (`prow.c` as of `3e07901`, which changed only the part sizes of the join) |
 | Command | `cc -O3 -march=native -o prow search/prow.c -lm`, then `./prow 61 12 all run 0 2 15000000` (as run, triples 0, 2, 4, 6; `ulimit -v` 6 GB); the triple alone: `./prow 61 12 all run 4 8 15000000` |
 | Randomness and caps | none: the search is exhaustive and deterministic; `15000000` caps the D entries per part (it only sets the number of parts) |
 | Result | two solutions (same A and B) in the triple (21, 1, 17); the rerun of that triple alone with the later code prints the same two lines and finishes the triple (29 parts, 1.75 · 10⁹ pairs) with no other; `search/hit2rec.py LOG 183 34` records them, `search/sym_certify.py 183` writes the certificate from the first |

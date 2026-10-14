@@ -1895,7 +1895,7 @@ fifth ℤ₃-compatible triple (rows (21, 1, 17); A (−1, 11, 11), B (−9, 1, 
 B 3.8 · 10⁶, D 4.3 · 10⁸, 1.75 · 10⁹ pairs), in part 3 of 29, after about 1.5 hours with two processes on eight
 triples. The corrected estimate of `propus_rank.py` for the structure was 0.69 expected solution orbits (|Γ| = 432),
 0.06 for this row pattern. The remaining triples were not finished; the rerun of the fifth triple alone (commit
-`a0fc82d`) finishes it with exactly the two solutions.
+`913f7b5`) finishes it with exactly the two solutions.
 
 **prow.c part keys (fix).** The D parts of `join3`/`join4` were chosen by the additive key
 (F₀ − 3)/4 + 7 (F₁ − 3)/4 mod np of the first two x = 0 classes. Those class values span only a few hundred residues,

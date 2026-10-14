@@ -44,7 +44,7 @@ is then a Hadamard matrix of order 3556. Because A + Aᵀ = 2I, it satisfies H +
 
 | | |
 |---|---|
-| Code | commit `03c9a52` (the options used behave the same at later commits) |
+| Code | commit `1e08260` (the options used behave the same at later commits) |
 | Command | `python3 search/skew_sweep.py 33 1.5e9 889   (calls skew_exhaustive.run(889, [2, 25], cap=1.5e9))` |
 | Randomness and caps | exact (no sampling, no seed); pair-work cap 1.5·10⁹ |
 | Result | pattern (1; 5, 41, 43): solutions found (2 verified) |

@@ -47,7 +47,7 @@ The whole search takes under two minutes on four cores.
 
 | | |
 |---|---|
-| Code | commit `0cdf392` (the options used behave the same at later commits) |
+| Code | commit `6356a62` (the options used behave the same at later commits) |
 | Command | `python3 search/skew_exhaustive.py 209 26` |
 | Randomness and caps | exact (no sampling, no seed); pair-work cap 4·10¹⁰ |
 | Result | pattern (1; 9, 15, 23): 288 solutions; the other two patterns: none |

@@ -56,10 +56,10 @@ is then a Hadamard matrix of order 820. Because A + Aᵀ = 2I, it satisfies H + 
 
 | | |
 |---|---|
-| Code | commit `15deec6` (`search/cp_lowe.py`, `search/cp_enum.c`, `search/kt4.c`); the original run used an earlier state of the same code, committed as `669dc2f` (same algorithm and seed) |
+| Code | commit `ed9f756` (`search/cp_lowe.py`, `search/cp_enum.c`, `search/kt4.c`); the original run used an earlier state of the same code, committed as `ccb625e` (same algorithm and seed) |
 | Command | `python3 search/cp_lowe.py 205 --q 41 --e 8 --config 0 --L 5e6 --nsig 3000 --threads 3 --K 20` |
 | Randomness and caps | `--seed 1` (default; numpy `default_rng`) draws the 2·10⁵ samples per block that set the energy thresholds and the 4·10⁶ pairs per side that rank the split values; `--L 5e6` members kept per non-skew block; `--K 20` stops kt4 after 20 solutions |
-| Result | 20 verified solutions in 268 s on 3 threads (block enumeration 182 s, join 40 s); the certificate is the first hit recorded. A rerun at commit `15deec6` keeps the same 5,156,254 / 4,774,328 / 4,908,954 members and again gives 20 verified solutions, the certificate's among them; the order of kt4's output depends on the thread schedule |
+| Result | 20 verified solutions in 268 s on 3 threads (block enumeration 182 s, join 40 s); the certificate is the first hit recorded. A rerun at commit `ed9f756` keeps the same 5,156,254 / 4,774,328 / 4,908,954 members and again gives 20 verified solutions, the certificate's among them; the order of kt4's output depends on the thread schedule |
 
 ## Status
 

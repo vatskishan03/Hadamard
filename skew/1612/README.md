@@ -49,7 +49,7 @@ is then a Hadamard matrix of order 1612. Because A + Aᵀ = 2I, it satisfies H +
 
 | | |
 |---|---|
-| Code | commit `6e27e84` (the options used behave the same at later commits) |
+| Code | commit `ae6cb0f` (the options used behave the same at later commits) |
 | Command | `python3 search/skew_ktree.py 403 100 --maxpool 1.2e7 --maxtau 400 --top 6 --sols 2 --seed 1` |
 | Randomness and caps | uniform samples of at most 1.2·10⁷ distinct sequences per pool (seed 1); clamp S = 6; top 6; at most 400 values of τ per pattern |
 | Result | pattern (5, 19, 35): none in 400 values of τ; pattern (5, 25, 31): 4 solutions at τ #153 |

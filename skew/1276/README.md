@@ -57,7 +57,7 @@ is then a Hadamard matrix of order 1276. Because A + Aᵀ = 2I, it satisfies H +
 
 | | |
 |---|---|
-| Code | commit `c29fd15` (`search/cp_lowe.py`, `search/cp_enum.c`, `search/kt4.c`) |
+| Code | commit `45afdab` (`search/cp_lowe.py`, `search/cp_enum.c`, `search/kt4.c`) |
 | Command | `python3 search/cp_lowe.py 319 --q 29 --e 4 --sample-stage1 3 --config 0 --L 6.5e7,1e7,1e7 --nsig 6000 --threads 2 --K 3 --stream --samples 1000000 --S 0,1,3,4,5` (the run that found it also passed `--skip-sigmas` with the 267 split values of the first run) |
 | Randomness and caps | `--seed 1` (default) draws the sampled stage-1 quadruples, the 10⁶ samples per block for the energy statistics and the 4·10⁶ pairs per side that rank the split values; `--L 6.5e7,1e7,1e7` members kept per non-skew block (the first non-skew block has fewer, so it is kept whole) |
 | Determinism | the lists are the same sets on every run, but their order follows the threaded enumeration, and the samples that rank the split values are drawn by position; the ranking can therefore differ between runs (131 of the first 267 values recurred) |

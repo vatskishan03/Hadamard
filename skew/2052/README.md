@@ -49,7 +49,7 @@ is a Hadamard matrix of order 2052 with H + Hᵀ = 2I.
 
 | | |
 |---|---|
-| Code | commit `520f0b6` |
+| Code | commit `5a713a9` |
 | Command | `python3 search/paley_config.py 513 --field 3,3 --maxu 6` |
 | Randomness and caps | none in the search (exact enumeration); which solutions join4x prints first depends on the OpenMP schedule |
 | Result | 12,124,320 y-quadruples (stage 1: 36 minutes); the first extends to 6 z-solutions (stage 2: about 30 minutes) |

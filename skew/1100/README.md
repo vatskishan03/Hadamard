@@ -51,7 +51,7 @@ works over any abelian group. It gives a Hadamard matrix of order 1100, and H + 
 
 | | |
 |---|---|
-| Code | commit `d36ee6f` (the options used behave the same at later commits) |
+| Code | commit `6007084` (the options used behave the same at later commits) |
 | Command | `python3 search/skew_group.py ktree 275 singer3+u3 1,3,33 3000` |
 | Randomness and caps | complete pools (no sampling); maxpool 1.2·10⁷, top 8 values per class, at most 3000 values of τ, seed 1 |
 | Result | 32 solutions at τ #810, after 233 s |

@@ -52,7 +52,7 @@ is then a Hadamard matrix of order 2452. Because A + Aᵀ = 2I, it satisfies H +
 
 | | |
 |---|---|
-| Code | commit `9ef2547` |
+| Code | commit `0112e21` |
 | Command | `python3 search/skew_lowE.py 613 37 1,35,35 --nbc 1.5e6 --nd 1.6e7 --steps 3 --maxtau 40000 --top 10 --seed 23` |
 | Randomness and caps | seed 23; the candidate lists also depend on the OpenMP thread schedule of skew_gen, so a rerun gives different lists with the same statistics |
 | Result | 4 verified solutions after 12,792 s of matching on 4 cores (26 minutes of list generation before that) |

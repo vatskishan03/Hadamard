@@ -58,7 +58,7 @@ images.
 
 | | |
 |---|---|
-| Code | commit `f6f42b2` (the options used behave the same at later commits) |
+| Code | commit `42b3ba6` (the options used behave the same at later commits) |
 | Command | `python3 search/spin_skew.py csearch 919 58 52 --restarts 5000 --steps 3000 --seed 1` |
 | Randomness and caps | tabu search in C (search/spin_ls.c), seed 1, at most 5000 restarts of 3000 moves |
 | Result | solution at restart 399, step 1915, after 37 s |

@@ -58,9 +58,9 @@ is then a Hadamard matrix of order 1012. Because A + Aᵀ = 2I, it satisfies H +
 
 | | |
 |---|---|
-| Code | commit `f16c0a0` |
+| Code | commit `b3ee539` |
 | Command | `python3 search/paley_config.py 253 --maxu 1` |
-| Randomness and caps | none in the search (exact enumeration); which of the solutions join4x prints first depends on the OpenMP schedule. The certificate itself is solution 0 of the earlier run `python3 search/skew_lowE.py 253 12 5,19,25 --nbc 8e6 --nd 3e7 --steps 3 --maxtau 100000 --top 10 --seed 41` (commit `284cb9e`) |
+| Randomness and caps | none in the search (exact enumeration); which of the solutions join4x prints first depends on the OpenMP schedule. The certificate itself is solution 0 of the earlier run `python3 search/skew_lowE.py 253 12 5,19,25 --nbc 8e6 --nd 3e7 --steps 3 --maxtau 100000 --top 10 --seed 41` (commit `ac1249a`) |
 | Result | 9,520 u-quadruples; the first gives 100 z-solutions, and the lifted matrices verify; 1 s on 4 cores. The k-tree run took 21 minutes of list generation and 1.7 s of matching. |
 
 ## Status

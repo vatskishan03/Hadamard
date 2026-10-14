@@ -49,7 +49,7 @@ is then a Hadamard matrix of order 1860. Because A + Aᵀ = 2I, it satisfies H +
 
 | | |
 |---|---|
-| Code | commit `f16c0a0` |
+| Code | commit `b3ee539` |
 | Command | `python3 search/paley_config.py 465 --maxu 5` |
 | Randomness and caps | none in the search (exact enumeration); which solutions join4x prints first depends on the OpenMP schedule |
 | Result | 209,536 u-quadruples; the first extends to 28 z-solutions; 2 verified skew-Hadamard matrices after 16 s on 4 cores |
