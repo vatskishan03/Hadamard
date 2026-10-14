@@ -65,14 +65,26 @@ H Hᵀ = 1900 I, H + Hᵀ = 2I and the SHA-256 of the canonical CSV.
 
 ## Status
 
-To our knowledge this is the first skew-Hadamard matrix of order 1900. The literature audit is in progress. Until it
-is recorded here, read this as "found by us", not as "new". What has been checked so far:
+To our knowledge this is the first skew-Hadamard matrix of order 1900, and the OD(100; 1, 5, 94) the first orthogonal
+design of that type.
+
+**Novelty checklist** (audit of 2026-10-14 by a research agent; downloaded sources were read as text, never
+executed):
 
 1. **The Đoković–Seberry census** (PDF of 2025-05-28): 475 is in its list of 737 undecided skew values
    ("… 469, 473, 475, 479, …") and in its list of undecided symmetric values.
-2. **Cati–Pasechnik** (arXiv:2411.18897), Table 5: "475(4)". The smallest known skew order 2ᵐ · 475 there is
-   16 · 475 = 7600.
-3. **Seberry–Yamada** (1992), Table 7.1: 475 has t = 4.
+2. **Tables of skew orders 2ᵗq.** All three give 2⁴ · 475 = 7600 as the smallest known order, so 4 · 475 was not
+   known:
+   - Cati–Pasechnik (arXiv:2411.18897), Table 5: "475(4)".
+   - Seberry–Yamada (1992), Table 7.1: t = 4.
+   - Seberry–Yamada (1991): "475 4".
+3. **The orthogonal design.** By Geramita–Verner, OD(100; 1, 5, 94) exists exactly when OD(100; 5, 94) does. Neither
+   was found.
+   - The published tables of designs in orders 4 · odd stop at order 36. They list the type (1, 5, 4t − 6) for t = 5
+     and t = 9 (OD(20; 1, 5, 14), OD(36; 1, 5, 30)). For t = 7 it is impossible, since (5, 22) is nonexistent in
+     order 28, as the condition 5r² + s² = 4t − 6 also shows.
+   - The design known in order 100, OD(100; 1, 1, 49, 49) from G-matrices of order 25 (Koukouvinos–Seberry 1993),
+     does not merge to (1, 5, 94).
 4. **SageMath** (develop branch of 2026-10-11, its existence logic traced, not executed): `Unknown`. Its
    orthogonal-design branch tries the split n = 20, m = 5 and needs an OD(100; 1, 5, 94), which is not in its table.
 5. **Classical skew families** (arithmetic):
@@ -85,9 +97,11 @@ is recorded here, read this as "found by us", not as "new". What has been checke
    - (|t| + 1)(q + 1) has no factorisation with q ≡ 5 (mod 8) a prime power.
    - Kronecker products and doubling are impossible (950 is not a Hadamard order).
    - The only splits of Seberry's theorem are n = 20, m = 5 (this one) and the degenerate n = 2.
+6. **Searches** (as for [skew/7956](../7956)): no mention of a skew matrix of order 1900 or of OD(100; 1, 5, 94).
+   Piza's 2026 deposit lists "1900 = CW (19, 25)", a Cooper–Wallis construction of an ordinary Hadamard matrix.
 
-The question is therefore whether an OD(100; 1, 5, 94) was known. We found none, and the census of 2025, by an author
-of Theorem 7, lists 475 as undecided.
+Not checked: the bodies of Seberry–Yamada (2020), Seberry (2017) and Geramita–Seberry (1979), MathSciNet and zbMATH.
+This is a finding of nothing, not a proof that no earlier construction exists.
 
 ## Files
 
