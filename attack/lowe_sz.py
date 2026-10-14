@@ -95,9 +95,11 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
     pools = [st.counts(k).get(r, 0) for k, r in zip(KINDS, rows)]
     if min(pools) == 0:
         print(f"N = {N} rows {rows}: empty block"); return []
-    mus, sigs = [], []
+    mus, sigs, cache = [], [], {}
     for k, r in zip(KINDS, rows):
-        mu, sg, _ = stats(st, k, r, K, rng)
+        if (k, r) not in cache:                     # blocks with the same pool share their statistics
+            cache[(k, r)] = stats(st, k, r, K, rng)[:2]
+        mu, sg = cache[(k, r)]
         mus.append(mu); sigs.append(sg)
     Sig = sum(sigs)
     _, Sig_pinv = psd_pinv_sqrt(Sig)
@@ -105,6 +107,10 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
     keep, plan = [], []
     for k in range(4):
         Lk = pools[k] if pools[k] <= L else L
+        twin = [j for j in range(k) if (KINDS[j], rows[j]) == (KINDS[k], rows[k])
+                and np.allclose(t - (sum(mus) - mus[j]), t - (sum(mus) - mus[k]))]
+        if twin:                                    # same pool, same filter
+            plan.append(plan[twin[0]]); continue
         Sm = Sig - sigs[k]
         Wk, Smp = psd_pinv_sqrt(Sm)
         zk = t - (sum(mus) - mus[k])
@@ -127,13 +133,16 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
           f"retention {[f'{p[2]:.3g}' for p in plan]}, logE in lists {e + lret:.2f}", flush=True)
     if estimate_only:
         return e + lret
-    lists = []
+    lists, done = [], {}
     for k in range(4):
         Lk, tau, ret, Wk, zk = plan[k]
+        key = (KINDS[k], rows[k], Lk, tau, tuple(np.round(zk, 6)))
+        if key in done:                             # same pool and same filter: the same kept list
+            lists.append(done[key]); print(f"  block {'ABCD'[k]}: same list as before", flush=True); continue
         masks, vals, en, sline = enum_block(st, KINDS[k], rows[k], zk, Wk, tau, Lk if Lk < pools[k] else 2 ** 31 - 1,
                                             "ABCD"[k], threads)
         print(f"  block {'ABCD'[k]}: {len(masks)} kept; {sline} [{time.time() - t0:.0f}s]", flush=True)
-        lists.append((masks, vals))
+        lists.append((masks, vals)); done[key] = (masks, vals)
     if min(len(x[0]) for x in lists) == 0:
         return []
     # kt4 input: order (A, C, B, D) so that the pairs are (A, C) and (B, D)

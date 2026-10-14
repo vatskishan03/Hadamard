@@ -56,7 +56,8 @@ join: an exact compression chain over the subgroups of ℤ_N, as for order 3964;
 lists of 10⁴, 10⁴, 7 · 10⁸ and 6 · 10⁸, compressed to ℤ₅ and split on ℤ₃₁).
 
 A second construction, the bordered Szöllősi array on a group of order N − 1, is stated and proved in
-[BORDERED.md](BORDERED.md).
+[BORDERED.md](BORDERED.md). Two twisted specialisations of both arrays (B = A∘μ, D = C∘μ, and a half twist), which
+turn the four-sequence search into a two-list search, are in [TWISTED.md](TWISTED.md).
 
 ## Matrices
 
