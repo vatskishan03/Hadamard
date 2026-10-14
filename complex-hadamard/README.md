@@ -55,6 +55,9 @@ matrices over any abelian group, and `verify/verify_complex.py` checks such cert
 join: an exact compression chain over the subgroups of ℤ_N, as for order 3964; order 310 came from ⟨16⟩ on ℤ₁₅₅ with
 lists of 10⁴, 10⁴, 7 · 10⁸ and 6 · 10⁸, compressed to ℤ₅ and split on ℤ₃₁).
 
+A second construction, the bordered Szöllősi array on a group of order N − 1, is stated and proved in
+[BORDERED.md](BORDERED.md).
+
 ## Matrices
 
 | order 2N | N | multiplier group / source | row sums (a, b; c, d) | file |
