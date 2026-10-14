@@ -2376,3 +2376,68 @@ per solution (five seeds each).
 test every B within two swaps against all 512 skew A at once (exact lookup of −T_B). This found no solution. The
 checker recovers solutions from known ones perturbed by up to three swaps. So the low-energy states are not near
 solutions in swap distance, and the restarts stay.
+
+## 37. Near-Williamson quadruples by exhaustive search: order 191 and the complex orders (October 14, night)
+
+**The route.** Cooper–Wallis needs Williamson-type matrices of order w and T-matrices of order t to give H(4tw).
+Near-Williamson quadruples (A, B, C, D) — circulant, B, C, D symmetric, ΣPAF = 4wδ — give the Williamson-type
+matrices (AR, B, C, D) ([near-williamson](../near-williamson)), and since three blocks are symmetric they are also
+Szöllősi quadruples, i.e. complex Hadamard matrices of order 2w. For w = 191, T-matrices of orders 5, 9 and 15
+(from base sequences BS(3, 2), BS(5, 4), BS(8, 7)) would settle three entries of FRONTIER.md at once: 3820
+(n = 955), 6876 (n = 1719) and 11460 (n = 2865). §6 and williamson-type/README.md had ruled out T-matrices of order
+191 and the bordered form on ℤ₁₉₀; the plain form on ℤ₁₉₁ had not been ranked.
+
+`bnw.py triage 191 --plain`: one admissible structure, H = ⟨39⟩ (order 5), A on the 39 H-orbits, B, C, D on the 20
+L-orbits (L = ⟨39, −1⟩), 19 classes, row sums 21 | 11, 11, 9, log₁₀ E = 1.38. Pools: A 2.9 · 10¹⁰, each symmetric
+block 9.2 · 10⁴. (The same group with two symmetric blocks holds the complex matrix of order 382 in
+[complex-hadamard](../complex-hadamard), at about 10⁷ predicted solutions; the third symmetric block costs about 2¹⁹.)
+
+**Splitting the arbitrary block.** On each L-orbit O ∪ −O the block A is either symmetric (equal values on O and −O)
+or antisymmetric (opposite values). With A_s, A_a the two ternary parts (disjoint supports), Â_s is real and Â_a
+imaginary, so PAF_A = PAF_{A_s} + PAF_{A_a} and |Â|² = Â_s² + |Â_a|² exactly. For a fixed split E (the symmetric
+L-orbits) the parts range independently over about 2^|E| and 2^(19 − |E|) sign vectors, so every member of A comes
+out of a join of two short lists, with its PAF and power-spectrum vectors, at one vector addition per member.
+
+**The power-spectrum filter on triples.** Every quadruple satisfies |Â(t)|² + B̂² + Ĉ² + D̂² = 4w at every
+character, so every partial sum is at most 4w. For w = 191, 32% of each symmetric list passes, 5.7% of the pairs
+(B, C), and only 3.2 · 10⁷ of the 1.3 · 10¹³ triples (B ≤ C, D): acceptance 2.6 · 10⁻⁶. So all feasible triples fit
+in a hash table keyed by their PAF vector, and the structure is searched completely by streaming every member of A
+against it (`search/nw_exh.c`, tables from `search/nw_prep.py`). The D candidates of a pair are the AND of two
+bitsets (D compatible with B, and with C): 73 s for the triples, then 2.5 · 10¹⁰ members of A (those whose
+symmetric and antisymmetric parts pass the spectrum bound separately) and 2.1 · 10¹⁰ table probes in 17 minutes on
+three threads (with the table slots prefetched in blocks of 16).
+
+Check: on ℤ₆₁ with H = ⟨13⟩, rows 1 | 11, 11, 1, the run finds 320 quadruples (160 up to A ↔ reversed A, which have
+the same PAF), against the Gaussian prediction 10^2.83 = 676 for ordered (B, C) and both A, i.e. 169; each was
+checked against direct autocorrelations, and the T-matrices of orders 5 and 9 turn one of them into Hadamard
+matrices of orders 1220 and 2196 (`search/nw_certify.py`, construction `cooper-wallis-near-williamson` of verify.py).
+
+**Results (all empty).**
+
+| w | H | rows | log₁₀ E | feasible triples | members of A | hits |
+|---:|---|---|---:|---:|---:|---:|
+| 191 | ⟨39⟩, order 5 | 21 \| 11, 11, 9 | 1.38 | 3.2 · 10⁷ | 2.5 · 10¹⁰ | 0 |
+| 183 | ⟨34⟩, order 5 | 1 \| 19, 19, 3 | −1.12 | 1.5 · 10⁶ | 1.3 · 10¹⁰ | 0 |
+| 183 | ⟨34⟩, order 5 | 1 \| 17, 21, 1 | −1.14 | 4.4 · 10⁶ | 1.3 · 10¹⁰ | 0 |
+| 183 | ⟨34⟩, order 5 | 9 \| 17, 19, 1 | −1.15 | 3.0 · 10⁶ | 1.5 · 10¹⁰ | 0 |
+| 213 | ⟨37⟩, order 7 | 15 \| 13, 13, 17 | −2.81 | 2.4 · 10⁴ | 2.0 · 10⁸ | 0 |
+
+So no near-Williamson quadruple of order 191 is constant on the orbits of ⟨39⟩. The other nontrivial subgroups of
+ℤ₁₉₁* fail the row-sum equation (symmetric rows ±1 + 38ℤ or ±1 + 190ℤ), so the plain near-Williamson route to 3820,
+6876 and 11460 now needs a quadruple without multiplier symmetry. 183 (complex order 366) and 213 (426) are open complex orders; their best
+structures are empty too. Single-precision sums of spectra are compared with 4w + 1, so rounding cannot reject a
+quadruple; the 191 run was repeated with this margin (the first run used 4w + 10⁻⁶, also empty).
+
+**Where the route stands.** The same triage over the other FRONTIER composites n = t·w with known T-matrices of
+order t: w = 463 (|H| = 11, rows 23 | 21, 21, 21, log₁₀ E = −2.3, would give n = 2315), 631 (|H| = 15,
+1 | 29, 29, 29, −3.5, n = 1893), 991 (−31); the other w (167, 179, 223, 227, 239, 263, 269, 283, 347, 359, 383, 419,
+431, 443, 479, 491, 503, 563, 571, 599, 643, 863, 887, 911, 941, 947, 971) have no multiplier structure with few
+classes or fail the row-sum equation. Over the 214 open complex orders the best near-Williamson structures are the
+ones above (183, 213) and 463 (926); the rest are below 10⁻⁴. The Gaussian model is accurate here (ℤ₆₁), so these
+structures were long shots; the method itself (lists of 10⁴–10⁵ symmetric blocks, an arbitrary block of 10¹⁰–10¹¹)
+is cheap, and any near-Williamson structure with a predicted 10 or more solutions can be settled in hours.
+
+The search for near-Williamson matrices of Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev (arXiv:2605.08661v2,
+§4) works without symmetry: it enumerates A and B and then solves for the symmetric pair (C, D) by linear algebra
+modulo 4. For a structure like ours, where the arbitrary block dominates, streaming A against all feasible triples is
+cheaper than enumerating pairs (A, B).

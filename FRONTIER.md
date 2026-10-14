@@ -42,6 +42,9 @@ order from a smaller object, where one applies:
 - Miyamoto: an Hadamard matrix of order n − 1.
 - Kiyasu: a skew-Hadamard matrix of order (n + 1)/2.
 - Yamada: a symmetric conference matrix of order (n + 1)/2.
+- Cooper–Wallis: Williamson-type matrices of order w, for n = t·w with T-matrices of order t known. Listed for
+  w = 191 (t = 5, 9, 15), where neither T-matrices of order 191 nor near-Williamson matrices of order 191 with a
+  multiplier symmetry exist ([NOTES.md](search/NOTES.md) §6, §37).
 
 A conference matrix of that order cannot exist when (n − 1)/2 is not a sum of two
 squares.
@@ -62,7 +65,7 @@ squares.
 | 3452 | 863 | – | – | – | – | – | – | – |  |
 | 3628 | 907 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ151 | 33.3 |  |
 | 3788 | 947 | – | – | – | – | – | ℤ2 × ℤ11 × ℤ43 | 37.4 |  |
-| 3820 | 955 | 19 | 55 | 27 | 2.9 | 28.8 | ℤ2 × ℤ3xℤ3 × ℤ53 | 52.8 | Yamada from a symmetric conference matrix of order 478 |
+| 3820 | 955 | 19 | 55 | 27 | 2.9 | 28.8 | ℤ2 × ℤ3xℤ3 × ℤ53 | 52.8 | Yamada from a symmetric conference matrix of order 478; Cooper–Wallis from Williamson-type matrices of order 191 |
 | 3884 | 971 | – | – | – | – | – | – | – |  |
 | 4076 | 1019 | – | – | – | – | – | – | – |  |
 | 4124 | 1031 | – | – | – | – | – | ℤ2 × ℤ5 × ℤ103 | 40.8 |  |
@@ -106,7 +109,7 @@ squares.
 | 6756 | 1689 | – | – | – | – | – | ℤ8 × ℤ211 | 57.6 |  |
 | 6796 | 1699 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 850 (cannot exist) |
 | 6852 | 1713 | 38 | 62 | 31 | 5.4 | 32.1 | – | – |  |
-| 6876 | 1719 | – | – | – | – | – | ℤ2 × ℤ859 | 22.1 |  |
+| 6876 | 1719 | – | – | – | – | – | ℤ2 × ℤ859 | 22.1 | Cooper–Wallis from Williamson-type matrices of order 191 |
 | 6988 | 1747 | – | – | – | – | – | – | – |  |
 | 7132 | 1783 | – | – | – | – | – | ℤ2 × ℤ3xℤ3xℤ3xℤ3 × ℤ11 | 54.1 |  |
 | 7148 | 1787 | 19 | 95 | 47 | 30.0 | 36.1 | – | – |  |
@@ -177,7 +180,7 @@ squares.
 | 11364 | 2841 | – | – | – | – | – | – | – |  |
 | 11372 | 2843 | – | – | – | – | – | – | – |  |
 | 11420 | 2855 | – | – | – | – | – | ℤ2 × ℤ1427 | 52.1 |  |
-| 11460 | 2865 | – | – | – | – | – | – | – |  |
+| 11460 | 2865 | – | – | – | – | – | – | – | Cooper–Wallis from Williamson-type matrices of order 191 |
 | 11516 | 2879 | – | – | – | – | – | – | – |  |
 | 11548 | 2887 | – | – | – | – | – | – | – |  |
 | 11572 | 2893 | – | – | – | – | – | – | – |  |
