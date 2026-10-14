@@ -859,13 +859,22 @@ def build_skew_amicable_plug(cert):
     4. H = I (x) (I + W) + B (x) J + C (x) D. Then H + H^T = 2I, and
        H H^T = I (x) [(I + W)(I + W)^T + J^2 + (m - 2) D^2] + (B + B^T) (x) J - C (x) (W D + D W)
                + (B C^T + C B^T) (x) J D = I (x) [mI - J + (m - 1) J + (m - 2)(mI - J)] = m (m - 1) I.
+    Instead of the skew-propus quadruple, "paley": q (a prime = 3 (mod 4)) takes the amicable pair from Paley's
+    symmetric OD(q + 1; 1, q) (the classical amicable order q + 1).
     General form (Seberry's Theorem 7): instead of "g", "od" = {"type": [1, k, N - k - 1], "blocks": four
     length-t lists of codes 1 (a, only at the first entry of the first block), +-2 (b), +-3 (c)} gives in the
     Goethals-Seidel array a skew-type OD aI + bB + cC of order N = 4t = k m (checked), and then
     H H^T = I (x) [mI - J + k(m - 1) J + (N - k - 1)(mI - J)] = N (m - 1) I."""
-    n = cert["n"]
-    m = 4 * n
-    P, N, seqs = _skew_propus_od(n, cert["blocks"], cert["rowsums"])
+    if "paley" in cert:
+        # amicable pair from Paley's symmetric OD(q + 1; 1, q), q = 3 (mod 4) prime (the classical amicable order q + 1)
+        P, N = _paley_sym_od(cert["paley"])
+        _check_sym_od(P, N)
+        m = P.shape[0]
+        n, seqs = None, []
+    else:
+        n = cert["n"]
+        m = 4 * n
+        P, N, seqs = _skew_propus_od(n, cert["blocks"], cert["rowsums"])
     I = np.eye(m, dtype=np.int64)
     S = I + P @ N
     M = P + N
@@ -909,6 +918,8 @@ def build_skew_amicable_plug(cert):
             raise ValueError(f"a I + b B + c C is not a skew-type OD({No}; 1, {k}, {c})")
         g = []
     else:
+        if n is None:
+            raise ValueError("G-matrices need the skew-propus form of the amicable pair")
         g = []
         for reps in cert["g"]:
             x = np.ones(n, dtype=np.int64)

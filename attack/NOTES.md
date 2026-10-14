@@ -1962,6 +1962,21 @@ With the amicable pair of order 52 this gives the skew-Hadamard matrix of order 
 both census lists. The symmetric 7956 would need a symmetric OD(156; 3, 153) (the weighted variant above), which is
 still open.
 
-**m ≥ 5 (next).** The b part is no longer forced. For m = 5, for example, b parts δ₀ + δ_d, δ₀ − δ_d and δ₀ in A₂,
-A₃, A₄ have autocorrelation sum 4δ + δ. The bc condition then couples W at s and d ± s, and H-invariance needs d
-fixed by H. The targets 475 (OD(100; 1, 5, 94), t = 25) and 2365 (OD(220; 1, 5, 214), t = 55) come first.
+**m ≥ 5: skew 1900 = 4 · 475.** The b part is no longer forced. Since the b part of A₁ is skew (row sum 0), m must
+be a sum of three squares: m ≡ 7 (mod 8) is impossible in this form (1323, 759, 1815, 2185 are out). For m = 5, the
+b parts δ₀ + δ_d, δ₀ − δ_d and δ₀ in A₂, A₃, A₄ have autocorrelation sum 4δ + δ. The bc condition
+X(s) = Σᵢ Σₐ uᵢ(a)[Wᵢ(a + s) + Wᵢ(a − s)] = 0 couples W at s and d ± s. Summing it over s gives 2r₂ + r₄ = 0, so the
+row sums are (3, 7, −6) at t = 25 and (3, 13, −6) at t = 55. `attack/odm_sa.c` (annealing with the b part fixed, the
+row sums held, energy Σ cc² + 2 Σ X²) finds **OD(100; 1, 5, 94)** for d = 10 at restart 21 (about 20 s). With the
+classical amicable pair of order 20 (Paley, q = 19) this gives the skew-Hadamard matrix of order 5 · 20 · 19 = 1900
+([skew/1900](../skew/1900)). 475 is undecided in both census lists, and Table 5 has 475(4).
+
+**The rest of the list is harder.**
+- **2365 (t = 55, m = 5).** Annealing stalls at energy about 300. `attack/odmx.c` (exhaustive over designs invariant
+  under H = ⟨36⟩ of order 5, the only admissible group: lists of c parts per block with fixed row sums, vectors of
+  PAF and X at the pair-orbit representatives, 4-list meet in the middle) finds nothing for four b templates (pairs
+  at d = 11 and 22; a skew pair in A₁ cancelled by a pair in A₂).
+- **429 (t = 39, m = 13; b = a ×3-invariant CW(13, 9) on 3ℤ₃₉ plus δ₀ ± δ₁₃).** The 16 invariant CW(13, 9) exist,
+  but H = ⟨16⟩ is incompatible. The orthogonality of row sums forces 3ρ_CW + 2ρ_pair = 0, i.e. ρ_pair ≡ 0 (mod 3),
+  while the pair block has one free fixed point and so ρ_pair ≡ ±1 (mod 3).
+- The others (1045, 1235, 627, 693, …) have t ≥ 55.
