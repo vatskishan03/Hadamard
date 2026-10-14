@@ -26,6 +26,9 @@ def main():
     ap.add_argument("--L", type=float, nargs="+", default=[2e5]); ap.add_argument("--K", type=int, default=20000)
     ap.add_argument("--energy", choices=["full", "units"], default="full")
     ap.add_argument("--fibre", action="store_true")
+    ap.add_argument("--center", choices=["lr", "split", "sol"], default="lr",
+                    help="filter centre of the big blocks: lowe_sz's (t - the others' means), the offset split between "
+                         "C and D by their covariances, or the solution law's mean")
     a = ap.parse_args()
     rows = tuple(int(x) for x in a.rows.split(","))
     st = Struct(a.N, a.gens, plain=not a.bordered)
@@ -74,6 +77,12 @@ def main():
             else:
                 _, Smp = lowe_sz.psd_pinv_sqrt(Sm)
             zk = t - (sum(mus) - mus[k])
+            if a.center == "split":
+                big = [j for j in range(4) if allowed[j].sum() > L]
+                Sbig = sum(sigs[j] for j in big)
+                zk = mus[k] + sigs[k] @ lowe_sz.psd_pinv_sqrt(Sbig)[1] @ (t - sum(mus))
+            elif a.center == "sol":
+                zk = mus[k] + sigs[k] @ Sig_pinv @ (t - sum(mus))
             X = lists[k].astype(np.float64)
             E = np.einsum("ij,jk,ik->i", X - zk, Smp, X - zk)
             E[~allowed[k]] = np.inf
