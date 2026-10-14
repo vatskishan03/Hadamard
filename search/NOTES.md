@@ -2442,3 +2442,33 @@ single level passed.
 - The same holds for ⟨155⟩ with rows (0, 0, 2, 0) and ⟨53⟩ with rows (2, 0, 0, 0).
 - ⟨53⟩ with rows (0, 0, 2, 0) survives with 2.4% of A and B and 0.17% and 0.25% of C and D (3.2 · 10⁷ and 4.7 · 10⁷
   members): lists of 5 · 10⁷ would be complete.
+
+## 39. Re-ranking the open orders with the checks and the fibres (October 14)
+
+**Screen.** The structures of the frontier map (`frontier_scan.py`, open N up to 581) with a per-class estimate of at
+least 10⁻⁶ and pools of at most 10¹¹ make 1416 (structure, pattern) records. Level-1 joins with up to 2 · 10⁵ states
+rule out 853 of them, among them all 40 bordered records. Levels with 3 · 10⁶ states rule out 73 of the remaining
+563. Bordered records with per-class estimates between 10⁻¹² and 10⁻⁶ add 132, of which 108 fall.
+
+**Settled by complete lists.** When the fibres leave fewer members than L in every block, the lists hold every
+allowed member, so an empty join settles the structure.
+- Bordered 287 = 7 · 41, ℤ₂₈₆ with H = ⟨3⟩ of order 15. With the 2 in C the lists are 424, 424, 31520 and 191712;
+  with the 2 in A they are 180, 324, 577472 and 577472. An exact join (`bnw.join4`) of both gives 0 solutions. The
+  patterns with the 2 in B or D are images of these.
+- Bordered 273 over ℤ₂₇₂, multiplier groups of order 8. ⟨155⟩ and ⟨19⟩ in both patterns, and ⟨53⟩ and ⟨189⟩ with
+  the 2 in A, have no member of A that passes all levels (§37). ⟨53⟩ and ⟨189⟩ with the 2 in C survive, with complete
+  lists of about 3 · 10⁷ and 5 · 10⁷ for C and D, but their hybrid estimates are 10^−1.8 and 10^−1.9.
+
+**203 ⟨36⟩.** All three patterns ran with fibres (d = 29 only, which allows 74–100% of each pool) and lattice split
+values. No random pair met on either side, and the 190512–193167 lattice points within Mahalanobis radius 3.4–4.0
+of the solution law gave no solution. With 2–4% of C and D kept, the hybrid estimate of 10^3.4 is not borne out.
+That is either a failure of the estimate on these classes or the joint retention of §34; the level that would
+decide, d = 7, has too many states to list.
+
+**341 = 11 · 31.** Eight multiplier groups carry per-class and hybrid estimates of 10^1.8–10^3.0, with pools of
+2 · 10⁹–9 · 10⁹:
+- ⟨2⟩, ⟨35⟩, ⟨95⟩ and ⟨194⟩, with fibres at d = 11;
+- ⟨15⟩, ⟨27⟩, ⟨58⟩ and ⟨170⟩, with fibres at d = 11 and 31.
+
+With fibres the expected number of solutions in lists of 3 · 10⁷ is 10^0.2–10^1.1, highest for rows (1, 21, 9, 29).
+The seven best are queued.
