@@ -7,6 +7,7 @@ PAF_A + 2 PAF_B + PAF_D = 0 off 0 is the product of the pools times the Gaussian
 row sums).
 
   python3 attack/propus_rank.py v1,v2,.. [--mino 20] [--maxo 80] [--samples 20000]   -> $HADAMARD_WORK/propus_rank.jsonl
+  python3 attack/propus_rank.py m1,m2,.. --qborder q ...     (Z_q-bordered problem on Z_m, order 4(m + q))
 """
 import argparse, json, math, sys
 from math import gcd, log10
@@ -18,7 +19,8 @@ import spence_lib as L
 import propus as PR
 
 
-def estimate(stA, stB, stD, rows, samples, rng, cls_sizes=None):
+def estimate(stA, stB, stD, rows, samples, rng, cls_sizes=None, target=None):
+    """log10 of the expected number of solutions of PAF_A + 2 PAF_B + PAF_D = target (one value per class; 0 if None)."""
     keys, logs = [], 0.0
     for st, r, w in ((stA, rows[0], 1), (stB, rows[1], 2), (stD, rows[2], 1)):
         n = st.pool(r)
@@ -27,8 +29,10 @@ def estimate(stA, stB, stD, rows, samples, rng, cls_sizes=None):
         keys.append(w * st.class_values(st.sample(r, samples, rng)))
     mu = sum(k.mean(0) for k in keys); Sig = sum(np.cov(k.T) for k in keys)
     w_, U = np.linalg.eigh(Sig); keep = w_ > 1e-6 * w_.max()
-    if (~keep).any() and np.abs(U[:, ~keep].T @ mu).max() > 1e-6: return -math.inf, int(keep.sum())
-    z = U[:, keep].T @ (-mu)
+    d0 = (0 if target is None else np.asarray(target, np.float64)) - mu
+    if (~keep).any() and np.abs(U[:, ~keep].T @ d0).max() > 1e-6 * max(1.0, float(np.abs(d0).max())):
+        return -math.inf, int(keep.sum())         # the target is off the affine span of the class values
+    z = U[:, keep].T @ d0
     ld = -0.5 * (keep.sum() * math.log(2 * math.pi) + np.log(w_[keep]).sum()) - 0.5 * float((z * z / w_[keep]).sum())
     # Lattice of the summed class values: spacing g_c per class (gcd of the sampled differences). The row sums fix
     # sum_c |c| val_c, so the covariance is singular in the direction w = (|c|); the density lives on the hyperplane
@@ -56,8 +60,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('vs'); ap.add_argument('--mino', type=int, default=20); ap.add_argument('--maxo', type=int, default=80)
     ap.add_argument('--samples', type=int, default=20000); ap.add_argument('--out', default='propus_rank.jsonl')
+    ap.add_argument('--qborder', type=int, default=0, help='rank the Z_q-bordered problem on Z_v (q | v; 1 = border of §27)')
     a = ap.parse_args()
     rng = np.random.default_rng(1)
+    if a.qborder:
+        return rank_bordered(a, rng)
     for v in [int(x) for x in a.vs.split(',')]:
         for S, gs in PR.subgroup_gens(v).items():
             Hm = set(S) | {(-h) % v for h in S}
@@ -79,6 +86,28 @@ def main():
                                pools=[round(log10(max(st.pool(r), 1)), 1) for st, r in ((stA, rows[0]), (st_b, rows[1]), (stD, rows[2]))])
                     print(json.dumps(rec), flush=True)
                     with open(W.WORK / a.out, 'a') as f: f.write(json.dumps(rec) + '\n')
+
+
+
+def rank_bordered(a, rng):
+    """Z_q-bordered propus on Z_m (m = each listed value): A on the orbits of <H, -1>, B and D on the orbits of H (H may
+    contain -1); target -4q on the classes inside qZ_m and 0 off it; rows from propus.qborder_patterns(q)."""
+    q = a.qborder
+    for m in [int(x) for x in a.vs.split(',')]:
+        if m % q: continue
+        for S, gs in PR.subgroup_gens(m).items():
+            Ob = len({min(t * h % m for h in S) for t in range(m)})
+            if Ob < a.mino or Ob > a.maxo: continue
+            st_ad, st_b = PR.structures(m, gs, False)
+            tgt = np.array([-4 * q if g % q == 0 else 0 for g in st_ad.reps], np.float64)
+            for rows in PR.qborder_patterns(q):
+                if min(st_ad.pool(rows[0]), st_b.pool(rows[1]), st_b.pool(rows[2])) == 0: continue
+                lE, rk = estimate(st_ad, st_b, st_b, rows, a.samples, rng, st_ad.csize, tgt)
+                rec = dict(m=m, v=m + q, q=q, gens=list(gs), H=len(S), minus1=(m - 1) in S, OA=int(st_ad.O), OB=int(st_b.O),
+                           C=int(st_ad.C), rows=list(rows), logE=round(lE, 2), rank=rk,
+                           pools=[round(log10(max(st.pool(r), 1)), 1) for st, r in ((st_ad, rows[0]), (st_b, rows[1]), (st_b, rows[2]))])
+                print(json.dumps(rec), flush=True)
+                with open(W.WORK / a.out, 'a') as f: f.write(json.dumps(rec) + '\n')
 
 
 if __name__ == '__main__':
