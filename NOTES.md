@@ -189,3 +189,39 @@ others, and Williamson matrices do not exist for w = 47, 59 and 65.
   - 4·3149 = 4·47·67, 4·4757 = 4·67·71, 4·4841 = 4·47·103, using T-sequences of lengths 47 and 71;
   - 4·8549 = 4·83·103, which needs only T103 and the classical WT(83).
 - None of these products lands on an unresolved n ≤ 2999.
+
+## 8. Spence spin structures: orders 2292 and 9172 (October 14)
+
+**Structure.** Spence's bordered construction over a group G of order n − 1 (ΣPAF = −4 off zero, row sums 2, 0, 0, 0),
+with blocks (A, B, B∘μ, B∘μ²). Here H is a group of automorphisms, μ normalises H and μ³ ∈ H. A is invariant under
+K = ⟨H, μ⟩ and B under H. The condition holds on the orbits of ⟨K, −1⟩.
+- **Small cases.** Exhaustive solution sets exist at n = 13 (G = ℤ₂² × ℤ₃, 720 solutions) and n = 19 (ℤ₁₈, 23328).
+  Both give Hadamard matrices through `build_spence`.
+- **Arithmetic gate.** A real character χ with χ∘μ in the H-orbit of χ forces n = a² + 3b². For the other n, μ must act
+  without fixed points on Hom(G, ℤ₂), which needs every part size of the 2-part of G to occur an even number of times.
+  That leaves 17 of the non-Eisenstein open n, among them 573, 789, 1169, 1437, 1473 and 1509.
+
+**573.** G = ℤ₂² × ℤ₁₄₃, H = ⟨27⟩ (quadratic residues on ℤ₁₁), μ = (α, ×3) with α of order 3 on ℤ₂².
+- **Size.** 27 classes, 54 K-orbits and 156 H-orbits. The Gaussian estimate is 10^7.5 solutions (10^10.9 with the
+  full covariance). A plain join would cost about 10^34.
+- **Exact gates.** For μ-invariant N, the compressed vectors to G/N are products of per-orbit value sets: each orbit
+  lies over one orbit of G/N and meets each fibre in the same number of points. The structure passes ℤ₂², ℤ₁₁, ℤ₁₃,
+  ℤ₂² × ℤ₁₁, ℤ₁₄₃ and ℤ₂² × ℤ₁₃, and a lattice test on the class values.
+- **Level ℤ₂² × ℤ₁₃ (52 points).** A hash join at ℤ₁₃ is followed by an energy-matched search: A drawn at a fixed
+  energy, B columns restricted to the complementary energies. This gives a verified solution every 20–60 CPU seconds;
+  without the energy matching, 3·10¹⁵ pairs gave none.
+- **Lift to G.** The fibre ℤ₁₁ is rigid. A compressed value ±1 forces (b₀, s·χ(ρ)) with one free sign s, and ±9, ±11
+  force everything. This leaves 61–63 signs, 8 linear equations and the rest quadratic.
+- **Lift solver.** An exhaustive four-list meet in the middle on the linear equations (about 10⁷ solutions per lift,
+  15–40 s), followed by the full 27-class check. On planted targets it returned the planted signs every time.
+- **Results.** Two of the first five level solutions lifted, against the Gaussian estimate of about 0.2 each. Both give
+  Hadamard matrices of order 2292; the first is [2292](2292). Miyamoto with q = 2293 gives [9172](9172).
+
+**Other survivors** of the same gates, not yet searched:
+- 1169 over ℤ₂⁴ × ℤ₇₃ (Singer cycle of order 15 coupled with an order-3 multiplier): 17 classes, estimate 10^4–10^6,
+  ℤ₇₃ gate undecided.
+- 1169 over ℤ₄² × ℤ₇₃: 27 classes, estimate 10^2–10^9.
+- 789 over ℤ₂² × ℤ₁₉₇: 29 classes, estimate 10^0–10^2.
+
+Every other open n tested is excluded by the arithmetic gate, by row sums, or at a coarse quotient. Coverage is
+incomplete for some non-cyclic groups (ℤ₂⁴ beyond ΓL(2,4), ℤ₃³, ℤ₅³).

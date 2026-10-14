@@ -15,9 +15,11 @@ smallest unresolved orders were 2060 and 2092.
 |------:|---|---|---|
 | [2092](2092) | 4 · 523 | Goethals–Seidel array, supplementary difference set in ℤ₅₂₃ invariant under a multiplier subgroup of order 9 | New |
 | [2284](2284) | 4 · 571 | Goethals–Seidel, ℤ₅₇₁, multiplier subgroup of order 5; three blocks related by a multiplier of order 3 | New |
+| [2292](2292) | 4 · 573 | Spence's bordered construction over ℤ₂ × ℤ₂ × ℤ₁₄₃; three blocks related by an automorphism of order 15 that couples the order-3 automorphism of ℤ₂ × ℤ₂ with multiplication by 3 | New |
 | [3964](3964) | 4 · 991 | Bordered Goethals–Seidel array over ℤ₂ × ℤ₂ × ℤ₂₄₇ with a border of size 12; sequences invariant under a group of order 27 | New |
 | [4492](4492) | 4 · 1123 | Goethals–Seidel, ℤ₁₁₂₃, multiplier subgroup of order 33 | New |
 | [5932](5932) | 4 · 1483 | Goethals–Seidel, ℤ₁₄₈₃, multiplier subgroup of order 39 | New |
+| [9172](9172) | 4 · 2293 | Miyamoto's theorem (q = 2293) from the matrix of order 2292 | New |
 | [14708](14708) | 4 · 3677 | Miyamoto's theorem from a skew-Hadamard matrix of order 3676 (Goethals–Seidel over ℤ₉₁₉, multiplier subgroup of order 17, spin structure) | Probably new; above the range of [3] |
 | [21748](21748) | 4 · 5437 | Miyamoto's theorem from a Cooper–Wallis matrix of order 5436 (T-matrices of order 151, Williamson order 9) | Probably new; above the range of [3] |
 | [24124](24124) | 4 · 6031 | Yamada's theorem (q = 6029) from a skew-Hadamard matrix of order 3016, the double of a skew Goethals–Seidel matrix of order 1508 over ℤ₃₇₇ | Probably new; above the range of [3] |
@@ -43,8 +45,9 @@ Handbook of Combinatorial Designs (2007) together with the updates in [4, 5]; th
 README of each order gives the details. Their matrices are not stored (up to 2.5 GB
 as CSV); `verify/verify.py` rebuilds them from the certificates.
 
-Orders under investigation: [2148](2148), the smallest order we know to be
-unresolved, and [4412](4412). [3676](3676) was settled by Schumer [8] while our
+Order under investigation: [4412](4412). [2148](2148) was settled on the progress
+branch; with it and [2292](2292), the smallest order we know to be unresolved is
+2396 = 4 · 599. [3676](3676) was settled by Schumer [8] while our
 search for it was running.
 
 ## Verification
@@ -78,7 +81,7 @@ Other top-level contents:
 - [`t-matrices`](t-matrices): the T-matrices of orders 97 to 197 found during this work.
 - [`near-williamson`](near-williamson): near-Williamson matrices of Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev
   (2026), used as Williamson-type matrices for the orders 24308 to 39260.
-- [`search`](search): the programs that found the Goethals–Seidel orders.
+- [`search`](search): the programs that found the Goethals–Seidel orders, and [`search/spence_spin`](search/spence_spin) for 2292.
 - [`METHOD.md`](METHOD.md): how the search works.
 - [`FRONTIER.md`](FRONTIER.md): the unresolved orders up to 4 · 2999, with the cheapest structure for each and its predicted cost.
 - [`NOTES.md`](NOTES.md): what the October 2026 searches showed, including the structures that turned out empty.

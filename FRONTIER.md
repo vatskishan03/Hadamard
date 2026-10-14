@@ -1,13 +1,14 @@
 # Unresolved orders
 
-This page covers the 150 entries of Cati–Pasechnik Table 4 (n ≤ 2999) that are
-still unresolved. The other 45 were settled as follows:
+This page covers the 148 entries of Cati–Pasechnik Table 4 (n ≤ 2999) that are
+still unresolved. The other 47 were settled as follows:
 
 - 12 by Alpöge et al.,
 - 19 by other public constructions from 2026 (Schneider; JD-Jones-ASES/Hadamard-T
   and Hadamard-M; Schumer),
 - 9 by Đoković in 2010,
-- 5 in this repository.
+- 7 in this repository (573 by the Spence spin structure of [2292](2292), and 2293
+  from it by Miyamoto's theorem, [9172](9172)).
 
 **Columns.** For each order the table lists the cheapest structure of each kind
 found by `search/triage.py` that is expected to contain at least ten solutions:
@@ -44,7 +45,6 @@ squares.
 | 4n | n | GS: \|H\| | cosets | classes | log₁₀ E | log₁₀ W | Spence: group | log₁₀ W | Route |
 |---:|---:|---:|---:|---:|---:|---:|---|---:|---|
 | 2148 | 537 | – | – | – | – | – | ℤ8 × ℤ67 | 24.1 |  |
-| 2292 | 573 | 10 | 78 | 39 | 20.5 | 30.0 | ℤ2xℤ2 × ℤ11 × ℤ13 | 25.3 |  |
 | 2396 | 599 | – | – | – | – | – | ℤ2 × ℤ13 × ℤ23 | 36.4 |  |
 | 2572 | 643 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 322 (cannot exist) |
 | 2588 | 647 | – | – | – | – | – | ℤ2 × ℤ17 × ℤ19 | 35.7 |  |
@@ -139,7 +139,6 @@ squares.
 | 8860 | 2215 | 34 | 81 | 41 | 1.9 | 50.1 | – | – | Kiyasu from a skew Hadamard matrix of order 1108 |
 | 9004 | 2251 | – | – | – | – | – | – | – |  |
 | 9148 | 2287 | – | – | – | – | – | – | – |  |
-| 9172 | 2293 | – | – | – | – | – | – | – | Miyamoto from H(2292) |
 | 9260 | 2315 | – | – | – | – | – | – | – |  |
 | 9308 | 2327 | – | – | – | – | – | – | – |  |
 | 9356 | 2339 | – | – | – | – | – | – | – |  |
