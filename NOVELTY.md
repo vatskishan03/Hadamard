@@ -10,7 +10,7 @@ corrections are welcome.
 |---|---|
 | **New** | The order is open in the reference table for its family (below), and no later construction was found. |
 | **New, beyond the tables** | The order lies above the range of the reference tables. Where Table 1.53 of the Handbook covers it, the table gives t ≥ 3 (no Hadamard matrix of order 4n known), and no later construction was found. |
-| **First explicit** | A table records the order as known, but we could not trace any construction behind the entry. |
+| **First explicit construction** | A table records the order as known, but we could not trace any construction behind the entry. |
 | **Known** | An earlier construction exists. The matrix here is independent of it. |
 
 For skew and symmetric matrices the property is what is new: an ordinary Hadamard matrix of the same order may have
