@@ -12,6 +12,7 @@ and meet-in-the-middle over the signs.
 
 | t | Earlier appearances known to us |
 |----:|---|
+| 67 | classical (T-sequences of length 67); this instance from `attack/tmat_mult.py 67 29` (multiplier group of order 3) |
 | 97 | none found; T-sequences of length 97 are open (Đoković, arXiv:1008.2043) |
 | 103 | decoded from the 2060 matrix in JD-Jones-ASES/Hadamard-T (2026-08-29) |
 | 109 | none found |

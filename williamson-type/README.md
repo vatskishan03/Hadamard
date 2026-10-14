@@ -41,10 +41,12 @@ through the Williamson array. `verify/verify.py` builds Hadamard matrices from t
 
 | w | group | H | row sums | file | used for |
 |---:|---|---|---|---|---|
+| 47 | ℤ₄₆ | ⟨45⟩ = {±1}, all four symmetric | 2, 0, 0, 0 | [WT47.json](WT47.json) | [12596](../12596) = 4 · 67 · 47, [19364](../19364) = 4 · 103 · 47 |
 | 83 | ℤ₈₂ | ⟨37⟩, order 5 | 0, 2, 0, 0 | [WT83.json](WT83.json) | [34196](../34196) = 4 · 103 · 83 |
 
-Williamson-type matrices of order 83 were known before (Seberry–Yamada 1992, Table A.1); this one is new only as an
-instance of the bordered form. The structure holds 320 solutions (exact join), while the Gaussian model of
+Williamson-type matrices of orders 47 and 83 were known before (near-Williamson matrices of 2026 for 47; Seberry–Yamada
+1992, Table A.1 for 83); these are new only as instances of the bordered form. Order 47 came from uniform samples of
+4 · 10⁵ of the 1.35–1.41 · 10⁶ members of each block, matched by the k-tree (4 solutions in 288 s). The structure holds 320 solutions (exact join), while the Gaussian model of
 `bnw.py triage` predicts 10^−2.1.
 
 ## Calibration and limits

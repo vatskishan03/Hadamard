@@ -66,8 +66,12 @@ def orbits(m, H):
 
 
 class Struct:
-    def __init__(self, N, gens):
-        self.N, self.m, self.gens = N, N - 1, tuple(gens)
+    def __init__(self, N, gens, plain=False):
+        """plain=False: bordered, sequences on Z_(N-1), target -4; plain=True: near-Williamson, sequences on Z_N,
+        target 0 (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev), Williamson-type (A R, B, C, D)."""
+        self.N, self.plain, self.gens = N, plain, tuple(gens)
+        self.m = N if plain else N - 1
+        self.target = 0 if plain else -4
         m = self.m
         self.H = closure(gens, m)
         self.L = frozenset(self.H | {(-h) % m for h in self.H})
@@ -140,8 +144,21 @@ def paf(x):
 
 
 def patterns(st):
-    """Row-sum assignments up to symmetry: the block with row sum 2 is A or B."""
-    return [("A", (2, 0, 0, 0)), ("B", (0, 2, 0, 0))]
+    """Row-sum assignments up to symmetry. Bordered: the block with row sum 2 is A or B. Plain: positive odd
+    (a; b <= c <= d) with a^2 + b^2 + c^2 + d^2 = 4N (negating a sequence keeps its PAF)."""
+    if not st.plain:
+        return [("A", (2, 0, 0, 0)), ("B", (0, 2, 0, 0))]
+    out, N = [], st.N
+    odd = range(1, int(math.isqrt(4 * N)) + 1, 2)
+    for a in odd:
+        for b in odd:
+            for c in odd:
+                if not b <= c:
+                    continue
+                d2 = 4 * N - a * a - b * b - c * c
+                if d2 >= c * c and math.isqrt(d2) ** 2 == d2:
+                    out.append((f"{a}|{b},{c},{math.isqrt(d2)}", (a, b, c, math.isqrt(d2))))
+    return out
 
 
 def kinds():
@@ -149,6 +166,8 @@ def kinds():
 
 
 def z2_ok(st, rows):
+    if st.plain:
+        return True
     """Exact test on the quotient Z_m -> Z_2 (slice sums): each block's even/odd sums (a, b) with a + b = r must give
     sum (a - b)^2 = 4N. Enumerated per block by DP over orbits (an orbit lies in one coset of 2Z_m)."""
     m = st.m
@@ -194,23 +213,24 @@ def gauss(st, rows, K=3000, seed=1):
         g, res = 0, 0
         for lat in lats:
             g = gcd(g, lat[c][0]); res += lat[c][1]
+        tg = st.target
         if var < 1e-9:
-            if abs(-4 - mu) > 1e-6:
+            if abs(tg - mu) > 1e-6:
                 return -math.inf
             continue
-        if g and (-4 - res) % g:
+        if g and (tg - res) % g:
             return -math.inf
         if not dropped:
             dropped = True; continue
-        lp += -0.5 * log10(2 * pi * var) - (-4 - mu) ** 2 / (2 * var) / math.log(10) + log10(max(g, 1))
+        lp += -0.5 * log10(2 * pi * var) - (tg - mu) ** 2 / (2 * var) / math.log(10) + log10(max(g, 1))
     return lN + lp
 
 
-def triage(N, mino, maxo, maxo_l):
-    m = N - 1
+def triage(N, mino, maxo, maxo_l, plain=False):
+    m = N if plain else N - 1
     rows = []
     for H, gens in subgroups(m).items():
-        st = Struct(N, gens)
+        st = Struct(N, gens, plain)
         OA, OL = len(st.sizesA), len(st.sizesL)
         if not (mino <= OA <= maxo) or OL > maxo_l:
             continue
@@ -220,7 +240,7 @@ def triage(N, mino, maxo, maxo_l):
             e = gauss(st, pat)
             if e == -math.inf:
                 continue
-            nA = st.counts("A").get(pat[0], 0); nL = st.counts("L").get(pat[1], 0); nL0 = st.counts("L").get(0, 0)
+            nA = st.counts("A").get(pat[0], 0); nL = st.counts("L").get(pat[1], 0); nL0 = st.counts("L").get(pat[2], 0)
             rows.append((e, len(H), gens, OA, OL, st.C, name, nA, nL, nL0))
     rows.sort(key=lambda r: -r[0])
     print(f"N = {N}, m = {m}: {len(rows)} admissible structure/pattern pairs")
@@ -234,7 +254,7 @@ def enum_block(st, kind, r, fix0, tag):
     """All sign vectors of a block with row sum r: (int16 class values, uint64 masks)."""
     sz = st.sizes(kind); S = st.S[kind]
     d = W.WORK / "bnw"; d.mkdir(exist_ok=True)
-    base = d / f"{st.N}_{'_'.join(map(str, st.gens))}_{tag}_{kind}_{r}_{fix0}"
+    base = d / f"{'p' if st.plain else 'b'}{st.N}_{'_'.join(map(str, st.gens))}_{tag}_{kind}_{r}_{fix0}"
     vals, masks = base.with_suffix(".v"), base.with_suffix(".m")
     if not vals.exists():
         inp = base.with_suffix(".in")
@@ -253,12 +273,12 @@ def mask_to_y(mask, O):
     return np.array([-1 if (int(mask) >> i) & 1 else 1 for i in range(O)], np.int64)
 
 
-def join4(lists, C, K=20, budget=None):
+def join4(lists, C, K=20, budget=None, target=-4):
     d = W.WORK / "bnw"; d.mkdir(exist_ok=True)
     path = d / f"join_{os.getpid()}.bin"
     with open(path, "wb") as f:
         f.write(struct.pack("5i", *[len(x) for x in lists], C))
-        f.write(np.full(C, -4, np.int16).tobytes())
+        f.write(np.full(C, target, np.int16).tobytes())
         for x in lists:
             f.write(np.ascontiguousarray(x, np.int16).tobytes())
     cmd = [W.bin("join4x"), str(path), str(K)] + ([str(budget)] if budget else [])
@@ -269,14 +289,14 @@ def join4(lists, C, K=20, budget=None):
     return sols, (total[0] if total else None)
 
 
-def kt4(lists, C, nsig=4000, K=20, nmerge=5):
+def kt4(lists, C, nsig=4000, K=20, nmerge=5, target=-4):
     """Memory-bounded four-list k-tree (attack/kt4.c) over the split values of the nmerge classes with the largest
     spread, nearest the centre first. Exhaustive only when nsig covers every split value."""
     d = W.WORK / "bnw"; d.mkdir(exist_ok=True)
     path = d / f"kt4_{os.getpid()}.bin"
     with open(path, "wb") as f:
         f.write(struct.pack("5i", *[len(x) for x in lists], C))
-        f.write(np.full(C, -4, np.int16).tobytes())
+        f.write(np.full(C, target, np.int16).tobytes())
         for x in lists:
             f.write(np.ascontiguousarray(x, np.int16).tobytes())
     spread = sum(np.asarray(x, np.float64).var(0) for x in lists)
@@ -304,6 +324,25 @@ def check_bnw(seqs):
     if sorted(map(abs, r)) != [0, 0, 0, 2] or len(j) != 1:
         raise ValueError(f"row sums {r}")
     return j[0], r
+
+
+def near_williamson_type(seqs):
+    """(A R, B, C, D) from near-Williamson sequences on Z_N (B, C, D symmetric, PAF sum 0 off 0), checked."""
+    N = len(seqs[0]); t = np.arange(N)
+    for x in seqs[1:]:
+        if not np.array_equal(x, x[(-t) % N]):
+            raise ValueError("B, C, D must be symmetric")
+    P = sum(paf(x) for x in seqs)
+    if P[0] != 4 * N or np.any(P[1:] != 0):
+        raise ValueError("sum of PAFs is not 0 off zero")
+    Ms = [np.asarray(x, np.int64)[(t[None, :] - t[:, None]) % N] for x in seqs]
+    R = np.zeros((N, N), np.int64); R[t, (-t) % N] = 1
+    Ms[0] = Ms[0] @ R
+    I = np.eye(N, dtype=np.int64)
+    if not all(np.array_equal(Ms[k] @ Ms[l].T, Ms[l] @ Ms[k].T) for k in range(4) for l in range(k + 1, 4)) or \
+            not np.array_equal(sum(x @ x.T for x in Ms), 4 * N * I):
+        raise ValueError("not Williamson-type")
+    return Ms
 
 
 def williamson_type(seqs):
@@ -339,8 +378,8 @@ def williamson_array(Ws):
     return H
 
 
-def search(N, gens, pats=None, K=20, budget=None, log=None, sub=None, seed=1, nsig=None):
-    st = Struct(N, gens)
+def search(N, gens, pats=None, K=20, budget=None, log=None, sub=None, seed=1, nsig=None, plain=False):
+    st = Struct(N, gens, plain)
     OA, OL = len(st.sizesA), len(st.sizesL)
     print(f"N = {N}, H = <{','.join(map(str, gens))}> of order {len(st.H)}: O_A = {OA}, O_L = {OL}, classes = {st.C}",
           flush=True)
@@ -353,7 +392,7 @@ def search(N, gens, pats=None, K=20, budget=None, log=None, sub=None, seed=1, ns
         t0 = time.time()
         lists, masks = [], []
         for k, (kind, r) in enumerate(zip(kinds(), pat)):
-            V, M = enum_block(st, kind, r, 1 if r == 0 else 0, f"{k}")
+            V, M = enum_block(st, kind, r, 1 if r == 0 else 0, f"{k}" if not plain else "p")
             if sub and len(V) > sub:                          # uniform sample of the pool
                 keep = np.sort(np.random.default_rng(seed + k).choice(len(V), int(sub), replace=False))
                 V, M = V[keep], M[keep]
@@ -362,15 +401,16 @@ def search(N, gens, pats=None, K=20, budget=None, log=None, sub=None, seed=1, ns
         print(f"  pattern {name}: lists {sizes} ({time.time() - t0:.1f}s)", flush=True)
         if min(sizes) == 0:
             continue
-        sols, total = kt4(lists, st.C, nsig, K) if nsig else join4(lists, st.C, K, budget)
+        sols, total = kt4(lists, st.C, nsig, K, target=st.target) if nsig else \
+            join4(lists, st.C, K, budget, target=st.target)
         print(f"  pattern {name}: {total} solutions ({time.time() - t0:.1f}s)", flush=True)
         for sol in sols:
             seqs = []
             for k, (kind, idx) in enumerate(zip(kinds(), sol)):
                 y = mask_to_y(masks[k][idx], len(st.sizes(kind)))
                 seqs.append(st.expand(kind, y))
-            Ws = williamson_type(seqs)
-            rec = {"N": N, "m": N - 1, "gens": list(gens), "subgroup_order": len(st.H), "pattern": name,
+            Ws = near_williamson_type(seqs) if plain else williamson_type(seqs)
+            rec = {"N": N, "m": st.m, "plain": plain, "gens": list(gens), "subgroup_order": len(st.H), "pattern": name,
                    "rowsums": [int(x.sum()) for x in seqs],
                    "sequences": ["".join("+" if v > 0 else "-" for v in x) for x in seqs]}
             found.append(rec)
@@ -388,23 +428,24 @@ def main():
     sub = ap.add_subparsers(dest="cmd", required=True)
     a = sub.add_parser("triage"); a.add_argument("N", type=int, nargs="+")
     a.add_argument("--mino", type=int, default=1); a.add_argument("--maxo", type=int, default=60)
-    a.add_argument("--maxol", type=int, default=60)
+    a.add_argument("--maxol", type=int, default=60); a.add_argument("--plain", action="store_true")
     b = sub.add_parser("search"); b.add_argument("N", type=int); b.add_argument("gens", type=int, nargs="+")
     b.add_argument("--pat", nargs="*"); b.add_argument("--K", type=int, default=20)
     b.add_argument("--budget", type=float); b.add_argument("--log")
     b.add_argument("--sub", type=float, help="sample each list down to this size"); b.add_argument("--seed", type=int, default=1)
     b.add_argument("--nsig", type=int, help="use the k-tree (kt4) over this many split values instead of join4x")
+    b.add_argument("--plain", action="store_true", help="near-Williamson on Z_N instead of bordered on Z_(N-1)")
     c = sub.add_parser("check"); c.add_argument("file")
     args = ap.parse_args()
     if args.cmd == "triage":
         for N in args.N:
-            triage(N, args.mino, args.maxo, args.maxol)
+            triage(N, args.mino, args.maxo, args.maxol, args.plain)
     elif args.cmd == "search":
-        search(args.N, args.gens, args.pat, args.K, int(args.budget) if args.budget else None, args.log, args.sub, args.seed, args.nsig)
+        search(args.N, args.gens, args.pat, args.K, int(args.budget) if args.budget else None, args.log, args.sub, args.seed, args.nsig, args.plain)
     else:
         rec = json.loads(Path(args.file).read_text())
         seqs = [np.array([1 if ch == "+" else -1 for ch in s]) for s in rec["sequences"]]
-        Ws = williamson_type(seqs)
+        Ws = near_williamson_type(seqs) if rec.get("plain") else williamson_type(seqs)
         H = williamson_array(Ws)
         print(f"Williamson-type matrices of order {len(Ws[0])} verified; Williamson array H({H.shape[0]}) Hadamard")
 
