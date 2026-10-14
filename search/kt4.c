@@ -422,6 +422,7 @@ int main(int argc, char **argv) {
                     }
                 }
             }
+            free(hk); free(ha); free(hb);                        /* (these were never freed: about 16 bytes per pair per split value) */
         }
         totAB += cnt; totCD += ncd;
         fprintf(stderr, "kt4: sigma %ld/%ld (", ci + 1, NSIG);

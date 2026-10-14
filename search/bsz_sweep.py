@@ -38,7 +38,9 @@ def plan(N, maxpairs):
                            for o in ([0, 1, 2, 3], [0, 2, 1, 3], [0, 3, 1, 2]))
                 enum = 2 * 2.0 ** bs.stL.O + 2 * 2.0 ** bs.stA.O
                 if work <= maxpairs and max(pools) <= 3e8 and enum <= 2 ** 31:
-                    jobs.append((work + enum, "spin", (mods, mats, tag), name, None))
+                    # bsz_group.search runs every pattern of the structure: one job per structure
+                    if not any(j[1] == "spin" and j[2][2] == tag for j in jobs):
+                        jobs.append((work + enum, "spin", (mods, mats, tag), name, None))
     jobs.sort(key=lambda j: j[0])
     return jobs
 

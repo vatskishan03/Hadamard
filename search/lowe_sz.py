@@ -157,6 +157,10 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
         f.write(np.full(C, st.target, np.int16).tobytes())
         for k in order:
             f.write(np.ascontiguousarray(lists[k][1], np.int16).tobytes())
+    # the join needs only the masks (to rebuild solutions) and subsamples of the class values (merge classes, split
+    # law); dropping the full value arrays saves about 1 GB per kept list while kt4 runs
+    lists = [(m, np.array(v[::max(1, len(v) // 200000)])) for m, v in lists]
+    import gc; gc.collect()
     return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0)
 
 
@@ -176,18 +180,18 @@ def sigma_file(lists, Sx, target, nsig, path):
     Sig = sum(sigs)
     w, U = np.linalg.eigh(Sig); inv = np.where(w > 1e-9 * w.max(), 1 / np.where(w > 0, w, 1), 0)
     Sp = (U * inv) @ U.T
-    SAC = sigs[0] + sigs[2]
-    m = (mus[0] + mus[2] + SAC @ Sp @ (t - sum(mus)))[Sx]
+    SAC = sigs[0] + sigs[1]                     # kt4 pairs its lists 0 and 1 (A and C)
+    m = (mus[0] + mus[1] + SAC @ Sp @ (t - sum(mus)))[Sx]
     V = (SAC - SAC @ Sp @ SAC)[np.ix_(Sx, Sx)]
     Vi = np.linalg.inv(V + 1e-6 * np.eye(len(Sx)))
     g, res = [], []
     for s in Sx:
         gs = 0
-        for vi in (lat[0], lat[2]):
+        for vi in (lat[0], lat[1]):
             col = vi[:, s]
             gs = int(np.gcd(gs, np.gcd.reduce(np.abs(col - col[0])))) if len(col) > 1 else gs
         gs = max(gs, 1)
-        g.append(gs); res.append(int(lat[0][0, s] + lat[2][0, s]) % gs)
+        g.append(gs); res.append(int(lat[0][0, s] + lat[1][0, s]) % gs)
     g = np.array(g, np.float64)
     nd = len(Sx)
     vol = {1: 2.0, 2: math.pi, 3: 4 * math.pi / 3, 4: math.pi ** 2 / 2, 5: 8 * math.pi ** 2 / 15}[nd]
