@@ -9,7 +9,10 @@
  * A solution is a choice with the four vectors summing to zero (meet in the middle: lists 1 + 2 hashed, 3 + 4
  * looked up).
  *
- * Usage: odmx t "h1,h2,..." "i:pos:sign,..." [maxsol]
+ * Usage: odmx t "h1,h2,..." "i:pos:sign,..." [maxsol] [dumpprefix]
+ * With dumpprefix, the four lists of each row-sum vector are written to dumpprefix_K.bin in the input format of
+ * join4x.c (int32 nA nB nC nD C; int16 T[C] = 0; int16 VA[nA][C] ...) and their masks to dumpprefix_K.idx
+ * (int32 n0 n1 n2 n3, then the int32 masks list by list); no join is done here.
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,7 +26,7 @@ static int orb[MAXT], norb, osz[MAXT], orep[MAXT];
 static int prep[MAXT], npr;          /* representatives of pair orbits (s and -s identified) */
 static int D;                        /* vector dimension = 2 npr */
 
-typedef struct { int16_t v[64]; int32_t idx; } Ent;
+typedef struct { int16_t v[40]; int32_t idx; } Ent;
 static int *lists[4]; static int lcnt[4];       /* assignments as bitmasks (index into per-block var list) */
 static int nvar[4], var_orb[4][MAXT];           /* per block: variable -> orbit id (block 1: orbit of the + side) */
 
@@ -57,9 +60,12 @@ static uint64_t hv(const int16_t *v) {
 }
 
 int main(int argc, char **argv) {
-    if (argc < 4) { fprintf(stderr, "usage: odmx t h1,h2,... template [maxsol]\n"); return 1; }
+    if (argc < 4) { fprintf(stderr, "usage: odmx t h1,h2,... template [maxsol] [dumpprefix | --decode m0 m1 m2 m3]\n"); return 1; }
+    int decode = argc > 5 && !strcmp(argv[5], "--decode");
     t = atoi(argv[1]);
     long maxsol = argc > 4 ? atol(argv[4]) : 10;
+    const char *dump = (argc > 5 && strcmp(argv[5], "--decode")) ? argv[5] : 0;
+    int ndump = 0;
     int gens[16], ng = 0;
     for (char *tok = strtok(strdup(argv[2]), ","); tok; tok = strtok(0, ",")) gens[ng++] = atoi(tok);
     nH = 1; Hel[0] = 1;
@@ -111,7 +117,7 @@ int main(int argc, char **argv) {
         prep[npr++] = r;
     }
     D = 2 * npr;
-    if (D > 64) { fprintf(stderr, "too many pair orbits (%d)\n", npr); return 1; }
+    if (D > 40) { fprintf(stderr, "too many pair orbits (%d)\n", npr); return 1; }
     /* variables per block */
     for (int i = 0; i < 4; i++) {
         nvar[i] = 0;
@@ -133,6 +139,18 @@ int main(int argc, char **argv) {
             t, nH, norb, npr, m, cw, nvar[0], nvar[1], nvar[2], nvar[3], ru[0], ru[1], ru[2], ru[3]);
     for (int i = 0; i < 4; i++) if (nvar[i] > 26) { fprintf(stderr, "block %d has %d variables: too many\n", i + 1, nvar[i]); return 1; }
     long found = 0;
+    if (decode) {
+        int m = 0; for (int i = 0; i < 4; i++) for (int g = 0; g < t; g++) m += U[i][g] != 0;
+        printf("SOL t=%d m=%d (decoded)\n", t, m);
+        for (int i = 0; i < 4; i++) {
+            build_w(i, (uint64_t)atoll(argv[6 + i]));
+            for (int g = 0; g < t; g++) {
+                int code = (i == 0 && g == 0) ? 1 : U[i][g] ? 2 * U[i][g] : 3 * W[g];
+                printf("%d%c", code, g == t - 1 ? '\n' : ' ');
+            }
+        }
+        return 0;
+    }
     /* free counts for parity */
     int nfree[4];
     for (int i = 0; i < 4; i++) { nfree[i] = 0; for (int g = 0; g < t; g++) nfree[i] += !(U[i][g] || (i == 0 && g == 0)); }
@@ -144,17 +162,39 @@ int main(int argc, char **argv) {
         Ent *L[4]; int n[4];
         for (int i = 0; i < 4; i++) {
             long cap = 1L << nvar[i];
-            L[i] = malloc(sizeof(Ent) * (size_t)(cap < 4000000 ? cap : 4000000));
+            long lcap = dump ? 12000000 : 4000000;
+            L[i] = malloc(sizeof(Ent) * (size_t)(cap < lcap ? cap : lcap));
             n[i] = 0;
             for (long mask = 0; mask < cap; mask++) {
                 build_w(i, mask);
                 if (rowsum() != tg[i]) continue;
-                if (n[i] >= 4000000) { fprintf(stderr, "list %d too long\n", i); return 1; }
+                if (n[i] >= lcap) { fprintf(stderr, "list %d too long\n", i); return 1; }
                 vec(i, L[i][n[i]].v); L[i][n[i]].idx = (int32_t)mask; n[i]++;
             }
         }
         fprintf(stderr, "rows (0, %d, %d, %d): lists %d %d %d %d\n", r2, r3, r4, n[0], n[1], n[2], n[3]);
         if (!n[0] || !n[1] || !n[2] || !n[3]) { for (int i = 0; i < 4; i++) free(L[i]); continue; }
+        if (dump) {
+            char fn[512];
+            snprintf(fn, sizeof fn, "%s_%d.bin", dump, ndump);
+            FILE *f = fopen(fn, "wb");
+            int32_t hdr[5] = {n[0], n[1], n[2], n[3], D};
+            fwrite(hdr, 4, 5, f);
+            int16_t zero[64] = {0};
+            fwrite(zero, 2, D, f);
+            for (int i = 0; i < 4; i++) for (int k = 0; k < n[i]; k++) fwrite(L[i][k].v, 2, D, f);
+            fclose(f);
+            snprintf(fn, sizeof fn, "%s_%d.idx", dump, ndump);
+            f = fopen(fn, "wb");
+            fwrite(n, 4, 4, f);
+            for (int i = 0; i < 4; i++) for (int k = 0; k < n[i]; k++) fwrite(&L[i][k].idx, 4, 1, f);
+            fclose(f);
+            printf("DUMP %s_%d rows (0, %d, %d, %d) lists %d %d %d %d\n", dump, ndump, r2, r3, r4, n[0], n[1], n[2], n[3]);
+            fflush(stdout);
+            ndump++;
+            for (int i = 0; i < 4; i++) free(L[i]);
+            continue;
+        }
         /* hash sums of lists 0 and 1 */
         long N01 = (long)n[0] * n[1];
         int hb = 1; while ((1L << hb) < 2 * N01) hb++;

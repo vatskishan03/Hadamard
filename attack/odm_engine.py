@@ -42,6 +42,9 @@ def main():
     ap.add_argument('--maxsol', type=int, default=3)
     ap.add_argument('--dry', action='store_true')
     ap.add_argument('--bsub', type=int, default=0, help='restrict the b part to the subgroup of this order')
+    ap.add_argument('--bjoin', action='store_true', help='find b templates with join4x instead of a Python dict')
+    ap.add_argument('--join4x', default='/tmp/hadamard-work/bin/join4x')
+    ap.add_argument('--bk', type=int, default=200000, help='max b-part quadruples taken from join4x')
     a = ap.parse_args()
     t, m = a.t, a.m
     H = closure([int(x) for x in a.gens.split(',')], t)
@@ -133,42 +136,62 @@ def main():
     B1 = block1_cands()
     Bk = blockk_cands()
     print(f'b candidates: block 1 {len(B1)}, blocks 2-4 {len(Bk)}', file=sys.stderr)
-    # meet in the middle: (1, 2) vs (3, 4)
-    left = defaultdict(list)
-    for w1, p1, v1 in B1:
-        for w2, p2, v2 in Bk:
-            if w1 + w2 <= m:
-                left[(w1 + w2, tuple(x + y for x, y in zip(p1, p2)))].append((v1, v2))
     units = [u for u in range(1, t) if all(u * k % t for k in range(1, t))]
     seen = set()
     templates = []
-    for w3, p3, v3 in Bk:
-        for w4, p4, v4 in Bk:
-            w = w3 + w4
-            if w > m:
-                continue
-            key = (m - w, tuple(-(x + y) for x, y in zip(p3, p4)))
-            for v1, v2 in left.get(key, ()):
-                tpl = (v1, v2, v3, v4)
-                # canonical form: multipliers (act on orbits), block 2-4 permutations, negations
-                best = None
-                for u in units:
-                    perm = [orb[orbits[i][0] * u % t] for i in range(no)]
-                    imgs = []
-                    for blk in tpl:
-                        nb = [0] * no
-                        for i, v in enumerate(blk):
-                            nb[perm[i]] = v
-                        imgs.append(tuple(nb))
-                    b1 = min(imgs[0], tuple(-x for x in imgs[0]))
-                    rest = sorted(min(b, tuple(-x for x in b)) for b in imgs[1:])
-                    k = (b1,) + tuple(rest)
-                    if best is None or k < best:
-                        best = k
-                if best in seen:
+
+    def add_template(tpl):
+        best = None
+        for u in units:
+            perm = [orb[orbits[i][0] * u % t] for i in range(no)]
+            imgs = []
+            for blk in tpl:
+                nb = [0] * no
+                for i, v in enumerate(blk):
+                    nb[perm[i]] = v
+                imgs.append(tuple(nb))
+            b1 = min(imgs[0], tuple(-x for x in imgs[0]))
+            rest = sorted(min(b, tuple(-x for x in b)) for b in imgs[1:])
+            k = (b1,) + tuple(rest)
+            if best is None or k < best:
+                best = k
+        if best not in seen:
+            seen.add(best)
+            templates.append(best)
+
+    if a.bjoin:
+        import struct, tempfile, os
+        D = len(reps) + 1
+        lists = [B1, Bk, Bk, Bk]
+        fd, path = tempfile.mkstemp(suffix='.bin', dir=os.environ.get('HADAMARD_WORK', '/tmp/hadamard-work') + '/tmp')
+        with os.fdopen(fd, 'wb') as f:
+            f.write(struct.pack('5i', *[len(L) for L in lists], D))
+            f.write(struct.pack(f'{D}h', *([0] * len(reps) + [m])))
+            for L in lists:
+                for w, p, v in L:
+                    f.write(struct.pack(f'{D}h', *(list(p) + [w])))
+        r = subprocess.run([a.join4x, path, str(a.bk)], capture_output=True, text=True)
+        os.remove(path)
+        sols = [list(map(int, ln.split()[1:5])) for ln in r.stdout.splitlines() if ln.startswith('SOL')]
+        tot = [ln for ln in r.stdout.splitlines() if ln.startswith('TOTAL')]
+        print(f'b quadruples from join4x: {len(sols)} ({tot[0] if tot else "?"})', file=sys.stderr)
+        for i0, i1, i2, i3 in sols:
+            add_template((B1[i0][2], Bk[i1][2], Bk[i2][2], Bk[i3][2]))
+    else:
+        # meet in the middle: (1, 2) vs (3, 4)
+        left = defaultdict(list)
+        for w1, p1, v1 in B1:
+            for w2, p2, v2 in Bk:
+                if w1 + w2 <= m:
+                    left[(w1 + w2, tuple(x + y for x, y in zip(p1, p2)))].append((v1, v2))
+        for w3, p3, v3 in Bk:
+            for w4, p4, v4 in Bk:
+                w = w3 + w4
+                if w > m:
                     continue
-                seen.add(best)
-                templates.append(best)
+                key = (m - w, tuple(-(x + y) for x, y in zip(p3, p4)))
+                for v1, v2 in left.get(key, ()):
+                    add_template((v1, v2, v3, v4))
     print(f'{len(templates)} b templates up to equivalence', file=sys.stderr)
     cw = 4 * t - m - 1
     ok_tpl = []

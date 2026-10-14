@@ -2014,3 +2014,14 @@ of order m (t = km): 7ℤ₉₁ ≅ ℤ₁₃ for 9828 and 3ℤ₃₉ ≅ ℤ₁
 give t = 3. The run at t = 91 with `--bsub 13` also finds solutions (10 templates).
 
 With `--bsub` there are no templates (0) for 1045 (t = 55, |H| = 5, m = 11) and 957 (t = 87, |H| = 7, m = 29).
+
+**Eades' condition prunes the list.** A 4-type OD(4t; 1, m, c) (four commuting blocks, as in Goethals–Seidel) needs
+an integer matrix E with EEᵀ = diag(1, m, c) (Handbook of Combinatorial Designs, Thm 2.96). With the unit row e₁ this
+means orthogonal r, ρ ∈ ℤ³ with |r|² = m and |ρ|² = c = 4t − m − 1: the row sums of the b and c parts, which is the
+engine's row-sum screen. Example: for 627 (OD(228; 1, 19, 208)), 19 forces r = (3, 3, 1) up to signs and order, 208
+forces ρ = (12, 8, 0), and no pair is orthogonal. That is why all 97 templates at t = 57 failed the screen.
+
+The condition fails for 627, 759, 1045, 1221, 1235, 1323, 1425, 1683, 1815, 2145, 2185 and 2375: no 4-type design
+exists for these. (1425 is [skew/5700](../skew/5700) by another route.) It holds for 429, 475, 693, 891, 957, 1089,
+1353, 1617, 1749, 1947, 1989, 2013, 2277, 2365, 2409 and 2457. Of these, 429, 475, 1989 and 2457 are done; the rest
+are open.
