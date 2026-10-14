@@ -6,8 +6,11 @@ levels take minutes and gigabytes, the small ones milliseconds).
 
     python3 search/compress_check.py ssxx N g[,g2] a,b,c,d [--dmax D]     (cyclic Szöllősi)
     python3 search/compress_check.py bsz N g[,g2] r1,r2,r3,r4 [--dmax D]  (bordered, rows like 0,0,2,0)
+    python3 search/compress_check.py --jsonl IN --out OUT [--dmax D]       (records with N, gens, rows, bordered,
+                                                                            e.g. from frontier_scan.py; adds
+                                                                            "compress" and "ruled_out")
 """
-import argparse, sys, time
+import argparse, json, sys, time
 from pathlib import Path
 import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -40,12 +43,31 @@ def check(mode, N, gens, pat, maxstates=2_000_000, dmax=None, stop=False):
     return out
 
 
+def screen(path, out, maxstates, dmax):
+    n = bad = 0
+    with open(out, "a") as fo:
+        for line in open(path):
+            r = json.loads(line)
+            pat = tuple(r.get("rows") or r.get("pat"))
+            t0 = time.time()
+            res = check("bsz" if r.get("bordered") else "ssxx", r["N"], list(r["gens"]), pat, maxstates, dmax, stop=True)
+            r["compress"] = {str(d): c for d, c in res.items()}
+            r["ruled_out"] = next((d for d, c in res.items() if c == 0), None)
+            r["compress_seconds"] = round(time.time() - t0, 1)
+            fo.write(json.dumps(r) + "\n"); fo.flush()
+            n += 1; bad += r["ruled_out"] is not None
+    print(f"{n} records, {bad} ruled out")
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("mode", choices=["ssxx", "bsz"]); ap.add_argument("N", type=int)
-    ap.add_argument("gens"); ap.add_argument("pat")
+    ap.add_argument("mode", nargs="?", choices=["ssxx", "bsz"]); ap.add_argument("N", nargs="?", type=int)
+    ap.add_argument("gens", nargs="?"); ap.add_argument("pat", nargs="?")
     ap.add_argument("--dmax", type=int); ap.add_argument("--maxstates", type=float, default=2e6)
+    ap.add_argument("--jsonl"); ap.add_argument("--out")
     a = ap.parse_args()
+    if a.jsonl:
+        screen(a.jsonl, a.out, int(a.maxstates), a.dmax); return
     mode, N, gens, pat = a.mode, a.N, [int(x) for x in a.gens.split(",")], tuple(int(x) for x in a.pat.split(","))
     t0 = time.time()
     r = check(mode, N, gens, pat, int(a.maxstates), a.dmax)

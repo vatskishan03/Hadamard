@@ -2286,8 +2286,11 @@ estimate sees these obstructions. Checked on exact solution sets:
 - Bordered 227, ⟨49⟩, rows (0, 0, 2, 0) (order 454) passes: 8 level-1 solutions at d = 2.
 - Bordered 31, ⟨11⟩ with the 2 in A has no solution but passes at d = 2, 3 and 5. That obstruction is of another
   kind.
+- All 291 exact counts of the calibration runs (`calib_bsz.py`; 27 structures with solutions): no structure with
+  solutions fails. Of the 264 without, levels with up to 2 · 10⁵ states per block rule out 186 of 238 cyclic and 24
+  of 26 bordered ones, and levels with up to 3 · 10⁶ states (seconds, at most 1.4 GB) 220 of 238 and 24 of 26.
 
-For the bordered array (v = N − 1 even) the level d = 2 has a closed form. Σ PAF = −4 gives
+For the bordered array (v = N − 1 even) the level d = 2 has a closed form; `bsz.z2_ok` already applied it in the exhaustive sweep (`bsz_sweep.py`), but `lowe_sz.py`, `frontier_scan.py` and `hybrid_rank.py` did not, so impossible bordered structures were ranked and queued. Σ PAF = −4 gives
 Σ_k |X̂_k(ω)|² = 4v + 4 = 4N at every ω ≠ 0. At the character (−1)^t this reads Σ_k e_k² = N, where 2e_k is block
 k's alternating sum. The multiplier group fixes the e_k modulo a small number.
 
@@ -2305,8 +2308,63 @@ Run on the queue of hybrid-ranked candidates (§33), the check removed 15 of 24 
   5, 15, 15, 25; ⟨9⟩: 15, 25, 5, 15; ⟨104⟩: 5, 25, 15, 15). 275 ⟨4⟩ (15, 15, 5, 25) had already run: 0 solutions at
   retention 0.99.
 - ruled out at d = 3: 393 ⟨52⟩, rows (27, 29, 1, 1).
-- passed (no empty level among those small enough to list): 183 ⟨34⟩ in its three patterns, 341 ⟨194⟩, 171 ⟨11⟩,
-  213 ⟨37⟩, 203 ⟨36⟩, 453 ⟨4⟩, bordered 183 ⟨3⟩ and ⟨87⟩, 403 ⟨16⟩, 335 ⟨76⟩ and 395 ⟨21⟩.
+- ruled out at d = 5 with 3 · 10⁶ states: 335 ⟨76⟩ in all three patterns and 395 ⟨21⟩.
+- passed: 183 ⟨34⟩ in its three patterns, 341 ⟨194⟩, 171 ⟨11⟩, 213 ⟨37⟩, 203 ⟨36⟩, 453 ⟨4⟩, bordered 183 ⟨3⟩ and
+  ⟨87⟩, and 403 ⟨16⟩ with rows (9, 9, 15, 35).
 
-`lowe_sz.py` now runs the check for d ≤ 64 before enumerating (under a second for the small levels) and stops on an
-empty level.
+Over all 143 structures of the hybrid ranking the check rules out 111. Among the 32 left, apart from the solved 215
+and 227, are 203 ⟨36⟩ (three patterns, hybrid 10^2.9–10^3.4), 453 ⟨4⟩, 403 ⟨16⟩ (two patterns), 219 ⟨82⟩ and ⟨10⟩,
+455, 291 and 407.
+
+`lowe_sz.py` now runs the check for d ≤ 64 (up to 3 · 10⁶ states) before enumerating and stops on an empty level.
+
+## 37. Fibre filters: the compressions inside the low-energy search (October 14)
+
+A solution's four compressions to ℤ_d form a level-1 solution (§36), so each block's compression lies in the
+projection of the level-1 join. `lowe_sz.py` now lists these sets for every prime power d ≤ 32 dividing the group
+order whose states fit (`fibre_filters`). `lowe_enum.c` drops every member whose compression is not among them,
+before computing its energy: a 64-bit key of the compression, linear in the orbit signs, is updated with each flip
+and looked up at the leaves. The Gaussian statistics, the energy quantile and the retention model are taken over the
+allowed sub-pool (rejection sampling).
+
+Fractions of each block's pool that are allowed, exactly from the multiplicities of the compression states, and the
+fraction of the quadruple space that the level-1 solutions cover:
+
+| N | H | rows | d | allowed (A, B, C, D) | quadruples |
+|---:|---|---|---:|---|---:|
+| 453 | ⟨4⟩ | 29, 31, 1, 3 | 3 | 0.39, 0.39, 0.10, 0.10 | 1.6 · 10⁻³ |
+| 371 | ⟨13⟩ | 3, 3, 25, 29 | 7 | 0.40, 0.40, 0.13, 0.13 | 9.4 · 10⁻⁵ |
+| 119 | ⟨8⟩ | 1, 5, 15, 15 | 7 | 0.40, 0.40, 0.026, 0.026 | 2.3 · 10⁻⁵ |
+| 267 | ⟨4⟩ | 1, 1, 21, 25 | 3 | 0.45, 0.45, 0.11, 0.33 | 7.5 · 10⁻³ |
+| 267 | ⟨4⟩ | 1, 1, 21, 25 | 89 | 0.88, 0.88, 0.78, 0.79 | 2.0 · 10⁻⁶ |
+| 203 | ⟨36⟩ | 3, 25, 3, 13 | 29 | 0.97, 0.995, 0.98, 0.74 | 1.2 · 10⁻³ |
+| 183, bordered | ⟨3⟩ | 0, 0, 2, 0 | 2 | 0.20, 0.20, 0.28, 0.14 | 1.5 · 10⁻³ |
+
+Solutions kept out of exact solution sets (`retention_test.py --fibre`), full energy:
+
+| N | H | rows | kept per big block | without fibres | with fibres |
+|---:|---|---|---:|---:|---:|
+| 119 | ⟨8⟩ | 1, 5, 15, 15 | 2000 | 0 of 4704 | 4704 |
+| 371 | ⟨13⟩ | 3, 3, 25, 29 | 500 | 24 of 96 | 56 |
+| 371 | ⟨13⟩ | 3, 3, 25, 29 | 1000 | 48 of 96 | 96 |
+| 93 | ⟨4⟩ | 9, 13, 1, 11 | 5000 | 0 of 21384 | 432 |
+| 93 | ⟨4⟩ | 9, 13, 1, 11 | 15000 | 1224 of 21384 | 6912 |
+| 93 | ⟨4⟩ | 7, 11, 9, 11 | 5000 | 0 of 9504 | 432 |
+| 93 | ⟨4⟩ | 7, 11, 9, 11 | 15000 | 864 of 9504 | 1512 |
+| 267 | ⟨4⟩ | 1, 1, 21, 25 | 5 · 10⁴ | 0 of 576 | 0 |
+
+At 119 both levels together leave 1345 members of C and of D (1.3% of 105105), so 2000 keep them all. With fibres
+`lowe_sz.py` finds the solutions of 371 at L = 1000 (order 742, verified).
+
+**267, and an energy that failed.** At d = 89 the per-block projections keep 78–88% of each pool, while the join
+keeps 2 · 10⁻⁶ of the quadruple space. The information is in the combination, and a per-block filter cannot use it.
+The compressions also fix linear functionals of the class values: the PAF of the compression to ℤ_d at j is the sum
+of PAF(g) over the shifts g ≡ j (mod d). A trial energy conditioned the Gaussian on these 5–7 directions (of 10–17
+classes). It was worse everywhere: 267 kept 0 of 576 even at L = 2 · 10⁵, and 119 without fibres 0 of 4704 at
+5000. Those directions carry most of the filter's discriminating power, so the option was dropped.
+
+**The exact chain cannot take these structures either.** For 453 the joint state space of the levels 3 and 151
+exceeds 5 · 10⁶ (and 2 · 10⁷ ran out of memory). At level 3 alone each of the 3 level-1 branches has fibres of about
+1.6 · 10⁷ members, above `cchain4.py`'s listing limit of 3 · 10⁶. The fibre filter reaches the same structure from
+the other side: its allowed pools are 4.8 · 10⁷ (C) and 1.6 · 10⁷ (D), so lists of 5 · 10⁷ keep every allowed member,
+and the low-energy search becomes a complete search of its lists, limited only by the split values kt4 processes.
