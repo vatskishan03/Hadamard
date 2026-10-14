@@ -223,11 +223,12 @@ def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ord
               flush=True)
     else:
         print(f"  kt4: merge classes {Sx}, {int(nsig)} split values", flush=True)
-    p = subprocess.run([W.bin("kt4"), str(inp), ",".join(map(str, Sx)), sigarg, str(maxsol)],
-                       capture_output=True, text=True)
+    with open(str(inp) + ".progress", "w") as errf:                # one line per split value
+        p = subprocess.run([W.bin("kt4"), str(inp), ",".join(map(str, Sx)), sigarg, str(maxsol)],
+                           stdout=subprocess.PIPE, stderr=errf, text=True)
     tail = [l for l in p.stdout.splitlines() if l.startswith("TOTAL")]
     sols = [list(map(int, l.split()[1:5])) for l in p.stdout.splitlines() if l.startswith("SOL")]
-    print(f"  kt4: {len(sols)} solutions; {tail[0] if tail else p.stderr.strip()[-300:]} [{time.time() - t0:.0f}s]",
+    print(f"  kt4: {len(sols)} solutions; {tail[0] if tail else 'exit ' + str(p.returncode)} [{time.time() - t0:.0f}s]",
           flush=True)
     found = []
     for s in sols:
