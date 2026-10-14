@@ -126,6 +126,8 @@ def members(st, comp, r, key, cap):
     """All sign vectors (int8) with row sum r and compression key (meet in the middle; the two halves are cached)."""
     O = st.O; h = O // 2
     ck = (id(st), id(comp))
+    if ck in _HALVES and (_HALVES[ck][0] is not st or _HALVES[ck][1] is not comp):
+        del _HALVES[ck]                                   # ids of freed objects can be reused: check identity
     if ck not in _HALVES:
         def half(lo, hi):
             m = hi - lo
@@ -138,8 +140,8 @@ def members(st, comp, r, key, cap):
         k1 = K1 @ w; k2 = K2 @ w
         o2 = np.argsort(k2, kind='stable')
         while len(_HALVES) >= 2: _HALVES.pop(next(iter(_HALVES)))      # keep the A and the B/D structures
-        _HALVES[ck] = (Y1, K1, k1, Y2, K2, k2[o2], o2, w)
-    Y1, K1, k1, Y2, K2, k2s, o2, w = _HALVES[ck]
+        _HALVES[ck] = (st, comp, Y1, K1, k1, Y2, K2, k2[o2], o2, w)   # holding st and comp keeps their ids unique
+    _, _, Y1, K1, k1, Y2, K2, k2s, o2, w = _HALVES[ck]
     target = np.array((r,) + tuple(key), np.int64)
     need = (target @ w) - k1                          # K1 + K2 = target  <=>  k2 = target.w - k1 (64-bit hash)
     lo = np.searchsorted(k2s, need, 'left'); hi = np.searchsorted(k2s, need, 'right')
