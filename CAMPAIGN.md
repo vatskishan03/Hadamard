@@ -31,7 +31,7 @@ and their caveats are in each linked README.
 
 | Orders | Construction |
 |---|---|
-| 142, 154, 238, 262, 286, 302, 310, 326, 370, 494, 518, 534, 742, 754 | Szöllősi's two-symmetric array (arXiv:2603.09572, Theorem 4) with multiplier groups; exact joins, sampled lists or the exact compression chain (310, 518) |
+| 142, 154, 238, 262, 286, 302, 310, 326, 370, 382, 494, 518, 534, 742, 754 | Szöllősi's two-symmetric array (arXiv:2603.09572, Theorem 4) with multiplier groups; exact joins, sampled lists, the exact compression chain (310, 518) or the streaming k-tree (382) |
 | 222 | from the near-Williamson matrices of order 111 |
 
 The details are in [complex-hadamard](complex-hadamard), and `python3 verify/verify_complex.py` checks K K* = 2N I

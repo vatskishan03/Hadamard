@@ -392,3 +392,9 @@ of the two blocks in 34 s.
 The target is N = 191, the only open prime with a large estimate. H = ⟨39⟩ of order 5 gives 39 orbits and
 19 classes. Lists are 9.2 · 10⁴ for A and B and 3.4 · 10¹⁰, 2.9 · 10¹⁰ for C and D. The Gaussian estimate is 10^7.55
 solutions, and for prime N the estimate has been accurate (71: 1445 predicted, 1430 found; 131: 10^4.0, 12618).
+
+*Order 382.* Run: `python3 attack/kstream.py 191 39 11,11,9,21 --k 7 --wide 5 --vals 2 --fracC 0.18 --fracD 0.3
+--maxm1 2.2e8 --threads 4`. Pass 1 joined 18% of the C pool with A on the first 7 classes. It kept 1.73 · 10⁸
+fingerprints in 36 minutes on 4 cores. Pass 2 found a verified solution 6.5 minutes into the D stream (30% of the D
+pool was scheduled). This gives the complex Hadamard matrix of order 382 (`complex-hadamard/C382.json`). The order is
+blank in Table 11.2, and 191 is prime, so no compression or product reaches it.

@@ -72,6 +72,7 @@ A second construction, the bordered Szöllősi array on a group of order N − 1
 | 310 | 155 = 5 · 31 | ⟨16⟩, order 5 (compression chain, `attack/cchain4.py`) | 9, 9; 13, 17 | [C310.json](C310.json) |
 | 326 | 163 | ⟨38⟩, order 9 | 17, 19; 1, 1 | [C326.json](C326.json) |
 | 370 | 185 = 5 · 37 | ⟨9⟩, order 18 | 3, 3; 19, 19 | [C370.json](C370.json) |
+| 382 | 191 | ⟨39⟩, order 5 (streaming k-tree, `attack/kstream.py`) | 11, 11; 9, 21 | [C382.json](C382.json) |
 | 494 | 247 = 13 · 19 | ⟨9, 35⟩, order 27 | 17, 19; 7, 17 | [C494.json](C494.json) |
 | 518 | 259 = 7 · 37 | ⟨44⟩, order 9 (compression chain) | 5, 29; 1, 13 | [C518.json](C518.json) |
 | 534 | 267 = 3 · 89 | ⟨4⟩, order 11 | 1, 1; 21, 25 | [C534.json](C534.json) |
@@ -112,4 +113,4 @@ The sweep's candidate list (`python3 attack/ssxx_sweep.py list`) is exactly the 
 minus these. The 2026 papers cite the updated Table 11.2 of Seberry and Yamada's 2020 book (Wiley), which we could
 not consult. A construction published between 1992 and 2020 and recorded only there is the remaining caveat.
 
-**What remains open** (`python3 attack/complex_status.py`): after the orders in this directory, 215 values of N < 1000 have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 214, 322, 330, 334, 342, 358, 366, 382, 406, 414, 418, 426, …. Order 214 (N = 107) is out of reach of every structure we have: 107 and 53 = (107 − 1)/2 are both prime, so neither ℤ₁₀₇ nor ℤ₁₀₆ has a usable multiplier group, and no quaternary Legendre pair family covers length 106.
+**What remains open** (`python3 attack/complex_status.py`): after the orders in this directory, 214 values of N < 1000 have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 214, 322, 330, 334, 342, 358, 366, 406, 414, 418, 426, 430, …. Order 214 (N = 107) is out of reach of every structure we have: 107 and 53 = (107 − 1)/2 are both prime, so neither ℤ₁₀₇ nor ℤ₁₀₆ has a usable multiplier group, and no quaternary Legendre pair family covers length 106.
