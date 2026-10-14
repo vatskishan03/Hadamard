@@ -117,3 +117,13 @@ the unresolved orders up to 4 · 2999 with the cheapest structure known for each
 9. M. Yamada, Some new series of Hadamard matrices, J. Austral. Math. Soc. Ser. A 46 (1989) 371–383.
 10. Szöllősi, A complex Hadamard matrix of order 94, arXiv:2603.09572 (2026).
 11. H. Kharaghani, A. Mohammadian, B. Tayfeh-Rezaie, V. Zaitsev, arXiv:2605.08661v2 (2026).
+
+## Citation
+
+If you use these matrices or programs, please cite the repository ([CITATION.cff](CITATION.cff)):
+
+> Kishan, *New Hadamard matrices*, https://github.com/vatskishan03/Hadamard, 2026.
+
+## License
+
+Apache License 2.0; see [LICENSE](LICENSE).

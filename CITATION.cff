@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use these matrices or programs, please cite them as below."
+title: "New Hadamard matrices"
+authors:
+  - given-names: Kishan
+repository-code: "https://github.com/vatskishan03/Hadamard"
+license: Apache-2.0
+date-released: 2026-10-14
+keywords:
+  - Hadamard matrices
+  - skew-Hadamard matrices
+  - symmetric Hadamard matrices
+  - complex Hadamard matrices
+  - combinatorial designs
