@@ -32,6 +32,8 @@ import chain as CH
 import ssxx, bsz
 
 KINDS = ["L", "L", "A", "A"]
+MODES = {"ssxx": (["L", "L", "A", "A"], 0, False), "bsz": (["L", "L", "A", "A"], -4, True),
+         "nw": (["A", "L", "L", "L"], 0, False), "bnw": (["A", "L", "L", "L"], -4, True)}
 
 
 def closure(gens, v):
@@ -44,8 +46,8 @@ def closure(gens, v):
 
 
 class KChain:
-    def __init__(self, v, gens, ds, T):
-        self.v, self.T, self.ds = v, T, list(ds)
+    def __init__(self, v, gens, ds, T, kinds=KINDS):
+        self.v, self.T, self.ds, self.kinds = v, T, list(ds), list(kinds)
         G = L.AbGroup([v]); self.G = G
         perms = [G.perm_from_matrix(np.array([[g]])) for g in gens]
         self.st = {"A": L.Structure(G, perms), "L": L.Structure(G, perms + [G.neg()])}
@@ -143,7 +145,7 @@ class KHalves:
 
 
 def final_join(ch, lists, K=2):
-    Vs = [np.rint(ch.st[kind].class_values(Y.astype(np.float64))).astype(np.int16) for kind, Y in zip(KINDS, lists)]
+    Vs = [np.rint(ch.st[kind].class_values(Y.astype(np.float64))).astype(np.int16) for kind, Y in zip(ch.kinds, lists)]
     sizes = [len(x) for x in Vs]
     perm = min(([0, 1, 2, 3], [0, 2, 1, 3], [0, 3, 1, 2]),
                key=lambda o: sizes[o[0]] * sizes[o[1]] + sizes[o[2]] * sizes[o[3]])
@@ -169,20 +171,58 @@ def final_join(ch, lists, K=2):
     return total, sols
 
 
+def split_join(ch, lists, extra, K=2):
+    """Final join through extra compression levels computed from the enumerated fibres: each list is grouped by its
+    compressions to the extra levels, the compressed autocorrelations of the groups are joined exactly, and join4x
+    runs only on consistent sub-lists. Exact."""
+    if not extra:
+        return final_join(ch, lists, K)
+    groups = []
+    for kind, Y in zip(ch.kinds, lists):
+        keys = np.concatenate([Y.astype(np.int64) @ e.lev[0][4][kind] for e in extra], axis=1)
+        u, inv = np.unique(keys, axis=0, return_inverse=True)
+        groups.append((u, inv.ravel()))
+    P = []
+    for u, _ in groups:
+        parts, a = [], 0
+        for e in extra:
+            h = e.lev[0][4]["A"].shape[1]
+            parts.append(e.paf(0, u[:, a:a + h])); a += h
+        P.append(np.concatenate(parts, axis=1))
+    tgt = np.concatenate([e.target(0) for e in extra])
+    try:
+        quads = CH.join4(P, tgt)
+    except CH.JoinTooLarge:
+        return final_join(ch, lists, K)
+    total, sols = 0, []
+    for q in quads:
+        sub = [lists[k][groups[k][1] == q[k]] for k in range(4)]
+        t, s_ = final_join(ch, sub, K)
+        total += t; sols += s_
+        if sols:
+            break
+    return total, sols
+
+
 def verify_sol(ch, mode, Ys):
-    seqs = [Y.astype(np.int64)[ch.st[kind].orb] for kind, Y in zip(KINDS, Ys)]
+    import bnw
+    seqs = [Y.astype(np.int64)[ch.st[kind].orb] for kind, Y in zip(ch.kinds, Ys)]
     if mode == "ssxx":
         ssxx.complex_hadamard(seqs)
-    else:
+    elif mode == "bsz":
         bsz.build(seqs)
+    elif mode == "nw":
+        bnw.williamson_array(bnw.near_williamson_type(seqs)) if False else bnw.near_williamson_type(seqs)
+    else:
+        bnw.williamson_array(bnw.williamson_type(seqs))
     return seqs
 
 
 def run(mode, N, gens, pat, d1=None, d2=None, maxfibre=3_000_000, maxstates=20_000_000, budget=3600, log=None,
         exhaustive=False, verbose=True):
     t0 = time.time()
-    v = N if mode == "ssxx" else N - 1
-    T = 0 if mode == "ssxx" else -4
+    kinds, T, bordered = MODES[mode]
+    v = N - 1 if bordered else N
     ps = [p for p in range(2, v) if v % p == 0 and all(p % r for r in range(2, int(p ** 0.5) + 1))]
     # prime-power divisors of v as candidate levels
     cand = sorted({p ** e for p in ps for e in range(1, 8) if v % (p ** e) == 0 and p ** e < v})
@@ -191,8 +231,8 @@ def run(mode, N, gens, pat, d1=None, d2=None, maxfibre=3_000_000, maxstates=20_0
     else:
         counts1 = {}
         for d in cand:
-            c1 = KChain(v, gens, [d], T)
-            Sd = [c1.states(k, r, maxstates) for k, r in zip(KINDS, pat)]
+            c1 = KChain(v, gens, [d], T, kinds)
+            Sd = [c1.states(k, r, maxstates) for k, r in zip(kinds, pat)]
             if any(x is None for x in Sd):
                 continue
             U = [np.unique(K_, axis=0).astype(np.int64) for K_, _ in Sd]
@@ -212,11 +252,11 @@ def run(mode, N, gens, pat, d1=None, d2=None, maxfibre=3_000_000, maxstates=20_0
         for d in best[1:]:
             if math.gcd(d, best[0]) == 1:
                 levels.append(d); break
-    ch = KChain(v, gens, levels, T)
-    S = [ch.states(k, r, maxstates) for k, r in zip(KINDS, pat)]
+    ch = KChain(v, gens, levels, T, kinds)
+    S = [ch.states(k, r, maxstates) for k, r in zip(kinds, pat)]
     if any(x is None for x in S):
-        ch = KChain(v, gens, levels[:1], T); levels = levels[:1]
-        S = [ch.states(k, r, maxstates) for k, r in zip(KINDS, pat)]
+        ch = KChain(v, gens, levels[:1], T, kinds); levels = levels[:1]
+        S = [ch.states(k, r, maxstates) for k, r in zip(kinds, pat)]
         if any(x is None for x in S):
             print("  joint state space too large", flush=True); return dict(status='too-large', found=[])
 
@@ -241,6 +281,13 @@ def run(mode, N, gens, pat, d1=None, d2=None, maxfibre=3_000_000, maxstates=20_0
     weight = [np.prod([proj[k][2][q[k]] for k in range(4)]) for q in sols1]
     branches = [sols1[i] for i in np.argsort(weight)[::-1]]
     halves = {}
+    extra = [KChain(v, gens, [d], T, kinds) for d in cand if d not in levels and all(math.gcd(d, l) == 1 for l in levels)]
+    # keep the extra levels coprime to each other as well (largest first)
+    ex2 = []
+    for e in sorted(extra, key=lambda e: -e.ds[0]):
+        if all(math.gcd(e.ds[0], f.ds[0]) == 1 for f in ex2):
+            ex2.append(e)
+    extra = ex2
     truncated, found, combos, nsol, timed_out = 0, [], 0, 0, False
     if max(ch.st['A'].O, ch.st['L'].O) > 46:
         print('  too many orbits for the meet-in-the-middle expansion', flush=True); return dict(status='too-large', found=[])
@@ -270,7 +317,7 @@ def run(mode, N, gens, pat, d1=None, d2=None, maxfibre=3_000_000, maxstates=20_0
             if max(cnt) > maxfibre:
                 truncated += 1; continue
             lists = []
-            for k, kind in enumerate(KINDS):
+            for k, kind in enumerate(kinds):
                 if kind not in halves:
                     halves[kind] = KHalves(ch, kind)
                 Y = halves[kind].fibre(keys[k], maxfibre)
@@ -282,7 +329,7 @@ def run(mode, N, gens, pat, d1=None, d2=None, maxfibre=3_000_000, maxstates=20_0
             combos += 1
             if any(len(Y) == 0 for Y in lists):
                 continue
-            total, sols = final_join(ch, lists)
+            total, sols = split_join(ch, lists, extra)
             nsol += total
             for Ys in sols:
                 seqs = verify_sol(ch, mode, Ys)
@@ -312,7 +359,7 @@ def run(mode, N, gens, pat, d1=None, d2=None, maxfibre=3_000_000, maxstates=20_0
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("mode", choices=["ssxx", "bsz"])
+    ap.add_argument("mode", choices=list(MODES))
     ap.add_argument("N", type=int); ap.add_argument("gens")
     ap.add_argument("--pat"); ap.add_argument("--d1", type=int); ap.add_argument("--d2", type=int)
     ap.add_argument("--budget", type=float, default=3600); ap.add_argument("--log")
@@ -320,14 +367,18 @@ def main():
     ap.add_argument("--exhaustive", action="store_true")
     a = ap.parse_args()
     gens = [int(x) for x in a.gens.split(",")]
+    import bnw
+    from bnw import Struct
     if a.mode == "ssxx":
-        from bnw import Struct
         st = Struct(a.N, gens, plain=True)
         pats = [tuple(int(x) for x in a.pat.split(","))] if a.pat else ssxx.patterns(st)
-    else:
-        from bnw import Struct
+    elif a.mode == "bsz":
         st = Struct(a.N, gens, plain=False)
         allp = bsz.patterns(st)
+        pats = [p for n, p in allp if (not a.pat or n == a.pat)]
+    else:
+        st = Struct(a.N, gens, plain=(a.mode == "nw"))
+        allp = bnw.patterns(st)
         pats = [p for n, p in allp if (not a.pat or n == a.pat)]
     for pat in pats:
         r = run(a.mode, a.N, gens, tuple(int(x) for x in pat), a.d1, a.d2, int(a.maxfibre), int(a.maxstates),

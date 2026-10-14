@@ -31,13 +31,14 @@ and their caveats are in each linked README.
 
 | Orders | Construction |
 |---|---|
-| 142, 154, 238, 262, 286, 302, 326, 370, 494, 534 | Szöllősi's two-symmetric array (arXiv:2603.09572, Theorem 4) with multiplier groups; exact joins or sampled lists |
+| 142, 154, 238, 262, 286, 302, 310, 326, 370, 494, 534 | Szöllősi's two-symmetric array (arXiv:2603.09572, Theorem 4) with multiplier groups; exact joins, sampled lists or the exact compression chain (310) |
 | 222 | from the near-Williamson matrices of order 111 |
 
 The details are in [complex-hadamard](complex-hadamard), and `python3 verify/verify_complex.py` checks K K* = 2N I
 exactly. Every order is blank in Table 11.2 of Seberry–Yamada (1992), the table of known complex Hadamard orders
 that the 2026 papers update, and none comes from the later work we checked (§ Status of that README). Order 142 is
-the smallest complex Hadamard order left open by the 2026 papers.
+the smallest complex Hadamard order left open by the 2026 papers. After 310 the smallest open order in our accounting is 214 (N = 107, a safe prime with no
+usable multiplier structure), then 322 (N = 161).
 
 ## Negative and structural results (NOTES.md §7–8)
 

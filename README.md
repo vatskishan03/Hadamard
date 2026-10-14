@@ -178,6 +178,7 @@ multiplier groups and exact joins (`attack/ssxx.py`, `attack/ssxx_sweep.py`).
 | 262 | 131 | Szöllősi array, multiplier group of order 5 (sampled lists) |
 | 286 | 143 = 11 · 13 | Szöllősi array, multiplier group of order 15 |
 | 302 | 151 | Szöllősi array, multiplier group of order 5 (sampled lists) |
+| 310 | 155 = 5 · 31 | Szöllősi array, multiplier group of order 5 (exact compression chain) |
 | 326 | 163 | Szöllősi array, multiplier group of order 9 |
 | 370 | 185 = 5 · 37 | Szöllősi array |
 | 494 | 247 = 13 · 19 | Szöllősi array |

@@ -51,7 +51,9 @@ N the Gaussian estimate of the hits inside the samples is accurate: 1445 expecte
 12618 at N = 131), `attack/ssxx_group.py` (the same array over the non-cyclic groups GF(p^k) × ℤ_m and ℤ_p² × ℤ_m,
 with diagonal field multiplications or odd-order subgroups of GL(2, p): the theorem holds verbatim for group-developed
 matrices over any abelian group, and `verify/verify_complex.py` checks such certificates), `attack/ssxx_certify.py`
-(certificates).
+(certificates), `attack/cchain4.py` and `attack/cchain_sweep.py` (structures whose complete lists are too large to
+join: an exact compression chain over the subgroups of ℤ_N, as for order 3964; order 310 came from ⟨16⟩ on ℤ₁₅₅ with
+lists of 10⁴, 10⁴, 7 · 10⁸ and 6 · 10⁸, compressed to ℤ₅ and split on ℤ₃₁).
 
 ## Matrices
 
@@ -64,6 +66,7 @@ matrices over any abelian group, and `verify/verify_complex.py` checks such cert
 | 262 | 131 | ⟨53⟩, order 5 | 9, 9; 1, 19 | [C262.json](C262.json) |
 | 286 | 143 = 11 · 13 | ⟨3⟩, order 15 | 3, 9; 11, 19 | [C286.json](C286.json) |
 | 302 | 151 | ⟨8⟩, order 5 | 9, 9; 9, 19 | [C302.json](C302.json) |
+| 310 | 155 = 5 · 31 | ⟨16⟩, order 5 (compression chain, `attack/cchain4.py`) | 9, 9; 13, 17 | [C310.json](C310.json) |
 | 326 | 163 | ⟨38⟩, order 9 | 17, 19; 1, 1 | [C326.json](C326.json) |
 | 370 | 185 = 5 · 37 | ⟨9⟩, order 18 | 3, 3; 19, 19 | [C370.json](C370.json) |
 | 494 | 247 = 13 · 19 | ⟨9, 35⟩, order 27 | 17, 19; 7, 17 | [C494.json](C494.json) |
