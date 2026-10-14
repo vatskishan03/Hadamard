@@ -1342,25 +1342,25 @@ with the orbit cap raised from 24 to 30 (`propus.py 133 --sweep --mino 1 --maxo 
 in the structure H = ⟨26⟩ of order 6 (A on the 14 orbits of ⟨H, −1⟩; B and D on the 26 orbits of H), only A
 symmetric, rows (11, 5, 19). The census lists 133 among the undecided symmetric values; ordinary and skew matrices of
 order 532 are known. `verify.py` gained the construction `propus` (it checks H = Hᵀ).
-- **The Gaussian estimate misses by a factor 10⁹ here.** `propus_rank.py` gives log₁₀ E = −7.33 for exactly this
-  structure and row pattern (pools 10^3.0, 10^6.5, 10^6.4; 12 independent classes), against 72 solutions (about two
-  up to the multipliers and reversals that preserve the structure). The other row patterns of the structure (also
-  about 10^−7.3) have none. The calibration below already showed factors of 10³–10⁷; propus structures must be
-  searched exhaustively, not ranked.
+- **Gaussian estimate (corrected in §29).** `propus_rank.py` gave log₁₀ E = −7.33 for exactly this structure and row
+  pattern (pools 10^3.0, 10^6.5, 10^6.4; 12 independent classes), against 72 solutions. That version dropped the
+  lattice factor of the class values (about C log₁₀ 4); with it the estimate is 10^0.5, and 72 is a factor of about
+  10^1.4 above it. The other row patterns of the structure have none. [The conclusion first drawn here, that propus
+  structures cannot be ranked, rested on the faulty estimator.]
 - Sweeps (`--maxo 30`) are now running over the symmetric census values 89 < v ≤ 400 and 400 < v ≤ 1000
   (`$HADAMARD_WORK/logs/sym_queueA.log`, `sym_queueB.log`). v = 89 has no structure with a non-empty pool pattern
   within the cap.
 
-**Symmetric Hadamard matrices: the propus estimate is far too pessimistic.** `attack/propus_rank.py` (Gaussian estimate
-of the propus structures of `propus.py`, full covariance and lattice of sampled class values) gives, for the structures
-in which Balonin and Đoković found propus difference families: v = 67, H of order 3 (A symmetric, D free) 10^−2.9;
-v = 109, H of order 3, 10^−6.6; v = 151, H of order 5, 10^−6.5. Solutions exist in all three (six, three and one
-families in their Table 1).
+**Symmetric Hadamard matrices: the propus estimate seemed far too pessimistic** [it was the estimator; §29].
+`attack/propus_rank.py` (Gaussian estimate of the propus structures of `propus.py`) gave, for the structures in which
+Balonin and Đoković found propus difference families: v = 67, H of order 3 (A symmetric, D free) 10^−2.9; v = 109, H of
+order 3, 10^−6.6; v = 151, H of order 5, 10^−6.5. Solutions exist in all three (six, three and one families in their
+Table 1). These numbers lack the lattice factor (§29) and are too low by roughly C log₁₀ 4 for C classes.
 - v = 65 (the smallest open symmetric order, 260): every cyclic propus structure scores at most 10^−4.7 (H of order 3,
   25 orbits); the exhaustive sweep `propus.py 65 --sweep --maxo 30 --maxpool 1e8` (all structures up to 30 orbits,
   207 row patterns, including the 25- and 26-orbit structures beyond the earlier cap of 24) finds no solution.
-- Larger structures (v = 163 with H of order 3: 28/55/55 orbits, 10^−12.1; v = 193: 10^−15.5) need a low-energy
-  three-list search, not written yet.
+- Larger structures (v = 163 with H of order 3: 28/55/55 orbits, 10^−12.1; v = 193: 10^−15.5 with the faulty
+  estimator, both far above 1 after the correction of §29) need a low-energy three-list search, not written yet.
 
 **Parallel tempering for the spin structures** (`attack/spin_pt.c`, same input as `spin_ls.c`; replicas at geometric
 temperatures, swap or pair-flip moves in O(C), replica exchange after every sweep). On 631 it needs 5–23 s per
@@ -1556,15 +1556,19 @@ sequences. Novelty audit (its README): 219 is undecided in the Đoković–Seber
 of it; no paper, database or 2026 deposit we could read has a symmetric matrix of order 876, and every classical
 route fails by arithmetic; the 2018 Balonin–Seberry tables (n < 400) could not be read.
 
-**The Gaussian model misses by 10^10.6.** `propus_rank.py` gives 10^−8.1 solutions for this structure and pattern
-(pools 10^3.0, 10^6.9, 10^6.9; 13 classes, full covariance), against 288. For 532 the miss was 10^9.6 (§23). Both
+**The Gaussian model seemed to miss by 10^10.6** [corrected in §29: the estimator dropped the lattice factor; the
+corrected estimate is 10^0.6, a factor 10^1.9 below the 288 found, and 10^0.5 against 72 for 532]. `propus_rank.py`
+gave 10^−8.1 solutions for this structure and pattern (pools 10^3.0, 10^6.9, 10^6.9; 13 classes, full covariance),
+against 288. For 532 the apparent miss was 10^9.6 (§23). Both
 structures are products ℤ_m × GF(q) in which H meets GF(q)* in a cyclotomic subgroup: for 876, H is the eighth powers
 and fixes ℤ₃; for 532 (ℤ₇ × GF(19)), H = {(h, φ(h))} is the graph of a homomorphism φ: ℤ₇* → ⟨7⟩ ≤ GF(19)* of order 3,
 so its orbits on ℤ₇* × GF(19)* are indexed by GF(19)* (an index-18 cyclotomic product with a twist). There the class values
 are linear in a few quadratic invariants of short ℤ_m-sequences (the f-layer autocorrelations and the
 cross-correlations of the class sequences, weighted by cyclotomic numbers), so they sit on a sparse lattice that a
 Gaussian with the right covariance badly underweights near 0. Practical consequence: rank nothing by the Gaussian in
-these families; exhaust them, smallest first. Running on the same principle:
+these families; exhaust them, smallest first. [§29 withdraws most of this paragraph: with the lattice factor restored the
+excess is 10^1.4–10^1.9, not 10^10, and the estimator matches exact counts within ±0.3 on small v.] Running on the
+same principle:
 - the compressed propus sweep of the composite census values ≤ 1000 up to 36 orbits (now with priority), then
   37–44 orbits, then the composite values 1000 < v < 2500 up to 44 orbits;
 - the bordered sweeps of §27 over ℤ_{v−1} and the non-cyclic groups of order v − 1;
@@ -1636,3 +1640,23 @@ margin where propus has a positive one, so the CPU stays with the propus familie
 **Speed.** The stage-1 compressed autocorrelations of `propus_chain.py` are now vectorized (`cpaf_batch`): lists of
 757,000 compressions took 15 minutes per pattern in a Python loop (the ℤ₃ chain pass of v = 153 timed out on them);
 stage 1 of v = 219 dropped from 18.8 s to 1.5 s.
+
+**The Gaussian estimator was wrong, and the "lottery" mostly an artifact.** `propus_rank.estimate` dropped the lattice
+factor of the class values whenever the sampled covariance was singular, and for propus it always is: the row sums fix
+Σ_c |c| · val_c. The estimates were therefore too low by about Σ_c log₁₀ g_c ≈ C log₁₀ 4. Corrected (the density on
+the hyperplane w^⊥, w = (|c|), times the covolume ∏ g_c · |w| / gcd(g_c w_c) of the lattice points there), the
+estimator matches exhaustive counts on ℤ_v with trivial H within ±0.3 in log₁₀ (v = 7, 9, 11, 13, every row pattern;
+one arithmetic zero at v = 7, rows (1, 1, 5), predicted 10^1.8). Revised figures:
+
+| structure | old estimate | corrected | found |
+|---|---|---|---|
+| 876: ℤ₂₁₉, ⟨4⟩, rows (3, 17, 17) | 10^−8.1 | 10^0.6 | 288 |
+| 532: ℤ₁₃₃, ⟨26⟩, rows (1, 1, 23) / (1, 11, 17) | 10^−7.4 | 10^0.5 | 72 (rows (11, 5, 19)) |
+| v = 65, H trivial, rows (11, 3, 11) | 10^−8.3 | 10^10.9 | (not searchable) |
+
+So the two finds sit in structures where about one solution was expected, with a structural excess of 10^1.4–10^1.9,
+and the small structures (≤ 30 orbits) we swept mostly have expectations below one. The large ones are where solutions
+are plentiful: the propus ranking can now be trusted to choose them, and the problem becomes search technology for
+structures of 45–80 orbits (multi-level compression for composite v, low-energy lists for prime v), as it was for the
+skew orders. The skew estimators (`cp_lowe.estimate_in_lists`, census screen) are separate code and are not affected by
+this fix; they are checked separately.

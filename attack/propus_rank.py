@@ -3,7 +3,8 @@
 For v and a multiplier group H <= Z_v^*: A (and D, unless --freeD) constant on the orbits of <H, -1>, B on the orbits
 of H; for every row pattern r_A^2 + 2 r_B^2 + r_D^2 = 4v the expected number of solutions of
 PAF_A + 2 PAF_B + PAF_D = 0 off 0 is the product of the pools times the Gaussian density of the summed class values at
-0 (full covariance of sampled members, lattice spacing from the sampled values).
+0 (full covariance of sampled members, lattice spacing from the sampled values, on the hyperplane fixed by the
+row sums).
 
   python3 attack/propus_rank.py v1,v2,.. [--mino 20] [--maxo 80] [--samples 20000]   -> $HADAMARD_WORK/propus_rank.jsonl
 """
@@ -17,7 +18,7 @@ import spence_lib as L
 import propus as PR
 
 
-def estimate(stA, stB, stD, rows, samples, rng):
+def estimate(stA, stB, stD, rows, samples, rng, cls_sizes=None):
     keys, logs = [], 0.0
     for st, r, w in ((stA, rows[0], 1), (stB, rows[1], 2), (stD, rows[2], 1)):
         n = st.pool(r)
@@ -29,14 +30,25 @@ def estimate(stA, stB, stD, rows, samples, rng):
     if (~keep).any() and np.abs(U[:, ~keep].T @ mu).max() > 1e-6: return -math.inf, int(keep.sum())
     z = U[:, keep].T @ (-mu)
     ld = -0.5 * (keep.sum() * math.log(2 * math.pi) + np.log(w_[keep]).sum()) - 0.5 * float((z * z / w_[keep]).sum())
-    lat = 0.0
-    if keep.all():
-        for c in range(Sig.shape[0]):
-            g = 0
-            for k in keys:
-                u = np.unique(np.rint(k[:, c]).astype(np.int64))
-                if len(u) > 1: g = gcd(g, int(np.gcd.reduce(np.diff(u))))
-            if g > 1: lat += log10(g)
+    # Lattice of the summed class values: spacing g_c per class (gcd of the sampled differences). The row sums fix
+    # sum_c |c| val_c, so the covariance is singular in the direction w = (|c|); the density lives on the hyperplane
+    # w^perp, where the lattice points have covolume prod(g_c) * |w| / gcd(g_c w_c). (Before October 14 the lattice
+    # factor was dropped whenever the covariance was singular, i.e. always: the estimates were too low by about
+    # C log10(4).)
+    gs = []
+    for c in range(Sig.shape[0]):
+        g = 0
+        for k in keys:
+            u = np.unique(np.rint(k[:, c]).astype(np.int64))
+            if len(u) > 1: g = gcd(g, int(np.gcd.reduce(np.diff(u))))
+        gs.append(max(g, 1))
+    gs = np.array(gs, np.int64)
+    lat = float(np.log10(gs).sum())
+    if (~keep).sum() == 1 and cls_sizes is not None:
+        w = np.asarray(cls_sizes, np.float64)
+        if abs(float(U[:, ~keep][:, 0] @ w) / np.linalg.norm(w)) > 0.999:
+            gw = np.gcd.reduce((gs * np.asarray(cls_sizes, np.int64)).astype(np.int64))
+            lat += log10(float(np.linalg.norm(w)) / float(gw))
     return logs + ld / math.log(10) + lat, int(keep.sum())
 
 
@@ -61,7 +73,7 @@ def main():
                 stA, stD = st_ad, (st_b if freeD else st_ad)
                 for rows in PR.patterns(v):
                     if not freeD and rows[0] > rows[2]: continue
-                    lE, rk = estimate(stA, st_b, stD, rows, a.samples, rng)
+                    lE, rk = estimate(stA, st_b, stD, rows, a.samples, rng, st_ad.csize)
                     rec = dict(v=v, gens=list(gs), H=len(S), symB=symB, freeD=freeD, OA=int(stA.O), OB=int(st_b.O), OD=int(stD.O),
                                C=int(st_ad.C), rows=list(rows), logE=round(lE, 2), rank=rk,
                                pools=[round(log10(max(st.pool(r), 1)), 1) for st, r in ((stA, rows[0]), (st_b, rows[1]), (stD, rows[2]))])
