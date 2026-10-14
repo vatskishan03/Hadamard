@@ -115,7 +115,7 @@ first block. The group is ℤᵥ, except for 1100 (ℤ₅ × ℤ₅ × ℤ₁₁
 | [5668](skew/5668) | 1417 (13 · 109) | ⟨1405, 328⟩, order 81 (cyclotomic product of index 4 with ⟨3⟩ on ℤ₁₃) | 1, 7, −53, −53 | beyond Table 5 (n ≤ 999); census: undecided; smallest known before was 32 · 1417 = 45344 |
 | [6004](skew/6004) | 1501 (19 · 79) | ⟨799⟩, order 39 (Paley product) | 1, 77, 7, −5 | beyond Table 5 (n ≤ 999); census: undecided; smallest known before was 8 · 1501 = 12008 |
 
-Six more skew orders come from a different construction, Seberry's 1978 theorem (amicable Hadamard matrices of
+Seven more skew orders come from a different construction, Seberry's 1978 theorem (amicable Hadamard matrices of
 order n and a skew-type OD(mn; 1, m, mn − m − 1) give a skew-Hadamard matrix of order mn(n − 1)), with amicable pairs
 that were not known: they come from skew-propus quadruples, i.e. from symmetric orthogonal designs of type (1, n − 1)
 (`attack/NOTES.md` §31). For m = 1 the skew-type ODs come from G-matrices (known for these orders). For 7956 (m = 3)
@@ -123,11 +123,14 @@ the OD(156; 1, 3, 152) is new too: a Goethals–Seidel design over ℤ₃₉ fou
 symmetry of order 3 (6 seconds). For 1900 (m = 5) the amicable pair is classical (Paley, order 20) and the
 OD(100; 1, 5, 94) over ℤ₂₅ is new (simulated annealing, 20 seconds). For 9828 (m = 13) the amicable pair is classical
 (Paley over GF(27), order 28) and the OD(364; 1, 13, 350) over ℤ₉₁ is new: an exhaustive search over designs invariant
-under a multiplier group of order 9 (`attack/odm_engine.py`, 12 seconds). Seberry's own tables of amicable orders 2ᵗq (1978, 1991, 1992) give t = 3 for
+under a multiplier group of order 9 (`attack/odm_engine.py`, 12 seconds). For 1716 (m = 13) the amicable pair is
+classical (Paley, order 12) and the OD(156; 1, 13, 142) over ℤ₃₉ is new (the same engine with the b part on the
+subgroup of order 13, 3 seconds). Seberry's own tables of amicable orders 2ᵗq (1978, 1991, 1992) give t = 3 for
 q = 13, 19 and 25, so the pairs of orders 52, 76 and 100 are new as far as we know.
 
 | Order | v | Amicable pair | Skew-type OD | Census |
 |------:|---|---|---|---|
+| [1716](skew/1716) | 429 (3 · 11 · 13) = 13 · 3 · 11 | order 12, classical (Paley, q = 11) | OD(156; 1, 13, 142) over ℤ₃₉, new (m = 13) | undecided; Table 5: 429(3) |
 | [1900](skew/1900) | 475 (5² · 19) = 5 · 5 · 19 | order 20, classical (Paley, q = 19) | OD(100; 1, 5, 94) over ℤ₂₅, new (m = 5) | undecided (skew and symmetric); Table 5: 475(4) |
 | [2652](skew/2652) | 663 (3 · 13 · 17) = 13 · 51 | order 52, skew-propus quadruple of length 13 | G-matrices of order 13 | undecided; but Seberry–Yamada 1992 (Table 7.1) and Cati–Pasechnik (Table 5) imply known, with no construction we could find |
 | [5700](skew/5700) | 1425 (3 · 5² · 19) = 19 · 75 | order 76, the design of [symmetric/5700](symmetric/5700) | G-matrices of order 19 | undecided; beyond Table 5 |

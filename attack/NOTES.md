@@ -2004,3 +2004,13 @@ q = 17³ ≡ 1 (mod 8), outside the series.
 
 Theorem 7 with n = 4 (m = t = v/3, OD(4t; 1, t, 3t − 1)) reaches every undecided v divisible by 3. With prime t the
 squares give only three orbits and no b part of weight t.
+
+**b part on the subgroup of order m (`--bsub`): skew 1716 = 4 · 429.** In both hits the b part lives on the subgroup
+of order m (t = km): 7ℤ₉₁ ≅ ℤ₁₃ for 9828 and 3ℤ₃₉ ≅ ℤ₁₃ for 1716. Restricting it there shrinks the template space
+(110 763 candidate b parts per block at t = 39 without the restriction, 243 with it). With `--bsub 13`,
+`odm_engine.py 39 16 13` gives 10 templates and 18 solutions in 3 s (the b parts u₂ of weight 10 and u₃ = −1 on the
+×3-orbit {1, 3, 9}, in units of 3). With the Paley pair of order 12 this gives the skew-Hadamard matrix of order
+13 · 12 · 11 = 1716 ([skew/1716](../skew/1716)). 429 is undecided in the skew census, and Table 5 and Table 7.1 both
+give t = 3. The run at t = 91 with `--bsub 13` also finds solutions (10 templates).
+
+With `--bsub` there are no templates (0) for 1045 (t = 55, |H| = 5, m = 11) and 957 (t = 87, |H| = 7, m = 29).

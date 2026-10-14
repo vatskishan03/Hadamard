@@ -41,6 +41,7 @@ def main():
     ap.add_argument('--maxtpl', type=int, default=10 ** 6)
     ap.add_argument('--maxsol', type=int, default=3)
     ap.add_argument('--dry', action='store_true')
+    ap.add_argument('--bsub', type=int, default=0, help='restrict the b part to the subgroup of this order')
     a = ap.parse_args()
     t, m = a.t, a.m
     H = closure([int(x) for x in a.gens.split(',')], t)
@@ -115,11 +116,19 @@ def main():
             full[i] = v
         return tuple(full)
 
+    if a.bsub:
+        if t % a.bsub:
+            sys.exit('bsub must divide t')
+        step = t // a.bsub
+        insub = [all(x % step == 0 for x in orbits[i]) for i in range(no)]
+    else:
+        insub = [True] * no
+
     def block1_cands():
-        return [(w, paf_of(nz), to_full(nz)) for w, nz in gen(pairs, m, True)]
+        return [(w, paf_of(nz), to_full(nz)) for w, nz in gen([i for i in pairs if insub[i]], m, True)]
 
     def blockk_cands():
-        return [(w, paf_of(nz), to_full(nz)) for w, nz in gen(list(range(no)), m, False)]
+        return [(w, paf_of(nz), to_full(nz)) for w, nz in gen([i for i in range(no) if insub[i]], m, False)]
 
     B1 = block1_cands()
     Bk = blockk_cands()
