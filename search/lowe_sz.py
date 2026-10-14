@@ -18,7 +18,10 @@ the probability under the model that a solution's member passes the filter (Mont
 N(c_k, Sigma_k - Sigma_k Sigma^+ Sigma_k)).
 
 Before any enumeration the compressions to Z_d (d a prime power dividing the group order, d <= 64) are joined exactly
-(search/compress_check.py); an empty join rules the structure/pattern out (--no-precheck skips this).
+(search/compress_check.py); an empty join rules the structure/pattern out (--no-precheck skips this). A solution's
+compressions form a level-1 solution, so each block keeps only members whose compressions to Z_d (d <= 32) occur in
+the projection of the level-1 join (fibre filters, applied in lowe_enum before the energy; --no-fibre skips them);
+the statistics, the energy quantile and the retention are those of the allowed sub-pool.
 
     python3 search/lowe_sz.py N g [g2] --rows a,b,c,d [--bordered] [--L 2e7] [--nsig 2e5] [--S 5] [--estimate-only]
         [--energy full|units] [--time SECONDS] [--resume] [--no-precheck]
@@ -49,7 +52,76 @@ def psd_pinv_sqrt(M, rel=1e-9):
     return (U * np.sqrt(inv)) @ U.T, (U * inv) @ U.T
 
 
-def enum_block(st, kind, r, center, Wm, tau, maxkeep, tag, threads):
+def fibre_filters(st, rows, bordered, dmax=32, maxstates=2_000_000, seed=5):
+    """allowed compressions of each block. For every prime power d | m (d <= dmax) whose level-1 join
+    (search/compress_check.py) can be listed, a solution's four compressions to Z_d form a level-1 solution, so block
+    k's compression lies in the projection of the join. Returns, per block, a list of (d, K, keys, mass): K[o] the
+    64-bit key contribution of orbit o, keys the sorted keys of the allowed compressions, mass the fraction of the
+    block's pool they hold; None when a join is empty (no solution)."""
+    import cchain4 as CC, chain as CH
+    kinds, T, _ = CC.MODES["bsz" if bordered else "ssxx"]
+    v = st.m
+    ps = [p for p in range(2, v) if v % p == 0 and all(p % q for q in range(2, int(p ** 0.5) + 1))]
+    cand = sorted({p ** e for p in ps for e in range(1, 8) if v % (p ** e) == 0 and p ** e < v and p ** e <= dmax})
+    rng = np.random.default_rng(seed)
+    out = [[] for _ in range(4)]
+    t = np.arange(v)
+    for d in cand:
+        c1 = CC.KChain(v, list(st.gens), [d], T, kinds)
+        Sd = [c1.states(k, r, maxstates) for k, r in zip(kinds, rows)]
+        if any(x is None for x in Sd):
+            continue
+        U = [K_.astype(np.int64) for K_, _ in Sd]
+        try:
+            J = CH.join4([c1.paf(0, u) for u in U], c1.target(0)) if all(len(u) for u in U) else []
+        except CH.JoinTooLarge:
+            continue
+        if not J:
+            return None
+        reps = c1.lev[0][2]
+        R = rng.integers(1, 2 ** 63, size=len(reps), dtype=np.int64).astype(np.uint64)
+        for k in range(4):
+            al = sorted({tt[k] for tt in J})
+            mass = float(Sd[k][1][al].sum() / Sd[k][1].sum())
+            if mass > 0.98:
+                continue
+            orb = st.orb(KINDS[k]); O = len(st.sizes(KINDS[k]))
+            P = np.zeros((O, len(reps)), np.int64)
+            for j, rr in enumerate(reps):
+                P[:, j] = np.bincount(orb[(t % d) == rr], minlength=O)
+            Ko = (P.astype(np.uint64) * R[None, :]).sum(1, dtype=np.uint64)
+            keys = np.unique((U[k][al].astype(np.uint64) * R[None, :]).sum(1, dtype=np.uint64))
+            out[k].append((d, Ko, keys, mass, P, R))
+    return out
+
+
+def fibre_ok(filt, Y):
+    """members (rows of Y, signs on the orbits) whose compressions pass every filter of the block"""
+    ok = np.ones(len(Y), bool)
+    for d, Ko, keys, mass, P, R in filt:
+        comp = np.rint(Y).astype(np.int64) @ P
+        key = (comp.astype(np.uint64) * R[None, :]).sum(1, dtype=np.uint64)
+        ok &= np.isin(key, keys)
+    return ok
+
+
+def fibre_sample(st, kind, r, K, rng, filt, maxdraw=40):
+    """K uniform members of the block's allowed sub-pool (rejection), and the acceptance rate"""
+    if not filt:
+        return st.sample(kind, r, K, rng), 1.0
+    got, n = [], 0
+    for _ in range(maxdraw):
+        Y = st.sample(kind, r, K, rng); n += len(Y)
+        Y = Y[fibre_ok(filt, Y)]
+        got.append(Y)
+        if sum(len(y) for y in got) >= K:
+            break
+    Y = np.concatenate(got)[:K]
+    acc = sum(len(y) for y in got) / max(n, 1)
+    return Y, acc
+
+
+def enum_block(st, kind, r, center, Wm, tau, maxkeep, tag, threads, filt=()):
     """run lowe_enum; returns (masks, values int16 [n, C], energies)"""
     d = W.WORK / "tmp"; d.mkdir(exist_ok=True)
     inp = d / f"lowe_{st.N}_{tag}_{os.getpid()}.in"; out = d / f"lowe_{st.N}_{tag}_{os.getpid()}.out"
@@ -59,6 +131,10 @@ def enum_block(st, kind, r, center, Wm, tau, maxkeep, tag, threads):
         f.write(np.asarray(sz, np.int32).tobytes()); f.write(np.asarray(S, np.int32).tobytes())
         f.write(np.asarray(center, np.float32).tobytes()); f.write(np.asarray(Wm, np.float32).tobytes())
         f.write(struct.pack("f", float(tau)))
+        f.write(struct.pack("i", len(filt)))
+        for d_, Ko, keys, *_ in filt:
+            f.write(np.asarray(Ko, np.uint64).tobytes()); f.write(struct.pack("q", len(keys)))
+            f.write(np.asarray(keys, np.uint64).tobytes())
     p = subprocess.run([W.bin("lowe_enum"), str(inp), str(out), str(threads)], capture_output=True, text=True, check=True)
     inp.unlink()
     with open(out, "rb") as f:
@@ -97,14 +173,15 @@ def unit_classes(st):
 
 
 def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4, estimate_only=False, log=None,
-        seed=1, maxsol=5, energy="full", time_limit=None, precheck=True):
+        seed=1, maxsol=5, energy="full", time_limit=None, precheck=True, fibre=True):
     """energy="units": the filter's energy uses only the unit classes. On exact solution sets of composite N the
     solution members sit at arithmetically fixed values on the compression classes, away from the Gaussian centre;
-    without those classes they rank much higher at N = 119 and 267 (search/NOTES.md section 34)."""
+    without those classes they rank much higher at N = 119 and 267 (search/NOTES.md section 34). fibre: the blocks
+    keep only members whose compressions occur in a level-1 solution (fibre_filters; section 37)."""
     t0 = time.time()
     if precheck:
         import compress_check
-        r = compress_check.check("bsz" if bordered else "ssxx", N, list(gens), tuple(rows), 200_000, 64, stop=True)
+        r = compress_check.check("bsz" if bordered else "ssxx", N, list(gens), tuple(rows), 3_000_000, 64, stop=True)
         dead = [d for d, n in r.items() if n == 0]
         if dead:
             print(f"N = {N}{' bordered' if bordered else ''} H = <{','.join(map(str, gens))}> rows {tuple(rows)}: "
@@ -118,19 +195,28 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
     pools = [st.counts(k).get(r, 0) for k, r in zip(KINDS, rows)]
     if min(pools) == 0:
         print(f"N = {N} rows {rows}: empty block"); return []
-    mus, sigs, cache = [], [], {}
-    for k, r in zip(KINDS, rows):
-        if (k, r) not in cache:                     # blocks with the same pool share their statistics
-            cache[(k, r)] = stats(st, k, r, K, rng)[:2]
-        mu, sg = cache[(k, r)]
-        mus.append(mu); sigs.append(sg)
+    # fibre filters: each block keeps only members whose compressions occur in a level-1 solution; the statistics,
+    # the energy quantile and the retention below are those of the allowed sub-pool
+    filt = fibre_filters(st, rows, bordered) if fibre else [[] for _ in range(4)]
+    if filt is None:
+        print(f"N = {N} rows {rows}: a level-1 join is empty"); return []
+    fid = [tuple((f[0], f[2].tobytes()) for f in filt[k]) for k in range(4)]
+    mus, sigs, cache, samples, acc = [], [], {}, [], []
+    for k, (kd, r) in enumerate(zip(KINDS, rows)):
+        if (kd, r, fid[k]) not in cache:            # blocks with the same pool and filter share their statistics
+            Y, a = fibre_sample(st, kd, r, K, rng, filt[k])
+            V = st.values(kd, Y)
+            cache[(kd, r, fid[k])] = (V.mean(0), np.cov(V.T), V, a)
+        mu, sg, V, a = cache[(kd, r, fid[k])]
+        mus.append(mu); sigs.append(sg); samples.append(V); acc.append(a)
+    apools = [pools[k] * acc[k] for k in range(4)]
     Sig = sum(sigs)
     _, Sig_pinv = psd_pinv_sqrt(Sig)
     e = (ssxx.gauss(st, rows) if not bordered else bsz.gauss(st, rows))
     keep, plan = [], []
     for k in range(4):
-        Lk = pools[k] if pools[k] <= L else L
-        twin = [j for j in range(k) if (KINDS[j], rows[j]) == (KINDS[k], rows[k])
+        Lk = apools[k] if apools[k] <= L else L
+        twin = [j for j in range(k) if (KINDS[j], rows[j], fid[j]) == (KINDS[k], rows[k], fid[k])
                 and np.allclose(t - (sum(mus) - mus[j]), t - (sum(mus) - mus[k]))]
         if twin:                                    # same pool, same filter
             plan.append(plan[twin[0]]); continue
@@ -143,10 +229,10 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
         else:
             Wk, Smp = psd_pinv_sqrt(Sm)
         zk = t - (sum(mus) - mus[k])
-        # energy quantile from prior samples
-        Y = st.sample(KINDS[k], rows[k], K, rng); V = st.values(KINDS[k], Y)
+        # energy quantile from prior samples (of the allowed sub-pool)
+        V = samples[k]
         Ep = np.einsum("ij,jk,ik->i", V - zk, Smp, V - zk)
-        frac = Lk / pools[k]
+        frac = Lk / apools[k]
         tau = float(np.quantile(Ep, min(1.0, frac))) if frac < 1 else 1e30
         # retention: conditional law of the block's key in a solution
         ck = mus[k] + sigs[k] @ Sig_pinv @ (t - sum(mus))
@@ -158,18 +244,20 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
         plan.append((Lk, tau, ret, Wk, zk))
     lret = sum(math.log10(max(p[2], 1e-12)) for p in plan)
     print(f"N = {N}{' bordered' if bordered else ''} H = <{','.join(map(str, gens))}> |H| = {len(st.H)} rows {rows}: "
-          f"pools {[f'{p:.3g}' for p in pools]}, logE {e:.2f}, kept {[f'{p[0]:.3g}' for p in plan]}, "
+          f"pools {[f'{p:.3g}' for p in pools]}, allowed {[f'{a:.3g}' for a in acc]} (fibres at "
+          f"{sorted({f[0] for fk in filt for f in fk})}), logE {e:.2f}, kept {[f'{p[0]:.3g}' for p in plan]}, "
           f"retention {[f'{p[2]:.3g}' for p in plan]}, logE in lists {e + lret:.2f}", flush=True)
     if estimate_only:
         return e + lret
     lists, done = [], {}
     for k in range(4):
         Lk, tau, ret, Wk, zk = plan[k]
-        key = (KINDS[k], rows[k], Lk, tau, tuple(np.round(zk, 6)))
+        key = (KINDS[k], rows[k], fid[k], Lk, tau, tuple(np.round(zk, 6)))
         if key in done:                             # same pool and same filter: the same kept list
             lists.append(done[key]); print(f"  block {'ABCD'[k]}: same list as before", flush=True); continue
-        masks, vals, en, sline = enum_block(st, KINDS[k], rows[k], zk, Wk, tau, Lk if Lk < pools[k] else 2 ** 31 - 1,
-                                            "ABCD"[k], threads)
+        maxkeep = Lk if Lk < apools[k] else (int(min(L, 2 ** 31 - 1)) if filt[k] else 2 ** 31 - 1)
+        masks, vals, en, sline = enum_block(st, KINDS[k], rows[k], zk, Wk, tau, maxkeep, "ABCD"[k], threads,
+                                            filt[k])
         print(f"  block {'ABCD'[k]}: {len(masks)} kept; {sline} [{time.time() - t0:.0f}s]", flush=True)
         lists.append((masks, vals)); done[key] = (masks, vals)
     if min(len(x[0]) for x in lists) == 0:
@@ -325,13 +413,14 @@ def main():
     ap.add_argument("--energy", choices=["full", "units"], default="full",
                     help="classes in the filter's energy: all, or only those prime to the group order")
     ap.add_argument("--no-precheck", action="store_true", help="skip the exact compression check")
+    ap.add_argument("--no-fibre", action="store_true", help="do not restrict the blocks to allowed compressions")
     a = ap.parse_args()
     rows = tuple(int(x) for x in a.rows.split(","))
     if a.resume:
         resume(a.N, a.gens, rows, a.bordered, a.nsig, a.S, a.log, energy=a.energy, time_limit=a.time)
     else:
         run(a.N, a.gens, rows, a.bordered, a.L, a.nsig, a.S, a.K, a.threads, a.estimate_only, a.log, energy=a.energy,
-            time_limit=a.time, precheck=not a.no_precheck)
+            time_limit=a.time, precheck=not a.no_precheck, fibre=not a.no_fibre)
 
 
 if __name__ == "__main__":

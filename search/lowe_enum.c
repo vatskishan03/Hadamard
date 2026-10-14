@@ -8,9 +8,12 @@
  * is at most tau. Kept members are written as uint64 masks (bit o = 1 when y_o = +1) and int16 class values.
  *
  *     lowe_enum INPUT OUTPUT [THREADS [FRAC]]
- * INPUT: int32 O, C, r, maxkeep; int32 sizes[O]; int32 S[C][O][O]; float m[C]; float W[C][C]; float tau.
+ * INPUT: int32 O, C, r, maxkeep; int32 sizes[O]; int32 S[C][O][O]; float m[C]; float W[C][C]; float tau;
+ * optionally int32 nf and, for each of the nf fibre filters, uint64 K[O], int64 nk, uint64 keys[nk] (ascending).
+ * A filter is a linear key of the member's compression to some Z_d, key(y) = sum_o y_o K[o] (mod 2^64); members whose
+ * key is not among the allowed keys (compressions that occur in a level-1 solution) are dropped before the energy.
  * OUTPUT: int64 n; uint64 masks[n]; int16 values[n][C]; float energy[n]. If more than maxkeep members pass, the
- * maxkeep of lowest energy are written. Prints "STATS leaves L kept K tau T seconds S".
+ * maxkeep of lowest energy are written. Prints "STATS leaves L fibre F passed P kept K tau T seconds S".
  */
 #include <omp.h>
 #include <stdint.h>
@@ -23,10 +26,12 @@ static int *SZ, *S;
 static int32_t *TM, *D4;
 static unsigned char *REACH; static int64_t RW;
 static float *MC, *WM, TAU;
+#define MAXF 8
+static int NF = 0; static uint64_t *FK[MAXF], *FKEYS[MAXF]; static int64_t FN[MAXF];
 
 #define SI(c, i, j) S[((int64_t)(c) * O + (i)) * O + (j)]
 
-typedef struct { int y[64]; int32_t *v; int32_t *R; uint64_t code; int64_t sum; } state;
+typedef struct { int y[64]; int32_t *v; int32_t *R; uint64_t code; int64_t sum; uint64_t fk[MAXF]; } state;
 
 static void st_init(state *s) {
     s->R = aligned_alloc(64, sizeof(int32_t) * (((int64_t)O * CP + 15) / 16) * 16);
@@ -34,6 +39,7 @@ static void st_init(state *s) {
     for (int o = 0; o < O; o++) s->y[o] = -1;
     s->code = 0; s->sum = 0;
     for (int o = 0; o < O; o++) s->sum -= SZ[o];
+    for (int f = 0; f < NF; f++) { s->fk[f] = 0; for (int o = 0; o < O; o++) s->fk[f] -= FK[f][o]; }
     for (int c = 0; c < CP; c++) {
         int64_t v = 0;
         if (c < C) for (int i = 0; i < O; i++) for (int j = 0; j < O; j++) v += SI(c, i, j);
@@ -55,9 +61,16 @@ static inline void flip(state *s, int o) {
     if (yo < 0) { for (int i = 0; i < n; i++) R[i] += T[i]; }
     else { for (int i = 0; i < n; i++) R[i] -= T[i]; }
     s->y[o] = -yo; s->code ^= (1ULL << o); s->sum += 2 * (int64_t)(-yo) * SZ[o];
+    for (int f = 0; f < NF; f++) { if (yo < 0) s->fk[f] += 2 * FK[f][o]; else s->fk[f] -= 2 * FK[f][o]; }
 }
 
-typedef struct { uint64_t *mask; int16_t *val; float *en; int64_t n, cap; int64_t leaves; } buf_t;
+typedef struct { uint64_t *mask; int16_t *val; float *en; int64_t n, cap; int64_t leaves, fibre; } buf_t;
+
+static inline int allowed(uint64_t key, int f) {
+    int64_t lo = 0, hi = FN[f];
+    while (lo < hi) { int64_t mid = (lo + hi) >> 1; if (FKEYS[f][mid] < key) lo = mid + 1; else hi = mid; }
+    return lo < FN[f] && FKEYS[f][lo] == key;
+}
 
 static inline float energy(const int32_t *v) {
     float d[256], e = 0;
@@ -74,6 +87,8 @@ static inline float energy(const int32_t *v) {
 
 static void leaf(state *s, buf_t *b) {
     b->leaves++;
+    for (int f = 0; f < NF; f++) if (!allowed(s->fk[f], f)) return;
+    b->fibre++;
     float e = energy(s->v);
     if (e > TAU) return;
     if (b->n == b->cap) {
@@ -124,6 +139,15 @@ int main(int argc, char **argv) {
     if (fread(SZ, sizeof(int), O, f) != (size_t)O || fread(S, sizeof(int), (size_t)C * O * O, f) != (size_t)C * O * O ||
         fread(MC, sizeof(float), C, f) != (size_t)C || fread(WM, sizeof(float), (size_t)C * C, f) != (size_t)C * C ||
         fread(&TAU, sizeof(float), 1, f) != 1) { fprintf(stderr, "short input\n"); return 2; }
+    if (fread(&NF, sizeof(int), 1, f) != 1) NF = 0;
+    if (NF < 0 || NF > MAXF) { fprintf(stderr, "filters\n"); return 2; }
+    for (int k = 0; k < NF; k++) {
+        FK[k] = malloc(sizeof(uint64_t) * O);
+        if (fread(FK[k], sizeof(uint64_t), O, f) != (size_t)O || fread(&FN[k], sizeof(int64_t), 1, f) != 1) {
+            fprintf(stderr, "short filter\n"); return 2; }
+        FKEYS[k] = malloc(sizeof(uint64_t) * (FN[k] + 1));
+        if (fread(FKEYS[k], sizeof(uint64_t), FN[k], f) != (size_t)FN[k]) { fprintf(stderr, "short keys\n"); return 2; }
+    }
     fclose(f);
     int threads = argc > 3 ? atoi(argv[3]) : omp_get_max_threads();
     if (argc > 4) FRAC = atof(argv[4]);
@@ -159,8 +183,8 @@ int main(int argc, char **argv) {
         }
         free(s.R); free(s.v);
     }
-    int64_t n = 0, leaves = 0;
-    for (int t = 0; t < threads; t++) { n += bufs[t].n; leaves += bufs[t].leaves; }
+    int64_t n = 0, leaves = 0, fibre = 0;
+    for (int t = 0; t < threads; t++) { n += bufs[t].n; leaves += bufs[t].leaves; fibre += bufs[t].fibre; }
     uint64_t *mask = malloc(sizeof(uint64_t) * (n + 1)); int16_t *val = malloc(sizeof(int16_t) * (n + 1) * C);
     float *en = malloc(sizeof(float) * (n + 1));
     int64_t off = 0;
@@ -184,8 +208,8 @@ int main(int argc, char **argv) {
     for (int64_t i = 0; i < keep; i++) { int64_t k = ord ? ord[i] : i; fwrite(val + k * C, sizeof(int16_t), C, g); }
     for (int64_t i = 0; i < keep; i++) { int64_t k = ord ? ord[i] : i; fwrite(en + k, sizeof(float), 1, g); }
     fclose(g);
-    printf("STATS leaves %lld passed %lld kept %lld tau %.3f seconds %.0f\n", (long long)leaves, (long long)n,
-           (long long)keep, TAU, omp_get_wtime() - t0);
+    printf("STATS leaves %lld fibre %lld passed %lld kept %lld tau %.3f seconds %.0f\n", (long long)leaves,
+           (long long)fibre, (long long)n, (long long)keep, TAU, omp_get_wtime() - t0);
     (void)cmpf_base;
     return 0;
 }

@@ -3,7 +3,10 @@
 exactly (all solutions), then keep the L lowest-energy members of each big block as lowe_sz would and count the
 solutions that survive; compare with the model's retention.
 
-    python3 search/retention_test.py N g [g2] --rows a,b,c,d [--bordered] --L 2e5
+    python3 search/retention_test.py N g [g2] --rows a,b,c,d [--bordered] --L 2e5 [--energy units] [--fibre]
+
+--fibre keeps the L lowest-energy members among those whose compressions pass lowe_sz's fibre filters, with the
+statistics of the allowed sub-pool (as lowe_sz.py does by default).
 """
 import argparse, math, sys
 from pathlib import Path
@@ -22,13 +25,18 @@ def main():
     ap.add_argument("--rows", required=True); ap.add_argument("--bordered", action="store_true")
     ap.add_argument("--L", type=float, nargs="+", default=[2e5]); ap.add_argument("--K", type=int, default=20000)
     ap.add_argument("--energy", choices=["full", "units"], default="full")
+    ap.add_argument("--fibre", action="store_true")
     a = ap.parse_args()
     rows = tuple(int(x) for x in a.rows.split(","))
     st = Struct(a.N, a.gens, plain=not a.bordered)
-    lists = []
+    lists, allowed = [], []
+    filt = lowe_sz.fibre_filters(st, rows, a.bordered) if a.fibre else [[] for _ in range(4)]
     for k, (kind, r) in enumerate(zip(KINDS, rows)):
         V, M = enum_block(st, kind, r, 1 if (a.bordered and r == 0) else 0, f"rt{k}")
         lists.append(V.astype(np.int64))
+        O = len(st.sizes(kind))
+        Y = 1 - 2 * ((M[:, None] >> np.arange(O, dtype=np.uint64)) & np.uint64(1)).astype(np.int64)  # bit set: -1
+        allowed.append(lowe_sz.fibre_ok(filt[k], Y))
     sizes = [len(x) for x in lists]
     order = min(([0, 1, 2, 3], [0, 2, 1, 3], [0, 3, 1, 2]),
                 key=lambda o: sizes[o[0]] * sizes[o[1]] + sizes[o[2]] * sizes[o[3]])
@@ -43,17 +51,22 @@ def main():
                 S[i, k] = s[pos]
         cache.parent.mkdir(parents=True, exist_ok=True); np.save(cache, S)
     print(f"N = {a.N} H = <{a.gens}> rows {rows}: lists {sizes}, exact solutions {total} (rows read {len(sols)})")
+    if a.fibre:
+        print(f"  fibres at {sorted({f[0] for fk in filt for f in fk})}: allowed per block "
+              f"{[round(float(x.mean()), 4) for x in allowed]}; solution members allowed "
+              f"{[bool(allowed[k][S[:, k]].all()) if len(S) else None for k in range(4)]}")
     # lowe's model
     rng = np.random.default_rng(1); C = st.C; t = np.full(C, float(st.target))
     mus, sigs = [], []
-    for k, r in zip(KINDS, rows):
-        mu, sg, _ = lowe_sz.stats(st, k, r, a.K, rng); mus.append(mu); sigs.append(sg)
+    for k, (kd, r) in enumerate(zip(KINDS, rows)):
+        Y, _ = lowe_sz.fibre_sample(st, kd, r, a.K, rng, filt[k])
+        V = st.values(kd, Y); mus.append(V.mean(0)); sigs.append(np.cov(V.T))
     Sig = sum(sigs); _, Sig_pinv = lowe_sz.psd_pinv_sqrt(Sig)
     for L in a.L:
         keepsets, rets = [], []
         for k in range(4):
-            if sizes[k] <= L:
-                keepsets.append(np.ones(sizes[k], bool)); rets.append(1.0); continue
+            if allowed[k].sum() <= L:
+                keepsets.append(allowed[k].copy()); rets.append(1.0); continue
             Sm = Sig - sigs[k]
             U = lowe_sz.unit_classes(st) if a.energy == "units" else []
             if U:
@@ -63,6 +76,7 @@ def main():
             zk = t - (sum(mus) - mus[k])
             X = lists[k].astype(np.float64)
             E = np.einsum("ij,jk,ik->i", X - zk, Smp, X - zk)
+            E[~allowed[k]] = np.inf
             thr = np.partition(E, int(L) - 1)[int(L) - 1]
             keepsets.append(E <= thr)
             ck = mus[k] + sigs[k] @ Sig_pinv @ (t - sum(mus))
