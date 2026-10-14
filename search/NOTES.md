@@ -2248,3 +2248,65 @@ by about 1.5 per unit of m, like local search (§26), so it is no route to unstr
 the v-stage is automatic, but with A and B symmetric the v-stage at q = 53 (order 214) has about 82 free signs for 95
 bits of conditions, so a two-stage search needs some 10⁴ u-solutions per success, each a length-53 four-sequence
 problem. Not feasible with these tools.
+
+## 36. Dead split values, and exact compression checks before a search (October 14)
+
+**Dead split values.** kt4 splits a solution's values on the five merge classes as σ = a + c = t − b − d and, for
+each σ, joins the (A, C) pairs with a + c = σ against the (B, D) pairs with b + d = t − σ. `sigma_file` took the σ
+nearest the Gaussian law of a solution's split, on the per-class lattice (step and residue of a + c in each class).
+Recounted from kt4's progress files, most of them had no pair at all on one side:
+
+| N | H | rows | split values processed | with no pair on one side |
+|---:|---|---|---:|---:|
+| 341 | ⟨194⟩ | 19, 21, 11, 21 | 20740 | 20740 (100%) |
+| 203 | ⟨36⟩ | 3, 25, 3, 13 | 10000 | 10000 (100%) |
+| 215 | ⟨11⟩ | 11, 17, 15, 15 | 2967 | 2960 (99.8%) |
+| 275 | ⟨4⟩ | 15, 15, 5, 25 | 10000 | 9683 (97%) |
+| 183, bordered | ⟨3⟩ | 0, 0, 2, 0 | 642 | 393 (61%) |
+| 183 | ⟨34⟩ | 17, 19, 1, 9 | 9259 | 0 |
+
+Part of this is arithmetic. At N = 203 = 7 · 29 the values of A + C on the merge classes span a lattice of
+determinant 7168 = 7 · 4⁵, of index 7 in the per-class lattice (step 4 in each class): the compression to ℤ₇ ties
+the classes together, and 8574 of the 10000 split values lie off the coset. The other 1426 are on the coset but
+still have no pair on one side.
+
+`lowe_sz.py` now samples 2 · 10⁷ random (A, C) pairs and 2 · 10⁷ random (B, D) pairs, keeps the merge-class values
+that occur on both sides (`live_splits`) and orders only those by the Gaussian law. At N = 215 there are 20000 such
+values, and the one holding the 200 solutions of order 430 ranks 6th (2967th in the old order). At N = 203 none
+occurs, so the overlap Σ_σ p_AC(σ) p_BD(σ) of the two sides' distributions is below about 3/M² ≈ 10^−14 (M = 2 · 10⁷),
+and the join is skipped. The 341 and 203 runs above therefore tested nothing; 341 is queued again on its saved
+lists (`--resume`).
+
+**Exact compression checks** (`search/compress_check.py`). For every prime power d dividing the group order the
+four blocks' compressions to ℤ_d are listed with the symmetry the multiplier group forces on them and joined exactly
+(level 1 of `cchain4.py`). An empty join rules the structure/pattern out. Neither the Gaussian nor the hybrid
+estimate sees these obstructions. Checked on exact solution sets:
+- N = 93, ⟨4⟩. Rows (9, 11, 1, 13) and (11, 11, 3, 11) have no solution (complete joins of lists 126, 126,
+  145860, 43758 and 126, 126, 48620, 131274) and both fail at d = 3. Rows (9, 13, 1, 11), with 21384 solutions, pass.
+- Bordered 227, ⟨49⟩, rows (0, 0, 2, 0) (order 454) passes: 8 level-1 solutions at d = 2.
+- Bordered 31, ⟨11⟩ with the 2 in A has no solution but passes at d = 2, 3 and 5. That obstruction is of another
+  kind.
+
+For the bordered array (v = N − 1 even) the level d = 2 has a closed form. Σ PAF = −4 gives
+Σ_k |X̂_k(ω)|² = 4v + 4 = 4N at every ω ≠ 0. At the character (−1)^t this reads Σ_k e_k² = N, where 2e_k is block
+k's alternating sum. The multiplier group fixes the e_k modulo a small number.
+
+At N = 165 (v = 4 · 41, H = ⟨37⟩: trivial modulo 4, order 5 modulo 41) the orbits force:
+- e_A, e_B ≡ ±2 (mod 20) for the symmetric blocks of row sum 0;
+- e_C ≡ ±1 (mod 10);
+- e_D ≡ 0, ±2 (mod 10).
+
+The sum of the squares then lies in {9, 13, 29, 33, 49, 53, 69, 73} modulo 80, and 165 ≡ 5 (mod 80) is not in that set.
+
+Run on the queue of hybrid-ranked candidates (§33), the check removed 15 of 24 tickets:
+- ruled out at d = 2 (bordered): 165 ⟨37⟩ with the 2 in A or C; 269 ⟨9⟩ with the 2 in A, B or C; 223 ⟨7⟩ with the 2
+  in A or C. Three of them were already running and were stopped.
+- ruled out at d = 25: every 275 pattern in the queue (⟨4⟩: 15, 15, 5, 25 and 5, 15, 15, 25; ⟨14⟩: 15, 25, 5, 15 and
+  5, 15, 15, 25; ⟨9⟩: 15, 25, 5, 15; ⟨104⟩: 5, 25, 15, 15). 275 ⟨4⟩ (15, 15, 5, 25) had already run: 0 solutions at
+  retention 0.99.
+- ruled out at d = 3: 393 ⟨52⟩, rows (27, 29, 1, 1).
+- passed (no empty level among those small enough to list): 183 ⟨34⟩ in its three patterns, 341 ⟨194⟩, 171 ⟨11⟩,
+  213 ⟨37⟩, 203 ⟨36⟩, 453 ⟨4⟩, bordered 183 ⟨3⟩ and ⟨87⟩, 403 ⟨16⟩, 335 ⟨76⟩ and 395 ⟨21⟩.
+
+`lowe_sz.py` now runs the check for d ≤ 64 before enumerating (under a second for the small levels) and stops on an
+empty level.
