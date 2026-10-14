@@ -95,6 +95,17 @@ def cpaf(x):
     return np.array([int(np.dot(x, np.roll(x, -s))) for s in range(1, d // 2 + 1)], np.int64)
 
 
+def cpaf_batch(keys, comp, chunk=1 << 17):
+    """cpaf of every compression in keys (tuples of values at the orbit representatives), vectorized: rows of
+    (len(keys), d // 2)."""
+    d = comp.d; out = np.empty((len(keys), d // 2), np.int64)
+    for c0 in range(0, len(keys), chunk):
+        X = np.asarray(keys[c0:c0 + chunk], np.int64).reshape(-1, len(comp.rreps))[:, comp.roid]
+        for s in range(1, d // 2 + 1):
+            out[c0:c0 + len(X), s - 1] = np.einsum('ij,ij->i', X, np.roll(X, -s, axis=1))
+    return out
+
+
 def join3(PA, PB, PD, target):
     """All (i, j, k) with PA[i] + PB[j] + PD[k] == target (integer row vectors): the two smaller lists are combined
     one row at a time (numpy) and looked up by a 64-bit hash in the sorted third; candidates are checked exactly."""
@@ -177,9 +188,7 @@ def search(v, gens, rows, d, a, log):
     log(f"v={v} gens={gens} d={d} rows={rows}: orbits A {st_ad.O}, B/D {st_b.O}, classes {st_ad.C}; compressions "
         f"A {len(Da)}, B {len(Db)}, D {len(Dd)} [{time.time() - t0:.1f}s]")
     KA, KB, KD = list(Da), list(Db), list(Dd)
-    PA = np.array([cpaf(ca.full(k)) for k in KA]).reshape(len(KA), -1)
-    PB = np.array([2 * cpaf(cb.full(k)) for k in KB]).reshape(len(KB), -1)
-    PD = np.array([cpaf(cb.full(k)) for k in KD]).reshape(len(KD), -1)
+    PA = cpaf_batch(KA, ca); PB = 2 * cpaf_batch(KB, cb); PD = cpaf_batch(KD, cb)
     triples = []
     tgt_d = np.array([int(tgt[r::d].sum()) for r in range(1, d // 2 + 1)], np.int64)   # compressed target
     for i, j, k in join3(PA, PB, PD, tgt_d):
