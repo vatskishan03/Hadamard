@@ -474,6 +474,15 @@ At N = 183, H = ⟨34⟩, keeping 2 · 10⁷ of 2.6 · 10¹⁰ members retains 3
 per block. That turns the structure's 10^5.0 into 10^2.2 solutions inside the lists, against about 0.1 expected from
 the streaming k-tree of §10.
 
+**Results** ([search/NOTES.md](search/NOTES.md) §32–34). The low-energy k-tree gave orders 342 (N = 171), 426 (213),
+430 (215) and 454 (227, bordered array over ℤ₂₂₆). The N = 183 run above found nothing in 17% of its pair-product mass.
+Two lessons:
+- For composite N (and for every bordered structure, since N − 1 is even) the per-class Gaussian estimate can be low
+  by many orders of magnitude. A hybrid estimate (Monte Carlo on the compression classes, full covariance and joint
+  lattice on the rest) chose the structures of 430 and 454, which the per-class estimate put at 10^−1.2 and 10^0.6.
+- On exact solution sets the filter's retention is a lottery: solutions share few distinct members, which sit at
+  arithmetically fixed values on the compression classes, away from the Gaussian centre.
+
 ## 13. Spence spin structures: orders 2292 and 9172 (October 14)
 
 **Structure.** Spence's bordered construction over a group G of order n − 1 (ΣPAF = −4 off zero, row sums 2, 0, 0, 0),
