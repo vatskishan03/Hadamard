@@ -448,3 +448,26 @@ equals (ΣXXᵀ)/2 for *any* four circulants. Then K = [[X, Y], [−Ȳ, X̄]] is
 ABᵀ + CDᵀ is symmetric. This needs neither A nor B symmetric, but it replaces 2 · (N − 1)/2 symmetry bits by
 (N − 1)/2 integer constraints of about 4 bits each. Its estimate is lower than Szöllősi's by about 2^−N, so it was
 not searched.
+
+## 12. Low-energy k-tree for Szöllősi structures (October 14)
+
+`attack/lowe_sz.py` (with `attack/lowe_enum.c` and the four-list join `attack/kt4.c` of the low-energy skew searches,
+NOTES of the progress branch §20) for structures whose blocks C, D have 10⁹–10¹¹ members.
+- Every member of a big block is visited by the depth-first search of `kstream.c`.
+- A member is kept when its energy E_k(x) = (x − z_k)ᵀ Σ_{−k}⁺ (x − z_k) is small, where z_k = t − Σ_{j≠k} μ_j and
+  Σ_{−k} is the covariance of the other three blocks' sum. Under the Gaussian model, exp(−E_k/2) is proportional to
+  the probability that the other three blocks complete x to a solution, so the L members of lowest energy carry far
+  more than their share L/|pool| of the solutions.
+- The kept lists are joined by `kt4` with the pairing (A, C), (B, D).
+- The estimate inside the lists is E times the retention of each filtered block: the probability, under the
+  conditional law N(c_k, Σ_k − Σ_k Σ⁺ Σ_k) of a solution's member, that it passes the filter.
+
+Calibration, N = 131, H = ⟨53⟩, rows (9, 9; 1, 19):
+- Keeping 2 · 10⁵ of the 1.0 · 10⁷ C members and 2 · 10⁵ of the 7.7 · 10⁶ D members retains 4.9% and 5.7% of
+  solutions' members, about 2.4× their share.
+- The estimate inside the lists is 10^3.37.
+- kt4 found 8 verified solutions within its first split values (whole run: 30 s).
+
+At N = 183, H = ⟨34⟩, keeping 2 · 10⁷ of 2.6 · 10¹⁰ members retains 3–5% of solutions' members: a boost of about 50
+per block. That turns the structure's 10^5.0 into 10^2.2 solutions inside the lists, against about 0.1 expected from
+the streaming k-tree of §10.

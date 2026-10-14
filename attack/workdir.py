@@ -24,6 +24,7 @@ _FLAGS = {'cp_enum': ['-O3', '-march=native', '-fopenmp'],
           'spin_ls': ['-O3', '-march=native'],
           'spin_ls_gls': ['-O3', '-march=native'],
           'spin_walk': ['-O3', '-march=native', '-fopenmp'],
+          'lowe_enum': ['-O3', '-march=native', '-fopenmp'],
           'tsz': ['-O3', '-march=native', '-fopenmp'],
           'twist_join': ['-O3', '-march=native', '-fopenmp']}
 
