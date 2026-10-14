@@ -1875,6 +1875,14 @@ I ⊗ (I + W) + B ⊗ J + C ⊗ D of order m(m − 1) = 5700 ([skew/5700](../ske
 1425 is undecided in the skew census as well. The J − 2I trick has no skew analogue here: the plug-in of the weight-1
 diagonal variable is I + W, and J − 2I would have to anticommute with W.
 
+The same route works for every skew-propus length n for which G-matrices of order n exist (their row sums need
+4n − 2 = s² + t²): the skew census values n(4n − 1) are 473 (n = 11), 663 (13), 1139 (17), 1425 (19), 2093 (23) and
+2475 (25). For 473 and 1139 the classical amicable pairs exist (Paley, q = 43, 67) but 42 and 66 are not sums of two
+squares, so there are no G-matrices; 2093 lacks the design. **663: skew-propus quadruples of length 13 exist, so
+amicable Hadamard matrices of order 52 (not a classical amicable order) and, with G-matrices of order 13, a
+skew-Hadamard matrix of order 52 · 51 = 2652** ([skew/2652](../skew/2652)). For 2475 the exhaustive skew-propus search
+of length 25 is running.
+
 **Weighted variant (not realised).** v = k n (4n − 1)-type census values (475 = 5 · 95 with h = 20, 1989 = 3 · 663
 with h = 52, 693, 1235, 2185, 2375, and 33k for k = 27, 33, 41, …) would need symmetric OD(kh; k, k(h − 1)) with
 k ≥ 3 odd. In Balonin form over ℤ₅ (order 20) only the types (1, 19) and (2, 18) exist (`symod.c`, §30), and a
