@@ -1761,5 +1761,16 @@ have no row form at all; 119/⟨69⟩ is p65's shape with four rows of 17 bits (
 recover the known 532 solution (2⁶⁶ points, 2 orbits) in 10 minutes, where the join takes seconds; local search was
 already negative for spaces of this size (§26). These are the targets for a better search method.
 
+**Symmetric orthogonal designs as plug-in arrays (order 260).** Đoković's symmetric OD(1 + q; 1, q) (arXiv:2508.17141,
+Balonin array with circulant blocks, blown up by J_q and the Paley core) suggests building order 260 = 20 · 13 from a
+full symmetric OD of order 20 in Balonin form over ℤ₅ with sequences of length 13 plugged into its variables (a propus
+solution over ℤ₆₅ with tensor structure, outside every multiplier structure). `attack/symod.c` enumerates such designs
+(blocks A symmetric, B = C, D; every entry ±x_i; conditions c_ii(s) = 0 and c_ij(s) + c_ji(s) = 0 off 0, with the
+pairs where c_ij(s) itself vanishes marked). It returns the propus design (1, 2, 1) for n = 1 and 274 (two variables) and
+76 (three variables) designs for n = 3. For n = 5 there are 304 designs, of types (1, 19) and (2, 18) only, and none with
+three variables. Neither admits circulant plug-ins of length 13: (1, 19) needs PAF_X = −19 PAF_Y with |PAF_X| ≤ 13, and
+(2, 18) needs PAF_X = −9 PAF_Y, i.e. PAF_Y = +1 at every shift (PAF ≡ 13 mod 4), forcing the row sum of Y to be ±5
+against r_X² + 9 r_Y² = 130. So this route to 260 is closed as well.
+
 **Unsearched small structures.** 247/⟨35⟩, ⟨9⟩, ⟨49⟩, ⟨30⟩, ⟨68, 87⟩, ⟨107⟩, ⟨126⟩ and 259/⟨44⟩, ⟨9⟩ (0.02–0.04 expected
 orbits each) never appeared in any sweep log; they are being run with the current chain (no solution so far).
