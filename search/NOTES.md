@@ -2431,3 +2431,14 @@ H = ⟨3⟩ of order 6 (trivial on ℤ₂, order 6 on ℤ₇, order 3 on ℤ₁�
 The hybrid estimate of 10^3.2 for the structure and retention near 1 for the filtered lists put about 10^3
 solutions in the lists; 1536 at a single split value is consistent with that. For 183 ⟨87⟩, a different subgroup of
 order 6 with the same estimate, the run is in progress.
+
+**All levels at once.** Each level's fibre filter is a necessary condition, so a solution's member of each block
+must pass all of them together. When the allowed sub-pool is too small for rejection sampling, `lowe_sz.py` now lists
+it exactly (`lowe_enum` with the filters and no energy cut). An empty list rules the structure out, even though every
+single level passed.
+- Bordered 273 (ℤ₂₇₂ = ℤ₁₆ × ℤ₁₇, multiplier groups of order 8), ⟨155⟩ with rows (2, 0, 0, 0): the levels 2, 4, 8 and
+  17 each allow 19%, 10%, 6.4% and 9.4% of A, but no member of A passes all four. The per-level rates sampled from
+  the pool match the masses from the compression states (0.185 against 0.187 at d = 2).
+- The same holds for ⟨155⟩ with rows (0, 0, 2, 0) and ⟨53⟩ with rows (2, 0, 0, 0).
+- ⟨53⟩ with rows (0, 0, 2, 0) survives with 2.4% of A and B and 0.17% and 0.25% of C and D (3.2 · 10⁷ and 4.7 · 10⁷
+  members): lists of 5 · 10⁷ would be complete.

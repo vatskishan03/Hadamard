@@ -208,8 +208,16 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
     for k, (kd, r) in enumerate(zip(KINDS, rows)):
         if (kd, r, fid[k]) not in cache:            # blocks with the same pool and filter share their statistics
             Y, a = fibre_sample(st, kd, r, K, rng, filt[k])
-            V = st.values(kd, Y)
-            cache[(kd, r, fid[k])] = (V.mean(0), np.cov(V.T), V, a)
+            if len(Y) >= 500:
+                V = st.values(kd, Y)
+            else:                                   # tiny allowed sub-pool: list it exactly (no energy cut)
+                _, Vall, _, _ = enum_block(st, kd, r, np.zeros(C), np.zeros((C, C)), 1e30, 2 * 10 ** 7, "F" + str(k),
+                                           threads, filt[k])
+                a = len(Vall) / pools[k]
+                if len(Vall) == 0:
+                    print(f"N = {N} rows {rows}: block {'ABCD'[k]} has no allowed member"); return []
+                V = np.asarray(Vall[np.linspace(0, len(Vall) - 1, min(len(Vall), K)).astype(np.int64)], np.float64)
+            cache[(kd, r, fid[k])] = (V.mean(0), np.cov(V.T) if len(V) > 1 else np.zeros((C, C)), V, a)
         mu, sg, V, a = cache[(kd, r, fid[k])]
         mus.append(mu); sigs.append(sg); samples.append(V); acc.append(a)
     apools = [pools[k] * acc[k] for k in range(4)]
