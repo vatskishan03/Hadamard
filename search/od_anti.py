@@ -90,15 +90,23 @@ def cert_search(cert):
     found = 0
     for pi in invols():
         for orbits, eps in sign_patterns(pi):
-            for cs in itertools.product(range(n), repeat=len(orbits)):
-                c = [0] * 4
-                for o, x in zip(orbits, cs):
-                    for i in o:
-                        c[i] = x
-                if all(tab[(pi[i], pi[j], j, i, eps[i] * eps[j])][c[i], c[j]]
-                       for i, j in itertools.product(range(4), repeat=2)):
-                    found += 1
-                    print('  P1:', pi, eps, c)
+            k = len(orbits)
+            oof = {i: next(q for q, o in enumerate(orbits) if i in o) for i in range(4)}
+            ok = np.ones((n,) * k, dtype=bool)                  # over the centres of the block orbits
+            for i, j in itertools.product(range(4), repeat=2):
+                tb = tab[(pi[i], pi[j], j, i, eps[i] * eps[j])]
+                a, b = oof[i], oof[j]
+                if a == b:
+                    m2 = np.diagonal(tb).copy()
+                    shape = [1] * k; shape[a] = n
+                    ok &= m2.reshape(shape)
+                else:
+                    shape = [1] * k; shape[a] = n; shape[b] = n
+                    ok &= (tb if a < b else tb.T).reshape(shape)
+            for cs in zip(*np.nonzero(ok)):
+                c = [int(cs[oof[i]]) for i in range(4)]
+                found += 1
+                print('  P1:', pi, eps, c)
     print(f'block-monomial reflections with P1 G P1 = G^T: {found}')
 
 

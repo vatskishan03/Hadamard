@@ -2460,7 +2460,8 @@ The tensor version P = P₁ ⊗ Q on H itself would also need Q W Q = −W and Q
   group of order 3 (up to sign). So the tensor version fails for this pair; the plug-in version needs only P₁.
 - *Block-monomial P₁.* Let P₁ map block i to block π(i) by ε_i times a signed permutation g ↦ c_i + k_i g of ℤ₃₉. The
   diagonal blocks (all equal to the skew-type first block) need k_i ∈ −Stab(A), the off-diagonal blocks force all k_i
-  equal, and P₁² = I then forces k_i = −1: reflections, as in `gs_anti.py`. The b part (one entry at 0 in each of
+  equal, and P₁² = I needs k_i² = 1. When Stab(A) has odd order (here {1, 16, 22}) the only such k is −1: reflections, as
+  in `gs_anti.py`. The b part (one entry at 0 in each of
   blocks 2–4, so ±R in every off-diagonal block of B) forces c_i + c_j to be the same for all i ≠ j, hence one common
   centre, and P₁ is block-monomial in ±R: an involution π and signs ε, 80 candidates. For every sign pattern of the b
   entries, the signed union-find of P₁GP₁ = Gᵀ (G the design in the normal form of `od13.c`) leaves 48 consistent
@@ -2468,8 +2469,16 @@ The tensor version P = P₁ ⊗ Q on H itself would also need Q W Q = −W and Q
   W₄ is symmetric and the other two are tied, W_l(g) = ±W_k(±g). The bc condition of §31 asks that the symmetric
   parts of W₂, W₃, W₄ add to 0 on every pair {s, −s}; the symmetric block contributes ±1 and the tied pair S_k + S_l
   with S_l = ±S_k, which is 0 or ±2. So **no Goethals–Seidel OD(4t; 1, 3, 4t − 4) has a block-monomial involutive
-  anti-automorphism**, for any t. For the design of the certificate, the direct test over all reflection
+  anti-automorphism** when the stabiliser of the first block has odd order, for any t. For the design of the certificate, the direct test over all reflection
   configurations with arbitrary centres also finds none (`od_anti.py cert`).
 
-So a symmetric 7956 along these lines needs a P₁ that mixes blocks within a row of blocks, a design outside
-Goethals–Seidel form, or a symmetric OD(156; 3, 153) built some other way.
+The same question for the other Theorem 7 designs of the repository, whose orders are symmetric-census values too:
+- [skew/1900](../skew/1900) (OD(100; 1, 5, 94), b parts δ₀ + δ_d, δ₀ − δ_d, δ₀; plug-in order 5 · 20 · 19 = 4 · 475):
+  the certificate's design has no block-monomial reflection P₁, and for every d, every placement of the singleton
+  and every sign pattern of the b entries (t = 25) no P₁ is consistent with the a, b and c parts at all;
+- [skew/2772](../skew/2772) (OD(252; 1, 21, 230), plug-in order 21 · 12 · 11 = 4 · 693): the certificate's design
+  has none (the only k with k² = 1 and −k ∈ Stab(A₁) is −1 for all five designs, so reflections are the whole
+  block-monomial family here).
+
+So symmetric matrices of orders 7956 and 1900 along these lines need a P₁ that mixes blocks within a row of blocks,
+a design outside Goethals–Seidel form, or a symmetric OD built some other way.
