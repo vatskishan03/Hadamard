@@ -328,18 +328,20 @@ static long long join2(Seq *qb, Seq *qd, long long nd, long long partcap) {
  * the part of a D is c(d_0) + c(d_1) + c(d_2) mod nparts; the part of a needed class vector is computed from its
  * entries 0 and 1 in the same way. */
 static inline int pmod(int a, int n) { a %= n; return a < 0 ? a + n : a; }
-static inline int rowkey(int m, int np) { return pmod((Pt[(size_t)m * E2] - 1) / 4 + 7 * ((Pt[(size_t)m * E2 + 1] - 1) / 4), np); }
+static int KMUL = 7;                  /* key multiplier: coprime to the (prime) number of parts */
+static int nextprime(int n) { for (;; n++) { int ok = n > 1; for (int d = 2; d * d <= n; d++) if (n % d == 0) { ok = 0; break; } if (ok) return n; } }
+static inline int rowkey(int m, int np) { return pmod((Pt[(size_t)m * E2] - 1) / 4 + KMUL * ((Pt[(size_t)m * E2 + 1] - 1) / 4), np); }
 static long long join3(Seq *qb, Seq *qd, long long nd, long long partcap) {
     Store sb = {0};
     seq_iter(qb, store_cb, &sb);
-    int np = (int)((nd + partcap - 1) / partcap); if (np < 1) np = 1;
+    int np = nextprime((int)((nd + partcap - 1) / partcap)); KMUL = np == 7 ? 3 : 7;
     int *c0 = malloc(sizeof(int) * qd->n[0]), *c1 = malloc(sizeof(int) * qd->n[1]);
     for (int i = 0; i < qd->n[0]; i++) c0[i] = rowkey(qd->L[0][i], np);
     for (int i = 0; i < qd->n[1]; i++) c1[i] = rowkey(qd->L[1][i], np);
     int **bk = malloc(sizeof(int *) * np), *bn = calloc(np, sizeof(int));     /* third rows bucketed by key */
     for (int b = 0; b < np; b++) bk[b] = malloc(sizeof(int) * qd->n[2]);
     for (int i = 0; i < qd->n[2]; i++) { int k = rowkey(qd->L[2][i], np); bk[k][bn[k]++] = i; }
-    uint64_t sz = 1; while (sz < 3 * (uint64_t)((nd + np - 1) / np) + 16) sz <<= 1;
+    uint64_t sz = 1; while (sz < 4 * (uint64_t)((nd + np - 1) / np) + 16) sz <<= 1;
     DTab d; d.t = malloc(sizeof(DEnt) * sz); d.mask = sz - 1; d.nparts = 1; d.part = 0;
     long long probes = 0;
     double complex u[3][16];
@@ -359,7 +361,7 @@ static long long join3(Seq *qb, Seq *qd, long long nd, long long partcap) {
                     }
                 }
                 if (!ok) continue;
-                if ((uint64_t)d.n * 2 >= sz) { fprintf(stderr, "part %d overflows its table\n", part); exit(2); }
+                if ((uint64_t)d.n * 4 >= 3 * sz) { fprintf(stderr, "part %d overflows its table\n", part); exit(2); }
                 dtab_cb(qd, i0, i1, i2, &d);
             }
         }
@@ -369,7 +371,7 @@ static long long join3(Seq *qb, Seq *qd, long long nd, long long partcap) {
                 const signed char *FB = sb.e[ib].F;
                 int n0 = tgtC[0] - FA[0] - 2 * FB[0], n1 = tgtC[1] - FA[1] - 2 * FB[1];
                 if (pmod(n0, 4) != 3 || pmod(n1, 4) != 3) continue;
-                if (pmod((n0 - 3) / 4 + 7 * ((n1 - 3) / 4), np) != part) continue;
+                if (pmod((n0 - 3) / 4 + KMUL * ((n1 - 3) / 4), np) != part) continue;
                 signed char need[MAXC]; int ok = 1;
                 memset(need, 0, MAXC);
                 for (int k = 0; k < C; k++) { int s = tgtC[k] - FA[k] - 2 * FB[k]; if (s < -127 || s > 127) { ok = 0; break; } need[k] = (signed char)s; }
@@ -390,6 +392,103 @@ static long long join3(Seq *qb, Seq *qd, long long nd, long long partcap) {
         printf("    part %d/%d: D entries %lld, probes so far %lld\n", part + 1, np, d.n, probes); fflush(stdout);
     }
     free(d.t); free(sb.e); free(c0); free(c1); for (int b = 0; b < np; b++) free(bk[b]); free(bk); free(bn);
+    return probes;
+}
+
+/* ---- join4: B kept in memory (compact) and bucketed by its share of the additive key, A likewise, so that every pair
+ * (A, B) is formed exactly once over all parts; D is enumerated part by part (its third rows bucketed by key).
+ * With F[k] = 4 a_k + 3 for A and 4 b_k + 3 for B (k = 0, 1; every s = 0 class value is 3 mod 4) and a target t_k = 0 mod 4,
+ * the needed D has ((n_0 - 3)/4 + 7 (n_1 - 3)/4) = kA + kB with kA = (t_0 - 12)/4 - a_0 + 7 ((t_1 - 12)/4 - a_1) and
+ * kB = -2 b_0 - 14 b_1. */
+typedef struct { uint16_t i0, i1, i2; signed char F[MAXC - 6]; } CEnt;
+typedef struct { CEnt *e; long long n, cap; } CStore;
+static void cstore_cb(const Seq *q, int i0, int i1, int i2, void *ctx) {
+    CStore *s = ctx;
+    if (s->n == s->cap) { s->cap = s->cap ? 2 * s->cap : 1 << 20; s->e = realloc(s->e, sizeof(CEnt) * s->cap); if (!s->e) { fprintf(stderr, "out of memory\n"); exit(3); } }
+    CEnt *x = &s->e[s->n++]; signed char F[MAXC]; memset(F, 0, MAXC); classvals(q, i0, i1, i2, F);
+    x->i0 = i0; x->i1 = i1; x->i2 = i2; memcpy(x->F, F, C);
+}
+typedef struct { int np; long long *cnt, *pos; CEnt *bs; } BCtx;
+static inline int bkey(const signed char *F, int np) { return pmod(-2 * ((F[0] - 3) / 4) - 2 * KMUL * ((F[1] - 3) / 4), np); }
+static void bcount_cb(const Seq *q, int i0, int i1, int i2, void *ctx) {
+    BCtx *c = ctx; signed char F[MAXC]; memset(F, 0, MAXC); classvals(q, i0, i1, i2, F); c->cnt[bkey(F, c->np) + 1]++;
+}
+static void bplace_cb(const Seq *q, int i0, int i1, int i2, void *ctx) {
+    BCtx *c = ctx; signed char F[MAXC]; memset(F, 0, MAXC); classvals(q, i0, i1, i2, F);
+    CEnt *x = &c->bs[c->pos[bkey(F, c->np)]++]; x->i0 = i0; x->i1 = i1; x->i2 = i2; memcpy(x->F, F, C);
+}
+static long long join4(Seq *qb, Seq *qd, long long nd, long long partcap) {
+    if (C > MAXC - 6) { fprintf(stderr, "too many classes for join4\n"); exit(2); }
+    /* B in two passes: count per key bucket, then place each survivor directly (no second copy) */
+    long long nb = seq_iter(qb, NULL, NULL);
+    int np = nextprime((int)((nd + partcap - 1) / partcap)); KMUL = np == 7 ? 3 : 7;
+    BCtx bc; bc.np = np; bc.cnt = calloc(np + 1, sizeof(long long)); bc.bs = NULL; bc.pos = NULL;
+    seq_iter(qb, bcount_cb, &bc);
+    for (int b = 0; b < np; b++) bc.cnt[b + 1] += bc.cnt[b];
+    bc.bs = malloc(sizeof(CEnt) * (nb + 1)); if (!bc.bs) { fprintf(stderr, "out of memory for B\n"); exit(3); }
+    bc.pos = malloc(sizeof(long long) * np); for (int b = 0; b < np; b++) bc.pos[b] = bc.cnt[b];
+    seq_iter(qb, bplace_cb, &bc);
+    CEnt *bs = bc.bs; long long *bcnt = bc.cnt; free(bc.pos);
+    int *ka = malloc(sizeof(int) * (nA + 1));
+    for (int ia = 0; ia < nA; ia++) {
+        int a0 = (Al[ia].F[0] - 3) / 4, a1 = (Al[ia].F[1] - 3) / 4;
+        ka[ia] = pmod((tgtC[0] - 12) / 4 - a0 + KMUL * ((tgtC[1] - 12) / 4 - a1), np);
+    }
+    /* D rows bucketed by row key */
+    int *c0 = malloc(sizeof(int) * qd->n[0]), *c1 = malloc(sizeof(int) * qd->n[1]);
+    for (int i = 0; i < qd->n[0]; i++) c0[i] = rowkey(qd->L[0][i], np);
+    for (int i = 0; i < qd->n[1]; i++) c1[i] = rowkey(qd->L[1][i], np);
+    int **bk = malloc(sizeof(int *) * np), *bn = calloc(np, sizeof(int));
+    for (int b = 0; b < np; b++) bk[b] = malloc(sizeof(int) * qd->n[2]);
+    for (int i = 0; i < qd->n[2]; i++) { int k = rowkey(qd->L[2][i], np); bk[k][bn[k]++] = i; }
+    uint64_t sz = 1; while (sz < 4 * (uint64_t)((nd + np - 1) / np) + 16) sz <<= 1;
+    DTab d; d.t = malloc(sizeof(DEnt) * sz); d.mask = sz - 1; d.nparts = 1; d.part = 0;
+    long long probes = 0;
+    double complex u[3][16];
+    for (int part = 0; part < np; part++) {
+        memset(d.t, 0, sizeof(DEnt) * sz); d.n = 0;
+        for (int i0 = 0; i0 < qd->n[0]; i0++) for (int i1 = 0; i1 < qd->n[1]; i1++) {
+            int want = pmod(part - c0[i0] - c1[i1], np), a = qd->L[0][i0], b = qd->L[1][i1];
+            if (!bn[want]) continue;
+            for (int k = 0; k < 3; k++) for (int j = 0; j < e; j++) u[k][j] = hat[(size_t)a * e + j] + W3[k] * hat[(size_t)b * e + j];
+            for (int x = 0; x < bn[want]; x++) {
+                int i2 = bk[want][x], c = qd->L[2][i2], ok = 1;
+                for (int k = 0; k < 3 && ok; k++) {
+                    const double complex w2 = W3[(2 * k) % 3];
+                    for (int j = 0; j < e; j++) {
+                        double complex z = u[k][j] + w2 * hat[(size_t)c * e + j];
+                        if (creal(z) * creal(z) + cimag(z) * cimag(z) > qd->bound + 1e-6) { ok = 0; break; }
+                    }
+                }
+                if (!ok) continue;
+                if ((uint64_t)d.n * 4 >= 3 * sz) { fprintf(stderr, "part %d overflows its table\n", part); exit(2); }
+                dtab_cb(qd, i0, i1, i2, &d);
+            }
+        }
+        for (int ia = 0; ia < nA; ia++) {
+            const signed char *FA = Al[ia].F;
+            int b = pmod(part - ka[ia], np);
+            for (long long ib = bcnt[b]; ib < bcnt[b + 1]; ib++) {
+                const signed char *FB = bs[ib].F; signed char need[MAXC]; int ok = 1;
+                memset(need, 0, MAXC);
+                for (int k = 0; k < C; k++) { int s = tgtC[k] - FA[k] - 2 * FB[k]; if (s < -127 || s > 127) { ok = 0; break; } need[k] = (signed char)s; }
+                if (!ok) continue;
+                probes++;
+                uint64_t h = hkey(need), s = h & d.mask;
+                while (d.t[s].used) {
+                    if (d.t[s].h == h) {
+                        signed char FD[MAXC]; memset(FD, 0, MAXC); classvals(qd, d.t[s].i0, d.t[s].i1, d.t[s].i2, FD);
+                        if (!memcmp(FD, need, C))
+                            report(&Al[ia], qb->L[0][bs[ib].i0], qb->L[1][bs[ib].i1], qb->L[2][bs[ib].i2],
+                                   qd->L[0][d.t[s].i0], qd->L[1][d.t[s].i1], qd->L[2][d.t[s].i2]);
+                    }
+                    s = (s + 1) & d.mask;
+                }
+            }
+        }
+        if (part % 50 == 49 || part == np - 1) { printf("    part %d/%d: D entries %lld, probes so far %lld\n", part + 1, np, d.n, probes); fflush(stdout); }
+    }
+    free(d.t); free(bs); free(bcnt); free(ka); free(c0); free(c1); for (int b = 0; b < np; b++) free(bk[b]); free(bk); free(bn);
     return probes;
 }
 
@@ -428,7 +527,7 @@ int main(int argc, char **argv) {
         Seq qb, qd; seq_init(&qb, R[0], R[1], R[2], bB); seq_init(&qd, Q[0], Q[1], Q[2], bD);
         build_A(rsum[a0], rsum[a1]);
         long long nd = seq_iter(&qd, NULL, NULL);
-        long long pr = join3(&qb, &qd, nd, nd / 3 + 1);
+        long long pr = (argc > 5 && !strcmp(argv[5], "j4")) ? join4(&qb, &qd, nd, nd / 7 + 1) : join3(&qb, &qd, nd, nd / 3 + 1);
         printf("test: |A| %d, D %lld, probes %lld, verified hits %lld\n", nA, nd, pr, nhits);
         return 0;
     }
@@ -472,11 +571,14 @@ int main(int argc, char **argv) {
         Seq qb, qd;
         seq_init(&qb, t[2], t[3], t[4], bB); seq_init(&qd, t[5], t[6], t[7], bD);
         build_A(t[0], t[1]);
-        long long nb = nA ? seq_iter(&qb, NULL, NULL) : 0, nd = (nA && nb) ? seq_iter(&qd, NULL, NULL) : 0;
+        long long nb, nd;
+        if (!strcmp(mode, "run4")) {          /* upper bounds; join4 counts B itself, and D parts only need a bound */
+            nb = (long long)qb.n[0] * qb.n[1] * qb.n[2]; nd = (long long)qd.n[0] * qd.n[1] * qd.n[2];
+        } else { nb = nA ? seq_iter(&qb, NULL, NULL) : 0; nd = (nA && nb) ? seq_iter(&qd, NULL, NULL) : 0; }
         printf(": |A| %d, B %lld, D %lld, pairs %.3g\n", nA, nb, nd, (double)nA * nb); fflush(stdout);
         work += (double)nA * nb;
-        if (!strcmp(mode, "run") && nA && nb && nd) {
-            long long pr = join3(&qb, &qd, nd, partcap);
+        if ((!strcmp(mode, "run") || !strcmp(mode, "run4")) && nA && nb && nd) {
+            long long pr = !strcmp(mode, "run4") ? join4(&qb, &qd, nd, partcap) : join3(&qb, &qd, nd, partcap);
             printf("  done triple %d: probes %lld, verified hits so far %lld\n", it, pr, nhits); fflush(stdout);
         }
         free(Al); seq_free(&qb); seq_free(&qd);

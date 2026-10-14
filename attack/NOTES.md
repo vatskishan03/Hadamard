@@ -1725,7 +1725,8 @@ recover the planted triple; all do. Hits are rebuilt on ℤ_v and checked before
 - `attack/pz5.c` — the same with ℤ₅ × ℤ_N for N = 12 or 13, optionally with the ℤ₅-border targets of §29. Order 260
   as a ℤ₅-bordered propus over ℤ₆₀ with H = ⟨49⟩ (−1 on ℤ₅, trivial on ℤ₁₂; 0.37 expected orbits by
   `propus_rank.py --qborder 5`): the compression triples are A = (2, 0, 0), D = (4, 0, 0) and the reverse, with every
-  row of B balanced; running.
+  row of B balanced. **No solution** (both triples, 1.8·10¹⁰ probes in all). ⟨11⟩ on ℤ₆₀ (−1 on ℤ₁₂, trivial on ℤ₅;
+  0.19 expected orbits) by the chain (`propus_chain.py 60 11 --qborder 5`, 80 compatible ℤ₁₅ triples): **no solution**.
 - `attack/prow.c` — ℤ₃ × GF(p) with H the e-th powers on GF(p) and trivial on ℤ₃ (183/⟨34⟩, 213/⟨37⟩, 213/⟨25⟩): three
   rows of 1 + e bits; the row sums of B and of D are taken sorted (their translations and reversal permute the rows), A
   canonical under the e coset rotations. D is hashed in parts chosen by an additive key of its s = 0 classes (every row
@@ -1735,6 +1736,30 @@ recover the planted triple; all do. Hits are rebuilt on ℤ_v and checked before
   - 183/⟨34⟩ (e = 12): 8 triples, B ≈ 4·10⁶ and D ≈ 4–6·10⁸ per triple, about 2·10⁹ probes each; running.
   - 213/⟨25⟩ (e = 14): about 3,000 rows per row sum, B ≈ 3·10¹⁰ before the filters per triple: beyond this join.
 
-**Order 260 by the bordered families**, in expected orbits: ℤ₅-bordered on ℤ₆₀, ⟨49⟩ 0.37 (running), ⟨11⟩ 0.19, the
-rest ≤ 0.02; ℤ₁₃-bordered on ℤ₅₂, ⟨9⟩ 0.22 (20 orbits, but the border is a clique problem with rows of length 52 that
-the solver of §29 cannot handle yet); bordered (q = 1) on ℤ₆₄, at most 10⁻⁵ (the character obstruction of §27).
+**Order 260 by the bordered families**, in expected orbits: ℤ₅-bordered on ℤ₆₀, ⟨49⟩ 0.37 and ⟨11⟩ 0.19 (both empty,
+above), the rest ≤ 0.02; ℤ₁₃-bordered on ℤ₅₂, ⟨9⟩ 0.22 (20 orbits, but the border is a clique problem with rows of
+length 52 that the solver of §29 cannot handle yet); bordered (q = 1) on ℤ₆₄, at most 10⁻⁵ (the character obstruction
+of §27). For the census primes (89, 101, 107, 149, …) the bordered family over ℤ_{v−1} holds at most 0.3 expected orbits,
+all in structures of ≤ 18 orbits that the border queues of §27 searched exhaustively.
+
+**Where the solutions are: large structures.** Ranking 47–90 orbits (`propus_rank.py … --mino 47 --maxo 90`) moves the
+expected orbits by orders of magnitude, as §25 predicted (below v ≈ 430 the propus count grows with the number of classes):
+
+| structure | H acts on | orbits A, B | classes | expected solutions | orbit size \|Γ\| | expected orbits |
+|---|---|---|---|---|---|---|
+| 247/⟨68⟩, 247/⟨87⟩ | order 3 on ℤ₁₃ and on ℤ₁₉ | 42, 83 | 41 | 9.2·10³ | 144 | 64 each |
+| 183/⟨13⟩ | trivial on ℤ₃, order 3 on GF(61) | 32, 63 | 31 | 3.4·10⁴ | 720 | 47 |
+| 259/⟨121⟩, 259/⟨100⟩ | order 3 on ℤ₇ and on ℤ₃₇ | 44, 87 | 43 | 2.5·10³ | 144 | 18 each |
+| 119/⟨69⟩ | −1 on ℤ₇, trivial on ℤ₁₇ | 36, 68 | 35 | 5.6·10⁴ | 27,744 | 2.0 |
+| 153/⟨35⟩ | −1 on ℤ₉, trivial on ℤ₁₇ | 45, 85 | 44 | 1.7·10⁴ | 27,744 | 0.6 |
+| 189/⟨37⟩, ⟨100⟩ | order 3 on ℤ₂₇ and ℤ₇ | 35, 69 | 34 | 2.9·10³ | 5,832 | 0.5 each |
+
+None of these is within reach. The row form of 183/⟨13⟩ has rows of 21 bits (about 10¹⁵ members of B per row-sum
+class), its GF(61) compression leaves about 10¹³ compatible stage-1 triples, and the diagonal actions of 247 and 259
+have no row form at all; 119/⟨69⟩ is p65's shape with four rows of 17 bits (10¹⁶ members of B per class). A CP-SAT model
+(`attack/propus_sat.py`: one Boolean per orbit, every class equation a weighted sum of pairwise XORs) does not even
+recover the known 532 solution (2⁶⁶ points, 2 orbits) in 10 minutes, where the join takes seconds; local search was
+already negative for spaces of this size (§26). These are the targets for a better search method.
+
+**Unsearched small structures.** 247/⟨35⟩, ⟨9⟩, ⟨49⟩, ⟨30⟩, ⟨68, 87⟩, ⟨107⟩, ⟨126⟩ and 259/⟨44⟩, ⟨9⟩ (0.02–0.04 expected
+orbits each) never appeared in any sweep log; they are being run with the current chain (no solution so far).
