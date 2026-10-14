@@ -1552,7 +1552,9 @@ cyclotomic product ℤ₃ × GF(73) of index 8 (27 orbits for B and D, 14 for A,
 compressions to ℤ₇₃ give 768 compatible triples (pair work 3.4 · 10⁷ against 6.9 · 10⁹ for the direct join); the
 573rd holds 18 solutions, and all 768 together hold 288, in 16 triples (the 16 cosets of H in ℤ₂₁₉* permute them).
 Verified by `verify.py`, by `check_matrix` and by an independent rebuild; reproduced from scratch with the same
-sequences.
+sequences. Novelty audit (its README): 219 is undecided in the Đoković–Seberry census of 2025-05-28 and in no series
+of it; no paper, database or 2026 deposit we could read has a symmetric matrix of order 876, and every classical
+route fails by arithmetic; the 2018 Balonin–Seberry tables (n < 400) could not be read.
 
 **The Gaussian model misses by 10^10.6.** `propus_rank.py` gives 10^−8.1 solutions for this structure and pattern
 (pools 10^3.0, 10^6.9, 10^6.9; 13 classes, full covariance), against 288. For 532 the miss was 10^9.6 (§23). Both
