@@ -2189,6 +2189,24 @@ filter's centre, where random members average 0.56. With the energy restricted t
 N) they move to the 21st and 2.4th percentiles. The compression classes are better handled exactly than by the
 Gaussian filter.
 
+**Unit-class energy** (`lowe_sz.py --energy units`: the filter's energy uses only the classes of shifts prime to the
+group order; `retention_test.py --energy units`). Solutions kept out of the exact sets, full energy against unit
+classes:
+
+| N | H | kept per big block | full energy | unit classes |
+|---:|---|---|---:|---:|
+| 119 | ⟨8⟩ | 2000 of 105105 (1.9%) | 0 of 4704 | 4704 of 4704 |
+| 119 | ⟨8⟩ | 5000 (4.8%) | 0 | 4704 |
+| 371 | ⟨13⟩ | 500 of 20592 (2.4%) | 24 of 96 | 48 of 96 |
+| 93 | ⟨4⟩, rows 9, 13; 1, 11 | 15000 of 1.4 · 10⁵ (11%) | 1224 of 21384 | 1368 |
+| 93 | ⟨4⟩, rows 7, 11; 9, 11 | 15000 of 1.3 · 10⁵ (11%) | 864 of 9504 | 252 |
+
+At 3.8% kept both versions lose every solution of the two 93 patterns, and at 5% the full energy loses all of 163's
+8352 solutions although each marginal keeps 8%: the joint retention of C and D falls far below the product of the
+marginals at small kept fractions. Both filters ask the two blocks to absorb the same deviation of A + B from its
+mean, and a solution's A + B is one of a few discrete values. The runs that found solutions kept 2–20% of their
+pools; the 183 run keeps 0.07%. The two energies select different members, so they are separate lottery tickets.
+
 **Split-value order.** For the 183 run above, the 6833 split values processed (kt4's order by the Gaussian law of a
 solution's split) cover 17.1% of the pair-product mass; the best order for that cost, by N_AC N_BD/(N_AC + N_BD),
 covers 19.0%. The order is close to optimal.

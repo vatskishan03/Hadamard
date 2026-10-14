@@ -18,6 +18,7 @@ the probability under the model that a solution's member passes the filter (Mont
 N(c_k, Sigma_k - Sigma_k Sigma^+ Sigma_k)).
 
     python3 search/lowe_sz.py N g [g2] --rows a,b,c,d [--bordered] [--L 2e7] [--nsig 2e5] [--S 5] [--estimate-only]
+        [--energy full|units] [--resume]
 """
 import argparse, json, math, os, struct, subprocess, sys, time
 from pathlib import Path
@@ -66,11 +67,12 @@ def enum_block(st, kind, r, center, Wm, tau, maxkeep, tag, threads):
     return masks, vals, en, p.stdout.strip()
 
 
-def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5):
+def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5, energy="full"):
     """rerun the join on the lists saved by an earlier run (WORK/lowe), with more split values"""
     st = Struct(N, gens, plain=not bordered)
     keepdir = W.WORK / "lowe"
-    tagname = f"{N}{'b' if bordered else ''}_{'_'.join(map(str, gens))}_{'_'.join(map(str, rows))}"
+    tagname = f"{N}{'b' if bordered else ''}_{'_'.join(map(str, gens))}_{'_'.join(map(str, rows))}" + \
+        ("" if energy == "full" else f"_{energy}")
     inp = keepdir / f"kt4_{tagname}.bin"
     z = np.load(keepdir / f"masks_{tagname}.npz")
     masks = [z[f"arr_{k}"] for k in range(4)]
@@ -86,8 +88,16 @@ def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5):
     return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, time.time())
 
 
+def unit_classes(st):
+    """classes whose shifts are prime to the group order (the others are compression classes)"""
+    return [c for c, s in enumerate(st.reps) if math.gcd(int(s), st.m) == 1]
+
+
 def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4, estimate_only=False, log=None,
-        seed=1, maxsol=5):
+        seed=1, maxsol=5, energy="full"):
+    """energy="units": the filter's energy uses only the unit classes. On exact solution sets of composite N the
+    solution members sit at arithmetically fixed values on the compression classes, away from the Gaussian centre;
+    without those classes they rank much higher at N = 119 and 267 (search/NOTES.md section 34)."""
     t0 = time.time()
     st = Struct(N, gens, plain=not bordered)
     rng = np.random.default_rng(seed)
@@ -113,7 +123,13 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
         if twin:                                    # same pool, same filter
             plan.append(plan[twin[0]]); continue
         Sm = Sig - sigs[k]
-        Wk, Smp = psd_pinv_sqrt(Sm)
+        U = unit_classes(st) if energy == "units" else []
+        if U:
+            Wsub, Spsub = psd_pinv_sqrt(Sm[np.ix_(U, U)])
+            Wk = np.zeros((C, C)); Wk[np.ix_(U, U)] = Wsub
+            Smp = np.zeros((C, C)); Smp[np.ix_(U, U)] = Spsub
+        else:
+            Wk, Smp = psd_pinv_sqrt(Sm)
         zk = t - (sum(mus) - mus[k])
         # energy quantile from prior samples
         Y = st.sample(KINDS[k], rows[k], K, rng); V = st.values(KINDS[k], Y)
@@ -149,7 +165,8 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
     # kt4 input: order (A, C, B, D) so that the pairs are (A, C) and (B, D)
     order = [0, 2, 1, 3]
     keepdir = W.WORK / "lowe"; keepdir.mkdir(exist_ok=True)
-    tagname = f"{N}{'b' if bordered else ''}_{'_'.join(map(str, gens))}_{'_'.join(map(str, rows))}"
+    tagname = f"{N}{'b' if bordered else ''}_{'_'.join(map(str, gens))}_{'_'.join(map(str, rows))}" + \
+        ("" if energy == "full" else f"_{energy}")
     inp = keepdir / f"kt4_{tagname}.bin"
     np.savez(keepdir / f"masks_{tagname}.npz", *[lists[k][0] for k in range(4)])
     with open(inp, "wb") as f:
@@ -273,12 +290,14 @@ def main():
     ap.add_argument("--estimate-only", action="store_true")
     ap.add_argument("--resume", action="store_true", help="join the lists saved by an earlier run again")
     ap.add_argument("--log")
+    ap.add_argument("--energy", choices=["full", "units"], default="full",
+                    help="classes in the filter's energy: all, or only those prime to the group order")
     a = ap.parse_args()
     rows = tuple(int(x) for x in a.rows.split(","))
     if a.resume:
-        resume(a.N, a.gens, rows, a.bordered, a.nsig, a.S, a.log)
+        resume(a.N, a.gens, rows, a.bordered, a.nsig, a.S, a.log, energy=a.energy)
     else:
-        run(a.N, a.gens, rows, a.bordered, a.L, a.nsig, a.S, a.K, a.threads, a.estimate_only, a.log)
+        run(a.N, a.gens, rows, a.bordered, a.L, a.nsig, a.S, a.K, a.threads, a.estimate_only, a.log, energy=a.energy)
 
 
 if __name__ == "__main__":

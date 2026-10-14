@@ -21,6 +21,7 @@ def main():
     ap.add_argument("N", type=int); ap.add_argument("gens", type=int, nargs="+")
     ap.add_argument("--rows", required=True); ap.add_argument("--bordered", action="store_true")
     ap.add_argument("--L", type=float, nargs="+", default=[2e5]); ap.add_argument("--K", type=int, default=20000)
+    ap.add_argument("--energy", choices=["full", "units"], default="full")
     a = ap.parse_args()
     rows = tuple(int(x) for x in a.rows.split(","))
     st = Struct(a.N, a.gens, plain=not a.bordered)
@@ -53,7 +54,12 @@ def main():
         for k in range(4):
             if sizes[k] <= L:
                 keepsets.append(np.ones(sizes[k], bool)); rets.append(1.0); continue
-            Sm = Sig - sigs[k]; _, Smp = lowe_sz.psd_pinv_sqrt(Sm)
+            Sm = Sig - sigs[k]
+            U = lowe_sz.unit_classes(st) if a.energy == "units" else []
+            if U:
+                Smp = np.zeros((C, C)); Smp[np.ix_(U, U)] = lowe_sz.psd_pinv_sqrt(Sm[np.ix_(U, U)])[1]
+            else:
+                _, Smp = lowe_sz.psd_pinv_sqrt(Sm)
             zk = t - (sum(mus) - mus[k])
             X = lists[k].astype(np.float64)
             E = np.einsum("ij,jk,ik->i", X - zk, Smp, X - zk)
