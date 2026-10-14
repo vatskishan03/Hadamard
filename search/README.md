@@ -111,6 +111,7 @@ start-up, is close to the list size.
 | `spin_skew.py`, `spin_compress.py`, `spin_ls.c`, `spin_ls_gls.c`, `spin_pt.c`, `spin_sol.py`, `twin_skew.py`, `pairspin.py` | spin structures: blocks permuted by a multiplier (3676) |
 | `spin_ls2.c`, `spin_rrr.py`, `spin_check.py` | the vectorised spin tabu search (`SPIN_LS=spin_ls2`), the difference map for spin structures, and a checker that rebuilds a spin solution |
 | `spin_fibre.py` | exact fibre test for spin structures over composite ℤ_v (subgroup classes) |
+| `spin_group.py` | spin structures over ℤ_p² × ℤ_q (automorphisms from GL(2, p) × ℤ_q*): ranking, tabu search, and the fibre test on subgroup classes (2107) |
 | `tri_skew.py`, `tri_ls.py` | three skew blocks in one multiplier orbit (A, A∘μ, A∘μ², D): exact joins, estimates and tabu search |
 | `szekeres.py`, `szek_pair.c`, `szek_group.c` | Szekeres difference sets and Szekeres pairs |
 | `szek2.py` | two-block skew (and symmetric) matrices of order 2(w + 1) with a general second block |
@@ -159,6 +160,7 @@ start-up, is close to the list size.
 | `williamson.py` | Williamson matrices with multiplier symmetry |
 | `bnw.py`, `bnw_enum.c` | bordered Williamson-type matrices ([williamson-type](../williamson-type)) |
 | `wt_twist.py`, `twist_join.c`, `twist_scan.py` | the order-3 twist of near-Williamson matrices (111) |
+| `nw_prep.py`, `nw_exh.c`, `nw_certify.py` | near-Williamson quadruples on ℤ_v with a multiplier group, searched exhaustively: every power-spectrum-feasible triple of the symmetric blocks in a hash table, every member of the arbitrary block streamed against it (split into symmetric and antisymmetric parts, whose autocorrelations add); Cooper–Wallis certificates from a quadruple |
 | `lp_search.py`, `lp_sweep.py`, `lp_hunt.py`, `lp_lowe.py`, `lp_mult.py`, `lp_open.py`, `lp_rank_big.py` | Legendre pairs for the unresolved orders |
 | `tlp_model.py`, `tlp_rank.py`, `tlp_search.py` | twisted Legendre pairs |
 | `two_circ.py`, `two_chain.py` | two-block searches: D-optimal designs and Legendre pairs |
