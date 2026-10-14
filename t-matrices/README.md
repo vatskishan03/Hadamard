@@ -21,7 +21,7 @@ signs.
 | 103 | decoded from the 2060 matrix in JD-Jones-ASES/Hadamard-T (2026-08-29) |
 | 109 | none found |
 | 113 | Zuo–Xia–Xia (2013); Best–Đoković–Kharaghani–Ramp (2013) |
-| 131 | none found; T-sequences of length 131 would need base sequences BS(66, 65) or Turyn-type sequences TT(44), neither known to us; from `attack/tmat_mult.py 131 53` (multiplier group of order 5, row sums 5, 0, −9, 5) |
+| 131 | none found. Not among the T-matrix orders listed by Seberry and Yamada (1992, §3: every t ≤ 210 except 73, 79, 83, 89, 97, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 183, 191, 193, 197 and 199). T-sequences of length 131 would need base sequences BS(66, 65) or Turyn-type sequences TT(44), neither known to us. From `attack/tmat_mult.py 131 53` (multiplier group of order 5, row sums 5, 0, −9, 5) |
 | 151 | posted by Schumer (2026-09-17) |
 | 163 | JD-Jones-ASES/Hadamard-T (2026-08-29) |
 | 181 | JD-Jones-ASES/Hadamard-T (2026-08-29) |
