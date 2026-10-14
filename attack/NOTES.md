@@ -1600,12 +1600,17 @@ for each odd q dividing v.
   depth-first search stalls, a colouring-bounded clique search on each vertex neighbourhood
   (`attack/qborder_clique.c`, Tomita's MCQ) solves the patterns met so far in about 150 s (the first after 34 start
   vertices). Goethals–Seidel borders do not exist for the single-spike ℤ₅ pattern (z_A = δ₀, z_D = 2δ₀): none among
-  1536 block conjugates × 120,000 GS quadruples. q ≥ 7 has no solver yet (2^{4q−1} candidate rows); hits are kept in
-  `qborder_pending.jsonl`.
+  1536 block conjugates × 120,000 GS quadruples. A second version avoids the global adjacency (random adjacent pairs
+  (s, t), MCQ on N(s) ∩ N(t), |N(s) ∩ N(t)| ≈ 250): every ℤ₅ pattern met so far is solved in about a second.
+  Simulated annealing over the signed column permutations of a fixed Paley matrix of order 20 does not work (cost
+  stuck far from 0). q = 7: 17.4 million candidate rows, |N(s)| ≈ 370,000, |N(s) ∩ N(t)| ≈ 15,000; 329 start pairs on
+  the pattern (z_A, z_B, z_D) = (δ₀, δ₀, (1, 1, 0, 1, 0, 0, −1)) found no clique (open; a longer run is going). Hits
+  without a border are kept in `qborder_pending.jsonl`.
 - **Checks.** ℤ₃: every one of the 576 triples on ℤ₆ gives a symmetric Hadamard matrix of order 36; the chain finds and
   verifies orders 108 (ℤ₂₄), 132 (ℤ₃₀) and 36 on ℤ₂ × ℤ₃; ℤ₁₂ and ℤ₁₈ have no triple (exhaustive, ℤ₁₂ also by brute
-  force). ℤ₅: ℤ₁₀ and ℤ₂₀ have none (exhaustive), ℤ₃₀ has several, and one gives a verified symmetric Hadamard matrix
-  of order 140. Existence depends on m, as for §27.
+  force). ℤ₅: ℤ₁₀ and ℤ₂₀ have none (exhaustive), ℤ₃₀ has several (six compression patterns), and each pattern gives a
+  verified symmetric Hadamard matrix of order 140. ℤ₇: sequences exist on ℤ₁₄ and ℤ₂₈ (55 compression patterns), but
+  no border is known. Existence depends on m, as for §27.
 - **Tools.** `propus.py --qborder q`, `propus_chain.py --qborder q` (per-class targets in stage 1 and in join4x),
   `propus_bgroup.py --qborder q [--phi c₁,…]` (automorphisms that preserve ker φ), `verify.py` construction
   `propus-qbordered` (fields q, quotient = coefficients of φ, R), `border_certify.py` (re-solves the border in the
@@ -1618,3 +1623,16 @@ for each odd q dividing v.
   1–44 orbits) and on ℤ₂ × ℤ₃₀ (`propus_bgroup.py 2,30 --qborder 5 --phi 0,1 --pairs`). On ℤ₆₀ every structure up to
   24 orbits is empty (direct joins), and so far the chain has found no compatible compression triple in any structure
   except one of 30 orbits (60 triples, no solution).
+
+**Symmetric Legendre pairs (checked, not pursued).** In the standard Legendre-pair array of order 2ℓ + 2,
+[[X, E], [Eᵀ, M]] with X = [[1, 1], [1, −1]], E = [[eᵀ, eᵀ], [eᵀ, −eᵀ]], M = [[A, B], [Bᵀ, −A]] and row sums −1, H is
+symmetric exactly when A is (all LPs with A symmetric for ℓ = 3, 5, 9, …, 15 give symmetric Hadamard matrices; this is
+known, Đoković–Kotsireas arXiv:1801.07627). For a census value it needs ℓ = 2v − 1 (composite: prime powers are Paley
+II). The two published Legendre pairs of length 129 (Kotsireas–Koutschan arXiv:2101.03116, H = {1, 49, 79}) give no
+symmetric matrix of order 260: neither sequence satisfies X(r − i) = X(i) for any r. A count of free bits against
+constraints (A on ⟨H, −1⟩: ≈ ℓ/2|H| bits, B ≈ ℓ/|H|, about ℓ/2|H| classes) leaves the symmetric LP with a negative
+margin where propus has a positive one, so the CPU stays with the propus families.
+
+**Speed.** The stage-1 compressed autocorrelations of `propus_chain.py` are now vectorized (`cpaf_batch`): lists of
+757,000 compressions took 15 minutes per pattern in a Python loop (the ℤ₃ chain pass of v = 153 timed out on them);
+stage 1 of v = 219 dropped from 18.8 s to 1.5 s.
