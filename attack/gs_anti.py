@@ -151,3 +151,103 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+def search(n, maxfree=26, verbose=True):
+    """Every consistent configuration: enumerate the free classes, test sum PAF = 4n delta."""
+    import numpy as np
+    res = structures(n)
+    found = []
+    for pi, eps, c, (nfree, roots) in res:
+        if nfree > maxfree:
+            continue
+        root0 = None
+        # identify the class of a(0) (fixed +1)
+        for r, members in roots.items():
+            if any(x == 0 for x, p in members):
+                root0 = r
+        free = [r for r in roots if r != root0]
+        # value of each variable = (-1)^p * value(root)
+        idx = np.zeros(4 * n, dtype=np.int64)
+        sgn = np.zeros(4 * n, dtype=np.int64)
+        for k, r in enumerate(free):
+            for x, p in roots[r]:
+                idx[x] = k + 1
+                sgn[x] = -1 if p else 1
+        for x, p in roots[root0]:
+            idx[x] = 0
+            sgn[x] = -1 if p else 1
+        # sign of a(0)'s class: a(0) = +1 means root value = sgn[0]
+        base = sgn[0]
+        nf = len(free)
+        cnt = 0
+        for bits in range(1 << nf):
+            vals = np.empty(nf + 1, dtype=np.int64)
+            vals[0] = base
+            for k in range(nf):
+                vals[k + 1] = -1 if (bits >> k) & 1 else 1
+            x = sgn * vals[idx]
+            seqs = x.reshape(4, n)
+            tot = np.zeros(n, dtype=np.int64)
+            for q in seqs:
+                tot += np.array([q @ np.roll(q, -s) for s in range(n)])
+            if tot[0] == 4 * n and not tot[1:].any():
+                cnt += 1
+                found.append((pi, eps, c, seqs.copy()))
+        if verbose and cnt:
+            print(f'  pi={pi} eps={eps} c={c}: {cnt} GS quadruples with this anti-automorphism ({nf} free)')
+    return found
+
+
+if __name__ == '__main__' and len(sys.argv) > 2 and sys.argv[2] == 'search':
+    f = search(int(sys.argv[1]))
+    print('total', len(f))
+
+
+def class_layout(n, roots):
+    """For each free class: the set of sequences (0 A, 1 B, 2 C, 3 D) its members lie in."""
+    root0 = next(r for r, mem in roots.items() if any(x == 0 for x, p in mem))
+    lay = []
+    for r, mem in roots.items():
+        if r == root0:
+            continue
+        lay.append(sorted({x // n for x, p in mem}))
+    return lay
+
+
+def search_fast(n, maxfree=24, chunk=1 << 16):
+    """Vectorised version of search() for configurations with at most maxfree free classes."""
+    import numpy as np
+    res = structures(n)
+    found, big = [], []
+    for pi, eps, c, (nfree, roots) in res:
+        if nfree > maxfree:
+            big.append((pi, eps, c, nfree, roots))
+            continue
+        root0 = next(r for r, mem in roots.items() if any(x == 0 for x, p in mem))
+        free = [r for r in roots if r != root0]
+        idx = np.zeros(4 * n, dtype=np.int64)
+        sgn = np.zeros(4 * n, dtype=np.int64)
+        for k, r in enumerate(free):
+            for x, p in roots[r]:
+                idx[x], sgn[x] = k + 1, (-1 if p else 1)
+        for x, p in roots[root0]:
+            idx[x], sgn[x] = 0, (-1 if p else 1)
+        base = sgn[0]
+        nf = len(free)
+        for start in range(0, 1 << nf, chunk):
+            b = np.arange(start, min(1 << nf, start + chunk), dtype=np.int64)
+            vals = np.empty((len(b), nf + 1), dtype=np.int64)
+            vals[:, 0] = base
+            for k in range(nf):
+                vals[:, k + 1] = 1 - 2 * ((b >> k) & 1)
+            X = (sgn[None, :] * vals[:, idx]).reshape(len(b), 4, n)
+            ok = np.ones(len(b), dtype=bool)
+            for s in range(1, n // 2 + 1):
+                tot = (X * np.roll(X, -s, axis=2)).sum(axis=(1, 2))
+                ok &= tot == 0
+                if not ok.any():
+                    break
+            for k in np.flatnonzero(ok):
+                found.append((pi, eps, c, X[k].copy()))
+    return found, big

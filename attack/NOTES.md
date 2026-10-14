@@ -2049,3 +2049,27 @@ candidate arrays).
 | 891 | 81 | 27 | 12 | ⟨4⟩, order 27 | no template | (order 9: running) |
 | 693 | 63 | 21 | 12 | ⟨4⟩ = {1, 4, 16} | on 3ℤ₆₃; 1848 templates from 200 000 of 1 054 944 b quadruples (cap) | **4 solutions → skew 2772** |
 | 1617 | 147 | 49 | 12 | ⟨4⟩, order 21 | 3169 templates from 200 000 of 81 450 144 (cap) | none passes the row-sum screen |
+
+**Order 92: no Goethals–Seidel skew matrix with a block-monomial involutive anti-automorphism.** A symmetric
+OD(92; 1, 91) would give three census values: skew 4 · 2093 (amicable 92 with G-matrices of order 23), symmetric
+4 · 2093 (P ⊗ J + N ⊗ D) and symmetric 4 · 2185 (X = J − 2I). It is equivalent to a skew-Hadamard matrix S of order
+92 with an involution P (a symmetric signed permutation) such that PSP = Sᵀ.
+
+`attack/gs_anti.py` takes S of Goethals–Seidel form over ℤₙ and P block monomial. On the diagonal, Q A Qᵀ = Aᵀ for a
+skew-type A forces every block of P to be a reflection R_c: g ↦ c − g. That leaves an involution π of the blocks,
+signs ε_{π(i)} = ε_i and centres c_{π(i)} = c_i; block translations with zero sum normalise all centres but one.
+Every entry of PSP = Sᵀ is a signed equation between sequence entries, and a signed union-find gives the induced
+structure or a contradiction. π = identity is always contradictory (it needs ε_iε_j = −1 for every pair).
+
+| n | configurations | free classes | GS solutions |
+|---:|---:|---|---|
+| 3, 5, 7 | 36, 60, 84 | (n + 3)/2 | 288, 960, 3360; each checked to give a symmetric OD(4n; 1, 4n − 1) |
+| 9 | 108 | 6, 9, 18 | 0 |
+| 11 | 132 | 7 and 22 | 10 560 (small configurations) |
+| 13–21 | — | (n + 3)/2, and 2n for 12 configurations | 0 in the small ones |
+| 23 | 276 | 13 (264 configurations), 46 (12) | 0 in all 264 × 2¹³ |
+
+The 12 large configurations always have the skew-propus layout: A of skew type, B symmetric, and D tied to C by a
+reversal, so PAF(A) + PAF(B) + 2 PAF(C) = 4nδ. That problem was exhausted for n = 23 earlier (§31, no skew-propus of
+length 23). So the order-92 question needs S outside the Goethals–Seidel form or P outside block-monomial
+reflections.
