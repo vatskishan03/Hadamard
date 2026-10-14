@@ -11,7 +11,8 @@
  * are re-checked exactly. Nothing is sampled: TOTAL is the exact number of solutions.
  *
  * input: int32 nA nB nC nD C; int16 T[C]; int16 VA[nA][C] VB[nB][C] VC[nC][C] VD[nD][C]   (as find4b)
- *   cc -O3 -march=native -fopenmp join4x.c -o join4x ;  ./join4x input.bin [K] [budget]
+ *   cc -O3 -march=native -fopenmp join4x.c -o join4x ;  ./join4x input.bin [K] [budget] [stop]
+ * With stop = 1 the program exits as soon as K solutions have been printed ("TOTAL >= K (stopped)").
  * Prints "SOL a b c d" for the first K solutions (default 20) and "TOTAL n"; progress on stderr.
  */
 #include <omp.h>
@@ -20,6 +21,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <unistd.h>
 
 #define NP 3
 static int C, P;                        /* classes, partition classes used */
@@ -29,6 +31,7 @@ static uint64_t R[1024], *h[4], hT;
 static int pc[NP], lo[NP], hi[NP];      /* partition classes and their value ranges over all lists */
 static int KW[NP];                      /* ranges of pair sums: 2W - 1 */
 static int Tp[NP];
+static long stopK = 0;
 
 typedef struct { long n; int *v; long *start; uint32_t *idx; } Cells;    /* cells sorted lexicographically */
 
@@ -96,6 +99,7 @@ int main(int argc, char **argv) {
     C = hdr[4];
     long K = argc > 2 ? atol(argv[2]) : 20;
     long budget = argc > 3 ? atol(argv[3]) : 8000000;      /* build pairs per chunk */
+    stopK = argc > 4 && atoi(argv[4]) ? K : 0;
     T = malloc(2 * C); if (fread(T, 2, C, f) != (size_t)C) return 1;
     for (int k = 0; k < 4; k++) {
         V[k] = malloc(2 * nn[k] * C + 2);
@@ -236,6 +240,7 @@ int main(int argc, char **argv) {
                                         if (printed < K) {
                                             long o[4]; o[map[0]] = ia; o[map[1]] = ib; o[map[2]] = ic; o[map[3]] = id_;
                                             printf("SOL %ld %ld %ld %ld\n", o[0], o[1], o[2], o[3]); fflush(stdout); printed++;
+                                            if (stopK && printed >= stopK) { printf("TOTAL >= %ld (stopped)\n", printed); fflush(stdout); _exit(0); }
                                         }
                                     }
                                 }

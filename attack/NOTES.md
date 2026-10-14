@@ -2073,3 +2073,12 @@ The 12 large configurations always have the skew-propus layout: A of skew type, 
 reversal, so PAF(A) + PAF(B) + 2 PAF(C) = 4nδ. That problem was exhausted for n = 23 earlier (§31, no skew-propus of
 length 23). So the order-92 question needs S outside the Goethals–Seidel form or P outside block-monomial
 reflections.
+
+**Tooling for the larger cases.** `attack/odm_join2.py` replaces odmx's in-memory join, which rebuilt every c list
+from scratch per template: about 25 minutes per template at t = 63 with |H| = 3.
+- `attack/odmc.c` builds each list of H-invariant c parts once per (block type, b part, row sum). A depth-first
+  search over the orbit variables updates the PAF and bc vectors incrementally from orbit-pair tables, and visits only
+  branches that can still reach the row sum.
+- The lists are cached across templates, and each template's row-sum vectors are joined by `join4x.c`.
+- Validation: at t = 39 it reproduces odm_join's counts exactly (120 per row-sum vector for template 0), and a decoded
+  solution checks as an OD.

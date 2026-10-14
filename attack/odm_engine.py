@@ -133,9 +133,44 @@ def main():
     def blockk_cands():
         return [(w, paf_of(nz), to_full(nz)) for w, nz in gen([i for i in range(no) if insub[i]], m, False)]
 
-    B1 = block1_cands()
-    Bk = blockk_cands()
-    print(f'b candidates: block 1 {len(B1)}, blocks 2-4 {len(Bk)}', file=sys.stderr)
+    if a.bjoin:
+        import numpy as np
+        Tm = np.array(T, dtype=np.int64)                     # (no, no, npr)
+        sz = np.array(sizes, dtype=np.int64)
+
+        def np_cands(items, skew):
+            # all ternary vectors over the given orbit items (pair orbits if skew), weight <= m, in chunks
+            k = len(items)
+            out_v, out_w, out_p = [], [], []
+            chunk = 3 ** min(k, 13)
+            total = 3 ** k
+            for start in range(0, total, chunk):
+                idx = np.arange(start, min(total, start + chunk), dtype=np.int64)
+                digs = np.empty((len(idx), k), dtype=np.int8)
+                rem = idx.copy()
+                for j in range(k):
+                    digs[:, j] = rem % 3 - 1
+                    rem //= 3
+                full = np.zeros((len(idx), no), dtype=np.int8)
+                for j, i in enumerate(items):
+                    full[:, i] = digs[:, j]
+                    if skew:
+                        full[:, neg[i]] = -digs[:, j]
+                w = np.abs(full).astype(np.int64) @ sz
+                keep = w <= m
+                full, w = full[keep], w[keep]
+                F = full.astype(np.int64)
+                P = np.einsum('na,abk,nb->nk', F, Tm, F) if len(F) else np.zeros((0, len(reps)), dtype=np.int64)
+                out_v.append(full); out_w.append(w); out_p.append(P)
+            return np.concatenate(out_v), np.concatenate(out_w), np.concatenate(out_p)
+
+        V1, W1, P1 = np_cands([i for i in pairs if insub[i]], True)
+        Vk, Wk, Pk = np_cands([i for i in range(no) if insub[i]], False)
+        print(f'b candidates: block 1 {len(V1)}, blocks 2-4 {len(Vk)}', file=sys.stderr)
+    else:
+        B1 = block1_cands()
+        Bk = blockk_cands()
+        print(f'b candidates: block 1 {len(B1)}, blocks 2-4 {len(Bk)}', file=sys.stderr)
     units = [u for u in range(1, t) if all(u * k % t for k in range(1, t))]
     seen = set()
     templates = []
@@ -162,21 +197,22 @@ def main():
     if a.bjoin:
         import struct, tempfile, os
         D = len(reps) + 1
-        lists = [B1, Bk, Bk, Bk]
+        M1 = np.concatenate([P1, W1[:, None]], axis=1).astype(np.int16)
+        Mk = np.concatenate([Pk, Wk[:, None]], axis=1).astype(np.int16)
         fd, path = tempfile.mkstemp(suffix='.bin', dir=os.environ.get('HADAMARD_WORK', '/tmp/hadamard-work') + '/tmp')
         with os.fdopen(fd, 'wb') as f:
-            f.write(struct.pack('5i', *[len(L) for L in lists], D))
-            f.write(struct.pack(f'{D}h', *([0] * len(reps) + [m])))
-            for L in lists:
-                for w, p, v in L:
-                    f.write(struct.pack(f'{D}h', *(list(p) + [w])))
-        r = subprocess.run([a.join4x, path, str(a.bk)], capture_output=True, text=True)
+            f.write(struct.pack('5i', len(M1), len(Mk), len(Mk), len(Mk), D))
+            f.write(np.array([0] * len(reps) + [m], dtype=np.int16).tobytes())
+            f.write(M1.tobytes())
+            for _ in range(3):
+                f.write(Mk.tobytes())
+        r = subprocess.run([a.join4x, path, str(a.bk), '8000000', '1'], capture_output=True, text=True)
         os.remove(path)
         sols = [list(map(int, ln.split()[1:5])) for ln in r.stdout.splitlines() if ln.startswith('SOL')]
         tot = [ln for ln in r.stdout.splitlines() if ln.startswith('TOTAL')]
         print(f'b quadruples from join4x: {len(sols)} ({tot[0] if tot else "?"})', file=sys.stderr)
         for i0, i1, i2, i3 in sols:
-            add_template((B1[i0][2], Bk[i1][2], Bk[i2][2], Bk[i3][2]))
+            add_template(tuple(tuple(int(x) for x in V) for V in (V1[i0], Vk[i1], Vk[i2], Vk[i3])))
     else:
         # meet in the middle: (1, 2) vs (3, 4)
         left = defaultdict(list)
