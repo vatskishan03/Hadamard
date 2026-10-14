@@ -374,6 +374,73 @@ def build_propus_bordered(cert):
     return H, None
 
 
+def build_propus_qbordered(cert):
+    """Z_q-bordered propus array: a symmetric Hadamard matrix of order 4(m + q) over an abelian group
+    G = Z_m1 x ... x Z_mk of order m with a surjective homomorphism phi: G -> Z_q, phi(g) = sum_i c_i g_i (mod q)
+    (certificate fields "q" and "quotient" = [c_1, ..., c_k]; its kernel K has index q).
+
+    A, B, D are +-1 sequences over G (mixed-radix order) with A(-g) = A(g) and
+    PAF_A + 2 PAF_B + PAF_D = 4m at 0, -4q on K \\ {0} and 0 off K; their row sums satisfy a^2 + 2b^2 + d^2 = 4q.
+    With group-developed blocks X[g, h] = x(h - g), R[g, h] = [g + h = 0] and the propus array
+        P = [[A, B, B, D], [B^T, DR, -A, -BR], [B^T, -A, -DR, BR], [D^T, -BR, BR, -A]],
+    let Mc be the same array over Z_q on the compressions y(c) = sum_{phi(g) = c} x(g), Rh a Hadamard matrix of
+    order 4q (field "R") with Rh Mc Rh^T = -4q X for a +-1 matrix X, and R the 4q x 4m matrix with
+    R[:, (i, g)] = Rh[:, (i, phi(g))]. Then H = [[X, R], [R^T, P]] is symmetric with H H^T = 4(m + q) I:
+    P^2 + R^T R = 4(m + q) I blockwise (R^T R = I_4 (x) 4q [phi(g) = phi(h)]), R P = -X R (compression commutes with
+    the group-developed blocks), R R^T = 4m I and X^2 = 4q I."""
+    mods = np.array(cert["group"], dtype=np.int64)
+    m = int(np.prod(mods))
+    q = int(cert["q"])
+    cs = np.array(cert["quotient"], dtype=np.int64)
+    if len(cs) != len(mods) or any((int(c) * int(n)) % q for c, n in zip(cs, mods)):
+        raise ValueError("phi is not a homomorphism G -> Z_q")
+    if math.gcd(q, *[int(c) for c in cs]) != 1:
+        raise ValueError("phi is not surjective")
+    coords = np.array(np.unravel_index(np.arange(m), tuple(int(x) for x in mods))).T.astype(np.int64)
+    index = lambda C: np.ravel_multi_index(tuple((C % mods).T), tuple(int(x) for x in mods))
+    phi = (coords @ cs) % q
+    seqs = [np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["sequences"]]
+    if len(seqs) != 3 or any(len(x) != m for x in seqs):
+        raise ValueError("need three sequences of length |G|")
+    if [int(x.sum()) for x in seqs] != cert["rowsums"]:
+        raise ValueError("row sums differ from the certificate")
+    a, b, d = cert["rowsums"]
+    if a * a + 2 * b * b + d * d != 4 * q:
+        raise ValueError("row sums do not satisfy a^2 + 2b^2 + d^2 = 4q")
+    A, B, D = seqs
+    neg = index(-coords)
+    if not np.array_equal(A, A[neg]):
+        raise ValueError("the first sequence is not symmetric")
+    paf = lambda x: np.array([int(np.dot(x, x[index(coords + coords[g])])) for g in range(m)], dtype=np.int64)
+    tot = paf(A) + 2 * paf(B) + paf(D)
+    want = np.where(phi == 0, -4 * q, 0); want[0] = 4 * m
+    if not np.array_equal(tot, want):
+        raise ValueError("PAF_A + 2 PAF_B + PAF_D is not 4m at 0, -4q on the kernel of phi and 0 off it")
+    def propus_array(xs, diff, refl):
+        cA, cB, cD = (x[diff] for x in xs)
+        BR, DR = cB @ refl, cD @ refl
+        return np.block([[cA, cB, cB, cD], [cB.T, DR, -cA, -BR], [cB.T, -cA, -DR, BR], [cD.T, -BR, BR, -cA]])
+    ys = [np.array([int(x[phi == c].sum()) for c in range(q)], dtype=np.int64) for x in seqs]
+    zq = np.arange(q)
+    Rq = np.zeros((q, q), dtype=np.int64); Rq[zq, (-zq) % q] = 1
+    Mc = propus_array(ys, (zq[None, :] - zq[:, None]) % q, Rq)
+    Rh = np.array(cert["R"], dtype=np.int64)
+    if Rh.shape != (4 * q, 4 * q) or not np.all(np.abs(Rh) == 1) or not np.array_equal(Rh @ Rh.T, 4 * q * np.eye(4 * q, dtype=np.int64)):
+        raise ValueError("R is not a Hadamard matrix of order 4q")
+    L = -(Rh @ Mc @ Rh.T)
+    if not np.all(np.abs(L) == 4 * q):
+        raise ValueError("-R Mc R^T / 4q is not a +-1 matrix")
+    C3 = (coords[None, :, :] - coords[:, None, :]) % mods                 # C3[g, h] = h - g
+    diff = np.ravel_multi_index(tuple(np.moveaxis(C3, -1, 0)), tuple(int(x) for x in mods))
+    Rm = np.zeros((m, m), dtype=np.int64); Rm[np.arange(m), neg] = 1
+    P = propus_array(seqs, diff, Rm)                 # X[g, h] = x(h - g), as Mc over Z_q
+    Rb = Rh[:, [i * q + int(phi[g]) for i in range(4) for g in range(m)]]
+    H = np.block([[L // (4 * q), Rb], [Rb.T, P]])
+    if not np.array_equal(H, H.T):
+        raise ValueError("the bordered array is not symmetric")
+    return H, None
+
+
 def build_bordered_gs(cert):
     """Bordered Goethals-Seidel construction over an abelian group G of order v with a
     subgroup K of index q. Four +-1 sequences on G whose autocorrelations sum to
@@ -721,7 +788,8 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "cooper-wallis-near-williamson": build_cooper_wallis_near_williamson,
             "spence": build_spence, "miyamoto": build_miyamoto,
             "bordered-goethals-seidel": build_bordered_gs, "skew-doubling": build_skew_doubling,
-            "yamada": build_yamada, "propus": build_propus, "propus-bordered": build_propus_bordered}
+            "yamada": build_yamada, "propus": build_propus, "propus-bordered": build_propus_bordered,
+            "propus-qbordered": build_propus_qbordered}
 
 
 def csv_chunks(H, rows=512):
