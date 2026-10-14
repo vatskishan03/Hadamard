@@ -1864,6 +1864,17 @@ form that is A3 symmetric with A1 and A0 both of skew type, which forces a3² = 
 Designs in place of J − 2I (X = J − 2N, N a symmetric design commuting with the core) would need the parameters
 (r, κ, λ) with κ − λ = (r − m + 1)/4, e.g. (71, 21, 6) for 213 and (103, 18, 3) for 1133; not pursued.
 
+**Skew 5700 from the same design (amicable pairs).** A symmetric OD xP + yN is also an amicable pair: S = I + PN is
+skew-Hadamard, M = P + N symmetric, and S Mᵀ = M Sᵀ = mP. (It is the symmetric half of a strong amicable orthogonal
+design in Seberry's sense, Australas. J. Combin. 55 (2013), whose known orders 2^t, p^r + 1, (n − 1)^r + 1 and
+products exclude 76 and 92; the research agent of the 5700 audit pointed this out and also noticed the skew route.)
+Normalised at a fixed point of P with sign +1, S and M give amicable cores W (skew, W1 = 0) and D (symmetric,
+D1 = −1) with WD + DW = 0, and Seberry's 1978 theorem with m = 1 — a skew-type OD(m; 1, 1, m − 2), here from
+G-matrices of order 19 in the Goethals–Seidel array — gives the skew-Hadamard matrix
+I ⊗ (I + W) + B ⊗ J + C ⊗ D of order m(m − 1) = 5700 ([skew/5700](../skew/5700), verify.py `skew-amicable-plug`).
+1425 is undecided in the skew census as well. The J − 2I trick has no skew analogue here: the plug-in of the weight-1
+diagonal variable is I + W, and J − 2I would have to anticommute with W.
+
 **Weighted variant (not realised).** v = k n (4n − 1)-type census values (475 = 5 · 95 with h = 20, 1989 = 3 · 663
 with h = 52, 693, 1235, 2185, 2375, and 33k for k = 27, 33, 41, …) would need symmetric OD(kh; k, k(h − 1)) with
 k ≥ 3 odd. In Balonin form over ℤ₅ (order 20) only the types (1, 19) and (2, 18) exist (`symod.c`, §30), and a

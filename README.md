@@ -115,6 +115,11 @@ first block. The group is ℤᵥ, except for 1100 (ℤ₅ × ℤ₅ × ℤ₁₁
 | [5668](skew/5668) | 1417 (13 · 109) | ⟨1405, 328⟩, order 81 (cyclotomic product of index 4 with ⟨3⟩ on ℤ₁₃) | 1, 7, −53, −53 | beyond Table 5 (n ≤ 999); census: undecided; smallest known before was 32 · 1417 = 45344 |
 | [6004](skew/6004) | 1501 (19 · 79) | ⟨799⟩, order 39 (Paley product) | 1, 77, 7, −5 | beyond Table 5 (n ≤ 999); census: undecided; smallest known before was 8 · 1501 = 12008 |
 
+One more skew order comes from a different construction: [5700](skew/5700) = 76 · 75 (v = 1425, undecided in the
+census, beyond Table 5) by Seberry's 1978 theorem, from amicable Hadamard matrices of order 76 — new, they come from
+the symmetric orthogonal design of [symmetric/5700](symmetric/5700) — and G-matrices of order 19
+(`attack/NOTES.md` §31).
+
 **Known orders, independent matrices.** These orders were claimed as new at first. Both claims are
 withdrawn:
 

@@ -73,9 +73,37 @@ H Hᵀ = 5700 I, H = Hᵀ and the SHA-256 of the canonical CSV.
 
 ## Status
 
-The Đoković–Seberry census of symmetric Hadamard matrices of order 4v for odd v < 2500 (PDF of 2025-05-28) lists
-1425 among its 595 undecided values, and Đoković's theorem of August 2025 needs q = 75 to be a prime power. The
-literature audit is in progress; until it is recorded here, read this as "found by us", not as "new".
+To our knowledge this is the first symmetric Hadamard matrix of order 5700.
+
+**Novelty checklist** (audit of 2026-10-14 by a research agent; downloaded sources were read as text, never
+executed):
+
+1. **The Đoković–Seberry census** (PDF of 2025-05-28, SHA-256 `4b61953c…f04a`): "We list below the 595 odd values of
+   v < 2500 for which the existence of symmetric Hadamard matrices of order 4v is undecided: … 1423, 1425, 1427 …".
+   1425 is in none of its symmetric series (Paley, XXSW, Seberry–Balonin, Turyn C, Turyn, Mathon, Seberry–Whiteman,
+   Muzychuk–Xiang) and not among its 12 sporadic values. No later version was found.
+2. **Đoković, arXiv:2508.17141** (August 2025, the only version) builds symmetric Hadamard matrices of order
+   q(q + 1) for prime powers q ≡ 3 (mod 8); q = 75 is not a prime power. No follow-up was found (arXiv, Crossref, the
+   journal Informatsionno-upravliaiushchie sistemy 2024–2026).
+3. **The design.** A symmetric OD(n; 1, n − 1) is the symmetric half of a strong amicable orthogonal design in
+   Seberry's sense (Australas. J. Combin. 55 (2013) 5–13, Definition 5); the orders known there are 2^t, p^r + 1,
+   (n − 1)^r + 1 and their products, which exclude 76. The blow-up to order n(n − 1) does not appear before
+   Đoković's paper: the 2025 census still lists 189 and 473 as undecided although Seberry (2013) already has the
+   designs of orders 28 and 44.
+4. **2026 deposits**: none contains a symmetric matrix of order 5700 (Alpöge et al., Schneider, JD-Jones-ASES,
+   Schumer, Kline, Bedani, Karoui, Piza; 175 Zenodo "hadamard" records since 2024-10).
+5. **Classical routes** fail: a symmetric conference matrix of order 2850 cannot exist (2849 = 7 · 11 · 37 is not a
+   sum of two squares), which rules out Paley II, Mathon, the Turyn C-series and Seberry–Whiteman at once;
+   XXSW needs q = 5699 = 41 · 139; Seberry–Balonin's Corollary 1 needs q = 1423 ≡ 3 (mod 4); Kronecker products and
+   doubling are impossible for an order ≡ 4 (mod 8) with 2850 ≡ 2 (mod 4); constant-diagonal and Bush-type
+   matrices need a square order; two-circulant forms need 5700 to be a sum of two squares.
+
+Not checked: Seberry's book *Orthogonal Designs* (2017), the Seberry–Yamada 2020 book, Geramita–Seberry (1979),
+MathSciNet and zbMATH, and forward citations of arXiv:2508.17141 (the citation services were rate-limited). This is a
+finding of nothing, not a proof that no earlier construction exists.
+
+The same design also gives amicable Hadamard matrices of order 76 (S = I + PN and P + N), and through Seberry's
+1978 theorem a skew-Hadamard matrix of order 5700: [skew/5700](../../skew/5700).
 
 ## Files
 

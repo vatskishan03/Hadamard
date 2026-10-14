@@ -783,6 +783,36 @@ def _yamada_matrix(cert, q, alpha, beta):
     return H, None
 
 
+def _skew_propus_od(n, blocks, rowsums):
+    """The symmetric OD x P + y N of order 4n from a skew-propus quadruple (see build_skew_propus_plug); checked."""
+    m = 4 * n
+    seqs = []
+    for reps in blocks:
+        x = np.ones(n, dtype=np.int64)
+        x[reps] = -1
+        seqs.append(x)
+    A3, A1, A0 = seqs
+    if [int(x.sum()) for x in seqs] != rowsums:
+        raise ValueError("row sums differ from the certificate")
+    idx = (-np.arange(n)) % n
+    if not np.array_equal(A3, A3[idx]):
+        raise ValueError("A3 is not symmetric")
+    if A0[0] != 1 or not np.array_equal(A0[1:], -A0[idx][1:]):
+        raise ValueError("A0 is not of skew type")
+    paf = paf_sum([A3, A1, A1, A0])
+    if paf[0] != m or np.any(paf[1:] != 0):
+        raise ValueError("PAF_A3 + 2 PAF_A1 + PAF_A0 is not 4n at 0 and 0 elsewhere")
+    R = back_identity(n)
+    A, B = circulant(A3), circulant(A1)
+    D0 = circulant(A0) - np.eye(n, dtype=np.int64)
+    Z = np.zeros((n, n), dtype=np.int64)
+    BR, RB = B @ R, R @ B
+    N = np.block([[-A, BR, BR, D0 @ R], [BR, R @ D0, A, -RB], [BR, A, -R @ D0, RB], [D0 @ R, -RB, RB, A]])
+    P = np.block([[Z, Z, Z, R], [Z, R, Z, Z], [Z, Z, -R, Z], [R, Z, Z, Z]])
+    _check_sym_od(P, N)
+    return P, N, seqs
+
+
 def build_skew_propus_plug(cert):
     """Symmetric Hadamard matrix of order m(m - 1), m = 4n, from a skew-propus quadruple of odd length n.
 
@@ -805,49 +835,79 @@ def build_skew_propus_plug(cert):
     is symmetric with H H^T = I (x) ((m - 1) J) + (PN + NP) (x) J + N^2 (x) D^2 = m (m - 1) I."""
     n = cert["n"]
     m = 4 * n
-    seqs = []
-    for reps in cert["blocks"]:
-        x = np.ones(n, dtype=np.int64)
-        x[reps] = -1
-        seqs.append(x)
-    A3, A1, A0 = seqs
-    if [int(x.sum()) for x in seqs] != cert["rowsums"]:
-        raise ValueError("row sums differ from the certificate")
-    idx = (-np.arange(n)) % n
-    if not np.array_equal(A3, A3[idx]):
-        raise ValueError("A3 is not symmetric")
-    if A0[0] != 1 or not np.array_equal(A0[1:], -A0[idx][1:]):
-        raise ValueError("A0 is not of skew type")
-    paf = paf_sum([A3, A1, A1, A0])
-    if paf[0] != m or np.any(paf[1:] != 0):
-        raise ValueError("PAF_A3 + 2 PAF_A1 + PAF_A0 is not 4n at 0 and 0 elsewhere")
-    R = back_identity(n)
-    A, B = circulant(A3), circulant(A1)
-    D0 = circulant(A0) - np.eye(n, dtype=np.int64)
-    Z = np.zeros((n, n), dtype=np.int64)
-    BR, RB = B @ R, R @ B
-    N = np.block([[-A, BR, BR, D0 @ R], [BR, R @ D0, A, -RB], [BR, A, -R @ D0, RB], [D0 @ R, -RB, RB, A]])
-    P = np.block([[Z, Z, Z, R], [Z, R, Z, Z], [Z, Z, -R, Z], [R, Z, Z, Z]])
-    I = np.eye(m, dtype=np.int64)
-    if not (np.array_equal(P, P.T) and np.array_equal(N, N.T)):
-        raise ValueError("P or N is not symmetric")
-    if not np.array_equal(np.abs(P) + np.abs(N), np.ones((m, m), dtype=np.int64)):
-        raise ValueError("P and N do not have complementary supports")
-    if not (np.array_equal(P @ P, I) and np.array_equal(N @ N, (m - 1) * I) and not (P @ N + N @ P).any()):
-        raise ValueError("x P + y N is not an orthogonal design of type (1, m - 1)")
-    M = P + N
-    r = int(np.flatnonzero(np.diag(M) == -1)[0])
-    order = [r] + [i for i in range(m) if i != r]
-    M = M[np.ix_(order, order)]
-    e = M[0].copy()
-    e[0] = 1
-    M = M * e[:, None] * e[None, :]
-    D = M[1:, 1:]
+    P, N, seqs = _skew_propus_od(n, cert["blocks"], cert["rowsums"])
+    D = _core(P + N)
     J = np.ones((m - 1, m - 1), dtype=np.int64)
-    if not (np.array_equal(D, D.T) and np.array_equal(D @ J, J) and np.array_equal(D @ D, m * np.eye(m - 1, dtype=np.int64) - J)):
-        raise ValueError("the core D of P + N is not symmetric with D J = J and D^2 = m I - J")
     H = np.kron(P.astype(np.int8), J.astype(np.int8)) + np.kron(N.astype(np.int8), D.astype(np.int8))
     return H, seqs
+
+
+def build_skew_amicable_plug(cert):
+    """Skew-Hadamard matrix of order m(m - 1), m = 4n, by Seberry's theorem (Ars Combin. 1978; amicable Hadamard
+    matrices of order m and a skew-type OD(m; 1, 1, m - 2)), with the amicable pair taken from a skew-propus
+    quadruple of length n.
+
+    1. The skew-propus quadruple ("blocks") gives the symmetric OD x P + y N of type (1, m - 1) of
+       build_skew_propus_plug. S = I + PN is skew-Hadamard, M = P + N symmetric Hadamard, and S M^T = M S^T.
+    2. Let r be the first index with P[r, r] = +1 and e = S[r]. Conjugating S and M by diag(e) makes row r of both
+       all ones; with r moved first, S = [[1, e], [-e, I + W]] and M = [[1, e], [e, D]], where W is skew, W e = 0,
+       (I + W)(I + W)^T = mI - J, D is symmetric, D e = -e, D^2 = mI - J and W D + D W = 0 (all checked).
+    3. "g": four +-1 sequences of length n, k0 and k1 of skew type and g2, g3 symmetric, with
+       PAF_k0 + PAF_k1 + PAF_g2 + PAF_g3 = 4n delta. The Goethals-Seidel array of the blocks a I + c(K0 - I),
+       b I + c(K1 - I), c G2, c G3 is a skew-type orthogonal design a I + b B + c C of type (1, 1, m - 2)
+       (B, C skew, checked).
+    4. H = I (x) (I + W) + B (x) J + C (x) D. Then H + H^T = 2I, and
+       H H^T = I (x) [(I + W)(I + W)^T + J^2 + (m - 2) D^2] + (B + B^T) (x) J - C (x) (W D + D W)
+               + (B C^T + C B^T) (x) J D = I (x) [mI - J + (m - 1) J + (m - 2)(mI - J)] = m (m - 1) I."""
+    n = cert["n"]
+    m = 4 * n
+    P, N, seqs = _skew_propus_od(n, cert["blocks"], cert["rowsums"])
+    I = np.eye(m, dtype=np.int64)
+    S = I + P @ N
+    M = P + N
+    if not (np.array_equal(S + S.T, 2 * I) and np.array_equal(S @ M.T, M @ S.T)):
+        raise ValueError("S = I + PN and M = P + N are not an amicable pair with S skew")
+    r = int(np.flatnonzero(np.diag(P) == 1)[0])
+    e = S[r].copy()
+    S1, M1 = S * e[:, None] * e[None, :], M * e[:, None] * e[None, :]
+    order = [r] + [i for i in range(m) if i != r]
+    S1, M1 = S1[np.ix_(order, order)], M1[np.ix_(order, order)]
+    if not ((S1[0] == 1).all() and (M1[0] == 1).all()):
+        raise ValueError("normalisation failed")
+    W = S1[1:, 1:] - np.eye(m - 1, dtype=np.int64)
+    D = M1[1:, 1:]
+    I1, J1, e1 = np.eye(m - 1, dtype=np.int64), np.ones((m - 1, m - 1), dtype=np.int64), np.ones(m - 1, dtype=np.int64)
+    if not (np.array_equal(W.T, -W) and not (W @ e1).any() and np.array_equal((I1 + W) @ (I1 + W).T, m * I1 - J1)
+            and np.array_equal(D, D.T) and np.array_equal(D @ e1, -e1) and np.array_equal(D @ D, m * I1 - J1)
+            and not (W @ D + D @ W).any()):
+        raise ValueError("the cores W, D are not amicable cores")
+    g = []
+    for reps in cert["g"]:
+        x = np.ones(n, dtype=np.int64)
+        x[reps] = -1
+        g.append(x)
+    k0, k1, g2, g3 = g
+    idx = (-np.arange(n)) % n
+    for k in (k0, k1):
+        if k[0] != 1 or not np.array_equal(k[1:], -k[idx][1:]):
+            raise ValueError("k0 or k1 is not of skew type")
+    for x in (g2, g3):
+        if not np.array_equal(x, x[idx]):
+            raise ValueError("g2 or g3 is not symmetric")
+    paf = paf_sum(g)
+    if paf[0] != m or np.any(paf[1:] != 0):
+        raise ValueError("the four sequences of g do not have PAF sum 4n delta")
+    In = np.eye(n, dtype=np.int64)
+    Zn = np.zeros((n, n), dtype=np.int64)
+    Bm = goethals_seidel(Zn, In, Zn, Zn)
+    Cm = goethals_seidel(circulant(k0) - In, circulant(k1) - In, circulant(g2), circulant(g3))
+    if not (np.array_equal(Bm.T, -Bm) and np.array_equal(Cm.T, -Cm) and np.array_equal(Bm @ Bm.T, I)
+            and np.array_equal(Cm @ Cm.T, (m - 2) * I) and not (Bm @ Cm.T + Cm @ Bm.T).any()
+            and np.array_equal(np.abs(Bm) + np.abs(Cm) + I, np.ones((m, m), dtype=np.int64))):
+        raise ValueError("a I + b B + c C is not a skew-type OD(m; 1, 1, m - 2)")
+    H = (np.kron(np.eye(m, dtype=np.int8), (I1 + W).astype(np.int8)) + np.kron(Bm.astype(np.int8), J1.astype(np.int8))
+         + np.kron(Cm.astype(np.int8), D.astype(np.int8)))
+    return H, seqs + g
 
 
 def _is_prime(q):
@@ -963,7 +1023,7 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "bordered-goethals-seidel": build_bordered_gs, "skew-doubling": build_skew_doubling,
             "yamada": build_yamada, "propus": build_propus, "propus-bordered": build_propus_bordered,
             "propus-qbordered": build_propus_qbordered, "skew-propus-plug": build_skew_propus_plug,
-            "sym-od-plug": build_sym_od_plug}
+            "sym-od-plug": build_sym_od_plug, "skew-amicable-plug": build_skew_amicable_plug}
 
 
 def csv_chunks(H, rows=512):

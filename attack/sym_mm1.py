@@ -164,6 +164,89 @@ def szekeres(a, b):
     return P, C @ P
 
 
+def amicable_cores(P, N):
+    """Amicable cores from a symmetric OD xP + yN of order m: S = I + PN (skew-Hadamard) and M = P + N (symmetric
+    Hadamard) are amicable (S M^T = M S^T). Normalise both at the first fixed point r of P with P[r, r] = +1 by
+    E = diag(S[r]): row r of E S E and of E M E is all ones; then E S E = [[1, e], [-e, I + W]] and
+    E M E = [[1, e], [e, D]] (r moved first) with W skew, W e = 0, (I + W)(I + W)^T = mI - J, D symmetric, D e = -e,
+    D^2 = mI - J and W D + D W = 0."""
+    m = P.shape[0]
+    S_ = np.eye(m, dtype=np.int64) + P @ N
+    M = P + N
+    r = next(i for i in range(m) if P[i, i] == 1)
+    e = S_[r].copy()
+    S1 = S_ * e[:, None] * e[None, :]
+    M1 = M * e[:, None] * e[None, :]
+    order = [r] + [i for i in range(m) if i != r]
+    S1, M1 = S1[np.ix_(order, order)], M1[np.ix_(order, order)]
+    assert (S1[0] == 1).all() and (M1[0] == 1).all()
+    W = S1[1:, 1:] - np.eye(m - 1, dtype=np.int64)
+    D = M1[1:, 1:]
+    return W, D
+
+
+def g_matrices(n, log=print):
+    """Four +-1 sequences of odd length n, k0 and k1 of skew type, g2 and g3 symmetric, with
+    PAF_k0 + PAF_k1 + PAF_g2 + PAF_g3 = 4n delta (they give a skew-type OD(4n; 1, 1, 4n - 2) in the
+    Goethals-Seidel array, with a and b on the diagonals of k0 and k1). First solution found, or None."""
+    h = (n - 1) // 2
+    bits = np.array(list(itertools.product([1, -1], repeat=h)), dtype=np.int8)
+    K = np.ones((len(bits), n), dtype=np.int8)
+    K[:, 1:h + 1] = bits
+    K[:, n - h:] = -bits[:, ::-1]
+    sb = np.array(list(itertools.product([1, -1], repeat=h + 1)), dtype=np.int8)
+    G = np.empty((len(sb), n), dtype=np.int8)
+    G[:, 0] = sb[:, 0]
+    G[:, 1:h + 1] = sb[:, 1:]
+    G[:, n - h:] = sb[:, 1:][:, ::-1]
+    PK, PG = pafs(K, h), pafs(G, h)
+    rs = G.sum(1, dtype=np.int64)
+    pair = {}
+    for i in range(len(K)):
+        for j in range(i, len(K)):
+            pair.setdefault((PK[i] + PK[j]).tobytes(), (i, j))
+    for s2 in range(1, 2 * n, 2):
+        for s3 in range(s2, 2 * n, 2):
+            if 2 + s2 * s2 + s3 * s3 != 4 * n:
+                continue
+            I2, I3 = np.flatnonzero(rs == s2), np.flatnonzero(rs == s3)
+            log(f'g-matrices n = {n}: row sums 1, 1, {s2}, {s3}: {len(I2)} x {len(I3)} symmetric pairs')
+            for a in I2:
+                for b in I3:
+                    key = (-(PG[a] + PG[b])).astype(PK.dtype).tobytes()
+                    if key in pair:
+                        i, j = pair[key]
+                        return K[i].astype(np.int64), K[j].astype(np.int64), G[a].astype(np.int64), G[b].astype(np.int64)
+    return None
+
+
+def skew_od_from_g(k0, k1, g2, g3):
+    """Coefficient matrices (B, C) of the skew-type OD aI + bB + cC of order 4n built from G-matrices in the
+    Goethals-Seidel array (blocks aI + c(K0 - I), bI + c(K1 - I), c G2, c G3)."""
+    n = len(k0)
+    I = np.eye(n, dtype=np.int64)
+    R = verify.back_identity(n)
+    Z = np.zeros((n, n), dtype=np.int64)
+    def gs(A, B, C, D):
+        return np.block([[A, B @ R, C @ R, D @ R], [-B @ R, A, D.T @ R, -C.T @ R],
+                         [-C @ R, -D.T @ R, A, B.T @ R], [-D @ R, C.T @ R, -B.T @ R, A]])
+    Bm = gs(Z, I, Z, Z)
+    Cm = gs(verify.circulant(k0) - I, verify.circulant(k1) - I, verify.circulant(g2), verify.circulant(g3))
+    return Bm, Cm
+
+
+def skew_seberry(P, N, Bm, Cm):
+    """Seberry's 1978 plug-in with m = 1: H = I (x) (I + W) + B (x) J + C (x) D, a skew-Hadamard matrix of order
+    m'(m' - 1) from the amicable cores (W, D) of order m' - 1 and a skew-type OD(m'; 1, 1, m' - 2) aI + bB + cC."""
+    W, D = amicable_cores(P, N)
+    m = P.shape[0]
+    r = m - 1
+    I = np.eye(r, dtype=np.int8)
+    J = np.ones((r, r), dtype=np.int8)
+    return (np.kron(np.eye(m, dtype=np.int8), I + W.astype(np.int8)) + np.kron(Bm.astype(np.int8), J)
+            + np.kron(Cm.astype(np.int8), D.astype(np.int8))).astype(np.int8)
+
+
 def pafs(X, half):
     """Periodic autocorrelations at shifts 1..half of the rows of X (int8 array, one sequence per row)."""
     X = X.astype(np.int32)
