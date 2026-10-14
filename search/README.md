@@ -110,6 +110,7 @@ start-up, is close to the list size.
 | `skew_group.py`, `skew_group_sweep.py`, `skew_field.py`, `skew_noncyclic.py` | non-cyclic groups and fields |
 | `spin_skew.py`, `spin_compress.py`, `spin_ls.c`, `spin_ls_gls.c`, `spin_pt.c`, `spin_sol.py`, `twin_skew.py`, `pairspin.py` | spin structures: blocks permuted by a multiplier (3676) |
 | `spin_ls2.c`, `spin_rrr.py`, `spin_check.py` | the vectorised spin tabu search (`SPIN_LS=spin_ls2`), the difference map for spin structures, and a checker that rebuilds a spin solution |
+| `spin_fibre.py` | exact fibre test for spin structures over composite ℤ_v (subgroup classes) |
 | `tri_skew.py`, `tri_ls.py` | three skew blocks in one multiplier orbit (A, A∘μ, A∘μ², D): exact joins, estimates and tabu search |
 | `szekeres.py`, `szek_pair.c`, `szek_group.c` | Szekeres difference sets and Szekeres pairs |
 | `szek2.py` | two-block skew (and symmetric) matrices of order 2(w + 1) with a general second block |

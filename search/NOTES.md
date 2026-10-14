@@ -2336,3 +2336,43 @@ structure (A K-invariant, B, B∘μ, B∘μ²) has 1 + 6. At these v a class equ
 gains about 1.7 bits per class, while the tri structure loses a few tenths and works only for small v:
 - with H trivial, 10^5.3 at v = 133 (22 classes) and 10^4.2 at v = 241 (40 classes);
 - with |H| = 5, 10^1.9 at v = 211.
+
+## 36. Spin structures: an exact fibre test, and the landscape of the tabu search (October 14, night)
+
+**Fibre test (`spin_fibre.py`).** Over a composite ℤ_v, take a shift s in a proper subgroup dℤ_v. Its
+autocorrelation splits over the d cosets a + dℤ_v (the fibres): P_X(s) = Σ_a P_{X_a}(s), where
+X_a(y) = X(a + dy). The fibre orbits under a group G of multipliers are independent, and the fibre g·a contributes
+the term of fibre a at the pulled-back shift g⁻¹s. So a DP over fibre orbits gives exactly:
+- the attainable values of P_A(s) for skew K-invariant A (fibres a and −a tied by the skew condition);
+- the attainable values of T_B(s) = Σ_j P_B(μʲs) for H-invariant B, together with the row sum of B.
+
+The spin condition P_A(s) + T_B(s) = 0 needs the two sets to meet on every subgroup class. The DP agrees with brute
+force (all 256 A of 721) and contains every sampled T_B.
+
+The two composite hexagonal structures that had been in the tabu queue are **infeasible**:
+- 721, H = ⟨8⟩, μ = 2 or 18: on the class of 7, P_A ∈ {−7, 57, 65, 257, 273, 593, 617}, but T_B ≥ 11.
+- 817, H = ⟨11⟩, μ = 9 or 6: on the class of 19, P_A ∈ {−19, 53, 77, …}. The value needed, T_B = 19, is not
+  attainable (attainable values run −41, −5, 7, 43, …), and T_B ≥ −41 rules out the larger P_A.
+
+This explains why their low-energy tabu states always kept the residual −12 on the class of 19 (817), and why
+2 × 40 minutes each found nothing, although the Gaussian model gave them more solutions per unit of search space
+than 919. The test passes for 919 (prime: no subgroup classes).
+
+**Landscape of the tabu search** (per-restart best objective, 3000 steps, levels in units of the smallest
+nonzero objective):
+- 919 (E = 10^5.4, 55 + 9 variables, 9 classes): level 1 in 1.5% of restarts, level 2 in 14%, and a solution
+  about every 3000 restarts.
+- 1657 (E = 10^5.3, 73 + 12 variables, 12 classes): over 7160 restarts the minimum was level 2 once and level 3
+  once.
+
+With the step-down ratios of 919 near zero, a solution at 1657 needs about 3 · 10⁶ restarts, roughly 60 core-hours
+at 15 restarts per second. The four other census hexagonal primes (1801, 1951, 2269, 2437; 12–14 classes) should
+be similar or harder.
+
+Per-restart step count barely matters on 919: 3000 versus 10 000 steps give 8.7 · 10⁶ versus 7.9 · 10⁶ total steps
+per solution (five seeds each).
+
+**Deep neighbourhoods do not help.** Take the tabu states of 919 at levels 1–2 (230 states from 1500 restarts) and
+test every B within two swaps against all 512 skew A at once (exact lookup of −T_B). This found no solution. The
+checker recovers solutions from known ones perturbed by up to three swaps. So the low-energy states are not near
+solutions in swap distance, and the restarts stay.
