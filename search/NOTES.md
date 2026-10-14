@@ -2441,3 +2441,35 @@ The search for near-Williamson matrices of Kharaghani, Mohammadian, Tayfeh-Rezai
 §4) works without symmetry: it enumerates A and B and then solves for the symmetric pair (C, D) by linear algebra
 modulo 4. For a structure like ours, where the arbitrary block dominates, streaming A against all feasible triples is
 cheaper than enumerating pairs (A, B).
+
+## 38. Anti-automorphisms of the Theorem 7 designs: no symmetric 7956 this way (October 14, night)
+
+**The idea.** The skew matrix of order 7956 = 4 · 1989 ([skew/7956](../skew/7956)) is H = I ⊗ (I + W) + B ⊗ J + C ⊗ D,
+with aI + bB + cC a skew-type OD(156; 1, 3, 152) in Goethals–Seidel form over ℤ₃₉ and (I + W, D) the amicable cores
+of order 51. 1989 is also undecided in the symmetric census. If a symmetric signed permutation P₁ of order 156 (P₁² =
+I) satisfies P₁(aI + bB + cC)P₁ = aI − bB − cC, then P₁, P₁B and P₁C are symmetric (P₁B = −BP₁ gives (P₁B)ᵀ = −BP₁ =
+P₁B) with disjoint supports, they anticommute pairwise, and X = P₁B (weight 3) with Y = P₁ + P₁C (weight 153) is a
+symmetric OD(156; 3, 153). The weighted plug-in of §32 then gives the symmetric Hadamard matrix X ⊗ J₅₁ + Y ⊗ D′ of
+order 7956 for D′ the core of any symmetric Hadamard matrix of order 52 (the J terms cancel because 3 · 52 = 156).
+The Balonin form of §32 is ruled out for 1989 by the row-sum screen, but P₁(aI + bB + cC) need not be in that form.
+The tensor version P = P₁ ⊗ Q on H itself would also need Q W Q = −W and Q D Q = ±D on the cores.
+
+**Results (`search/od_anti.py`).**
+- *The amicable pair of order 52.* No signed permutation σ satisfies σSσᵀ = Sᵀ and σMσᵀ = ±M for the pair (S, M)
+  of the certificate (backtracking over all 52 points: none). The joint automorphisms (σSσᵀ = S, σMσᵀ = M) form a
+  group of order 3 (up to sign). So the tensor version fails for this pair; the plug-in version needs only P₁.
+- *Block-monomial P₁.* Let P₁ map block i to block π(i) by ε_i times a signed permutation g ↦ c_i + k_i g of ℤ₃₉. The
+  diagonal blocks (all equal to the skew-type first block) need k_i ∈ −Stab(A), the off-diagonal blocks force all k_i
+  equal, and P₁² = I then forces k_i = −1: reflections, as in `gs_anti.py`. The b part (one entry at 0 in each of
+  blocks 2–4, so ±R in every off-diagonal block of B) forces c_i + c_j to be the same for all i ≠ j, hence one common
+  centre, and P₁ is block-monomial in ±R: an involution π and signs ε, 80 candidates. For every sign pattern of the b
+  entries, the signed union-find of P₁GP₁ = Gᵀ (G the design in the normal form of `od13.c`) leaves 48 consistent
+  configurations (computed for t = 5, 7 and 39; the form does not depend on t). In every one of them one of W₂, W₃,
+  W₄ is symmetric and the other two are tied, W_l(g) = ±W_k(±g). The bc condition of §31 asks that the symmetric
+  parts of W₂, W₃, W₄ add to 0 on every pair {s, −s}; the symmetric block contributes ±1 and the tied pair S_k + S_l
+  with S_l = ±S_k, which is 0 or ±2. So **no Goethals–Seidel OD(4t; 1, 3, 4t − 4) has a block-monomial involutive
+  anti-automorphism**, for any t. For the design of the certificate, the direct test over all reflection
+  configurations with arbitrary centres also finds none (`od_anti.py cert`).
+
+So a symmetric 7956 along these lines needs a P₁ that mixes blocks within a row of blocks, a design outside
+Goethals–Seidel form, or a symmetric OD(156; 3, 153) built some other way.

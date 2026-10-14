@@ -137,6 +137,7 @@ start-up, is close to the list size.
 | `odm_g.py`, `odm_estimate.py` | the same over any abelian group (`gsgroup.py`), and a Gaussian estimate per template |
 | `od13.c`, `od13b.c`, `od13x.c`, `odm_sa.c` | annealing and exhaustive searches for small m |
 | `thm7_census.py` | census values reachable by Seberry's theorem with m ≥ 3 |
+| `od_anti.py` | involutive anti-automorphisms of the theorem's designs and amicable pairs (the symmetric 7956 test) |
 
 **Complex Hadamard matrices**
 
