@@ -1,4 +1,4 @@
-# Skew-Hadamard matrix of order 1852 (order previously known)
+# Skew-Hadamard matrix of order 1852
 
 1852 = 4 · 463 (prime).
 
@@ -8,17 +8,19 @@ A skew-Hadamard matrix is a Hadamard matrix H with H + Hᵀ = 2I.
 
 **Difference family.** Four ±1 sequences x₁, …, x₄ on ℤ₄₆₃ satisfy two conditions:
 
-- each is constant on the orbits of the multiplier subgroup
-  H = ⟨33⟩ ≤ ℤ₄₆₃*, of order 21: {1, 21, 33, 34, 118, 163, 169, 178, 182, 190, 196, 200, 230, 251, 286, 308, 318, 412, 441, 449, 450};
+- each is constant on the orbits of the multiplier subgroup H = ⟨33⟩ ≤ ℤ₄₆₃*, of order 21:
+  {1, 21, 33, 34, 118, 163, 169, 178, 182, 190, 196, 200, 230, 251, 286, 308, 318, 412, 441, 449, 450};
 - their periodic autocorrelations sum to zero at every nonzero shift.
 
 `certificate.json` lists, for each sequence, one representative r of each orbit rH on which the sequence is −1.
 
-**Skew first block.** The first sequence is of skew type: x₁(0) = 1 and x₁(−t) = −x₁(t) for t ≠ 0. This is possible because −1 ∉ H, so negation pairs the orbits.
+**Skew first block.** The first sequence is of skew type: x₁(0) = 1 and x₁(−t) = −x₁(t) for t ≠ 0. This is possible
+because −1 ∉ H, so negation pairs the orbits.
 
 **Row sums.** The row sums are 1, 1, 43, 1, and 1² + 1² + 43² + 1² = 1852.
 
-**The matrix.** Let A, B, C, D be the circulant matrices with these first rows (`sequences.txt`) and R the back-diagonal identity. The Goethals–Seidel array
+**The matrix.** Let A, B, C, D be the circulant matrices with these first rows (`sequences.txt`) and R the
+back-diagonal identity. The Goethals–Seidel array
 
 ```
     [  A     BR     CR     DR  ]
@@ -31,40 +33,44 @@ is then a Hadamard matrix of order 1852. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Search
 
-1. `search/skew_triage.py` ranks skew Goethals–Seidel multiplier structures with a Gaussian model. For H = ⟨33⟩ it predicts about 3·10⁶ solutions:
+1. `search/skew_triage.py` ranks skew Goethals–Seidel multiplier structures with a Gaussian model. For H = ⟨33⟩ it
+   predicts about 3·10⁶ solutions:
    - 23 orbits and 11 autocorrelation classes;
    - 2048 skew first blocks;
    - pools of 6.5·10⁵ to 7.1·10⁵ sequences for the other three blocks, row sums (1, 43, 1).
-2. `search/skew_ktree.py` (four-list k-tree matcher `search/match4.c`) enumerates the pools and matches the four lists.
+2. `search/skew_ktree.py` (four-list k-tree matcher `search/match4.c`) enumerates the pools and matches the four
+   lists.
 3. It found 112 solutions for the most likely partial-sum value, in 0.4 s.
 
-## Reproduction
+**Reproduction.**
 
 | | |
 |---|---|
-| Code | commit `90ab79d` of this branch (the options used behave the same at later commits) |
+| Code | commit `90ab79d` (the options used behave the same at later commits) |
 | Command | `python3 search/skew_ktree.py 463 33 --maxtau 400` |
 | Randomness and caps | complete pools (no sampling, no seed); clamp S = 4; top 6; at most 400 values of τ |
-| Result of that run | 112 solutions at τ #0 |
-
-The tools write their hit logs, temporary list files and compiled helpers to `$HADAMARD_WORK` (default
-`<tmp>/hadamard-work`), never into the repository. `search/skew_certify.py` (or `skew_group.py certify` for the
-non-cyclic orders) turns a logged hit into the files in this directory. The certificate does not depend on
-the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.json` alone.
+| Result | 112 solutions at τ #0 |
 
 ## Status
 
-**Not a new order.** Đoković constructed a skew-Hadamard matrix of order 1852 = 4 · 463 in 1994:
-D. Ž. Đoković, *Five new orders for Hadamard matrices of skew type*, Australasian J. Combin. 10 (1994)
-259–264. It is listed again as a sporadic skew order in Koukouvinos–Stylianou, Discrete Math. 308 (2008),
-Table 3, and in Đoković–Seberry's census of skew orders 4v, v < 2500.
+**Known.** Đoković constructed a skew-Hadamard matrix of order 1852 = 4 · 463 in 1994: D. Ž. Đoković, *Five new orders
+for Hadamard matrices of skew type*, Australasian J. Combin. 10 (1994) 259–264.
 
-- Đoković's difference family uses the same multiplier subgroup as ours: ⟨251⟩ = ⟨33⟩, of order 21. His
-  skew block is the set of quadratic residues. Ours is a different skew block, so the matrix here is a
-  different explicit matrix of a known order.
-- Cati–Pasechnik Table 5 still lists 463(7) because, past order 1208, it copies the older Seberry–Yamada
-  table without re-implementing it.
-- We first labelled this order new. That claim is withdrawn.
+- The order is listed again as a sporadic skew order in Koukouvinos–Stylianou, Discrete Math. 308 (2008), Table 3, and
+  in Đoković–Seberry's census of skew orders 4v, v < 2500.
+- Đoković's difference family uses the same multiplier subgroup as ours: ⟨251⟩ = ⟨33⟩, of order 21. His skew block is
+  the set of quadratic residues. Ours is a different skew block, so the matrix here is a different explicit matrix of
+  a known order.
+- Cati–Pasechnik Table 5 lists 463(7) because, past order 1208, it copies the older Seberry–Yamada table without
+  re-implementing it.
+
+## Files
+
+| File | Contents |
+|---|---|
+| `certificate.json` | the four sequences as orbit representatives, H, the row sums |
+| `sequences.txt` | the four sequences, one per line |
+| `H1852.csv.gz` | the matrix |
 
 ## Verification
 
@@ -73,5 +79,4 @@ python3 verify/verify.py skew/1852
 gzip -dc skew/1852/H1852.csv.gz | ./check_matrix
 ```
 
-SHA-256 of `H1852.csv`:
-`952cf790ef860f40f9d117a12dfaeb6cf1251980b9adc59e4bcb36452f7d066c`
+SHA-256 of `H1852.csv`: `952cf790ef860f40f9d117a12dfaeb6cf1251980b9adc59e4bcb36452f7d066c`

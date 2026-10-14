@@ -8,8 +8,8 @@ A skew-Hadamard matrix is a Hadamard matrix H with H + Hᵀ = 2I. This one comes
 1978): amicable Hadamard matrices of order n and a skew-type orthogonal design of type (1, m, mn − m − 1) in order mn
 give a skew-Hadamard matrix of order mn(n − 1). Here n = 52 and m = 1. Amicable Hadamard matrices of order 52 were
 not known (no classical family has this order: 51 = 3 · 17 and 25 ≡ 1 (mod 8); Seberry's tables give t = 3 for
-q = 13); they come from a skew-propus
-quadruple of length 13, as for [symmetric/5700](../../symmetric/5700) (which uses length 19).
+q = 13); they come from a skew-propus quadruple of length 13, as for [symmetric/5700](../../symmetric/5700) (which
+uses length 19).
 
 **1. Amicable Hadamard matrices of order 52.** A skew-propus quadruple of length 13 (the first three lines of
 `sequences.txt`: A3 symmetric, A1, A0 of skew type, row sums 1, 5, 1, PAF_A3 + 2 PAF_A1 + PAF_A0 = 52 δ) gives, in
@@ -44,13 +44,13 @@ H + Hᵀ = 2I because W, B and C are skew and J, D symmetric, and
 ## Search
 
 `search/sym_mm1.py propus 13` finds skew-propus quadruples of length 13 at once (they exist for every odd length
-n ≤ 15 except n = 9, `search/NOTES.md` §31); the certificate uses the first one `skew_propus(13)` returns. The
-G-matrices of order 13 are the first found by `g_matrices(13)` (all pairs of skew-type sequences hashed on the sum of
-their autocorrelations, all symmetric pairs with row sums 5 and 5 probed). G-matrices of order 13 are known
-(Georgiou–Koukouvinos, JCMCC 40 (2002), list 8 of them, as tabulated in Đoković, arXiv:0903.5053, Table 1); only the
-amicable pair of order 52 is new.
+n ≤ 15 except n = 9, [search/NOTES.md](../../search/NOTES.md) §31); the certificate uses the first one
+`skew_propus(13)` returns. The G-matrices of order 13 are the first found by `g_matrices(13)` (all pairs of skew-type
+sequences hashed on the sum of their autocorrelations, all symmetric pairs with row sums 5 and 5 probed). G-matrices
+of order 13 are known (Georgiou–Koukouvinos, JCMCC 40 (2002), list 8 of them, as tabulated in Đoković,
+arXiv:0903.5053, Table 1); only the amicable pair of order 52 is new.
 
-## Reproduction
+**Reproduction.**
 
 | | |
 |---|---|
@@ -58,50 +58,42 @@ amicable pair of order 52 is new.
 | Command | `python3 search/sym_mm1.py propus 13`; the certificate was written from `skew_propus(13)[0]` and `g_matrices(13)`; `python3 verify/verify.py skew/2652` rebuilds and checks everything |
 | Randomness and caps | none |
 
-`verify/verify.py` (construction `skew-amicable-plug`) rebuilds the symmetric OD from the skew-propus quadruple and
-checks it, checks that S and M are amicable with S skew, normalises them and checks every identity of the cores
-(W skew, W1 = 0, (I + W)(I + W)ᵀ = 52 I − J, D symmetric, D1 = −1, D² = 52 I − J, WD + DW = 0), checks the
-G-matrices (types, autocorrelation sum) and the skew-type OD(52; 1, 1, 50), assembles H and checks H Hᵀ = 2652 I,
-H + Hᵀ = 2I and the SHA-256 of the canonical CSV.
-
 ## Status
 
-We know of no earlier skew-Hadamard matrix of order 2652, but two published tables say otherwise, so this is the
-weakest of our skew novelty claims. The pair of order 52 is, to our knowledge, the first amicable pair of that order.
-(A symmetric Hadamard matrix of order 2652 is known; 663 is not undecided in the symmetric list of the census.)
+**First explicit construction.** The Đoković–Seberry census lists 663 as undecided for skew matrices, but two older
+tables imply that a skew-Hadamard matrix of order 4 · 663 = 2652 is known, and we found no construction behind either
+entry. We know of no earlier skew-Hadamard matrix of order 2652, so this is the weakest of our skew novelty claims.
+The pair of order 52 is, to our knowledge, the first amicable pair of that order. A symmetric Hadamard matrix of order
+2652 is known: 663 is not undecided in the symmetric list of the census.
 
-**The conflict.** The Đoković–Seberry census (PDF of 2025-05-28) lists 663 among its 737 undecided skew values:
-"… 659, 661, 663, 667, 669, …". Two older tables imply that a skew-Hadamard matrix of order 4 · 663 is known, and
-neither says how:
-
+- The census lists 663 among its 737 undecided skew values ("… 659, 661, 663, 667, 669, …").
 - Seberry–Yamada, "Hadamard matrices, sequences, and block designs" (Contemporary Design Theory, Wiley 1992),
   Table 7.1 (p. 500), leaves the t of q = 663 blank, and "a blank represents 2" (p. 498). The same table also leaves
   783 and 879 blank, which the census lists as undecided too.
-- Cati–Pasechnik, arXiv:2411.18897 (v1 and v2), Table 5 ("Pairs n(m) where m is minimal, s.t. a skew Hadamard
-  matrix of order 2^m n is known, n ≤ 999. The case m = 2 is not shown") has no entry for 663 (the row reads
-  "655(4) 657(4) 659(…) 661(9) 667(6) 669(3)"). It also omits 451, 783, 879 and 921, all undecided in the census.
-  Its footnote lists the entries of Seberry–Yamada's book (2020, Table 9.2) with m > 2 that it dropped; 663 is not
-  among them, which suggests (not checked) that the book has 663 at m = 2 as well.
+- Cati–Pasechnik Table 5 ("Pairs n(m) where m is minimal, s.t. a skew Hadamard matrix of order 2^m n is known,
+  n ≤ 999. The case m = 2 is not shown") has no entry for 663 (the row reads "655(4) 657(4) 659(…) 661(9) 667(6)
+  669(3)"). It also omits 451, 783, 879 and 921, all undecided in the census. Its footnote lists the entries of
+  Seberry–Yamada's book (2020, Table 9.2) with m > 2 that it dropped; 663 is not among them, which suggests (not
+  checked) that the book has 663 at m = 2 as well.
+- We found no construction behind these entries. Every classical family fails for 2652 by arithmetic:
+  - Paley: 2651 = 11 · 241.
+  - 2(q + 1): q = 1325 = 5² · 53.
+  - 4(q + 1), q ≡ 9 (mod 16): q = 662.
+  - Spence's q² + q + 1 skips 663.
+  - Seberry's q(q + 1): q = 51. Her 2ʳn(2ʳn − 1): amicable orders 26 or 13.
+  - (p − 1)ᵘ + 1, (|t| + 1)(q + 1), the small orders 4m, Wallis's 1971 theorem, and Kronecker products or doubling,
+    since 1326 is not a Hadamard order.
+  - Seberry's theorem itself needs amicable matrices of order 52, which her tables (1978, 1991, 1992) do not have
+    (t = 3 for q = 13), or an OD(884; 1, 221, 662) for n = 4, for which we found no source.
+- SageMath's source (development version of 2026-10-11) gives `Unknown`.
+- The census is the most recent of the three sources and Seberry co-wrote both it and the 1992 table, so we read the
+  two table entries as errors, but we could not confirm that.
+- The skew tables of Seberry, Ars Combin. 6 (1978) and of Seberry–Yamada, Utilitas Math. 40 (1991) stop at q = 499.
+  No source we searched mentions a skew-Hadamard matrix of order 2652 or amicable Hadamard matrices of order 52.
+- The Handbook of Combinatorial Designs and Koukouvinos–Stylianou (Discrete Math. 308 (2008); abstract only) were not
+  checked.
 
-We found no construction behind these entries. Every classical family fails for 2652 by arithmetic (Paley:
-2651 = 11 · 241; 2(q + 1): q = 1325 = 5² · 53; 4(q + 1), q ≡ 9 (mod 16): q = 662; Spence's q² + q + 1 skips 663;
-Seberry's q(q + 1): q = 51; her 2ʳn(2ʳn − 1): amicable orders 26 or 13; (p − 1)^u + 1, (|t| + 1)(q + 1), the small
-orders 4m, Wallis's 1971 theorem and Kronecker products or doubling, since 1326 is not a Hadamard order). Seberry's
-theorem itself needs amicable matrices of order 52, which her tables (1978, 1991, 1992) do not have (t = 3 for
-q = 13), or an OD(884; 1, 221, 662) for n = 4, for which we found no source. SageMath (develop branch of 2026-10-11,
-traced, not executed) returns `Unknown`. The census is the most recent of the three sources and Seberry co-wrote both
-it and the 1992 table, so we read the two table entries as errors, but we could not confirm that.
-
-**Other sources checked** (audit of 2026-10-14 by a research agent; downloaded sources were read as text, never
-executed): Seberry, Ars Combin. 6 (1978) and Seberry–Yamada, Utilitas Math. 40 (1991), whose skew tables stop at
-q = 499; Đoković's skew papers (arXiv 0704.0640, 0706.1973, 0903.5053, 1301.3671, 1511.08734, 1801.07627, 1802.00556,
-2301.02751, 2404.14375, 2508.17141; Australas. J. Combin. 10 (1994)); Momihara–Xiang (arXiv:1801.08776), Cati
-(arXiv:2306.16812), Seberry (Australas. J. Combin. 55 (2013)); the 2026 deposits (Schumer, Karoui, Piza, Kline,
-schneiderlo/hadamard-2060, JD-Jones-ASES, bbeartheancient/hoa64, munimtechnologies/hadamard-orders). None mentions a
-skew-Hadamard matrix of order 2652 or amicable Hadamard matrices of order 52.
-
-Not checked: Seberry–Yamada's book (Wiley 2020), Seberry's Orthogonal Designs (Springer 2017), the Handbook of
-Combinatorial Designs, Koukouvinos–Stylianou (Discrete Math. 308 (2008); abstract only), MathSciNet and zbMATH.
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 
@@ -117,5 +109,11 @@ Combinatorial Designs, Koukouvinos–Stylianou (Discrete Math. 308 (2008); abstr
 python3 verify/verify.py skew/2652
 gzip -dc skew/2652/H2652.csv.gz | ./check_matrix
 ```
+
+`verify/verify.py` (construction `skew-amicable-plug`) rebuilds the symmetric OD from the skew-propus quadruple and
+checks it, checks that S and M are amicable with S skew, normalises them and checks every identity of the cores
+(W skew, W1 = 0, (I + W)(I + W)ᵀ = 52 I − J, D symmetric, D1 = −1, D² = 52 I − J, WD + DW = 0), checks the
+G-matrices (types, autocorrelation sum) and the skew-type OD(52; 1, 1, 50), assembles H and checks H Hᵀ = 2652 I,
+H + Hᵀ = 2I and the SHA-256 of the canonical CSV.
 
 SHA-256 of `H2652.csv`: `b88c557c9f6689f46a5af203b86ea4a1b2ad0f8a8c36e7db82e2417df55d8250`

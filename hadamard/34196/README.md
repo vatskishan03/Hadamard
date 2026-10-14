@@ -1,4 +1,4 @@
-# Order 34196
+# Hadamard matrix of order 34196
 
 34196 = 4 · 8549, with 8549 = 83 · 103.
 
@@ -26,16 +26,21 @@ exactly: 320 solutions, the first of which is in the certificate. Under a second
 
 ## Status
 
-Probably new. The order was listed as a further candidate by this repository's audit of Handbook Table 1.53 in
-[NOTES.md](../../NOTES.md) §7 ("4 · 8549 = 4 · 83 · 103, which needs only T103 and the classical WT(83)"); this is that
-construction. Checks made here: Paley I and II need 34195 = 5 · 7 · 977 and 17097 = 3 · 41 · 139 to be prime powers;
-8549 is not a prime power (Miyamoto); 8547 = 3 · 7 · 11 · 37 is not one either (Yamada, Kiyasu); 8549 is not of
-Spence's form q² + q + 1. A product route needs an object of order 103 or of order 83 · 103: T-matrices of order 103
-are from 2026 (JD-Jones-ASES/Hadamard-T, decoded from Schneider's matrix of order 2060, and found independently in
-[2060](../2060)); the alternative T(83) × WT(103) would need T-sequences or T-matrices of order 83 and Williamson-type
-matrices of order 103, the latter known only from the near-Williamson matrices of 2026. We found no construction or
-statement of order 34196. The caveats of the other orders above 4 · 2999 apply: Table 1.53 was read from an unofficial
-copy, and the claim rests on a search that found nothing.
+**New, beyond the tables.** The order is listed as a candidate in [NOTES.md](../../NOTES.md) §7
+("4 · 8549 = 4 · 83 · 103, which needs only T103 and the classical WT(83)"); this matrix is that construction.
+
+No construction we know of reaches 34196:
+
+- Paley I and II need 34195 = 5 · 7 · 977 and 17097 = 3 · 41 · 139 to be prime powers.
+- Miyamoto does not apply: 8549 is not a prime power. Neither is 8547 = 3 · 7 · 11 · 37 (Yamada, Kiyasu).
+- 8549 is not of Spence's form q² + q + 1.
+- A product route needs an object of order 103 or of order 83 · 103. T-matrices of order 103 are from 2026
+  (JD-Jones-ASES/Hadamard-T, decoded from Schneider's matrix of order 2060, and found independently in
+  [2060](../2060)). The alternative T(83) × WT(103) would need T-sequences or T-matrices of order 83 and
+  Williamson-type matrices of order 103, the latter known only from the near-Williamson matrices of 2026.
+
+We found no construction or statement of order 34196. The sources searched are listed in
+[NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 
@@ -45,11 +50,12 @@ copy, and the claim rests on a search that found nothing.
 
 The matrix is not stored (2.3 GB as CSV).
 
+## Verification
+
 ```
 python3 verify/verify.py 34196
 ```
 
-rebuilds and checks it: 4 minutes 40 seconds on 4 cores, about 2.5 GB of memory.
+This rebuilds and checks the matrix in 4 minutes 40 seconds on 4 cores, using about 2.5 GB of memory.
 
-SHA-256 of `H34196.csv`:
-`f4c7b260ccde989a5e591c7978c4d3431d229e6b8a83290b60572754c5a9ca5a`
+SHA-256 of `H34196.csv`: `f4c7b260ccde989a5e591c7978c4d3431d229e6b8a83290b60572754c5a9ca5a`

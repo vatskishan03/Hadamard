@@ -5,8 +5,8 @@
 ## Construction
 
 A skew-Hadamard matrix is a Hadamard matrix H with H + Hᵀ = 2I. This one comes from Seberry's theorem (Ars Combin. 6
-(1978), Theorem 7): an orthogonal design of type (1, m, mn − m − 1) in order mn and amicable Hadamard matrices of order
-n give a skew-Hadamard matrix of order mn(n − 1). Here n = 20 (a classical amicable order) and m = 5. The new
+(1978), Theorem 7): an orthogonal design of type (1, m, mn − m − 1) in order mn and amicable Hadamard matrices of
+order n give a skew-Hadamard matrix of order mn(n − 1). Here n = 20 (a classical amicable order) and m = 5. The new
 ingredient is an orthogonal design of type (1, 5, 94) in order 100.
 
 **1. Amicable cores of order 19.** Paley's skew-Hadamard matrix S = I + C of order 20 (q = 19) and P = (−1) ⊕ (x ↦ −x)
@@ -40,7 +40,8 @@ H + Hᵀ = 2I, the cross terms vanish as in [skew/7956](../7956), and
 
 **Why m = 5 works in this form.** In the Goethals–Seidel form the b part of A₁ must be skew, so its row sum is 0, and
 m = r₂(b)² + r₃(b)² + r₄(b)² must be a sum of three squares. 5 = 2² + 1² + 0² is. m = 7, 15, 23, … (≡ 7 mod 8) are
-not, so the census values 1323, 759, 1815 and 2185 cannot be reached this way (`search/NOTES.md` §31).
+not, so the census values 1323, 759, 1815 and 2185 cannot be reached this way
+([search/NOTES.md](../../search/NOTES.md) §31).
 
 ## Search
 
@@ -50,7 +51,7 @@ swapping a +1 and a −1 within a block, and pairs of the skew W₁ are flipped.
 `odm_sa 25 1 1000 1000000 40 1 2 "2:0:1,2:10:1,3:0:1,3:10:-1,4:0:1" 3 7 -6`. It found the design at restart 21, about
 20 seconds on one core. The b templates with d = 5 and d = 1 in place of 10 gave nothing in 60 seconds.
 
-## Reproduction
+**Reproduction.**
 
 | | |
 |---|---|
@@ -58,50 +59,37 @@ swapping a +1 and a −1 within a block, and pairs of the skew W₁ are flipped.
 | Command | `gcc -O2 -o odm_sa search/odm_sa.c -lm && ./odm_sa 25 1 1000 1000000 40 1 2 "2:0:1,2:10:1,3:0:1,3:10:-1,4:0:1" 3 7 -6` |
 | Randomness and caps | seed 1 (xorshift), 1000 restarts of 10⁶ steps, T from 40 to 1 |
 
-`verify/verify.py` (construction `skew-amicable-plug`, "paley": 19) rebuilds Paley's design of order 20 and checks it.
-It then checks the amicable pair and every identity of its cores, rebuilds the Goethals–Seidel design from the codes
-and checks that it is a skew-type OD(100; 1, 5, 94) with 100 = 5 · 20. Finally it assembles H and checks
-H Hᵀ = 1900 I, H + Hᵀ = 2I and the SHA-256 of the canonical CSV.
-
 ## Status
 
-To our knowledge this is the first skew-Hadamard matrix of order 1900, and the OD(100; 1, 5, 94) the first orthogonal
+**New** as a skew-Hadamard matrix. Cati–Pasechnik Table 5 gives 475(4): the smallest known skew order with odd part
+475 was 2⁴ · 475 = 7600, so 4 · 475 was not known. The OD(100; 1, 5, 94) is, to our knowledge, the first orthogonal
 design of that type.
 
-**Novelty checklist** (audit of 2026-10-14 by a research agent; downloaded sources were read as text, never
-executed):
+- The Đoković–Seberry census lists 475 among its 737 undecided skew values ("… 469, 473, 475, 479, …") and among its
+  undecided symmetric values.
+- Seberry–Yamada (1992, Table 7.1) gives t = 4 for 475, and Seberry–Yamada (1991) gives "475 4".
+- By Geramita–Verner, OD(100; 1, 5, 94) exists exactly when OD(100; 5, 94) does. Neither was found.
+  - The published tables of designs in orders 4 · odd stop at order 36. They list the type (1, 5, 4t − 6) for t = 5
+    and t = 9 (OD(20; 1, 5, 14), OD(36; 1, 5, 30)). For t = 7 it is impossible, since (5, 22) is nonexistent in order
+    28, as the condition 5r² + s² = 4t − 6 also shows.
+  - The design known in order 100, OD(100; 1, 1, 49, 49) from G-matrices of order 25 (Koukouvinos–Seberry 1993), does
+    not merge to (1, 5, 94).
+- SageMath's source (development version of 2026-10-11) gives Unknown. Its orthogonal-design branch tries the split n
+  = 20, m = 5 and needs an OD(100; 1, 5, 94), which is not in its table.
+- No classical skew family reaches 1900:
+  - Paley needs 1899 = 3² · 211 to be a prime power.
+  - 2(q + 1) needs q = 949 = 13 · 73.
+  - 4(q + 1) needs q = 474.
+  - Spence's q² + q + 1 skips 475 (463, 507).
+  - Seberry's q(q + 1) and 2ʳn(2ʳn − 1) have no integer solution (43 · 44 = 1892).
+  - (p − 1)ᵘ + 1 needs 1899 to be a perfect power.
+  - (|t| + 1)(q + 1) has no factorisation with q ≡ 5 (mod 8) a prime power.
+  - Kronecker products and doubling are impossible (950 is not a Hadamard order).
+  - The only splits of Seberry's theorem are n = 20, m = 5 (this one) and the degenerate n = 2.
+- No source we searched mentions a skew matrix of order 1900 or an OD(100; 1, 5, 94). Piza's 2026 deposit lists "1900
+  = CW (19, 25)", a Cooper–Wallis construction of an ordinary Hadamard matrix.
 
-1. **The Đoković–Seberry census** (PDF of 2025-05-28): 475 is in its list of 737 undecided skew values
-   ("… 469, 473, 475, 479, …") and in its list of undecided symmetric values.
-2. **Tables of skew orders 2ᵗq.** All three give 2⁴ · 475 = 7600 as the smallest known order, so 4 · 475 was not
-   known:
-   - Cati–Pasechnik (arXiv:2411.18897), Table 5: "475(4)".
-   - Seberry–Yamada (1992), Table 7.1: t = 4.
-   - Seberry–Yamada (1991): "475 4".
-3. **The orthogonal design.** By Geramita–Verner, OD(100; 1, 5, 94) exists exactly when OD(100; 5, 94) does. Neither
-   was found.
-   - The published tables of designs in orders 4 · odd stop at order 36. They list the type (1, 5, 4t − 6) for t = 5
-     and t = 9 (OD(20; 1, 5, 14), OD(36; 1, 5, 30)). For t = 7 it is impossible, since (5, 22) is nonexistent in
-     order 28, as the condition 5r² + s² = 4t − 6 also shows.
-   - The design known in order 100, OD(100; 1, 1, 49, 49) from G-matrices of order 25 (Koukouvinos–Seberry 1993),
-     does not merge to (1, 5, 94).
-4. **SageMath** (develop branch of 2026-10-11, its existence logic traced, not executed): `Unknown`. Its
-   orthogonal-design branch tries the split n = 20, m = 5 and needs an OD(100; 1, 5, 94), which is not in its table.
-5. **Classical skew families** (arithmetic):
-   - Paley needs 1899 = 3² · 211 to be a prime power.
-   - 2(q + 1) needs q = 949 = 13 · 73.
-   - 4(q + 1) needs q = 474.
-   - Spence's q² + q + 1 skips 475 (463, 507).
-   - Seberry's q(q + 1) and 2ʳn(2ʳn − 1) have no integer solution (43 · 44 = 1892).
-   - (p − 1)^u + 1 needs 1899 to be a perfect power.
-   - (|t| + 1)(q + 1) has no factorisation with q ≡ 5 (mod 8) a prime power.
-   - Kronecker products and doubling are impossible (950 is not a Hadamard order).
-   - The only splits of Seberry's theorem are n = 20, m = 5 (this one) and the degenerate n = 2.
-6. **Searches** (as for [skew/7956](../7956)): no mention of a skew matrix of order 1900 or of OD(100; 1, 5, 94).
-   Piza's 2026 deposit lists "1900 = CW (19, 25)", a Cooper–Wallis construction of an ordinary Hadamard matrix.
-
-Not checked: the bodies of Seberry–Yamada (2020), Seberry (2017) and Geramita–Seberry (1979), MathSciNet and zbMATH.
-This is a finding of nothing, not a proof that no earlier construction exists.
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 
@@ -116,5 +104,10 @@ This is a finding of nothing, not a proof that no earlier construction exists.
 python3 verify/verify.py skew/1900
 gzip -dc skew/1900/H1900.csv.gz | ./check_matrix
 ```
+
+`verify/verify.py` (construction `skew-amicable-plug`, "paley": 19) rebuilds Paley's design of order 20 and checks it.
+It then checks the amicable pair and every identity of its cores, rebuilds the Goethals–Seidel design from the codes
+and checks that it is a skew-type OD(100; 1, 5, 94) with 100 = 5 · 20. Finally it assembles H and checks
+H Hᵀ = 1900 I, H + Hᵀ = 2I and the SHA-256 of the canonical CSV.
 
 SHA-256 of `H1900.csv`: `b607a5a5fb1a1a59024276b41c119684dca6f5807849e7ac5cfb34232dc531e2`

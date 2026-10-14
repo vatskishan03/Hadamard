@@ -5,9 +5,9 @@
 ## Construction
 
 A skew-Hadamard matrix is a Hadamard matrix H with H + Hᵀ = 2I. This one comes from Seberry's theorem (Ars Combin. 6
-(1978), Theorem 7): an orthogonal design of type (1, m, mn − m − 1) in order mn and amicable Hadamard matrices of order
-n give a skew-Hadamard matrix of order mn(n − 1). Here n = 12 (a classical amicable order, Paley with q = 11) and
-m = 13. The new ingredient is an orthogonal design of type (1, 13, 142) in order 156.
+(1978), Theorem 7): an orthogonal design of type (1, m, mn − m − 1) in order mn and amicable Hadamard matrices of
+order n give a skew-Hadamard matrix of order mn(n − 1). Here n = 12 (a classical amicable order, Paley with q = 11)
+and m = 13. The new ingredient is an orthogonal design of type (1, 13, 142) in order 156.
 
 **1. Amicable cores of order 11.** Paley's skew-Hadamard matrix S = I + C of order 12 (q = 11) and
 P = (−1) ⊕ (x ↦ −x) satisfy PCP = −C, so xP + yCP is a symmetric orthogonal design of type (1, 11) and (S, P + CP)
@@ -49,9 +49,10 @@ H + Hᵀ = 2I, the cross terms vanish as in [skew/7956](../7956), and
 
 It found 18 solutions, at most 2 per template; the certificate uses the first. Without the subgroup restriction the
 template enumeration in Python is too slow at t = 39: there are 110 763 candidate b parts per block. A template with
-a ×3-invariant CW(13, 9) is impossible here, for a row-sum reason given in `search/NOTES.md` §31.
+a ×3-invariant CW(13, 9) is impossible here, for a row-sum reason given in [search/NOTES.md](../../search/NOTES.md)
+§31.
 
-## Reproduction
+**Reproduction.**
 
 | | |
 |---|---|
@@ -59,52 +60,33 @@ a ×3-invariant CW(13, 9) is impossible here, for a row-sum reason given in `sea
 | Command | `gcc -O2 -o /tmp/hadamard-work/bin/odmx search/odmx.c && python3 search/odm_engine.py 39 16 13 --bsub 13` (the first `SOL` block is the "od" of the certificate) |
 | Randomness and caps | none; the search is exhaustive over its structure (`--maxsol 2` per template) |
 
-`verify/verify.py` (construction `skew-amicable-plug`, "paley": 11) rebuilds Paley's design of order 12 and checks it.
-It then checks the amicable pair and every identity of its cores, and rebuilds the Goethals–Seidel design from the
-codes, checking that it is a skew-type OD(156; 1, 13, 142) with 156 = 13 · 12. Finally it assembles H and checks
-H Hᵀ = 1716 I, H + Hᵀ = 2I and the SHA-256 of the canonical CSV.
-
 ## Status
 
-To our knowledge this is the first skew-Hadamard matrix of order 1716, and the OD(156; 1, 13, 142) the first
-orthogonal design of that type.
+**New** as a skew-Hadamard matrix. Cati–Pasechnik Table 5 gives 429(3): the smallest known skew order with odd part
+429 was 8 · 429 = 3432. The OD(156; 1, 13, 142) is, to our knowledge, the first orthogonal design of that type.
 
-**Novelty checklist:**
+- The Đoković–Seberry census lists 429 among its 737 undecided skew values. It is not undecided in the symmetric list.
+- Seberry–Yamada (1992, Table 7.1) also gives "429 3". That entry is explained by Momihara–Xiang (arXiv:1801.08776;
+  Eur. J. Combin. 76 (2019)). Their 4-block skew Hadamard difference families for q ≡ 9 (mod 16) give order 4(q + 1) =
+  3432 = 8 · 429 with q = 857. Their 2-block families (order 2(q + 1)) need q ≡ 5 (mod 8), and 857 ≡ 1 (mod 8).
+- SageMath's source (development version of 2026-10-11) gives Unknown. Its orthogonal-design branch tries the split n
+  = 12, m = 13 and needs an OD(156; 1, 13, 142), which is not in its table.
+- No classical skew family reaches 1716:
+  - Paley needs 1715 = 5 · 7³ to be a prime power.
+  - 2(q + 1) needs q = 857, a prime ≡ 1 (mod 8), outside the Szekeres, Szekeres–Whiteman and Momihara–Xiang 2-block
+    families.
+  - 4(q + 1) needs q = 428.
+  - Spence's q² + q + 1 skips 429 (421, 463).
+  - Seberry's q(q + 1) and 2ʳn(2ʳn − 1) have no integer solution (41 · 42 = 1722).
+  - (p − 1)ᵘ + 1 needs 1715 to be a perfect power.
+  - Kronecker products and doubling are impossible (858 is not a Hadamard order).
+- No source we searched mentions a skew matrix of this order or the orthogonal design. The nearest use of Seberry's
+  theorem in the literature is Seberry, "Some remarks on amicable orthogonal designs" (Ann. Discrete Math. 6 (1980)),
+  whose amicable analogue of Theorem 7 is used only conditionally ("more knowledge of the existence of amicable
+  orthogonal designs would be invaluable").
+- Spence (1977), Whiteman (1971) and Ding (2008) were not read in full text.
 
-1. **The Đoković–Seberry census** (PDF of 2025-05-28): 429 is in its list of 737 undecided skew values. It is not
-   undecided in the symmetric list.
-2. **Tables of skew orders 2ᵗq.** Both give 8 · 429 as the smallest known order:
-   - Cati–Pasechnik (arXiv:2411.18897), Table 5: "429(3)".
-   - Seberry–Yamada (1992), Table 7.1: "429 3".
-
-   That entry is explained by Momihara–Xiang (arXiv:1801.08776; Eur. J. Combin. 76 (2019)). Their 4-block skew
-   Hadamard difference families for q ≡ 9 (mod 16) give order 4(q + 1) = 3432 = 8 · 429 with q = 857. Their 2-block
-   families (order 2(q + 1)) need q ≡ 5 (mod 8), and 857 ≡ 1 (mod 8).
-3. **SageMath** (develop branch of 2026-10-11, its existence logic traced, not executed): `Unknown`. Its
-   orthogonal-design branch tries the split n = 12, m = 13 and needs an OD(156; 1, 13, 142), which is not in its
-   table.
-4. **Classical skew families** (arithmetic):
-   - Paley needs 1715 = 5 · 7³ to be a prime power.
-   - 2(q + 1) needs q = 857, a prime ≡ 1 (mod 8), outside the Szekeres, Szekeres–Whiteman and Momihara–Xiang 2-block
-     families.
-   - 4(q + 1) needs q = 428.
-   - Spence's q² + q + 1 skips 429 (421, 463).
-   - Seberry's q(q + 1) and 2ʳn(2ʳn − 1) have no integer solution (41 · 42 = 1722).
-   - (p − 1)^u + 1 needs 1715 to be a perfect power.
-   - Kronecker products and doubling are impossible (858 is not a Hadamard order).
-
-**Searches** (audit of 2026-10-14 by a research agent; downloaded sources were read as text, never executed):
-- the arXiv API (skew/Hadamard, Szekeres, supplementary difference sets, orthogonal designs, numeric queries, the latest
-  papers of Đoković, Seberry, Kotsireas, Kharaghani, Pasechnik and Momihara);
-- the Zenodo API, GitHub code and repository search, OEIS and web search;
-- a re-grep of about 12 750 previously downloaded texts.
-
-None mentions a skew matrix of this order or the orthogonal design. The nearest use of Seberry's theorem in the
-literature is Seberry, "Some remarks on amicable orthogonal designs" (Ann. Discrete Math. 6 (1980)), whose amicable
-analogue of Theorem 7 is used only conditionally ("more knowledge of the existence of amicable orthogonal designs would
-be invaluable"). Not checked: the bodies of Seberry–Yamada (2020), Seberry (2017) and Geramita–Seberry (1979);
-Spence (1977), Whiteman (1971) and Ding (2008) in full text; MathSciNet and zbMATH. This is a finding of nothing, not a
-proof that no earlier construction exists.
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 
@@ -119,5 +101,10 @@ proof that no earlier construction exists.
 python3 verify/verify.py skew/1716
 gzip -dc skew/1716/H1716.csv.gz | ./check_matrix
 ```
+
+`verify/verify.py` (construction `skew-amicable-plug`, "paley": 11) rebuilds Paley's design of order 12 and checks it.
+It then checks the amicable pair and every identity of its cores, and rebuilds the Goethals–Seidel design from the
+codes, checking that it is a skew-type OD(156; 1, 13, 142) with 156 = 13 · 12. Finally it assembles H and checks
+H Hᵀ = 1716 I, H + Hᵀ = 2I and the SHA-256 of the canonical CSV.
 
 SHA-256 of `H1716.csv`: `5be71948cce1d25d197252416e7ea631cbcdbef1928f167c9772077aef0e15bb`

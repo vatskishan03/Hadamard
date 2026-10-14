@@ -1,4 +1,4 @@
-# Order 3964
+# Hadamard matrix of order 3964
 
 3964 = 4 · 991, with 991 prime.
 
@@ -76,14 +76,15 @@ start. The matrix here comes from the first solution found.
 
 ## Status
 
-New. The entry 991(3) is unresolved in Cati–Pasechnik Table 4 and does not appear
-in Đoković's updates (arXiv:0912.5091, arXiv:1008.2043). None of the standard
-recursive constructions apply:
+**New.** The entry 991(3) is unresolved in Cati–Pasechnik Table 4. None of the standard recursive constructions
+applies:
 
 - Paley: 3963 = 3 · 1321 and 1981 = 7 · 283 are not prime powers.
 - Miyamoto: 991 ≡ 3 (mod 4).
 - Yamada: 989 = 23 · 43 is not a prime power.
 - Mathon: 1981 is not of the form q²(q + 2).
+
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 
@@ -92,3 +93,12 @@ recursive constructions apply:
 | `certificate.json` | group, subgroup, symmetries, the four sequences and the border |
 | `sequences.txt` | a₀, …, a₃ as strings of + and −, elements of G in mixed-radix order |
 | `H3964.csv.gz` | the matrix |
+
+## Verification
+
+```
+python3 verify/verify.py 3964
+gzip -dc hadamard/3964/H3964.csv.gz | ./check_matrix
+```
+
+SHA-256 of `H3964.csv`: `abf81a80370d4808a41d1b8ea79f1d9c8e44a1e0ce27b5cfbf689cdf1b83b158`

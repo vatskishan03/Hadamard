@@ -1,4 +1,4 @@
-# Order 5020
+# Hadamard matrix of order 5020
 
 5020 = 4 · 1255, with 1255 = 5 · 251.
 
@@ -8,8 +8,8 @@
 
 - each is constant on the orbits of the multiplier subgroup H = ⟨276, 754⟩ ≤ ℤ₁₂₅₅*, of order 50:
   {1, 4, 16, 51, 64, 69, 91, 94, 149, 201, 204, 211, 219, 241, 249, 256, 271, 276, 314, 331, 351, 364, 374, 376, 494,
-  506, 566, 571, 596, 651, 706, 721, 751, 754, 769, 804, 816, 844, 866, 876, 954, 964, 994, 996, 1009, 1024, 1029, 1084,
-  1104, 1129};
+  506, 566, 571, 596, 651, 706, 721, 751, 754, 769, 804, 816, 844, 866, 876, 954, 964, 994, 996, 1009, 1024, 1029,
+  1084, 1104, 1129};
 - their periodic autocorrelations sum to zero at every nonzero shift.
 
 `certificate.json` lists, for each sequence, one representative r of each orbit rH on which the sequence is −1.
@@ -53,68 +53,43 @@ The level-B groups number about 10⁶ per list, too many for a complete join, so
 of each list (7.6 % and 9.0 % of the members). It found 32 solutions after 17,273 group quadruples. All were rebuilt
 on ℤ₁₂₅₅ and checked.
 
-## Reproduction
+**Reproduction.**
 
 | | |
 |---|---|
 | Code | commit `81b18b6` (`search/cyclo_product.py`, `search/join3.c`) |
 | Command | `python3 search/cyclo_product.py 1255 --q 251 --e 10 --plain --kgen 4 --config 0 --K 3 --threads 3 --sub 8000` |
 | Randomness and caps | none in the search; `--sub 8000` keeps the 8,000 largest level-B groups of each list (ties broken by a stable sort); which solutions appear first depends on the OpenMP schedule |
-| Result of that run | 32 solutions in 17,273 group quadruples, 349 s on 3 threads (lists 19 s, levels and grouping 280 s, join 48 s) |
+| Result | 32 solutions in 17,273 group quadruples, 349 s on 3 threads (lists 19 s, levels and grouping 280 s, join 48 s) |
 
-The certificate is the first recorded solution (`search/gs_certify.py 1255`). The tools write hit logs, temporary
-files and compiled helpers to `$HADAMARD_WORK` (default `<tmp>/hadamard-work`). `verify/verify.py` rebuilds and
-checks the matrix from `certificate.json` alone.
+The certificate is the first recorded solution (`search/gs_certify.py 1255`).
 
 ## Status
 
-New, to our knowledge: no Hadamard matrix of order 5020 was known before this one.
+**New.** Cati–Pasechnik Table 4 lists 1255(3): the smallest known Hadamard order of the form 2ᵐ · 1255 was 10040
+(Paley I, 10039 being a prime ≡ 3 (mod 4)), so 5020 was unknown. The matrix is neither symmetric nor skew; the
+Đoković–Seberry census (May 2025) lists 1255 as undecided for both, at order 4 · 1255.
 
-- Cati and Pasechnik, *A database of constructions of Hadamard matrices*, arXiv:2411.18897 (v1 and v2), Table 4, lists
-  1255(3): the smallest known Hadamard order of the form 2ᵐ · 1255 was 10040 (Paley I, 10039 being a prime
-  ≡ 3 (mod 4)), so 5020 was unknown. Seberry–Yamada (1992, Table A.2: "1255 3 a1") and the Handbook of Combinatorial
-  Designs (2007, Table 1.53: 1255 → 3) agree, and 5020 is among the unresolved orders of [FRONTIER.md](../../FRONTIER.md).
-- The Đoković–Seberry census (May 2025) lists 1255 as undecided for symmetric and for skew matrices of order 4 · 1255;
-  this matrix is neither.
-- A literature search in October 2026 found no later construction.
+- Seberry–Yamada (1992, Table A.2: "1255 3 a1", Paley I at 10040) and the Handbook of Combinatorial Designs (2007,
+  Table 1.53: 1255 → 3 and 251 → 3) give the same entry, and [FRONTIER.md](../../FRONTIER.md) listed 5020 as
+  unresolved. Seberry–Yamada Table A.1 has no Williamson or Williamson-type matrices of order 1255, and only
+  8-Williamson matrices of order 251 ("251 3 w#q").
+- Đoković–Golubitsky–Kotsireas (arXiv:1301.3671) settled 4 · 251 = 1004, not 4 · 1255.
+- SageMath returns Unknown for 5020, as a Hadamard matrix and as a skew-Hadamard matrix.
+- No recursive construction reaches 5020:
+  - Paley I and II: 5019 = 3 · 7 · 239 and 2509 = 13 · 193 are not prime powers.
+  - Miyamoto: 1255 is neither a prime power nor ≡ 1 (mod 4).
+  - Yamada and Kiyasu (q = 1253 = 7 · 179), Mathon, Turyn, Whiteman and Spence.
+  - Cooper–Wallis with T(5) and Williamson-type matrices of order 251, with T(251) or with T(1255): none is known.
+  - A symmetric conference matrix of order 2510 is not known, though not excluded, since 2509 = 50² + 3².
+  - Product theorems: 5020 ≡ 4 (mod 8).
+- We could not read the lists in §7 of Miyamoto (J. Combin. Theory Ser. A 57, 1991); Cati–Pasechnik could not verify
+  them either. By Corollary 4 of that paper, 1255 would need a W(250, 249) or a W(1254, 1253), and neither can exist,
+  since 249 and 1253 are not sums of two squares.
 
-Doubling gives 10040, which was already known. 5021 is a prime ≡ 1 (mod 4), so Miyamoto's theorem gives a Hadamard
-matrix of order 4 · 5021 = 20084; see [20084](../20084).
-
-**Novelty checklist** (audit of 2026-10-13 by a research agent):
-
-1. Cati–Pasechnik Table 4 (v1 and v2, identical tables): "1123(3) & 1133(3) & 1169(4) & 1187(3) & 1223(6) & 1255(3)
-   & 1257(3) & 1259(4)". The JD-Jones-ASES transcription has 1255: 3.
-2. Seberry–Yamada (1992): Table A.2 "1255 3 a1" (Paley I at 10040); Table A.1 has no Williamson or Williamson-type
-   matrices of order 1255, and only 8-Williamson matrices of order 251 ("251 3 w#q").
-3. Handbook (2007) Table 1.53: 1255 → 3 and 251 → 3 (read from an unofficial copy).
-4. Đoković's updates (math/0703312, arXiv:0912.5091, arXiv:1008.2043) do not contain 1255; Đoković–Golubitsky–Kotsireas
-   (arXiv:1301.3671) settled 4 · 251 = 1004, not 4 · 1255.
-5. SageMath: `hadamard_matrix(5020, existence=True)` and the skew version return Unknown (passagemath 10.8.13, run;
-   develop branch traced).
-6. arXiv: in the sources of 554 relevant papers (2000 to October 2026), 1255 appears only in Cati–Pasechnik Table 4.
-7. 2026 constructions and deposits (Alpöge et al., Schneider, JD-Jones-ASES, Schumer, Piza, Kline, Bedani, Karoui, the
-   Palomar registry, Zenodo, Balonin's catalogue): none has 5020.
-8. No recursive construction reaches it: Paley I (5019 = 3 · 7 · 239) and II (2509 = 13 · 193); Miyamoto (1255 is
-   neither a prime power nor ≡ 1 (mod 4)); Yamada and Kiyasu (q = 1253 = 7 · 179); Mathon; Turyn, Whiteman and
-   Spence; Cooper–Wallis with T(5) and Williamson-type matrices of order 251, with T(251) or with T(1255) (none known);
-   a symmetric conference matrix of order 2510 (not excluded, since 2509 = 50² + 3², but not known); products, since
-   5020 ≡ 4 (mod 8).
-
-Not checked: the lists in §7 of Miyamoto (J. Combin. Theory Ser. A 57, 1991), which Cati–Pasechnik could not verify
-either (by its Corollary 4, 1255 would need a W(250, 249) or a W(1254, 1253), and neither can exist, since 249 and
-1253 are not sums of two squares); the Seberry–Yamada (2020) book itself; the official Handbook; and journal-only
-papers not on arXiv. This is a finding of nothing, not a proof that no earlier construction exists.
-
-## Verification
-
-```
-python3 verify/verify.py 5020
-gzip -dc hadamard/5020/H5020.csv.gz | ./check_matrix
-```
-
-SHA-256 of `H5020.csv`:
-`71d4cb944767f77cf49fae68b9d164bd722eb36786df41a642d7c8a97428e8f7`
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md). Doubling gives 10040, which was already known. 5021
+is a prime ≡ 1 (mod 4), so Miyamoto's theorem gives a Hadamard matrix of order 4 · 5021 = 20084; see
+[20084](../20084).
 
 ## Files
 
@@ -123,3 +98,12 @@ SHA-256 of `H5020.csv`:
 | `certificate.json` | group, multipliers, orbit representatives of the −1 entries, row sums, SHA-256 |
 | `sequences.txt` | x₁, …, x₄ as strings of + and − |
 | `H5020.csv.gz` | the matrix |
+
+## Verification
+
+```
+python3 verify/verify.py 5020
+gzip -dc hadamard/5020/H5020.csv.gz | ./check_matrix
+```
+
+SHA-256 of `H5020.csv`: `71d4cb944767f77cf49fae68b9d164bd722eb36786df41a642d7c8a97428e8f7`

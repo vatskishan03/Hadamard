@@ -1,4 +1,4 @@
-# Order 9172
+# Hadamard matrix of order 9172
 
 9172 = 4 · 2293, with 2293 prime and 2293 ≡ 1 (mod 4).
 
@@ -21,11 +21,12 @@ certificate of the matrix of order 2292 and the SHA-256 of the result.
 
 ## Status
 
-New. The entry 2293(3) is unresolved in Cati–Pasechnik Table 4.
-- Paley's constructions do not apply (4 · 2293 − 1 = 9171 = 3² · 1019 and
-  2 · 2293 − 1 = 4585 = 5 · 7 · 131).
-- Miyamoto's theorem needed a Hadamard matrix of order 2292, which was unresolved
-  until [2292](../2292).
+**New.** The entry 2293(3) is unresolved in Cati–Pasechnik Table 4.
+
+- Paley's constructions do not apply: 4 · 2293 − 1 = 9171 = 3² · 1019 and 2 · 2293 − 1 = 4585 = 5 · 7 · 131.
+- Miyamoto's theorem needed a Hadamard matrix of order 2292, which was unresolved until [2292](../2292).
+
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 
@@ -35,5 +36,10 @@ New. The entry 2293(3) is unresolved in Cati–Pasechnik Table 4.
 
 The matrix is not stored (about 210 MB as CSV); `verify/verify.py 9172` rebuilds it.
 
-SHA-256 of `H9172.csv`:
-`25011d2ed180a0ba9ac2f98d381789657560450b2bd361eedc47f6b782b52915`
+## Verification
+
+```
+python3 verify/verify.py 9172
+```
+
+SHA-256 of `H9172.csv` (not stored): `25011d2ed180a0ba9ac2f98d381789657560450b2bd361eedc47f6b782b52915`

@@ -1,38 +1,32 @@
-# Order 31316
+# Hadamard matrix of order 31316
 
 31316 = 4 · 7829, with 7829 prime and 7829 ≡ 1 (mod 4).
 
 ## Construction
 
-Miyamoto's theorem with q = 7829, as described for [order 21748](../21748). The
-inputs are
+Miyamoto's theorem with q = 7829, as described for [order 21748](../21748). The inputs are
 
 - Paley's symmetric conference matrix of order 7830 over ℤ₇₈₂₉;
-- a Hadamard matrix K of order 7828 = 4 · 103 · 19. It is the Cooper–Wallis
-  product of the T-matrices of order 103 in
-  [`t-matrices/T103.txt`](../../t-matrices/T103.txt), the ones used for
-  [order 2060](../2060), and the Williamson matrices of order 19 listed in
-  SageMath.
+- a Hadamard matrix K of order 7828 = 4 · 103 · 19. It is the Cooper–Wallis product of the T-matrices of order 103 in
+  [`t-matrices/T103.txt`](../../t-matrices/T103.txt), the ones used for [order 2060](../2060), and the Williamson
+  matrices of order 19 listed in SageMath.
 
-`certificate.json` contains q, the choice of conference matrix, the complete
-certificate of K and the SHA-256 of the result.
+`certificate.json` contains q, the choice of conference matrix, the complete certificate of K and the SHA-256 of the
+result.
 
 ## Status
 
-Probably new. In Table 1.53 of the Handbook of Combinatorial Designs (2nd ed.,
-2007), n = 7829 has t = 8: the smallest known Hadamard matrix with odd part 7829 had
-order 2^8 · 7829. The input order 4 · 1957 has t = 3 there and in Cati–Pasechnik
-Table 4. Neither entry appears in Đoković's updates (arXiv:0912.5091,
-arXiv:1008.2043), and no classical family gives order 4 · 7829. The order has
-followed from Miyamoto's theorem since JD-Jones-ASES/Hadamard-T published a matrix
-of order 7828 on August 29, 2026, but we found no construction or statement of it.
-We read Table 1.53 from an unofficial copy, so treat this claim with that caveat.
+**New, beyond the tables.** The Handbook (2007, Table 1.53) gives n = 7829 as t = 8: the smallest known Hadamard
+matrix with odd part 7829 had order 2⁸ · 7829. The order lies above Cati–Pasechnik Table 4, which stops at n = 2999.
 
-The order is above the range of Cati–Pasechnik Table 4, which stops at n = 2999.
+- The input order 4 · 1957 has t = 3 in the Handbook and in Cati–Pasechnik Table 4.
+- No classical family gives order 4 · 7829.
+- The order has followed from Miyamoto's theorem since JD-Jones-ASES/Hadamard-T published a matrix of order 7828 on
+  August 29, 2026, but we found no construction or statement of it.
+- T-matrices of order 103 first became public in 2026: JD-Jones-ASES/Hadamard-T decoded them on August 29, 2026, from
+  the Hadamard matrix of order 2060 that Schneider posted. Ours were found independently (see [order 2060](../2060)).
 
-T-matrices of order 103 first became public in 2026: JD-Jones-ASES/Hadamard-T
-decoded them on August 29, 2026, from the Hadamard matrix of order 2060 that
-Schneider posted. Ours were found independently (see [order 2060](../2060)).
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 
@@ -42,12 +36,13 @@ Schneider posted. Ours were found independently (see [order 2060](../2060)).
 
 The matrix is not stored. Its CSV encoding takes 2.5 GB (152 MB gzipped).
 
+## Verification
+
 ```
 python3 verify/verify.py --write 31316
 ```
 
-rebuilds and checks it and writes `hadamard/31316/H31316.csv`. On six cores of an
-AMD EPYC server this takes 80 seconds and 2 GB of memory.
+This rebuilds and checks the matrix and writes `hadamard/31316/H31316.csv`. It takes 80 seconds on six cores and 2 GB
+of memory.
 
-SHA-256 of `H31316.csv`:
-`2ec73b0a165d4024ff33420418f2c413d5d2e7fceedf1d5e793f2d2dc7102c10`
+SHA-256 of `H31316.csv`: `2ec73b0a165d4024ff33420418f2c413d5d2e7fceedf1d5e793f2d2dc7102c10`

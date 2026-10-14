@@ -1,4 +1,4 @@
-# Order 2092
+# Hadamard matrix of order 2092
 
 2092 = 4 · 523, with 523 prime.
 
@@ -34,12 +34,14 @@ is a Hadamard matrix of order 2092.
 
 ## Status
 
-New. At the time of construction (October 11, 2026), 2092 was the smallest
-order without a published Hadamard matrix. The entry 523(3) is unresolved in
-Cati–Pasechnik Table 4, and 523 does not satisfy the hypotheses of the Paley,
-Miyamoto, Yamada, Mathon or Spence constructions. The closest of these,
-Yamada's theorem with q = 521 ≡ 1 (mod 8), would require a symmetric conference
-matrix of order 262, which is not known.
+**New.** The entry 523(3) is unresolved in Cati–Pasechnik Table 4. When this matrix was constructed (2026-10-11), 2092
+was the smallest order without a published Hadamard matrix.
+
+- 523 does not satisfy the hypotheses of the Paley, Miyamoto, Yamada, Mathon or Spence constructions.
+- The closest of these, Yamada's theorem with q = 521 ≡ 1 (mod 8), would require a symmetric conference matrix of
+  order 262, which is not known.
+
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 
@@ -49,5 +51,11 @@ matrix of order 262, which is not known.
 | `sequences.txt` | first rows of A, B, C, D (`+` = 1, `-` = −1) |
 | `H2092.csv.gz` | the matrix |
 
-SHA-256 of `H2092.csv`:
-`33466cc80ff769c4682a30121fb736f0cc6075fbe6fcbf5b8f694e475e404655`
+## Verification
+
+```
+python3 verify/verify.py 2092
+gzip -dc hadamard/2092/H2092.csv.gz | ./check_matrix
+```
+
+SHA-256 of `H2092.csv`: `33466cc80ff769c4682a30121fb736f0cc6075fbe6fcbf5b8f694e475e404655`

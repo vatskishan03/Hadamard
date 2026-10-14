@@ -44,12 +44,13 @@ is symmetric (P, N, J and D are) and
 
 because J and D commute. Every block of H is ±J or ±D, so H has entries ±1.
 
-The general statement (`search/NOTES.md` §31): a skew-Hadamard matrix of order m with an involutive anti-automorphism
-(a symmetric OD(m; 1, m − 1)) gives a symmetric Hadamard matrix of order m(m − 1); D may be taken from any symmetric
-Hadamard matrix of order m. Đoković's theorem is the case of the Xia–Xia–Seberry–Wu difference families for prime
-powers q = m − 1 ≡ 3 (mod 8), where D is built from the Paley core. Without symmetry this is Williamson's classical
-theorem (1944) that a skew-Hadamard matrix of order k gives a Hadamard matrix of order k(k − 1); an ordinary Hadamard
-matrix of order 5700 is therefore classical, and only the symmetry is new.
+The general statement ([search/NOTES.md](../../search/NOTES.md) §31): a skew-Hadamard matrix of order m with an
+involutive anti-automorphism (a symmetric OD(m; 1, m − 1)) gives a symmetric Hadamard matrix of order m(m − 1); D may
+be taken from any symmetric Hadamard matrix of order m. Đoković's theorem is the case of the
+Xia–Xia–Seberry–Wu difference families for prime powers q = m − 1 ≡ 3 (mod 8), where D is built from the Paley core.
+Without symmetry this is Williamson's classical theorem (1944) that a skew-Hadamard matrix of order k gives a Hadamard
+matrix of order k(k − 1); an ordinary Hadamard matrix of order 5700 is therefore classical, and only the symmetry is
+new.
 
 ## Search
 
@@ -59,53 +60,42 @@ and the needed autocorrelation of A1 is looked up in a table of all A1 with row 
 such A1 has a shift of this form; 1,311 autocorrelation classes). Up to multipliers, shifts of A1 and A0 ↦ A0ᵀ there
 are exactly two solutions, with the same A3 and A0 (7 seconds). The certificate uses the first.
 
-## Reproduction
+**Reproduction.**
 
 | | |
 |---|---|
-| Code | `search/sym_mm1.py` (this commit) |
+| Code | commit `942c64b` (`search/sym_mm1.py`) |
 | Command | `python3 search/sym_mm1.py propus 19 --all`; then `python3 search/sym_mm1.py certify -- 19 -+++-+-++--++-+-+++ ----+++-+++-++-++++ +++++-++-+-+--+----` |
 | Randomness and caps | none: the search is exhaustive and deterministic |
 | Result | two solutions; `sym_mm1.py test` also rebuilds the designs for the Paley primes 3–23 and for every skew-propus length up to 15, and the Szekeres-type designs of `search/szek_pair.c` |
 
-The certificate does not depend on the search: `verify/verify.py` (construction `skew-propus-plug`) rebuilds the
-sequences, checks the symmetry of A3, the skew type of A0 and the autocorrelation identity, builds P and N and checks
-that they form a symmetric OD(76; 1, 75), builds D and checks DJ = J and D² = 76 I − J, assembles H and checks
-H Hᵀ = 5700 I, H = Hᵀ and the SHA-256 of the canonical CSV.
-
 ## Status
 
-To our knowledge this is the first symmetric Hadamard matrix of order 5700.
+**New** as a symmetric Hadamard matrix. An ordinary Hadamard matrix of order 5700 is classical (Williamson's theorem,
+see Construction); the symmetry is what is new.
 
-**Novelty checklist** (audit of 2026-10-14 by a research agent; downloaded sources were read as text, never
-executed):
+- The Đoković–Seberry census lists 1425 among its 595 undecided v for symmetric matrices. 1425 is in none of its eight
+  symmetric series nor among its 12 sporadic values.
+- Đoković (arXiv:2508.17141) builds symmetric matrices of order q(q + 1) for prime powers q ≡ 3 (mod 8); q = 75 is not
+  a prime power. No follow-up was found (arXiv, Crossref, the journal Informatsionno-upravliaiushchie sistemy
+  2024–2026), but the forward citations of the paper were not checked in full, since the citation services limited the
+  number of requests.
+- A symmetric OD(n; 1, n − 1) is the symmetric half of a strong amicable orthogonal design in Seberry's sense
+  (Australas. J. Combin. 55 (2013) 5–13, Definition 5). The orders known there are 2ᵗ, pʳ + 1, (n − 1)ʳ + 1 and
+  their products, which exclude 76. The blow-up to order n(n − 1) does not appear before Đoković's paper: the 2025
+  census still lists 189 and 473 as undecided although Seberry (2013) already has the designs of orders 28 and 44.
+- No classical route gives a symmetric matrix of order 5700:
+  - A symmetric conference matrix of order 2850 cannot exist, since 2849 = 7 · 11 · 37 is not a sum of two squares.
+    This rules out Paley II, Mathon, the Turyn C-series and Seberry–Whiteman at once.
+  - XXSW needs q = 5699 = 41 · 139.
+  - Seberry–Balonin's Corollary 1 needs q = 1423 ≡ 3 (mod 4).
+  - Kronecker products and doubling are impossible for an order ≡ 4 (mod 8) with 2850 ≡ 2 (mod 4).
+  - Constant-diagonal and Bush-type matrices need a square order, and two-circulant forms need 5700 to be a sum of two
+    squares.
 
-1. **The Đoković–Seberry census** (PDF of 2025-05-28, SHA-256 `4b61953c…f04a`): "We list below the 595 odd values of
-   v < 2500 for which the existence of symmetric Hadamard matrices of order 4v is undecided: … 1423, 1425, 1427 …".
-   1425 is in none of its symmetric series (Paley, XXSW, Seberry–Balonin, Turyn C, Turyn, Mathon, Seberry–Whiteman,
-   Muzychuk–Xiang) and not among its 12 sporadic values. No later version was found.
-2. **Đoković, arXiv:2508.17141** (August 2025, the only version) builds symmetric Hadamard matrices of order
-   q(q + 1) for prime powers q ≡ 3 (mod 8); q = 75 is not a prime power. No follow-up was found (arXiv, Crossref, the
-   journal Informatsionno-upravliaiushchie sistemy 2024–2026).
-3. **The design.** A symmetric OD(n; 1, n − 1) is the symmetric half of a strong amicable orthogonal design in
-   Seberry's sense (Australas. J. Combin. 55 (2013) 5–13, Definition 5); the orders known there are 2^t, p^r + 1,
-   (n − 1)^r + 1 and their products, which exclude 76. The blow-up to order n(n − 1) does not appear before
-   Đoković's paper: the 2025 census still lists 189 and 473 as undecided although Seberry (2013) already has the
-   designs of orders 28 and 44.
-4. **2026 deposits**: none contains a symmetric matrix of order 5700 (Alpöge et al., Schneider, JD-Jones-ASES,
-   Schumer, Kline, Bedani, Karoui, Piza; 175 Zenodo "hadamard" records since 2024-10).
-5. **Classical routes** fail: a symmetric conference matrix of order 2850 cannot exist (2849 = 7 · 11 · 37 is not a
-   sum of two squares), which rules out Paley II, Mathon, the Turyn C-series and Seberry–Whiteman at once;
-   XXSW needs q = 5699 = 41 · 139; Seberry–Balonin's Corollary 1 needs q = 1423 ≡ 3 (mod 4); Kronecker products and
-   doubling are impossible for an order ≡ 4 (mod 8) with 2850 ≡ 2 (mod 4); constant-diagonal and Bush-type
-   matrices need a square order; two-circulant forms need 5700 to be a sum of two squares.
-
-Not checked: Seberry's book *Orthogonal Designs* (2017), the Seberry–Yamada 2020 book, Geramita–Seberry (1979),
-MathSciNet and zbMATH, and forward citations of arXiv:2508.17141 (the citation services were rate-limited). This is a
-finding of nothing, not a proof that no earlier construction exists.
-
-The same design also gives amicable Hadamard matrices of order 76 (S = I + PN and P + N), and through Seberry's
-1978 theorem a skew-Hadamard matrix of order 5700: [skew/5700](../../skew/5700).
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md). The same design also gives amicable Hadamard
+matrices of order 76 (S = I + PN and P + N), and through Seberry's 1978 theorem a skew-Hadamard matrix of order 5700:
+[skew/5700](../../skew/5700).
 
 ## Files
 
@@ -121,5 +111,10 @@ The same design also gives amicable Hadamard matrices of order 76 (S = I + PN an
 python3 verify/verify.py symmetric/5700
 gzip -dc symmetric/5700/H5700.csv.gz | ./check_matrix
 ```
+
+`verify/verify.py` (construction `skew-propus-plug`) rebuilds the sequences, checks the symmetry of A3, the skew type
+of A0 and the autocorrelation identity, builds P and N and checks that they form a symmetric OD(76; 1, 75), builds D
+and checks DJ = J and D² = 76 I − J, assembles H and checks H Hᵀ = 5700 I, H = Hᵀ and the SHA-256 of the canonical
+CSV.
 
 SHA-256 of `H5700.csv`: `feb4a76215d22c517781071defac29c1b01d1f18dc31e6544ce5e64257051ee5`

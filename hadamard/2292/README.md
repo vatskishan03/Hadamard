@@ -1,4 +1,4 @@
-# Order 2292
+# Hadamard matrix of order 2292
 
 2292 = 4 · 573, with 573 = 3 · 191.
 
@@ -18,8 +18,7 @@ Four ±1 sequences a₀, …, a₃ on G with row sums 2, 0, 0, 0 satisfy
 
 The Goethals–Seidel array developed over G has order 4 · 572 = 2288, and a border
 of four rows and columns built from two 4 × 4 Hadamard matrices P and Q completes
-it to a Hadamard matrix of order 2292 (`build_spence` in
-[`verify/verify.py`](../../verify/verify.py)).
+it to a Hadamard matrix of order 2292 (`build_spence` in `verify/verify.py`).
 
 **Spin structure.** Write H for the multiplier subgroup ⟨27⟩ = {1, 14, 27, 53, 92}
 of ℤ₁₄₃* (it acts as the quadratic residues on ℤ₁₁ and trivially on ℤ₁₃). Let
@@ -63,18 +62,16 @@ condition then holds on the orbits of ⟨K, −1⟩, which gives 27 equations.
 
 ## Status
 
-New. The entry 573(3) is unresolved in Cati–Pasechnik Table 4 and is not covered
-by Đoković's updates (arXiv:0912.5091, arXiv:1008.2043).
-- Paley's constructions do not apply (4 · 573 − 1 = 2291 = 29 · 79 and
-  2 · 573 − 1 = 1145 = 5 · 229).
-- Miyamoto's theorem does not apply (573 is not a prime power).
-- Yamada's theorem does not apply (573 − 2 = 571 ≡ 3 mod 8).
-- No construction of order 2292 turned up in a search of October 14, 2026.
-- The orders announced in August 2026 stop below 2000.
-- After 2060, 2092, 2148 and 2284 were settled, 2292 was the smallest order we
-  knew to be unresolved.
+**New.** The entry 573(3) is unresolved in Cati–Pasechnik Table 4.
 
-It also settles 9172 = 4 · 2293 by Miyamoto's theorem ([9172](../9172)).
+- Paley's constructions do not apply: 4 · 573 − 1 = 2291 = 29 · 79 and 2 · 573 − 1 = 1145 = 5 · 229.
+- Miyamoto's theorem does not apply: 573 is not a prime power.
+- Yamada's theorem does not apply: 573 − 2 = 571 ≡ 3 (mod 8).
+- The orders announced in August 2026 stop below 2000.
+- After 2060, 2092, 2148 and 2284 were settled, 2292 was the smallest order we knew to be unresolved.
+
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md). The matrix also settles 9172 = 4 · 2293 by
+Miyamoto's theorem ([9172](../9172)).
 
 ## Files
 
@@ -84,5 +81,11 @@ It also settles 9172 = 4 · 2293 by Miyamoto's theorem ([9172](../9172)).
 | `sequences.txt` | the four sequences, one per line |
 | `H2292.csv.gz` | the matrix |
 
-SHA-256 of `H2292.csv`:
-`99acfee8855745a3e696ac1cc3dd8dd17ee479e17c8adbe68bfb2671978d9142`
+## Verification
+
+```
+python3 verify/verify.py 2292
+gzip -dc hadamard/2292/H2292.csv.gz | ./check_matrix
+```
+
+SHA-256 of `H2292.csv`: `99acfee8855745a3e696ac1cc3dd8dd17ee479e17c8adbe68bfb2671978d9142`

@@ -45,47 +45,45 @@ is a Hadamard matrix of order 1372 with H + Hᵀ = 2I.
    work 2·10⁹).
 3. **Result.** It found 4,211,424 solutions in a few minutes.
 
-## Reproduction
+**Reproduction.**
 
 | | |
 |---|---|
-| Code | commit `58b1460` of this branch (the options used behave the same at later commits) |
+| Code | commit `58b1460` (the options used behave the same at later commits) |
 | Command | `python3 search/skew_field.py run 7 3 19 1,1,37` |
 | Randomness and caps | exact (no sampling, no seed); pair-work cap 6·10¹⁰ |
-| Result of that run | 4,211,424 solutions |
-
-The tools write their hit logs, temporary list files and compiled helpers to `$HADAMARD_WORK` (default
-`<tmp>/hadamard-work`), never into the repository. `search/skew_certify.py` (or `skew_group.py certify` for the
-non-cyclic orders) turns a logged hit into the files in this directory. The certificate does not depend on
-the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.json` alone.
+| Result | 4,211,424 solutions |
 
 ## Status
 
-To our knowledge this is the first skew-Hadamard matrix of order 1372.
+**New** as a skew-Hadamard matrix. Cati–Pasechnik Table 5 lists 343(4): the smallest known skew order of the form
+2ᵐ · 343 was 2⁴ · 343 = 5488, so 1372 and 2744 were unknown. The order is above 1208, the range Cati and Pasechnik
+checked against implemented constructions.
 
-- Cati and Pasechnik, *A database of constructions of Hadamard matrices*, arXiv:2411.18897v2 (Aug. 2025), Table 5, lists 343(4). So the smallest known skew order of the form 2ᵐ · 343 was 5488, and 1372 and 2744 were unknown.
-- Doubling now gives 2744 as well.
+- Đoković's papers of 1992–2024 (alone and with Kotsireas, Golubitsky or Balonin), Koukouvinos–Stylianou (Discrete
+  Math. 2008, Tables 1 and 3) and the Đoković–Seberry census do not construct it. The census lists 343 among its 737
+  undecided values.
+- SageMath's `unknown_skew_hadamard` list stops at 1196, below this order.
 - The known families do not reach 1372:
-  - the skew Hadamard difference families of Momihara and Xiang need q ≡ 2ᵘ + 1 (mod 2ᵘ⁺¹) with u ≥ 2, but 343 ≡ 7 (mod 16);
+  - the skew Hadamard difference families of Momihara and Xiang need q ≡ 2ᵘ + 1 (mod 2ᵘ⁺¹) with u ≥ 2, but 343 ≡ 7
+    (mod 16);
   - the Szekeres construction gives order 2(q + 1);
-  - the product theorem would need 1372 = n(pᵏ + 1) with a skew order n.
-- A literature search in October 2026 found no construction.
+  - the product theorem would need 1372 = n(pᵏ + 1) with a skew order n;
+  - Paley I, Wallis–Whiteman, Spence and amicable products were also checked.
 
-The abundance of solutions (more than 4·10⁶ in this one structure) suggests that cyclotomic
-Goethals–Seidel families over GF(p³) and GF(p²) have been searched less than cyclic ones.
+The abundance of solutions (more than 4·10⁶ in this one structure) suggests that cyclotomic Goethals–Seidel families
+over GF(p³) and GF(p²) have been searched less than cyclic ones.
 
-**Novelty checklist** (audit of 2026-10-12, by independent agents that also re-verified the matrix):
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md). Doubling (Seberry) gives a skew-Hadamard matrix of
+order 2744.
 
-1. Table 5 of Cati–Pasechnik lists 343(4): the smallest known skew order with odd part 343 was 2⁴ · 343 = 5488. This order is above 1208, the range they checked against implemented constructions, so the entry was not taken on trust (items 2 and 3).
-2. Đoković's papers (1992–2024, alone and with Kotsireas, Golubitsky or Balonin), Koukouvinos–Stylianou
-   (Discrete Math. 2008, Tables 1 and 3) and the Đoković–Seberry census of skew orders 4v for odd v < 2500
-   (May 2025) do not construct it. The census lists 343 among its 737 undecided values.
-3. The 2026 public deposits (Schumer; Alpöge et al.; JD-Jones-ASES; Schneider; Karoui; Piza) do not contain
-   it. SageMath's `unknown_skew_hadamard` list stops at 1196, below this order.
-4. No infinite family reaches it: Paley I, Szekeres 2(q + 1), Wallis–Whiteman, Spence, Momihara–Xiang,
-   the product theorem n(pᵏ + 1) and amicable products were checked.
+## Files
 
-This is a finding of nothing, not a proof that no earlier construction exists.
+| File | Contents |
+|---|---|
+| `certificate.json` | the four sequences as ± strings over ℤ₇³, the generator of H as a matrix over ℤ₇, the row sums |
+| `sequences.txt` | the four sequences, one per line |
+| `H1372.csv.gz` | the matrix |
 
 ## Verification
 
@@ -94,5 +92,4 @@ python3 verify/verify.py skew/1372
 gzip -dc skew/1372/H1372.csv.gz | ./check_matrix
 ```
 
-SHA-256 of `H1372.csv`:
-`32401cf85e1d4b1284c1def607db2fa1e89e90d82babde46075c73478273f5c5`
+SHA-256 of `H1372.csv`: `32401cf85e1d4b1284c1def607db2fa1e89e90d82babde46075c73478273f5c5`

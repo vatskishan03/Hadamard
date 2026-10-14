@@ -1,4 +1,4 @@
-# Order 5932
+# Hadamard matrix of order 5932
 
 5932 = 4 · 1483, with 1483 = 38² + 38 + 1 prime.
 
@@ -22,15 +22,17 @@ Here 1483 − 1 = 38 · 39, so sequences constant on the cosets of H have row su
 
 ## Status
 
-New. The entry 1483(3) is unresolved in Cati–Pasechnik Table 4 and does not
-appear in Đoković's updates. None of the standard recursive constructions apply:
+**New.** The entry 1483(3) is unresolved in Cati–Pasechnik Table 4. None of the standard recursive constructions
+applies:
 
 - Paley: 5931 = 3² · 659 and 2965 = 5 · 593 are not prime powers.
 - Miyamoto: 1483 ≡ 3 (mod 4).
-- Yamada (b) with q = 1481 ≡ 1 (mod 8) would need a symmetric conference matrix of
-  order 742. None exists, since 741 = 3 · 13 · 19 is not a sum of two squares.
+- Yamada with q = 1481 ≡ 1 (mod 8) would need a symmetric conference matrix of order 742. None exists, since
+  741 = 3 · 13 · 19 is not a sum of two squares.
 - Mathon: 2965 is not of the form q²(q + 2).
 - Spence's construction of order 4(q² + q + 1) needs q to be a prime power, and q = 38 is not.
+
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 
@@ -40,5 +42,11 @@ appear in Đoković's updates. None of the standard recursive constructions appl
 | `sequences.txt` | first rows of A, B, C, D |
 | `H5932.csv.gz` | the matrix |
 
-SHA-256 of `H5932.csv`:
-`a30eaf309bf1c842f9da0b12f020a497e409f7807f03c4b3a043322cf291f940`
+## Verification
+
+```
+python3 verify/verify.py 5932
+gzip -dc hadamard/5932/H5932.csv.gz | ./check_matrix
+```
+
+SHA-256 of `H5932.csv`: `a30eaf309bf1c842f9da0b12f020a497e409f7807f03c4b3a043322cf291f940`

@@ -1,4 +1,4 @@
-# Order 4492
+# Hadamard matrix of order 4492
 
 4492 = 4 · 1123, with 1123 = 33² + 33 + 1 prime.
 
@@ -17,20 +17,23 @@ are placed in the Goethals–Seidel array exactly as described for
 [order 2092](../2092).
 
 Because 1123 − 1 = 33 · 34, every sequence that is constant on the cosets of H
-has row sum ≡ ±1 (mod 66), and the pattern (1, 1, 1, 67) is admissible. The
-search space is small, 2³⁵ sequences, and rich in solutions. The search found one
-within seconds of matching.
+has row sum ≡ ±1 (mod 66), and the pattern (1, 1, 1, 67) is admissible.
+
+## Search
+
+The search space is small, 2³⁵ sequences, and rich in solutions. The search found one within seconds of matching.
 
 ## Status
 
-New. The entry 1123(3) is unresolved in Cati–Pasechnik Table 4 and does not
-appear in Đoković's updates (arXiv:0912.5091, arXiv:1008.2043). None of the
-standard recursive constructions apply:
+**New.** The entry 1123(3) is unresolved in Cati–Pasechnik Table 4. None of the standard recursive constructions
+applies:
 
 - Paley: 4491 = 3² · 499 and 2245 = 5 · 449 are not prime powers.
 - Miyamoto and Yamada: 1123 ≡ 3 (mod 4), and q = 1121 = 19 · 59 is not a prime power.
 - Mathon: 2245 is not of the form q²(q + 2).
 - Spence's construction of order 4(q² + q + 1) needs q to be a prime power, and q = 33 is not.
+
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 
@@ -40,5 +43,11 @@ standard recursive constructions apply:
 | `sequences.txt` | first rows of A, B, C, D |
 | `H4492.csv.gz` | the matrix |
 
-SHA-256 of `H4492.csv`:
-`fe6d71ffa75342d420ff0e8811a911ab8d98e6503ad53d4e12c700cc94fe7add`
+## Verification
+
+```
+python3 verify/verify.py 4492
+gzip -dc hadamard/4492/H4492.csv.gz | ./check_matrix
+```
+
+SHA-256 of `H4492.csv`: `fe6d71ffa75342d420ff0e8811a911ab8d98e6503ad53d4e12c700cc94fe7add`

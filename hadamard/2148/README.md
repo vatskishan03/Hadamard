@@ -1,12 +1,12 @@
-# Order 2148
+# Hadamard matrix of order 2148
 
 2148 = 4 · 537, with 537 = 3 · 179.
 
 ## Construction
 
-**Bordered Goethals–Seidel array with a border of size 12** (`search/NOTES.md` §18). Let G = ℤ₅₃₄ ≅ ℤ₃ × ℤ₁₇₈
-(the certificate uses the coordinates of ℤ₃ × ℤ₁₇₈) and K = 0 × ℤ₁₇₈, the subgroup of index 3. Four ±1 sequences
-x₁, …, x₄ on G satisfy
+**Bordered Goethals–Seidel array with a border of size 12** ([search/NOTES.md](../../search/NOTES.md) §18). Let
+G = ℤ₅₃₄ ≅ ℤ₃ × ℤ₁₇₈ (the certificate uses the coordinates of ℤ₃ × ℤ₁₇₈) and K = 0 × ℤ₁₇₈, the subgroup of index 3.
+Four ±1 sequences x₁, …, x₄ on G satisfy
 
     Σᵢ PAFᵢ(g) = −12  for g ∈ K \ {0},      Σᵢ PAFᵢ(g) = 0  for g ∉ K.
 
@@ -49,67 +49,43 @@ an eighth power, a subgroup of order 11 of ℤ₅₃₄*: {1, 67, 91, 97, 121, 2
 5. **Check.** The completed sequences satisfy the bordered conditions on ℤ₅₃₄; `search/border3.c` finds the border for
    their compressions to ℤ₃, and the assembled matrix satisfies H Hᵀ = 2148 I.
 
-The same pipeline, run on the analogue n = 177 (G = ℤ₆ × GF(29), e = 4), finds Hadamard matrices of
-order 708 in seconds (171 from 2,000 U-solutions in 4 s); there the structure holds 26,095,424 solutions in its single stage-1 class (counted exactly
-with `search/join3.c`).
+The same pipeline, run on the analogue n = 177 (G = ℤ₆ × GF(29), e = 4), finds Hadamard matrices of order 708 in
+seconds (171 from 2,000 U-solutions in 4 s). That structure holds 26,095,424 solutions in its single stage-1 class,
+counted exactly with `search/join3.c`.
 
-## Reproduction
+**Reproduction.**
 
 | | |
 |---|---|
 | Code | commit `99ce7ad` (`search/bgs_uw.py`, class `UW`, and `search/kt4.c`) |
 | Command | `python3 search/bgs_uw.py search 89 8 --L 10000000 --sigmas 2 --maxu 300000 --threads 4 --seed 2` |
-| Randomness and caps | `--seed 2` (numpy `default_rng`) draws the four lists of 10⁷ u-vectors; the k-tree uses the two split values nearest the centre; all U-solutions found (below the cap `--maxu`) are completed, so the set of completions does not depend on the thread schedule |
-| Result of that run | 284,292 U-solutions, one completion, verified; 197 s on 4 shared cores (2026-10-13) |
-
-The tools write hit logs, temporary files and compiled helpers to `$HADAMARD_WORK` (default `<tmp>/hadamard-work`).
-The certificate does not depend on the search.
+| Randomness and caps | `--seed 2` (numpy `default_rng`) draws the four lists of 10⁷ u-vectors; the k-tree uses the two split values nearest the centre; every U-solution found (below the cap `--maxu`) is completed, so the set of completions does not depend on the thread schedule |
+| Result | 284,292 U-solutions and one completion, verified; 197 s on 4 cores (2026-10-13) |
 
 ## Status
 
-To our knowledge this is the first Hadamard matrix of order 2148. Doubling gives 4296, which was already known.
+**New.** Cati–Pasechnik Table 4 lists 537(3): the smallest known order 2ᵐ · 537 was 4296. Seberry–Yamada (1992,
+Table A.2) and the Handbook (2007, Table 1.53) give the same entry, and SageMath returns Unknown for 2148. Doubling
+this matrix gives 4296, which was known. The matrix is neither skew nor symmetric; the Đoković–Seberry census lists
+537 as undecided for both.
 
-**Novelty checklist** (audit of 2026-10-13 by a research agent):
+No construction we know of reaches 2148:
 
-1. Cati–Pasechnik Table 4 (arXiv:2411.18897, v1 of 2024-11-28 and v2 of 2025-08-30, with identical rows; there is no
-   later version) lists 537(3), so the smallest known order 2ᵐ · 537 was 4296. Table 5 (skew) lists 537(5).
-2. Seberry–Yamada (1992): Table A.2 lists "537 3 O3" (order 4296). Table A.1 has no Williamson or Williamson-type
-   matrices of order 537 and only 8-Williamson matrices of order 179. The Handbook (2007), Table 1.53, lists 537 → 3
-   (read from an unofficial copy).
-3. Đoković's updates (arXiv:0912.5091, arXiv:1008.2043) and Đoković–Golubitsky–Kotsireas (arXiv:1301.3671) do not
-   contain 537. The Đoković–Seberry census (May 2025) lists 537 as undecided for symmetric and for skew matrices of
-   order 4 · 537; this matrix is neither symmetric nor skew.
-4. SageMath: `hadamard_matrix(2148, existence=True)` returns Unknown (passagemath 10.8.13). The develop branch
-   (2026-10-11) last changed `hadamard_matrix.py` on 2026-09-30, to add order 2060, and contains none of 2148, 537 or
-   1073.
-5. arXiv: the e-print sources of 854 Hadamard-related papers (up to 2026-10-08, plus the listings to 2026-10-12) contain
-   537 only in Cati–Pasechnik's tables and 2148 nowhere as an order. They contain no Legendre pair of length 1073, no
-   T-matrices or T-sequences of order 179 or 537, no base sequences BS(90, 89) and no Williamson-type matrices of order
-   179 or 537.
-6. The 2026 constructions and deposits do not contain it:
-   - Alpöge et al. (twelve orders below 2000) and Schneider (2060);
-   - JD-Jones-ASES (Hadamard-T, -M, -B and -formal) and Schumer;
-   - Piza (orders up to 2060), Kline, Bedani and Karoui;
-   - Zenodo (metadata of 2,079 records, files of 32) and 27 GitHub repositories. Two of them list 2148 as open, on
-     2026-08-13 and 2026-08-29.
-   - The Palomar registry, Balonin's catalogue, the OEIS, MathOverflow and Wikipedia have nothing on it.
-7. No recursive construction reaches it:
-   - Paley I (2147 = 19 · 113) and II (1073 = 29 · 37);
-   - Miyamoto (537 is not a prime power), Yamada and Kiyasu (q = 535 = 5 · 107), Mathon, Spence 4(q² + q + 1), the
-     Williamson-type families of Seberry–Yamada Table A.1, and 4q²;
-   - Cooper–Wallis and Baumert–Hall: T-matrices of order 179 or 537 and Williamson-type matrices of order 179 or 537
-     are unknown. The 2026 H(716) is bordered and its circulant blocks are not amicable. Kline (Zenodo 21776269,
-     2026-08-03) shows that no Turyn pair exists at q = 1073, so there are no Williamson matrices of order 537 of
-     Turyn's form.
-   - Legendre pairs of length 1073 (no family covers it), and a symmetric conference matrix of order 1074 (not
-     excluded, since 1073 = 7² + 32², but unknown);
-   - product and multiplication theorems, since 2148 ≡ 4 (mod 8).
+- Paley I and II: 2147 = 19 · 113 and 1073 = 29 · 37 are not prime powers.
+- Miyamoto (537 is not a prime power), Yamada and Kiyasu (q = 535 = 5 · 107), Mathon, Spence 4(q² + q + 1), the
+  Williamson-type families of Seberry–Yamada Table A.1, and 4q².
+- Cooper–Wallis and Baumert–Hall: T-matrices and Williamson-type matrices of orders 179 and 537 are unknown, and
+  T-sequences of length 179 would need base sequences BS(90, 89), also unknown. The 2026 matrix of order 716 = 4 · 179
+  is bordered and its circulant blocks are not amicable. Kline (Zenodo 21776269) shows that no Turyn pair exists at
+  q = 1073, so there are no Williamson matrices of order 537 of Turyn's form.
+- No Legendre pair of length 1073 is known, and no symmetric conference matrix of order 1074 (one is not excluded:
+  1073 = 7² + 32²).
+- Product and multiplication theorems: 2148 ≡ 4 (mod 8).
 
-Not checked: Miyamoto (1991) §7 itself (inaccessible; JD-Jones-ASES's reading of it gives the list-(2) entries ≡ 3
-(mod 4) as 83, 103, 127 and 151, and Seberry–Yamada, who applied Miyamoto's constructions, still list 537 → 3), the
-Seberry–Yamada (2020) book, the official Handbook, X/Twitter, paywalled 2025–2026 journals beyond Crossref metadata,
-Zenodo files beyond 32 records, and unannounced arXiv submissions. This is a finding of nothing, not a proof that no
-earlier construction exists.
+Miyamoto's lists of 1991 (§7), which we could not read, are not known to include 537: the reading of them in the
+JD-Jones-ASES repositories gives their entries ≡ 3 (mod 4) as 83, 103, 127 and 151. None of the 2026 constructions
+contains the order, and two public repositories listed it as open in August 2026. The sources searched are listed in
+[NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 
@@ -126,5 +102,4 @@ python3 verify/verify.py 2148
 gzip -dc hadamard/2148/H2148.csv.gz | ./check_matrix
 ```
 
-SHA-256 of `H2148.csv`:
-`c52fc913053fb8f3ef9f9a7cec1b22500eccc00ed000957166724026d8b940f8`
+SHA-256 of `H2148.csv`: `c52fc913053fb8f3ef9f9a7cec1b22500eccc00ed000957166724026d8b940f8`

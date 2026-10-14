@@ -1,4 +1,4 @@
-# Order 2284
+# Hadamard matrix of order 2284
 
 2284 = 4 · 571, with 571 prime.
 
@@ -44,15 +44,16 @@ The Gaussian model predicted 3.5 solutions per hour. The first one came after
 
 ## Status
 
-New. The entry 571(3) is unresolved in Cati–Pasechnik Table 4 and does not
-appear in Đoković's updates (arXiv:0912.5091, arXiv:1008.2043). None of the
-standard recursive constructions apply:
+**New.** The entry 571(3) is unresolved in Cati–Pasechnik Table 4. None of the standard recursive constructions
+applies:
 
 - Paley: 2283 = 3 · 761 and 1141 = 7 · 163 are not prime powers.
 - Miyamoto: 571 ≡ 3 (mod 4).
-- Yamada: 569 is a prime ≡ 1 (mod 8), but the symmetric conference matrix of
-  order 286 it needs cannot exist, because 285 is not a sum of two squares.
+- Yamada: 569 is a prime ≡ 1 (mod 8), but the symmetric conference matrix of order 286 it needs cannot exist, because
+  285 is not a sum of two squares.
 - Mathon: 1141 is not of the form q²(q + 2).
+
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 
@@ -62,5 +63,11 @@ standard recursive constructions apply:
 | `sequences.txt` | first rows of A, B, C, D |
 | `H2284.csv.gz` | the matrix |
 
-SHA-256 of `H2284.csv`:
-`5a1a637a71cabb52b20d0a2d7d39b36647c1a98af04c3a27155afb32f9d86dbc`
+## Verification
+
+```
+python3 verify/verify.py 2284
+gzip -dc hadamard/2284/H2284.csv.gz | ./check_matrix
+```
+
+SHA-256 of `H2284.csv`: `5a1a637a71cabb52b20d0a2d7d39b36647c1a98af04c3a27155afb32f9d86dbc`
