@@ -25,6 +25,7 @@ August 2026), the smallest order we know to be unresolved is now 2292 = 4 · 573
 | [12596](12596) | 4 · 3149 | Cooper–Wallis: T-matrices of order 67 and bordered Williamson-type matrices of order 47 ([williamson-type](williamson-type)) | Probably new; above the range of [3] |
 | [14708](14708) | 4 · 3677 | Miyamoto's theorem from a skew-Hadamard matrix of order 3676 (Goethals–Seidel over ℤ₉₁₉, multiplier subgroup of order 17, spin structure) | Probably new; above the range of [3] |
 | [14932](14932) | 4 · 3733 | Miyamoto's theorem (q = 3733) from the matrix of order 3732 | First explicit construction we know of; Handbook Table 1.53 lists 3733 with t = 2, with no construction we could trace |
+| [19028](19028) | 4 · 4757 | Cooper–Wallis: T-sequences of length 71 (classical, from Turyn-type sequences) and Williamson-type matrices of order 67 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
 | [19364](19364) | 4 · 4841 | Cooper–Wallis: T-matrices of order 103 and bordered Williamson-type matrices of order 47 | Probably new; above the range of [3] |
 | [20084](20084) | 4 · 5021 | Miyamoto's theorem (q = 5021) from the matrix of order 5020 | First explicit construction we know of; Handbook Table 1.53 lists 5021 with t = 2, with no construction we could trace |
 | [21748](21748) | 4 · 5437 | Miyamoto's theorem from a Cooper–Wallis matrix of order 5436 (T-matrices of order 151, Williamson order 9) | Probably new; above the range of [3] |
@@ -50,7 +51,7 @@ construction was found in a literature search in October 2026. The table in [3]
 is not complete (nine of its entries were settled in [4]), so these claims carry
 that caveat.
 
-The eighteen orders above 4 · 2999 lie beyond [3]. For the seventeen with n < 10000 we used Table 1.53 of the
+The nineteen orders above 4 · 2999 lie beyond [3]. For the eighteen with n < 10000 we used Table 1.53 of the
 Handbook of Combinatorial Designs (2007) together with the updates in [4, 5]. For 14932 (n = 3733), 20084
 (n = 5021) and 29404 (n = 7351) that table claims t = 2, but we could not trace a construction behind any of these entries; see their READMEs. For 51580 (n = 12895), which is
 beyond that table too, we checked Paley, the Williamson-type families of Seberry–Yamada's 1992 survey and the

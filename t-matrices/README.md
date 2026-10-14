@@ -6,7 +6,7 @@ an orthogonal design OD(4t; t, t, t, t). Replacing its variables with Williamson
 matrices of order w gives a Hadamard matrix of order 4tw.
 
 Each file `T<t>.txt` lists the first rows of T₁, …, T₄, one per line, written over
-`0`, `+`, `-`. Orders 67, 101 and 131 come from `attack/tmat_mult.py`: a multiplier subgroup, a random split
+`0`, `+`, `-`. Order 71 is classical (see the table). Orders 67, 101 and 131 come from `attack/tmat_mult.py`: a multiplier subgroup, a random split
 of the orbits into the supports of T₁ + T₂ and T₃ + T₄, and an exact join of the four complete sign lists (numpy
 for small lists, `attack/join4x.c` for large ones). The others were found by the search described in
 [order 2060](../2060): a small multiplier subgroup, parity conditions over GF(2), and meet-in-the-middle over the
@@ -15,6 +15,7 @@ signs.
 | t | Earlier appearances known to us |
 |----:|---|
 | 67 | classical (T-sequences of length 67); this instance from `attack/tmat_mult.py 67 29` (multiplier group of order 3) |
+| 71 | classical: T-sequences from the Turyn-type sequences TT(24) of Best, Đoković, Kharaghani and Ramp (2013), as stored in SageMath's `t_sequences` module, through base sequences of lengths 47, 47, 24, 24 |
 | 97 | none found; T-sequences of length 97 are open (Đoković, arXiv:1008.2043) |
 | 101 | classical (T-sequences of length 1 + 10², Turyn 1974); this instance from `attack/tmat_mult.py 101 95` (multiplier group of order 5) |
 | 103 | decoded from the 2060 matrix in JD-Jones-ASES/Hadamard-T (2026-08-29) |

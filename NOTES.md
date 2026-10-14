@@ -191,3 +191,6 @@ not yet been found, namely n ∈ {53, 59, 65, 67}").
   - 4·3149 = 4·47·67, 4·4757 = 4·67·71, 4·4841 = 4·47·103, using T-sequences of lengths 47 and 71;
   - 4·8549 = 4·83·103, which needs only T103 and the classical WT(83).
 - None of these products lands on an unresolved n ≤ 2999.
+- All four candidates are now built: [12596](12596) and [19364](19364) with the bordered WT(47) of
+  [williamson-type](williamson-type), [34196](34196) with the bordered WT(83), and [19028](19028) with T-sequences of
+  length 71 (from Turyn-type TT(24)) and the near-Williamson WT(67).

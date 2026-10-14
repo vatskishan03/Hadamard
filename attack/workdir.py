@@ -23,7 +23,8 @@ _FLAGS = {'cp_enum': ['-O3', '-march=native', '-fopenmp'],
           'skew_gen': ['-O3', '-march=native', '-fopenmp'],
           'spin_ls': ['-O3', '-march=native'],
           'spin_ls_gls': ['-O3', '-march=native'],
-          'spin_walk': ['-O3', '-march=native', '-fopenmp']}
+          'spin_walk': ['-O3', '-march=native', '-fopenmp'],
+          'twist_join': ['-O3', '-march=native', '-fopenmp']}
 
 
 def bin(name):
