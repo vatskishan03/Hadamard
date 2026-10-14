@@ -83,6 +83,59 @@ def bordered_matrix(A, B, D):
     return None, None
 
 
+_QB = {}
+
+
+def qborder_solve(Mc, q):
+    """A Hadamard matrix R of order 4q with R Mc R^T / (4q) in {+-1} (Mc symmetric, Mc^2 = 4q I), or None: a clique
+    of 4q mutually orthogonal +-1 rows r_i with r_i Mc r_j^T = +-4q for all i, j (first entries +1)."""
+    import itertools
+    key = (q, Mc.tobytes())
+    if key in _QB: return _QB[key]
+    if q > 3: raise ValueError(f'the clique border solver handles q <= 3 (2^{4 * q - 1} candidate rows for q = {q})')
+    N = 4 * q
+    vecs = np.array([(1,) + t for t in itertools.product((1, -1), repeat=N - 1)], np.int64)
+    V = vecs[np.abs(np.einsum('ij,jk,ik->i', vecs, Mc, vecs)) == N]
+    C = ((V @ V.T) == 0) & (np.abs(V @ Mc @ V.T) == N)
+    adj = [sum(1 << j for j in np.flatnonzero(C[i]).tolist()) for i in range(len(V))]
+    cur = []
+    def rec(cand):
+        if len(cur) == N: return True
+        while cand and bin(cand).count('1') >= N - len(cur):
+            b = cand & -cand; i = b.bit_length() - 1; cand ^= b
+            cur.append(i)
+            if rec(cand & adj[i]): return True
+            cur.pop()
+        return False
+    R = V[cur] if rec((1 << len(V)) - 1) else None
+    _QB[key] = R
+    return R
+
+
+def qbordered_matrix(A, B, D, q):
+    """Z_q-bordered propus array: symmetric Hadamard matrix of order 4(m + q) from A (symmetric), B, D on Z_m,
+    q | m, with PAF_A + 2 PAF_B + PAF_D = -4q on the subgroup qZ_m (off 0) and 0 off it:
+        H = [[X, R], [R^T, P]],  P = symmetric_matrix_v3(A, B, D),  R = R^ expanded (column (i, g) <- (i, g mod q)),
+    R^ Hadamard of order 4q and X = -R^ Mc R^T / (4q), Mc the propus array of the compressions to Z_q.
+    q = 1 is bordered_matrix. Returns (H, R^) or (None, None) when the border problem has no solution."""
+    m = len(A)
+    ys = [np.array([int(np.asarray(x)[c::q].sum()) for c in range(q)], np.int64) for x in (A, B, D)]
+    Mc = symmetric_matrix_v3(*ys)
+    Rh = qborder_solve(Mc, q)
+    if Rh is None: return None, None
+    X = -(Rh @ Mc @ Rh.T)
+    if not np.all(np.abs(X) == 4 * q): return None, None
+    P = symmetric_matrix_v3(A, B, D)
+    R = Rh[:, [i * q + g % q for i in range(4) for g in range(m)]]
+    return np.block([[X // (4 * q), R], [R.T, P]]), Rh
+
+
+def qborder_patterns(q):
+    """Row sums (a, b, d) >= 0, all even (m = v - q is even for odd v), with a^2 + 2 b^2 + d^2 = 4q."""
+    return [(a, b, d) for a in range(0, 2 * q + 1, 2) for b in range(0, 2 * q + 1, 2) for d in range(0, 2 * q + 1, 2)
+            if a * a + 2 * b * b + d * d == 4 * q]
+
+
 def patterns(v):
     out = []
     lim = math.isqrt(4 * v)
@@ -104,7 +157,8 @@ def structures(v, gens, symB):
     return st_ad, st_b
 
 
-def search(v, gens, symB=False, maxpool=3e7, K=1, log=print, freeD=False, maxwork=float('inf'), plain=False, border=False):
+def search(v, gens, symB=False, maxpool=3e7, K=1, log=print, freeD=False, maxwork=float('inf'), plain=False, border=False,
+           qborder=0):
     st_ad, st_b = structures(v, gens, symB)
     st_a, st_d = st_ad, (st_b if freeD else st_ad)
     if plain:            # ordinary Hadamard matrices: A, B, D all on the H-orbits, Goethals-Seidel array with C = B
@@ -112,12 +166,15 @@ def search(v, gens, symB=False, maxpool=3e7, K=1, log=print, freeD=False, maxwor
     pm = v % 4
     found = []
     # border: blocks on Z_m (m = v here) with sum of weighted PAFs -4 off 0, rows a^2 + 2b^2 + d^2 = 4, order 4(m + 1)
-    pats = [(2, 0, 0), (0, 0, 2)] if border else patterns(v)
-    T = -4 if border else 0
+    # qborder q: blocks on Z_m (m = v here, q | m) with weighted PAF sum -4q on qZ_m (off 0) and 0 off it, order 4(m + q)
+    qb = qborder or (1 if border else 0)
+    pats = qborder_patterns(qb) if qb else patterns(v)
+    tgt = np.zeros(v, np.int64)
+    if qb: tgt[::qb] = -4 * qb
     log(f"v={v} gens={gens} symB={symB} freeD={freeD}: orbits A {st_a.O}, B {st_b.O}, D {st_d.O}, classes {st_ad.C}, patterns {len(pats)}")
     for ra, rb, rd in pats:
         # signs: negating A, B or D gives an equivalent solution, so positive row sums suffice
-        if (plain or not freeD) and ra > rd and not border: continue      # A and D interchangeable when they have the same structure
+        if (plain or not freeD) and ra > rd and not qb: continue      # A and D interchangeable when they have the same structure
         sizes = [st_a.pool(ra), st_b.pool(rb), st_d.pool(rd)]
         if min(sizes) == 0 or max(sizes) > maxpool:
             log(f"  rows ({ra}, {rb}, {rd}): pools {[int(s) for s in sizes]} skipped"); continue
@@ -143,7 +200,7 @@ def search(v, gens, symB=False, maxpool=3e7, K=1, log=print, freeD=False, maxwor
         try:
             with open(path, 'wb') as f:
                 f.write(struct.pack('iiiii', *[len(x) for x in lists], st_ad.C))
-                f.write(np.full(st_ad.C, (T - 4 * pm) // 4, dtype=np.int16).tobytes())
+                f.write(np.array([(tgt[g] - 4 * pm) // 4 for g in st_ad.reps], dtype=np.int16).tobytes())
                 for x in lists: f.write(np.ascontiguousarray(x).tobytes())
             out = subprocess.run([W.bin('join4x'), path, str(K)], capture_output=True, text=True, check=True).stdout
         finally:
@@ -156,13 +213,13 @@ def search(v, gens, symB=False, maxpool=3e7, K=1, log=print, freeD=False, maxwor
             ia, idd, ib = ids[slot[0]], ids[slot[1]], ids[slot[2]]
             A = Ya[ia].astype(np.int64)[st_a.orb]; B = Yb[ib].astype(np.int64)[st_b.orb]; D = Yd[idd].astype(np.int64)[st_d.orb]
             tot = verify.paf_sum([A, B, B, D])
-            if not (tot[0] == 4 * v and np.all(tot[1:] == T)): log('  WRONG autocorrelations'); continue
+            if not (tot[0] == 4 * v and np.array_equal(tot[1:], tgt[1:])): log('  WRONG autocorrelations'); continue
             Kb = None
-            if border:
-                Hm, Kb = bordered_matrix(A, B, D)
-                n4 = 4 * (v + 1)
+            if qb:
+                Hm, Kb = bordered_matrix(A, B, D) if qb == 1 else qbordered_matrix(A, B, D, qb)
+                n4 = 4 * (v + qb)
                 ok = Hm is not None and np.array_equal(Hm, Hm.T) and np.array_equal(Hm @ Hm.T, n4 * np.eye(n4, dtype=Hm.dtype))
-                log(f"  hit: bordered symmetric Hadamard of order {n4} {ok}")
+                log(f"  hit: Z_{qb}-bordered symmetric Hadamard of order {n4} {ok}")
             elif plain:
                 Hm = verify.goethals_seidel(*(verify.circulant(x) for x in (A, B, B, D)))
                 ok = np.array_equal(Hm @ Hm.T, 4 * v * np.eye(4 * v, dtype=Hm.dtype))
@@ -174,7 +231,8 @@ def search(v, gens, symB=False, maxpool=3e7, K=1, log=print, freeD=False, maxwor
             if ok:
                 rec = dict(n=v, gens=list(gens), symB=symB, freeD=freeD, plain=plain, rows=[int(A.sum()), int(B.sum()), int(D.sum())],
                            seqs=[''.join('+' if x > 0 else '-' for x in s) for s in (A, B, D)])
-                if border: rec.update(border=True, order=4 * (v + 1), K=Kb.tolist())
+                if qb == 1: rec.update(border=True, order=4 * (v + 1), K=Kb.tolist())
+                elif qb: rec.update(border=True, q=qb, order=4 * (v + qb), R=Kb.tolist())
                 with open(W.hits('gs_propus_hits.jsonl' if plain else 'sym_hits.jsonl'), 'a') as fh: fh.write(json.dumps(rec) + '\n')
                 found.append(rec)
         if found: break
@@ -215,7 +273,9 @@ if __name__ == '__main__':
     ap.add_argument('--plain', action='store_true', help='ordinary Hadamard: Goethals-Seidel quadruples (A, B, B, D) on H-orbits')
     ap.add_argument('--only-freeD', action='store_true', help='sweep only the variant with A symmetric and B, D free')
     ap.add_argument('--border', action='store_true', help='bordered propus on Z_v (any v): sum of PAFs -4, symmetric Hadamard of order 4(v + 1)')
+    ap.add_argument('--qborder', type=int, default=0, help='Z_q-bordered propus on Z_v (q | v): PAF sum -4q on qZ_v, 0 off it; order 4(v + q)')
     a = ap.parse_args()
+    if a.qborder > 1 and a.v % a.qborder: sys.exit(f'q = {a.qborder} does not divide {a.v}')
     log = lambda s: print(s, flush=True)
     if a.sweep:
         v = a.v
@@ -229,13 +289,13 @@ if __name__ == '__main__':
         jobs.sort()
         log(f"v={v}: {len(jobs)} structures")
         for _, gs in jobs:
-            variants = ((False, False),) if a.plain else ((False, True),) if (a.only_freeD or a.border) else ((True, False), (False, False), (False, True))
+            variants = ((False, False),) if a.plain else ((False, True),) if (a.only_freeD or a.border or a.qborder) else ((True, False), (False, False), (False, True))
             for symB, freeD in variants:
                 try:
-                    if search(v, gs, symB, a.maxpool, a.K, log, freeD, a.maxwork, a.plain, a.border):
+                    if search(v, gs, symB, a.maxpool, a.K, log, freeD, a.maxwork, a.plain, a.border, a.qborder):
                         log(f"HIT v={v} gens={gs} symB={symB} freeD={freeD} plain={a.plain}"); sys.exit(0)
                 except AssertionError as e:
                     log(f"  skipped: {e}")
     else:
         gens = [int(x) for x in a.gens.split(',')]
-        search(a.v, gens, a.symB, a.maxpool, a.K, log, a.freeD or a.border, a.maxwork, a.plain, a.border)
+        search(a.v, gens, a.symB, a.maxpool, a.K, log, a.freeD or a.border or bool(a.qborder), a.maxwork, a.plain, a.border, a.qborder)

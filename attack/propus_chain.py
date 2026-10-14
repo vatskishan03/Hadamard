@@ -167,7 +167,9 @@ def search(v, gens, rows, d, a, log):
     Hd_sym = sorted({h % d for h in Hs} | {(-h) % d for h in Hs})
     ca = Comp(st_ad, v, d, Hd if a.plain else Hd_sym); cb = Comp(st_b, v, d, Hd)
     ra, rb, rd = rows; pm = v % 4
-    T = -4 if a.border else 0                    # bordered propus: weighted PAF sum -4 off 0 (order 4(v + 1))
+    qb = a.qb                                    # Z_qb-bordered propus: weighted PAF sum -4qb on qb Z_v (off 0), 0 off it
+    tgt = np.zeros(v, np.int64)                  # (qb = 1: -4 everywhere, order 4(v + 1); qb = 0: plain propus)
+    if qb: tgt[::qb] = -4 * qb
     t0 = time.time()
     Da = ca.dp(st_ad, ra); Db = cb.dp(st_b, rb); Dd = cb.dp(st_b, rd)
     if Da is None or Db is None or Dd is None:
@@ -179,7 +181,8 @@ def search(v, gens, rows, d, a, log):
     PB = np.array([2 * cpaf(cb.full(k)) for k in KB]).reshape(len(KB), -1)
     PD = np.array([cpaf(cb.full(k)) for k in KD]).reshape(len(KD), -1)
     triples = []
-    for i, j, k in join3(PA, PB, PD, np.full(d // 2, T * (v // d), np.int64)):
+    tgt_d = np.array([int(tgt[r::d].sum()) for r in range(1, d // 2 + 1)], np.int64)   # compressed target
+    for i, j, k in join3(PA, PB, PD, tgt_d):
         ka, kb, kd = KA[i], KB[j], KD[k]
         triples.append((Da[ka] * Dd[kd], Da[ka], Db[kb], Dd[kd], ka, kb, kd))
     triples.sort(key=lambda x: -x[0])
@@ -210,7 +213,7 @@ def search(v, gens, rows, d, a, log):
         try:
             with open(path, 'wb') as f:
                 f.write(struct.pack('iiiii', *[len(x) for x in lists], st_ad.C))
-                f.write(np.full(st_ad.C, (T - 4 * pm) // 4, dtype=np.int16).tobytes())
+                f.write(np.array([(tgt[g] - 4 * pm) // 4 for g in st_ad.reps], dtype=np.int16).tobytes())
                 for x in lists: f.write(np.ascontiguousarray(x).tobytes())
             out = subprocess.run([W.bin('join4x'), path, str(a.K)], capture_output=True, text=True, check=True).stdout
         finally:
@@ -224,13 +227,13 @@ def search(v, gens, rows, d, a, log):
             A = Ya[ids[slot[0]]].astype(np.int64)[st_ad.orb]; B = Yb[ids[slot[2]]].astype(np.int64)[st_b.orb]
             D = Yd[ids[slot[1]]].astype(np.int64)[st_b.orb]
             tot = verify.paf_sum([A, B, D]) + verify.paf_sum([B])
-            if not (tot[0] == 4 * v and np.all(tot[1:] == T)): log('  WRONG autocorrelations'); continue
+            if not (tot[0] == 4 * v and np.array_equal(tot[1:], tgt[1:])): log('  WRONG autocorrelations'); continue
             Kb = None
-            if a.border:
-                Hm, Kb = PR.bordered_matrix(A, B, D)
-                n4 = 4 * (v + 1)
+            if qb:
+                Hm, Kb = PR.bordered_matrix(A, B, D) if qb == 1 else PR.qbordered_matrix(A, B, D, qb)
+                n4 = 4 * (v + qb)
                 ok = Hm is not None and np.array_equal(Hm, Hm.T) and np.array_equal(Hm @ Hm.T, n4 * np.eye(n4, dtype=Hm.dtype))
-                log(f"  hit: bordered symmetric Hadamard of order {n4} {ok}")
+                log(f"  hit: Z_{qb}-bordered symmetric Hadamard of order {n4} {ok}")
             elif a.plain:
                 Hm = verify.goethals_seidel(*(verify.circulant(x) for x in (A, B, B, D)))
                 ok = np.array_equal(Hm @ Hm.T, 4 * v * np.eye(4 * v, dtype=Hm.dtype))
@@ -242,7 +245,8 @@ def search(v, gens, rows, d, a, log):
             if ok:
                 rec = dict(n=v, gens=list(gens), symB=False, freeD=True, plain=bool(a.plain), rows=[int(A.sum()), int(B.sum()), int(D.sum())],
                            method=f'propus_chain d={d}', seqs=[''.join('+' if x > 0 else '-' for x in s) for s in (A, B, D)])
-                if a.border: rec.update(border=True, order=4 * (v + 1), K=Kb.tolist())
+                if qb == 1: rec.update(border=True, order=4 * (v + 1), K=Kb.tolist())
+                elif qb: rec.update(border=True, q=qb, order=4 * (v + qb), R=Kb.tolist())
                 with open(W.hits('gs_propus_hits.jsonl' if a.plain else 'sym_hits.jsonl'), 'a') as fh: fh.write(json.dumps(rec) + '\n')
                 found.append(rec)
         if found: break
@@ -269,10 +273,13 @@ def main():
     ap.add_argument('--maxo', type=int, default=44)
     ap.add_argument('--border', action='store_true', help='bordered propus on Z_v: PAF sum -4, symmetric Hadamard of order 4(v + 1)')
     ap.add_argument('--maxmitm', type=int, default=46, help='largest orbit count for the meet in the middle (memory ~ 2^(O/2))')
+    ap.add_argument('--qborder', type=int, default=0, help='Z_q-bordered propus on Z_v (q | v): PAF sum -4q on qZ_v, 0 off it; order 4(v + q)')
     a = ap.parse_args()
+    a.qb = a.qborder or (1 if a.border else 0)
+    if a.qb > 1 and a.v % a.qb: print(f'q = {a.qb} does not divide {a.v}'); return
     log = lambda s: print(s, flush=True)
     v = a.v
-    ds = [a.d] if a.d else best_d(v, a.border)
+    ds = [a.d] if a.d else best_d(v, bool(a.qb))
     if not ds: log("v is prime: no compression"); return
     if a.sweep:
         jobs = []
@@ -284,7 +291,7 @@ def main():
     else:
         jobs = [(0, [int(x) for x in a.gens.split(',')])]
     for _, gs in jobs:
-        pats = [tuple(int(x) for x in a.rows.split(','))] if a.rows else [(2, 0, 0), (0, 0, 2)] if a.border else \
+        pats = [tuple(int(x) for x in a.rows.split(','))] if a.rows else PR.qborder_patterns(a.qb) if a.qb else \
             [p for p in PR.patterns(v) if not a.plain or p[0] <= p[2]]
         st_ad, st_b = PR.structures(v, gs, False)
         if a.plain: st_ad = st_b
