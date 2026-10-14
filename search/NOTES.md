@@ -2299,3 +2299,40 @@ expected count falls like 2^(−1.4 · classes) for every multiplier structure (
 algebra can supply these pairs. The same holds for any twist of the plane pair: signs y on D₁ give
 PAF_R + PAF_S = 2ε(s) with ε(d − d′) = y(d)y(d′), which only changes the target of the same two-block problem. The
 route stays closed for these v unless a CDS family for v = pq (or 3pq) appears.
+
+## 35. Three skew blocks in one multiplier orbit (negative for the census) (October 14, night)
+
+**The structure.** Take A of skew type and H-invariant, μ with μ³ ∈ H, K = ⟨H, μ⟩ with −1 ∉ K, and D K-invariant.
+The blocks A, A∘μ, A∘μ², D have autocorrelation sum T_A + P_D, where T_A(s) = P_A(s) + P_A(μs) + P_A(μ²s). Both
+terms are K-invariant, so the condition is an exact join of two lists over the ⟨K, −1⟩-classes: the 2^pairs skew
+blocks A, and the K-invariant D with row sum d. The row sums are (1, 1, 1, d), so d² = 4v − 3: v = k² + k + 1 and
+d = 2k + 1. This is the pattern of 4492 and 5932, but with the three skew blocks tied. The census values of this form
+are 553, 1057, 1123, 1261, 1333, 1407, 1483, 1561, 1893, 1981, 2071, 2163, 2257 and 2353.
+
+**Tools.**
+- `tri_skew.py`: the exact join over any abelian group (gsgroup tables, gdfs lists, join4x), and `--sweep v` over
+  every odd H ≤ ℤ_v* and every admissible μ.
+- `tri_ls.py`: a Gaussian estimate (`rank`), and the tabu search of `spin_ls2.c` with the roles exchanged (its
+  swap block is D, its pair block is A with the quadratic form of T_A).
+
+Both are validated on small v:
+- The joins with H trivial give skew matrices of orders 28, 52, 124 and 172 (v = 7, 13, 31, 43).
+- There are none at v = 21, nor at 57, 73 and 91 with |H| = 3.
+- The tabu search solves v = 43 at once.
+
+**Census (negative).**
+- 553:
+  - |H| = 13 with μ = 18 (10 classes): nA = 2²⁴, nD = 17 424, exact join empty, Gaussian estimate 10⁻⁶·⁰.
+  - The other order-13 and order-39 structures have no D with row sum 47.
+  - |H| = 3 (40 classes): 10⁻¹⁴·⁸ to 10⁻⁷·⁹.
+- 1123 (|H| = 11, 17 classes): 10⁻²·⁹.
+- 1483 (|H| = 13, 19 classes): 10⁻⁴·⁵.
+- 1057: no joinable structure (16 without D, 24 above 6 · 10⁷ members).
+- 1261: only |H| = 3, with 210 pairs.
+- 1333: 16 tiny structures, all empty.
+
+The estimates explain the failure. Per ⟨K, −1⟩-class the tri structure has 3 free signs in A and 2 in D. The spin
+structure (A K-invariant, B, B∘μ, B∘μ²) has 1 + 6. At these v a class equation costs about 5.3–5.5 bits. So spin
+gains about 1.7 bits per class, while the tri structure loses a few tenths and works only for small v:
+- with H trivial, 10^5.3 at v = 133 (22 classes) and 10^4.2 at v = 241 (40 classes);
+- with |H| = 5, 10^1.9 at v = 211.
