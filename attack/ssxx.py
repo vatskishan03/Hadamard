@@ -182,7 +182,7 @@ def best_pairing(sizes):
     return min(([0, 1, 2, 3], [0, 2, 1, 3], [0, 3, 1, 2]), key=lambda o: pair_cost(sizes, o))
 
 
-def search(N, gens, K=20, log=None, pats=None, maxpairs=2e11, stop=False, deadline=None):
+def search(N, gens, K=20, log=None, pats=None, maxpairs=2e11, stop=False, deadline=None, estimate=False):
     st = Struct(N, gens, plain=True)
     if (N - 1) in st.H:
         raise ValueError("-1 in H")
@@ -205,8 +205,9 @@ def search(N, gens, K=20, log=None, pats=None, maxpairs=2e11, stop=False, deadli
             print(f"  rows {pat}: lists {sizes}, skipped (pair work {pair_cost(sizes, order):.2g})", flush=True)
             continue
         sols, total = join4([lists[k] for k in order], st.C, K, None, target=0)
-        print(f"  rows {pat}: lists {sizes}, {total} solutions, estimate 10^{gauss(st, pat):.2f} "
-              f"({time.time() - t0:.1f}s)", flush=True)
+        est = f", estimate 10^{gauss(st, pat):.2f}" if estimate else ""
+        print(f"  rows {tuple(int(x) for x in pat)}: lists {sizes}, {total} solutions{est} ({time.time() - t0:.1f}s)",
+              flush=True)
         for sol in sols:
             idx = [0] * 4
             for pos, k in enumerate(order):
@@ -240,7 +241,7 @@ def main():
         for N in a.N:
             triage(N, a.maxo)
     else:
-        search(a.N, a.g, a.K, a.log)
+        search(a.N, a.g, a.K, a.log, estimate=True)
 
 
 if __name__ == "__main__":

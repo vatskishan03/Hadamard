@@ -159,6 +159,27 @@ circulants with A symmetric and A Aᵀ + 2 B Bᵀ + D Dᵀ = 4v I, invariant und
 | [532](symmetric/532) | 133 (7 · 19) | ⟨26⟩, order 6 | 11, 5, 19 | undecided |
 | [876](symmetric/876) | 219 (3 · 73) | ⟨4⟩, order 9 (cyclotomic product ℤ₃ × GF(73) of index 8) | 3, 17, 17 | undecided |
 
+## Complex Hadamard results
+
+A complex (quaternary) Hadamard matrix of order n has entries 1, −1, i, −i and K K* = n I. Orders divisible by 4 are
+covered by real Hadamard matrices; the open cases are 2N with N odd. In 2026, Szöllősi constructed order 94, and the
+near-Williamson paper of Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev gave 118, 130, 134, 206 and 266.
+
+[complex-hadamard](complex-hadamard) holds matrices of orders that, to our knowledge, had no construction. They come
+from Szöllősi's array: four circulants with ΣXXᵀ = 4N I of which only two need be symmetric. We search it with
+multiplier groups and exact joins (`attack/ssxx.py`, `attack/ssxx_sweep.py`).
+
+| Order | N | Source |
+|------:|---|---|
+| 142 | 71 | Szöllősi array, multiplier group of order 5 |
+| 154 | 77 = 7 · 11 | Szöllősi array, Paley-product multiplier group of order 5 |
+| 222 | 111 = 3 · 37 | near-Williamson matrices of order 111 ([near-williamson/NW111.txt](near-williamson/NW111.txt)), found by the order-3 twist search `attack/wt_twist.py` |
+
+Orders 142 and 154 are the two smallest that the classical constructions do not give: Williamson-type matrices
+(Seberry–Yamada 1992 Table A.1, the 2026 near-Williamson orders), conference matrices, complex Golay sequences and
+known quaternary Legendre pairs. The near-Williamson matrices of order 111 are also, to our knowledge, the first
+Williamson-type matrices of that order. `python3 verify/verify_complex.py` checks every certificate exactly.
+
 ## Verification
 
 ```
@@ -168,6 +189,12 @@ python3 verify/verify.py
 rebuilds every matrix from its `certificate.json`, checks the defining identity,
 checks HHᵀ = nI exactly and compares the SHA-256 digest of the canonical CSV
 encoding with the recorded value. It needs NumPy and takes about five minutes.
+
+The complex Hadamard matrices are checked separately, from their sequences alone and in exact integer arithmetic:
+
+```
+python3 verify/verify_complex.py
+```
 
 An independent checker in C verifies the shipped matrices directly:
 
@@ -189,11 +216,13 @@ Other top-level contents:
 
 - [`skew`](skew): skew-Hadamard matrices, one directory per order, in the same layout.
 - [`symmetric`](symmetric): symmetric Hadamard matrices, one directory per order, in the same layout.
-- [`t-matrices`](t-matrices): the T-matrices of orders 97 to 197 found during this work.
+- [`complex-hadamard`](complex-hadamard): quaternary Hadamard matrices of orders 2N, N odd (Szöllősi's array; one
+  `C<n>.json` certificate per order).
+- [`t-matrices`](t-matrices): T-matrices of orders 67 to 197 used or found during this work.
 - [`williamson-type`](williamson-type): bordered Williamson-type matrices of order w from four sequences on ℤ_(w−1)
   (construction, proof, calibration and limits).
 - [`near-williamson`](near-williamson): near-Williamson matrices of Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev
-  (2026), used as Williamson-type matrices for the orders 24308 to 39260.
+  (2026), used as Williamson-type matrices for the orders 19028 to 39260, and our order 111.
 - [`search`](search): the programs that found the Goethals–Seidel orders.
 - [`METHOD.md`](METHOD.md): how the search works.
 - [`FRONTIER.md`](FRONTIER.md): the unresolved orders up to 4 · 2999, with the cheapest structure for each and its predicted cost.

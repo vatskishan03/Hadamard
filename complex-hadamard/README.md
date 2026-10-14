@@ -76,7 +76,8 @@ following gives it:
   - Table A.1 of Seberry and Yamada (1992), parsed in [`attack/data/wt_known_1992.txt`](../attack/data/wt_known_1992.txt);
   - Đoković's good matrices of orders 35 and 127 (1993);
   - the 2026 near-Williamson orders: every odd N ≤ 69, and 73, 79, 91, 93, 95, 97, 103, 109, 127, 133, 181.
-- **A Paley conference matrix of order 2N** (2N − 1 a prime power), via C + iI.
+- **A conference matrix of order 2N**, via C + iI: Paley's (2N − 1 a prime power), Mathon's (2N = q²(q + 2) + 1)
+  and Seberry–Whiteman's (2N = 5 · 9^(2t+1) + 1).
 - **Complex Golay sequences of length N** (N = 1, 3, 5, 11, 13).
 - **A quaternary Legendre pair of length N − 1:**
   - every even length up to 100 except 70, 76, 88, 92, 94 and 100 (Kotsireas–Winterhof; Kotsireas–Koutschan–Winterhof;
