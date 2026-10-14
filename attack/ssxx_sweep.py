@@ -159,9 +159,9 @@ def plan(N, maxo=40, maxpairs=2e11, maxenum=2 ** 31):
     for H, gens in subgroups(N).items():
         if (N - 1) in H:
             continue
-        st = Struct(N, gens, plain=True)
-        if len(st.sizesA) > maxo:
+        if sum(gcd(h - 1, N) for h in H) // len(H) > maxo:   # orbit count by Burnside: |Fix(h)| = gcd(h - 1, N)
             continue
+        st = Struct(N, gens, plain=True)
         for pat in ssxx.patterns(st):
             sizes = [st.counts(k).get(r, 0) for k, r in zip(ssxx.KINDS, pat)]
             if min(sizes) == 0:
