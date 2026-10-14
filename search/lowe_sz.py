@@ -17,8 +17,11 @@ The estimate printed before the join is E (Gaussian, whole structure) times the 
 the probability under the model that a solution's member passes the filter (Monte Carlo from the conditional law
 N(c_k, Sigma_k - Sigma_k Sigma^+ Sigma_k)).
 
+Before any enumeration the compressions to Z_d (d a prime power dividing the group order, d <= 64) are joined exactly
+(search/compress_check.py); an empty join rules the structure/pattern out (--no-precheck skips this).
+
     python3 search/lowe_sz.py N g [g2] --rows a,b,c,d [--bordered] [--L 2e7] [--nsig 2e5] [--S 5] [--estimate-only]
-        [--energy full|units] [--resume]
+        [--energy full|units] [--time SECONDS] [--resume] [--no-precheck]
 """
 import argparse, json, math, os, struct, subprocess, sys, time
 from pathlib import Path
@@ -67,7 +70,7 @@ def enum_block(st, kind, r, center, Wm, tau, maxkeep, tag, threads):
     return masks, vals, en, p.stdout.strip()
 
 
-def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5, energy="full"):
+def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5, energy="full", time_limit=None):
     """rerun the join on the lists saved by an earlier run (WORK/lowe), with more split values"""
     st = Struct(N, gens, plain=not bordered)
     keepdir = W.WORK / "lowe"
@@ -85,7 +88,7 @@ def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5, en
     lists = [None] * 4
     for pos, k in enumerate(order):
         lists[k] = (masks[k], vals[pos])
-    return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, time.time())
+    return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, time.time(), time_limit=time_limit)
 
 
 def unit_classes(st):
@@ -94,11 +97,20 @@ def unit_classes(st):
 
 
 def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4, estimate_only=False, log=None,
-        seed=1, maxsol=5, energy="full"):
+        seed=1, maxsol=5, energy="full", time_limit=None, precheck=True):
     """energy="units": the filter's energy uses only the unit classes. On exact solution sets of composite N the
     solution members sit at arithmetically fixed values on the compression classes, away from the Gaussian centre;
     without those classes they rank much higher at N = 119 and 267 (search/NOTES.md section 34)."""
     t0 = time.time()
+    if precheck:
+        import compress_check
+        r = compress_check.check("bsz" if bordered else "ssxx", N, list(gens), tuple(rows), 200_000, 64, stop=True)
+        dead = [d for d, n in r.items() if n == 0]
+        if dead:
+            print(f"N = {N}{' bordered' if bordered else ''} H = <{','.join(map(str, gens))}> rows {tuple(rows)}: "
+                  f"ruled out by the compression to Z_{dead[0]} (level-1 joins {r}) [{time.time() - t0:.0f}s]",
+                  flush=True)
+            return []
     st = Struct(N, gens, plain=not bordered)
     rng = np.random.default_rng(seed)
     C = st.C
@@ -178,21 +190,50 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
     # law); dropping the full value arrays saves about 1 GB per kept list while kt4 runs
     lists = [(m, np.array(v[::max(1, len(v) // 200000)])) for m, v in lists]
     import gc; gc.collect()
-    return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0)
+    return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, time_limit=time_limit)
 
 
-def sigma_file(lists, Sx, target, nsig, path):
+def live_splits(lists, Sx, target, M=2 * 10 ** 7, seed=1):
+    """split values that carry pairs on both sides: merge-class sums a + c of M random (A, C) pairs and t - b - d of M
+    random (B, D) pairs, intersected, with their sample counts. Most lattice points near the centre carry no pair on
+    one side (at N = 203 and 215, 99%); only these can hold a solution."""
+    rng = np.random.default_rng(seed)
+    base, off = 1 << 12, 2048
+    def keys(L1, L2, sign, shift):
+        us, cs = [], []
+        for s0 in range(0, M, 2 * 10 ** 6):
+            m = min(2 * 10 ** 6, M - s0)
+            i = np.sort(rng.integers(0, len(L1), m)); j = np.sort(rng.integers(0, len(L2), m))
+            rng.shuffle(j)
+            P = shift + sign * (np.asarray(L1[i], np.int64)[:, Sx] + np.asarray(L2[j], np.int64)[:, Sx])
+            k = np.zeros(m, np.int64)
+            for c in range(len(Sx)):
+                k = k * base + (P[:, c] + off)
+            u, cnt = np.unique(k, return_counts=True)
+            us.append(u); cs.append(cnt)
+        u, inv = np.unique(np.concatenate(us), return_inverse=True)
+        return u, np.bincount(inv, weights=np.concatenate(cs))
+    tM = np.full(len(Sx), int(target), np.int64)
+    uac, cac = keys(lists[0][1], lists[1][1], 1, 0)
+    ubd, cbd = keys(lists[2][1], lists[3][1], -1, tM)
+    common, ia, ib = np.intersect1d(uac, ubd, return_indices=True)
+    P = np.zeros((len(common), len(Sx)), np.int64)
+    k = common.copy()
+    for c in range(len(Sx) - 1, -1, -1):
+        P[:, c] = k % base - off; k //= base
+    return P, cac[ia], cbd[ib]
+
+
+def sigma_file(lists, Sx, target, nsig, path, seed=1):
     """split values for kt4, in order of the Gaussian law of a solution's split: with mu_k, Sigma_k the mean and
     covariance of each kept list (subsampled), a solution's (a + c) on the merge classes has mean
     m = mu_A + mu_C + (Sigma_A + Sigma_C) Sigma^+ (t - sum mu) and covariance V = (Sigma_A + Sigma_C)
-    - (Sigma_A + Sigma_C) Sigma^+ (Sigma_A + Sigma_C). The lattice points sigma (step and residue of a + c in each
-    class) closest to m in the metric V^-1 are written, nsig of them."""
-    mus, sigs, lat = [], [], []
+    - (Sigma_A + Sigma_C) Sigma^+ (Sigma_A + Sigma_C). Only split values with pairs on both sides are used
+    (live_splits); the nsig of them closest to m in the metric V^-1 are written."""
+    mus, sigs = [], []
     for k in range(4):
         v = np.asarray(lists[k][1][::max(1, len(lists[k][1]) // 200000)], np.float64)
         mus.append(v.mean(0)); sigs.append(np.cov(v.T) if len(v) > 1 else np.zeros((v.shape[1], v.shape[1])))
-        vi = np.asarray(lists[k][1][::max(1, len(lists[k][1]) // 20000)], np.int64)
-        lat.append(vi)
     C = len(mus[0]); t = np.full(C, float(target))
     Sig = sum(sigs)
     w, U = np.linalg.eigh(Sig); inv = np.where(w > 1e-9 * w.max(), 1 / np.where(w > 0, w, 1), 0)
@@ -201,36 +242,18 @@ def sigma_file(lists, Sx, target, nsig, path):
     m = (mus[0] + mus[1] + SAC @ Sp @ (t - sum(mus)))[Sx]
     V = (SAC - SAC @ Sp @ SAC)[np.ix_(Sx, Sx)]
     Vi = np.linalg.inv(V + 1e-6 * np.eye(len(Sx)))
-    g, res = [], []
-    for s in Sx:
-        gs = 0
-        for vi in (lat[0], lat[1]):
-            col = vi[:, s]
-            gs = int(np.gcd(gs, np.gcd.reduce(np.abs(col - col[0])))) if len(col) > 1 else gs
-        gs = max(gs, 1)
-        g.append(gs); res.append(int(lat[0][0, s] + lat[1][0, s]) % gs)
-    g = np.array(g, np.float64)
-    nd = len(Sx)
-    vol = {1: 2.0, 2: math.pi, 3: 4 * math.pi / 3, 4: math.pi ** 2 / 2, 5: 8 * math.pi ** 2 / 15}[nd]
-    r = (1.3 * nsig * np.prod(g) / (vol * math.sqrt(max(np.linalg.det(V), 1e-300)))) ** (1 / nd)
-    half = np.ceil(r * np.sqrt(np.diag(V)) / g).astype(int) + 1
-    base = np.array([res[i] + g[i] * np.round((m[i] - res[i]) / g[i]) for i in range(nd)])
-    axes = [base[i] + g[i] * np.arange(-half[i], half[i] + 1) for i in range(nd)]
-    keep_pts, keep_d = [], []
-    rest = np.stack(np.meshgrid(*axes[1:], indexing="ij"), -1).reshape(-1, nd - 1) if nd > 1 else np.zeros((1, 0))
-    for x0 in axes[0]:
-        P = np.concatenate([np.full((len(rest), 1), x0), rest], 1)
-        D = P - m
-        d2 = np.einsum("ij,jk,ik->i", D, Vi, D)
-        sel = d2 <= r * r
-        keep_pts.append(P[sel]); keep_d.append(d2[sel])
-    P = np.concatenate(keep_pts); d2 = np.concatenate(keep_d)
+    P, nac, nbd = live_splits(lists, Sx, target, seed=seed)
+    if len(P) == 0:
+        np.savetxt(path, np.zeros((0, len(Sx)), np.int64), fmt="%d")
+        return 0, 0.0, 0
+    D = P - m
+    d2 = np.einsum("ij,jk,ik->i", D, Vi, D)
     o = np.argsort(d2)[:int(nsig)]
     np.savetxt(path, P[o].astype(np.int64), fmt="%d")
-    return len(o), float(np.sqrt(d2[o[-1]])) if len(o) else 0.0
+    return len(o), float(np.sqrt(d2[o[-1]])), len(P)
 
 
-def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ordered=True):
+def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ordered=True, time_limit=None):
     order = [0, 2, 1, 3]
     # merge classes: largest variance, from a subsample of every list (a full int64 copy would need gigabytes)
     var = sum(np.asarray(lists[k][1][::max(1, len(lists[k][1]) // 200000)], np.float64).var(0) for k in order)
@@ -238,18 +261,26 @@ def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ord
     sigarg = str(int(nsig))
     if ordered:
         sf = Path(str(inp) + ".sig")
-        n, rad = sigma_file([lists[k] for k in order], Sx, st.target, nsig, sf)
+        n, rad, nlive = sigma_file([lists[k] for k in order], Sx, st.target, nsig, sf)
         sigarg = "@" + str(sf)
-        print(f"  kt4: merge classes {Sx}, {n} split values by the solution law (Mahalanobis radius {rad:.2f})",
-              flush=True)
+        print(f"  kt4: merge classes {Sx}, {n} of {nlive} live split values, nearest the solution law "
+              f"(Mahalanobis radius {rad:.2f})", flush=True)
+        if n == 0:
+            print(f"  kt4: no live split value [{time.time() - t0:.0f}s]", flush=True)
+            return []
     else:
         print(f"  kt4: merge classes {Sx}, {int(nsig)} split values", flush=True)
-    with open(str(inp) + ".progress", "w") as errf:                # one line per split value
-        p = subprocess.run([W.bin("kt4"), str(inp), ",".join(map(str, Sx)), sigarg, str(maxsol)],
-                           stdout=subprocess.PIPE, stderr=errf, text=True)
-    tail = [l for l in p.stdout.splitlines() if l.startswith("TOTAL")]
-    sols = [list(map(int, l.split()[1:5])) for l in p.stdout.splitlines() if l.startswith("SOL")]
-    print(f"  kt4: {len(sols)} solutions; {tail[0] if tail else 'exit ' + str(p.returncode)} [{time.time() - t0:.0f}s]",
+    try:
+        with open(str(inp) + ".progress", "w") as errf:            # one line per split value
+            p = subprocess.run([W.bin("kt4"), str(inp), ",".join(map(str, Sx)), sigarg, str(maxsol)],
+                               stdout=subprocess.PIPE, stderr=errf, text=True, timeout=time_limit)
+        out, rc = p.stdout, p.returncode
+    except subprocess.TimeoutExpired as e:                          # the join's time budget is spent
+        out = e.stdout.decode() if isinstance(e.stdout, bytes) else (e.stdout or "")
+        rc = f"time limit {time_limit:.0f}s"
+    tail = [l for l in out.splitlines() if l.startswith("TOTAL")]
+    sols = [list(map(int, l.split()[1:5])) for l in out.splitlines() if l.startswith("SOL")]
+    print(f"  kt4: {len(sols)} solutions; {tail[0] if tail else 'exit ' + str(rc)} [{time.time() - t0:.0f}s]",
           flush=True)
     found = []
     for s in sols:
@@ -290,14 +321,17 @@ def main():
     ap.add_argument("--estimate-only", action="store_true")
     ap.add_argument("--resume", action="store_true", help="join the lists saved by an earlier run again")
     ap.add_argument("--log")
+    ap.add_argument("--time", type=float, help="time budget of the kt4 join in seconds")
     ap.add_argument("--energy", choices=["full", "units"], default="full",
                     help="classes in the filter's energy: all, or only those prime to the group order")
+    ap.add_argument("--no-precheck", action="store_true", help="skip the exact compression check")
     a = ap.parse_args()
     rows = tuple(int(x) for x in a.rows.split(","))
     if a.resume:
-        resume(a.N, a.gens, rows, a.bordered, a.nsig, a.S, a.log, energy=a.energy)
+        resume(a.N, a.gens, rows, a.bordered, a.nsig, a.S, a.log, energy=a.energy, time_limit=a.time)
     else:
-        run(a.N, a.gens, rows, a.bordered, a.L, a.nsig, a.S, a.K, a.threads, a.estimate_only, a.log, energy=a.energy)
+        run(a.N, a.gens, rows, a.bordered, a.L, a.nsig, a.S, a.K, a.threads, a.estimate_only, a.log, energy=a.energy,
+            time_limit=a.time, precheck=not a.no_precheck)
 
 
 if __name__ == "__main__":

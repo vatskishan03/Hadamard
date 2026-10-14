@@ -137,6 +137,7 @@ start-up, is close to the list size.
 | `bsz.py`, `bsz_group.py`, `bsz_sweep.py` | the bordered Szöllősi array |
 | `tsz.py`, `tsz.c` | twisted Szöllősi quadruples |
 | `cchain4.py`, `cchain_sweep.py` | exact compression chains for four-block problems (310, 518) |
+| `compress_check.py` | necessary condition before a search: the four blocks' compressions to ℤ_d joined exactly for each prime power d (also run by `lowe_sz.py`) |
 | `kstream.py`, `kstream.c` | the streaming k-tree (382) |
 | `lowe_sz.py`, `lowe_enum.c`, `lowe_scan.py`, `lowe_dispatch.py`, `sls_sz.c` | low-energy k-tree (342, 426, 430, 454) and annealing for Szöllősi structures; `lowe_dispatch.py` runs the best candidates of a scan one at a time |
 | `gauss_mc.py`, `gauss_full.py`, `gauss_lat.py` | estimates of the number of solutions of a structure: hybrid Monte Carlo and Gaussian, full covariance, joint lattice of the class values |
