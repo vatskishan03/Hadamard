@@ -208,6 +208,17 @@ are ⟨H, −1⟩-invariant, and the condition lives on the ⟨H, −1⟩-classe
   orders: it predicts 10^−1.7 to 10^−2.1, and the exact joins find 2352, 2352, 2352 and 1176 solutions in four
   patterns. These are Paley-product structures, X = u ⊗ 1 + w ⊗ J + z ⊗ χ over ℤ₇ × ℤ₁₁. The repository's §15 (attack)
   already noted that the per-class densities are strongly correlated for them.
+- **The sweep** (`attack/ssxx_sweep.py`, exact joins in order of cost; `attack/ssxx_sample.py`, uniform samples of the
+  large lists when they cannot be listed). For prime N the Gaussian estimate of the hits inside the samples is
+  accurate: at 71 it predicts 1445 and the join finds 1430, and at 131 it predicts 10^4.0 and the join finds 12618.
+  Results so far, with the exact count in the structure that gave each order:
+  - 238 (N = 119, H = ⟨8⟩, 4704);
+  - 262 (N = 131, H = ⟨53⟩, sampled);
+  - 286 (N = 143, H = ⟨3⟩, 16);
+  - 326 (N = 163, H = ⟨38⟩, 8352).
+- **Turyn's theorem** gives a real Hadamard matrix of order 4N from a complex one of order 2N. So the sweep cannot
+  succeed at an unresolved real order (573, 599, …) without settling that order. It succeeds where real H(4N) is
+  known by constructions that do not produce complex matrices (Paley I, Miyamoto, products).
 - **Safe primes are out of reach.** For N with (N − 1)/2 prime (107, 167, 179, 227, 263, …), the only subgroup of
   odd order is the squares. Then A and B are constant on ℤ_N*, C and D are of Legendre type, and their PAFs cannot
   sum to 0.

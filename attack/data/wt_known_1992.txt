@@ -1,4 +1,4 @@
-# Odd q < 1800 for which Table A.1 of J. Seberry and M. Yamada, "Hadamard matrices, sequences, and block designs"
+# Odd q < 2000 for which Table A.1 of J. Seberry and M. Yamada, "Hadamard matrices, sequences, and block designs"
 # (Contemporary Design Theory, Wiley, 1992, pp. 431-560) records four Williamson-type matrices of order q
 # (column t blank, a construction given). Parsed from the text of the table and corrected by hand where the
 # extraction merged columns (q = 421-429, 513-521, 605-613, 697-705, 789). Entries with t = 3 (only 8-Williamson
@@ -420,3 +420,38 @@
 1779
 1791
 1797
+1801
+1805
+1807
+1809
+1819
+1827
+1837
+1839
+1849
+1851
+1855
+1861
+1867
+1873
+1875
+1877
+1881
+1885
+1889
+1891
+1897
+1899
+1911
+1917
+1927
+1935
+1939
+1941
+1945
+1959
+1965
+1993
+1995
+1997
+1999

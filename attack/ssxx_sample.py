@@ -129,9 +129,6 @@ def main():
     print(f"N = {a.N}: {'FOUND' if f else 'nothing'}")
 
 
-if __name__ == "__main__":
-    main()
-
 
 def fast_gauss(st, pat, K=2000, seed=1):
     """ssxx.gauss with the vectorised sampler (same model: pools x class densities, one class dropped)."""
@@ -259,3 +256,7 @@ def run_one(N, gens, pat, sub, seed, log, K=2):
             with open(log, "a") as f:
                 f.write(json.dumps(rec) + "\n")
     return found
+
+
+if __name__ == "__main__":
+    main()
