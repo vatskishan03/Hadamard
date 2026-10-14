@@ -194,8 +194,11 @@ def search(v, gens, rows, d, a, log):
         Ya = members(st_ad, ca, ra, ka, a.maxlist); Yb = members(st_b, cb, rb, kb, a.maxlist); Yd = members(st_b, cb, rd, kd, a.maxlist)
         if Ya is None or Yb is None or Yd is None:
             log(f"  triple {i}: a list exceeds {a.maxlist:.0e}; skipped"); continue
-        def vals(st, Y, scale):
-            return (scale * np.rint((st.class_values(Y) - pm) / 4)).astype(np.int16)
+        def vals(st, Y, scale, chunk=1 << 18):
+            out = np.empty((len(Y), st.C), dtype=np.int16)          # chunked: float64 class values of 10^7 rows would not fit
+            for c0 in range(0, len(Y), chunk):
+                out[c0:c0 + chunk] = scale * np.rint((st.class_values(Y[c0:c0 + chunk]) - pm) / 4)
+            return out
         Va, Vb, Vd = vals(st_ad, Ya, 1), vals(st_b, Yb, 2), vals(st_b, Yd, 1)
         Z = np.zeros((1, st_ad.C), np.int16)
         roles = sorted([(len(Va), 0), (len(Vd), 1), (len(Vb), 2)]); byrole = {0: Va, 1: Vd, 2: Vb}
