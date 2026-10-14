@@ -21,8 +21,13 @@ def main():
         N = h["N"]
         if N in done or (want and N not in want):
             continue
-        cert = {"order": 2 * N, "construction": "szollosi-ssxx", "N": N, "multipliers": h["gens"],
-                "subgroup_order": h["subgroup_order"], "rowsums": h["rowsums"], "sequences": h["sequences"]}
+        if "group" in h:
+            cert = {"order": 2 * N, "construction": "szollosi-ssxx-group", "N": N, "group": h["group"],
+                    "field": h["field"], "generator": h["generator"], "subgroup_order": h["subgroup_order"],
+                    "rowsums": h["rowsums"], "sequences": h["sequences"]}
+        else:
+            cert = {"order": 2 * N, "construction": "szollosi-ssxx", "N": N, "multipliers": h["gens"],
+                    "subgroup_order": h["subgroup_order"], "rowsums": h["rowsums"], "sequences": h["sequences"]}
         Kr, Ki = vc.build(cert)
         vc.check(Kr, Ki)
         cert["sha256"] = hashlib.sha256(vc.text(Kr, Ki).encode()).hexdigest()

@@ -9,6 +9,9 @@ with A and B symmetric and A A^T + B B^T + C C^T + D D^T = 4N I, and the matrix 
     K = [[ (A+B)/2 + i(A-B)/2,          (C+DR)/2 + i(C-DR)/2 ],
          [ (C^T+DR)/2 - i(C^T-DR)/2,   -(A+B)/2 + i(A-B)/2  ]].
 
+Certificates with construction "szollosi-ssxx-group" use group-developed matrices over G = Z_{m_1} x ... x Z_{m_r}
+(field "group"; elements in mixed-radix order, the last factor fastest) and R the matrix of g -> -g.
+
 This script rebuilds K from the sequences alone, checks every entry and K K* = n I exactly in integer arithmetic
 (real and imaginary parts separately), and compares the SHA-256 of the canonical text of K: n lines of n digits,
 digit e for the entry i^e.
@@ -29,7 +32,35 @@ def circ(s):
     return x[(t[None, :] - t[:, None]) % n]
 
 
+def group_developed(s, mods):
+    """X[g, h] = x(h - g) over G = Z_{m_1} x ... x Z_{m_r}, elements in mixed-radix order (last factor fastest)."""
+    x = np.array([1 if c == "+" else -1 for c in s], dtype=np.int64)
+    mods = [int(m) for m in mods]
+    v = int(np.prod(mods))
+    coords = np.array(np.unravel_index(np.arange(v), tuple(mods))).T
+    d = (coords[None, :, :] - coords[:, None, :]) % np.array(mods)
+    return x[np.ravel_multi_index(tuple(np.moveaxis(d, 2, 0)), tuple(mods))], coords, mods
+
+
 def build(cert):
+    if cert["construction"] == "szollosi-ssxx-group":
+        mats = [group_developed(s, cert["group"]) for s in cert["sequences"]]
+        A, B, C, D = (m[0] for m in mats)
+        coords, mods = mats[0][1], mats[0][2]
+        N = A.shape[0]
+        if 2 * N != cert["order"]:
+            raise ValueError("lengths")
+        if not (np.array_equal(A, A.T) and np.array_equal(B, B.T)):
+            raise ValueError("A and B must be symmetric")
+        I = np.eye(N, dtype=np.int64)
+        if not np.array_equal(A @ A.T + B @ B.T + C @ C.T + D @ D.T, 4 * N * I):
+            raise ValueError("A A^T + B B^T + C C^T + D D^T != 4N I")
+        neg = np.ravel_multi_index(tuple(((-coords) % np.array(mods)).T), tuple(mods))
+        R = np.zeros((N, N), np.int64); R[np.arange(N), neg] = 1
+        DR = D @ R
+        Kr = np.block([[(A + B) // 2, (C + DR) // 2], [(C.T + DR) // 2, -(A + B) // 2]])
+        Ki = np.block([[(A - B) // 2, (C - DR) // 2], [-(C.T - DR) // 2, (A - B) // 2]])
+        return Kr, Ki
     if cert["construction"] != "szollosi-ssxx":
         raise ValueError("unknown construction")
     A, B, C, D = (circ(s) for s in cert["sequences"])
