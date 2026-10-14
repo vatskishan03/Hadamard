@@ -1,0 +1,9 @@
+{
+ "order": 4828,
+ "construction": "sym-od-plug",
+ "symmetric": true,
+ "design": {"type": "paley", "q": 67},
+ "plug": "J-2I",
+ "hadamard": {"type": "paley2", "q": 17, "doublings": 1},
+ "sha256": "42a2ec96d4d4630736ecc2837a68f842f8c07324753b9a463150a37f7993af3b"
+}

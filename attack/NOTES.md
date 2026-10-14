@@ -1837,6 +1837,33 @@ symmetric Hadamard matrix of order 124 · 123 = 15252 = 4 · 3813 (built and che
 pairs on multiplier orbits (`sym_mm1.py mszek`, every odd subgroup with at most 34 orbits) for
 v' = 45, 57, 73, 77, 85, 93, 97, 101, 109, 117, 129, 133, 137, 145, 149, 153, 157 found nothing.
 
+**What the plug-in can reach.** If every variable of a symmetric OD of type (s_1, …, s_k) is replaced by a symmetric
+±1 matrix X_i of order r with X_i² = α_i I + β_i J (all commuting with J), the result is Hadamard iff Σ s_i β_i = 0.
+The off-diagonal Gram value β_i of a ±1 matrix whose Gram matrix is α I + β J satisfies r + β(r − 1) = (row sum)² ≥ 0,
+so β_i ≥ −1, with equality exactly for the core of a symmetric Hadamard matrix of order r + 1; β = 0 needs a
+symmetric Hadamard matrix of order r (impossible for r odd); X = J has β = r, and 1 ≤ β < r means X = ±(J − 2N)
+for a symmetric design N with a polarity. With r odd the cores must balance the positive β: Σ_{β_i > 0} s_i β_i =
+Σ_{cores} s_i. With J alone (weight k) this is a symmetric OD(k(r + 1); k, kr) and order kr(r + 1), so for the census
+the route gives v = k · n(4n − 1) (r + 1 = 4n); designs in place of J would need symmetric designs whose ±1
+matrices commute with a core, which we have not looked for.
+
+**Order m(m + 3): the plug-in J − 2I (order 4828 = 4 · 1207).** In the balance above, X = J − 2I has β = r − 4, so
+a symmetric OD(m; 1, m − 1) with x ↦ J − 2I and y ↦ a core of a symmetric Hadamard matrix of order r + 1 works when
+r − 4 = m − 1: H = P ⊗ (J − 2I) + N ⊗ D is a symmetric Hadamard matrix of order m(m + 3) whenever a symmetric
+OD(m; 1, m − 1) and a symmetric Hadamard matrix of order m + 4 exist ((J − 2I)² = 4I + (m − 1)J; (m − 1)D² =
+(m − 1)(m + 4)I − (m − 1)J). Checked for Paley q = 7, 11, 19, 23 (orders 88, 180, 460, 648; `sym_mm1.py test`). For
+m = 4n, n odd, the order is 4 · n(4n + 3); in the census: **1207 = 17 · 71** from Paley q = 67 (m = 68) and the
+symmetric Hadamard matrix of order 72 (Paley II for q = 17, doubled) — [symmetric/4828](../symmetric/4828), verify.py
+construction `sym-od-plug` — and 2185 = 23 · 95, which again needs a symmetric OD(92; 1, 91). The other balances with
+J, J − 2I and cores give r = (m − a + 3b)/(a + b) for weights a on J and b on J − 2I; with a + b = 2 the core has order
+2n or 2n + 4 (≡ 2 mod 4) except for (a, b) = (1, 1), which needs a symmetric OD(4n; 1, 1, 4n − 2): none in Balonin
+form (`symod.c` finds only the 3-variable types (2, 8, 2) and (9, 2, 1) at order 12 and none at order 20), and the
+Paley designs for q = 7, 11, 19, 23 have no second involution P₂ with P₂N + NP₂ = 2I anticommuting with P (exhaustive
+backtracking). (a, b) = (2, 1) would give 391, 1645 and 2255 but needs a symmetric OD(4n; 2, 1, 4n − 3); in Balonin
+form that is A3 symmetric with A1 and A0 both of skew type, which forces a3² = 4n − 3, incompatible with n ≡ 2 (mod 3).
+Designs in place of J − 2I (X = J − 2N, N a symmetric design commuting with the core) would need the parameters
+(r, κ, λ) with κ − λ = (r − m + 1)/4, e.g. (71, 21, 6) for 213 and (103, 18, 3) for 1133; not pursued.
+
 **Weighted variant (not realised).** v = k n (4n − 1)-type census values (475 = 5 · 95 with h = 20, 1989 = 3 · 663
 with h = 52, 693, 1235, 2185, 2375, and 33k for k = 27, 33, 41, …) would need symmetric OD(kh; k, k(h − 1)) with
 k ≥ 3 odd. In Balonin form over ℤ₅ (order 20) only the types (1, 19) and (2, 18) exist (`symod.c`, §30), and a

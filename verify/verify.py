@@ -850,13 +850,120 @@ def build_skew_propus_plug(cert):
     return H, seqs
 
 
+def _is_prime(q):
+    return q > 1 and all(q % p for p in range(2, int(math.isqrt(q)) + 1))
+
+
+def _check_sym_od(P, N):
+    """x P + y N is a symmetric orthogonal design of type (1, m - 1)."""
+    m = P.shape[0]
+    I = np.eye(m, dtype=np.int64)
+    if not (np.array_equal(P, P.T) and np.array_equal(N, N.T)):
+        raise ValueError("P or N is not symmetric")
+    if not np.array_equal(np.abs(P) + np.abs(N), np.ones((m, m), dtype=np.int64)):
+        raise ValueError("P and N do not have complementary supports")
+    if not (np.array_equal(P @ P, I) and np.array_equal(N @ N, (m - 1) * I) and not (P @ N + N @ P).any()):
+        raise ValueError("x P + y N is not an orthogonal design of type (1, m - 1)")
+
+
+def _core(M):
+    """D with D symmetric, D J = J, D^2 = m I - J from a symmetric Hadamard matrix M of order m: move the first
+    diagonal entry -1 to position 0 and normalise row and column 0 to (-1, 1, ..., 1) by a diagonal +-1 similarity."""
+    m = M.shape[0]
+    r = int(np.flatnonzero(np.diag(M) == -1)[0])
+    order = [r] + [i for i in range(m) if i != r]
+    M = M[np.ix_(order, order)]
+    e = M[0].copy()
+    e[0] = 1
+    M = M * e[:, None] * e[None, :]
+    D = M[1:, 1:]
+    J = np.ones((m - 1, m - 1), dtype=np.int64)
+    if not (np.array_equal(D, D.T) and np.array_equal(D @ J, J) and np.array_equal(D @ D, m * np.eye(m - 1, dtype=np.int64) - J)):
+        raise ValueError("the core D is not symmetric with D J = J and D^2 = m I - J")
+    return D
+
+
+def _paley_sym_od(q):
+    """Paley's skew-Hadamard matrix I + C of order q + 1 (q = 3 mod 4 prime; index 0 is infinity, 1 + x is x) and
+    P = (-1) + (x -> -x): P C P = -C, so x P + y C P is a symmetric OD(q + 1; 1, q)."""
+    if not (_is_prime(q) and q % 4 == 3):
+        raise ValueError("q must be a prime = 3 (mod 4)")
+    chi = -np.ones(q, dtype=np.int64)
+    chi[np.arange(1, q) ** 2 % q] = 1
+    chi[0] = 0
+    m = q + 1
+    C = np.zeros((m, m), dtype=np.int64)
+    C[0, 1:] = 1
+    C[1:, 0] = -1
+    C[1:, 1:] = circulant(chi)
+    P = np.zeros((m, m), dtype=np.int64)
+    P[0, 0] = -1
+    P[1 + np.arange(q), 1 + (-np.arange(q)) % q] = 1
+    return P, C @ P
+
+
+def _paley2_doubled(q, k):
+    """Symmetric Hadamard matrix of order 2^(k+1) (q + 1): Paley II [[C + I, C - I], [C - I, -C - I]] for a prime
+    q = 1 (mod 4), then k Kronecker products with [[1, 1], [1, -1]]."""
+    if not (_is_prime(q) and q % 4 == 1):
+        raise ValueError("q must be a prime = 1 (mod 4)")
+    C = paley_conference(q).astype(np.int64)
+    I = np.eye(q + 1, dtype=np.int64)
+    M = np.block([[C + I, C - I], [C - I, -C - I]])
+    for _ in range(k):
+        M = np.kron(np.array([[1, 1], [1, -1]], dtype=np.int64), M)
+    return M
+
+
+def build_sym_od_plug(cert):
+    """Symmetric Hadamard matrix from a symmetric orthogonal design x P + y N of type (1, m - 1) (P, N symmetric with
+    complementary supports, P^2 = I, N^2 = (m - 1) I, PN + NP = 0) by H = P (x) X + N (x) D, where D (order r) is the
+    core of a symmetric Hadamard matrix (D symmetric, D J = J, D^2 = (r + 1) I - J) and X is symmetric, commutes with
+    D, and X^2 + (m - 1) D^2 = m r I:
+
+      plug "J":       X = J,      r = m - 1, D from P + N itself          (order m (m - 1));
+      plug "J-2I":    X = J - 2I, r = m + 3, D from a symmetric Hadamard matrix of order m + 4   (order m (m + 3)),
+
+    since (J - 2I)^2 = 4I + (r - 4) J and (m - 1)((r + 1) I - J) add up to m r I exactly when r = m + 3. Then
+    H H^T = P^2 (x) X^2 + (PN + NP) (x) XD + N^2 (x) D^2 = I (x) (X^2 + (m - 1) D^2) = m r I, and H = H^T.
+
+    "design": {"type": "paley", "q": q} (q = 3 mod 4 prime). "hadamard" (plug "J-2I"): {"type": "paley2", "q": q,
+    "doublings": k}. Everything (the design identities, the core identities, H H^T, H = H^T) is checked."""
+    des = cert["design"]
+    if des["type"] == "paley":
+        P, N = _paley_sym_od(des["q"])
+    else:
+        raise ValueError("unknown design type")
+    _check_sym_od(P, N)
+    m = P.shape[0]
+    if cert["plug"] == "J":
+        D = _core(P + N)
+        X = np.ones((m - 1, m - 1), dtype=np.int64)
+    elif cert["plug"] == "J-2I":
+        h = cert["hadamard"]
+        if h["type"] != "paley2":
+            raise ValueError("unknown Hadamard source")
+        M = _paley2_doubled(h["q"], h["doublings"])
+        if M.shape[0] != m + 4 or not np.array_equal(M, M.T) or not np.array_equal(M @ M, (m + 4) * np.eye(m + 4, dtype=np.int64)):
+            raise ValueError("the matrix of order m + 4 is not a symmetric Hadamard matrix")
+        D = _core(M)
+        X = np.ones((m + 3, m + 3), dtype=np.int64) - 2 * np.eye(m + 3, dtype=np.int64)
+    else:
+        raise ValueError("unknown plug")
+    r = D.shape[0]
+    if not (np.array_equal(X @ D, D @ X) and np.array_equal(X @ X + (m - 1) * (D @ D), m * r * np.eye(r, dtype=np.int64))):
+        raise ValueError("X and D do not commute or X^2 + (m - 1) D^2 != m r I")
+    return np.kron(P.astype(np.int8), X.astype(np.int8)) + np.kron(N.astype(np.int8), D.astype(np.int8)), None
+
+
 BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": build_goethals_seidel_group,
             "cooper-wallis": build_cooper_wallis,
             "cooper-wallis-near-williamson": build_cooper_wallis_near_williamson,
             "spence": build_spence, "miyamoto": build_miyamoto,
             "bordered-goethals-seidel": build_bordered_gs, "skew-doubling": build_skew_doubling,
             "yamada": build_yamada, "propus": build_propus, "propus-bordered": build_propus_bordered,
-            "propus-qbordered": build_propus_qbordered, "skew-propus-plug": build_skew_propus_plug}
+            "propus-qbordered": build_propus_qbordered, "skew-propus-plug": build_skew_propus_plug,
+            "sym-od-plug": build_sym_od_plug}
 
 
 def csv_chunks(H, rows=512):

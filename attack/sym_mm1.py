@@ -78,6 +78,27 @@ def plug(P, N, D=None):
     return (np.kron(P.astype(np.int8), J) + np.kron(N.astype(np.int8), D.astype(np.int8))).astype(np.int8)
 
 
+def plug3(P, N, M):
+    """H = P (x) (J - 2I) + N (x) D, D the core of a symmetric Hadamard matrix M of order m + 4: order m (m + 3).
+    (J - 2I)^2 = 4I + (m - 1) J and (m - 1) D^2 = (m - 1)(m + 4) I - (m - 1) J add up to m (m + 3) I."""
+    m = P.shape[0]
+    D = core(M)
+    r = D.shape[0]
+    assert r == m + 3
+    X = np.ones((r, r), dtype=np.int8) - 2 * np.eye(r, dtype=np.int8)
+    return (np.kron(P.astype(np.int8), X) + np.kron(N.astype(np.int8), D.astype(np.int8))).astype(np.int8)
+
+
+def paley2(q, doublings=0):
+    """Symmetric Hadamard matrix [[C + I, C - I], [C - I, -C - I]] of order 2(q + 1) (q = 1 mod 4 prime), doubled."""
+    C = verify.paley_conference(q).astype(np.int64)
+    I = np.eye(q + 1, dtype=np.int64)
+    M = np.block([[C + I, C - I], [C - I, -C - I]])
+    for _ in range(doublings):
+        M = np.kron(np.array([[1, 1], [1, -1]], dtype=np.int64), M)
+    return M
+
+
 def is_symmetric_hadamard(H):
     n = H.shape[0]
     return np.array_equal(H, H.T) and verify.is_pm1(H) and verify.gram_is_scalar(H, n)
@@ -375,6 +396,12 @@ def test():
         assert check_od(P, N), q
         H = plug(P, N)
         print(f'Paley q = {q}: symmetric OD({q + 1}; 1, {q}) ok, symmetric Hadamard of order {H.shape[0]}: {is_symmetric_hadamard(H)}')
+    H2 = np.array([[1, 1], [1, -1]], dtype=np.int64)
+    sylvester16 = np.kron(np.kron(H2, H2), np.kron(H2, H2))
+    for q, M in ((7, paley2(5)), (11, sylvester16), (19, paley2(5, 1)), (23, paley2(13))):
+        P, N = paley(q)
+        H = plug3(P, N, M)
+        print(f'Paley q = {q} with J - 2I and a symmetric Hadamard matrix of order {M.shape[0]}: order {H.shape[0]}: {is_symmetric_hadamard(H)}')
     for n in range(3, 16, 2):
         sols = skew_propus(n, log=lambda *a: None)
         if not sols:

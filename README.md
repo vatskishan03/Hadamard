@@ -168,9 +168,13 @@ order m(m − 1) (`attack/NOTES.md` §31, `attack/sym_mm1.py`). Đoković's theo
 m − 1 = q ≡ 3 (mod 8) a prime power; the design can also come from a skew-propus quadruple of any odd length n
 (m = 4n), found here by exhaustive search, or from a Legendre pair with one skew and one symmetric block.
 
-| Order | v | Design | Census |
+Replacing x by J − 2I instead of J, with the core of a symmetric Hadamard matrix of order m + 4, gives order
+m(m + 3) (new as far as we know; `attack/NOTES.md` §31).
+
+| Order | v | Design and plug-in | Census |
 |------:|---|---|---|
-| [5700](symmetric/5700) | 1425 (3 · 5² · 19) = 19 · 75 | skew-propus quadruple of length 19 (row sums 5, 5, 1, invariant under the multiplier 7), symmetric OD(76; 1, 75) | undecided |
+| [4828](symmetric/4828) | 1207 (17 · 71) = 17 · (4 · 17 + 3) | Paley's symmetric OD(68; 1, 67) (q = 67); x ↦ J − 2I, y ↦ the core of a symmetric Hadamard matrix of order 72 | undecided |
+| [5700](symmetric/5700) | 1425 (3 · 5² · 19) = 19 · 75 | skew-propus quadruple of length 19 (row sums 5, 5, 1, invariant under the multiplier 7), symmetric OD(76; 1, 75); x ↦ J, y ↦ the core of P + N | undecided |
 
 ## Verification
 
