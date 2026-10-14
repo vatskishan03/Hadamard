@@ -66,27 +66,45 @@ H Hᵀ = 1716 I, H + Hᵀ = 2I and the SHA-256 of the canonical CSV.
 
 ## Status
 
-To our knowledge this is the first skew-Hadamard matrix of order 1716. The literature audit is in progress. Until it
-is recorded here, read this as "found by us", not as "new". What has been checked so far:
+To our knowledge this is the first skew-Hadamard matrix of order 1716, and the OD(156; 1, 13, 142) the first
+orthogonal design of that type.
+
+**Novelty checklist:**
 
 1. **The Đoković–Seberry census** (PDF of 2025-05-28): 429 is in its list of 737 undecided skew values. It is not
    undecided in the symmetric list.
 2. **Tables of skew orders 2ᵗq.** Both give 8 · 429 as the smallest known order:
    - Cati–Pasechnik (arXiv:2411.18897), Table 5: "429(3)".
    - Seberry–Yamada (1992), Table 7.1: "429 3".
+
+   That entry is explained by Momihara–Xiang (arXiv:1801.08776; Eur. J. Combin. 76 (2019)). Their 4-block skew
+   Hadamard difference families for q ≡ 9 (mod 16) give order 4(q + 1) = 3432 = 8 · 429 with q = 857. Their 2-block
+   families (order 2(q + 1)) need q ≡ 5 (mod 8), and 857 ≡ 1 (mod 8).
 3. **SageMath** (develop branch of 2026-10-11, its existence logic traced, not executed): `Unknown`. Its
    orthogonal-design branch tries the split n = 12, m = 13 and needs an OD(156; 1, 13, 142), which is not in its
    table.
 4. **Classical skew families** (arithmetic):
    - Paley needs 1715 = 5 · 7³ to be a prime power.
-   - 2(q + 1) needs q = 857, a prime ≡ 1 (mod 8), outside the Szekeres series.
+   - 2(q + 1) needs q = 857, a prime ≡ 1 (mod 8), outside the Szekeres, Szekeres–Whiteman and Momihara–Xiang 2-block
+     families.
    - 4(q + 1) needs q = 428.
    - Spence's q² + q + 1 skips 429 (421, 463).
    - Seberry's q(q + 1) and 2ʳn(2ʳn − 1) have no integer solution (41 · 42 = 1722).
    - (p − 1)^u + 1 needs 1715 to be a perfect power.
    - Kronecker products and doubling are impossible (858 is not a Hadamard order).
-5. **Orthogonal designs.** The audit of [skew/7956](../7956) found no published tables of designs in orders 4 · odd
-   above 44. Every use of Seberry's Theorem 7 that it found has m = 1.
+
+**Searches** (audit of 2026-10-14 by a research agent; downloaded sources were read as text, never executed):
+- the arXiv API (skew/Hadamard, Szekeres, supplementary difference sets, orthogonal designs, numeric queries, the latest
+  papers of Đoković, Seberry, Kotsireas, Kharaghani, Pasechnik and Momihara);
+- the Zenodo API, GitHub code and repository search, OEIS and web search;
+- a re-grep of about 12 750 previously downloaded texts.
+
+None mentions a skew matrix of this order or the orthogonal design. The nearest use of Seberry's theorem in the
+literature is Seberry, "Some remarks on amicable orthogonal designs" (Ann. Discrete Math. 6 (1980)), whose amicable
+analogue of Theorem 7 is used only conditionally ("more knowledge of the existence of amicable orthogonal designs would
+be invaluable"). Not checked: the bodies of Seberry–Yamada (2020), Seberry (2017) and Geramita–Seberry (1979);
+Spence (1977), Whiteman (1971) and Ding (2008) in full text; MathSciNet and zbMATH. This is a finding of nothing, not a
+proof that no earlier construction exists.
 
 ## Files
 

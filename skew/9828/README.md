@@ -63,8 +63,10 @@ with 364 = 13 · 28. Finally it assembles H and checks H Hᵀ = 9828 I, H + Hᵀ
 
 ## Status
 
-To our knowledge this is the first skew-Hadamard matrix of order 9828. The literature audit is in progress. Until it
-is recorded here, read this as "found by us", not as "new". What has been checked so far:
+To our knowledge this is the first skew-Hadamard matrix of order 9828, and the OD(364; 1, 13, 350) the first
+orthogonal design of that type.
+
+**Novelty checklist:**
 
 1. **The Đoković–Seberry census** (PDF of 2025-05-28): 2457 is in its list of 737 undecided skew values. It is not
    undecided in the symmetric list. Its skew series do not reach 2457:
@@ -72,19 +74,34 @@ is recorded here, read this as "found by us", not as "new". What has been checke
    - Szekeres–Whiteman needs p ≡ 5 (mod 8).
    - Spence needs 1 + q + q² = 2457, but 1 + 49 + 49² = 2451.
    - 2457 is not among its 41 sporadic values.
-2. **Tables of skew orders 2ᵗq**: Cati–Pasechnik (arXiv:2411.18897), Table 5, stops at n ≤ 999; Seberry–Yamada
+2. **Momihara–Xiang** (arXiv:1801.08776; Eur. J. Combin. 76 (2019)). Their 2-block families need q ≡ 5 (mod 8), or
+   q = pᵉ with p ≡ 5 (mod 8) and e ≡ 2 (mod 4). For q = 17³ ≡ 17 (mod 32) they give an 8-block family without a
+   matrix corollary.
+3. **Tables of skew orders 2ᵗq**: Cati–Pasechnik (arXiv:2411.18897), Table 5, stops at n ≤ 999; Seberry–Yamada
    (1992), Table 7.1, at q = 999.
-3. **Classical skew families** (arithmetic):
+4. **Classical skew families** (arithmetic):
    - Paley needs 9827 = 31 · 317 to be a prime power.
-   - 2(q + 1) needs q = 4913 = 17³ ≡ 1 (mod 8), outside the Szekeres, Szekeres–Whiteman and Spence 2(q + 1) series.
    - 4(q + 1) needs q = 2456.
    - Seberry's q(q + 1) and 2ʳn(2ʳn − 1) have no integer solution.
    - (p − 1)^u + 1 needs 9827 to be a perfect power.
+   - (|t| + 1)(q + 1) comes closest, with q = 701 = 5² + 4 · 13² and 14 · 702 = 9828, but needs a skew matrix of
+     order 14.
    - Kronecker products and doubling are impossible, since 4914 is not a Hadamard order.
-4. **SageMath**: its orthogonal-design branch has only OD(28; 1, 1, 26), so the split n = 28, m = 13 is out of its
-   reach.
-5. **Orthogonal designs.** The audit of [skew/7956](../7956) found no published tables of designs in orders
-   4 · odd above 44. Every use of Seberry's Theorem 7 that it found has m = 1.
+5. **SageMath** (traced, not executed): `Unknown`. Its orthogonal-design branch needs an OD(364; 1, 13, 350) for the
+   split n = 28, m = 13.
+
+**Searches** (audit of 2026-10-14 by a research agent; downloaded sources were read as text, never executed):
+- the arXiv API (skew/Hadamard, Szekeres, supplementary difference sets, orthogonal designs, numeric queries, the latest
+  papers of Đoković, Seberry, Kotsireas, Kharaghani, Pasechnik and Momihara);
+- the Zenodo API, GitHub code and repository search, OEIS and web search;
+- a re-grep of about 12 750 previously downloaded texts.
+
+None mentions a skew matrix of this order or the orthogonal design. The nearest use of Seberry's theorem in the
+literature is Seberry, "Some remarks on amicable orthogonal designs" (Ann. Discrete Math. 6 (1980)), whose amicable
+analogue of Theorem 7 is used only conditionally ("more knowledge of the existence of amicable orthogonal designs would
+be invaluable"). Not checked: the bodies of Seberry–Yamada (2020), Seberry (2017) and Geramita–Seberry (1979);
+Spence (1977), Whiteman (1971) and Ding (2008) in full text; MathSciNet and zbMATH. This is a finding of nothing, not a
+proof that no earlier construction exists.
 
 ## Files
 

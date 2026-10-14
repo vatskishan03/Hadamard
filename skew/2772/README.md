@@ -64,8 +64,10 @@ H Hᵀ = 2772 I, H + Hᵀ = 2I and the SHA-256 of the canonical CSV.
 
 ## Status
 
-To our knowledge this is the first skew-Hadamard matrix of order 2772. The literature audit is in progress. Until it
-is recorded here, read this as "found by us", not as "new". What has been checked so far:
+To our knowledge this is the first skew-Hadamard matrix of order 2772, and the OD(252; 1, 21, 230) the first
+orthogonal design of that type.
+
+**Novelty checklist:**
 
 1. **The Đoković–Seberry census** (PDF of 2025-05-28): 693 is in its list of 737 undecided skew values and in its
    list of undecided symmetric values.
@@ -74,15 +76,30 @@ is recorded here, read this as "found by us", not as "new". What has been checke
    - Seberry–Yamada (1992), Table 7.1: "693 4".
 3. **Classical skew families** (arithmetic):
    - Paley needs 2771 = 17 · 163 to be a prime power.
-   - 2(q + 1) needs q = 1385 = 5 · 277.
+   - 2(q + 1) needs q = 1385 = 5 · 277, not a prime power; no two-block skew family in a group of order 1385 was found.
    - 4(q + 1) needs q = 692.
    - Spence's q² + q + 1 skips 693 (651, 703).
    - Seberry's q(q + 1) and 2ʳn(2ʳn − 1) have no integer solution (52 · 53 = 2756, 53 · 54 = 2862).
    - (p − 1)^u + 1 needs 2771 to be a perfect power.
+   - (|t| + 1)(q + 1) comes closest, with q = 461 = 19² + 4 · 5² and 6 · 462 = 2772, but needs a skew matrix of
+     order 6.
    - Kronecker products and doubling are impossible (1386 is not a Hadamard order).
    - The only other splits of Seberry's theorem are n = 4 (OD(924; 1, 231, 692)) and n = 2 (degenerate).
 4. **SageMath**: its orthogonal-design branch has only OD(28; 1, 1, 26), so the split n = 12, m = 21 is out of its
    reach.
+
+**Searches** (audit of 2026-10-14 by a research agent; downloaded sources were read as text, never executed):
+- the arXiv API (skew/Hadamard, Szekeres, supplementary difference sets, orthogonal designs, numeric queries, the latest
+  papers of Đoković, Seberry, Kotsireas, Kharaghani, Pasechnik and Momihara);
+- the Zenodo API, GitHub code and repository search, OEIS and web search;
+- a re-grep of about 12 750 previously downloaded texts.
+
+None mentions a skew matrix of this order or the orthogonal design. The nearest use of Seberry's theorem in the
+literature is Seberry, "Some remarks on amicable orthogonal designs" (Ann. Discrete Math. 6 (1980)), whose amicable
+analogue of Theorem 7 is used only conditionally ("more knowledge of the existence of amicable orthogonal designs would
+be invaluable"). Not checked: the bodies of Seberry–Yamada (2020), Seberry (2017) and Geramita–Seberry (1979);
+Spence (1977), Whiteman (1971) and Ding (2008) in full text; MathSciNet and zbMATH. This is a finding of nothing, not a
+proof that no earlier construction exists.
 
 ## Files
 
