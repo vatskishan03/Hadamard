@@ -285,7 +285,7 @@ def main():
         jobs = []
         for S, gs in PR.subgroup_gens(v).items():
             Ob = len({min(t * h % v for h in S) for t in range(v)})
-            if a.mino <= Ob <= a.maxo and (a.plain or (v - 1) not in S): jobs.append((Ob, gs))
+            if a.mino <= Ob <= a.maxo and (a.plain or a.qb or (v - 1) not in S): jobs.append((Ob, gs))   # bordered: B, D may be symmetric too
         jobs.sort()
         log(f"v={v}: {len(jobs)} structures with {a.mino}..{a.maxo} orbits")
     else:

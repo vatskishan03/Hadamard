@@ -63,7 +63,7 @@ def qpaf(Q, x):
 
 def search(G, name, mats, gens, st_ad, st_b, a, log):
     m = G.v; pm = m % 4; found = []
-    T, pats, build, n4 = BG.mode(G)
+    tgt, pats, build, n4 = BG.mode(G)                 # tgt: weighted PAF target at each g != 0
     neg = G.neg()
     best = None
     for qname, Q, q in quotients(G):
@@ -86,7 +86,8 @@ def search(G, name, mats, gens, st_ad, st_b, a, log):
         PB = np.array([2 * qpaf(Q, cb.full(k)) for k in KB]).reshape(len(KB), -1)
         PD = np.array([qpaf(Q, cb.full(k)) for k in KD]).reshape(len(KD), -1)
         triples = []
-        for i, j, k in PC.join3(PA, PB, PD, np.full(Q.v - 1, T * K, np.int64)):
+        tgtQ = np.array([int(tgt[(q == c) & (np.arange(m) != 0)].sum()) for c in range(1, Q.v)], np.int64)
+        for i, j, k in PC.join3(PA, PB, PD, tgtQ):
             triples.append((Da[KA[i]] * Dd[KD[k]], KA[i], KB[j], KD[k]))
         triples.sort(key=lambda x: -x[0])
         work = sum(t[0] for t in triples)
@@ -113,7 +114,7 @@ def search(G, name, mats, gens, st_ad, st_b, a, log):
             try:
                 with open(path, 'wb') as f:
                     f.write(struct.pack('iiiii', *[len(x) for x in lists], st_ad.C))
-                    f.write(np.full(st_ad.C, (T - 4 * pm) // 4, dtype=np.int16).tobytes())
+                    f.write(np.array([(tgt[g] - 4 * pm) // 4 for g in st_ad.reps], dtype=np.int16).tobytes())
                     for x in lists: f.write(np.ascontiguousarray(x).tobytes())
                 out = subprocess.run([W.bin('join4x'), path, '1'], capture_output=True, text=True, check=True).stdout
             finally:
@@ -127,7 +128,7 @@ def search(G, name, mats, gens, st_ad, st_b, a, log):
                 A = Ya[ids[slot[0]]].astype(np.int64)[st_ad.orb]; D = Yd[ids[slot[1]]].astype(np.int64)[st_b.orb]
                 B = Yb[ids[slot[2]]].astype(np.int64)[st_b.orb]
                 tot = PG.group_paf(G, A) + 2 * PG.group_paf(G, B) + PG.group_paf(G, D)
-                if not (tot[0] == 4 * m and np.all(tot[1:] == T)): log('  WRONG autocorrelations'); continue
+                if not (tot[0] == 4 * m and np.array_equal(tot[1:], tgt[1:])): log('  WRONG autocorrelations'); continue
                 Hm, Kb = build(A, B, D)
                 ok = Hm is not None and np.array_equal(Hm, Hm.T) and np.array_equal(Hm @ Hm.T, n4 * np.eye(n4, dtype=Hm.dtype))
                 log(f"  hit: {'' if BG.UNBORDERED else 'bordered '}symmetric Hadamard of order {n4} {ok}")
