@@ -43,7 +43,8 @@ static inline uint64_t mix(uint64_t h, uint64_t x) {
 }
 
 typedef struct { uint64_t key; int32_t start, cnt; } hent;
-typedef struct { hent *h; uint64_t mask; int32_t *idx; } htab;
+typedef struct { hent *h; uint64_t mask; int32_t *idx; uint64_t *bloom; } htab;
+#define BLOOM_BITS 26
 static htab TA, TB;
 
 /* linear key: sum_q RK[q] * w_q (mod 2^64), so key(t - v) = key(t) - key(v); the table stores key | 1 is avoided by
@@ -74,6 +75,8 @@ static void build_table(int16_t *V, int n, htab *T) {
     uint64_t size = 1;
     while (size < 4ULL * (uint64_t)n + 16) size <<= 1;
     T->h = calloc(size, sizeof(hent)); T->mask = size - 1;
+    T->bloom = calloc((1ULL << BLOOM_BITS) / 64, sizeof(uint64_t));
+    for (int i = 0; i < n; i++) { uint64_t b = ((a[i].k + 1) * 0xD6E8FEB86659FD93ULL) >> (64 - BLOOM_BITS); T->bloom[b >> 6] |= 1ULL << (b & 63); }
     for (int i = 0; i < n;) {
         int j = i;
         while (j < n && a[j].k == a[i].k) j++;
@@ -86,7 +89,9 @@ static void build_table(int16_t *V, int n, htab *T) {
 }
 
 static inline const hent *lookup_key(const htab *T, uint64_t key) {
-    uint64_t k = key + 1, pos = (k * 0x9E3779B97F4A7C15ULL) >> 20 & T->mask;
+    uint64_t k = key + 1, b = (k * 0xD6E8FEB86659FD93ULL) >> (64 - BLOOM_BITS);
+    if (!((T->bloom[b >> 6] >> (b & 63)) & 1)) return NULL;
+    uint64_t pos = (k * 0x9E3779B97F4A7C15ULL) >> 20 & T->mask;
     while (T->h[pos].key) {
         if (T->h[pos].key == k) return &T->h[pos];
         pos = (pos + 1) & T->mask;
@@ -95,17 +100,18 @@ static inline const hent *lookup_key(const htab *T, uint64_t key) {
 }
 static uint64_t *KT;      /* key(targets) */
 
-/* per-thread DFS state; TM[o][p*CP + c] = 2 (S_c[p][o] + S_c[o][p]), D4[o][c] = 4 S_c[o][o] (int32, padded) */
-static int CP;                       /* C rounded up to a multiple of 8 */
-static int32_t *TM, *D4;
+/* per-thread DFS state; TM[o][p*CP + c] = 2 (S_c[p][o] + S_c[o][p]) (int16), D4[o][c] = 4 S_c[o][o] (int32);
+   R[p][c] = sum_j (S_c[p][j] + S_c[j][p]) y_j is kept up to date only for the orbits p the search may still flip */
+static int CP;                       /* C rounded up to a multiple of 16 */
+static int16_t *TM; static int32_t *D4;
 
 typedef struct {
-    int y[64]; int32_t *v; int32_t *R;    /* v[CP], R[o*CP + c] */
+    int y[64]; int32_t *v; int16_t *R;    /* v[CP], R[p*CP + c] */
     uint64_t code; int64_t sum;
 } state;
 
 static void st_init(state *s) {
-    s->R = aligned_alloc(64, sizeof(int32_t) * ((O * CP + 15) / 16) * 16);
+    s->R = aligned_alloc(64, sizeof(int16_t) * ((O * CP + 31) / 32) * 32);
     s->v = aligned_alloc(64, sizeof(int32_t) * ((CP + 15) / 16) * 16);
     for (int o = 0; o < O; o++) s->y[o] = -1;
     s->code = 0; s->sum = 0;
@@ -118,29 +124,44 @@ static void st_init(state *s) {
     for (int o = 0; o < O; o++) for (int c = 0; c < CP; c++) {
         int64_t r = 0;
         if (c < C) for (int j = 0; j < O; j++) r -= SI(c, o, j) + SI(c, j, o);
-        s->R[o * CP + c] = (int32_t)r;
+        s->R[o * CP + c] = (int16_t)r;
     }
 }
 
 static inline void flip(state *s, int o) {
     int32_t yo = s->y[o];
-    int32_t *restrict v = s->v; const int32_t *restrict Ro = s->R + (int64_t)o * CP; const int32_t *restrict d4 = D4 + (int64_t)o * CP;
-    for (int c = 0; c < CP; c++) v[c] += -2 * yo * Ro[c] + d4[c];
-    int32_t *restrict R = s->R; const int32_t *restrict T = TM + (int64_t)o * O * CP;
-    int n = O * CP;
+    int32_t *restrict v = s->v; const int16_t *Ro = s->R + (int64_t)o * CP; const int32_t *restrict d4 = D4 + (int64_t)o * CP;
+    for (int c = 0; c < CP; c++) v[c] += -2 * yo * (int32_t)Ro[c] + d4[c];
+    int16_t *restrict R = s->R + (int64_t)o * CP; const int16_t *restrict T = TM + ((int64_t)o * O + o) * CP;
+    int n = (O - o) * CP;                 /* rows p >= o: the row of o itself changes through its diagonal term */
     if (yo < 0) { for (int i = 0; i < n; i++) R[i] += T[i]; }
     else { for (int i = 0; i < n; i++) R[i] -= T[i]; }
     s->y[o] = -yo; s->code ^= (1ULL << o); s->sum += 2 * (int64_t)(-yo) * SZ[o];
 }
 
 static int64_t suffix[65];
+static unsigned char *REACH;          /* REACH[pos * RW + n]: n = sum of 2*SZ over some subset of orbits pos.. */
+static int64_t RW;
+
+static void build_reach(void) {
+    int64_t tot = 0;
+    for (int o = 0; o < O; o++) tot += 2 * SZ[o];
+    RW = tot + 1;
+    free(REACH);
+    REACH = calloc((size_t)(O + 1) * RW, 1);
+    REACH[(int64_t)O * RW + 0] = 1;
+    for (int pos = O - 1; pos >= 0; pos--)
+        for (int64_t n = 0; n < RW; n++)
+            REACH[(int64_t)pos * RW + n] = REACH[(int64_t)(pos + 1) * RW + n] |
+                (n >= 2 * SZ[pos] ? REACH[(int64_t)(pos + 1) * RW + n - 2 * SZ[pos]] : 0);
+}
 
 typedef void (*leaf_fn)(state *, void *);
 
 static void dfs(state *s, int pos, int64_t target, leaf_fn fn, void *ctx) {
     int64_t need = target - s->sum;                      /* sum of 2*SZ over orbits still to flip */
     if (need == 0) { fn(s, ctx); return; }
-    if (pos >= O || need < 0 || need > 2 * suffix[pos]) return;
+    if (pos >= O || need < 0 || need >= RW || !REACH[(int64_t)pos * RW + need]) return;
     /* flip pos */
     flip(s, pos);
     dfs(s, pos + 1, target, fn, ctx);
@@ -256,6 +277,7 @@ static void run_pass(int rowsum, int pass, int threads, void **ctxs) {
     for (int o = O - 1; o >= 0; o--) suffix[o] = suffix[o + 1] + SZ[o];
     int d = O < 12 ? O / 2 : 12;
     int64_t np = 1LL << d;
+    build_reach();
     #pragma omp parallel num_threads(threads)
     {
         int tid = omp_get_thread_num();
@@ -266,11 +288,11 @@ static void run_pass(int rowsum, int pass, int threads, void **ctxs) {
             /* apply prefix choices on orbits 0..d-1 */
             for (int o = 0; o < d; o++) if ((pfx >> o) & 1) flip(&s, o);
             int64_t need = target - s.sum;
-            if (need >= 0 && need <= 2 * suffix[d]) {
+            if (need >= 0 && need < RW && REACH[(int64_t)d * RW + need]) {
                 if (pass == 1) dfs(&s, d, target, leaf1, ctxs[tid]);
                 else dfs(&s, d, target, leaf2, ctxs[tid]);
             }
-            for (int o = 0; o < d; o++) if ((pfx >> o) & 1) flip(&s, o);
+            for (int o = d - 1; o >= 0; o--) if ((pfx >> o) & 1) flip(&s, o);     /* undo in reverse order */
             if (pass == 1 && ((p1ctx *)ctxs[tid])->n > M1MAX / threads + 1) ((p1ctx *)ctxs[tid])->overflow = 1;
         }
         free(s.R); free(s.v);
@@ -301,8 +323,8 @@ int main(int argc, char **argv) {
     for (int q = 0; q < K; q++) inK1[K1[q]] = 1;
     NREST = 0;
     for (int c = 0; c < C; c++) if (!inK1[c]) REST[NREST++] = c;
-    CP = (C + 7) / 8 * 8;
-    TM = aligned_alloc(64, sizeof(int32_t) * ((O * O * CP + 15) / 16) * 16);
+    CP = (C + 15) / 16 * 16;
+    TM = aligned_alloc(64, sizeof(int16_t) * ((O * O * CP + 31) / 32) * 32);
     D4 = aligned_alloc(64, sizeof(int32_t) * ((O * CP + 15) / 16) * 16);
     for (int o = 0; o < O; o++) for (int p = 0; p < O; p++) for (int c = 0; c < CP; c++)
         TM[((int64_t)o * O + p) * CP + c] = c < C ? 2 * (SI(c, p, o) + SI(c, o, p)) : 0;
