@@ -1571,3 +1571,50 @@ these families; exhaust them, smallest first. Running on the same principle:
 - for skew orders, the exact chain (`screen_chain.py 3600 36 0 --order orbits`) over the 102 census-screen survivors
   with at most 36 orbits that no chain run had touched (§17–§22 ranked them by the Gaussian, which is unreliable
   here).
+
+## 29. ℤ_q-bordered propus: symmetric Hadamard matrices of order 4(m + q) (October 14)
+
+**Construction.** Let G be abelian of order m, φ: G → ℤ_q a surjection with kernel K, and A (symmetric), B, D ±1
+functions on G with
+
+    PAF_A + 2 PAF_B + PAF_D = 4m at 0,  −4q on K \ 0,  0 off K.
+
+Let P be the propus array of §17 over G, y_X(c) = Σ_{φ(g)=c} X(g) the compressions to ℤ_q, Mc the propus array over
+ℤ_q of (y_A, y_B, y_D) (Mc² = 4q I), and R̂ a Hadamard matrix of order 4q with R̂ Mc R̂ᵀ = −4q X for a ±1 matrix X.
+With R[:, (i, g)] = R̂[:, (i, φ(g))],
+
+    H = [[X, R], [Rᵀ, P]]
+
+is a symmetric Hadamard matrix of order 4(m + q): P² = I₄ ⊗ (4(m + q) I − 4q [g − h ∈ K]) and RᵀR = I₄ ⊗ 4q [φ(g) = φ(h)]
+cancel; R Rᵀ = (m/q) R̂ R̂ᵀ = 4m I; compressing a group-developed block (also its transpose and its product with the
+reflection g ↦ −g) over the fibres of φ gives the ℤ_q-developed block of the compression, so R P = (R̂ Mc)∘φ and
+X R + R P = 0 from X R̂ = −R̂ Mc; X² = 4q I. q = 1 is §27. The row sums satisfy a² + 2b² + d² = 4q, all even when
+v = m + q is odd. A census value v is thus reached through every abelian group of order v − q with a ℤ_q quotient,
+for each odd q dividing v.
+- **Compressions.** z = y/2 is integral with PAF_zA + 2 PAF_zB + PAF_zD = q δ on ℤ_q (z_A symmetric). q = 3: 48
+  patterns, single spikes (z_A = ±δ₀ with one B spike, or one B spike and one D spike). q = 5: 120 patterns, and in all
+  of them z_B = 0, so B̂ vanishes on the characters of G that are trivial on K.
+- **The border problem** is a clique problem: 4q mutually orthogonal ±1 rows r_i (first entry +1) with
+  r_i Mc r_jᵀ = ±4q for all i, j. q = 3: 2048 candidate rows, all 48 patterns solved at once (`propus.qborder_solve`;
+  Goethals–Seidel arrays of ℤ₃-circulants also work). q = 5: 91,648 candidate rows, mean degree ≈ 3,200; a plain
+  depth-first search stalls, a colouring-bounded clique search on each vertex neighbourhood
+  (`attack/qborder_clique.c`, Tomita's MCQ) solves the patterns met so far in about 150 s (the first after 34 start
+  vertices). Goethals–Seidel borders do not exist for the single-spike ℤ₅ pattern (z_A = δ₀, z_D = 2δ₀): none among
+  1536 block conjugates × 120,000 GS quadruples. q ≥ 7 has no solver yet (2^{4q−1} candidate rows); hits are kept in
+  `qborder_pending.jsonl`.
+- **Checks.** ℤ₃: every one of the 576 triples on ℤ₆ gives a symmetric Hadamard matrix of order 36; the chain finds and
+  verifies orders 108 (ℤ₂₄), 132 (ℤ₃₀) and 36 on ℤ₂ × ℤ₃; ℤ₁₂ and ℤ₁₈ have no triple (exhaustive, ℤ₁₂ also by brute
+  force). ℤ₅: ℤ₁₀ and ℤ₂₀ have none (exhaustive), ℤ₃₀ has several, and one gives a verified symmetric Hadamard matrix
+  of order 140. Existence depends on m, as for §27.
+- **Tools.** `propus.py --qborder q`, `propus_chain.py --qborder q` (per-class targets in stage 1 and in join4x),
+  `propus_bgroup.py --qborder q [--phi c₁,…]` (automorphisms that preserve ker φ), `verify.py` construction
+  `propus-qbordered` (fields q, quotient = coefficients of φ, R), `border_certify.py` (re-solves the border in the
+  verifier's convention: the reflection g ↦ −g, where `propus.py` uses the back diagonal).
+- **Literature.** We have not seen this bordering in the propus papers we read (Seberry–Balonin 2017,
+  Balonin–Đoković arXiv:1803.08787, Đoković arXiv:2101.05429); it is the symmetric analogue of the bordered
+  Goethals–Seidel arrays of §18 with T = all characters of ℤ_q, with the extra requirement that the border be R̂ and R̂ᵀ.
+- **Runs.** The 117 census values divisible by 3 (`qborder_pool.sh symQ3.txt … 3`: direct joins up to 30 orbits, the
+  chain for 31–44) and the 98 divisible by 5; v = 65 (order 260, the smallest open symmetric order) on ℤ₆₀ (chain,
+  1–44 orbits) and on ℤ₂ × ℤ₃₀ (`propus_bgroup.py 2,30 --qborder 5 --phi 0,1 --pairs`). On ℤ₆₀ every structure up to
+  24 orbits is empty (direct joins), and so far the chain has found no compatible compression triple in any structure
+  except one of 30 orbits (60 triples, no solution).
