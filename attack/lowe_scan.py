@@ -13,12 +13,13 @@ from bnw import Struct, subgroups
 import ssxx, bsz, lowe_sz
 
 
-def candidates(N, bordered, maxpool, maxo=44):
+def candidates(N, bordered, maxpool, maxo=44, mino=28):
     m = N - 1 if bordered else N
     for H, gens in subgroups(m).items():
         if (m - 1) in H:
             continue
-        if sum(math.gcd(h - 1, m) for h in H) // len(H) > maxo + 2:
+        orb = sum(math.gcd(h - 1, m) for h in H) // len(H)          # Burnside: number of H-orbits on Z_m
+        if orb > maxo + 2 or orb < mino:
             continue
         st = Struct(N, gens, plain=not bordered)
         if len(st.sizesA) > maxo:
