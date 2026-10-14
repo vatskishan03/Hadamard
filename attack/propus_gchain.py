@@ -80,14 +80,13 @@ def search(G, name, mats, gens, st_ad, st_b, a, log):
         Da = ca.dp(st_ad, ra); Db = cb.dp(st_b, rb); Dd = cb.dp(st_b, rd)
         if Da is None or Db is None or Dd is None:
             log(f"m={m} {name} {qname} rows ({ra}, {rb}, {rd}): compression DP above its cap; skipped"); continue
-        pa = {k: qpaf(Q, ca.full(k)) for k in Da}; pd = {k: qpaf(Q, cb.full(k)) for k in Dd}
-        hb = defaultdict(list)
-        for k in Db: hb[(2 * qpaf(Q, cb.full(k))).tobytes()].append(k)
+        KA, KB, KD = list(Da), list(Db), list(Dd)
+        PA = np.array([qpaf(Q, ca.full(k)) for k in KA]).reshape(len(KA), -1)
+        PB = np.array([2 * qpaf(Q, cb.full(k)) for k in KB]).reshape(len(KB), -1)
+        PD = np.array([qpaf(Q, cb.full(k)) for k in KD]).reshape(len(KD), -1)
         triples = []
-        for ka_, p1 in pa.items():
-            for kd_, p3 in pd.items():
-                for kb_ in hb.get((T * K - p1 - p3).tobytes(), ()):
-                    triples.append((Da[ka_] * Dd[kd_], ka_, kb_, kd_))
+        for i, j, k in PC.join3(PA, PB, PD, np.full(Q.v - 1, T * K, np.int64)):
+            triples.append((Da[KA[i]] * Dd[KD[k]], KA[i], KB[j], KD[k]))
         triples.sort(key=lambda x: -x[0])
         work = sum(t[0] for t in triples)
         log(f"m={m} {name} {qname} (|Q| {Q.v}) rows ({ra}, {rb}, {rd}): orbits A {st_ad.O}, B/D {st_b.O}, classes {st_ad.C}; "

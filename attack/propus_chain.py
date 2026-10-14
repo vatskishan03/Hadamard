@@ -95,6 +95,30 @@ def cpaf(x):
     return np.array([int(np.dot(x, np.roll(x, -s))) for s in range(1, d // 2 + 1)], np.int64)
 
 
+def join3(PA, PB, PD, target):
+    """All (i, j, k) with PA[i] + PB[j] + PD[k] == target (integer row vectors): the two smaller lists are combined
+    one row at a time (numpy) and looked up by a 64-bit hash in the sorted third; candidates are checked exactly."""
+    lists = [np.asarray(PA, np.int64), np.asarray(PB, np.int64), np.asarray(PD, np.int64)]
+    if min(len(x) for x in lists) == 0: return []
+    dim = lists[0].shape[1]
+    w = np.random.default_rng(11).integers(1, 2 ** 61, size=dim, dtype=np.int64)
+    h = [x @ w for x in lists]
+    ht = np.asarray(target, np.int64) @ w
+    order = sorted(range(3), key=lambda r: len(lists[r]))
+    ix, iy, iz = order                                    # z (the largest) is looked up
+    oz = np.argsort(h[iz], kind='stable'); hz = h[iz][oz]
+    out = []
+    for i in range(len(lists[ix])):
+        need = ht - h[ix][i] - h[iy]                      # one value per row of y (wrapping int64 arithmetic)
+        lo = np.searchsorted(hz, need, 'left'); hi = np.searchsorted(hz, need, 'right')
+        for j in np.flatnonzero(hi > lo):
+            for k in oz[lo[j]:hi[j]]:
+                if np.array_equal(lists[ix][i] + lists[iy][j] + lists[iz][k], target):
+                    idx = [0, 0, 0]; idx[ix] = i; idx[iy] = int(j); idx[iz] = int(k)
+                    out.append(tuple(idx))
+    return out
+
+
 _HALVES = {}
 
 
@@ -148,15 +172,14 @@ def search(v, gens, rows, d, a, log):
         log(f"v={v} gens={gens} d={d} rows={rows}: compression DP above its cap; skipped"); return []
     log(f"v={v} gens={gens} d={d} rows={rows}: orbits A {st_ad.O}, B/D {st_b.O}, classes {st_ad.C}; compressions "
         f"A {len(Da)}, B {len(Db)}, D {len(Dd)} [{time.time() - t0:.1f}s]")
-    pa = {k: cpaf(ca.full(k)) for k in Da}; pb = {k: 2 * cpaf(cb.full(k)) for k in Db}; pd = {k: cpaf(cb.full(k)) for k in Dd}
-    hb = defaultdict(list)
-    for k, p in pb.items(): hb[p.tobytes()].append(k)
+    KA, KB, KD = list(Da), list(Db), list(Dd)
+    PA = np.array([cpaf(ca.full(k)) for k in KA]).reshape(len(KA), -1)
+    PB = np.array([2 * cpaf(cb.full(k)) for k in KB]).reshape(len(KB), -1)
+    PD = np.array([cpaf(cb.full(k)) for k in KD]).reshape(len(KD), -1)
     triples = []
-    for ka, p1 in pa.items():
-        for kd, p3 in pd.items():
-            need = (T * (v // d) - (p1 + p3)).tobytes()
-            for kb in hb.get(need, ()):
-                w_ = Da[ka] * Dd[kd]; triples.append((w_, Da[ka], Db[kb], Dd[kd], ka, kb, kd))
+    for i, j, k in join3(PA, PB, PD, np.full(d // 2, T * (v // d), np.int64)):
+        ka, kb, kd = KA[i], KB[j], KD[k]
+        triples.append((Da[ka] * Dd[kd], Da[ka], Db[kb], Dd[kd], ka, kb, kd))
     triples.sort(key=lambda x: -x[0])
     if max(st_ad.O, st_b.O) > 46:
         log(f"  stage 1: {len(triples)} compatible triples; {st_b.O} orbits is too many for the meet in the middle, skipped")
