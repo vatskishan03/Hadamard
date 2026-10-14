@@ -55,6 +55,14 @@ group-developed matrices over any abelian group, and `verify/verify_complex.py` 
 lists are too large to join: an exact compression chain over the subgroups of ℤ_N, as for order 3964; order 310 came
 from ⟨16⟩ on ℤ₁₅₅ with lists of 10⁴, 10⁴, 7 · 10⁸ and 6 · 10⁸, compressed to ℤ₅ and split on ℤ₃₁).
 
+Structures whose blocks C and D have 10⁸–10¹¹ members are searched by the low-energy k-tree `search/lowe_sz.py`: each
+big block is enumerated in full and only its members of low energy (the most likely to complete a solution under a
+Gaussian model of the other three blocks) are kept, and `search/kt4.c` joins the kept lists (orders 342, 426, 430 and
+454). The structures are ranked by `search/gauss_mc.py`, a hybrid estimate of the number of solutions: for composite
+N (or N − 1) the per-class Gaussian estimate of `ssxx.py` can be low by several orders of magnitude, and 430 and 454
+came from structures it put at 10^−1.2 and 10^0.6 solutions (the hybrid estimate: 10^4.1 and 10^4.4). See
+[search/NOTES.md](../search/NOTES.md) §32–34.
+
 A second construction, the bordered Szöllősi array on a group of order N − 1, is stated and proved in
 [BORDERED.md](BORDERED.md). Two twisted specialisations of both arrays (B = A∘μ, D = C∘μ, and a half twist), which
 turn the four-sequence search into a two-list search, are in [TWISTED.md](TWISTED.md).
@@ -72,13 +80,18 @@ turn the four-sequence search into a two-list search, are in [TWISTED.md](TWISTE
 | 302 | 151 | ⟨8⟩, order 5 | 9, 9; 9, 19 | [C302.json](C302.json) |
 | 310 | 155 = 5 · 31 | ⟨16⟩, order 5 (compression chain, `search/cchain4.py`) | 9, 9; 13, 17 | [C310.json](C310.json) |
 | 326 | 163 | ⟨38⟩, order 9 | 17, 19; 1, 1 | [C326.json](C326.json) |
+| 342 | 171 = 9 · 19 | ⟨11⟩, order 6 (low-energy k-tree, `search/lowe_sz.py`) | 1, 11; 11, 21 | [C342.json](C342.json) |
 | 370 | 185 = 5 · 37 | ⟨9⟩, order 18 | 3, 3; 19, 19 | [C370.json](C370.json) |
 | 382 | 191 | ⟨39⟩, order 5 (streaming k-tree, `search/kstream.py`) | 11, 11; 9, 21 | [C382.json](C382.json) |
+| 426 | 213 = 3 · 71 | ⟨37⟩, order 7 (low-energy k-tree) | 13, 17; 13, 15 | [C426.json](C426.json) |
+| 430 | 215 = 5 · 43 | ⟨11⟩, order 7 (low-energy k-tree) | 11, 17; 15, 15 | [C430.json](C430.json) |
+| 454 | 227 | bordered array over ℤ₂₂₆ ([BORDERED.md](BORDERED.md)), ⟨49⟩, order 7 (low-energy k-tree) | 0, 0; 2, 0 | [C454.json](C454.json) |
 | 494 | 247 = 13 · 19 | ⟨9, 35⟩, order 27 | 17, 19; 7, 17 | [C494.json](C494.json) |
 | 518 | 259 = 7 · 37 | ⟨44⟩, order 9 (compression chain) | 5, 29; 1, 13 | [C518.json](C518.json) |
 | 534 | 267 = 3 · 89 | ⟨4⟩, order 11 | 1, 1; 21, 25 | [C534.json](C534.json) |
 | 742 | 371 = 7 · 53 | ⟨13⟩, order 26 | 3, 3; 25, 29 | [C742.json](C742.json) |
 | 754 | 377 = 13 · 29 | ⟨9⟩, order 42 | 27, 27; 5, 5 | [C754.json](C754.json) |
+| 1558 | 779 = 19 · 41 | ⟨49⟩, order 60 | 5, 7; 39, 39 | [C1558.json](C1558.json) |
 
 Each certificate gives N, the multiplier group, the row sums, the first rows of A, B, C, D (`+`, `-`) and the
 SHA-256 of the canonical text of K: 2N lines of 2N digits, digit e standing for the entry iᵉ.
@@ -114,8 +127,10 @@ The sweep's candidate list (`python3 search/ssxx_sweep.py list`) is exactly the 
 minus these. The 2026 papers cite the updated Table 11.2 of Seberry and Yamada's 2020 book (Wiley), which we could
 not consult. A construction published between 1992 and 2020 and recorded only there is the remaining caveat.
 
-**What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 214 values of N < 1000
-have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 214, 322, 330, 334, 342, 358,
-366, 406, 414, 418, 426, 430, …. Order 214 (N = 107) is out of reach of every structure we have: 107 and 53 = (107 −
+**What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 209 values of N < 1000
+have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 214, 322, 330, 334, 358, 366,
+406, 414, 418, 438, 446, 470, …. Order 214 (N = 107) is out of reach of every structure we have: 107 and 53 = (107 −
 1)/2 are both prime, so neither ℤ₁₀₇ nor ℤ₁₀₆ has a usable multiplier group, and no quaternary Legendre pair family
-covers length 106.
+covers length 106. Order 334 (N = 167) is similar: ℤ₁₆₇ has no usable multiplier group, and on ℤ₁₆₆ = ℤ₂ × ℤ₈₃
+the only one has order 41 and six orbits. N = 227 = 2 · 113 + 1 is of the same kind for ℤ₂₂₇, but ℤ₂₂₆ = ℤ₂ × ℤ₁₁₃
+has a multiplier group of order 7 (7 divides 112), and the bordered array over ℤ₂₂₆ gave order 454.
