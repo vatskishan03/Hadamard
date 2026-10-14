@@ -31,11 +31,11 @@ is then a Hadamard matrix of order 3556. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Search
 
-1. `attack/skew_sweep.py` runs the exact matcher on every skew multiplier structure with at most 33 orbits and pair work at most 1.5·10⁹, whatever the model predicts. Here:
+1. `search/skew_sweep.py` runs the exact matcher on every skew multiplier structure with at most 33 orbits and pair work at most 1.5·10⁹, whatever the model predicts. Here:
    - H = ⟨2, 25⟩ of order 63, with 21 orbits and 10 autocorrelation classes;
    - 1024 skew first blocks;
    - pools of 20064, 37224 and 37224 sequences for row sums 5, 41 and 43.
-2. `attack/skew_exhaustive.py` matches the four lists exactly (`attack/find4b.c`).
+2. `search/skew_exhaustive.py` matches the four lists exactly (`search/find4b.c`).
 3. It found the solutions on the row-sum pattern (1; 5, 41, 43), in about five minutes.
 
 ## Reproduction
@@ -43,12 +43,12 @@ is then a Hadamard matrix of order 3556. Because A + Aᵀ = 2I, it satisfies H +
 | | |
 |---|---|
 | Code | commit `03c9a52` of this branch (the options used behave the same at later commits) |
-| Command | `python3 attack/skew_sweep.py 33 1.5e9 889   (calls skew_exhaustive.run(889, [2, 25], cap=1.5e9))` |
+| Command | `python3 search/skew_sweep.py 33 1.5e9 889   (calls skew_exhaustive.run(889, [2, 25], cap=1.5e9))` |
 | Randomness and caps | exact (no sampling, no seed); pair-work cap 1.5·10⁹ |
 | Result of that run | pattern (1; 5, 41, 43): solutions found (2 verified) |
 
 The tools write their hit logs, temporary list files and compiled helpers to `$HADAMARD_WORK` (default
-`<tmp>/hadamard-work`), never into the repository. `attack/skew_certify.py` (or `skew_group.py certify` for the
+`<tmp>/hadamard-work`), never into the repository. `search/skew_certify.py` (or `skew_group.py certify` for the
 non-cyclic orders) turns a logged hit into the files in this directory. The certificate does not depend on
 the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.json` alone.
 

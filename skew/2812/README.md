@@ -31,18 +31,18 @@ is then a Hadamard matrix of order 2812. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Search
 
-1. **Exact compression screen** (`attack/census_screen.py`). For every prime p | 703 the compressions of all four blocks to ℤ_p are listed exactly and joined in integers. H = ⟨16, 26⟩ (order 27, a non-cyclic subgroup of ℤ₇₀₃* ≅ ℤ₁₈ × ℤ₃₆) with rows (1, 1, 1, 53) survives at p = 19 (704 joint solutions) and at p = 37 (148,864).
-2. **Compression chain** (`attack/chain.py`, run through `attack/screen_chain.py` in a breadth-first pass over the census survivors: at most two level-1 branches per structure). A dynamic program over the 31 H-orbits lists each block's joint compressions to ℤ₁₉ and ℤ₃₇. The ℤ₁₉ compressions are joined exactly (704 branches, heaviest first), and inside a branch the ℤ₃₇ compressions are joined. Each consistent combination is expanded by meet in the middle over the orbits, and the four lists are joined on all 15 autocorrelation classes (`attack/find4b.c`).
+1. **Exact compression screen** (`search/census_screen.py`). For every prime p | 703 the compressions of all four blocks to ℤ_p are listed exactly and joined in integers. H = ⟨16, 26⟩ (order 27, a non-cyclic subgroup of ℤ₇₀₃* ≅ ℤ₁₈ × ℤ₃₆) with rows (1, 1, 1, 53) survives at p = 19 (704 joint solutions) and at p = 37 (148,864).
+2. **Compression chain** (`search/chain.py`, run through `search/screen_chain.py` in a breadth-first pass over the census survivors: at most two level-1 branches per structure). A dynamic program over the 31 H-orbits lists each block's joint compressions to ℤ₁₉ and ℤ₃₇. The ℤ₁₉ compressions are joined exactly (704 branches, heaviest first), and inside a branch the ℤ₃₇ compressions are joined. Each consistent combination is expanded by meet in the middle over the orbits, and the four lists are joined on all 15 autocorrelation classes (`search/find4b.c`).
 3. The heaviest branch held 49 combinations. Their final joins counted 3 solutions, two of which were rebuilt and verified as skew-Hadamard matrices. The search is exact and uses no randomness.
 
-The Gaussian model of `attack/skew_rank.py` predicted 10^4.6 solutions for this structure. For composite v that model is unreliable, and an earlier sampled k-tree estimate for 703 had put the work at days.
+The Gaussian model of `search/skew_rank.py` predicted 10^4.6 solutions for this structure. For composite v that model is unreliable, and an earlier sampled k-tree estimate for 703 had put the work at days.
 
 ## Reproduction
 
 | | |
 |---|---|
 | Code | commit `a4cf889` |
-| Command | `python3 attack/chain.py 703 16,26 1,1,53 --maxbranches 2` |
+| Command | `python3 search/chain.py 703 16,26 1,1,53 --maxbranches 2` |
 | Randomness and caps | none (exact search); default caps --maxfibre 3e6, --maxstates 2e7 |
 | Result of that run | found in level-1 branch 1 of 704, after 49 combinations, in 47 minutes on 4 shared cores |
 

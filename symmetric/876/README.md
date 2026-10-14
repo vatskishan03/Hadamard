@@ -30,15 +30,15 @@ H = [ Bᵀ    DR   −A    −BR ]
 is a Hadamard matrix of order 876. It is symmetric because A is, and because XR is symmetric for every circulant X.
 This is the propus layout (A, B, B, D) with one symmetric block, as for [532](../532) (Seberry and Balonin, Australas.
 J. Combin. 69 (2017); Balonin and Đoković's propus difference families, arXiv:1803.08787); the array is derived and
-checked in `attack/NOTES.md` §17.
+checked in `search/NOTES.md` §17.
 
 ## Search
 
-`attack/propus_chain.py` (`attack/NOTES.md` §25) searches a multiplier structure exhaustively through compressions.
+`search/propus_chain.py` (`search/NOTES.md` §25) searches a multiplier structure exhaustively through compressions.
 For d | v the compressions of A, B, D to ℤ_d satisfy the same identity on ℤ_d and are constant on the H-orbits of ℤ_d.
 Stage 1 lists every compression each block attains (a dynamic program over the orbits) and joins the three lists
 exactly; stage 2 lists, for each compatible triple of compressions, all members of the three blocks (meet in the
-middle) and joins them on the 13 autocorrelation classes with `attack/join4x.c`. Every hit is rebuilt as a matrix and
+middle) and joins them on the 13 autocorrelation classes with `search/join4x.c`. Every hit is rebuilt as a matrix and
 checked (H = Hᵀ, H Hᵀ = 4v I).
 
 The run was the sweep of the composite census values v ≤ 1000 over every multiplier structure with at most 36 orbits
@@ -48,18 +48,18 @@ the direct join of the pools of 10^3.0, 10^6.9 and 10^6.9 sequences), and the 57
 members) holds 18 solutions. Over all 768 triples the structure and row pattern have 288 solutions, in 16 triples:
 the 16 cosets of H in ℤ₂₁₉* permute them, so there are about 18 up to multipliers.
 
-The Gaussian estimate of `attack/propus_rank.py` for this structure and row pattern is 10^0.6 solutions (13 classes,
+The Gaussian estimate of `search/propus_rank.py` for this structure and row pattern is 10^0.6 solutions (13 classes,
 full covariance, lattice of the class values), against 288 found. (An earlier version of the estimator dropped the
-lattice factor and gave 10^−8.1; see `attack/NOTES.md` §29.)
+lattice factor and gave 10^−8.1; see `search/NOTES.md` §29.)
 
 ## Reproduction
 
 | | |
 |---|---|
-| Code | commit `13d8d89` (`attack/propus_chain.py`, `attack/join4x.c`) |
-| Command | `python3 attack/propus_chain.py 219 --sweep --mino 1 --maxo 36 --maxwork 2e10` (as run, in `chain_queue.sh` under `ulimit -v 6000000`); the structure alone: `python3 attack/propus_chain.py 219 4 --rows 3,17,17` |
+| Code | commit `13d8d89` (`search/propus_chain.py`, `search/join4x.c`) |
+| Command | `python3 search/propus_chain.py 219 --sweep --mino 1 --maxo 36 --maxwork 2e10` (as run, in `chain_queue.sh` under `ulimit -v 6000000`); the structure alone: `python3 search/propus_chain.py 219 4 --rows 3,17,17` |
 | Randomness and caps | none: the hash weights are fixed (seeds 7 and 11), the search is exhaustive; `--maxwork` (not reached) caps the pair work, and the sweep stops at the first structure with a solution |
-| Result | 18 solutions in the 573rd compatible triple after 4 minutes (135 s when rerun alone); the certificate is the first (`attack/sym_certify.py 219`); the rerun gives the same sequences |
+| Result | 18 solutions in the 573rd compatible triple after 4 minutes (135 s when rerun alone); the certificate is the first (`search/sym_certify.py 219`); the rerun gives the same sequences |
 
 The tools write hit logs, temporary files and compiled helpers to `$HADAMARD_WORK` (default `<tmp>/hadamard-work`).
 The certificate does not depend on the search: `verify/verify.py` rebuilds and checks the matrix from

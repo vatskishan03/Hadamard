@@ -30,11 +30,11 @@ H = [ Bᵀ    DR   −A    −BR ]
 is a Hadamard matrix of order 732. It is symmetric because A is, and because XR is symmetric for every circulant X.
 This is the propus layout (A, B, B, D) with one symmetric block, as for [532](../532) and [876](../876) (Seberry and
 Balonin, Australas. J. Combin. 69 (2017); Balonin and Đoković's propus difference families, arXiv:1803.08787); the
-array is derived and checked in `attack/NOTES.md` §17.
+array is derived and checked in `search/NOTES.md` §17.
 
 ## Search
 
-`attack/prow.c` (`attack/NOTES.md` §30) is a dedicated search for this kind of structure. In coordinates
+`search/prow.c` (`search/NOTES.md` §30) is a dedicated search for this kind of structure. In coordinates
 (x, y) ∈ ℤ₃ × GF(61) an H-invariant sequence is three rows x₀, x₁, x₂ over GF(61), each constant on {0} and on the
 12 cyclotomic classes (13 bits per row); the 19 autocorrelation classes are sums of row autocorrelations
 (x = 0) and row cross-correlations (x ≠ 0), read from tables. The program lists the ℤ₃ compressions (row sums of the
@@ -48,7 +48,7 @@ For 183/⟨34⟩ there are 8 compatible ℤ₃ triples. The fifth, row pattern (
 A (−1, 11, 11), B (−9, 1, 9), D (−1, 9, 9), has 464 sequences A, 3.8 · 10⁶ B and 4.3 · 10⁸ D after the filters
 (1.75 · 10⁹ pairs (A, B)); it holds two solutions, found in the third of its 29 D parts. The run used two processes
 (triples 0, 2, 4, 6 and 1, 3, 5, 7) and reached the hit after about 1.5 hours; the remaining triples were not
-finished. The Gaussian estimate of `attack/propus_rank.py` for the structure was 0.69 expected solution orbits
+finished. The Gaussian estimate of `search/propus_rank.py` for the structure was 0.69 expected solution orbits
 (0.06 for this row pattern; a solution orbit under the multipliers, the translations by the fixed points of H and
 reversal has 432 elements).
 
@@ -56,10 +56,10 @@ reversal has 432 elements).
 
 | | |
 |---|---|
-| Code | commit `7a9f079` (`attack/prow.c`, the version that ran); reproduced with commit `a0fc82d` (`prow.c` as of `b407e96`, which changed only the part sizes of the join) |
-| Command | `cc -O3 -march=native -o prow attack/prow.c -lm`, then `./prow 61 12 all run 0 2 15000000` (as run, triples 0, 2, 4, 6; `ulimit -v` 6 GB); the triple alone: `./prow 61 12 all run 4 8 15000000` |
+| Code | commit `7a9f079` (`search/prow.c`, the version that ran); reproduced with commit `a0fc82d` (`prow.c` as of `b407e96`, which changed only the part sizes of the join) |
+| Command | `cc -O3 -march=native -o prow search/prow.c -lm`, then `./prow 61 12 all run 0 2 15000000` (as run, triples 0, 2, 4, 6; `ulimit -v` 6 GB); the triple alone: `./prow 61 12 all run 4 8 15000000` |
 | Randomness and caps | none: the search is exhaustive and deterministic; `15000000` caps the D entries per part (it only sets the number of parts) |
-| Result | two solutions (same A and B) in the triple (21, 1, 17); the rerun of that triple alone with the later code prints the same two lines and finishes the triple (29 parts, 1.75 · 10⁹ pairs) with no other; `attack/hit2rec.py LOG 183 34` records them, `attack/sym_certify.py 183` writes the certificate from the first |
+| Result | two solutions (same A and B) in the triple (21, 1, 17); the rerun of that triple alone with the later code prints the same two lines and finishes the triple (29 parts, 1.75 · 10⁹ pairs) with no other; `search/hit2rec.py LOG 183 34` records them, `search/sym_certify.py 183` writes the certificate from the first |
 
 The tools write hit logs, temporary files and compiled helpers to `$HADAMARD_WORK` (default `<tmp>/hadamard-work`).
 The certificate does not depend on the search: `verify/verify.py` rebuilds and checks the matrix from

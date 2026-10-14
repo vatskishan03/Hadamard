@@ -41,17 +41,17 @@ A and B are symmetric, hence constant on the orbits of ⟨H, −1⟩. The condit
 ⟨H, −1⟩-classes of ℤ_N \ {0}.
 
 For each row-sum pattern (a, b, c, d) with a² + b² + c² + d² = 4N:
-- the four blocks are listed completely (`attack/bnw_enum.c`);
-- the lists are joined exactly (`attack/join4x.c`, pairing each symmetric list with an arbitrary one);
+- the four blocks are listed completely (`search/bnw_enum.c`);
+- the lists are joined exactly (`search/join4x.c`, pairing each symmetric list with an arbitrary one);
 - every hit is turned into K and checked exactly, and the real Goethals–Seidel matrix of order 4N is checked as well.
 
-Code: `attack/ssxx.py` (triage, search), `attack/ssxx_sweep.py` (the candidate orders and the sweep),
-`attack/ssxx_sample.py` (for structures too large to list: uniform samples of the large lists, joined exactly; for prime
+Code: `search/ssxx.py` (triage, search), `search/ssxx_sweep.py` (the candidate orders and the sweep),
+`search/ssxx_sample.py` (for structures too large to list: uniform samples of the large lists, joined exactly; for prime
 N the Gaussian estimate of the hits inside the samples is accurate: 1445 expected and 1430 found at N = 71, 10^4.0 and
-12618 at N = 131), `attack/ssxx_group.py` (the same array over the non-cyclic groups GF(p^k) × ℤ_m and ℤ_p² × ℤ_m,
+12618 at N = 131), `search/ssxx_group.py` (the same array over the non-cyclic groups GF(p^k) × ℤ_m and ℤ_p² × ℤ_m,
 with diagonal field multiplications or odd-order subgroups of GL(2, p): the theorem holds verbatim for group-developed
-matrices over any abelian group, and `verify/verify_complex.py` checks such certificates), `attack/ssxx_certify.py`
-(certificates), `attack/cchain4.py` and `attack/cchain_sweep.py` (structures whose complete lists are too large to
+matrices over any abelian group, and `verify/verify_complex.py` checks such certificates), `search/ssxx_certify.py`
+(certificates), `search/cchain4.py` and `search/cchain_sweep.py` (structures whose complete lists are too large to
 join: an exact compression chain over the subgroups of ℤ_N, as for order 3964; order 310 came from ⟨16⟩ on ℤ₁₅₅ with
 lists of 10⁴, 10⁴, 7 · 10⁸ and 6 · 10⁸, compressed to ℤ₅ and split on ℤ₃₁).
 
@@ -70,10 +70,10 @@ turn the four-sequence search into a two-list search, are in [TWISTED.md](TWISTE
 | 262 | 131 | ⟨53⟩, order 5 | 9, 9; 1, 19 | [C262.json](C262.json) |
 | 286 | 143 = 11 · 13 | ⟨3⟩, order 15 | 3, 9; 11, 19 | [C286.json](C286.json) |
 | 302 | 151 | ⟨8⟩, order 5 | 9, 9; 9, 19 | [C302.json](C302.json) |
-| 310 | 155 = 5 · 31 | ⟨16⟩, order 5 (compression chain, `attack/cchain4.py`) | 9, 9; 13, 17 | [C310.json](C310.json) |
+| 310 | 155 = 5 · 31 | ⟨16⟩, order 5 (compression chain, `search/cchain4.py`) | 9, 9; 13, 17 | [C310.json](C310.json) |
 | 326 | 163 | ⟨38⟩, order 9 | 17, 19; 1, 1 | [C326.json](C326.json) |
 | 370 | 185 = 5 · 37 | ⟨9⟩, order 18 | 3, 3; 19, 19 | [C370.json](C370.json) |
-| 382 | 191 | ⟨39⟩, order 5 (streaming k-tree, `attack/kstream.py`) | 11, 11; 9, 21 | [C382.json](C382.json) |
+| 382 | 191 | ⟨39⟩, order 5 (streaming k-tree, `search/kstream.py`) | 11, 11; 9, 21 | [C382.json](C382.json) |
 | 494 | 247 = 13 · 19 | ⟨9, 35⟩, order 27 | 17, 19; 7, 17 | [C494.json](C494.json) |
 | 518 | 259 = 7 · 37 | ⟨44⟩, order 9 (compression chain) | 5, 29; 1, 13 | [C518.json](C518.json) |
 | 534 | 267 = 3 · 89 | ⟨4⟩, order 11 | 1, 1; 21, 25 | [C534.json](C534.json) |
@@ -97,7 +97,7 @@ on the real and imaginary parts.
 (Contemporary Design Theory, Wiley, 1992) records, for every odd q < 1000, whether a complex Hadamard matrix of
 order 2q was known. Its constructions are conference matrices (codes c1–c6) and Williamson-type matrices (Turyn;
 Kharaghani–Seberry, codes x2 and x6). Every order in this directory is **blank** in that table. The parsed table is
-[`attack/data/complex_known_1992.txt`](../attack/data/complex_known_1992.txt).
+[`search/data/complex_known_1992.txt`](../search/data/complex_known_1992.txt).
 
 **Results since 1992** that we checked, none of which gives these orders:
 - Đoković's good matrices of orders 35 and 127 (1993): 70 and 254.
@@ -110,8 +110,8 @@ Kharaghani–Seberry, codes x2 and x6). Every order in this directory is **blank
 - Mathon's conference matrices (q²(q ± 2) + 1). We also count them as known where the 1992 table is blank
   (N = 221, 787).
 
-The sweep's candidate list (`python3 attack/ssxx_sweep.py list`) is exactly the blank entries of the 1992 table
+The sweep's candidate list (`python3 search/ssxx_sweep.py list`) is exactly the blank entries of the 1992 table
 minus these. The 2026 papers cite the updated Table 11.2 of Seberry and Yamada's 2020 book (Wiley), which we could
 not consult. A construction published between 1992 and 2020 and recorded only there is the remaining caveat.
 
-**What remains open** (`python3 attack/complex_status.py`): after the orders in this directory, 214 values of N < 1000 have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 214, 322, 330, 334, 342, 358, 366, 406, 414, 418, 426, 430, …. Order 214 (N = 107) is out of reach of every structure we have: 107 and 53 = (107 − 1)/2 are both prime, so neither ℤ₁₀₇ nor ℤ₁₀₆ has a usable multiplier group, and no quaternary Legendre pair family covers length 106.
+**What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 214 values of N < 1000 have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 214, 322, 330, 334, 342, 358, 366, 406, 414, 418, 426, 430, …. Order 214 (N = 107) is out of reach of every structure we have: 107 and 53 = (107 − 1)/2 are both prime, so neither ℤ₁₀₇ nor ℤ₁₀₆ has a usable multiplier group, and no quaternary Legendre pair family covers length 106.

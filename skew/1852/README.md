@@ -31,11 +31,11 @@ is then a Hadamard matrix of order 1852. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Search
 
-1. `attack/skew_triage.py` ranks skew Goethals–Seidel multiplier structures with a Gaussian model. For H = ⟨33⟩ it predicts about 3·10⁶ solutions:
+1. `search/skew_triage.py` ranks skew Goethals–Seidel multiplier structures with a Gaussian model. For H = ⟨33⟩ it predicts about 3·10⁶ solutions:
    - 23 orbits and 11 autocorrelation classes;
    - 2048 skew first blocks;
    - pools of 6.5·10⁵ to 7.1·10⁵ sequences for the other three blocks, row sums (1, 43, 1).
-2. `attack/skew_ktree.py` (four-list k-tree matcher `attack/match4.c`) enumerates the pools and matches the four lists.
+2. `search/skew_ktree.py` (four-list k-tree matcher `search/match4.c`) enumerates the pools and matches the four lists.
 3. It found 112 solutions for the most likely partial-sum value, in 0.4 s.
 
 ## Reproduction
@@ -43,12 +43,12 @@ is then a Hadamard matrix of order 1852. Because A + Aᵀ = 2I, it satisfies H +
 | | |
 |---|---|
 | Code | commit `90ab79d` of this branch (the options used behave the same at later commits) |
-| Command | `python3 attack/skew_ktree.py 463 33 --maxtau 400` |
+| Command | `python3 search/skew_ktree.py 463 33 --maxtau 400` |
 | Randomness and caps | complete pools (no sampling, no seed); clamp S = 4; top 6; at most 400 values of τ |
 | Result of that run | 112 solutions at τ #0 |
 
 The tools write their hit logs, temporary list files and compiled helpers to `$HADAMARD_WORK` (default
-`<tmp>/hadamard-work`), never into the repository. `attack/skew_certify.py` (or `skew_group.py certify` for the
+`<tmp>/hadamard-work`), never into the repository. `search/skew_certify.py` (or `skew_group.py certify` for the
 non-cyclic orders) turns a logged hit into the files in this directory. The certificate does not depend on
 the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.json` alone.
 

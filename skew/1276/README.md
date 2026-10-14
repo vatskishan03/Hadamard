@@ -33,7 +33,7 @@ is then a Hadamard matrix of order 1276. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Search
 
-1. **Structure: a cyclotomic product** (`attack/NOTES.md` §16). Over ℤ₁₁ × GF(29), H acts on GF(29) as the classes
+1. **Structure: a cyclotomic product** (`search/NOTES.md` §16). Over ℤ₁₁ × GF(29), H acts on GF(29) as the classes
    of index e = 4 (class size F = 7) and trivially on ℤ₁₁. A block is given at each position a ∈ ℤ₁₁ by its value
    f(a) at (a, 0) and its values on the four classes (a, C_j): 55 H-orbits per block.
 2. **Stage 1: the compressions to ℤ₁₁.** The compression is y(a) = f(a) + 7 s(a), and Σ_k Σ_a y_k(a)² = 4 · 319
@@ -42,7 +42,7 @@ is then a Hadamard matrix of order 1276. Because A + Aᵀ = 2I, it satisfies H +
    (1, 1, 1, 1, −1, 1, 1, 1, 13, 1, −1), (1, 1, 1, 1, 1, −1, 15, −1, −1, 1, −1).
 3. **Lists.** The blocks of this class have 31,104 (skew block), 60,466,176, 241,864,704 and 241,864,704 members.
    The Gaussian estimate of the class (22 coordinates, rank 21) is 10^3.19 solutions.
-4. **Low-energy k-tree** (`attack/cp_lowe.py`, `attack/cp_enum.c`, `attack/kt4.c`; `attack/NOTES.md` §20–22).
+4. **Low-energy k-tree** (`search/cp_lowe.py`, `search/cp_enum.c`, `search/kt4.c`; `search/NOTES.md` §20–22).
    The skew block and the second block are kept whole; `cp_enum.c` keeps the 9,966,434 and 10,012,823 members of the
    other two blocks whose autocorrelation vectors are closest to their conditional means given that the four vectors
    sum to zero. The Gaussian estimate inside these lists is 10^1.64 solutions. `kt4.c` joins the lists over split
@@ -57,8 +57,8 @@ is then a Hadamard matrix of order 1276. Because A + Aᵀ = 2I, it satisfies H +
 
 | | |
 |---|---|
-| Code | commit `c29fd15` (`attack/cp_lowe.py`, `attack/cp_enum.c`, `attack/kt4.c`) |
-| Command | `python3 attack/cp_lowe.py 319 --q 29 --e 4 --sample-stage1 3 --config 0 --L 6.5e7,1e7,1e7 --nsig 6000 --threads 2 --K 3 --stream --samples 1000000 --S 0,1,3,4,5` (the run that found it also passed `--skip-sigmas` with the 267 split values of the first run) |
+| Code | commit `c29fd15` (`search/cp_lowe.py`, `search/cp_enum.c`, `search/kt4.c`) |
+| Command | `python3 search/cp_lowe.py 319 --q 29 --e 4 --sample-stage1 3 --config 0 --L 6.5e7,1e7,1e7 --nsig 6000 --threads 2 --K 3 --stream --samples 1000000 --S 0,1,3,4,5` (the run that found it also passed `--skip-sigmas` with the 267 split values of the first run) |
 | Randomness and caps | `--seed 1` (default) draws the sampled stage-1 quadruples, the 10⁶ samples per block for the energy statistics and the 4·10⁶ pairs per side that rank the split values; `--L 6.5e7,1e7,1e7` members kept per non-skew block (the first non-skew block has fewer, so it is kept whole) |
 | Determinism | the lists are the same sets on every run, but their order follows the threaded enumeration, and the samples that rank the split values are drawn by position; the ranking can therefore differ between runs (131 of the first 267 values recurred) |
 | Result of that run | one verified solution at the 321st split value; the certificate is that hit |

@@ -40,11 +40,11 @@ H + Hᵀ = 2I, the cross terms vanish as in [skew/7956](../7956), and
 
 **Why m = 5 works in this form.** In the Goethals–Seidel form the b part of A₁ must be skew, so its row sum is 0, and
 m = r₂(b)² + r₃(b)² + r₄(b)² must be a sum of three squares. 5 = 2² + 1² + 0² is. m = 7, 15, 23, … (≡ 7 mod 8) are
-not, so the census values 1323, 759, 1815 and 2185 cannot be reached this way (`attack/NOTES.md` §31).
+not, so the census values 1323, 759, 1815 and 2185 cannot be reached this way (`search/NOTES.md` §31).
 
 ## Search
 
-`attack/odm_sa.c` anneals the c parts with the b part fixed. The row sums of W₂, W₃, W₄ are held at their targets by
+`search/odm_sa.c` anneals the c parts with the b part fixed. The row sums of W₂, W₃, W₄ are held at their targets by
 swapping a +1 and a −1 within a block, and pairs of the skew W₁ are flipped. The energy is
 Σ (Σᵢ PAF(Wᵢ)(s))² + 2 Σ X(s)². The command is
 `odm_sa 25 1 1000 1000000 40 1 2 "2:0:1,2:10:1,3:0:1,3:10:-1,4:0:1" 3 7 -6`. It found the design at restart 21, about
@@ -54,8 +54,8 @@ swapping a +1 and a −1 within a block, and pairs of the skew W₁ are flipped.
 
 | | |
 |---|---|
-| Code | `attack/odm_sa.c` (search); `attack/sym_mm1.py` (`paley`, `skew_od_from_codes`, `check_skew_od`, `skew_seberry`); `verify/verify.py` (`build_skew_amicable_plug`, "paley" and "od" forms) |
-| Command | `gcc -O2 -o odm_sa attack/odm_sa.c -lm && ./odm_sa 25 1 1000 1000000 40 1 2 "2:0:1,2:10:1,3:0:1,3:10:-1,4:0:1" 3 7 -6` |
+| Code | `search/odm_sa.c` (search); `search/sym_mm1.py` (`paley`, `skew_od_from_codes`, `check_skew_od`, `skew_seberry`); `verify/verify.py` (`build_skew_amicable_plug`, "paley" and "od" forms) |
+| Command | `gcc -O2 -o odm_sa search/odm_sa.c -lm && ./odm_sa 25 1 1000 1000000 40 1 2 "2:0:1,2:10:1,3:0:1,3:10:-1,4:0:1" 3 7 -6` |
 | Randomness and caps | seed 1 (xorshift), 1000 restarts of 10⁶ steps, T from 40 to 1 |
 
 `verify/verify.py` (construction `skew-amicable-plug`, "paley": 19) rebuilds Paley's design of order 20 and checks it.

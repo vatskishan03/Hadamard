@@ -1,6 +1,6 @@
 # Spence spin search (order 2292)
 
-The programs that found the Hadamard matrix of order 2292 = 4 · 573 ([2292](../../2292)).
+The programs that found the Hadamard matrix of order 2292 = 4 · 573 ([2292](../../hadamard/2292)).
 Structure: Spence's construction over G = ℤ₂ × ℤ₂ × ℤ₁₄₃, with blocks
 (A, B, B∘μ, B∘μ²), H = ⟨27⟩ and μ = (α, ×3). See [NOTES.md](../../NOTES.md) §13.
 
@@ -27,7 +27,7 @@ python3 verify_lift.py wit_s11.npy 41286 126925355812639 s11
 
 The last command checks the Spence condition at every shift and H Hᵀ = 2292 I. It
 writes `certificate_s11.json` and prints the SHA-256 recorded in
-[2292/README.md](../../2292/README.md). `wit_s12.npy` gives a second, different
+[hadamard/2292/README.md](../../hadamard/2292/README.md). `wit_s12.npy` gives a second, different
 matrix the same way.
 
 New level solutions: `cc -O2 -o fillB fillB.c`, then `python3 stage1.py <seed> 12 120 2 1e6`.

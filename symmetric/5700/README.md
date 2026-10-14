@@ -44,7 +44,7 @@ is symmetric (P, N, J and D are) and
 
 because J and D commute. Every block of H is ±J or ±D, so H has entries ±1.
 
-The general statement (`attack/NOTES.md` §31): a skew-Hadamard matrix of order m with an involutive anti-automorphism
+The general statement (`search/NOTES.md` §31): a skew-Hadamard matrix of order m with an involutive anti-automorphism
 (a symmetric OD(m; 1, m − 1)) gives a symmetric Hadamard matrix of order m(m − 1); D may be taken from any symmetric
 Hadamard matrix of order m. Đoković's theorem is the case of the Xia–Xia–Seberry–Wu difference families for prime
 powers q = m − 1 ≡ 3 (mod 8), where D is built from the Paley core. Without symmetry this is Williamson's classical
@@ -53,7 +53,7 @@ matrix of order 5700 is therefore classical, and only the symmetry is new.
 
 ## Search
 
-`attack/sym_mm1.py propus 19 --all` searches skew-propus quadruples of length 19 exhaustively. The row sums must
+`search/sym_mm1.py propus 19 --all` searches skew-propus quadruples of length 19 exhaustively. The row sums must
 satisfy a3² + 2 a1² = 75, so (a3, a1) = (5, 5) up to sign. All 84 symmetric A3 and all 512 skew-type A0 are paired,
 and the needed autocorrelation of A1 is looked up in a table of all A1 with row sum 5 and a −1 at position 0 (every
 such A1 has a shift of this form; 1,311 autocorrelation classes). Up to multipliers, shifts of A1 and A0 ↦ A0ᵀ there
@@ -63,10 +63,10 @@ are exactly two solutions, with the same A3 and A0 (7 seconds). The certificate 
 
 | | |
 |---|---|
-| Code | `attack/sym_mm1.py` (this commit) |
-| Command | `python3 attack/sym_mm1.py propus 19 --all`; then `python3 attack/sym_mm1.py certify -- 19 -+++-+-++--++-+-+++ ----+++-+++-++-++++ +++++-++-+-+--+----` |
+| Code | `search/sym_mm1.py` (this commit) |
+| Command | `python3 search/sym_mm1.py propus 19 --all`; then `python3 search/sym_mm1.py certify -- 19 -+++-+-++--++-+-+++ ----+++-+++-++-++++ +++++-++-+-+--+----` |
 | Randomness and caps | none: the search is exhaustive and deterministic |
-| Result | two solutions; `sym_mm1.py test` also rebuilds the designs for the Paley primes 3–23 and for every skew-propus length up to 15, and the Szekeres-type designs of `attack/szek_pair.c` |
+| Result | two solutions; `sym_mm1.py test` also rebuilds the designs for the Paley primes 3–23 and for every skew-propus length up to 15, and the Szekeres-type designs of `search/szek_pair.c` |
 
 The certificate does not depend on the search: `verify/verify.py` (construction `skew-propus-plug`) rebuilds the
 sequences, checks the symmetry of A3, the skew type of A0 and the autocorrelation identity, builds P and N and checks

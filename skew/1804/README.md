@@ -31,8 +31,8 @@ is then a Hadamard matrix of order 1804. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Search
 
-1. **Structure.** H = ⟨16, 42⟩ ≤ ℤ₄₅₁* ≅ ℤ₁₀ × ℤ₄₀ is non-cyclic of order 25: the order-5 subgroup of ℤ₁₁* times the order-5 subgroup of ℤ₄₁*. It has 27 orbits and 13 autocorrelation classes; the exact compression screen (`attack/census_screen.py`) keeps the rows (1, 11, 41) alive.
-2. **Exact compression chain** (`attack/chain.py`). A dynamic program lists every joint compression of each block to ℤ₁₁; the four lists are joined exactly (60 level-1 branches). In each branch, every sign vector with the branch's compressions is listed by meet in the middle over the orbits, and the four lists are joined on all 13 classes by the exhaustive hash-probe joiner `attack/join4x.c`.
+1. **Structure.** H = ⟨16, 42⟩ ≤ ℤ₄₅₁* ≅ ℤ₁₀ × ℤ₄₀ is non-cyclic of order 25: the order-5 subgroup of ℤ₁₁* times the order-5 subgroup of ℤ₄₁*. It has 27 orbits and 13 autocorrelation classes; the exact compression screen (`search/census_screen.py`) keeps the rows (1, 11, 41) alive.
+2. **Exact compression chain** (`search/chain.py`). A dynamic program lists every joint compression of each block to ℤ₁₁; the four lists are joined exactly (60 level-1 branches). In each branch, every sign vector with the branch's compressions is listed by meet in the middle over the orbits, and the four lists are joined on all 13 classes by the exhaustive hash-probe joiner `search/join4x.c`.
 3. The first four branches held no solution; the fifth held 16, and the first two rebuilt ones verified. The same exhaustive search **rules out** the other surviving pattern of this structure, rows (1, 29, 31) (20 branches, 12 minutes), and the structure 623/⟨2⟩ with rows (1, 5, 21, 45). The Gaussian model had given these structures 10^1.5, 10^1.1 and 10^1.6 solutions.
 
 ## Reproduction
@@ -40,7 +40,7 @@ is then a Hadamard matrix of order 1804. Because A + Aᵀ = 2I, it satisfies H +
 | | |
 |---|---|
 | Code | commit `f2e5a51` |
-| Command | `python3 attack/chain.py 451 16,42 1,11,41 --budget 30000` |
+| Command | `python3 search/chain.py 451 16,42 1,11,41 --budget 30000` |
 | Randomness and caps | none (exact search); default caps --maxfibre 3e6, --maxstates 2e7 |
 | Result of that run | found in level-1 branch 5 of 60 (16 solutions counted) after 241 s on 4 shared cores |
 

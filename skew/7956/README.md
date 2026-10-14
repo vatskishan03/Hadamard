@@ -47,7 +47,7 @@ t = 5, 11, 13, 17, 21, 23, 29, 31, 35 and 37.)
 
 ## Search
 
-`attack/od13x.c` searches these designs exhaustively among those invariant under a multiplier group H of ℤₜ. Here
+`search/od13x.c` searches these designs exhaustively among those invariant under a multiplier group H of ℤₜ. Here
 H = {1, 16, 22}, the largest admissible group: since W₀ is skew, no element of H may be ≡ −1 modulo 3 or modulo 13.
 The 19 pairs {s, −s} fall into 7 H-orbits. The 2⁷ possible W₀ go into a hash table keyed on their autocorrelations
 at the orbit representatives, and every assignment of one of the 20 admissible patterns per orbit to (W₂, W₃, W₄)
@@ -56,15 +56,15 @@ contributions. Up to permuting W₂, W₃, W₄ and negating all three, every ad
 one target suffices. The run took 6 seconds: 4 285 440 assignments, 2688 solutions (1344 triples (W₂, W₃, W₄), each
 with W₀ and −W₀). The certificate uses the first one printed.
 
-Simulated annealing over all designs (`attack/od13.c`, and `attack/od13b.c` with the row sums held fixed) solves
+Simulated annealing over all designs (`search/od13.c`, and `search/od13b.c` with the row sums held fixed) solves
 t ≤ 27 at once but did not reach t = 39 in about 20 minutes. The symmetric search did.
 
 ## Reproduction
 
 | | |
 |---|---|
-| Code | `attack/od13x.c` (search); `attack/sym_mm1.py` (`amicable_cores`, `skew_od_from_codes`, `check_skew_od`, `skew_seberry`); `verify/verify.py` (`build_skew_amicable_plug`, "od" form) |
-| Command | `gcc -O2 -o od13x attack/od13x.c && ./od13x 39 16` (the first `SOL` block is the "od" of the certificate) |
+| Code | `search/od13x.c` (search); `search/sym_mm1.py` (`amicable_cores`, `skew_od_from_codes`, `check_skew_od`, `skew_seberry`); `verify/verify.py` (`build_skew_amicable_plug`, "od" form) |
+| Command | `gcc -O2 -o od13x search/od13x.c && ./od13x 39 16` (the first `SOL` block is the "od" of the certificate) |
 | Randomness and caps | none; the search is exhaustive over its structure |
 
 `verify/verify.py` (construction `skew-amicable-plug`) rebuilds the amicable pair of order 52 from the skew-propus

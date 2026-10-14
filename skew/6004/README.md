@@ -31,16 +31,16 @@ is then a Hadamard matrix of order 6004. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Search
 
-1. **Structure: a Paley product.** 1501 = 19 · 79 and H = {h : h ≡ 1 (mod 19), h a square mod 79} = ⟨799⟩, of order 39. Every block is u ⊗ 1 + w ⊗ J + z ⊗ χ over ℤ₁₉ × ℤ₇₉ (χ the Legendre sequence of ℤ₇₉, J the all-ones sequence, u, w, z sequences on ℤ₁₉); see `attack/NOTES.md` §15.
+1. **Structure: a Paley product.** 1501 = 19 · 79 and H = {h : h ≡ 1 (mod 19), h a square mod 79} = ⟨799⟩, of order 39. Every block is u ⊗ 1 + w ⊗ J + z ⊗ χ over ℤ₁₉ × ℤ₇₉ (χ the Legendre sequence of ℤ₇₉, J the all-ones sequence, u, w, z sequences on ℤ₁₉); see `search/NOTES.md` §15.
 2. **Reduction.** The compressions to ℤ₁₉ satisfy Σ_k Σ_a y_k(a)² = 4 · 19 · 79, which reads 80 N_w − 4 N₋ = 76: exactly one position carries w ≠ 0 (N_w = 1, N₋ = 1, q = 4m + 3). Because 4m < 2q, the four u-sequences and the four z-sequences must each have autocorrelations summing to zero, the u-sequence of the block with the w-position is skew-type away from 0, and the cross-correlations Σ_k (z_k ⋆ u_k − u_k ⋆ z_k) vanish. The row-sum identity then needs 2m − 1 = 37 to be a sum of two squares (37 = 1 + 36); the same test rules out the census values 473, 517, 1139 and 1207 in this structure.
-3. **Exact two-stage search** (`attack/paley_config.py`). Stage 1 lists all 95,552,064 u-quadruples (26 s). Stage 2 joins, for the first of them, every z-quadruple on the 18 remaining classes (`attack/join4x.c`, about 1.4·10¹¹ probe pairs): 24 solutions. The first two were lifted to ℤ₁₅₀₁ and verified.
+3. **Exact two-stage search** (`search/paley_config.py`). Stage 1 lists all 95,552,064 u-quadruples (26 s). Stage 2 joins, for the first of them, every z-quadruple on the 18 remaining classes (`search/join4x.c`, about 1.4·10¹¹ probe pairs): 24 solutions. The first two were lifted to ℤ₁₅₀₁ and verified.
 
 ## Reproduction
 
 | | |
 |---|---|
 | Code | commit `520f0b6` |
-| Command | `python3 attack/paley_config.py 1501 --maxu 3` |
+| Command | `python3 search/paley_config.py 1501 --maxu 3` |
 | Randomness and caps | none in the search (exact enumeration); which solutions join4x prints first depends on the OpenMP schedule |
 | Result of that run | 95,552,064 u-quadruples; the first extends to 24 z-solutions; 2 verified skew-Hadamard matrices after 35 minutes on 4 heavily shared cores |
 

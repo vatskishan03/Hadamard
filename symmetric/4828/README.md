@@ -35,7 +35,7 @@ X and D are symmetric and commute (D commutes with J), X² = 4I + 67J and 67 D²
 
 and H = Hᵀ. Every block of H is ±X or ±D, so H has entries ±1.
 
-**The general statement** (`attack/NOTES.md` §31). If xP + yN is a symmetric OD(m; 1, m − 1) and D is the core of a
+**The general statement** (`search/NOTES.md` §31). If xP + yN is a symmetric OD(m; 1, m − 1) and D is the core of a
 symmetric Hadamard matrix of order r + 1, then P ⊗ X + N ⊗ D is a symmetric Hadamard matrix whenever X is a symmetric
 ±1 matrix commuting with D with X² + (m − 1)D² = m r I. X = J gives r = m − 1 (Đoković's construction, the symmetric
 form of Williamson's order k(k − 1)); X = J − 2I gives r = m + 3, since (J − 2I)² = 4I + (r − 4)J must cancel the
@@ -56,7 +56,7 @@ python3 verify/verify.py symmetric/4828
 rebuilds it from `certificate.json` (construction `sym-od-plug`: Paley design for q = 67, plug "J-2I", the matrix of
 order 72 as Paley II for q = 17 doubled once), checks that xP + yN is a symmetric OD(68; 1, 67), that D is symmetric
 with DJ = J and D² = 72 I − J, that X and D commute with X² + 67 D² = 4828 I, and then H Hᵀ = 4828 I, H = Hᵀ and the
-SHA-256 of the canonical CSV. The same steps are in `attack/sym_mm1.py` (Paley designs, cores, plug-in) and were
+SHA-256 of the canonical CSV. The same steps are in `search/sym_mm1.py` (Paley designs, cores, plug-in) and were
 checked on the small cases q = 7, 11, 19, 23 (orders 88, 180, 460, 648).
 
 ## Status

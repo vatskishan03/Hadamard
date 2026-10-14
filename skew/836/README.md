@@ -31,11 +31,11 @@ is then a Hadamard matrix of order 836. Because A + Aᵀ = 2I, it satisfies H + 
 
 ## Search
 
-1. `attack/skew_triage.py` ranks skew Goethals–Seidel multiplier structures with a Gaussian model. For H = ⟨26⟩ it predicts about 3 solutions:
+1. `search/skew_triage.py` ranks skew Goethals–Seidel multiplier structures with a Gaussian model. For H = ⟨26⟩ it predicts about 3 solutions:
    - 21 orbits and 10 autocorrelation classes;
    - 1024 skew first blocks;
    - pools of 2·10⁴ to 4·10⁴ sequences for the other three blocks.
-2. `attack/skew_exhaustive.py` enumerates every admissible row-sum pattern and matches the four lists exactly.
+2. `search/skew_exhaustive.py` enumerates every admissible row-sum pattern and matches the four lists exactly.
 3. The pattern (1; 9, 15, 23) gives 288 solutions, and the other two patterns give none.
 
 The whole search takes under two minutes on four cores.
@@ -45,12 +45,12 @@ The whole search takes under two minutes on four cores.
 | | |
 |---|---|
 | Code | commit `0cdf392` of this branch (the options used behave the same at later commits) |
-| Command | `python3 attack/skew_exhaustive.py 209 26` |
+| Command | `python3 search/skew_exhaustive.py 209 26` |
 | Randomness and caps | exact (no sampling, no seed); pair-work cap 4·10¹⁰ |
 | Result of that run | pattern (1; 9, 15, 23): 288 solutions; the other two patterns: none |
 
 The tools write their hit logs, temporary list files and compiled helpers to `$HADAMARD_WORK` (default
-`<tmp>/hadamard-work`), never into the repository. `attack/skew_certify.py` (or `skew_group.py certify` for the
+`<tmp>/hadamard-work`), never into the repository. `search/skew_certify.py` (or `skew_group.py certify` for the
 non-cyclic orders) turns a logged hit into the files in this directory. The certificate does not depend on
 the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.json` alone.
 

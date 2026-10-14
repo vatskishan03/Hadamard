@@ -30,10 +30,10 @@ bottom-right block cₖcₗ J + MₖMₗᵀ.
 Over ℤ_m = ℤ₂ × ℤ_(m/2) (m/2 odd) this is the "Spence-W" structure of [NOTES.md](../NOTES.md) §7: Spence's condition
 for a Hadamard matrix of order 4w with three symmetric sequences.
 
-**Search** (`attack/bnw.py`). All four sequences are constant on the orbits of a multiplier group H ≤ ℤ_m*, the
+**Search** (`search/bnw.py`). All four sequences are constant on the orbits of a multiplier group H ≤ ℤ_m*, the
 symmetric ones on the orbits of ⟨H, −1⟩; the condition then holds on the ⟨H, −1⟩-orbits of ℤ_m \ {0}. Each block is
-listed completely in Gray-code order with incremental class values (`attack/bnw_enum.c`), the lists are joined exactly
-(`attack/join4x.c`) or by the k-tree (`attack/kt4.c`), and every hit is rebuilt as W₁, …, W₄, checked, and checked again
+listed completely in Gray-code order with incremental class values (`search/bnw_enum.c`), the lists are joined exactly
+(`search/join4x.c`) or by the k-tree (`search/kt4.c`), and every hit is rebuilt as W₁, …, W₄, checked, and checked again
 through the Williamson array. `verify/verify.py` builds Hadamard matrices from these quadruples with the construction
 `cooper-wallis-bordered`.
 
@@ -41,8 +41,8 @@ through the Williamson array. `verify/verify.py` builds Hadamard matrices from t
 
 | w | group | H | row sums | file | used for |
 |---:|---|---|---|---|---|
-| 47 | ℤ₄₆ | ⟨45⟩ = {±1}, all four symmetric | 2, 0, 0, 0 | [WT47.json](WT47.json) | [12596](../12596) = 4 · 67 · 47, [19364](../19364) = 4 · 103 · 47 |
-| 83 | ℤ₈₂ | ⟨37⟩, order 5 | 0, 2, 0, 0 | [WT83.json](WT83.json) | [34196](../34196) = 4 · 103 · 83 |
+| 47 | ℤ₄₆ | ⟨45⟩ = {±1}, all four symmetric | 2, 0, 0, 0 | [WT47.json](WT47.json) | [12596](../hadamard/12596) = 4 · 67 · 47, [19364](../hadamard/19364) = 4 · 103 · 47 |
+| 83 | ℤ₈₂ | ⟨37⟩, order 5 | 0, 2, 0, 0 | [WT83.json](WT83.json) | [34196](../hadamard/34196) = 4 · 103 · 83 |
 
 Williamson-type matrices of orders 47 and 83 were known before (near-Williamson matrices of 2026 for 47; Seberry–Yamada
 1992, Table A.1 for 83); these are new only as instances of the bordered form. Order 47 came from uniform samples of

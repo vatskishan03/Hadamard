@@ -23,7 +23,8 @@ are assembled in int8 (0.6 to 1.5 GB).
 Yamada certificates accept a prime q or a prime power q = p^k (fields "p" and "poly" give GF(q)).
 
     python3 verify/verify.py              check every order in the repository
-    python3 verify/verify.py 2092 4492    check the named orders
+    python3 verify/verify.py 2092 4492    check the named orders (hadamard/2092, hadamard/4492)
+    python3 verify/verify.py skew/820     check one skew (or symmetric) order
     python3 verify/verify.py --write      also write H<n>.csv next to each certificate
 """
 import argparse
@@ -247,7 +248,7 @@ def build_cooper_wallis_near_williamson(cert):
 
 
 def bordered_williamson_type(seq):
-    """Williamson-type matrices of order N = m + 1 from four +-1 sequences x_1, ..., x_4 on Z_m (attack/bnw.py,
+    """Williamson-type matrices of order N = m + 1 from four +-1 sequences x_1, ..., x_4 on Z_m (search/bnw.py,
     williamson-type/README.md): x_2, x_3, x_4 symmetric and PAF_1 + ... + PAF_4 = -4 off 0. Then the row sums are
     +-2 at one index j and 0 elsewhere; with M_k the circulant of x_k (M_1 replaced by M_1 R) and s = r_j / 2,
     W_k = [[1, b_k e^T], [c_k e, M_k]] with c_k = 1, b_k = s for k != j and c_j = -1, b_j = -s. Checked here:
@@ -1268,36 +1269,39 @@ def check_near_williamson(path):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("orders", nargs="*", help="order directories to check (default: all)")
+    ap.add_argument("orders", nargs="*", help="orders (2092) or directories (skew/820) to check (default: all)")
     ap.add_argument("--write", action="store_true", help="write H<n>.csv next to each certificate")
     args = ap.parse_args()
-    dirs = [ROOT / o for o in args.orders] if args.orders else \
-        sorted((p.parent for p in ROOT.glob("*/certificate.json")), key=lambda p: int(p.name)) + \
-        sorted((p.parent for p in ROOT.glob("skew/*/certificate.json")), key=lambda p: int(p.name)) + \
-        sorted((p.parent for p in ROOT.glob("symmetric/*/certificate.json")), key=lambda p: int(p.name))
+    def resolve(o):
+        """An order (2092: hadamard/2092) or a directory (skew/820, symmetric/532)."""
+        return ROOT / "hadamard" / o if o.isdigit() else ROOT / o
+
+    dirs = [resolve(o) for o in args.orders] if args.orders else \
+        [p.parent for family in ("hadamard", "skew", "symmetric")
+         for p in sorted(ROOT.glob(f"{family}/*/certificate.json"), key=lambda p: int(p.parent.name))]
     failed = 0
     for d in dirs:
         try:
             n, digest = check(d, args.write)
             c = json.loads((d / "certificate.json").read_text())
             kind = "  (skew: H + H^T = 2I)" if c.get("skew") else "  (symmetric: H = H^T)" if c.get("symmetric") else ""
-            print(f"{d.name:>6}  ok    H H^T = {n} I   sha256 {digest}{kind}")
+            print(f"{d.relative_to(ROOT).as_posix():<16}  ok    H H^T = {n} I   sha256 {digest}{kind}")
         except Exception as exc:  # report and continue with the remaining orders
             failed += 1
-            print(f"{d.name:>6}  FAIL  {exc}")
+            print(f"{d.relative_to(ROOT).as_posix():<16}  FAIL  {exc}")
     if not args.orders:
         for f in sorted((ROOT / "t-matrices").glob("T*.txt"), key=lambda p: int(p.stem[1:])):
             try:
-                print(f"{f.stem:>6}  ok    T-matrices of order {check_t_matrices(f)}")
+                print(f"{f.relative_to(ROOT).as_posix():<16}  ok    T-matrices of order {check_t_matrices(f)}")
             except Exception as exc:
                 failed += 1
-                print(f"{f.stem:>6}  FAIL  {exc}")
+                print(f"{f.relative_to(ROOT).as_posix():<16}  FAIL  {exc}")
         for f in sorted((ROOT / "near-williamson").glob("NW*.txt"), key=lambda p: int(p.stem[2:])):
             try:
-                print(f"{f.stem:>6}  ok    near-Williamson matrices of order {check_near_williamson(f)}")
+                print(f"{f.relative_to(ROOT).as_posix():<16}  ok    near-Williamson matrices of order {check_near_williamson(f)}")
             except Exception as exc:
                 failed += 1
-                print(f"{f.stem:>6}  FAIL  {exc}")
+                print(f"{f.relative_to(ROOT).as_posix():<16}  FAIL  {exc}")
     sys.exit(1 if failed else 0)
 
 

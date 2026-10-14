@@ -37,11 +37,11 @@ is a Hadamard matrix of order 1372 with H + Hᵀ = 2I.
 
 ## Search
 
-1. **Rank.** `attack/skew_field.py rank 7 3` enumerates the odd-order cyclotomic subgroups of GF(343)*.
+1. **Rank.** `search/skew_field.py rank 7 3` enumerates the odd-order cyclotomic subgroups of GF(343)*.
    For order 19 the Gaussian model predicts about 3·10⁵ solutions:
    - 512 skew first blocks;
    - pools of about 5·10⁴ sequences for the other three blocks.
-2. **Match.** `attack/skew_field.py run 7 3 19 1,1,37` matches the four lists exactly (`find4b`, pair
+2. **Match.** `search/skew_field.py run 7 3 19 1,1,37` matches the four lists exactly (`find4b`, pair
    work 2·10⁹).
 3. **Result.** It found 4,211,424 solutions in a few minutes.
 
@@ -50,12 +50,12 @@ is a Hadamard matrix of order 1372 with H + Hᵀ = 2I.
 | | |
 |---|---|
 | Code | commit `58b1460` of this branch (the options used behave the same at later commits) |
-| Command | `python3 attack/skew_field.py run 7 3 19 1,1,37` |
+| Command | `python3 search/skew_field.py run 7 3 19 1,1,37` |
 | Randomness and caps | exact (no sampling, no seed); pair-work cap 6·10¹⁰ |
 | Result of that run | 4,211,424 solutions |
 
 The tools write their hit logs, temporary list files and compiled helpers to `$HADAMARD_WORK` (default
-`<tmp>/hadamard-work`), never into the repository. `attack/skew_certify.py` (or `skew_group.py certify` for the
+`<tmp>/hadamard-work`), never into the repository. `search/skew_certify.py` (or `skew_group.py certify` for the
 non-cyclic orders) turns a logged hit into the files in this directory. The certificate does not depend on
 the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.json` alone.
 

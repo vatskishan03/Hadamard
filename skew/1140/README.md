@@ -31,16 +31,16 @@ is then a Hadamard matrix of order 1140. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Search
 
-1. **Structure: a Paley product.** 285 = 15 · 19 and H = {h : h ≡ 1 (mod 15), h a square mod 19} = ⟨61⟩, of order 9. Every block is u ⊗ 1 + w ⊗ J + z ⊗ χ over ℤ₁₅ × ℤ₁₉; see `attack/NOTES.md` §15.
+1. **Structure: a Paley product.** 285 = 15 · 19 and H = {h : h ≡ 1 (mod 15), h a square mod 19} = ⟨61⟩, of order 9. Every block is u ⊗ 1 + w ⊗ J + z ⊗ χ over ℤ₁₅ × ℤ₁₉; see `search/NOTES.md` §15.
 2. **Reduction.** The counting identity reads 20 N_w − 4 N₋ = 60, so N_w = 3 and N₋ = 0: one w-position in each of B, C and D, translated to 0, with u = 0 there.
-3. **Exact two-stage search** (`attack/paley_config.py`, general mode). Stage 1: 2,046,720 quadruples of compressions to ℤ₁₅ (6 s). Stage 2 on the first: 28 z-solutions; the first two were lifted to ℤ₂₈₅ and verified.
+3. **Exact two-stage search** (`search/paley_config.py`, general mode). Stage 1: 2,046,720 quadruples of compressions to ℤ₁₅ (6 s). Stage 2 on the first: 28 z-solutions; the first two were lifted to ℤ₂₈₅ and verified.
 
 ## Reproduction
 
 | | |
 |---|---|
 | Code | commit `520f0b6` |
-| Command | `python3 attack/paley_config.py 285 --maxu 6` |
+| Command | `python3 search/paley_config.py 285 --maxu 6` |
 | Randomness and caps | none in the search (exact enumeration); which solutions join4x prints first depends on the OpenMP schedule. |
 | Result of that run | 2,046,720 y-quadruples; the first extends to 28 z-solutions; 2 verified skew-Hadamard matrices after 20 s on 4 shared cores |
 

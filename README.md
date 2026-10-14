@@ -14,37 +14,37 @@ August 2026), the smallest order we know to be unresolved is now 2396 = 4 · 599
 
 | Order | n | Construction | Status |
 |------:|---|---|---|
-| [2092](2092) | 4 · 523 | Goethals–Seidel array, supplementary difference set in ℤ₅₂₃ invariant under a multiplier subgroup of order 9 | New |
-| [2148](2148) | 4 · 537 | Bordered Goethals–Seidel array over ℤ₅₃₄ ≅ ℤ₆ × GF(89) with a border of size 12 (G/K ≅ ℤ₃), sequences invariant under a multiplier subgroup of order 11; found by splitting the conditions along ℤ₂ ([attack/NOTES.md](attack/NOTES.md) §19) | New |
-| [2284](2284) | 4 · 571 | Goethals–Seidel, ℤ₅₇₁, multiplier subgroup of order 5; three blocks related by a multiplier of order 3 | New |
-| [2292](2292) | 4 · 573 | Spence's bordered construction over ℤ₂ × ℤ₂ × ℤ₁₄₃; three blocks related by an automorphism of order 15 that couples the order-3 automorphism of ℤ₂ × ℤ₂ with multiplication by 3 | New |
-| [3732](3732) | 4 · 933 | Goethals–Seidel array, skew; ℤ₉₃₃ ≅ ℤ₃ × GF(311), sequences invariant under the multiplier subgroup of order 31 (h ≡ 1 mod 3, h a 10th power mod 311): a cyclotomic product of index 10 | New; also gives 7464 by doubling |
-| [3964](3964) | 4 · 991 | Bordered Goethals–Seidel array over ℤ₂ × ℤ₂ × ℤ₂₄₇ with a border of size 12; sequences invariant under a group of order 27 | New |
-| [4492](4492) | 4 · 1123 | Goethals–Seidel, ℤ₁₁₂₃, multiplier subgroup of order 33 | New |
-| [5020](5020) | 4 · 1255 | Goethals–Seidel; ℤ₁₂₅₅ ≅ ℤ₅ × GF(251), multiplier subgroup of order 50 (h ≡ ±1 mod 5, h a 10th power mod 251) | New |
-| [5932](5932) | 4 · 1483 | Goethals–Seidel, ℤ₁₄₈₃, multiplier subgroup of order 39 | New |
-| [9172](9172) | 4 · 2293 | Miyamoto's theorem (q = 2293) from the matrix of order 2292 | New |
-| [12596](12596) | 4 · 3149 | Cooper–Wallis: T-matrices of order 67 and bordered Williamson-type matrices of order 47 ([williamson-type](williamson-type)) | Probably new; above the range of [3] |
-| [14708](14708) | 4 · 3677 | Miyamoto's theorem from a skew-Hadamard matrix of order 3676 (Goethals–Seidel over ℤ₉₁₉, multiplier subgroup of order 17, spin structure) | Probably new; above the range of [3] |
-| [14932](14932) | 4 · 3733 | Miyamoto's theorem (q = 3733) from the matrix of order 3732 | First explicit construction we know of; Handbook Table 1.53 lists 3733 with t = 2, with no construction we could trace |
-| [19028](19028) | 4 · 4757 | Cooper–Wallis: T-sequences of length 71 (classical, from Turyn-type sequences) and Williamson-type matrices of order 67 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
-| [19364](19364) | 4 · 4841 | Cooper–Wallis: T-matrices of order 103 and bordered Williamson-type matrices of order 47 | Probably new; above the range of [3] |
-| [20084](20084) | 4 · 5021 | Miyamoto's theorem (q = 5021) from the matrix of order 5020 | First explicit construction we know of; Handbook Table 1.53 lists 5021 with t = 2, with no construction we could trace |
-| [21748](21748) | 4 · 5437 | Miyamoto's theorem from a Cooper–Wallis matrix of order 5436 (T-matrices of order 151, Williamson order 9) | Probably new; above the range of [3] |
-| [24124](24124) | 4 · 6031 | Yamada's theorem (q = 6029) from a skew-Hadamard matrix of order 3016, the double of a skew Goethals–Seidel matrix of order 1508 over ℤ₃₇₇ | Probably new; above the range of [3] |
-| [24308](24308) | 4 · 6077 | Cooper–Wallis: T-matrices of order 103 and Williamson-type matrices of order 59 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
-| [24412](24412) | 4 · 6103 | Yamada's theorem (Kiyasu), q = 6101, from this repository's [skew 3052](skew/3052) (no doubling) | Probably new; Handbook Table 1.53 lists 6103 with t = 3 |
-| [27604](27604) | 4 · 6901 | Cooper–Wallis: T-matrices of order 103 and Williamson-type matrices of order 67 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
-| [29404](29404) | 4 · 7351 | Yamada's theorem (q = 7349) from this repository's [skew 3676](skew/3676) (an order first published by Schumer in September 2026) | First explicit construction we know of; Handbook Table 1.53 lists 7351 with t = 2, with no construction we could trace |
-| [31316](31316) | 4 · 7829 | Miyamoto's theorem from a Cooper–Wallis matrix of order 7828 (T-matrices of order 103, Williamson order 19) | Probably new; above the range of [3] |
-| [31412](31412) | 4 · 7853 | Miyamoto's theorem from a Cooper–Wallis matrix of order 7852 (T-matrices of order 151, Williamson order 13) | Probably new; above the range of [3] |
-| [34196](34196) | 4 · 8549 | Cooper–Wallis: T-matrices of order 103 and bordered Williamson-type matrices of order 83 (four sequences on ℤ₈₂, [williamson-type](williamson-type)) | Probably new; above the range of [3] |
-| [35636](35636) | 4 · 8909 | Cooper–Wallis: T-matrices of order 151 and Williamson-type matrices of order 59 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
-| [38468](38468) | 4 · 9617 | Cooper–Wallis: T-matrices of order 163 and Williamson-type matrices of order 59 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
-| [39260](39260) | 4 · 9815 | Cooper–Wallis: T-matrices of order 151 and Williamson-type matrices of order 65 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
-| [51580](51580) | 4 · 12895 | Yamada's theorem (Kiyasu), q = 12893, from the skew-Hadamard matrix of order 6448 = 16 · 403: this repository's [skew 1612](skew/1612), doubled twice | Probably new; above the range of [3] |
-| [2060](2060) | 4 · 515 | Cooper–Wallis: T-matrices of order 103 and Williamson matrices of order 5 | Independent construction; the order was first settled publicly on 2026-08-23 [2] |
-| [3532](3532) | 4 · 883 | Goethals–Seidel, ℤ₈₈₃, multiplier subgroup of order 21 | Order known [4]; new explicit matrix |
+| [2092](hadamard/2092) | 4 · 523 | Goethals–Seidel array, supplementary difference set in ℤ₅₂₃ invariant under a multiplier subgroup of order 9 | New |
+| [2148](hadamard/2148) | 4 · 537 | Bordered Goethals–Seidel array over ℤ₅₃₄ ≅ ℤ₆ × GF(89) with a border of size 12 (G/K ≅ ℤ₃), sequences invariant under a multiplier subgroup of order 11; found by splitting the conditions along ℤ₂ ([search/NOTES.md](search/NOTES.md) §19) | New |
+| [2284](hadamard/2284) | 4 · 571 | Goethals–Seidel, ℤ₅₇₁, multiplier subgroup of order 5; three blocks related by a multiplier of order 3 | New |
+| [2292](hadamard/2292) | 4 · 573 | Spence's bordered construction over ℤ₂ × ℤ₂ × ℤ₁₄₃; three blocks related by an automorphism of order 15 that couples the order-3 automorphism of ℤ₂ × ℤ₂ with multiplication by 3 | New |
+| [3732](hadamard/3732) | 4 · 933 | Goethals–Seidel array, skew; ℤ₉₃₃ ≅ ℤ₃ × GF(311), sequences invariant under the multiplier subgroup of order 31 (h ≡ 1 mod 3, h a 10th power mod 311): a cyclotomic product of index 10 | New; also gives 7464 by doubling |
+| [3964](hadamard/3964) | 4 · 991 | Bordered Goethals–Seidel array over ℤ₂ × ℤ₂ × ℤ₂₄₇ with a border of size 12; sequences invariant under a group of order 27 | New |
+| [4492](hadamard/4492) | 4 · 1123 | Goethals–Seidel, ℤ₁₁₂₃, multiplier subgroup of order 33 | New |
+| [5020](hadamard/5020) | 4 · 1255 | Goethals–Seidel; ℤ₁₂₅₅ ≅ ℤ₅ × GF(251), multiplier subgroup of order 50 (h ≡ ±1 mod 5, h a 10th power mod 251) | New |
+| [5932](hadamard/5932) | 4 · 1483 | Goethals–Seidel, ℤ₁₄₈₃, multiplier subgroup of order 39 | New |
+| [9172](hadamard/9172) | 4 · 2293 | Miyamoto's theorem (q = 2293) from the matrix of order 2292 | New |
+| [12596](hadamard/12596) | 4 · 3149 | Cooper–Wallis: T-matrices of order 67 and bordered Williamson-type matrices of order 47 ([williamson-type](williamson-type)) | Probably new; above the range of [3] |
+| [14708](hadamard/14708) | 4 · 3677 | Miyamoto's theorem from a skew-Hadamard matrix of order 3676 (Goethals–Seidel over ℤ₉₁₉, multiplier subgroup of order 17, spin structure) | Probably new; above the range of [3] |
+| [14932](hadamard/14932) | 4 · 3733 | Miyamoto's theorem (q = 3733) from the matrix of order 3732 | First explicit construction we know of; Handbook Table 1.53 lists 3733 with t = 2, with no construction we could trace |
+| [19028](hadamard/19028) | 4 · 4757 | Cooper–Wallis: T-sequences of length 71 (classical, from Turyn-type sequences) and Williamson-type matrices of order 67 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
+| [19364](hadamard/19364) | 4 · 4841 | Cooper–Wallis: T-matrices of order 103 and bordered Williamson-type matrices of order 47 | Probably new; above the range of [3] |
+| [20084](hadamard/20084) | 4 · 5021 | Miyamoto's theorem (q = 5021) from the matrix of order 5020 | First explicit construction we know of; Handbook Table 1.53 lists 5021 with t = 2, with no construction we could trace |
+| [21748](hadamard/21748) | 4 · 5437 | Miyamoto's theorem from a Cooper–Wallis matrix of order 5436 (T-matrices of order 151, Williamson order 9) | Probably new; above the range of [3] |
+| [24124](hadamard/24124) | 4 · 6031 | Yamada's theorem (q = 6029) from a skew-Hadamard matrix of order 3016, the double of a skew Goethals–Seidel matrix of order 1508 over ℤ₃₇₇ | Probably new; above the range of [3] |
+| [24308](hadamard/24308) | 4 · 6077 | Cooper–Wallis: T-matrices of order 103 and Williamson-type matrices of order 59 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
+| [24412](hadamard/24412) | 4 · 6103 | Yamada's theorem (Kiyasu), q = 6101, from this repository's [skew 3052](skew/3052) (no doubling) | Probably new; Handbook Table 1.53 lists 6103 with t = 3 |
+| [27604](hadamard/27604) | 4 · 6901 | Cooper–Wallis: T-matrices of order 103 and Williamson-type matrices of order 67 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
+| [29404](hadamard/29404) | 4 · 7351 | Yamada's theorem (q = 7349) from this repository's [skew 3676](skew/3676) (an order first published by Schumer in September 2026) | First explicit construction we know of; Handbook Table 1.53 lists 7351 with t = 2, with no construction we could trace |
+| [31316](hadamard/31316) | 4 · 7829 | Miyamoto's theorem from a Cooper–Wallis matrix of order 7828 (T-matrices of order 103, Williamson order 19) | Probably new; above the range of [3] |
+| [31412](hadamard/31412) | 4 · 7853 | Miyamoto's theorem from a Cooper–Wallis matrix of order 7852 (T-matrices of order 151, Williamson order 13) | Probably new; above the range of [3] |
+| [34196](hadamard/34196) | 4 · 8549 | Cooper–Wallis: T-matrices of order 103 and bordered Williamson-type matrices of order 83 (four sequences on ℤ₈₂, [williamson-type](williamson-type)) | Probably new; above the range of [3] |
+| [35636](hadamard/35636) | 4 · 8909 | Cooper–Wallis: T-matrices of order 151 and Williamson-type matrices of order 59 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
+| [38468](hadamard/38468) | 4 · 9617 | Cooper–Wallis: T-matrices of order 163 and Williamson-type matrices of order 59 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
+| [39260](hadamard/39260) | 4 · 9815 | Cooper–Wallis: T-matrices of order 151 and Williamson-type matrices of order 65 from near-Williamson matrices (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev) | Probably new; above the range of [3] |
+| [51580](hadamard/51580) | 4 · 12895 | Yamada's theorem (Kiyasu), q = 12893, from the skew-Hadamard matrix of order 6448 = 16 · 403: this repository's [skew 1612](skew/1612), doubled twice | Probably new; above the range of [3] |
+| [2060](hadamard/2060) | 4 · 515 | Cooper–Wallis: T-matrices of order 103 and Williamson matrices of order 5 | Independent construction; the order was first settled publicly on 2026-08-23 [2] |
+| [3532](hadamard/3532) | 4 · 883 | Goethals–Seidel, ℤ₈₈₃, multiplier subgroup of order 21 | Order known [4]; new explicit matrix |
 
 An order is marked new if it is listed as unresolved in the table of Cati and
 Pasechnik [3], is not covered by the later updates of Đoković [4, 5] or by the
@@ -71,8 +71,8 @@ Four of these orders come from this repository's skew-Hadamard matrices through 
 24124 is also reachable by Cooper–Wallis from T-matrices of order 163 and Williamson matrices of order 37;
 see its README.
 
-Orders under investigation: [4412](4412). [2148](2148) and then [2292](2292), each listed here before as the smallest
-order we knew to be unresolved, are now settled above; the smallest we know of is 2396 = 4 · 599. [3676](3676) was
+Orders under investigation: 4412. [2148](hadamard/2148) and then [2292](hadamard/2292), each listed here before as the smallest
+order we knew to be unresolved, are now settled above; the smallest we know of is 2396 = 4 · 599. 3676 was
 settled by Schumer [8] while our search for it was running.
 
 ## Skew-Hadamard results
@@ -114,7 +114,7 @@ first block. The group is ℤᵥ, except for 1100 (ℤ₅ × ℤ₅ × ℤ₁₁
 | [3052](skew/3052) | 763 (7 · 109) | ⟨9⟩, order 27 | 1, 1, 5, 55 | 763(4) |
 | [3380](skew/3380) | 845 (5 · 13²), group ℤ₅ × GF(169) | ⟨w⁸⟩ on GF(169), order 21 (cyclotomic product of index 8) | 1, 43, −3, −39 | 845(4); census: undecided; smallest known before was 16 · 845 = 13520 |
 | [3556](skew/3556) | 889 (7 · 127) | ⟨2,25⟩, order 63 | 1, 5, 41, 43 | 889(4) |
-| [3732](3732) | 933 (3 · 311) | ⟨7⟩, order 31 (cyclotomic product of index 10) | 1, 61, 3, 1 | 933(10); census: undecided; also an unresolved Hadamard order |
+| [3732](hadamard/3732) | 933 (3 · 311) | ⟨7⟩, order 31 (cyclotomic product of index 10) | 1, 61, 3, 1 | 933(10); census: undecided; also an unresolved Hadamard order |
 | [3612](skew/3612) | 903 (3 · 7 · 43) | ⟨568⟩, order 21 (Paley product) | 1, 43, 41, 9 | 903(4) |
 | [5668](skew/5668) | 1417 (13 · 109) | ⟨1405, 328⟩, order 81 (cyclotomic product of index 4 with ⟨3⟩ on ℤ₁₃) | 1, 7, −53, −53 | beyond Table 5 (n ≤ 999); census: undecided; smallest known before was 32 · 1417 = 45344 |
 | [6004](skew/6004) | 1501 (19 · 79) | ⟨799⟩, order 39 (Paley product) | 1, 77, 7, −5 | beyond Table 5 (n ≤ 999); census: undecided; smallest known before was 8 · 1501 = 12008 |
@@ -122,15 +122,15 @@ first block. The group is ℤᵥ, except for 1100 (ℤ₅ × ℤ₅ × ℤ₁₁
 Eight more skew orders come from a different construction, Seberry's 1978 theorem (amicable Hadamard matrices of
 order n and a skew-type OD(mn; 1, m, mn − m − 1) give a skew-Hadamard matrix of order mn(n − 1)), with amicable pairs
 that were not known: they come from skew-propus quadruples, i.e. from symmetric orthogonal designs of type (1, n − 1)
-(`attack/NOTES.md` §31). For m = 1 the skew-type ODs come from G-matrices (known for these orders). For 7956 (m = 3)
+(`search/NOTES.md` §31). For m = 1 the skew-type ODs come from G-matrices (known for these orders). For 7956 (m = 3)
 the OD(156; 1, 3, 152) is new too: a Goethals–Seidel design over ℤ₃₉ found by an exhaustive search with a multiplier
 symmetry of order 3 (6 seconds). For 1900 (m = 5) the amicable pair is classical (Paley, order 20) and the
 OD(100; 1, 5, 94) over ℤ₂₅ is new (simulated annealing, 20 seconds). For 9828 (m = 13) the amicable pair is classical
 (Paley over GF(27), order 28) and the OD(364; 1, 13, 350) over ℤ₉₁ is new: an exhaustive search over designs invariant
-under a multiplier group of order 9 (`attack/odm_engine.py`, 12 seconds). For 1716 (m = 13) the amicable pair is
+under a multiplier group of order 9 (`search/odm_engine.py`, 12 seconds). For 1716 (m = 13) the amicable pair is
 classical (Paley, order 12) and the OD(156; 1, 13, 142) over ℤ₃₉ is new (the same engine with the b part on the
 subgroup of order 13, 3 seconds). For 2772 (m = 21) the amicable pair is Paley's of order 12 and the
-OD(252; 1, 21, 230) over ℤ₆₃ is new (`attack/odm_join.py`: templates and c parts joined by `join4x.c`, 5 minutes). Seberry's own tables of amicable orders 2ᵗq (1978, 1991, 1992) give t = 3 for
+OD(252; 1, 21, 230) over ℤ₆₃ is new (`search/odm_join.py`: templates and c parts joined by `join4x.c`, 5 minutes). Seberry's own tables of amicable orders 2ᵗq (1978, 1991, 1992) give t = 3 for
 q = 13, 19 and 25, so the pairs of orders 52, 76 and 100 are new as far as we know.
 
 | Order | v | Amicable pair | Skew-type OD | Census |
@@ -168,10 +168,10 @@ records the result of each check.
 4. **No infinite family reaches it.** The families checked are Paley I, Szekeres 2(q + 1),
    Wallis–Whiteman, Spence, Momihara–Xiang, the product theorem n(pᵏ + 1), and amicable products.
 
-The searches use `attack/skew_triage.py`, `attack/skew_rank.py`, `attack/skew_ktree.py` with `attack/match4.c`,
-`attack/skew_exhaustive.py`, `attack/skew_group.py`, `attack/skew_field.py`, the exact compression-chain search
-`attack/chain.py` (driven over the census by `attack/census_screen.py` and `attack/screen_chain.py`, which found
-2812 and 3052), the unequal-list low-energy search `attack/skew_lowE.py` (which found 2452 and 1012), the Paley-product configuration search `attack/paley_config.py` (§15 of `attack/NOTES.md`), the cyclotomic-product search `attack/cyclo_product.py` with `attack/join3.c` (driven over the census by `attack/skew_kmult_sweep.py`, which found 5668), the low-energy four-list k-tree `attack/cp_lowe.py` with `attack/cp_enum.c` and `attack/kt4.c` (which found 820, 1044, 1204, 1276 and 3380), and, for the spin structure, `attack/spin_skew.py` with `attack/spin_ls.c`. Each directory's README
+The searches use `search/skew_triage.py`, `search/skew_rank.py`, `search/skew_ktree.py` with `search/match4.c`,
+`search/skew_exhaustive.py`, `search/skew_group.py`, `search/skew_field.py`, the exact compression-chain search
+`search/chain.py` (driven over the census by `search/census_screen.py` and `search/screen_chain.py`, which found
+2812 and 3052), the unequal-list low-energy search `search/skew_lowE.py` (which found 2452 and 1012), the Paley-product configuration search `search/paley_config.py` (§15 of `search/NOTES.md`), the cyclotomic-product search `search/cyclo_product.py` with `search/join3.c` (driven over the census by `search/skew_kmult_sweep.py`, which found 5668), the low-energy four-list k-tree `search/cp_lowe.py` with `search/cp_enum.c` and `search/kt4.c` (which found 820, 1044, 1204, 1276 and 3380), and, for the spin structure, `search/spin_skew.py` with `search/spin_ls.c`. Each directory's README
 records the command, code commit, seed and caps of its search. `verify/verify.py` checks H + Hᵀ = 2I for
 these certificates.
 
@@ -181,8 +181,8 @@ A Hadamard matrix H is symmetric if H = Hᵀ. The Đoković–Seberry census lis
 symmetric Hadamard matrix of order 4v was known (2025-05-28; three of them, 189, 473 and 1139, were settled by
 Đoković in August 2025, arXiv:2508.17141). The matrices of orders 532, 732 and 876 come from propus-type quadruples
 (A, B, B, D) of circulants with A symmetric and A Aᵀ + 2 B Bᵀ + D Dᵀ = 4v I, invariant under a multiplier group H
-(`attack/propus.py`, `attack/NOTES.md` §17; 876 through compressions, `attack/propus_chain.py`, §25 and §28; 732 by
-the row search `attack/prow.c`, §30 and §31).
+(`search/propus.py`, `search/NOTES.md` §17; 876 through compressions, `search/propus_chain.py`, §25 and §28; 732 by
+the row search `search/prow.c`, §30 and §31).
 
 | Order | v | H | Row sums (A, B, D) | Census |
 |------:|---|---|---|---|
@@ -193,12 +193,12 @@ the row search `attack/prow.c`, §30 and §31).
 **Order m(m − 1).** A skew-Hadamard matrix S = I + C of order m with an involutive signed permutation P such that
 PCP = −C is the same thing as a symmetric orthogonal design xP + yN of type (1, m − 1) (N = CP); replacing x by
 J and y by the core D of the symmetric Hadamard matrix P + N gives the symmetric Hadamard matrix P ⊗ J + N ⊗ D of
-order m(m − 1) (`attack/NOTES.md` §31, `attack/sym_mm1.py`). Đoković's theorem (arXiv:2508.17141) is the case
+order m(m − 1) (`search/NOTES.md` §31, `search/sym_mm1.py`). Đoković's theorem (arXiv:2508.17141) is the case
 m − 1 = q ≡ 3 (mod 8) a prime power; the design can also come from a skew-propus quadruple of any odd length n
 (m = 4n), found here by exhaustive search, or from a Legendre pair with one skew and one symmetric block.
 
 Replacing x by J − 2I instead of J, with the core of a symmetric Hadamard matrix of order m + 4, gives order
-m(m + 3) (`attack/NOTES.md` §31): the symmetric form of Wallis's construction of (non-symmetric) Hadamard and
+m(m + 3) (`search/NOTES.md` §31): the symmetric form of Wallis's construction of (non-symmetric) Hadamard and
 Williamson-type matrices of order m(m + 3) (1970, 1975).
 
 | Order | v | Design and plug-in | Census |
@@ -214,13 +214,13 @@ near-Williamson paper of Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev gave
 
 [complex-hadamard](complex-hadamard) holds matrices of orders that, to our knowledge, had no construction. They come
 from Szöllősi's array: four circulants with ΣXXᵀ = 4N I of which only two need be symmetric. We search it with
-multiplier groups and exact joins (`attack/ssxx.py`, `attack/ssxx_sweep.py`).
+multiplier groups and exact joins (`search/ssxx.py`, `search/ssxx_sweep.py`).
 
 | Order | N | Source |
 |------:|---|---|
 | 142 | 71 | Szöllősi array, multiplier group of order 5 |
 | 154 | 77 = 7 · 11 | Szöllősi array, Paley-product multiplier group of order 5 |
-| 222 | 111 = 3 · 37 | near-Williamson matrices of order 111 ([near-williamson/NW111.txt](near-williamson/NW111.txt)), found by the order-3 twist search `attack/wt_twist.py` |
+| 222 | 111 = 3 · 37 | near-Williamson matrices of order 111 ([near-williamson/NW111.txt](near-williamson/NW111.txt)), found by the order-3 twist search `search/wt_twist.py` |
 | 238 | 119 = 7 · 17 | Szöllősi array, multiplier group of order 8 |
 | 262 | 131 | Szöllősi array, multiplier group of order 5 (sampled lists) |
 | 286 | 143 = 11 · 13 | Szöllősi array, multiplier group of order 15 |
@@ -261,7 +261,7 @@ An independent checker in C verifies the shipped matrices directly:
 
 ```
 cc -O2 -fopenmp verify/check_matrix.c -o check_matrix
-gzip -dc 4492/H4492.csv.gz | ./check_matrix
+gzip -dc hadamard/4492/H4492.csv.gz | ./check_matrix
 ```
 
 ## Layout

@@ -33,7 +33,7 @@ is then a Hadamard matrix of order 820. Because A + Aᵀ = 2I, it satisfies H + 
 
 ## Search
 
-1. **Structure: a cyclotomic product** (`attack/NOTES.md` §16). Over ℤ₅ × GF(41), H acts on GF(41) as the eighth
+1. **Structure: a cyclotomic product** (`search/NOTES.md` §16). Over ℤ₅ × GF(41), H acts on GF(41) as the eighth
    powers C₀ (index e = 8, class size F = 5) and trivially on ℤ₅. A block is given at each position a ∈ ℤ₅ by its value
    f(a) at (a, 0) and its values on the eight classes (a, C_j): 45 H-orbits per block.
 2. **Stage 1: the compressions to ℤ₅.** With s(a) the sum of the eight class values at a, the compression is
@@ -44,7 +44,7 @@ is then a Hadamard matrix of order 820. Because A + Aᵀ = 2I, it satisfies H + 
 3. **Lists.** The blocks of this class have 78,400 (skew block), 1,680,700,000, 1,075,648,000 and 430,259,200
    members. Earlier sweeps skipped the structure because these lists are far too large to store. The Gaussian
    estimate of the class (in the 20 level-B/level-C coordinates, rank 19) is 10^8.47 solutions.
-4. **Low-energy k-tree** (`attack/cp_lowe.py`, `attack/cp_enum.c`, `attack/kt4.c`; `attack/NOTES.md` §20).
+4. **Low-energy k-tree** (`search/cp_lowe.py`, `search/cp_enum.c`, `search/kt4.c`; `search/NOTES.md` §20).
    - `cp_enum.c` enumerates every member of each non-skew block. It keeps the members whose autocorrelation vector
      is close to its conditional mean given that the four vectors sum to zero (whitened energy): 5,156,254,
      4,774,328 and 4,908,954 members. The Gaussian estimate inside these lists is 10^3.84.
@@ -55,8 +55,8 @@ is then a Hadamard matrix of order 820. Because A + Aᵀ = 2I, it satisfies H + 
 
 | | |
 |---|---|
-| Code | commit `15deec6` (`attack/cp_lowe.py`, `attack/cp_enum.c`, `attack/kt4.c`); the original run used the uncommitted code that became commit `669dc2f` (same algorithm and seed) |
-| Command | `python3 attack/cp_lowe.py 205 --q 41 --e 8 --config 0 --L 5e6 --nsig 3000 --threads 3 --K 20` |
+| Code | commit `15deec6` (`search/cp_lowe.py`, `search/cp_enum.c`, `search/kt4.c`); the original run used the uncommitted code that became commit `669dc2f` (same algorithm and seed) |
+| Command | `python3 search/cp_lowe.py 205 --q 41 --e 8 --config 0 --L 5e6 --nsig 3000 --threads 3 --K 20` |
 | Randomness and caps | `--seed 1` (default; numpy `default_rng`) draws the 2·10⁵ samples per block that set the energy thresholds and the 4·10⁶ pairs per side that rank the split values; `--L 5e6` members kept per non-skew block; `--K 20` stops kt4 after 20 solutions |
 | Result of that run | 20 verified solutions in 268 s on 3 threads (block enumeration 182 s, join 40 s); the certificate is the first hit recorded. A rerun with commit `15deec6` keeps the same 5,156,254 / 4,774,328 / 4,908,954 members and again gives 20 verified solutions (597 s on 3 shared threads), the certificate's among them; kt4's order of output depends on the thread schedule |
 

@@ -31,7 +31,7 @@ is then a Hadamard matrix of order 5668. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Search
 
-1. **Structure: a cyclotomic product with a multiplier on ℤ₁₃** (`attack/NOTES.md` §16). Over ℤ₁₃ × GF(109),
+1. **Structure: a cyclotomic product with a multiplier on ℤ₁₃** (`search/NOTES.md` §16). Over ℤ₁₃ × GF(109),
    H acts on GF(109) as the fourth powers C₀ (index e = 4, F = 27) and on ℤ₁₃ as K₁₃ = ⟨3⟩ = {1, 3, 9}. A block is
    given at each position a ∈ ℤ₁₃ by its value f(a) at (a, 0) and its values on the four classes (a, C_j); the
    positions fall into the K₁₃-orbits {0}, {1, 3, 9}, {2, 5, 6}, {4, 10, 12} and {7, 8, 11}. There are 25 H-orbits
@@ -41,11 +41,11 @@ is then a Hadamard matrix of order 5668. Because A + Aᵀ = 2I, it satisfies H +
    A position with s = ±2 costs at least 104, and K₁₃ forces a spike off 0 to come with its two images, so there
    are exactly two spikes, both at position 0, each with y(0) = ∓53. This leaves 12 stage-1 classes up to
    equivalence (row sums (1, ±7, −53, −53)).
-3. **Exact join** (`attack/cyclo_product.py` with `attack/join3.c`). For each class the four lists have 144 (skew
+3. **Exact join** (`search/cyclo_product.py` with `search/join3.c`). For each class the four lists have 144 (skew
    block), 7,776 and 5,184 (twice) members, grouped by the autocorrelations of their compressions to GF(109) (level B),
    then joined on the remaining shifts (level C). The complete join of all 12 classes finds 8 solutions in each of the
    classes 2, 3, 6 and 11 and none in the others, in about 1 s per class.
-4. **How it was found.** `attack/skew_kmult_sweep.py` runs stage 1 for every census value v = m q (q prime), every
+4. **How it was found.** `search/skew_kmult_sweep.py` runs stage 1 for every census value v = m q (q prime), every
    even e with (q − 1)/e odd and every cyclic K_m ≤ ℤ_m* without −1 whose structure has at most 22 position orbits
    and at most 2·10⁷ members per block: 210 structures, 8 with stage-1 classes, all 8 joined. 1417 was the only hit.
 
@@ -53,8 +53,8 @@ is then a Hadamard matrix of order 5668. Because A + Aᵀ = 2I, it satisfies H +
 
 | | |
 |---|---|
-| Code | commit `2281188` (`attack/cyclo_product.py`); the sweep script is `attack/skew_kmult_sweep.py` (commit `c789279`) |
-| Command | `python3 attack/cyclo_product.py 1417 --q 109 --e 4 --kgen 3 --config 2 --K 1 --sub 8000 --threads 2` |
+| Code | commit `2281188` (`search/cyclo_product.py`); the sweep script is `search/skew_kmult_sweep.py` (commit `c789279`) |
+| Command | `python3 search/cyclo_product.py 1417 --q 109 --e 4 --kgen 3 --config 2 --K 1 --sub 8000 --threads 2` |
 | Randomness and caps | none (exact enumeration; `--sub 8000` keeps every level-B group here, since no list has more than 246 groups); which solution join3 reports first depends on the thread schedule. `--K 1000` instead of `--K 1` counts all solutions of the class |
 | Result of that run | 12 stage-1 classes; class 2 has lists of 144, 7,776, 5,184 and 5,184 members and gives the solution of the certificate; under 1 s on 2 cores |
 

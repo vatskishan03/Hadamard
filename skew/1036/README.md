@@ -31,11 +31,11 @@ is then a Hadamard matrix of order 1036. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Search
 
-1. `attack/skew_rank.py` ranks skew Goethals–Seidel multiplier structures with a Gaussian model, counting only the solutions that survive when each list is cut to 4·10⁶ sequences. For H = ⟨9⟩ it predicts about 10⁹ solutions in all and 10⁵·⁸ in the cut lists:
+1. `search/skew_rank.py` ranks skew Goethals–Seidel multiplier structures with a Gaussian model, counting only the solutions that survive when each list is cut to 4·10⁶ sequences. For H = ⟨9⟩ it predicts about 10⁹ solutions in all and 10⁵·⁸ in the cut lists:
    - 31 orbits and 15 autocorrelation classes;
    - 32768 skew first blocks;
    - pools of 3·10⁷ to 4·10⁷ sequences for the other three blocks.
-2. `attack/skew_ktree.py` (four-list k-tree matcher `attack/match4.c`) matched uniform samples of 3.9·10⁶ sequences from each pool, row sums (7, 31, 5).
+2. `search/skew_ktree.py` (four-list k-tree matcher `search/match4.c`) matched uniform samples of 3.9·10⁶ sequences from each pool, row sums (7, 31, 5).
 3. It found 2 solutions for the most likely partial-sum value.
 
 ## Reproduction
@@ -43,12 +43,12 @@ is then a Hadamard matrix of order 1036. Because A + Aᵀ = 2I, it satisfies H +
 | | |
 |---|---|
 | Code | commit `f6f42b2` of this branch (the options used behave the same at later commits) |
-| Command | `python3 attack/skew_ktree.py 259 9 --maxtau 300 --sols 2 --maxpool 4e6 --seed 1` |
+| Command | `python3 search/skew_ktree.py 259 9 --maxtau 300 --sols 2 --maxpool 4e6 --seed 1` |
 | Randomness and caps | uniform samples of at most 4·10⁶ distinct sequences per pool (seed 1); clamp S = 6; top 6; at most 300 values of τ |
 | Result of that run | pattern (5, 7, 31): 2 solutions at τ #0 |
 
 The tools write their hit logs, temporary list files and compiled helpers to `$HADAMARD_WORK` (default
-`<tmp>/hadamard-work`), never into the repository. `attack/skew_certify.py` (or `skew_group.py certify` for the
+`<tmp>/hadamard-work`), never into the repository. `search/skew_certify.py` (or `skew_group.py certify` for the
 non-cyclic orders) turns a logged hit into the files in this directory. The certificate does not depend on
 the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.json` alone.
 

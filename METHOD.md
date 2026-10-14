@@ -81,7 +81,7 @@ unresolved entry of the Cati–Pasechnik table.
 One family stands out. For primes p = m² + m + 1, a subgroup of order m or m + 1
 makes the row sums (1, 1, 1, 2m + 1) admissible automatically. The pools are about
 2³⁵ sequences, there are about 10¹² solutions, and the orders
-[4492](4492) (m = 33) and [5932](5932) (m = 38) were found within seconds of
+[4492](hadamard/4492) (m = 33) and [5932](hadamard/5932) (m = 38) were found within seconds of
 matching. Spence's construction covers the same orders only when m is a prime
 power.
 
@@ -151,12 +151,12 @@ structures:
    the walk's own position.
 
 This produces about 10⁸ checked candidates per second on 14 cores, four orders of
-magnitude more than descent from random starts. It found [order 2284](2284) after
+magnitude more than descent from random starts. It found [order 2284](hadamard/2284) after
 33 minutes, close to the model's prediction.
 
 ## Bordered structures
 
-[Order 3964](3964) uses a bordered Goethals–Seidel array. Four sequences on a group
+[Order 3964](hadamard/3964) uses a bordered Goethals–Seidel array. Four sequences on a group
 G of order n + 1 − q, with a subgroup K of index q, have autocorrelations summing
 to −4(q − 1) on K and to 4 off K, and a border of size 4(q − 1) completes the
 matrix. As in Spence's construction, G need not be cyclic, and a symmetry group
@@ -198,10 +198,10 @@ number of cosets. For prime p this is a real constraint.
 (±1, ±1, ±1, ±1) is excluded because 4p > 4, so some |r| is at least 2h − 1. Then
 (2h − 1)² ≤ 4p, which forces h ≤ √p + 1/2 and at least √p − 1 cosets. Pools
 therefore grow like 2^√p, while the class values spread more as p grows. Above
-p ≈ 2000 no structure is cheap. For [4412](4412), a pilot measured 10⁻⁹ expected
+p ≈ 2000 no structure is cheap. For 4412, a pilot measured 10⁻⁹ expected
 solutions per τ.
 
-For [2148](2148) no usable structure exists at all.
+For [2148](hadamard/2148) no usable structure exists at all.
 
 **Small structures.** Structures too small for the Gaussian model to be trusted
 were checked exhaustively instead. There were 1,319 such structures across the

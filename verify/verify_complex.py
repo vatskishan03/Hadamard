@@ -12,7 +12,7 @@ with A and B symmetric and A A^T + B B^T + C C^T + D D^T = 4N I, and the matrix 
 Certificates with construction "szollosi-ssxx-group" use group-developed matrices over G = Z_{m_1} x ... x Z_{m_r}
 (field "group"; elements in mixed-radix order, the last factor fastest) and R the matrix of g -> -g.
 Certificates with construction "szollosi-bordered" (or "-group") give four sequences on a group of order N - 1
-with sum of PAFs -4 off 0 and the border (x, s, t, y, u, v) of the bordered array (attack/bsz.py):
+with sum of PAFs -4 off 0 and the border (x, s, t, y, u, v) of the bordered array (search/bsz.py):
 K = [[X, Y], [Y^*, -X^*]], X = [[x, s e^T], [t e, (A+B)/2 + i(A-B)/2]], Y = [[y, u e^T], [v e, (C+DR)/2 + i(C-DR)/2]].
 
 This script rebuilds K from the sequences alone, checks every entry and K K* = n I exactly in integer arithmetic

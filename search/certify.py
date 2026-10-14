@@ -53,7 +53,7 @@ def main():
     ap.add_argument("p", type=int)
     ap.add_argument("g", type=int, help="generator of the multiplier subgroup")
     ap.add_argument("sol", help='"SOL maskA maskB maskC maskD" as printed by match')
-    ap.add_argument("directory", help="order directory to write into")
+    ap.add_argument("directory", help="order directory to write into (4492 means hadamard/4492)")
     a = ap.parse_args()
 
     p, g = a.p, a.g
@@ -76,8 +76,8 @@ def main():
         blocks.append(reps)
 
     order = 4 * p
-    out = ROOT / a.directory
-    out.mkdir(exist_ok=True)
+    out = ROOT / "hadamard" / a.directory if a.directory.isdigit() else ROOT / a.directory
+    out.mkdir(parents=True, exist_ok=True)
     M = verify.goethals_seidel(*map(verify.circulant, seqs))
     data = verify.canonical_csv(M)
     cert = {"order": order, "construction": "goethals-seidel", "group": f"Z_{p}", "v": p,

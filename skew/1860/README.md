@@ -31,16 +31,16 @@ is then a Hadamard matrix of order 1860. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Search
 
-1. **Structure: a Paley product.** 465 = 15 · 31 and H = {h : h ≡ 1 (mod 15), h a square mod 31} = ⟨226⟩, of order 15. H fixes ℤ₁₅ × {0} pointwise and acts on ℤ₃₁ as the quadratic residues, so every block is u ⊗ 1 + w ⊗ J + z ⊗ χ over ℤ₁₅ × ℤ₃₁, with χ the Legendre sequence of ℤ₃₁, J the all-ones sequence and u, w, z sequences on ℤ₁₅ (see `attack/NOTES.md` §15).
+1. **Structure: a Paley product.** 465 = 15 · 31 and H = {h : h ≡ 1 (mod 15), h a square mod 31} = ⟨226⟩, of order 15. H fixes ℤ₁₅ × {0} pointwise and acts on ℤ₃₁ as the quadratic residues, so every block is u ⊗ 1 + w ⊗ J + z ⊗ χ over ℤ₁₅ × ℤ₃₁, with χ the Legendre sequence of ℤ₃₁, J the all-ones sequence and u, w, z sequences on ℤ₁₅ (see `search/NOTES.md` §15).
 2. **Reduction.** The identity coefficient of one of the three resulting equations forces (q + 1)N_w − 4N₋ = 4m, here 32 N_w − 4 N₋ = 60, so exactly two positions carry w ≠ 0, one in each of two blocks, and N₋ = 1. Because 4m < 2q, the four sequences u_k and the four sequences z_k must then each have periodic autocorrelations summing to zero, and the cross-correlations Σ_k (z_k ⋆ u_k − u_k ⋆ z_k) must vanish.
-3. **Exact two-stage search** (`attack/paley_config.py`). Stage 1 lists all 209,536 u-quadruples (3 s). Stage 2 takes the first and joins all z-quadruples on the 14 remaining classes with `attack/join4x.c`: 28 solutions. The first two were lifted to ℤ₄₆₅ and verified.
+3. **Exact two-stage search** (`search/paley_config.py`). Stage 1 lists all 209,536 u-quadruples (3 s). Stage 2 takes the first and joins all z-quadruples on the 14 remaining classes with `search/join4x.c`: 28 solutions. The first two were lifted to ℤ₄₆₅ and verified.
 
 ## Reproduction
 
 | | |
 |---|---|
 | Code | commit `f16c0a0` |
-| Command | `python3 attack/paley_config.py 465 --maxu 5` |
+| Command | `python3 search/paley_config.py 465 --maxu 5` |
 | Randomness and caps | none in the search (exact enumeration); which solutions join4x prints first depends on the OpenMP schedule |
 | Result of that run | 209,536 u-quadruples; the first extends to 28 z-solutions; 2 verified skew-Hadamard matrices after 16 s on 4 shared cores |
 

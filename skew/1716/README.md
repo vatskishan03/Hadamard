@@ -38,25 +38,25 @@ H + Hᵀ = 2I, the cross terms vanish as in [skew/7956](../7956), and
 
 ## Search
 
-`attack/odm_engine.py 39 16 13 --bsub 13` (about 3 seconds):
+`search/odm_engine.py 39 16 13 --bsub 13` (about 3 seconds):
 
 1. It enumerates the H-invariant b parts of weight 13 supported on the subgroup of order 13. They are ternary
    combinations of H-orbits with block 1 skew and autocorrelation sum 13δ, found by a meet in the middle. Up to
    multipliers, block permutations and signs there are 10 templates, and all 10 pass the row-sum screen.
-2. For each template, `attack/odmx.c` searches the H-invariant c parts exhaustively: per block, the lists of c parts
+2. For each template, `search/odmx.c` searches the H-invariant c parts exhaustively: per block, the lists of c parts
    with the right row sum, each reduced to its vector of autocorrelations and bc terms at the 7 pair-orbit
    representatives, joined by a 4-list meet in the middle.
 
 It found 18 solutions, at most 2 per template; the certificate uses the first. Without the subgroup restriction the
 template enumeration in Python is too slow at t = 39: there are 110 763 candidate b parts per block. A template with
-a ×3-invariant CW(13, 9) is impossible here, for a row-sum reason given in `attack/NOTES.md` §31.
+a ×3-invariant CW(13, 9) is impossible here, for a row-sum reason given in `search/NOTES.md` §31.
 
 ## Reproduction
 
 | | |
 |---|---|
-| Code | `attack/odm_engine.py`, `attack/odmx.c` (search); `verify/verify.py` (`build_skew_amicable_plug`, "paley" and "od" forms) |
-| Command | `gcc -O2 -o /tmp/hadamard-work/bin/odmx attack/odmx.c && python3 attack/odm_engine.py 39 16 13 --bsub 13` (the first `SOL` block is the "od" of the certificate) |
+| Code | `search/odm_engine.py`, `search/odmx.c` (search); `verify/verify.py` (`build_skew_amicable_plug`, "paley" and "od" forms) |
+| Command | `gcc -O2 -o /tmp/hadamard-work/bin/odmx search/odmx.c && python3 search/odm_engine.py 39 16 13 --bsub 13` (the first `SOL` block is the "od" of the certificate) |
 | Randomness and caps | none; the search is exhaustive over its structure (`--maxsol 2` per template) |
 
 `verify/verify.py` (construction `skew-amicable-plug`, "paley": 11) rebuilds Paley's design of order 12 and checks it.

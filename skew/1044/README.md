@@ -33,18 +33,18 @@ is then a Hadamard matrix of order 1044. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Search
 
-1. **Structure: a cyclotomic product** (`attack/NOTES.md` §16). Over ℤ₉ × GF(29), H acts on GF(29) as the classes of index e = 4
+1. **Structure: a cyclotomic product** (`search/NOTES.md` §16). Over ℤ₉ × GF(29), H acts on GF(29) as the classes of index e = 4
    (class size F = 7) and trivially on ℤ₉. A block is given at each position a ∈ ℤ₉ by its value f(a) at (a, 0) and its values on the four classes (a, C_j): 45 H-orbits per block.
 2. **Stage 1: the compressions to ℤ₉.** The compression is y(a) = f(a) + 7 s(a), with s(a) the sum of the four class values at a, and Σ_k Σ_a y_k(a)² = 4 · 261 becomes Σ over the 36 positions of (7 s² + 2 f s) = 144. Stage 1 has about 3.3 · 10⁶ compressions per block, too many to list all quadruples, so `cp_lowe.stage1_sample` hashes block 3's compressions by cost and autocorrelations and completes random triples of the other blocks (seed 1). Its first quadruple is y = (1, −1, 1, 1, −1, 1, −1, −1, 1), (1, −1, −1, −1, 15, −1, −1, −1, −1), (1, −1, 1, 1, −15, −1, −1, 1, 13), (−1, 1, 1, 15, 1, 1, 1, −1, 13).
 3. **Lists.** The blocks of this class have 5,184 (skew block), 6,718,464, 4,478,976 and 4,478,976 members: small enough to keep whole, but the structure had been skipped because its stage 1 could not be listed. The Gaussian estimate of the class (18 level-B/level-C coordinates, rank 17) is 10^3.62 solutions.
-4. **Low-energy k-tree** (`attack/cp_lowe.py`, `attack/cp_enum.c`, `attack/kt4.c`; `attack/NOTES.md` §20). `cp_enum.c` enumerates the blocks (all members kept at `--L 1e7`) and `kt4.c` joins them over 3000 split values of five merge classes, ranked by expected solutions per unit of work. The first two solutions appeared within the first 65 split values.
+4. **Low-energy k-tree** (`search/cp_lowe.py`, `search/cp_enum.c`, `search/kt4.c`; `search/NOTES.md` §20). `cp_enum.c` enumerates the blocks (all members kept at `--L 1e7`) and `kt4.c` joins them over 3000 split values of five merge classes, ranked by expected solutions per unit of work. The first two solutions appeared within the first 65 split values.
 
 ## Reproduction
 
 | | |
 |---|---|
-| Code | commit `15deec6` (`attack/cp_lowe.py`, `attack/cp_enum.c`, `attack/kt4.c`) |
-| Command | `python3 attack/cp_lowe.py 261 --q 29 --e 4 --sample-stage1 5 --config 0 --L 1e7 --nsig 3000 --threads 3 --K 20` |
+| Code | commit `15deec6` (`search/cp_lowe.py`, `search/cp_enum.c`, `search/kt4.c`) |
+| Command | `python3 search/cp_lowe.py 261 --q 29 --e 4 --sample-stage1 5 --config 0 --L 1e7 --nsig 3000 --threads 3 --K 20` |
 | Randomness and caps | `--seed 1` (default; numpy `default_rng`) draws the sampled stage-1 quadruples, the 2·10⁵ samples per block for the energy statistics and the 4·10⁶ pairs per side that rank the split values; `--L 1e7` keeps every member here |
 | Result of that run | first verified solution after 215 s on 3 threads (enumeration 115 s); the certificate is the first hit recorded |
 

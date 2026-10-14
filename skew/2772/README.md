@@ -36,7 +36,7 @@ H + Hᵀ = 2I, the cross terms vanish as in [skew/7956](../7956), and
 
 ## Search
 
-`attack/odm_join.py 63 4 21 --bsub 21 --bjoin --k 2 --first` (about 5 minutes) runs in three steps:
+`search/odm_join.py 63 4 21 --bsub 21 --bjoin --k 2 --first` (about 5 minutes) runs in three steps:
 
 1. **Templates.** `odm_engine.py --dry --bjoin` builds the H-invariant b parts of weight 21 on the subgroup of
    order 21 as numpy arrays and joins them with `join4x.c`, with the vector (PAF at the pair-orbit representatives,
@@ -53,8 +53,8 @@ The run found 4 solutions; the certificate uses the first.
 
 | | |
 |---|---|
-| Code | `attack/odm_join.py`, `attack/odm_engine.py`, `attack/odmx.c`, `attack/join4x.c` (search); `verify/verify.py` (`build_skew_amicable_plug`, "paley" and "od" forms) |
-| Command | `gcc -O2 -o /tmp/hadamard-work/bin/odmx attack/odmx.c; cc -O3 -march=native -fopenmp attack/join4x.c -o /tmp/hadamard-work/bin/join4x; python3 attack/odm_join.py 63 4 21 --bsub 21 --bjoin --k 2 --first` |
+| Code | `search/odm_join.py`, `search/odm_engine.py`, `search/odmx.c`, `search/join4x.c` (search); `verify/verify.py` (`build_skew_amicable_plug`, "paley" and "od" forms) |
+| Command | `gcc -O2 -o /tmp/hadamard-work/bin/odmx search/odmx.c; cc -O3 -march=native -fopenmp search/join4x.c -o /tmp/hadamard-work/bin/join4x; python3 search/odm_join.py 63 4 21 --bsub 21 --bjoin --k 2 --first` |
 | Randomness and caps | none; the template sweep was capped at 200 000 b quadruples (`--bk`, default) |
 
 `verify/verify.py` (construction `skew-amicable-plug`, "paley": 11) rebuilds Paley's design of order 12 and checks it.

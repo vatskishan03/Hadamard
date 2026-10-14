@@ -31,18 +31,18 @@ is then a Hadamard matrix of order 3052. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Search
 
-1. **Exact compression screen** (`attack/census_screen.py`). For every prime p | 763 the compressions of all four blocks to ℤ_p are listed exactly and joined in integers. H = ⟨9⟩ with rows (1, 1, 5, 55) survives at p = 7 (40 joint solutions) and at p = 109 (61,688).
-2. **Compression chain** (`attack/chain.py`, run through `attack/screen_chain.py`). A dynamic program over the 31 H-orbits lists each block's joint compressions to ℤ₇ and ℤ₁₀₉. The ℤ₇ compressions are joined exactly (40 branches), and inside each branch the ℤ₁₀₉ compressions are joined. Each consistent combination is expanded by meet in the middle over the orbits, and the four lists are joined on all 15 autocorrelation classes (`attack/find4b.c`).
+1. **Exact compression screen** (`search/census_screen.py`). For every prime p | 763 the compressions of all four blocks to ℤ_p are listed exactly and joined in integers. H = ⟨9⟩ with rows (1, 1, 5, 55) survives at p = 7 (40 joint solutions) and at p = 109 (61,688).
+2. **Compression chain** (`search/chain.py`, run through `search/screen_chain.py`). A dynamic program over the 31 H-orbits lists each block's joint compressions to ℤ₇ and ℤ₁₀₉. The ℤ₇ compressions are joined exactly (40 branches), and inside each branch the ℤ₁₀₉ compressions are joined. Each consistent combination is expanded by meet in the middle over the orbits, and the four lists are joined on all 15 autocorrelation classes (`search/find4b.c`).
 3. The first branch held 31 combinations. Their final joins counted 3 solutions, two of which were rebuilt and verified as skew-Hadamard matrices. The search is exact and uses no randomness.
 
-The Gaussian model of `attack/skew_rank.py` predicted 10^5.5 solutions for this structure. For composite v that model is unreliable, and an earlier sampled k-tree run (400 values of τ) had found nothing here.
+The Gaussian model of `search/skew_rank.py` predicted 10^5.5 solutions for this structure. For composite v that model is unreliable, and an earlier sampled k-tree run (400 values of τ) had found nothing here.
 
 ## Reproduction
 
 | | |
 |---|---|
 | Code | commit `cd8c03a` |
-| Command | `python3 attack/chain.py 763 9 1,5,55` |
+| Command | `python3 search/chain.py 763 9 1,5,55` |
 | Randomness and caps | none (exact search); default caps --maxfibre 3e6, --maxstates 2e7 |
 | Result of that run | found in level-1 branch 1 of 40, after 31 combinations, in 86 minutes on 4 shared cores |
 
@@ -86,7 +86,7 @@ The doubling construction (Seberry) then also gives a skew-Hadamard matrix of or
 This is a finding of nothing, not a proof that no earlier construction exists.
 
 **Consequence.** By Yamada's theorem (q = 6101), this matrix gives a Hadamard matrix of order 24412, which
-is probably new; see [24412](../../24412).
+is probably new; see [24412](../../hadamard/24412).
 
 ## Verification
 

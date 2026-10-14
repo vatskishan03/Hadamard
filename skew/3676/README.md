@@ -38,10 +38,10 @@ is then a Hadamard matrix of order 3676. Because A + Aᵀ = 2I, it satisfies H +
    - μ permutes the other blocks: C(t) = B(μt) and D(t) = B(μ²t), so P_C(s) = P_B(μs);
    - the family is complementary iff P_A(s) + P_B(s) + P_B(μs) + P_B(μ²s) = 0 on the 9 orbits of ⟨K, −1⟩ on the nonzero shifts.
    
-   The row sums are forced to (1, b, b, b) with 1 + 3b² = 4 · 919, so b = 35. `attack/spin_skew.py rank` predicts about 2·10⁵ solutions for this structure:
+   The row sums are forced to (1, b, b, b) with 1 + 3b² = 4 · 919, so b = 35. `search/spin_skew.py rank` predicts about 2·10⁵ solutions for this structure:
    - 512 skew first blocks;
    - 2·10¹⁵ choices of B.
-2. `attack/spin_skew.py csearch` runs a tabu search in C (`attack/spin_ls.c`) on (A, B). The moves are swaps of B-orbits of opposite sign, which keep the row sum, and sign changes of A-orbit pairs. The objective is the weighted sum of squared residuals.
+2. `search/spin_skew.py csearch` runs a tabu search in C (`search/spin_ls.c`) on (A, B). The moves are swaps of B-orbits of opposite sign, which keep the row sum, and sign changes of A-orbit pairs. The objective is the weighted sum of squared residuals.
 3. The search found a solution in 37 s, at restart 399.
 
 `certificate.json` records μ as `spin_multiplier`, and `verify/verify.py` checks that the last three blocks are its images.
@@ -51,20 +51,19 @@ is then a Hadamard matrix of order 3676. Because A + Aᵀ = 2I, it satisfies H +
 | | |
 |---|---|
 | Code | commit `f6f42b2` of this branch (the options used behave the same at later commits) |
-| Command | `python3 attack/spin_skew.py csearch 919 58 52 --restarts 5000 --steps 3000 --seed 1` |
-| Randomness and caps | tabu search in C (attack/spin_ls.c), seed 1, at most 5000 restarts of 3000 moves |
+| Command | `python3 search/spin_skew.py csearch 919 58 52 --restarts 5000 --steps 3000 --seed 1` |
+| Randomness and caps | tabu search in C (search/spin_ls.c), seed 1, at most 5000 restarts of 3000 moves |
 | Result of that run | solution at restart 399, step 1915, after 37 s |
 
 The tools write their hit logs, temporary list files and compiled helpers to `$HADAMARD_WORK` (default
-`<tmp>/hadamard-work`), never into the repository. `attack/skew_certify.py` (or `skew_group.py certify` for the
+`<tmp>/hadamard-work`), never into the repository. `search/skew_certify.py` (or `skew_group.py certify` for the
 non-cyclic orders) turns a logged hit into the files in this directory. The certificate does not depend on
 the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.json` alone.
 
 ## Status
 
 **Not a new order.** A. Schumer published a skew-Hadamard matrix of order 3676 on Zenodo on 2026-09-17,
-doi:10.5281/zenodo.22820997, 25 days before this one. Main's [3676](../../3676) README has noted this
-since then.
+doi:10.5281/zenodo.22820997, 25 days before this one.
 
 - His witness has the same spin structure: H = ⟨703⟩ of order 17, μ = 866 of order 3, the first block skew,
   and row sums (1, 35, 35, 35).

@@ -4,7 +4,7 @@
  * argument is given, so compressed matrices can be piped in:
  *
  *     cc -O2 -fopenmp verify/check_matrix.c -o check_matrix
- *     gzip -dc 2092/H2092.csv.gz | ./check_matrix
+ *     gzip -dc hadamard/2092/H2092.csv.gz | ./check_matrix
  *
  * Every pair of rows is compared with integer arithmetic; no floating point and
  * no external libraries are involved. Exit status 0 means H H^T = nI.

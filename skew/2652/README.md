@@ -43,8 +43,8 @@ H + Hᵀ = 2I because W, B and C are skew and J, D symmetric, and
 
 ## Search
 
-`attack/sym_mm1.py propus 13` finds skew-propus quadruples of length 13 at once (they exist for every odd length
-n ≤ 15 except n = 9, `attack/NOTES.md` §31); the certificate uses the first one `skew_propus(13)` returns. The
+`search/sym_mm1.py propus 13` finds skew-propus quadruples of length 13 at once (they exist for every odd length
+n ≤ 15 except n = 9, `search/NOTES.md` §31); the certificate uses the first one `skew_propus(13)` returns. The
 G-matrices of order 13 are the first found by `g_matrices(13)` (all pairs of skew-type sequences hashed on the sum of
 their autocorrelations, all symmetric pairs with row sums 5 and 5 probed). G-matrices of order 13 are known
 (Georgiou–Koukouvinos, JCMCC 40 (2002), list 8 of them, as tabulated in Đoković, arXiv:0903.5053, Table 1); only the
@@ -54,8 +54,8 @@ amicable pair of order 52 is new.
 
 | | |
 |---|---|
-| Code | `attack/sym_mm1.py` (`amicable_cores`, `g_matrices`, `skew_od_from_g`, `skew_seberry`) and `verify/verify.py` (`build_skew_amicable_plug`) |
-| Command | `python3 attack/sym_mm1.py propus 13`; the certificate was written from `skew_propus(13)[0]` and `g_matrices(13)`; `python3 verify/verify.py skew/2652` rebuilds and checks everything |
+| Code | `search/sym_mm1.py` (`amicable_cores`, `g_matrices`, `skew_od_from_g`, `skew_seberry`) and `verify/verify.py` (`build_skew_amicable_plug`) |
+| Command | `python3 search/sym_mm1.py propus 13`; the certificate was written from `skew_propus(13)[0]` and `g_matrices(13)`; `python3 verify/verify.py skew/2652` rebuilds and checks everything |
 | Randomness and caps | none |
 
 `verify/verify.py` (construction `skew-amicable-plug`) rebuilds the symmetric OD from the skew-propus quadruple and

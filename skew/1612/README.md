@@ -31,12 +31,12 @@ is then a Hadamard matrix of order 1612. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Search
 
-1. `attack/skew_rank.py` ranks skew Goethals–Seidel multiplier structures with a Gaussian model, counting only the solutions that survive when each list is cut to a sample. For H = ⟨100⟩ (order 15) it predicts about 10⁶ solutions in all and 10⁴·⁵ in the cut lists:
+1. `search/skew_rank.py` ranks skew Goethals–Seidel multiplier structures with a Gaussian model, counting only the solutions that survive when each list is cut to a sample. For H = ⟨100⟩ (order 15) it predicts about 10⁶ solutions in all and 10⁴·⁵ in the cut lists:
    - 31 orbits and 15 autocorrelation classes;
    - 32768 skew first blocks;
    - pools of 4·10⁷ to 6·10⁷ sequences for the other three blocks, row sums (5, 25, 31).
-2. `attack/skew_compress.py` confirms that the compressions to ℤ₁₃ and ℤ₃₁ admit solutions.
-3. `attack/skew_ktree.py` (four-list k-tree matcher `attack/match4.c`) matched uniform samples of about 1.05·10⁷ sequences from each pool.
+2. `search/skew_compress.py` confirms that the compressions to ℤ₁₃ and ℤ₃₁ admit solutions.
+3. `search/skew_ktree.py` (four-list k-tree matcher `search/match4.c`) matched uniform samples of about 1.05·10⁷ sequences from each pool.
 4. It found 4 solutions among the 154 most likely partial-sum values. The first pattern tried, (5, 19, 35), gave none in 400.
 
 ## Reproduction
@@ -44,12 +44,12 @@ is then a Hadamard matrix of order 1612. Because A + Aᵀ = 2I, it satisfies H +
 | | |
 |---|---|
 | Code | commit `6e27e84` of this branch (the options used behave the same at later commits) |
-| Command | `python3 attack/skew_ktree.py 403 100 --maxpool 1.2e7 --maxtau 400 --top 6 --sols 2 --seed 1` |
+| Command | `python3 search/skew_ktree.py 403 100 --maxpool 1.2e7 --maxtau 400 --top 6 --sols 2 --seed 1` |
 | Randomness and caps | uniform samples of at most 1.2·10⁷ distinct sequences per pool (seed 1); clamp S = 6; top 6; at most 400 values of τ per pattern |
 | Result of that run | pattern (5, 19, 35): none in 400 values of τ; pattern (5, 25, 31): 4 solutions at τ #153 |
 
 The tools write their hit logs, temporary list files and compiled helpers to `$HADAMARD_WORK` (default
-`<tmp>/hadamard-work`), never into the repository. `attack/skew_certify.py` (or `skew_group.py certify` for the
+`<tmp>/hadamard-work`), never into the repository. `search/skew_certify.py` (or `skew_group.py certify` for the
 non-cyclic orders) turns a logged hit into the files in this directory. The certificate does not depend on
 the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.json` alone.
 

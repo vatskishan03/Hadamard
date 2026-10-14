@@ -31,11 +31,11 @@ is then a Hadamard matrix of order 1508. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Search
 
-1. `attack/skew_triage.py` ranks skew Goethals–Seidel multiplier structures with a Gaussian model. For H = ⟨16⟩ it predicts about 0.1 solutions; the search was run anyway because the pools are small:
+1. `search/skew_triage.py` ranks skew Goethals–Seidel multiplier structures with a Gaussian model. For H = ⟨16⟩ it predicts about 0.1 solutions; the search was run anyway because the pools are small:
    - 25 orbits and 12 autocorrelation classes;
    - 4096 skew first blocks;
    - pools of 4.1·10⁵ to 5.6·10⁵ sequences for the other three blocks, row sums (27, 27, 7).
-2. `attack/skew_ktree.py` (four-list k-tree matcher `attack/match4.c`) enumerates the pools and matches the four lists.
+2. `search/skew_ktree.py` (four-list k-tree matcher `search/match4.c`) enumerates the pools and matches the four lists.
 3. It found 64 solutions for the most likely partial-sum value, in 0.6 s.
 
 ## Reproduction
@@ -43,12 +43,12 @@ is then a Hadamard matrix of order 1508. Because A + Aᵀ = 2I, it satisfies H +
 | | |
 |---|---|
 | Code | commit `90ab79d` of this branch (the options used behave the same at later commits) |
-| Command | `python3 attack/skew_ktree.py 377 16 --maxtau 400 --sols 2` |
+| Command | `python3 search/skew_ktree.py 377 16 --maxtau 400 --sols 2` |
 | Randomness and caps | complete pools (no sampling, no seed); clamp S = 4; top 6; at most 400 values of τ |
 | Result of that run | pattern (7, 27, 27): 64 solutions at τ #0 |
 
 The tools write their hit logs, temporary list files and compiled helpers to `$HADAMARD_WORK` (default
-`<tmp>/hadamard-work`), never into the repository. `attack/skew_certify.py` (or `skew_group.py certify` for the
+`<tmp>/hadamard-work`), never into the repository. `search/skew_certify.py` (or `skew_group.py certify` for the
 non-cyclic orders) turns a logged hit into the files in this directory. The certificate does not depend on
 the search: `verify/verify.py` rebuilds and checks the matrix from `certificate.json` alone.
 

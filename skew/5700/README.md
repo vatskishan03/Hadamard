@@ -42,7 +42,7 @@ H + Hᵀ = 2I because W, B and C are skew and J, D symmetric, and
 ## Search
 
 Nothing beyond symmetric/5700 was searched for the amicable pair. The G-matrices of order 19 were found by
-`attack/sym_mm1.py` (`g_matrices(19)`: all pairs of skew-type sequences hashed on the sum of their autocorrelations,
+`search/sym_mm1.py` (`g_matrices(19)`: all pairs of skew-type sequences hashed on the sum of their autocorrelations,
 all symmetric pairs with row sums 5 and 7 probed; half a second). G-matrices of order 19 are classical (Spence's
 series for q = 37; Georgiou–Koukouvinos, JCMCC 40 (2002), list 9 of them, as tabulated in Đoković, arXiv:0903.5053,
 Table 1), so only the amicable pair is new.
@@ -51,7 +51,7 @@ Table 1), so only the amicable pair is new.
 
 | | |
 |---|---|
-| Code | `attack/sym_mm1.py` (`amicable_cores`, `g_matrices`, `skew_od_from_g`, `skew_seberry`) and `verify/verify.py` (`build_skew_amicable_plug`) |
+| Code | `search/sym_mm1.py` (`amicable_cores`, `g_matrices`, `skew_od_from_g`, `skew_seberry`) and `verify/verify.py` (`build_skew_amicable_plug`) |
 | Command | none beyond symmetric/5700; `python3 verify/verify.py skew/5700` rebuilds and checks everything |
 | Randomness and caps | none |
 

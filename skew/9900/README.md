@@ -43,7 +43,7 @@ H + Hᵀ = 2I because W, B and C are skew and J, D symmetric, and
 
 ## Search
 
-`attack/sym_mm1.py propus 25` searches skew-propus quadruples of length 25 exhaustively (row sums (a3, a1) with
+`search/sym_mm1.py propus 25` searches skew-propus quadruples of length 25 exhaustively (row sums (a3, a1) with
 a3² + 2a1² = 99: (1, 7), (7, 5), (9, 3); A1 tabulated on its autocorrelations up to shifts, all pairs (A3, A0)
 probed); the first solution, in the pattern (9, 3), came after 18 minutes (one core, Python). The G-matrices of order
 25 are the first found by `g_matrices(25)` (row sums 1, 1, 7, 7; 22 s). G-matrices of order 25 are known
@@ -54,8 +54,8 @@ amicable pair of order 100 is new.
 
 | | |
 |---|---|
-| Code | `attack/sym_mm1.py` (`amicable_cores`, `g_matrices`, `skew_od_from_g`, `skew_seberry`) and `verify/verify.py` (`build_skew_amicable_plug`) |
-| Command | `python3 attack/sym_mm1.py propus 25` (first solution); the certificate was written from that solution and `g_matrices(25)`; `python3 verify/verify.py skew/9900` rebuilds and checks everything |
+| Code | `search/sym_mm1.py` (`amicable_cores`, `g_matrices`, `skew_od_from_g`, `skew_seberry`) and `verify/verify.py` (`build_skew_amicable_plug`) |
+| Command | `python3 search/sym_mm1.py propus 25` (first solution); the certificate was written from that solution and `g_matrices(25)`; `python3 verify/verify.py skew/9900` rebuilds and checks everything |
 | Randomness and caps | none |
 
 `verify/verify.py` (construction `skew-amicable-plug`) rebuilds the symmetric OD from the skew-propus quadruple and

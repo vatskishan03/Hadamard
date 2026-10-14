@@ -31,16 +31,16 @@ is then a Hadamard matrix of order 1564. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Search
 
-1. **Structure: a Paley product.** 391 = 17 · 23 and H = {h : h ≡ 1 (mod 17), h a square mod 23} = ⟨324⟩, of order 11. Every block is u ⊗ 1 + w ⊗ J + z ⊗ χ over ℤ₁₇ × ℤ₂₃ (χ the Legendre sequence of ℤ₂₃); see `attack/NOTES.md` §15.
+1. **Structure: a Paley product.** 391 = 17 · 23 and H = {h : h ≡ 1 (mod 17), h a square mod 23} = ⟨324⟩, of order 11. Every block is u ⊗ 1 + w ⊗ J + z ⊗ χ over ℤ₁₇ × ℤ₂₃ (χ the Legendre sequence of ℤ₂₃); see `search/NOTES.md` §15.
 2. **Reduction.** The counting identity reads 24 N_w − 4 N₋ = 68, so N_w = 3 and N₋ = 1: one w-position in each of B, C and D, translated to 0; one of them has u = −2w there.
-3. **Exact two-stage search** (`attack/paley_config.py`, general mode). Stage 1: all 1,620,096 quadruples of compressions to ℤ₁₇ whose autocorrelations sum to zero (76 s). Stage 2 on the first: 18 z-solutions; the first two were lifted to ℤ₃₉₁ and verified.
+3. **Exact two-stage search** (`search/paley_config.py`, general mode). Stage 1: all 1,620,096 quadruples of compressions to ℤ₁₇ whose autocorrelations sum to zero (76 s). Stage 2 on the first: 18 z-solutions; the first two were lifted to ℤ₃₉₁ and verified.
 
 ## Reproduction
 
 | | |
 |---|---|
 | Code | commit `520f0b6` |
-| Command | `python3 attack/paley_config.py 391 --maxu 6` |
+| Command | `python3 search/paley_config.py 391 --maxu 6` |
 | Randomness and caps | none in the search (exact enumeration); which solutions join4x prints first depends on the OpenMP schedule |
 | Result of that run | 1,620,096 y-quadruples; the first extends to 18 z-solutions; 2 verified skew-Hadamard matrices after 252 s on 4 shared cores |
 

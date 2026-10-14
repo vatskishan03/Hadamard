@@ -33,18 +33,18 @@ is then a Hadamard matrix of order 1204. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Search
 
-1. **Structure: a cyclotomic product** (`attack/NOTES.md` §16). Over ℤ₇ × GF(43), H acts on GF(43) as the classes of index e = 6
+1. **Structure: a cyclotomic product** (`search/NOTES.md` §16). Over ℤ₇ × GF(43), H acts on GF(43) as the classes of index e = 6
    (class size F = 7) and trivially on ℤ₇. A block is given at each position a ∈ ℤ₇ by its value f(a) at (a, 0) and its values on the six classes (a, C_j): 49 H-orbits per block.
 2. **Stage 1: the compressions to ℤ₇.** The compression is y(a) = f(a) + 7 s(a), and Σ_k Σ_a y_k(a)² = 4 · 301 becomes Σ over the 28 positions of (7 s² + 2 f s) = 168. Stage 1 is sampled by `cp_lowe.stage1_sample` (seed 1); its first quadruple is y = (1, 1, 1, −1, 1, −1, −1), (−13, −1, −1, 1, 1, 1, 1), (−1, 1, −13, 1, −15, 1, 15), (−1, −13, −1, −1, −15, −1, 1).
 3. **Lists.** The blocks of this class have 64,000 (skew block), 960,000,000, 540,000,000 and 720,000,000 members. The Gaussian estimate of the class (21 coordinates, rank 20) is 10^6.03 solutions.
-4. **Low-energy k-tree** (`attack/cp_lowe.py`, `attack/cp_enum.c`, `attack/kt4.c`; `attack/NOTES.md` §20). `cp_enum.c` enumerates every member of each non-skew block and keeps those whose autocorrelation vector is close to its conditional mean given that the four vectors sum to zero: 9,912,243, 10,109,883 and 9,927,286 members, with a Gaussian estimate of 10^2.52 solutions inside the lists. `kt4.c` joins them over split values of five merge classes ranked by expected solutions per unit of work; the first solution came at the 24th split value. The structure was selected by the estimate-then-search loop `attack/cp_hunt.py` (§20).
+4. **Low-energy k-tree** (`search/cp_lowe.py`, `search/cp_enum.c`, `search/kt4.c`; `search/NOTES.md` §20). `cp_enum.c` enumerates every member of each non-skew block and keeps those whose autocorrelation vector is close to its conditional mean given that the four vectors sum to zero: 9,912,243, 10,109,883 and 9,927,286 members, with a Gaussian estimate of 10^2.52 solutions inside the lists. `kt4.c` joins them over split values of five merge classes ranked by expected solutions per unit of work; the first solution came at the 24th split value. The structure was selected by the estimate-then-search loop `search/cp_hunt.py` (§20).
 
 ## Reproduction
 
 | | |
 |---|---|
-| Code | commit `15deec6` (`attack/cp_lowe.py`, `attack/cp_enum.c`, `attack/kt4.c`) |
-| Command | `python3 attack/cp_lowe.py 301 --q 43 --e 6 --kgen 1 --twist 0 --sample-stage1 3 --config 0 --L 1e7 --nsig 3000 --threads 3 --K 3` |
+| Code | commit `15deec6` (`search/cp_lowe.py`, `search/cp_enum.c`, `search/kt4.c`) |
+| Command | `python3 search/cp_lowe.py 301 --q 43 --e 6 --kgen 1 --twist 0 --sample-stage1 3 --config 0 --L 1e7 --nsig 3000 --threads 3 --K 3` |
 | Randomness and caps | `--seed 1` (default) draws the sampled stage-1 quadruples, the 2·10⁵ samples per block for the energy statistics and the 4·10⁶ pairs per side that rank the split values; `--L 1e7` members kept per non-skew block |
 | Result of that run | first verified solution after about 6 minutes on 3 threads (enumeration 121 s, split values 1–24 in 172 s); the certificate is the first hit recorded |
 

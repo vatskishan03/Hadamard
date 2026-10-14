@@ -2,8 +2,8 @@
 
 Two specialisations of Szöllősi's array (arXiv:2603.09572, Theorem 4). Each one turns the four-sequence search for a
 complex Hadamard matrix of order 2N into a two-list search. To our knowledge neither has been stated before. They
-are not new matrices by themselves; they are new families in which to look for them. Code: `attack/tsz.py` and
-`attack/tsz.c`.
+are not new matrices by themselves; they are new families in which to look for them. Code: `search/tsz.py` and
+`search/tsz.c`.
 
 ## Setting
 
@@ -72,7 +72,7 @@ the same H, at the cost of one pool instead of a four-list join.
 
 ## Verification
 
-`python3 attack/tsz.py test` searches small cases exactly and rebuilds every hit as a complex Hadamard matrix
+`python3 search/tsz.py test` searches small cases exactly and rebuilds every hit as a complex Hadamard matrix
 (K K* = 2N I in Gaussian integers) and as a Goethals–Seidel matrix of order 4N. Solution counts:
 
 | N | kind | Gaussian estimate | solutions |

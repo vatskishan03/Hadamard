@@ -8,8 +8,8 @@ still unresolved. The other 50 were settled as follows:
   and Hadamard-M; Schumer),
 - 9 by Đoković in 2010,
 - 10 in this repository (3732 and 5020 by the cyclotomic products of
-  [attack/NOTES.md](attack/NOTES.md) §16, 2148 by the bordered array of §19, 573 by the Spence spin
-  structure of [2292](2292), and 2293 from it by Miyamoto's theorem, [9172](9172)).
+  [search/NOTES.md](search/NOTES.md) §16, 2148 by the bordered array of §19, 573 by the Spence spin
+  structure of [2292](hadamard/2292), and 2293 from it by Miyamoto's theorem, [9172](hadamard/9172)).
 
 **Columns.** For each order the table lists the cheapest structure of each kind
 found by `search/triage.py` that is expected to contain at least ten solutions:

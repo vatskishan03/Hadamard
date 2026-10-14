@@ -191,8 +191,8 @@ not yet been found, namely n ∈ {53, 59, 65, 67}").
   - 4·3149 = 4·47·67, 4·4757 = 4·67·71, 4·4841 = 4·47·103, using T-sequences of lengths 47 and 71;
   - 4·8549 = 4·83·103, which needs only T103 and the classical WT(83).
 - None of these products lands on an unresolved n ≤ 2999.
-- All four candidates are now built: [12596](12596) and [19364](19364) with the bordered WT(47) of
-  [williamson-type](williamson-type), [34196](34196) with the bordered WT(83), and [19028](19028) with T-sequences of
+- All four candidates are now built: [12596](hadamard/12596) and [19364](hadamard/19364) with the bordered WT(47) of
+  [williamson-type](williamson-type), [34196](hadamard/34196) with the bordered WT(83), and [19028](hadamard/19028) with T-sequences of
   length 71 (from Turyn-type TT(24)) and the near-Williamson WT(67).
 
 ## 8. Complex Hadamard matrices, the order-3 twist and quaternary Legendre pairs (October 14)
@@ -200,7 +200,7 @@ not yet been found, namely n ∈ {53, 59, 65, 67}").
 **Szöllősi's two-symmetric array.** If A, B, C, D are circulant ±1 matrices of odd order N with ΣXXᵀ = 4N I and only A
 and B symmetric, Theorem 4 of arXiv:2603.09572 gives a quaternary Hadamard matrix of order 2N. Williamson-type
 matrices (all four symmetric up to R) are not needed. With a multiplier group H ∌ −1, C and D are H-invariant, A and B
-are ⟨H, −1⟩-invariant, and the condition lives on the ⟨H, −1⟩-classes (`attack/ssxx.py`, exact four-list joins).
+are ⟨H, −1⟩-invariant, and the condition lives on the ⟨H, −1⟩-classes (`search/ssxx.py`, exact four-list joins).
 - **N = 71**, H = ⟨5⟩ of order 5. The Gaussian model gives 10^3.8 per row pattern; the exact joins find 5992 and 6076
   solutions. This gives order 142, which no Williamson-type matrices of order 71 provide: Table A.1 of Seberry–Yamada
   1992 is blank at 71, and the 2026 near-Williamson results stop at 69.
@@ -208,7 +208,7 @@ are ⟨H, −1⟩-invariant, and the condition lives on the ⟨H, −1⟩-classe
   orders: it predicts 10^−1.7 to 10^−2.1, and the exact joins find 2352, 2352, 2352 and 1176 solutions in four
   patterns. These are Paley-product structures, X = u ⊗ 1 + w ⊗ J + z ⊗ χ over ℤ₇ × ℤ₁₁. The repository's §15 (attack)
   already noted that the per-class densities are strongly correlated for them.
-- **The sweep** (`attack/ssxx_sweep.py`, exact joins in order of cost; `attack/ssxx_sample.py`, uniform samples of the
+- **The sweep** (`search/ssxx_sweep.py`, exact joins in order of cost; `search/ssxx_sample.py`, uniform samples of the
   large lists when they cannot be listed). For prime N the Gaussian estimate of the hits inside the samples is
   accurate: at 71 it predicts 1445 and the join finds 1430, and at 131 it predicts 10^4.0 and the join finds 12618.
   Results so far, with the exact count in the structure that gave each order:
@@ -229,9 +229,9 @@ are ⟨H, −1⟩-invariant, and the condition lives on the ⟨H, −1⟩-classe
   - a quaternary Legendre pair of length N − 1;
   - Szöllősi's 94.
 
-  The sweep over the remaining odd N < 1000 is `attack/ssxx_sweep.py`.
+  The sweep over the remaining odd N < 1000 is `search/ssxx_sweep.py`.
 
-**The order-3 twist on the bordered form** (`attack/wt_twist.py`, `attack/twist_join.c`). The twist of arXiv:2605.08661
+**The order-3 twist on the bordered form** (`search/wt_twist.py`, `search/twist_join.c`). The twist of arXiv:2605.08661
 §4.4, type (ii), is (A; B, B∘u, B∘u²) with u of order 3. It can be placed on ℤ_(N−1), where the bordered construction
 of [williamson-type](williamson-type) applies; for prime N with 3 ∤ N − 1 there is no order-3 multiplier on ℤ_N
 itself. The B-list is streamed in Gray order against a hash table of the A-list, with an O(1) hash update per step,
@@ -270,7 +270,7 @@ frequency ℓ/2, Σ_rows d² = 4ℓ + 4, then forces:
 So at lengths 70 and 76 a qLP must have a pair of Gray rows that is not symmetric about a common centre.
 
 *A binary.* Verma's length-64 pair has A binary. For binary A and symmetric (r, s) the condition is
-2PAF_A + PAF_r + PAF_s = −4, with r_A = 0 and (r_r, r_s) = (2, 0). `attack/qlp_bin.py` searches it with A on the
+2PAF_A + PAF_r + PAF_s = −4, with r_A = 0 and (r_r, r_s) = (2, 0). `search/qlp_bin.py` searches it with A on the
 H-orbits and r, s on the ⟨H, −1⟩-orbits; it finds pairs at lengths 14 and 26 and verifies them exactly. At the open
 lengths every multiplier structure has a Gaussian estimate of 10^−2.2 or less: 70: 10^−4.4 (⟨11⟩); 76: 10^−2.3 (⟨45⟩);
 94: 10^−2.2 (⟨3⟩).
@@ -307,7 +307,7 @@ But amicability fails:
 A SAT model of the general coset-constant border (CaDiCaL, `pysat`) confirms this: it is unsatisfiable at p = 11.
 The GS version escapes because the Goethals–Seidel array needs no amicability.
 
-**Bordered Szöllősi array (`attack/bsz.py`, `attack/bsz_group.py`).** Spence's bordered condition carries over to
+**Bordered Szöllősi array (`search/bsz.py`, `search/bsz_group.py`).** Spence's bordered condition carries over to
 Szöllősi's complex array with only two symmetric blocks. Let A, B, C, D be ±1 sequences on an abelian group G of
 order N − 1 with:
 - A and B symmetric;
@@ -337,7 +337,7 @@ Checks:
 This is the complex analogue of the hierarchy GS (no symmetric block) → Szöllősi (two) → near-Williamson (three)
 on ℤ_N, one level down: Spence (none) → bordered Szöllősi (two) → bordered Williamson-type (three) on a group of
 order N − 1. The point is the same as for [williamson-type](williamson-type): it moves the search to a group of
-order N − 1, which helps exactly where ℤ_N has no usable multipliers. `attack/bsz_sweep.py` runs every cyclic
+order N − 1, which helps exactly where ℤ_N has no usable multipliers. `search/bsz_sweep.py` runs every cyclic
 multiplier structure and every spin structure on ℤ₂² × ℤ_((N−1)/4) whose complete lists join within 2 · 10¹⁰ pair
 operations, for the open N.
 
@@ -349,8 +349,8 @@ prime:
 
 ## 10. Exact compression chains and streaming joins for complex Hadamard orders (October 14)
 
-**Compression chain (`attack/cchain4.py`, `attack/cchain_sweep.py`).** The method of order 3964 (and of
-`attack/chain.py` for skew families), generalised to four blocks with per-block symmetry. Blocks are of kind L
+**Compression chain (`search/cchain4.py`, `search/cchain_sweep.py`).** The method of order 3964 (and of
+`search/chain.py` for skew families), generalised to four blocks with per-block symmetry. Blocks are of kind L
 (⟨H, −1⟩-orbits) or A (H-orbits). Four problems are covered:
 
 | mode | group | blocks | target ΣPAF |
@@ -376,7 +376,7 @@ Nothing is sampled. A pattern with an empty level-1 join is ruled out at once, a
 (9, 13; 3, 19) and (7, 11; 3, 21), are ruled out by their ℤ₅ compressions. Patterns (9, 9; 13, 17) and (9, 13; 9, 17)
 pass level 1 with 600 branches each, and both gave verified solutions within 5 minutes (`complex-hadamard/C310.json`).
 
-**Streaming k-tree (`attack/kstream.c`, `attack/kstream.py`).** For prime N there is no compression. When A and B
+**Streaming k-tree (`search/kstream.c`, `search/kstream.py`).** For prime N there is no compression. When A and B
 (symmetric) are small but C and D have 10¹⁰ or more members, C and D are enumerated without being stored:
 - a depth-first search over their orbits, with class values updated incrementally (vectorised int32 tables);
 - pass 1 joins each C to the A list on k classes, for a set of targets near the centre, and stores
@@ -393,7 +393,7 @@ The target is N = 191, the only open prime with a large estimate. H = ⟨39⟩ o
 19 classes. Lists are 9.2 · 10⁴ for A and B and 3.4 · 10¹⁰, 2.9 · 10¹⁰ for C and D. The Gaussian estimate is 10^7.55
 solutions, and for prime N the estimate has been accurate (71: 1445 predicted, 1430 found; 131: 10^4.0, 12618).
 
-*Order 382.* Run: `python3 attack/kstream.py 191 39 11,11,9,21 --k 7 --wide 5 --vals 2 --fracC 0.18 --fracD 0.3
+*Order 382.* Run: `python3 search/kstream.py 191 39 11,11,9,21 --k 7 --wide 5 --vals 2 --fracC 0.18 --fracD 0.3
 --maxm1 2.2e8 --threads 4`. Pass 1 joined 18% of the C pool with A on the first 7 classes. It kept 1.73 · 10⁸
 fingerprints in 36 minutes on 4 cores. Pass 2 found a verified solution 6.5 minutes into the D stream (30% of the D
 pool was scheduled). This gives the complex Hadamard matrix of order 382 (`complex-hadamard/C382.json`). The order is
@@ -401,7 +401,7 @@ blank in Table 11.2, and 191 is prime, so no compression or product reaches it.
 
 ## 11. Twisted Szöllősi quadruples (October 14)
 
-**Construction** (`attack/tsz.py`, `attack/tsz.c`). Let H ≤ ℤ_N^* with −1 ∉ H, L = ⟨H, −1⟩, and μ a unit with μ ∉ L and
+**Construction** (`search/tsz.py`, `search/tsz.c`). Let H ≤ ℤ_N^* with −1 ∉ H, L = ⟨H, −1⟩, and μ a unit with μ ∉ L and
 μ² ∈ L. Every quadruple below satisfies Szöllősi's hypotheses (A, B symmetric, ΣPAF = 0 off 0), so it gives a complex
 Hadamard matrix of order 2N and a Goethals–Seidel matrix of order 4N.
 
@@ -426,7 +426,7 @@ structures with O ≤ 40 are exhaustive in minutes. The untwisted search has twi
 (about 2^0.7O against 2^0.35O) but needs a four-list join over pools of 2^O. At equal cost the untwisted structure
 wins, but the twisted structures are other lottery tickets: other (H, μ), reachable where the untwisted join is not.
 
-**Calibration** (`python3 attack/tsz.py test`; every hit rebuilt and checked exactly):
+**Calibration** (`python3 search/tsz.py test`; every hit rebuilt and checked exactly):
 
 | N | kind | Gaussian estimate | solutions found |
 |---:|---|---:|---:|
@@ -451,7 +451,7 @@ not searched.
 
 ## 12. Low-energy k-tree for Szöllősi structures (October 14)
 
-`attack/lowe_sz.py` (with `attack/lowe_enum.c` and the four-list join `attack/kt4.c` of the low-energy skew searches,
+`search/lowe_sz.py` (with `search/lowe_enum.c` and the four-list join `search/kt4.c` of the low-energy skew searches,
 NOTES of the progress branch §20) for structures whose blocks C, D have 10⁹–10¹¹ members.
 - Every member of a big block is visited by the depth-first search of `kstream.c`.
 - A member is kept when its energy E_k(x) = (x − z_k)ᵀ Σ_{−k}⁺ (x − z_k) is small, where z_k = t − Σ_{j≠k} μ_j and
@@ -499,7 +499,7 @@ K = ⟨H, μ⟩ and B under H. The condition holds on the orbits of ⟨K, −1�
 - **Lift solver.** An exhaustive four-list meet in the middle on the linear equations (about 10⁷ solutions per lift,
   15–40 s), followed by the full 27-class check. On planted targets it returned the planted signs every time.
 - **Results.** Two of the first five level solutions lifted, against the Gaussian estimate of about 0.2 each. Both give
-  Hadamard matrices of order 2292; the first is [2292](2292). Miyamoto with q = 2293 gives [9172](9172).
+  Hadamard matrices of order 2292; the first is [2292](hadamard/2292). Miyamoto with q = 2293 gives [9172](hadamard/9172).
 
 **Other survivors** of the same gates, not yet searched:
 - 1169 over ℤ₂⁴ × ℤ₇₃ (Singer cycle of order 15 coupled with an order-3 multiplier): 17 classes, estimate 10^4–10^6,

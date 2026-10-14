@@ -29,29 +29,29 @@ H = [ Bᵀ    DR   −A    −BR ]
 is a Hadamard matrix of order 532. It is symmetric because A is, and because XR is symmetric for every circulant X.
 This is the propus layout (A, B, B, D) with one symmetric block (Seberry and Balonin, Australas. J. Combin. 69 (2017);
 Balonin and Đoković's propus difference families, arXiv:1803.08787); the array is derived and checked in
-`attack/NOTES.md` §17, where it also reproduces the published order-116 family.
+`search/NOTES.md` §17, where it also reproduces the published order-116 family.
 
 ## Search
 
-`attack/propus.py` (`attack/NOTES.md` §17) searches multiplier structures exhaustively. For every subgroup H of ℤ_v*
+`search/propus.py` (`search/NOTES.md` §17) searches multiplier structures exhaustively. For every subgroup H of ℤ_v*
 (cyclic subgroups and products of two) whose structures have at most 30 orbits, smallest first, and for each of three
 variants (A and D symmetric with B symmetric or not; only A symmetric), it lists for every row-sum pattern
 r_A² + 2 r_B² + r_D² = 4v the complete pools of A, B and D and joins them exactly on the autocorrelation classes with
-`attack/join4x.c`. A hit is rebuilt as a matrix and checked (H = Hᵀ, H Hᵀ = 4v I).
+`search/join4x.c`. A hit is rebuilt as a matrix and checked (H = Hᵀ, H Hᵀ = 4v I).
 
 For v = 133 the hit came in the structure H = ⟨26⟩, only A symmetric, row pattern (11, 5, 19): pools of 966 (A),
 2,855,320 (B) and 2,368,236 (D) sequences, 13 autocorrelation classes, 72 solutions in 175 s. Every earlier structure
 of the sweep (fewer orbits, and the other variants of this H) had no solution. The structure has 26 orbits for B and
-D, beyond the cap of 24 of the first symmetric sweep (`attack/NOTES.md` §17).
+D, beyond the cap of 24 of the first symmetric sweep (`search/NOTES.md` §17).
 
 ## Reproduction
 
 | | |
 |---|---|
-| Code | commit `2281188` (`attack/propus.py`, `attack/join4x.c`) |
-| Command | `python3 attack/propus.py 133 --sweep --mino 1 --maxo 30 --maxpool 5e7` |
+| Code | commit `2281188` (`search/propus.py`, `search/join4x.c`) |
+| Command | `python3 search/propus.py 133 --sweep --mino 1 --maxo 30 --maxpool 5e7` |
 | Randomness and caps | none: the search is exhaustive and deterministic; `--maxpool 5e7` skips row patterns with a larger pool (none in this structure), and the sweep stops at the first structure with a solution |
-| Result of that run | 72 solutions of the row pattern (11, 5, 19); the certificate is the first (`attack/sym_certify.py 133`) |
+| Result of that run | 72 solutions of the row pattern (11, 5, 19); the certificate is the first (`search/sym_certify.py 133`) |
 
 The tools write hit logs, temporary files and compiled helpers to `$HADAMARD_WORK` (default `<tmp>/hadamard-work`).
 The certificate does not depend on the search: `verify/verify.py` rebuilds and checks the matrix from

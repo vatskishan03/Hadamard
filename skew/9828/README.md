@@ -40,10 +40,10 @@ H + Hᵀ = 2I, the cross terms vanish as in [skew/7956](../7956), and
 
 ## Search
 
-`attack/odm_engine.py 91 79,29 13` enumerates the H-invariant b parts of weight 13. These are ternary combinations of
+`search/odm_engine.py 91 79,29 13` enumerates the H-invariant b parts of weight 13. These are ternary combinations of
 H-orbits, with block 1 skew and autocorrelation sum 13δ, found by a meet in the middle on the PAF vectors at the
 pair-orbit representatives. They give 18 templates up to multipliers, block permutations and signs, and all 18 pass
-the row-sum screen. For each template, `attack/odmx.c` searches the H-invariant c parts exhaustively: per block, the
+the row-sum screen. For each template, `search/odmx.c` searches the H-invariant c parts exhaustively: per block, the
 lists of c parts with the right row sum, each reduced to its vector of autocorrelations and bc terms at the
 pair-orbit representatives, joined by a 4-list meet in the middle. Four templates gave 2 solutions each (8 in
 total); the certificate uses the first. The whole run took about 12 seconds.
@@ -52,8 +52,8 @@ total); the certificate uses the first. The whole run took about 12 seconds.
 
 | | |
 |---|---|
-| Code | `attack/odm_engine.py`, `attack/odmx.c` (search); `verify/verify.py` (`build_skew_amicable_plug`, "paley" over GF(pᵏ) and "od" forms) |
-| Command | `gcc -O2 -o /tmp/hadamard-work/bin/odmx attack/odmx.c && python3 attack/odm_engine.py 91 79,29 13` (the first `SOL` block is the "od" of the certificate) |
+| Code | `search/odm_engine.py`, `search/odmx.c` (search); `verify/verify.py` (`build_skew_amicable_plug`, "paley" over GF(pᵏ) and "od" forms) |
+| Command | `gcc -O2 -o /tmp/hadamard-work/bin/odmx search/odmx.c && python3 search/odm_engine.py 91 79,29 13` (the first `SOL` block is the "od" of the certificate) |
 | Randomness and caps | none; the search is exhaustive over its structure |
 
 `verify/verify.py` (construction `skew-amicable-plug`) builds GF(27) from the polynomial and checks that it is

@@ -33,14 +33,14 @@ is then a Hadamard matrix of order 3612. Because A + Aᵀ = 2I, it satisfies H +
 
 1. **Structure: a Paley product.** 903 = 21 · 43 and H = {h : h ≡ 1 (mod 21), h a square mod 43} = ⟨568⟩, of order 21. H fixes ℤ₂₁ × {0} pointwise and acts on ℤ₄₃ as the quadratic residues, so every block is u ⊗ 1 + w ⊗ J + z ⊗ χ over ℤ₂₁ × ℤ₄₃, with χ the Legendre sequence of ℤ₄₃, J the all-ones sequence and u, w, z sequences on ℤ₂₁. At each position either w = 0 and u, z = ±1, or z = 0, w = ±1 and u ∈ {0, −2w}.
 2. **Reduction.** The identity coefficient forces (q + 1)N_w − 4N₋ = 4m, here 44 N_w − 4 N₋ = 84, so N_w = 2 and N₋ = 1: two positions carry w ≠ 0, one in each of blocks 2 and 3 (placed at 0), and the one in block 2 has u = −2w. Because 4m < 2q, the u_k and the z_k must each have periodic autocorrelations summing to zero off the spikes' contributions, which the exact joins enforce.
-3. **Two-stage search** (`attack/pcg.py`, which extends `attack/paley_config.py` to any configuration of the w ≠ 0 positions). With y_k = u_k + q w_k, the compression of block k to ℤ₂₁, the conditions are Σ_k y_k y_k* = 4v, Σ_k z_k z_k* = Σ_k (u_k w_k* + w_k u_k* + q w_k w_k*) and Σ_k (z_k u_k* − u_k z_k*) = 0. Stage Y joins the y-lists exactly; stage Z joins, for each y-quadruple, the z-lists on the PAF and cross classes with `attack/join4x.c`.
+3. **Two-stage search** (`search/pcg.py`, which extends `search/paley_config.py` to any configuration of the w ≠ 0 positions). With y_k = u_k + q w_k, the compression of block k to ℤ₂₁, the conditions are Σ_k y_k y_k* = 4v, Σ_k z_k z_k* = Σ_k (u_k w_k* + w_k u_k* + q w_k w_k*) and Σ_k (z_k u_k* − u_k z_k*) = 0. Stage Y joins the y-lists exactly; stage Z joins, for each y-quadruple, the z-lists on the PAF and cross classes with `search/join4x.c`.
 
 ## Reproduction
 
 | | |
 |---|---|
 | Code | commit `ec11d71` |
-| Command | `python3 attack/pcg.py 903 --lmax 131072 --lzmax 2097152 --maxu 20 --stop --seed 2` |
+| Command | `python3 search/pcg.py 903 --lmax 131072 --lzmax 2097152 --maxu 20 --stop --seed 2` |
 | Randomness and caps | seed 2 for the sampled y-lists; the z-join is exhaustive; which solutions join4x prints first depends on the OpenMP schedule |
 | Result of that run | y-lists of 1,024 (complete), 129,029, 129,037 and 131,072 (uniform samples of 2²⁰, 2²⁰ and 2²¹), 118,922 y-quadruples; for the first, the complete z-lists (2,048, 1,048,576, 1,048,576 and 2,097,152) give exactly 2 z-solutions, both lifted to ℤ₉₀₃ and verified; 10 minutes on 40 shared cores |
 

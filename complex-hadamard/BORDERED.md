@@ -62,12 +62,12 @@ Multiplying out the blocks of K K* = [[XX* + YY*, XY − YX], [Y*X* − X*Y*, Y*
 
 ## Verification
 
-`python3 attack/bsz.py test` runs two checks:
+`python3 search/bsz.py test` runs two checks:
 - It enumerates every solution of conditions 1–2 on ℤ₆ (N = 7). All 2304 quadruples give complex Hadamard matrices
   of order 14 (exact integer arithmetic).
 - It lists the 32 border solutions of each row-sum pattern.
 
-`attack/bsz_group.py` builds the array over ℤ₂² × ℤ_m. For N = 13, 21 and 25 it finds and verifies complex
+`search/bsz_group.py` builds the array over ℤ₂² × ℤ_m. For N = 13, 21 and 25 it finds and verifies complex
 Hadamard matrices of orders 26, 42 and 50. At N = 13 and 21 the solution counts, 12672 and 4.6 · 10⁷, agree with
 the Gaussian estimates 10^4.25 and 10^7.02. `verify/verify_complex.py` accepts certificates with constructions
 `szollosi-bordered` (G = ℤ_m) and `szollosi-bordered-group`.
