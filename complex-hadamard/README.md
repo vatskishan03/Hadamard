@@ -63,6 +63,13 @@ N (or N − 1) the per-class Gaussian estimate of `ssxx.py` can be low by severa
 came from structures it put at 10^−1.2 and 10^0.6 solutions (the hybrid estimate: 10^4.1 and 10^4.4). See
 [search/NOTES.md](../search/NOTES.md) §32–34.
 
+Two exact necessary conditions now come first. For each prime power d dividing the group order, the four blocks'
+compressions to ℤ_d must join exactly (`search/compress_check.py`). On 291 structures with exact counts this rules out
+92% of those without solutions and none with solutions. Each block then keeps only members whose compressions occur
+in some level-1 solution (fibre filters). For order 366 the filters left 2.1% of C, all of which was kept, and the
+search found 1536 solutions where earlier runs without them had found none. See
+[search/NOTES.md](../search/NOTES.md) §36–39.
+
 A second construction, the bordered Szöllősi array on a group of order N − 1, is stated and proved in
 [BORDERED.md](BORDERED.md). Two twisted specialisations of both arrays (B = A∘μ, D = C∘μ, and a half twist), which
 turn the four-sequence search into a two-list search, are in [TWISTED.md](TWISTED.md).
