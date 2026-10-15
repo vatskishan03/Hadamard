@@ -161,6 +161,12 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
     return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0)
 
 
+def _tv(target, C):
+    """the target as an int64 vector over the C classes (a scalar for the cyclic and bordered arrays, a vector for
+    search/tbsz.py)"""
+    return np.broadcast_to(np.rint(np.asarray(target, np.float64)).astype(np.int64), (C,)).copy()
+
+
 def _exact_live(lists, Sx, target, maxwork=4e8):
     """the split values sigma with (a + c)_S = sigma for some a, c and (b + d)_S = T_S - sigma for some b, d, computed
     exactly from the distinct S-values of the four lists (sumsets of the smaller list against the larger), or None
@@ -188,7 +194,7 @@ def _exact_live(lists, Sx, target, maxwork=4e8):
             if n > 3e7:                                  # merge progressively to bound memory
                 acc = np.unique(np.concatenate([acc] + keys)); keys, n = [], 0
         return np.unique(np.concatenate([acc] + keys))
-    T = np.full(len(Sx), int(round(target)), np.int64)
+    T = _tv(target, np.asarray(lists[0][1]).shape[1])[Sx]
     kac = sumset(U[0], U[2])
     kbd = sumset(U[1], U[3], sign_off=T)
     live = np.intersect1d(kac, kbd, assume_unique=True)
@@ -212,7 +218,7 @@ def sigma_file(lists, Sx, target, nsig, path):
         mus.append(v.mean(0)); sigs.append(np.cov(v.T) if len(v) > 1 else np.zeros((v.shape[1], v.shape[1])))
         vi = np.asarray(lists[k][1][::max(1, len(lists[k][1]) // 20000)], np.int64)
         lat.append(vi)
-    C = len(mus[0]); t = np.full(C, float(target))
+    C = len(mus[0]); t = _tv(target, C).astype(np.float64)
     # the values of (a + c) on the merge classes lie in the coset a0 + c0 + (L_A + L_C) of the lattice spanned by the
     # differences within the lists, and a split value is live only if T - (b + d) can reach it too: it must lie in
     # p + L_AC and in q + L_BD. The product of per-class steps used below can be much coarser than that intersection
@@ -228,7 +234,7 @@ def sigma_file(lists, Sx, target, nsig, path):
         return _CE.echelon(rows) if rows else []
     LAC, LBD = _lat([lat[0], lat[2]]), _lat([lat[1], lat[3]])
     p_off = (lat[0][0] + lat[2][0])[Sx].astype(np.int64)
-    q_off = (np.full(C, int(round(target)), np.int64) - lat[1][0] - lat[3][0])[Sx].astype(np.int64)
+    q_off = (_tv(target, C) - lat[1][0] - lat[3][0])[Sx].astype(np.int64)
     def _member(B, V):
         V = V.copy(); ok = np.ones(len(V), bool)
         for r in B:

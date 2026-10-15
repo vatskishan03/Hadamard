@@ -2806,3 +2806,39 @@ on both sides, and all 2 · 10⁵ of them (3.8 · 10⁹ pairs per side, about 9.
 the solution law) gave no solution. Sampling the class sums of that tuple shows no pair or triple of classes that never vanishes jointly,
 so no low-order obstruction explains it; the finer quotient ℤ₁₅₁ (H of order 15 acting on it) is not listable by the
 scan and is the next suspect.
+
+## 45. The character-bordered Szöllősi array: order 214 (October 15)
+
+**Construction** (`search/tbsz.py`, [TBORDERED.md](../complex-hadamard/TBORDERED.md)): the complex analogue of §18.
+On G of order N − t with φ: G → Q and a conjugation-closed set T of t characters of Q, the core condition is
+Σ_k PAF_k(g) = −4 Σ_{χ∈T} χ(φ(g)) off 0, and the border is a pair of quaternary bases (R̂ rows, Ĉ columns) of the
+2t-dimensional space V_T of Q-functions (two halves) with Fourier support in T such that Xb = −R̂ Mc* Ĉ/2q is
+quaternary. Q = ℤ₄ with T = {1, χ, χ̄} needs N ≡ 3 (mod 4) and makes the order-N − 3 groups available to the primes
+where ℤ_N and ℤ_(N−1) have no multipliers.
+
+**Engine.** `TStruct` (any G = ℤ_{m₁} × … with automorphism matrices, the target per ⟨H, −1⟩-class, row patterns:
+Σ r² = 4t when 1 ∈ T and 4N otherwise) and `TComp` (compressions to Q, feasible tuples, conditioned lattice Gaussian
+with per-class targets, as `gcomp.py`); the search reuses `lowe_enum` with fibre constraints and kt4 with the target
+vector (`lowe_sz.sigma_file` and `_exact_live` now take a target vector); every hit is completed by the border search
+and checked in integer arithmetic. `tbsz.py rank N --family z4cyc|v4n|v4t` ranks the structures of one family.
+
+**N = 107.** `rank 107 --family z4cyc` (G = ℤ₈ × ℤ₁₃, Q = ℤ₄): ⟨(1, 2)⟩ (order 12) and ⟨(1, 4)⟩ (order 6) are empty
+on ℤ₄; ⟨(1, 3)⟩ (order 3; 40 and 21 orbits, 20 classes) has conditioned 10^5.42 for rows 2, 0; 2, 2 and 10^4.36 for
+2, 2; 2, 0 (plain Gaussian 10^4.6 for both). The search took tuple 0 (y_A = (0, 2, −2, 2), y_B = (2, −2, 2, −2),
+y_C = (−4, 4, −4, 6), y_D = (0, 0, 2, 0) on ℤ₄; pools 5040, 2520, 1.97 · 10⁷, 1.92 · 10⁸; 10^3.79):
+- lists: A, B, C complete; D 2.94 · 10⁷ of 1.92 · 10⁸ (lowe_enum 45 s, retention 0.50); 10^3.48 predicted inside;
+- split values: 52,762, exact (sumset intersection on merge classes 17, 2, 12, 7, 18);
+- kt4: 5 solutions (its cap) in the first 256 split values, 1.3 · 10⁸ + 8.9 · 10⁷ pairs, 338 s from the start.
+
+All five complete, and the first is [C214.json](../complex-hadamard/C214.json). With 10^3.48 predicted and the
+first 0.5% of the split values (by the solution law) giving 5, the estimate is consistent with the run.
+
+**A convention bug, caught by the verifier.** `spence_lib.AbGroup.index` reverses all axes of a 3-dimensional
+coordinate array, so the first version of `tbsz.szarray` and `tbsz.build` developed every block as X[g, h] = x(g − h).
+Its matrices were still complex Hadamard (the same construction for the reflected sequences, with the border solved
+for the reflected compressions), but the certificate, read in the standard convention by `verify_complex.py`, failed.
+`tbsz.devidx` now flattens the coordinates first, `certify` re-solves the border from the core sequences, and the
+certificate verifies.
+
+**Other N ≡ 3 (mod 4).** See [NOTES.md](../NOTES.md) §16: N = 167 is empty in both families on ℤ₄ × ℤ₄₁ and ℤ₂² × ℤ₄₁
+(odd fibres of 41 points); N = 179 on ℤ₁₆ × ℤ₁₁ lives only for ⟨(1, 3)⟩ at 10^−1.9; N = 223 and 239 are being ranked.

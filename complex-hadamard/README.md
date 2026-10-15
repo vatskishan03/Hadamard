@@ -80,6 +80,15 @@ ignores (10^0.6); conditioned on the compressions to ℤ₂ (`search/comp_est.py
 low-energy k-tree on one compression class (pools 4900, 4900, 1.7 · 10⁸, 1.3 · 10⁸, lists of 2 · 10⁷) found 64
 solutions in six minutes ([search/NOTES.md](../search/NOTES.md) §42).
 
+A third construction, the character-bordered Szöllősi array, is stated and proved in [TBORDERED.md](TBORDERED.md).
+The core lives on a group G of order N − t with a quotient φ: G → Q, the PAF sums are prescribed by a set T of t
+characters of Q (Σ_k PAF_k(g) = −4 Σ_{χ∈T} χ(φ(g)) off 0), and a border of size 2t completes it; t = 1 is the
+bordered array. With Q = ℤ₄ and T = {1, χ, χ̄} it applies to every N ≡ 3 (mod 4) through a group of order N − 3.
+Order 214 comes from it: N = 107 is a safe prime and 53 = (107 − 1)/2 is prime, so neither ℤ₁₀₇ nor ℤ₁₀₆ has a
+usable multiplier group, but ℤ₁₀₄ = ℤ₈ × ℤ₁₃ with H of order 3 on ℤ₁₃ (40 orbits) rates 10^5.7, and one compression
+class on ℤ₄ (pools 5040, 2520, 2 · 10⁷ and 1.9 · 10⁸, about 10^3.8 predicted solutions) gave 5 solutions in six minutes
+(`search/tbsz.py`).
+
 Two twisted specialisations of both arrays (B = A∘μ, D = C∘μ, and a half twist), which turn the four-sequence search
 into a two-list search, are in [TWISTED.md](TWISTED.md).
 
@@ -89,6 +98,7 @@ into a two-list search, are in [TWISTED.md](TWISTED.md).
 |---:|---|---|---|---|
 | 142 | 71 | ⟨5⟩, order 5 | 9, 9; 1, 11 | [C142.json](C142.json) |
 | 154 | 77 = 7 · 11 | ⟨15⟩, order 5 | 3, 3; 1, 17 | [C154.json](C154.json) |
+| 214 | 107 | character-bordered array ([TBORDERED.md](TBORDERED.md)) on ℤ₁₀₄ = ℤ₈ × ℤ₁₃, Q = ℤ₄, T = {1, χ, χ̄}, ⟨(1, 3)⟩ of order 3 (low-energy k-tree on one compression class, `search/tbsz.py`) | 2, 0; 2, 2 | [C214.json](C214.json) |
 | 222 | 111 = 3 · 37 | near-Williamson matrices of order 111 ([NW111.txt](../near-williamson/NW111.txt)), reordered (B, C, A, D) | 1, 1; 21, 1 | [C222.json](C222.json) |
 | 238 | 119 = 7 · 17 | ⟨8⟩, order 8 | 1, 5; 15, 15 | [C238.json](C238.json) |
 | 262 | 131 | ⟨53⟩, order 5 | 9, 9; 1, 19 | [C262.json](C262.json) |
@@ -111,7 +121,8 @@ into a two-list search, are in [TWISTED.md](TWISTED.md).
 | 754 | 377 = 13 · 29 | ⟨9⟩, order 42 | 27, 27; 5, 5 | [C754.json](C754.json) |
 
 Each certificate gives N, the multiplier group, the row sums, the first rows of A, B, C, D (`+`, `-`) (for the
-bordered array also the group of order N − 1 and the border) and the SHA-256 of the canonical text of K: 2N lines of 2N digits, digit e standing for the entry iᵉ.
+bordered array also the group of order N − 1 and the border; for the character-bordered array the group, the fibre
+labels of φ and the three border matrices) and the SHA-256 of the canonical text of K: 2N lines of 2N digits, digit e standing for the entry iᵉ.
 
 ```
 python3 verify/verify_complex.py            # all certificates
@@ -144,8 +155,8 @@ The sweep's candidate list (`python3 search/ssxx_sweep.py list`) is exactly the 
 minus these. The 2026 papers cite the updated Table 11.2 of Seberry and Yamada's 2020 book (Wiley), which we could
 not consult. A construction published between 1992 and 2020 and recorded only there is the remaining caveat.
 
-**What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 208 values of N < 1000
-have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 214, 322, 334, 358, 406, 414,
-418, 438, 446, 470, 474, 478, …. Order 214 (N = 107) is out of reach of every structure we have: 107 and 53 = (107 −
-1)/2 are both prime, so neither ℤ₁₀₇ nor ℤ₁₀₆ has a usable multiplier group, and no quaternary Legendre pair family
-covers length 106.
+**What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 207 values of N < 1000
+have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 322, 334, 358, 406, 414, 418,
+438, 446, 470, 474, 478, 490, …. Order 214, the smallest open order before, is now in the table; no quaternary
+Legendre pair family covers its length 106 (Jedwab–Pender need 213 or 105 to be a prime power), and the 2026
+quaternary Legendre pairs (arXiv:2609.04589, arXiv:2609.25573) have lengths below 100.

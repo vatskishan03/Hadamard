@@ -41,8 +41,9 @@ Pasechnik [3], and we found no later construction.
   See [skew](skew).
 - **Symmetric Hadamard matrices** of orders 532, 732, 876, 4828 and 5700, all undecided in the Đoković–Seberry
   census [4]. See [symmetric](symmetric).
-- **Complex Hadamard matrices** of 22 orders 2N with N odd, from 142 to 754, all blank in Seberry and Yamada's table
-  of known orders [5]. 142 and 154 were the two smallest open orders after the work of 2026 [10, 11]. See
+- **Complex Hadamard matrices** of 23 orders 2N with N odd, from 142 to 754, all blank in Seberry and Yamada's table
+  of known orders [5]. 142 and 154 were the two smallest open orders after the work of 2026 [10, 11], and 214 the
+  smallest after the others here; it comes from a new character-bordered form of Szöllősi's array. See
   [complex-hadamard](complex-hadamard).
 - **Auxiliary objects:** Williamson-type matrices of order 111 ([near-williamson](near-williamson)); T-matrices of
   orders 97, 109, 131 and 197, for which we found no earlier construction ([t-matrices](t-matrices)); amicable
@@ -84,7 +85,7 @@ gzip -dc hadamard/2092/H2092.csv.gz | ./check_matrix
 | Spence's construction with blocks (A, B, B∘μ, B∘μ²) and a Legendre lift | 2292 | [NOTES.md](NOTES.md) §13, [search/spence_spin](search/spence_spin) |
 | Skew difference families: compression chains, Paley products, low-energy k-trees | skew orders | [skew](skew), [search/NOTES.md](search/NOTES.md) §10–16, §20 |
 | Propus quadruples and the symmetric m(m − 1), m(m + 3) constructions | symmetric orders | [symmetric](symmetric), [search/NOTES.md](search/NOTES.md) §17, §27–31 |
-| Szöllősi's array, its bordered and twisted forms | complex orders | [complex-hadamard](complex-hadamard) |
+| Szöllősi's array, its bordered, character-bordered and twisted forms | complex orders | [complex-hadamard](complex-hadamard) |
 | Cooper–Wallis with T-matrices, near-Williamson and bordered Williamson-type matrices | 12596 to 39260 | [williamson-type](williamson-type), [t-matrices](t-matrices) |
 
 [NOTES.md](NOTES.md) and [search/NOTES.md](search/NOTES.md) also record the structures that turned out to be empty,
