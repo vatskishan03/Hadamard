@@ -1,7 +1,7 @@
 # New Hadamard matrices
 
-Explicit Hadamard, skew-Hadamard, symmetric Hadamard and complex Hadamard matrices of orders that had no known
-construction. Every matrix comes with a certificate from which `verify/` rebuilds it and checks it in exact
+Explicit Hadamard, skew-Hadamard, symmetric Hadamard and complex Hadamard matrices of orders for which we found no
+earlier construction. Every matrix comes with a certificate from which `verify/` rebuilds it and checks it in exact
 arithmetic.
 
 A Hadamard matrix of order n is an n × n matrix H with entries ±1 and H Hᵀ = n I. It can exist only for n = 1, 2 or
@@ -42,8 +42,9 @@ Pasechnik [3], and we found no later construction.
 - **Symmetric Hadamard matrices** of orders 532, 732, 876, 4828 and 5700, all undecided in the Đoković–Seberry
   census [4]. See [symmetric](symmetric).
 - **Complex Hadamard matrices** of 22 orders 2N with N odd, from 142 to 1558, all blank in Seberry and Yamada's table
-  of known orders [5]. 142 and 154 were the two smallest open orders after the work of 2026 [10, 11]. See
-  [complex-hadamard](complex-hadamard).
+  of known orders [5]. 142 and 154 were the two smallest open orders after the work of 2026 [10, 11]. Zaitsev's page
+  of October 2026 [12] has matrices of all 22 orders and of 95 more, found independently; we learned of it after
+  ours were committed. The smallest open order is now 334. See [complex-hadamard](complex-hadamard#status).
 - **Auxiliary objects:** Williamson-type matrices of order 111 ([near-williamson](near-williamson)); T-matrices of
   orders 97, 109, 131 and 197, for which we found no earlier construction ([t-matrices](t-matrices)); amicable
   Hadamard matrices of orders 52, 76 and 100; and the orthogonal designs OD(100; 1, 5, 94), OD(156; 1, 3, 152),
@@ -117,6 +118,8 @@ the unresolved orders up to 4 · 2999 with the cheapest structure known for each
 9. M. Yamada, Some new series of Hadamard matrices, J. Austral. Math. Soc. Ser. A 46 (1989) 371–383.
 10. Szöllősi, A complex Hadamard matrix of order 94, arXiv:2603.09572 (2026).
 11. H. Kharaghani, A. Mohammadian, B. Tayfeh-Rezaie, V. Zaitsev, arXiv:2605.08661v2 (2026).
+12. V. Zaitsev, Quaternary Hadamard matrices, https://www.cs.uleth.ca/~zaitsevv/quaternary.html, last updated
+    October 14, 2026.
 
 ## Citation
 

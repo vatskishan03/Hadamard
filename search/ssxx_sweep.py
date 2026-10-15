@@ -7,7 +7,8 @@ search/data/complex_known_1992.txt) or one of these gives it:
 - Williamson-type matrices of order N (construction (3) of arXiv:2605.08661; Turyn): Table A.1 of Seberry-Yamada
   (1992) as parsed in search/data/wt_known_1992.txt, good matrices of orders 35 and 127 (Đoković 1993), and the
   near-Williamson matrices of Kharaghani-Mohammadian-Tayfeh-Rezaie-Zaitsev (2026): every odd N <= 69 and
-  73, 79, 91, 93, 95, 97, 103, 109, 127, 133, 181;
+  73, 79, 91, 93, 95, 97, 103, 109, 127, 133, 181, and the Williamson-type matrices of orders 509, 857 and 883 that
+  Đoković derives from theorems of Miyamoto and Yamada (arXiv:1008.2043, proofs of Propositions 3.1-3.4);
 - a conference matrix of order 2N, C + iI: Paley (2N - 1 a prime power), Mathon (2N = q^2 (q + 2) + 1) and
   Seberry-Whiteman (2N = 5 * 9^(2t+1) + 1);
 - a quaternary Legendre pair of length N - 1 (order 2(N-1) + 2): every even length <= 100 except 70, 76, 88, 92,
@@ -16,8 +17,11 @@ search/data/complex_known_1992.txt) or one of these gives it:
 - Szöllősi's order 94;
 - Seberry-Yamada (1992) Corollaries 11.15 (orders n^j (n + 1)) and 11.17 (an explicit list, which includes 105),
   and the conference matrices of their codes c2 ((h - 1)^2 + 1, h skew) and c5 ((m - 1)^s + 1, m a conference order).
-This is our reading of the literature, not a complete table (Table 11.2 of Seberry and Yamada's 2020 book, which
-the 2026 papers cite, was not available to us).
+This is our reading of the literature, not a complete table (the tables of Seberry and Yamada's 2020 book were not
+available to us; the 2026 papers cite Table 11.2 of the 1992 survey).
+
+Separately, concurrent_reason(N) gives the orders on V. Zaitsev's page of October 2026
+(search/data/complex_zaitsev_2026.txt), found independently of this repository. The sweep skips them as well.
 
     python3 search/ssxx_sweep.py list [--max 1000]
     python3 search/ssxx_sweep.py run N1 [N2 ...] [--maxo 40] [--maxpairs 2e11] [--log FILE]
@@ -34,6 +38,8 @@ DATA = Path(__file__).resolve().parent / "data" / "wt_known_1992.txt"
 CDATA = Path(__file__).resolve().parent / "data" / "complex_known_1992.txt"
 KMT = set(range(1, 70, 2)) | {73, 79, 91, 93, 95, 97, 103, 109, 127, 133, 181}
 DJOKOVIC_1993 = {35, 127}
+DJOKOVIC_2010_WT = {509, 857, 883}
+ZDATA = Path(__file__).resolve().parent / "data" / "complex_zaitsev_2026.txt"
 QLP_OPEN_TO_100 = {70, 76, 88, 92, 94, 100}
 # Seberry-Yamada (1992), Corollary 11.17: complex Hadamard matrices of orders 2c from Williamson-type matrices
 SY1992_COR_11_17 = {33, 39, 53, 73, 81, 83, 89, 93, 101, 105, 109, 113, 125, 137, 149, 153, 173, 189, 193, 197,
@@ -119,6 +125,26 @@ def load(path):
     return {int(l) for l in path.read_text().splitlines() if l.strip().isdigit()}
 
 
+def load_zaitsev(path=ZDATA):
+    """{order: method} from the data file (method "unknown" marks the page's list of unknown orders)"""
+    out = {}
+    for l in path.read_text().splitlines():
+        f = l.split()
+        if len(f) == 2 and f[0].isdigit():
+            out[int(f[0])] = f[1]
+    return out
+
+
+def concurrent_reason(N):
+    """Orders 2N constructed on Zaitsev's page (October 2026), independently of this repository. Mathon's and the
+    Williamson-type orders on the page, for which it claims nothing, are known_reason's."""
+    m = load_zaitsev().get(2 * N)
+    if m in ("nw", "szollosi", "other", "paley"):
+        return {"nw": "near-Williamson (KMTZ 2026)", "szollosi": "Szöllősi type", "other": "unpublished approach",
+                "paley": "Paley-type matrices"}[m] + " (Zaitsev, web page of October 2026)"
+    return None
+
+
 def known_reason(N):
     wt = load(DATA)
     cx = load(CDATA)
@@ -132,6 +158,8 @@ def known_reason(N):
         return "complex Hadamard n^j (n + 1) (Seberry-Yamada 1992, Cor. 11.15)"
     if N in DJOKOVIC_1993:
         return "good matrices (Đoković 1993)"
+    if N in DJOKOVIC_2010_WT:
+        return "Williamson-type (Đoković 2010, arXiv:1008.2043)"
     if N in KMT:
         return "near-Williamson (KMTZ 2026)"
     if prime_power(2 * N - 1):
@@ -148,7 +176,7 @@ def known_reason(N):
 
 
 def candidates(nmax):
-    return [N for N in range(3, nmax, 2) if known_reason(N) is None]
+    return [N for N in range(3, nmax, 2) if known_reason(N) is None and concurrent_reason(N) is None]
 
 
 def plan(N, maxo=40, maxpairs=2e11, maxenum=2 ** 31):
@@ -238,7 +266,7 @@ def main():
         print(" ".join(map(str, c)))
     else:
         for N in a.N:
-            r = known_reason(N)
+            r = known_reason(N) or concurrent_reason(N)
             if r:
                 print(f"N = {N}: known ({r}), skipped"); continue
             found = run_exhaustive(N, a.maxo, a.maxpairs, a.log, a.budget) if a.exhaustive else \
