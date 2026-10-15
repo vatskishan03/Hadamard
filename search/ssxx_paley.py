@@ -49,6 +49,35 @@ def chi_table(q):
     return c
 
 
+def gf_chi(q):
+    """Quadratic character of GF(q), q = p^k, on the elements in mixed-radix order of their coordinates in the basis
+    x^(k-1), ..., x, 1 (polynomials modulo a monic irreducible f, found by search). Returns (p, k, f, chi)."""
+    p = next(d for d in range(2, q + 1) if q % d == 0)
+    k = round(math.log(q, p))
+    assert p ** k == q
+    def mul(a, b, f):                               # coefficient lists, highest degree first, length k
+        prod = [0] * (2 * k - 1)
+        for i, x in enumerate(a):
+            for j, y in enumerate(b):
+                prod[i + j] = (prod[i + j] + x * y) % p
+        for i in range(len(prod) - k):              # reduce by x^k = -(f_1 x^(k-1) + ... + f_k)
+            c = prod[i]
+            if c:
+                for j in range(1, k + 1):
+                    prod[i + j] = (prod[i + j] - c * f[j - 1]) % p
+                prod[i] = 0
+        return prod[-k:]
+    elems = [list(c) for c in itertools.product(range(p), repeat=k)]          # mixed radix, last fastest
+    for f in itertools.product(range(p), repeat=k):                             # x^k + f_1 x^(k-1) + ... + f_k
+        if f[-1] == 0:
+            continue
+        sq = {tuple(mul(e, e, f)) for e in elems[1:]}
+        if len(sq) == (q - 1) // 2 and all(tuple(mul(a, b, f)) != tuple([0] * k) for a in elems[1:] for b in elems[1:]):
+            chi = np.array([0] + [1 if tuple(e) in sq else -1 for e in elems[1:]], np.int64)
+            return p, k, list(f), chi
+    raise ValueError("no irreducible polynomial found")
+
+
 def admissible(m, q):
     """(N_w, N_-) with (q + 1) N_w - 4 N_- = 4m and 0 <= N_- <= N_w."""
     out = []
@@ -93,7 +122,9 @@ class Paley:
                                                     if (q - 1) % p == 0 and all(p % d for d in range(2, p))))
             self.gen = next(x for x in range(N) if x % m == 1 % m and x % q == r * r % q)
         else:
-            self.chi, self.gen = None, None
+            self.gen = None
+            pp, kk, self.poly, self.chi = gf_chi(q)
+            self.group = [m] + [pp] * kk           # Z_m x GF(q)^+, mixed radix, last factor fastest
         a = np.arange(N)
         self.ia, self.iy = a % m, a % q            # CRT coordinates of each element of Z_N
 
@@ -382,11 +413,39 @@ class Paley:
         return total, out, U, Wv
 
     def lift(self, u, w, z):
-        """The +-1 sequence on Z_N of the block (u, w, z)."""
+        """The +-1 sequence of the block (u, w, z): on Z_N (q prime), or on Z_m x GF(q) in mixed-radix order."""
+        if not self.prime:
+            g = np.arange(self.N)
+            a, yy = g // self.q, g % self.q
+            x = np.where(yy == 0, u[a] + w[a], w[a] + z[a] * self.chi[yy])
+            assert set(np.unique(x)) <= {-1, 1}
+            return x.astype(np.int64)
         a, yy = self.ia, self.iy
         x = np.where(yy == 0, u[a] + w[a], w[a] + z[a] * self.chi[yy])
         assert set(np.unique(x)) <= {-1, 1}
         return x.astype(np.int64)
+
+
+def record_hit(P, seqs, log):
+    """Check a lifted solution as a complex Hadamard matrix and log it; returns the row sums."""
+    rows = [int(x.sum()) for x in seqs]
+    strs = ["".join('+' if v > 0 else '-' for v in x) for x in seqs]
+    if P.prime:
+        ssxx.complex_hadamard(seqs)
+        rec = {"N": P.N, "gens": [P.gen], "subgroup_order": (P.q - 1) // 2, "paley": [P.m, P.q], "rowsums": rows,
+               "sequences": strs}
+    else:
+        sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "verify"))
+        import verify_complex as vc
+        rec = {"N": P.N, "group": P.group, "field": {"q": P.q, "poly": P.poly},
+               "generator": f"the squares of GF({P.q})*, trivial on Z_{P.m}", "subgroup_order": (P.q - 1) // 2,
+               "paley": [P.m, P.q], "rowsums": rows, "sequences": strs}
+        cert = {"order": 2 * P.N, "construction": "szollosi-ssxx-group", "group": P.group, "sequences": strs}
+        vc.check(*vc.build(cert))
+    if log:
+        with open(log, 'a') as f:
+            f.write(json.dumps(rec) + "\n")
+    return rows
 
 
 def join(keys, tgt, K, threads=None):
@@ -458,26 +517,13 @@ def run(N, q, all_=False, log=None, threads=None, maxsol=10 ** 6, raw=False, ver
                 ys = list(np.frombuffer(key, np.int8).astype(np.int64).reshape(4, m))
                 tot2, zs, U, Wv = P.stage2(ys, K=1, threads=threads, normz=not raw)
                 n2 += tot2
-                if tot2 and not P.prime:
-                    print(f"  HIT (stage 2, {tot2} solutions) for prime power q = {q}: lift not implemented; y = "
-                          f"{[list(map(int, y)) for y in ys]}", flush=True)
-                    found.append(ys)
-                    if not all_:
-                        return found
-                elif tot2 and (not found or (all_ and len(found) < 3)):
+                if tot2 and (not found or (all_ and len(found) < 3)):
                     z = zs[0]
                     seqs = [P.lift(U[k], Wv[k], z[k].astype(np.int64)) for k in range(4)]
-                    ssxx.complex_hadamard(seqs)
-                    rows = [int(x.sum()) for x in seqs]
+                    rows = record_hit(P, seqs, log)
                     print(f"  HIT N={N}: verified complex Hadamard matrix of order {2 * N}; rows {rows}; "
                           f"stage 2 count {tot2}", flush=True)
                     found.append(seqs)
-                    if log:
-                        with open(log, 'a') as f:
-                            f.write(json.dumps({"N": N, "gens": [P.gen], "subgroup_order": (q - 1) // 2,
-                                                "paley": [m, q], "rowsums": rows,
-                                                "sequences": ["".join('+' if v > 0 else '-' for v in x)
-                                                              for x in seqs]}) + "\n")
                     if not all_ and not raw:
                         print(f"RESULT N={N} q={q}: FOUND [{time.time() - t0:.0f}s]", flush=True)
                         return found
@@ -515,21 +561,12 @@ def sample(N, q, K, seed=1, log=None, threads=None, maxsol=10 ** 6):
         for key in reps:
             ys = list(np.frombuffer(key, np.int8).astype(np.int64).reshape(4, m))
             tot2, zs, U, Wv = P.stage2(ys, K=1, threads=threads)
-            if tot2 and P.prime:
+            if tot2:
                 seqs = [P.lift(U[k], Wv[k], zs[0][k].astype(np.int64)) for k in range(4)]
-                ssxx.complex_hadamard(seqs)
-                rows = [int(x.sum()) for x in seqs]
+                rows = record_hit(P, seqs, log)
                 print(f"  HIT N={N}: verified complex Hadamard matrix of order {2 * N}; rows {rows}; skeleton {sk}",
                       flush=True)
-                if log:
-                    with open(log, 'a') as f:
-                        f.write(json.dumps({"N": N, "gens": [P.gen], "subgroup_order": (q - 1) // 2, "paley": [m, q],
-                                            "rowsums": rows, "sequences": ["".join('+' if v > 0 else '-' for v in x)
-                                                                          for x in seqs]}) + "\n")
                 print(f"RESULT N={N} q={q}: FOUND after {len(seen)} skeletons [{time.time() - t0:.0f}s]", flush=True)
-                return True
-            if tot2:
-                print(f"  HIT (prime power q, lift not implemented): y = {[list(map(int, y)) for y in ys]}", flush=True)
                 return True
     print(f"RESULT N={N} q={q}: nothing in {len(seen)} sampled skeletons ({n1} stage-1 orbits) [{time.time() - t0:.0f}s]",
           flush=True)
