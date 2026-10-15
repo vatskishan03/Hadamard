@@ -3,7 +3,7 @@
 What we learned while searching for the unresolved orders in [FRONTIER.md](FRONTIER.md), including the searches
 that found nothing. Section 1 is a mechanism, sections 2–4 and 6 are negative results, and section 5 is the literature
 as of October 2026. Section 7 collects corrections to the tables and the Williamson-type routes, sections 8–12 the
-complex Hadamard matrices, section 13 the Spence spin structures behind order 2292, and section 14 the complex order 330. The notes on the individual
+complex Hadamard matrices, section 13 the Spence spin structures behind order 2292, and section 14 the complex orders 330 and 426. The notes on the individual
 search programs are in [search/NOTES.md](search/NOTES.md).
 
 ## 1. Why some structures have many solutions
@@ -511,7 +511,7 @@ with blocks (A, B, B∘μ, B∘μ²). Here H is a group of automorphisms, μ nor
 Every other open n tested is excluded by the arithmetic gate, by row sums, or at a coarse quotient. Coverage is
 incomplete for some non-cyclic groups (ℤ₂⁴ beyond ΓL(2,4), ℤ₃³, ℤ₅³).
 
-## 14. A Paley product gives the complex order 330 (October 15)
+## 14. The complex orders 330 and 426 (October 15)
 
 For N = m q and H the squares of GF(q) acting trivially on ℤ_m, every block of Szöllősi's array is u ⊗ δ + w ⊗ J +
 z ⊗ χ, with at each a ∈ ℤ_m either a z-position (w = 0, u, z = ±1) or a w-position (z = 0, w = ±1, u ∈ {0, −2w}).
@@ -524,4 +524,7 @@ symmetry and joins the remaining ±1 values exactly in two stages; it reproduces
 - **Empty**: N = 171, 253, 275, 323, 345, 391, 513 and 629 (every admissible N_w, exhaustive), and 207 by the counting
   identity alone. As for the skew Paley products, small m is rich and the cases q ≈ 2m are thin
   ([search/NOTES.md](search/NOTES.md) §41).
-
+- **N = 213 = 3 · 71**, H = ⟨37⟩ of order 7, by the low-energy k-tree of §12 after a fix: its split values had been
+  computed for the wrong pair of lists, so the first 183 run examined no pair at all. Lists of 6435, 6435, 3 · 10⁷ and
+  3 · 10⁷ (kept from pools of 4.4 · 10⁸), 10^0.95 solutions predicted inside them, 72 found in six minutes: the complex
+  Hadamard matrix of order 426 ([C426.json](complex-hadamard/C426.json)).

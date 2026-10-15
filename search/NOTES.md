@@ -2602,6 +2602,11 @@ admissible N_w ≥ 2). Small q relative to m (q = 11 for m = 15) means more w-po
 where the solutions were. The q ≈ 2m cases, with two or three w-positions, have few stage-1 solutions and none
 extends.
 
-**A bug in `lowe_sz.py`.** Its ordered split values were computed for the pair (A, B), while kt4 joins (A, C) and
-(B, D): at N = 183 every split value missed the lattice of A + C (residue 18 against 2 modulo 20 on the first merge
-class), and the first join examined no pair at all. Fixed; the 183 join is repeated from the saved lists.
+**A bug in `lowe_sz.py`, and order 426.** Its ordered split values were computed for the pair (A, B), while kt4
+joins (A, C) and (B, D): at N = 183 every split value missed the lattice of A + C (residue 18 against 2 modulo 20 on
+the first merge class), and the first join examined no pair at all. With the fix, the first structure ranked after it
+by the mid-size triage, N = 213 = 3 · 71 with H = ⟨37⟩ of order 7 (33 orbits for C and D, 16 classes; rows 13, 17;
+13, 15; estimate 10^2.2 in the structure and 10^0.95 inside lists of 6435, 6435, 3 · 10⁷ and 3 · 10⁷ kept from pools
+of 4.4 · 10⁸), gave 72 solutions within the first split values (six minutes in all), all checked. This is the complex
+Hadamard matrix of order 426 ([C426.json](../complex-hadamard/C426.json)); 425 = 5² · 17 is not a prime power and no
+quaternary Legendre pair of length 212 is known. The 183 join is being repeated from its saved lists.
