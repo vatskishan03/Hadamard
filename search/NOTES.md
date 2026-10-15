@@ -2569,3 +2569,94 @@ The test was bordered 183 ⟨3⟩ (order 366), from nothing, in steps of 150 s.
 - Split values with the coarse class (shift 101, step 40) at ±40 carry much collision mass but come late in the
   law's order. That class is PAF(101) = 202 − 4|supp W| for the ℤ₂ split X = (X₀, X₁), W = X₀ − X₁, and the split
   value fixes how the 203 positions of Σ_k |supp W_k| = 203 divide between (A, C) and (B, D).
+
+## 41. Auditing the estimate; concurrent constructions; order 682 (October 15)
+
+**Joint compression check.** `compress_check.py --joint`: when every level passes, each pair of coprime levels d₁, d₂
+is checked together. A block's states are then its compressions to ℤ_{d₁} and ℤ_{d₂} at once, realised by one member,
+and the four blocks are joined on the PAF conditions of both levels. On the 291 structures with exact counts
+(levels up to 64, as in §36):
+- none of the 27 with solutions is ruled out;
+- of the 264 without solutions, 244 fall at single levels and 15 more at a joint pair: twelve at N = 45 (eleven at
+  d = 3, 5 and one at d = 5, 9) and three at N = 51 (d = 3, 17);
+- five pass everything: bordered 31 ⟨11⟩ with the 2 in A or in B (hybrid estimate 10^4.3), 51 ⟨38⟩ (1, 11, 1, 9),
+  143 ⟨3⟩ (3, 11, 9, 19) and 247 ⟨9, 35⟩ (17, 17, 7, 19). Over ℤ₃₀ the next check, all three levels at once, is the
+  whole problem.
+
+The calibration stops at N = 779, so how often the joint check bites on large structures is not measured. On the
+twelve 341 records whose level d = 31 can be listed (H = ⟨15⟩, ⟨27⟩, ⟨58⟩, ⟨170⟩, three patterns each) it passes,
+with 120–168 joint solutions.
+
+**How good is the hybrid estimate?** Over the 195 calibration structures with a hybrid estimate (§33–36):
+- With solutions (18): log₁₀(exact) − hybrid has median 0.09 and standard deviation 0.43, all within ±1. The
+  per-class estimate is low by a median of 1.3.
+- Without solutions: hybrid estimates up to 10^4.3. Of the 40 structures with hybrid ≥ 1, 22 have no solution. The
+  single levels rule out 16 of these and the joint check 3 more. So among structures with hybrid ≥ 1 that pass the
+  per-level checks, 6 of 24 have no solution, and 3 of 21 after the joint check.
+
+The estimate is right in magnitude when solutions exist, but a structure can have none at any estimate. At small N
+the compression checks see most of these zeros; what remains is invisible to every check we have.
+
+**Value multiplicity** (`value_mult.py`). Members of a block with equal class values have the same PAF conditions
+and the same energy, so the lists keep or drop them together and every solution comes with all such combinations.
+For each block, n Σ_v p_v² (pool size n, p_v the share of class-value vector v) is measured from collisions among
+uniform samples. The product over the four blocks predicts the number of solutions per distinct value quadruple:
+
+| structure | predicted | measured |
+|---|---:|---:|
+| 119 ⟨8⟩ (1, 5, 15, 15) | 203 | 196 |
+| 267 ⟨4⟩ (1, 1, 21, 25) | 37.1 | 36.0 |
+| 93 ⟨4⟩ (7, 11, 9, 11) | 44.4 | 40.6 |
+| 93 ⟨4⟩ (9, 13, 1, 11) | 45.6 | 47.5 |
+| 163 ⟨38⟩ (17, 19, 1, 1) | 4.0 | 4.0 |
+| 371 ⟨13⟩ (3, 3, 25, 29) | 4.1 | 4.0 |
+
+A and B (symmetric blocks) have multiplicity 1.0 in all six. For C and D the trivial part is 2 (reversal), or 4 when
+negation keeps the row sum (row sum 0). Composite N add accidental coincidences: 14 per block at N = 119.
+
+On the big structures of §32–40 (10⁶ samples, C and D):
+
+| structure | hybrid | C, D | distinct C, D values | outcome |
+|---|---:|---|---:|---|
+| 203 bordered ⟨87⟩ (2, 0, 0, 0) | 10^6.47 | 3.9, 3.9 | 10^5.3 | none in 54% of the law |
+| 183 ⟨34⟩ (17, 19, 1, 9) | 10^6.69 | 5.8, 6.3 | 10^5.1 | none |
+| 453 ⟨4⟩ (29, 31, 1, 3) | 10^1.79 | 6.0, 6.1 | 10^0.2 | none in 91% of the mass |
+| 203 ⟨36⟩ (3, 25, 3, 13) | 10^3.38 | 14.1, 13.9 | 10^1.1 | none |
+| 213 ⟨37⟩ (13, 17, 13, 15) | 10^4.82 | 6.1, 6.0 | 10^3.3 | 426 |
+| 227 bordered ⟨49⟩ (0, 0, 2, 0) | 10^4.40 | 4.0, 4.0 | 10^3.2 | 454 |
+| 171 ⟨11⟩ (1, 11, 11, 21) | 10^2.87 | 2.0, 2.0 | 10^2.3 | 342 |
+| 215 ⟨11⟩ (11, 17, 15, 15) | 10^4.09 | 10.1, 10.1 | 10^2.1 | 430 |
+| 183 bordered ⟨3⟩ (0, 0, 2, 0) | 10^3.18 | 4.2, 4.1 | 10^2.0 | 366 |
+| 341 ⟨2⟩ (1, 21, 9, 29) | 10^2.94 | 1.8, 1.8 | 10^2.4 | open (below) |
+
+The five successes lie between 10^2.0 and 10^3.3 distinct values; the four failures lie outside, on both sides.
+- 453 and 203 ⟨36⟩ have one to ten distinct value quadruples in the whole pool, so whether the low-energy lists hold
+  one is a lottery (§34), and the raw estimate overstated their chances by the multiplicity.
+- 203 bordered and 183 ⟨34⟩ would have 10⁵ distinct quadruples. Their failures are not explained by multiplicity or
+  retention; both are most likely structures without solutions that pass every check.
+
+**Concurrent constructions.** A second literature search for the complex orders found V. Zaitsev's page
+(https://www.cs.uleth.ca/~zaitsevv/quaternary.html, last updated 14 October 2026). It has matrices of all 22 of our
+orders, found independently (21 "of the Szollosi type", 454 by "unpublished approaches"), and of 95 more blank
+orders of the 1992 table. We checked its matrices of our 22 orders (K K* = nI). It also counts 1018, 1714 and 1766
+as known: Đoković's Williamson-type matrices of orders 509, 857 and 883 (arXiv:1008.2043, from theorems of
+Miyamoto and Yamada), which `ssxx_sweep.known_reason` had missed. With both added, `complex_status.py` leaves
+exactly the page's 115 unknown orders below 2000: 334, 358, 418, 438, 446, 478, 498, 502, …
+(`data/complex_zaitsev_2026.txt`; details in [complex-hadamard](../complex-hadamard/README.md#status)).
+
+**The open frontier.** Of the frontier records (§39) on the 115 open orders, every one with a hybrid estimate of
+at least 1 is at N = 341 = 11 · 31 (order 682): 24 records over eight multiplier groups of order 10, with estimates
+of 10^2.8–10^3.0 for ⟨2⟩, ⟨35⟩, ⟨95⟩, ⟨194⟩ (fibres at d = 11) and 10^1.7–10^2.0 for ⟨15⟩, ⟨27⟩, ⟨58⟩, ⟨170⟩
+(fibres at d = 11 and 31). The next are 303 ⟨95⟩ (10^0.44, pools of 8 · 10¹⁰), 209 ⟨87⟩ (10^0.3, pools of 10¹¹),
+219 (at most 10^−0.5) and 455 (at most 10^−1.6). For 341 ⟨2⟩ the per-class (10^2.84) and hybrid (10^2.94)
+estimates agree, and its multiplicity is the trivial 2 per block, so it is the best-founded candidate we have.
+
+**Order 682: the joins of §39–40 in collision-mass order.** Fresh samples (2 · 10⁷ pairs per side) measured how
+much of the collision mass the earlier joins covered: 341 ⟨2⟩, 14196 split values, 44.6%; ⟨95⟩, 8514, 32.6%.
+- The Gaussian law misorders the remaining mass: on ⟨2⟩, 40000 more split values in the law's order would reach
+  78% of it, and in order of sampled mass 86%. The heaviest split values the law left out all have the lumpy first
+  merge class at 2.
+- `lowe_sz.py --order mass` (new joins) and `--reorder` (continued joins) order the split values by sampled
+  collision mass n_AC n_BD, adding sampled split values missing from the list. On 93 ⟨4⟩ (9, 13, 1, 11) the first
+  solutions came at split value 17, against 114 in the law's order.
+- Both joins continue in mass order with two kt4 processes each (`runq.py`).
