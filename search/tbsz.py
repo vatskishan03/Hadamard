@@ -212,17 +212,28 @@ class TComp:
         for f in range(F - 1, -1, -1):
             v = np.array(sorted(cc[f]), np.int64)
             R[f] = np.unique((sizes[f] * v[:, None] + R[f + 1][None, :]).ravel())
+        # energy bound: sum_k sum_a y_k(a)^2 = tgt(0), and every point of the quotient carries at least
+        # (fibre size mod 2)^2 in each block, so one block has energy <= tgt(0) - 3 * (number of odd fibres)
+        emax = int(self.tgt[0]) - 3 * int(np.sum(np.bincount(self.qlab, minlength=self.d) % 2))
+        mins = [min(x * x for x in cc[f]) for f in range(F)]
+        remE = [0] * (F + 1)
+        for f in range(F - 1, -1, -1):
+            remE[f] = remE[f + 1] + sizes[f] * mins[f]
         X = np.zeros((1, 0), np.int64)
         part = np.zeros(1, np.int64)
+        pe = np.zeros(1, np.int64)
         cnt = np.ones(1, np.float64)
         for f in range(F):
             v = np.array(sorted(cc[f]), np.int64)
             c = np.array([float(cc[f][x]) for x in v])
+            v = v[sizes[f] * v * v + remE[f + 1] <= emax] if len(v) else v
+            c = np.array([float(cc[f][x]) for x in v])
             P = (part[:, None] + sizes[f] * v[None, :]).ravel()
-            keep = np.isin(r - P, R[f + 1])
+            E = (pe[:, None] + sizes[f] * (v * v)[None, :]).ravel()
+            keep = np.isin(r - P, R[f + 1]) & (E + remE[f + 1] <= emax)
             i, j = np.divmod(np.flatnonzero(keep), len(v))
             X = np.concatenate([X[i], v[j][:, None]], 1)
-            part, cnt = P[keep], cnt[i] * c[j]
+            part, pe, cnt = P[keep], E[keep], cnt[i] * c[j]
         out = dict(zip(map(tuple, X.tolist()), cnt.tolist()))
         self.cache[key] = out
         return out
@@ -395,9 +406,9 @@ def tuples(tc, rows, K, rng, maxtup=400):
     return out
 
 
-def triage(ts, K=300, seed=1, maxtup=150):
+def triage(ts, K=300, seed=1, maxtup=150, cond=None):
     rng = np.random.default_rng(seed)
-    tc = TComp(ts)
+    tc = TComp(ts, cond)
     res = []
     for rows in ts.patterns():
         fs = tc.feasible(rows)
@@ -638,16 +649,22 @@ QUOTS = {"z6": ([6], [(0,), (1,), (2,), (4,), (5,)]),          # T = all charact
          "z4": ([4], [(0,), (1,), (3,)]),                       # T = {1, chi, chi-bar}
          "v4": ([2, 2], [(0, 0), (0, 1), (1, 0)]),              # T = {1, chi_01, chi_10}
          "z3": ([3], [(0,), (1,), (2,)]),                       # T = all characters
-         "e33": ([3, 3], [(0, 0), (1, 0), (2, 0), (0, 1), (0, 2)])}  # T = {1} + two independent order-3 pairs (t = 5)
+         "e33": ([3, 3], [(0, 0), (1, 0), (2, 0), (0, 1), (0, 2)]),  # T = {1} + two independent order-3 pairs (t = 5)
+         "one": ([1], [(0,)]),                                  # t = 1: the bordered array (BORDERED.md)
+         # unions of the character groups of two factors, V_T = {g(a_1) + h(a_2)}: t = q_1 + q_2 - 1
+         "u44": ([4, 4], [(0, 0), (1, 0), (2, 0), (3, 0), (0, 1), (0, 2), (0, 3)]),   # t = 7
+         "u24": ([2, 4], [(0, 0), (1, 0), (0, 1), (0, 2), (0, 3)])}                   # t = 5
 
 
 def quotient(spec):
     """'z6:i,j' (Z2 from coordinate i, Z3 from coordinate j), 'z4:i', 'v4:i,j', 'z3:i', 'e33:i,j' (Z3 x Z3 from
     coordinates i and j) -> (qmods, phi, T)"""
-    kind, idx = spec.split(":")
-    ix = [int(x) for x in idx.split(",")]
+    kind, idx = (spec.split(":") + [""])[:2]
+    ix = [int(x) for x in idx.split(",") if x]
     qmods, T = QUOTS[kind]
-    if kind == "z6":
+    if kind == "one":
+        phi = lambda c: (0,)
+    elif kind == "z6":
         phi = lambda c: ((3 * (int(c[ix[0]]) % 2) + 4 * (int(c[ix[1]]) % 3)) % 6,)
     elif kind == "z4":
         phi = lambda c: (int(c[ix[0]]) % 4,)
@@ -655,6 +672,10 @@ def quotient(spec):
         phi = lambda c: (int(c[ix[0]]) % 2, int(c[ix[1]]) % 2)
     elif kind == "e33":
         phi = lambda c: (int(c[ix[0]]) % 3, int(c[ix[1]]) % 3)
+    elif kind == "u44":
+        phi = lambda c: (int(c[ix[0]]) % 4, int(c[ix[1]]) % 4)
+    elif kind == "u24":
+        phi = lambda c: (int(c[ix[0]]) % 2, int(c[ix[1]]) % 4)
     else:
         phi = lambda c: (int(c[ix[0]]) % 3,)
     return qmods, phi, T
@@ -693,9 +714,34 @@ def group_auts(mods):
         yield M
 
 
-def rank_group(N, mods, qspec, omin, omax, K=300):
+def elementary_stabiliser(p, n, k, others):
+    """automorphisms of Z_p^n (coordinates 0..n-1 of a block) that map the span of the first k coordinate forms to
+    itself with a monomial action on those k forms: [[D, 0], [V, A]] with D monomial (entries +-1), V in Z_p^((n-k) x k),
+    A in GL(n - k, p); combined with the automorphisms in `others` (list of (indices, matrices)) of the other blocks"""
+    import itertools as it
+    mons = []
+    for perm in it.permutations(range(k)):
+        for sg in it.product((1, p - 1), repeat=k):
+            D = np.zeros((k, k), np.int64)
+            for i, (j, e) in enumerate(zip(perm, sg)):
+                D[i, j] = e
+            mons.append(D)
+    r = n - k
+    GLr = [np.array(v, np.int64).reshape(r, r) for v in it.product(range(p), repeat=r * r)
+           if r and round(np.linalg.det(np.array(v, float).reshape(r, r))) % p] if r else [np.zeros((0, 0), np.int64)]
+    Vs = [np.array(v, np.int64).reshape(r, k) for v in it.product(range(p), repeat=r * k)]
+    for D in mons:
+        for V in Vs:
+            for A in GLr:
+                M = np.zeros((n, n), np.int64)
+                M[:k, :k] = D; M[k:, :k] = V; M[k:, k:] = A
+                yield M
+
+
+def rank_group(N, mods, qspec, omin, omax, K=300, mats=None, cond=None):
     """rank the structures H = <M> (M an automorphism preserving the target) on G = prod Z_(m_i), distinct up to an
-    invariant of their orbits (sizes and images in Q, for H and <H, -1>)"""
+    invariant of their orbits (sizes and images in Q, for H and <H, -1>); mats: candidate matrices (default: every
+    automorphism acting on each Sylow subgroup)"""
     qmods, phi, T = quotient(qspec)
     G, Q = L.AbGroup(mods), L.AbGroup(qmods)
     assert G.v == N - len(T), "|G| must be N - t"
@@ -704,16 +750,32 @@ def rank_group(N, mods, qspec, omin, omax, K=300):
                                    for k in T)).real) for a in range(Q.v)], np.int64)
     tg = gam[qlab]
     neg = tuple(int(x) for x in G.neg())
+    negp = np.array(neg)
     seen, seen_inv = set(), set()
-    for M in group_auts(mods):
+    for M in (group_auts(mods) if mats is None else mats):
         p = np.asarray(G.perm_from_matrix(M))
         if not np.array_equal(tg[p], tg):
             continue
-        grp = perm_closure([p], G.v, cap=5000)
-        key = frozenset(grp)
-        if key in seen or neg in grp:
-            seen.add(key); continue
+        # the structure depends only on the orbits of H = <p>: deduplicate by the orbit partition
+        q_ = p.copy(); order = 1
+        while not np.array_equal(q_, np.arange(G.v)) and order <= 5000:
+            q_ = q_[p]; order += 1
+        cyc = np.arange(G.v)
+        x = np.arange(G.v)
+        for _ in range(order):
+            x = p[x]; cyc = np.minimum(cyc, x)
+        key = cyc.tobytes()
+        if key in seen:
+            continue
         seen.add(key)
+        pw = np.arange(G.v); hasneg = False
+        for _ in range(order):
+            pw = p[pw]
+            if np.array_equal(pw, negp):
+                hasneg = True; break
+        if hasneg:
+            continue
+        grp = range(order)
         stA = L.Structure(G, [p])
         if not (omin <= stA.O <= omax):
             continue
@@ -727,7 +789,7 @@ def rank_group(N, mods, qspec, omin, omax, K=300):
         ts = TStruct(mods, [M], qmods, phi, T, name)
         head = f"N={N} {name} |H|={len(grp)} O_A={ts.stA.O} O_L={ts.stL.O} C={ts.C}"
         try:
-            res = triage(ts, K)
+            res = triage(ts, K, cond=cond)
         except (ValueError, MemoryError) as ex:
             print(f"{head}: {ex}", flush=True)
             continue
@@ -763,17 +825,37 @@ def mu4(P, s=1.0):
     return (np.abs(np.abs(P) - 1) < 1e-9) & ((np.abs(P.real) < 1e-9) | (np.abs(P.imag) < 1e-9))
 
 
+_VT_CACHE = {}
+
+
 def vt_vectors(ts):
-    """mu_4-valued functions on Q with Fourier support in T"""
+    """mu_4-valued functions on Q with Fourier support in T (meet in the middle over the two halves of Q: the
+    constraints sum_a f(a) conj(chi(a)) = 0, chi not in T, are split into the sums over the halves and matched)"""
+    key = (tuple(ts.qmods), tuple(ts.T))
+    if key in _VT_CACHE:
+        return _VT_CACHE[key]
     Q = ts.Q
     others = [k for k in itertools.product(*[range(q) for q in ts.qmods]) if tuple(k) not in ts.T]
-    ch = [np.array([ts.chi(k, a) for a in range(Q.v)]) for k in others]
+    ch = np.array([[ts.chi(k, a) for a in range(Q.v)] for k in others]).reshape(len(others), Q.v)
+    h = Q.v // 2
+    XL = np.array(list(itertools.product(range(4), repeat=h)), np.int64).reshape(4 ** h, h)
+    XR = np.array(list(itertools.product(range(4), repeat=Q.v - h)), np.int64).reshape(4 ** (Q.v - h), Q.v - h)
+    SL = U4[XL] @ ch[:, :h].conj().T if len(others) else np.zeros((len(XL), 0))
+    SR = U4[XR] @ ch[:, h:].conj().T if len(others) else np.zeros((len(XR), 0))
+    def keys(S):
+        Z = np.rint(np.concatenate([S.real, S.imag], 1) * 1e6).astype(np.int64)
+        return [z.tobytes() for z in Z]
+    table = {}
+    for i, kk in enumerate(keys(SL)):
+        table.setdefault(kk, []).append(i)
     out = []
-    for f in itertools.product(range(4), repeat=Q.v):
-        x = U4[list(f)]
-        if all(abs(np.vdot(c, x)) < 1e-9 for c in ch):
-            out.append(x)
-    return np.array(out)
+    for j, kk in enumerate(keys(-SR)):
+        for i in table.get(kk, ()):
+            out.append(np.concatenate([U4[XL[i]], U4[XR[j]]]))
+    out = np.array(out).reshape(-1, Q.v)
+    out = out[np.lexsort(to_exp(out).T[::-1])] if len(out) else out       # the order of the old enumeration
+    _VT_CACHE[key] = out
+    return out
 
 
 def solve_border(ts, Mc, maxstart=400):
@@ -934,6 +1016,65 @@ def solve_border_exh(ts, Mc, maxn=80000, threads=3):
     return None
 
 
+def solve_border_restricted(ts, Mc, threads=3):
+    """for W too large for the exhaustive search: the first border row is fixed to the all-ones vector of both halves
+    (in W when 1 is in T), the columns are restricted to those compatible with it and the rows to those orthogonal to
+    it, and that restriction is searched exhaustively (border_exh.c with separate row and column candidates).
+    Returns the border or None (no border with this first row)."""
+    q, t = ts.q, ts.t
+    if tuple([0] * len(ts.qmods)) not in ts.T:
+        return None
+    V1 = vt_vectors(ts)
+    n1 = len(V1)
+    ones = np.flatnonzero(np.all(np.abs(V1 - 1) < 1e-9, axis=1))
+    if len(ones) == 0:
+        return None
+    o = int(ones[0])
+    # normalised candidates (first entry 1): pairs (a, b) of V1 with a[0] = 1
+    A = np.flatnonzero(np.abs(V1[:, 0] - 1) < 1e-9)
+    u1 = np.concatenate([V1[o], V1[o]])
+    P1 = 2 * (u1 @ Mc.conj().T)
+    # column candidates compatible with u1: P1 . (a, b) in 4q mu_4, computed per pair from the two halves
+    ha = V1[A] @ P1[:q]; hb = V1 @ P1[q:]
+    Z = ha[:, None] + hb[None, :]
+    okc = (np.abs(np.abs(Z) - 4 * q) < 1e-6) & ((np.abs(Z.real) < 1e-6) | (np.abs(Z.imag) < 1e-6))
+    ia, ib = np.nonzero(okc)
+    cols = np.concatenate([V1[A][ia], V1[ib]], 1)
+    # row candidates orthogonal to u1 (u1 itself first)
+    ga = V1[A] @ V1[o].conj(); gb = V1 @ V1[o].conj()
+    Y = ga[:, None] + gb[None, :]
+    ra, rb = np.nonzero(np.abs(Y) < 1e-6)
+    rows = np.concatenate([u1[None, :], np.concatenate([V1[A][ra], V1[rb]], 1)])
+    P = 2 * (rows @ Mc.conj().T)
+    Pi = np.rint(P.real).astype(np.int32), np.rint(P.imag).astype(np.int32)
+    assert np.allclose(Pi[0], P.real) and np.allclose(Pi[1], P.imag), "Mc is not half-integral"
+    d = W.WORK / "tmp"; d.mkdir(exist_ok=True)
+    path = d / f"border_rc_{ts.N}_{os.getpid()}.in"
+    with open(path, "wb") as f:
+        f.write(struct.pack("<7i", -1, len(rows), len(cols), 2 * q, 2 * t, 4 * q, 1))
+        f.write(to_exp(rows).astype(np.uint8).tobytes())
+        f.write(np.stack([Pi[0], Pi[1]], -1).astype("<i4").tobytes())
+        f.write(to_exp(cols).astype(np.uint8).tobytes())
+        f.write(struct.pack("<i", 0))
+    try:
+        env = dict(os.environ, OMP_NUM_THREADS=str(threads))
+        out = subprocess.run([str(W.bin("border_exh")), str(path)], capture_output=True, text=True, env=env,
+                             check=True).stdout
+    finally:
+        path.unlink(missing_ok=True)
+    for line in out.splitlines():
+        if line.startswith("SOLUTION"):
+            tok = line.split()
+            ri = [int(x) for x in tok[2:2 + 2 * t]]
+            ci = [int(x) for x in tok[3 + 2 * t:3 + 4 * t]]
+            Rh, Ch = rows[ri], cols[ci].T
+            Xb = -(Rh @ Mc.conj().T @ Ch) / (2 * q)
+            assert np.allclose(Rh @ Rh.conj().T, 2 * q * np.eye(2 * t)) and np.allclose(Ch.conj().T @ Ch, 2 * q * np.eye(2 * t))
+            assert mu4(Xb).all()
+            return Xb, Rh, Ch
+    return None
+
+
 def to_exp(M):
     """quaternary complex matrix -> exponents e (entry i^e)"""
     M = np.asarray(M)
@@ -990,9 +1131,7 @@ def complete(ts, seqs):
     Mc = szarray(ts.Q, *ys)
     bs = solve_border_exh(ts, Mc)
     if bs is False:                                    # too many candidates for the exhaustive search
-        bs = solve_border2(ts, Mc) if ts.t >= 3 else None
-        if bs is None and len(vt_vectors(ts)) ** 2 <= 5000:
-            bs = solve_border(ts, Mc)
+        bs = solve_border_restricted(ts, Mc)
     if bs is None:
         return None
     border = [to_exp(M) for M in bs]
@@ -1085,9 +1224,7 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
             Mc = szarray(ts.Q, *ys)
             bs = solve_border_exh(ts, Mc)
             if bs is False:                            # too many candidates for the exhaustive search
-                bs = solve_border2(ts, Mc) if ts.t >= 3 else None
-                if bs is None and len(vt_vectors(ts)) ** 2 <= 5000:
-                    bs = solve_border(ts, Mc)
+                bs = solve_border_restricted(ts, Mc)
             if bs is None:
                 print(f"tuple {i}: {tup}: no border found, skipped", flush=True)
                 continue
@@ -1254,8 +1391,8 @@ def main():
     ap.add_argument("--cond", help="search: condition on a finer quotient: d for Z_d of a cyclic G, or d1,d2,... "
                     "per coordinate (d_i | m_i), refining Q")
     ap.add_argument("--group", help="rankg, search --family group: G = Z_(m_1) x ..., prime-power m_i, e.g. 2,2,3,13")
-    ap.add_argument("--quot", help="rankg, search --family group: z6:i,j | z4:i | v4:i,j | z3:i | e33:i,j "
-                    "(coordinates of phi)")
+    ap.add_argument("--quot", help="rankg, search --family group: z6:i,j | z4:i | v4:i,j | z3:i | e33:i,j | u44:i,j | "
+                    "u24:i,j (coordinates of phi) | one (t = 1, the bordered array)")
     ap.add_argument("--mat", help="search --family group: the generator of H, rows separated by ';'")
     a = ap.parse_args()
     if a.mode == "test":
@@ -1263,7 +1400,8 @@ def main():
     elif a.mode == "certify":
         certify(a.hits, k=a.k)
     elif a.mode == "rankg":
-        rank_group(a.N, [int(x) for x in a.group.split(",")], a.quot, a.omin, a.omax)
+        cond = None if a.cond is None else [int(x) for x in a.cond.split(",")]
+        rank_group(a.N, [int(x) for x in a.group.split(",")], a.quot, a.omin, a.omax, cond=cond)
     elif a.mode == "rank":
         if a.family == "all3":
             rank_all3(a.N, a.omin, a.omax)
