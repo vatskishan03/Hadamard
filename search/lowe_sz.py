@@ -66,8 +66,9 @@ def enum_block(st, kind, r, center, Wm, tau, maxkeep, tag, threads):
     return masks, vals, en, p.stdout.strip()
 
 
-def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5):
-    """rerun the join on the lists saved by an earlier run (WORK/lowe), with more split values"""
+def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5, sig_from=0):
+    """rerun the join on the lists saved by an earlier run (WORK/lowe), with more split values (from the
+    (sig_from + 1)-th on, in the same order)"""
     st = Struct(N, gens, plain=not bordered)
     keepdir = W.WORK / "lowe"
     tagname = f"{N}{'b' if bordered else ''}_{'_'.join(map(str, gens))}_{'_'.join(map(str, rows))}"
@@ -83,7 +84,7 @@ def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5):
     lists = [None] * 4
     for pos, k in enumerate(order):
         lists[k] = (masks[k], vals[pos])
-    return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, time.time())
+    return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, time.time(), sig_from=sig_from)
 
 
 def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4, estimate_only=False, log=None,
@@ -209,7 +210,7 @@ def sigma_file(lists, Sx, target, nsig, path):
     return len(o), float(np.sqrt(d2[o[-1]])) if len(o) else 0.0
 
 
-def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ordered=True):
+def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ordered=True, sig_from=0):
     order = [0, 2, 1, 3]
     # merge classes: largest variance, from a subsample of every list (a full int64 copy would need gigabytes)
     var = sum(np.asarray(lists[k][1][::max(1, len(lists[k][1]) // 200000)], np.float64).var(0) for k in order)
@@ -218,9 +219,12 @@ def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ord
     if ordered:
         sf = Path(str(inp) + ".sig")
         n, rad = sigma_file(lists, Sx, st.target, nsig, sf)        # natural order: (a + c) = kt4's first pair
+        if sig_from:
+            lines = open(sf).read().splitlines()[sig_from:]
+            open(sf, "w").write("\n".join(lines) + "\n")
         sigarg = "@" + str(sf)
-        print(f"  kt4: merge classes {Sx}, {n} split values by the solution law (Mahalanobis radius {rad:.2f})",
-              flush=True)
+        print(f"  kt4: merge classes {Sx}, {n} split values by the solution law (Mahalanobis radius {rad:.2f})"
+              + (f", from the {sig_from + 1}-th" if sig_from else ""), flush=True)
     else:
         print(f"  kt4: merge classes {Sx}, {int(nsig)} split values", flush=True)
     with open(str(inp) + ".progress", "w") as errf:                # one line per split value
@@ -268,11 +272,12 @@ def main():
     ap.add_argument("--threads", type=int, default=4)
     ap.add_argument("--estimate-only", action="store_true")
     ap.add_argument("--resume", action="store_true", help="join the lists saved by an earlier run again")
+    ap.add_argument("--sig-from", type=int, default=0, help="with --resume: skip the first split values")
     ap.add_argument("--log")
     a = ap.parse_args()
     rows = tuple(int(x) for x in a.rows.split(","))
     if a.resume:
-        resume(a.N, a.gens, rows, a.bordered, a.nsig, a.S, a.log)
+        resume(a.N, a.gens, rows, a.bordered, a.nsig, a.S, a.log, sig_from=a.sig_from)
     else:
         run(a.N, a.gens, rows, a.bordered, a.L, a.nsig, a.S, a.K, a.threads, a.estimate_only, a.log)
 

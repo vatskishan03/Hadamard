@@ -8,7 +8,10 @@
  * is at most tau. Kept members are written as uint64 masks (bit o = 1 when y_o = +1) and int16 class values.
  *
  *     lowe_enum INPUT OUTPUT [THREADS [FRAC]]
- * INPUT: int32 O, C, r, maxkeep; int32 sizes[O]; int32 S[C][O][O]; float m[C]; float W[C][C]; float tau.
+ * INPUT: int32 O, C, r, maxkeep; int32 sizes[O]; int32 S[C][O][O]; float m[C]; float W[C][C]; float tau;
+ * optionally int32 nf; int32 fid[O]; int32 wt[O]; int32 tgt[nf]: fibre-class constraints (search/comp_est.py), every
+ * kept y has sum_{o : fid[o] = f} wt[o] y_o = tgt[f] for each class f (the block's compression), with exact
+ * reachability pruning per class.
  * OUTPUT: int64 n; uint64 masks[n]; int16 values[n][C]; float energy[n]. If more than maxkeep members pass, the
  * maxkeep of lowest energy are written. Prints "STATS leaves L kept K tau T seconds S".
  */
@@ -23,10 +26,12 @@ static int *SZ, *S;
 static int32_t *TM, *D4;
 static unsigned char *REACH; static int64_t RW;
 static float *MC, *WM, TAU;
+static int NF = 0, *FID, *WT, *FT;                       /* fibre classes: id and weight per orbit, targets */
+static unsigned char *FREACH; static int64_t FRW;        /* FREACH[(f * (O + 1) + pos) * FRW + n] */
 
 #define SI(c, i, j) S[((int64_t)(c) * O + (i)) * O + (j)]
 
-typedef struct { int y[64]; int32_t *v; int32_t *R; uint64_t code; int64_t sum; } state;
+typedef struct { int y[64]; int32_t *v; int32_t *R; uint64_t code; int64_t sum; int64_t fs[32]; } state;
 
 static void st_init(state *s) {
     s->R = aligned_alloc(64, sizeof(int32_t) * (((int64_t)O * CP + 15) / 16) * 16);
@@ -34,6 +39,8 @@ static void st_init(state *s) {
     for (int o = 0; o < O; o++) s->y[o] = -1;
     s->code = 0; s->sum = 0;
     for (int o = 0; o < O; o++) s->sum -= SZ[o];
+    for (int f = 0; f < NF; f++) s->fs[f] = 0;
+    for (int o = 0; NF && o < O; o++) s->fs[FID[o]] -= WT[o];
     for (int c = 0; c < CP; c++) {
         int64_t v = 0;
         if (c < C) for (int i = 0; i < O; i++) for (int j = 0; j < O; j++) v += SI(c, i, j);
@@ -55,6 +62,19 @@ static inline void flip(state *s, int o) {
     if (yo < 0) { for (int i = 0; i < n; i++) R[i] += T[i]; }
     else { for (int i = 0; i < n; i++) R[i] -= T[i]; }
     s->y[o] = -yo; s->code ^= (1ULL << o); s->sum += 2 * (int64_t)(-yo) * SZ[o];
+    if (NF) s->fs[FID[o]] += 2 * (int64_t)(-yo) * WT[o];
+}
+
+/* every fibre class can still reach its target with the orbits pos.. (all exactly met when done) */
+static inline int fib_ok(const state *s, int pos, int *alldone) {
+    int done = 1;
+    for (int f = 0; f < NF; f++) {
+        int64_t need = FT[f] - s->fs[f];
+        if (need != 0) done = 0;
+        if (need < 0 || need >= FRW || !FREACH[((int64_t)f * (O + 1) + pos) * FRW + need]) return 0;
+    }
+    *alldone = done;
+    return 1;
 }
 
 typedef struct { uint64_t *mask; int16_t *val; float *en; int64_t n, cap; int64_t leaves; } buf_t;
@@ -89,6 +109,11 @@ static void leaf(state *s, buf_t *b) {
 
 static void dfs(state *s, int pos, int64_t target, buf_t *b) {
     int64_t need = target - s->sum;
+    if (NF) {
+        int done;
+        if (!fib_ok(s, pos, &done)) return;
+        if (done) { if (need == 0) leaf(s, b); return; }
+    }
     if (need == 0) { leaf(s, b); return; }
     if (pos >= O || need < 0 || need >= RW || !REACH[(int64_t)pos * RW + need]) return;
     flip(s, pos);
@@ -124,6 +149,27 @@ int main(int argc, char **argv) {
     if (fread(SZ, sizeof(int), O, f) != (size_t)O || fread(S, sizeof(int), (size_t)C * O * O, f) != (size_t)C * O * O ||
         fread(MC, sizeof(float), C, f) != (size_t)C || fread(WM, sizeof(float), (size_t)C * C, f) != (size_t)C * C ||
         fread(&TAU, sizeof(float), 1, f) != 1) { fprintf(stderr, "short input\n"); return 2; }
+    if (fread(&NF, sizeof(int), 1, f) != 1) NF = 0;
+    if (NF > 32) { fprintf(stderr, "too many fibre classes\n"); return 2; }
+    if (NF) {
+        FID = malloc(sizeof(int) * O); WT = malloc(sizeof(int) * O); FT = malloc(sizeof(int) * NF);
+        if (fread(FID, sizeof(int), O, f) != (size_t)O || fread(WT, sizeof(int), O, f) != (size_t)O ||
+            fread(FT, sizeof(int), NF, f) != (size_t)NF) { fprintf(stderr, "short fibre input\n"); return 2; }
+        int64_t mx = 0;
+        for (int fc = 0; fc < NF; fc++) { int64_t t = 0; for (int o = 0; o < O; o++) if (FID[o] == fc) t += 2 * WT[o]; if (t > mx) mx = t; }
+        FRW = mx + 1;
+        FREACH = calloc((size_t)NF * (O + 1) * FRW, 1);
+        for (int fc = 0; fc < NF; fc++) {
+            unsigned char *R0 = FREACH + (int64_t)fc * (O + 1) * FRW;
+            R0[(int64_t)O * FRW] = 1;
+            for (int pos = O - 1; pos >= 0; pos--)
+                for (int64_t n = 0; n < FRW; n++) {
+                    unsigned char x = R0[(int64_t)(pos + 1) * FRW + n];
+                    if (FID[pos] == fc && n >= 2 * WT[pos]) x |= R0[(int64_t)(pos + 1) * FRW + n - 2 * WT[pos]];
+                    R0[(int64_t)pos * FRW + n] = x;
+                }
+        }
+    }
     fclose(f);
     int threads = argc > 3 ? atoi(argv[3]) : omp_get_max_threads();
     if (argc > 4) FRAC = atof(argv[4]);
@@ -154,7 +200,8 @@ int main(int argc, char **argv) {
             if (!keep_prefix(pfx)) continue;
             for (int o = 0; o < d; o++) if ((pfx >> o) & 1) flip(&s, o);
             int64_t need = (int64_t)r - s.sum;
-            if (need >= 0 && need < RW && REACH[(int64_t)d * RW + need]) dfs(&s, d, r, &bufs[tid]);
+            int dn = 0;
+            if (need >= 0 && need < RW && REACH[(int64_t)d * RW + need] && (!NF || fib_ok(&s, d, &dn))) dfs(&s, d, r, &bufs[tid]);
             for (int o = d - 1; o >= 0; o--) if ((pfx >> o) & 1) flip(&s, o);
         }
         free(s.R); free(s.v);

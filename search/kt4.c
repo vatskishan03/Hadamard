@@ -106,6 +106,7 @@ static void radix_join(const long *nm, const long *mp, long cnt, const Index *IA
     for (long p = 0; p < P; p++) { pstart[p] = run; for (int t = 0; t < nt; t++) { off[(size_t)t * P + p] = run; run += pc[(size_t)t * P + p]; } }
     pstart[P] = run;
     uint64_t *ek = malloc(8 * run); uint32_t *ea = malloc(4 * run), *eb = malloc(4 * run);
+    if (!ek || !ea || !eb) { fprintf(stderr, "kt4: out of memory (%ld pairs)\n", run); exit(3); }
     #pragma omp parallel
     {
         long *my = off + (size_t)omp_get_thread_num() * P;
@@ -125,6 +126,7 @@ static void radix_join(const long *nm, const long *mp, long cnt, const Index *IA
     for (long p = 0; p < P; p++) { long n_ = pstart[p + 1] - pstart[p], c_ = 1; while (c_ < 2 * n_ + 2) c_ <<= 1; tstart[p] = tt; tt += c_; }
     tstart[P] = tt;
     uint32_t *tab = calloc(tt, sizeof(uint32_t));
+    if (!tab) { fprintf(stderr, "kt4: out of memory (table of %ld)\n", tt); exit(3); }
     #pragma omp parallel for schedule(dynamic, 1)
     for (long p = 0; p < P; p++) {
         uint32_t *tb = tab + tstart[p]; uint64_t m_ = tstart[p + 1] - tstart[p] - 1;
@@ -139,6 +141,7 @@ static void radix_join(const long *nm, const long *mp, long cnt, const Index *IA
     const long CH = 1L << 23;
     long u0 = nm[0], uend = nm[0] + nm[1];
     uint64_t *ck = malloc(8 * (CH + (1L << 20))); uint32_t *cc_ = malloc(4 * (CH + (1L << 20))), *cd_ = malloc(4 * (CH + (1L << 20)));
+    if (!ck || !cc_ || !cd_) { fprintf(stderr, "kt4: out of memory (CD chunk)\n"); exit(3); }
     while (u0 < uend) {
         /* chunk [u0, u1): at most about CH pairs (a single group pair larger than CH is taken alone) */
         long u1 = u0; long npair = 0;
@@ -150,6 +153,7 @@ static void radix_join(const long *nm, const long *mp, long cnt, const Index *IA
         }
         if (npair > CH + (1L << 20)) {                        /* a huge single group pair: enlarge the buffers */
             ck = realloc(ck, 8 * npair); cc_ = realloc(cc_, 4 * npair); cd_ = realloc(cd_, 4 * npair);
+            if (!ck || !cc_ || !cd_) { fprintf(stderr, "kt4: out of memory (%ld CD pairs)\n", npair); exit(3); }
         }
         memset(pc, 0, sizeof(long) * (size_t)nt * P);
         #pragma omp parallel
@@ -377,6 +381,7 @@ int main(int argc, char **argv) {
         } else {
             long cap = 1; while (cap < 2 * cnt + 2) cap <<= 1;
             uint64_t *hk = malloc(8 * cap); uint32_t *ha = malloc(4 * cap), *hb = malloc(4 * cap);
+            if (!hk || !ha || !hb) { fprintf(stderr, "kt4: out of memory at sigma %ld\n", ci + 1); return 3; }
             memset(hk, 0xff, 8 * cap);
             uint64_t mask = cap - 1;
             #pragma omp parallel for schedule(dynamic, 64)
@@ -422,6 +427,7 @@ int main(int argc, char **argv) {
                     }
                 }
             }
+            free(hk); free(ha); free(hb);
         }
         totAB += cnt; totCD += ncd;
         fprintf(stderr, "kt4: sigma %ld/%ld (", ci + 1, NSIG);
