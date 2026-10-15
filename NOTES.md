@@ -3,8 +3,9 @@
 What we learned while searching for the unresolved orders in [FRONTIER.md](FRONTIER.md), including the searches
 that found nothing. Section 1 is a mechanism, sections 2–4 and 6 are negative results, and section 5 is the literature
 as of October 2026. Section 7 collects corrections to the tables and the Williamson-type routes, sections 8–12 the
-complex Hadamard matrices, section 13 the Spence spin structures behind order 2292, section 14 the complex orders 330 and 426, and section 15
-the compressions that decide which row patterns live, with the complex orders 366 and 454. The notes on the individual
+complex Hadamard matrices, section 13 the Spence spin structures behind order 2292, section 14 the complex orders 330
+and 426, and section 15 the compressions that decide which row patterns live, with the complex orders 366, 430 and
+454. The notes on the individual
 search programs are in [search/NOTES.md](search/NOTES.md).
 
 ## 1. Why some structures have many solutions
@@ -530,7 +531,7 @@ symmetry and joins the remaining ±1 values exactly in two stages; it reproduces
   3 · 10⁷ (kept from pools of 4.4 · 10⁸), 10^0.95 solutions predicted inside them, 72 found in six minutes: the complex
   Hadamard matrix of order 426 ([C426.json](complex-hadamard/C426.json)).
 
-## 15. Compressions decide which row patterns live: the complex orders 366 and 454 (October 15)
+## 15. Compressions decide which row patterns live: the complex orders 366, 430 and 454 (October 15)
 
 The Gaussian estimate of §12 treats the class sums of a structure as independent continuous variables. For d | N
 the fibre sums x(a) = Σ_{g ≡ a (mod d)} X(g) obey Σ_X PAF_{x_X} = 4N δ on ℤ_d exactly, and when H fixes ℤ_d
@@ -555,3 +556,18 @@ estimate was 10^0.8 ([search/NOTES.md](search/NOTES.md) §42).
   4900, 4900, 1.7 · 10⁸ and 1.3 · 10⁸; low-energy lists of 2 · 10⁷ (10^3.8 solutions predicted inside) gave 64
   solutions in six minutes: the complex Hadamard matrix of order 454 ([C454.json](complex-hadamard/C454.json)), blank
   in the 1992 table, 453 = 3 · 151 not a prime power, and not in any family we checked.
+- **Every product structure of the open orders, conditioned** (`search/comp_scan.py plain`: N = d · q < 1000 with
+  d = 3, …, 15, H ≤ ℤ_q* of odd order fixing ℤ_d, 15–60 orbits): 100 structures. Of the 68 whose compression space
+  can be listed, 62 have no row pattern with a feasible compression tuple, so they are empty; 171, 207 and 921 have
+  feasible tuples but none with an estimate; three are live: N = 215 (|H| = 7, conditioned 10^5.0), 453 (|H| = 15,
+  10^2.1) and 633 (|H| = 15, 10^3.0). Of the 32 with too many compressions to list (ℤ₁₁ with six values per fibre,
+  …), 24 are empty already by the value at 0 of the compressed equation together with the row sums, Σ x² = 4N with
+  every fibre sum x ≡ ±1 (mod 2|H|): for N = 209 = 11 · 19, |H| = 9, x = ±1 + 18k with k ∈ {−1, 0, 1}, so
+  44 + 288a + 360b = 836, i.e. 4a + 5b = 11, which has no solution in non-negative integers.
+- **N = 215 (order 430), ⟨41⟩ of order 7, rows 15, 15; 11, 17.** Over ℤ₅ the pattern has 450 feasible compression
+  tuples in 3 classes up to symmetry, each predicting about 10^2.3 solutions with pools of only 1200, 1200, 2.4 · 10⁶
+  and 2.4 · 10⁶. The exact four-list join of the complete lists of the first class (A ≡ (15, 1, −1), B ≡ (15, −1, 1),
+  C ≡ (15, −1, −1, −1, −1), D ≡ (1, 13, 1, 1, 1)) found 5 solutions in nine minutes: the complex Hadamard matrix of
+  order 430 ([C430.json](complex-hadamard/C430.json)). Blank in the 1992 table; 429 = 3 · 11 · 13 is neither a prime
+  power nor a sum of two squares (so no conference matrix of order 430 exists); ℓ = 214 lies in neither infinite
+  quaternary Legendre pair family.

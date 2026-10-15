@@ -180,10 +180,11 @@ def report(head, best, nfeas):
 
 
 def space(cp):
-    """compression space of an arbitrary block: prod over fibre classes of (orbits over the class + 1)"""
+    """compression space of an arbitrary block: prod over fibre classes of the number of values the class can take
+    (orbits of unequal weights over a class give up to 2^k values, not k + 1)"""
     out = 1
-    for f in range(len(cp.fc["A"])):
-        out *= int((cp.fid["A"] == f).sum()) + 1
+    for cnt in cp.class_counts("A"):
+        out *= len(cnt)
     return out
 
 

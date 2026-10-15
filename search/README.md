@@ -145,7 +145,7 @@ start-up, is close to the list size.
 |---|---|
 | `ssxx.py`, `ssxx_group.py`, `ssxx_sample.py`, `ssxx_sweep.py`, `ssxx_table.py` | Szöllősi's array: cyclic, non-cyclic and sampled searches, and the sweep |
 | `bsz.py`, `bsz_group.py`, `bsz_sweep.py` | the bordered Szöllősi array |
-| `tsz.py`, `tsz.c` | twisted Szöllősi quadruples |
+| `tsz.py`, `tsz.c` | twisted Szöllősi quadruples (tsz.c optionally restricts the streamed side to one compression) |
 | `cchain4.py`, `cchain_sweep.py` | exact compression chains for four-block problems (310, 518) |
 | `ssxx_paley.py` | exact search on Paley-product structures ℤ_m × GF(q): skeletons, then joins over ℤ_m |
 | `ssxx_paleyk.py` | the same with an extra multiplier group K on ℤ_m (exhaustive over K-orbit skeletons) |
@@ -154,6 +154,8 @@ start-up, is close to the list size.
 | `comp_est.py`, `comp_triage.py` | estimates conditioned on the block compressions to ℤ_d (exact feasibility, lattice Gaussian per tuple), and the triage of the open orders with them (plain and bordered) |
 | `lowe_comp.py` | the low-energy k-tree on one compression class at a time (lowe_enum with fibre-class constraints) |
 | `comp_scan.py` | fast conditioned scans of the product families: bordered ℤ₂ × ℤ_q, plain d · q, and propus d · q for the symmetric census |
+| `tsz_comp.py` | compression-conditioned triage of the twisted Szöllősi structures, and their exact search restricted to the feasible compressions (`sweep`: triage and search every open N) |
+| `gcomp.py` | the same conditioning for the bordered array over non-cyclic groups (bsz_group's spin structures on ℤ₂² × ℤ_m, quotient ℤ₂²) |
 | `qlp_bin.py` | quaternary Legendre pairs with one binary sequence |
 | `complex_status.py`, `data/` | known, constructed and open complex orders; tables parsed from Seberry–Yamada (1992) |
 

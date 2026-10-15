@@ -2716,3 +2716,58 @@ compression class at a time (classes reduced by translations by H-fixed points, 
 
 Also fixed: `kt4.c` leaked its hash table on every split value with fewer than 2¹⁸ pairs (the cause of the
 171 crashes); allocations are now checked, and `lowe_sz.py --resume --sig-from k` continues a join.
+
+## 43. Conditioned scans of every open complex order: order 430; twisted and non-cyclic conditioning (October 15)
+
+**Plain product structures.** `comp_scan.py plain` over all open N < 1000 (N = d · q, d = 3, …, 15, q prime, H ≤ ℤ_q*
+of odd order fixing ℤ_d, 15–60 orbits per arbitrary block): 100 structures.
+- 68 have a listable compression space. 62 of them have no row pattern with a feasible ℤ_d compression tuple, so they
+  are empty. 171 (|H| = 9), 207 (11) and 921 (17) have feasible tuples but no tuple with an estimate. Three are live:
+  215 (|H| = 7, conditioned 10^5.03), 453 (|H| = 15, 10^2.12) and 633 (|H| = 15, 10^2.98).
+- The other 32 were skipped (the old `space()` bound ∏(orbits + 1) also undercounted: a class whose orbits have
+  unequal weights takes up to 2^k values; it now counts the values). A necessary test, the reachable pairs
+  (Σ_a x(a)², Σ_a x(a)) per block by a DP over the fibre classes, against Σ_X Σ_a x_X(a)² = 4N and the row pattern,
+  empties 24 of them: 209, 299, 341, 403, 583, 603, 611, 671, 707, 711, 721, 737, 755, 767, 781, 869, 909, 913, 923,
+  927, 955, 963, 973, 981 (for several, no row pattern exists at all). Left: 253, 319, 333, 345, 407, 553, 655, 763.
+  On the coarser quotient ℤ₃, 333 (|H| = 9, 45 orbits) has conditioned estimates 10^0.4–10^1.1 per pattern, spread over
+  18–108 tuples with pools near 10⁷ each.
+
+**Order 430.** N = 215 = 5 · 43, H = ⟨41⟩ of order 7 (trivial on ℤ₅), rows 15, 15; 11, 17: 450 feasible ℤ₅ tuples,
+3 classes up to translations, reversals and multipliers, each with about 10^2.3 predicted solutions and pools of
+1200, 1200, 2.4 · 10⁶ and 2.4 · 10⁶. `lowe_comp.py 215 41 --rows 15,15,11,17 --d 5 --only 0` lists the first class
+completely (seconds) and kt4 found 5 solutions in its first split values (514 s in all, most of it the estimate).
+All five rebuild as complex Hadamard matrices; the first is [C430.json](../complex-hadamard/C430.json). The plain
+Gaussian of this pattern is 10^−0.8: the compressions put every solution into a few classes of tiny pools.
+
+**Twisted structures** (`search/tsz_comp.py`). The full and half twists (B = A∘μ, D = C∘μ; A, B on the L′-orbits) have
+compressions x_D = x_C ∘ μ̄, so C contributes P_x(s) + P_x(μ̄ s) to the compressed equation. Per block: exact
+compressions (on the L- or L′-orbits for the hashed side), the feasible groups, and the lattice Gaussian of the twisted
+class values. Calibration against exhaustive counts (`tsz.py test`):
+
+| N | twist, H | plain Gaussian | conditioned | solutions |
+|---:|---|---:|---:|---:|
+| 39 | half, ⟨25⟩, rows 5, 9, 5 | 10^1.01 | 10^2.34 | 144 |
+| 51 | half, ⟨16⟩, rows 9, 11, 1 | 10^1.41 | 10^2.44 | 288 |
+| 15 | half, H = 1, rows 3, 7, 1 | 10^2.14 | 10^2.24 | 480 |
+| 21 | half, H = 1, rows 3, 5, 5 | 10^2.61 | 10^2.82 | 1008 |
+| 27 | bordered half, H = 1 | 10^4.42 | 10^5.80 | 406,224 |
+| 31 | bordered half, H = 1 | 10^3.83 | 10^4.19 | 61,440 |
+| 65 | full, ⟨16⟩, rows 11, 3 | 10^3.30 | 10^3.86 | 12,560 |
+
+The exact search is restricted to the feasible compressions: the hashed side is the explicit list of the A (and B)
+whose compressions lie in a feasible group, and `tsz.c` now takes per-class fibre constraints for the streamed C (one
+C compression per translation class by H-fixed points), so the search is exhaustive for the pattern at a fraction of
+the cost. The bordered half twist is often killed on ℤ₂: with r_A = 0, r_B = 2, r_C = r_D = 0 the compressed equation
+reads x₀(A)² + (x₀(B) − 1)² + 2x₀(C)² = N, and when L′ acts freely on ℤ_q* with an odd number n of orbits of size k,
+|x₀(A)| ≥ k − 1. At N = 203 (k = 20, n = 5) this exceeds √203, while the plain twisted Gaussian rated that structure
+10^0.24. N = 219 (order 438), half twist H = ⟨82⟩ of order 6, μ = 46: conditioned 10^0.18 and 10^0.16 for rows
+3, 25, 11 and 3, 23, 13 (plain 10^−2.5), one feasible group each, C streams of 6.8 · 10⁸ per translation class
+against a full pool of 2.6 · 10¹⁰. Rows 3, 25, 11: no solution (exhaustive).
+
+**Non-cyclic bordered groups** (`search/gcomp.py`): the same conditioning for bsz_group's spin structures on
+ℤ₂² × ℤ_m (N = 4m + 1), with Q = ℤ₂² and fibre classes the orbit images in Q. Calibration: N = 21 (ℤ₂² × ℤ₅, trivial
+symmetry), rows 2, 0, 0, 0: conditioned 10^7.84 against 4.6 · 10⁷ solutions (plain 10^7.02); N = 13: 10^4.18 per pattern
+against 12,672. It does not see the obstruction that empties N = 17 over ℤ₂² × ℤ₄ (conditioned 10^6.4), which lives
+on a finer quotient.
+
+Also: `tsz.write_input` streams the (A, B) pairs in chunks (a 3 · 10⁷-pair list took 5 GB).

@@ -12,6 +12,9 @@
  * FRAC: fraction of the depth-first prefixes of C enumerated (a pseudo-random subset).
  * INPUT: int32 OL, OC, CM, rA, rC, T, sizesL[OL], sizesC[OC], TL[CM][OL][OL], TC[CM][OC][OC]; a + c = T on every class.
  * With OL = 0 the A side is an explicit list instead: int64 n, uint64 codes[n], int32 values[n][CM] (after TC).
+ * Optionally (at the end) int32 nf; int32 fid[OC]; int32 wt[OC]; int32 tgt[nf]: only the C with
+ * sum_{o : fid[o] = f} wt[o] y_o = tgt[f] for every fibre class f (a fixed compression, search/tsz_comp.py) are
+ * streamed, with exact reachability pruning per class.
  * Codes: bit o is 1 when y_o = +1.
  */
 #include <omp.h>
@@ -28,6 +31,8 @@ typedef struct {
     int32_t *D4;             /* D4[o * CP + c] = 4 S_c[o][o] */
     int64_t suffix[65];
     unsigned char *REACH; int64_t RW;
+    int NF, *FID, *WT, *FT;                   /* fibre classes (C side only): id and weight per orbit, targets */
+    unsigned char *FREACH; int64_t FRW;       /* FREACH[(f * (O + 1) + pos) * FRW + n] */
 } prob;
 
 static int CM, TGT;
@@ -53,7 +58,7 @@ static void prep(prob *P) {
                 (n >= 2 * P->SZ[pos] ? P->REACH[(int64_t)(pos + 1) * P->RW + n - 2 * P->SZ[pos]] : 0);
 }
 
-typedef struct { int y[64]; int32_t *v; int32_t *R; uint64_t code; int64_t sum; } state;
+typedef struct { int y[64]; int32_t *v; int32_t *R; uint64_t code; int64_t sum; int64_t fs[32]; } state;
 
 static void st_init(const prob *P, state *s) {
     int O = P->O, C = P->C, CP = P->CP;
@@ -62,6 +67,8 @@ static void st_init(const prob *P, state *s) {
     for (int o = 0; o < O; o++) s->y[o] = -1;
     s->code = 0; s->sum = 0;
     for (int o = 0; o < O; o++) s->sum -= P->SZ[o];
+    for (int f = 0; f < P->NF; f++) s->fs[f] = 0;
+    for (int o = 0; P->NF && o < O; o++) s->fs[P->FID[o]] -= P->WT[o];
     for (int c = 0; c < CP; c++) {
         int64_t v = 0;
         if (c < C) for (int i = 0; i < O; i++) for (int j = 0; j < O; j++) v += P->S[((int64_t)c * O + i) * O + j];
@@ -84,12 +91,30 @@ static inline void flip(const prob *P, state *s, int o) {
     if (yo < 0) { for (int i = 0; i < n; i++) R[i] += T[i]; }
     else { for (int i = 0; i < n; i++) R[i] -= T[i]; }
     s->y[o] = -yo; s->code ^= (1ULL << o); s->sum += 2 * (int64_t)(-yo) * P->SZ[o];
+    if (P->NF) s->fs[P->FID[o]] += 2 * (int64_t)(-yo) * P->WT[o];
+}
+
+/* every fibre class can still reach its target with the orbits pos.. (all exactly met when done) */
+static inline int fib_ok(const prob *P, const state *s, int pos, int *alldone) {
+    int done = 1;
+    for (int f = 0; f < P->NF; f++) {
+        int64_t need = P->FT[f] - s->fs[f];
+        if (need != 0) done = 0;
+        if (need < 0 || need >= P->FRW || !P->FREACH[((int64_t)f * (P->O + 1) + pos) * P->FRW + need]) return 0;
+    }
+    *alldone = done;
+    return 1;
 }
 
 typedef void (*leaf_fn)(const prob *, state *, void *);
 
 static void dfs(const prob *P, state *s, int pos, int64_t target, leaf_fn fn, void *ctx) {
     int64_t need = target - s->sum;
+    if (P->NF) {
+        int done;
+        if (!fib_ok(P, s, pos, &done)) return;
+        if (done) { if (need == 0) fn(P, s, ctx); return; }
+    }
     if (need == 0) { fn(P, s, ctx); return; }
     if (pos >= P->O || need < 0 || need >= P->RW || !P->REACH[(int64_t)pos * P->RW + need]) return;
     flip(P, s, pos);
@@ -202,7 +227,9 @@ static void run(const prob *P, int64_t target, int threads, leaf_fn fn, void **c
             if (sample && !keep_prefix(pfx)) continue;
             for (int o = 0; o < d; o++) if ((pfx >> o) & 1) flip(P, &s, o);
             int64_t need = target - s.sum;
-            if (need >= 0 && need < P->RW && P->REACH[(int64_t)d * P->RW + need]) dfs(P, &s, d, target, fn, ctxs[tid]);
+            int dn = 0;
+            if (need >= 0 && need < P->RW && P->REACH[(int64_t)d * P->RW + need] && (!P->NF || fib_ok(P, &s, d, &dn)))
+                dfs(P, &s, d, target, fn, ctxs[tid]);
             for (int o = d - 1; o >= 0; o--) if ((pfx >> o) & 1) flip(P, &s, o);
         }
         free(s.R); free(s.v);
@@ -232,6 +259,28 @@ int main(int argc, char **argv) {
         XC = malloc(sizeof(uint64_t) * (nx + 1)); XV = malloc(sizeof(int32_t) * ((size_t)nx * CM + 1));
         if (!rd(f, XC, sizeof(uint64_t), nx) || !rd(f, XV, sizeof(int32_t), (size_t)nx * CM)) { fprintf(stderr, "short list\n"); return 2; }
     }
+    PA.NF = PC.NF = 0;
+    if (rd(f, &PC.NF, sizeof(int), 1) && PC.NF > 0) {
+        if (PC.NF > 32) { fprintf(stderr, "too many fibre classes\n"); return 2; }
+        PC.FID = malloc(sizeof(int) * PC.O); PC.WT = malloc(sizeof(int) * PC.O); PC.FT = malloc(sizeof(int) * PC.NF);
+        if (!rd(f, PC.FID, sizeof(int), PC.O) || !rd(f, PC.WT, sizeof(int), PC.O) || !rd(f, PC.FT, sizeof(int), PC.NF)) {
+            fprintf(stderr, "short fibre input\n"); return 2;
+        }
+        int64_t mx = 0;
+        for (int fc = 0; fc < PC.NF; fc++) { int64_t t = 0; for (int o = 0; o < PC.O; o++) if (PC.FID[o] == fc) t += 2 * PC.WT[o]; if (t > mx) mx = t; }
+        PC.FRW = mx + 1;
+        PC.FREACH = calloc((size_t)PC.NF * (PC.O + 1) * PC.FRW, 1);
+        for (int fc = 0; fc < PC.NF; fc++) {
+            unsigned char *R0 = PC.FREACH + (int64_t)fc * (PC.O + 1) * PC.FRW;
+            R0[(int64_t)PC.O * PC.FRW] = 1;
+            for (int pos = PC.O - 1; pos >= 0; pos--)
+                for (int64_t n = 0; n < PC.FRW; n++) {
+                    unsigned char x = R0[(int64_t)(pos + 1) * PC.FRW + n];
+                    if (PC.FID[pos] == fc && n >= 2 * PC.WT[pos]) x |= R0[(int64_t)(pos + 1) * PC.FRW + n - 2 * PC.WT[pos]];
+                    R0[(int64_t)pos * PC.FRW + n] = x;
+                }
+        }
+    } else PC.NF = 0;
     fclose(f);
     int threads = argc > 2 ? atoi(argv[2]) : omp_get_max_threads();
     if (argc > 3) FRAC = atof(argv[3]);

@@ -282,16 +282,29 @@ def write_input(ts, pat, path, maxpairs=3e7):
         va = np.rint(ts.values("P", Ya)).astype(np.int64); vb = np.rint(ts.values("P", Yb)).astype(np.int64)
         if len(ma) * len(mb) > maxpairs:
             raise ValueError(f"{len(ma)} x {len(mb)} pairs")
-        if pat[0] == pat[1]:
-            I, J = np.triu_indices(len(ma))
-        else:
-            I, J = np.repeat(np.arange(len(ma)), len(mb)), np.tile(np.arange(len(mb)), len(ma))
-        codes = (ma[I].astype(np.uint64)) | (mb[J].astype(np.uint64) << np.uint64(32))
-        vals = (va[I] + vb[J]).astype(np.int32)
+        va, vb = va.astype(np.int32), vb.astype(np.int32)
+        sym = pat[0] == pat[1]
+        npairs = len(ma) * (len(ma) + 1) // 2 if sym else len(ma) * len(mb)
         f.write(struct.pack("6i", 0, ts.OC, ts.CM, pat[0], pat[2], ts.target))
         f.write(np.asarray(ts.sizesC, np.int32).tobytes())
         f.write(np.asarray(ts.TC, np.int32).tobytes())
-        f.write(struct.pack("q", len(codes))); f.write(codes.tobytes()); f.write(np.ascontiguousarray(vals).tobytes())
+        f.write(struct.pack("q", npairs))
+        # pairs in row-major order (A index i, then B index j, j >= i when A and B share the row sum), written in
+        # chunks of rows: all codes first, then all class values, as tsz.c reads them
+        def chunks():
+            step = max(1, 2_000_000 // max(len(mb), 1))
+            for i0 in range(0, len(ma), step):
+                I = np.arange(i0, min(i0 + step, len(ma)))
+                if sym:
+                    I = np.repeat(I, len(ma) - I)
+                    J = np.concatenate([np.arange(i, len(ma)) for i in range(i0, min(i0 + step, len(ma)))])
+                else:
+                    I, J = np.repeat(I, len(mb)), np.tile(np.arange(len(mb)), len(I))
+                yield I, J
+        for I, J in chunks():
+            f.write(((ma[I].astype(np.uint64)) | (mb[J].astype(np.uint64) << np.uint64(32))).tobytes())
+        for I, J in chunks():
+            f.write(np.ascontiguousarray(va[I] + vb[J]).tobytes())
 
 
 def run_one(ts, pat, threads=4, log=None, frac=1.0, quiet=False):
