@@ -481,13 +481,23 @@ def tuples(tc, rows, K, rng, maxtup=400):
     ntup = sum(mult for _, mult in fs)
     print(f"  on the quotient of order {tc.d}: {len(fs)} feasible groups, {ntup} feasible tuples"
           + (f" (estimating the first {maxtup})" if ntup > maxtup else ""), flush=True)
-    for members, mult in fs:
-        for tup in itertools.product(*members):
+    # round robin over the feasible groups, so that a cap still samples every group
+    gens = [itertools.product(*members) for members, _ in fs]
+    done = 0
+    while gens and done < maxtup:
+        nxt = []
+        for g in gens:
+            tup = next(g, None)
+            if tup is None:
+                continue
+            nxt.append(g)
             lp, ln = tc.estimate(tup, rows, K, rng)
+            done += 1
             if lp > -math.inf:
                 out.append((lp + ln, tup, ln, lp))
-            if len(out) >= maxtup:
+            if done >= maxtup:
                 break
+        gens = nxt
     out.sort(key=lambda x: -x[0])
     return out
 
@@ -1396,9 +1406,9 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
     if refine and cond is not None:
         tc0 = TComp(ts, pcond)
         tl0 = tuples(tc0, rows, 1500, rng)
-        tl, nref, seen0 = [], 0, set()
+        tl, nref, ntried, seen0 = [], 0, 0, set()
         for e0, tup0, *_ in tl0:
-            if nref >= refine:
+            if nref >= refine or ntried >= 10 * refine:
                 break
             # swapping C and D (or A and B) when their row sums agree maps solutions to solutions
             k0 = {tup0}
@@ -1412,13 +1422,14 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
             if tc0.toQ is not None and ts.t > 1 and tuple_border(ts, tc0, tup0, borders) is None:
                 print(f"  coarse tuple {tup0} (logE {e0:.2f}): no border", flush=True)
                 continue
-            nref += 1
+            ntried += 1
             tcf = TComp(ts, cond, parent=[tc0.expand(k, x) for k, x in zip(KINDS, tup0)], pqlab=tc0.qlab)
             sub = tuples(tcf, rows, 1500, rng, maxtup)
             tot0 = sum(10 ** e for e, *_ in sub)
             print(f"  coarse tuple {tup0} (logE {e0:.2f}): {len(sub)} fine tuples with positive estimate, total "
                   f"logE {log10(tot0) if tot0 else -math.inf:.2f} [{time.time() - t0:.0f}s]", flush=True)
             tl += [(e, tup, ln, lp, tcf, tc0, tup0) for e, tup, ln, lp in sub]
+            nref += bool(sub)                          # refinements with a live fine tuple count
         tl.sort(key=lambda x: -x[0])
         if coarse_ab:
             groups = {}
