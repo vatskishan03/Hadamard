@@ -2918,3 +2918,57 @@ H of order 10) the single feasible tuple of rows 2, 2; 2, 0 (complete lists 192,
 merge-class sumsets: no solution. The rankings with t = 7 over Q = ℤ₂³ (167; fibres of 20) exceed memory in
 `TComp.compressions` (8 fibre classes of up to 21 values each) and need a coarser conditioning quotient.
 
+
+## 47. Refined compression tuples, and a biased lattice in the estimators (October 15)
+
+**Refinement** (`tbsz.py search --refine K [--pcond ...] --cond ...`). `search --cond` used to rank the compression
+tuples on one quotient and list the blocks of the best, keeping the 3 · 10⁷ lowest-energy members of a larger pool.
+Now the best coarse tuples (on Q or on `--pcond`) are refined one at a time on the finer quotient `--cond`:
+`TComp.compressions` enumerates only the fine compressions whose sums over each coarse fibre equal the coarse values
+(classes ordered by the coarse points they meet; a point is checked exactly once all its classes are set, and bounded
+by the remaining range before that), and the fine tuples of all refined coarse tuples are ranked together. Coarse
+tuples are tried until K of them have a live refinement. Borders (t > 1) are solved per coarse tuple before refining
+and cached by the compressions on Q. `--by-rate` takes the fine tuples in order of estimate per join work (the product
+of the C and D pools plus a fixed cost) instead of estimate. Check: for an N = 209 tuple, 3000 sampled sign vectors
+per block with the coarse values all have fine compressions in the refined set except those of energy
+Σ_a y(a)² ≥ 784 = tgt(0), which the exact energy bound (one block ≤ tgt(0) − 3 · 16 for odd fibres of 13) excludes.
+
+**Lookup join.** `TComp.feasible` joined the sorted A + B keys against all C + D pairs. When one pair side is small
+it now iterates over that side's pairs, vectorises over a third list and looks up the fourth (cost n_A n_B n_C instead
+of n_C n_D): for an N = 167 refinement (7, 7, 29,809 and 33,459 PAF groups) 460 s become 1 s, with the same 41
+feasible groups.
+
+**Biased lattice (fixed).** `comp_est.block_stats`, `gcomp`, `tsz_comp` and `TComp.stats` took the lattice of a block's
+class values from `echelon((U[1:] − U[0])[:120])`, U = `np.unique` of the samples. Those are the lexicographically
+first 120 vectors, which share their leading coordinates, so their differences can span a proper sublattice. On the
+N = 167 structure below (fine level) this gave index 2 and index 6 sublattices for blocks A and B and once a lattice of
+rank 17 instead of 18. A sublattice makes `in_lattice` fail where the target is attainable (a false −∞) and inflates
+the covolume factor where it is not. `comp_est.diff_lattice` now takes up to 400 differences of distinct samples in
+random order from a random base point; all four modules use it. Estimates printed before this fix can be off in either
+direction: the ℤ₂ × ℤ₃⁴ structure of N = 167 rated 10^2.41 on ℤ₆ before and 10^1.2–10^1.4 after. Exhaustive results
+are unaffected, but the v = 65 ⟨21⟩ explanation of §30 ("the target is off the coset of the lattice", from sampled
+differences) has to be re-derived.
+
+**Refined ranking** (`tbsz.py rankg ... --refine K`). For each structure, `invariant_refinements` lists the
+coordinate-wise quotients ∏ ℤ_(d_i) whose kernel is H-invariant and inside ker φ; the best K coarse tuples (one per
+feasible group, C/D and A/B swaps identified) are refined on the smallest of them and the refined estimate is printed
+with the number of tuples that stay alive. Calibration: the N = 161 structure of order 322 refines on ℤ₂² × ℤ₃ from
+10^1.89 to 10^2.66 (rows 2, 0; 4, 0), every refined tuple alive.
+
+**N = 209 (order 418), bordered array on ℤ₄ × ℤ₄ × ℤ₁₃, H = ⟨(x, y, z) ↦ (x + 2y, 2x + 3y, 3z)⟩ of order 6, rows
+2, 0; 0, 0.** The four best tuples on ℤ₄ × ℤ₂ (10^1.80, 10^1.77, 10^1.36, 10^1.31, each with its C/D swap) have no
+feasible refinement on ℤ₄ × ℤ₄, so no solution has those compressions; the earlier low-retention run on the first was
+stopped. Each of the next coarse tuples (10^1.2–10^1.6) refines into 1536–4096 fine tuples with complete lists (864,
+3456, 1.8 · 10⁷, 1.2 · 10⁷), rated about 10^−1.3 each (with the biased lattice). Five fine tuples were joined
+exhaustively (kt4 over all live split values, about 14 minutes each) without a solution. Taking A and B on the coarse
+quotient to cover several fine tuples per join does not pay: a fine (C, D) pair goes with only about two fine (A, B)
+pairs, and the larger A and B lists made one join three times slower per fine tuple.
+
+**N = 167 (order 334), ℤ₆ family on ℤ₂ × ℤ₃⁴, H = ⟨M⟩ of order 4** (M = (x₀, 2x₁, x₄, x₃, 2x₂), 48/28 orbits, 27
+classes; refined on ℤ₂ × ℤ₃ × ℤ₃ via x₀, x₁, x₃). The coarse tuples with y_A = (3, 5, −3, −3) for rows 4, 2; 0, 0
+(10^0.92–10^0.94) have 41 feasible fine groups (10,008 fine tuples), but every fine tuple tested has its target
+outside the lattice of attainable class sums. This holds with 20,000 samples per block and 3,000 random
+differences, so it is a congruence obstruction at the ℤ₂ × ℤ₃² level (shown on sampled lattices, not
+proved). In the refined ranking all four row patterns stay alive: 10^1.06 (0, 0; 4, 2), 10^1.41 (2, 0; 4, 0),
+10^1.34 (4, 0; 2, 0) and 10^1.88 (4, 2; 0, 0). For rows 2, 0; 4, 0 the first coarse tuples refine into 3000 live fine
+tuples each (about 10^0.8 per coarse tuple).
