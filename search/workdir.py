@@ -14,7 +14,8 @@ ROOT = HERE.parent                                # repository root
 WORK = Path(os.environ.get('HADAMARD_WORK') or Path(tempfile.gettempdir()) / 'hadamard-work')
 WORK.mkdir(parents=True, exist_ok=True)
 
-_FLAGS = {'cp_enum': ['-O3', '-march=native', '-fopenmp'],
+_FLAGS = {'border_exh': ['-O3', '-march=native', '-fopenmp'],
+          'cp_enum': ['-O3', '-march=native', '-fopenmp'],
           'find4b': ['-O3', '-march=native', '-fopenmp'],
           'join3': ['-O3', '-march=native', '-fopenmp'],
           'join4x': ['-O3', '-march=native', '-fopenmp'],

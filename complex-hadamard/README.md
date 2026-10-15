@@ -87,7 +87,11 @@ bordered array. With Q = ℤ₄ and T = {1, χ, χ̄} it applies to every N ≡ 
 Order 214 comes from it: N = 107 is a safe prime and 53 = (107 − 1)/2 is prime, so neither ℤ₁₀₇ nor ℤ₁₀₆ has a
 usable multiplier group, but ℤ₁₀₄ = ℤ₈ × ℤ₁₃ with H of order 3 on ℤ₁₃ (40 orbits) rates 10^5.7, and one compression
 class on ℤ₄ (pools 5040, 2520, 2 · 10⁷ and 1.9 · 10⁸, about 10^3.8 predicted solutions) gave 5 solutions in six minutes
-(`search/tbsz.py`).
+(`search/tbsz.py`). With Q = ℤ₆ and T all characters but the sign (t = 5) it applies to every N ≡ 5 (mod 6); its
+border is found by an exhaustive search (`search/border_exh.c`). Order 322 comes from it: on ℤ₂ × ℤ₂ × ℤ₃ × ℤ₁₃
+with H of order 6 (a shear on ℤ₂², −1 on ℤ₃, order 3 on ℤ₁₃; 35 orbits) the pattern 2, 0; 4, 0 rates 10^2.5 on ℤ₆,
+and one compression class with complete lists (864, 432, 8.2 · 10⁶ and 1.3 · 10⁶) gave solutions after 80 seconds of
+the join.
 
 Two twisted specialisations of both arrays (B = A∘μ, D = C∘μ, and a half twist), which turn the four-sequence search
 into a two-list search, are in [TWISTED.md](TWISTED.md).
@@ -105,6 +109,7 @@ into a two-list search, are in [TWISTED.md](TWISTED.md).
 | 286 | 143 = 11 · 13 | ⟨3⟩, order 15 | 3, 9; 11, 19 | [C286.json](C286.json) |
 | 302 | 151 | ⟨8⟩, order 5 | 9, 9; 9, 19 | [C302.json](C302.json) |
 | 310 | 155 = 5 · 31 | ⟨16⟩, order 5 (compression chain, `search/cchain4.py`) | 9, 9; 13, 17 | [C310.json](C310.json) |
+| 322 | 161 = 7 · 23 | character-bordered array ([TBORDERED.md](TBORDERED.md)) on ℤ₂ × ℤ₂ × ℤ₃ × ℤ₁₃, Q = ℤ₆, T = all characters but the sign, H of order 6 (exact k-tree on one compression class, `search/tbsz.py`) | 2, 0; 4, 0 | [C322.json](C322.json) |
 | 326 | 163 | ⟨38⟩, order 9 | 17, 19; 1, 1 | [C326.json](C326.json) |
 | 330 | 165 = 3 · 5 · 11 | ⟨136⟩, order 5 (Paley product ℤ₁₅ × GF(11), `search/ssxx_paley.py`) | 7, 9; 1, 23 | [C330.json](C330.json) |
 | 342 | 171 = 9 · 19 | ⟨11⟩, order 6 (exact k-tree on one ℤ₉ compression class, `search/lowe_comp.py`) | 11, 11; 9, 19 | [C342.json](C342.json) |
@@ -155,8 +160,9 @@ The sweep's candidate list (`python3 search/ssxx_sweep.py list`) is exactly the 
 minus these. The 2026 papers cite the updated Table 11.2 of Seberry and Yamada's 2020 book (Wiley), which we could
 not consult. A construction published between 1992 and 2020 and recorded only there is the remaining caveat.
 
-**What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 207 values of N < 1000
-have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 322, 334, 358, 406, 414, 418,
-438, 446, 470, 474, 478, 490, …. Order 214, the smallest open order before, is now in the table; no quaternary
-Legendre pair family covers its length 106 (Jedwab–Pender need 213 or 105 to be a prime power), and the 2026
-quaternary Legendre pairs (arXiv:2609.04589, arXiv:2609.25573) have lengths below 100.
+**What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 206 values of N < 1000
+have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 334, 358, 406, 414, 418, 438,
+446, 470, 474, 478, 490, 498, …. Orders 214 and 322, successively the smallest open order, are now in the table. No
+quaternary Legendre pair family covers their lengths 106 and 160 (Jedwab–Pender need 213 or 105, resp. 321 or 159,
+to be a prime power), and the 2026 quaternary Legendre pairs (arXiv:2609.04589, arXiv:2609.25573) have lengths below
+100. There is no conference matrix of order 322 (321 = 3 · 107 is not a sum of two squares).

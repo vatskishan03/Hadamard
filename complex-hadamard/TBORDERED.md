@@ -55,6 +55,19 @@ gives Σ_k |ŷ_k(χ)|² = 4t for χ ∈ T.
 
 So K K* = 2N I; K is square, hence also K* K = 2N I. ∎
 
+## Equivalent character sets, and t is odd
+
+**T and λT.** Let λ be a real character of Q (λ² = 1). Multiplying the four sequences by λ ∘ φ multiplies
+PAF_k(g) by λ(φ(g)) and keeps A and B symmetric, so it turns a core for T into a core for λT = {λχ : χ ∈ T}. The
+compressions become λ y_k, Mc becomes (I₂ ⊗ Λ) Mc (I₂ ⊗ Λ) with Λ = diag(λ), and R̂ (I₂ ⊗ Λ), (I₂ ⊗ Λ) Ĉ and the same
+Xb are a border for it: the new K is D K D with D = diag(I, I₂ ⊗ diag(λ ∘ φ)), an equivalent matrix. So {1, χ, χ̄} and
+{χ², χ, χ̄} on ℤ₄ are one family, as are the two choices of T on ℤ₂² below and the two on ℤ₆.
+
+**t is odd.** If 1 ∈ T and t is even, then m = N − t is odd, every row sum r_k is odd and Σ r_k² ≡ 4 (mod 8), while
+Σ r_k² = 4t ≡ 0 (mod 8). If 1 ∉ T, each half of a row of R̂ is a quaternary vector with zero sum, so q is even, hence
+m and t = N − m are odd. Since T is closed under conjugation and t is odd, T contains a real character λ, and λT
+contains 1. So we may always assume 1 ∈ T; then Σ_k r_k² = 4t.
+
 ## Instances
 
 - t = 1, Q trivial, T = {1}: the bordered array, ΣPAF = −4 off 0 ([BORDERED.md](BORDERED.md)).
@@ -62,13 +75,26 @@ So K K* = 2N I; K is square, hence also K* K = 2N I. ∎
 - **Q = ℤ₄, T = {1, χ, χ̄} (t = 3)**: Γ = 4 · (3, 1, −1, 1), so ΣPAF = −12 on K \ 0, −4 on the two cosets
   φ = ±1 and +4 on the coset φ = 2. Needs 4 | N − 3: every N ≡ 3 (mod 4). In particular it applies to the primes N for
   which neither ℤ_N nor ℤ_(N−1) has a usable multiplier group (107, 167, 179: orders 214, 334, 358).
-- Q = ℤ₂², T = the three nontrivial characters, or {1, χ₁, χ₂}: also t = 3 and N ≡ 3 (mod 4), on groups with a
-  ℤ₂² quotient.
+- Q = ℤ₂², T = {1, χ₁, χ₂} (equivalently the three nontrivial characters): also t = 3 and N ≡ 3 (mod 4), on groups
+  with a ℤ₂² quotient. Up to equivalence the t = 3 families are T = {1, χ₁, χ₂} on ℤ₂² and T = {1, χ, χ̄} with χ of
+  order 3, 4 or 6.
+- **Q = ℤ₆, T = all characters but the sign (t = 5)**: Γ = 4 · (5, 1, −1, 1, −1, 1), so ΣPAF = −20 on K \ 0, −4 on
+  the cosets with φ odd and +4 on those with φ even. Needs 6 | N − 5: every N ≡ 5 (mod 6), among them 161, 167 and
+  179 (orders 322, 334, 358). Here Σ_k r_k² = 20: row sums 4, 2, 0, 0 in some order.
 
 For the ℤ₄ family the compressions satisfy Σ_k r_k² = 12 (r_k the row sums), Σ_k |ŷ_k(χ)|² = 12, and
 Σ_k ŷ_k(χ²)² = 4N: three ±2 row sums and one 0 when |K| is even. V_T has 36 quaternary vectors per half, so the border
 problem has 1296 candidate rows and columns (324 after normalising the first entry) and is solved by a small
 depth-first search (`search/tbsz.py`).
+
+**The border search.** The border depends only on the compressions. `search/border_exh.c` decides it exactly: the
+candidates are the normalised quaternary vectors of V_T ⊕ V_T, a bit matrix records which row candidate u and column
+candidate c have u Mc* c / 2q quaternary and another which candidates are orthogonal, and a depth-first search over
+rows keeps the set of columns compatible with all chosen rows and finally looks for 2t orthogonal ones among them.
+"No solution" proves that a compression tuple has no border. For Q = ℤ₆ there are 400 quaternary vectors per half
+of V_T and 40,000 candidates; building the bit matrices takes about a minute and the search a fraction of a second.
+A randomised search over bases of the form (v_i, ±c w_i) had found no ℤ₆ border at all; the exhaustive search found
+one for every ℤ₆ compression tuple we gave it.
 
 **Relation to earlier negative results.** [BORDERED.md](BORDERED.md) and NOTES.md §9 record that a 3-point border
 constant on the cosets of an index-4 subgroup is impossible for bordered Williamson-type matrices, and that for the
@@ -103,3 +129,29 @@ The certificate is [C214.json](C214.json) (`verify/verify_complex.py 214`).
     python3 search/tbsz.py rank 107 --family z4cyc                 # the structures of N = 107 and their estimates
     python3 search/tbsz.py search 107 --family z4cyc --gen 1,3 --rows 2,0,2,2 --tuple 0 --log hits.jsonl
     python3 search/tbsz.py certify --hits hits.jsonl               # writes complex-hadamard/C214.json
+
+## Order 322
+
+N = 161 = 7 · 23. Over ℤ₁₆₁ the plain array's multiplier groups with at most 64 orbits are empty or rate below
+10^−17, and the bordered array over ℤ₁₆₀ is empty on ℤ₂ for every multiplier group with 33 to 50 orbits.
+N − 5 = 156 = 12 · 13 has a ℤ₆ quotient:
+
+- G = ℤ₂ × ℤ₂ × ℤ₃ × ℤ₁₃ (≅ ℤ₂ × ℤ₇₈), φ(x) = (x₀, x₂ mod 3) ∈ ℤ₂ × ℤ₃ = ℤ₆ (|K| = 26), Q = ℤ₆, T = all characters but
+  the sign;
+- H = ⟨M⟩ of order 6, M = (x₀, x₁, x₂, x₃) ↦ (x₀, x₀ + x₁, 2x₂, 3x₃): a shear on ℤ₂² that fixes K, −1 on ℤ₃ and an
+  element of order 3 on ℤ₁₃; −1 ∉ H. 35 orbits for C and D, 20 for A and B, 19 classes;
+- row sums r_A, r_B; r_C, r_D = 2, 0; 4, 0.
+
+On ℤ₁₅₆ the best multiplier group, ⟨29⟩ of order 6, rates 10^0.3 conditioned on ℤ₆. On this group the pattern has 8
+feasible ℤ₆ compression tuples and a conditioned estimate of 10^2.5 (plain Gaussian 10^−3.7). The first tuple,
+y_A = (0, 2, −2, 2, −2, 2), y_B = (−2, 2, −2, 2, −2, 2), y_C = (2, 0, 0, 2, 0, 0), y_D = (2, −4, 4, −2, 4, −4), has
+complete lists of 864, 432, 8.2 · 10⁶ and 1.3 · 10⁶ sequences and a conditioned estimate of 10^1.8. The 1367 split
+values on five merge classes are exact. kt4 found 1024 solutions at the 246th of them, in order of the solution law,
+80 seconds into the join. Every solution checked completes, with a border found by the exhaustive search, to a
+complex Hadamard matrix of order 322. The certificate is [C322.json](C322.json) (`verify/verify_complex.py 322`).
+The scratch driver of this run fixed the structure in code; with `tbsz.py` it is
+
+    G = [2, 2, 3, 13]; phi(x) = (3 (x0 mod 2) + 4 (x2 mod 3)) mod 6; T = [(0,), (1,), (2,), (4,), (5,)]
+    M = [[1, 0, 0, 0], [1, 1, 0, 0], [0, 0, 2, 0], [0, 0, 0, 3]]
+    tbsz.search(tbsz.TStruct(G, [M], [6], phi, T), (2, 0, 4, 0), [0], log="hits.jsonl")
+    python3 search/tbsz.py certify --hits hits.jsonl               # writes complex-hadamard/C322.json

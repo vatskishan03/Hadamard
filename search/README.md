@@ -157,6 +157,7 @@ start-up, is close to the list size.
 | `tsz_comp.py` | compression-conditioned triage of the twisted Szöllősi structures, and their exact search restricted to the feasible compressions (`sweep`: triage and search every open N) |
 | `gcomp.py` | the same conditioning for the bordered array over non-cyclic groups (bsz_group's spin structures on ℤ₂² × ℤ_m, quotient ℤ₂²) |
 | `tbsz.py` | the character-bordered Szöllősi array (complex-hadamard/TBORDERED.md): structures on any G with a quotient Q and character set T, conditioned estimates (`rank`), the low-energy search on one compression class, the border solver, certificates (`certify`), and `test` |
+| `border_exh.c` | the exhaustive border search of the character-bordered array (compatibility and orthogonality bit matrices, rows depth-first, then a column clique); called by `tbsz.solve_border_exh` (322) |
 | `qlp_bin.py` | quaternary Legendre pairs with one binary sequence |
 | `complex_status.py`, `data/` | known, constructed and open complex orders; tables parsed from Seberry–Yamada (1992) |
 

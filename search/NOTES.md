@@ -2842,3 +2842,69 @@ certificate verifies.
 
 **Other N ≡ 3 (mod 4).** See [NOTES.md](../NOTES.md) §16: N = 167 is empty in both families on ℤ₄ × ℤ₄₁ and ℤ₂² × ℤ₄₁
 (odd fibres of 41 points); N = 179 on ℤ₁₆ × ℤ₁₁ lives only for ⟨(1, 3)⟩ at 10^−1.9; N = 223 and 239 are being ranked.
+
+**After order 214** (`tbsz.py rank`, families z4cyc, z3cyc, z6s/z6t, v4n/v4t, all3; `--cond` conditions a search on a
+finer quotient that refines Q):
+- Q = ℤ₆ with T = all characters but one (t = 5, any N ≡ 5 mod 6) has 400 quaternary vectors per half of V_T. The
+  randomised border search (`solve_border2`, 200 paired column bases per tuple) found no border for the feasible
+  compression tuples of N = 161, H = ⟨29⟩; the exhaustive search of §46 finds one for each of them at once. The
+  family is the one that gave order 322 (§46).
+- N = 249 (Q = ℤ₃, ℤ₂₄₆): H = ⟨43⟩ of order 20 (18 orbits) has 9 feasible tuples for rows 2, 0; 2, 2, and in all
+  of them the merge-class sumsets of the complete lists (72, 144, 864, 864 members) do not meet: no solution.
+  H = ⟨37⟩ of order 5 (54 orbits) rates 10^5.7 (best tuple 10^5.0) but with C and D pools of 8.5 · 10¹².
+- N = 237 (ℤ₂₃₄): H = ⟨43⟩ of order 6 (46 orbits), best tuple 10^2.45 with pools 2.4 · 10⁵, 3.3 · 10⁵, 4.7 · 10¹⁰,
+  4.7 · 10¹⁰; at L = 3 · 10⁷ the retention of C and D is 0.06 and 0.04 (10^−0.4 left in the lists).
+- N = 207 (ℤ₂₀₄): H = ⟨13⟩ of order 4 rates 10^2.5 with pools 3 · 10¹⁴; N = 203 (ℤ₈ × ℤ₂₅, Q = ℤ₄): the |H| = 4
+  groups rate up to 10^3.3 with pools near 10¹²; every |H| = 10 group (37 to 45 orbits) has feasible tuples but no
+  estimable one (plain Gaussian near 10^−500).
+- With about 40 orbits (complete lists) the estimates fall from 10^5.7 at N = 107 to about 10^1–10^2 near
+  N = 230: the gain per class is 6 − log₂(√(2π · 6m)/4) bits, which shrinks with m. The remaining leads need finer
+  conditioning, which splits the pools.
+
+## 46. The ℤ₆ character-bordered array: order 322 (October 15)
+
+**Equivalences.** Multiplying the sequences by λ ∘ φ (λ a real character of Q) maps the family of T to that of λT,
+border included, so z4n ≡ z4cyc, v4n ≡ v4t and z6s ≡ z6t (the small-group core counts agree: 32768, 49152 and
+1,419,264 for both T on ℤ₄). t is odd in every family with a quaternary border (row sums for 1 ∈ T, zero-sum border
+rows for 1 ∉ T), and WLOG 1 ∈ T.
+
+**Exhaustive border search** (`border_exh.c`, `tbsz.solve_border_exh`; now the first choice in `complete` and in the
+per-tuple border check of `search`). Candidates: the normalised quaternary vectors of V_T ⊕ V_T (40,000 for ℤ₆).
+The caller passes P = 2 v Mc* (Gaussian integers), and the C code builds two n × n bit matrices: B (u Mc* c ∈ 2q · μ₄,
+exact integer test) and O (orthogonality from exponent differences), OpenMP over rows. A row DFS (rows ordered,
+each orthogonal to the earlier ones) carries the bitset of columns compatible with all chosen rows and prunes when
+fewer than 2t remain; at depth 2t it looks for a 2t-clique of O among them. For ℤ₆ the bit matrices take about a
+minute (2 · 10¹⁰ integer operations) and the search 0.0–0.1 s: compatibility degree 1100–1200, orthogonality degree
+3432 per candidate, solutions after 137–1898 nodes. The first row found is the all-ones vector of both halves in
+each case. Neither the rows nor the columns of the borders found are of the paired form (v_i, ±c w_i) that
+`solve_border2` tries, which is probably why it failed. Re-certifying order 214 with the exhaustive search gives the
+same border and the same SHA-256.
+
+**Structures beyond cyclic G** (`tbsz.py rankg N --group m_1,... --quot z6:i,j|z4:i|v4:i,j|z3:i`). G is given by
+prime-power factors, every automorphism acting on each Sylow subgroup (all matrices with the divisibility pattern of
+Hom(ℤ_(p^a), ℤ_(p^b))) is tried as a generator of H, kept if it preserves the target and −1 ∉ H, and deduplicated by
+the orbit partition and then by an invariant (orbit sizes with their Q-images, for H and ⟨H, −1⟩). The invariant can
+merge two inequivalent groups, so the ranking is not a proof of absence.
+
+**N = 161.** Cyclic ℤ₁₅₆ (`rank 161 --family z6s`): ⟨29⟩ of order 6 is the only group alive, 10^0.34 (rows 4, 2;
+0, 0), 10^−0.29 and 10^−0.76. On ℤ₂ × ℤ₂ × ℤ₃ × ℤ₁₃ with φ = (x₀, x₂ mod 3) (11 inequivalent H with 30 to 66
+orbits), M = (x₀, x₁, x₂, x₃) ↦ (x₀, x₀ + x₁, 2x₂, 3x₃) of order 6 (35/20 orbits, 19 classes) rates 10^1.10 (0, 0; 4,
+2), 10^1.94 (2, 0; 4, 0) and 10^1.86 (4, 0; 2, 0); plain Gaussian 10^−3.7. The search of 2, 0; 4, 0 (8 feasible
+tuples, 10^2.51) took tuple 0:
+- y_A = (0, 2, −2, 2, −2, 2), y_B = (−2, 2, −2, 2, −2, 2), y_C = (2, 0, 0, 2, 0, 0), y_D = (2, −4, 4, −2, 4, −4);
+- complete lists 864, 432, 8,232,000, 1,317,120 (2 minutes, most of it the border check of the tuple);
+- 1367 exact live split values on merge classes 5, 2, 8, 11, 14; kt4 found 1024 solutions at split value 246
+  (79 s; 2.5 · 10⁸ AB and 1.7 · 10⁷ CD pairs up to there) and stopped at its cap of 5 reported;
+- the 5 complete with an exhaustive-search border and verify: [C322.json](../complex-hadamard/C322.json)
+  (`verify_complex.py 322`). The 1024 solutions in one split value (2¹⁰) suggest ten independent sign symmetries of
+  the class sums.
+
+**Before the fix.** The first run skipped tuple 0 with "no border found": `search` still checked borders with
+`solve_border2`. With the exhaustive check the same run found the matrices.
+
+**167 and 179.** Odd fibres (27, 29). The bare ℤ₆ compression equation has 59 and 82 PAF-class solutions, but every
+cyclic structure in range is empty on ℤ₆, as is the first on ℤ₂ × ℤ₉ × ℤ₉. For 179 with t = 3 on ℤ₄ × ℤ₄ × ℤ₁₁ (Q = ℤ₂²,
+H of order 10) the single feasible tuple of rows 2, 2; 2, 0 (complete lists 192, 192, 12096, 725760) has disjoint
+merge-class sumsets: no solution. The rankings with t = 7 over Q = ℤ₂³ (167; fibres of 20) exceed memory in
+`TComp.compressions` (8 fibre classes of up to 21 values each) and need a coarser conditioning quotient.
+
