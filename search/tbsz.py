@@ -1379,6 +1379,61 @@ def plan_tuple(ts, tc, tup, rows, Lmax, K, rng):
     return pools, plan
 
 
+def class_perm(ts, tc, kind, S):
+    """the permutation of the fibre classes of `kind` induced by the automorphism S of G (None if S does not map
+    classes to classes)"""
+    p = np.asarray(ts.G.perm_from_matrix(np.asarray(S, np.int64)))
+    img = {}
+    for a in range(tc.d):
+        bs = set(tc.qlab[p[tc.qlab == a]].tolist())
+        if len(bs) != 1:
+            return None
+        img[a] = bs.pop()
+    cls = {pt: f for f, O in enumerate(tc.fc[kind]) for pt in O}
+    perm = []
+    for f, O in enumerate(tc.fc[kind]):
+        tgt = {cls[img[a]] for a in O}
+        if len(tgt) != 1 or sorted(img[a] for a in O) != sorted(tc.fc[kind][next(iter(tgt))]):
+            return None
+        perm.append(tgt.pop())
+    return perm
+
+
+def tuple_orbit(ts, tcs, tup, rows, syms=()):
+    """the tuples equivalent to `tup` under symmetries that map solutions to solutions: negating a block of row sum
+    0, swapping C and D (A and B) when their row sums agree, and the automorphisms `syms` of G (which must normalise
+    H and preserve the target; checked by the caller)"""
+    gens = []
+    for b in range(4):
+        if rows[b] == 0:
+            gens.append(lambda t, b=b: t[:b] + (tuple(-v for v in t[b]),) + t[b + 1:])
+    if rows[2] == rows[3] and tcs[2] is tcs[3]:
+        gens.append(lambda t: (t[0], t[1], t[3], t[2]))
+    if rows[0] == rows[1] and tcs[0] is tcs[1]:
+        gens.append(lambda t: (t[1], t[0], t[2], t[3]))
+    for S in syms:
+        perms = [class_perm(ts, tcs[b], KINDS[b], S) for b in range(4)]
+        if any(pm is None for pm in perms):
+            continue
+        def act(t, perms=perms):
+            out = []
+            for b in range(4):
+                x = [0] * len(t[b])
+                for f, v in enumerate(t[b]):
+                    x[perms[b][f]] = v
+                out.append(tuple(x))
+            return tuple(out)
+        gens.append(act)
+    orbit, todo = {tup}, [tup]
+    while todo:
+        t = todo.pop()
+        for g in gens:
+            u = g(t)
+            if u not in orbit:
+                orbit.add(u); todo.append(u)
+    return orbit
+
+
 def tuple_border(ts, tc, tup, borders):
     """the border for the compressions on Q of a tuple (None: proved not to exist), cached by those compressions"""
     tcs = as4(tc)
@@ -1396,7 +1451,7 @@ def tuple_border(ts, tc, tup, borders):
 
 def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, log=None, maxsol=5, seed=1,
            estimate_only=False, cond=None, refine=0, maxtup=400, pcond=None, coarse_ab=False, by_rate=False,
-           coarse=None):
+           coarse=None, syms=()):
     """refine > 0: the best `refine` tuples on the quotient pcond (default Q) are refined one by one on the finer
     quotient `cond` (their compressions there enumerated under the coarse ones), and the fine tuples of all of them
     are ranked together. coarse_ab: blocks A and B stay on the coarse quotient, so that one join covers every refinement
@@ -1464,37 +1519,24 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
     found = []
     seen = set()
     done = {}
-    sigs = {}
     for i in which:
         if i >= len(tl):
             break
         e, tup, tc = tl[i][0], tl[i][1], tl[i][4]
         tcs = as4(tc)
-        # swapping C and D (equal row sums) or A and B (equal row sums) maps solutions to solutions
-        keys = {tup}
-        if rows[2] == rows[3]:
-            keys |= {(t[0], t[1], t[3], t[2]) for t in list(keys)}
-        if rows[0] == rows[1]:
-            keys |= {(t[1], t[0], t[2], t[3]) for t in list(keys)}
+        keys = tuple_orbit(ts, tcs, tup, rows, syms)
         if keys & seen:
-            print(f"tuple {i}: equivalent to an earlier tuple, skipped", flush=True)
+            print(f"tuple {i}: equivalent to a tuple already joined, skipped", flush=True)
             continue
-        seen |= keys
-        # the border depends only on the compressions: solve it first (when the quotient refines Q)
+        # the border depends only on the compressions: solve it first (when the quotient refines Q). Negating a
+        # block changes them, so an orbit counts as done only once one of its tuples has been joined (below)
         if all(x.toQ is not None for x in tcs):
             bs = tuple_border(ts, tcs, tup, borders)
             if bs is None:
                 print(f"tuple {i}: {tup}: no border found, skipped", flush=True)
                 continue
         pools, plan = plan_tuple(ts, tc, tup, rows, Lmax, K, rng)
-        # tuples related by a symmetry of the structure permute their class values and give identical joins; a
-        # tuple with the same pools and the same multisets of class values as an earlier one is skipped (heuristic:
-        # it is not counted as searched)
-        sig = tuple(round(log10(max(p, 1)), 6) for p in pools) + tuple(tuple(sorted(x)) for x in tup)
-        if sig in sigs:
-            print(f"tuple {i}: same pools and value multisets as tuple {sigs[sig]}, skipped", flush=True)
-            continue
-        sigs[sig] = i
+        seen |= keys
         lret = sum(log10(max(p[2], 1e-12)) for p in plan)
         print(f"tuple {i}: {tup}: pools {[f'{p:.3g}' for p in pools]}, logE {e:.2f}, kept "
               f"{[f'{p[0]:.3g}' for p in plan]}, retention {[f'{p[2]:.3g}' for p in plan]}, logE in lists "
@@ -1668,6 +1710,8 @@ def main():
     ap.add_argument("--hits", help="certify: the hits file (JSON lines)"); ap.add_argument("--k", type=int, default=0)
     ap.add_argument("--refine", type=int, default=0, help="search with --cond: refine the best REFINE tuples on Q one "
                     "by one on the finer quotient")
+    ap.add_argument("--sym", action="append", help="search: an automorphism of G (rows separated by ';') that "
+                    "normalises H and preserves the target; tuples equivalent under it are searched once")
     ap.add_argument("--coarse", help="search --refine: refine these coarse tuples (JSON lines with 'coarse', 'e0' and "
                     "'fine' not null) instead of ranking them")
     ap.add_argument("--by-rate", action="store_true", help="search: take the tuples in order of estimate per join "
@@ -1712,7 +1756,8 @@ def main():
         search(ts, rows, which, a.L, a.nsig, 5, a.K, a.threads, a.log, estimate_only=a.estimate_only, cond=cond,
                refine=a.refine, maxtup=a.maxtup,
                pcond=None if a.pcond is None else [int(x) for x in a.pcond.split(",")], coarse_ab=a.coarse_ab,
-               by_rate=a.by_rate, coarse=a.coarse)
+               by_rate=a.by_rate, coarse=a.coarse,
+               syms=[np.array([[int(v) for v in r.split(",")] for r in m.split(";")]) for m in (a.sym or [])])
 
 
 if __name__ == "__main__":
