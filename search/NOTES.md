@@ -2602,6 +2602,19 @@ admissible N_w ≥ 2). Small q relative to m (q = 11 for m = 15) means more w-po
 where the solutions were. The q ≈ 2m cases, with two or three w-positions, have few stage-1 solutions and none
 extends.
 
+**The bordered array** (`--bordered`). On ℤ_m × GF(q) of order N − 1 (m even, bsz.py's array: Σ PAF = −4 off 0)
+the same splitting gives Σ PAF_y = −4q off 0, Σ PAF_z = R + 4 and (III); the counting identity becomes
+(q + 1) N_w − 4 N₋ = 4(m − 1), and for ε = −1 both fixed points 0 and m/2 of a ↦ −a are w-positions of A and B.
+Every one of the 50,688 bsz solutions for N = 31 (ℤ₆ × GF(5), counted by bsz's exact joins in all four row
+patterns) satisfies the bordered equations, and the solver's hits pass bsz.build. Empty, exhaustively: N = 171
+(ℤ₁₀ × GF(17)) and 407 (ℤ₁₄ × GF(29)), 16 skeletons each.
+- **N = 599, the order 2396 of FRONTIER.md through a complex matrix of order 1198** (ℤ₂₆ × GF(23)): the counting
+  identity allows only N_w = N₋ = 5, so A and B carry ±21 at 0 and 13 and the fifth w-position lies in C or D. On the
+  compression x to ℤ₁₃ the shifts 0 and 13 give Σ x² = Σ y² + Σ PAF_y(13) = 2304 − 92 = 2212. If A or B has equal
+  signs at 0 and 13 its x(0) = ±42 costs 1764, so at most one of them does; the exact ℤ₁₃ join is empty for every
+  sign pattern in which one of them does not, and with both equal the cost 2 · 1764 + 400 exceeds 2212. **The bordered
+  Paley structure of 599 is empty.**
+
 **A bug in `lowe_sz.py`, and order 426.** Its ordered split values were computed for the pair (A, B), while kt4
 joins (A, C) and (B, D): at N = 183 every split value missed the lattice of A + C (residue 18 against 2 modulo 20 on
 the first merge class), and the first join examined no pair at all. With the fix, the first structure ranked after it
