@@ -150,7 +150,7 @@ class TComp:
     `toQ` maps its labels to Q. A per-coordinate quotient (cond = [d_1, ...]) may also be coarser than Q or cross it
     (toQ = None): the target sums over its fibres still condition the estimate."""
 
-    def __init__(self, ts, cond=None):
+    def __init__(self, ts, cond=None, parent=None, pqlab=None):
         self.ts = ts
         if cond is None or (isinstance(cond, int) and cond == ts.q and len(ts.mods) == 1):
             self.Q, self.qlab, self.d = ts.Q, ts.qlab, ts.Q.v
@@ -188,25 +188,68 @@ class TComp:
             self.fc[kind], self.fid[kind], self.w[kind] = classes, np.array(fid), np.array(w)
         self.tgt = np.array([ts.Tg[self.qlab == a].sum() for a in range(self.d)], np.int64)
         self.cache = {}
+        # parent: the compressions of the four blocks on Q (a feasible tuple there); the compressions on this finer
+        # quotient are then only those that sum to them over the fibres of toQ
+        # pqlab: the labels of a coarser quotient (default Q) on which `parent` lives
+        self.parent = None
+        if parent is not None:
+            pq = ts.qlab if pqlab is None else np.asarray(pqlab)
+            self.toP = np.zeros(self.d, np.int64)
+            for a in range(self.d):
+                vals = set(pq[self.qlab == a].tolist())
+                assert len(vals) == 1, "the quotient does not refine the parent quotient"
+                self.toP[a] = vals.pop()
+            self.parent = [np.asarray(x, np.int64) for x in parent]
 
-    def compressions(self, kind, r):
+    def par(self, b):
+        return None if self.parent is None else self.parent[b]
+
+    def classcounts(self, kind):
+        """per fibre class, {value: number of sign vectors on its orbits}"""
+        key = ("cc", kind)
+        if key not in self.cache:
+            cc = []
+            for f in range(len(self.fc[kind])):
+                cnt = {0: 1}
+                for o in np.flatnonzero(self.fid[kind] == f):
+                    wo, nxt = int(self.w[kind][o]), {}
+                    for s_, c in cnt.items():
+                        nxt[s_ + wo] = nxt.get(s_ + wo, 0) + c
+                        nxt[s_ - wo] = nxt.get(s_ - wo, 0) + c
+                    cnt = nxt
+                cc.append(cnt)
+            self.cache[key] = cc
+        return self.cache[key]
+
+    def count(self, kind, x):
+        """the number of sign vectors (over the orbits) with the fibre-class values x"""
+        cc, out = self.classcounts(kind), 1.0
+        for f, v in enumerate(x):
+            out *= float(cc[f].get(int(v), 0))
+        return out
+
+    def compressions(self, kind, r, par=None):
         """every achievable compression (tuple of fibre-class values) with row sum r and the number of sign vectors
-        giving it: per class a DP over its orbits, then the product over classes pruned by reachability (numpy)"""
-        key = ("c", kind, r)
+        giving it: per class a DP over its orbits, then the product over classes pruned by reachability (numpy).
+        par: compressions on Q that the result must refine (sums over the fibres of toQ)"""
+        key = ("c", kind, r, None if par is None else tuple(int(x) for x in par))
         if key in self.cache:
             return self.cache[key]
-        cc = []
-        for f in range(len(self.fc[kind])):
-            cnt = {0: 1}
-            for o in np.flatnonzero(self.fid[kind] == f):
-                wo, nxt = int(self.w[kind][o]), {}
-                for s_, c in cnt.items():
-                    nxt[s_ + wo] = nxt.get(s_ + wo, 0) + c
-                    nxt[s_ - wo] = nxt.get(s_ - wo, 0) + c
-                cnt = nxt
-            cc.append(cnt)
-        sizes = [len(c) for c in self.fc[kind]]
-        F = len(cc)
+        cc0 = self.classcounts(kind)
+        F = len(cc0)
+        sizes0 = [len(c) for c in self.fc[kind]]
+        order = list(range(F))
+        if par is not None:
+            par = np.asarray(par, np.int64)
+            Cn0 = np.zeros((F, len(par)), np.int64)
+            for f, O in enumerate(self.fc[kind]):
+                for p_ in O:
+                    Cn0[f, self.toP[p_]] += 1
+            # classes ordered by the Q-points they meet, so that the points close early
+            order = sorted(range(F), key=lambda f: (int(np.flatnonzero(Cn0[f])[0]), f))
+            Cn = Cn0[order]
+        cc = [cc0[f] for f in order]
+        sizes = [sizes0[f] for f in order]
         R = [None] * (F + 1)
         R[F] = np.array([0], np.int64)
         for f in range(F - 1, -1, -1):
@@ -219,21 +262,42 @@ class TComp:
         remE = [0] * (F + 1)
         for f in range(F - 1, -1, -1):
             remE[f] = remE[f + 1] + sizes[f] * mins[f]
+        if par is not None:
+            vmax = np.array([max(abs(x) for x in cc[f]) for f in range(F)], np.int64)
+            # rmax[f]: the largest |contribution| of classes f.. to each Q-point; open[f]: points still met by them
+            rmax = np.zeros((F + 1, len(par)), np.int64)
+            for f in range(F - 1, -1, -1):
+                rmax[f] = rmax[f + 1] + Cn[f] * vmax[f]
+            openp = np.zeros((F + 1, len(par)), bool)
+            for f in range(F - 1, -1, -1):
+                openp[f] = openp[f + 1] | (Cn[f] > 0)
+            S = np.zeros((1, len(par)), np.int64)
         X = np.zeros((1, 0), np.int64)
         part = np.zeros(1, np.int64)
         pe = np.zeros(1, np.int64)
         cnt = np.ones(1, np.float64)
         for f in range(F):
             v = np.array(sorted(cc[f]), np.int64)
-            c = np.array([float(cc[f][x]) for x in v])
             v = v[sizes[f] * v * v + remE[f + 1] <= emax] if len(v) else v
             c = np.array([float(cc[f][x]) for x in v])
             P = (part[:, None] + sizes[f] * v[None, :]).ravel()
             E = (pe[:, None] + sizes[f] * (v * v)[None, :]).ravel()
             keep = np.isin(r - P, R[f + 1]) & (E + remE[f + 1] <= emax)
+            if par is not None:
+                for a in np.flatnonzero(Cn[f]):
+                    Sa = (S[:, a][:, None] + Cn[f, a] * v[None, :]).ravel()
+                    if openp[f + 1, a]:
+                        keep &= np.abs(par[a] - Sa) <= rmax[f + 1, a]
+                    else:
+                        keep &= Sa == par[a]
             i, j = np.divmod(np.flatnonzero(keep), len(v))
             X = np.concatenate([X[i], v[j][:, None]], 1)
             part, pe, cnt = P[keep], E[keep], cnt[i] * c[j]
+            if par is not None:
+                S = S[i] + Cn[f][None, :] * v[j][:, None]
+        if par is not None:                            # back to the class order
+            inv = np.argsort(np.array(order))
+            X = X[:, inv]
         out = dict(zip(map(tuple, X.tolist()), cnt.tolist()))
         self.cache[key] = out
         return out
@@ -247,11 +311,11 @@ class TComp:
     def paf(self, x):
         return np.array([int(np.dot(x, x[self.add[:, s]])) for s in range(self.d)])
 
-    def groups(self, kind, r):
+    def groups(self, kind, r, par=None):
         """compressions grouped by their compressed PAF (vectorised)"""
-        key = ("g", kind, r)
+        key = ("g", kind, r, None if par is None else tuple(int(x) for x in par))
         if key not in self.cache:
-            comps = list(self.compressions(kind, r))
+            comps = list(self.compressions(kind, r, par))
             G = {}
             if comps:
                 fidx = np.zeros(self.d, np.int64)
@@ -273,7 +337,7 @@ class TComp:
         """[(members per block, multiplicity)]: groups of compressions (equal compressed PAF) solving the compressed
         equation; every combination of members is a feasible tuple. The join is vectorised: the sums of A and B keys
         are encoded and sorted, the targets minus C and D keys are looked up"""
-        Gs = [self.groups(k, r) for k, r in zip(KINDS, rows)]
+        Gs = [self.groups(k, r, self.par(b)) for b, (k, r) in enumerate(zip(KINDS, rows))]
         if any(not G for G in Gs):
             return []
         names = [list(G) for G in Gs]
@@ -359,7 +423,7 @@ class TComp:
             V = st.class_values(self.sample(kind, x, K, rng))
             Vi = np.rint(V).astype(np.int64)
             U = np.unique(Vi, axis=0)
-            self.cache[key] = (self.compressions(kind, r)[x], V.mean(0), np.cov(V.T), Vi[0],
+            self.cache[key] = (self.count(kind, x), V.mean(0), np.cov(V.T), Vi[0],
                                CE.echelon((U[1:] - U[0])[:120]))
         return self.cache[key]
 
@@ -423,7 +487,7 @@ def triage(ts, K=300, seed=1, maxtup=150, cond=None):
                 continue
             tot += mult * 10 ** (lp + ln)
             if bt is None or lp + ln > bt[0]:
-                bt = (lp + ln, tup, [tc.compressions(k, r)[x] for k, r, x in zip(KINDS, rows, tup)])
+                bt = (lp + ln, tup, [tc.count(k, x) for k, x in zip(KINDS, tup)])
         if len(fs) > maxtup and tot > 0:
             tot *= len(fs) / maxtup
         e = log10(tot) - sum(1 for r in rows if r == 0) * log10(2) if tot > 0 else -math.inf
@@ -1167,7 +1231,7 @@ def enum_block(ts, tc, kind, r, vals, center, Wm, tau, maxkeep, tag, threads):
 def plan_tuple(ts, tc, tup, rows, Lmax, K, rng):
     """conditioned means/covariances, energy thresholds and retention per block (search/lowe_comp.py)"""
     C, t = ts.C, ts.tvec.astype(np.float64)
-    pools = [tc.compressions(k, r)[x] for k, r, x in zip(KINDS, rows, tup)]
+    pools = [tc.count(k, x) for k, x in zip(KINDS, tup)]
     mus, sigs = [], []
     for k, x in zip(KINDS, tup):
         V = ts.st(k).class_values(tc.sample(k, x, K, rng))
@@ -1192,22 +1256,59 @@ def plan_tuple(ts, tc, tup, rows, Lmax, K, rng):
     return pools, plan
 
 
+def tuple_border(ts, tc, tup, borders):
+    """the border for the compressions on Q of a tuple (None: proved not to exist), cached by those compressions"""
+    ys = [np.bincount(tc.toQ, weights=tc.expand(k, x).astype(float), minlength=ts.q) for k, x in zip(KINDS, tup)]
+    ykey = tuple(int(round(v)) for y in ys for v in y)
+    if ykey not in borders:
+        Mc = szarray(ts.Q, *ys)
+        bs = solve_border_exh(ts, Mc)
+        if bs is False:                                # too many candidates for the exhaustive search
+            bs = solve_border_restricted(ts, Mc)
+        borders[ykey] = bs
+    return borders[ykey]
+
+
 def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, log=None, maxsol=5, seed=1,
-           estimate_only=False, cond=None):
+           estimate_only=False, cond=None, refine=0, maxtup=400, pcond=None):
+    """refine > 0: the best `refine` tuples on the quotient pcond (default Q) are refined one by one on the finer
+    quotient `cond` (their compressions there enumerated under the coarse ones), and the fine tuples of all of them
+    are ranked together"""
     t0 = time.time()
     rng = np.random.default_rng(seed)
-    tc = TComp(ts, cond)
-    tl = tuples(tc, rows, 1500, rng)
+    borders = {}
+    if refine and cond is not None:
+        tc0 = TComp(ts, pcond)
+        tl0 = tuples(tc0, rows, 1500, rng)
+        tl, nref = [], 0
+        for e0, tup0, *_ in tl0:
+            if nref >= refine:
+                break
+            if tc0.toQ is not None and ts.t > 1 and tuple_border(ts, tc0, tup0, borders) is None:
+                print(f"  coarse tuple {tup0} (logE {e0:.2f}): no border", flush=True)
+                continue
+            nref += 1
+            tcf = TComp(ts, cond, parent=[tc0.expand(k, x) for k, x in zip(KINDS, tup0)], pqlab=tc0.qlab)
+            sub = tuples(tcf, rows, 1500, rng, maxtup)
+            tot0 = sum(10 ** e for e, *_ in sub)
+            print(f"  coarse tuple {tup0} (logE {e0:.2f}): {len(sub)} fine tuples with positive estimate, total "
+                  f"logE {log10(tot0) if tot0 else -math.inf:.2f} [{time.time() - t0:.0f}s]", flush=True)
+            tl += [(e, tup, ln, lp, tcf) for e, tup, ln, lp in sub]
+        tl.sort(key=lambda x: -x[0])
+    else:
+        tc = TComp(ts, cond)
+        tl = [(e, tup, ln, lp, tc) for e, tup, ln, lp in tuples(tc, rows, 1500, rng, maxtup)]
     tot = sum(10 ** e for e, *_ in tl)
     print(f"N = {ts.N} {ts.name} |H-orbits| A {ts.stA.O} L {ts.stL.O} classes {ts.C} rows {rows}: {len(tl)} feasible "
           f"compression tuples with positive estimate, conditioned logE {log10(tot) if tot else -math.inf:.2f} "
           f"[{time.time() - t0:.0f}s]", flush=True)
     found = []
     seen = set()
+    done = {}
     for i in which:
         if i >= len(tl):
             break
-        e, tup = tl[i][0], tl[i][1]
+        e, tup, tc = tl[i][0], tl[i][1], tl[i][4]
         # swapping C and D (equal row sums) or A and B (equal row sums) maps solutions to solutions
         keys = {tup}
         if rows[2] == rows[3]:
@@ -1220,11 +1321,7 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
         seen |= keys
         # the border depends only on the compressions: solve it first (when the quotient refines Q)
         if tc.toQ is not None:
-            ys = [np.bincount(tc.toQ, weights=tc.expand(k, x).astype(float), minlength=ts.q) for k, x in zip(KINDS, tup)]
-            Mc = szarray(ts.Q, *ys)
-            bs = solve_border_exh(ts, Mc)
-            if bs is False:                            # too many candidates for the exhaustive search
-                bs = solve_border_restricted(ts, Mc)
+            bs = tuple_border(ts, tc, tup, borders)
             if bs is None:
                 print(f"tuple {i}: {tup}: no border found, skipped", flush=True)
                 continue
@@ -1235,10 +1332,14 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
               f"{e + lret:.2f}", flush=True)
         if estimate_only:
             continue
-        lists, done = [], {}
+        lists = []
+        if len(done) > 8:                              # keep the most recent lists only
+            for key_ in list(done)[:-8]:
+                del done[key_]
         for k in range(4):
             Lk, tau, ret, Wk, zk = plan[k]
-            key = (KINDS[k], tup[k], Lk, tau, tuple(np.round(zk, 6)))
+            # a complete list depends only on the block's class values (and is shared by later tuples)
+            key = (KINDS[k], tup[k], rows[k]) if Lk >= pools[k] else (KINDS[k], tup[k], Lk, tau, tuple(np.round(zk, 6)))
             if key in done:
                 lists.append(done[key]); continue
             masks, vals, sline = enum_block(ts, tc, KINDS[k], rows[k], tup[k], zk, Wk, tau,
@@ -1388,6 +1489,10 @@ def main():
     ap.add_argument("--threads", type=int, default=4); ap.add_argument("--K", type=int, default=4000)
     ap.add_argument("--log"); ap.add_argument("--estimate-only", action="store_true")
     ap.add_argument("--hits", help="certify: the hits file (JSON lines)"); ap.add_argument("--k", type=int, default=0)
+    ap.add_argument("--refine", type=int, default=0, help="search with --cond: refine the best REFINE tuples on Q one "
+                    "by one on the finer quotient")
+    ap.add_argument("--pcond", help="search --refine: the coarse quotient (as --cond; default Q)")
+    ap.add_argument("--maxtup", type=int, default=400, help="search: estimate at most this many tuples per quotient")
     ap.add_argument("--cond", help="search: condition on a finer quotient: d for Z_d of a cyclic G, or d1,d2,... "
                     "per coordinate (d_i | m_i), refining Q")
     ap.add_argument("--group", help="rankg, search --family group: G = Z_(m_1) x ..., prime-power m_i, e.g. 2,2,3,13")
@@ -1421,7 +1526,9 @@ def main():
         rows = tuple(int(x) for x in a.rows.split(","))
         which = [int(x) for x in a.tuple.split(",")]
         cond = None if a.cond is None else ([int(x) for x in a.cond.split(",")] if "," in a.cond else int(a.cond))
-        search(ts, rows, which, a.L, a.nsig, 5, a.K, a.threads, a.log, estimate_only=a.estimate_only, cond=cond)
+        search(ts, rows, which, a.L, a.nsig, 5, a.K, a.threads, a.log, estimate_only=a.estimate_only, cond=cond,
+               refine=a.refine, maxtup=a.maxtup,
+               pcond=None if a.pcond is None else [int(x) for x in a.pcond.split(",")])
 
 
 if __name__ == "__main__":
