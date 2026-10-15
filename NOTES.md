@@ -4,8 +4,8 @@ What we learned while searching for the unresolved orders in [FRONTIER.md](FRONT
 that found nothing. Section 1 is a mechanism, sections 2–4 and 6 are negative results, and section 5 is the literature
 as of October 2026. Section 7 collects corrections to the tables and the Williamson-type routes, sections 8–12 the
 complex Hadamard matrices, section 13 the Spence spin structures behind order 2292, section 14 the complex orders 330
-and 426, and section 15 the compressions that decide which row patterns live, with the complex orders 366, 430 and
-454. The notes on the individual
+and 426, and section 15 the compressions that decide which row patterns live, with the complex orders 342, 366, 430
+and 454. The notes on the individual
 search programs are in [search/NOTES.md](search/NOTES.md).
 
 ## 1. Why some structures have many solutions
@@ -531,7 +531,7 @@ symmetry and joins the remaining ±1 values exactly in two stages; it reproduces
   3 · 10⁷ (kept from pools of 4.4 · 10⁸), 10^0.95 solutions predicted inside them, 72 found in six minutes: the complex
   Hadamard matrix of order 426 ([C426.json](complex-hadamard/C426.json)).
 
-## 15. Compressions decide which row patterns live: the complex orders 366, 430 and 454 (October 15)
+## 15. Compressions decide which row patterns live: the complex orders 342, 366, 430 and 454 (October 15)
 
 The Gaussian estimate of §12 treats the class sums of a structure as independent continuous variables. For d | N
 the fibre sums x(a) = Σ_{g ≡ a (mod d)} X(g) obey Σ_X PAF_{x_X} = 4N δ on ℤ_d exactly, and when H fixes ℤ_d
@@ -571,3 +571,16 @@ estimate was 10^0.8 ([search/NOTES.md](search/NOTES.md) §42).
   order 430 ([C430.json](complex-hadamard/C430.json)). Blank in the 1992 table; 429 = 3 · 11 · 13 is neither a prime
   power nor a sum of two squares (so no conference matrix of order 430 exists); ℓ = 214 lies in neither infinite
   quaternary Legendre pair family.
+- **Every multiplier group, every quotient** (`comp_scan.py plainall`): H ranges over all subgroups of ℤ_N* without −1,
+  and the estimate of a pattern is its smallest over all listable quotients ℤ_d, including those on which H acts. A
+  coarse quotient alone can mislead: for N = 171 and H = ⟨31⟩ (order 3 on ℤ₉) the best ℤ₃ tuple, rated 10^2.0, is dead,
+  since the class sums of three classes never vanish together (0 joint hits where independence predicts 73); on ℤ₉ the
+  pattern keeps 10^0.5 per tuple, and two tuples searched exhaustively gave nothing.
+- **N = 171 (order 342), H = ⟨11⟩ of order 6, rows 11, 11; 9, 19.** H permutes the units of ℤ₉ transitively and has
+  order 3 on ℤ₁₉, and −1 ∉ H. On ℤ₉ (fibre classes {0}, {3, 6}, ℤ₉*) the pattern has 13 feasible compression tuples,
+  conditioned 10^4.5 in all. The first, A ≡ (−5, 1, 5), B ≡ (−17, 3, 5), C ≡ (1, −1, 7), D ≡ (−1, 1, 7), has pools 1134,
+  378, 2.8 · 10⁷ and 2.8 · 10⁷ and 10^3.5 predicted inside lists of 2 · 10⁷; the exact sumset of the merge classes gave
+  49,652 live split values, and kt4 found 12 solutions in 263 s: the complex Hadamard matrix of order 342
+  ([C342.json](complex-hadamard/C342.json)), the fourth smallest open order. Blank in the 1992 table; 341 = 11 · 31 is
+  neither a prime power nor a sum of two squares; ℓ = 170 lies in neither quaternary Legendre pair family. (The pattern
+  15, 15; 3, 15 of the same N is empty under ⟨11⟩ by the two-square argument above; the row pattern matters.)

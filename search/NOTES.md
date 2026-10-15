@@ -2771,3 +2771,38 @@ against 12,672. It does not see the obstruction that empties N = 17 over ℤ₂�
 on a finer quotient.
 
 Also: `tsz.write_input` streams the (A, B) pairs in chunks (a 3 · 10⁷-pair list took 5 GB).
+
+## 44. Order 342; finer quotients, live split values, and the estimates against the searches (October 15)
+
+**A coarse quotient can hide an obstruction.** `comp_scan.py plainall` (every H ≤ ℤ_N* with −1 ∉ H, 15–60 orbits)
+rated N = 171 = 9 · 19 with H = ⟨31⟩ of order 6 (order 3 on ℤ₉, trivial on ℤ₃) at 10^3.4 for rows 9, 23; 5, 7 on
+ℤ₃, with a best tuple of 10^2.0 and pools 1512, 1512, 6.0 · 10⁶, 6.0 · 10⁶. The tuple is empty: sampled from the
+lists, the class sums of classes 7, 10 and 15 never vanish together (0 joint hits where independence predicts 73 in
+1.5 · 10⁶ samples), although every pair of them does (about 5,300 times in 4 · 10⁶). On ℤ₉, which H does not fix
+pointwise, the pattern keeps 252 feasible tuples (7 classes), conditioned 10^2.8 in all and about 10^0.5 per tuple.
+The scans now use every listable quotient ℤ_d (d | N, d < 64), not only those H fixes pointwise, and every
+multiplier group (even orders without −1 included; the bordered scan had skipped them).
+
+**Order 342.** With all quotients, the strongest structure of N = 171 is H = ⟨11⟩ of order 6 (on ℤ₉ it is the whole
+unit group, on ℤ₁₉ it has order 3; its element of order 2 is (−1 mod 9, 1 mod 19), so −1 ∉ H), rows 11, 11; 9, 19:
+conditioned on ℤ₉ 10^4.37 (13 feasible tuples, all inequivalent), best tuple 10^3.60 with pools 1134, 378, 2.77 · 10⁷,
+2.77 · 10⁷. `lowe_comp.py 171 11 --rows 11,11,9,19 --d 9 --only 0` kept 2 · 10⁷ of each large block (retention 0.93
+and 0.92, 10^3.53 predicted inside), found 49,652 live split values exactly, and kt4 returned 12 solutions in 263 s;
+all five checked rebuild as complex Hadamard matrices of order 342 ([C342.json](../complex-hadamard/C342.json)).
+
+**Live split values.** kt4 enumerated split values on the product of per-class lattice steps. For complete lists of
+very different sizes (1512 against 6 · 10⁶) almost none of those points is reachable from both sides: the 1,097 first
+values of the run above had pairs on at most one side. `lowe_sz.sigma_file` now (a) computes the sumsets
+{a_S + c_S} and {T_S − b_S − d_S} of the distinct merge-class values exactly when they are small enough and passes
+only their intersection, ordered by the solution law, so that the join is exhaustive when all of them are processed,
+and (b) otherwise filters candidates by membership in both lattice cosets. On ℤ₉, tuple 0 of 171/⟨31⟩ (pools 1134,
+756, 4.3 · 10⁵, 4.3 · 10⁵) has 38,086 live split values; all of them, 3.4 · 10⁸ + 2.2 · 10⁸ pairs, give no solution,
+against 10^0.48 predicted.
+
+**Calibration from the searches.** kt4 stops at its solution cap, so the N = 215 run says little about the size of
+the class beyond its density: 8 solutions in the first 574 split values (1.5 · 10⁷ pairs per side), consistent with
+the 10^2.29 predicted. N = 453 (pools 2520, 2520, 1.6 · 10⁷, 1.6 · 10⁷, 10^1.58 predicted): every split value was live
+on both sides, and all 2 · 10⁵ of them (3.8 · 10⁹ pairs per side, about 9.5% of the A × C pairs, the inner part of
+the solution law) gave no solution. Sampling the class sums of that tuple shows no pair or triple of classes that never vanishes jointly,
+so no low-order obstruction explains it; the finer quotient ℤ₁₅₁ (H of order 15 acting on it) is not listable by the
+scan and is the next suspect.
