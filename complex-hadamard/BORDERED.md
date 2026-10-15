@@ -83,7 +83,9 @@ Constructions from four ±1 sequences, in two families:
 | three | near-Williamson (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev 2026): Williamson-type of order N | bordered Williamson-type ([williamson-type](../williamson-type)): Williamson-type of order N |
 
 The bordered versions move the search to a group of order N − 1. That helps when ℤ_N has no useful multiplier group,
-for example the safe primes N = 2q + 1.
+for example the safe primes N = 2q + 1. The first new order from the array is of this kind: N = 227 = 2 · 113 + 1, on ℤ₂₂₆ with
+H = ⟨49⟩ of order 7, the complex Hadamard matrix of order 454 ([C454.json](C454.json), rows 0, 0; 2, 0; border
+(1, 1, 1, 1, −i, −i)).
 
 **Negative results** (NOTES.md §9). A 3-point border with border rows and columns constant on the cosets of an
 index-4 subgroup is impossible for Williamson-type matrices: algebraically for character borders, and by SAT at

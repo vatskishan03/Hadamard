@@ -3,7 +3,8 @@
 What we learned while searching for the unresolved orders in [FRONTIER.md](FRONTIER.md), including the searches
 that found nothing. Section 1 is a mechanism, sections 2–4 and 6 are negative results, and section 5 is the literature
 as of October 2026. Section 7 collects corrections to the tables and the Williamson-type routes, sections 8–12 the
-complex Hadamard matrices, section 13 the Spence spin structures behind order 2292, and section 14 the complex orders 330 and 426. The notes on the individual
+complex Hadamard matrices, section 13 the Spence spin structures behind order 2292, section 14 the complex orders 330 and 426, and section 15
+the compressions that decide which row patterns live, with the complex orders 366 and 454. The notes on the individual
 search programs are in [search/NOTES.md](search/NOTES.md).
 
 ## 1. Why some structures have many solutions
@@ -528,3 +529,29 @@ symmetry and joins the remaining ±1 values exactly in two stages; it reproduces
   computed for the wrong pair of lists, so the first 183 run examined no pair at all. Lists of 6435, 6435, 3 · 10⁷ and
   3 · 10⁷ (kept from pools of 4.4 · 10⁸), 10^0.95 solutions predicted inside them, 72 found in six minutes: the complex
   Hadamard matrix of order 426 ([C426.json](complex-hadamard/C426.json)).
+
+## 15. Compressions decide which row patterns live: the complex orders 366 and 454 (October 15)
+
+The Gaussian estimate of §12 treats the class sums of a structure as independent continuous variables. For d | N
+the fibre sums x(a) = Σ_{g ≡ a (mod d)} X(g) obey Σ_X PAF_{x_X} = 4N δ on ℤ_d exactly, and when H fixes ℤ_d
+pointwise each fibre sum is ≡ ±1 (mod 2|H|). The compressed equation then has very few solutions: a row pattern
+either has none, or all its solutions sit on a handful of compression tuples. Exact counts at N = 93 (ℤ₃ × ℤ₃₁,
+|H| = 5): the three patterns the ℤ₃ compressions rule out have 0 solutions where the Gaussian predicted 10^2.1–10^2.6,
+and the five live ones have 1,296–21,384, 12–60 times the prediction. Conditioning on the compressions (per tuple,
+a lattice Gaussian of the class sums from blocks sampled with those compressions) gets the zeros exactly and the
+live counts within a factor 1.2–7; bordered at N = 83 (ℤ₂ × ℤ₄₁) it predicts 10^5.2 for 17,536, where the plain
+estimate was 10^0.8 ([search/NOTES.md](search/NOTES.md) §42).
+- **The pattern 15, 15; 3, 15 of N = 171 is empty** under ⟨68⟩ and ⟨11⟩ (the ℤ₉ compression, a two-square argument);
+  the low-energy runs on it, rated 10^2 by the plain estimate, could not succeed.
+- **N = 183 (order 366), ⟨34⟩ of order 5, rows 1, 23; 9, 11.** The ℤ₃ compressions leave one class (A ≡ (−1, 1, 1),
+  B ≡ (1, 11, 11), C ≡ (−1, −1, 11), D ≡ (−11, 11, 11), up to translations and reversals of C and D). The earlier
+  low-energy lists, chosen without it, held almost no blocks of this class and gave nothing in 5,900 split values.
+  With lists drawn from the class (pools 18,480, 15,840, 6.8 · 10⁸, 5.0 · 10⁸; lists of 2 · 10⁷, 10^2.8 predicted
+  inside) kt4 found 8 solutions in 22 minutes: the complex Hadamard matrix of order 366
+  ([C366.json](complex-hadamard/C366.json)), blank in the 1992 table, 365 = 5 · 73 not a prime power.
+- **N = 227 (order 454), bordered.** 227 is a safe prime: ℤ₂₂₇ has no usable multiplier group, and the bordered
+  array lives on ℤ₂₂₆ = ℤ₂ × ℤ₁₁₃ with ⟨49⟩ of order 7. The plain estimate was 10^0.6; conditioned on the ℤ₂
+  compressions it is 10^6.0. One compression class (A ≡ (1, −1), B ≡ (1, −1), C ≡ (1, 1), D ≡ (−15, 15)) has pools
+  4900, 4900, 1.7 · 10⁸ and 1.3 · 10⁸; low-energy lists of 2 · 10⁷ (10^3.8 solutions predicted inside) gave 64
+  solutions in six minutes: the complex Hadamard matrix of order 454 ([C454.json](complex-hadamard/C454.json)), blank
+  in the 1992 table, 453 = 3 · 151 not a prime power, and not in any family we checked.

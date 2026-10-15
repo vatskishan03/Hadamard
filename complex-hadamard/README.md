@@ -59,9 +59,18 @@ u ⊗ δ + w ⊗ J + z ⊗ χ, and the search is exact over the w-positions and 
 ℤ₁₅ × GF(11), [search/NOTES.md](../search/NOTES.md) §41), `search/lowe_sz.py` (structures whose arbitrary blocks
 have 10⁸–10¹¹ members: every member is visited, those of low energy under the Gaussian model are kept, and the kept
 lists are joined by a k-tree; order 426 came from ⟨37⟩ on ℤ₂₁₃ with lists of 6435, 6435, 3 · 10⁷ and 3 · 10⁷).
+`search/comp_est.py`, `search/comp_triage.py` and `search/lowe_comp.py` condition the estimates and the low-energy
+lists on the block compressions to a quotient ℤ_d: a row pattern with no feasible compression has no solution, and
+the live patterns have far more than the plain Gaussian says ([search/NOTES.md](../search/NOTES.md) §42). Order 366 came
+from ⟨34⟩ on ℤ₁₈₃: its pattern 1, 23; 9, 11 lives on a single class of ℤ₃ compressions (A ≡ (−1, 1, 1), B ≡ (1, 11,
+11), C ≡ (−1, −1, 11), D ≡ (−11, 11, 11)), which the unconditioned low-energy lists had missed.
 
 A second construction, the bordered Szöllősi array on a group of order N − 1, is stated and proved in
-[BORDERED.md](BORDERED.md). Two twisted specialisations of both arrays (B = A∘μ, D = C∘μ, and a half twist), which
+[BORDERED.md](BORDERED.md). Order 454 comes from it: 227 is a safe prime, so ℤ₂₂₇ has no usable multiplier group,
+while ℤ₂₂₆ = ℤ₂ × ℤ₁₁₃ has ⟨49⟩ of order 7. Its fibre sums over ℤ₂ are ≡ ±1 (mod 14), which the Gaussian estimate
+ignores (10^0.6); conditioned on the compressions to ℤ₂ (`search/comp_est.py`) the estimate is 10^6.0, and the
+low-energy k-tree on one compression class (pools 4900, 4900, 1.7 · 10⁸, 1.3 · 10⁸, lists of 2 · 10⁷) found 64
+solutions in six minutes ([search/NOTES.md](../search/NOTES.md) §42). Two twisted specialisations of both arrays (B = A∘μ, D = C∘μ, and a half twist), which
 turn the four-sequence search into a two-list search, are in [TWISTED.md](TWISTED.md).
 
 ## Matrices
@@ -78,17 +87,19 @@ turn the four-sequence search into a two-list search, are in [TWISTED.md](TWISTE
 | 310 | 155 = 5 · 31 | ⟨16⟩, order 5 (compression chain, `search/cchain4.py`) | 9, 9; 13, 17 | [C310.json](C310.json) |
 | 326 | 163 | ⟨38⟩, order 9 | 17, 19; 1, 1 | [C326.json](C326.json) |
 | 330 | 165 = 3 · 5 · 11 | ⟨136⟩, order 5 (Paley product ℤ₁₅ × GF(11), `search/ssxx_paley.py`) | 7, 9; 1, 23 | [C330.json](C330.json) |
+| 366 | 183 = 3 · 61 | ⟨34⟩, order 5 (low-energy k-tree on one compression class, `search/lowe_comp.py`) | 1, 23; 9, 11 | [C366.json](C366.json) |
 | 370 | 185 = 5 · 37 | ⟨9⟩, order 18 | 3, 3; 19, 19 | [C370.json](C370.json) |
 | 382 | 191 | ⟨39⟩, order 5 (streaming k-tree, `search/kstream.py`) | 11, 11; 9, 21 | [C382.json](C382.json) |
 | 426 | 213 = 3 · 71 | ⟨37⟩, order 7 (low-energy k-tree, `search/lowe_sz.py`) | 13, 17; 13, 15 | [C426.json](C426.json) |
+| 454 | 227 | bordered array ([BORDERED.md](BORDERED.md)) on ℤ₂₂₆, ⟨49⟩ of order 7 (low-energy k-tree on one compression class, `search/lowe_comp.py`) | 0, 0; 2, 0 | [C454.json](C454.json) |
 | 494 | 247 = 13 · 19 | ⟨9, 35⟩, order 27 | 17, 19; 7, 17 | [C494.json](C494.json) |
 | 518 | 259 = 7 · 37 | ⟨44⟩, order 9 (compression chain) | 5, 29; 1, 13 | [C518.json](C518.json) |
 | 534 | 267 = 3 · 89 | ⟨4⟩, order 11 | 1, 1; 21, 25 | [C534.json](C534.json) |
 | 742 | 371 = 7 · 53 | ⟨13⟩, order 26 | 3, 3; 25, 29 | [C742.json](C742.json) |
 | 754 | 377 = 13 · 29 | ⟨9⟩, order 42 | 27, 27; 5, 5 | [C754.json](C754.json) |
 
-Each certificate gives N, the multiplier group, the row sums, the first rows of A, B, C, D (`+`, `-`) and the
-SHA-256 of the canonical text of K: 2N lines of 2N digits, digit e standing for the entry iᵉ.
+Each certificate gives N, the multiplier group, the row sums, the first rows of A, B, C, D (`+`, `-`) (for the
+bordered array also the group of order N − 1 and the border) and the SHA-256 of the canonical text of K: 2N lines of 2N digits, digit e standing for the entry iᵉ.
 
 ```
 python3 verify/verify_complex.py            # all certificates
@@ -121,8 +132,8 @@ The sweep's candidate list (`python3 search/ssxx_sweep.py list`) is exactly the 
 minus these. The 2026 papers cite the updated Table 11.2 of Seberry and Yamada's 2020 book (Wiley), which we could
 not consult. A construction published between 1992 and 2020 and recorded only there is the remaining caveat.
 
-**What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 212 values of N < 1000
-have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 214, 322, 334, 342, 358, 366,
-406, 414, 418, 430, 438, 446, …. Order 214 (N = 107) is out of reach of every structure we have: 107 and 53 = (107 −
+**What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 210 values of N < 1000
+have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 214, 322, 334, 342, 358, 406,
+414, 418, 430, 438, 446, 470, …. Order 214 (N = 107) is out of reach of every structure we have: 107 and 53 = (107 −
 1)/2 are both prime, so neither ℤ₁₀₇ nor ℤ₁₀₆ has a usable multiplier group, and no quaternary Legendre pair family
 covers length 106.

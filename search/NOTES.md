@@ -2623,3 +2623,72 @@ by the mid-size triage, N = 213 = 3 · 71 with H = ⟨37⟩ of order 7 (33 orbit
 of 4.4 · 10⁸), gave 72 solutions within the first split values (six minutes in all), all checked. This is the complex
 Hadamard matrix of order 426 ([C426.json](../complex-hadamard/C426.json)); 425 = 5² · 17 is not a prime power and no
 quaternary Legendre pair of length 212 is known. The 183 join is being repeated from its saved lists.
+
+## 42. Compressions decide which row patterns live: orders 366 and 454 (October 15)
+
+**The defect.** `ssxx.gauss` (and `bsz.gauss`, and the low-energy runs built on them) treats the class sums of a
+structure as independent continuous variables. For a divisor d of N the fibre sums x(a) = Σ_{g ≡ a (mod d)} X(g) of
+every block obey, exactly,
+
+    Σ_X PAF_{x_X}(s) = 4N δ_s          on ℤ_d               (bordered: 4m + t(m/d − 1) at 0, t m/d elsewhere, t = −4)
+
+and when H fixes ℤ_d pointwise every block orbit lies in one fibre, so x(a) = X(fixed point) + |H| · (sum of orbit
+signs) ≡ ±1 (mod 2|H|). The compressed equation then has very few solutions, and a row pattern either has none (no
+solution of the full problem) or concentrates all its solutions on a few compression tuples.
+
+**Calibration** (exact joins of `ssxx.py`, N = 93 = 3 · 31, H = ⟨64⟩ of order 5, trivial on ℤ₃):
+
+| rows | solutions | plain Gaussian | ℤ₃ tuples | conditioned |
+|---|---:|---:|---:|---:|
+| 7, 9; 11, 11 | 5,616 | 10^2.54 | 9 | 10^3.94 |
+| 7, 11; 9, 11 | 9,504 | 10^2.53 | 45 | 10^4.62 |
+| 9, 11; 1, 13 | 0 | 10^2.08 | 0 | 0 |
+| 9, 11; 7, 11 | 2,808 | 10^2.05 | 9 | 10^3.95 |
+| 9, 13; 1, 11 | 21,384 | 10^2.56 | 18 | 10^4.42 |
+| 11, 11; 3, 11 | 0 | 10^2.09 | 0 | 0 |
+| 11, 11; 7, 9 | 1,296 | 10^2.05 | 9 | 10^3.94 |
+| 11, 13; 1, 9 | 0 | 10^2.57 | 0 | 0 |
+
+The plain estimate is 12–60 times low on the live patterns and blind to the dead ones; the conditioned estimate
+(`search/comp_est.py`: every achievable compression per block with its exact count, the feasible tuples, then per
+tuple a multivariate lattice Gaussian of the class sums from blocks sampled with those compressions — exact Hermite
+form and Gram determinant for the lattice, pseudo-inverse covariance on its span) is 1.2–7 times high and exact on the
+zeros. Bordered (N = 83, ℤ₂ × ℤ₄₁, |H| = 5, row 2 in A): 17,536 solutions, plain 10^0.83, conditioned 10^5.21.
+Compressions to quotients on which H acts non-trivially (ℤ₃₁ for N = 93) keep every live pattern alive (no false
+zeros) but do not see the dead ones, so the triage takes the smallest conditioned estimate over the quotients with
+at most four fibre classes. The order-426 matrix has ℤ₃ compressions (15, −1, −1), (15, 1, 1), (15, −1, −1),
+(1, 13, 1), one of the predicted tuples (all ≡ ±1 mod 14).
+
+**Consequences.**
+- **171 (order 342), rows 15, 15; 3, 15 under ⟨68⟩ or ⟨11⟩ is empty.** On ℤ₉ (fibre classes {0}, {3, 6}, ℤ₉*) the
+  compressions are (x₀, x₃, x₁) with x₀, x₃ ≡ ±1 (mod 6) (±(5, 7, 17, 19) for A and B) and x₁ odd, and the shifts 0
+  and 3 give Σ_X (x₀ − x₃)² = 4N = 684. The row sums force x₀ ≡ x₃ (mod 6) in every block, so y = (x₀ − x₃)/2 is a
+  multiple of 3, Σ (y/3)² = 19, and y_A/3, y_B/3 ∈ {0, 2, 4} leave 19, 15, 11 or 3 for two squares. The two low-energy
+  runs of this pattern (logE 2.0 and 2.1 by the plain model) could not succeed; they were stopped.
+- **183 (order 366), rows 1, 23; 9, 11 under ⟨34⟩** lives on a single compression class (×9 by translations and
+  reversals of C and D): A ≡ (−1, 1, 1), B ≡ (1, 11, 11), C ≡ (−1, −1, 11), D ≡ (−11, 11, 11); conditioned logE 6.1
+  against 5.0. The unconditioned run kept the 2 · 10⁷ blocks of lowest energy out of 2.6 · 10¹⁰, centred on typical
+  compressions, and found nothing in 5,900 split values. Conditioned: pools 18,480, 15,840, 6.76 · 10⁸ and
+  4.97 · 10⁸ (lowe_enum leaf counts equal to the compression DP), lists of 1.9 · 10⁷ and 2 · 10⁷ (retention 0.055 and
+  0.086, 10^2.8 predicted inside, 20 minutes to build), and kt4 found 8 solutions in 22 minutes. The first is the
+  complex Hadamard matrix of order 366 ([C366.json](../complex-hadamard/C366.json)): compressions exactly the class
+  above, blank in the 1992 table, 365 = 5 · 73 not a prime power, 183 not among the near-Williamson orders of 2026.
+- **227 (order 454), bordered, ⟨49⟩ of order 7 on ℤ₂₂₆ = ℤ₂ × ℤ₁₁₃.** 227 = 2 · 113 + 1 is a safe prime, so only the
+  bordered array has a multiplier group. The fibre sums over ℤ₂ are ≡ ±1 (mod 14) and the compressed equation is
+  Σ_X (x₀ − x₁)² = 4N = 908; for rows 0, 0; 2, 0 it leaves 8 tuples (4 up to symmetry), all with one block at
+  (∓15, ±15). Plain estimate 10^0.6, conditioned 10^6.0. The class ((1, −1), (1, −1), (1, 1), (−15, 15)) has pools
+  4900, 4900, 1.66 · 10⁸ and 1.31 · 10⁸ (lowe_enum's leaf counts agree with the compression DP); lists of 2 · 10⁷
+  (retention 0.22 and 0.24 by the conditioned model, 10^3.8 solutions predicted inside) were built in 5 minutes,
+  and kt4 found 64 solutions in the first split values (6 minutes). Five were checked by bsz.build, and the
+  first is the complex Hadamard matrix of order 454 ([C454.json](../complex-hadamard/C454.json), border
+  (1, 1, 1, 1, −i, −i)): ΣPAF = −4 off 0, A and B symmetric, all four blocks ⟨49⟩-invariant, compressions as
+  predicted. Blank in the 1992 table; 453 = 3 · 151 is not a prime power; no quaternary Legendre pair of length
+  226 is known to us. The first matrix from the bordered array of an open order.
+
+**Tools.** `lowe_enum.c` takes optional fibre-class constraints (per class, the weighted sum of the orbit signs over
+it is fixed; exact reachability pruning per class); `search/lowe_comp.py` runs the low-energy k-tree on one
+compression class at a time (classes reduced by translations by H-fixed points, reversal of C and D, and multipliers);
+`search/comp_triage.py` triages every open N (plain and `--bordered`).
+
+Also fixed: `kt4.c` leaked its hash table on every split value with fewer than 2¹⁸ pairs (the cause of the
+171 crashes); allocations are now checked, and `lowe_sz.py --resume --sig-from k` continues a join.
