@@ -250,6 +250,11 @@ def sigma_file(lists, Sx, target, nsig, path):
     V = (SAC - SAC @ Sp @ SAC)[np.ix_(Sx, Sx)]
     Vi = np.linalg.inv(V + 1e-6 * np.eye(len(Sx)))
     exact = _exact_live(lists, Sx, target)
+    if exact is not None and not len(exact):
+        # the sumsets do not meet: no split value is live on both sides, so the lists hold no solution
+        open(path, "w").close()
+        print("  split values: none live (exact sumset intersection is empty)", flush=True)
+        return 0, 0.0
     if exact is not None and len(exact):
         # complete enough lists: the live split values are exactly the sumset intersection; order them by the law
         D_ = exact.astype(np.float64) - m
