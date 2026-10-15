@@ -147,7 +147,8 @@ class TComp:
     """compressions to a quotient: fibre classes (orbit images), weights, the compressed target, feasible tuples and
     the conditioned lattice-Gaussian estimate (as search/gcomp.py, with per-class targets). The quotient is Q, or a
     finer cyclic quotient Z_d of a cyclic G (d a multiple of q: cond=d), which splits the pools further; then
-    `toQ` maps its labels to Q."""
+    `toQ` maps its labels to Q. A per-coordinate quotient (cond = [d_1, ...]) may also be coarser than Q or cross it
+    (toQ = None): the target sums over its fibres still condition the estimate."""
 
     def __init__(self, ts, cond=None):
         self.ts = ts
@@ -165,7 +166,9 @@ class TComp:
             self.toQ = np.zeros(self.d, np.int64)
             for a in range(self.d):
                 vals = set(ts.qlab[self.qlab == a].tolist())
-                assert len(vals) == 1, "the quotient does not refine Q"
+                if len(vals) != 1:                     # a quotient that does not refine Q: estimates only, the
+                    self.toQ = None                    # border is then solved for each solution
+                    break
                 self.toQ[a] = vals.pop()
         Q = self.Q
         self.add = np.array([[Q.index(Q.coords[a] + Q.coords[b]) for b in range(self.d)] for a in range(self.d)])
@@ -263,6 +266,10 @@ class TComp:
         if any(not G for G in Gs):
             return []
         names = [list(G) for G in Gs]
+        nAB, nCD = len(names[0]) * len(names[1]), len(names[2]) * len(names[3])
+        if min(nAB, nCD) > 3e7:
+            raise ValueError(f"too many compression groups to join ({len(names[0])} x {len(names[1])}, "
+                             f"{len(names[2])} x {len(names[3])})")
         keys = [np.array(n_, np.int64).reshape(-1, self.d) for n_ in names]
         V = max(int(np.abs(k).max()) for k in keys) * 3 + int(np.abs(self.tgt).max()) + 1
         bits = int(V).bit_length() + 1
@@ -278,20 +285,32 @@ class TComp:
             def enc(M):
                 M = np.ascontiguousarray(M, np.int64)
                 return M.reshape(-1, self.d).view(np.dtype((np.void, 8 * self.d))).reshape(M.shape[:-1])
-        L_ = enc(keys[0][:, None, :] + keys[1][None, :, :]).ravel()          # (i, j) -> i * n1 + j
+        # the smaller of the two pair sides is encoded and sorted, the other is streamed in chunks
+        ab_small = nAB <= nCD
+        if ab_small:
+            L_ = enc(keys[0][:, None, :] + keys[1][None, :, :]).ravel()          # (i, j) -> i * n1 + j
+            nsm = len(keys[1])
+        else:
+            L_ = enc(self.tgt[None, None, :] - keys[2][:, None, :] - keys[3][None, :, :]).ravel()
+            nsm = len(keys[3])
         order = np.argsort(L_, kind="stable")
         Ls = L_[order]
-        n1 = len(keys[1])
+        big = (2, 3) if ab_small else (0, 1)
+        nb = len(keys[big[1]])
         out = []
-        chunk = max(1, 4_000_000 // max(len(keys[3]), 1))
-        for k0 in range(0, len(keys[2]), chunk):
-            E = enc(self.tgt[None, None, :] - keys[2][k0:k0 + chunk, None, :] - keys[3][None, :, :]).ravel()
+        chunk = max(1, 4_000_000 // max(nb, 1))
+        for k0 in range(0, len(keys[big[0]]), chunk):
+            if ab_small:
+                E = enc(self.tgt[None, None, :] - keys[2][k0:k0 + chunk, None, :] - keys[3][None, :, :]).ravel()
+            else:
+                E = enc(keys[0][k0:k0 + chunk, None, :] + keys[1][None, :, :]).ravel()
             lo = np.searchsorted(Ls, E, side="left"); hi = np.searchsorted(Ls, E, side="right")
             for f in np.flatnonzero(hi > lo):
-                k, l = divmod(int(f), len(keys[3]))
+                k, l = divmod(int(f), nb)
                 for pos in range(lo[f], hi[f]):
-                    i, j = divmod(int(order[pos]), n1)
-                    members = [Gs[0][names[0][i]], Gs[1][names[1][j]], Gs[2][names[2][k0 + k]], Gs[3][names[3][l]]]
+                    i, j = divmod(int(order[pos]), nsm)
+                    idx = (i, j, k0 + k, l) if ab_small else (k0 + k, l, i, j)
+                    members = [Gs[b][names[b][idx[b]]] for b in range(4)]
                     mult = 1
                     for mm in members:
                         mult *= len(mm)
@@ -618,11 +637,13 @@ def rank(N, family, omin, omax, K=300):
 QUOTS = {"z6": ([6], [(0,), (1,), (2,), (4,), (5,)]),          # T = all characters but the sign (t = 5)
          "z4": ([4], [(0,), (1,), (3,)]),                       # T = {1, chi, chi-bar}
          "v4": ([2, 2], [(0, 0), (0, 1), (1, 0)]),              # T = {1, chi_01, chi_10}
-         "z3": ([3], [(0,), (1,), (2,)])}                       # T = all characters
+         "z3": ([3], [(0,), (1,), (2,)]),                       # T = all characters
+         "e33": ([3, 3], [(0, 0), (1, 0), (2, 0), (0, 1), (0, 2)])}  # T = {1} + two independent order-3 pairs (t = 5)
 
 
 def quotient(spec):
-    """'z6:i,j' (Z2 from coordinate i, Z3 from coordinate j), 'z4:i', 'v4:i,j', 'z3:i' -> (qmods, phi, T)"""
+    """'z6:i,j' (Z2 from coordinate i, Z3 from coordinate j), 'z4:i', 'v4:i,j', 'z3:i', 'e33:i,j' (Z3 x Z3 from
+    coordinates i and j) -> (qmods, phi, T)"""
     kind, idx = spec.split(":")
     ix = [int(x) for x in idx.split(",")]
     qmods, T = QUOTS[kind]
@@ -632,6 +653,8 @@ def quotient(spec):
         phi = lambda c: (int(c[ix[0]]) % 4,)
     elif kind == "v4":
         phi = lambda c: (int(c[ix[0]]) % 2, int(c[ix[1]]) % 2)
+    elif kind == "e33":
+        phi = lambda c: (int(c[ix[0]]) % 3, int(c[ix[1]]) % 3)
     else:
         phi = lambda c: (int(c[ix[0]]) % 3,)
     return qmods, phi, T
@@ -703,7 +726,12 @@ def rank_group(N, mods, qspec, omin, omax, K=300):
         name = f"G={'x'.join(map(str, mods))} Q={qspec} M={';'.join(','.join(map(str, r)) for r in M.tolist())}"
         ts = TStruct(mods, [M], qmods, phi, T, name)
         head = f"N={N} {name} |H|={len(grp)} O_A={ts.stA.O} O_L={ts.stL.O} C={ts.C}"
-        for rows, g0, fe, bt in triage(ts, K):
+        try:
+            res = triage(ts, K)
+        except (ValueError, MemoryError) as ex:
+            print(f"{head}: {ex}", flush=True)
+            continue
+        for rows, g0, fe, bt in res:
             if fe is None:
                 print(f"{head} rows {rows}: no feasible compression on Q (plain {g0:.2f})", flush=True)
             elif bt:
@@ -1051,17 +1079,18 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
             print(f"tuple {i}: equivalent to an earlier tuple, skipped", flush=True)
             continue
         seen |= keys
-        # the border depends only on the compressions: solve it first
-        ys = [np.bincount(tc.toQ, weights=tc.expand(k, x).astype(float), minlength=ts.q) for k, x in zip(KINDS, tup)]
-        Mc = szarray(ts.Q, *ys)
-        bs = solve_border_exh(ts, Mc)
-        if bs is False:                                # too many candidates for the exhaustive search
-            bs = solve_border2(ts, Mc) if ts.t >= 3 else None
-            if bs is None and len(vt_vectors(ts)) ** 2 <= 5000:
-                bs = solve_border(ts, Mc)
-        if bs is None:
-            print(f"tuple {i}: {tup}: no border found, skipped", flush=True)
-            continue
+        # the border depends only on the compressions: solve it first (when the quotient refines Q)
+        if tc.toQ is not None:
+            ys = [np.bincount(tc.toQ, weights=tc.expand(k, x).astype(float), minlength=ts.q) for k, x in zip(KINDS, tup)]
+            Mc = szarray(ts.Q, *ys)
+            bs = solve_border_exh(ts, Mc)
+            if bs is False:                            # too many candidates for the exhaustive search
+                bs = solve_border2(ts, Mc) if ts.t >= 3 else None
+                if bs is None and len(vt_vectors(ts)) ** 2 <= 5000:
+                    bs = solve_border(ts, Mc)
+            if bs is None:
+                print(f"tuple {i}: {tup}: no border found, skipped", flush=True)
+                continue
         pools, plan = plan_tuple(ts, tc, tup, rows, Lmax, K, rng)
         lret = sum(log10(max(p[2], 1e-12)) for p in plan)
         print(f"tuple {i}: {tup}: pools {[f'{p:.3g}' for p in pools]}, logE {e:.2f}, kept "
@@ -1225,7 +1254,8 @@ def main():
     ap.add_argument("--cond", help="search: condition on a finer quotient: d for Z_d of a cyclic G, or d1,d2,... "
                     "per coordinate (d_i | m_i), refining Q")
     ap.add_argument("--group", help="rankg, search --family group: G = Z_(m_1) x ..., prime-power m_i, e.g. 2,2,3,13")
-    ap.add_argument("--quot", help="rankg, search --family group: z6:i,j | z4:i | v4:i,j | z3:i (coordinates of phi)")
+    ap.add_argument("--quot", help="rankg, search --family group: z6:i,j | z4:i | v4:i,j | z3:i | e33:i,j "
+                    "(coordinates of phi)")
     ap.add_argument("--mat", help="search --family group: the generator of H, rows separated by ';'")
     a = ap.parse_args()
     if a.mode == "test":

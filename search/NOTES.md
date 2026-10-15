@@ -2902,6 +2902,16 @@ tuples, 10^2.51) took tuple 0:
 **Before the fix.** The first run skipped tuple 0 with "no border found": `search` still checked borders with
 `solve_border2`. With the exhaustive check the same run found the matrices.
 
+**Two long runs stopped without a solution.**
+- N = 203 (order 406), bordered array on ℤ₂₀₂ with ⟨95⟩, rows 2, 0; 0, 0 (`lowe_comp.py`): tuple 0 kept lists of
+  63,504, 63,504, 3 · 10⁷ and 2.65 · 10⁷ (retention 0.008 and 0.004 of pools of 2.8 · 10¹⁰), 10^2.27 predicted inside.
+  kt4 went through the first 3028 of 200,000 split values in order of the solution law, about 7% of the predicted
+  mass (≈ 13 solutions), and found none.
+- N = 237 (order 474), Q = ℤ₃ on ℤ₂₃₄ with ⟨43⟩, rows 2, 0; 2, 2, conditioned on ℤ₉: tuple 0 kept 1.3 · 10⁵,
+  2.7 · 10⁵, 3 · 10⁷ and 3 · 10⁷ (retention 0.25 and 0.22), 10^−0.17 predicted inside, 254,175 live split values.
+  Each split value pairs 10⁷ AB with 5 · 10⁷ CD candidates (5 s); the first 72 gave nothing, and the run was stopped
+  as too slow for its expectation.
+
 **167 and 179.** Odd fibres (27, 29). The bare ℤ₆ compression equation has 59 and 82 PAF-class solutions, but every
 cyclic structure in range is empty on ℤ₆, as is the first on ℤ₂ × ℤ₉ × ℤ₉. For 179 with t = 3 on ℤ₄ × ℤ₄ × ℤ₁₁ (Q = ℤ₂²,
 H of order 10) the single feasible tuple of rows 2, 2; 2, 0 (complete lists 192, 192, 12096, 725760) has disjoint
