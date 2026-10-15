@@ -474,8 +474,9 @@ class TComp:
         return lp, ln
 
 
-def tuples(tc, rows, K, rng, maxtup=400):
-    """every feasible compression tuple with its conditioned estimate, best first"""
+def tuples(tc, rows, K, rng, maxtup=400, orbit=None):
+    """every feasible compression tuple with its conditioned estimate, best first. orbit(t): the tuples equivalent
+    to t (same estimate); then only one tuple per orbit is estimated and listed"""
     out = []
     fs = tc.feasible(rows)
     ntup = sum(mult for _, mult in fs)
@@ -484,6 +485,7 @@ def tuples(tc, rows, K, rng, maxtup=400):
     # round robin over the feasible groups, so that a cap still samples every group
     gens = [itertools.product(*members) for members, _ in fs]
     done = 0
+    oseen = set()
     while gens and done < maxtup:
         nxt = []
         for g in gens:
@@ -491,6 +493,10 @@ def tuples(tc, rows, K, rng, maxtup=400):
             if tup is None:
                 continue
             nxt.append(g)
+            if orbit is not None:
+                if tup in oseen:
+                    continue
+                oseen |= orbit(tup)
             lp, ln = tc.estimate(tup, rows, K, rng)
             done += 1
             if lp > -math.inf:
@@ -1514,7 +1520,8 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
                 continue
             ntried += 1
             tcf = TComp(ts, cond, parent=[tc0.expand(k, x) for k, x in zip(KINDS, tup0)], pqlab=tc0.qlab)
-            sub = tuples(tcf, rows, 1500, rng, maxtup)
+            sub = tuples(tcf, rows, 1500, rng, maxtup,
+                         orbit=lambda t, tcf=tcf: tuple_orbit(ts, [tcf] * 4, t, rows, syms))
             tot0 = sum(10 ** e for e, *_ in sub)
             print(f"  coarse tuple {tup0} (logE {e0:.2f}): {len(sub)} fine tuples with positive estimate, total "
                   f"logE {log10(tot0) if tot0 else -math.inf:.2f} [{time.time() - t0:.0f}s]", flush=True)
