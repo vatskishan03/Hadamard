@@ -2524,6 +2524,13 @@ The container was reclaimed a second time at 03:16, 30 minutes after the session
 background task (the queue runner) was alive. 13 of the 64 chunks of 203b's block C and 6032 more split values of the
 341 ⟨2⟩ join survived on disk.
 
+**Parallel joins.** On the 203b lists (63504, 2.78 · 10⁷, 127008, 2.78 · 10⁷ members) one kt4 process with four
+threads joins 30.5 · 10⁶ pairs per second, while four single-thread processes reach about 23 · 10⁶ each, 91 · 10⁶ in
+all. `--kt4-procs P` runs P single-thread processes on the interleaved parts rest[p::P] of the unfinished split values
+and counts as done the prefix every part has finished; a killed parallel run is folded in from the parts' progress
+files when the join continues. Tested on bordered 183 ⟨3⟩: 125 split values in 96 s (one process: 30 in 90 s), and
+the 1536 solutions again near split value 140.
+
 The test was bordered 183 ⟨3⟩ (order 366), from nothing, in steps of 150 s.
 - The chunked lists are identical to the unchunked run's: D passed 30300152 members at τ = 6.607, as before.
 - The join ran over six interruptions and found the 1536 solutions at split value 146.

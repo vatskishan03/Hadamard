@@ -251,7 +251,7 @@ def enum_block(st, kind, r, center, Wm, tau, maxkeep, tag, threads, filt=(), chu
 
 
 def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5, energy="full", time_limit=None,
-           kt4_threads=1, skip=0, deadline=None, cont=False):
+           kt4_threads=1, skip=0, deadline=None, cont=False, kt4_procs=1):
     """rerun the join on the lists saved by an earlier run (WORK/lowe), with more split values; skip leaves out the
     first split values of the law's order (those an earlier run processed). cont: continue the saved split values
     where the last join stopped (state file kt4_*.bin.state.json)"""
@@ -271,7 +271,7 @@ def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5, en
     for pos, k in enumerate(order):
         lists[k] = (masks[k], vals[pos])
     return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, time.time(), time_limit=time_limit,
-                kt4_threads=kt4_threads, skip=skip, deadline=deadline, cont=cont)
+                kt4_threads=kt4_threads, skip=skip, deadline=deadline, cont=cont, kt4_procs=kt4_procs)
 
 
 def unit_classes(st):
@@ -280,7 +280,8 @@ def unit_classes(st):
 
 
 def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4, estimate_only=False, log=None,
-        seed=1, maxsol=5, energy="full", time_limit=None, precheck=True, fibre=True, kt4_threads=1, budget=None):
+        seed=1, maxsol=5, energy="full", time_limit=None, precheck=True, fibre=True, kt4_threads=1, budget=None,
+        kt4_procs=1):
     """energy="units": the filter's energy uses only the unit classes. On exact solution sets of composite N the
     solution members sit at arithmetically fixed values on the compression classes, away from the Gaussian centre;
     without those classes they rank much higher at N = 119 and 267 (search/NOTES.md section 34). fibre: the blocks
@@ -405,7 +406,7 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
     lists = [(m, np.array(v[::max(1, len(v) // 200000)])) for m, v in lists]
     import gc; gc.collect()
     return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, time_limit=time_limit,
-                kt4_threads=kt4_threads, deadline=deadline)
+                kt4_threads=kt4_threads, deadline=deadline, kt4_procs=kt4_procs)
 
 
 def live_splits(lists, Sx, target, M=2 * 10 ** 7, seed=1):
@@ -551,8 +552,68 @@ def count_sigma(path):
         return 0
 
 
+def parts_prefix(counts, n):
+    """length of the longest prefix of n interleaved split values (value i in part i mod P at position i // P)
+    finished by every part, given the parts' finished counts"""
+    P = len(counts)
+    for i in range(n):
+        if i // P >= counts[i % P]:
+            return i
+    return n
+
+
+def kt4_parts(inp, Sx, rest, P, maxsol, limit):
+    """P single-thread kt4 processes on the interleaved parts rest[p::P] (one process with P threads is about three
+    times slower on lists of 10^7: the per-split-value parallel regions scale poorly). Ends at the time limit or at
+    the first solution. Returns (stdout of all parts, finished counts per part, stopped by the limit)."""
+    env = dict(os.environ, OMP_NUM_THREADS="1")
+    procs = []
+    for k in range(P):
+        part = Path(f"{inp}.sig.part{k}")
+        part.write_text("\n".join(rest[k::P]) + "\n")
+        procs.append(subprocess.Popen([W.bin("kt4"), str(inp), ",".join(map(str, Sx)), "@" + str(part), str(maxsol)],
+                                      stdout=open(f"{inp}.out.part{k}", "w"),
+                                      stderr=open(f"{inp}.progress.part{k}", "w"), env=env))
+    t_end = None if limit is None else time.time() + limit
+    stopped = False
+    while any(pr.poll() is None for pr in procs):
+        if t_end is not None and time.time() > t_end:
+            stopped = True
+            break
+        if any("SOL" in Path(f"{inp}.out.part{k}").read_text() for k in range(P)):
+            break
+        time.sleep(5)
+    for pr in procs:
+        if pr.poll() is None:
+            pr.kill()
+        pr.wait()
+    out = "".join(Path(f"{inp}.out.part{k}").read_text() for k in range(P))
+    counts = [count_sigma(f"{inp}.progress.part{k}") for k in range(P)]
+    return out, counts, stopped
+
+
+def close_parts(inp, prog, state):
+    """fold a parallel run's parts into the state (also after a run that was killed): the finished prefix, and the
+    parts' progress lines appended to the main progress file for the record"""
+    pt = state.pop("parts", None)
+    if pt is None:
+        return
+    P, off, n = pt["P"], pt["offset"], pt["n"]
+    counts = [count_sigma(f"{inp}.progress.part{k}") for k in range(P)]
+    state["done"] = max(state["done"], off + parts_prefix(counts, n))
+    with open(prog, "a") as f:
+        for k in range(P):
+            q = Path(f"{inp}.progress.part{k}")
+            if q.exists():
+                f.write(q.read_text()); q.unlink()
+    for k in range(P):
+        for x in (Path(f"{inp}.sig.part{k}"), Path(f"{inp}.out.part{k}")):
+            if x.exists():
+                x.unlink()
+
+
 def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ordered=True, time_limit=None,
-         kt4_threads=1, skip=0, deadline=None, cont=False):
+         kt4_threads=1, skip=0, deadline=None, cont=False, kt4_procs=1):
     """kt4 on the saved lists. The split values are written to kt4_*.bin.sig and the number finished to
     kt4_*.bin.state.json; cont continues after the finished ones. With a deadline the join stops in time and Budget is
     raised when split values remain."""
@@ -569,9 +630,13 @@ def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ord
         with open(sf) as f:
             lines = f.read().splitlines()
         state["total"] = len(lines)
-        # the progress file holds one line per finished split value, in order, since the split values were written
-        # (fresh join: "w"; continuations: "a"), so it also counts those of a run that was killed before saving state
-        state["done"] = max(state["done"], count_sigma(prog))
+        if "parts" in state:                         # a parallel run that was killed: its finished prefix
+            close_parts(inp, prog, state)
+        elif not state.get("par"):
+            # the progress file holds one line per finished split value, in order, since the split values were
+            # written (fresh join: "w"; continuations: "a"), so it also counts those of a run killed before saving
+            state["done"] = max(state["done"], count_sigma(prog))
+        stf.write_text(json.dumps(state))
         if state["done"] >= len(lines):
             print(f"  kt4: all {len(lines)} split values were joined earlier [{time.time() - t0:.0f}s]", flush=True)
             return []
@@ -597,6 +662,17 @@ def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ord
         if left <= 0:
             raise Budget("no time left for the join")
         limit = left if limit is None else min(limit, left)
+    if kt4_procs > 1 and state is not None and ordered:
+        with open(sf) as f:
+            lines = f.read().splitlines()
+        rest = lines[state["done"]:]
+        state["parts"] = {"P": kt4_procs, "offset": state["done"], "n": len(rest)}; state["par"] = True
+        stf.write_text(json.dumps(state))
+        out, counts, stopped = kt4_parts(inp, Sx, rest, kt4_procs, maxsol, limit)
+        rc = f"time limit {limit:.0f}s" if stopped else "parts done"
+        close_parts(inp, prog, state)
+        stf.write_text(json.dumps(state))
+        return finish_join(st, N, gens, rows, bordered, lists, out, rc, state, stopped, deadline, log, t0)
     before = count_sigma(prog) if cont else 0
     stopped = False
     try:
@@ -614,7 +690,14 @@ def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ord
     if state is not None:
         state["done"] += count_sigma(prog) - before
         stf.write_text(json.dumps(state))
-    tail = [l for l in out.splitlines() if l.startswith("TOTAL")]
+    return finish_join(st, N, gens, rows, bordered, lists, out, rc, state, stopped, deadline, log, t0)
+
+
+def finish_join(st, N, gens, rows, bordered, lists, out, rc, state, stopped, deadline, log, t0):
+    """report a kt4 run, rebuild and verify its solutions; Budget when the deadline stopped it with work left"""
+    order = [0, 2, 1, 3]
+    tot = [l.split()[1:] for l in out.splitlines() if l.startswith("TOTAL")]
+    tail = ["TOTAL " + " ".join(str(sum(int(t[i]) for t in tot)) for i in range(3))] if tot else []
     sols = [list(map(int, l.split()[1:5])) for l in out.splitlines() if l.startswith("SOL")]
     print(f"  kt4: {len(sols)} solutions; {tail[0] if tail else 'exit ' + str(rc)}"
           f"{'' if state is None else ', split values done %d of %d' % (state['done'], state['total'])} "
@@ -666,6 +749,8 @@ def main():
     ap.add_argument("--no-precheck", action="store_true", help="skip the exact compression check")
     ap.add_argument("--no-fibre", action="store_true", help="do not restrict the blocks to allowed compressions")
     ap.add_argument("--kt4-threads", type=int, default=1, help="OpenMP threads of the kt4 join (default 1)")
+    ap.add_argument("--kt4-procs", type=int, default=1,
+                    help="single-thread kt4 processes on interleaved parts of the split values (default 1)")
     ap.add_argument("--skip", type=float, default=0, help="with --resume: leave out the first split values")
     ap.add_argument("--budget", type=float, help="wall-clock seconds for this call; exit code 75 when work remains")
     ap.add_argument("--auto", action="store_true",
@@ -679,11 +764,12 @@ def main():
     try:
         if a.resume or (a.auto and saved):
             resume(a.N, a.gens, rows, a.bordered, a.nsig, a.S, a.log, energy=a.energy, time_limit=a.time,
-                   kt4_threads=a.kt4_threads, skip=int(a.skip), deadline=deadline, cont=a.auto)
+                   kt4_threads=a.kt4_threads, skip=int(a.skip), deadline=deadline, cont=a.auto,
+                   kt4_procs=a.kt4_procs)
         else:
             run(a.N, a.gens, rows, a.bordered, a.L, a.nsig, a.S, a.K, a.threads, a.estimate_only, a.log,
                 energy=a.energy, time_limit=a.time, precheck=not a.no_precheck, fibre=not a.no_fibre,
-                kt4_threads=a.kt4_threads, budget=a.budget)
+                kt4_threads=a.kt4_threads, budget=a.budget, kt4_procs=a.kt4_procs)
     except Budget as e:
         print(f"  budget spent ({e}); the same command with --auto continues", flush=True)
         sys.exit(75)
