@@ -147,6 +147,7 @@ start-up, is close to the list size.
 | `bsz.py`, `bsz_group.py`, `bsz_sweep.py` | the bordered Szöllősi array |
 | `tsz.py`, `tsz.c` | twisted Szöllősi quadruples |
 | `cchain4.py`, `cchain_sweep.py` | exact compression chains for four-block problems (310, 518) |
+| `ssxx_paley.py` | exact search on Paley-product structures ℤ_m × GF(q): skeletons, then joins over ℤ_m |
 | `kstream.py`, `kstream.c` | the streaming k-tree (382) |
 | `lowe_sz.py`, `lowe_enum.c`, `lowe_scan.py`, `sls_sz.c` | low-energy k-tree and annealing for Szöllősi structures |
 | `qlp_bin.py` | quaternary Legendre pairs with one binary sequence |
