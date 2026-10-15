@@ -1411,6 +1411,34 @@ def tuple_orbit(ts, tcs, tup, rows, syms=()):
         gens.append(lambda t: (t[0], t[1], t[3], t[2]))
     if rows[0] == rows[1] and tcs[0] is tcs[1]:
         gens.append(lambda t: (t[1], t[0], t[2], t[3]))
+    # translations by elements fixed by H keep each PAF and H-invariance (for the symmetric blocks only those of
+    # order <= 2); they shift the compressions, i.e. permute the fibre classes of that block
+    G = ts.G
+    fix = [g for g in range(G.v) if all(int(G.perm_from_matrix(M)[g]) == g for M in ts.mats)]
+    neg = np.asarray(G.neg())
+    for b in range(4):
+        tc = tcs[b]
+        cls = {pt: f for f, O in enumerate(tc.fc[KINDS[b]]) for pt in O}
+        for g in fix:
+            if KINDS[b] == "L" and int(neg[g]) != g:
+                continue
+            cbar = tc.qlab[g]
+            if cbar == tc.qlab[0]:
+                continue
+            perm = []
+            for f, O in enumerate(tc.fc[KINDS[b]]):
+                img = {cls[int(tc.add[a, cbar])] for a in O}
+                if len(img) != 1:
+                    perm = None; break
+                perm.append(img.pop())
+            if perm is None:
+                continue
+            def tr(t, b=b, perm=perm):
+                x = [0] * len(t[b])
+                for f, v in enumerate(t[b]):
+                    x[perm[f]] = v
+                return t[:b] + (tuple(x),) + t[b + 1:]
+            gens.append(tr)
     for S in syms:
         perms = [class_perm(ts, tcs[b], KINDS[b], S) for b in range(4)]
         if any(pm is None for pm in perms):
