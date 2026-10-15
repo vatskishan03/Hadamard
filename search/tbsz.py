@@ -360,7 +360,31 @@ class TComp:
             def enc(M):
                 M = np.ascontiguousarray(M, np.int64)
                 return M.reshape(-1, self.d).view(np.dtype((np.void, 8 * self.d))).reshape(M.shape[:-1])
-        # the smaller of the two pair sides is encoded and sorted, the other is streamed in chunks
+        # when one pair side is small, iterate over its pairs, vectorise over a third list and look up the fourth
+        n4 = [len(k) for k in keys]
+        plans = [(n4[p] * n4[q] * n4[r], (p, q, r, s_)) for p, q, r, s_ in
+                 ((0, 1, 2, 3), (0, 1, 3, 2), (2, 3, 0, 1), (2, 3, 1, 0))]
+        cost, (p, q, r, s_) = min(plans)
+        if cost < nAB + nCD and n4[p] * n4[q] <= 200000:
+            Ws = enc(keys[s_])
+            ordW = np.argsort(Ws, kind="stable")
+            Wsorted = Ws[ordW]
+            out = []
+            for i in range(n4[p]):
+                for j in range(n4[q]):
+                    E = enc(self.tgt[None, :] - keys[p][i][None, :] - keys[q][j][None, :] - keys[r])
+                    lo = np.searchsorted(Wsorted, E, side="left"); hi = np.searchsorted(Wsorted, E, side="right")
+                    for z in np.flatnonzero(hi > lo):
+                        for pos in range(lo[z], hi[z]):
+                            idx = [0] * 4
+                            idx[p], idx[q], idx[r], idx[s_] = i, j, int(z), int(ordW[pos])
+                            members = [Gs[b][names[b][idx[b]]] for b in range(4)]
+                            mult = 1
+                            for mm in members:
+                                mult *= len(mm)
+                            out.append((members, mult))
+            return out
+        # otherwise the smaller of the two pair sides is encoded and sorted, the other is streamed in chunks
         ab_small = nAB <= nCD
         if ab_small:
             L_ = enc(keys[0][:, None, :] + keys[1][None, :, :]).ravel()          # (i, j) -> i * n1 + j
@@ -490,6 +514,80 @@ def triage(ts, K=300, seed=1, maxtup=150, cond=None):
             tot *= len(fs) / maxtup
         e = log10(tot) - sum(1 for r in rows if r == 0) * log10(2) if tot > 0 else -math.inf
         res.append((rows, g0, (e, len(fs)), bt))
+    return res
+
+
+def invariant_refinements(ts, maxorder=None):
+    """coordinate-wise quotients prod Z_(d_i) (d_i | m_i) of G whose kernel is H-invariant and lies in ker(phi),
+    of order between 2q and maxorder (default 12q), smallest first: the levels at which compression tuples on Q can
+    be refined"""
+    G, mods = ts.G, ts.mods
+    maxorder = maxorder or 12 * ts.q
+    zero = int(ts.qlab[G.index(np.zeros((1, len(mods)), np.int64))[0]])
+    out = []
+    for ds in itertools.product(*[[d for d in range(1, m + 1) if m % d == 0] for m in mods]):
+        order = int(np.prod(ds))
+        if not (2 * ts.q <= order <= maxorder):
+            continue
+        ok = True
+        for i, di in enumerate(ds):
+            g = np.zeros(len(mods), np.int64); g[i] = di % mods[i]
+            if ts.qlab[G.index(g[None, :])[0]] != zero:
+                ok = False; break
+            for M in ts.mats:
+                img = (M @ g) % np.array(mods)
+                if any(img[j] % ds[j] for j in range(len(mods))):
+                    ok = False; break
+            if not ok:
+                break
+        if ok:
+            out.append((order, list(ds)))
+    return [d for _, d in sorted(out)]
+
+
+def refined_triage(ts, cond, K=300, seed=1, ntop=3, maxfine=150, emin=-3.0):
+    """per row pattern: the best `ntop` coarse tuples on Q (one per feasible group, swaps identified) refined on the
+    quotient `cond`: (rows, coarse logE of those tuples, refined logE, number of them alive on cond, number refined)"""
+    rng = np.random.default_rng(seed)
+    tc0 = TComp(ts)
+    res = []
+    for rows in ts.patterns():
+        fs = tc0.feasible(rows)
+        if not fs:
+            continue
+        cands, seen = [], set()
+        for members, mult in fs:
+            tup = tuple(mm[0] for mm in members)
+            k0 = {tup}
+            if rows[2] == rows[3]:
+                k0 |= {(x[0], x[1], x[3], x[2]) for x in list(k0)}
+            if rows[0] == rows[1]:
+                k0 |= {(x[1], x[0], x[2], x[3]) for x in list(k0)}
+            if k0 & seen:
+                continue
+            seen |= k0
+            lp, ln = tc0.estimate(tup, rows, K, rng)
+            if lp > -math.inf:
+                cands.append((lp + ln, tup))
+        cands.sort(key=lambda x: -x[0])
+        if not cands or cands[0][0] < emin:              # not worth refining
+            continue
+        ce, fe, alive = 0.0, 0.0, 0
+        for e0, tup0 in cands[:ntop]:
+            ce += 10 ** e0
+            tcf = TComp(ts, cond, parent=[tc0.expand(k, x) for k, x in zip(KINDS, tup0)], pqlab=tc0.qlab)
+            ffs = tcf.feasible(rows)
+            tot = 0.0
+            for members, mult in ffs[:maxfine]:
+                lp, ln = tcf.estimate(tuple(mm[0] for mm in members), rows, K, rng)
+                if lp > -math.inf:
+                    tot += mult * 10 ** (lp + ln)
+            if len(ffs) > maxfine and tot > 0:
+                tot *= len(ffs) / maxfine
+            fe += tot
+            alive += tot > 0
+        res.append((rows, log10(ce) if ce else -math.inf, log10(fe) if fe else -math.inf, alive,
+                    min(ntop, len(cands))))
     return res
 
 
@@ -800,7 +898,7 @@ def elementary_stabiliser(p, n, k, others):
                 yield M
 
 
-def rank_group(N, mods, qspec, omin, omax, K=300, mats=None, cond=None):
+def rank_group(N, mods, qspec, omin, omax, K=300, mats=None, cond=None, refine=0):
     """rank the structures H = <M> (M an automorphism preserving the target) on G = prod Z_(m_i), distinct up to an
     invariant of their orbits (sizes and images in Q, for H and <H, -1>); mats: candidate matrices (default: every
     automorphism acting on each Sylow subgroup)"""
@@ -863,6 +961,17 @@ def rank_group(N, mods, qspec, omin, omax, K=300, mats=None, cond=None):
                       f"best tuple {bt[1]} logE {bt[0]:.2f} pools {['%.2g' % p for p in bt[2]]}", flush=True)
             else:
                 print(f"{head} rows {rows}: {fe[1]} feasible groups, no estimable tuple (plain {g0:.2f})", flush=True)
+        if refine:
+            levels = invariant_refinements(ts)
+            if not levels:
+                print(f"{head}: no invariant refinement of Q", flush=True)
+                continue
+            try:
+                for rows, ce, fe2, alive, nref in refined_triage(ts, levels[0], K, ntop=refine):
+                    print(f"{head} rows {rows}: REFINED on {'x'.join(map(str, levels[0]))}: best {nref} coarse tuples "
+                          f"10^{ce:.2f} -> 10^{fe2:.2f}, {alive} alive", flush=True)
+            except (ValueError, MemoryError) as ex:
+                print(f"{head}: refinement on {levels[0]} failed: {ex}", flush=True)
 
 
 # ---------------------------------------------------------------------------------------------------- border
@@ -1276,7 +1385,7 @@ def tuple_border(ts, tc, tup, borders):
 
 
 def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, log=None, maxsol=5, seed=1,
-           estimate_only=False, cond=None, refine=0, maxtup=400, pcond=None, coarse_ab=False):
+           estimate_only=False, cond=None, refine=0, maxtup=400, pcond=None, coarse_ab=False, by_rate=False):
     """refine > 0: the best `refine` tuples on the quotient pcond (default Q) are refined one by one on the finer
     quotient `cond` (their compressions there enumerated under the coarse ones), and the fine tuples of all of them
     are ranked together. coarse_ab: blocks A and B stay on the coarse quotient, so that one join covers every refinement
@@ -1323,6 +1432,13 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
     else:
         tc = TComp(ts, cond)
         tl = [(e, tup, ln, lp, tc, None, None) for e, tup, ln, lp in tuples(tc, rows, 1500, rng, maxtup)]
+    if by_rate:
+        # expected solutions per unit of join work: the work grows with the product of the C and D pools (plus a fixed
+        # cost per tuple for the lists and the split values)
+        def rate(x):
+            tcs_ = as4(x[4])
+            return x[0] - log10(tcs_[2].count(KINDS[2], x[1][2]) * tcs_[3].count(KINDS[3], x[1][3]) + 1e12)
+        tl.sort(key=lambda x: -rate(x))
     tot = sum(10 ** e for e, *_ in tl)
     print(f"N = {ts.N} {ts.name} |H-orbits| A {ts.stA.O} L {ts.stL.O} classes {ts.C} rows {rows}: {len(tl)} feasible "
           f"compression tuples with positive estimate, conditioned logE {log10(tot) if tot else -math.inf:.2f} "
@@ -1397,6 +1513,12 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
                                stdout=subprocess.PIPE, stderr=errf, text=True)
         tail = [l for l in p.stdout.splitlines() if l.startswith("TOTAL")]
         sols = [list(map(int, l.split()[1:5])) for l in p.stdout.splitlines() if l.startswith("SOL")]
+        if not sols:                                   # the join input and masks are large: keep them only for hits
+            for f_ in (inp, sf, Path(str(inp) + ".progress"), keepdir / f"masks_{tag}.npz"):
+                try:
+                    f_.unlink()
+                except OSError:
+                    pass
         print(f"  kt4: {len(sols)} solutions; {tail[0] if tail else 'exit ' + str(p.returncode)} "
               f"[{time.time() - t0:.0f}s]", flush=True)
         for s in sols:
@@ -1518,6 +1640,8 @@ def main():
     ap.add_argument("--hits", help="certify: the hits file (JSON lines)"); ap.add_argument("--k", type=int, default=0)
     ap.add_argument("--refine", type=int, default=0, help="search with --cond: refine the best REFINE tuples on Q one "
                     "by one on the finer quotient")
+    ap.add_argument("--by-rate", action="store_true", help="search: take the tuples in order of estimate per join "
+                    "work (product of the C and D pools) instead of estimate")
     ap.add_argument("--coarse-ab", action="store_true", help="search --refine: list A and B on the coarse quotient "
                     "and join each fine (C, D) once with all of them")
     ap.add_argument("--pcond", help="search --refine: the coarse quotient (as --cond; default Q)")
@@ -1535,7 +1659,7 @@ def main():
         certify(a.hits, k=a.k)
     elif a.mode == "rankg":
         cond = None if a.cond is None else [int(x) for x in a.cond.split(",")]
-        rank_group(a.N, [int(x) for x in a.group.split(",")], a.quot, a.omin, a.omax, cond=cond)
+        rank_group(a.N, [int(x) for x in a.group.split(",")], a.quot, a.omin, a.omax, cond=cond, refine=a.refine)
     elif a.mode == "rank":
         if a.family == "all3":
             rank_all3(a.N, a.omin, a.omax)
@@ -1557,7 +1681,8 @@ def main():
         cond = None if a.cond is None else ([int(x) for x in a.cond.split(",")] if "," in a.cond else int(a.cond))
         search(ts, rows, which, a.L, a.nsig, 5, a.K, a.threads, a.log, estimate_only=a.estimate_only, cond=cond,
                refine=a.refine, maxtup=a.maxtup,
-               pcond=None if a.pcond is None else [int(x) for x in a.pcond.split(",")], coarse_ab=a.coarse_ab)
+               pcond=None if a.pcond is None else [int(x) for x in a.pcond.split(",")], coarse_ab=a.coarse_ab,
+               by_rate=a.by_rate)
 
 
 if __name__ == "__main__":
