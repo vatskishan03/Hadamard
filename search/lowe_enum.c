@@ -7,7 +7,9 @@
  *
  * is at most tau. Kept members are written as uint64 masks (bit o = 1 when y_o = +1) and int16 class values.
  *
- *     lowe_enum INPUT OUTPUT [THREADS [FRAC]]
+ *     lowe_enum INPUT OUTPUT [THREADS [FRAC [LO HI]]]
+ * LO, HI: enumerate only the prefixes LO <= p < HI of the 2^d parallel prefixes (d = O / 2 for O < 14, else 12), so
+ * that a large block can be listed in resumable chunks (search/lowe_sz.py --budget).
  * INPUT: int32 O, C, r, maxkeep; int32 sizes[O]; int32 S[C][O][O]; float m[C]; float W[C][C]; float tau;
  * optionally int32 nf and, for each of the nf fibre filters, uint64 K[O], int64 nk, uint64 keys[nk] (ascending).
  * A filter is a linear key of the member's compression to some Z_d, key(y) = sum_o y_o K[o] (mod 2^64); members whose
@@ -146,7 +148,7 @@ static int cmpf(const void *a, const void *b) {
 }
 
 int main(int argc, char **argv) {
-    if (argc < 3) { fprintf(stderr, "usage: lowe_enum INPUT OUTPUT [THREADS [FRAC]]\n"); return 1; }
+    if (argc < 3) { fprintf(stderr, "usage: lowe_enum INPUT OUTPUT [THREADS [FRAC [LO HI]]]\n"); return 1; }
     FILE *f = fopen(argv[1], "rb");
     if (!f) { perror("input"); return 2; }
     int hdr[4];
@@ -193,6 +195,7 @@ int main(int argc, char **argv) {
     fclose(f);
     int threads = argc > 3 ? atoi(argv[3]) : omp_get_max_threads();
     if (argc > 4) FRAC = atof(argv[4]);
+    int64_t plo = argc > 6 ? atoll(argv[5]) : 0, phi = argc > 6 ? atoll(argv[6]) : -1;
     CP = (C + 15) / 16 * 16;
     TM = aligned_alloc(64, sizeof(int32_t) * (((int64_t)O * O * CP + 15) / 16) * 16);
     D4 = aligned_alloc(64, sizeof(int32_t) * (((int64_t)O * CP + 15) / 16) * 16);
@@ -211,12 +214,14 @@ int main(int argc, char **argv) {
     buf_t *bufs = calloc(threads, sizeof(buf_t));
     int d = O < 14 ? O / 2 : 12;
     int64_t np = 1LL << d;
+    if (phi < 0 || phi > np) phi = np;
+    if (plo < 0) plo = 0;
     #pragma omp parallel num_threads(threads)
     {
         int tid = omp_get_thread_num();
         state s; st_init(&s);
         #pragma omp for schedule(dynamic, 1)
-        for (int64_t pfx = 0; pfx < np; pfx++) {
+        for (int64_t pfx = plo; pfx < phi; pfx++) {
             if (!keep_prefix(pfx)) continue;
             for (int o = 0; o < d; o++) if ((pfx >> o) & 1) flip(&s, o);
             int64_t need = (int64_t)r - s.sum;

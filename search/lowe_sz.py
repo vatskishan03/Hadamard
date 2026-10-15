@@ -24,9 +24,13 @@ the projection of the level-1 join (fibre filters, applied in lowe_enum before t
 the statistics, the energy quantile and the retention are those of the allowed sub-pool.
 
     python3 search/lowe_sz.py N g [g2] --rows a,b,c,d [--bordered] [--L 2e7] [--nsig 2e5] [--S 5] [--estimate-only]
-        [--energy full|units] [--time SECONDS] [--resume] [--no-precheck]
+        [--energy full|units] [--time SECONDS] [--resume] [--no-precheck] [--budget SECONDS --auto]
+
+With --budget the call stops by itself (exit code 75) and the same command with --auto continues: big blocks are
+listed in chunks kept under WORK/lowe/chunks, and the join continues after the split values it finished. The search
+can thus run on a machine that is reclaimed, in steps shorter than any time limit.
 """
-import argparse, json, math, os, struct, subprocess, sys, time
+import argparse, hashlib, json, math, os, shutil, struct, subprocess, sys, time
 from pathlib import Path
 import numpy as np
 
@@ -37,6 +41,15 @@ import ssxx
 import bsz
 
 KINDS = ["L", "L", "A", "A"]
+
+
+class Budget(Exception):
+    """the wall-clock budget of this invocation (--budget) is spent; the same command continues the work"""
+
+
+def tag_name(N, gens, rows, bordered, energy="full"):
+    return f"{N}{'b' if bordered else ''}_{'_'.join(map(str, gens))}_{'_'.join(map(str, rows))}" + \
+        ("" if energy == "full" else f"_{energy}")
 
 
 def stats(st, kind, r, K, rng):
@@ -155,55 +168,96 @@ def prefix_plan(filt, O):
     return perm, plans
 
 
-def enum_block(st, kind, r, center, Wm, tau, maxkeep, tag, threads, filt=()):
+def read_enum(path, C):
+    with open(path, "rb") as f:
+        n = struct.unpack("q", f.read(8))[0]
+        masks = np.frombuffer(f.read(8 * n), np.uint64)
+        vals = np.frombuffer(f.read(2 * n * C), np.int16).reshape(n, C)
+        en = np.frombuffer(f.read(4 * n), np.float32)
+    return masks, vals, en
+
+
+def enum_block(st, kind, r, center, Wm, tau, maxkeep, tag, threads, filt=(), chunkdir=None, deadline=None,
+               nchunks=64):
     """run lowe_enum; returns (masks, values int16 [n, C], energies). With fibre filters the orbits are reordered so
     that whole compression coordinates are assigned early and lowe_enum can skip subtrees (prefix checks); the masks
-    are returned in the original orbit order."""
-    d = W.WORK / "tmp"; d.mkdir(exist_ok=True)
-    inp = d / f"lowe_{st.N}_{tag}_{os.getpid()}.in"; out = d / f"lowe_{st.N}_{tag}_{os.getpid()}.out"
+    are returned in the original orbit order. With chunkdir the parallel prefixes are listed in nchunks chunks whose
+    outputs are kept there, so that a run stopped by its deadline (Budget) continues where it stopped."""
     sz = np.asarray(st.sizes(kind)); S = np.asarray(st.S[kind]); O = len(sz)
     perm, plans = prefix_plan(list(filt), O)
     sz_p = sz[perm]; S_p = S[:, perm][:, :, perm]
-    with open(inp, "wb") as f:
-        f.write(struct.pack("4i", len(sz), st.C, int(r), int(min(maxkeep, 2 ** 31 - 1))))
-        f.write(np.asarray(sz_p, np.int32).tobytes()); f.write(np.asarray(S_p, np.int32).tobytes())
-        f.write(np.asarray(center, np.float32).tobytes()); f.write(np.asarray(Wm, np.float32).tobytes())
-        f.write(struct.pack("f", float(tau)))
-        f.write(struct.pack("i", len(filt)))
-        for d_, Ko, keys, *_ in filt:
-            f.write(np.asarray(Ko, np.uint64)[perm].tobytes()); f.write(struct.pack("q", len(keys)))
-            f.write(np.asarray(keys, np.uint64).tobytes())
-        if filt:
-            f.write(struct.pack("i", 1))
-            for bounds in plans:
-                f.write(struct.pack("i", len(bounds)))
-                for depth, tot, KJ, pk in bounds:
-                    f.write(struct.pack("=iQ", depth, tot)); f.write(np.asarray(KJ, np.uint64).tobytes())
-                    f.write(struct.pack("=q", len(pk))); f.write(np.asarray(pk, np.uint64).tobytes())
-    p = subprocess.run([W.bin("lowe_enum"), str(inp), str(out), str(threads)], capture_output=True, text=True, check=True)
-    inp.unlink()
-    with open(out, "rb") as f:
-        n = struct.unpack("q", f.read(8))[0]
-        masks = np.frombuffer(f.read(8 * n), np.uint64)
-        vals = np.frombuffer(f.read(2 * n * st.C), np.int16).reshape(n, st.C)
-        en = np.frombuffer(f.read(4 * n), np.float32)
-    out.unlink()
+    parts = [struct.pack("4i", len(sz), st.C, int(r), int(min(maxkeep, 2 ** 31 - 1))),
+             np.asarray(sz_p, np.int32).tobytes(), np.asarray(S_p, np.int32).tobytes(),
+             np.asarray(center, np.float32).tobytes(), np.asarray(Wm, np.float32).tobytes(), struct.pack("f", float(tau)),
+             struct.pack("i", len(filt))]
+    for d_, Ko, keys, *_ in filt:
+        parts += [np.asarray(Ko, np.uint64)[perm].tobytes(), struct.pack("q", len(keys)),
+                  np.asarray(keys, np.uint64).tobytes()]
+    if filt:
+        parts.append(struct.pack("i", 1))
+        for bounds in plans:
+            parts.append(struct.pack("i", len(bounds)))
+            for depth, tot, KJ, pk in bounds:
+                parts += [struct.pack("=iQ", depth, tot), np.asarray(KJ, np.uint64).tobytes(), struct.pack("=q", len(pk)),
+                          np.asarray(pk, np.uint64).tobytes()]
+    buf = b"".join(parts)
+    if chunkdir is None:
+        d = W.WORK / "tmp"; d.mkdir(exist_ok=True)
+        inp = d / f"lowe_{st.N}_{tag}_{os.getpid()}.in"; out = d / f"lowe_{st.N}_{tag}_{os.getpid()}.out"
+        inp.write_bytes(buf)
+        p = subprocess.run([W.bin("lowe_enum"), str(inp), str(out), str(threads)], capture_output=True, text=True,
+                           check=True)
+        inp.unlink()
+        masks, vals, en = read_enum(out, st.C)
+        out.unlink()
+        sline = p.stdout.strip()
+    else:
+        chunkdir = Path(chunkdir); chunkdir.mkdir(parents=True, exist_ok=True)
+        fp = hashlib.sha1(buf).hexdigest()
+        meta = chunkdir / "meta.json"
+        if meta.exists() and json.loads(meta.read_text()).get("input") != fp:
+            for x in chunkdir.glob("c*"):              # another input (other parameters): start over
+                x.unlink()
+        meta.write_text(json.dumps({"input": fp, "nchunks": nchunks}))
+        inp = chunkdir / "in.bin"; inp.write_bytes(buf)
+        npre = 1 << (O // 2 if O < 14 else 12)       # lowe_enum's parallel prefixes
+        K = min(nchunks, npre)
+        cut = [round(i * npre / K) for i in range(K + 1)]
+        tot = np.zeros(3, np.int64); secs = 0.0
+        for i in range(K):
+            ok = chunkdir / f"c{i}.ok"
+            if not ok.exists():
+                if deadline is not None and time.time() > deadline:
+                    raise Budget(f"block {tag}: {i} of {K} chunks listed")
+                p = subprocess.run([W.bin("lowe_enum"), str(inp), str(chunkdir / f"c{i}.out"), str(threads), "1",
+                                    str(cut[i]), str(cut[i + 1])], capture_output=True, text=True, check=True)
+                ok.write_text(p.stdout.strip())
+            w = ok.read_text().split()                  # STATS leaves L fibre F passed P kept K tau T seconds S
+            tot += [int(w[2]), int(w[4]), int(w[6])]; secs += float(w[-1])
+        got = [read_enum(chunkdir / f"c{i}.out", st.C) for i in range(K)]
+        masks = np.concatenate([g[0] for g in got]); vals = np.concatenate([g[1] for g in got])
+        en = np.concatenate([g[2] for g in got]); del got
+        if len(masks) > maxkeep:                        # the lowest maxkeep energies over all chunks
+            sel = np.sort(np.argpartition(en, int(maxkeep) - 1)[:int(maxkeep)])
+            masks, vals, en = masks[sel], vals[sel], en[sel]
+        sline = (f"STATS leaves {tot[0]} fibre {tot[1]} passed {tot[2]} kept {len(masks)} tau {tau:.3f} "
+                 f"seconds {secs:.0f} ({K} chunks)")
     if perm != list(range(O)):                                   # bit i of a mask is orbit perm[i]
         orig = np.zeros(len(masks), np.uint64)
         for i, o in enumerate(perm):
             orig |= ((masks >> np.uint64(i)) & np.uint64(1)) << np.uint64(o)
         masks = orig
-    return masks, vals, en, p.stdout.strip()
+    return masks, vals, en, sline
 
 
 def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5, energy="full", time_limit=None,
-           kt4_threads=1, skip=0):
+           kt4_threads=1, skip=0, deadline=None, cont=False):
     """rerun the join on the lists saved by an earlier run (WORK/lowe), with more split values; skip leaves out the
-    first split values of the law's order (those an earlier run processed)"""
+    first split values of the law's order (those an earlier run processed). cont: continue the saved split values
+    where the last join stopped (state file kt4_*.bin.state.json)"""
     st = Struct(N, gens, plain=not bordered)
     keepdir = W.WORK / "lowe"
-    tagname = f"{N}{'b' if bordered else ''}_{'_'.join(map(str, gens))}_{'_'.join(map(str, rows))}" + \
-        ("" if energy == "full" else f"_{energy}")
+    tagname = tag_name(N, gens, rows, bordered, energy)
     inp = keepdir / f"kt4_{tagname}.bin"
     z = np.load(keepdir / f"masks_{tagname}.npz")
     masks = [z[f"arr_{k}"] for k in range(4)]
@@ -217,7 +271,7 @@ def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5, en
     for pos, k in enumerate(order):
         lists[k] = (masks[k], vals[pos])
     return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, time.time(), time_limit=time_limit,
-                kt4_threads=kt4_threads, skip=skip)
+                kt4_threads=kt4_threads, skip=skip, deadline=deadline, cont=cont)
 
 
 def unit_classes(st):
@@ -226,12 +280,15 @@ def unit_classes(st):
 
 
 def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4, estimate_only=False, log=None,
-        seed=1, maxsol=5, energy="full", time_limit=None, precheck=True, fibre=True, kt4_threads=1):
+        seed=1, maxsol=5, energy="full", time_limit=None, precheck=True, fibre=True, kt4_threads=1, budget=None):
     """energy="units": the filter's energy uses only the unit classes. On exact solution sets of composite N the
     solution members sit at arithmetically fixed values on the compression classes, away from the Gaussian centre;
     without those classes they rank much higher at N = 119 and 267 (search/NOTES.md section 34). fibre: the blocks
-    keep only members whose compressions occur in a level-1 solution (fibre_filters; section 37)."""
+    keep only members whose compressions occur in a level-1 solution (fibre_filters; section 37). budget: wall-clock
+    seconds for this call; big blocks are then listed in resumable chunks and Budget is raised when time runs out."""
     t0 = time.time()
+    deadline = t0 + budget if budget else None
+    tagname = tag_name(N, gens, rows, bordered, energy)
     if precheck:
         import compress_check
         r = compress_check.check("bsz" if bordered else "ssxx", N, list(gens), tuple(rows), 3_000_000, 64, stop=True)
@@ -322,8 +379,9 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
         if key in done:                             # same pool and same filter: the same kept list
             lists.append(done[key]); print(f"  block {'ABCD'[k]}: same list as before", flush=True); continue
         maxkeep = Lk if Lk < apools[k] else (int(min(L, 2 ** 31 - 1)) if filt[k] else 2 ** 31 - 1)
+        cdir = W.WORK / "lowe" / "chunks" / f"{tagname}_{'ABCD'[k]}" if (deadline and pools[k] > 1e8) else None
         masks, vals, en, sline = enum_block(st, KINDS[k], rows[k], zk, Wk, tau, maxkeep, "ABCD"[k], threads,
-                                            filt[k])
+                                            filt[k], chunkdir=cdir, deadline=deadline)
         print(f"  block {'ABCD'[k]}: {len(masks)} kept; {sline} [{time.time() - t0:.0f}s]", flush=True)
         lists.append((masks, vals)); done[key] = (masks, vals)
     if min(len(x[0]) for x in lists) == 0:
@@ -331,21 +389,23 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
     # kt4 input: order (A, C, B, D) so that the pairs are (A, C) and (B, D)
     order = [0, 2, 1, 3]
     keepdir = W.WORK / "lowe"; keepdir.mkdir(exist_ok=True)
-    tagname = f"{N}{'b' if bordered else ''}_{'_'.join(map(str, gens))}_{'_'.join(map(str, rows))}" + \
-        ("" if energy == "full" else f"_{energy}")
     inp = keepdir / f"kt4_{tagname}.bin"
-    np.savez(keepdir / f"masks_{tagname}.npz", *[lists[k][0] for k in range(4)])
-    with open(inp, "wb") as f:
+    tmp = keepdir / f"masks_{tagname}.tmp.npz"                 # written aside, then renamed: the .bin marks completion
+    np.savez(tmp, *[lists[k][0] for k in range(4)]); os.replace(tmp, keepdir / f"masks_{tagname}.npz")
+    with open(str(inp) + ".tmp", "wb") as f:
         f.write(struct.pack("5i", *[len(lists[k][0]) for k in order], C))
         f.write(np.full(C, st.target, np.int16).tobytes())
         for k in order:
             f.write(np.ascontiguousarray(lists[k][1], np.int16).tobytes())
+    os.replace(str(inp) + ".tmp", inp)
+    for x in (keepdir / "chunks").glob(f"{tagname}_*"):        # the chunks are in the saved lists now
+        shutil.rmtree(x, ignore_errors=True)
     # the join needs only the masks (to rebuild solutions) and subsamples of the class values (merge classes, split
     # law); dropping the full value arrays saves about 1 GB per kept list while kt4 runs
     lists = [(m, np.array(v[::max(1, len(v) // 200000)])) for m, v in lists]
     import gc; gc.collect()
     return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, time_limit=time_limit,
-                kt4_threads=kt4_threads)
+                kt4_threads=kt4_threads, deadline=deadline)
 
 
 def live_splits(lists, Sx, target, M=2 * 10 ** 7, seed=1):
@@ -482,17 +542,45 @@ def sigma_file(lists, Sx, target, nsig, path, seed=1, skip=0):
     return len(o), float(np.sqrt(d2[o[-1]])), nlive
 
 
+def count_sigma(path):
+    """split values finished in a kt4 progress file"""
+    try:
+        with open(path) as f:
+            return sum(1 for l in f if l.startswith("kt4: sigma"))
+    except FileNotFoundError:
+        return 0
+
+
 def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ordered=True, time_limit=None,
-         kt4_threads=1, skip=0):
+         kt4_threads=1, skip=0, deadline=None, cont=False):
+    """kt4 on the saved lists. The split values are written to kt4_*.bin.sig and the number finished to
+    kt4_*.bin.state.json; cont continues after the finished ones. With a deadline the join stops in time and Budget is
+    raised when split values remain."""
     order = [0, 2, 1, 3]
     # merge classes: largest variance, from a subsample of every list (a full int64 copy would need gigabytes)
     var = sum(np.asarray(lists[k][1][::max(1, len(lists[k][1]) // 200000)], np.float64).var(0) for k in order)
     Sx = [int(c) for c in np.argsort(-var)[:nS]]
     sigarg = str(int(nsig))
-    if ordered:
-        sf = Path(str(inp) + ".sig")
+    sf, stf, prog = Path(str(inp) + ".sig"), Path(str(inp) + ".state.json"), str(inp) + ".progress"
+    state = json.loads(stf.read_text()) if (cont and stf.exists() and sf.exists()) else None
+    if state is not None and "Sx" in state:          # the classes the saved split values are on
+        Sx = [int(c) for c in state["Sx"]]
+    if state is not None:
+        with open(sf) as f:
+            lines = f.read().splitlines()
+        state["total"] = len(lines)
+        if state["done"] >= len(lines):
+            print(f"  kt4: all {len(lines)} split values were joined earlier [{time.time() - t0:.0f}s]", flush=True)
+            return []
+        rest = Path(str(inp) + ".sig.rest")
+        rest.write_text("\n".join(lines[state["done"]:]) + "\n")
+        sigarg = "@" + str(rest)
+        print(f"  kt4: merge classes {Sx}, continuing at split value {state['done'] + 1} of {len(lines)}", flush=True)
+    elif ordered:
         n, rad, nlive = sigma_file([lists[k] for k in order], Sx, st.target, nsig, sf, skip=skip)
         sigarg = "@" + str(sf)
+        state = {"done": 0, "total": n, "Sx": Sx}
+        stf.write_text(json.dumps(state))
         print(f"  kt4: merge classes {Sx}, {n} split values nearest the solution law ({nlive} sampled live, the rest "
               f"lattice points; Mahalanobis radius {rad:.2f})", flush=True)
         if n == 0:
@@ -500,22 +588,36 @@ def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ord
             return []
     else:
         print(f"  kt4: merge classes {Sx}, {int(nsig)} split values", flush=True)
+    limit = time_limit
+    if deadline is not None:
+        left = deadline - time.time() - 60
+        if left <= 0:
+            raise Budget("no time left for the join")
+        limit = left if limit is None else min(limit, left)
+    before = count_sigma(prog) if cont else 0
+    stopped = False
     try:
-        with open(str(inp) + ".progress", "w") as errf:            # one line per split value
+        with open(prog, "a" if cont else "w") as errf:            # one line per split value
             # one thread by default: each split value opens several parallel regions over ~1e5 pairs, and on a shared
             # machine their barriers cost more than the work (128 split values per second with one thread against 4
             # with four, N = 453, load 11 on 4 cores)
             env = dict(os.environ, OMP_NUM_THREADS=str(kt4_threads))
             p = subprocess.run([W.bin("kt4"), str(inp), ",".join(map(str, Sx)), sigarg, str(maxsol)],
-                               stdout=subprocess.PIPE, stderr=errf, text=True, timeout=time_limit, env=env)
+                               stdout=subprocess.PIPE, stderr=errf, text=True, timeout=limit, env=env)
         out, rc = p.stdout, p.returncode
     except subprocess.TimeoutExpired as e:                          # the join's time budget is spent
         out = e.stdout.decode() if isinstance(e.stdout, bytes) else (e.stdout or "")
-        rc = f"time limit {time_limit:.0f}s"
+        rc = f"time limit {limit:.0f}s"; stopped = True
+    if state is not None:
+        state["done"] += count_sigma(prog) - before
+        stf.write_text(json.dumps(state))
     tail = [l for l in out.splitlines() if l.startswith("TOTAL")]
     sols = [list(map(int, l.split()[1:5])) for l in out.splitlines() if l.startswith("SOL")]
-    print(f"  kt4: {len(sols)} solutions; {tail[0] if tail else 'exit ' + str(rc)} [{time.time() - t0:.0f}s]",
-          flush=True)
+    print(f"  kt4: {len(sols)} solutions; {tail[0] if tail else 'exit ' + str(rc)}"
+          f"{'' if state is None else ', split values done %d of %d' % (state['done'], state['total'])} "
+          f"[{time.time() - t0:.0f}s]", flush=True)
+    if stopped and not sols and deadline is not None and state is not None and state["done"] < state["total"]:
+        raise Budget(f"join stopped at split value {state['done']} of {state['total']}")
     found = []
     for s in sols:
         idx = [0] * 4
@@ -562,14 +664,26 @@ def main():
     ap.add_argument("--no-fibre", action="store_true", help="do not restrict the blocks to allowed compressions")
     ap.add_argument("--kt4-threads", type=int, default=1, help="OpenMP threads of the kt4 join (default 1)")
     ap.add_argument("--skip", type=float, default=0, help="with --resume: leave out the first split values")
+    ap.add_argument("--budget", type=float, help="wall-clock seconds for this call; exit code 75 when work remains")
+    ap.add_argument("--auto", action="store_true",
+                    help="continue the saved stage: join the saved lists from the first unfinished split value when "
+                         "they exist, else list the blocks (from the first unfinished chunk)")
     a = ap.parse_args()
     rows = tuple(int(x) for x in a.rows.split(","))
-    if a.resume:
-        resume(a.N, a.gens, rows, a.bordered, a.nsig, a.S, a.log, energy=a.energy, time_limit=a.time,
-               kt4_threads=a.kt4_threads, skip=int(a.skip))
-    else:
-        run(a.N, a.gens, rows, a.bordered, a.L, a.nsig, a.S, a.K, a.threads, a.estimate_only, a.log, energy=a.energy,
-            time_limit=a.time, precheck=not a.no_precheck, fibre=not a.no_fibre, kt4_threads=a.kt4_threads)
+    deadline = time.time() + a.budget if a.budget else None
+    tag = tag_name(a.N, a.gens, rows, a.bordered, a.energy)
+    saved = (W.WORK / "lowe" / f"kt4_{tag}.bin").exists() and (W.WORK / "lowe" / f"masks_{tag}.npz").exists()
+    try:
+        if a.resume or (a.auto and saved):
+            resume(a.N, a.gens, rows, a.bordered, a.nsig, a.S, a.log, energy=a.energy, time_limit=a.time,
+                   kt4_threads=a.kt4_threads, skip=int(a.skip), deadline=deadline, cont=a.auto)
+        else:
+            run(a.N, a.gens, rows, a.bordered, a.L, a.nsig, a.S, a.K, a.threads, a.estimate_only, a.log,
+                energy=a.energy, time_limit=a.time, precheck=not a.no_precheck, fibre=not a.no_fibre,
+                kt4_threads=a.kt4_threads, budget=a.budget)
+    except Budget as e:
+        print(f"  budget spent ({e}); the same command with --auto continues", flush=True)
+        sys.exit(75)
 
 
 if __name__ == "__main__":

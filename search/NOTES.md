@@ -2506,3 +2506,32 @@ lie in different H-orbits of ℤ_d, for the symmetric blocks).
   estimate was 10^−1.
 - Bordered 161 (ℤ₁₆₀): all four multiplier groups of order 4 (per-class estimates 10^−0.7–10^−1.5) fail at d = 2 in
   every pattern, so order 322 stays out of reach. The map has no structure for N = 179 in its orbit range.
+
+## 40. Resumable runs; 453 settled to 91% (October 15)
+
+**Restart.** The container was reclaimed about five minutes after the session went idle, and every background job
+died: the 341 joins at their 8164th and 8514th split values, and bordered 203 ⟨87⟩ in the middle of listing block C.
+`lowe_sz.py --budget SECONDS --auto` now makes a run resumable:
+- Big blocks (pools above 10⁸) are listed in 64 chunks of lowe_enum's parallel prefixes (`lowe_enum ... LO HI`),
+  each kept under `WORK/lowe/chunks` with a fingerprint of its input; the lowest-energy members are merged at the end.
+- The lists are saved by atomic renames, and the join records how many split values it finished, and on which merge
+  classes, in `kt4_*.bin.state.json`.
+- A call stops by itself before its budget ends (exit code 75), and the same command continues: from the first
+  unfinished chunk, or from the first unjoined split value.
+
+The test was bordered 183 ⟨3⟩ (order 366), from nothing, in steps of 150 s.
+- The chunked lists are identical to the unchunked run's: D passed 30300152 members at τ = 6.607, as before.
+- The join ran over six interruptions and found the 1536 solutions at split value 146.
+- With the orbit order and prefix checks of §39, C took 2.7 · 10⁷ leaves (12 s) instead of 1.28 · 10⁹, and D
+  9.5 · 10⁷ instead of 2.57 · 10⁹.
+
+**453 ⟨4⟩, rows (29, 31, 1, 3).** The join on the fibre-complete lists (all 2520 allowed members of A and of B,
+4.8 · 10⁷ of C and 1.6 · 10⁷ of D) finished all 4329956 sampled live split values, 6.95 · 10¹⁰ (A, C) and
+2.31 · 10¹⁰ (B, D) pairs, without a solution.
+- Coverage was measured with fresh independent samples (2 · 10⁷ pairs per side, `coverage.py` in the scratchpad). The
+  processed split values hold 62% of the split values met on both sides and 90.6% of the collision mass Σ_σ n_AC n_BD.
+  The heaviest missed split values carry 10–16 sample pairs per side.
+- So at most about one solution in ten could have escaped. The hybrid estimate of 10^1.8 (about 60) is contradicted
+  by at least 1.5 orders of magnitude.
+- Either the estimate fails here, as it did for 203 ⟨36⟩, or the compression to ℤ₁₅₁ (too many states to list)
+  rules the structure out.
