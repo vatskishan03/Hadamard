@@ -181,6 +181,118 @@ def run(N, gens, rows, d, L=2e7, nsig=2e5, nS=5, K=4000, threads=4, ntup=None, o
     return found
 
 
+def run_propus(v, gens, rows, d, freeD=True, L=2e7, nsig=2e5, nS=5, K=4000, threads=4, only=None, ntup=None,
+                estimate_only=False, seed=1, maxsol=5, maxpool=6e10):
+    """symmetric Hadamard matrices of order 4v from propus triples (A symmetric, B twice, D symmetric or free) on one
+    compression class at a time: kt4 joins (A + D) against (2B + 0), hits are checked as H = Hᵀ, H Hᵀ = 4v I and
+    appended to $HADAMARD_WORK/sym_hits.jsonl (search/sym_certify.py writes the certificate)"""
+    import propus, json
+    t0 = time.time()
+    scheme = CE.PROPUS_FREED if freeD else CE.PROPUS
+    st = Struct(v, gens, plain=True)
+    cp = CE.Comp(st, d)
+    cp.compressions_cache = {}
+    rng = np.random.default_rng(seed)
+    tups, lists = CE.feasible_tuples(cp, v, rows, scheme)
+    for (kind, w), Lc in zip(scheme, lists):
+        for x, n in Lc.items():
+            cp.compressions_cache[(kind, x)] = n
+    scored = []
+    for tup in tups:
+        lp, ln, k_, rank = CE.cond_estimate(st, cp, tup, 1500, rng, scheme=scheme)
+        if lp == -math.inf:
+            continue
+        pools = [cp.compressions_cache[(k, x)] for (k, w), x in zip(scheme, tup)]
+        if max(pools) <= maxpool:
+            scored.append((lp + ln, tup, pools))
+    scored.sort(key=lambda x: -x[0])
+    print(f"v = {v} H = <{','.join(map(str, gens))}> |H| = {len(st.H)} propus{' freeD' if freeD else ''} rows {rows}, "
+          f"d = {d}: {len(tups)} feasible tuples, {len(scored)} searchable with positive estimate [{time.time() - t0:.0f}s]",
+          flush=True)
+    sel = list(enumerate(scored))
+    if only is not None:
+        sel = [sel[i] for i in only]
+    elif ntup is not None:
+        sel = sel[:ntup]
+    t = np.zeros(st.C)
+    for i, (e, tup, pools) in sel:
+        # statistics per block, energies relative to the weighted sum of the others
+        mus, sigs = [], []
+        for (kind, w), x in zip(scheme, tup):
+            V = CE.values(st, kind, cp.sample(kind, x, K, rng))
+            mus.append(w * V.mean(0)); sigs.append(w * w * np.cov(V.T))
+        plan = []
+        for k, ((kind, w), x) in enumerate(zip(scheme, tup)):
+            Lk = pools[k] if pools[k] <= L else L
+            Sm = sum(sigs) - sigs[k]
+            Wk, Smp = LZ.psd_pinv_sqrt(Sm)
+            zk = (t - (sum(mus) - mus[k])) / w                  # centre in the block's own values
+            V = CE.values(st, kind, cp.sample(kind, x, K, rng))
+            Ep = np.einsum("ij,jk,ik->i", w * (V - zk), Smp, w * (V - zk))
+            frac = Lk / pools[k]
+            tau = float(np.quantile(Ep, min(1.0, frac))) if frac < 1 else 1e30
+            plan.append((Lk, tau, Wk * w, zk))
+        print(f"tuple {i}: {tup}: pools {[f'{p:.3g}' for p in pools]}, logE {e:.2f}, kept "
+              f"{[f'{p[0]:.3g}' for p in plan]}", flush=True)
+        if estimate_only:
+            continue
+        blocks = []
+        for k, ((kind, w), x) in enumerate(zip(scheme, tup)):
+            Lk, tau, Wk, zk = plan[k]
+            masks, vals, en, sline = enum_block_comp(st, cp, kind, rows[k], x, zk, Wk, tau,
+                                                     Lk if Lk < pools[k] else 2 ** 31 - 1, "ABD"[k], threads)
+            print(f"  block {'ABD'[k]}: {len(masks)} kept; {sline} [{time.time() - t0:.0f}s]", flush=True)
+            blocks.append((masks, vals))
+        if min(len(b[0]) for b in blocks) == 0:
+            continue
+        (mA, vA), (mB, vB), (mD, vD) = blocks
+        zero = (np.zeros(1, np.uint64), np.zeros((1, st.C), np.int16))
+        lists_ = [(mA, vA), (mB, (2 * vB.astype(np.int32)).astype(np.int16)), (mD, vD), zero]
+        order = [0, 2, 1, 3]
+        keepdir = W.WORK / "lowe"; keepdir.mkdir(exist_ok=True)
+        tagname = f"p{v}{'f' if freeD else ''}c{d}_{'_'.join(map(str, gens))}_{'_'.join(map(str, rows))}_t{i}"
+        inp = keepdir / f"kt4_{tagname}.bin"
+        with open(inp, "wb") as f:
+            f.write(struct.pack("5i", *[len(lists_[k][0]) for k in order], st.C))
+            f.write(np.zeros(st.C, np.int16).tobytes())
+            for k in order:
+                f.write(np.ascontiguousarray(lists_[k][1], np.int16).tobytes())
+        var = sum(np.asarray(lists_[k][1][::max(1, len(lists_[k][1]) // 200000)], np.float64).var(0) for k in order)
+        Sx = [int(c) for c in np.argsort(-var)[:nS]]
+        sf = Path(str(inp) + ".sig")
+        n_, rad = LZ.sigma_file(lists_, Sx, 0, nsig, sf)
+        print(f"  kt4: merge classes {Sx}, {n_} split values (radius {rad:.2f})", flush=True)
+        with open(str(inp) + ".progress", "w") as errf:
+            p = subprocess.run([W.bin("kt4"), str(inp), ",".join(map(str, Sx)), "@" + str(sf), str(maxsol)],
+                               stdout=subprocess.PIPE, stderr=errf, text=True)
+        sols = [list(map(int, l.split()[1:5])) for l in p.stdout.splitlines() if l.startswith("SOL")]
+        tail = [l for l in p.stdout.splitlines() if l.startswith("TOTAL")]
+        print(f"  kt4: {len(sols)} solutions; {tail[0] if tail else 'exit ' + str(p.returncode)} [{time.time() - t0:.0f}s]",
+              flush=True)
+        found = []
+        for s_ in sols:
+            ia, idd, ib = s_[0], s_[1], s_[2]                    # kt4 order: A, D, 2B, 0
+            seqs = []
+            for (kind, w), (masks, _), ix in zip(scheme, blocks, (ia, ib, idd)):
+                mm = int(masks[ix])
+                y = [1 if (mm >> o) & 1 else -1 for o in range(len(st.sizes(kind)))]
+                seqs.append(st.expand(kind, y))
+            A, B, D = seqs
+            Hm = propus.symmetric_matrix_v3(A, B, D) if freeD else propus.symmetric_matrix(A, B, D)
+            ok = np.array_equal(Hm, Hm.T) and np.array_equal(Hm @ Hm.T, 4 * v * np.eye(4 * v, dtype=Hm.dtype))
+            print(f"  hit: symmetric Hadamard of order {4 * v}: {ok}", flush=True)
+            if ok:
+                rec = dict(n=v, gens=list(gens), symB=False, freeD=freeD, plain=False,
+                           rows=[int(A.sum()), int(B.sum()), int(D.sum())],
+                           seqs=[''.join('+' if x > 0 else '-' for x in q_) for q_ in (A, B, D)], method="lowe_comp")
+                with open(W.hits('sym_hits.jsonl'), 'a') as fh:
+                    fh.write(json.dumps(rec) + '\n')
+                found.append(rec)
+        if found:
+            return found
+    return []
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("N", type=int); ap.add_argument("gens", type=int, nargs="+")
@@ -191,8 +303,14 @@ def main():
     ap.add_argument("--only", type=int, nargs="+"); ap.add_argument("--estimate-only", action="store_true")
     ap.add_argument("--maxpool", type=float, default=6e10); ap.add_argument("--log")
     ap.add_argument("--bordered", action="store_true")
+    ap.add_argument("--propus", action="store_true", help="symmetric Hadamard 4N: propus (A sym, B twice, D)")
+    ap.add_argument("--symD", action="store_true", help="with --propus: D symmetric too")
     a = ap.parse_args()
     rows = tuple(int(x) for x in a.rows.split(","))
+    if a.propus:
+        run_propus(a.N, a.gens, rows, a.d, not a.symD, a.L, a.nsig, a.S, a.K, a.threads, a.only, a.tuples,
+                   a.estimate_only, maxpool=a.maxpool)
+        return
     run(a.N, a.gens, rows, a.d, a.L, a.nsig, a.S, a.K, a.threads, a.tuples, a.only, a.estimate_only, a.log,
         maxpool=a.maxpool, bordered=a.bordered)
 

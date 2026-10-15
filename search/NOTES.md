@@ -2691,6 +2691,16 @@ Only N = 203 (|H| = 5, conditioned logE 8.0) and N = 227 (|H| = 7, 6.2) have a f
 (|H| = 11), 219 (9), 263 (13), 275 (17), 303 (15), 383 (19), 467 (29), 479 (17), 483 (15), 503 (25), 563 (35),
 623 (31), 699 (29), 795 (33), 803 (25), 839 (19), 863 (43), 915 (19, 57), 923 (23), 927 (21, 33) and 983 (35, 49)
 no pattern is feasible, so these bordered structures are empty (exact; `python3 search/comp_scan.py bordered2q`).
+Likewise N = 223 (order 446) on ℤ₂₂₂ = ℤ₆ × ℤ₃₇ with H = ⟨127⟩ of order 9 (H trivial on ℤ₆): the ℤ₂ compressions rule
+out all four row patterns, although the ℤ₃ compressions alone allow 36–168 tuples per pattern.
+
+**Propus (symmetric Hadamard): conditioning is not enough.** The same estimator with weights (A + 2B + D) matches
+v = 57 = 3 · 19, ⟨7⟩, rows 3, 5; 13 with free D (864 solutions, conditioned 10^3.07, three patterns correctly
+dead), but it predicts 10^1.8 for two dead patterns of v = 93, ⟨64⟩ (free D) and 10^2.25 for 65/⟨16⟩, rows 11, 3,
+11, which §30 proves empty (no solution modulo 16). The doubled block enters the equations only from modulo 16 on,
+and those 2-adic obstructions are invisible to compressions to ℤ₃ or ℤ₃₁ and to lattice cosets (the mod-8 bit
+distributions of A and D even favour solutions at v = 93: 2.5–4 times the uniform rate). So for propus the scan
+(`comp_scan.py propus`) ranks structures but a lead needs an exact or modular check before a search.
 
 **Tools.** `lowe_enum.c` takes optional fibre-class constraints (per class, the weighted sum of the orbit signs over
 it is fixed; exact reachability pruning per class); `search/lowe_comp.py` runs the low-energy k-tree on one

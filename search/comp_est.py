@@ -85,17 +85,32 @@ class Comp:
         return out
 
     def compressions(self, kind, r):
-        """all achievable compressions (tuple of fibre-class values) with row sum r, with their counts"""
+        """all achievable compressions (tuple of fibre-class values) with row sum r, with their counts; a DP over the
+        fibre classes on the partial row sum keeps only the prefixes that can still reach r"""
+        key = (kind, r)
+        cache = self.__dict__.setdefault("_comp_cache", {})
+        if key in cache:
+            return cache[key]
         cc = self.class_counts(kind)
         sizes = [len(c) for c in self.fc[kind]]
+        F = len(cc)
+        # reachable partial sums from class f on: R[f] = set of sums of sizes[g] * v_g, g >= f
+        R = [set() for _ in range(F + 1)]
+        R[F] = {0}
+        for f in range(F - 1, -1, -1):
+            R[f] = {sizes[f] * v + t for v in cc[f] for t in R[f + 1]}
         out = {}
-        for vals in itertools.product(*[sorted(c) for c in cc]):
-            if sum(s * v for s, v in zip(sizes, vals)) != r:
-                continue
-            n = 1
-            for c, v in zip(cc, vals):
-                n *= c[v]
-            out[vals] = n
+        def rec(f, rem, vals, n):
+            if f == F:
+                if rem == 0:
+                    out[tuple(vals)] = n
+                return
+            for v, c in cc[f].items():
+                rest = rem - sizes[f] * v
+                if rest in R[f + 1]:
+                    vals.append(v); rec(f + 1, rest, vals, n * c); vals.pop()
+        rec(0, r, [], 1)
+        cache[key] = out
         return out
 
     def expand(self, kind, vals):
