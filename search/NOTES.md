@@ -2602,6 +2602,13 @@ admissible N_w ≥ 2). Small q relative to m (q = 11 for m = 15) means more w-po
 where the solutions were. The q ≈ 2m cases, with two or three w-positions, have few stage-1 solutions and none
 extends.
 
+**With an extra multiplier group K on ℤ_m** (`search/ssxx_paleyk.py`: every block constant on the K-orbits, skeletons
+and both joins exact over them). Empty, exhaustively: N = 171 (q = 19, K = ⟨4⟩), 209 (q = 11, K = ⟨4⟩ and ⟨7⟩; the
+latter 1380 skeletons, 120 stage-1 solutions, none extends), 253 (q = 11, ⟨2⟩; q = 23, ⟨3⟩), 299 (q = 13, ⟨2⟩), 319
+(q = 11, ⟨7⟩), 341 (q = 11, ⟨2⟩: 1944 skeletons, 48 stage-1 solutions; ⟨7⟩), 391 (q = 17, ⟨2⟩), 403 (q = 13, ⟨2⟩:
+2124 skeletons; ⟨7⟩), 407 (q = 11, ⟨7⟩) and 437 (q = 19, ⟨2⟩). Larger cases (341/⟨5⟩, 357/⟨4⟩, …) exceeded ten
+minutes each and the sweep was stopped.
+
 **The bordered array** (`--bordered`). On ℤ_m × GF(q) of order N − 1 (m even, bsz.py's array: Σ PAF = −4 off 0)
 the same splitting gives Σ PAF_y = −4q off 0, Σ PAF_z = R + 4 and (III); the counting identity becomes
 (q + 1) N_w − 4 N₋ = 4(m − 1), and for ε = −1 both fixed points 0 and m/2 of a ↦ −a are w-positions of A and B.

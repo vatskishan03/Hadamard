@@ -42,14 +42,28 @@ def grouped_tuples(cp, N, rows, scheme):
     d = cp.d
     tgt = CE.comp_target(cp.st, d)
     groups = []
+    gcache = cp.__dict__.setdefault("_group_cache", {})
     for (kind, w), r in zip(scheme, rows):
         comps = cp.compressions(kind, r)
         for x, n in comps.items():
             cp.compressions_cache[(kind, x)] = n
-        G = {}
-        for x in comps:
-            G.setdefault(tuple(w * CE.cpaf(cp.expand(kind, x))), []).append(x)
-        groups.append(G)
+        key = (kind, w, r)
+        if key not in gcache:
+            G = {}
+            if comps:
+                xs = list(comps)
+                X = np.array(xs, np.int64)                                   # (n, fibre classes)
+                fidx = np.zeros(d, np.int64)
+                for f, O in enumerate(cp.fc[kind]):
+                    fidx[O] = f
+                E = X[:, fidx]                                               # (n, d) compressions
+                P = np.stack([(E * np.roll(E, -t, axis=1)).sum(1) for t in range(d)], 1) * w
+                U, inv = np.unique(P, axis=0, return_inverse=True)
+                inv = np.asarray(inv).ravel()
+                for i, x in zip(inv, xs):
+                    G.setdefault(tuple(int(t) for t in U[i]), []).append(x)
+            gcache[key] = G
+        groups.append(gcache[key])
     if any(not G for G in groups):
         return []
     keys = [np.array(list(G), np.int64).reshape(-1, d) for G in groups]
