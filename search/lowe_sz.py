@@ -569,6 +569,9 @@ def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ord
         with open(sf) as f:
             lines = f.read().splitlines()
         state["total"] = len(lines)
+        # the progress file holds one line per finished split value, in order, since the split values were written
+        # (fresh join: "w"; continuations: "a"), so it also counts those of a run that was killed before saving state
+        state["done"] = max(state["done"], count_sigma(prog))
         if state["done"] >= len(lines):
             print(f"  kt4: all {len(lines)} split values were joined earlier [{time.time() - t0:.0f}s]", flush=True)
             return []

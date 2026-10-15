@@ -2517,7 +2517,12 @@ died: the 341 joins at their 8164th and 8514th split values, and bordered 203 �
 - The lists are saved by atomic renames, and the join records how many split values it finished, and on which merge
   classes, in `kt4_*.bin.state.json`.
 - A call stops by itself before its budget ends (exit code 75), and the same command continues: from the first
-  unfinished chunk, or from the first unjoined split value.
+  unfinished chunk, or from the first unjoined split value. A run killed outright loses only its current chunk or
+  split value: the join's count is reconciled with the progress file, which holds one line per finished split value.
+
+The container was reclaimed a second time at 03:16, 30 minutes after the session went idle, although a tracked
+background task (the queue runner) was alive. 13 of the 64 chunks of 203b's block C and 6032 more split values of the
+341 ⟨2⟩ join survived on disk.
 
 The test was bordered 183 ⟨3⟩ (order 366), from nothing, in steps of 150 s.
 - The chunked lists are identical to the unchunked run's: D passed 30300152 members at τ = 6.607, as before.
