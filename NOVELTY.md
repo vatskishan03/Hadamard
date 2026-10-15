@@ -11,6 +11,7 @@ corrections are welcome.
 | **New** | The order is open in the reference table for its family (below), and no later construction was found. |
 | **New, beyond the tables** | The order lies above the range of the reference tables. Where Table 1.53 of the Handbook covers it, the table gives t ≥ 3 (no Hadamard matrix of order 4n known), and no later construction was found. |
 | **First explicit construction** | A table records the order as known, but we could not trace any construction behind the entry. |
+| **Found concurrently** | As **New** when we found it, but a construction found independently by others became public around the same time. The family's README gives the dates. |
 | **Known** | An earlier construction exists. The matrix here is independent of it. |
 
 For skew and symmetric matrices the property is what is new: an ordinary Hadamard matrix of the same order may have
@@ -49,11 +50,16 @@ For every order we checked:
   - the deposits of Piza, Kline, Bedani, Karoui and Blackthorn;
   - Szöllősi, arXiv:2603.09572 (complex Hadamard matrices);
   - Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev, arXiv:2605.08661 (near-Williamson matrices);
+  - V. Zaitsev, *Quaternary Hadamard matrices*, https://www.cs.uleth.ca/~zaitsevv/quaternary.html (last updated
+    2026-10-14, read 2026-10-15). It has matrices of all 22 of our complex orders, found independently, so those
+    are **found concurrently** ([complex-hadamard](complex-hadamard/README.md#status));
 - searches of Zenodo (records matching "hadamard"), GitHub, the e-print sources of Hadamard-related arXiv papers
   (to 2026-10-08) and the math.CO listings (to 2026-10-12), the OEIS, MathOverflow, Balonin's catalogue and the Palomar
   registry.
 
-The searches were made between 12 and 14 October 2026.
+The searches were made between 12 and 14 October 2026. A second search for the complex orders, on 15 October 2026,
+found Zaitsev's page and Đoković's Williamson-type matrices of orders 509, 857 and 883 (arXiv:1008.2043), which give
+complex orders 1018, 1714 and 1766 that our status list had counted as open.
 
 ## Not checked
 
