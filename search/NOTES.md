@@ -2560,6 +2560,12 @@ The test was bordered 183 ⟨3⟩ (order 366), from nothing, in steps of 150 s.
   - No solution in a third of the law contradicts the hybrid (probability about 10⁻¹⁸), unless the retention of
     every solution is near 0 (the lottery of §34).
   - It is consistent with the per-class estimate.
+- After the second cycle 46729 split values are joined, without a solution. They hold 58.6% of the collision mass
+  and, by the r⁵ scaling, about 54% of the law. The remaining 253271 (up to about 92% of the law) would take about
+  ten more hours with four processes.
+  - With a log-uniform prior between the two estimates, updated on this result, the chance that they hold a
+    solution is about 20% (less if the lists hold none at all).
+  - The search was stopped there. The same `runq.py` ticket continues it from split value 46730.
 - Split values with the coarse class (shift 101, step 40) at ±40 carry much collision mass but come late in the
   law's order. That class is PAF(101) = 202 − 4|supp W| for the ℤ₂ split X = (X₀, X₁), W = X₀ − X₁, and the split
   value fixes how the 203 positions of Σ_k |supp W_k| = 203 divide between (A, C) and (B, D).
