@@ -1395,7 +1395,8 @@ def tuple_border(ts, tc, tup, borders):
 
 
 def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, log=None, maxsol=5, seed=1,
-           estimate_only=False, cond=None, refine=0, maxtup=400, pcond=None, coarse_ab=False, by_rate=False):
+           estimate_only=False, cond=None, refine=0, maxtup=400, pcond=None, coarse_ab=False, by_rate=False,
+           coarse=None):
     """refine > 0: the best `refine` tuples on the quotient pcond (default Q) are refined one by one on the finer
     quotient `cond` (their compressions there enumerated under the coarse ones), and the fine tuples of all of them
     are ranked together. coarse_ab: blocks A and B stay on the coarse quotient, so that one join covers every refinement
@@ -1405,7 +1406,13 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
     borders = {}
     if refine and cond is not None:
         tc0 = TComp(ts, pcond)
-        tl0 = tuples(tc0, rows, 1500, rng)
+        if coarse:                                     # coarse tuples given (JSON lines with "coarse" and "e0")
+            with open(coarse) as f:
+                recs = [json.loads(l) for l in f if l.startswith("{")]
+            tl0 = [(r.get("e0", 0.0), tuple(tuple(int(v) for v in x) for x in r["coarse"])) for r in recs
+                   if r.get("fine") is not None]
+        else:
+            tl0 = tuples(tc0, rows, 1500, rng)
         tl, nref, ntried, seen0 = [], 0, 0, set()
         for e0, tup0, *_ in tl0:
             if nref >= refine or ntried >= 10 * refine:
@@ -1652,6 +1659,8 @@ def main():
     ap.add_argument("--hits", help="certify: the hits file (JSON lines)"); ap.add_argument("--k", type=int, default=0)
     ap.add_argument("--refine", type=int, default=0, help="search with --cond: refine the best REFINE tuples on Q one "
                     "by one on the finer quotient")
+    ap.add_argument("--coarse", help="search --refine: refine these coarse tuples (JSON lines with 'coarse', 'e0' and "
+                    "'fine' not null) instead of ranking them")
     ap.add_argument("--by-rate", action="store_true", help="search: take the tuples in order of estimate per join "
                     "work (product of the C and D pools) instead of estimate")
     ap.add_argument("--coarse-ab", action="store_true", help="search --refine: list A and B on the coarse quotient "
@@ -1694,7 +1703,7 @@ def main():
         search(ts, rows, which, a.L, a.nsig, 5, a.K, a.threads, a.log, estimate_only=a.estimate_only, cond=cond,
                refine=a.refine, maxtup=a.maxtup,
                pcond=None if a.pcond is None else [int(x) for x in a.pcond.split(",")], coarse_ab=a.coarse_ab,
-               by_rate=a.by_rate)
+               by_rate=a.by_rate, coarse=a.coarse)
 
 
 if __name__ == "__main__":
