@@ -61,17 +61,20 @@ have 10⁸–10¹¹ members: every member is visited, those of low energy under 
 lists are joined by a k-tree; order 426 came from ⟨37⟩ on ℤ₂₁₃ with lists of 6435, 6435, 3 · 10⁷ and 3 · 10⁷).
 `search/comp_est.py`, `search/comp_triage.py` and `search/lowe_comp.py` condition the estimates and the low-energy
 lists on the block compressions to a quotient ℤ_d: a row pattern with no feasible compression has no solution, and
-the live patterns have far more than the plain Gaussian says ([search/NOTES.md](../search/NOTES.md) §42). Order 366 came
-from ⟨34⟩ on ℤ₁₈₃: its pattern 1, 23; 9, 11 lives on a single class of ℤ₃ compressions (A ≡ (−1, 1, 1), B ≡ (1, 11,
-11), C ≡ (−1, −1, 11), D ≡ (−11, 11, 11)), which the unconditioned low-energy lists had missed.
+the live patterns have far more than the plain Gaussian says ([search/NOTES.md](../search/NOTES.md) §42).
+Order 366 came from ⟨34⟩ on ℤ₁₈₃: its pattern 1, 23; 9, 11 lives on a single class of ℤ₃ compressions
+(A ≡ (−1, 1, 1), B ≡ (1, 11, 11), C ≡ (−1, −1, 11), D ≡ (−11, 11, 11)), which the unconditioned low-energy lists
+had missed.
 
 A second construction, the bordered Szöllősi array on a group of order N − 1, is stated and proved in
 [BORDERED.md](BORDERED.md). Order 454 comes from it: 227 is a safe prime, so ℤ₂₂₇ has no usable multiplier group,
 while ℤ₂₂₆ = ℤ₂ × ℤ₁₁₃ has ⟨49⟩ of order 7. Its fibre sums over ℤ₂ are ≡ ±1 (mod 14), which the Gaussian estimate
 ignores (10^0.6); conditioned on the compressions to ℤ₂ (`search/comp_est.py`) the estimate is 10^6.0, and the
 low-energy k-tree on one compression class (pools 4900, 4900, 1.7 · 10⁸, 1.3 · 10⁸, lists of 2 · 10⁷) found 64
-solutions in six minutes ([search/NOTES.md](../search/NOTES.md) §42). Two twisted specialisations of both arrays (B = A∘μ, D = C∘μ, and a half twist), which
-turn the four-sequence search into a two-list search, are in [TWISTED.md](TWISTED.md).
+solutions in six minutes ([search/NOTES.md](../search/NOTES.md) §42).
+
+Two twisted specialisations of both arrays (B = A∘μ, D = C∘μ, and a half twist), which turn the four-sequence search
+into a two-list search, are in [TWISTED.md](TWISTED.md).
 
 ## Matrices
 
