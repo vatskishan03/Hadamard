@@ -1464,6 +1464,7 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
     found = []
     seen = set()
     done = {}
+    sigs = {}
     for i in which:
         if i >= len(tl):
             break
@@ -1486,6 +1487,14 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
                 print(f"tuple {i}: {tup}: no border found, skipped", flush=True)
                 continue
         pools, plan = plan_tuple(ts, tc, tup, rows, Lmax, K, rng)
+        # tuples related by a symmetry of the structure permute their class values and give identical joins; a
+        # tuple with the same pools and the same multisets of class values as an earlier one is skipped (heuristic:
+        # it is not counted as searched)
+        sig = tuple(round(log10(max(p, 1)), 6) for p in pools) + tuple(tuple(sorted(x)) for x in tup)
+        if sig in sigs:
+            print(f"tuple {i}: same pools and value multisets as tuple {sigs[sig]}, skipped", flush=True)
+            continue
+        sigs[sig] = i
         lret = sum(log10(max(p[2], 1e-12)) for p in plan)
         print(f"tuple {i}: {tup}: pools {[f'{p:.3g}' for p in pools]}, logE {e:.2f}, kept "
               f"{[f'{p[0]:.3g}' for p in plan]}, retention {[f'{p[2]:.3g}' for p in plan]}, logE in lists "
