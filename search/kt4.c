@@ -384,7 +384,9 @@ int main(int argc, char **argv) {
             if (!hk || !ha || !hb) { fprintf(stderr, "kt4: out of memory at sigma %ld\n", ci + 1); return 3; }
             memset(hk, 0xff, 8 * cap);
             uint64_t mask = cap - 1;
-            #pragma omp parallel for schedule(dynamic, 64)
+            /* threads only when there is work: with many split values of a few pairs each, the fork/join of the
+             * parallel regions (and spinning threads on a loaded machine) cost far more than the pairs */
+            #pragma omp parallel for schedule(dynamic, 64) if(cnt > 65536)
             for (long u = 0; u < nm[0]; u++) {
                 long ga = mp[2 * u], gb = mp[2 * u + 1];
                 for (long pa = IA.start[ga]; pa < IA.start[ga + 1]; pa++) {
@@ -402,7 +404,7 @@ int main(int argc, char **argv) {
                     }
                 }
             }
-            #pragma omp parallel for schedule(dynamic, 64) reduction(+:ncd, fnd)
+            #pragma omp parallel for schedule(dynamic, 64) reduction(+:ncd, fnd) if(npairs[1] > 65536)
             for (long u = nm[0]; u < nm[0] + nm[1]; u++) {
                 long gc = mp[2 * u], gd = mp[2 * u + 1];
                 for (long pc = IC.start[gc]; pc < IC.start[gc + 1]; pc++) {

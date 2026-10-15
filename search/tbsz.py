@@ -1521,7 +1521,8 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
             continue
         with open(str(inp) + ".progress", "w") as errf:
             p = subprocess.run([W.bin("kt4"), str(inp), ",".join(map(str, Sx)), "@" + str(sf), str(maxsol)],
-                               stdout=subprocess.PIPE, stderr=errf, text=True)
+                               stdout=subprocess.PIPE, stderr=errf, text=True,
+                               env=dict(os.environ, OMP_WAIT_POLICY="PASSIVE", OMP_NUM_THREADS=str(threads)))
         tail = [l for l in p.stdout.splitlines() if l.startswith("TOTAL")]
         sols = [list(map(int, l.split()[1:5])) for l in p.stdout.splitlines() if l.startswith("SOL")]
         if not sols:                                   # the join input and masks are large: keep them only for hits
