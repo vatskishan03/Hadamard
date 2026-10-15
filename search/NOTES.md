@@ -2972,3 +2972,26 @@ differences, so it is a congruence obstruction at the ℤ₂ × ℤ₃² level (
 proved). In the refined ranking all four row patterns stay alive: 10^1.06 (0, 0; 4, 2), 10^1.41 (2, 0; 4, 0),
 10^1.34 (4, 0; 2, 0) and 10^1.88 (4, 2; 0, 0). For rows 2, 0; 4, 0 the first coarse tuples refine into 3000 live fine
 tuples each (about 10^0.8 per coarse tuple).
+
+**Symmetries of the fine tuples.** Joins are exact, so a tuple needs to be joined only once per orbit of the
+symmetries that map core solutions to core solutions. `search` now builds these orbits (`tuple_orbit`) from four
+kinds of move:
+- negating a block of row sum 0;
+- swapping C and D, or A and B, when their row sums agree;
+- automorphisms of G given by `--sym` that normalise H and preserve the target (here x₃ ↦ −x₃);
+- translating a block by an element of Fix(H). This keeps its PAF and its H-invariance; for the symmetric blocks
+  A and B only translations of order ≤ 2 are allowed.
+
+On the N = 167 structure Fix(H) = {(x₀, 0, 0, x₃, 0)} ≅ ℤ₂ × ℤ₃. One coarse tuple's 16,128 fine tuples fall into
+224 orbits. An orbit counts as searched only after one of its tuples has been joined. A tuple whose border check
+fails does not mark its orbit, because negations change the compressions on Q.
+
+The first runs lacked these orbits. They joined 353 fine tuples of rows 2, 0; 4, 0 and 77 of 4, 2; 0, 0
+(10^−2.0 and 10^−2.2 each, about 40 s and 3 min per join after the kt4 fix below), all without a core solution. Since
+translates sit next to each other in the estimate order, these joins cover far fewer distinct orbits than their
+number.
+
+**kt4 overhead.** With complete lists of 10⁵–10⁶ members, a join has 10⁴–10⁵ live split values of a few hundred
+pairs each. kt4 opened two OpenMP parallel regions per split value, and with threads spinning on a loaded machine
+this cost about 16 ms per split value: 11 minutes per join. The regions now run in parallel only above 65,536 pairs,
+and `search` starts kt4 with a passive wait policy: about 50 s per join.
