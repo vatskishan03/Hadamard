@@ -2524,3 +2524,31 @@ Typically also the class of a subgroup of order 7 is dead. Example, H = ⟨(0,1;
 Gaussian model ignores the subgroup classes, where the values of the blocks live on a coarse lattice. So the spin
 route to 4 · 2107 needs a structure without these subgroup classes, i.e. the cyclic group, where every structure is
 below 10⁻¹.
+
+## 40. What the rankings say about the remaining symmetric and FRONTIER leads (October 15)
+
+**The symmetric chain sweep beyond v ≈ 440.** The compressed propus sweep of §28 had covered the composite census
+values up to 435 (a coverage map rebuilt from the chain logs) before it was stopped; it is running again on the 85
+composite values from 445 to 995 (orbits 1–36). The corrected Gaussian (§29) puts every ranked structure with at most
+45 orbits for v ≥ 440 below 10^−1.5 (best: 589/⟨28⟩ 10^−1.5, 451/⟨5⟩ 10^−2.3, 445/⟨16⟩ 10^−3.1), so the sweep mostly
+produces exact negatives. The estimates were low by 10^1.4–10^1.9 for the two hits of this family (532, 876), so a
+hit is not excluded.
+
+**163 (order 652).** The estimates disagree with the exact count where the count is available. With H = ⟨38⟩ (order
+9; A on 10 orbits, B and D on 19, 9 classes) the corrected estimate is 10^1.47 for the row patterns (17, 1, 19) and
+(19, 1, 17), but the exhaustive joins (pools 126, 48 620, 43 758) are empty. This is not a congruence obstruction:
+the class values of A + D and of 2B reach compatible residue vectors modulo 2, 3, 4 and 8. With H = ⟨58⟩ (order 3)
+the estimate is 10^4.2 (rows 19, 11, 7), but the pools are 10^7.2, 10^15.2 and 10^15.3, beyond any join, and 163 is
+prime, so there is no compression.
+
+**FRONTIER 1169 by Spence spin structures** (NOTES.md §13 lists it as an untested survivor). The structure is
+G = GF(16) × ℤ₇₃ with μ(x, y) = (σx, hy), σ a primitive element of GF(16)* and h of order 9 in ℤ₇₃*,
+K = ⟨μ⟩ of order 45 and H = ⟨μ³⟩ of order 15 (`ss_core.Spin`): 34 K-orbits, 100 H-orbits, 17 classes,
+log₁₀ E = 4.94 (diagonal) and 6.78 (full covariance), pools 10^8.2 (A) and 10^27.9 (B). Its quotients are only ℤ₇₃
+(compressing GF(16); 4 classes) and GF(16) (1 class): σ is irreducible on GF(16), so there is no intermediate
+subgroup to play the part of ℤ₂² × ℤ₁₃ for 573. Over a ℤ₇₃-level solution each fibre GF(16) × {y} splits into
+{0} and the three cosets of the subgroup of order 5, so a compressed value ±16 or ±14 fixes the fibre and ±6 or ±4
+leaves the choice of the coset with the minority sign: a 3-colouring of about 33 fibre orbits, with the 12
+remaining class equations quadratic in it. Nothing like the rigid ℤ₁₁ fibre of 573 exists here, so the
+level-and-lift method does not transfer; a direct local search (joint space 10^36, about 10^−30 solutions per point)
+is far beyond what the tabu searches of §36 reach.
