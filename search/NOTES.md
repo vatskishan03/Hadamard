@@ -2491,3 +2491,36 @@ back-circulant, so each pair condition depends only on d_j − d_i or d_i + d_j)
 anti-automorphisms of the n = 5 and n = 7 solutions of `gs_anti.py`.) This is what §31 predicts: such a P either
 leaves (n + 3)/2 free classes or forces the skew-propus layout, a special propus quadruple, which the symmetric
 sweeps search directly.
+
+## 39. Spin structures over ℤ₇² × ℤ₄₃: the order 8428 = 4 · 2107 is out of reach this way (October 15)
+
+2107 = 7² · 43 is in the skew census, and 4 · 2107 = 1 + 3 · 53², so spin structures (row sums 1, 53, 53, 53) are
+admissible. Over the cyclic group they are all below 10⁻¹ (§14). Over ℤ₇² × ℤ₄₃, with automorphisms
+(x, y) ↦ (Mx, uy) from GL(2, 7) × ℤ₄₃*, `spin_group.py rank 7 43` lists 401 pairs (H, μ) and gives 38 a finite
+estimate, up to 10^18.5 (7 K-classes). The exact fibre test of §36, generalised to this group (`spin_group.py check
+7 43 H μ`), decides every class whose K-orbit generates a proper subgroup U from the attainable values of P_A and of
+T_B on the cosets of U.
+
+The 19 structures with the highest estimates (all with log₁₀ E > −0.5, the other 19 lower) are **infeasible**, each on
+the class of the subgroup {0} × ℤ₄₃ (|U| = 43): the skew block A only reaches values of P_A that −T_B cannot match.
+Typically also the class of a subgroup of order 7 is dead. Example, H = ⟨(0,1;6,6), 4⟩, μ = ((0,1;5,3), 6), estimate
+10^18.5: on the class of U = ℤ₄₃, P_A ∈ {−49, 191, 215, 1631, 1799, 1871, 1895, 2039} while T_B ≥ −111 never meets
+−P_A; on the class of order 7, P_A ∈ {1763, 1931, 2099} against T_B ≥ −891.
+
+| H | μ | K-classes | log₁₀ E | dead classes |
+|---|---|---:|---:|---|
+| (0,1;6,6), 4 | (0,1;5,3), 6 | 7 | 18.52 | U = ℤ₄₃, \|U\| = 7 |
+| (0,1;3,5), 10 | (0,2;3,6), 1 | 7 | 18.32 | the same |
+| (0,2;5,5), 10 | (0,1;3,5), 6 | 7 | 18.32 | the same |
+| four more with 7 classes | | 7 | 15.9–17.7 | the same |
+| six with 11 classes | | 11 | 12.0–12.5 | the same |
+| (0,2;3,6), 9 | (0,1;6,6), 6 | 15 | 4.02 | the same |
+| (0,1;6,6), 10 | (0,2;3,6), 9 | 15 | 4.00 | the same |
+| (0,1;3,5), 10 | (0,4;3,3), 1 | 13 | 2.76 | the same |
+| (0,2;3,2), 15 | (0,1;3,5), 1 | 13 | 1.04 | the same |
+| two with 19 classes | | 19 | −0.4 | U = ℤ₄₃ |
+
+(M written a,b;c,d for the matrix [[a, b], [c, d]] over GF(7), then the unit of ℤ₄₃.) As for 721 and 817 (§36), the
+Gaussian model ignores the subgroup classes, where the values of the blocks live on a coarse lattice. So the spin
+route to 4 · 2107 needs a structure without these subgroup classes, i.e. the cyclic group, where every structure is
+below 10⁻¹.
