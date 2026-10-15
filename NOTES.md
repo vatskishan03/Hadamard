@@ -3,7 +3,7 @@
 What we learned while searching for the unresolved orders in [FRONTIER.md](FRONTIER.md), including the searches
 that found nothing. Section 1 is a mechanism, sections 2–4 and 6 are negative results, and section 5 is the literature
 as of October 2026. Section 7 collects corrections to the tables and the Williamson-type routes, sections 8–12 the
-complex Hadamard matrices, and section 13 the Spence spin structures behind order 2292. The notes on the individual
+complex Hadamard matrices, section 13 the Spence spin structures behind order 2292, and section 14 the complex order 330. The notes on the individual
 search programs are in [search/NOTES.md](search/NOTES.md).
 
 ## 1. Why some structures have many solutions
@@ -510,3 +510,18 @@ with blocks (A, B, B∘μ, B∘μ²). Here H is a group of automorphisms, μ nor
 
 Every other open n tested is excluded by the arithmetic gate, by row sums, or at a coarse quotient. Coverage is
 incomplete for some non-cyclic groups (ℤ₂⁴ beyond ΓL(2,4), ℤ₃³, ℤ₅³).
+
+## 14. A Paley product gives the complex order 330 (October 15)
+
+For N = m q and H the squares of GF(q) acting trivially on ℤ_m, every block of Szöllősi's array is u ⊗ δ + w ⊗ J +
+z ⊗ χ, with at each a ∈ ℤ_m either a z-position (w = 0, u, z = ±1) or a w-position (z = 0, w = ±1, u ∈ {0, −2w}).
+The condition splits into three equations over ℤ_m; the compressions y = u + q w carry the first two, and their value
+at 0 is the counting identity (q + 1) N_w − 4 N₋ = 4m of §1. `search/ssxx_paley.py` lists the w-skeletons up to
+symmetry and joins the remaining ±1 values exactly in two stages; it reproduces the exact solution counts of
+`search/ssxx.py` at N = 65 and 77.
+- **N = 165 = 15 · 11** (q = 11, N_w = 6): verified solutions, hence the complex Hadamard matrix of order 330
+  ([C330.json](complex-hadamard/C330.json)), blank in the 1992 table and in every family we checked.
+- **Empty**: N = 171, 253, 275, 323, 345, 391, 513 and 629 (every admissible N_w, exhaustive), and 207 by the counting
+  identity alone. As for the skew Paley products, small m is rich and the cases q ≈ 2m are thin
+  ([search/NOTES.md](search/NOTES.md) §41).
+

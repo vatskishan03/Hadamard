@@ -2552,3 +2552,56 @@ leaves the choice of the coset with the minority sign: a 3-colouring of about 33
 remaining class equations quadratic in it. Nothing like the rigid ℤ₁₁ fibre of 573 exists here, so the
 level-and-lift method does not transfer; a direct local search (joint space 10^36, about 10^−30 solutions per point)
 is far beyond what the tabu searches of §36 reach.
+
+## 41. Paley products for the complex orders: order 330 (October 15)
+
+**Structure.** For N = m q with q a prime or prime power, gcd(m, q) = 1, and H = {h : h ≡ 1 (mod m), h a square in
+GF(q)}, every block of Szöllősi's array (A, B symmetric, C, D arbitrary) is X = u ⊗ δ + w ⊗ J + z ⊗ χ as in §15, and
+the condition splits on δ, J and χ (ε = χ(−1), (f ⋆ g)(s) = Σ_a f(a + s) g(a)):
+
+    (I)   Σ_k PAF_{u_k} + q PAF_{z_k}                 = 4N δ
+    (II)  Σ_k (u_k ⋆ w_k + w_k ⋆ u_k) + q PAF_{w_k}   = Σ_k PAF_{z_k}
+    (III) Σ_k ε (u_k ⋆ z_k) + (z_k ⋆ u_k)              = 0.
+
+The symmetric blocks have u, w even and z(−a) = ε z(a), so for q ≡ 3 (mod 4) position 0 of A and of B is a
+w-position. The compressions y_k = u_k + q w_k to ℤ_m satisfy Σ PAF_y = 4N δ, which is (I) + q (II); given it, (I)
+and (II) are equivalent, and its value at 0 is the counting identity (q + 1) N_w − 4 N₋ = 4m of §15.
+
+**Solver** (`search/ssxx_paley.py`, exact). The skeletons (w-positions and their values ±q, ±(q − 2)) are listed up
+to multipliers of ℤ_m, translations and reversal of C and D, block signs and the swaps A ↔ B, C ↔ D. Stage 1 joins,
+per skeleton, the ±1 entries of y on Σ PAF_y = 0 (join4x); its solutions are reduced to one per orbit of the same
+group; stage 2 joins the z_k on (II) and (III). Every hit is lifted to ℤ_N and checked as a complex Hadamard matrix.
+- Validation against the exact joins of `ssxx.py` on the same structures, without symmetry reduction: N = 77 = 7 · 11
+  gives 451,584 = 16 · (2 · 2352 + 4 · 1176 + 4 · 2352 + 4 · 2352) solutions (its four row patterns, times block signs
+  and orderings), and N = 65 = 5 · 13 (q ≡ 1 mod 4) gives 38,400 = 16 · 2400. With the reduction, N = 77 has the same
+  6 stage-1 orbits, of which the same 4 extend.
+
+**Order 330.** N = 165 = 15 · 11, H = ⟨136⟩ of order 5. The counting identity allows (N_w, N₋) = (5, 0), (6, 3) and
+(7, 6). N_w = 5 (34 skeletons) has no solution. Among the 2455 skeletons of N_w = 6 the run had found three verified
+solutions when it ran out of memory (it kept every stage-1 orbit as a tuple; now they are packed bytes, and the
+exhaustive count is being rerun). This gives the complex Hadamard matrix of order 330 ([C330.json](../complex-hadamard/C330.json), rows
+7, 9; 1, 23). The order is blank in Seberry–Yamada's Table 11.2, 329 = 7 · 47 is not a prime power, and no
+quaternary Legendre pair of length 164 is known (neither family of Jedwab–Pender covers it).
+
+**Empty structures** (every admissible (N_w, N₋), all skeletons, all stage-1 orbits):
+
+| N | m × q | (N_w, N₋) | skeletons | stage-1 solutions (orbits) | stage 2 |
+|---:|---|---|---:|---|---:|
+| 171 | 9 × 19 | (2, 1) | 1 | 486 (1) | 0 |
+| 253 | 11 × 23 | (2, 1) | 1 | 0 | – |
+| 275 | 11 × 25 | (2, 2) | 6 | 1,120 (14) | 0 |
+| 323 | 17 × 19 | (4, 3) | 10 | 480 (14) | 0 |
+| 345 | 15 × 23 | (3, 3) | 1 | 240 (1) | 0 |
+| 391 | 17 × 23 | (3, 1) | 2 | 0 | – |
+| 513 | 19 × 27 | (3, 2) | 2 | 1,368 (1) | 0 |
+| 629 | 17 × 37 | (2, 2) | 6 | 24,832 (194) | 0 |
+
+So the orders 342, 506, 550, 646, 690, 782, 1026 and 1258 have no Szöllősi matrix invariant under the Paley-product
+group (nor under any larger multiplier group containing it). The counting identity alone empties 207 = 9 · 23 (no
+admissible N_w ≥ 2). Small q relative to m (q = 11 for m = 15) means more w-positions and many more skeletons; that is
+where the solutions were. The q ≈ 2m cases, with two or three w-positions, have few stage-1 solutions and none
+extends.
+
+**A bug in `lowe_sz.py`.** Its ordered split values were computed for the pair (A, B), while kt4 joins (A, C) and
+(B, D): at N = 183 every split value missed the lattice of A + C (residue 18 against 2 modulo 20 on the first merge
+class), and the first join examined no pair at all. Fixed; the 183 join is repeated from the saved lists.

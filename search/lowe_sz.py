@@ -217,7 +217,7 @@ def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ord
     sigarg = str(int(nsig))
     if ordered:
         sf = Path(str(inp) + ".sig")
-        n, rad = sigma_file([lists[k] for k in order], Sx, st.target, nsig, sf)
+        n, rad = sigma_file(lists, Sx, st.target, nsig, sf)        # natural order: (a + c) = kt4's first pair
         sigarg = "@" + str(sf)
         print(f"  kt4: merge classes {Sx}, {n} split values by the solution law (Mahalanobis radius {rad:.2f})",
               flush=True)

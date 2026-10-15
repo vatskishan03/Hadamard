@@ -78,7 +78,7 @@ def corr(F, G, s):
 
 class Paley:
     def __init__(self, N, q):
-        assert N % q == 0 and q >= 5
+        assert N % q == 0 and 5 <= q < 128           # y values are stored as int8
         self.N, self.q, self.m = N, q, N // q
         self.prime = all(q % p for p in range(2, int(q ** 0.5) + 1))
         m = self.m
@@ -386,17 +386,17 @@ def run(N, q, all_=False, log=None, threads=None, maxsol=10 ** 6, raw=False, ver
                 print(f"  WARNING: {tot} stage-1 solutions, only {len(sols)} kept (--maxsol)", flush=True)
             if not sols:
                 continue
-            reps = {}
+            reps = set()                       # canonical stage-1 solutions as bytes (int8, 4 m entries)
             for ids in sols:
                 ys = [lists[k][ids[k]] for k in range(4)]
                 c = ys if raw else P.canon_y(ys)
-                key = tuple(tuple(int(v) for v in y) for y in c)
-                reps.setdefault(key, [np.array(y, np.int64) for y in c])
+                reps.add(np.asarray(c, np.int8).tobytes())
             n1o += len(reps)
             if verbose:
                 print(f"  skeleton {sk}: stage 1 {tot} solutions, {len(reps)} orbits [{time.time() - t0:.0f}s]",
                       flush=True)
-            for ys in reps.values():
+            for key in sorted(reps):
+                ys = list(np.frombuffer(key, np.int8).astype(np.int64).reshape(4, m))
                 tot2, zs, U, Wv = P.stage2(ys, K=1, threads=threads, normz=not raw)
                 n2 += tot2
                 if tot2 and not P.prime:

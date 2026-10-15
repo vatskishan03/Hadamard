@@ -53,7 +53,10 @@ prime N the Gaussian estimate of the hits inside the samples is accurate: 1445 e
 group-developed matrices over any abelian group, and `verify/verify_complex.py` checks such certificates),
 `search/ssxx_certify.py` (certificates), `search/cchain4.py` and `search/cchain_sweep.py` (structures whose complete
 lists are too large to join: an exact compression chain over the subgroups of ℤ_N, as for order 3964; order 310 came
-from ⟨16⟩ on ℤ₁₅₅ with lists of 10⁴, 10⁴, 7 · 10⁸ and 6 · 10⁸, compressed to ℤ₅ and split on ℤ₃₁).
+from ⟨16⟩ on ℤ₁₅₅ with lists of 10⁴, 10⁴, 7 · 10⁸ and 6 · 10⁸, compressed to ℤ₅ and split on ℤ₃₁),
+`search/ssxx_paley.py` (Paley products N = m · q with H the squares of GF(q) acting trivially on ℤ_m: every block is
+u ⊗ δ + w ⊗ J + z ⊗ χ, and the search is exact over the w-positions and two joins over ℤ_m; order 330 came from
+ℤ₁₅ × GF(11), [search/NOTES.md](../search/NOTES.md) §41).
 
 A second construction, the bordered Szöllősi array on a group of order N − 1, is stated and proved in
 [BORDERED.md](BORDERED.md). Two twisted specialisations of both arrays (B = A∘μ, D = C∘μ, and a half twist), which
@@ -72,6 +75,7 @@ turn the four-sequence search into a two-list search, are in [TWISTED.md](TWISTE
 | 302 | 151 | ⟨8⟩, order 5 | 9, 9; 9, 19 | [C302.json](C302.json) |
 | 310 | 155 = 5 · 31 | ⟨16⟩, order 5 (compression chain, `search/cchain4.py`) | 9, 9; 13, 17 | [C310.json](C310.json) |
 | 326 | 163 | ⟨38⟩, order 9 | 17, 19; 1, 1 | [C326.json](C326.json) |
+| 330 | 165 = 3 · 5 · 11 | ⟨136⟩, order 5 (Paley product ℤ₁₅ × GF(11), `search/ssxx_paley.py`) | 7, 9; 1, 23 | [C330.json](C330.json) |
 | 370 | 185 = 5 · 37 | ⟨9⟩, order 18 | 3, 3; 19, 19 | [C370.json](C370.json) |
 | 382 | 191 | ⟨39⟩, order 5 (streaming k-tree, `search/kstream.py`) | 11, 11; 9, 21 | [C382.json](C382.json) |
 | 494 | 247 = 13 · 19 | ⟨9, 35⟩, order 27 | 17, 19; 7, 17 | [C494.json](C494.json) |
@@ -114,8 +118,8 @@ The sweep's candidate list (`python3 search/ssxx_sweep.py list`) is exactly the 
 minus these. The 2026 papers cite the updated Table 11.2 of Seberry and Yamada's 2020 book (Wiley), which we could
 not consult. A construction published between 1992 and 2020 and recorded only there is the remaining caveat.
 
-**What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 214 values of N < 1000
-have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 214, 322, 330, 334, 342, 358,
-366, 406, 414, 418, 426, 430, …. Order 214 (N = 107) is out of reach of every structure we have: 107 and 53 = (107 −
+**What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 213 values of N < 1000
+have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 214, 322, 334, 342, 358, 366,
+406, 414, 418, 426, 430, 438, …. Order 214 (N = 107) is out of reach of every structure we have: 107 and 53 = (107 −
 1)/2 are both prime, so neither ℤ₁₀₇ nor ℤ₁₀₆ has a usable multiplier group, and no quaternary Legendre pair family
 covers length 106.
