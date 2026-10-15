@@ -32,6 +32,8 @@ of stage-2 solutions is reported, so a run that ends without a hit rules the str
     python3 search/ssxx_paley.py N q [--all] [--log FILE] [--threads T] [--maxsol K]
     python3 search/ssxx_paley.py N q --raw        (no symmetry reduction: counts every solution, for testing)
     python3 search/ssxx_paley.py N q --sample K [--seed S]   (K random skeletons; for structures with too many)
+    python3 search/ssxx_paley.py N q --bordered ...  (the bordered array of search/bsz.py on Z_m x GF(q), m = (N - 1)/q
+                                                      even: sum PAF = -4 off 0, stage-1 target -4q, stage 2 R + 4)
 """
 import argparse, itertools, json, math, os, struct, subprocess, sys, tempfile, time
 import numpy as np
@@ -78,11 +80,12 @@ def gf_chi(q):
     raise ValueError("no irreducible polynomial found")
 
 
-def admissible(m, q):
-    """(N_w, N_-) with (q + 1) N_w - 4 N_- = 4m and 0 <= N_- <= N_w."""
+def admissible(m, q, bordered=False):
+    """(N_w, N_-) with (q + 1) N_w - 4 N_- = 4m (bordered: 4(m - 1)) and 0 <= N_- <= N_w."""
     out = []
+    rhs = 4 * (m - 1) if bordered else 4 * m
     for nw in range(0, 4 * m + 1):
-        t = (q + 1) * nw - 4 * m
+        t = (q + 1) * nw - rhs
         if t >= 0 and t % 4 == 0 and t // 4 <= nw:
             out.append((nw, t // 4))
     return out
@@ -107,37 +110,49 @@ def corr(F, G, s):
 
 
 class Paley:
-    def __init__(self, N, q):
-        assert N % q == 0 and 5 <= q < 128           # y values are stored as int8
-        self.N, self.q, self.m = N, q, N // q
+    def __init__(self, N, q, bordered=False):
+        v = N - 1 if bordered else N               # bordered: the group has order N - 1 (search/bsz.py)
+        assert v % q == 0 and 5 <= q < 128           # y values are stored as int8
+        self.N, self.v, self.q, self.m, self.bordered = N, v, q, v // q, bordered
         self.prime = all(q % p for p in range(2, int(q ** 0.5) + 1))
         m = self.m
-        assert math.gcd(m, q) == 1 and m % 2 == 1 and m >= 3
-        self.h = (m - 1) // 2
+        assert math.gcd(m, q) == 1 and m % 2 == (0 if bordered else 1) and m >= 2
+        assert self.prime or not bordered
+        self.h = m // 2                              # shifts 1..h cover the nonzero shifts up to sign
+        self.fixed = [0] + ([m // 2] if m % 2 == 0 else [])     # fixed points of a -> -a
+        self.reps = list(range(1, (m + 1) // 2))   # representatives of the pairs {a, -a}
+        self.T1 = -4 * q if bordered else 0          # stage 1: sum PAF_y(s) = T1 (s != 0)
+        self.T2 = 4 if bordered else 0               # stage 2: sum PAF_z(s) = R(s) + T2
         self.eps = 1 if q % 4 == 1 else -1
         self.units = [t for t in range(1, m) if math.gcd(t, m) == 1]
         if self.prime:          # prime powers: stages 1 and 2 only depend on q and eps (no lift yet)
             self.chi = chi_table(q)
             r = next(g for g in range(2, q) if all(pow(g, (q - 1) // p, q) != 1 for p in range(2, q)
                                                     if (q - 1) % p == 0 and all(p % d for d in range(2, p))))
-            self.gen = next(x for x in range(N) if x % m == 1 % m and x % q == r * r % q)
+            self.gen = next(x for x in range(v) if x % m == 1 % m and x % q == r * r % q)
         else:
             self.gen = None
             pp, kk, self.poly, self.chi = gf_chi(q)
             self.group = [m] + [pp] * kk           # Z_m x GF(q)^+, mixed radix, last factor fastest
-        a = np.arange(N)
-        self.ia, self.iy = a % m, a % q            # CRT coordinates of each element of Z_N
+        a = np.arange(v)
+        self.ia, self.iy = a % m, a % q            # CRT coordinates of each element of Z_v
 
     # ---------- skeletons ----------
+    def fixed_choices(self):
+        """w-sets among the fixed points of a -> -a: all of them when eps = -1 (z vanishes there), any otherwise."""
+        if self.eps == -1:
+            return [tuple(self.fixed)]
+        return [c for r in range(len(self.fixed) + 1) for c in itertools.combinations(self.fixed, r)]
+
     def sym_options(self, maxw, maxm):
         m, q, h = self.m, self.q, self.h
         out = []
-        for z0 in ([True] if self.eps == -1 else [False, True]):
-            for npairs in range(0, (maxw - z0) // 2 + 1):
-                for P in itertools.combinations(range(1, h + 1), npairs):
-                    slots = ([0] if z0 else []) + list(P)
+        for fx in self.fixed_choices():
+            for npairs in range(0, (maxw - len(fx)) // 2 + 1):
+                for P in itertools.combinations(self.reps, npairs):
+                    slots = list(fx) + list(P)
                     for mags in itertools.product((q, q - 2), repeat=len(slots)):
-                        cm = sum(1 if s == 0 else 2 for s, mg in zip(slots, mags) if mg == q - 2)
+                        cm = sum(1 if s in self.fixed else 2 for s, mg in zip(slots, mags) if mg == q - 2)
                         if cm > maxm:
                             continue
                         for sg in itertools.product((1, -1), repeat=max(len(slots) - 1, 0)):
@@ -249,20 +264,21 @@ class Paley:
         probability proportional to the number of (position set, magnitude) choices, then positions, magnitudes and
         signs uniformly. Returns None if no skeleton has these counts."""
         m, q, h = self.m, self.q, self.h
-        zs = [1] if self.eps == -1 else [0, 1]
+        nrep = len(self.reps)
+        fxs = self.fixed_choices()
         dists, weights = [], []
-        for zA in zs:
-            for zB in zs:
-                for pA in range(0, h + 1):
-                    for pB in range(0, h + 1):
-                        rest = nw - zA - zB - 2 * pA - 2 * pB
+        for fA in fxs:
+            for fB in fxs:
+                for pA in range(0, nrep + 1):
+                    for pB in range(0, nrep + 1):
+                        rest = nw - len(fA) - len(fB) - 2 * pA - 2 * pB
                         if rest < 0:
                             continue
                         for nC in range(0, min(rest, m) + 1):
                             nD = rest - nC
                             if nD > m:
                                 continue
-                            slots = [1] * zA + [2] * pA + [1] * zB + [2] * pB + [1] * (nC + nD)
+                            slots = [1] * len(fA) + [2] * pA + [1] * len(fB) + [2] * pB + [1] * (nC + nD)
                             ways = [1] + [0] * nm          # magnitude choices with weighted minus count nm
                             for wgt in slots:
                                 new = ways[:]
@@ -271,23 +287,24 @@ class Paley:
                                 ways = new
                             if ways[nm] == 0:
                                 continue
-                            cnt = (math.comb(h, pA) * math.comb(h, pB) * math.comb(m, nC) * math.comb(m, nD)
+                            cnt = (math.comb(nrep, pA) * math.comb(nrep, pB) * math.comb(m, nC) * math.comb(m, nD)
                                    * ways[nm])
-                            dists.append((zA, zB, pA, pB, nC, nD)); weights.append(cnt)
+                            dists.append((fA, fB, pA, pB, nC, nD)); weights.append(cnt)
         if not dists:
             return None
         w = np.array(weights, np.float64)
-        zA, zB, pA, pB, nC, nD = dists[rng.choice(len(dists), p=w / w.sum())]
+        fA, fB, pA, pB, nC, nD = dists[rng.choice(len(dists), p=w / w.sum())]
+        reps = np.array(self.reps)
         while True:                                    # magnitudes: rejection on the minus count
-            PA = sorted(rng.choice(np.arange(1, h + 1), pA, replace=False).tolist()) if pA else []
-            PB = sorted(rng.choice(np.arange(1, h + 1), pB, replace=False).tolist()) if pB else []
+            PA = sorted(rng.choice(reps, pA, replace=False).tolist()) if pA else []
+            PB = sorted(rng.choice(reps, pB, replace=False).tolist()) if pB else []
             WC = sorted(rng.choice(m, nC, replace=False).tolist()) if nC else []
             WD = sorted(rng.choice(m, nD, replace=False).tolist()) if nD else []
-            slotsA = ([0] if zA else []) + PA
-            slotsB = ([0] if zB else []) + PB
+            slotsA = list(fA) + PA
+            slotsB = list(fB) + PB
             mags = {k: rng.choice([q, q - 2], len(sl)) for k, sl in enumerate((slotsA, slotsB, WC, WD))}
-            cm = sum((1 if s_ == 0 else 2) * (mg == q - 2) for s_, mg in zip(slotsA, mags[0])) + \
-                sum((1 if s_ == 0 else 2) * (mg == q - 2) for s_, mg in zip(slotsB, mags[1])) + \
+            cm = sum((1 if s_ in self.fixed else 2) * (mg == q - 2) for s_, mg in zip(slotsA, mags[0])) + \
+                sum((1 if s_ in self.fixed else 2) * (mg == q - 2) for s_, mg in zip(slotsB, mags[1])) + \
                 int(np.sum(mags[2] == q - 2)) + int(np.sum(mags[3] == q - 2))
             if cm == nm:
                 break
@@ -309,19 +326,18 @@ class Paley:
         m, h = self.m, self.h
         Wd = dict(Wt)
         if sym:
-            free = [a for a in range(1, h + 1) if a not in Wd]
-            zero_free = 0 not in Wd
-            nf = len(free) + zero_free
-            S = allpm(nf)
+            free = [a for a in self.reps if a not in Wd]
+            ffree = [f for f in self.fixed if f not in Wd]       # 0 first when free
+            S = allpm(len(free) + len(ffree))
             if not Wd and not raw:
-                S = S[S[:, -1] == 1] if zero_free else S
+                S = S[S[:, len(free)] == 1]                     # y(0) = +1 (negation)
             Y = np.zeros((len(S), m), np.int8)
             for p, v in Wd.items():
                 Y[:, p] = v
             for j, a in enumerate(free):
                 Y[:, a] = S[:, j]; Y[:, m - a] = S[:, j]
-            if zero_free:
-                Y[:, 0] = S[:, -1]
+            for j, f in enumerate(ffree):
+                Y[:, f] = S[:, len(free) + j]
         else:
             free = [a for a in range(m) if a not in Wd]
             S = allpm(len(free))
@@ -365,14 +381,14 @@ class Paley:
         m, h, eps = self.m, self.h, self.eps
         zpos = [a for a in range(m) if abs(int(y[a])) == 1]
         if sym:
-            free = [a for a in range(1, h + 1) if abs(int(y[a])) == 1]
-            zero_free = abs(int(y[0])) == 1 and eps == 1
-            S = allpm(len(free) + zero_free)
+            free = [a for a in self.reps if abs(int(y[a])) == 1]
+            ffree = [f for f in self.fixed if abs(int(y[f])) == 1] if eps == 1 else []
+            S = allpm(len(free) + len(ffree))
             Z = np.zeros((len(S), m), np.int8)
             for j, a in enumerate(free):
                 Z[:, a] = S[:, j]; Z[:, m - a] = eps * S[:, j]
-            if zero_free:
-                Z[:, 0] = S[:, -1]
+            for j, f in enumerate(ffree):
+                Z[:, f] = S[:, len(free) + j]
         else:
             S = allpm(len(zpos))
             if fix_first and len(zpos):
@@ -394,7 +410,8 @@ class Paley:
         for u, w in zip(U, Wv):
             for s in range(1, h + 1):
                 R[s - 1] += corr(u, w, s) + corr(w, u, s) + q * corr(w, w, s)
-        S3 = list(range(1, h + 1)) if eps == -1 else list(range(0, h + 1))
+        # (III) is odd in s for eps = -1 (nothing to check at s = 0 or s = m/2), even for eps = +1
+        S3 = [s_ for s_ in range(1, h + 1) if (2 * s_) % m] if eps == -1 else list(range(0, h + 1))
         # global z -> -z (a non-square multiplier of Z_q): fix the first free z of the largest list
         sizes = [int(np.sum(np.abs(y) == 1)) for y in ys]
         big = 2 + int(np.argmax(sizes[2:]))
@@ -405,7 +422,7 @@ class Paley:
             P = pafs(Zi, h)
             Cc = np.stack([eps * corr(U[k][None, :], Zi, s) + corr(Zi, U[k][None, :], s) for s in S3], axis=1)
             keys.append(np.concatenate([P, Cc], axis=1).astype(np.int16)); Zs.append(Z)
-        tgt = np.concatenate([R, np.zeros(len(S3), np.int64)]).astype(np.int16)
+        tgt = np.concatenate([R + self.T2, np.zeros(len(S3), np.int64)]).astype(np.int16)
         total, sols = join(keys, tgt, K, threads)
         out = []
         for ids in sols:
@@ -430,7 +447,12 @@ def record_hit(P, seqs, log):
     """Check a lifted solution as a complex Hadamard matrix and log it; returns the row sums."""
     rows = [int(x.sum()) for x in seqs]
     strs = ["".join('+' if v > 0 else '-' for v in x) for x in seqs]
-    if P.prime:
+    if P.bordered:
+        import bsz
+        Kr, Ki, b = bsz.build(seqs)
+        rec = {"N": P.N, "m": P.v, "gens": [P.gen], "subgroup_order": (P.q - 1) // 2, "paley": [P.m, P.q],
+               "rowsums": rows, "border": [[int(z.real), int(z.imag)] for z in b], "sequences": strs}
+    elif P.prime:
         ssxx.complex_hadamard(seqs)
         rec = {"N": P.N, "gens": [P.gen], "subgroup_order": (P.q - 1) // 2, "paley": [P.m, P.q], "rowsums": rows,
                "sequences": strs}
@@ -481,14 +503,15 @@ def join(keys, tgt, K, threads=None):
     return total, sols
 
 
-def run(N, q, all_=False, log=None, threads=None, maxsol=10 ** 6, raw=False, verbose=True):
-    P = Paley(N, q)
+def run(N, q, all_=False, log=None, threads=None, maxsol=10 ** 6, raw=False, verbose=True, bordered=False):
+    P = Paley(N, q, bordered)
     m, h = P.m, P.h
     t0 = time.time()
-    adm = admissible(m, q)
+    adm = admissible(m, q, bordered)
     if P.eps == -1:
-        adm = [(a, b) for a, b in adm if a >= 2]
-    print(f"N={N} = {m} x {q}, eps={P.eps}, H=<{P.gen}> of order {(q - 1) // 2}; admissible (N_w, N_-): {adm}",
+        adm = [(a, b) for a, b in adm if a >= 2 * len(P.fixed)]
+    print(f"N={N}{' bordered' if bordered else ''}: {m} x {q}, eps={P.eps}, H=<{P.gen}> of order {(q - 1) // 2}; "
+          f"admissible (N_w, N_-): {adm}",
           flush=True)
     found, nsk, n1, n1o, n2 = [], 0, 0, 0, 0
     for nw, nm in adm:
@@ -498,7 +521,7 @@ def run(N, q, all_=False, log=None, threads=None, maxsol=10 ** 6, raw=False, ver
             nsk += 1
             lists = [P.ylist(sk[k], k < 2, raw=raw) for k in range(4)]
             keys = [pafs(Y, h).astype(np.int16) for Y in lists]
-            tot, sols = join(keys, np.zeros(h, np.int16), maxsol, threads)
+            tot, sols = join(keys, np.full(h, P.T1, np.int16), maxsol, threads)
             n1 += tot
             if tot > len(sols):
                 print(f"  WARNING: {tot} stage-1 solutions, only {len(sols)} kept (--maxsol)", flush=True)
@@ -533,13 +556,14 @@ def run(N, q, all_=False, log=None, threads=None, maxsol=10 ** 6, raw=False, ver
     return found
 
 
-def sample(N, q, K, seed=1, log=None, threads=None, maxsol=10 ** 6):
+def sample(N, q, K, seed=1, log=None, threads=None, maxsol=10 ** 6, bordered=False):
     """Random skeletons (not exhaustive): stages 1 and 2 on each, stop at the first verified hit."""
-    P = Paley(N, q)
+    P = Paley(N, q, bordered)
     m, h = P.m, P.h
     rng = np.random.default_rng(seed)
-    adm = [(a, b) for a, b in admissible(m, q) if P.eps == 1 or a >= 2]
-    print(f"N={N} = {m} x {q}, eps={P.eps}: sampling {K} skeletons over {adm} (seed {seed})", flush=True)
+    adm = [(a, b) for a, b in admissible(m, q, bordered) if P.eps == 1 or a >= 2 * len(P.fixed)]
+    print(f"N={N}{' bordered' if bordered else ''}: {m} x {q}, eps={P.eps}: sampling {K} skeletons over {adm} "
+          f"(seed {seed})", flush=True)
     t0, seen, n1 = time.time(), set(), 0
     for it in range(K):
         nw, nm = adm[rng.integers(len(adm))]
@@ -549,7 +573,7 @@ def sample(N, q, K, seed=1, log=None, threads=None, maxsol=10 ** 6):
         seen.add(sk)
         lists = [P.ylist(sk[k], k < 2) for k in range(4)]
         keys = [pafs(Y, h).astype(np.int16) for Y in lists]
-        tot, sols = join(keys, np.zeros(h, np.int16), maxsol, threads)
+        tot, sols = join(keys, np.full(h, P.T1, np.int16), maxsol, threads)
         if not sols:
             continue
         reps = set()
@@ -581,11 +605,12 @@ def main():
     ap.add_argument("--maxsol", type=int, default=10 ** 6)
     ap.add_argument("--sample", type=int, help="random skeletons instead of all of them (stops at the first hit)")
     ap.add_argument("--seed", type=int, default=1)
+    ap.add_argument("--bordered", action="store_true", help="group Z_m x GF(q) of order N - 1 (search/bsz.py)")
     a = ap.parse_args()
     if a.sample:
-        sample(a.N, a.q, a.sample, a.seed, a.log, a.threads, a.maxsol)
+        sample(a.N, a.q, a.sample, a.seed, a.log, a.threads, a.maxsol, a.bordered)
     else:
-        run(a.N, a.q, a.all, a.log, a.threads, a.maxsol, a.raw)
+        run(a.N, a.q, a.all, a.log, a.threads, a.maxsol, a.raw, bordered=a.bordered)
 
 
 if __name__ == "__main__":
