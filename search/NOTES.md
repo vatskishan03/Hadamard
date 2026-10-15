@@ -2547,3 +2547,19 @@ The test was bordered 183 ⟨3⟩ (order 366), from nothing, in steps of 150 s.
   by at least 1.5 orders of magnitude.
 - Either the estimate fails here, as it did for 203 ⟨36⟩, or the compression to ℤ₁₅₁ (too many states to list)
   rules the structure out.
+
+**Bordered 203 ⟨87⟩, rows (2, 0, 0, 0)** (hybrid 10^6.47, per-class 10^3.61).
+- Lists. The d = 2 fibre allows 41% of C and D, and the listing visited 1.13 · 10¹¹ leaves of C in 7164 thread-seconds
+  over 64 chunks, keeping 2.78 · 10⁷ members (τ = 1.926). D has the same pool and filter, so it shares C's list.
+  A and B are complete (63504 and 127008).
+- Join. kt4 ordered 300000 split values (1845983 sampled live) by the solution law. The first 17505 gave no
+  solution. By a fresh sample they hold 36.8% of the collision mass, close to the third of the law that the r⁵
+  scaling of a 5-dimensional ellipsoid gives.
+- Counting. Every solution appears about 64 times among list members (negations of B, C and D, reflections of C and
+  D, C ↔ D), so the in-list estimates mean about 100 distinct solutions (hybrid) or 0.15 (per-class).
+  - No solution in a third of the law contradicts the hybrid (probability about 10⁻¹⁸), unless the retention of
+    every solution is near 0 (the lottery of §34).
+  - It is consistent with the per-class estimate.
+- Split values with the coarse class (shift 101, step 40) at ±40 carry much collision mass but come late in the
+  law's order. That class is PAF(101) = 202 − 4|supp W| for the ℤ₂ split X = (X₀, X₁), W = X₀ − X₁, and the split
+  value fixes how the 203 positions of Σ_k |supp W_k| = 203 divide between (A, C) and (B, D).
