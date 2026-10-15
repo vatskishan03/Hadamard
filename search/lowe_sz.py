@@ -161,6 +161,45 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
     return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0)
 
 
+def _exact_live(lists, Sx, target, maxwork=4e8):
+    """the split values sigma with (a + c)_S = sigma for some a, c and (b + d)_S = T_S - sigma for some b, d, computed
+    exactly from the distinct S-values of the four lists (sumsets of the smaller list against the larger), or None
+    when the sumsets would be too large"""
+    def uniq(k):
+        v = np.ascontiguousarray(np.asarray(lists[k][1])[:, Sx]).astype(np.int64)
+        return np.unique(v, axis=0)
+    U = [uniq(k) for k in range(4)]
+    if len(U[0]) * len(U[2]) > maxwork or len(U[1]) * len(U[3]) > maxwork:
+        return None
+    B = 1 << 12                       # 12 bits per class as in kt4 (values within +-2047): 5 classes fit in 60 bits
+    def enc(M):
+        out = np.zeros(len(M), np.int64)
+        for j in range(M.shape[1]):
+            out = out * B + (M[:, j] + B // 2)
+        return out
+    def sumset(X, Y, sign_off=None):
+        small, big = (X, Y) if len(X) <= len(Y) else (Y, X)
+        acc, keys, n = np.zeros(0, np.int64), [], 0
+        for x in small:
+            S = big + x[None, :]
+            if sign_off is not None:
+                S = sign_off[None, :] - S
+            keys.append(enc(S)); n += len(S)
+            if n > 3e7:                                  # merge progressively to bound memory
+                acc = np.unique(np.concatenate([acc] + keys)); keys, n = [], 0
+        return np.unique(np.concatenate([acc] + keys))
+    T = np.full(len(Sx), int(round(target)), np.int64)
+    kac = sumset(U[0], U[2])
+    kbd = sumset(U[1], U[3], sign_off=T)
+    live = np.intersect1d(kac, kbd, assume_unique=True)
+    out = np.zeros((len(live), len(Sx)), np.int64)
+    k = live.copy()
+    for j in range(len(Sx) - 1, -1, -1):
+        out[:, j] = k % B - B // 2
+        k //= B
+    return out
+
+
 def sigma_file(lists, Sx, target, nsig, path):
     """split values for kt4, in order of the Gaussian law of a solution's split: with mu_k, Sigma_k the mean and
     covariance of each kept list (subsampled), a solution's (a + c) on the merge classes has mean
@@ -174,6 +213,29 @@ def sigma_file(lists, Sx, target, nsig, path):
         vi = np.asarray(lists[k][1][::max(1, len(lists[k][1]) // 20000)], np.int64)
         lat.append(vi)
     C = len(mus[0]); t = np.full(C, float(target))
+    # the values of (a + c) on the merge classes lie in the coset a0 + c0 + (L_A + L_C) of the lattice spanned by the
+    # differences within the lists, and a split value is live only if T - (b + d) can reach it too: it must lie in
+    # p + L_AC and in q + L_BD. The product of per-class steps used below can be much coarser than that intersection
+    # (coupled residues across classes), so candidates are filtered by exact membership in both cosets.
+    import comp_est as _CE
+    def _lat(vs):
+        rows = []
+        rng_ = np.random.default_rng(7)
+        for vi in vs:
+            S_ = vi[:, Sx]
+            idx = rng_.integers(0, len(S_), min(len(S_), 400))
+            rows += [list(map(int, r)) for r in (S_[idx] - S_[0]) if np.any(r)]
+        return _CE.echelon(rows) if rows else []
+    LAC, LBD = _lat([lat[0], lat[2]]), _lat([lat[1], lat[3]])
+    p_off = (lat[0][0] + lat[2][0])[Sx].astype(np.int64)
+    q_off = (np.full(C, int(round(target)), np.int64) - lat[1][0] - lat[3][0])[Sx].astype(np.int64)
+    def _member(B, V):
+        V = V.copy(); ok = np.ones(len(V), bool)
+        for r in B:
+            c = next(i for i, x in enumerate(r) if x)
+            ok &= (V[:, c] % r[c]) == 0
+            V -= (V[:, c] // r[c])[:, None] * np.asarray(r, np.int64)[None, :]
+        return ok & ~np.any(V, axis=1)
     Sig = sum(sigs)
     w, U = np.linalg.eigh(Sig); inv = np.where(w > 1e-9 * w.max(), 1 / np.where(w > 0, w, 1), 0)
     Sp = (U * inv) @ U.T
@@ -181,6 +243,15 @@ def sigma_file(lists, Sx, target, nsig, path):
     m = (mus[0] + mus[2] + SAC @ Sp @ (t - sum(mus)))[Sx]
     V = (SAC - SAC @ Sp @ SAC)[np.ix_(Sx, Sx)]
     Vi = np.linalg.inv(V + 1e-6 * np.eye(len(Sx)))
+    exact = _exact_live(lists, Sx, target)
+    if exact is not None and len(exact):
+        # complete enough lists: the live split values are exactly the sumset intersection; order them by the law
+        D_ = exact.astype(np.float64) - m
+        d2e = np.einsum("ij,jk,ik->i", D_, Vi, D_)
+        oe = np.argsort(d2e)[:int(nsig)]
+        np.savetxt(path, exact[oe].astype(np.int64), fmt="%d")
+        print(f"  split values: {len(exact)} live (exact sumset intersection), {len(oe)} written", flush=True)
+        return len(oe), float(np.sqrt(d2e[oe[-1]]))
     g, res = [], []
     for s in Sx:
         gs = 0
@@ -192,19 +263,28 @@ def sigma_file(lists, Sx, target, nsig, path):
     g = np.array(g, np.float64)
     nd = len(Sx)
     vol = {1: 2.0, 2: math.pi, 3: 4 * math.pi / 3, 4: math.pi ** 2 / 2, 5: 8 * math.pi ** 2 / 15}[nd]
-    r = (1.3 * nsig * np.prod(g) / (vol * math.sqrt(max(np.linalg.det(V), 1e-300)))) ** (1 / nd)
-    half = np.ceil(r * np.sqrt(np.diag(V)) / g).astype(int) + 1
     base = np.array([res[i] + g[i] * np.round((m[i] - res[i]) / g[i]) for i in range(nd)])
-    axes = [base[i] + g[i] * np.arange(-half[i], half[i] + 1) for i in range(nd)]
-    keep_pts, keep_d = [], []
-    rest = np.stack(np.meshgrid(*axes[1:], indexing="ij"), -1).reshape(-1, nd - 1) if nd > 1 else np.zeros((1, 0))
-    for x0 in axes[0]:
-        P = np.concatenate([np.full((len(rest), 1), x0), rest], 1)
-        D = P - m
-        d2 = np.einsum("ij,jk,ik->i", D, Vi, D)
-        sel = d2 <= r * r
-        keep_pts.append(P[sel]); keep_d.append(d2[sel])
-    P = np.concatenate(keep_pts); d2 = np.concatenate(keep_d)
+    grow = 1.0
+    for _ in range(12):
+        r = (1.3 * grow * nsig * np.prod(g) / (vol * math.sqrt(max(np.linalg.det(V), 1e-300)))) ** (1 / nd)
+        half = np.ceil(r * np.sqrt(np.diag(V)) / g).astype(int) + 1
+        axes = [base[i] + g[i] * np.arange(-half[i], half[i] + 1) for i in range(nd)]
+        keep_pts, keep_d = [], []
+        rest = np.stack(np.meshgrid(*axes[1:], indexing="ij"), -1).reshape(-1, nd - 1) if nd > 1 else np.zeros((1, 0))
+        ncand = 0
+        for x0 in axes[0]:
+            P = np.concatenate([np.full((len(rest), 1), x0), rest], 1)
+            D = P - m
+            d2 = np.einsum("ij,jk,ik->i", D, Vi, D)
+            sel = d2 <= r * r
+            Pi = P[sel].astype(np.int64)
+            ncand += len(Pi)
+            live = _member(LAC, Pi - p_off) & _member(LBD, q_off - Pi)
+            keep_pts.append(Pi[live]); keep_d.append(d2[sel][live])
+        P = np.concatenate(keep_pts); d2 = np.concatenate(keep_d)
+        if len(P) >= nsig or ncand == 0 or ncand > 4e7:
+            break
+        grow *= min(8.0, max(2.0, 1.2 * nsig / max(len(P), 1)))   # widen until enough live split values are found
     o = np.argsort(d2)[:int(nsig)]
     np.savetxt(path, P[o].astype(np.int64), fmt="%d")
     return len(o), float(np.sqrt(d2[o[-1]])) if len(o) else 0.0

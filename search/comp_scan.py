@@ -5,6 +5,7 @@
                Z_2 (fibre sums = +-1 mod 2|H|)
   plain        complex orders 2N, N = d q (q prime, d in 3..15 coprime to q), H <= Z_q* of odd order acting trivially
                on Z_d (h = 1 mod d); quotient Z_d
+  plainall     complex orders 2N, every H <= Z_N* with -1 not in H, on each quotient Z_d (d | N) that H fixes pointwise
   propus       symmetric Hadamard orders 4v of the Đoković–Seberry census, v = d q as above; the propus schemes
                PAF_A + 2 PAF_B + PAF_D (A symmetric, D symmetric or free); quotient Z_d
 
@@ -207,7 +208,7 @@ def dq_structures(n, omin, omax, ds=(3, 5, 7, 9, 11, 13, 15)):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("mode", choices=["bordered2q", "bordered", "plain", "propus"])
+    ap.add_argument("mode", choices=["bordered2q", "bordered", "plain", "plainall", "propus"])
     ap.add_argument("N", type=int, nargs="*"); ap.add_argument("--nmax", type=int, default=1000)
     ap.add_argument("--omin", type=int, default=15); ap.add_argument("--omax", type=int, default=60)
     ap.add_argument("--K", type=int, default=400); ap.add_argument("--maxpool", type=float, default=6e10)
@@ -215,7 +216,7 @@ def main():
     ap.add_argument("--maxspace", type=float, default=5e6)
     a = ap.parse_args()
     rng = np.random.default_rng(1)
-    if a.mode in ("bordered2q", "bordered", "plain"):
+    if a.mode in ("bordered2q", "bordered", "plain", "plainall"):
         Ns = a.N or [N for N in ssxx_sweep.candidates(a.nmax) if N not in found_complex()]
     else:
         Ns = a.N or [v for v in map(int, open(a.census).read().split()) if v < a.nmax and v not in found_symmetric()]
@@ -239,7 +240,7 @@ def main():
         elif a.mode == "bordered":
             m = N - 1
             for H, gens in subgroups(m).items():
-                if len(H) == 1 or len(H) % 2 == 0 or (m - 1) in H:
+                if len(H) == 1 or (m - 1) in H:
                     continue
                 st = Struct(N, gens, plain=False)
                 O = len(st.sizesA)
@@ -248,8 +249,8 @@ def main():
                 gt = m
                 for h in H:
                     gt = math.gcd(gt, h - 1)
-                # quotients on which H acts trivially, smallest first; every one is an exact filter
-                ds = [d for d in range(2, gt + 1) if gt % d == 0]
+                # every listable quotient Z_d (d | m), smallest first; each is an exact filter
+                ds = [d for d in range(2, min(m, 64)) if m % d == 0]
                 best_all, dead, used = None, None, []
                 for d in ds:
                     cp = CE.Comp(st, d); cp.compressions_cache = {}
@@ -264,6 +265,40 @@ def main():
                         best_all = best
                 head = f"N={N} bordered Z_{m} |H|={len(H)} gens={gens} O={O} quotients {used}"
                 if dead:
+                    print(f"{head}: no feasible pattern on Z_{dead}", flush=True)
+                else:
+                    report(head, best_all, -1)
+        elif a.mode == "plainall":
+            # every multiplier subgroup H of Z_N* with -1 not in H, conditioned on each quotient Z_d (d | N) that H
+            # fixes pointwise; reaches N with three or more prime factors and prime squares
+            for H, gens in subgroups(N).items():
+                if len(H) == 1 or (N - 1) in H:
+                    continue
+                st = Struct(N, gens, plain=True)
+                O = len(st.sizesA)
+                if not (a.omin <= O <= a.omax):
+                    continue
+                gt = N
+                for h in H:
+                    gt = math.gcd(gt, h - 1)
+                # every listable quotient is an exact filter: those fixed pointwise by H give the strong congruences,
+                # the others (H acting on Z_d) can still kill tuples the coarser ones keep (171/<31>: Z_9 after Z_3)
+                ds = [d for d in range(2, min(N, 64)) if N % d == 0]
+                best_all, dead, used = None, None, []
+                for d in ds:
+                    cp = CE.Comp(st, d); cp.compressions_cache = {}
+                    if space(cp) > a.maxspace:
+                        continue
+                    best, nfeas = best_pattern(st, cp, N, ssxx.patterns(st), CE.SZ, a.K, rng, a.maxpool)
+                    used.append(d)
+                    if nfeas == 0:
+                        dead = d; break
+                    if best and (best_all is None or best[0] < best_all[0]):
+                        best_all = best
+                head = f"N={N} plain |H|={len(H)} gens={gens} O={O} quotients {used}"
+                if not used:
+                    print(f"{head}: no listable quotient (fixed part Z_{gt})", flush=True)
+                elif dead:
                     print(f"{head}: no feasible pattern on Z_{dead}", flush=True)
                 else:
                     report(head, best_all, -1)

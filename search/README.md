@@ -153,7 +153,7 @@ start-up, is close to the list size.
 | `lowe_sz.py`, `lowe_enum.c`, `lowe_scan.py`, `sls_sz.c` | low-energy k-tree and annealing for Szöllősi structures |
 | `comp_est.py`, `comp_triage.py` | estimates conditioned on the block compressions to ℤ_d (exact feasibility, lattice Gaussian per tuple), and the triage of the open orders with them (plain and bordered) |
 | `lowe_comp.py` | the low-energy k-tree on one compression class at a time (lowe_enum with fibre-class constraints) |
-| `comp_scan.py` | fast conditioned scans of the product families: bordered ℤ₂ × ℤ_q, plain d · q, and propus d · q for the symmetric census |
+| `comp_scan.py` | fast conditioned scans of the product families: bordered ℤ₂ × ℤ_q, plain d · q, propus d · q for the symmetric census, and `plainall`/`bordered` over every multiplier group and every listable quotient |
 | `tsz_comp.py` | compression-conditioned triage of the twisted Szöllősi structures, and their exact search restricted to the feasible compressions (`sweep`: triage and search every open N) |
 | `gcomp.py` | the same conditioning for the bordered array over non-cyclic groups (bsz_group's spin structures on ℤ₂² × ℤ_m, quotient ℤ₂²) |
 | `qlp_bin.py` | quaternary Legendre pairs with one binary sequence |
