@@ -2659,4 +2659,15 @@ much of the collision mass the earlier joins covered: 341 ⟨2⟩, 14196 split v
 - `lowe_sz.py --order mass` (new joins) and `--reorder` (continued joins) order the split values by sampled
   collision mass n_AC n_BD, adding sampled split values missing from the list. On 93 ⟨4⟩ (9, 13, 1, 11) the first
   solutions came at split value 17, against 114 in the law's order.
-- Both joins continue in mass order with two kt4 processes each (`runq.py`).
+- Both joins continued in mass order with two kt4 processes each (`runq.py`, 2.3 hours). ⟨2⟩ reached 126731 split
+  values and ⟨95⟩ 96840, without a solution. By fresh samples (seed 2) these hold 97.3% and 94.8% of the collision
+  mass.
+- §39 expected up to about 10 solutions inside these lists (rows (1, 21, 9, 29) were the highest), that is 3–4
+  distinct value quadruples after the multiplicity 3.2. If that were right, finding none in 95–97% of the mass
+  would have a chance of 2–5% for each structure; an expectation ten times lower would make it likely. So the
+  estimate fails here too: either these structures have no solutions, as 203 bordered and 183 ⟨34⟩ most likely,
+  or the lists' retention is far below the model's.
+- The other six groups of 341 are of the same kind (⟨35⟩ and ⟨194⟩ with the same pools and estimates, the four
+  with fibres at d = 31 ten times lower). Nothing else on the open list has an estimate above 10^0.5, so the
+  Szöllősi arrays, plain and bordered, have no strong structure left on the 115 open orders. The tickets stay in the
+  queue (`lowe_q6.txt` in the scratchpad) and continue from where they stopped.
