@@ -33,6 +33,10 @@ import ssxx
 from bnw import Struct
 
 KINDS = ssxx.KINDS                      # A, B symmetric ("L"), C, D arbitrary ("A")
+# block schemes: (kind, weight) per block of sum_k w_k PAF_k = target
+SZ = [("L", 1), ("L", 1), ("A", 1), ("A", 1)]          # Szöllősi (plain and bordered)
+PROPUS = [("L", 1), ("A", 2), ("L", 1)]                # symmetric Hadamard: A, D symmetric, B twice
+PROPUS_FREED = [("L", 1), ("A", 2), ("A", 1)]          # the same with D arbitrary
 
 
 class Comp:
@@ -147,23 +151,24 @@ def comp_target(st, d):
     return tgt
 
 
-def feasible_tuples(cp, N, rows):
-    """compression tuples (one per block) with sum_X PAF_{x_X} = the compressed target on Z_d"""
-    lists = [cp.compressions(k, r) for k, r in zip(KINDS, rows)]
+def feasible_tuples(cp, N, rows, scheme=None):
+    """compression tuples (one per block) with sum_k w_k PAF_{x_k} = the compressed target on Z_d"""
+    scheme = scheme or SZ
+    lists = [cp.compressions(k, r) for (k, _), r in zip(scheme, rows)]
     d = cp.d
     tgt = comp_target(cp.st, d)
-    P = [{v: cpaf(cp.expand(k, v)) for v in L} for k, L in zip(KINDS, lists)]
-    ab = {}
-    for a in lists[0]:
-        for b in lists[1]:
-            key = tuple(P[0][a] + P[1][b])
-            ab.setdefault(key, []).append((a, b))
+    P = [{v: w * cpaf(cp.expand(k, v)) for v in L} for (k, w), L in zip(scheme, lists)]
+    import itertools as _it
+    h = len(scheme) // 2
+    left = {}
+    for combo in _it.product(*[list(L) for L in lists[:h]]):
+        key = tuple(sum(P[i][x] for i, x in enumerate(combo)))
+        left.setdefault(key, []).append(combo)
     out = []
-    for c in lists[2]:
-        for dv in lists[3]:
-            key = tuple(tgt - P[2][c] - P[3][dv])
-            for a, b in ab.get(key, []):
-                out.append((a, b, c, dv))
+    for combo in _it.product(*[list(L) for L in lists[h:]]):
+        key = tuple(tgt - sum(P[h + i][x] for i, x in enumerate(combo)))
+        for lc in left.get(key, []):
+            out.append(tuple(lc) + tuple(combo))
     return out, lists
 
 
@@ -252,16 +257,17 @@ def block_stats(st, cp, kind, vals, K, rng):
     return cache[key]
 
 
-def cond_estimate(st, cp, tup, K, rng, target=None):
+def cond_estimate(st, cp, tup, K, rng, target=None, scheme=None):
     """log10 of P(class sums = target | compressions) under the multivariate lattice Gaussian, the log10 of the
-    number of block quadruples with these compressions, the rank of the covariance and of the lattice"""
+    number of block tuples with these compressions, the rank of the covariance and of the lattice"""
+    scheme = scheme or SZ
     tv = st.target if target is None else target
     t = np.full(st.C, float(tv))
     mu = np.zeros(st.C); S = np.zeros((st.C, st.C)); base = np.zeros(st.C, np.int64); gens = []
     ln = 0.0
-    for kind, vals in zip(KINDS, tup):
+    for (kind, w), vals in zip(scheme, tup):
         cnt, m_, c_, b_, B_ = block_stats(st, cp, kind, vals, K, rng)
-        ln += log10(cnt); mu += m_; S += c_; base += b_; gens += B_
+        ln += log10(cnt); mu += w * m_; S += w * w * c_; base += w * b_; gens += [[w * x for x in r] for r in B_]
     B = echelon(gens) if gens else []
     if B:
         G = [[sum(x * y for x, y in zip(r1, r2)) for r2 in B] for r1 in B]

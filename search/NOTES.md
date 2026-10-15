@@ -2685,6 +2685,13 @@ at most four fibre classes. The order-426 matrix has ℤ₃ compressions (15, �
   predicted. Blank in the 1992 table; 453 = 3 · 151 is not a prime power; no quaternary Legendre pair of length
   226 is known to us. The first matrix from the bordered array of an open order.
 
+**The 2q-bordered family is decided by its ℤ₂ compressions.** For open N < 1000 with N − 1 = 2q, q prime, and every
+odd-order H ≤ ℤ_q* with 18–50 orbits on ℤ₂ × ℤ_q, the fibre sums over ℤ₂ are ≡ ±1 (mod 2|H|) and Σ_X (x₀ − x₁)² = 4N.
+Only N = 203 (|H| = 5, conditioned logE 8.0) and N = 227 (|H| = 7, 6.2) have a feasible row pattern. For N = 179
+(|H| = 11), 219 (9), 263 (13), 275 (17), 303 (15), 383 (19), 467 (29), 479 (17), 483 (15), 503 (25), 563 (35),
+623 (31), 699 (29), 795 (33), 803 (25), 839 (19), 863 (43), 915 (19, 57), 923 (23), 927 (21, 33) and 983 (35, 49)
+no pattern is feasible, so these bordered structures are empty (exact; `python3 search/comp_scan.py bordered2q`).
+
 **Tools.** `lowe_enum.c` takes optional fibre-class constraints (per class, the weighted sum of the orbit signs over
 it is fixed; exact reachability pruning per class); `search/lowe_comp.py` runs the low-energy k-tree on one
 compression class at a time (classes reduced by translations by H-fixed points, reversal of C and D, and multipliers);

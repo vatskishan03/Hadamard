@@ -153,6 +153,7 @@ start-up, is close to the list size.
 | `lowe_sz.py`, `lowe_enum.c`, `lowe_scan.py`, `sls_sz.c` | low-energy k-tree and annealing for Szöllősi structures |
 | `comp_est.py`, `comp_triage.py` | estimates conditioned on the block compressions to ℤ_d (exact feasibility, lattice Gaussian per tuple), and the triage of the open orders with them (plain and bordered) |
 | `lowe_comp.py` | the low-energy k-tree on one compression class at a time (lowe_enum with fibre-class constraints) |
+| `comp_scan.py` | fast conditioned scans of the product families: bordered ℤ₂ × ℤ_q, plain d · q, and propus d · q for the symmetric census |
 | `qlp_bin.py` | quaternary Legendre pairs with one binary sequence |
 | `complex_status.py`, `data/` | known, constructed and open complex orders; tables parsed from Seberry–Yamada (1992) |
 

@@ -2,7 +2,7 @@
 """Compression-conditioned triage of Szöllősi structures for the open complex orders 2N (search/comp_est.py).
 
 For every open N and every multiplier group H <= Z_N* with -1 not in H, every row-sum pattern is tested against
-the compressions to every quotient Z_d (d | N) with at most --maxfc fibre classes: a pattern with no feasible
+the compressions to every quotient Z_d (d | N) with a compression space of at most --maxspace vectors per block: a pattern with no feasible
 compression tuple for some d has no solution (exact). For the others the conditioned estimate (summed over the
 feasible tuples) is computed for each such d, and the smallest is reported. Prints the structures with conditioned logE >= --min and the pools of the best
 tuple (the lists lowe_comp.py would enumerate).
@@ -34,34 +34,35 @@ def found_here():
 
 
 def feasible_tuples_fast(cp, N, rows):
-    """as comp_est.feasible_tuples, with the (C, D) side vectorised"""
+    """as comp_est.feasible_tuples: (A, B) sums sorted once, (C, D) sums looked up in chunks by binary search"""
     lists = [cp.compressions(k, r) for k, r in zip(KINDS, rows)]
     d = cp.d
     tgt = CE.comp_target(cp.st, d)
     keys = [list(L) for L in lists]
-    P = [np.array([CE.cpaf(cp.expand(k, v)) for v in ks], np.int64).reshape(-1, d) for k, ks in zip(KINDS, keys)]
     if min(len(k) for k in keys) == 0:
         return [], lists
+    P = [np.array([CE.cpaf(cp.expand(k, v)) for v in ks], np.int64).reshape(-1, d) for k, ks in zip(KINDS, keys)]
     B = 1 << 21
-    def enc(M):
+    def enc(M):                                   # M (..., d) -> int64 keys
         M = M + (B // 2)
-        out = np.zeros(len(M), np.int64)
+        out = np.zeros(M.shape[:-1], np.int64)
         for j in range(d):
-            out = out * B + M[:, j]
+            out = out * B + M[..., j]
         return out
-    ab = {}
-    for i, a in enumerate(keys[0]):
-        e = enc(P[0][i] + P[1])
-        for j, x in enumerate(e):
-            ab.setdefault(int(x), []).append((a, keys[1][j]))
-    abk = np.array(sorted(ab), np.int64)
+    ab = enc(P[0][:, None, :] + P[1][None, :, :]).ravel()
+    order = np.argsort(ab, kind="stable"); abs_ = ab[order]
+    nB = len(keys[1]); nD = len(keys[3])
     out = []
-    for i, c in enumerate(keys[2]):
-        e = enc(tgt - P[2][i] - P[3])
-        hit = np.flatnonzero(np.isin(e, abk))
-        for j in hit:
-            for a, b in ab[int(e[j])]:
-                out.append((a, b, c, keys[3][j]))
+    chunk = max(1, 4_000_000 // max(nD, 1))
+    for c0 in range(0, len(keys[2]), chunk):
+        E = enc(tgt - P[2][c0:c0 + chunk, None, :] - P[3][None, :, :])          # (chunk, nD)
+        flat = E.ravel()
+        lo = np.searchsorted(abs_, flat, "left"); hi = np.searchsorted(abs_, flat, "right")
+        for f in np.flatnonzero(hi > lo):
+            ci, di = divmod(int(f), nD)
+            for t in range(lo[f], hi[f]):
+                ia, ib = divmod(int(order[t]), nB)
+                out.append((keys[0][ia], keys[1][ib], keys[2][c0 + ci], keys[3][di]))
     return out, lists
 
 
@@ -84,11 +85,19 @@ def triage_N(N, args, rng):
         cps = []
         for d in divisors(m):
             cp = CE.Comp(st, d)
-            if len(cp.fc["A"]) <= args.maxfc:
+            # size of the compression space of an arbitrary block: prod over fibre classes of (orbits over it + 1)
+            space = 1
+            for f in range(len(cp.fc["A"])):
+                space *= int((cp.fid["A"] == f).sum()) + 1
+            if space <= args.maxspace:
                 cp.compressions_cache = {}
                 cps.append(cp)
         if not cps:
             continue
+        gt = m
+        for h in H:
+            gt = gcd(gt, h - 1)
+        trivial_used = gt == 1 or gt == m or any(cp.d == gt for cp in cps)
         if args.bordered:
             import bsz
             pats = [r for _, r in bsz.patterns(st)]
@@ -109,7 +118,9 @@ def triage_N(N, args, rng):
                     for v, n in L.items():
                         cp.compressions_cache[(kind, v)] = n
                 tot, best = 0.0, None
-                for tup in tups[:args.maxtup]:
+                # only tuples whose pools a low-energy run can enumerate count (the others cannot be searched)
+                stups = [t for t in tups if max(cp.compressions_cache[(k, v)] for k, v in zip(KINDS, t)) <= args.maxpool]
+                for tup in stups[:args.maxtup]:
                     lp, ln, k_, rank = CE.cond_estimate(st, cp, tup, args.K, rng)
                     if lp == -math.inf:
                         continue
@@ -117,14 +128,14 @@ def triage_N(N, args, rng):
                     tot += 10 ** e
                     if best is None or e > best[0]:
                         best = (e, tup, [cp.compressions_cache[(k, v)] for k, v in zip(KINDS, tup)])
-                if len(tups) > args.maxtup and tot > 0:
-                    tot *= len(tups) / args.maxtup
+                if len(stups) > args.maxtup and tot > 0:
+                    tot *= len(stups) / args.maxtup
                 ests.append((log10(tot) if tot > 0 else -math.inf, cp.d, len(tups), best))
             le, d, nt, best = min(ests, key=lambda x: x[0])
-            if le == -math.inf:
+            if le == -math.inf or best is None:
                 continue
             rows_out.append((le, len(H), gens, d, OA, tuple(int(x) for x in pat), nt, best,
-                             [(x[1], round(x[0], 2)) for x in ests]))
+                             [(x[1], round(x[0], 2)) for x in ests] + ([] if trivial_used else [("unused trivial", gt)])))
     return rows_out
 
 
@@ -134,8 +145,10 @@ def main():
     ap.add_argument("--nmax", type=int, default=700); ap.add_argument("--min", type=float, default=-1.0)
     ap.add_argument("--omin", type=int, default=12); ap.add_argument("--omax", type=int, default=72)
     ap.add_argument("--K", type=int, default=800); ap.add_argument("--top", type=int, default=4)
-    ap.add_argument("--maxfc", type=int, default=4); ap.add_argument("--maxtup", type=int, default=400)
+    ap.add_argument("--maxspace", type=float, default=3e5, help="largest compression space per block for a quotient")
+    ap.add_argument("--maxtup", type=int, default=400)
     ap.add_argument("--bordered", action="store_true", help="the bordered array on Z_(N-1) (search/bsz.py)")
+    ap.add_argument("--maxpool", type=float, default=6e10, help="only tuples whose pools are at most this count")
     args = ap.parse_args()
     rng = np.random.default_rng(1)
     Ns = args.N or [N for N in ssxx_sweep.candidates(args.nmax) if N not in found_here()]
