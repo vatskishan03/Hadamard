@@ -31,6 +31,7 @@ of stage-2 solutions is reported, so a run that ends without a hit rules the str
 
     python3 search/ssxx_paley.py N q [--all] [--log FILE] [--threads T] [--maxsol K]
     python3 search/ssxx_paley.py N q --raw        (no symmetry reduction: counts every solution, for testing)
+    python3 search/ssxx_paley.py N q --sample K [--seed S]   (K random skeletons; for structures with too many)
 """
 import argparse, itertools, json, math, os, struct, subprocess, sys, tempfile, time
 import numpy as np
@@ -211,6 +212,64 @@ class Paley:
                     for sg in itertools.product((1, -1), repeat=j):
                         out.append((tuple(sorted((s, g * mg) for s, mg, g in zip(P, mags, sg))), j, cm))
         return out
+
+    def random_skeleton(self, nw, nm, rng):
+        """A random skeleton with N_w w-positions, N_- of them of magnitude q - 2: the block counts are drawn with
+        probability proportional to the number of (position set, magnitude) choices, then positions, magnitudes and
+        signs uniformly. Returns None if no skeleton has these counts."""
+        m, q, h = self.m, self.q, self.h
+        zs = [1] if self.eps == -1 else [0, 1]
+        dists, weights = [], []
+        for zA in zs:
+            for zB in zs:
+                for pA in range(0, h + 1):
+                    for pB in range(0, h + 1):
+                        rest = nw - zA - zB - 2 * pA - 2 * pB
+                        if rest < 0:
+                            continue
+                        for nC in range(0, min(rest, m) + 1):
+                            nD = rest - nC
+                            if nD > m:
+                                continue
+                            slots = [1] * zA + [2] * pA + [1] * zB + [2] * pB + [1] * (nC + nD)
+                            ways = [1] + [0] * nm          # magnitude choices with weighted minus count nm
+                            for wgt in slots:
+                                new = ways[:]
+                                for c in range(nm + 1 - wgt):
+                                    new[c + wgt] += ways[c]
+                                ways = new
+                            if ways[nm] == 0:
+                                continue
+                            cnt = (math.comb(h, pA) * math.comb(h, pB) * math.comb(m, nC) * math.comb(m, nD)
+                                   * ways[nm])
+                            dists.append((zA, zB, pA, pB, nC, nD)); weights.append(cnt)
+        if not dists:
+            return None
+        w = np.array(weights, np.float64)
+        zA, zB, pA, pB, nC, nD = dists[rng.choice(len(dists), p=w / w.sum())]
+        while True:                                    # magnitudes: rejection on the minus count
+            PA = sorted(rng.choice(np.arange(1, h + 1), pA, replace=False).tolist()) if pA else []
+            PB = sorted(rng.choice(np.arange(1, h + 1), pB, replace=False).tolist()) if pB else []
+            WC = sorted(rng.choice(m, nC, replace=False).tolist()) if nC else []
+            WD = sorted(rng.choice(m, nD, replace=False).tolist()) if nD else []
+            slotsA = ([0] if zA else []) + PA
+            slotsB = ([0] if zB else []) + PB
+            mags = {k: rng.choice([q, q - 2], len(sl)) for k, sl in enumerate((slotsA, slotsB, WC, WD))}
+            cm = sum((1 if s_ == 0 else 2) * (mg == q - 2) for s_, mg in zip(slotsA, mags[0])) + \
+                sum((1 if s_ == 0 else 2) * (mg == q - 2) for s_, mg in zip(slotsB, mags[1])) + \
+                int(np.sum(mags[2] == q - 2)) + int(np.sum(mags[3] == q - 2))
+            if cm == nm:
+                break
+        sk = []
+        for k, sl in enumerate((slotsA, slotsB, WC, WD)):
+            Wd = {}
+            for s_, mg in zip(sl, mags[k]):
+                v = int(mg) * int(rng.choice([1, -1]))
+                Wd[s_] = v
+                if k < 2:
+                    Wd[(-s_) % m] = v
+            sk.append(tuple(sorted(Wd.items())))
+        return self.canon(tuple(sk))
 
     # ---------- stage 1 ----------
     def ylist(self, Wt, sym, raw=False):
@@ -428,14 +487,68 @@ def run(N, q, all_=False, log=None, threads=None, maxsol=10 ** 6, raw=False, ver
     return found
 
 
+def sample(N, q, K, seed=1, log=None, threads=None, maxsol=10 ** 6):
+    """Random skeletons (not exhaustive): stages 1 and 2 on each, stop at the first verified hit."""
+    P = Paley(N, q)
+    m, h = P.m, P.h
+    rng = np.random.default_rng(seed)
+    adm = [(a, b) for a, b in admissible(m, q) if P.eps == 1 or a >= 2]
+    print(f"N={N} = {m} x {q}, eps={P.eps}: sampling {K} skeletons over {adm} (seed {seed})", flush=True)
+    t0, seen, n1 = time.time(), set(), 0
+    for it in range(K):
+        nw, nm = adm[rng.integers(len(adm))]
+        sk = P.random_skeleton(nw, nm, rng)
+        if sk is None or sk in seen:
+            continue
+        seen.add(sk)
+        lists = [P.ylist(sk[k], k < 2) for k in range(4)]
+        keys = [pafs(Y, h).astype(np.int16) for Y in lists]
+        tot, sols = join(keys, np.zeros(h, np.int16), maxsol, threads)
+        if not sols:
+            continue
+        reps = set()
+        for ids in sols:
+            reps.add(np.asarray(P.canon_y([lists[k][ids[k]] for k in range(4)]), np.int8).tobytes())
+        n1 += len(reps)
+        print(f"  skeleton {it} ({nw},{nm}): stage 1 {tot} solutions, {len(reps)} orbits [{time.time() - t0:.0f}s]",
+              flush=True)
+        for key in reps:
+            ys = list(np.frombuffer(key, np.int8).astype(np.int64).reshape(4, m))
+            tot2, zs, U, Wv = P.stage2(ys, K=1, threads=threads)
+            if tot2 and P.prime:
+                seqs = [P.lift(U[k], Wv[k], zs[0][k].astype(np.int64)) for k in range(4)]
+                ssxx.complex_hadamard(seqs)
+                rows = [int(x.sum()) for x in seqs]
+                print(f"  HIT N={N}: verified complex Hadamard matrix of order {2 * N}; rows {rows}; skeleton {sk}",
+                      flush=True)
+                if log:
+                    with open(log, 'a') as f:
+                        f.write(json.dumps({"N": N, "gens": [P.gen], "subgroup_order": (q - 1) // 2, "paley": [m, q],
+                                            "rowsums": rows, "sequences": ["".join('+' if v > 0 else '-' for v in x)
+                                                                          for x in seqs]}) + "\n")
+                print(f"RESULT N={N} q={q}: FOUND after {len(seen)} skeletons [{time.time() - t0:.0f}s]", flush=True)
+                return True
+            if tot2:
+                print(f"  HIT (prime power q, lift not implemented): y = {[list(map(int, y)) for y in ys]}", flush=True)
+                return True
+    print(f"RESULT N={N} q={q}: nothing in {len(seen)} sampled skeletons ({n1} stage-1 orbits) [{time.time() - t0:.0f}s]",
+          flush=True)
+    return False
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("N", type=int); ap.add_argument("q", type=int)
     ap.add_argument("--all", action="store_true"); ap.add_argument("--raw", action="store_true")
     ap.add_argument("--log"); ap.add_argument("--threads", type=int)
     ap.add_argument("--maxsol", type=int, default=10 ** 6)
+    ap.add_argument("--sample", type=int, help="random skeletons instead of all of them (stops at the first hit)")
+    ap.add_argument("--seed", type=int, default=1)
     a = ap.parse_args()
-    run(a.N, a.q, a.all, a.log, a.threads, a.maxsol, a.raw)
+    if a.sample:
+        sample(a.N, a.q, a.sample, a.seed, a.log, a.threads, a.maxsol)
+    else:
+        run(a.N, a.q, a.all, a.log, a.threads, a.maxsol, a.raw)
 
 
 if __name__ == "__main__":
