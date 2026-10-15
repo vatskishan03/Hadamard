@@ -162,9 +162,8 @@ class GComp:
             Y = self.sample(kind, x, K, rng)
             V = st.class_values(Y)
             Vi = np.rint(V).astype(np.int64)
-            U = np.unique(Vi, axis=0)
             self.cache[key] = (self.compressions(kind, sum(len(c) * v for c, v in zip(self.fc[kind], x)))[x],
-                               V.mean(0), np.cov(V.T), Vi[0], CE.echelon((U[1:] - U[0])[:120]))
+                               V.mean(0), np.cov(V.T), Vi[0], CE.diff_lattice(Vi, rng))
         return self.cache[key]
 
     def estimate(self, tup, K, rng):

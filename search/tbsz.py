@@ -422,9 +422,7 @@ class TComp:
             st = self.ts.st(kind)
             V = st.class_values(self.sample(kind, x, K, rng))
             Vi = np.rint(V).astype(np.int64)
-            U = np.unique(Vi, axis=0)
-            self.cache[key] = (self.count(kind, x), V.mean(0), np.cov(V.T), Vi[0],
-                               CE.echelon((U[1:] - U[0])[:120]))
+            self.cache[key] = (self.count(kind, x), V.mean(0), np.cov(V.T), Vi[0], CE.diff_lattice(Vi, rng))
         return self.cache[key]
 
     def estimate(self, tup, rows, K, rng):
@@ -1228,13 +1226,19 @@ def enum_block(ts, tc, kind, r, vals, center, Wm, tau, maxkeep, tag, threads):
     return masks, vals_, p.stdout.strip()
 
 
+def as4(tc):
+    """one TComp per block (a list of four when the blocks are listed on different quotients)"""
+    return list(tc) if isinstance(tc, (list, tuple)) else [tc] * 4
+
+
 def plan_tuple(ts, tc, tup, rows, Lmax, K, rng):
     """conditioned means/covariances, energy thresholds and retention per block (search/lowe_comp.py)"""
     C, t = ts.C, ts.tvec.astype(np.float64)
-    pools = [tc.count(k, x) for k, x in zip(KINDS, tup)]
+    tcs = as4(tc)
+    pools = [tcs[b].count(k, x) for b, (k, x) in enumerate(zip(KINDS, tup))]
     mus, sigs = [], []
-    for k, x in zip(KINDS, tup):
-        V = ts.st(k).class_values(tc.sample(k, x, K, rng))
+    for b, (k, x) in enumerate(zip(KINDS, tup)):
+        V = ts.st(k).class_values(tcs[b].sample(k, x, K, rng))
         mus.append(V.mean(0)); sigs.append(np.cov(V.T))
     Sig = sum(sigs)
     _, Sig_pinv = LZ.psd_pinv_sqrt(Sig)
@@ -1243,7 +1247,7 @@ def plan_tuple(ts, tc, tup, rows, Lmax, K, rng):
         Lk = pools[k] if pools[k] <= Lmax else Lmax
         Wk, Smp = LZ.psd_pinv_sqrt(Sig - sigs[k])
         zk = t - (sum(mus) - mus[k])
-        V = ts.st(KINDS[k]).class_values(tc.sample(KINDS[k], tup[k], K, rng))
+        V = ts.st(KINDS[k]).class_values(tcs[k].sample(KINDS[k], tup[k], K, rng))
         Ep = np.einsum("ij,jk,ik->i", V - zk, Smp, V - zk)
         frac = Lk / pools[k]
         tau = float(np.quantile(Ep, min(1.0, frac))) if frac < 1 else 1e30
@@ -1258,7 +1262,9 @@ def plan_tuple(ts, tc, tup, rows, Lmax, K, rng):
 
 def tuple_border(ts, tc, tup, borders):
     """the border for the compressions on Q of a tuple (None: proved not to exist), cached by those compressions"""
-    ys = [np.bincount(tc.toQ, weights=tc.expand(k, x).astype(float), minlength=ts.q) for k, x in zip(KINDS, tup)]
+    tcs = as4(tc)
+    ys = [np.bincount(tcs[b].toQ, weights=tcs[b].expand(k, x).astype(float), minlength=ts.q)
+          for b, (k, x) in enumerate(zip(KINDS, tup))]
     ykey = tuple(int(round(v)) for y in ys for v in y)
     if ykey not in borders:
         Mc = szarray(ts.Q, *ys)
@@ -1270,20 +1276,30 @@ def tuple_border(ts, tc, tup, borders):
 
 
 def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, log=None, maxsol=5, seed=1,
-           estimate_only=False, cond=None, refine=0, maxtup=400, pcond=None):
+           estimate_only=False, cond=None, refine=0, maxtup=400, pcond=None, coarse_ab=False):
     """refine > 0: the best `refine` tuples on the quotient pcond (default Q) are refined one by one on the finer
     quotient `cond` (their compressions there enumerated under the coarse ones), and the fine tuples of all of them
-    are ranked together"""
+    are ranked together. coarse_ab: blocks A and B stay on the coarse quotient, so that one join covers every refinement
+    of them that goes with given fine C and D (the fine tuples are grouped by their C and D)"""
     t0 = time.time()
     rng = np.random.default_rng(seed)
     borders = {}
     if refine and cond is not None:
         tc0 = TComp(ts, pcond)
         tl0 = tuples(tc0, rows, 1500, rng)
-        tl, nref = [], 0
+        tl, nref, seen0 = [], 0, set()
         for e0, tup0, *_ in tl0:
             if nref >= refine:
                 break
+            # swapping C and D (or A and B) when their row sums agree maps solutions to solutions
+            k0 = {tup0}
+            if rows[2] == rows[3]:
+                k0 |= {(x[0], x[1], x[3], x[2]) for x in list(k0)}
+            if rows[0] == rows[1]:
+                k0 |= {(x[1], x[0], x[2], x[3]) for x in list(k0)}
+            if k0 & seen0:
+                continue
+            seen0 |= k0
             if tc0.toQ is not None and ts.t > 1 and tuple_border(ts, tc0, tup0, borders) is None:
                 print(f"  coarse tuple {tup0} (logE {e0:.2f}): no border", flush=True)
                 continue
@@ -1293,11 +1309,20 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
             tot0 = sum(10 ** e for e, *_ in sub)
             print(f"  coarse tuple {tup0} (logE {e0:.2f}): {len(sub)} fine tuples with positive estimate, total "
                   f"logE {log10(tot0) if tot0 else -math.inf:.2f} [{time.time() - t0:.0f}s]", flush=True)
-            tl += [(e, tup, ln, lp, tcf) for e, tup, ln, lp in sub]
+            tl += [(e, tup, ln, lp, tcf, tc0, tup0) for e, tup, ln, lp in sub]
         tl.sort(key=lambda x: -x[0])
+        if coarse_ab:
+            groups = {}
+            for e, tup, ln, lp, tcf, tc0_, tup0 in tl:
+                g = groups.setdefault((id(tcf), tup[2], tup[3]), [0.0, 0, tup, tcf, tc0_, tup0])
+                g[0] += 10 ** e; g[1] += 1
+            tl = sorted([(log10(sm), (tup0[0], tup0[1], tup[2], tup[3]), n, None, [tc0_, tc0_, tcf, tcf])
+                         for sm, n, tup, tcf, tc0_, tup0 in groups.values()], key=lambda x: -x[0])
+            print(f"  A and B on the coarse quotient: {len(tl)} groups of fine tuples by C and D, the best "
+                  f"{', '.join(f'10^{x[0]:.2f} ({x[2]} tuples)' for x in tl[:3])}", flush=True)
     else:
         tc = TComp(ts, cond)
-        tl = [(e, tup, ln, lp, tc) for e, tup, ln, lp in tuples(tc, rows, 1500, rng, maxtup)]
+        tl = [(e, tup, ln, lp, tc, None, None) for e, tup, ln, lp in tuples(tc, rows, 1500, rng, maxtup)]
     tot = sum(10 ** e for e, *_ in tl)
     print(f"N = {ts.N} {ts.name} |H-orbits| A {ts.stA.O} L {ts.stL.O} classes {ts.C} rows {rows}: {len(tl)} feasible "
           f"compression tuples with positive estimate, conditioned logE {log10(tot) if tot else -math.inf:.2f} "
@@ -1309,6 +1334,7 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
         if i >= len(tl):
             break
         e, tup, tc = tl[i][0], tl[i][1], tl[i][4]
+        tcs = as4(tc)
         # swapping C and D (equal row sums) or A and B (equal row sums) maps solutions to solutions
         keys = {tup}
         if rows[2] == rows[3]:
@@ -1320,8 +1346,8 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
             continue
         seen |= keys
         # the border depends only on the compressions: solve it first (when the quotient refines Q)
-        if tc.toQ is not None:
-            bs = tuple_border(ts, tc, tup, borders)
+        if all(x.toQ is not None for x in tcs):
+            bs = tuple_border(ts, tcs, tup, borders)
             if bs is None:
                 print(f"tuple {i}: {tup}: no border found, skipped", flush=True)
                 continue
@@ -1339,10 +1365,11 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
         for k in range(4):
             Lk, tau, ret, Wk, zk = plan[k]
             # a complete list depends only on the block's class values (and is shared by later tuples)
-            key = (KINDS[k], tup[k], rows[k]) if Lk >= pools[k] else (KINDS[k], tup[k], Lk, tau, tuple(np.round(zk, 6)))
+            key = ((id(tcs[k]), KINDS[k], tup[k], rows[k]) if Lk >= pools[k]
+                   else (id(tcs[k]), KINDS[k], tup[k], Lk, tau, tuple(np.round(zk, 6))))
             if key in done:
                 lists.append(done[key]); continue
-            masks, vals, sline = enum_block(ts, tc, KINDS[k], rows[k], tup[k], zk, Wk, tau,
+            masks, vals, sline = enum_block(ts, tcs[k], KINDS[k], rows[k], tup[k], zk, Wk, tau,
                                             Lk if Lk < pools[k] else 2 ** 31 - 1, "ABCD"[k], threads)
             print(f"  block {'ABCD'[k]}: {len(masks)} kept; {sline} [{time.time() - t0:.0f}s]", flush=True)
             lists.append((masks, vals)); done[key] = (masks, vals)
@@ -1491,6 +1518,8 @@ def main():
     ap.add_argument("--hits", help="certify: the hits file (JSON lines)"); ap.add_argument("--k", type=int, default=0)
     ap.add_argument("--refine", type=int, default=0, help="search with --cond: refine the best REFINE tuples on Q one "
                     "by one on the finer quotient")
+    ap.add_argument("--coarse-ab", action="store_true", help="search --refine: list A and B on the coarse quotient "
+                    "and join each fine (C, D) once with all of them")
     ap.add_argument("--pcond", help="search --refine: the coarse quotient (as --cond; default Q)")
     ap.add_argument("--maxtup", type=int, default=400, help="search: estimate at most this many tuples per quotient")
     ap.add_argument("--cond", help="search: condition on a finer quotient: d for Z_d of a cyclic G, or d1,d2,... "
@@ -1528,7 +1557,7 @@ def main():
         cond = None if a.cond is None else ([int(x) for x in a.cond.split(",")] if "," in a.cond else int(a.cond))
         search(ts, rows, which, a.L, a.nsig, 5, a.K, a.threads, a.log, estimate_only=a.estimate_only, cond=cond,
                refine=a.refine, maxtup=a.maxtup,
-               pcond=None if a.pcond is None else [int(x) for x in a.pcond.split(",")])
+               pcond=None if a.pcond is None else [int(x) for x in a.pcond.split(",")], coarse_ab=a.coarse_ab)
 
 
 if __name__ == "__main__":

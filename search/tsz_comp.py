@@ -136,9 +136,7 @@ class TwComp:
             Y = cp.sample(kind, x, K, rng)
             V = self.ts.values(side, Y)
             Vi = np.rint(V).astype(np.int64)
-            U = np.unique(Vi, axis=0)
-            cache[key] = (cp.compressions_cache[(kind, x)], V.mean(0), np.cov(V.T), Vi[0],
-                          CE.echelon((U[1:] - U[0])[:120]))
+            cache[key] = (cp.compressions_cache[(kind, x)], V.mean(0), np.cov(V.T), Vi[0], CE.diff_lattice(Vi, rng))
         return cache[key]
 
     def estimate(self, tup, K, rng):

@@ -246,6 +246,17 @@ def hnf_covolume(V):
     return math.exp(0.5 * math.log(det)), len(B), B
 
 
+def diff_lattice(Vi, rng, m=400):
+    """echelon basis of the lattice spanned by the differences of the sampled integer vectors Vi: m differences of
+    distinct vectors in random order from a random base point. (The first rows of np.unique are lexicographically
+    smallest and share their leading coordinates, so their differences can span a proper sublattice.)"""
+    U = np.unique(Vi, axis=0)
+    if len(U) < 2:
+        return []
+    P = rng.permutation(len(U))
+    return echelon((U[P[1:]] - U[P[0]])[:m])
+
+
 def in_lattice(B, v):
     """is the integer vector v in the lattice with echelon basis B?"""
     v = list(map(int, v))
@@ -267,8 +278,7 @@ def block_stats(st, cp, kind, vals, K, rng):
         Y = cp.sample(kind, vals, K, rng)
         V = values(st, kind, Y)
         Vi = np.rint(V).astype(np.int64)
-        U = np.unique(Vi, axis=0)
-        cache[key] = (cp.compressions_cache[key], V.mean(0), np.cov(V.T), Vi[0], echelon((U[1:] - U[0])[:120]))
+        cache[key] = (cp.compressions_cache[key], V.mean(0), np.cov(V.T), Vi[0], diff_lattice(Vi, rng))
     return cache[key]
 
 
