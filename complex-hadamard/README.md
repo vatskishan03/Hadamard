@@ -167,5 +167,6 @@ multiplier group, and on ℤ₁₆₆ = ℤ₂ × ℤ₈₃ the only one has ord
 cyclic array has no structure in our range of orbit counts, and the bordered array's best has an estimate of 10⁻⁵
 solutions. For 418 the best structures have estimates of one to three solutions in pools of 10¹¹–10¹⁵ members; for 438,
 446, 478 and 498 every estimate is below one. The one open order where the array has strong structures is 682 (N = 341
-= 11 · 31): eight multiplier groups of order 10 with estimates of 10^1.7–10^3.0 solutions, none found so far
+= 11 · 31): eight multiplier groups of order 10 with estimates of 10^1.7–10^3.0 solutions. The two best joins
+found no solution in 97% and 95% of their collision mass, which the estimate gave a chance of 2–5% each
 ([search/NOTES.md](../search/NOTES.md) §39–41).
