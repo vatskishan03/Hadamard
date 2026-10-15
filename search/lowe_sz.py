@@ -251,7 +251,7 @@ def enum_block(st, kind, r, center, Wm, tau, maxkeep, tag, threads, filt=(), chu
 
 
 def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5, energy="full", time_limit=None,
-           kt4_threads=1, skip=0, deadline=None, cont=False, kt4_procs=1):
+           kt4_threads=1, skip=0, deadline=None, cont=False, kt4_procs=1, sig_order="law", reorder=False):
     """rerun the join on the lists saved by an earlier run (WORK/lowe), with more split values; skip leaves out the
     first split values of the law's order (those an earlier run processed). cont: continue the saved split values
     where the last join stopped (state file kt4_*.bin.state.json)"""
@@ -271,7 +271,8 @@ def resume(N, gens, rows, bordered=False, nsig=2e6, nS=5, log=None, maxsol=5, en
     for pos, k in enumerate(order):
         lists[k] = (masks[k], vals[pos])
     return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, time.time(), time_limit=time_limit,
-                kt4_threads=kt4_threads, skip=skip, deadline=deadline, cont=cont, kt4_procs=kt4_procs)
+                kt4_threads=kt4_threads, skip=skip, deadline=deadline, cont=cont, kt4_procs=kt4_procs,
+                sig_order=sig_order, reorder=reorder)
 
 
 def unit_classes(st):
@@ -281,7 +282,7 @@ def unit_classes(st):
 
 def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4, estimate_only=False, log=None,
         seed=1, maxsol=5, energy="full", time_limit=None, precheck=True, fibre=True, kt4_threads=1, budget=None,
-        kt4_procs=1):
+        kt4_procs=1, sig_order="law"):
     """energy="units": the filter's energy uses only the unit classes. On exact solution sets of composite N the
     solution members sit at arithmetically fixed values on the compression classes, away from the Gaussian centre;
     without those classes they rank much higher at N = 119 and 267 (search/NOTES.md section 34). fibre: the blocks
@@ -406,7 +407,37 @@ def run(N, gens, rows, bordered=False, L=2e7, nsig=2e5, nS=5, K=20000, threads=4
     lists = [(m, np.array(v[::max(1, len(v) // 200000)])) for m, v in lists]
     import gc; gc.collect()
     return join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, time_limit=time_limit,
-                kt4_threads=kt4_threads, deadline=deadline, kt4_procs=kt4_procs)
+                kt4_threads=kt4_threads, deadline=deadline, kt4_procs=kt4_procs, sig_order=sig_order)
+
+
+def split_keys(X, base=1 << 12, off=2048):
+    """one int64 key per split value (coordinates within +-2047), as in live_splits"""
+    X = np.asarray(X, np.int64).reshape(len(X), -1)
+    k = np.zeros(len(X), np.int64)
+    for c in range(X.shape[1]):
+        k = k * base + (X[:, c] + off)
+    return k
+
+
+def mass_order(lists, Sx, target, done_lines, rest_lines, M=2 * 10 ** 7, seed=3):
+    """the unfinished split values in order of their sampled collision mass n_AC n_BD (live_splits on fresh pairs).
+    The mass is an unbiased estimate of the number of (A + C, B + D) pairs that meet on a split value; the Gaussian law
+    misorders it where a merge class is lumpy (341 <2>: 86% of the mass 40000 split values later, against 78% in the
+    law's order). Sampled split values missing from the list are added by their mass, and those the sample never met
+    keep their order at the end. Returns (lines, share of the sampled mass on them)."""
+    P, nac, nbd = live_splits(lists, Sx, target, M=M, seed=seed)
+    w = nac * nbd
+    parse = lambda ls: np.array([[int(x) for x in l.split()] for l in ls], np.int64).reshape(-1, len(Sx))
+    kR = split_keys(parse(rest_lines))
+    kP = split_keys(P)
+    pos = dict(zip(kP.tolist(), w.tolist()))
+    wr = np.array([pos.get(k, 0.0) for k in kR.tolist()])
+    extra = np.where(~np.isin(kP, np.concatenate([split_keys(parse(done_lines)), kR])))[0]
+    cand = [(wr[i], 0, i) for i in range(len(kR)) if wr[i] > 0] + [(w[j], 1, j) for j in extra]
+    cand.sort(key=lambda x: -x[0])
+    out = [rest_lines[i] if src == 0 else " ".join(map(str, P[i].tolist())) for _, src, i in cand]
+    out += [rest_lines[i] for i in range(len(kR)) if wr[i] == 0]
+    return out, float((wr.sum() + w[extra].sum()) / max(w.sum(), 1))
 
 
 def live_splits(lists, Sx, target, M=2 * 10 ** 7, seed=1):
@@ -488,12 +519,14 @@ def coset_points(B, piv, base, m, half, cap):
     return X[np.all(np.abs(X - np.asarray(m)) <= np.asarray(half), axis=1)]
 
 
-def sigma_file(lists, Sx, target, nsig, path, seed=1, skip=0):
+def sigma_file(lists, Sx, target, nsig, path, seed=1, skip=0, order="law"):
     """split values for kt4, in order of the Gaussian law of a solution's split: with mu_k, Sigma_k the mean and
     covariance of each kept list (subsampled), a solution's (a + c) on the merge classes has mean
     m = mu_A + mu_C + (Sigma_A + Sigma_C) Sigma^+ (t - sum mu) and covariance V = (Sigma_A + Sigma_C)
     - (Sigma_A + Sigma_C) Sigma^+ (Sigma_A + Sigma_C). Only split values with pairs on both sides are used
-    (live_splits); the nsig of them closest to m in the metric V^-1 are written."""
+    (live_splits); the nsig of them closest to m in the metric V^-1 are written. order="mass": the sampled live
+    split values by decreasing collision mass n_AC n_BD first (mass_order), then the lattice points in the law's
+    order."""
     mus, sigs = [], []
     for k in range(4):
         v = np.asarray(lists[k][1][::max(1, len(lists[k][1]) // 200000)], np.float64)
@@ -508,6 +541,7 @@ def sigma_file(lists, Sx, target, nsig, path, seed=1, skip=0):
     Vi = np.linalg.inv(V + 1e-6 * np.eye(len(Sx)))
     P, nac, nbd = live_splits(lists, Sx, target, seed=seed)
     nlive = len(P)
+    mass = dict(zip(split_keys(P).tolist(), (nac * nbd).tolist()))
     # Random pairs see only the bulk of each side. When the target lies off the centre on classes where the small
     # blocks carry the variance, a solution's split sits in the tails of both sides and is never sampled. So the
     # lattice points nearest the solution law are added too: the points of the (A + C) coset that also lie in the
@@ -535,12 +569,16 @@ def sigma_file(lists, Sx, target, nsig, path, seed=1, skip=0):
         return 0, 0.0, 0
     D = P - m
     d2 = np.einsum("ij,jk,ik->i", D, Vi, D)
-    o = np.argsort(d2)[int(skip):int(skip) + int(nsig)]
+    if order == "mass":
+        wP = np.array([mass.get(k, 0.0) for k in split_keys(P).tolist()])
+        o = np.lexsort((d2, -wP))[int(skip):int(skip) + int(nsig)]
+    else:
+        o = np.argsort(d2)[int(skip):int(skip) + int(nsig)]
     if len(o) == 0:
         np.savetxt(path, np.zeros((0, len(Sx)), np.int64), fmt="%d")
         return 0, 0.0, nlive
     np.savetxt(path, P[o].astype(np.int64), fmt="%d")
-    return len(o), float(np.sqrt(d2[o[-1]])), nlive
+    return len(o), float(np.sqrt(d2[o].max())), nlive
 
 
 def count_sigma(path):
@@ -613,10 +651,11 @@ def close_parts(inp, prog, state):
 
 
 def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ordered=True, time_limit=None,
-         kt4_threads=1, skip=0, deadline=None, cont=False, kt4_procs=1):
+         kt4_threads=1, skip=0, deadline=None, cont=False, kt4_procs=1, sig_order="law", reorder=False):
     """kt4 on the saved lists. The split values are written to kt4_*.bin.sig and the number finished to
     kt4_*.bin.state.json; cont continues after the finished ones. With a deadline the join stops in time and Budget is
-    raised when split values remain."""
+    raised when split values remain. sig_order: the order of a new list of split values (sigma_file); reorder: with
+    cont, put the unfinished split values in order of sampled collision mass first (mass_order)."""
     order = [0, 2, 1, 3]
     # merge classes: largest variance, from a subsample of every list (a full int64 copy would need gigabytes)
     var = sum(np.asarray(lists[k][1][::max(1, len(lists[k][1]) // 200000)], np.float64).var(0) for k in order)
@@ -640,17 +679,27 @@ def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ord
         if state["done"] >= len(lines):
             print(f"  kt4: all {len(lines)} split values were joined earlier [{time.time() - t0:.0f}s]", flush=True)
             return []
+        if reorder:
+            new, frac = mass_order([lists[k] for k in order], Sx, st.target, lines[:state["done"]],
+                                   lines[state["done"]:])
+            lines = lines[:state["done"]] + new
+            sf.write_text("\n".join(lines) + "\n")
+            state["total"] = len(lines)
+            stf.write_text(json.dumps(state))
+            print(f"  kt4: the {len(new)} unfinished split values reordered by sampled collision mass ({frac:.3f} of "
+                  f"the mass) [{time.time() - t0:.0f}s]", flush=True)
         rest = Path(str(inp) + ".sig.rest")
         rest.write_text("\n".join(lines[state["done"]:]) + "\n")
         sigarg = "@" + str(rest)
         print(f"  kt4: merge classes {Sx}, continuing at split value {state['done'] + 1} of {len(lines)}", flush=True)
     elif ordered:
-        n, rad, nlive = sigma_file([lists[k] for k in order], Sx, st.target, nsig, sf, skip=skip)
+        n, rad, nlive = sigma_file([lists[k] for k in order], Sx, st.target, nsig, sf, skip=skip, order=sig_order)
         sigarg = "@" + str(sf)
         state = {"done": 0, "total": n, "Sx": Sx}
         stf.write_text(json.dumps(state))
-        print(f"  kt4: merge classes {Sx}, {n} split values nearest the solution law ({nlive} sampled live, the rest "
-              f"lattice points; Mahalanobis radius {rad:.2f})", flush=True)
+        how = "by sampled collision mass" if sig_order == "mass" else "nearest the solution law"
+        print(f"  kt4: merge classes {Sx}, {n} split values {how} ({nlive} sampled live, the rest lattice points; "
+              f"Mahalanobis radius {rad:.2f})", flush=True)
         if n == 0:
             print(f"  kt4: no live split value [{time.time() - t0:.0f}s]", flush=True)
             return []
@@ -752,6 +801,10 @@ def main():
     ap.add_argument("--kt4-procs", type=int, default=1,
                     help="single-thread kt4 processes on interleaved parts of the split values (default 1)")
     ap.add_argument("--skip", type=float, default=0, help="with --resume: leave out the first split values")
+    ap.add_argument("--order", choices=["law", "mass"], default="law",
+                    help="order of a new list of split values: the Gaussian solution law, or sampled collision mass")
+    ap.add_argument("--reorder", action="store_true",
+                    help="with --auto or --resume: put the unfinished split values in order of sampled collision mass")
     ap.add_argument("--budget", type=float, help="wall-clock seconds for this call; exit code 75 when work remains")
     ap.add_argument("--auto", action="store_true",
                     help="continue the saved stage: join the saved lists from the first unfinished split value when "
@@ -765,11 +818,11 @@ def main():
         if a.resume or (a.auto and saved):
             resume(a.N, a.gens, rows, a.bordered, a.nsig, a.S, a.log, energy=a.energy, time_limit=a.time,
                    kt4_threads=a.kt4_threads, skip=int(a.skip), deadline=deadline, cont=a.auto,
-                   kt4_procs=a.kt4_procs)
+                   kt4_procs=a.kt4_procs, sig_order=a.order, reorder=a.reorder)
         else:
             run(a.N, a.gens, rows, a.bordered, a.L, a.nsig, a.S, a.K, a.threads, a.estimate_only, a.log,
                 energy=a.energy, time_limit=a.time, precheck=not a.no_precheck, fibre=not a.no_fibre,
-                kt4_threads=a.kt4_threads, budget=a.budget, kt4_procs=a.kt4_procs)
+                kt4_threads=a.kt4_threads, budget=a.budget, kt4_procs=a.kt4_procs, sig_order=a.order)
     except Budget as e:
         print(f"  budget spent ({e}); the same command with --auto continues", flush=True)
         sys.exit(75)
