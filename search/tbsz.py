@@ -1173,10 +1173,14 @@ def certify(hits, out_dir=None, k=0):
 
 # ---------------------------------------------------------------------------------------------------- tests
 def test():
-    """exhaustive cores on small groups (Q = Z_4, T = {1, chi, chi-bar}), each completed and checked"""
+    """exhaustive cores on small groups (Q = Z_4, T = {1, chi, chi-bar}; Q = Z_6, T = all characters but the sign),
+    samples completed by the border search and checked"""
     import itertools as it
-    for mods, N in (([8], 11), ([2, 4], 11), ([12], 15)):
-        if len(mods) == 1:
+    z6 = [(0,), (1,), (2,), (4,), (5,)]
+    for mods, N, qm in (([8], 11, 4), ([2, 4], 11, 4), ([12], 15, 4), ([6], 11, 6), ([12], 17, 6)):
+        if qm == 6:
+            ts = TStruct(mods, [np.eye(1, dtype=np.int64)], [6], lambda c: (int(c[0]) % 6,), z6)
+        elif len(mods) == 1:
             ts = TStruct(mods, [np.eye(1, dtype=np.int64)], [4], lambda c: (int(c[0]) % 4,), [(0,), (1,), (3,)])
         else:
             ts = TStruct(mods, [np.eye(2, dtype=np.int64)], [4], lambda c: (int(c[1]) % 4,), [(0,), (1,), (3,)])
@@ -1193,14 +1197,16 @@ def test():
                 left.setdefault(tuple(u + v for u, v in zip(P[a], P[b])), []).append((a, b))
         tg = tuple(int(x) for x in ts.Tg)
         n = ok = 0
+        cap, step = (3, 2000) if qm == 4 else (2, 97)
         for c in arbs:
             for d in arbs:
                 for a, b in left.get(tuple(x - u - v for x, u, v in zip(tg, P[c], P[d])), []):
                     n += 1
-                    if n % 2000 == 1 and ok < 3:
+                    if n % step == 1 and ok < cap:
                         res = complete(ts, [a, b, c, d])
                         ok += res is not None and check(*res[0])
-        print(f"G = {mods}, N = {N}: {n} core solutions; {ok} completed and verified (order {2 * N})", flush=True)
+        print(f"G = {mods}, Q = Z{qm}, N = {N}: {n} core solutions; {ok} completed and verified (order {2 * N})",
+              flush=True)
 
 
 def main():

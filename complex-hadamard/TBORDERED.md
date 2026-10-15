@@ -104,8 +104,9 @@ rows of R̂ and the columns of Ĉ are arbitrary quaternary vectors in V_T, and X
 ## Verification
 
 `python3 search/tbsz.py test` lists every core on ℤ₈ and ℤ₂ × ℤ₄ (N = 11) and ℤ₁₂ (N = 15) with Q = ℤ₄ and
-T = {1, χ, χ̄} (32768, 49152 and 1,419,264 cores), completes samples of them with the border solver, and checks
-K K* = 2N I exactly: complex Hadamard matrices of orders 22 and 30. `verify/verify_complex.py` accepts certificates
+T = {1, χ, χ̄} (32768, 49152 and 1,419,264 cores), and on ℤ₆ (N = 11) and ℤ₁₂ (N = 17) with Q = ℤ₆ and T all characters
+but the sign (9216 and 474,624 cores). It completes samples of them with the border search and checks K K* = 2N I
+exactly: complex Hadamard matrices of orders 22, 30 and 34. `verify/verify_complex.py` accepts certificates
 with construction `szollosi-tbordered` (group, fibre labels of φ, sequences and the three border matrices).
 
 ## Order 214
