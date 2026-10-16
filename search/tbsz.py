@@ -1786,7 +1786,8 @@ def main():
         else:
             ts = make(a.N, a.family, [int(x) for x in a.gen.split(",")])
         rows = tuple(int(x) for x in a.rows.split(","))
-        which = [int(x) for x in a.tuple.split(",")]
+        which = [i for x in a.tuple.split(",") for i in
+                 (range(int(x.split("-")[0]), int(x.split("-")[1]) + 1) if "-" in x else [int(x)])]
         cond = None if a.cond is None else ([int(x) for x in a.cond.split(",")] if "," in a.cond else int(a.cond))
         search(ts, rows, which, a.L, a.nsig, 5, a.K, a.threads, a.log, estimate_only=a.estimate_only, cond=cond,
                refine=a.refine, maxtup=a.maxtup,
