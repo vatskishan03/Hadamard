@@ -3012,3 +3012,19 @@ a solution is therefore its estimate divided by the clump size rather than the e
 refined mass per row pattern (about 10^1.5) spread over orbits of 16–72 tuples and such clumps leaves well under one
 expected solution class per pattern. That is consistent with the 1,000+ empty joins, and it means a structure for 334
 needs about ten times more refined mass than this one.
+
+**Refined sweep (fixed lattice).** `rankg --refine 3` was run over 21 group and family choices for N = 167, 179, 203,
+207 and 209. Two structures looked strong on their first refinement level.
+- 209, bordered array on ℤ₂ × ℤ₈ × ℤ₁₃ with H = ⟨diag(1, 5, 5)⟩ of order 4 (60/38 orbits): 10^4.43 for rows
+  2, 0; 0, 0.
+- 203, ℤ₂² family on ℤ₂³ × ℤ₅² (37 classes): 10^3.70 for rows 2, 0; 2, 2. The ℤ₅² block of H is conjugate to
+  diag(1, 3), so ℤ₂³ × ℤ₅ is a coordinate refinement.
+
+Followed one level further down (`search --chain`, multi-level refinement), the mass falls.
+- 203: from ℤ₂³ to ℤ₂³ × ℤ₅ along the axis where H acts by ×3, the two best coarse tuples carry 10^−0.12 in total,
+  with C and D pools of 10^10.4–10^11.1.
+- 209: through ℤ₂ × ℤ₂ → ℤ₂ × ℤ₄ the best 40 parents carry 10^2.47.
+
+The Gaussian on a coarse quotient does not see the congruences that bind on the finer ones. The level that matched
+reality in the calibration above is the last one, one step from G: fibres of 13 for 161, as for 209 on ℤ₂ × ℤ₈.
+Structures have to be compared there.
