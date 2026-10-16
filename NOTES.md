@@ -901,7 +901,13 @@ adapted to the N = (q + 1)/4 orbits, Paley's matrix is a Williamson array H = Σ
   relabellings and signs of the variables gives a Hadamard matrix (`plug 19 t`).
 
 So the dicyclic structure gives quaternion-type matrices of every order 4N with 4N − 1 a prime power, but not the
-Williamson-type matrices of order N that Cooper–Wallis needs, and 263 stays out of reach this way.
+Williamson-type matrices of order N that Cooper–Wallis needs, and 263 stays out of reach this way. A product that needs
+no amicability exists: since left and right multiplications commute, Σ_{u,v} L_u R_v ⊗ T_v ⊗ X_u is a Hadamard matrix
+of order 4tN whenever Σ L_u ⊗ X_u is one and Σ R_v ⊗ T_v is a t × t orthogonal matrix over {±1, ±i, ±j, ±k} (for
+circulants, a perfect sequence over Q₈). But such matrices exist only for even t: an inner product of two rows is a sum
+of t units of Q₈, each contributing ±1 to a single coordinate, so it is non-zero when t is odd (brute force agrees: no
+perfect Q₈ sequence of length 3, 5, 7 or 9, many of lengths 2, 4 and 6). The product therefore only reaches multiples
+of 8.
 
 **Plug-ins from association schemes (negative).** The symmetric plug-in of [search/NOTES.md](search/NOTES.md) §31 needs
 commuting symmetric ±1 matrices X, D of order r with X² + (m − 1) D² = m r I. With X and D in the Bose–Mesner algebra of
