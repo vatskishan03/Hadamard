@@ -1,18 +1,18 @@
 # Notes on structured searches (October 2026)
 
-What we learned while searching for the unresolved orders in [FRONTIER.md](FRONTIER.md), including the searches
-that found nothing. Section 1 is a mechanism, sections 2–4 and 6 are negative results, and section 5 is the literature
-as of October 2026. Section 7 collects corrections to the tables and the Williamson-type routes, sections 8–12 the
-complex Hadamard matrices, section 13 the Spence spin structures behind order 2292, section 14 the complex orders 330
-and 426, section 15 the compressions that decide which row patterns live, with the complex orders 342, 366, 430
-and 454, section 16 the character-bordered array and the complex order 214, section 17 its ℤ₆ form and the
-complex order 322, section 18 Paley's matrix halves, and section 19 Miyamoto's lemma with symmetric inputs. The notes
-on the individual search programs are in [search/NOTES.md](search/NOTES.md).
+What we learned while searching for the unresolved orders in [FRONTIER.md](FRONTIER.md), including the searches that
+found nothing. Section 1 is a mechanism, sections 2–4 and 6 are negative results, and section 5 is the literature as of
+October 2026. Section 7 collects corrections to the tables and the Williamson-type routes, sections 8–12 the complex
+Hadamard matrices, section 13 the Spence spin structures behind order 2292, section 14 the complex orders 330 and 426,
+section 15 the compressions that decide which row patterns live, with the complex orders 342, 366, 430 and 454, section
+16 the character-bordered array and the complex order 214, section 17 its ℤ₆ form and the complex order 322, section 18
+Paley's matrix halves, section 19 Miyamoto's lemma with symmetric inputs, and section 20 the page of Zaitsev et al. The
+notes on the individual search programs are in [search/NOTES.md](search/NOTES.md).
 
 **Correction (October 16).** Sections 8–17 call the complex orders 142, 154, 222, 262, 286, 310, 322, 330, 342, 370,
 430, 454 and 742 open before our searches. They are not: 4N − 1 is a prime power for each, and Ito's Hadamard groups
-with Egan 2019, Theorem 4.5, give them (§18). The orders first constructed here are 214, 238, 302, 326, 366, 382,
-426, 494, 518, 534 and 754.
+with Egan 2019, Theorem 4.5, give them (§18). The other 11, 214, 238, 302, 326, 366, 382, 426, 494, 518, 534 and
+754, were constructed concurrently by Zaitsev et al. (§20).
 
 ## 1. Why some structures have many solutions
 
@@ -350,9 +350,9 @@ order N − 1, which helps exactly where ℤ_N has no usable multipliers. `searc
 multiplier structure and every spin structure on ℤ₂² × ℤ_((N−1)/4) whose complete lists join within 2 · 10¹⁰ pair
 operations, for the open N.
 
-**Order 214 (N = 107) is now the smallest open complex Hadamard order** in our accounting (constructed in §16). It is blank in Table
-11.2. No near-Williamson or quaternary Legendre pair of the matching size (ℓ = 106) is known to us, and 107 is a safe
-prime:
+**Order 214 (N = 107) is now the smallest open complex Hadamard order** in our accounting (constructed in §16). It is
+blank in Table 11.2. No near-Williamson or quaternary Legendre pair of the matching size (ℓ = 106) is known to us, and
+107 is a safe prime:
 - ℤ₁₀₇* and ℤ₁₀₆* have no useful multiplier groups.
 - The only bordered structure the row sums admit, H = {±1}, rates 10^1.0 but has pools of 5 · 10¹⁴.
 
@@ -698,9 +698,10 @@ blank. Of the blanks:
 - 13 had been constructed here by searches: 142, 154, 222, 262, 286, 310, 322, 330, 342, 370, 430, 454, 742;
 - the other 63 (406, 414, 474, 526, 546, 582, 646, 666 (q = 11³), …, 1966) now have certificates from the theorem.
 
-All 76 are known, from Ito and Egan 2019 (below). That leaves 143 open N < 1000. None of the smallest open orders
-(334, 358, 418, 438, 446, 470, 478, 490, 498, …) has 4N − 1 a prime power. The 11 orders found by search that do not
-follow (214, 238, 302, 326, 366, 382, 426, 494, 518, 534, 754) are the ones first constructed here.
+All 76 are known, from Ito and Egan 2019 (below). That leaves 143 open N < 1000 (115 after §19 and §20). None of the
+smallest open orders (334, 358, 418, 438, 446, 478, 498, …) has 4N − 1 a prime power. The 11 orders found by search
+that do not follow (214, 238, 302, 326, 366, 382, 426, 494, 518, 534, 754) were found concurrently by Zaitsev et al.
+(§20).
 
 **Novelty: known.** The first version of this section said that no source combines the automorphism group of
 Paley's matrix (Kantor 1969) with the half-order lemma, and labelled the 63 orders New. Searching the literature on
@@ -748,13 +749,14 @@ as they stand.
   v of the symmetric census has 4v − 1 a prime power. The complex table, by contrast, leaves every half order
   blank.
 - *A lead not yet built.* Seberry and Yamada's Corollary 8.8 (after Miyamoto) turns Williamson-type matrices of order
-  (q − 1)/4, or a Hadamard matrix of order (q − 1)/2, into Williamson-type matrices of order q ≡ 1 (mod 4). The
-  2026 inputs make three orders reachable that we then took for open (they are known through this corollary; §19): 538 (q = 269, from the near-Williamson matrices of order 67 of
-  arXiv:2605.08661, made pairwise amicable as (AR, B, C, D)), 1018 (q = 509, from Đoković's good matrices of order
-  127) and 1714 (q = 857, from H(428)). The survey does not give the matrices U_i, V_i of its Lemma 8.6. The
-  natural choice (U = (C₁, C₂, 0, 0) from the quadratic-residue blocks of the conference matrix, V = (I, 0, K₁, K₂))
-  needs a symmetric complex Hadamard matrix of order (q − 1)/2, and 2 × 2 block patterns built from four symmetric
-  Williamson-type blocks cannot give one. So these three orders are not claimed.
+  (q − 1)/4, or a Hadamard matrix of order (q − 1)/2, into Williamson-type matrices of order q ≡ 1 (mod 4). The 2026
+  inputs make three orders reachable that we then took for open (they are known through this corollary; §19):
+  538 (q = 269, from the near-Williamson matrices of order 67 of arXiv:2605.08661, made pairwise amicable as
+  (AR, B, C, D)), 1018 (q = 509, from Đoković's good matrices of order 127) and 1714 (q = 857, from H(428)). The
+  survey does not give the matrices U_i, V_i of its Lemma 8.6. The natural choice (U = (C₁, C₂, 0, 0) from the
+  quadratic-residue blocks of the conference matrix, V = (I, 0, K₁, K₂)) needs a symmetric complex Hadamard matrix of
+  order (q − 1)/2, and 2 × 2 block patterns built from four symmetric Williamson-type blocks cannot give one. So these
+  three orders are not claimed.
 
   Two follow-ups.
   - Seberry and Yamada's M-structure paper (JCMCC 7 (1990) 97–137, on the Wollongong repository) states the
@@ -790,9 +792,9 @@ A Aᵀ + B Bᵀ + 2 W Wᵀ = 4m I (a propus quadruple (A, W, W, B) with both out
 M_3 = [[B, W], [Wᵀ, −A]] and M_4 = [[A, W], [Wᵀ, −B]] form a pair of order 2m. With q = 4m + 1 prime this gives a
 complex Hadamard matrix of order 2q = 8m + 2.
 
-`search/miyamoto_wt.py selftest` builds all of this and checks it exactly for q = 13, 17, 29, 37 and 61, with inputs from
-Paley's symmetric Legendre pairs, from Sylvester's matrix of order 8, and from doubly symmetric propus quadruples of
-orders 3, 7 and 9 found by brute force.
+`search/miyamoto_wt.py selftest` builds all of this and checks it exactly for q = 13, 17, 29, 37 and 61, with inputs
+from Paley's symmetric Legendre pairs, from Sylvester's matrix of order 8, and from doubly symmetric propus quadruples
+of orders 3, 7 and 9 found by brute force.
 
 **What it would give.** The complex orders 2q with q ≡ 1 (mod 4) prime that we had listed as open are 538, 1018,
 1306, 1466, 1706, 1714 and 1882 (q = 269, 509, 653, 733, 853, 857, 941). They would need a symmetric quaternary
@@ -800,15 +802,17 @@ Hadamard matrix of order 134, 254, 326, 366, 426, 428 and 470. Three of them are
 Propositions 3.2–3.4) applies Corollary 8.8(i) to get Williamson-type matrices of orders 509 (from good matrices of
 order 127) and 857 (from H(428)), and Corollary 18 gives 883 (q = 441). By the same corollary, the near-Williamson
 matrices of order 67 (2026) give 269. So 538, 1018, 1714 and 1766 are known, through the corollary we could not
-rebuild (below); the open ones of this form are 1306, 1466, 1706 and 1882.
+rebuild (below). The other four, 1306, 1466, 1706 and 1882, are on Zaitsev's page (§20), so none of this form is
+open.
 
 **Why we found none.**
 - *Doubly symmetric propus over ℤ_m* (m = 67, 127, 163, 183, 213, 235; `search/propus_rank.py`, default structure):
   for m = 67 the multiplier groups of orders 3, 11 and 33 are excluded by the row sums. Under |H| = 3, for example,
   the symmetric blocks have row sums ±1 + 6k with k odd, W has ±1 + 6k for any k, and no such values satisfy
-  a² + b² + 2w² = 268. H = {±1} rates 10^−12, and H = 1 rates 10^0.6 in a space of 2^135. The best structures for the other m rate 10^−1.3 (163, H = ⟨38⟩
-  of order 9, which we exhausted: no solution), 10^−2.4 (127), 10^−3.8 (213) and 10^−3.9 (183). The Szöllősi
-  solutions we certified for 326, 366 and 426 do not have C = D, not even up to shift, sign and reversal.
+  a² + b² + 2w² = 268. H = {±1} rates 10^−12, and H = 1 rates 10^0.6 in a space of 2^135. The best structures for
+  the other m rate 10^−1.3 (163, H = ⟨38⟩ of order 9, which we exhausted: no solution), 10^−2.4 (127), 10^−3.8 (213)
+  and 10^−3.9 (183). The Szöllősi solutions we certified for 326, 366 and 426 do not have C = D, not even up to
+  shift, sign and reversal.
 - *Bordered symmetric pairs.* A border of one point turns the problem into a symmetric Legendre pair of length
   n − 1 (PAF_a + PAF_b = −2). An exhaustive search of cyclic lengths up to 33 finds them only for 3 and the primes
   ≡ 1 (mod 4), where they come from Paley's matrix. A count of orbits explains this. Symmetric blocks have half the
@@ -820,8 +824,8 @@ paper (JCTA 57, 1991) is in Elsevier's open archive, but the full text could not
 Table A.1 does use the corollary: for q ≡ 5 (mod 8) it lists Williamson-type matrices of order q exactly when
 (q − 1)/4 has them or 2q − 1 is a prime power (checked for every prime q < 1000). We tried the natural forms:
 - U-blocks along the quartic ratio classes of Paley's core, and V-blocks taken from four commuting symmetric
-  Williamson-type blocks in 2 × 2 patterns. The V-system has 80 solutions (`search/miyamoto_wt.py vpatterns`), and each
-  needs a U-block made of a single quartic class in some row. Its row sum is a cyclotomic number that varies with q
+  Williamson-type blocks in 2 × 2 patterns. The V-system has 80 solutions (`search/miyamoto_wt.py vpatterns`), and
+  each needs a U-block made of a single quartic class in some row. Its row sum is a cyclotomic number that varies with q
   (for q = 269 the four are 6, 5, −7, −5), so the row-sum condition fails.
 - Without the 2 × 2 patterns: once U_1 = −Q_SS is forced by the row sums, a pattern that puts the Q_SN part in two
   different U's fails at V_1 V_2ᵀ = V_2 V_1ᵀ. The remaining pattern needs exactly the symmetric pair above.
@@ -844,3 +848,27 @@ every ordered pair of seeds, every unit μ, translation and sign. Each seed is i
 of its search: orders 3, 3, 5, 15, 12, 9 and 7 for the last seven, none for 668 and 716. No seed is ±μ-related to a
 different seed, and no seed goes to its negative. So these matrices carry no complex structure of this kind.
 
+## 20. The page of Zaitsev et al.: the 11 complex orders are concurrent (October 16)
+
+V. Zaitsev's page [Quaternary Hadamard matrices](https://www.cs.uleth.ca/~zaitsevv/quaternary.html), with Kharaghani,
+Mohammadian and Tayfeh-Rezaie, says "Last updated: 14 October 2026" (HTTP Last-Modified 15 October 2026, 02:50 UTC).
+We found it on 16 October. It has matrices of 122 orders 2N; we downloaded every one and checked it exactly
+(entries in {±1, ±i}, K K* = 2N I; [search/data/complex_zaitsev_2026.txt](search/data/complex_zaitsev_2026.txt)). It
+attributes 23 orders to Szöllősi's array with two symmetric blocks, the construction of §8–14 (142, 154, 222, 238,
+262, 286, 302, 310, 326, 342, 366, 370, 382, 426, 430, 494, 518, 534, 686, 742, 754, 814 and 1558), 27 to unpublished
+approaches (among them 214, 406, 454, 470, 490, 1066, 1306, 1466, 1706 and 1882), 62 to "a construction utilizing
+Paley-type matrices" (our 63 halves of §18 without 406, 814 and 1066, plus 322 and 330), and five, for which it
+claims nothing, to Mathon's conference matrices and to Đoković's Williamson-type matrices of orders 509, 857 and 883.
+
+So all 11 orders we had labelled New are on the page, and the page was last modified before we committed 214 and 366.
+They are now labelled Concurrent. At ten of them the matrices differ as well: for each pair (a, b) of rows let n_k be
+the number of columns c with K[a,c] K̄[b,c] = iᵏ; the multiset of the tuples (n_0, …, n_3), each taken up to rotation
+and reversal, is unchanged by row and column permutations, unit scalings and conjugation, and we computed it for K and
+Kᵀ. It differs between our matrix and theirs at 214, 302, 326, 366, 382, 426, 494, 518, 534 and 754. At 238 it
+agrees, and so does the finer invariant that keeps, for each row, the multiset of its tuples; the two matrices of
+order 238 may be equivalent.
+
+The page also covers 24 orders that we had listed as open, 470, 490, 686 and 1306 among them. With §19 the count of
+open N < 1000 falls from 143 to 115 (`search/complex_status.py`); the smallest open orders are 334, 358, 418, 438,
+446, 478, 498, 502, 506 and 550, none with 4N − 1 a prime power. The searches of §8–17 that found nothing at 334,
+358, 418, 438 and 446 stand as negative results for those structures.

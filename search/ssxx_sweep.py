@@ -25,6 +25,9 @@ search/data/complex_known_1992.txt) or one of these gives it:
   (arXiv:1008.2043, Props 3.2-3.4) states 509, 857 and 883; 269 follows from the near-Williamson matrices of order 67
   (2026). We could not reconstruct the construction behind Corollary 8.8(i) (NOTES.md section 19) and follow the
   literature in counting it;
+- V. Zaitsev's page "Quaternary Hadamard matrices" (https://www.cs.uleth.ca/~zaitsevv/quaternary.html, last updated
+  14 Oct 2026; with Kharaghani, Mohammadian and Tayfeh-Rezaie): explicit matrices of 122 orders, checked here
+  (search/data/complex_zaitsev_2026.txt). It covers the 11 orders found here by search, concurrently;
 - Seberry-Yamada (1992) Corollaries 11.15 (orders n^j (n + 1)) and 11.17 (an explicit list, which includes 105),
   and the conference matrices of their codes c2 ((h - 1)^2 + 1, h skew) and c5 ((m - 1)^s + 1, m a conference order).
 This is our reading of the literature, not a complete table (Table 11.2 of Seberry and Yamada's 2020 book, which
@@ -43,6 +46,7 @@ from bnw import Struct, subgroups
 
 DATA = Path(__file__).resolve().parent / "data" / "wt_known_1992.txt"
 CDATA = Path(__file__).resolve().parent / "data" / "complex_known_1992.txt"
+ZDATA = Path(__file__).resolve().parent / "data" / "complex_zaitsev_2026.txt"     # orders 2N
 KMT = set(range(1, 70, 2)) | {73, 79, 91, 93, 95, 97, 103, 109, 127, 133, 181}
 DJOKOVIC_1993 = {35, 127}
 QLP_OPEN_TO_100 = {70, 76, 88, 92, 94, 100}
@@ -160,6 +164,8 @@ def known_reason(N):
     r = miyamoto_wt(N, wt)
     if r:
         return r
+    if 2 * N in load(ZDATA):
+        return "Zaitsev et al., quaternary Hadamard matrices page (14 Oct 2026), explicit matrix"
     return None
 
 

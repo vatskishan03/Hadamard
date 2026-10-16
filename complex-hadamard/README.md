@@ -9,14 +9,18 @@ Recent progress at the bottom of that range:
   118.
 - Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev (arXiv:2605.08661v2, September 2026) gave the first examples of
   orders 118, 130, 134, 206 and 266, from near-Williamson matrices.
+- V. Zaitsev's page [Quaternary Hadamard matrices](https://www.cs.uleth.ca/~zaitsevv/quaternary.html) (last updated
+  14 October 2026; work with the same coauthors) gives explicit matrices of 122 orders 2N, most of them from Szöllősi's
+  array with two symmetric blocks, the construction used here.
 
-This directory constructs 11 orders that, to our knowledge, had no construction: 214, 238, 302, 326, 366, 382, 426,
-494, 518, 534 and 754. It also gives explicit matrices of 76 orders that are blank in the 1992 table but follow from
-a result we had missed: Paley's matrix of order q + 1, q ≡ 3 (mod 4) a prime power, makes the dicyclic group of order
-2(q + 1) a Hadamard group (Ito), and Egan (Des. Codes Cryptogr. 87 (2019) 67–74, Theorem 4.5) turns this into a
-complex Hadamard matrix of order (q + 1)/2. So every order 2N with N odd and 4N − 1 a prime power is known. We found
-the construction independently, with a direct proof ([PALEY.md](PALEY.md)), and had at first labelled 13 of these
-orders New; they are not.
+This directory constructs 11 orders that had no construction in the published work we checked: 214, 238, 302, 326, 366,
+382, 426, 494, 518, 534 and 754. All 11 are also on Zaitsev's page, found concurrently and independently (we saw the
+page on 16 October 2026, after our searches); we claim no priority for them. It also gives explicit matrices of 76
+orders that are blank in the 1992 table but follow from a result we had missed: Paley's matrix of order q + 1, q ≡ 3
+(mod 4) a prime power, makes the dicyclic group of order 2(q + 1) a Hadamard group (Ito), and Egan (Des. Codes Cryptogr.
+87 (2019) 67–74, Theorem 4.5) turns this into a complex Hadamard matrix of order (q + 1)/2. So every order 2N with N odd
+and 4N − 1 a prime power is known. We found the construction independently, with a direct proof ([PALEY.md](PALEY.md)),
+and had at first labelled 13 of these orders New; they are not.
 
 ## Construction
 
@@ -104,8 +108,12 @@ into a two-list search, are in [TWISTED.md](TWISTED.md).
 
 ## Matrices
 
-**First constructed here** (New). For none of them is 4N − 1 or 2N − 1 a prime power, and none is covered by the
-sources we checked (Status section).
+**Constructed here and concurrently by Zaitsev et al.** (Concurrent). For none of them is 4N − 1 or 2N − 1 a prime
+power, and none is covered by the published sources we checked (Status section). Zaitsev's page has matrices of all
+11. For 10 of them ours is inequivalent to theirs: the multiset over row pairs of the counts
+#{c : K[a,c] K̄[b,c] = iᵏ}, k = 0..3, taken up to rotation and reversal, is invariant under row and column
+permutations, unit scalings, conjugation and transposition, and it differs. For 238 it agrees, and so does a finer
+row-wise version; the two may be equivalent ([NOTES.md](../NOTES.md) §20).
 
 | order 2N | N | multiplier group / source | row sums (a, b; c, d) | file |
 |---:|---|---|---|---|
@@ -227,7 +235,8 @@ Kharaghani–Seberry, codes x2 and x6). Every order in this directory is **blank
 lemma behind PALEY.md is in the same survey (Lemma 11.16). The parsed table is
 [`search/data/complex_known_1992.txt`](../search/data/complex_known_1992.txt).
 
-**Results since 1992** that we checked. Only the first gives orders of this directory, the 76 known ones:
+**Results since 1992** that we checked. The first gives the 76 known orders of this directory, the last the 11
+concurrent ones:
 - Ito's dicyclic Hadamard groups (Ito, On Hadamard groups, 1994–2000; Schmidt, Des. Codes Cryptogr. 17 (1999) 61–68,
   Corollary 3.6) and R. Egan, Phased unitary Golay pairs, Butson Hadamard matrices and a conjecture of Ito's,
   Des. Codes Cryptogr. 87 (2019) 67–74, Theorem 4.5: a complex Hadamard matrix of order 2v whenever v = 2^a 10^b 26^c m
@@ -251,15 +260,19 @@ lemma behind PALEY.md is in the same survey (Lemma 11.16). The parsed table is
   Corollary 8.8(i) ([NOTES.md](../NOTES.md) §19) and follow the literature in counting them.
 - Mathon's conference matrices (q²(q ± 2) + 1). We also count them as known where the 1992 table is blank
   (N = 221, 787).
+- Zaitsev's page (above, read on 16 October 2026). Its 122 matrices were downloaded and checked exactly
+  ([`search/data/complex_zaitsev_2026.txt`](../search/data/complex_zaitsev_2026.txt)). Besides the 11 orders of the
+  first table it covers 24 orders that we had listed as open, among them 470, 490, 686, 1306, 1466, 1706 and 1882.
 
 The sweep's candidate list (`python3 search/ssxx_sweep.py list`) is exactly the blank entries of the 1992 table
 minus these. The 2026 papers cite the updated Table 11.2 of Seberry and Yamada's 2020 book (Wiley), which we could
 not consult. A construction published between 1992 and 2020 and recorded only there is the remaining caveat.
 
-**What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 139 values of N < 1000
-have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 334, 358, 418, 438, 446, 470, 478,
-490, 498, 502, 506, 550, …; for none of them is 4N − 1 a prime power. (An earlier count of 143 also listed 538,
-1018, 1714 and 1766, which follow from Miyamoto's corollaries; see above.) 214, 238, 302 and 326 were successively the
+**What remains open** (`python3 search/complex_status.py`): after the orders in this directory and on Zaitsev's page,
+115 values of N < 1000 have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 334, 358,
+418, 438, 446, 478, 498, 502, 506, 550, 574, 598, …; for none of them is 4N − 1 a prime power. (The earlier count of 143
+also listed 538, 1018, 1714 and 1766, which follow from Miyamoto's corollaries, and that of 139 the 24 orders of
+Zaitsev's page; see above.) 214, 238, 302 and 326 were successively the
 smallest open order; they are in the table above. No quaternary Legendre pair family covers the length 106 of order
 214 (Jedwab–Pender need 213 or 105 to be a prime power), and the 2026 quaternary Legendre pairs (arXiv:2609.04589,
 arXiv:2609.25573) have lengths below 100.
@@ -268,3 +281,7 @@ arXiv:2609.25573) have lengths below 100.
 of Paley's matrix and 13 orders found by search, among them 142 and 154 (which we had called the two smallest open
 orders after the 2026 papers) and 322. Neither 2026 paper cites Egan, and both take their smallest open order from the
 1992 table; we did the same. The record of how the error arose is in [PALEY.md](PALEY.md#novelty).
+
+A second correction: the 11 orders of the first table were labelled New until we found Zaitsev's page on 16 October
+2026. They are Concurrent: the page lists all 11, and its last modification (15 October 2026, 02:50 UTC) precedes our
+commits of 214 and 366.

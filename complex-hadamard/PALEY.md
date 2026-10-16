@@ -140,6 +140,7 @@ How we missed it. We first checked Seberry and Yamada's 1992 table (blank at all
 and both take the smallest unresolved order, 118, from the 1992 table. Egan's paper turned up only when we searched
 for Ito's Hadamard groups.
 
-The correction affects the earlier claims of this directory as well. The orders first constructed here are now the 11
-with 4N − 1 not a prime power: 214, 238, 302, 326, 366, 382, 426, 494, 518, 534 and 754. 214, 238, 302 and 326 were
-successively the smallest open order; 334 is the smallest now.
+The correction affects the earlier claims of this directory as well. The remaining 11 orders found by search, with
+4N − 1 not a prime power (214, 238, 302, 326, 366, 382, 426, 494, 518, 534 and 754), were constructed concurrently
+by Zaitsev et al. ([README.md](README.md#status)); 334 is the smallest open order now. Their page also has the 62
+halves of Paley's matrix of orders up to 1966, attributed to "a construction utilizing Paley-type matrices".

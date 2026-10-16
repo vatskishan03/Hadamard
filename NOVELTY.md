@@ -11,6 +11,7 @@ corrections are welcome.
 | **New** | The order is open in the reference table for its family (below), and no later construction was found. |
 | **New, beyond the tables** | The order lies above the range of the reference tables. Where Table 1.53 of the Handbook covers it, the table gives t ≥ 3 (no Hadamard matrix of order 4n known), and no later construction was found. |
 | **First explicit construction** | A table records the order as known, but we could not trace any construction behind the entry. |
+| **Concurrent** | No published construction was found, but another group constructed the order independently at about the same time. We claim no priority. |
 | **Known** | An earlier construction exists. The matrix here is independent of it. |
 
 For skew and symmetric matrices the property is what is new: an ordinary Hadamard matrix of the same order may have
@@ -53,6 +54,9 @@ For every order we checked:
     Theorem 4.5, which give every order 2N with 4N − 1 a prime power (found on 16 October 2026, after we had
     labelled 76 such orders New; corrected in [complex-hadamard](complex-hadamard/README.md#status));
   - Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev, arXiv:2605.08661 (near-Williamson matrices);
+  - V. Zaitsev's page Quaternary Hadamard matrices (https://www.cs.uleth.ca/~zaitsevv/quaternary.html, last updated
+    14 October 2026, read on 16 October 2026; work with Kharaghani, Mohammadian and Tayfeh-Rezaie), with matrices of
+    122 complex orders, among them all 11 that we had labelled New; they are now labelled Concurrent;
   - Czifra, Matolcsi and Szöllősi, arXiv:2511.11230 (Butson matrices BH(n, q) for q = 6, 10 and 14, none quaternary),
     the quaternary Legendre pairs of arXiv:2609.04589 and arXiv:2609.25573 (lengths 42 to 80), and the skew-regular
     quaternary Hadamard matrices of order 1 + p² of arXiv:2510.06489 (complex orders,

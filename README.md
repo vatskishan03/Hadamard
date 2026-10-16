@@ -1,8 +1,8 @@
 # New Hadamard matrices
 
-Explicit Hadamard, skew-Hadamard, symmetric Hadamard and complex Hadamard matrices of orders that had no known
-construction. Every matrix comes with a certificate from which `verify/` rebuilds it and checks it in exact
-arithmetic.
+Explicit Hadamard, skew-Hadamard and symmetric Hadamard matrices of orders that had no known construction, and complex
+Hadamard matrices of orders found here and, concurrently, by another group. Every matrix comes with a certificate from
+which `verify/` rebuilds it and checks it in exact arithmetic.
 
 A Hadamard matrix of order n is an n × n matrix H with entries ±1 and H Hᵀ = n I. It can exist only for n = 1, 2 or
 n ≡ 0 (mod 4), and the Hadamard conjecture asserts that it exists for every multiple of 4. In August 2026 Alpöge,
@@ -42,9 +42,10 @@ Pasechnik [3], and we found no later construction.
 - **Symmetric Hadamard matrices** of orders 532, 732, 876, 4828 and 5700, all undecided in the Đoković–Seberry
   census [4]. See [symmetric](symmetric).
 - **Complex Hadamard matrices** of 11 orders 2N with N odd, blank in Seberry and Yamada's table of known orders [5]
-  and, to our knowledge, not constructed since [10, 11, 12]: 214, 238, 302, 326, 366, 382, 426, 494, 518, 534 and
-  754, from searches over Szöllősi's array [10] and its bordered, character-bordered and twisted forms. 214, 238, 302
-  and 326 were successively the smallest open order; 334 is the smallest now. Also explicit matrices of 76 known
+  and in the papers since [10, 11, 12]: 214, 238, 302, 326, 366, 382, 426, 494, 518, 534 and 754, from searches over
+  Szöllősi's array [10] and its bordered, character-bordered and twisted forms. They were found concurrently and
+  independently by Zaitsev et al. [13], whose page has matrices of all 11; we claim no priority. 334 is the smallest
+  open order now. Also explicit matrices of 76 known
   orders from 142 to 1966 with 4N − 1 a prime power, among them halves of Paley's matrix of order q + 1
   ([complex-hadamard/PALEY.md](complex-hadamard/PALEY.md)); these follow from Ito's dicyclic Hadamard groups and
   Egan's Theorem 4.5 [12], which we had missed at first. See [complex-hadamard](complex-hadamard).
@@ -123,6 +124,8 @@ the unresolved orders up to 4 · 2999 with the cheapest structure known for each
 11. H. Kharaghani, A. Mohammadian, B. Tayfeh-Rezaie, V. Zaitsev, arXiv:2605.08661v2 (2026).
 12. R. Egan, Phased unitary Golay pairs, Butson Hadamard matrices and a conjecture of Ito's, Des. Codes Cryptogr. 87
     (2019) 67–74.
+13. V. Zaitsev (with H. Kharaghani, A. Mohammadian, B. Tayfeh-Rezaie), Quaternary Hadamard matrices,
+    https://www.cs.uleth.ca/~zaitsevv/quaternary.html, last updated October 14, 2026.
 
 ## Citation
 

@@ -2865,7 +2865,9 @@ finer quotient that refines Q):
 
 *Correction (October 16).* 322 was not open, nor were 330, 342, 430 and 454 of §§41–44: 4N − 1 is a prime power
 for each, and Ito's Hadamard groups with Egan 2019, Theorem 4.5, give them ([NOTES.md](../NOTES.md) §18,
-[PALEY.md](../complex-hadamard/PALEY.md)). The searches and their calibrations stand.
+[PALEY.md](../complex-hadamard/PALEY.md)). The searches and their calibrations stand. The orders 214, 366 and 426
+of §§41–45, and the other eight found by search, were constructed concurrently by Zaitsev et al.
+([NOTES.md](../NOTES.md) §20).
 
 **Equivalences.** Multiplying the sequences by λ ∘ φ (λ a real character of Q) maps the family of T to that of λT,
 border included, so z4n ≡ z4cyc, v4n ≡ v4t and z6s ≡ z6t (the small-group core counts agree: 32768, 49152 and
