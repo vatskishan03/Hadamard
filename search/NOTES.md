@@ -2995,3 +2995,20 @@ number.
 pairs each. kt4 opened two OpenMP parallel regions per split value, and with threads spinning on a loaded machine
 this cost about 16 ms per split value: 11 minutes per join. The regions now run in parallel only above 65,536 pairs,
 and `search` starts kt4 with a passive wait policy: about 50 s per join.
+
+**Calibration on the solved structure (N = 161, order 322).** The same pipeline (rows 2, 0; 4, 0, three coarse
+tuples refined on ℤ₂² × ℤ₃, orbits as above, `--count-only --maxsol 100000`) joins 12 orbit representatives of
+36 live fine tuples:
+
+| Estimate per tuple | Representatives | Core solutions each |
+|---|---|---|
+| 10^0.69–10^0.71 | 4 | 96 |
+| 10^0.33–10^0.39 | 8 | 0 |
+
+So the estimates do not overstate the counts: 384 core solutions against about 39 predicted. The solutions are
+clumped: a tuple with any solution has 96 of them. These are probably images under automorphisms that fix its
+compressions, such as the multipliers of ℤ₁₃ that commute with H, together with signs. The chance that a tuple holds
+a solution is therefore its estimate divided by the clump size rather than the estimate itself. For N = 167 the
+refined mass per row pattern (about 10^1.5) spread over orbits of 16–72 tuples and such clumps leaves well under one
+expected solution class per pattern. That is consistent with the 1,000+ empty joins, and it means a structure for 334
+needs about ten times more refined mass than this one.
