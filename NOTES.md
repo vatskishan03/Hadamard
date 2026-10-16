@@ -749,7 +749,7 @@ as they stand.
   blank.
 - *A lead not yet built.* Seberry and Yamada's Corollary 8.8 (after Miyamoto) turns Williamson-type matrices of order
   (q − 1)/4, or a Hadamard matrix of order (q − 1)/2, into Williamson-type matrices of order q ≡ 1 (mod 4). The
-  2026 inputs make three open orders reachable: 538 (q = 269, from the near-Williamson matrices of order 67 of
+  2026 inputs make three orders reachable that we then took for open (they are known through this corollary; §19): 538 (q = 269, from the near-Williamson matrices of order 67 of
   arXiv:2605.08661, made pairwise amicable as (AR, B, C, D)), 1018 (q = 509, from Đoković's good matrices of order
   127) and 1714 (q = 857, from H(428)). The survey does not give the matrices U_i, V_i of its Lemma 8.6. The
   natural choice (U = (C₁, C₂, 0, 0) from the quadratic-residue blocks of the conference matrix, V = (I, 0, K₁, K₂))
@@ -794,9 +794,13 @@ complex Hadamard matrix of order 2q = 8m + 2.
 Paley's symmetric Legendre pairs, from Sylvester's matrix of order 8, and from doubly symmetric propus quadruples of
 orders 3, 7 and 9 found by brute force.
 
-**What it would give.** The open complex orders 2q with q ≡ 1 (mod 4) prime are 538, 1018, 1306, 1466, 1706, 1714
-and 1882 (q = 269, 509, 653, 733, 853, 857, 941). They would need a symmetric quaternary Hadamard matrix of order 134,
-254, 326, 366, 426, 428 and 470.
+**What it would give.** The complex orders 2q with q ≡ 1 (mod 4) prime that we had listed as open are 538, 1018,
+1306, 1466, 1706, 1714 and 1882 (q = 269, 509, 653, 733, 853, 857, 941). They would need a symmetric quaternary
+Hadamard matrix of order 134, 254, 326, 366, 426, 428 and 470. Three of them are not open: Đoković (arXiv:1008.2043,
+Propositions 3.2–3.4) applies Corollary 8.8(i) to get Williamson-type matrices of orders 509 (from good matrices of
+order 127) and 857 (from H(428)), and Corollary 18 gives 883 (q = 441). By the same corollary, the near-Williamson
+matrices of order 67 (2026) give 269. So 538, 1018, 1714 and 1766 are known, through the corollary we could not
+rebuild (below); the open ones of this form are 1306, 1466, 1706 and 1882.
 
 **Why we found none.**
 - *Doubly symmetric propus over ℤ_m* (m = 67, 127, 163, 183, 213, 235; `search/propus_rank.py`, default structure):
@@ -830,10 +834,8 @@ commuting. An arbitrary Hadamard matrix of order (q − 1)/2, which Corollary 8.
 either.
 
 So the corollary must use U-matrices that are not invariant under the quartic (or octic) subgroup, or a different
-lemma. Until
-the source is read, the orders 538 and 1018, whose inputs (near-Williamson matrices of order 67 from 2026, good
-matrices of order 127 from 1993) postdate the 1992 table, stay unconstructed here. 1714 (q ≡ 1 mod 8, H(428)) is in
-the same position.
+lemma. The literature treats it as proved (Đoković uses it in arXiv:1008.2043), so we count the orders it gives as
+known (`search/ssxx_sweep.py`, `miyamoto_wt`), but we have no matrices for 538, 1018 and 1714.
 
 **The 2026 matrices once more.** A complex structure on a Goethals–Seidel matrix can also come from seeds related by a
 multiplier (Y = ±X∘μ up to translation, as in the twisted arrays), not only from symmetric seeds. For the nine

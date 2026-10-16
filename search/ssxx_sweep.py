@@ -18,6 +18,13 @@ search/data/complex_known_1992.txt) or one of these gives it:
   after Schmidt 1999, Corollary 3.6): BH(2v, 4) for v = 2^a 10^b 26^c m with 2m - 1 or 4m - 1 a prime power or a
   Williamson matrix of order m. For odd v this adds every v with 4v - 1 a prime power (Paley's matrix; see
   complex-hadamard/PALEY.md);
+- Williamson-type matrices of order N from the corollaries of Miyamoto's lemma (Seberry-Yamada 1992, Corollary 8.8;
+  the M-structure paper, Corollaries 16, 18 and 20) with inputs known today: N = q = 5 (mod 8) a prime power with
+  Williamson-type matrices of order (q - 1)/4, q = 1 (mod 8) with a Hadamard matrix of order (q - 1)/2, and
+  N = 2q + 1 with q = 1 (mod 4), q + 1 a symmetric conference order and 2q - 1 a prime power. Djokovic
+  (arXiv:1008.2043, Props 3.2-3.4) states 509, 857 and 883; 269 follows from the near-Williamson matrices of order 67
+  (2026). We could not reconstruct the construction behind Corollary 8.8(i) (NOTES.md section 19) and follow the
+  literature in counting it;
 - Seberry-Yamada (1992) Corollaries 11.15 (orders n^j (n + 1)) and 11.17 (an explicit list, which includes 105),
   and the conference matrices of their codes c2 ((h - 1)^2 + 1, h skew) and c5 ((m - 1)^s + 1, m a conference order).
 This is our reading of the literature, not a complete table (Table 11.2 of Seberry and Yamada's 2020 book, which
@@ -150,6 +157,24 @@ def known_reason(N):
         return "Szöllősi 2026"
     if prime_power(4 * N - 1):
         return "Ito's dicyclic Hadamard groups (Paley's matrix), Egan 2019"
+    r = miyamoto_wt(N, wt)
+    if r:
+        return r
+    return None
+
+
+def miyamoto_wt(N, wt):
+    """Williamson-type matrices of order N from the corollaries of Miyamoto's lemma with inputs known today"""
+    W = set(wt) | KMT | DJOKOVIC_1993 | {33}
+    pk = prime_power(N)
+    if pk and N % 8 == 5 and (N - 1) // 4 in W:
+        return f"Williamson-type, Miyamoto's corollary from Williamson-type of order {(N - 1) // 4}"
+    if pk and N % 8 == 1:                          # a Hadamard matrix of order (N - 1)/2 = 0 (mod 4) exists for N < 1000
+        return f"Williamson-type, Miyamoto's corollary from H({(N - 1) // 2})"
+    q = (N - 1) // 2
+    sym_conf = (q + 1) % 4 == 2 and (prime_power(q) or (q + 1) // 2 in mathon_orders(q + 1))
+    if q % 4 == 1 and sym_conf and prime_power(2 * q - 1):
+        return f"Williamson-type, Seberry-Yamada Corollary 18 with q = {q}"
     return None
 
 

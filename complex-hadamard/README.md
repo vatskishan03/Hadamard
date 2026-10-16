@@ -243,6 +243,12 @@ lemma behind PALEY.md is in the same survey (Lemma 11.16). The parsed table is
   outside both families.
 - Skew-regular quaternary Hadamard matrices of order 1 + p², p an odd prime power (arXiv:2510.06489, 2025): these
   orders are known already from Turyn's theorem, since 2N − 1 = p² is a prime power.
+- The corollaries of Miyamoto's lemma (Seberry–Yamada 1992, Corollary 8.8; the M-structure paper, Corollaries 16 and
+  18) with inputs found after 1992, which give Williamson-type matrices and so complex matrices of order 2N:
+  N = 509 (good matrices of order 127), 857 (H(428)) and 883 (q = 441, Mathon's conference matrix of order 442),
+  stated by Đoković (arXiv:1008.2043, Propositions 3.2–3.4), and N = 269 (near-Williamson matrices of order 67, 2026;
+  this combination is ours). So 538, 1018, 1714 and 1766 are known. We could not rebuild the matrices behind
+  Corollary 8.8(i) ([NOTES.md](../NOTES.md) §19) and follow the literature in counting them.
 - Mathon's conference matrices (q²(q ± 2) + 1). We also count them as known where the 1992 table is blank
   (N = 221, 787).
 
@@ -250,9 +256,10 @@ The sweep's candidate list (`python3 search/ssxx_sweep.py list`) is exactly the 
 minus these. The 2026 papers cite the updated Table 11.2 of Seberry and Yamada's 2020 book (Wiley), which we could
 not consult. A construction published between 1992 and 2020 and recorded only there is the remaining caveat.
 
-**What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 143 values of N < 1000
+**What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 139 values of N < 1000
 have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 334, 358, 418, 438, 446, 470, 478,
-490, 498, 502, 506, 538, …; for none of them is 4N − 1 a prime power. 214, 238, 302 and 326 were successively the
+490, 498, 502, 506, 550, …; for none of them is 4N − 1 a prime power. (An earlier count of 143 also listed 538,
+1018, 1714 and 1766, which follow from Miyamoto's corollaries; see above.) 214, 238, 302 and 326 were successively the
 smallest open order; they are in the table above. No quaternary Legendre pair family covers the length 106 of order
 214 (Jedwab–Pender need 213 or 105 to be a prime power), and the 2026 quaternary Legendre pairs (arXiv:2609.04589,
 arXiv:2609.25573) have lengths below 100.
