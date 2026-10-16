@@ -822,8 +822,23 @@ Table A.1 does use the corollary: for q ≡ 5 (mod 8) it lists Williamson-type m
 - Without the 2 × 2 patterns: once U_1 = −Q_SS is forced by the row sums, a pattern that puts the Q_SN part in two
   different U's fails at V_1 V_2ᵀ = V_2 V_1ᵀ. The remaining pattern needs exactly the symmetric pair above.
 
-So the corollary must use U-matrices that are not invariant under the quartic subgroup, or a different lemma. Until
+For q ≡ 1 (mod 8) the octic ratio classes allow more patterns. From σ_(−k) = χ(g^k) σ_k, the combinations with a
+row sum that does not depend on q are {1, 7} and {3, 5} with equal signs, {2, 6} with opposite signs, and their
+unions. Q_SN can then be split into the halves {1, 7} and {3, 5}, which are 4 × 4 block patterns of order (q − 1)/8.
+But U_1 = −Q_SS is still forced, so V_1 is a signed permutation P and the V_j P^T must again be symmetric and
+commuting. An arbitrary Hadamard matrix of order (q − 1)/2, which Corollary 8.8(i) allows, does not fit this frame
+either.
+
+So the corollary must use U-matrices that are not invariant under the quartic (or octic) subgroup, or a different
+lemma. Until
 the source is read, the orders 538 and 1018, whose inputs (near-Williamson matrices of order 67 from 2026, good
 matrices of order 127 from 1993) postdate the 1992 table, stay unconstructed here. 1714 (q ≡ 1 mod 8, H(428)) is in
 the same position.
+
+**The 2026 matrices once more.** A complex structure on a Goethals–Seidel matrix can also come from seeds related by a
+multiplier (Y = ±X∘μ up to translation, as in the twisted arrays), not only from symmetric seeds. For the nine
+cyclic matrices of Alpöge, Voinov and Reynolds-Haertle (668, 716, 892, 1132, 1244, 1676, 1772, 1948, 1964) we tested
+every ordered pair of seeds, every unit μ, translation and sign. Each seed is invariant under the multiplier subgroup
+of its search: orders 3, 3, 5, 15, 12, 9 and 7 for the last seven, none for 668 and 716. No seed is ±μ-related to a
+different seed, and no seed goes to its negative. So these matrices carry no complex structure of this kind.
 
