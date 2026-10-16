@@ -1485,7 +1485,7 @@ def tuple_border(ts, tc, tup, borders):
 
 def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, log=None, maxsol=5, seed=1,
            estimate_only=False, cond=None, refine=0, maxtup=400, pcond=None, coarse_ab=False, by_rate=False,
-           coarse=None, syms=(), progress=None, count_only=False):
+           coarse=None, syms=(), progress=None, count_only=False, chain=None, keep=300):
     """refine > 0: the best `refine` tuples on the quotient pcond (default Q) are refined one by one on the finer
     quotient `cond` (their compressions there enumerated under the coarse ones), and the fine tuples of all of them
     are ranked together. coarse_ab: blocks A and B stay on the coarse quotient, so that one join covers every refinement
@@ -1493,7 +1493,29 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
     t0 = time.time()
     rng = np.random.default_rng(seed)
     borders = {}
-    if refine and cond is not None:
+    if chain:
+        # multi-level refinement: the tuples on chain[0], then the best `keep` of each level refined on the next
+        tcp = TComp(ts, chain[0])
+        cur = [(e, tup, tcp) for e, tup, ln, lp in tuples(tcp, rows, 1500, rng, maxtup)][:keep]
+        print(f"  level {'x'.join(map(str, chain[0]))}: {len(cur)} tuples kept [{time.time() - t0:.0f}s]", flush=True)
+        for li, lev in enumerate(chain[1:]):
+            nxt = []
+            for e0, tup0, tcp in cur:
+                if ts.t > 1 and tcp.toQ is not None and li == 0 and tuple_border(ts, tcp, tup0, borders) is None:
+                    continue
+                tcf = TComp(ts, lev, parent=[tcp.expand(k, x) for k, x in zip(KINDS, tup0)], pqlab=tcp.qlab)
+                last = li == len(chain) - 2
+                sub = tuples(tcf, rows, 1500, rng, maxtup,
+                             orbit=(lambda t, tcf=tcf: tuple_orbit(ts, [tcf] * 4, t, rows, syms)) if last else None)
+                tcf.cache = {k_: v_ for k_, v_ in tcf.cache.items() if k_[0] == "cc"}
+                nxt += [(e, tup, tcf) for e, tup, ln, lp in sub]
+            nxt.sort(key=lambda x: -x[0])
+            tot_ = sum(10 ** e for e, *_ in nxt)
+            print(f"  level {'x'.join(map(str, lev))}: {len(nxt)} tuples, total logE "
+                  f"{log10(tot_) if tot_ else -math.inf:.2f} [{time.time() - t0:.0f}s]", flush=True)
+            cur = nxt if last else nxt[:keep]
+        tl = [(e, tup, None, None, tcf, None, None) for e, tup, tcf in cur]
+    elif refine and cond is not None:
         tc0 = TComp(ts, pcond)
         if coarse:                                     # coarse tuples given (JSON lines with "coarse" and "e0")
             with open(coarse) as f:
@@ -1761,6 +1783,8 @@ def main():
     ap.add_argument("--hits", help="certify: the hits file (JSON lines)"); ap.add_argument("--k", type=int, default=0)
     ap.add_argument("--refine", type=int, default=0, help="search with --cond: refine the best REFINE tuples on Q one "
                     "by one on the finer quotient")
+    ap.add_argument("--chain", help="search: quotients d1,..;d1,..;... refined in turn (each refines the previous)")
+    ap.add_argument("--keep", type=int, default=300, help="search --chain: tuples kept per intermediate level")
     ap.add_argument("--maxsol", type=int, default=5, help="search: core solutions to report per join (kt4 cap)")
     ap.add_argument("--count-only", action="store_true", help="search: only count core solutions per join")
     ap.add_argument("--progress", help="search: JSON-lines file of joined tuples; tuples equivalent to them are skipped "
@@ -1814,7 +1838,8 @@ def main():
                pcond=None if a.pcond is None else [int(x) for x in a.pcond.split(",")], coarse_ab=a.coarse_ab,
                by_rate=a.by_rate, coarse=a.coarse,
                syms=[np.array([[int(v) for v in r.split(",")] for r in m.split(";")]) for m in (a.sym or [])],
-               progress=a.progress, maxsol=a.maxsol, count_only=a.count_only)
+               progress=a.progress, maxsol=a.maxsol, count_only=a.count_only,
+               chain=[[int(x) for x in c.split(",")] for c in a.chain.split(";")] if a.chain else None, keep=a.keep)
 
 
 if __name__ == "__main__":
