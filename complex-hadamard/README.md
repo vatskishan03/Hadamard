@@ -241,6 +241,8 @@ lemma behind PALEY.md is in the same survey (Lemma 11.16). The parsed table is
   Jedwab–Pender 2025; Lebedev and Verma 2026): every even length ℓ up to 100 except 70, 76, 88, 92, 94 and 100,
   plus two infinite families. Order 142 needs ℓ = 70 and 154 needs ℓ = 76, both open. Our larger orders fall
   outside both families.
+- Skew-regular quaternary Hadamard matrices of order 1 + p², p an odd prime power (arXiv:2510.06489, 2025): these
+  orders are known already from Turyn's theorem, since 2N − 1 = p² is a prime power.
 - Mathon's conference matrices (q²(q ± 2) + 1). We also count them as known where the 1992 table is blank
   (N = 221, 787).
 
