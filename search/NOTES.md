@@ -3023,7 +3023,10 @@ needs about ten times more refined mass than this one.
 Followed one level further down (`search --chain`, multi-level refinement), the mass falls.
 - 203: from ℤ₂³ to ℤ₂³ × ℤ₅ along the axis where H acts by ×3, the two best coarse tuples carry 10^−0.12 in total,
   with C and D pools of 10^10.4–10^11.1.
-- 209: through ℤ₂ × ℤ₂ → ℤ₂ × ℤ₄ the best 40 parents carry 10^2.47.
+- 209: the best 40 tuples on ℤ₂ × ℤ₂ refine into 58,920 live tuples on ℤ₂ × ℤ₄ (10^2.47 in total, all tuples
+  counted). The best 40 of these refine on ℤ₂ × ℤ₈ (fibres of 13) into 7,360 live orbit representatives that
+  carry 10^−1.21 in total. The best is rated 10^−4.75, with complete C and D pools of 7.9 · 10⁸ each, and lists
+  of 3 · 10⁷ would keep 10^−6.3 of it. This structure was not searched.
 
 The Gaussian on a coarse quotient does not see the congruences that bind on the finer ones. The level that matched
 reality in the calibration above is the last one, one step from G: fibres of 13 for 161, as for 209 on ℤ₂ × ℤ₈.
