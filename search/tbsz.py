@@ -1485,7 +1485,7 @@ def tuple_border(ts, tc, tup, borders):
 
 def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, log=None, maxsol=5, seed=1,
            estimate_only=False, cond=None, refine=0, maxtup=400, pcond=None, coarse_ab=False, by_rate=False,
-           coarse=None, syms=()):
+           coarse=None, syms=(), progress=None):
     """refine > 0: the best `refine` tuples on the quotient pcond (default Q) are refined one by one on the finer
     quotient `cond` (their compressions there enumerated under the coarse ones), and the fine tuples of all of them
     are ranked together. coarse_ab: blocks A and B stay on the coarse quotient, so that one join covers every refinement
@@ -1556,13 +1556,21 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
     found = []
     seen = set()
     done = {}
+    # progress file (JSON lines {"rows", "tuple"}): tuples joined by earlier runs, skipped with their orbits
+    pdone = set()
+    if progress and os.path.exists(progress):
+        with open(progress) as f:
+            for l in f:
+                r = json.loads(l)
+                if tuple(r["rows"]) == tuple(rows):
+                    pdone.add(tuple(tuple(int(v) for v in x) for x in r["tuple"]))
     for i in which:
         if i >= len(tl):
             break
         e, tup, tc = tl[i][0], tl[i][1], tl[i][4]
         tcs = as4(tc)
         keys = tuple_orbit(ts, tcs, tup, rows, syms)
-        if keys & seen:
+        if keys & seen or keys & pdone:
             print(f"tuple {i}: equivalent to a tuple already joined, skipped", flush=True)
             continue
         # the border depends only on the compressions: solve it first (when the quotient refines Q). Negating a
@@ -1620,6 +1628,9 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
                                env=dict(os.environ, OMP_WAIT_POLICY="PASSIVE", OMP_NUM_THREADS=str(threads)))
         tail = [l for l in p.stdout.splitlines() if l.startswith("TOTAL")]
         sols = [list(map(int, l.split()[1:5])) for l in p.stdout.splitlines() if l.startswith("SOL")]
+        if progress:
+            with open(progress, "a") as f:
+                f.write(json.dumps({"rows": list(rows), "tuple": [list(x) for x in tup], "solutions": len(sols)}) + "\n")
         if not sols:                                   # the join input and masks are large: keep them only for hits
             for f_ in (inp, sf, Path(str(inp) + ".progress"), keepdir / f"masks_{tag}.npz"):
                 try:
@@ -1747,6 +1758,8 @@ def main():
     ap.add_argument("--hits", help="certify: the hits file (JSON lines)"); ap.add_argument("--k", type=int, default=0)
     ap.add_argument("--refine", type=int, default=0, help="search with --cond: refine the best REFINE tuples on Q one "
                     "by one on the finer quotient")
+    ap.add_argument("--progress", help="search: JSON-lines file of joined tuples; tuples equivalent to them are skipped "
+                    "and every join is appended (resumable runs)")
     ap.add_argument("--sym", action="append", help="search: an automorphism of G (rows separated by ';') that "
                     "normalises H and preserves the target; tuples equivalent under it are searched once")
     ap.add_argument("--coarse", help="search --refine: refine these coarse tuples (JSON lines with 'coarse', 'e0' and "
@@ -1795,7 +1808,8 @@ def main():
                refine=a.refine, maxtup=a.maxtup,
                pcond=None if a.pcond is None else [int(x) for x in a.pcond.split(",")], coarse_ab=a.coarse_ab,
                by_rate=a.by_rate, coarse=a.coarse,
-               syms=[np.array([[int(v) for v in r.split(",")] for r in m.split(";")]) for m in (a.sym or [])])
+               syms=[np.array([[int(v) for v in r.split(",")] for r in m.split(";")]) for m in (a.sym or [])],
+               progress=a.progress)
 
 
 if __name__ == "__main__":
