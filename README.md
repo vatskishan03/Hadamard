@@ -52,9 +52,10 @@ posted concurrently by Zaitsev et al. [13] (Turyn's doubling; [hadamard/2284](ha
   ([complex-hadamard/PALEY.md](complex-hadamard/PALEY.md)); these follow from Ito's dicyclic Hadamard groups and
   Egan's Theorem 4.5 [12], which we had missed at first. See [complex-hadamard](complex-hadamard).
 - **Auxiliary objects:** Williamson-type matrices of order 111 ([near-williamson](near-williamson)); T-matrices of
-  orders 97, 109, 131 and 197, for which we found no earlier construction ([t-matrices](t-matrices)); amicable
-  Hadamard matrices of orders 52, 76 and 100; and the orthogonal designs OD(100; 1, 5, 94), OD(156; 1, 3, 152),
-  OD(156; 1, 13, 142), OD(252; 1, 21, 230) and OD(364; 1, 13, 350) ([skew](skew#seberrys-theorem-with-new-ingredients)).
+  orders 97, 109 and 197, for which we found no earlier construction (and an independent instance of the known order
+  131) ([t-matrices](t-matrices)); amicable Hadamard matrices of orders 52, 76 and 100; and the orthogonal designs
+  OD(100; 1, 5, 94), OD(156; 1, 3, 152), OD(156; 1, 13, 142), OD(252; 1, 21, 230) and OD(364; 1, 13, 350)
+  ([skew](skew#seberrys-theorem-with-new-ingredients)).
 
 "New" means new to our knowledge after the literature search described in [NOVELTY.md](NOVELTY.md), which also
 defines the status labels used in each README.

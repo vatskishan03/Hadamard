@@ -54,6 +54,9 @@ For every order we checked:
     Theorem 4.5, which give every order 2N with 4N − 1 a prime power (found on 16 October 2026, after we had
     labelled 76 such orders New; corrected in [complex-hadamard](complex-hadamard/README.md#status));
   - Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev, arXiv:2605.08661 (near-Williamson matrices);
+  - for the T-matrices, S. London and I. Kotsireas, New Turyn-type sequences, Cryptogr. Commun. 17 (2025)
+    1601–1610 (TT(40), TT(42), TT(44)), which give T-sequences of length 131 (found on 16 October 2026, after we
+    had listed 131 as new; corrected in [t-matrices](t-matrices/README.md));
   - V. Zaitsev's page Quaternary Hadamard matrices (https://www.cs.uleth.ca/~zaitsevv/quaternary.html, last updated
     14 October 2026, read on 16 October 2026; work with Kharaghani, Mohammadian and Tayfeh-Rezaie), with matrices of
     122 complex orders, among them all 11 that we had labelled New; they are now labelled Concurrent. Its matrix of
