@@ -6,8 +6,8 @@ as of October 2026. Section 7 collects corrections to the tables and the William
 complex Hadamard matrices, section 13 the Spence spin structures behind order 2292, section 14 the complex orders 330
 and 426, section 15 the compressions that decide which row patterns live, with the complex orders 342, 366, 430
 and 454, section 16 the character-bordered array and the complex order 214, section 17 its ℤ₆ form and the
-complex order 322, and section 18 Paley's matrix halves. The notes on the individual search programs are in
-[search/NOTES.md](search/NOTES.md).
+complex order 322, section 18 Paley's matrix halves, and section 19 Miyamoto's lemma with symmetric inputs. The notes
+on the individual search programs are in [search/NOTES.md](search/NOTES.md).
 
 **Correction (October 16).** Sections 8–17 call the complex orders 142, 154, 222, 262, 286, 310, 322, 330, 342, 370,
 430, 454 and 742 open before our searches. They are not: 4N − 1 is a prime power for each, and Ito's Hadamard groups
@@ -765,3 +765,65 @@ as they stand.
   - Miyamoto's real array (verify.py) does not carry a complex structure over from K. For q = 13 and K of order 12 of
     the form [[A, B], [−B, A]], the matrix of order 52 has an automorphism group of order 8 (nauty), and no element
     squares to −I.
+
+  Also the nauty test of the 2026 matrix of order 668 and of our symmetric 876 for a complex structure (which would
+  give 334 and 438) did not finish: the Hadamard graphs of these orders ran for two hours without a group.
+
+
+## 19. Miyamoto's lemma with a symmetric complex input (October 16)
+
+**The reduction.** Let q ≡ 1 (mod 4) be a prime, n = (q − 1)/2, g a primitive root, χ the quadratic character. Take,
+in Seberry and Yamada's Lemma 8.6 (after Miyamoto),
+
+    U_1 = −[χ(g^(2i) − g^(2j))],   U_2 = [χ(g^(2i) − g^(1 − 2j))],   U_3 = U_4 = 0,
+    V_1 = I,   V_2 = 0,   V_3 = M_3,   V_4 = M_4,
+
+with M_3, M_4 symmetric ±1 matrices of order n, M_3 M_4 = M_4 M_3 and M_3² + M_4² = 2n I. In the exponents U_1 is a
+symmetric circulant and U_2 a back-circulant, so they are amicable; U_1² + U_2 U_2ᵀ = q I − 2J because Paley's core
+satisfies Q² = q I − J; the row sums are 1 and 0. The lemma then gives Williamson-type matrices of order q, and these
+give a complex Hadamard matrix of order 2q. A pair (M_3, M_4) is the same thing as a symmetric quaternary complex
+Hadamard matrix (M_3 + i M_4)/(1 + i) of order n. The inputs of Seberry and Yamada's Corollary 8.8(ii) are special
+cases: a symmetric conference matrix W (M_3, M_4 = W ± I) or a symmetric Hadamard matrix (M_3 = M_4).
+
+A second step supplies such pairs: if A, B are symmetric ±1 circulants of order m and W is any ±1 circulant with
+A Aᵀ + B Bᵀ + 2 W Wᵀ = 4m I (a propus quadruple (A, W, W, B) with both outer blocks symmetric), then
+M_3 = [[B, W], [Wᵀ, −A]] and M_4 = [[A, W], [Wᵀ, −B]] form a pair of order 2m. With q = 4m + 1 prime this gives a
+complex Hadamard matrix of order 2q = 8m + 2.
+
+`search/miyamoto_wt.py selftest` builds all of this and checks it exactly for q = 13, 17, 29, 37 and 61, with inputs from
+Paley's symmetric Legendre pairs, from Sylvester's matrix of order 8, and from doubly symmetric propus quadruples of
+orders 3, 7 and 9 found by brute force.
+
+**What it would give.** The open complex orders 2q with q ≡ 1 (mod 4) prime are 538, 1018, 1306, 1466, 1706, 1714
+and 1882 (q = 269, 509, 653, 733, 853, 857, 941). They would need a symmetric quaternary Hadamard matrix of order 134,
+254, 326, 366, 426, 428 and 470.
+
+**Why we found none.**
+- *Doubly symmetric propus over ℤ_m* (m = 67, 127, 163, 183, 213, 235; `search/propus_rank.py`, default structure):
+  for m = 67 the multiplier groups of orders 3, 11 and 33 are excluded by the row sums. Under |H| = 3, for example,
+  the symmetric blocks have row sums ±1 + 6k with k odd, W has ±1 + 6k for any k, and no such values satisfy
+  a² + b² + 2w² = 268. H = {±1} rates 10^−12, and H = 1 rates 10^0.6 in a space of 2^135. The best structures for the other m rate 10^−1.3 (163, H = ⟨38⟩
+  of order 9, which we exhausted: no solution), 10^−2.4 (127), 10^−3.8 (213) and 10^−3.9 (183). The Szöllősi
+  solutions we certified for 326, 366 and 426 do not have C = D, not even up to shift, sign and reversal.
+- *Bordered symmetric pairs.* A border of one point turns the problem into a symmetric Legendre pair of length
+  n − 1 (PAF_a + PAF_b = −2). An exhaustive search of cyclic lengths up to 33 finds them only for 3 and the primes
+  ≡ 1 (mod 4), where they come from Paley's matrix. A count of orbits explains this. Symmetric blocks have half the
+  free signs of arbitrary ones but face the same number of PAF classes, so the expected number falls exponentially.
+- *Symmetric Hadamard of order 428* (v = 107) is itself undecided in the Đoković–Seberry census.
+
+**Corollary 8.8(i) (Williamson-type matrices of order (q − 1)/4 suffice) could not be reconstructed.** Miyamoto's
+paper (JCTA 57, 1991) is in Elsevier's open archive, but the full text could not be retrieved from here. The 1992
+Table A.1 does use the corollary: for q ≡ 5 (mod 8) it lists Williamson-type matrices of order q exactly when
+(q − 1)/4 has them or 2q − 1 is a prime power (checked for every prime q < 1000). We tried the natural forms:
+- U-blocks along the quartic ratio classes of Paley's core, and V-blocks taken from four commuting symmetric
+  Williamson-type blocks in 2 × 2 patterns. The V-system has 80 solutions (`search/miyamoto_wt.py vpatterns`), and each
+  needs a U-block made of a single quartic class in some row. Its row sum is a cyclotomic number that varies with q
+  (for q = 269 the four are 6, 5, −7, −5), so the row-sum condition fails.
+- Without the 2 × 2 patterns: once U_1 = −Q_SS is forced by the row sums, a pattern that puts the Q_SN part in two
+  different U's fails at V_1 V_2ᵀ = V_2 V_1ᵀ. The remaining pattern needs exactly the symmetric pair above.
+
+So the corollary must use U-matrices that are not invariant under the quartic subgroup, or a different lemma. Until
+the source is read, the orders 538 and 1018, whose inputs (near-Williamson matrices of order 67 from 2026, good
+matrices of order 127 from 1993) postdate the 1992 table, stay unconstructed here. 1714 (q ≡ 1 mod 8, H(428)) is in
+the same position.
+

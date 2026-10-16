@@ -160,6 +160,7 @@ start-up, is close to the list size.
 | `border_exh.c` | the exhaustive border search of the character-bordered array (compatibility and orthogonality bit matrices, rows depth-first, then a column clique); called by `tbsz.solve_border_exh` (322) |
 | `qlp_bin.py` | quaternary Legendre pairs with one binary sequence |
 | `paley_complex.py` | quaternary Hadamard matrices of order (q + 1)/2 from Paley's skew Hadamard matrix, q ≡ 3 (mod 4) a prime power (complex-hadamard/PALEY.md): `build` (exact check), `certify`, `list` |
+| `miyamoto_wt.py` | Williamson-type matrices of order q and complex Hadamard matrices of order 2q from a symmetric commuting pair of order (q − 1)/2 (Seberry–Yamada Lemma 8.6), and the pair from a doubly symmetric propus quadruple ([../NOTES.md](../NOTES.md) §19): `selftest`, `vpatterns` |
 | `complex_status.py`, `data/` | known, constructed and open complex orders; tables parsed from Seberry–Yamada (1992) |
 
 **T-matrices, Williamson-type matrices and Legendre pairs**
