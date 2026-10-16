@@ -1525,6 +1525,8 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
             tot0 = sum(10 ** e for e, *_ in sub)
             print(f"  coarse tuple {tup0} (logE {e0:.2f}): {len(sub)} fine tuples with positive estimate, total "
                   f"logE {log10(tot0) if tot0 else -math.inf:.2f} [{time.time() - t0:.0f}s]", flush=True)
+            # the joins need only the per-class counts: drop the compression, group and sampling caches
+            tcf.cache = {k_: v_ for k_, v_ in tcf.cache.items() if k_[0] == "cc"}
             tl += [(e, tup, ln, lp, tcf, tc0, tup0) for e, tup, ln, lp in sub]
             nref += bool(sub)                          # refinements with a live fine tuple count
         tl.sort(key=lambda x: -x[0])
