@@ -868,7 +868,15 @@ Kᵀ. It differs between our matrix and theirs at 214, 302, 326, 366, 382, 426, 
 agrees, and so does the finer invariant that keeps, for each row, the multiset of its tuples; the two matrices of
 order 238 may be equivalent.
 
+**A real order as well.** Turyn's doubling turns a quaternary Hadamard matrix of order 2N into a real one of order 4N,
+and we first checked the page only for complex orders. Its matrix of order 1142 = 2 · 571 doubles to H(2284), which we
+had committed on 11 October as New ([hadamard/2284](hadamard/2284/README.md#status); `search/quaternary_check.py
+--double` checks it). 2284 is now Concurrent too. No other order of the page doubles to an order of FRONTIER.md or of
+this repository: for 2092, 2148, 2292, 3732 and 3964 the page lists 1046, 1074, 1146, 1866 and 1982 as unknown, and the
+other orders are above its range.
+
 The page also covers 24 orders that we had listed as open, 470, 490, 686 and 1306 among them. With §19 the count of
 open N < 1000 falls from 143 to 115 (`search/complex_status.py`); the smallest open orders are 334, 358, 418, 438,
-446, 478, 498, 502, 506 and 550, none with 4N − 1 a prime power. The searches of §8–17 that found nothing at 334,
+446, 478, 498, 502, 506 and 550, none with 4N − 1 a prime power. The page ends with its own list of the even orders
+below 2000 with no quaternary Hadamard matrix known; it is the same set of 115. The searches of §8–17 that found nothing at 334,
 358, 418, 438 and 446 stand as negative results for those structures.

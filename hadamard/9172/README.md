@@ -21,7 +21,8 @@ certificate of the matrix of order 2292 and the SHA-256 of the result.
 
 ## Status
 
-**New.** The entry 2293(3) is unresolved in Cati–Pasechnik Table 4.
+**New.** The entry 2293(6) is unresolved in Cati–Pasechnik Table 4 (an earlier version of this README misread it as
+2293(3)). So doubling this matrix also settles the orders 2³ · 2293 = 18344, 2⁴ · 2293 = 36688 and 2⁵ · 2293 = 73376.
 
 - Paley's constructions do not apply: 4 · 2293 − 1 = 9171 = 3² · 1019 and 2 · 2293 − 1 = 4585 = 5 · 7 · 131.
 - Miyamoto's theorem needed a Hadamard matrix of order 2292, which was unresolved until [2292](../2292).

@@ -270,7 +270,8 @@ not consult. A construction published between 1992 and 2020 and recorded only th
 
 **What remains open** (`python3 search/complex_status.py`): after the orders in this directory and on Zaitsev's page,
 115 values of N < 1000 have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 334, 358,
-418, 438, 446, 478, 498, 502, 506, 550, 574, 598, …; for none of them is 4N − 1 a prime power. (The earlier count of 143
+418, 438, 446, 478, 498, 502, 506, 550, 574, 598, …; for none of them is 4N − 1 a prime power. Zaitsev's page ends
+with the same list of 115 orders. (The earlier count of 143
 also listed 538, 1018, 1714 and 1766, which follow from Miyamoto's corollaries, and that of 139 the 24 orders of
 Zaitsev's page; see above.) 214, 238, 302 and 326 were successively the
 smallest open order; they are in the table above. No quaternary Legendre pair family covers the length 106 of order

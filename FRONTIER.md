@@ -12,7 +12,8 @@ is known. The other 51 entries are settled:
 - 10 in this repository: n = 523, 537, 571, 573, 933, 991, 1123, 1255, 1483 and 2293 (the orders
   [2092](hadamard/2092), [2148](hadamard/2148), [2284](hadamard/2284), [2292](hadamard/2292),
   [3732](hadamard/3732), [3964](hadamard/3964), [4492](hadamard/4492), [5020](hadamard/5020),
-  [5932](hadamard/5932) and [9172](hadamard/9172)).
+  [5932](hadamard/5932) and [9172](hadamard/9172)). For n = 571 a quaternary Hadamard matrix of order 1142 on
+  Zaitsev's page (October 2026) gives H(2284) concurrently, by Turyn's doubling.
 
 **Columns.** For each order the table lists the cheapest structure of each kind
 found by `search/triage.py` that is expected to contain at least ten solutions:

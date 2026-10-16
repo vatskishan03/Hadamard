@@ -56,7 +56,9 @@ For every order we checked:
   - Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev, arXiv:2605.08661 (near-Williamson matrices);
   - V. Zaitsev's page Quaternary Hadamard matrices (https://www.cs.uleth.ca/~zaitsevv/quaternary.html, last updated
     14 October 2026, read on 16 October 2026; work with Kharaghani, Mohammadian and Tayfeh-Rezaie), with matrices of
-    122 complex orders, among them all 11 that we had labelled New; they are now labelled Concurrent;
+    122 complex orders, among them all 11 that we had labelled New; they are now labelled Concurrent. Its matrix of
+    order 1142 also gives the real order 2284 by Turyn's doubling, so [2284](hadamard/2284) is Concurrent as well (no
+    other order of the page doubles to an order of FRONTIER.md or of this repository);
   - Czifra, Matolcsi and Szöllősi, arXiv:2511.11230 (Butson matrices BH(n, q) for q = 6, 10 and 14, none quaternary),
     the quaternary Legendre pairs of arXiv:2609.04589 and arXiv:2609.25573 (lengths 42 to 80), and the skew-regular
     quaternary Hadamard matrices of order 1 + p² of arXiv:2510.06489 (complex orders,

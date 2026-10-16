@@ -8,12 +8,14 @@ A Hadamard matrix of order n is an n × n matrix H with entries ±1 and H Hᵀ =
 n ≡ 0 (mod 4), and the Hadamard conjecture asserts that it exists for every multiple of 4. In August 2026 Alpöge,
 Voinov and Reynolds-Haertle constructed the twelve unresolved orders below 2000 [1], and Schneider constructed
 2060 [2]. This repository constructs the next four, 2092, 2148, 2284 and 2292, and six more open orders up to 9172.
+2284 also follows from a quaternary matrix of order 1142 posted concurrently by Zaitsev et al. [13].
 The smallest order we know to be unresolved is now 2396 = 4 · 599 ([FRONTIER.md](FRONTIER.md)).
 
 ## Results
 
 **Unresolved Hadamard orders.** For each order 4n below, n is listed as unresolved in Table 4 of Cati and
-Pasechnik [3], and we found no later construction.
+Pasechnik [3], and we found no later construction, except that 2284 follows from a quaternary matrix of order 1142
+posted concurrently by Zaitsev et al. [13] (Turyn's doubling; [hadamard/2284](hadamard/2284/README.md#status)).
 
 | Order | n | Construction |
 |------:|---|---|

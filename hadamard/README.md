@@ -21,7 +21,11 @@ Entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard mat
 | [5932](5932) | 1483 | Goethals–Seidel over ℤ₁₄₈₃, multiplier subgroup of order 39 |
 | [9172](9172) | 2293 | Miyamoto's theorem (q = 2293) from the matrix of order 2292 |
 
-Doubling the matrix of order 3732 gives order 7464, which was open as well.
+2284 is Concurrent: it also follows, by Turyn's doubling, from the quaternary Hadamard matrix of order 1142 on
+Zaitsev's page ([2284](2284/README.md#status)). The others are New.
+
+Doubling the matrix of order 3732 gives order 7464, which was open as well, and doubling 9172 gives 18344, 36688 and
+73376 (the table entry is 2293(6)).
 
 ## Orders beyond the tables
 

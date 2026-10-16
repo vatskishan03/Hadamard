@@ -44,8 +44,17 @@ The Gaussian model predicted 3.5 solutions per hour. The first one came after
 
 ## Status
 
-**New.** The entry 571(3) is unresolved in Cati–Pasechnik Table 4. None of the standard recursive constructions
-applies:
+**Concurrent.** The entry 571(3) is unresolved in Cati–Pasechnik Table 4, and we found it open in every source of
+[NOVELTY.md](../../NOVELTY.md) dated before October 2026. But V. Zaitsev's page
+[Quaternary Hadamard matrices](https://www.cs.uleth.ca/~zaitsevv/quaternary.html) (with Kharaghani, Mohammadian and
+Tayfeh-Rezaie; last updated 14 October 2026) has a quaternary Hadamard matrix K = A + iB of order 1142 = 2 · 571
+(`QH1142.txt`, among the orders it attributes to unpublished approaches). Turyn's doubling
+[[A + B, A − B], [−(A − B), A + B]] turns it into a Hadamard matrix of order 2284; we checked both exactly
+(`python3 -I search/quaternary_check.py QH1142.txt --double`). Our matrix was committed on 11 October 2026 (20:20 UTC),
+before the page's last update, but the page does not date its matrices, so we claim no priority. We found the page on
+16 October and missed the real consequence at first ([NOTES.md](../../NOTES.md) §20).
+
+None of the standard recursive constructions applies:
 
 - Paley: 2283 = 3 · 761 and 1141 = 7 · 163 are not prime powers.
 - Miyamoto: 571 ≡ 3 (mod 4).
