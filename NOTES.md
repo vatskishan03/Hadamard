@@ -746,3 +746,13 @@ as they stand.
   natural choice (U = (C₁, C₂, 0, 0) from the quadratic-residue blocks of the conference matrix, V = (I, 0, K₁, K₂))
   needs a symmetric complex Hadamard matrix of order (q − 1)/2, and 2 × 2 block patterns built from four symmetric
   Williamson-type blocks cannot give one. So these three orders are not claimed.
+
+  Two follow-ups.
+  - Seberry and Yamada's M-structure paper (JCMCC 7 (1990) 97–137, on the Wollongong repository) states the
+    lemma (its Lemma 13) and the corollary (its Corollary 16(i), credited to Miyamoto) but defers the proof. Its
+    Corollary 23 turns a complex Hadamard matrix of order (q − 1)/2 into a *real* matrix of order 4q only. With the
+    conference blocks split along the quartic residues, the amicability of the V's forces their 2 × 2 patterns into
+    {Z, X} with Z and X not amicable, so that ansatz fails too.
+  - Miyamoto's real array (verify.py) does not carry a complex structure over from K. For q = 13 and K of order 12 of
+    the form [[A, B], [−B, A]], the matrix of order 52 has an automorphism group of order 8 (nauty), and no element
+    squares to −I.
