@@ -126,7 +126,8 @@ We found no statement that combines them, and three sources show that it was not
   from the 1992 table and construct orders only from near-Williamson matrices.
 
 There is related literature we could not read: Hadamard matrices of (generalised) quaternion type (Ito 1981;
-Discrete Math. 1991), Ito's Hadamard groups, and the 2020 edition of Seberry and Yamada's book. Paley's matrices
+Discrete Math. 1991), Ito's Hadamard groups, the chapter on Hadamard matrices in the Handbook of Combinatorial Designs
+(Craigen and Kharaghani, 2007), and the 2020 edition of Seberry and Yamada's book. Paley's matrices
 appear in all three. Because every step here is classical, specialists may regard the construction as known. We
 label the orders New in the sense of [NOVELTY.md](../NOVELTY.md): blank in the reference table, and no later
 construction found.

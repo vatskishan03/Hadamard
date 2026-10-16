@@ -722,3 +722,27 @@ as they stand.
    array of (0, ±1) circulants of odd order t, with the two symmetric output blocks built from A₁ and A₂ only. The
    column weights then force the array to split into two 2 × 2 arrays. In the arbitrary half, X = T₃₃ + T₃₄ and
    Z = T₄₃ + T₄₄ would be a periodic complementary pair of odd length t, which does not exist for t > 1.
+
+**Three side checks.**
+- *The 2026 matrices.* E. Piza's record and the Hadamard-B data give the seeds of all twelve Alpöge–Voinov–
+  Reynolds-Haertle matrices as bordered Goethals–Seidel arrays over abelian groups:
+  - 668, 716, 1676 and 1772 have a border of one point (PAF sum −4);
+  - 892, 1132, 1244, 1948 and 1964 have no border;
+  - 1388, 1436 and 1916 are character-bordered, over ℤ₂ × ℤ₃ × ℤ₅₇, ℤ₂ × ℤ₂ × ℤ₈ × ℤ₁₁ and ℤ₂ × ℤ₂ × ℤ₁₁₉, with
+    t = 5, 7 and 3: PAF sums {−20, 4}, {−28, 4} and {−12, 4}, the family of §18 of search/NOTES.md.
+
+  If two seeds of one order were symmetric (after a translation), Szöllősi's array (plain, bordered or
+  character-bordered) would give the complex order 2N: 334, 358, 446, …. None of the 48 seeds is symmetric about any
+  centre.
+- *The symmetric analogue is classical.* With R: x ↦ −x one has R S Rᵀ = Sᵀ. So D R H, with D = −1 at ∞, is a
+  symmetric Hadamard matrix equivalent to Paley's (checked for q = 7 … 43). Consistently, none of the 595 undecided
+  v of the symmetric census has 4v − 1 a prime power. The complex table, by contrast, leaves every half order
+  blank.
+- *A lead not yet built.* Seberry and Yamada's Corollary 8.8 (after Miyamoto) turns Williamson-type matrices of order
+  (q − 1)/4, or a Hadamard matrix of order (q − 1)/2, into Williamson-type matrices of order q ≡ 1 (mod 4). The
+  2026 inputs make three open orders reachable: 538 (q = 269, from the near-Williamson matrices of order 67 of
+  arXiv:2605.08661, made pairwise amicable as (AR, B, C, D)), 1018 (q = 509, from Đoković's good matrices of order
+  127) and 1714 (q = 857, from H(428)). The survey does not give the matrices U_i, V_i of its Lemma 8.6. The
+  natural choice (U = (C₁, C₂, 0, 0) from the quadratic-residue blocks of the conference matrix, V = (I, 0, K₁, K₂))
+  needs a symmetric complex Hadamard matrix of order (q − 1)/2, and 2 × 2 block patterns built from four symmetric
+  Williamson-type blocks cannot give one. So these three orders are not claimed.
