@@ -920,3 +920,50 @@ equation with m ≡ 0 (mod 4).
 usual 8n-vertex graph) have orders 32 at 238, as for ours (the multiplier group ⟨8⟩ times the four scalars), 8 at 470
 and 24 at 490, with two fixed rows in both. So the orders the page attributes to unpublished approaches come with
 very little symmetry: an involution at 470, a group of order 6 at 490.
+
+## 22. Paley's matrix in sixteen circulant blocks: 14 FRONTIER orders (October 16)
+
+§21 left 263 out of reach because the quaternion-type blocks of Paley's matrix are not amicable. A different block
+structure and a product that never asks for amicability settle the four orders of 263 and ten more
+([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md)).
+
+- **Circulant blocks.** For q ≡ 3 (mod 8), s = (q + 1)/4 is odd. An element g of order s in a non-split torus of
+  PSL(2, q) has four orbits of length s on PG(1, q), and Paley's matrix satisfies H(gx, gy) = e(x) e(y) H(x, y). Since
+  g^s = 1, the products of e over the four orbits are equal; with c this common product (c^s = c, s odd), signs with
+  E(gx) = c e(x) E(x) close up along every orbit, and g is an automorphism of E H E, whose blocks along the orbits are
+  circulant (`search/paley_blocks.py check q`). Matrices of the same kind are in the literature: Ito's relative
+  difference sets in the dicyclic group of order 8s, for every prime power 4s − 1, give Hadamard matrices in Schmidt's
+  form (9), whose sixteen blocks are ±A, ±B, ±C, ±D or their transposes for circulants with A Aᵀ + B Bᵀ + C Cᵀ + D Dᵀ =
+  4s I and A Bᵀ − B Aᵀ + C Dᵀ − D Cᵀ = 0 (Schmidt 1999, Theorems 2.2 and 3.3), and Yamada's generalized quaternion
+  type gives them for Paley's matrix (Seberry–Yamada 1993, Theorem 1).
+- **The product.** With T-matrices T₁, …, T₄ of order t, A_j = Σ_k T_k ⊗ N_kj has entries ±1 (disjoint supports)
+  and Σ_j A_j A_jᵀ = Σ_k T_k T_kᵀ ⊗ 4s I = 4st I, because the block rows of E H E are orthogonal. Only that
+  orthogonality is used, no commutation of the blocks (amicability). This is Seberry–Yamada (1990),
+  Theorem 4, with an OD(4s; 4s) of sixteen circulant blocks. For gcd(s, t) = 1 the A_j are circulants of length st.
+- **Reach.** Against FRONTIER.md, with every prime power q ≡ 3 (mod 8), every T-matrix order we know (odd t ≤ 210
+  outside Seberry–Yamada's 26 exceptions, plus 97, 103, 109, 113, 131, 151, 163, 181 and 197, the Golay numbers plus
+  one, 3m − 1 for TT(m) with m ≤ 44 even, 2m + 1 for base sequences with m ≤ 40) and gcd(s, t) > 1 allowed
+  (group-developed Goethals–Seidel), the route reaches exactly 14 entries: s = 263 (t = 3, 5, 7, 11), 503 (3, 5),
+  227 (7, 13), 563 (3, 5), 383, 431 (5) and 887, 911 (3). It also reaches six entries of Cati–Pasechnik Table 4 that
+  other 2026 constructions have settled (1359, 1441, 1703, 2227, 2335, 2489). All 14 are certified and pass
+  `verify/verify.py`, which rebuilds Paley's matrix from the symplectic form on PG(1, q).
+- **Why it was missed.** Each step is published; we found no source that combines them. Seberry–Yamada (1993) use
+  the generalized quaternion structure only in products that keep it (their Theorem 6 asks T₀T₁ᵀ − T₁T₀ᵀ + … = 0,
+  which ordinary T-matrices do not satisfy) and reach 2ʳ m₁⋯mᵣ (q + 1) with Williamson orders mᵢ. Schmidt uses the
+  four-way split only for a three-squares identity. Balonin and Đoković (arXiv:1508.00640, §9) compute the blocks
+  for q = 139 and observe that they are not of Williamson type, so Cooper–Wallis does not apply; Theorem 4 does
+  not need it. The novelty audit of the route (three literature sweeps and a critic) is summarised in
+  PALEY_BLOCKS.md.
+- **What does not extend.** The other FRONTIER entries n = s·t with t a T-matrix order would need a Hadamard matrix
+  of order 4s with sixteen circulant blocks (for instance from a Hadamard group Q₈ₛ, as Ito conjectured for every s),
+  for s = 167, 179, 191, 223, 239, 269, 283, 347, 359, 419, 443, 463, 479, 491, 571, 573, 599, 631, 643, 863, 941,
+  947, 955, 971 or 991. We know none: 4s − 1 and 2s − 1 are not prime powers, and Williamson-type matrices of these
+  orders are not known to us. Fewer rows would do with fewer T-matrices:
+  T-matrices with T₄ = 0 (t = 3, 5 and every Golay number plus one) need only three block rows with circulant blocks,
+  orthogonal to each other. But a Goethals–Seidel matrix has at most two such rows (its blocks are circulant on the
+  diagonal and back-circulant off it, and no affine relabelling x ↦ ax + b of each block row and column makes three
+  rows circulant, since that would need a = −a), and two rows are useless because T-matrices of odd order t > 1 with two zero matrices do not exist
+  (T₁ ± T₂ would be a periodic complementary ±1 pair of odd length, but PAF ≡ t (mod 4) at every shift).
+
+The tables of §9 ("no product is overlooked") missed this product; their entries WT(263) and WT(227) are no longer
+needed.

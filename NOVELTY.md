@@ -66,6 +66,14 @@ For every order we checked:
     the quaternary Legendre pairs of arXiv:2609.04589 and arXiv:2609.25573 (lengths 42 to 80), and the skew-regular
     quaternary Hadamard matrices of order 1 + p² of arXiv:2510.06489 (complex orders,
     checked on 15 October 2026);
+- for the fourteen orders from Paley's matrix in sixteen circulant blocks ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md)),
+  checked on 16 October 2026: Seberry–Yamada, JCMCC 7 (1990) 97–137 (Theorem 4) and its Kobe proceedings version, the
+  1992 survey (Theorems 3.10 and 8.1), Seberry–Yamada, JCMCC 13 (1993) 97–106 (Theorems 1 and 6, Corollary 2),
+  Schmidt, Des. Codes Cryptogr. 17 (1999) 61–68, Schmidt–Tan, Des. Codes Cryptogr. 73 (2014) 105–119,
+  Balonin–Đoković, arXiv:1508.00640, Barrera Acevedo–Ó Catháin–Dietrich, arXiv:1904.11460, Xia–Xia–Seberry–Wu,
+  Discrete Appl. Math. 145 (2005) 498–504, and the literature on cocyclic and dicyclic Hadamard matrices. Both steps of
+  the construction are published; we found no source that combines them. Yamada's paper of 1991 and Ito's papers of
+  1994 were not accessible; we read their results through Seberry–Yamada (1993) and Schmidt (1999);
 - searches of Zenodo (records matching "hadamard"), GitHub, the e-print sources of Hadamard-related arXiv papers
   (to 2026-10-08) and the math.CO listings (to 2026-10-12), the OEIS, MathOverflow, Balonin's catalogue and the Palomar
   registry.

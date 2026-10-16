@@ -14,15 +14,31 @@ Entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard mat
 | [2148](2148) | 537 = 3 · 179 | bordered Goethals–Seidel array over ℤ₃ × ℤ₁₇₈ with a border of size 12, multiplier subgroup of order 11 |
 | [2284](2284) | 571 | Goethals–Seidel over ℤ₅₇₁, multiplier subgroup of order 5, three blocks related by a multiplier of order 3 |
 | [2292](2292) | 573 = 3 · 191 | Spence's bordered construction over ℤ₂ × ℤ₂ × ℤ₁₄₃, three blocks related by an automorphism of order 15 |
+| [3156](3156) | 789 = 3 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks, T-matrices of order 3 |
 | [3732](3732) | 933 = 3 · 311 | Goethals–Seidel over ℤ₃ × GF(311), multiplier subgroup of order 31; the matrix is skew |
 | [3964](3964) | 991 | bordered Goethals–Seidel array over ℤ₂ × ℤ₂ × ℤ₂₄₇ with a border of size 12, symmetry group of order 27 |
 | [4492](4492) | 1123 | Goethals–Seidel over ℤ₁₁₂₃, multiplier subgroup of order 33 |
 | [5020](5020) | 1255 = 5 · 251 | Goethals–Seidel over ℤ₅ × GF(251), multiplier subgroup of order 50 |
+| [5260](5260) | 1315 = 5 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks, T-matrices of order 5 |
 | [5932](5932) | 1483 | Goethals–Seidel over ℤ₁₄₈₃, multiplier subgroup of order 39 |
+| [6036](6036) | 1509 = 3 · 503 | Paley's matrix of order 2012 in sixteen circulant blocks, T-matrices of order 3 |
+| [6356](6356) | 1589 = 7 · 227 | Paley's matrix of order 908 in sixteen circulant blocks, T-matrices of order 7 |
+| [6756](6756) | 1689 = 3 · 563 | Paley's matrix of order 2252 in sixteen circulant blocks, T-matrices of order 3 |
+| [7364](7364) | 1841 = 7 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks, T-matrices of order 7 |
+| [7660](7660) | 1915 = 5 · 383 | Paley's matrix of order 1532 in sixteen circulant blocks, T-matrices of order 5 |
+| [8620](8620) | 2155 = 5 · 431 | Paley's matrix of order 1724 in sixteen circulant blocks, T-matrices of order 5 |
 | [9172](9172) | 2293 | Miyamoto's theorem (q = 2293) from the matrix of order 2292 |
+| [10060](10060) | 2515 = 5 · 503 | Paley's matrix of order 2012 in sixteen circulant blocks, T-matrices of order 5 |
+| [10644](10644) | 2661 = 3 · 887 | Paley's matrix of order 3548 in sixteen circulant blocks, T-matrices of order 3 |
+| [10932](10932) | 2733 = 3 · 911 | Paley's matrix of order 3644 in sixteen circulant blocks, T-matrices of order 3 |
+| [11260](11260) | 2815 = 5 · 563 | Paley's matrix of order 2252 in sixteen circulant blocks, T-matrices of order 5 |
+| [11572](11572) | 2893 = 11 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks, T-matrices of order 11 |
+| [11804](11804) | 2951 = 13 · 227 | Paley's matrix of order 908 in sixteen circulant blocks, T-matrices of order 13 |
 
 2284 is Concurrent: it also follows, by Turyn's doubling, from the quaternary Hadamard matrix of order 1142 on
-Zaitsev's page ([2284](2284/README.md#status)). The others are New.
+Zaitsev's page ([2284](2284/README.md#status)). The others are New. The fourteen orders from Paley's matrix in
+sixteen circulant blocks were obtainable from two published theorems that the tables did not combine
+([PALEY_BLOCKS.md](PALEY_BLOCKS.md)).
 
 Doubling the matrix of order 3732 gives order 7464, which was open as well, and doubling 9172 gives 18344, 36688 and
 73376 (the table entry is 2293(6)).

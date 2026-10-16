@@ -56,11 +56,11 @@ def back_identity(n):
 
 
 def goethals_seidel(A, B, C, D):
-    R = back_identity(A.shape[0])
-    return np.block([[A, B @ R, C @ R, D @ R],
-                     [-B @ R, A, D.T @ R, -C.T @ R],
-                     [-C @ R, -D.T @ R, A, B.T @ R],
-                     [-D @ R, C.T @ R, -B.T @ R, A]])
+    rev = lambda X: X[:, ::-1]                              # X R, with R = back_identity(n)
+    return np.block([[A, rev(B), rev(C), rev(D)],
+                     [-rev(B), A, rev(D.T), -rev(C.T)],
+                     [-rev(C), -rev(D.T), A, rev(B.T)],
+                     [-rev(D), rev(C.T), -rev(B.T), A]])
 
 
 def abelian_group(spec):
@@ -1252,6 +1252,76 @@ def build_two_block(cert):
     return H, [a, b]
 
 
+def build_paley_blocks(cert):
+    """Paley's matrix of order q + 1 = 4s (q = 3 mod 8 prime) as a 4 x 4 array of circulant s x s blocks, times
+    T-matrices of order t (Seberry-Yamada 1992, Theorem 3.10), as a Goethals-Seidel quadruple of length n = st.
+    Points of PG(1, q) are 0..q-1 and q (infinity), with vectors u_x = (1, x) and u_inf = (0, -1); Paley's matrix is
+    P[a, b] = [a = b] + chi(det(u_a, u_b)).  The torus element g is (x -> -1/(x + tau))^power; P(ga, gb) = e(a) e(b)
+    P(a, b); E(g a) = c e(a) E(a) along each g-cycle (cycles in order of their least point, each from its least point)
+    makes g an automorphism of E P E, whose blocks along the cycles are circulant.  A_j(x) = sum_k T_k(x mod t)
+    N_kj(x mod s); the certificate's sequences must equal the rebuilt ones."""
+    q, t, tau, power, c = cert["q"], cert["t"], cert["tau"], cert["power"], cert["c"]
+    if not (_is_prime(q) and q % 8 == 3):
+        raise ValueError("q must be a prime = 3 (mod 8)")
+    s = (q + 1) // 4
+    if math.gcd(s, t) != 1 or s * t != cert["v"]:
+        raise ValueError("v must be s t with gcd(s, t) = 1")
+    chi = np.array([0] + [1 if pow(x, (q - 1) // 2, q) == 1 else -1 for x in range(1, q)], dtype=np.int64)
+    U = [(1, x) for x in range(q)] + [(0, q - 1)]
+    P = np.array([[(1 if a == b else 0) + chi[(U[a][0] * U[b][1] - U[a][1] * U[b][0]) % q]
+                   for b in range(q + 1)] for a in range(q + 1)], dtype=np.int64)
+    def step(x):                                           # x -> -1/(x + tau) on PG(1, q)
+        if x == q:
+            return 0
+        den = (x + tau) % q
+        return q if den == 0 else (q - 1) * pow(den, q - 2, q) % q
+    g = list(range(q + 1))
+    for _ in range(power):
+        g = [step(x) for x in g]
+    g = np.array(g)
+    cyc, seen = [], set()
+    for a in range(q + 1):
+        if a not in seen:
+            cy = [a]
+            while g[cy[-1]] != a:
+                cy.append(int(g[cy[-1]]))
+            seen.update(cy)
+            cyc.append(cy)
+    if sorted(len(cy) for cy in cyc) != [s] * 4:
+        raise ValueError("g does not have four cycles of length s")
+    Pg = P[np.ix_(g, g)]
+    e = P[0] * Pg[0]
+    if not np.array_equal(e[:, None] * e[None, :] * P, Pg):
+        raise ValueError("g is not a signed automorphism of Paley's matrix")
+    E = np.zeros(q + 1, dtype=np.int64)
+    for cy in cyc:
+        E[cy[0]] = 1
+        for a in range(1, s):
+            E[cy[a]] = c * e[cy[a - 1]] * E[cy[a - 1]]
+        if c * e[cy[-1]] * E[cy[-1]] != 1:
+            raise ValueError("sign normalisation does not close")
+    order = [a for cy in cyc for a in cy]
+    B = (E[:, None] * P * E[None, :])[np.ix_(order, order)]
+    N = [[B[k * s, j * s:(j + 1) * s] for j in range(4)] for k in range(4)]
+    for k in range(4):
+        for j in range(4):
+            if not np.array_equal(B[k * s:(k + 1) * s, j * s:(j + 1) * s], circulant(N[k][j])):
+                raise ValueError("blocks are not circulant")
+    T = [np.array([SIGN[ch] for ch in row], dtype=np.int64) for row in cert["T"]]
+    if len(T) != 4 or any(len(r) != t for r in T) or not (np.abs(np.array(T)).sum(0) == 1).all():
+        raise ValueError("T-matrices must be four rows of length t with disjoint supports covering Z_t")
+    if not np.array_equal(sum(circulant(r) @ circulant(r).T for r in T), t * np.eye(t, dtype=np.int64)):
+        raise ValueError("not T-matrices")
+    x = np.arange(s * t)
+    seqs = [sum(T[k][x % t] * N[k][j][x % s] for k in range(4)) for j in range(4)]
+    if [("".join("+" if v > 0 else "-" for v in a)) for a in seqs] != cert["sequences"]:
+        raise ValueError("the sequences differ from the rebuilt ones")
+    paf = paf_sum(seqs)
+    if paf[0] != 4 * s * t or np.any(paf[1:] != 0):
+        raise ValueError("sequences are not complementary")
+    return goethals_seidel(*map(circulant, seqs)), seqs
+
+
 BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": build_goethals_seidel_group,
             "cooper-wallis": build_cooper_wallis,
             "cooper-wallis-near-williamson": build_cooper_wallis_near_williamson,
@@ -1261,7 +1331,7 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "yamada": build_yamada, "propus": build_propus, "propus-bordered": build_propus_bordered,
             "propus-qbordered": build_propus_qbordered, "skew-propus-plug": build_skew_propus_plug,
             "sym-od-plug": build_sym_od_plug, "skew-amicable-plug": build_skew_amicable_plug,
-            "two-block": build_two_block}
+            "two-block": build_two_block, "paley-blocks": build_paley_blocks}
 
 
 def csv_chunks(H, rows=512):

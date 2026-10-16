@@ -1,7 +1,7 @@
 # Unresolved orders
 
-This page lists the 144 entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard matrix of order 4n
-is known. The other 51 entries are settled:
+This page lists the 130 entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard matrix of order 4n
+is known. The other 65 entries are settled:
 
 - 12 by Alpöge, Voinov and Reynolds-Haertle (2026);
 - 19 by other public constructions of 2026 (Schneider; the JD-Jones-ASES repositories Hadamard-T and Hadamard-M;
@@ -14,6 +14,10 @@ is known. The other 51 entries are settled:
   [3732](hadamard/3732), [3964](hadamard/3964), [4492](hadamard/4492), [5020](hadamard/5020),
   [5932](hadamard/5932) and [9172](hadamard/9172)). For n = 571 a quaternary Hadamard matrix of order 1142 on
   Zaitsev's page (October 2026) gives H(2284) concurrently, by Turyn's doubling.
+- 14 in this repository from two published theorems that the tables did not combine: Paley's matrix of order q + 1
+  as sixteen circulant blocks (q ≡ 3 mod 8) times T-matrices of order t
+  ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md)): n = 789, 1315, 1509, 1589, 1689, 1841, 1915, 2155, 2515,
+  2661, 2733, 2815, 2893 and 2951.
 
 **Columns.** For each order the table lists the cheapest structure of each kind
 found by `search/triage.py` that is expected to contain at least ten solutions:
@@ -60,7 +64,6 @@ squares.
 | 2876 | 719 | – | – | – | – | – | – | – |  |
 | 2956 | 739 | 9 | 83 | 41 | 33.5 | 22.7 | ℤ2 × ℤ3xℤ3 × ℤ41 | 42.4 |  |
 | 3004 | 751 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ5xℤ5xℤ5 | 46.0 |  |
-| 3156 | 789 | – | – | – | – | – | – | – |  |
 | 3356 | 839 | – | – | – | – | – | ℤ2 × ℤ419 | 15.0 |  |
 | 3436 | 859 | 13 | 67 | 33 | 25.7 | 17.2 | ℤ2 × ℤ3 × ℤ11 × ℤ13 | 61.8 | Yamada from a symmetric conference matrix of order 430 (cannot exist) |
 | 3452 | 863 | – | – | – | – | – | – | – |  |
@@ -82,7 +85,6 @@ squares.
 | 5036 | 1259 | – | – | – | – | – | – | – |  |
 | 5132 | 1283 | – | – | – | – | – | – | – |  |
 | 5164 | 1291 | 15 | 87 | 43 | 30.2 | 29.3 | ℤ2 × ℤ3 × ℤ5 × ℤ43 | 57.1 | Yamada from a symmetric conference matrix of order 646 (cannot exist) |
-| 5260 | 1315 | – | – | – | – | – | ℤ2 × ℤ9 × ℤ73 | 48.9 |  |
 | 5276 | 1319 | – | – | – | – | – | – | – |  |
 | 5308 | 1327 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ13 × ℤ17 | 58.6 |  |
 | 5468 | 1367 | – | – | – | – | – | ℤ2 × ℤ683 | 19.6 |  |
@@ -96,18 +98,15 @@ squares.
 | 5892 | 1473 | – | – | – | – | – | ℤ8xℤ8 × ℤ23 | 35.4 |  |
 | 5948 | 1487 | – | – | – | – | – | – | – |  |
 | 5996 | 1499 | – | – | – | – | – | – | – |  |
-| 6036 | 1509 | – | – | – | – | – | ℤ2xℤ2 × ℤ13 × ℤ29 | 50.8 |  |
 | 6172 | 1543 | – | – | – | – | – | – | – |  |
 | 6236 | 1559 | – | – | – | – | – | – | – |  |
 | 6268 | 1567 | – | – | – | – | – | – | – |  |
 | 6284 | 1571 | – | – | – | – | – | – | – |  |
 | 6316 | 1579 | – | – | – | – | – | – | – |  |
 | 6332 | 1583 | – | – | – | – | – | ℤ2 × ℤ7 × ℤ113 | 64.9 |  |
-| 6356 | 1589 | – | – | – | – | – | – | – |  |
 | 6476 | 1619 | – | – | – | – | – | – | – |  |
 | 6652 | 1663 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ277 | 49.7 |  |
 | 6668 | 1667 | 17 | 99 | 49 | 32.0 | 37.5 | ℤ2 × ℤ7xℤ7 × ℤ17 | 59.0 |  |
-| 6756 | 1689 | – | – | – | – | – | ℤ8 × ℤ211 | 57.6 |  |
 | 6796 | 1699 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 850 (cannot exist) |
 | 6852 | 1713 | 38 | 62 | 31 | 5.4 | 32.1 | – | – |  |
 | 6876 | 1719 | – | – | – | – | – | ℤ2 × ℤ859 | 22.1 | Cooper–Wallis from Williamson-type matrices of order 191 |
@@ -116,14 +115,12 @@ squares.
 | 7148 | 1787 | 19 | 95 | 47 | 30.0 | 36.1 | – | – |  |
 | 7180 | 1795 | – | – | – | – | – | – | – |  |
 | 7324 | 1831 | – | – | – | – | – | – | – |  |
-| 7364 | 1841 | – | – | – | – | – | – | – |  |
 | 7388 | 1847 | – | – | – | – | – | ℤ2 × ℤ13 × ℤ71 | 72.5 |  |
 | 7484 | 1871 | – | – | – | – | – | – | – |  |
 | 7516 | 1879 | – | – | – | – | – | – | – | Kiyasu from a skew Hadamard matrix of order 940 |
 | 7532 | 1883 | – | – | – | – | – | ℤ2 × ℤ941 | 20.5 |  |
 | 7572 | 1893 | 42 | 62 | 31 | 4.4 | 33.1 | ℤ2xℤ2 × ℤ11 × ℤ43 | 70.7 |  |
 | 7628 | 1907 | – | – | – | – | – | – | – |  |
-| 7660 | 1915 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 958 (cannot exist) |
 | 7716 | 1929 | – | – | – | – | – | – | – |  |
 | 7876 | 1969 | – | – | – | – | – | – | – |  |
 | 7916 | 1979 | – | – | – | – | – | – | – |  |
@@ -136,7 +133,6 @@ squares.
 | 8348 | 2087 | – | – | – | – | – | – | – |  |
 | 8380 | 2095 | – | – | – | – | – | – | – |  |
 | 8396 | 2099 | – | – | – | – | – | – | – |  |
-| 8620 | 2155 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 1078 (cannot exist) |
 | 8684 | 2171 | – | – | – | – | – | – | – |  |
 | 8812 | 2203 | – | – | – | – | – | – | – |  |
 | 8828 | 2207 | – | – | – | – | – | ℤ2 × ℤ1103 | 40.2 |  |
@@ -155,7 +151,6 @@ squares.
 | 9836 | 2459 | – | – | – | – | – | – | – |  |
 | 10012 | 2503 | – | – | – | – | – | – | – |  |
 | 10052 | 2513 | – | – | – | – | – | – | – |  |
-| 10060 | 2515 | – | – | – | – | – | – | – |  |
 | 10124 | 2531 | – | – | – | – | – | – | – |  |
 | 10172 | 2543 | – | – | – | – | – | ℤ2 × ℤ31 × ℤ41 | 46.5 |  |
 | 10316 | 2579 | – | – | – | – | – | – | – |  |
@@ -164,7 +159,6 @@ squares.
 | 10516 | 2629 | – | – | – | – | – | – | – |  |
 | 10588 | 2647 | – | – | – | – | – | – | – |  |
 | 10636 | 2659 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 1330 (cannot exist) |
-| 10644 | 2661 | – | – | – | – | – | – | – |  |
 | 10684 | 2671 | – | – | – | – | – | – | – |  |
 | 10708 | 2677 | – | – | – | – | – | – | – | Miyamoto from H(2676) |
 | 10732 | 2683 | – | – | – | – | – | – | – |  |
@@ -172,10 +166,8 @@ squares.
 | 10796 | 2699 | – | – | – | – | – | – | – |  |
 | 10844 | 2711 | – | – | – | – | – | – | – |  |
 | 10924 | 2731 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 1366 (cannot exist) |
-| 10932 | 2733 | – | – | – | – | – | – | – |  |
 | 11068 | 2767 | – | – | – | – | – | – | – |  |
 | 11212 | 2803 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 1402 (cannot exist) |
-| 11260 | 2815 | – | – | – | – | – | – | – |  |
 | 11276 | 2819 | – | – | – | – | – | – | – |  |
 | 11292 | 2823 | – | – | – | – | – | – | – |  |
 | 11364 | 2841 | – | – | – | – | – | – | – |  |
@@ -184,13 +176,11 @@ squares.
 | 11460 | 2865 | – | – | – | – | – | – | – | Cooper–Wallis from Williamson-type matrices of order 191 |
 | 11516 | 2879 | – | – | – | – | – | – | – |  |
 | 11548 | 2887 | – | – | – | – | – | – | – |  |
-| 11572 | 2893 | – | – | – | – | – | – | – |  |
 | 11596 | 2899 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 1450 (cannot exist) |
 | 11612 | 2903 | – | – | – | – | – | ℤ2 × ℤ1451 | 56.7 |  |
 | 11652 | 2913 | – | – | – | – | – | – | – |  |
 | 11708 | 2927 | – | – | – | – | – | – | – |  |
 | 11756 | 2939 | – | – | – | – | – | – | – |  |
-| 11804 | 2951 | – | – | – | – | – | – | – |  |
 | 11852 | 2963 | – | – | – | – | – | ℤ2 × ℤ1481 | 47.1 |  |
 | 11884 | 2971 | 55 | 55 | 27 | 14.0 | 19.2 | – | – | Yamada from a symmetric conference matrix of order 1486 (cannot exist) |
 | 11892 | 2973 | – | – | – | – | – | – | – |  |

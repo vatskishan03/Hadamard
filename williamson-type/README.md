@@ -66,5 +66,8 @@ For the primes that would settle open Hadamard orders through T-matrices of smal
 | 223 | 669 (3), 1115 (5), 2899 (13) | 8.3 | −4.0 |
 | 263 | 789 (3), 1315 (5), 1841 (7), 2893 (11) | 5.7 | −4.2 |
 
+The four orders of 263 no longer need Williamson-type matrices: Paley's matrix of order 1052 in sixteen circulant
+blocks gives them with the same T-matrices ([../hadamard/PALEY_BLOCKS.md](../hadamard/PALEY_BLOCKS.md)).
+
 Solutions exist in quantity without symmetry, in a space of about 2⁴⁷⁸ sign choices for w = 191, but every multiplier
 group removes them. For w = 191 the structures with |H| = 24, 12 (two) were searched exhaustively and are empty.

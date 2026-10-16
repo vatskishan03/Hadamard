@@ -179,6 +179,12 @@ start-up, is close to the list size.
 | `tlp_model.py`, `tlp_rank.py`, `tlp_search.py` | twisted Legendre pairs |
 | `two_circ.py`, `two_chain.py` | two-block searches: D-optimal designs and Legendre pairs |
 
+**Paley's matrix in sixteen circulant blocks** (3156, 5260, …, 11804)
+
+| Program | Role |
+|---|---|
+| `paley_blocks.py` | Paley's matrix of order q + 1 (q ≡ 3 mod 8 prime) as a 4 × 4 array of circulants along the orbits of a torus element, times T-matrices of order t from base sequences (Seberry–Yamada 1990, Theorem 4); writes the certificate ([../hadamard/PALEY_BLOCKS.md](../hadamard/PALEY_BLOCKS.md)): `check`, `quad`, `certify` |
+
 **Certificates**
 
 | Program | Writes |

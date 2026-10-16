@@ -7,8 +7,11 @@ which `verify/` rebuilds it and checks it in exact arithmetic.
 A Hadamard matrix of order n is an n × n matrix H with entries ±1 and H Hᵀ = n I. It can exist only for n = 1, 2 or
 n ≡ 0 (mod 4), and the Hadamard conjecture asserts that it exists for every multiple of 4. In August 2026 Alpöge,
 Voinov and Reynolds-Haertle constructed the twelve unresolved orders below 2000 [1], and Schneider constructed
-2060 [2]. This repository constructs the next four, 2092, 2148, 2284 and 2292, and six more open orders up to 9172.
-2284 also follows from a quaternary matrix of order 1142 posted concurrently by Zaitsev et al. [13].
+2060 [2]. This repository constructs the next four, 2092, 2148, 2284 and 2292, and twenty more open orders up to
+11804. Fourteen of these follow from two published theorems that the tables did not combine: Paley's matrix of order
+q + 1 is an array of sixteen circulants when q ≡ 3 (mod 8), and Seberry and Yamada multiply such arrays by T-matrices
+([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md)). 2284 also follows from a quaternary matrix of order 1142 posted
+concurrently by Zaitsev et al. [13].
 The smallest order we know to be unresolved is now 2396 = 4 · 599 ([FRONTIER.md](FRONTIER.md)).
 
 ## Results
@@ -16,6 +19,8 @@ The smallest order we know to be unresolved is now 2396 = 4 · 599 ([FRONTIER.md
 **Unresolved Hadamard orders.** For each order 4n below, n is listed as unresolved in Table 4 of Cati and
 Pasechnik [3], and we found no later construction, except that 2284 follows from a quaternary matrix of order 1142
 posted concurrently by Zaitsev et al. [13] (Turyn's doubling; [hadamard/2284](hadamard/2284/README.md#status)).
+The fourteen orders built from Paley's matrix were within reach of two published theorems [14, 15], which the tables
+did not combine; we found no earlier construction of them.
 
 | Order | n | Construction |
 |------:|---|---|
@@ -23,12 +28,26 @@ posted concurrently by Zaitsev et al. [13] (Turyn's doubling; [hadamard/2284](ha
 | [2148](hadamard/2148) | 537 = 3 · 179 | bordered Goethals–Seidel array over ℤ₃ × ℤ₁₇₈, border of size 12 |
 | [2284](hadamard/2284) | 571 | Goethals–Seidel array over ℤ₅₇₁, three blocks related by a multiplier of order 3 |
 | [2292](hadamard/2292) | 573 = 3 · 191 | Spence's construction over ℤ₂ × ℤ₂ × ℤ₁₄₃, three blocks related by an automorphism of order 15 |
+| [3156](hadamard/3156) | 789 = 3 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks [14], T-matrices of order 3 [15] |
 | [3732](hadamard/3732) | 933 = 3 · 311 | Goethals–Seidel array over ℤ₃ × GF(311), multiplier subgroup of order 31; skew |
 | [3964](hadamard/3964) | 991 | bordered Goethals–Seidel array over ℤ₂ × ℤ₂ × ℤ₂₄₇, border of size 12 |
 | [4492](hadamard/4492) | 1123 | Goethals–Seidel array over ℤ₁₁₂₃, multiplier subgroup of order 33 |
 | [5020](hadamard/5020) | 1255 = 5 · 251 | Goethals–Seidel array over ℤ₅ × GF(251), multiplier subgroup of order 50 |
+| [5260](hadamard/5260) | 1315 = 5 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks [14], T-matrices of order 5 [15] |
 | [5932](hadamard/5932) | 1483 | Goethals–Seidel array over ℤ₁₄₈₃, multiplier subgroup of order 39 |
+| [6036](hadamard/6036) | 1509 = 3 · 503 | Paley's matrix of order 2012 in sixteen circulant blocks [14], T-matrices of order 3 [15] |
+| [6356](hadamard/6356) | 1589 = 7 · 227 | Paley's matrix of order 908 in sixteen circulant blocks [14], T-matrices of order 7 [15] |
+| [6756](hadamard/6756) | 1689 = 3 · 563 | Paley's matrix of order 2252 in sixteen circulant blocks [14], T-matrices of order 3 [15] |
+| [7364](hadamard/7364) | 1841 = 7 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks [14], T-matrices of order 7 [15] |
+| [7660](hadamard/7660) | 1915 = 5 · 383 | Paley's matrix of order 1532 in sixteen circulant blocks [14], T-matrices of order 5 [15] |
+| [8620](hadamard/8620) | 2155 = 5 · 431 | Paley's matrix of order 1724 in sixteen circulant blocks [14], T-matrices of order 5 [15] |
 | [9172](hadamard/9172) | 2293 | Miyamoto's theorem [8] from the matrix of order 2292 |
+| [10060](hadamard/10060) | 2515 = 5 · 503 | Paley's matrix of order 2012 in sixteen circulant blocks [14], T-matrices of order 5 [15] |
+| [10644](hadamard/10644) | 2661 = 3 · 887 | Paley's matrix of order 3548 in sixteen circulant blocks [14], T-matrices of order 3 [15] |
+| [10932](hadamard/10932) | 2733 = 3 · 911 | Paley's matrix of order 3644 in sixteen circulant blocks [14], T-matrices of order 3 [15] |
+| [11260](hadamard/11260) | 2815 = 5 · 563 | Paley's matrix of order 2252 in sixteen circulant blocks [14], T-matrices of order 5 [15] |
+| [11572](hadamard/11572) | 2893 = 11 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks [14], T-matrices of order 11 [15] |
+| [11804](hadamard/11804) | 2951 = 13 · 227 | Paley's matrix of order 908 in sixteen circulant blocks [14], T-matrices of order 13 [15] |
 
 **Other results.**
 
@@ -129,6 +148,11 @@ the unresolved orders up to 4 · 2999 with the cheapest structure known for each
     (2019) 67–74.
 13. V. Zaitsev (with H. Kharaghani, A. Mohammadian, B. Tayfeh-Rezaie), Quaternary Hadamard matrices,
     https://www.cs.uleth.ca/~zaitsevv/quaternary.html, last updated October 14, 2026.
+14. B. Schmidt, Williamson matrices and a conjecture of Ito's, Des. Codes Cryptogr. 17 (1999) 61–68, Theorems 2.2
+    and 3.3 (the latter due to Ito, 1994); M. Yamada, Hadamard matrices of generalized quaternion type, Discrete Math.
+    87 (1991) 187–196.
+15. J. Seberry, M. Yamada, On the products of Hadamard matrices, Williamson matrices and other orthogonal matrices
+    using M-structures, J. Combin. Math. Combin. Comput. 7 (1990) 97–137, Theorem 4.
 
 ## Citation
 
