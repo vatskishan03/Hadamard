@@ -6,8 +6,9 @@ October 2026. Section 7 collects corrections to the tables and the Williamson-ty
 Hadamard matrices, section 13 the Spence spin structures behind order 2292, section 14 the complex orders 330 and 426,
 section 15 the compressions that decide which row patterns live, with the complex orders 342, 366, 430 and 454, section
 16 the character-bordered array and the complex order 214, section 17 its ℤ₆ form and the complex order 322, section 18
-Paley's matrix halves, section 19 Miyamoto's lemma with symmetric inputs, and section 20 the page of Zaitsev et al. The
-notes on the individual search programs are in [search/NOTES.md](search/NOTES.md).
+Paley's matrix halves, section 19 Miyamoto's lemma with symmetric inputs, section 20 the page of Zaitsev et al. and
+section 21 the quaternion type of Paley's matrix. The notes on the individual search programs are in
+[search/NOTES.md](search/NOTES.md).
 
 **Correction (October 16).** Sections 8–17 call the complex orders 142, 154, 222, 262, 286, 310, 322, 330, 342, 370,
 430, 454 and 742 open before our searches. They are not: 4N − 1 is a prime power for each, and Ito's Hadamard groups
@@ -875,8 +876,41 @@ had committed on 11 October as New ([hadamard/2284](hadamard/2284/README.md#stat
 this repository: for 2092, 2148, 2292, 3732 and 3964 the page lists 1046, 1074, 1146, 1866 and 1982 as unknown, and the
 other orders are above its range.
 
-The page also covers 24 orders that we had listed as open, 470, 490, 686 and 1306 among them. With §19 the count of
-open N < 1000 falls from 143 to 115 (`search/complex_status.py`); the smallest open orders are 334, 358, 418, 438,
-446, 478, 498, 502, 506 and 550, none with 4N − 1 a prime power. The page ends with its own list of the even orders
-below 2000 with no quaternary Hadamard matrix known; it is the same set of 115. The searches of §8–17 that found nothing at 334,
+The page also covers 24 orders that we had listed as open, 470, 490, 686 and 1306 among them. With §19 the count of open
+N < 1000 falls from 143 to 115 (`search/complex_status.py`); the smallest open orders are 334, 358, 418, 438, 446, 478,
+498, 502, 506 and 550, none with 4N − 1 a prime power. The page ends with its own list of the even orders below 2000
+with no quaternary Hadamard matrix known; it is the same set of 115. The searches of §8–17 that found nothing at 334,
 358, 418, 438 and 446 stand as negative results for those structures.
+
+## 21. Paley's matrix is of quaternion type, not of Williamson type (October 16)
+
+Williamson-type matrices of order 263 would settle four FRONTIER orders (789, 1315, 1841, 2893; §9), and 4 · 263 − 1 =
+1051 is a prime. Ito's dicyclic Hadamard group of order 2(q + 1) contains Q₈ = ⟨x ↦ ix, x ↦ c x̄⟩ (N(c) = −1) when
+q ≡ 3 (mod 4), and Q₈ acts semiregularly on the rows of Paley's matrix with its centre acting as −I. So, in a basis
+adapted to the N = (q + 1)/4 orbits, Paley's matrix is a Williamson array H = Σ R_u ⊗ X_u of four blocks of order N
+(`search/quaternion_type.py pattern q`; checked for q = 11, 19, 23, 43 and 1051). That is not enough:
+- **The blocks are not amicable.** H Hᵀ = 4N I only forces [X_i, X_1] = −[X_k, X_j], [X_j, X_1] = −[X_i, X_k] and
+  [X_k, X_1] = −[X_j, X_i], with [X, Y] = X Yᵀ − Y Xᵀ, and the commutators are non-zero. These are Hadamard matrices
+  of quaternion type (with a semiregular Q₈ action), but not Williamson-type matrices.
+- **No base point helps.** Changing the base point of each orbit, independently for rows and columns, mixes the blocks
+  entrywise. For q = 19 (N = 5) none of the 4¹⁰ choices gives pairwise amicable blocks (`rebase 19`); for q = 11 160 of
+  4096 do, but Williamson-type matrices of order 3 are classical anyway.
+- **The weaker condition does not survive plugging.** In an orthogonal design Σ x_u M_u the cross terms are
+  Σ M_u M_vᵀ ⊗ [X_u, X_v], so quaternion-type blocks need M_1 M_iᵀ = ±M_j M_kᵀ and its cyclic versions. The
+  Cooper–Wallis Baumert–Hall arrays of T-matrices of orders 3, 5 and 7 do not satisfy this: for q = 19 none of the 384
+  relabellings and signs of the variables gives a Hadamard matrix (`plug 19 t`).
+
+So the dicyclic structure gives quaternion-type matrices of every order 4N with 4N − 1 a prime power, but not the
+Williamson-type matrices of order N that Cooper–Wallis needs, and 263 stays out of reach this way.
+
+**Plug-ins from association schemes (negative).** The symmetric plug-in of [search/NOTES.md](search/NOTES.md) §31 needs
+commuting symmetric ±1 matrices X, D of order r with X² + (m − 1) D² = m r I. With X and D in the Bose–Mesner algebra of
+a strongly regular graph (every feasible parameter set with r odd, r ≤ 800, and every X, D = J − 2(sum of classes)), the
+only solutions are the known families: D the core of a regular symmetric Hadamard matrix of order r + 1 = 4u², and X = J
+or J − 2I. In the cyclotomic schemes of GF(q) (q prime < 3000, e = 3, 4, 5, 6, 8 classes, −1 ∈ C₀) no pair satisfies the
+equation with m ≡ 0 (mod 4).
+
+**The structure of the matrices on Zaitsev's page.** Their monomial automorphism groups (computed with nauty on the
+usual 8n-vertex graph) have orders 32 at 238, as for ours (the multiplier group ⟨8⟩ times the four scalars), 8 at 470
+and 24 at 490, with two fixed rows in both. So the orders the page attributes to unpublished approaches come with
+very little symmetry: an involution at 470, a group of order 6 at 490.
