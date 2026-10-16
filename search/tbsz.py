@@ -1485,7 +1485,7 @@ def tuple_border(ts, tc, tup, borders):
 
 def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, log=None, maxsol=5, seed=1,
            estimate_only=False, cond=None, refine=0, maxtup=400, pcond=None, coarse_ab=False, by_rate=False,
-           coarse=None, syms=(), progress=None):
+           coarse=None, syms=(), progress=None, count_only=False):
     """refine > 0: the best `refine` tuples on the quotient pcond (default Q) are refined one by one on the finer
     quotient `cond` (their compressions there enumerated under the coarse ones), and the fine tuples of all of them
     are ranked together. coarse_ab: blocks A and B stay on the coarse quotient, so that one join covers every refinement
@@ -1631,7 +1631,7 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
         if progress:
             with open(progress, "a") as f:
                 f.write(json.dumps({"rows": list(rows), "tuple": [list(x) for x in tup], "solutions": len(sols)}) + "\n")
-        if not sols:                                   # the join input and masks are large: keep them only for hits
+        if not sols or count_only:                     # the join input and masks are large: keep them only for hits
             for f_ in (inp, sf, Path(str(inp) + ".progress"), keepdir / f"masks_{tag}.npz"):
                 try:
                     f_.unlink()
@@ -1639,6 +1639,9 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
                     pass
         print(f"  kt4: {len(sols)} solutions; {tail[0] if tail else 'exit ' + str(p.returncode)} "
               f"[{time.time() - t0:.0f}s]", flush=True)
+        if count_only:                                 # calibration: count core solutions, no completion
+            print(f"  core solutions: {len(sols)}{'+' if len(sols) >= maxsol else ''}", flush=True)
+            sols = []
         for s in sols:
             idx = [0] * 4
             for pos, k in enumerate(order):
@@ -1758,6 +1761,8 @@ def main():
     ap.add_argument("--hits", help="certify: the hits file (JSON lines)"); ap.add_argument("--k", type=int, default=0)
     ap.add_argument("--refine", type=int, default=0, help="search with --cond: refine the best REFINE tuples on Q one "
                     "by one on the finer quotient")
+    ap.add_argument("--maxsol", type=int, default=5, help="search: core solutions to report per join (kt4 cap)")
+    ap.add_argument("--count-only", action="store_true", help="search: only count core solutions per join")
     ap.add_argument("--progress", help="search: JSON-lines file of joined tuples; tuples equivalent to them are skipped "
                     "and every join is appended (resumable runs)")
     ap.add_argument("--sym", action="append", help="search: an automorphism of G (rows separated by ';') that "
@@ -1809,7 +1814,7 @@ def main():
                pcond=None if a.pcond is None else [int(x) for x in a.pcond.split(",")], coarse_ab=a.coarse_ab,
                by_rate=a.by_rate, coarse=a.coarse,
                syms=[np.array([[int(v) for v in r.split(",")] for r in m.split(";")]) for m in (a.sym or [])],
-               progress=a.progress)
+               progress=a.progress, maxsol=a.maxsol, count_only=a.count_only)
 
 
 if __name__ == "__main__":
