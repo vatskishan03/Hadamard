@@ -1,11 +1,23 @@
 # Complex Hadamard matrices of order (q + 1)/2 from Paley's matrix
 
-**Theorem.** For every prime power q ≡ 3 (mod 4) there is a quaternary (complex) Hadamard matrix of order (q + 1)/2.
+**Theorem** (Ito; Egan 2019). For every prime power q ≡ 3 (mod 4) there is a quaternary (complex) Hadamard matrix of
+order (q + 1)/2.
 
-For q ≡ 3 (mod 8) the order is 2N with N = (q + 1)/4 odd. So every order 2N with N odd and 4N − 1 a prime power is
-settled. Among the odd N < 1000 the theorem settles 63 values that were open. These are the orders 406, 414, 474,
-526, 546, 582, 646, 666 and 55 more up to 1966; the list is below. It also gives the 13 orders 142, 154, 222, 262,
-286, 310, 322, 330, 342, 370, 430, 454 and 742, which this repository had first constructed by searches.
+**Status: known.** The theorem follows from two results:
+- Ito showed that Paley's matrix makes the dicyclic group Q_(8t), 4t = q + 1, a Hadamard group: it carries a central
+  relative (4t, 2, 4t, 2t) difference set.
+- R. Egan, *Phased unitary Golay pairs, Butson Hadamard matrices and a conjecture of Ito's* (Des. Codes Cryptogr. 87
+  (2019) 67–74, Theorem 4.5, after Schmidt 1999, Corollary 3.6), turns such a difference set into a BH(2t, 4).
+
+Egan constructs BH(70, 4) in this way (his Remark 4.6, t = 35, q = 139). We found the construction independently and
+only afterwards found Egan's paper. So the orders below are not new. Before that we had labelled 13 orders of this
+directory New, among them 142, 154 and 322; that was wrong (see the Novelty section).
+
+What this note adds is a direct proof from Paley's matrix through an element of order 4 of SL(2, q), explicit
+certificates for the 76 orders 2N < 2000 with N odd and 4N − 1 a prime power that were blank in Seberry and Yamada's
+1992 table, and a verifier that rebuilds them.
+
+For q ≡ 3 (mod 8) the order is 2N with N = (q + 1)/4 odd.
 
 ## Proof
 
@@ -63,10 +75,10 @@ In coordinates, with f_1, ..., f_m the chosen points and P_g e_f = s_f e_(g(f)),
 The odd N < 1000 with 4N − 1 a prime power number 145. Seberry and Yamada's Table 11.2 (1992) records 66 of the
 orders 2N as known and leaves 79 blank. Of the 79:
 - N = 1 is trivial;
-- 70 (N = 35) was settled by Đoković's good matrices (1993);
+- 70 (N = 35) came from Đoković's good matrices (1993) and again from Egan's construction (2019);
 - 442 (N = 221) comes from a Mathon conference matrix;
-- 13 were constructed earlier here by searches: 142, 154, 222, 262, 286, 310, 322, 330, 342, 370, 430, 454, 742;
-- 63 are settled by the theorem and were open before, to our knowledge.
+- the other 76 are covered by Egan's Theorem 4.5. This directory had constructed 13 of them earlier by searches (142,
+  154, 222, 262, 286, 310, 322, 330, 342, 370, 430, 454, 742); the other 63 have certificates from this theorem.
 
 | order 2N | q = 4N − 1 | | order 2N | q = 4N − 1 | | order 2N | q = 4N − 1 |
 |---:|---:|---|---:|---:|---|---:|---:|
@@ -94,8 +106,8 @@ orders 2N as known and leaves 79 blank. Of the 79:
 | 990 | 1979 | | | | | 1962 | 3923 |
 | 994 | 1987 | | | | | 1966 | 3931 |
 
-All of them except 666 have q prime. With these, 143 values of N < 1000 remain open. The smallest open orders are now
-334, 358, 418, 438, 446, 470, 478, 490, 498, 502, 506 and 538.
+All of them except 666 have q prime. None of the orders that are still open (334, 358, 418, 438, 446, 470, 478, 490,
+498, 502, 506, 538, …) has 4N − 1 a prime power.
 
 ## Certificates and verification
 
@@ -113,21 +125,21 @@ integer arithmetic, and compares the digest. Both programs give the same digests
 
 ## Novelty
 
-Both ingredients are classical:
+**Known: Ito; Egan 2019.** There are three ingredients:
 - the automorphism group of Paley's matrix, which contains this monomial action of SL(2, q) (Kantor 1969);
-- the half-order lemma (Turyn 1970; Miyamoto 1991; Seberry and Yamada 1992, Lemma 11.16).
+- the half-order lemma (Turyn 1970; Miyamoto 1991; Seberry and Yamada 1992, Lemma 11.16);
+- Ito's observation that Paley's matrix is cocyclic with a dicyclic extension group. That group contains an element
+  of order 4 whose square is the central involution, which is our g.
 
-We found no statement that combines them, and three sources show that it was not in use:
-- Seberry and Yamada's Table 11.2 (1992) leaves all these orders blank. Among them is 70 (q = 139), which Đoković
-  then obtained from good matrices in 1993. Their key wh for Williamson-type matrices assumes, as a hypothesis, that
-  (p + 1)/4 is an order of Williamson-type matrices for p ≡ 3 (mod 4).
-- Szöllősi (arXiv:2603.09572, 2026) credits order 70 to Đoković's good matrices.
-- Kharaghani, Mohammadian and Tayfeh-Rezaie (arXiv:2605.08661v2, 2026) take the smallest unresolved order, 118,
-  from the 1992 table and construct orders only from near-Williamson matrices.
+Egan (2019) states the consequence for complex Hadamard matrices. His Theorem 4.5 gives a BH(2v, 4) for every
+v = 2^a 10^b 26^c m with 2m − 1 or 4m − 1 a prime power, or with a Williamson matrix of order m. His printed
+statement reads "2m − 1 and 4m − 1 is a prime power", but his own example m = 35 has only 4m − 1 = 139 prime.
 
-There is related literature we could not read: Hadamard matrices of (generalised) quaternion type (Ito 1981;
-Discrete Math. 1991), Ito's Hadamard groups, the chapter on Hadamard matrices in the Handbook of Combinatorial Designs
-(Craigen and Kharaghani, 2007), and the 2020 edition of Seberry and Yamada's book. Paley's matrices
-appear in all three. Because every step here is classical, specialists may regard the construction as known. We
-label the orders New in the sense of [NOVELTY.md](../NOVELTY.md): blank in the reference table, and no later
-construction found.
+How we missed it. We first checked Seberry and Yamada's 1992 table (blank at all these orders, 70 included), Szöllősi
+(arXiv:2603.09572) and Kharaghani, Mohammadian and Tayfeh-Rezaie (arXiv:2605.08661). Neither 2026 paper cites Egan,
+and both take the smallest unresolved order, 118, from the 1992 table. Egan's paper turned up only when we searched
+for Ito's Hadamard groups.
+
+The correction affects the earlier claims of this directory as well. The orders first constructed here are now the 11
+with 4N − 1 not a prime power: 214, 238, 302, 326, 366, 382, 426, 494, 518, 534 and 754. 214, 238, 302 and 326 were
+successively the smallest open order; 334 is the smallest now.

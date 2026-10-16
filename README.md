@@ -41,14 +41,13 @@ Pasechnik [3], and we found no later construction.
   See [skew](skew).
 - **Symmetric Hadamard matrices** of orders 532, 732, 876, 4828 and 5700, all undecided in the Đoković–Seberry
   census [4]. See [symmetric](symmetric).
-- **Complex Hadamard matrices** of 87 orders 2N with N odd, from 142 to 1966, all blank in Seberry and Yamada's table
-  of known orders [5]. Paley's skew Hadamard matrix of order q + 1 (q ≡ 3 mod 4 a prime power) commutes with a signed
-  permutation P with P² = −I, so it halves to a complex Hadamard matrix of order (q + 1)/2
-  ([complex-hadamard/PALEY.md](complex-hadamard/PALEY.md)). This settles every order 2N with N odd and 4N − 1 a prime
-  power: 63 open orders from 406 to 1966. It also gives 13 of the 24 orders found earlier here by searches over
-  Szöllősi's array and its bordered, character-bordered and twisted forms. 142 and 154 were the two smallest open
-  orders after the work of 2026 [10, 11]; 214, and then 322, were the smallest after the others here, and 334 is the
-  smallest now. See [complex-hadamard](complex-hadamard).
+- **Complex Hadamard matrices** of 11 orders 2N with N odd, blank in Seberry and Yamada's table of known orders [5]
+  and, to our knowledge, not constructed since [10, 11, 12]: 214, 238, 302, 326, 366, 382, 426, 494, 518, 534 and
+  754, from searches over Szöllősi's array [10] and its bordered, character-bordered and twisted forms. 214, 238, 302
+  and 326 were successively the smallest open order; 334 is the smallest now. Also explicit matrices of 76 known
+  orders from 142 to 1966 with 4N − 1 a prime power, among them halves of Paley's matrix of order q + 1
+  ([complex-hadamard/PALEY.md](complex-hadamard/PALEY.md)); these follow from Ito's dicyclic Hadamard groups and
+  Egan's Theorem 4.5 [12], which we had missed at first. See [complex-hadamard](complex-hadamard).
 - **Auxiliary objects:** Williamson-type matrices of order 111 ([near-williamson](near-williamson)); T-matrices of
   orders 97, 109, 131 and 197, for which we found no earlier construction ([t-matrices](t-matrices)); amicable
   Hadamard matrices of orders 52, 76 and 100; and the orthogonal designs OD(100; 1, 5, 94), OD(156; 1, 3, 152),
@@ -122,6 +121,8 @@ the unresolved orders up to 4 · 2999 with the cheapest structure known for each
 9. M. Yamada, Some new series of Hadamard matrices, J. Austral. Math. Soc. Ser. A 46 (1989) 371–383.
 10. Szöllősi, A complex Hadamard matrix of order 94, arXiv:2603.09572 (2026).
 11. H. Kharaghani, A. Mohammadian, B. Tayfeh-Rezaie, V. Zaitsev, arXiv:2605.08661v2 (2026).
+12. R. Egan, Phased unitary Golay pairs, Butson Hadamard matrices and a conjecture of Ito's, Des. Codes Cryptogr. 87
+    (2019) 67–74.
 
 ## Citation
 

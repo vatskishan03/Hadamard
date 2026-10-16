@@ -14,6 +14,10 @@ search/data/complex_known_1992.txt) or one of these gives it:
   94, 100 (Lebedev and Verma 2026), and the two families of Jedwab and Pender (2025): (q - 1)/2 for prime powers
   q = 1 (mod 4), and 2p for primes p with 2p - 1 a prime power;
 - Szöllősi's order 94;
+- Ito's dicyclic Hadamard groups with Egan's construction (R. Egan, Des. Codes Cryptogr. 87 (2019) 67-74, Theorem 4.5,
+  after Schmidt 1999, Corollary 3.6): BH(2v, 4) for v = 2^a 10^b 26^c m with 2m - 1 or 4m - 1 a prime power or a
+  Williamson matrix of order m. For odd v this adds every v with 4v - 1 a prime power (Paley's matrix; see
+  complex-hadamard/PALEY.md);
 - Seberry-Yamada (1992) Corollaries 11.15 (orders n^j (n + 1)) and 11.17 (an explicit list, which includes 105),
   and the conference matrices of their codes c2 ((h - 1)^2 + 1, h skew) and c5 ((m - 1)^s + 1, m a conference order).
 This is our reading of the literature, not a complete table (Table 11.2 of Seberry and Yamada's 2020 book, which
@@ -144,6 +148,8 @@ def known_reason(N):
         return "quaternary Legendre pair"
     if N == 47:
         return "Szöllősi 2026"
+    if prime_power(4 * N - 1):
+        return "Ito's dicyclic Hadamard groups (Paley's matrix), Egan 2019"
     return None
 
 

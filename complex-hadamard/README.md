@@ -10,15 +10,13 @@ Recent progress at the bottom of that range:
 - Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev (arXiv:2605.08661v2, September 2026) gave the first examples of
   orders 118, 130, 134, 206 and 266, from near-Williamson matrices.
 
-This directory adds orders that, to our knowledge, had no construction.
-
-**Paley's matrix gives half its order** ([PALEY.md](PALEY.md)). For every prime power q ≡ 3 (mod 4), Paley's skew
-Hadamard matrix H of order q + 1 commutes with the signed permutation P of u ↦ −1/u on the projective line, and
-P² = −I. So H ≅ [[A, B], [−B, A]], and (A + iB)/(1 + i) is a quaternary Hadamard matrix of order (q + 1)/2. This
-settles every order 2N with N odd and 4N − 1 a prime power: 63 open orders below 2000, from 406 to 1966, and also
-13 orders that this directory had first constructed by searches (142, 154, 222, 262, 286, 310, 322, 330, 342, 370,
-430, 454, 742). Both ingredients are classical; we found no statement combining them, and the 1992 table and the
-2026 papers treat these orders as open (see the novelty section of PALEY.md).
+This directory constructs 11 orders that, to our knowledge, had no construction: 214, 238, 302, 326, 366, 382, 426,
+494, 518, 534 and 754. It also gives explicit matrices of 76 orders that are blank in the 1992 table but follow from
+a result we had missed: Paley's matrix of order q + 1, q ≡ 3 (mod 4) a prime power, makes the dicyclic group of order
+2(q + 1) a Hadamard group (Ito), and Egan (Des. Codes Cryptogr. 87 (2019) 67–74, Theorem 4.5) turns this into a
+complex Hadamard matrix of order (q + 1)/2. So every order 2N with N odd and 4N − 1 a prime power is known. We found
+the construction independently, with a direct proof ([PALEY.md](PALEY.md)), and had at first labelled 13 of these
+orders New; they are not.
 
 ## Construction
 
@@ -106,41 +104,51 @@ into a two-list search, are in [TWISTED.md](TWISTED.md).
 
 ## Matrices
 
+**First constructed here** (New). For none of them is 4N − 1 or 2N − 1 a prime power, and none is covered by the
+sources we checked (Status section).
+
+| order 2N | N | multiplier group / source | row sums (a, b; c, d) | file |
+|---:|---|---|---|---|
+| 214 | 107 | character-bordered array ([TBORDERED.md](TBORDERED.md)) on ℤ₁₀₄ = ℤ₈ × ℤ₁₃, Q = ℤ₄, T = {1, χ, χ̄}, ⟨(1, 3)⟩ of order 3 (low-energy k-tree on one compression class, `search/tbsz.py`) | 2, 0; 2, 2 | [C214.json](C214.json) |
+| 238 | 119 = 7 · 17 | ⟨8⟩, order 8 | 1, 5; 15, 15 | [C238.json](C238.json) |
+| 302 | 151 | ⟨8⟩, order 5 | 9, 9; 9, 19 | [C302.json](C302.json) |
+| 326 | 163 | ⟨38⟩, order 9 | 17, 19; 1, 1 | [C326.json](C326.json) |
+| 366 | 183 = 3 · 61 | ⟨34⟩, order 5 (low-energy k-tree on one compression class, `search/lowe_comp.py`) | 1, 23; 9, 11 | [C366.json](C366.json) |
+| 382 | 191 | ⟨39⟩, order 5 (streaming k-tree, `search/kstream.py`) | 11, 11; 9, 21 | [C382.json](C382.json) |
+| 426 | 213 = 3 · 71 | ⟨37⟩, order 7 (low-energy k-tree, `search/lowe_sz.py`) | 13, 17; 13, 15 | [C426.json](C426.json) |
+| 494 | 247 = 13 · 19 | ⟨9, 35⟩, order 27 | 17, 19; 7, 17 | [C494.json](C494.json) |
+| 518 | 259 = 7 · 37 | ⟨44⟩, order 9 (compression chain) | 5, 29; 1, 13 | [C518.json](C518.json) |
+| 534 | 267 = 3 · 89 | ⟨4⟩, order 11 | 1, 1; 21, 25 | [C534.json](C534.json) |
+| 754 | 377 = 13 · 29 | ⟨9⟩, order 42 | 27, 27; 5, 5 | [C754.json](C754.json) |
+
+**Known orders, independent matrices** (Known: Ito; Egan 2019, since 4N − 1 is a prime power). We found 13 of them
+(142, 154, 222, 262, 286, 310, 322, 330, 342, 370, 430, 454, 742) by the searches before we knew this; the other 63
+are halves of Paley's matrix.
+
 | order 2N | N | multiplier group / source | row sums (a, b; c, d) | file |
 |---:|---|---|---|---|
 | 142 | 71 | ⟨5⟩, order 5 | 9, 9; 1, 11 | [C142.json](C142.json) |
 | 154 | 77 = 7 · 11 | ⟨15⟩, order 5 | 3, 3; 1, 17 | [C154.json](C154.json) |
-| 214 | 107 | character-bordered array ([TBORDERED.md](TBORDERED.md)) on ℤ₁₀₄ = ℤ₈ × ℤ₁₃, Q = ℤ₄, T = {1, χ, χ̄}, ⟨(1, 3)⟩ of order 3 (low-energy k-tree on one compression class, `search/tbsz.py`) | 2, 0; 2, 2 | [C214.json](C214.json) |
 | 222 | 111 = 3 · 37 | near-Williamson matrices of order 111 ([NW111.txt](../near-williamson/NW111.txt)), reordered (B, C, A, D) | 1, 1; 21, 1 | [C222.json](C222.json) |
-| 238 | 119 = 7 · 17 | ⟨8⟩, order 8 | 1, 5; 15, 15 | [C238.json](C238.json) |
 | 262 | 131 | ⟨53⟩, order 5 | 9, 9; 1, 19 | [C262.json](C262.json) |
 | 286 | 143 = 11 · 13 | ⟨3⟩, order 15 | 3, 9; 11, 19 | [C286.json](C286.json) |
-| 302 | 151 | ⟨8⟩, order 5 | 9, 9; 9, 19 | [C302.json](C302.json) |
 | 310 | 155 = 5 · 31 | ⟨16⟩, order 5 (compression chain, `search/cchain4.py`) | 9, 9; 13, 17 | [C310.json](C310.json) |
 | 322 | 161 = 7 · 23 | character-bordered array ([TBORDERED.md](TBORDERED.md)) on ℤ₂ × ℤ₂ × ℤ₃ × ℤ₁₃, Q = ℤ₆, T = all characters but the sign, H of order 6 (exact k-tree on one compression class, `search/tbsz.py`) | 2, 0; 4, 0 | [C322.json](C322.json) |
-| 326 | 163 | ⟨38⟩, order 9 | 17, 19; 1, 1 | [C326.json](C326.json) |
 | 330 | 165 = 3 · 5 · 11 | ⟨136⟩, order 5 (Paley product ℤ₁₅ × GF(11), `search/ssxx_paley.py`) | 7, 9; 1, 23 | [C330.json](C330.json) |
 | 342 | 171 = 9 · 19 | ⟨11⟩, order 6 (exact k-tree on one ℤ₉ compression class, `search/lowe_comp.py`) | 11, 11; 9, 19 | [C342.json](C342.json) |
-| 366 | 183 = 3 · 61 | ⟨34⟩, order 5 (low-energy k-tree on one compression class, `search/lowe_comp.py`) | 1, 23; 9, 11 | [C366.json](C366.json) |
 | 370 | 185 = 5 · 37 | ⟨9⟩, order 18 | 3, 3; 19, 19 | [C370.json](C370.json) |
-| 382 | 191 | ⟨39⟩, order 5 (streaming k-tree, `search/kstream.py`) | 11, 11; 9, 21 | [C382.json](C382.json) |
 | 406 | 203 | Paley's matrix of order 812, q = 811 ([PALEY.md](PALEY.md)) | – | [C406.json](C406.json) |
 | 414 | 207 | Paley's matrix of order 828, q = 827 ([PALEY.md](PALEY.md)) | – | [C414.json](C414.json) |
-| 426 | 213 = 3 · 71 | ⟨37⟩, order 7 (low-energy k-tree, `search/lowe_sz.py`) | 13, 17; 13, 15 | [C426.json](C426.json) |
 | 430 | 215 = 5 · 43 | ⟨41⟩, order 7 (exact k-tree on one compression class, `search/lowe_comp.py`) | 15, 15; 11, 17 | [C430.json](C430.json) |
 | 454 | 227 | bordered array ([BORDERED.md](BORDERED.md)) on ℤ₂₂₆, ⟨49⟩ of order 7 (low-energy k-tree on one compression class, `search/lowe_comp.py`) | 0, 0; 2, 0 | [C454.json](C454.json) |
 | 474 | 237 | Paley's matrix of order 948, q = 947 ([PALEY.md](PALEY.md)) | – | [C474.json](C474.json) |
-| 494 | 247 = 13 · 19 | ⟨9, 35⟩, order 27 | 17, 19; 7, 17 | [C494.json](C494.json) |
-| 518 | 259 = 7 · 37 | ⟨44⟩, order 9 (compression chain) | 5, 29; 1, 13 | [C518.json](C518.json) |
 | 526 | 263 | Paley's matrix of order 1052, q = 1051 ([PALEY.md](PALEY.md)) | – | [C526.json](C526.json) |
-| 534 | 267 = 3 · 89 | ⟨4⟩, order 11 | 1, 1; 21, 25 | [C534.json](C534.json) |
 | 546 | 273 | Paley's matrix of order 1092, q = 1091 ([PALEY.md](PALEY.md)) | – | [C546.json](C546.json) |
 | 582 | 291 | Paley's matrix of order 1164, q = 1163 ([PALEY.md](PALEY.md)) | – | [C582.json](C582.json) |
 | 646 | 323 | Paley's matrix of order 1292, q = 1291 ([PALEY.md](PALEY.md)) | – | [C646.json](C646.json) |
 | 666 | 333 | Paley's matrix of order 1332, q = 1331 = 11³ ([PALEY.md](PALEY.md)) | – | [C666.json](C666.json) |
 | 714 | 357 | Paley's matrix of order 1428, q = 1427 ([PALEY.md](PALEY.md)) | – | [C714.json](C714.json) |
 | 742 | 371 = 7 · 53 | ⟨13⟩, order 26 | 3, 3; 25, 29 | [C742.json](C742.json) |
-| 754 | 377 = 13 · 29 | ⟨9⟩, order 42 | 27, 27; 5, 5 | [C754.json](C754.json) |
 | 766 | 383 | Paley's matrix of order 1532, q = 1531 ([PALEY.md](PALEY.md)) | – | [C766.json](C766.json) |
 | 786 | 393 | Paley's matrix of order 1572, q = 1571 ([PALEY.md](PALEY.md)) | – | [C786.json](C786.json) |
 | 790 | 395 | Paley's matrix of order 1580, q = 1579 ([PALEY.md](PALEY.md)) | – | [C790.json](C790.json) |
@@ -219,7 +227,13 @@ Kharaghani–Seberry, codes x2 and x6). Every order in this directory is **blank
 lemma behind PALEY.md is in the same survey (Lemma 11.16). The parsed table is
 [`search/data/complex_known_1992.txt`](../search/data/complex_known_1992.txt).
 
-**Results since 1992** that we checked, none of which gives these orders:
+**Results since 1992** that we checked. Only the first gives orders of this directory, the 76 known ones:
+- Ito's dicyclic Hadamard groups (Ito, On Hadamard groups, 1994–2000; Schmidt, Des. Codes Cryptogr. 17 (1999) 61–68,
+  Corollary 3.6) and R. Egan, Phased unitary Golay pairs, Butson Hadamard matrices and a conjecture of Ito's,
+  Des. Codes Cryptogr. 87 (2019) 67–74, Theorem 4.5: a complex Hadamard matrix of order 2v whenever v = 2^a 10^b 26^c m
+  with 4m − 1 or 2m − 1 a prime power, or m odd with a Williamson matrix of order m, and for every v ≤ 46 (Ito's
+  conjecture is verified there). For N odd this covers 4N − 1 a prime power; 2N − 1 and Williamson matrices were in
+  the 1992 table already.
 - Đoković's good matrices of orders 35 and 127 (1993): 70 and 254.
 - Szöllősi (2026): 94.
 - Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev (2026): 118, 130, 134, 206 and 266.
@@ -236,8 +250,12 @@ not consult. A construction published between 1992 and 2020 and recorded only th
 
 **What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 143 values of N < 1000
 have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 334, 358, 418, 438, 446, 470, 478,
-490, 498, 502, 506, 538, …; for none of them is 4N − 1 a prime power. Orders 214 and 322, successively the smallest
-open order, are in the table; 322 also follows from Paley's matrix of order 644, 214 does not (427 = 7 · 61). No
-quaternary Legendre pair family covers their lengths 106 and 160 (Jedwab–Pender need 213 or 105, resp. 321 or 159,
-to be a prime power), and the 2026 quaternary Legendre pairs (arXiv:2609.04589, arXiv:2609.25573) have lengths below
-100. There is no conference matrix of order 322 (321 = 3 · 107 is not a sum of two squares).
+490, 498, 502, 506, 538, …; for none of them is 4N − 1 a prime power. 214, 238, 302 and 326 were successively the
+smallest open order; they are in the table above. No quaternary Legendre pair family covers the length 106 of order
+214 (Jedwab–Pender need 213 or 105 to be a prime power), and the 2026 quaternary Legendre pairs (arXiv:2609.04589,
+arXiv:2609.25573) have lengths below 100.
+
+**Correction.** An earlier version of this directory called 76 orders New that follow from Ito and Egan: the 63 halves
+of Paley's matrix and 13 orders found by search, among them 142 and 154 (which we had called the two smallest open
+orders after the 2026 papers) and 322. Neither 2026 paper cites Egan, and both take their smallest open order from the
+1992 table; we did the same. The record of how the error arose is in [PALEY.md](PALEY.md#novelty).

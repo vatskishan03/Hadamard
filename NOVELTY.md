@@ -48,6 +48,10 @@ For every order we checked:
   - Schumer, orders 3676, 5436, 6644 and 7852 (Zenodo, 2026-09-17, doi:10.5281/zenodo.22820997);
   - the deposits of Piza, Kline, Bedani, Karoui and Blackthorn;
   - Szöllősi, arXiv:2603.09572 (complex Hadamard matrices);
+  - for the complex orders also Ito's papers on Hadamard groups (1994–2000), B. Schmidt, Williamson matrices and a
+    conjecture of Ito's, Des. Codes Cryptogr. 17 (1999) 61–68, and R. Egan, Des. Codes Cryptogr. 87 (2019) 67–74,
+    Theorem 4.5, which give every order 2N with 4N − 1 a prime power (found on 16 October 2026, after we had
+    labelled 76 such orders New; corrected in [complex-hadamard](complex-hadamard/README.md#status));
   - Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev, arXiv:2605.08661 (near-Williamson matrices);
   - Czifra, Matolcsi and Szöllősi, arXiv:2511.11230 (Butson matrices BH(n, q) for q = 6, 10 and 14, none quaternary),
     and the quaternary Legendre pairs of arXiv:2609.04589 and arXiv:2609.25573 (lengths 42 to 80) (complex orders,
