@@ -41,10 +41,14 @@ Pasechnik [3], and we found no later construction.
   See [skew](skew).
 - **Symmetric Hadamard matrices** of orders 532, 732, 876, 4828 and 5700, all undecided in the Đoković–Seberry
   census [4]. See [symmetric](symmetric).
-- **Complex Hadamard matrices** of 24 orders 2N with N odd, from 142 to 754, all blank in Seberry and Yamada's table
-  of known orders [5]. 142 and 154 were the two smallest open orders after the work of 2026 [10, 11]; 214, and then
-  322, were the smallest after the others here, and both come from a new character-bordered form of Szöllősi's
-  array. See [complex-hadamard](complex-hadamard).
+- **Complex Hadamard matrices** of 87 orders 2N with N odd, from 142 to 1966, all blank in Seberry and Yamada's table
+  of known orders [5]. Paley's skew Hadamard matrix of order q + 1 (q ≡ 3 mod 4 a prime power) commutes with a signed
+  permutation P with P² = −I, so it halves to a complex Hadamard matrix of order (q + 1)/2
+  ([complex-hadamard/PALEY.md](complex-hadamard/PALEY.md)). This settles every order 2N with N odd and 4N − 1 a prime
+  power: 63 open orders from 406 to 1966. It also gives 13 of the 24 orders found earlier here by searches over
+  Szöllősi's array and its bordered, character-bordered and twisted forms. 142 and 154 were the two smallest open
+  orders after the work of 2026 [10, 11]; 214, and then 322, were the smallest after the others here, and 334 is the
+  smallest now. See [complex-hadamard](complex-hadamard).
 - **Auxiliary objects:** Williamson-type matrices of order 111 ([near-williamson](near-williamson)); T-matrices of
   orders 97, 109, 131 and 197, for which we found no earlier construction ([t-matrices](t-matrices)); amicable
   Hadamard matrices of orders 52, 76 and 100; and the orthogonal designs OD(100; 1, 5, 94), OD(156; 1, 3, 152),

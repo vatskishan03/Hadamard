@@ -113,7 +113,73 @@ def tbordered_build(cert):
     return Kr, Ki
 
 
+def paley_build(cert):
+    """Paley's skew Hadamard matrix H = I + S of order q + 1 (q = p^k = 3 mod 4) and the signed permutation P of
+    u -> -1/u, which commutes with H and has P^2 = -I (complex-hadamard/PALEY.md). Points: x = 0..q-1 (base-p digits
+    of the polynomial; "poly" = c_0, ..., c_(k-1), 1 is the modulus for k > 1) and infinity = q; S[u, v] =
+    chi(det(rep u, rep v)) with reps (x, 1), (1, 0). K[k, l] = (H[f_k, f_l] + i s_l H[f_k, g(f_l)])/(1 + i), f the
+    smaller point of each pair {u, g(u)}, P e_u = s_u e_g(u). Field arithmetic here is by polynomial
+    multiplication (squares and inverses found directly), independent of search/paley_complex.py."""
+    q, p, k = int(cert["q"]), int(cert["p"]), int(cert["k"])
+    if p ** k != q or q % 4 != 3 or 2 * cert["order"] != q + 1:
+        raise ValueError("parameters")
+    f = [int(c) for c in cert.get("poly", [0, 1])]
+    if len(f) != k + 1 or f[-1] != 1:
+        raise ValueError("modulus")
+    digits = [[(x // p ** i) % p for i in range(k)] for x in range(q)]
+    enc = lambda v: sum((c % p) * p ** i for i, c in enumerate(v))
+
+    def mul(x, y):
+        a, b = digits[x], digits[y]
+        pr = [0] * (2 * k - 1)
+        for i in range(k):
+            for j in range(k):
+                pr[i + j] += a[i] * b[j]
+        for d in range(2 * k - 2, k - 1, -1):          # t^k = -(c_0 + ... + c_(k-1) t^(k-1))
+            c, pr[d] = pr[d], 0
+            for i in range(k):
+                pr[d - k + i] -= c * f[i]
+        return enc(pr[:k])
+
+    sq = {mul(y, y) for y in range(1, q)}
+    if len(sq) != (q - 1) // 2:
+        raise ValueError("the modulus is not irreducible")
+    chi = np.array([0] + [1 if x in sq else -1 for x in range(1, q)], np.int64)
+    neg = np.array([enc([-c for c in digits[x]]) for x in range(q)], np.int64)
+    D = np.array(digits, np.int64)
+    w = p ** np.arange(k)
+    sub = ((D[:, None, :] - D[None, :, :]) % p) @ w          # sub[x, y] = x - y
+    n = q + 1
+    H = np.empty((n, n), np.int64)
+    H[:q, :q] = chi[sub]
+    H[q, :q] = chi[1]                                        # det((1, 0), (y, 1)) = 1
+    H[:q, q] = chi[neg[1]]                                   # det((x, 1), (1, 0)) = -1
+    H[np.arange(n), np.arange(n)] = 1
+    # g(x, y) = (y, -x): (x, 1) -> (1, -x) = (-x)(-1/x, 1) for x != 0; (0, 1) -> (1, 0); (1, 0) -> (0, -1) = -(0, 1)
+    inv = {}
+    for x in range(1, q):
+        e, r, b = q - 2, 1, x                                # x^(q - 2)
+        while e:
+            if e & 1:
+                r = mul(r, b)
+            b, e = mul(b, b), e >> 1
+        if mul(r, x) != 1:
+            raise ValueError("inverse")
+        inv[x] = r
+    img = np.array([q] + [int(neg[inv[x]]) for x in range(1, q)] + [0], np.int64)
+    s = np.array([chi[1]] + [int(chi[neg[x]]) for x in range(1, q)] + [int(chi[neg[1]])], np.int64)
+    first = np.array([u for u in range(n) if u < img[u]], np.int64)
+    if len(first) != n // 2:
+        raise ValueError("pairs")
+    A = H[np.ix_(first, first)]
+    B = s[first][None, :] * H[np.ix_(first, img[first])]
+    # (A + iB)/(1 + i) = ((A + B) + i (B - A))/2
+    return (A + B) // 2, (B - A) // 2
+
+
 def build(cert):
+    if cert["construction"] == "paley":
+        return paley_build(cert)
     if cert["construction"] == "szollosi-tbordered":
         return tbordered_build(cert)
     if cert["construction"] in ("szollosi-bordered", "szollosi-bordered-group"):

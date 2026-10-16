@@ -12,6 +12,14 @@ Recent progress at the bottom of that range:
 
 This directory adds orders that, to our knowledge, had no construction.
 
+**Paley's matrix gives half its order** ([PALEY.md](PALEY.md)). For every prime power q ≡ 3 (mod 4), Paley's skew
+Hadamard matrix H of order q + 1 commutes with the signed permutation P of u ↦ −1/u on the projective line, and
+P² = −I. So H ≅ [[A, B], [−B, A]], and (A + iB)/(1 + i) is a quaternary Hadamard matrix of order (q + 1)/2. This
+settles every order 2N with N odd and 4N − 1 a prime power: 63 open orders below 2000, from 406 to 1966, and also
+13 orders that this directory had first constructed by searches (142, 154, 222, 262, 286, 310, 322, 330, 342, 370,
+430, 454, 742). Both ingredients are classical; we found no statement combining them, and the 1992 table and the
+2026 papers treat these orders as open (see the novelty section of PALEY.md).
+
 ## Construction
 
 Szöllősi, Theorem 4 of arXiv:2603.09572. Let A, B, C, D be circulant ±1 matrices of odd order N with
@@ -116,33 +124,99 @@ into a two-list search, are in [TWISTED.md](TWISTED.md).
 | 366 | 183 = 3 · 61 | ⟨34⟩, order 5 (low-energy k-tree on one compression class, `search/lowe_comp.py`) | 1, 23; 9, 11 | [C366.json](C366.json) |
 | 370 | 185 = 5 · 37 | ⟨9⟩, order 18 | 3, 3; 19, 19 | [C370.json](C370.json) |
 | 382 | 191 | ⟨39⟩, order 5 (streaming k-tree, `search/kstream.py`) | 11, 11; 9, 21 | [C382.json](C382.json) |
+| 406 | 203 | Paley's matrix of order 812, q = 811 ([PALEY.md](PALEY.md)) | – | [C406.json](C406.json) |
+| 414 | 207 | Paley's matrix of order 828, q = 827 ([PALEY.md](PALEY.md)) | – | [C414.json](C414.json) |
 | 426 | 213 = 3 · 71 | ⟨37⟩, order 7 (low-energy k-tree, `search/lowe_sz.py`) | 13, 17; 13, 15 | [C426.json](C426.json) |
 | 430 | 215 = 5 · 43 | ⟨41⟩, order 7 (exact k-tree on one compression class, `search/lowe_comp.py`) | 15, 15; 11, 17 | [C430.json](C430.json) |
 | 454 | 227 | bordered array ([BORDERED.md](BORDERED.md)) on ℤ₂₂₆, ⟨49⟩ of order 7 (low-energy k-tree on one compression class, `search/lowe_comp.py`) | 0, 0; 2, 0 | [C454.json](C454.json) |
+| 474 | 237 | Paley's matrix of order 948, q = 947 ([PALEY.md](PALEY.md)) | – | [C474.json](C474.json) |
 | 494 | 247 = 13 · 19 | ⟨9, 35⟩, order 27 | 17, 19; 7, 17 | [C494.json](C494.json) |
 | 518 | 259 = 7 · 37 | ⟨44⟩, order 9 (compression chain) | 5, 29; 1, 13 | [C518.json](C518.json) |
+| 526 | 263 | Paley's matrix of order 1052, q = 1051 ([PALEY.md](PALEY.md)) | – | [C526.json](C526.json) |
 | 534 | 267 = 3 · 89 | ⟨4⟩, order 11 | 1, 1; 21, 25 | [C534.json](C534.json) |
+| 546 | 273 | Paley's matrix of order 1092, q = 1091 ([PALEY.md](PALEY.md)) | – | [C546.json](C546.json) |
+| 582 | 291 | Paley's matrix of order 1164, q = 1163 ([PALEY.md](PALEY.md)) | – | [C582.json](C582.json) |
+| 646 | 323 | Paley's matrix of order 1292, q = 1291 ([PALEY.md](PALEY.md)) | – | [C646.json](C646.json) |
+| 666 | 333 | Paley's matrix of order 1332, q = 1331 = 11³ ([PALEY.md](PALEY.md)) | – | [C666.json](C666.json) |
+| 714 | 357 | Paley's matrix of order 1428, q = 1427 ([PALEY.md](PALEY.md)) | – | [C714.json](C714.json) |
 | 742 | 371 = 7 · 53 | ⟨13⟩, order 26 | 3, 3; 25, 29 | [C742.json](C742.json) |
 | 754 | 377 = 13 · 29 | ⟨9⟩, order 42 | 27, 27; 5, 5 | [C754.json](C754.json) |
+| 766 | 383 | Paley's matrix of order 1532, q = 1531 ([PALEY.md](PALEY.md)) | – | [C766.json](C766.json) |
+| 786 | 393 | Paley's matrix of order 1572, q = 1571 ([PALEY.md](PALEY.md)) | – | [C786.json](C786.json) |
+| 790 | 395 | Paley's matrix of order 1580, q = 1579 ([PALEY.md](PALEY.md)) | – | [C790.json](C790.json) |
+| 814 | 407 | Paley's matrix of order 1628, q = 1627 ([PALEY.md](PALEY.md)) | – | [C814.json](C814.json) |
+| 834 | 417 | Paley's matrix of order 1668, q = 1667 ([PALEY.md](PALEY.md)) | – | [C834.json](C834.json) |
+| 850 | 425 | Paley's matrix of order 1700, q = 1699 ([PALEY.md](PALEY.md)) | – | [C850.json](C850.json) |
+| 862 | 431 | Paley's matrix of order 1724, q = 1723 ([PALEY.md](PALEY.md)) | – | [C862.json](C862.json) |
+| 874 | 437 | Paley's matrix of order 1748, q = 1747 ([PALEY.md](PALEY.md)) | – | [C874.json](C874.json) |
+| 894 | 447 | Paley's matrix of order 1788, q = 1787 ([PALEY.md](PALEY.md)) | – | [C894.json](C894.json) |
+| 906 | 453 | Paley's matrix of order 1812, q = 1811 ([PALEY.md](PALEY.md)) | – | [C906.json](C906.json) |
+| 934 | 467 | Paley's matrix of order 1868, q = 1867 ([PALEY.md](PALEY.md)) | – | [C934.json](C934.json) |
+| 966 | 483 | Paley's matrix of order 1932, q = 1931 ([PALEY.md](PALEY.md)) | – | [C966.json](C966.json) |
+| 990 | 495 | Paley's matrix of order 1980, q = 1979 ([PALEY.md](PALEY.md)) | – | [C990.json](C990.json) |
+| 994 | 497 | Paley's matrix of order 1988, q = 1987 ([PALEY.md](PALEY.md)) | – | [C994.json](C994.json) |
+| 1002 | 501 | Paley's matrix of order 2004, q = 2003 ([PALEY.md](PALEY.md)) | – | [C1002.json](C1002.json) |
+| 1006 | 503 | Paley's matrix of order 2012, q = 2011 ([PALEY.md](PALEY.md)) | – | [C1006.json](C1006.json) |
+| 1066 | 533 | Paley's matrix of order 2132, q = 2131 ([PALEY.md](PALEY.md)) | – | [C1066.json](C1066.json) |
+| 1102 | 551 | Paley's matrix of order 2204, q = 2203 ([PALEY.md](PALEY.md)) | – | [C1102.json](C1102.json) |
+| 1126 | 563 | Paley's matrix of order 2252, q = 2251 ([PALEY.md](PALEY.md)) | – | [C1126.json](C1126.json) |
+| 1134 | 567 | Paley's matrix of order 2268, q = 2267 ([PALEY.md](PALEY.md)) | – | [C1134.json](C1134.json) |
+| 1170 | 585 | Paley's matrix of order 2340, q = 2339 ([PALEY.md](PALEY.md)) | – | [C1170.json](C1170.json) |
+| 1174 | 587 | Paley's matrix of order 2348, q = 2347 ([PALEY.md](PALEY.md)) | – | [C1174.json](C1174.json) |
+| 1206 | 603 | Paley's matrix of order 2412, q = 2411 ([PALEY.md](PALEY.md)) | – | [C1206.json](C1206.json) |
+| 1266 | 633 | Paley's matrix of order 2532, q = 2531 ([PALEY.md](PALEY.md)) | – | [C1266.json](C1266.json) |
+| 1270 | 635 | Paley's matrix of order 2540, q = 2539 ([PALEY.md](PALEY.md)) | – | [C1270.json](C1270.json) |
+| 1330 | 665 | Paley's matrix of order 2660, q = 2659 ([PALEY.md](PALEY.md)) | – | [C1330.json](C1330.json) |
+| 1342 | 671 | Paley's matrix of order 2684, q = 2683 ([PALEY.md](PALEY.md)) | – | [C1342.json](C1342.json) |
+| 1366 | 683 | Paley's matrix of order 2732, q = 2731 ([PALEY.md](PALEY.md)) | – | [C1366.json](C1366.json) |
+| 1422 | 711 | Paley's matrix of order 2844, q = 2843 ([PALEY.md](PALEY.md)) | – | [C1422.json](C1422.json) |
+| 1426 | 713 | Paley's matrix of order 2852, q = 2851 ([PALEY.md](PALEY.md)) | – | [C1426.json](C1426.json) |
+| 1486 | 743 | Paley's matrix of order 2972, q = 2971 ([PALEY.md](PALEY.md)) | – | [C1486.json](C1486.json) |
+| 1506 | 753 | Paley's matrix of order 3012, q = 3011 ([PALEY.md](PALEY.md)) | – | [C1506.json](C1506.json) |
+| 1510 | 755 | Paley's matrix of order 3020, q = 3019 ([PALEY.md](PALEY.md)) | – | [C1510.json](C1510.json) |
+| 1534 | 767 | Paley's matrix of order 3068, q = 3067 ([PALEY.md](PALEY.md)) | – | [C1534.json](C1534.json) |
+| 1542 | 771 | Paley's matrix of order 3084, q = 3083 ([PALEY.md](PALEY.md)) | – | [C1542.json](C1542.json) |
+| 1582 | 791 | Paley's matrix of order 3164, q = 3163 ([PALEY.md](PALEY.md)) | – | [C1582.json](C1582.json) |
+| 1626 | 813 | Paley's matrix of order 3252, q = 3251 ([PALEY.md](PALEY.md)) | – | [C1626.json](C1626.json) |
+| 1630 | 815 | Paley's matrix of order 3260, q = 3259 ([PALEY.md](PALEY.md)) | – | [C1630.json](C1630.json) |
+| 1650 | 825 | Paley's matrix of order 3300, q = 3299 ([PALEY.md](PALEY.md)) | – | [C1650.json](C1650.json) |
+| 1654 | 827 | Paley's matrix of order 3308, q = 3307 ([PALEY.md](PALEY.md)) | – | [C1654.json](C1654.json) |
+| 1662 | 831 | Paley's matrix of order 3324, q = 3323 ([PALEY.md](PALEY.md)) | – | [C1662.json](C1662.json) |
+| 1666 | 833 | Paley's matrix of order 3332, q = 3331 ([PALEY.md](PALEY.md)) | – | [C1666.json](C1666.json) |
+| 1674 | 837 | Paley's matrix of order 3348, q = 3347 ([PALEY.md](PALEY.md)) | – | [C1674.json](C1674.json) |
+| 1746 | 873 | Paley's matrix of order 3492, q = 3491 ([PALEY.md](PALEY.md)) | – | [C1746.json](C1746.json) |
+| 1750 | 875 | Paley's matrix of order 3500, q = 3499 ([PALEY.md](PALEY.md)) | – | [C1750.json](C1750.json) |
+| 1774 | 887 | Paley's matrix of order 3548, q = 3547 ([PALEY.md](PALEY.md)) | – | [C1774.json](C1774.json) |
+| 1786 | 893 | Paley's matrix of order 3572, q = 3571 ([PALEY.md](PALEY.md)) | – | [C1786.json](C1786.json) |
+| 1822 | 911 | Paley's matrix of order 3644, q = 3643 ([PALEY.md](PALEY.md)) | – | [C1822.json](C1822.json) |
+| 1830 | 915 | Paley's matrix of order 3660, q = 3659 ([PALEY.md](PALEY.md)) | – | [C1830.json](C1830.json) |
+| 1846 | 923 | Paley's matrix of order 3692, q = 3691 ([PALEY.md](PALEY.md)) | – | [C1846.json](C1846.json) |
+| 1870 | 935 | Paley's matrix of order 3740, q = 3739 ([PALEY.md](PALEY.md)) | – | [C1870.json](C1870.json) |
+| 1926 | 963 | Paley's matrix of order 3852, q = 3851 ([PALEY.md](PALEY.md)) | – | [C1926.json](C1926.json) |
+| 1962 | 981 | Paley's matrix of order 3924, q = 3923 ([PALEY.md](PALEY.md)) | – | [C1962.json](C1962.json) |
+| 1966 | 983 | Paley's matrix of order 3932, q = 3931 ([PALEY.md](PALEY.md)) | – | [C1966.json](C1966.json) |
 
 Each certificate gives N, the multiplier group, the row sums, the first rows of A, B, C, D (`+`, `-`) (for the
 bordered array also the group of order N − 1 and the border; for the character-bordered array the group, the fibre
-labels of φ and the three border matrices) and the SHA-256 of the canonical text of K: 2N lines of 2N digits, digit e standing for the entry iᵉ.
+labels of φ and the three border matrices; for Paley's matrix only q, and the modulus of GF(q) when q is not prime)
+and the SHA-256 of the canonical text of K: 2N lines of 2N digits, digit e standing for the entry iᵉ.
 
 ```
 python3 verify/verify_complex.py            # all certificates
 python3 verify/verify_complex.py --write 142 # also writes complex-hadamard/C142.txt
 ```
 
-This rebuilds K from the four sequences alone and checks every entry and K K* = 2N I exactly, in integer arithmetic
-on the real and imaginary parts.
+This rebuilds K from the four sequences alone (or from q, with its own arithmetic in GF(q)) and checks every entry
+and K K* = 2N I exactly, in integer arithmetic on the real and imaginary parts. All 87 certificates take about 13
+minutes, most of it the orders above 1000.
 
 ## Status
 
 **Primary source.** Table 11.2 of J. Seberry and M. Yamada, "Hadamard matrices, sequences, and block designs"
 (Contemporary Design Theory, Wiley, 1992) records, for every odd q < 1000, whether a complex Hadamard matrix of
 order 2q was known. Its constructions are conference matrices (codes c1–c6) and Williamson-type matrices (Turyn;
-Kharaghani–Seberry, codes x2 and x6). Every order in this directory is **blank** in that table. The parsed table is
+Kharaghani–Seberry, codes x2 and x6). Every order in this directory is **blank** in that table, although the half-order
+lemma behind PALEY.md is in the same survey (Lemma 11.16). The parsed table is
 [`search/data/complex_known_1992.txt`](../search/data/complex_known_1992.txt).
 
 **Results since 1992** that we checked, none of which gives these orders:
@@ -160,9 +234,10 @@ The sweep's candidate list (`python3 search/ssxx_sweep.py list`) is exactly the 
 minus these. The 2026 papers cite the updated Table 11.2 of Seberry and Yamada's 2020 book (Wiley), which we could
 not consult. A construction published between 1992 and 2020 and recorded only there is the remaining caveat.
 
-**What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 206 values of N < 1000
-have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 334, 358, 406, 414, 418, 438,
-446, 470, 474, 478, 490, 498, …. Orders 214 and 322, successively the smallest open order, are now in the table. No
+**What remains open** (`python3 search/complex_status.py`): after the orders in this directory, 143 values of N < 1000
+have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 334, 358, 418, 438, 446, 470, 478,
+490, 498, 502, 506, 538, …; for none of them is 4N − 1 a prime power. Orders 214 and 322, successively the smallest
+open order, are in the table; 322 also follows from Paley's matrix of order 644, 214 does not (427 = 7 · 61). No
 quaternary Legendre pair family covers their lengths 106 and 160 (Jedwab–Pender need 213 or 105, resp. 321 or 159,
 to be a prime power), and the 2026 quaternary Legendre pairs (arXiv:2609.04589, arXiv:2609.25573) have lengths below
 100. There is no conference matrix of order 322 (321 = 3 · 107 is not a sum of two squares).

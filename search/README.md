@@ -159,6 +159,7 @@ start-up, is close to the list size.
 | `tbsz.py` | the character-bordered Szöllősi array (complex-hadamard/TBORDERED.md): structures on any G with a quotient Q and character set T, conditioned estimates (`rank`), the low-energy search on one compression class, the border solver, certificates (`certify`), and `test` |
 | `border_exh.c` | the exhaustive border search of the character-bordered array (compatibility and orthogonality bit matrices, rows depth-first, then a column clique); called by `tbsz.solve_border_exh` (322) |
 | `qlp_bin.py` | quaternary Legendre pairs with one binary sequence |
+| `paley_complex.py` | quaternary Hadamard matrices of order (q + 1)/2 from Paley's skew Hadamard matrix, q ≡ 3 (mod 4) a prime power (complex-hadamard/PALEY.md): `build` (exact check), `certify`, `list` |
 | `complex_status.py`, `data/` | known, constructed and open complex orders; tables parsed from Seberry–Yamada (1992) |
 
 **T-matrices, Williamson-type matrices and Legendre pairs**

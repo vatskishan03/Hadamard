@@ -666,3 +666,59 @@ preserves K, 30 to 70 orbits) rates at most 10^−0.45: ℤ₄ × ℤ₄ × ℤ�
 Its single feasible tuple has complete lists of 192, 192, 1.2 · 10⁴ and 7.3 · 10⁵ sequences, and the merge-class
 sumsets of the two sides of the join do not meet: no solution.
 
+
+## 18. Paley's matrix halves: 63 complex orders (October 16)
+
+**How it came up.** The searches for 406, 414 and 418 had stalled: their best structures lose almost all their
+estimated mass at finer conditioning levels. So we looked for product and plug-in constructions instead, and started
+from the equivalence behind Turyn's theorem. A complex Hadamard matrix of order 2N is a real Hadamard matrix of order
+4N with a *complex structure*: a monomial automorphism (P, Q) with P² = Q² = −I. In a basis adapted to P such a
+matrix is [[A, B], [−B, A]], and (A + iB)/(1 + i) is quaternary (Seberry–Yamada 1992, Lemma 11.16).
+
+Paley's skew Hadamard matrix of order q + 1 (q ≡ 3 mod 4) admits SL(2, q) acting monomially, P_g e_u = χ(λ_u) e_(g u)
+on the projective line. The centre acts as χ(−1) I = −I. So any g of order 4, for example u ↦ −1/u, gives
+P_g² = −I, and P_g commutes with H. That is a complex Hadamard matrix of order (q + 1)/2 for every prime power
+q ≡ 3 (mod 4) ([complex-hadamard/PALEY.md](complex-hadamard/PALEY.md)).
+
+**Checks.** `search/paley_complex.py` builds K directly from H, with GF(p^k) by log tables, and checks K K* = m I
+exactly. `verify/verify_complex.py` rebuilds K with its own polynomial arithmetic (squares and inverses found
+directly). Both give the same SHA-256 digests. Tested on q = 7 … 643, including 27 = 3³ and 243 = 3⁵, and certified
+for the 63 open orders.
+
+**Counts below N = 1000.** There are 145 odd N with 4N − 1 a prime power. The 1992 table knows 66 of them and leaves 79
+blank. Of the blanks:
+- 70 came from Đoković's good matrices (1993), and 442 from a Mathon conference matrix;
+- 13 had been constructed here by searches: 142, 154, 222, 262, 286, 310, 322, 330, 342, 370, 430, 454, 742;
+- 63 were open: 406, 414, 474, 526, 546, 582, 646, 666 (q = 11³), …, 1966.
+
+That leaves 143 open N < 1000. None of the smallest open orders (334, 358, 418, 438, 446, 470, 478, 490, 498, …) has
+4N − 1 a prime power. The orders this repository found by search are not superseded as constructions, but 13 of them
+now also have a two-line proof. The 11 that do not follow (214, 238, 302, 326, 366, 382, 426, 494, 518, 534, 754)
+still rest on the searches alone.
+
+**Novelty.** Kantor (1969) determined the automorphism group of Paley's matrix, and the half-order lemma is in the 1992
+survey. We found no source that combines the two. The 1992 Table 11.2 is blank at every order the theorem gives, 70
+included. Its Williamson-type key wh assumes, as a hypothesis, that (p + 1)/4 is an order of Williamson-type
+matrices. Szöllősi (2026) credits 70 to good matrices. Kharaghani, Mohammadian and Tayfeh-Rezaie (2026) take the
+smallest open order, 118, from the 1992 table. The literature on Hadamard matrices of (generalised) quaternion type
+and on Ito's Hadamard groups also involves Paley's matrices, and we could not read it. So the construction may be
+folklore among specialists; we label the orders New in the sense of NOVELTY.md.
+
+**Quaternion type, and why it does not multiply.** For q ≡ 3 (mod 8) the Sylow 2-subgroup Q₈ of SL(2, q), generated
+by u ↦ −1/u and h = [[a, b], [b, −a]] with a² + b² = −1, acts on the q + 1 points modulo its centre with all orbits of
+size 4. This was checked for q = 11 … 83. So Paley's matrix is of quaternion type: a Williamson array of four blocks
+of odd order (q + 1)/4 with Σ X Xᵀ = (q + 1) I. In the basis given by orbit representatives no two of the blocks are
+amicable (checked for q ≤ 139). So Cooper–Wallis does not apply directly, and these blocks give no new real orders
+as they stand.
+
+**Two products that cannot work.**
+1. *Complex Agaian halving.* An Agaian-type product M₁ ⊗ E + M₂ ⊗ F needs a complex Hadamard matrix [N₁ N₂] of
+   order 2n whose column halves satisfy N₁ ∘ N̄₂ ∈ {±1}. Write N₁ = N₂ ∘ S with S = (s_j) a ±1 matrix of columns.
+   Orthogonality of the columns j, j′, k, k′ forces each of the four sets {r : (s_j(r), s_k(r)) = (±1, ±1)} to have
+   even size, because a sum of an odd number of fourth roots of unity is not 0. But s_j is balanced with n entries
+   +1, and n is odd. So no such matrix exists for odd n > 1, and complex Hadamard matrices of orders 2m and 2n
+   give nothing of order 2mn this way.
+2. *Cooper–Wallis for Szöllősi quadruples.* Plug Szöllősi blocks (A₁, A₂ symmetric, A₃, A₄ arbitrary) into a 4 × 4
+   array of (0, ±1) circulants of odd order t, with the two symmetric output blocks built from A₁ and A₂ only. The
+   column weights then force the array to split into two 2 × 2 arrays. In the arbitrary half, X = T₃₃ + T₃₄ and
+   Z = T₄₃ + T₄₄ would be a periodic complementary pair of odd length t, which does not exist for t > 1.
