@@ -4,7 +4,7 @@ Quadruple (A, B, B o mu, B o mu^2):  A is K=<H,mu>-invariant with row sum 2, B i
 The second pattern (A, A o mu, A o mu^2, D) is the same problem with the blocks renamed (the Spence condition and the
 row sums (2,0,0,0) are symmetric in the four blocks), so only the first is implemented.
 """
-import itertools, math
+import math
 import numpy as np
 from math import gcd, log10, pi
 

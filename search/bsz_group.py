@@ -14,7 +14,7 @@ Symmetry: S = <automorphisms>; C, D constant on S-orbits, A, B on <S, -1>-orbits
     python3 search/bsz_group.py spin N [--maxo 50] [--maxpairs 2e10] [--log FILE] [--rank]
     python3 search/bsz_group.py test
 """
-import argparse, itertools, json, math, os, struct, subprocess, sys, time
+import argparse, json, math, os, struct, subprocess, sys, time
 from math import gcd, log10, pi
 from pathlib import Path
 import numpy as np

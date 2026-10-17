@@ -15,13 +15,12 @@ Variant: A on the orbits of <H, -1> (symmetric), B and D on the orbits of H (the
   python3 search/propus_chain.py v --sweep [--mino 31] [--maxo 44] ...   (every subgroup structure in the range)
   ... --plain: ordinary Hadamard matrices, Goethals-Seidel quadruples (A, B, B, D) with A on the H-orbits too
 """
-import argparse, json, math, os, struct, subprocess, sys, tempfile, time
+import argparse, json, os, struct, subprocess, sys, tempfile, time
 from collections import defaultdict
 import numpy as np
 from pathlib import Path as _P
 sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
 import workdir as W
-import spence_lib as L
 import propus as PR
 import verify
 
@@ -134,7 +133,6 @@ _HALVES = {}
 
 
 def _halves(st, comp):
-    O = st.O; h = O // 2
     ck = (id(st), id(comp))
     if ck in _HALVES and (_HALVES[ck][0] is not st or _HALVES[ck][1] is not comp):
         del _HALVES[ck]
@@ -295,7 +293,6 @@ def search(v, gens, rows, d, a, log):
         if LA is None or LB is None or LD is None:
             log(f"  triple {i}: a list exceeds {a.maxlist:.0e}; skipped"); continue
         Va, Vb, Vd = LA[2], LB[2], LD[2]
-        Ya = Yb = Yd = None
         Z = np.zeros((1, st_ad.C), np.int16)
         roles = sorted([(len(Va), 0), (len(Vd), 1), (len(Vb), 2)]); byrole = {0: Va, 1: Vd, 2: Vb}
         lists = [byrole[roles[0][1]], byrole[roles[1][1]], byrole[roles[2][1]], Z]

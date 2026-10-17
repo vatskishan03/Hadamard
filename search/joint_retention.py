@@ -4,7 +4,7 @@ given x_A + x_B + x_C + x_D = t, and anti-correlated; lowe_sz multiplies the mar
 
     python3 search/joint_retention.py N g --rows a,b,c,d [--bordered] --frac fC fD   (kept fractions of the C and D pools)
 """
-import argparse, math, sys
+import argparse, sys
 from pathlib import Path
 import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent))

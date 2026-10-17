@@ -14,7 +14,7 @@ For each H with between OMIN and OMAX orbits:
 
   python3 search/z4triage.py n1,n2,.. [--omin 12] [--omax 40] [--samples 20000]   -> $HADAMARD_WORK/z4triage.jsonl
 """
-import argparse, itertools, json, math, sys, time
+import argparse, json, math, sys, time
 from math import gcd, log10
 import numpy as np
 from pathlib import Path as _P

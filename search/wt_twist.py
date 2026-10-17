@@ -21,14 +21,14 @@ order and probed (search/twist_join.c), so the search of a structure is exhausti
     python3 search/wt_twist.py triage N [--plain] [--maxa 4e8]      structures, Gaussian estimates, list sizes
     python3 search/wt_twist.py search N u [k ...] [--plain] [--symA] [--log FILE] [--passes P]
 """
-import argparse, itertools, json, math, os, struct, subprocess, sys, time
+import argparse, json, math, os, struct, subprocess, sys, time
 from math import gcd, log10, pi
 from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import workdir as W
-from bnw import closure, orbits, paf, mask_to_y, near_williamson_type, williamson_type, williamson_array
+from bnw import closure, orbits, mask_to_y, near_williamson_type, williamson_type, williamson_array
 
 
 def order3(m):

@@ -35,7 +35,6 @@ static long n[4];
 static uint64_t Rh[256], hT;
 
 static double now(void) { struct timespec t; clock_gettime(CLOCK_MONOTONIC, &t); return t.tv_sec + 1e-9 * t.tv_nsec; }
-static void rd(void *p, size_t sz, size_t k, FILE *f) { if (fread(p, sz, k, f) != k) { fprintf(stderr, "kt4: short read\n"); exit(1); } }
 
 static inline uint64_t pk(int x) { return (uint64_t)((x + 2048) & 0xFFF); }
 static inline uint64_t skey(const int16_t *v, const int *off) {          /* pack the S-values (12 bits each) */
@@ -47,7 +46,6 @@ static inline int isS(int c) { for (int s = 0; s < NS; s++) if (Sx[s] == c) retu
 
 typedef struct { long m; uint64_t *key; uint32_t *start; uint32_t *idx; } Index;      /* list sorted by S-key, CSR */
 
-static int cmpk_base;
 static uint64_t *cmp_keys;
 static int cmpk(const void *a, const void *b) {
     uint64_t x = cmp_keys[*(const uint32_t *)a], y = cmp_keys[*(const uint32_t *)b];
@@ -234,7 +232,7 @@ int main(int argc, char **argv) {
     if ((size_t)(20 + 2 * D) + 2 * (size_t)D * (n[0] + n[1] + n[2] + n[3]) > (size_t)stt.st_size) { fprintf(stderr, "kt4: short file\n"); return 1; }
     for (int i = 0; i < 4; i++) if (n[i] >= 4294967295L) { fprintf(stderr, "kt4: list too long\n"); return 1; }
     NS = 0; for (char *p = strtok(argv[2], ","); p && NS < 5; p = strtok(NULL, ",")) Sx[NS++] = atoi(p);
-    long NSIG = argv[3][0] == '@' ? 0 : atol(argv[3]); long K = argc > 4 ? atol(argv[4]) : 1000000000L;
+    long nsigma = argv[3][0] == '@' ? 0 : atol(argv[3]); long K = argc > 4 ? atol(argv[4]) : 1000000000L;
     if (argc > 5) MAXPAIRS = atol(argv[5]);
     uint64_t seed = 0x243F6A8885A308D3ULL;
     for (int c = 0; c < D; c++) { seed ^= seed << 13; seed ^= seed >> 7; seed ^= seed << 17; Rh[c] = isS(c) ? 0 : (seed | 1); }
@@ -270,11 +268,10 @@ int main(int argc, char **argv) {
     for (int s = 0; s < NS; s++) fprintf(stderr, "%d(g=%d) ", Sx[s], g[s]);
     fprintf(stderr, ", groups B %ld D %ld\n", IB.m, ID.m);
     /* candidate sigmas: lattice points near the centre, by increasing normalised distance */
-    double cen[5], sd[5];
+    double cen[5];
     for (int s = 0; s < NS; s++) {
         double tot = 0; for (int L = 0; L < 4; L++) tot += mu[L][s];
         cen[s] = mu[0][s] + mu[1][s] + 0.5 * (T[Sx[s]] - tot);
-        sd[s] = 1.0;
     }
     long nc; int *cand; long *ord;
     if (argv[3][0] == '@') {                                     /* explicit split values */
@@ -286,10 +283,10 @@ int main(int argc, char **argv) {
             if (!ok) break;
             nc++;
         }
-        fclose(sf); NSIG = nc; ord = malloc(sizeof(long) * (nc + 1)); for (long t = 0; t < nc; t++) ord[t] = t;
+        fclose(sf); nsigma = nc; ord = malloc(sizeof(long) * (nc + 1)); for (long t = 0; t < nc; t++) ord[t] = t;
         goto search;
     }
-    int R = 1; long ncand = 1; while (ncand < 4 * NSIG) { R++; ncand = 1; for (int s = 0; s < NS; s++) ncand *= (2 * R + 1); }
+    int R = 1; long ncand = 1; while (ncand < 4 * nsigma) { R++; ncand = 1; for (int s = 0; s < NS; s++) ncand *= (2 * R + 1); }
     nc = 1; for (int s = 0; s < NS; s++) nc *= (2 * R + 1);
     cand = malloc(sizeof(int) * nc * NS); double *dist = malloc(sizeof(double) * nc); ord = malloc(sizeof(long) * nc);
     /* residue of sigma_s: sum of a value of A and of B is congruent to (vA + vB) mod g */
@@ -328,15 +325,15 @@ int main(int argc, char **argv) {
     }
     long found = 0; long long totAB = 0, totCD = 0; double t0 = now();
     long *mp = NULL; long mcap = 0;                                   /* matched group pairs (g1, g2) */
-    for (long ci = 0; ci < NSIG && ci < nc && found < K; ci++) {
+    for (long ci = 0; ci < nsigma && ci < nc && found < K; ci++) {
         const int *sig = cand + ord[ci] * NS;
         int tgt[5]; for (int s = 0; s < NS; s++) tgt[s] = T[Sx[s]] - sig[s];
         /* match groups: (L1, L2) = (A, B) with vA + vB = sig, then (C, D) with vC + vD = T - sig */
-        long nm[2] = {0, 0}; long start[2] = {0, 0}; long long npairs[2] = {0, 0};
+        long nm[2] = {0, 0}; long long npairs[2] = {0, 0};
         for (int side = 0; side < 2; side++) {
             const Index *I1 = IX[2 * side], *I2 = IX[2 * side + 1]; const int16_t *t1 = tup[2 * side], *t2 = tup[2 * side + 1];
             const int *want = side == 0 ? sig : tgt;
-            long j = I2->m - 1; start[side] = nm[0];
+            long j = I2->m - 1;
             if ((double)I1->m * log2((double)I2->m + 2) < (double)(I1->m + I2->m)) {   /* few groups: binary search */
                 for (long gi = 0; gi < I1->m; gi++) {
                     uint64_t k = 0; int ok = 1;
@@ -432,7 +429,7 @@ int main(int argc, char **argv) {
             free(hk); free(ha); free(hb);
         }
         totAB += cnt; totCD += ncd;
-        fprintf(stderr, "kt4: sigma %ld/%ld (", ci + 1, NSIG);
+        fprintf(stderr, "kt4: sigma %ld/%ld (", ci + 1, nsigma);
         for (int s = 0; s < NS; s++) fprintf(stderr, "%d%s", sig[s], s + 1 < NS ? "," : "");
         fprintf(stderr, "): pairs AB %ld CD %lld, found %ld (total %ld) [%.0fs]\n", cnt, ncd, fnd, found, now() - t0);
     }

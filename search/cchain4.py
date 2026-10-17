@@ -21,7 +21,7 @@ Nothing is sampled; a run without truncation rules the structure/pattern out.
     python3 search/cchain4.py ssxx N g[,g2] [--pat a,b,c,d] [--d1 p --d2 q] [--budget S] [--log FILE]
     python3 search/cchain4.py bsz  N g[,g2] [--pat X] ...
 """
-import argparse, itertools, json, math, os, struct, subprocess, sys, tempfile, time
+import argparse, json, math, os, struct, subprocess, sys, tempfile, time
 import numpy as np
 from pathlib import Path
 

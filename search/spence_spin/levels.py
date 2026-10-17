@@ -3,7 +3,7 @@ single K-orbit (H-orbit) R of Q=G/N, and meets every fibre over R in the same nu
 a = (sum of A over fibre)  are  a_R = sum_{O over R} x_O c_O  : the set of attainable compressions is a PRODUCT over Q-orbits R of independent
 value sets S_R (with exact multiplicities = number of sign patterns), cut only by the row sum  sum_R |R| a_R = rowsum.
 So no DP over partial sums is needed (the old 400k cap was an artefact)."""
-import numpy as np, itertools, math
+import numpy as np, math
 from collections import defaultdict
 from struct573 import build
 from ss_core import closure_partition
@@ -58,7 +58,6 @@ class Level:
         S = self.S
         cnt = np.zeros((kG, self.nQ), dtype=np.int64)
         np.add.at(cnt, (orbG, self.cos), 1)
-        out = [defaultdict(int) for _ in range(R)]
         contribs = [[] for _ in range(R)]
         for o in range(kG):
             nz = np.flatnonzero(cnt[o])

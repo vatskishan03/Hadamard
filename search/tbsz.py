@@ -1123,7 +1123,7 @@ def solve_border2(ts, Mc, nbases=60, seed=1):
     is u(x) = x Ch^* Mc / 2t for a quaternary x (then u Mc^* Ch / 2q = x); keep the x whose u is quaternary and find
     2t orthogonal ones. The column bases are (v_i, c w_i), (v_i, -c w_i) for orthogonal quaternary bases (v_i), (w_i)
     of V_T and a unit c; up to nbases of them are tried."""
-    q, t, n = ts.q, ts.t, 2 * ts.t
+    t, n = ts.t, 2 * ts.t
     rng = np.random.default_rng(seed)
     V1 = vt_vectors(ts)
     if len(V1) < t:
@@ -1212,7 +1212,6 @@ def solve_border_restricted(ts, Mc, threads=3):
     if tuple([0] * len(ts.qmods)) not in ts.T:
         return None
     V1 = vt_vectors(ts)
-    n1 = len(V1)
     ones = np.flatnonzero(np.all(np.abs(V1 - 1) < 1e-9, axis=1))
     if len(ones) == 0:
         return None
@@ -1275,7 +1274,7 @@ def compressions_of(ts, seqs):
 
 def build(ts, seqs, border):
     """K as integer real and imaginary parts from the core sequences and the border (exponent matrices)"""
-    G, m, q, t = ts.G, ts.m, ts.q, ts.t
+    G, m, q = ts.G, ts.m, ts.q
     A, B, C, D = (np.asarray(x, np.int64) for x in seqs)
     diff = devidx(G)
     Rf = np.zeros((m, m), np.int64); Rf[np.arange(m), G.neg()] = 1

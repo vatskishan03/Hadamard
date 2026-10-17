@@ -4,7 +4,6 @@ sublattice of the true one, so  'target in sample lattice'  PROVES the lattice c
 Condition: -4*1 - kA0 - kB0 in Lambda_A + Lambda_B."""
 import sys, time
 import numpy as np
-from math import gcd
 from struct573 import build
 
 class Lat:

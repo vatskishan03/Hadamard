@@ -29,7 +29,6 @@ H may be any subgroup of Z_t^*; A is invariant under <H, -1>, B and D under H. A
 Usage: python3 search/symod_engine.py t "h1,h2" mu [--xsub d] [--maxsol K] [--dry] [--maxlist N]
 """
 import argparse
-import itertools
 import sys
 from collections import defaultdict
 
@@ -113,7 +112,7 @@ def ternary_cands(S, block, maxw, items):
     PAF vector)"""
     nob = len(S.obP) if block == 'A' else len(S.obH)
     sizes = S.sizeP if block == 'A' else S.sizeH
-    out_v, out_w, out_p = [], [], []
+    out_v, out_w = [], []
     def rec(j, w, cur):
         if j == len(items):
             out_v.append(tuple(cur)); out_w.append(w)

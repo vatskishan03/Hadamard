@@ -11,7 +11,7 @@ For composite N the diagonal estimate of ssxx.gauss / bsz.gauss can be orders of
     python3 search/gauss_mc.py N g [g2] --rows a,b,c,d [--bordered] [--Kb 20000] [--K 2000000]
 """
 import argparse, math, sys
-from math import gcd, log10, pi
+from math import log10, pi
 from pathlib import Path
 import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent))

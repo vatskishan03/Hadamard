@@ -8,7 +8,7 @@ solutions that survive; compare with the model's retention.
 --fibre keeps the L lowest-energy members among those whose compressions pass lowe_sz's fibre filters, with the
 statistics of the allowed sub-pool (as lowe_sz.py does by default).
 """
-import argparse, math, sys
+import argparse, sys
 from pathlib import Path
 import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent))

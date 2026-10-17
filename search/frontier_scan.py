@@ -6,7 +6,7 @@ Score = log10 E - (log10 P_C + log10 P_D) / 2 + 7.5, the rough log10 of the solu
 
     python3 search/frontier_scan.py N [N ...] [--mino 20] [--maxo 75] [--maxpool 1e13] [--out FILE]
 """
-import argparse, json, math, sys, time
+import argparse, json, math, sys
 from math import gcd, log10, pi
 from pathlib import Path
 import numpy as np
@@ -74,7 +74,6 @@ def scan(N, mino, maxo, maxpool, K, out):
             orb = sum(gcd(h - 1, m) for h in H) // len(H)
             if not (mino <= orb <= maxo):
                 continue
-            t0 = time.time()
             st = Struct(N, gens, plain=not bordered)
             pats = [p for _, p in bsz.patterns(st)] if bordered else ssxx.patterns(st)
             rng = np.random.default_rng(1); cache = {}

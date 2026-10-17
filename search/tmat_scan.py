@@ -10,7 +10,7 @@ Row sums: sum r_i^2 = t.  With H <= Z_t^* of order h, supports are unions of H-o
 Classes: <K,-1>-orbits on Z_t minus 0."""
 import os
 import re, math
-from sympy import isprime, divisors, factorint
+from sympy import isprime, divisors
 
 WILL = set(range(1, 34, 2)) | {37, 39, 41, 43, 45, 49, 51, 55, 57, 61, 63}
 

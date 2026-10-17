@@ -1,13 +1,12 @@
 """Exact uncapped joins for the levels whose lists are enumerable (Z2^2, Z11, and A-side / B-side of larger levels)."""
-import numpy as np, math, sys, time
+import numpy as np, sys, time
 from collections import defaultdict
 from struct573 import build
-from levels import make, LEVELS
+from levels import make
 
 def enum_list(vals, w, rowsum, maxn=60_000_000):
     """all vectors (a_R in vals[R]) with sum_R w_R a_R = rowsum.  Returns (V (n x R) int64, weight (n) float = product of multiplicities)."""
     R = len(vals)
-    order = list(range(R))
     arrs = [np.array(list(vals[r].keys()), dtype=np.int64) for r in range(R)]
     mult = [np.array(list(vals[r].values()), dtype=np.float64) for r in range(R)]
     # suffix ranges for pruning

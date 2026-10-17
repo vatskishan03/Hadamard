@@ -22,7 +22,7 @@ prime p | v (the orbits of the elements of order p), so every such image has odd
       exact two-list join (layout b: C x D against A; c: A against C) on the classes of <K, -1>;
       every hit is rebuilt over Z_v and checked (verify.py) -> $HADAMARD_WORK/skew_hits.jsonl
 """
-import argparse, itertools, json, math, os, sys, time
+import argparse, itertools, json, math, sys, time
 from math import gcd, log10
 import numpy as np
 from pathlib import Path as _P

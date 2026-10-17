@@ -5,10 +5,10 @@ coset), enumerate all A constant on H-orbits with row sum 1 and test P_A(s) + P_
 <H, mu, -1>.  A hit gives a Legendre pair (A, A.mu) of length l and H(2l + 2) = H(4n).
 usage: tlp_search.py MAXO MAXPOOL n [n ...]      (n = 'all' for every open order)"""
 import os
-import sys, re, json, time, math
+import sys, re, json, time
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import lp_search as LP, tlp_model as TM
+import tlp_model as TM
 
 def class_matrix(l, lab, k, reps, mu):
     S = np.zeros((len(reps), k, k))

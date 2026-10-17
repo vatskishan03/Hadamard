@@ -4,7 +4,7 @@ Writes:  pool0.bin  int32 N0, then int16 V0[N0][15]   (class values of every X0 
          walk.bin   int32 k1, CK; int32 sizes[k1]; int32 MF[CK][k1][k1]; int32 DW[CK]; double mu0[CK], sd0[CK]
 The class value of X1 on K-class k is W_k = sum_j PAF_X1(mu^j s_k) = DW_k + 1/2 y^T MF_k y."""
 import os
-import sys, struct, itertools
+import sys, struct
 import numpy as np
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 import d3_model as D

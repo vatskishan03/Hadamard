@@ -14,7 +14,7 @@ float check.
 
 Results: 5 400 8 finds only p = 5 (e = 2, v = 11) and p = 13 (e = 6, v = 27); 200 1250 4 finds nothing.
 """
-import itertools, sys, cmath, math
+import itertools, sys, math
 import numpy as np
 from sympy import isprime, primitive_root
 

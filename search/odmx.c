@@ -27,7 +27,6 @@ static int prep[MAXT], npr;          /* representatives of pair orbits (s and -s
 static int D;                        /* vector dimension = 2 npr */
 
 typedef struct { int16_t v[40]; int32_t idx; } Ent;
-static int *lists[4]; static int lcnt[4];       /* assignments as bitmasks (index into per-block var list) */
 static int nvar[4], var_orb[4][MAXT];           /* per block: variable -> orbit id (block 1: orbit of the + side) */
 
 static int W[MAXT];

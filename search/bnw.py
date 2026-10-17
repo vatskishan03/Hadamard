@@ -170,7 +170,6 @@ def z2_ok(st, rows):
         return True
     """Exact test on the quotient Z_m -> Z_2 (slice sums): each block's even/odd sums (a, b) with a + b = r must give
     sum (a - b)^2 = 4N. Enumerated per block by DP over orbits (an orbit lies in one coset of 2Z_m)."""
-    m = st.m
     opts = []
     for kind, r in zip(kinds(), rows):
         sz, orb = st.sizes(kind), st.orb(kind)

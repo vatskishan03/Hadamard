@@ -7,7 +7,6 @@ exact counts (complete lists + join4x) on small structures.
 import argparse, math, sys, time
 from math import gcd
 from pathlib import Path
-import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from bnw import Struct, subgroups, enum_block, join4
 import bsz, ssxx, gauss_mc

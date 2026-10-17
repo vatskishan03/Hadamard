@@ -1,7 +1,7 @@
 """NG pair search: H-invariant antiperiodic +-1 sequences a, b of length n (H = <g> <= U(Z_2n)), meet in the middle on
 the twisted power spectrum |a(zeta)|^2 at representatives of the H-orbits on odd exponents (zeta^n = -1).
     python3 ng_mitm.py n g [max_hits]"""
-import sys, math, itertools, numpy as np
+import sys, numpy as np
 n, g = int(sys.argv[1]), int(sys.argv[2]); maxhits = int(sys.argv[3]) if len(sys.argv) > 3 else 3
 m = 2 * n
 def orbit(x, g, m):

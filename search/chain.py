@@ -22,8 +22,7 @@ pattern out; any truncation is reported.
 
   python3 chain.py v gens b,c,d [--d1 p --d2 q] [--exhaustive] [--maxfibre N] [--maxstates N]
 """
-import argparse, json, math, os, struct, subprocess, sys, tempfile, time
-from collections import defaultdict
+import argparse, json, os, struct, subprocess, sys, tempfile, time
 import numpy as np
 from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
 import workdir as W

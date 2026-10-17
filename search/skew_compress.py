@@ -9,7 +9,7 @@ fails for some d has no solutions at all; the Gaussian model of skew_triage.py d
 
   python3 skew_compress.py v gens b,c,d [d ...]
 """
-import itertools, math, sys
+import sys
 from collections import defaultdict
 import numpy as np
 from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]

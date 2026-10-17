@@ -1,7 +1,6 @@
 """Rank small Goethals-Seidel multiplier structures of all open orders by E (Gaussian) and exact pair work."""
 import os
 import re, sys, math
-from math import gcd, log10
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import spence_lib as L, gs_lib as GS

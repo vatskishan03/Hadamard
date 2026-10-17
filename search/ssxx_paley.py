@@ -145,7 +145,7 @@ class Paley:
         return [c for r in range(len(self.fixed) + 1) for c in itertools.combinations(self.fixed, r)]
 
     def sym_options(self, maxw, maxm):
-        m, q, h = self.m, self.q, self.h
+        m, q = self.m, self.q
         out = []
         for fx in self.fixed_choices():
             for npairs in range(0, (maxw - len(fx)) // 2 + 1):
@@ -263,7 +263,7 @@ class Paley:
         """A random skeleton with N_w w-positions, N_- of them of magnitude q - 2: the block counts are drawn with
         probability proportional to the number of (position set, magnitude) choices, then positions, magnitudes and
         signs uniformly. Returns None if no skeleton has these counts."""
-        m, q, h = self.m, self.q, self.h
+        m, q = self.m, self.q
         nrep = len(self.reps)
         fxs = self.fixed_choices()
         dists, weights = [], []
@@ -323,7 +323,7 @@ class Paley:
     def ylist(self, Wt, sym, raw=False):
         """All y on Z_m with the given w-positions and +-1 elsewhere (symmetric for A, B). Without raw, a block with
         no w-position has y(0) = +1 (negation)."""
-        m, h = self.m, self.h
+        m = self.m
         Wd = dict(Wt)
         if sym:
             free = [a for a in self.reps if a not in Wd]
@@ -378,7 +378,7 @@ class Paley:
     def zlist(self, y, sym, fix_first=False):
         """All z for one block given its y: +-1 at the z-positions (|y| = 1), 0 at the w-positions; for A, B
         z(-a) = eps z(a)."""
-        m, h, eps = self.m, self.h, self.eps
+        m, eps = self.m, self.eps
         zpos = [a for a in range(m) if abs(int(y[a])) == 1]
         if sym:
             free = [a for a in self.reps if abs(int(y[a])) == 1]

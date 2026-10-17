@@ -59,6 +59,8 @@ def main():
             buf = io.StringIO()
             with contextlib.redirect_stdout(buf):
                 ein = lowe_sz.run(N, gens, pat, bordered, a.L, estimate_only=True, K=4000)
+            if isinstance(ein, list):                    # ruled out before the estimate (no solution possible)
+                continue
             r = {"N": N, "bordered": bordered, "gens": list(gens), "H": len(st.H), "OA": len(st.sizesA),
                  "C": st.C, "rows": list(pat), "logE": round(float(e), 2), "logEin": round(float(ein), 2),
                  "sizes": [float(s) for s in sizes]}

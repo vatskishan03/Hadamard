@@ -13,7 +13,6 @@ def setup(t, h):
     g = primitive_root(t)
     d = 3 * h
     e = (t - 1) // d          # index of K = number of K-orbits; K = <g^e>, H = <g^(3e)>, mu = g^e
-    q = (t - 1) // d
     # K-orbit index Q(x) and sub-index b(x) in {0,1,2} for x = g^k, k = j + e*b' ... use discrete log
     dlog = np.zeros(t, dtype=np.int64)
     x = 1

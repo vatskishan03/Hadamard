@@ -17,7 +17,7 @@ import os
 import subprocess
 import sys
 import time
-from math import gcd, log10, pi
+from math import log10, pi
 
 import numpy as np
 
@@ -25,7 +25,6 @@ sys.path[:0] = [os.path.dirname(os.path.abspath(__file__)),
                 os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'verify')]
 import workdir as W  # noqa: E402
 import spence_lib as L  # noqa: E402
-import verify  # noqa: E402
 
 
 def mat_order(M, p):
@@ -387,7 +386,7 @@ def main():
     A = np.array(tok[ia + 1:ib], dtype=float)
     B = np.array(tok[ib + 1:], dtype=float)
     seqs = sp.sequences(A, B)
-    add, neg = sp.G.translate, sp.G.neg()
+    neg = sp.G.neg()
     # group-developed Goethals-Seidel over G
     diff = np.array([sp.G.index(sp.G.coords - sp.G.coords[g]) for g in range(sp.v)])   # diff[g, h] = h - g
     mats = [x[diff] for x in seqs]

@@ -1,6 +1,6 @@
 """Random 2-list hash join at a quotient level: sample compressed A (row sum 2) and B (row sum 0) from the exact sign-level pools, key = class-PAF vectors,
 look for T^A + T^B = target.  Hits are certificates of non-emptiness of the level (verified independently by direct PAF on Q)."""
-import numpy as np, sys, time, math
+import numpy as np, sys, time
 from struct573 import build
 from levels import make
 

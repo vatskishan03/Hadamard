@@ -23,8 +23,8 @@ E(pattern) = sum over feasible tuples of prod_X count_X(x_X) * P(class sums = ta
 
     python3 search/comp_est.py N g [g2 ...] --d 3 [--rows a,b,c,d] [--K 3000]
 """
-import argparse, itertools, math, sys
-from math import gcd, log10, pi
+import argparse, math, sys
+from math import log10, pi
 from pathlib import Path
 import numpy as np
 
@@ -45,7 +45,6 @@ class Comp:
     def __init__(self, st, d):
         assert st.m % d == 0
         self.st, self.d = st, d
-        m = st.m
         Hd = sorted({h % d for h in st.H})
         Ld = sorted({h % d for h in st.L})
         self.fc, self.fid, self.w, self.orbs = {}, {}, {}, {}
@@ -194,7 +193,6 @@ def echelon(V):
         return []
     ncol = len(rows[0])
     B = []
-    piv = 0
     M = rows
     for c in range(ncol):
         # gcd-reduce column c among rows of M not yet used as pivots

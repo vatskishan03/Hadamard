@@ -7,12 +7,11 @@ dropped.
 
   python3 skew_rank2.py L MAXO v ...
 """
-import math, sys
+import sys
 from math import log10
 import numpy as np
 from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
 import workdir as W
-import spence_lib as L
 from gs_sweep_subgroups import subgroups
 import skew_rank as R
 import skew_compress as SC

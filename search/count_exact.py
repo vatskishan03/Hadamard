@@ -1,7 +1,5 @@
 """Exact count of Spence solutions for one structure with moderate pools (chunked hash join)."""
-import sys, time, itertools
 import numpy as np
-import spence_lib as L
 
 def pool_vectors(st, r):
     """All sign vectors with row sum r (vectorized over 2^O)."""

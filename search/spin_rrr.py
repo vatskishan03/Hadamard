@@ -67,7 +67,6 @@ def run(S, iters, restarts, beta, seed, verbose=True):
     m, npos, L, tri, T, allA = S['m'], S['npos'], S['L'], S['tri'], S['T'], S['allA']
     sqT = np.sqrt(T)
     Lr = np.vstack([L.real, L.imag]); Linv = np.linalg.pinv(Lr)
-    ntri = len(tri)
     def P1(x):
         y = np.full(m, -1.0); y[np.argpartition(-x, npos)[:npos]] = 1.0; return y
     def P2(x):

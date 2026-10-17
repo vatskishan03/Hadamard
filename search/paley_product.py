@@ -17,7 +17,7 @@ counts every solution in the lists exactly with join4x, and verifies and logs th
   python3 search/paley_product.py [--n N] [--steps S] [--amax N] [--maxo O] [--patterns K] v [v ...]
       -> hits in $HADAMARD_WORK/skew_hits.jsonl, one line per (v, pattern) in $HADAMARD_WORK/paley_product.jsonl
 """
-import argparse, itertools, json, math, os, struct, subprocess, sys, time
+import argparse, json, os, struct, subprocess, sys, time
 import numpy as np
 from pathlib import Path as _P
 sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]

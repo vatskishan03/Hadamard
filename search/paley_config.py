@@ -21,7 +21,7 @@ matrix. With --all, every u-quadruple is processed (an exhaustive search of the 
 
   python3 search/paley_config.py v [--maxu N] [--all]       -> hits in $HADAMARD_WORK/skew_hits.jsonl
 """
-import argparse, itertools, json, math, os, struct, subprocess, sys, time
+import argparse, itertools, json, os, struct, subprocess, sys, time
 import numpy as np
 from pathlib import Path as _P
 sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
@@ -378,7 +378,7 @@ def layout_search(v, m, q, hgen, Nw, Nm, a, log):
     log(f"v={v} m={m} q={q} N_w={Nw} N_-={Nm}: {len(Ls)} layouts")
     total_found = 0
     for name, L in Ls:
-        lists, Wv, U0 = [], [], []
+        lists, Wv = [], []
         for k in range(4):
             spec = L[k]
             yv = {p_: (q - 2) * wv if ut else q * wv for p_, (wv, ut) in spec.items()}

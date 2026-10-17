@@ -106,7 +106,6 @@ class Spin:
                     return A, B, r, it
                 # B swaps: i (+) <-> j (-) of equal size, delta on each class
                 dB = -4 * B[None, :] * gB + 4 * np.einsum("coo->co", self.M)        # (C, O) single flips
-                cand = []
                 plus, minus = np.flatnonzero(B > 0), np.flatnonzero(B < 0)
                 plus = plus[plus > 0]; minus = minus[minus > 0]
                 D = dB[:, plus][:, :, None] + dB[:, minus][:, None, :] + 8 * B[plus][None, :, None] * B[minus][None, None, :] * self.M[:, plus][:, :, minus]
@@ -130,7 +129,7 @@ class Spin:
                 if noise:
                     ii = rng.integers(len(plus)); jj = np.flatnonzero(same[ii])
                     if len(jj) == 0: continue
-                    kb = (ii, rng.choice(jj)); fBmin = fB[kb]; take_B = True
+                    kb = (ii, rng.choice(jj)); take_B = True
                 else:
                     take_B = fB[kb] <= fA[ka]
                 if take_B:

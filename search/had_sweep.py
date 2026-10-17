@@ -12,8 +12,7 @@ model.
   python3 had_sweep.py list MINO MAXO CAP n ...     # candidates with work and compression verdict
   python3 had_sweep.py run  n gens a,b,c,d [CAP]    # exact search of one structure and pattern
 """
-import itertools, json, math, os, struct, subprocess, sys, tempfile, time
-from collections import defaultdict
+import json, math, os, struct, subprocess, sys, tempfile, time
 import numpy as np
 from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
 import workdir as W

@@ -1,7 +1,7 @@
 """Exhaustive solution counts vs the Gaussian estimate on small Spence structures,
 and an end-to-end Hadamard check of one solution per structure."""
 import os
-import itertools, sys, collections
+import itertools, sys
 import numpy as np
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'verify'))
 import verify

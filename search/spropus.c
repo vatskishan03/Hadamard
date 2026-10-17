@@ -16,7 +16,7 @@
 #include <string.h>
 #include <stdint.h>
 
-static int n, O, P, *orb, *osz, *rep, *negof, cls[512], ncls;
+static int n, O, *orb, *osz, *rep, *negof, cls[512], ncls;
 static int *Nt;                       /* Nt[(c * O + o) * O + o2] */
 static int pairs[512], npairs, zero;
 

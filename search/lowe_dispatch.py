@@ -7,7 +7,7 @@ certified with ssxx_certify.py (which writes ../complex-hadamard/C<2N>.json).
 
     python3 search/lowe_dispatch.py SCAN.jsonl LOGFILE [--minein -0.7] [--L 3e7] [--nsig 3e5] [--threads 3]
 """
-import argparse, json, os, subprocess, sys, time
+import argparse, json, subprocess, sys, time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent

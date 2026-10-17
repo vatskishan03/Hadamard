@@ -22,7 +22,6 @@ Output (little-endian int32 unless noted), read by nw_exh.c:
     python3 search/nw_prep.py v g [g2 ...] --rows rA rB rC rD --out FILE
 """
 import argparse, struct, sys
-from pathlib import Path
 import numpy as np
 
 
@@ -47,7 +46,6 @@ def main():
     H = closure(a.gens, v)
     if (v - 1) in H:
         sys.exit("-1 in H")
-    L = sorted(set(H) | {(-h) % v for h in H})
     orbL = -np.ones(v, np.int64); orbL[0] = 0
     plus = np.zeros(v, np.int64)
     reps = []

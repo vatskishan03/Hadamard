@@ -12,7 +12,7 @@ r-dependent number of largest entries (+1) after symmetrising. Constraint B: per
 are left to A. Iteration (RRR, beta): x <- x + beta (P_A(2 P_B(x) - x) - P_B(x)). A solution is detected when
 P_A(x) satisfies the exact integer condition.
 """
-import argparse, math, sys, time
+import argparse, math, time
 import numpy as np
 
 

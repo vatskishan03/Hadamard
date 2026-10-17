@@ -93,7 +93,6 @@ def main():
     O = Orbits(G, H)
     varA = O.variables('sym' if a.sym else 'skew')
     varB = O.variables('plain')
-    from math import comb
     sizesB = [int(sum(O.size[o] for o, c in v)) for v in varB]
     # row sum 1 count (upper bound on the b list)
     dp = {0: 1}

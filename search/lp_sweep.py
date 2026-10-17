@@ -2,7 +2,6 @@
 MIN_O <= orbits <= MAX_O, exhaustive join.  Prints every structure tried and any verified pair."""
 import os
 import re, sys, time, json
-import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import lp_search as LP
 

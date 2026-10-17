@@ -6,9 +6,8 @@ first hit of each class, --sub 8000). One JSON line per structure on stdout; hit
 
 The run of 2026-10-13 (MAXMEM 2e7) found v = 1417 (skew order 5668), see NOTES section 16."""
 import sys, json, math, time, io, contextlib
-from sympy import isprime, divisors, n_order
+from sympy import isprime, divisors
 from pathlib import Path as _P; sys.path.insert(0, str(_P(__file__).resolve().parent))
-import numpy as np
 import cyclo_product as CP
 L=[int(l) for l in open(_P(__file__).resolve().parent / "data" / "skew_census_undecided.txt") if l.strip() and not l.startswith('#')]
 solved={209,253,259,275,285,287,309,341,343,345,353,377,391,403,451,465,469,513,601,613,703,763,889,903,933,1501}

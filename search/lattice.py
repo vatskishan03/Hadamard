@@ -1,5 +1,4 @@
 """Integer lattice tools: HNF of the lattice spanned by integer vectors, membership tests."""
-import numpy as np
 
 def hnf_basis(vectors):
     """Row-style Hermite basis (Python ints) of the Z-span of the given integer row vectors."""
@@ -18,7 +17,6 @@ def hnf_basis(vectors):
 def _insert(basis, v, n):
     """Insert v into an echelon basis (sorted by pivot column) keeping it echelon (gcd steps)."""
     basis = [list(x) for x in basis]
-    piv = {pc: idx for idx, (pc, _) in enumerate(basis)}
     out = [(pc, b[:]) for pc, b in basis]
     while True:
         nz = [j for j in range(n) if v[j] != 0]

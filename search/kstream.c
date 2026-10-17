@@ -56,6 +56,9 @@ static inline uint64_t vkey(const int *w) {
     return h;
 }
 
+typedef struct { uint64_t k; int32_t i; } kp;
+static int cmpkp(const void *x, const void *y) { uint64_t p = ((const kp *)x)->k, q = ((const kp *)y)->k; return p < q ? -1 : p > q; }
+
 static void build_table(int16_t *V, int n, htab *T) {
     uint64_t *key = malloc(sizeof(uint64_t) * n);
     int32_t *ord = malloc(sizeof(int32_t) * n);
@@ -64,11 +67,9 @@ static void build_table(int16_t *V, int n, htab *T) {
         for (int q = 0; q < K; q++) w[q] = V[(int64_t)i * C + K1[q]];
         key[i] = vkey(w); ord[i] = i;
     }
-    /* sort indices by key (simple merge via qsort on pairs) */
-    typedef struct { uint64_t k; int32_t i; } kp;
+    /* sort indices by key */
     kp *a = malloc(sizeof(kp) * n);
     for (int i = 0; i < n; i++) { a[i].k = key[i]; a[i].i = i; }
-    int cmpkp(const void *x, const void *y) { uint64_t p = ((const kp *)x)->k, q = ((const kp *)y)->k; return p < q ? -1 : p > q; }
     qsort(a, n, sizeof(kp), cmpkp);
     T->idx = malloc(sizeof(int32_t) * (n + 1));
     for (int i = 0; i < n; i++) T->idx[i] = a[i].i;

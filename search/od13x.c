@@ -20,7 +20,6 @@ static int Hel[512], nH;
 static int porb[256];         /* pair orbit id of pair p (1..h) */
 static int norb, orep[256], osize[256];
 static int pat[20][6], psym[20][3];
-static int maxdepth;
 
 static int pairof(int g) { g %= t; if (g < 0) g += t; return g <= h ? g : t - g; }
 
@@ -37,7 +36,6 @@ static void expand(int vals[][2], int *W) {
     }
 }
 
-static int nreps;   /* number of distinct PAF constraints: one per pair orbit */
 static void paf_reps(const int *W, long *out) {
     for (int o = 0; o < norb; o++) {
         int s = orep[o];
@@ -60,7 +58,6 @@ static long *w0paf; static int nw0;
 static int pa[256];      /* pattern per orbit */
 static long found = 0, visited = 0;
 static int tgt[3];
-static int W1[3][1024];
 
 static void report(int w0idx) {
     int vals[256][2], W[1024];
@@ -76,39 +73,12 @@ static void report(int w0idx) {
     fflush(stdout);
 }
 
-static void leaf(void) {
-    visited++;
-    int vals[256][2], W[1024];
-    long v[256], tot[256];
-    for (int o = 0; o < norb; o++) tot[o] = 0;
-    for (int i = 0; i < 3; i++) {
-        for (int o = 0; o < norb; o++) { vals[o][0] = pat[pa[o]][2 * i]; vals[o][1] = pat[pa[o]][2 * i + 1]; }
-        expand(vals, W);
-        paf_reps(W, v);
-        for (int o = 0; o < norb; o++) tot[o] += v[o];
-    }
-    for (int o = 0; o < norb; o++) tot[o] = -tot[o];
-    uint64_t hv = hashv(tot) & ((1u << HB) - 1);
-    while (hval[hv] >= 0) {
-        if (!memcmp(&hkeys[hv * norb], tot, sizeof(long) * norb)) {
-            /* all W0 with this vector: scan (few) */
-            for (int k = 0; k < nw0; k++)
-                if (!memcmp(&w0paf[(long)k * norb], tot, sizeof(long) * norb)) { found++; report(k); }
-            return;
-        }
-        hv = (hv + 1) & ((1u << HB) - 1);
-    }
-}
-
-
 /* ---- incremental search: PAF contributions of pattern choices on pairs of orbits ---- */
-static int ocount;                     /* number of orbits (= norb) */
 static int opos[256][1024], onpos[256]; /* positions of orbit o: first half h*rep (value index 0), then -h*rep (1) */
 static int oidx[256][1024];
 static long *T2;                       /* T2[((o1*norb + o2)*20 + c1)*20 + c2][k] */
 static long cur[64][256];              /* running PAF vectors by depth */
 static int ssum[64][3];
-static int order_[256];
 
 static inline long *T2at(int o1, int o2, int c1, int c2) {
     return &T2[((((long)o1 * norb + o2) * 20 + c1) * 20 + c2) * norb];
@@ -183,20 +153,6 @@ static void rec2(int d) {
             for (int k = 0; k < norb; k++) nx[k] += A[k] + B[k];
         }
         rec2(d + 1);
-    }
-}
-
-static void rec(int o, int s0, int s1, int s2) {
-    if (o == norb) {
-        if (s0 == tgt[0] && s1 == tgt[1] && s2 == tgt[2]) leaf();
-        return;
-    }
-    /* remaining capacity check: each orbit contributes at most osize in absolute value per coordinate */
-    int rem = 0; for (int k = o; k < norb; k++) rem += osize[k];
-    if (abs(tgt[0] - s0) > rem || abs(tgt[1] - s1) > rem || abs(tgt[2] - s2) > rem) return;
-    for (int c = 0; c < 20; c++) {
-        pa[o] = c;
-        rec(o + 1, s0 + osize[o] * psym[c][0], s1 + osize[o] * psym[c][1], s2 + osize[o] * psym[c][2]);
     }
 }
 

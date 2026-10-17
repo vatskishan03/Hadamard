@@ -20,7 +20,7 @@ which every member of a solution passes. Hits are verified as matrices and recor
   python3 search/two_circ.py lp l1,l2,.. [--maxo 34] [--maxpool 4e7]
   python3 search/two_circ.py pg v1,v2,.. [--maxo 34] [--maxpool 4e7] [--psdmax 3e10]
 """
-import argparse, itertools, json, math, sys, time
+import argparse, json, math, sys, time
 import numpy as np
 from pathlib import Path as _P
 sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
@@ -28,7 +28,6 @@ import workdir as W
 import spence_lib as L
 import propus as PR
 import propus_group as PG
-import skew_group as SG
 from skew_ktree import pool_exact
 
 
@@ -127,7 +126,6 @@ def psd_survivors(G, st, r, bound, log):
 
 def search(kind, v, name, G, mats, st, maxpool, log, psdmax=0):
     T = {'dopt': 2, 'lp': -2, 'pg': 0}[kind]
-    pm = v % 4
     found = []
     for ra, rb in patterns(v, T):
         sizes = [st.pool(ra), st.pool(rb)]

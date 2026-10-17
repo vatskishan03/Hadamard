@@ -23,7 +23,6 @@ def hnf_basis(vecs, dim):
     piv = []
     for v in vecs:
         v = [int(x) for x in v]
-        i = 0
         while True:
             # find first nonzero column of v
             j = next((c for c in range(dim) if v[c] != 0), None)

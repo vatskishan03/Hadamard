@@ -5,7 +5,7 @@ Z_2^2 x Z_((N-1)/4), whose four complete lists can be joined within the pair-wor
 
     python3 search/bsz_sweep.py N [N ...] [--maxpairs 2e10] [--budget SECONDS] [--log FILE]
 """
-import argparse, math, sys, time
+import argparse, sys, time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -21,7 +21,6 @@ def plan(N, maxpairs):
             pools = [st.counts(k).get(r, 0) // (2 if r == 0 else 1) for k, r in zip(bsz.KINDS, pat)]
             if min(pools) == 0:
                 continue
-            s = sorted(pools)
             work = min(pools[o[0]] * pools[o[1]] + pools[o[2]] * pools[o[3]]
                        for o in ([0, 1, 2, 3], [0, 2, 1, 3], [0, 3, 1, 2]))
             enum = sum(2.0 ** len(st.sizes(k)) for k in bsz.KINDS)

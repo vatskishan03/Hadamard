@@ -58,7 +58,7 @@ def plane_pair(q, seed=1, tries=200):
     m = 6 * e
     Q = q * q
     N = Q * Q + Q + 1
-    v, w = q * q + q + 1, q * q - q + 1
+    v = q * q + q + 1
     rng = random.Random(seed)
     for _ in range(tries):
         f = [rng.randrange(p) for _ in range(m)] + [1]

@@ -12,7 +12,6 @@ Blocks A_1 = a delta_0 + b u_1 + c w_1 (u_1, w_1 skew) and A_i = b u_i + c w_i (
 Usage: python3 search/odm_g.py GROUP "HGENS" m [--norm GENS] [--bsub d] [--bk N] [--k K] [--first] [--dry]
 """
 import argparse
-import itertools
 import os
 import struct
 import subprocess

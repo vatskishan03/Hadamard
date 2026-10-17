@@ -33,7 +33,7 @@ e = 10 (F = 31) exactly one spike fits, with s = +-2 and f = -sign(s), so y = +-
       --bkey b,..  add the autocorrelations at the shifts (b, C_c) to the group key (finer groups)
   Hits go to $HADAMARD_WORK/skew_hits.jsonl (skew) or had_hits.jsonl (plain).
 """
-import argparse, itertools, json, math, os, struct, subprocess, sys, tempfile, time
+import argparse, itertools, json, os, struct, subprocess, sys, tempfile, time
 import numpy as np
 from pathlib import Path as _P
 sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
@@ -180,7 +180,7 @@ def stage1_options(S, skewblock, maxopts=None):
 def stage1(S, maxpairs=3e7, maxopts=3e6):
     """All quadruples of compressions (one class per orbit of negation, translation and reversal of the non-skew
     blocks), as tuples of 4 y-vectors."""
-    m, e, F = S.m, S.e, S.F
+    m, e = S.m, S.e
     T = 4 * m * e
     options = lambda skewblock: stage1_options(S, skewblock)
     L = [options(S.skew and k == 0) for k in range(4)]

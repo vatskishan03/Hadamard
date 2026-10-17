@@ -4,7 +4,7 @@ For H <= Z_m^* acting on Z_m (trivially on Z_2), sequences constant on H-orbits 
 a_i (on {0} x Z_m) and b_i (on {1} x Z_m), each a signed sum of the K-orbit sizes.  The order-2
 character of G forces sum_i (a_i - b_i)^2 = 4n, with a_i + b_i = r_i = (2,0,0,0); equivalently
 (a_1 - 1)^2 + a_2^2 + a_3^2 + a_4^2 = n.  Returns whether any H (orbits <= MAXO) admits this."""
-import math, re, sys
+import re, sys
 from math import gcd
 
 def subgroups(m):

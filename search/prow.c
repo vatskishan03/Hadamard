@@ -12,9 +12,8 @@
  * The run enumerates the Z_3 compressions (row sums) compatible with the compressed equation, with the row sums of
  * B and of D each taken minimal under S_3 (the translations x -> x + 1 of B, resp. D, and its reversal permute its
  * rows), and A canonical under the multipliers y -> g^j y (which fix all row sums). PSD filters
- * |B^(chi)|^2 <= 2v, |D^(chi)|^2 <= 4v, A^(chi)^2 <= 4v; the B survivors are hashed on their class values and the D
- * survivors streamed against A (prow), or (prow2 join) the D survivors hashed in parts that fit in memory and probed
- * with every pair (A, B). Every hit is rebuilt on Z_v and checked before it is printed.
+ * |B^(chi)|^2 <= 2v, |D^(chi)|^2 <= 4v, A^(chi)^2 <= 4v; the D survivors are hashed in parts that fit in memory and
+ * probed with every pair (A, B). Every hit is rebuilt on Z_v and checked before it is printed.
  *
  *   cc -O3 -march=native -o prow prow.c -lm
  *   ./prow p e all [count | list | run START STEP PARTCAP]      (run: triples START, START+STEP, ...; D part <= PARTCAP)
@@ -179,15 +178,6 @@ static void store_cb(const Seq *q, int i0, int i1, int i2, void *ctx) {
     if (s->n == s->cap) { s->cap = s->cap ? 2 * s->cap : 1 << 20; s->e = realloc(s->e, sizeof(Ent) * s->cap); }
     Ent *x = &s->e[s->n++]; x->i0 = i0; x->i1 = i1; x->i2 = i2; classvals(q, i0, i1, i2, x->F);
 }
-static void store_hash(Store *s) {
-    uint64_t sz = 1; while (sz < 2 * (uint64_t)s->n + 16) sz <<= 1;
-    s->tab = malloc(sizeof(uint32_t) * sz); memset(s->tab, 0xff, sizeof(uint32_t) * sz); s->mask = sz - 1;
-    for (long long i = 0; i < s->n; i++) {
-        uint64_t h = hkey(s->e[i].F) & s->mask;
-        while (s->tab[h] != 0xffffffffu) h = (h + 1) & s->mask;
-        s->tab[h] = (uint32_t)i;
-    }
-}
 
 /* ---- A ---- */
 typedef struct { int a0, a1; signed char F[MAXC]; } AEnt;
@@ -246,32 +236,6 @@ static void report(const AEnt *a, int b0, int b1, int b2, int d0, int d1, int d2
     free(A); free(B); free(D);
 }
 
-typedef struct { Store *hs; const Seq *hq; long long probes; } JCtx;
-static void join_cb(const Seq *q, int i0, int i1, int i2, void *vctx) {     /* streamed D, hashed B */
-    JCtx *c = vctx;
-    signed char F[MAXC], need[MAXC];
-    classvals(q, i0, i1, i2, F);
-    for (int ia = 0; ia < nA; ia++) {
-        const signed char *FA = Al[ia].F; int ok = 1;
-        memset(need, 0, MAXC);
-        for (int k = 0; k < C; k++) {
-            int s = tgtC[k] - FA[k] - F[k];
-            if (s & 1) { ok = 0; break; }
-            s /= 2; if (s < -127 || s > 127) { ok = 0; break; }
-            need[k] = (signed char)s;
-        }
-        if (!ok) continue;
-        c->probes++;
-        uint64_t h = hkey(need) & c->hs->mask;
-        while (c->hs->tab[h] != 0xffffffffu) {
-            const Ent *x = &c->hs->e[c->hs->tab[h]];
-            if (!memcmp(x->F, need, C))
-                report(&Al[ia], c->hq->L[0][x->i0], c->hq->L[1][x->i1], c->hq->L[2][x->i2], q->L[0][i0], q->L[1][i1], q->L[2][i2]);
-            h = (h + 1) & c->hs->mask;
-        }
-    }
-}
-
 /* ---- partitioned join: D hashed in parts, probed by all pairs (A, B) ---- */
 typedef struct { uint64_t h; uint16_t i0, i1, i2, used; } DEnt;
 typedef struct { DEnt *t; uint64_t mask; long long n; int part, nparts; } DTab;
@@ -285,50 +249,12 @@ static void dtab_cb(const Seq *q, int i0, int i1, int i2, void *ctx) {
     while (d->t[s].used) s = (s + 1) & d->mask;
     d->t[s].h = h; d->t[s].i0 = i0; d->t[s].i1 = i1; d->t[s].i2 = i2; d->t[s].used = 1; d->n++;
 }
-static long long join2(Seq *qb, Seq *qd, long long nd, long long partcap) {
-    Store sb = {0};
-    seq_iter(qb, store_cb, &sb);
-    int nparts = (int)((nd + partcap - 1) / partcap); if (nparts < 1) nparts = 1;
-    uint64_t sz = 1; while (sz < 2 * (uint64_t)((nd + nparts - 1) / nparts) + 16) sz <<= 1;
-    DTab d; d.t = malloc(sizeof(DEnt) * sz); d.mask = sz - 1; d.nparts = nparts;
-    long long probes = 0;
-    for (int part = 0; part < nparts; part++) {
-        memset(d.t, 0, sizeof(DEnt) * sz); d.n = 0; d.part = part;
-        seq_iter(qd, dtab_cb, &d);
-        for (int ia = 0; ia < nA; ia++) {
-            const signed char *FA = Al[ia].F;
-            for (long long ib = 0; ib < sb.n; ib++) {
-                const signed char *FB = sb.e[ib].F; signed char need[MAXC]; int ok = 1;
-                memset(need, 0, MAXC);
-                for (int k = 0; k < C; k++) { int s = tgtC[k] - FA[k] - 2 * FB[k]; if (s < -127 || s > 127) { ok = 0; break; } need[k] = (signed char)s; }
-                if (!ok) continue;
-                uint64_t h = hkey(need);
-                if (partof(h, nparts) != part) continue;
-                probes++;
-                uint64_t s = h & d.mask;
-                while (d.t[s].used) {
-                    if (d.t[s].h == h) {
-                        signed char FD[MAXC]; memset(FD, 0, MAXC); classvals(qd, d.t[s].i0, d.t[s].i1, d.t[s].i2, FD);
-                        if (!memcmp(FD, need, C))
-                            report(&Al[ia], qb->L[0][sb.e[ib].i0], qb->L[1][sb.e[ib].i1], qb->L[2][sb.e[ib].i2],
-                                   qd->L[0][d.t[s].i0], qd->L[1][d.t[s].i1], qd->L[2][d.t[s].i2]);
-                    }
-                    s = (s + 1) & d.mask;
-                }
-            }
-        }
-        printf("    part %d/%d: D entries %lld, probes so far %lld\n", part + 1, nparts, d.n, probes); fflush(stdout);
-    }
-    free(d.t); free(sb.e);
-    return probes;
-}
 
 /* ---- join3: D partitioned by an additive key of its s = 0 classes, so each pass enumerates only its own part.
  * Every row PAF is 1 mod 4, so c(r) = ((P_0(r) - 1)/4 + 7 (P_1(r) - 1)/4) mod nparts is additive over the three rows and
  * the part of a D is c(d_0) + c(d_1) + c(d_2) mod nparts; the part of a needed class vector is computed from its
  * entries 0 and 1 in the same way. */
 static inline int pmod(int a, int n) { a %= n; return a < 0 ? a + n : a; }
-static int KMUL = 7;                  /* (unused since the key uses every x = 0 class; kept for the record) */
 static int MU[16];                    /* key multipliers, one per x = 0 class, nonzero mod the (prime) number of parts */
 static int nextprime(int n) { for (;; n++) { int ok = n > 1; for (int d = 2; d * d <= n; d++) if (n % d == 0) { ok = 0; break; } if (ok) return n; } }
 /* The part key is sum_k MU[k] (F_k - 3) / 4 mod np over all x = 0 classes k: additive over the rows of D (every row
@@ -405,13 +331,6 @@ static long long join3(Seq *qb, Seq *qd, long long nd, long long partcap) {
  * the needed D has ((n_0 - 3)/4 + 7 (n_1 - 3)/4) = kA + kB with kA = (t_0 - 12)/4 - a_0 + 7 ((t_1 - 12)/4 - a_1) and
  * kB = -2 b_0 - 14 b_1. */
 typedef struct { uint16_t i0, i1, i2; signed char F[MAXC - 6]; } CEnt;
-typedef struct { CEnt *e; long long n, cap; } CStore;
-static void cstore_cb(const Seq *q, int i0, int i1, int i2, void *ctx) {
-    CStore *s = ctx;
-    if (s->n == s->cap) { s->cap = s->cap ? 2 * s->cap : 1 << 20; s->e = realloc(s->e, sizeof(CEnt) * s->cap); if (!s->e) { fprintf(stderr, "out of memory\n"); exit(3); } }
-    CEnt *x = &s->e[s->n++]; signed char F[MAXC]; memset(F, 0, MAXC); classvals(q, i0, i1, i2, F);
-    x->i0 = i0; x->i1 = i1; x->i2 = i2; memcpy(x->F, F, C);
-}
 typedef struct { int np; long long *cnt, *pos; CEnt *bs; } BCtx;
 static inline int bkey(const signed char *F, int np) { long t = 0; for (int k = 0; k < E2; k++) t -= 2L * MU[k] * ((F[k] - 3) / 4); return (int)(((t % np) + np) % np); }
 static void bcount_cb(const Seq *q, int i0, int i1, int i2, void *ctx) {

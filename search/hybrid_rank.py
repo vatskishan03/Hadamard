@@ -5,7 +5,7 @@ compression check (compress_check.py) are written with "ruled_out" and do not co
 
     python3 search/hybrid_rank.py FRONTIER.jsonl OUT.jsonl [--minlogE -6] [--maxpool 6e10] [--top 3]
 """
-import argparse, contextlib, io, json, math, sys
+import argparse, json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from bnw import Struct

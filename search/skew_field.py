@@ -4,7 +4,7 @@ subgroup of the multiplicative group (cyclotomy): H = <w^((q-1)/d)> for a primit
   python3 skew_field.py rank p k           # structures with their Gaussian estimate and exact work
   python3 skew_field.py run p k d b,c,d    # exact search (find4b) or k-tree when the pools are large
 """
-import itertools, json, math, os, sys
+import itertools, json, sys
 import numpy as np
 from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
 import workdir as W
@@ -21,7 +21,7 @@ def primitive_companion(p, k):
         if coeffs[0] == 0: continue
         M = np.zeros((k, k), dtype=np.int64)
         M[1:, :-1] = np.eye(k - 1, dtype=np.int64); M[:, -1] = [(-c) % p for c in coeffs]
-        X = M.copy(); order = 1; I = np.eye(k, dtype=np.int64)
+        I = np.eye(k, dtype=np.int64)
         ok = True
         for f in [f for f in range(2, q) if (q - 1) % f == 0 and all(f % r for r in range(2, int(f ** 0.5) + 1))]:
             e = (q - 1) // f

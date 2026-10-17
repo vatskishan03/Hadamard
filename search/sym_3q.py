@@ -7,7 +7,7 @@ symmetric Hadamard matrix of order 3(q + 1). Exhaustive over the 192 placements 
 import sys, itertools
 import numpy as np
 sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
-from skew_3q import F_table, is_prime
+from skew_3q import F_table
 
 def blocks(q, r):
     s = (q + 1) // 4

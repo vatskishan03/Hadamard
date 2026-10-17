@@ -58,7 +58,6 @@ def search(w, H, maxpairs=3e7, log=print):
         X = np.rint(np.fft.ifft(np.conj(F[I]) * F[J], axis=1).real).astype(np.int64)
         Xr = X[:, reps]
         return Xr - Xr[:, neg]
-    tried = 0
     for quad in quads:
         for perm in set(itertools.permutations(quad)):
             ra, rb, rc, rd = perm
@@ -78,7 +77,6 @@ def search(w, H, maxpairs=3e7, log=print):
                 if k is not None:
                     A, B, C, D = S[IA[k]], S[IB[k]], S[IC[idx]], S[ID[idx]]
                     return (A, B, C, D), perm
-            tried += 1
     return None, None
 
 def check(W):

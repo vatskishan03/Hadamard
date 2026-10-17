@@ -4,7 +4,7 @@ solution set cached by retention_test.py.
 
     python3 search/retention_diag.py N g --rows a,b,c,d
 """
-import argparse, math, sys
+import argparse, sys
 from math import gcd
 from pathlib import Path
 import numpy as np

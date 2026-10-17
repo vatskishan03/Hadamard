@@ -1,7 +1,6 @@
 """Exhaustive Goethals-Seidel sweep over small multiplier structures of all open orders."""
 import re, sys, time, json, os
 from math import gcd
-import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import gs_exhaustive as E
 

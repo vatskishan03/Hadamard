@@ -37,7 +37,6 @@ def analyse(n, gens, samples=2500, rng=None):
             d = math.isqrt(d2)
             if d * d == d2 and all(st.pool(r) > 0 for r in (b, c, d)): pats.append((b, c, d))
     if not pats: return None
-    pm = n % 4
     VA = st.class_values(YA)
     best = None
     for q in pats:
