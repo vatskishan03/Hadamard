@@ -3121,13 +3121,20 @@ test. The variant with 2n − 1 an odd square instead of a prime power would nee
 s = 45), and the lattice count for multiplier-invariant pairs, about 2 · (4c/√n)^k for k orbits, is far below one.
 
 **No odd t multiplies the propus array** (`sym_tmult.py`). Cooper–Wallis multiplies four Williamson-type matrices by
-T-matrices; the symmetric analogue would write X_k = Σ_j M_kj ⊗ Y_j (k, j ∈ {a, b, d}) with symmetric commuting
-(0, ±1) M_kj of disjoint supports in each row and Σ_k c_k M_kj M_ki = t c_j δ_ij for c = (1, 2, 1). At the trivial
-character the row sums give an integer M with Mᵀ diag(1, 2, 1) M = t diag(1, 2, 1), so det(M)² = t³ and t must be a
-square. Exhaustive searches over the symmetric elements of ℤ₃, ℤ₅, ℤ₉ and ℤ₃² find no solution (the control t = 1
-finds the 16 signed permutations). Four distinct symmetric blocks do not help either: a symmetric orthogonal design of
-order 4 in four variables would need four anticommuting real symmetric involutions of order 4, and their Clifford
-algebra M₂(ℍ) has no module of dimension 4.
+T-matrices; the symmetric analogue would write X_k = Σ_j M_kj ⊗ Y_j (k, j ∈ {a, b, d}) with symmetric commuting (0, ±1)
+M_kj of disjoint supports in each row and Σ_k c_k M_kj M_ki = t c_j δ_ij for c = (1, 2, 1). At the trivial character the
+row sums give an integer M with Mᵀ diag(1, 2, 1) M = t diag(1, 2, 1), so det(M)² = t³ and t must be a square. Exhaustive
+searches over the symmetric elements of ℤ₃, ℤ₅, ℤ₉ and ℤ₃² find no solution (the control t = 1 finds the 16 signed
+permutations). Four distinct symmetric blocks do not help either: a symmetric orthogonal design of order 4 in four
+variables would need four anticommuting real symmetric involutions of order 4, and their Clifford algebra M₂(ℍ) has no
+module of dimension 4. Twisting by the reversal does not rescue it (`sym_arrays.py`). The blocks XR and RX = XᵀR are
+symmetric for every circulant X, but they do not commute, so the Clifford argument does not apply to arrays built from
+them. An exact symbolic check settles it: every symmetric Latin square of order 4 (96), every orientation and sign, each
+of the four circulant variables symmetric (blocks ±X, ±XR) or arbitrary (±XR, ±RX), H² compared with (Σ XXᵀ) ⊗ I by
+cancelling monomials. No array with four distinct variables exists, whichever variables are symmetric. With X₃ = X₂
+there are 768 arrays when only X₁ is symmetric (Balonin's among them), 1152 when X₁ and X₄ are, 6144 when X₁, X₂ and X₄
+are, and none when X₁ is arbitrary. So every symmetric Hadamard matrix of Goethals–Seidel type over ℤ_v needs a repeated
+block and a symmetric block, as in the propus family.
 
 **Corollary 27(i) with a skew core, and length 37** (`sym_skewcore.py`, `sp_mitm.c`, `l26_scheme.py`). The proof of
 Seberry–Yamada's Corollary 27(i) uses of Paley's skew core only a skew core B with B R symmetric for the reversal R
