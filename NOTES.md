@@ -1006,5 +1006,5 @@ development version builds. Two extensions were needed: the group-developed arra
 the other four, three were already in the repository, and 28820 = 4 · 131 · 55 lacks T-matrices of order 55. Nothing
 of this reaches FRONTIER.md. A Paley II analogue (s = (q + 1)/2) would add nothing, because those s are Turyn's
 Williamson orders and Cooper–Wallis already covers them. No ordering, sign or reversal of a Paley-block quadruple
-satisfies the form-(9) condition (q = 11, 19, 43, 67 with t = 3, 5), as the parity argument above predicts, so the
-route gives no complex orders.
+satisfies the form-(9) condition ((q, t) = (11, 5), (19, 3), (43, 3), (43, 5) and (67, 3)), as the parity argument
+above predicts, so the route gives no complex orders.
