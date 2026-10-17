@@ -1262,7 +1262,8 @@ def build_two_block(cert):
 
 
 def build_paley_blocks(cert):
-    """Paley's matrix of order q + 1 = 4s (q = 3 mod 8 prime) as a 4 x 4 array of circulant s x s blocks, times
+    """Paley's matrix of order q + 1 = 4s (q = 3 mod 8; a prime, or a prime power with cert["field"], see
+    _build_paley_blocks_field) as a 4 x 4 array of circulant s x s blocks, times
     T-matrices of order t (Seberry-Yamada 1992, Theorem 3.10), as a Goethals-Seidel quadruple of length n = st.
     Points of PG(1, q) are 0..q-1 and q (infinity), with vectors u_x = (1, x) and u_inf = (0, -1); Paley's matrix is
     P[a, b] = [a = b] + chi(det(u_a, u_b)).  The torus element g is (x -> -1/(x + tau))^power; P(ga, gb) = e(a) e(b)
@@ -1270,8 +1271,10 @@ def build_paley_blocks(cert):
     makes g an automorphism of E P E, whose blocks along the cycles are circulant.  A_j(x) = sum_k T_k(x mod t)
     N_kj(x mod s); the certificate's sequences must equal the rebuilt ones."""
     q, t, tau, power, c = cert["q"], cert["t"], cert["tau"], cert["power"], cert["c"]
-    if not (_is_prime(q) and q % 8 == 3):
-        raise ValueError("q must be a prime = 3 (mod 8)")
+    if q % 8 != 3:
+        raise ValueError("q must be = 3 (mod 8)")
+    if not _is_prime(q):
+        return _build_paley_blocks_field(cert)
     s = (q + 1) // 4
     grouped = math.gcd(s, t) != 1
     if s * t != cert["v"] or grouped != (cert.get("group") == f"Z{t} x Z{s}"):
@@ -1294,7 +1297,16 @@ def build_paley_blocks(cert):
     g = list(range(q + 1))
     for _ in range(power):
         g = [step(x) for x in g]
-    g = np.array(g)
+    return _paley_blocks_finish(cert, P, np.array(g))
+
+
+def _paley_blocks_finish(cert, P, g):
+    """the common part of build_paley_blocks: cycles of g, signs, circulant blocks, T-matrices, sequences, array"""
+    q, t, c = cert["q"], cert["t"], cert["c"]
+    s = (q + 1) // 4
+    grouped = math.gcd(s, t) != 1
+    if s * t != cert["v"] or grouped != (cert.get("group") == f"Z{t} x Z{s}"):
+        raise ValueError("v must be s t, with group Z_t x Z_s recorded exactly when gcd(s, t) > 1")
     cyc, seen = [], set()
     for a in range(q + 1):
         if a not in seen:
@@ -1357,6 +1369,56 @@ def build_paley_blocks(cert):
                      [-rv(B), A, rv(D.T), -rv(C.T)],
                      [-rv(C), -rv(D.T), A, rv(B.T)],
                      [-rv(D), rv(C.T), -rv(B.T), A]]), seqs
+
+
+def _build_paley_blocks_field(cert):
+    """build_paley_blocks for q = p^k, k > 1. cert["field"] gives p, k and f = (f_0, ..., f_(k-1)); an element is the
+    integer sum d_i p^i of its coordinates in the basis 1, x, ..., x^(k-1) of GF(p)[x]/(x^k + f_(k-1) x^(k-1) + ... + f_0).
+    x must have multiplicative order q - 1, which also proves that the polynomial is irreducible, so the quotient is
+    the field GF(q). The rest is as for prime q: P[a, b] = [a = b] + chi(det(u_a, u_b)) on PG(1, q), the torus element
+    (x -> -1/(x + tau))^power, the signs E, the circulant blocks and the sequences."""
+    q, t, tau, power, c = cert["q"], cert["t"], cert["tau"], cert["power"], cert["c"]
+    p, k, f = cert["field"]["p"], cert["field"]["k"], list(cert["field"]["poly"])
+    if not (_is_prime(p) and k > 1 and p ** k == q and len(f) == k and all(0 <= v < p for v in f)):
+        raise ValueError("field must be GF(p^k) = GF(q) with k coefficients mod p")
+    pw = np.array([p ** i for i in range(k)], dtype=np.int64)
+    digits = (np.arange(q, dtype=np.int64)[:, None] // pw[None, :]) % p
+    enc = lambda d: int(sum(int(v) * p ** i for i, v in enumerate(d)))
+    exp, d = [1], [1] + [0] * (k - 1)
+    for _ in range(q - 1):                                 # powers of x
+        top, d = d[-1], [0] + d[:-1]
+        d = [(d[i] - top * f[i]) % p for i in range(k)]
+        exp.append(enc(d))
+    if exp[q - 1] != 1 or len(set(exp[:q - 1])) != q - 1 or 0 in exp:
+        raise ValueError("x is not primitive modulo the given polynomial")
+    log = np.full(q, -1, dtype=np.int64)
+    log[np.array(exp[:q - 1])] = np.arange(q - 1)
+    sub = lambda a, b: (((digits[a] - digits[b]) % p) * pw).sum(-1)
+    mul = lambda a, b: 0 if a == 0 or b == 0 else exp[(log[a] + log[b]) % (q - 1)]
+    inv = lambda a: exp[(-log[a]) % (q - 1)]
+    chi = np.where(log % 2 == 0, 1, -1).astype(np.int8)
+    chi[0] = 0
+    one = 1
+    mone = int(sub(0, one))
+    # u_x = (1, x), u_inf = (0, -1); det(u_a, u_b) = a0 b1 - a1 b0
+    u0 = [one] * q + [0]
+    u1 = list(range(q)) + [mone]
+    P = np.empty((q + 1, q + 1), dtype=np.int8)
+    for a in range(q + 1):
+        row = [int(sub(mul(u0[a], u1[b]), mul(u1[a], u0[b]))) for b in range(q + 1)]
+        P[a] = chi[row]
+    P[np.arange(q + 1), np.arange(q + 1)] += 1
+    if not np.array_equal(P.astype(np.int64) @ P.T.astype(np.int64), (q + 1) * np.eye(q + 1, dtype=np.int64)):
+        raise ValueError("Paley's matrix over GF(q) is not Hadamard")
+    def step(x):                                           # x -> -1/(x + tau) on PG(1, q)
+        if x == q:
+            return 0
+        den = int(sub(x, sub(0, tau)))                     # x + tau
+        return q if den == 0 else int(sub(0, inv(den)))
+    g = list(range(q + 1))
+    for _ in range(power):
+        g = [step(x) for x in g]
+    return _paley_blocks_finish(cert, P, np.array(g))
 
 
 BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": build_goethals_seidel_group,

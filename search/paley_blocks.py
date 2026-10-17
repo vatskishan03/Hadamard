@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Hadamard matrices of order 4st from Paley's matrix of order q + 1 = 4s (q = 3 mod 8 prime) and T-matrices of order t.
+"""Hadamard matrices of order 4st from Paley's matrix of order q + 1 = 4s (q = 3 mod 8 a prime or a prime power) and
+T-matrices of order t.
 
 1. Paley's skew-Hadamard matrix H = I + S on PG(1, q) is invariant, up to signs, under PSL(2, q):
    H(gx, gy) = e(x) e(y) H(x, y).  An element g of order s = (q + 1)/4 (odd) in a non-split torus has no fixed point,
@@ -16,6 +17,10 @@
     python3 search/paley_blocks.py quad 1051 3 out.json    # GS quadruple of length 789 (T-matrices of order 3)
     python3 search/paley_blocks.py certify 1051 3          # hadamard/3156/certificate.json and sequences.txt
     python3 search/paley_blocks.py certify 523 29 T29.txt  # with T-matrices read from a file (four rows over 0, +, -)
+    python3 search/paley_blocks.py certify 243 151 t-matrices/T151.txt   # q = 3^5: GF(q) with a primitive polynomial
+
+For gcd(s, t) > 1 the sequences live on Z_t x Z_s (certificate field "group").  For a prime power q = p^k the field
+is GF(p)[x]/(f) with the first primitive f (certificate field "field"); points are coded as integers sum d_i p^i.
 """
 import json
 import sys
@@ -26,8 +31,77 @@ def is_prime(n):
     return n > 1 and all(n % p for p in range(2, int(n ** 0.5) + 1))
 
 
+def prime_power(q):
+    for p in range(2, q + 1):
+        if q % p == 0:
+            k, r = 0, q
+            while r % p == 0:
+                r //= p
+                k += 1
+            return (p, k) if r == 1 else None
+    return None
+
+
+class GF:
+    """GF(p^k) for k > 1: an element is the integer sum d_i p^i of its coefficients d_i in the basis 1, x, ..., x^(k-1)
+    modulo the first monic primitive polynomial x^k + f_(k-1) x^(k-1) + ... + f_0 in lexicographic order of
+    (f_0, ..., f_(k-1)); exp[i] = x^i and log are the tables of the cyclic group GF(q)*."""
+    def __init__(self, q):
+        self.p, self.k = prime_power(q)
+        self.q, p, k = q, self.p, self.k
+        self.pw = p ** np.arange(k)
+        import itertools
+        for f in itertools.product(range(p), repeat=k):
+            if f[0] == 0:
+                continue
+            exp, d = [1], [1] + [0] * (k - 1)
+            for _ in range(q - 2):
+                top = d[-1]
+                d = [0] + d[:-1]
+                d = [(d[i] - top * f[i]) % p for i in range(k)]
+                exp.append(sum(c * p ** i for i, c in enumerate(d)))
+            if len(set(exp)) == q - 1 and 1 not in exp[1:]:
+                self.poly = list(f)
+                break
+        self.exp = np.array(exp, np.int64)
+        self.log = np.full(q, -1, np.int64)
+        self.log[self.exp] = np.arange(q - 1)
+        self.digits = (np.arange(q)[:, None] // self.pw[None, :]) % p
+
+    def sub(self, a, b):
+        return (((self.digits[a] - self.digits[b]) % self.p) * self.pw).sum(-1)
+
+    def add(self, a, b):
+        return (((self.digits[a] + self.digits[b]) % self.p) * self.pw).sum(-1)
+
+    def neg(self, a):
+        return self.sub(0, a)
+
+    def mul(self, a, b):
+        return 0 if a == 0 or b == 0 else int(self.exp[(self.log[a] + self.log[b]) % (self.q - 1)])
+
+    def inv(self, a):
+        return int(self.exp[(-self.log[a]) % (self.q - 1)])
+
+    def chi(self):
+        c = np.where(self.log % 2 == 0, 1, -1).astype(np.int8)
+        c[0] = 0
+        return c
+
+
 def paley(q):
     """Paley's skew-Hadamard matrix of order q + 1 on the points 0..q-1, q (= infinity), as int8"""
+    if not is_prime(q):
+        F = GF(q)
+        chi = F.chi()
+        S = np.zeros((q + 1, q + 1), np.int8)
+        x = np.arange(q)
+        for a in range(0, q, 256):
+            b = min(a + 256, q)
+            S[a:b, :q] = chi[F.sub(x[None, :], x[a:b, None])]
+        S[q, :q], S[:q, q] = 1, -1
+        S[np.arange(q + 1), np.arange(q + 1)] += 1
+        return S
     chi = np.full(q, -1, np.int8)
     chi[0] = 0
     chi[(np.arange(1, q, dtype=np.int64) ** 2) % q] = 1
@@ -67,6 +141,22 @@ def cycles(p):
 def torus_element(q):
     """a fixed-point-free element of PSL(2, q) of order s = (q + 1)/4, from x -> -1/(x + tau)"""
     s = (q + 1) // 4
+    if not is_prime(q):
+        F = GF(q)
+        chi, four = F.chi(), F.add(F.add(1, 1), F.add(1, 1))
+        for tau in range(1, q):
+            if chi[F.sub(F.mul(tau, tau), four)] != -1:          # x^2 - tau x + 1 must be irreducible
+                continue
+            p = np.empty(q + 1, np.int64)
+            for x in range(q):
+                den = F.add(x, tau)
+                p[x] = q if den == 0 else F.neg(F.inv(den))
+            p[q] = 0
+            for k in (1, 2):
+                pk = p if k == 1 else p[p]
+                if {len(c) for c in cycles(pk)} == {s}:
+                    return pk, tau, k
+        raise ValueError("no torus element of order s")
     for tau in range(1, q):
         disc = (tau * tau - 4) % q
         if pow(disc, (q - 1) // 2, q) != q - 1:          # x^2 - tau x + 1 must be irreducible
@@ -83,7 +173,7 @@ def torus_element(q):
 
 def blocks(q):
     """the 4 x 4 array of circulant s x s blocks N[k][j] (first rows) and the full rearranged matrix"""
-    assert is_prime(q) and q % 8 == 3
+    assert prime_power(q) and q % 8 == 3
     s, n = (q + 1) // 4, q + 1
     H = paley(q)
     g, tau, kpow = torus_element(q)
@@ -218,6 +308,10 @@ if __name__ == "__main__":
                 **{k: (v if isinstance(v, str) else int(v)) for k, v in info.items()},
                 "T": ["".join("0+-"[int(v)] for v in r) for r in T],
                 "sequences": ["".join("+" if v > 0 else "-" for v in a) for a in A]}
+        if not is_prime(q):
+            F = GF(q)
+            cert = {**{k: v for k, v in cert.items() if k not in ("T", "sequences")},
+                    "field": {"p": F.p, "k": F.k, "poly": F.poly}, "T": cert["T"], "sequences": cert["sequences"]}
         H, _ = V.build_paley_blocks(cert)
         sha = hashlib.sha256()
         for chunk in V.csv_chunks(H):
