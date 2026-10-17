@@ -1,7 +1,8 @@
 # Paley's matrix in circulant blocks, times T-matrices
 
 Fourteen orders 4n of [FRONTIER.md](../FRONTIER.md) follow from two published results that the tables never combined.
-For each we give an explicit Goethals–Seidel quadruple and the Hadamard matrix of order 4n.
+For each we give an explicit Goethals–Seidel quadruple and the Hadamard matrix of order 4n. The same route gives 115
+orders beyond Table 4 ([below](#beyond-table-4)).
 
 | Order | n | q | s = (q + 1)/4 | t |
 |------:|---:|---:|---:|---:|
@@ -81,16 +82,30 @@ The sources searched are listed in [NOVELTY.md](../NOVELTY.md); the audit of thi
 ## Beyond Table 4
 
 Above Cati–Pasechnik Table 4 the reference is Table 1.53 of the Handbook of Combinatorial Designs (2nd ed., 2007),
-which covers odd n < 10000. After Đoković's updates (arXiv:0912.5091, arXiv:1008.2043), 637 of its entries with
-3001 ≤ n ≤ 9999 still have t ≥ 3: no Hadamard matrix of order 4n was known. The route reaches 119 of them, with
-q ≡ 3 (mod 8) a prime or a prime power and T-matrices of an order we know. The orders are in the
-[index](README.md#orders-beyond-the-tables), each with its README. Most are new beyond the tables but obtainable
-classically; those that need T-matrices of order 103, 151 or 163 (known only since 2026) are new beyond the tables;
-16892 and 25132 are Known, since SageMath's development version builds them by Cooper–Wallis from October 3, 2026.
+which covers odd n < 10000. After Đoković's updates (arXiv:0912.5091, arXiv:1008.2043), 637 of its entries with 3001
+≤ n ≤ 9999 still have t ≥ 3: no Hadamard matrix of order 4n was known. The route reaches 119 of them, with q ≡ 3 (mod
+8) a prime or a prime power and T-matrices of an order we know. We built 115, of orders 12052 to 39916. They are in
+the [index](README.md#orders-beyond-the-tables), each with its README.
 
-The certificates are being written and verified (October 17, 2026). Each is checked exactly when written (entries
-±1, Σ PAF = 0 off 0, sequences rebuilt from Paley's matrix by `verify/verify.py`); the dense check H Hᵀ = 4n I of
-`verify/verify.py` follows.
+- 107 are new beyond the tables but obtainable classically: their T-matrices (orders 3 to 73) were known before 2026,
+  those of order 73 from the near-normal sequences NN(36) of Đoković (2009).
+- 6 need T-matrices of order 103, 151 or 163, known only since 2026, and are new beyond the tables: 16308, 21836,
+  32012, 34556, 36844 and 39772.
+- 16892 and 25132 are Known: SageMath's development version builds them by Cooper–Wallis since October 3, 2026, from
+  the T-matrices of order 103 decoded from Schneider's matrix of order 2060.
+- For seven of them gcd(s, t) > 1 (16300, 17532, 18036, 23724, 26604, 27036 and 37436), and the sequences live on ℤ_t
+  × ℤ_s. For 25132, 36844 and 39772, q = 243 = 3⁵.
+- Other routes reach some of them, and their READMEs say so. Cooper–Wallis with the T-matrices of order 131 of London
+  and Kotsireas (2025) reaches 12052, 15196, 16244, 20436, 21484, 25676, 27772 and 38252 (we could not read that
+  paper, which may list them). Cooper–Wallis with T-matrices posted in 2026 reaches 16300, 16308, 19932, 21836,
+  32012, 33220, 34556, 36844 and 39772. Kiyasu's theorem reaches 15196 from our skew-Hadamard matrix of order 1900.
+- 19028, 34196 and 39260 were already in this repository, by Cooper–Wallis.
+- Not built: 28820 = 4 · 131 · 55, for want of T-matrices of order 55 (`search/tmat_mult.py` found none over its
+  multiplier subgroups); it also follows by Cooper–Wallis from T-matrices of order 131.
+
+SageMath's development version (`hadamard_matrix(4n, existence=True)`, October 17, 2026) returns Unknown for all the
+others. Each certificate is checked exactly when it is written (entries ±1, Σ PAF = 0 off 0, sequences rebuilt from
+Paley's matrix by `verify/verify.py`); the dense check H Hᵀ = 4n I of `verify/verify.py` is running.
 
 ## Reproduction and verification
 

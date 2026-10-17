@@ -183,7 +183,7 @@ start-up, is close to the list size.
 
 | Program | Role |
 |---|---|
-| `paley_blocks.py` | Paley's matrix of order q + 1 (q ≡ 3 mod 8 prime) as a 4 × 4 array of circulants along the orbits of a torus element, times T-matrices of order t from base sequences (Seberry–Yamada 1990, Theorem 4); writes the certificate ([../hadamard/PALEY_BLOCKS.md](../hadamard/PALEY_BLOCKS.md)): `check`, `quad`, `certify` |
+| `paley_blocks.py` | Paley's matrix of order q + 1 (q ≡ 3 mod 8, a prime or a prime power) as a 4 × 4 array of circulants along the orbits of a torus element, times T-matrices of order t from base sequences or from a file (Seberry–Yamada 1990, Theorem 4), over ℤ_t × ℤ_s when gcd(s, t) > 1; writes the certificate ([../hadamard/PALEY_BLOCKS.md](../hadamard/PALEY_BLOCKS.md)): `check`, `quad`, `certify` |
 
 **Certificates**
 

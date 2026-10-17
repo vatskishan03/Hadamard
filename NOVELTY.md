@@ -75,6 +75,13 @@ For every order we checked:
   Discrete Appl. Math. 145 (2005) 498–504, and the literature on cocyclic and dicyclic Hadamard matrices. Both steps of
   the construction are published; we found no source that combines them. Yamada's paper of 1991 and Ito's papers of
   1994 were not accessible; we read their results through Seberry–Yamada (1993) and Schmidt (1999);
+- for the 115 Paley-block orders beyond Table 4
+  ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#beyond-table-4)), checked on 17 October 2026:
+  `hadamard_matrix(4n, existence=True)` of SageMath's development version for every order (Unknown except 16892 and
+  25132); the Hadamard-related e-print texts of our arXiv cache for every n and 4n (no relevant mention);
+  Cooper–Wallis, Miyamoto, Yamada–Kiyasu and Paley for each n with the T-matrix and Williamson-type orders known in
+  2026 (the routes found are stated in the READMEs). London and Kotsireas, Cryptogr. Commun. 17 (2025), whose
+  T-sequences of length 131 give eight of the orders by Cooper–Wallis, was not accessible;
 - searches of Zenodo (records matching "hadamard"), GitHub, the e-print sources of Hadamard-related arXiv papers
   (to 2026-10-08) and the math.CO listings (to 2026-10-12), the OEIS, MathOverflow, Balonin's catalogue and the Palomar
   registry.

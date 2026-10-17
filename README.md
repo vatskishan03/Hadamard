@@ -57,6 +57,11 @@ did not combine; we found no earlier construction of them.
   known, with no construction we could trace, and six (19028, 21044, 21748, 39260, 40244, 45044) were obtainable
   classically by the Paley-block route [14, 15]. Also independent matrices of the known orders 2060, 3532 and 31316 (which SageMath's
   development version builds since October 3, 2026). See [hadamard](hadamard).
+- **Hadamard matrices of 115 orders 4n with 3001 ≤ n ≤ 9999** (12052 to 39916) that Table 1.53 of the Handbook, with
+  Đoković's updates of 2009–2010, lists as unknown. They come from the same Paley-block route [14, 15]. For 107 of
+  them the T-matrices (orders 3 to 73) were known before 2026, so these orders were obtainable classically; six need
+  T-matrices of order 103, 151 or 163 from 2026; and two (16892, 25132) are built by SageMath's development version
+  since October 3, 2026. See [hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#beyond-table-4).
 - **Skew-Hadamard matrices of 40 orders** from 820 to 9900 for which we found no earlier construction: 32 from
   Goethals–Seidel difference families with a skew block, and 8 from Seberry's theorem with new amicable Hadamard
   matrices or new orthogonal designs. Also independent matrices of the known skew orders 1852 and 3676.

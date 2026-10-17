@@ -995,3 +995,16 @@ Three more orders follow by Miyamoto's theorem. q = 4n + 1 is a prime for four o
 (from 5260; Handbook Table 1.53 gives 5261 with t = 6), 40244 = 4 · 10061 (from 10060) and 45044 = 4 · 11261 (from
 11260), the last two beyond every table. Paley I and II, Yamada–Kiyasu and the product theorems do not reach them,
 and they are certified and verified like the others. For the other ten, 4n + 1 is composite.
+
+**Beyond Table 4 (October 17).** The route also reaches 119 of the 637 entries 3001 ≤ n ≤ 9999 that Handbook Table
+1.53 still lists with t ≥ 3 after Đoković's updates. We built 115, of orders 12052 to 39916
+([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#beyond-table-4)): 107 with T-matrices known before 2026 (orders
+3 to 73, from base sequences, Golay pairs, SageMath's stored T-sequences, and multiplier-subgroup searches for 19,
+31, 41, 49 and 73), six with the 2026 T-matrices of orders 103, 151 and 163, and 16892 and 25132, which SageMath's
+development version builds. Two extensions were needed: the group-developed array over ℤ_t × ℤ_s when gcd(s, t) > 1
+(seven orders), and Paley's matrix over GF(3⁵) (s = 61, three orders), with the field recorded in the certificate. Of
+the other four, three were already in the repository, and 28820 = 4 · 131 · 55 lacks T-matrices of order 55. Nothing
+of this reaches FRONTIER.md. A Paley II analogue (s = (q + 1)/2) would add nothing, because those s are Turyn's
+Williamson orders and Cooper–Wallis already covers them. No ordering, sign or reversal of a Paley-block quadruple
+satisfies the form-(9) condition (q = 11, 19, 43, 67 with t = 3, 5), as the parity argument above predicts, so the
+route gives no complex orders.
