@@ -351,6 +351,56 @@ def assemble_cooper_wallis(T, W):
     return H
 
 
+def build_cooper_wallis_miyamoto(cert):
+    """Cooper-Wallis with Williamson-type matrices of a prime order q = 1 (mod 8) from Seberry-Yamada's Corollary
+    8.8(ii) (JCMCC 7 (1990), Corollary 29(ii); after Miyamoto), with a symmetric Hadamard matrix M of order
+    n = (q - 1)/2 as input. "input" names the certificate of M (rebuilt and checked here, its matrix pinned by
+    "input_sha256"); "g" is a primitive root mod q. With s_i = g^(2i), t_j = g^(1 - 2j) (i, j < n) and chi the
+    Legendre symbol, U_1 = -[chi(s_i - s_j)], U_2 = [chi(s_i - t_j)], U_3 = U_4 = 0, V = (I, 0, M, M), and
+
+        W_1 = [[1, -e], [-e^T, S_1]],   W_k = [[1, e], [e^T, S_k]] (k > 1),   S_k = U_k (x) J_2 + V_k (x) [[1, -1], [-1, 1]].
+
+    Checked here: the W_k are +-1, symmetric, pairwise amicable and sum W_k W_k^T = 4q I (exact float64 products).
+    They are substituted into the OD(4t; t, t, t, t) of the T-matrices as in `assemble_cooper_wallis`."""
+    q, g = cert["q"], cert["g"]
+    if q % 8 != 1 or any(q % d == 0 for d in range(2, math.isqrt(q) + 1)):
+        raise ValueError("q must be a prime = 1 (mod 8)")
+    if any(pow(g, (q - 1) // p, q) == 1 for p in range(2, q) if (q - 1) % p == 0 and
+           all(p % d for d in range(2, math.isqrt(p) + 1))):
+        raise ValueError("g is not a primitive root mod q")
+    inp = json.loads((ROOT / cert["input"]).read_text())
+    M, _, digest = build_checked(inp)
+    n = (q - 1) // 2
+    if digest != cert["input_sha256"] or M.shape[0] != n or not np.array_equal(M, M.T):
+        raise ValueError("the input is not the stated symmetric Hadamard matrix of order (q - 1)/2")
+    M = M.astype(np.int64)
+    chi = -np.ones(q, dtype=np.int64)
+    chi[0] = 0
+    chi[(np.arange(1, q, dtype=np.int64) ** 2) % q] = 1
+    s = np.array([pow(g, 2 * i, q) for i in range(n)], dtype=np.int64)
+    t = np.array([pow(g, (1 - 2 * j) % (q - 1), q) for j in range(n)], dtype=np.int64)
+    Z, I = np.zeros((n, n), dtype=np.int64), np.eye(n, dtype=np.int64)
+    U = [-chi[(s[:, None] - s[None, :]) % q], chi[(s[:, None] - t[None, :]) % q], Z, Z]
+    V = [I, Z, M, M]
+    J2, D2 = np.ones((2, 2), dtype=np.int64), np.array([[1, -1], [-1, 1]], dtype=np.int64)
+    W = []
+    for k in range(4):
+        b = -1 if k == 0 else 1
+        Wk = np.empty((q, q), dtype=np.int64)
+        Wk[0, 0], Wk[0, 1:], Wk[1:, 0] = 1, b, b
+        Wk[1:, 1:] = np.kron(U[k], J2) + np.kron(V[k], D2)
+        W.append(Wk)
+    F = [x.astype(np.float64) for x in W]
+    if not all(np.all(np.abs(x) == 1) and np.array_equal(x, x.T) for x in W) or \
+            not all(np.array_equal(F[k] @ F[l].T, F[l] @ F[k].T) for k in range(4) for l in range(k + 1, 4)) or \
+            not np.array_equal(sum(x @ x.T for x in F), 4.0 * q * np.eye(q)):
+        raise ValueError("Williamson-type condition fails")
+    T = [np.array([SIGN[c] for c in r], dtype=np.int64) for r in cert["t_matrices"]]
+    if len(T[0]) != cert["t"] or 4 * cert["t"] * q != cert["order"]:
+        raise ValueError("order is not 4tq")
+    return assemble_cooper_wallis(T, W), None
+
+
 def build_cooper_wallis_bordered(cert):
     """Cooper-Wallis with bordered Williamson-type matrices (bordered_williamson_type): T-matrices of order t under
     "t_matrices" and the four sequences on Z_(w-1) under "bordered_williamson" give a Hadamard matrix of order 4tw."""
@@ -1425,6 +1475,7 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "cooper-wallis": build_cooper_wallis,
             "cooper-wallis-near-williamson": build_cooper_wallis_near_williamson,
             "cooper-wallis-bordered": build_cooper_wallis_bordered,
+            "cooper-wallis-miyamoto": build_cooper_wallis_miyamoto,
             "spence": build_spence, "miyamoto": build_miyamoto,
             "bordered-goethals-seidel": build_bordered_gs, "skew-doubling": build_skew_doubling,
             "yamada": build_yamada, "propus": build_propus, "propus-bordered": build_propus_bordered,

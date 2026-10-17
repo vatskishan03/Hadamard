@@ -38,13 +38,13 @@ odd part 8079 had order 2³ · 8079. The order lies above the range of Cati–Pa
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(32316, existence=True)`
   returns Unknown.
 
-Đoković (arXiv:1008.2043, Proposition 3.3) obtained 8079 = 3 · 2693 from Williamson-type matrices of order 2693,
-which he took from Corollary 8.8(i) of Seberry and Yamada (1992; Corollary 29(i) of JCMCC 7, 1990) with
-Williamson-type matrices of order 673 = (2693 − 1)/4. The printed proof of that corollary does not give pairwise
-amicable matrices for any input, and we found no other proof or construction of Williamson-type matrices of order
-2693 ([NOTES.md](../../NOTES.md) §19). Miyamoto's 1991 paper, credited with this case, was not accessible to us. We
-found no valid construction of order 32316 before this one. The sources searched are listed in
-[NOVELTY.md](../../NOVELTY.md).
+Đoković (arXiv:1008.2043, Proposition 3.3) obtained 8079 = 3 · 2693 from Williamson-type matrices of order 2693, which
+he took from Corollary 8.8(i) of Seberry and Yamada (1992; Corollary 29(i) of JCMCC 7, 1990) with Williamson-type
+matrices of order 673 = (2693 − 1)/4. The printed proof of that corollary does not give pairwise amicable matrices for
+any Williamson-type input (in particular for Williamson-type matrices of order 673), and we found no other proof or
+construction of Williamson-type matrices of order 2693 ([NOTES.md](../../NOTES.md) §7). Miyamoto's 1991 paper, credited
+with this case, was not accessible to us. We found no valid construction of order 32316 before this one. The sources
+searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 

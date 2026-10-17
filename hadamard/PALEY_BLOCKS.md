@@ -81,12 +81,14 @@ The sources searched are listed in [NOVELTY.md](../NOVELTY.md); the audit of thi
 
 ## Beyond Table 4
 
-Above Cati–Pasechnik Table 4 the reference is Table 1.53 of the Handbook of Combinatorial Designs (2nd ed., 2007),
-which covers odd n < 10000. After Đoković's updates (arXiv:0912.5091, arXiv:1008.2043), 650 of its entries with 3001
-≤ n ≤ 9999 still have t ≥ 3: no Hadamard matrix of order 4n was known. The count includes the 13 entries that Đoković
-settled only through Seberry–Yamada's Corollary 8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7). The
-route reaches 120 of them, with q ≡ 3 (mod 8) a prime or a prime power and T-matrices of an order we know. We built
-116, of orders 12052 to 39916. They are in the [index](README.md#orders-beyond-the-tables), each with its README.
+Above Cati–Pasechnik Table 4 the reference is Table 1.53 of the Handbook of Combinatorial Designs (2nd ed., 2007), which
+covers odd n < 10000. After Đoković's updates (arXiv:0912.5091, arXiv:1008.2043), 671 of its entries with 3001 ≤ n ≤
+9999 had no valid construction: 637 still have t ≥ 3, and 34 were settled only through Seberry–Yamada's Corollary
+8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7): 13 by Đoković in 2010, 17 of his set Δ of 2009 and 4
+that the Handbook lists with t = 2. One of the 17, 5259, is now settled through part (ii) of the corollary
+([21036](21036)). The route reaches 120 of the 671, with q ≡ 3 (mod 8) a prime or a prime power and T-matrices of an
+order we know. We built 116, of orders 12052 to 39916. They are in the [index](README.md#orders-beyond-the-tables), each
+with its README.
 
 - 108 are new beyond the tables but obtainable classically: their T-matrices (orders 3 to 73) were known before 2026,
   those of order 73 from the near-normal sequences NN(36) of Đoković (2009). One of them, 32316 = 4 · 3 · 2693, is an

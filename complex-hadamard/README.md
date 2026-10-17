@@ -223,9 +223,10 @@ are halves of Paley's matrix.
 
 **First explicit constructions: orders recorded only through Seberry–Yamada's Corollary 8.8(i).** Table 11.2 of 1992
 records 1618 and 1906 as known (code x2), from Williamson-type matrices of orders 809 and 953 that its Table A.1
-obtains only from Corollary 8.8(i), with a Hadamard matrix of order 404 or 476. The printed proof of that corollary
-does not give Williamson-type matrices ([NOTES.md](../NOTES.md) §19), and we found the two orders on no list of
-explicit matrices (Zaitsev's page included). The matrices of its proof do give a complex Hadamard matrix of order 2q
+obtains only from Corollary 8.8(i) (key wl, from Williamson-type matrices of orders 202 = 2 · 101 and 238 = 2 · 119;
+JCMCC 7, Remark 30, uses Hadamard matrices of orders 404 and 476 instead). The printed proof of that corollary does
+not give Williamson-type matrices ([NOTES.md](../NOTES.md) §7), and we found the two orders on no list of explicit
+matrices (Zaitsev's page included). The matrices of its proof do give a complex Hadamard matrix of order 2q
 from any quaternary Hadamard matrix of order (q − 1)/2, symmetric or not (NOTES.md §19, `search/miyamoto_wt.py
 complete`), and these are the two orders it builds here, from Hadamard matrices of orders 404 and 476 that SageMath
 constructs (Miyamoto; Cooper–Wallis), stored in [`inputs/`](inputs).
@@ -279,13 +280,15 @@ concurrent ones:
   outside both families.
 - Skew-regular quaternary Hadamard matrices of order 1 + p², p an odd prime power (arXiv:2510.06489, 2025): these
   orders are known already from Turyn's theorem, since 2N − 1 = p² is a prime power.
-- The corollaries of Miyamoto's lemma (Seberry–Yamada 1992, Corollary 8.8; the M-structure paper, Corollaries 16 and
-  18) with inputs found after 1992. Corollary 8.8(i) does not give Williamson-type matrices as printed
-  ([NOTES.md](../NOTES.md) §19), so Đoković's Williamson-type matrices of orders 509 and 857 (arXiv:1008.2043,
-  Propositions 3.2–3.4) and our 269 (near-Williamson matrices of order 67) are not established. The complex orders
-  538, 1018 and 1714 are known anyway, from explicit matrices on Zaitsev's page (checked exactly; they are not built
-  from Williamson-type matrices), and 1766 from QH1766 there, which splits into explicit Williamson-type matrices of
-  order 883 (Corollary 18, q = 441). 746, 1514, 1546, 1618 and 1906, recorded in 1992 only through Corollary 8.8(i),
+- The corollaries of Miyamoto's lemma (Seberry–Yamada 1992, Corollaries 8.8 and 8.9; JCMCC 7 (1990), Corollaries 29 and
+  31, numbered 16 and 18 in the 1989 Kobe version) with inputs found after 1992. Corollary 8.8(i) does not give
+  Williamson-type matrices as printed ([NOTES.md](../NOTES.md) §7), so Đoković's Williamson-type matrices of orders 509
+  and 857 (arXiv:1008.2043, Propositions 3.2–3.4) and our 269 (near-Williamson matrices of order 67) are not
+  established. The complex orders 538, 1018 and 1714 are known anyway, from explicit matrices on Zaitsev's page (checked
+  exactly). The page attributes 1018 and 1714 to Đoković's Williamson-type matrices and claims nothing for them; their
+  blocks are the printed matrices of Corollary 8.8(i), not Williamson-type matrices, so they are instances of the
+  completion described above. 1766 is known from QH1766 there, which splits into explicit Williamson-type matrices of
+  order 883 (Corollary 8.9, q = 441). 746, 1514, 1546, 1618 and 1906, recorded in 1992 only through Corollary 8.8(i),
   are known through the completion above; 1618 and 1906 are built here.
 - Mathon's conference matrices (q²(q ± 2) + 1). We also count them as known where the 1992 table is blank
   (N = 221, 787).

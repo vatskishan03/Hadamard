@@ -24,8 +24,8 @@ search/data/complex_known_1992.txt) or one of these gives it:
   give a complex Hadamard matrix of order 2q from any quaternary Hadamard matrix of order (q - 1)/2 (the completion
   of NOTES.md section 19; search/miyamoto_wt.py complete), so these N count for complex orders only. Table A.1
   entries that rest on Corollary 8.8(i) (keys wl/wm) count only here, never as Williamson-type matrices. Also
-  N = 2q + 1 with q = 1 (mod 4), q + 1 a symmetric conference order and 2q - 1 a prime power (the M-structure
-  paper, Corollary 18), which does give Williamson-type matrices (883 = 2 * 441 + 1);
+  N = 2q + 1 with q = 1 (mod 4), q + 1 a symmetric conference order and 2q - 1 a prime power (Seberry-Yamada 1992
+  Corollary 8.9; JCMCC 7 Corollary 31), which does give Williamson-type matrices (883 = 2 * 441 + 1);
 - V. Zaitsev's page "Quaternary Hadamard matrices" (https://www.cs.uleth.ca/~zaitsevv/quaternary.html, last updated
   14 Oct 2026; with Kharaghani, Mohammadian and Tayfeh-Rezaie): explicit matrices of 122 orders, checked here
   (search/data/complex_zaitsev_2026.txt). It covers the 11 orders found here by search, concurrently;
@@ -172,7 +172,7 @@ def known_reason(N):
 
 def miyamoto_wt(N, wt):
     """complex 2N from the matrices of Seberry-Yamada's Lemma 8.6 (the completion of NOTES.md section 19), or
-    Williamson-type matrices of order N from the M-structure paper's Corollary 18, with inputs known today"""
+    Williamson-type matrices of order N from Seberry-Yamada's Corollary 8.9, with inputs known today"""
     W = set(wt) | KMT | DJOKOVIC_1993 | {33}
     pk = prime_power(N)
     if pk and N % 8 == 5 and (N - 1) // 4 in W:
@@ -182,7 +182,7 @@ def miyamoto_wt(N, wt):
     q = (N - 1) // 2
     sym_conf = (q + 1) % 4 == 2 and (prime_power(q) or (q + 1) // 2 in mathon_orders(q + 1))
     if q % 4 == 1 and sym_conf and prime_power(2 * q - 1):
-        return f"Williamson-type, Seberry-Yamada Corollary 18 with q = {q}"
+        return f"Williamson-type, Seberry-Yamada Corollary 8.9 with q = {q}"
     return None
 
 

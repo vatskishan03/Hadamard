@@ -268,6 +268,35 @@ if __name__ == "__main__":
         Path(out).write_text(json.dumps(cert, indent=1) + "\n")
         print(f"q = {q}: quaternary Hadamard matrix of order {2 * q} from {rel}, sha256 {cert['sha256']}")
         raise SystemExit(0)
+    if len(sys.argv) > 1 and sys.argv[1] == "cw":
+        import hashlib, json
+        from pathlib import Path
+        root = Path(__file__).resolve().parent.parent
+        sys.path.insert(0, str(root / "verify"))
+        import verify as V
+        q, inp, tfile = int(sys.argv[2]), Path(sys.argv[3]).resolve(), Path(sys.argv[4])
+        M, _, digest = V.build_checked(json.loads(inp.read_text()))
+        assert M.shape[0] == (q - 1) // 2 and np.array_equal(M, M.T) and q % 8 == 1, "need a symmetric H((q - 1)/2)"
+        M = M.astype(np.int64)
+        X = williamson_type(q, M, M)
+        F = [x.astype(np.float64) for x in X]
+        assert np.array_equal(sum(x @ x.T for x in F), 4.0 * q * np.eye(q)) and \
+            all(np.array_equal(F[i] @ F[j].T, F[j] @ F[i].T) for i in range(4) for j in range(i + 1, 4)), "not Williamson type"
+        rows = [l.strip() for l in tfile.read_text().splitlines() if l.strip()]
+        T = [np.array([V.SIGN[c] for c in r], np.int64) for r in rows]
+        t = len(rows[0])
+        H = V.assemble_cooper_wallis(T, X)
+        sha = hashlib.sha256()
+        for chunk in V.csv_chunks(H):
+            sha.update(chunk)
+        cert = {"order": 4 * t * q, "construction": "cooper-wallis-miyamoto", "t": t, "q": q, "g": prim_root(q),
+                "input": inp.relative_to(root).as_posix(), "input_sha256": digest, "t_matrices": rows,
+                "sha256": sha.hexdigest()}
+        d = root / "hadamard" / str(4 * t * q)
+        d.mkdir(exist_ok=True)
+        (d / "certificate.json").write_text(json.dumps(cert, indent=1) + "\n")
+        print(f"wrote {d}/certificate.json (order {4 * t * q}, sha256 {cert['sha256']})")
+        raise SystemExit(0)
     if len(sys.argv) > 1 and sys.argv[1] == "selftest":
         raise SystemExit(0 if selftest() else 1)
     if len(sys.argv) > 1 and sys.argv[1] == "vpatterns":

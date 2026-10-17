@@ -20,16 +20,17 @@ is known. The other 62 entries are settled:
   ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md)): n = 789, 1315, 1509, 1589, 1689, 1841, 1915, 2155, 2515,
   2661, 2733, 2815, 2893 and 2951.
 
-**Claimed through Seberry–Yamada's Corollary 8.8(i).** Đoković (arXiv:1008.2043, Propositions 3.2–3.4; Int. Math.
-Forum 6 (2011) 3061–3067) also settled n = 1527 = 3 · 509, 2545 = 5 · 509 and 2571 = 3 · 857, with Williamson-type
-matrices of orders 509 (from good matrices of order 127) and 857 (from H(428)). He took them from Corollary 8.8(i) of
-Seberry and Yamada (1992), Corollary 29(i) of JCMCC 7 (1990). The printed proof of that corollary does not give
-Williamson-type matrices: its X₁ and X₄ are not amicable for any input ([NOTES.md](NOTES.md) §19). We found no other
-proof and no other construction; Miyamoto's 1991 paper, credited with the Williamson-type case, was not accessible.
-We list the three orders as unresolved (rows 6108, 10180 and 10284; their Spence columns were not computed). The same
-holds for n = 2427 = 3 · 809 and 2611 = 7 · 373, which Table 4 omits because Seberry–Yamada's Table A.2 (1992, code
-o2) builds them from Williamson-type matrices of orders 809 and 373 that their Table A.1 obtains only from Corollary
-8.8(i).
+**Claimed through Seberry–Yamada's Corollary 8.8(i).** Đoković (arXiv:1008.2043, Propositions 3.2–3.4; Int. Math. Forum
+6 (2011) 3061–3067) also settled n = 1527 = 3 · 509, 2545 = 5 · 509 and 2571 = 3 · 857, with Williamson-type matrices of
+orders 509 (from good matrices of order 127) and 857 (from H(428)). He took them from Corollary 8.8(i) of Seberry and
+Yamada (1992), Corollary 29(i) of JCMCC 7 (1990). The printed proof of that corollary does not give Williamson-type
+matrices: its X₁ and X₄ are amicable only when V₄ is symmetric, which never happens for Williamson-type inputs and, for
+an Hadamard input H, only when H is symmetric. That is part (ii), and no symmetric H(428) is known ([NOTES.md](NOTES.md)
+§7, §19). We found no other proof and no other construction; Miyamoto's 1991 paper, credited with the Williamson-type
+case, was not accessible. We list the three orders as unresolved (rows 6108, 10180 and 10284; their Spence columns were
+not computed). The same holds for n = 2427 = 3 · 809 and 2611 = 7 · 373, which Table 4 omits: it inherits m = 2 from
+Seberry–Yamada's 2020 Table A.17, and the 1992 Table A.2 builds them (code o2) from Williamson-type matrices of orders
+809 and 373 that their Table A.1 obtains only from Corollary 8.8(i).
 
 **Columns.** For each order the table lists the cheapest structure of each kind
 found by `search/triage.py` that is expected to contain at least ten solutions:

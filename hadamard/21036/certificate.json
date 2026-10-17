@@ -1,0 +1,16 @@
+{
+ "order": 21036,
+ "construction": "cooper-wallis-miyamoto",
+ "t": 3,
+ "q": 1753,
+ "g": 7,
+ "input": "symmetric/876/certificate.json",
+ "input_sha256": "e09d8d2c93e49a361fc3e3c2188f409da338c697f64e03bdcc967be8198cbaf9",
+ "t_matrices": [
+  "+00",
+  "0+0",
+  "00+",
+  "000"
+ ],
+ "sha256": "66397e01284a7f4655ed19e1fe13e8940cf25318ab8bf5815f10a9ab33b1db79"
+}
