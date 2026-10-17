@@ -160,7 +160,7 @@ would decide one more symmetric value.
   matrices QH590, QH638, QH782, QH926, QH1310, QH1358, QH1646 and QH1886, of orders 2v for v = 295, 319, 391, 463, 655,
   679, 823 and 943, under "unpublished approaches". They are of this Yamada–Kiyasu kind (we recovered U = (I, 0, S, −S)
   and V = (M, N, I, I) from QH590; the others share its 2 × 2 block structure), and nauty finds monomial matrices taking
-  each of them to a symmetric quaternary matrix (all eight checked twice independently in the audit, five also here),
+  each of them to a symmetric quaternary matrix (all eight checked here and twice independently in the audit),
   so Turyn's map
   gives symmetric Hadamard matrices of orders 1180, 1276, 1564, 1852, 2620, 2716, 3292 and 3772 from published data.
   The page says nothing about symmetry and lists no real orders 4v, but the matrices are public, so these eight orders
