@@ -1647,8 +1647,8 @@ order n = (q − 1)/2, E = diag(1, −1) ⊗ I, X = [Aᵀ; Aᵀ] and Y = [B, B],
 
     V = [[E, X, −EX, 0], [Xᵀ, 0, I, Y], [−XᵀE, I, 0, −YE], [0, Yᵀ, −EYᵀ, E]]
 
-is such a matrix; conversely every such V contains a Hadamard matrix of order n, so the theorem is the most this U-part
-gives. Ordinary matrices under the same hypothesis are Yamada's Theorem 3 (1989).
+is such a matrix; conversely every such V contains a Hadamard matrix of order n, so within the form H₀ + Λ(V) the
+hypothesis cannot be weakened. Ordinary matrices under the same hypothesis are Yamada's Theorem 3 (1989).
 
 - **Reach.** The ten census values that §29 left open: q = 809, 857, 953, 1193, 1433, 1913, 1993, 2153, 2393 and 2441
   (orders 3236 to 9764). Their inputs of orders 4m (m = 101, 107, 119, 149, 179, 239, 249, 269, 299, 305) are
@@ -1689,3 +1689,22 @@ anti-automorphism of the skew matrix is used, which is what §29 needed.
   X, Y symmetric with complementary supports; H = Hᵀ, H Hᵀ = 4vI); q = 5, 13, 29 (Paley's skew matrix of order 8,
   doubled), 37, 53, 61, 125 (over GF(125)) and 317; the C checker on 1180 and 2716.
 - **Labels.** New ([symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md#status)).
+- **Zaitsev's other quaternary matrices.** A monomial matrix making a quaternary Hadamard matrix of order 2N symmetric
+  would give a symmetric Hadamard matrix of order 4N by Turyn's map. Of the 27 matrices on the page with N among the
+  500 remaining census values, nauty (scratchpad qpol.py: side-swapping automorphisms of the phase graph, then the
+  column phases) finds no symmetric form for 130, 214, 238, 326, 426, 470, 490, 494, 518, 534, 538, 566, 610, 686, 754,
+  806, 890, 1142, 1462 and 1526; 538 and 1018 (Miyamoto completions, §19) have 16 side-swaps but none gives a
+  symmetric matrix (1018 checked without conjugation only); 1306 and 1466 timed out at 25 minutes, and 1558, 1690,
+  1706 and 1882 were not run.
+- **Complex Yamada–Kiyasu.** With any quaternary conference matrix Ĉ = [[0, eᵀ], [e, Z]] of order (q + 3)/2 (zero
+  diagonal, units elsewhere, ĈĈ* = ((q + 1)/2)I) in place of the skew core, q ≡ 1 (mod 4) a prime power, ω = (1 + i)/2,
+  A = P ⊗ M + J₂ ⊗ I and B = P ⊗ N (Yamada's circulants), the matrices X′ = ωA + ω̄B, Y′ = J₂ ⊗ Z + P ⊗ I,
+  X = [[1, eᵀ], [−e, X′]], Y = [[1, ieᵀ], [−ie, Y′]] give a quaternary Hadamard matrix K = [[X, Y], [Y*, −X*]] of order
+  2(q + 2) (checked exactly in the audit of 17 October 2026 for 17 prime powers q and non-real Ĉ of orders 14 to 286).
+  It is not ours: Zaitsev et al.'s QH470, QH566, QH806, QH1142 and QH1526 (q = 233, 281, 401, 569, 761) have exactly
+  this form, with non-real cores of orders 118, 142, 202, 286 and 382 (no real conference matrix exists at 142, 202,
+  286 or 382), although the page states no method. It would give the open complex orders 1046, 1190, 1286, 1718, 1910
+  and 1958 and the FRONTIER orders 643, 859, 955, 1051, 1291, 1699, 2083, 2659, 2731, 2803, 2899, 2971, 1879, 2215 and
+  2383 from quaternary conference matrices of order (N + 1)/2; zero-diagonal Szöllősi searches with multiplier groups
+  found none of orders 262, 298, 322, 430, 478 or 490. The symmetric template above does not take a non-real core:
+  the (core_L, core_R) block of L L̄ is 2(1 + i)(S − S̄).

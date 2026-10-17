@@ -113,9 +113,11 @@ Remarks.
   (3, 3) make the rows of X in each sign class of E₁, and the columns of Y in each sign class of E₄, orthogonal; block
   (0, 3) makes those rows orthogonal to those columns when the signs agree; and blocks (1, 1) + (1, 2) give
   X₊ᵀX₊ + Y₊Y₊ᵀ = nI for the rows X₊ of X with E₁ = 1 and the columns Y₊ of Y with E₄ = 1. The columns of
-  [X₊ᵀ | Y₊] are orthogonal, so there are at most n of them, and its rank is n, so it is a Hadamard matrix of order n:
-  with this U-part, nothing less than a Hadamard matrix of order (q − 1)/2 will do.
-- The hypothesis q ≡ 1 (mod 8) is that n = (q − 1)/2 is a multiple of 4; the field is used only for U₁, U₂.
+  [X₊ᵀ | Y₊] are orthogonal, so there are at most n of them, and its rank is n, so it is a Hadamard matrix of order n.
+  So completions of the form H₀ + Λ(V) need a Hadamard matrix of order (q − 1)/2; completions in which the added part
+  meets H₀ are not covered by this argument.
+- The hypothesis q ≡ 1 (mod 8) is that n = (q − 1)/2 is the order of a Hadamard matrix, apart from n = 2: q = 5 works
+  too (order 20). The field is used only for U₁, U₂.
 - In [PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md) the propus array needed W₃ = W₄ because the V-part was itself of propus
   form. Here the V-part is not of Williamson type (block (0, 2) of V is −EX ≠ X), so the obstruction there (no
   symmetric orthogonal design of order 4 in four variables) does not apply to it.
