@@ -277,7 +277,14 @@ length 428. 2823 = 3 · 941 would need either of order 235 or length 470. Period
 would do as well; the constructions of [the section above](#symmetric-williamson-type-matrices) give neither. 214 = 2 ·
 107 needs order 107, a prime ≡ 3 (mod 4) that is not p + 2 or (p + 1)/2 for a prime power p ≡ 1 (mod 4) (105 and 213 are
 not), nor 2p + 1 with 2p − 1 a prime power (2 · 53 − 1 = 105); and 235 = 233 + 2 would need, by Corollary 27, (233 +
-1)/2 = 117 to be a prime power or a symmetric conference matrix of order 118, which is not known to us.
+1)/2 = 117 to be a prime power or a symmetric conference matrix of order 118, which is not known to us. Brouwer's table
+of strongly regular graphs (read on 17 October 2026) now marks the conference graph SRG(117, 58, 28, 29) as existing,
+citing "Jose Yip Zheng Ho, Existence of conference graphs on 117 vertices and 153 vertices, email, Oct. 2026". With
+that graph's conference matrix of order 118, Corollary 27 (U = (I, 0, Q, Q), V = (M, N, I, I), Yamada's circulants
+for q = 233) gives symmetric Williamson-type matrices of order 235 with a repeated block, the Miyamoto blocks with
+T-matrices of order 3 give 2823 (q = 941), and Seberry–Balonin's Corollary 1 gives a symmetric Hadamard matrix of
+order 940 (v = 235, undecided in the census). The matrix is not public, and we have not seen it; the chain was
+checked end to end on the analogue with Paley's core of order 49 (q = 97, order 4764).
 
 ## Status
 
