@@ -37,12 +37,14 @@ at shift 0 and to 0 elsewhere.
 ## Small orders used by the Paley-block orders
 
 The orders beyond Table 4 in [hadamard/PALEY_BLOCKS.md](../hadamard/PALEY_BLOCKS.md) use T-matrices of small orders,
-all classical (Seberry–Yamada 1992, §3). The files are the instances used there:
+all classical: Seberry–Yamada (1992, §3) for every order but 73, and T-sequences of length 73 from the near-normal
+sequences NN(36) of Đoković (arXiv:0912.5091, 2009). The files are the instances used there:
 
 | t | Source of this instance |
 |----:|---|
 | 9, 11, 17 | T-sequences (1; 0), (0; (A + B)/2), (0; (A − B)/2), 0 from a Golay pair (A, B) of length t − 1 (Turyn 1974) |
-| 19, 31, 41 | `search/tmat_mult.py t g` with g = 7, 5, 10 (multiplier groups of orders 3, 3, 5) |
+| 15, 23, 25, 29, 35, 47, 53, 59 | T-sequences of length t as stored in SageMath's `t_sequences` module (`T_sequences_smallcases`) |
+| 19, 31, 41, 49, 73 | `search/tmat_mult.py t g` with g = 7, 5, 10, 18, 8 (multiplier groups of orders 3, 3, 5, 3, 3) |
 
 Orders 3, 5, 7, 11 and 13 are also built by `search/paley_blocks.py` itself from base sequences; for t = 11 the order
 11572 uses that built-in instance, the orders above 11804 the Golay instance of this directory.
