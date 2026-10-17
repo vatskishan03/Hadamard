@@ -26,6 +26,7 @@ a prime.
     python3 search/miyamoto_wt.py selftest      # Paley, Sylvester and small propus inputs, q = 13 ... 61
     python3 search/miyamoto_wt.py vpatterns     # the 2 x 2 V-patterns over commuting symmetric blocks (NOTES.md §19)
     python3 search/miyamoto_wt.py complete 809 complex-hadamard/inputs/H404.txt complex-hadamard/C1618.json
+    python3 search/miyamoto_wt.py cw 1753 symmetric/876/certificate.json T3.txt   # Cooper-Wallis, order 21036
 
 `complete` is the completion of NOTES.md §19: any quaternary Hadamard matrix C of order (q - 1)/2, not necessarily
 symmetric, gives a quaternary Hadamard matrix of order 2q through the same U_i, V_i, with V_3 + i V_4 = (1 + i) C and
@@ -276,12 +277,15 @@ if __name__ == "__main__":
         import verify as V
         q, inp, tfile = int(sys.argv[2]), Path(sys.argv[3]).resolve(), Path(sys.argv[4])
         M, _, digest = V.build_checked(json.loads(inp.read_text()))
-        assert M.shape[0] == (q - 1) // 2 and np.array_equal(M, M.T) and q % 8 == 1, "need a symmetric H((q - 1)/2)"
+        if q % 8 != 1 or any(q % d == 0 for d in range(2, int(q ** 0.5) + 1)) or M.shape[0] != (q - 1) // 2 \
+                or not np.array_equal(M, M.T):
+            raise SystemExit("need a prime q = 1 (mod 8) and a symmetric Hadamard matrix of order (q - 1)/2")
         M = M.astype(np.int64)
         X = williamson_type(q, M, M)
         F = [x.astype(np.float64) for x in X]
-        assert np.array_equal(sum(x @ x.T for x in F), 4.0 * q * np.eye(q)) and \
-            all(np.array_equal(F[i] @ F[j].T, F[j] @ F[i].T) for i in range(4) for j in range(i + 1, 4)), "not Williamson type"
+        if not np.array_equal(sum(x @ x.T for x in F), 4.0 * q * np.eye(q)) or \
+                not all(np.array_equal(F[i] @ F[j].T, F[j] @ F[i].T) for i in range(4) for j in range(i + 1, 4)):
+            raise SystemExit("not Williamson type")
         rows = [l.strip() for l in tfile.read_text().splitlines() if l.strip()]
         T = [np.array([V.SIGN[c] for c in r], np.int64) for r in rows]
         t = len(rows[0])

@@ -191,9 +191,12 @@ def structures(v, gens, symB):
 
 
 def search(v, gens, symB=False, maxpool=3e7, K=1, log=print, freeD=False, maxwork=float('inf'), plain=False, border=False,
-           qborder=0):
+           qborder=0, nwrep=False):
     st_ad, st_b = structures(v, gens, symB)
     st_a, st_d = st_ad, (st_b if freeD else st_ad)
+    if nwrep:            # A and B symmetric, D free: (B, B, A, DR) are Williamson-type with a repeated block (NOTES.md §19)
+        st_d = structures(v, gens, False)[1]
+        st_b = st_ad
     if plain:            # ordinary Hadamard matrices: A, B, D all on the H-orbits, Goethals-Seidel array with C = B
         st_a = st_d = st_b
     pm = v % 4
@@ -262,7 +265,7 @@ def search(v, gens, symB=False, maxpool=3e7, K=1, log=print, freeD=False, maxwor
                 ok = np.array_equal(Hm, Hm.T) and np.array_equal(Hm @ Hm.T, 4 * v * np.eye(4 * v, dtype=Hm.dtype))
                 log(f"  hit: symmetric Hadamard {ok}")
             if ok:
-                rec = dict(n=v, gens=list(gens), symB=symB, freeD=freeD, plain=plain, rows=[int(A.sum()), int(B.sum()), int(D.sum())],
+                rec = dict(n=v, gens=list(gens), symB=symB or nwrep, freeD=freeD, nwrep=nwrep, plain=plain, rows=[int(A.sum()), int(B.sum()), int(D.sum())],
                            seqs=[''.join('+' if x > 0 else '-' for x in s) for s in (A, B, D)])
                 if qb == 1: rec.update(border=True, order=4 * (v + 1), K=Kb.tolist())
                 elif qb: rec.update(border=True, q=qb, order=4 * (v + qb), R=Kb.tolist())
@@ -307,6 +310,7 @@ if __name__ == '__main__':
     ap.add_argument('--only-freeD', action='store_true', help='sweep only the variant with A symmetric and B, D free')
     ap.add_argument('--border', action='store_true', help='bordered propus on Z_v (any v): sum of PAFs -4, symmetric Hadamard of order 4(v + 1)')
     ap.add_argument('--qborder', type=int, default=0, help='Z_q-bordered propus on Z_v (q | v): PAF sum -4q on qZ_v, 0 off it; order 4(v + q)')
+    ap.add_argument('--nwrep', action='store_true', help='A, B symmetric, D free: Williamson-type (B, B, A, DR) with a repeated block')
     a = ap.parse_args()
     if a.qborder > 1 and a.v % a.qborder: sys.exit(f'q = {a.qborder} does not divide {a.v}')
     log = lambda s: print(s, flush=True)
@@ -331,4 +335,5 @@ if __name__ == '__main__':
                     log(f"  skipped: {e}")
     else:
         gens = [int(x) for x in a.gens.split(',')]
-        search(a.v, gens, a.symB, a.maxpool, a.K, log, a.freeD or a.border or bool(a.qborder), a.maxwork, a.plain, a.border, a.qborder)
+        search(a.v, gens, a.symB, a.maxpool, a.K, log, a.freeD or a.border or bool(a.qborder) or a.nwrep, a.maxwork, a.plain,
+               a.border, a.qborder, a.nwrep)

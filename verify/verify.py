@@ -351,9 +351,85 @@ def assemble_cooper_wallis(T, W):
     return H
 
 
+def build_miyamoto_blocks(cert):
+    """Miyamoto's Hadamard matrix of order 4q (`miyamoto`) as sixteen bordered blocks, times T-matrices of order t:
+    a Hadamard matrix of order 4qt (search/miyamoto_blocks.py, NOTES.md section 23).
+
+    q = 1 (mod 4) is a prime and g ("g") a primitive root mod q; m = (q - 1)/2. Paley's conference matrix is indexed by
+    infinity, 0, g^(2j), g^(2j+1) (j < m). K = [[A, B], [-B^T, A^T]] with A, B the negacyclic matrices of the pair
+    "ng" = (a, b), checked here to be a negaperiodic Golay pair of length m (NAF_a + NAF_b = 2m at 0, 0 elsewhere).
+    If the certificate has "pg" instead, (a, b) must be a periodic Golay pair (PAF_a + PAF_b = 2m delta) and A, B are
+    circulant. With N_kj the blocks of order q of Miyamoto's matrix, T_k the circulant T-matrices ("T", checked),
+    A_j = sum_k T_k (x) N_kj, and R = R_t (x) R_B, where R_t is x -> -x on Z_t and R_B fixes the border and sends
+    (b, j) to (b, -j) if j = 0 or the pair is periodic, to (1 - b, -j) otherwise, the matrix is the Goethals-Seidel array
+    [[A1, A2 R, A3 R, A4 R], [-A2 R, A1, A4^T R, -A3^T R], [-A3 R, -A4^T R, A1, A2^T R], [-A4 R, A3^T R, -A2^T R, A1]].
+    Its H H^T = 4qt I is checked densely by build_checked."""
+    q, g = cert["q"], cert["g"]
+    if q % 4 != 1 or q < 5 or any(q % d == 0 for d in range(2, math.isqrt(q) + 1)):
+        raise ValueError("q must be a prime = 1 (mod 4)")
+    if g % q == 0 or any(pow(g, (q - 1) // p, q) == 1 for p in range(2, q) if (q - 1) % p == 0 and
+                         all(p % d for d in range(2, math.isqrt(p) + 1))):
+        raise ValueError("g is not a primitive root mod q")
+    m = (q - 1) // 2
+    periodic = "pg" in cert
+    a, b = (np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["pg" if periodic else "ng"])
+    if len(a) != m or len(b) != m or not (np.all(np.abs(a) == 1) and np.all(np.abs(b) == 1)):
+        raise ValueError("the pair must be two +-1 sequences of length (q - 1)/2")
+    sgn = 1 if periodic else -1
+    afs = [int(a[:m - s] @ a[s:] + sgn * (a[m - s:] @ a[:s]) + b[:m - s] @ b[s:] + sgn * (b[m - s:] @ b[:s]))
+           for s in range(m)]
+    if afs[0] != 2 * m or any(afs[1:]):
+        raise ValueError("the pair is not a (nega)periodic Golay pair")
+    def twisted(x):
+        idx = np.arange(m)[None, :] - np.arange(m)[:, None]
+        return np.where(idx >= 0, 1, sgn) * x[idx % m]
+    A, B = twisted(a), twisted(b)
+    K = np.block([[A, B], [-B.T, A.T]]).astype(np.int8)
+    chi = -np.ones(q, dtype=np.int64)
+    chi[0] = 0
+    chi[(np.arange(1, q, dtype=np.int64) ** 2) % q] = 1
+    pts = np.array([0] + [pow(g, 2 * j, q) for j in range(m)] + [pow(g, 2 * j + 1, q) for j in range(m)], dtype=np.int64)
+    C = np.ones((q + 1, q + 1), dtype=np.int8)
+    C[0, 0] = 0
+    C[1:, 1:] = chi[(pts[None, :] - pts[:, None]) % q]
+    H = miyamoto(C, K)
+    T = [np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["T"]]
+    t = len(T[0])
+    if len(T) != 4 or t != cert["t"] or 4 * q * t != cert["order"] or not np.all(np.count_nonzero(np.array(T), axis=0) == 1):
+        raise ValueError("T-matrices: four rows of length t with supports partitioning Z_t, and order 4qt, required")
+    paf = paf_sum(T)
+    if paf[0] != t or np.any(paf[1:] != 0):
+        raise ValueError("T-matrix condition fails")
+    Rb = np.zeros(q, dtype=np.int64)
+    for half in range(2):
+        for j in range(m):
+            Rb[1 + half * m + j] = 1 + (half if (j == 0 or periodic) else 1 - half) * m + (-j) % m
+    R = (((-np.arange(t)) % t)[:, None] * q + Rb[None, :]).reshape(-1)
+    n = t * q
+    Aj = []
+    for j in range(4):
+        X = np.zeros((n, n), dtype=np.int8)
+        for k in range(4):
+            Nkj = H[k * q:(k + 1) * q, j * q:(j + 1) * q]
+            for u in range(t):
+                for w in range(t):
+                    if T[k][(w - u) % t]:
+                        X[u * q:(u + 1) * q, w * q:(w + 1) * q] = T[k][(w - u) % t] * Nkj
+        Aj.append(X)
+    AR, ATR = [x[:, R] for x in Aj], [x.T[:, R] for x in Aj]
+    rows = [[Aj[0], AR[1], AR[2], AR[3]], [-AR[1], Aj[0], ATR[3], -ATR[2]],
+            [-AR[2], -ATR[3], Aj[0], ATR[1]], [-AR[3], ATR[2], -ATR[1], Aj[0]]]
+    G = np.empty((4 * n, 4 * n), dtype=np.int8)
+    for i in range(4):
+        for j in range(4):
+            G[i * n:(i + 1) * n, j * n:(j + 1) * n] = rows[i][j]
+    return G, None
+
+
 def build_cooper_wallis_miyamoto(cert):
     """Cooper-Wallis with Williamson-type matrices of a prime order q = 1 (mod 8) from Seberry-Yamada's Corollary
-    8.8(ii) (JCMCC 7 (1990), Corollary 29(ii); after Miyamoto), with a symmetric Hadamard matrix M of order
+    8.8(ii) (JCMCC 7 (1990), Corollary 29(ii); Seberry-Yamada's own, through Miyamoto's lemma), with a symmetric
+    Hadamard matrix M of order
     n = (q - 1)/2 as input. "input" names the certificate of M (rebuilt and checked here, its matrix pinned by
     "input_sha256"); "g" is a primitive root mod q. With s_i = g^(2i), t_j = g^(1 - 2j) (i, j < n) and chi the
     Legendre symbol, U_1 = -[chi(s_i - s_j)], U_2 = [chi(s_i - t_j)], U_3 = U_4 = 0, V = (I, 0, M, M), and
@@ -365,8 +441,8 @@ def build_cooper_wallis_miyamoto(cert):
     q, g = cert["q"], cert["g"]
     if q % 8 != 1 or any(q % d == 0 for d in range(2, math.isqrt(q) + 1)):
         raise ValueError("q must be a prime = 1 (mod 8)")
-    if any(pow(g, (q - 1) // p, q) == 1 for p in range(2, q) if (q - 1) % p == 0 and
-           all(p % d for d in range(2, math.isqrt(p) + 1))):
+    if g % q == 0 or any(pow(g, (q - 1) // p, q) == 1 for p in range(2, q) if (q - 1) % p == 0 and
+                         all(p % d for d in range(2, math.isqrt(p) + 1))):
         raise ValueError("g is not a primitive root mod q")
     inp = json.loads((ROOT / cert["input"]).read_text())
     M, _, digest = build_checked(inp)
@@ -1475,7 +1551,7 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "cooper-wallis": build_cooper_wallis,
             "cooper-wallis-near-williamson": build_cooper_wallis_near_williamson,
             "cooper-wallis-bordered": build_cooper_wallis_bordered,
-            "cooper-wallis-miyamoto": build_cooper_wallis_miyamoto,
+            "cooper-wallis-miyamoto": build_cooper_wallis_miyamoto, "miyamoto-blocks": build_miyamoto_blocks,
             "spence": build_spence, "miyamoto": build_miyamoto,
             "bordered-goethals-seidel": build_bordered_gs, "skew-doubling": build_skew_doubling,
             "yamada": build_yamada, "propus": build_propus, "propus-bordered": build_propus_bordered,
