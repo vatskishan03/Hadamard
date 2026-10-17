@@ -1,0 +1,13 @@
+{
+ "order": 7012,
+ "construction": "symmetric-propus-miyamoto",
+ "symmetric": true,
+ "q": 1753,
+ "g": 7,
+ "input": {
+  "kind": "certificate",
+  "path": "symmetric/876/certificate.json",
+  "sha256": "e09d8d2c93e49a361fc3e3c2188f409da338c697f64e03bdcc967be8198cbaf9"
+ },
+ "sha256": "ba72ed96d666f2a76f7f57a78db6ecb6e275ca8504fdd9bf9736f167c36c0ccb"
+}

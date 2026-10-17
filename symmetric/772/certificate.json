@@ -1,0 +1,21 @@
+{
+ "order": 772,
+ "construction": "symmetric-propus-miyamoto",
+ "symmetric": true,
+ "q": 193,
+ "g": 5,
+ "input": {
+  "kind": "kron",
+  "factors": [
+   {
+    "kind": "sylvester",
+    "k": 1
+   },
+   {
+    "kind": "paley-amicable",
+    "q": 47
+   }
+  ]
+ },
+ "sha256": "6898aa4b8bc9515eff9279e325bbdda2b23e8ac8832ad032695f6946bc92906e"
+}

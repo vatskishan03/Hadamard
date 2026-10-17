@@ -543,6 +543,121 @@ def build_cooper_wallis_miyamoto(cert):
     return assemble_cooper_wallis(T, W), None
 
 
+def _symmetric_input(spec):
+    """A symmetric Hadamard matrix from a short description: "paley-amicable" (the symmetric member P + N of Paley's
+    amicable pair of order q + 1, q = 3 (mod 4) a prime, or {"p", "poly"} for a prime power), "paley-ii" (Paley's
+    [[C + I, C - I], [C - I, -C - I]] of order 2(q + 1), q = 1 (mod 4) a prime), "sylvester" ([[1, 1], [1, -1]] to the
+    power k), "kron" (Kronecker product of "factors"), "propus" (a propus quadruple (A, B, B, D) over Z_v given like a
+    "propus" certificate, built and checked by build_propus) or "certificate" (a certificate in this repository, "path",
+    with the SHA-256 of its matrix pinned by "sha256"). Checked: +-1, symmetric, M M = nI."""
+    kind = spec["kind"]
+    if kind == "paley-amicable":
+        q = spec["q"]
+        P, N = _paley_sym_od(q) if isinstance(q, int) else _paley_sym_od_field(q["p"], q["poly"])
+        M = P + N
+    elif kind == "paley-ii":
+        M = _paley2_doubled(spec["q"], 0)
+    elif kind == "sylvester":
+        M = np.ones((1, 1), dtype=np.int64)
+        for _ in range(spec["k"]):
+            M = np.kron(np.array([[1, 1], [1, -1]], dtype=np.int64), M)
+    elif kind == "kron":
+        M = np.ones((1, 1), dtype=np.int64)
+        for f in spec["factors"]:
+            M = np.kron(M, _symmetric_input(f))
+    elif kind == "propus":
+        M = build_propus(spec)[0]
+    elif kind == "certificate":
+        M, _, digest = build_checked(json.loads((ROOT / spec["path"]).read_text()))
+        if digest != spec["sha256"]:
+            raise ValueError("the input certificate does not give the pinned matrix")
+        M = M.astype(np.int64)
+    else:
+        raise ValueError(f"unknown input kind {kind}")
+    n = M.shape[0]
+    if not (np.all(np.abs(M) == 1) and np.array_equal(M, M.T) and np.array_equal(M @ M, n * np.eye(n, dtype=np.int64))):
+        raise ValueError(f"the {kind} input is not a symmetric Hadamard matrix")
+    return M
+
+
+def build_symmetric_propus_miyamoto(cert):
+    """Symmetric Hadamard matrix of order 4q, q = 1 (mod 8) a prime power, from a symmetric Hadamard matrix M of order
+    n = (q - 1)/2. Seberry and Yamada's Corollary 29(ii) (JCMCC 7 (1990); their 1992 Corollary 8.8(ii), through
+    Miyamoto's lemma) builds, from Yamada's matrices U_1 = -[chi(s_i - s_j)], U_2 = [chi(s_i - t_j)] over GF(q)
+    (s_i = g^(2i), t_j = g^(1 - 2j), g primitive, chi the quadratic character), U_3 = U_4 = 0 and V = (I, 0, M, M),
+    the matrices
+
+        W_1 = [[1, -e], [-e^T, S_1]],   W_k = [[1, e], [e^T, S_k]] (k > 1),   S_k = U_k (x) J_2 + V_k (x) [[1, -1], [-1, 1]],
+
+    which are symmetric, pairwise amicable, with sum W_k W_k^T = 4q I, and W_3 = W_4 because U_3 = U_4 and V_3 = V_4.
+    That repeated block is the hypothesis of Seberry and Balonin's propus variation of Miyamoto's lemma (arXiv:1512.01732,
+    Lemma 3), and the propus array
+
+        H = [[W_1, W_3, W_3, W_2], [W_3, W_2, -W_1, -W_3], [W_3, -W_1, -W_2, W_3], [W_2, -W_3, W_3, -W_1]]
+
+    is a symmetric Hadamard matrix of order 4q. "q" is a prime (with "g" a primitive root) or {"p", "poly"} for
+    q = p^k (elements are integers whose base-p digits are polynomial coefficients; the class of x is primitive,
+    checked). "input" describes M (_symmetric_input). Everything is checked here."""
+    qs = cert["q"]
+    if isinstance(qs, int):
+        q = qs
+        if q % 8 != 1 or not _is_prime(q):
+            raise ValueError("q must be a prime = 1 (mod 8)")
+        g = cert["g"]
+        exp = np.empty(q - 1, dtype=np.int64)
+        e = 1
+        for i in range(q - 1):
+            exp[i] = e
+            e = e * g % q
+        sub = lambda a, b: (a - b) % q
+    else:
+        p, poly = qs["p"], qs["poly"]
+        k = len(poly)
+        q = p ** k
+        if q % 8 != 1 or not _is_prime(p):
+            raise ValueError("q must be a prime power = 1 (mod 8)")
+        digits = np.array([[(x // p ** j) % p for j in range(k)] for x in range(q)], dtype=np.int64)
+        weights = p ** np.arange(k)
+        exp = np.empty(q - 1, dtype=np.int64)
+        e = 1
+        for i in range(q - 1):
+            exp[i] = e
+            d = np.zeros(k + 1, dtype=np.int64)
+            d[1:] = digits[e]
+            e = int(((d[:k] - d[k] * np.asarray(poly, dtype=np.int64)) % p) @ weights)
+        sub = lambda a, b: ((digits[a] - digits[b]) % p) @ weights
+    if len(set(exp.tolist())) != q - 1 or 0 in set(exp.tolist()):
+        raise ValueError("the generator is not primitive")
+    log = np.full(q, -1, dtype=np.int64)
+    log[exp] = np.arange(q - 1)
+    chi = np.where(log % 2 == 0, 1, -1).astype(np.int64)
+    chi[0] = 0
+    n = (q - 1) // 2
+    M = _symmetric_input(cert["input"])
+    if M.shape[0] != n:
+        raise ValueError("the input must have order (q - 1)/2")
+    s = exp[2 * np.arange(n)]
+    t = exp[(1 - 2 * np.arange(n)) % (q - 1)]
+    Z, I = np.zeros((n, n), dtype=np.int64), np.eye(n, dtype=np.int64)
+    U = [-chi[sub(s[:, None], s[None, :])], chi[sub(s[:, None], t[None, :])], Z, Z]
+    V = [I, Z, M, M]
+    J2, D2 = np.ones((2, 2), dtype=np.int64), np.array([[1, -1], [-1, 1]], dtype=np.int64)
+    W = []
+    for k in range(4):
+        b = -1 if k == 0 else 1
+        Wk = np.empty((q, q), dtype=np.int64)
+        Wk[0, 0], Wk[0, 1:], Wk[1:, 0] = 1, b, b
+        Wk[1:, 1:] = np.kron(U[k], J2) + np.kron(V[k], D2)
+        W.append(Wk)
+    F = [x.astype(np.float64) for x in W]
+    if not all(np.all(np.abs(x) == 1) and np.array_equal(x, x.T) for x in W) or not np.array_equal(W[2], W[3]) or \
+            not all(np.array_equal(F[k] @ F[l].T, F[l] @ F[k].T) for k in range(4) for l in range(k + 1, 4)) or \
+            not np.array_equal(sum(x @ x.T for x in F), 4.0 * q * np.eye(q)):
+        raise ValueError("the W_k are not symmetric pairwise amicable Williamson-type matrices with W_3 = W_4")
+    A, B, D = (x.astype(np.int8) for x in (W[0], W[2], W[1]))
+    return np.block([[A, B, B, D], [B, D, -A, -B], [B, -A, -D, B], [D, -B, B, -A]]), None
+
+
 def build_cooper_wallis_bordered(cert):
     """Cooper-Wallis with bordered Williamson-type matrices (bordered_williamson_type): T-matrices of order t under
     "t_matrices" and the four sequences on Z_(w-1) under "bordered_williamson" give a Hadamard matrix of order 4tw."""
@@ -1667,6 +1782,7 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "propus-qbordered": build_propus_qbordered, "skew-propus-plug": build_skew_propus_plug,
             "sym-od-plug": build_sym_od_plug, "skew-amicable-plug": build_skew_amicable_plug,
             "skew-amicable-product": build_skew_amicable_product,
+            "symmetric-propus-miyamoto": build_symmetric_propus_miyamoto,
             "two-block": build_two_block, "paley-blocks": build_paley_blocks}
 
 

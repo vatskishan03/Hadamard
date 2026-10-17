@@ -1,0 +1,83 @@
+{
+ "order": 9668,
+ "construction": "symmetric-propus-miyamoto",
+ "symmetric": true,
+ "q": 2417,
+ "g": 3,
+ "input": {
+  "kind": "kron",
+  "factors": [
+   {
+    "kind": "sylvester",
+    "k": 1
+   },
+   {
+    "kind": "propus",
+    "source": "Balonin, Djokovic, Inf. Control Syst. 2018 no. 4, arXiv:1803.08787v1, Table 1, (151; 71, 71, 71, 66; 128), H = {1, 8, 19, 59, 64}",
+    "v": 151,
+    "multipliers": [
+     8
+    ],
+    "subgroup_order": 5,
+    "blocks": [
+     [
+      0,
+      2,
+      5,
+      6,
+      7,
+      11,
+      15,
+      17,
+      23,
+      27,
+      30,
+      34,
+      37,
+      51,
+      68
+     ],
+     [
+      0,
+      1,
+      2,
+      3,
+      4,
+      14,
+      17,
+      23,
+      27,
+      28,
+      34,
+      47,
+      51,
+      68,
+      87
+     ],
+     [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      10,
+      29,
+      34,
+      46,
+      47,
+      51,
+      68
+     ]
+    ],
+    "rowsums": [
+     9,
+     9,
+     19
+    ]
+   }
+  ]
+ },
+ "sha256": "1955c6ed7c15c86e15f32db58e9f41e3e66aa785e949307ea1f4aadce5076092"
+}

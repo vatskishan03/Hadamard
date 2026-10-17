@@ -1,0 +1,12 @@
+{
+ "order": 7204,
+ "construction": "symmetric-propus-miyamoto",
+ "symmetric": true,
+ "q": 1801,
+ "g": 11,
+ "input": {
+  "kind": "paley-ii",
+  "q": 449
+ },
+ "sha256": "628ae753f2822a0b8b00ebe5f60a2bdce772e14c0baa36cbccb9506c9adf9df6"
+}

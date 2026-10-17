@@ -1555,3 +1555,37 @@ A.1, Turyn's doubling, and our Paley-block and Miyamoto-block routes. The tables
   SageMath's development version already builds 12772 and 17716 (T(103) with Williamson matrices of orders 31 and 43),
   so they are known and not added. 3903 and 9107 might follow from Miyamoto blocks with Whiteman's Williamson matrices
   of order 325, which we have not checked.
+
+## 29. Symmetric Hadamard matrices of order 4q from Miyamoto's lemma and the propus array (October 17)
+
+The closure audit of §28, run on the symmetric census, compared the census's series with the published theorems. Seberry
+and Balonin's propus variation of Miyamoto's lemma (Australas. J. Combin. 69 (2017), Theorem 3; Lemma 3 of
+arXiv:1512.01732) turns Williamson-type matrices of order q with two equal blocks into a symmetric Hadamard matrix of
+order 4q. They apply it only in their Corollary 1 (v = q + 2, the census's Seberry–Balonin series) and write that
+"appropriate Williamson type matrices may also be used … but do not pursue this avenue". Seberry and Yamada's
+Corollary 29(ii) (1990), with a symmetric Hadamard matrix M of order (q − 1)/2, is such a choice: U = (U₁, U₂, 0, 0)
+and V = (I, 0, M, M), so W₃ = W₄. Hence:
+
+**For every prime power q ≡ 1 (mod 8) with a symmetric Hadamard matrix of order (q − 1)/2, there is a symmetric
+Hadamard matrix of order 4q.** We found this stated nowhere. The proof, a check of Seberry–Balonin's five conditions,
+is in [symmetric/PROPUS_MIYAMOTO.md](symmetric/PROPUS_MIYAMOTO.md).
+
+- **Reach.** 58 of the census's 595 undecided v are prime powers ≡ 1 (mod 8). 48 have an input: 44 from Paley I or II
+  and Sylvester, three from the published propus matrices of orders 116, 236 and 604 (v = 29, 59, 151, sporadic in the
+  census), and q = 1753 from our matrix of order 876. All 48 are built and verified (orders 356 to 9892,
+  `search/sym_propus_miyamoto.py`, `verify.py` construction `symmetric-propus-miyamoto`). The other ten need a
+  symmetric matrix of order 4m with m = 101, 107, 119, 149, 179, 239, 249, 269, 299 or 305, all undecided.
+- **Labels.** 47 are New, but obtainable classically (every ingredient published before 2026); 7012 = 4 · 1753 is New.
+- **Why the census missed them.** Its remark on Miyamoto concerns his Theorem 5 (a Hadamard matrix of order 4q "of
+  symmetric block form" from a symmetric Hadamard matrix of order q − 1), whose proof it rejects; it does not consider
+  Corollary 29(ii) in the propus array.
+- **Only a repeated block works.** A symmetric orthogonal design of order 4 in four variables would need four
+  anticommuting real symmetric involutions of order 4, which do not exist (the Clifford algebra they generate is
+  M₂(ℍ), whose modules have dimension divisible by 8). So the conference-matrix form of Corollary 29(ii) does not give
+  symmetric matrices this way. Corollaries 27(i) and 31 do have a repeated block, but every v < 2500 they reach is
+  decided.
+- **Iteration.** The theorem feeds itself through q = 2ᵃ · 8m + 1 from a new symmetric order 4m; below 2500 only
+  q = 1753 (m = 219) is new.
+
+The symmetric census now has 539 undecided values: 595, less Đoković's three (arXiv:2508.17141), less the 53 orders of
+[symmetric](symmetric).

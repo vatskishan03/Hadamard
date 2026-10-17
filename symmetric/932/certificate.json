@@ -1,0 +1,67 @@
+{
+ "order": 932,
+ "construction": "symmetric-propus-miyamoto",
+ "symmetric": true,
+ "q": 233,
+ "g": 3,
+ "input": {
+  "kind": "propus",
+  "source": "Di Matteo, Djokovic, Kotsireas, Spec. Matrices 3 (2015), arXiv:1503.04226v2, section 4, the first of the fifteen SDSs for v = 29 (written [A, D, B, C = B])",
+  "v": 29,
+  "multipliers": [
+   1
+  ],
+  "subgroup_order": 1,
+  "blocks": [
+   [
+    0,
+    4,
+    5,
+    6,
+    7,
+    9,
+    13,
+    16,
+    20,
+    22,
+    23,
+    24,
+    25
+   ],
+   [
+    0,
+    1,
+    2,
+    5,
+    6,
+    8,
+    11,
+    12,
+    14,
+    16,
+    22
+   ],
+   [
+    0,
+    1,
+    2,
+    3,
+    5,
+    8,
+    10,
+    13,
+    14,
+    15,
+    18,
+    22,
+    25
+   ]
+  ],
+  "rowsums": [
+   3,
+   7,
+   3
+  ]
+ },
+ "sha256": "daae83443cfeeaee420ea4a9dc55dcee1019ba8db391e460763d2b7f00b24422"
+}

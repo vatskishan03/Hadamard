@@ -99,7 +99,9 @@ census lists 219 as undecided as well.
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md). Doubling ([[H, H], [H, −H]]) gives symmetric
 Hadamard matrices of orders 1752, 3504, … Since 1753 = 2 · 876 + 1 is a prime ≡ 1 (mod 8), Seberry–Yamada's Corollary
 8.8(ii) turns this matrix into symmetric Williamson-type matrices of order 1753, and Cooper–Wallis then gives the
-Hadamard matrix of order 21036 = 4 · 3 · 1753 ([hadamard/21036](../../hadamard/21036)).
+Hadamard matrix of order 21036 = 4 · 3 · 1753 ([hadamard/21036](../../hadamard/21036)). Those Williamson-type
+matrices have two equal blocks, and in the propus array they give the symmetric Hadamard matrix of order
+7012 = 4 · 1753 ([7012](../7012), [PROPUS_MIYAMOTO.md](../PROPUS_MIYAMOTO.md)).
 
 ## Files
 
