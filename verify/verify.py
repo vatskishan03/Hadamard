@@ -351,6 +351,33 @@ def assemble_cooper_wallis(T, W):
     return H
 
 
+def miyamoto_nw_k(rows, m):
+    """K of order 2m = 4w for build_miyamoto_blocks from near-Williamson matrices (a, b, c, d) of order w (checked):
+    the Williamson array of (A R_w, B, C, D), relabelled so that the half swap of every quadrant becomes j -> 1 - j."""
+    a, b, c, d = (np.array([SIGN[ch] for ch in r], dtype=np.int64) for r in rows)
+    w = len(a)
+    if 2 * w != m or any(len(x) != w for x in (b, c, d)):
+        raise ValueError("near-Williamson matrices of order (q - 1)/4 required")
+    if any(not np.array_equal(x, np.roll(x[::-1], 1)) for x in (b, c, d)):
+        raise ValueError("b, c, d must be symmetric")
+    paf = paf_sum([a, b, c, d])
+    if paf[0] != 4 * w or np.any(paf[1:] != 0):
+        raise ValueError("the periodic autocorrelations of a, b, c, d must sum to 4w delta")
+    Rw = back_identity(w)
+    X1, X2, X3, X4 = circulant(a) @ Rw, circulant(b), circulant(c), circulant(d)
+    K0 = np.block([[X1, X2, X3, X4], [-X2, X1, -X4, X3], [-X3, X4, X1, -X2], [-X4, -X3, X2, X1]])
+    P = np.zeros((m, m), dtype=np.int64)
+    used, y = set(), 0
+    for j in range(m):
+        if j in used:
+            continue
+        P[j, y] = P[(1 - j) % m, w + y] = 1
+        used |= {j, (1 - j) % m}
+        y += 1
+    Pi = np.kron(np.eye(2, dtype=np.int64), P)
+    return (Pi @ K0 @ Pi.T).astype(np.int8)
+
+
 def build_miyamoto_blocks(cert):
     """Miyamoto's Hadamard matrix of order 4q (`miyamoto`) as sixteen bordered blocks, times T-matrices of order t:
     a Hadamard matrix of order 4qt (search/miyamoto_blocks.py, NOTES.md section 23).
@@ -363,6 +390,12 @@ def build_miyamoto_blocks(cert):
     A_j = sum_k T_k (x) N_kj, and R = R_t (x) R_B, where R_t is x -> -x on Z_t and R_B fixes the border and sends
     (b, j) to (b, -j) if j = 0 or the pair is periodic, to (1 - b, -j) otherwise, the matrix is the Goethals-Seidel array
     [[A1, A2 R, A3 R, A4 R], [-A2 R, A1, A4^T R, -A3^T R], [-A3 R, -A4^T R, A1, A2^T R], [-A4 R, A3^T R, -A2^T R, A1]].
+    If the certificate has "nw" = (a, b, c, d) instead, these must be near-Williamson matrices of order w = (q - 1)/4
+    (circulant, b, c, d symmetric, PAF sum 4w delta); with R_w the reversal x -> -x of Z_w, W = (AR_w, B, C, D) are
+    pairwise commuting symmetric matrices, K0 is their Williamson array of order 4w = 2m, and K = (I_2 (x) P) K0 (I_2 (x) P)^T
+    where P relabels the indices (h, y) of each quadrant (h = 0, 1; y in Z_w) to Z_m: the pairs {j, 1 - j} of Z_m in order
+    of their smaller element j become (0, y) -> j and (1, y) -> 1 - j for y = 0, 1, ... Then R_B fixes the border and
+    sends (b, j) to (b, 1 - j).
     Its H H^T = 4qt I is checked densely by build_checked."""
     q, g = cert["q"], cert["g"]
     if q % 4 != 1 or q < 5 or any(q % d == 0 for d in range(2, math.isqrt(q) + 1)):
@@ -372,19 +405,22 @@ def build_miyamoto_blocks(cert):
         raise ValueError("g is not a primitive root mod q")
     m = (q - 1) // 2
     periodic = "pg" in cert
-    a, b = (np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["pg" if periodic else "ng"])
-    if len(a) != m or len(b) != m or not (np.all(np.abs(a) == 1) and np.all(np.abs(b) == 1)):
-        raise ValueError("the pair must be two +-1 sequences of length (q - 1)/2")
-    sgn = 1 if periodic else -1
-    afs = [int(a[:m - s] @ a[s:] + sgn * (a[m - s:] @ a[:s]) + b[:m - s] @ b[s:] + sgn * (b[m - s:] @ b[:s]))
-           for s in range(m)]
-    if afs[0] != 2 * m or any(afs[1:]):
-        raise ValueError("the pair is not a (nega)periodic Golay pair")
-    def twisted(x):
-        idx = np.arange(m)[None, :] - np.arange(m)[:, None]
-        return np.where(idx >= 0, 1, sgn) * x[idx % m]
-    A, B = twisted(a), twisted(b)
-    K = np.block([[A, B], [-B.T, A.T]]).astype(np.int8)
+    if "nw" in cert:
+        K = miyamoto_nw_k(cert["nw"], m)
+    else:
+        a, b = (np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["pg" if periodic else "ng"])
+        if len(a) != m or len(b) != m or not (np.all(np.abs(a) == 1) and np.all(np.abs(b) == 1)):
+            raise ValueError("the pair must be two +-1 sequences of length (q - 1)/2")
+        sgn = 1 if periodic else -1
+        afs = [int(a[:m - s] @ a[s:] + sgn * (a[m - s:] @ a[:s]) + b[:m - s] @ b[s:] + sgn * (b[m - s:] @ b[:s]))
+               for s in range(m)]
+        if afs[0] != 2 * m or any(afs[1:]):
+            raise ValueError("the pair is not a (nega)periodic Golay pair")
+        def twisted(x):
+            idx = np.arange(m)[None, :] - np.arange(m)[:, None]
+            return np.where(idx >= 0, 1, sgn) * x[idx % m]
+        A, B = twisted(a), twisted(b)
+        K = np.block([[A, B], [-B.T, A.T]]).astype(np.int8)
     chi = -np.ones(q, dtype=np.int64)
     chi[0] = 0
     chi[(np.arange(1, q, dtype=np.int64) ** 2) % q] = 1
@@ -403,7 +439,10 @@ def build_miyamoto_blocks(cert):
     Rb = np.zeros(q, dtype=np.int64)
     for half in range(2):
         for j in range(m):
-            Rb[1 + half * m + j] = 1 + (half if (j == 0 or periodic) else 1 - half) * m + (-j) % m
+            if "nw" in cert:
+                Rb[1 + half * m + j] = 1 + half * m + (1 - j) % m
+            else:
+                Rb[1 + half * m + j] = 1 + (half if (j == 0 or periodic) else 1 - half) * m + (-j) % m
     R = (((-np.arange(t)) % t)[:, None] * q + Rb[None, :]).reshape(-1)
     n = t * q
     Aj = []

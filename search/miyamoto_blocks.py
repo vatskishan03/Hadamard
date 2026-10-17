@@ -23,9 +23,16 @@ plain reversal (b, j) -> (b, -j) transposes the blocks. The PG pair of length 20
 Algorithms 69 (2015), arXiv:1310.5773, Section 3: subgroup H = {1, 87, 95, 137, 185} of Z_202^*) is `dk202`; the same
 formulas (15), (16) multiply it by a Golay pair (Georgiou, Stylianou, Drosou and Koukouvinos 2014, Theorem 1).
 
+Near-Williamson matrices (circulant A, B, C, D of order w = (q - 1)/4 with B, C, D symmetric and sum of PAFs 4w delta;
+Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev, arXiv:2605.08661, and good matrices as a special case) work as
+well: AR, B, C, D are pairwise commuting symmetric matrices, so the quadrants [[X, Y], [-Y, X]] of their Williamson
+array K lie in a commutative algebra transposed by the half swap. Relabelled so that the half swap is j -> 1 - j on
+Z_m (verify.py `miyamoto_nw_k`), the sixteen bordered blocks commute and R_B = (border fixed, (b, j) -> (b, 1 - j))
+transposes them. SPEC `nw:FILE` reads the four first rows from FILE (as in near-williamson/).
+
     python3 search/miyamoto_blocks.py selftest
     python3 search/miyamoto_blocks.py certify q t SPEC [Tfile]   (SPEC: paley1:p | paley2:p | golay10:paley1:121 |
-                                                                  golay2:dk202 | ...)
+                                                                  golay2:dk202 | nw:FILE | ...)
 """
 import hashlib, itertools, json, sys
 import numpy as np
@@ -330,9 +337,28 @@ def build(q, g, a, b, T, check_algebra=False, periodic=False):
     mat = circulant if periodic else negacyclic
     A, B = mat(np.asarray(a)), mat(np.asarray(b))
     K = np.block([[A, B], [-B.T, A.T]]).astype(np.int8)
+    return build_k(q, g, K, reversal_b(q, periodic), T, check_algebra)
+
+
+def reversal_nw(q):
+    m = (q - 1) // 2
+    R = np.arange(q)
+    for b in range(2):
+        for j in range(m):
+            R[1 + b * m + j] = 1 + b * m + (1 - j) % m
+    return R
+
+
+def build_nw(q, g, rows, T, check_algebra=False):
+    """H(4qt) from near-Williamson matrices of order (q - 1)/4 (four first rows over +, -), int8"""
+    sg = lambda x: "".join("+" if v > 0 else "-" for v in x)
+    K = V.miyamoto_nw_k([sg(r) for r in rows], (q - 1) // 2)
+    return build_k(q, g, K, reversal_nw(q), T, check_algebra)
+
+
+def build_k(q, g, K, Rb, T, check_algebra=False):
     H = V.miyamoto(paley_cyclo(q, g), K)
     N = [[H[r * q:(r + 1) * q, c * q:(c + 1) * q] for c in range(4)] for r in range(4)]
-    Rb = reversal_b(q, periodic)
     if check_algebra:
         Ns = [x.astype(np.int64) for row in N for x in row]
         assert all(np.array_equal(x[np.ix_(Rb, Rb)], x.T) for x in Ns), "R N R != N^T"
@@ -352,6 +378,37 @@ def build(q, g, a, b, T, check_algebra=False, periodic=False):
         for j in range(4):
             G[i * n:(i + 1) * n, j * n:(j + 1) * n] = rows[i][j]
     return G
+
+
+def load_nw(path):
+    rows = [l.strip() for l in open(ROOT / path if not Path(path).is_absolute() else path) if l.strip()
+            and not l.startswith("#")]
+    return [np.array([1 if c == "+" else -1 for c in r], np.int64) for r in rows[:4]]
+
+
+def near_williamson(w, rng):
+    """some near-Williamson quadruple of small order w with A not symmetric (for the selftest)"""
+    h = (w - 1) // 2
+    syms = []
+    for bits in itertools.product((1, -1), repeat=h + 1):
+        r = np.empty(w, np.int64); r[0] = bits[0]
+        for k in range(1, h + 1): r[k] = r[w - k] = bits[k]
+        syms.append(r)
+    paf = lambda r: tuple(int(r @ np.roll(r, -d)) for d in range(1, w))
+    pairs = {}
+    for x in syms:
+        for y in syms:
+            pairs.setdefault(tuple(u + v for u, v in zip(paf(x), paf(y))), (x, y))
+    As = [np.array(v) for v in itertools.product((1, -1), repeat=w)]
+    rng.shuffle(As)
+    for a in As:
+        if np.array_equal(a, np.roll(a[::-1], 1)): continue
+        for d in syms:
+            need = tuple(-u - v for u, v in zip(paf(a), paf(d)))
+            if need in pairs:
+                b, c = pairs[need]
+                return [a, b, c, d]
+    return None
 
 
 def load_t(t, path=None):
@@ -389,23 +446,39 @@ def selftest():
         good = np.array_equal(G @ G.T, 4 * q * 3 * np.eye(4 * q * 3))
         ok &= good
         print(f"q = {q} (periodic Golay pair of length {gl}), t = 3: order {12 * q}, H H^T = nI: {good}")
+    # near-Williamson matrices with A not symmetric (w = 7, 9, 13: q = 29, 37, 53)
+    rng = np.random.default_rng(1)
+    for q in (29, 37, 53):
+        W = near_williamson((q - 1) // 4, rng)
+        G = build_nw(q, prim_root(q), W, load_t(3), check_algebra=True).astype(np.float64)
+        good = np.array_equal(G @ G.T, 12 * q * np.eye(12 * q))
+        ok &= good
+        print(f"q = {q} (near-Williamson matrices of order {(q - 1) // 4}), t = 3: order {12 * q}, H H^T = nI: {good}")
     return ok
 
 
 def certify(q, t, spec, tfile=None):
     g = prim_root(q)
-    a, b, periodic = pair_from_spec(spec)
     T = load_t(t, tfile)
     assert T.shape[1] == t
-    G = build(q, g, a, b, T, periodic=periodic)
+    if spec.startswith("nw:"):
+        rows = load_nw(spec[3:])
+        G = build_nw(q, g, rows, T)
+    else:
+        a, b, periodic = pair_from_spec(spec)
+        G = build(q, g, a, b, T, periodic=periodic)
     sha = hashlib.sha256()
     for chunk in V.csv_chunks(G):
         sha.update(chunk)
     sgn = lambda x: "".join("+" if v > 0 else "-" for v in x)
     tsg = lambda x: "".join({1: "+", -1: "-", 0: "0"}[int(v)] for v in x)
     cert = {"order": 4 * q * t, "construction": "miyamoto-blocks", "v": q * t, "q": q, "g": g, "t": t,
-            "ng_source": spec, ("pg" if periodic else "ng"): [sgn(a), sgn(b)], "T": [tsg(r) for r in T],
-            "sha256": sha.hexdigest()}
+            "ng_source": spec}
+    if spec.startswith("nw:"):
+        cert["nw"] = [sgn(r) for r in rows]
+    else:
+        cert["pg" if periodic else "ng"] = [sgn(a), sgn(b)]
+    cert.update({"T": [tsg(r) for r in T], "sha256": sha.hexdigest()})
     d = ROOT / "hadamard" / str(4 * q * t)
     d.mkdir(exist_ok=True)
     (d / "certificate.json").write_text(json.dumps(cert, indent=1) + "\n")
