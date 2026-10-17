@@ -1391,24 +1391,37 @@ element to SL(2, q) has order 2s), and the construction runs over ℤ₃ × N_s 
   ℤ₉, ℤ₃ × ℤ₃ and ℤ₁₉ found none, so t = 3 is the only multiplier we have.
 - **No symmetric analogue this way.** T_c = 0 and I on the other fixed orbit make A_c symmetric, but the propus array
   needs two equal blocks among the other three; for q = 19, 43 and 67 no two of them are related by any affine map of
-  ℤ₃ × ℤ_s. Nor do the new matrices have an involutive anti-automorphism P (which would make HP symmetric, as for
-  [symmetric/7956](symmetric/7956)): by nauty (pynauty 2.8.8, on the signed digraph of H − I), for q = 11, 19, 43 and
-  59 they have no anti-automorphism at all, and their automorphism groups have order 4, 2, 2 and 2.
+  ℤ₃ × ℤ_s. Equal blocks are more than the propus array needs: its rows are orthogonal as soon as A is symmetric and B Bᵀ =
+  C Cᵀ, so two blocks with equal Gram matrices would do. Over every placement of δ₀, δ₁, δ₂ (T-matrices of order 3) on
+  three of the four orbits, all signs and all relative orbit shifts, q = 19 and 43 give no symmetric block together with
+  two equal Grams that passes the dense check (q = 11 gives a symmetric H(36), since s = 3 = t). The automorphisms of
+  Paley's matrix that normalise the torus move every orbit, which is why no pair of columns shares a Gram. The same test
+  on Paley II (Turyn's Williamson array (X₁, X₂, X₃, X₃), which would give symmetric 6(q + 1) for 39 census values)
+  gives only q = 5 (H(36)) among q = 5, 9, 13, 17, 25 and 29. Nor do the new matrices have an involutive
+  anti-automorphism P (which would make HP symmetric, as for [symmetric/7956](symmetric/7956)): by nauty (pynauty 2.8.8,
+  on the signed digraph of H − I), for q = 11, 19, 43 and 59 they have no anti-automorphism at all, and their
+  automorphism groups have order 4, 2, 2 and 2.
 - **No complex structure.** For q ≥ 11 no pairing (A_a ± iA_b, A_c ± iA_d) of the four blocks has X X* + Y Y* real, and
   the element of order 4 behind Paley's complex Hadamard matrices
   ([complex-hadamard/PALEY.md](complex-hadamard/PALEY.md)) cannot pass through T-matrices of order 3: it swaps the
   orbits in two pairs, so T_{k+2} would be the image of T_k under an involution of ℤ₃, whose fixed point would lie in
   two disjoint supports. The same holds for every odd t, since an involution of a set of odd size has a fixed point.
   (An earlier version of this note said that composite t allows fixed-point-free affine involutions; that was wrong.)
+  Nor can Paley's complex Hadamard matrix of order (q + 1)/2, a 2 × 2 array of circulants, be multiplied by a pair
+  U₀, U₁ of quaternary sequences of odd length t with disjoint supports and U₀U₀* + U₁U₁* = tδ: units are ≡ 1 mod
+  (1 + i), so for every shift the number of pairs inside one support would be even, but it is t minus an even number.
 - **No iteration.** The new matrices are Goethals–Seidel arrays whose off-diagonal blocks A_jR are back-circulant. A
   sixteen-block structure of the kind the construction needs would be a signed automorphism of order 3s acting with
   four orbits; the automorphism groups above (order 2 for q = 19, 43 and 59) contain only ±I, so the construction does
   not iterate to 9(q + 1).
 - **Szekeres's matrices.** For q ≡ 5 (mod 8) a sixteen-block form of a skew matrix of order 2(q + 1) with the pairing
   would give 6(q + 1), 21 census values. The Szekeres matrices from C₀ ∪ C₁ and C₀ ∪ C₃ (cyclotomic classes of order 4)
-  have automorphism group of order 2|PSL(2, q)| (nauty, q = 29, 37 and 53), and its elements of order (q + 1)/2 act
-  with four orbits, so they are sixteen negacyclic blocks. But they have no anti-automorphism; in the T(3) test no two
-  blocks of a column pair up (all columns, base points and signs, q = 37), and the off-diagonal blocks that are
-  symmetric up to a shift admit only skew T_k, whose row sum 0 forces t = 1. The other Szekeres-type matrices (from
-  C₀ ∪ C₂, when they exist) have anti-automorphisms but automorphism groups of order q(q − 1) only, with no element
-  of order (q + 1)/2.
+  have automorphism group of order 2|PSL(2, q)| (nauty, q = 29, 37 and 53), and its elements of order (q + 1)/2 act with
+  four orbits, so they are sixteen negacyclic blocks. On the points of GF(q)² \ 0 modulo the squares of GF(q)* they are
+  S(u, v) = ±1 as det(u, v) lies in C₀ ∪ C₁ or C₂ ∪ C₃, completed by I ⊗ [[1, 1], [−1, 1]] on the pairs {u, νu}, ν a
+  non-square (we checked that this matrix is Hadamard and equivalent to the two-circulant one for q = 13, 29, 37 and
+  53). Frobenius (determinant −1 ∈ C₂) reverses S but not the completion, and they have no anti-automorphism; in the
+  T(3) test no two blocks of a column pair up (all columns, base points and signs, q = 37), and the off-diagonal blocks
+  that are symmetric up to a shift admit only skew T_k, whose row sum 0 forces t = 1. The other Szekeres-type matrices
+  (from C₀ ∪ C₂, when they exist) have anti-automorphisms but automorphism groups of order q(q − 1) only, with no
+  element of order (q + 1)/2.
