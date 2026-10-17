@@ -1681,14 +1681,15 @@ anti-automorphism of the skew matrix is used, which is what §29 needed.
   Fletcher–Koukouvinos–Seberry's 236, Đoković's 67, 103, 163, 247; 6), quick multiplier searches for orders 148, 196,
   292, 532 (5), and our skew matrices of orders 820, 836, 1036, 1148 (4). The other seven, v = 1711, 1879, 1903, 2215,
   2359, 2383 and 2391, need the undecided skew orders 4w, w = 107, 235, 119, 277, 295, 149 and 299 (or twice them).
-- **Zaitsev et al.** The quaternary matrices QH590, QH638, QH782 and QH926 of Zaitsev, Kharaghani, Mohammadian and
-  Tayfeh-Rezaie (page of 14 October 2026, "unpublished approaches") are of this kind; for each, a monomial matrix found
-  with nauty makes it symmetric (checked: same rows, columns up to units, symmetric, Hadamard), so they too give
-  symmetric matrices of orders 1180, 1276, 1564 and 1852. The page does not mention symmetry.
+- **Zaitsev et al.** The quaternary matrices QH590, QH638, QH782, QH926, QH1310, QH1358, QH1646 and QH1886 of Zaitsev,
+  Kharaghani, Mohammadian and Tayfeh-Rezaie (page of 14 October 2026, "unpublished approaches") are of this kind; for
+  each, a monomial matrix found with nauty makes it symmetric (checked: same rows, columns up to units, symmetric,
+  Hadamard), so they too give symmetric matrices of orders 1180, 1276, 1564, 1852, 2620, 2716, 3292 and 3772. The page
+  does not mention symmetry; we label those eight orders Concurrent. (The first audit found only the first four.)
 - **Checks.** `verify.py` construction `symmetric-yamada-kiyasu` (nested skew certificate; 2X and 2Y built in integers;
   X, Y symmetric with complementary supports; H = Hᵀ, H Hᵀ = 4vI); q = 5, 13, 29 (Paley's skew matrix of order 8,
   doubled), 37, 53, 61, 125 (over GF(125)) and 317; the C checker on 1180 and 2716.
-- **Labels.** New ([symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md#status)).
+- **Labels.** 19 New, 8 Concurrent ([symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md#status)).
 - **Zaitsev's other quaternary matrices.** A monomial matrix making a quaternary Hadamard matrix of order 2N symmetric
   would give a symmetric Hadamard matrix of order 4N by Turyn's map. Of the 27 matrices on the page with N among the
   500 remaining census values, nauty (scratchpad qpol.py: side-swapping automorphisms of the phase graph, then the
