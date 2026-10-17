@@ -1343,3 +1343,47 @@ list (31), the provenance of the near-Williamson files, the Table A.17 inference
 Negative: no circulant Williamson matrices (A, B, C, C) of orders 43, 93, 153, 189, 277, 325 or 373 in the multiplier
 structures with at most 18 orbits (some row-sum classes skipped), so the repair does not reach 173, 373, 613, 757, 1109,
 1301 or 1493 this way.
+
+## 27. Skew-Hadamard matrices of order 3(q + 1) from Paley's blocks (October 17)
+
+The T-matrix multiplication of §22 gives Hadamard matrices; we asked when its first block A_c = Σ_k T_k ⊗ N_kc can be
+skew-type. Scanning the sixteen blocks of Paley's matrix for q = 11 to 331 showed the same pattern in every case: in
+some block column c the diagonal block is skew-type (as always), one block is symmetric up to a shift, and the other
+two are paired, N_dc(y) = ε N_bc(δ − y). After the base point of orbit d is moved by −δ the pair is N_dc = ε N_bcᵀ, and
+the T-matrices of order 3, T_c = I, T_b = Z, T_d = −εZ², 0 on the fourth orbit, make A_c skew-type. The Goethals–Seidel
+array with A_c first is then a skew-Hadamard matrix of order 12s = 3(q + 1).
+
+The pattern has a short explanation, which turns the observation into a theorem for every prime power q ≡ 3 (mod 4)
+([skew/PALEY_SKEW.md](skew/PALEY_SKEW.md)). On the points z^m of PG(1, q) (z primitive in GF(q²) = GF(q)(i)), Paley's
+matrix is [m = n] + (−1)^m χ(Im z^(n−m)); its sixteen blocks along the orbits of z⁴ are negacyclic; and Frobenius, an
+anti-automorphism (det(ū, v̄) = −det(u, v)), fixes two orbits and swaps the other two, which gives the pairing in
+column 0 identically. For q ≡ 7 (mod 8), s is even, the blocks cannot be made circulant (every lift of the torus
+element to SL(2, q) has order 2s), and the construction runs over ℤ₃ × N_s with negacyclic blocks.
+
+- **Reach.** 59 census values v < 2500 have v = 3(q + 1)/4 with q ≡ 3 (mod 8) a prime power. Seven were already in this
+  repository (261, 285, 429, 465, 513, 663, 2475); the other 52 are certified, from 996 = 4 · 249 to 9996 = 4 · 2499.
+  879 is one of the census values that Seberry–Yamada's Table 7.1 and Cati–Pasechnik's Table 5 record as known (like
+  663, [skew/2652](skew/2652)), so 3516 is a first explicit construction. For q ≡ 7 (mod 8) the orders are 8v or 16v,
+  and six of them lie below the smallest power of two in Table 5: 1800 (225(4)), 4344 (543(4)), 4632 (579(5)),
+  7272 (909(4)), 7656 (957(4)) and 14352 = 16 · 897 (897(5)). Five more such values (345, 369, 513, 693, 765) are
+  already settled at 4v.
+- **Checks.** `verify.py` rebuilds all 58 matrices from Paley's matrix and checks H Hᵀ = nI and H + Hᵀ = 2I densely
+  (the paley-blocks builder gained optional shifts, a column order and negacyclic blocks; the 45 earlier paley-blocks
+  certificates up to order 17000 and 25132 rebuild with unchanged SHA-256). `search/skew_3q.py` builds the family from
+  the closed formula, independently of `paley_blocks.py`, and passes for all 86 primes q ≡ 3 (mod 4) from 7 to 991.
+- **No other multiplier.** For A_c to be skew-type in general, T_c = I and the other three T-matrices must be X, −εXᵀ
+  and a skew Y, with 2 PAF(X) + PAF(Y) = (t − 1)δ; the trivial character forces t = 2a² + 1. Exhaustive searches over
+  ℤ₉, ℤ₃ × ℤ₃ and ℤ₁₉ found none, so t = 3 is the only multiplier we have.
+- **No symmetric analogue this way.** T_c = 0 and I on the other fixed orbit make A_c symmetric, but the propus array
+  needs two equal blocks among the other three; for q = 19, 43 and 67 no two of them are related by any affine map of
+  ℤ₃ × ℤ_s. Nor do the new matrices have an involutive anti-automorphism P (which would make HP symmetric, as for
+  [symmetric/7956](symmetric/7956)): by nauty (pynauty 2.8.8, on the signed digraph of H − I), for q = 11, 19 and 43
+  they have no anti-automorphism at all, and their automorphism groups have order 4, 2 and 2.
+- **No complex structure.** For q ≥ 11 no pairing (A_a ± iA_b, A_c ± iA_d) of the four blocks has X X* + Y Y* real, and
+  the element of order 4 behind Paley's complex Hadamard matrices
+  ([complex-hadamard/PALEY.md](complex-hadamard/PALEY.md)) cannot pass through T-matrices of order 3: it swaps the
+  orbits in two pairs, so T_{k+2} would be the image of T_k under an involution x ↦ c − x of ℤ₃, whose fixed point would
+  lie in two disjoint supports. (For composite t, ℤ_t has fixed-point-free affine involutions, which we have not
+  explored.)
+- **No iteration yet.** The new matrices are Goethals–Seidel arrays whose off-diagonal blocks A_jR are back-circulant,
+  so they are not visibly sixteen-block arrays of the kind the construction needs, and we do not get 9(q + 1).

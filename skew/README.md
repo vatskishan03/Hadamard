@@ -75,14 +75,86 @@ designs come from G-matrices, which are known for these orders. The designs for 
 
 The matrix of order 9900 is not stored; `verify/verify.py skew/9900` rebuilds it.
 
+## Paley's matrix in sixteen blocks, times three
+
+A skew-Hadamard matrix of order 3(q + 1) for every prime power q ≡ 3 (mod 4) ([PALEY_SKEW.md](PALEY_SKEW.md)): Paley's
+matrix of order q + 1 = 4s is a 4 × 4 array of negacyclic s × s blocks, Frobenius pairs two blocks of one block column,
+and T-matrices of order 3 in the Goethals–Seidel array then give a skew-type first block. No search is involved. The
+orders below are the 52 values v = 3(q + 1)/4 < 2500 that the census lists as undecided and that were not already in
+this repository, and six orders 8v and 16v that improve Cati–Pasechnik Table 5 (q ≡ 7 mod 8). The family also contains
+the census values 261, 285, 429, 465, 513, 663 and 2475, which are above with other constructions. The matrices are not
+stored; `verify/verify.py skew/<order>` rebuilds them.
+
+| Order | v | q | s | Census; Table 5 | Status |
+|------:|---|---:|---:|---|---|
+| [996](996) | 249 = 3 · 83 | 331 | 83 | undecided; Table 5: 249(4) | New |
+| [1476](1476) | 369 = 3² · 41 | 491 | 123 | undecided; Table 5: 369(4) | New |
+| [1692](1692) | 423 = 3² · 47 | 563 | 141 | undecided; Table 5: 423(4) | New |
+| [1764](1764) | 441 = 3² · 7² | 587 | 147 | undecided; Table 5: 441(3) | New |
+| [1800](1800) | 225 = 3² · 5² (order 8 · v) | 599 | 150 | Table 5: 225(4) | New |
+| [2076](2076) | 519 = 3 · 173 | 691 | 173 | undecided; Table 5: 519(4) | New |
+| [2436](2436) | 609 = 3 · 7 · 29 | 811 | 203 | undecided; Table 5: 609(3) | New |
+| [2484](2484) | 621 = 3³ · 23 | 827 | 207 | undecided; Table 5: 621(3) | New |
+| [2724](2724) | 681 = 3 · 227 | 907 | 227 | undecided; Table 5: 681(4) | New |
+| [2916](2916) | 729 = 3⁶ | 971 | 243 | undecided; Table 5: 729(4) | New |
+| [3060](3060) | 765 = 3² · 5 · 17 | 1019 | 255 | undecided; Table 5: 765(4) | New |
+| [3156](3156) | 789 = 3 · 263 | 1051 | 263 | undecided; Table 5: 789(3) | New |
+| [3516](3516) | 879 = 3 · 293 | 1171 | 293 | undecided; not in Table 5 | First explicit; see its README |
+| [3564](3564) | 891 = 3⁴ · 11 | 1187 | 297 | undecided; Table 5: 891(3) | New |
+| [3876](3876) | 969 = 3 · 17 · 19 | 1291 | 323 | undecided; Table 5: 969(4) | New |
+| [4344](4344) | 543 = 3 · 181 (order 8 · v) | 1447 | 362 | Table 5: 543(4) | New |
+| [4356](4356) | 1089 = 3² · 11² | 1451 | 363 | undecided | New |
+| [4380](4380) | 1095 = 3 · 5 · 73 | 1459 | 365 | undecided | New |
+| [4500](4500) | 1125 = 3² · 5³ | 1499 | 375 | undecided | New |
+| [4572](4572) | 1143 = 3² · 127 | 1523 | 381 | undecided | New |
+| [4596](4596) | 1149 = 3 · 383 | 1531 | 383 | undecided | New |
+| [4632](4632) | 579 = 3 · 193 (order 8 · v) | 1543 | 386 | Table 5: 579(5) | New |
+| [4740](4740) | 1185 = 3 · 5 · 79 | 1579 | 395 | undecided | New |
+| [4860](4860) | 1215 = 3⁵ · 5 | 1619 | 405 | undecided | New |
+| [4884](4884) | 1221 = 3 · 11 · 37 | 1627 | 407 | undecided | New |
+| [5364](5364) | 1341 = 3² · 149 | 1787 | 447 | undecided | New |
+| [5436](5436) | 1359 = 3² · 151 | 1811 | 453 | undecided | New |
+| [5604](5604) | 1401 = 3 · 467 | 1867 | 467 | undecided | New |
+| [5796](5796) | 1449 = 3² · 7 · 23 | 1931 | 483 | undecided | New |
+| [5964](5964) | 1491 = 3 · 7 · 71 | 1987 | 497 | undecided | New |
+| [6036](6036) | 1509 = 3 · 503 | 2011 | 503 | undecided | New |
+| [6084](6084) | 1521 = 3² · 13² | 2027 | 507 | undecided | New |
+| [6396](6396) | 1599 = 3 · 13 · 41 | 2131 | 533 | undecided | New |
+| [6540](6540) | 1635 = 3 · 5 · 109 | 2179 | 545 | undecided | New |
+| [6612](6612) | 1653 = 3 · 19 · 29 | 2203 | 551 | undecided | New |
+| [6732](6732) | 1683 = 3² · 11 · 17 | 2243 | 561 | undecided | New |
+| [6756](6756) | 1689 = 3 · 563 | 2251 | 563 | undecided | New |
+| [7236](7236) | 1809 = 3³ · 67 | 2411 | 603 | undecided | New |
+| [7272](7272) | 909 = 3² · 101 (order 8 · v) | 2423 | 606 | Table 5: 909(4) | New |
+| [7380](7380) | 1845 = 3² · 5 · 41 | 2459 | 615 | undecided | New |
+| [7620](7620) | 1905 = 3 · 5 · 127 | 2539 | 635 | undecided | New |
+| [7656](7656) | 957 = 3 · 11 · 29 (order 8 · v) | 2551 | 638 | Table 5: 957(4) | New |
+| [7740](7740) | 1935 = 3² · 5 · 43 | 2579 | 645 | undecided | New |
+| [8052](8052) | 2013 = 3 · 11 · 61 | 2683 | 671 | undecided | New |
+| [8100](8100) | 2025 = 3⁴ · 5² | 2699 | 675 | undecided | New |
+| [8196](8196) | 2049 = 3 · 683 | 2731 | 683 | undecided | New |
+| [8412](8412) | 2103 = 3 · 701 | 2803 | 701 | undecided | New |
+| [8532](8532) | 2133 = 3³ · 79 | 2843 | 711 | undecided | New |
+| [8556](8556) | 2139 = 3 · 23 · 31 | 2851 | 713 | undecided | New |
+| [8892](8892) | 2223 = 3² · 13 · 19 | 2963 | 741 | undecided | New |
+| [8916](8916) | 2229 = 3 · 743 | 2971 | 743 | undecided | New |
+| [9252](9252) | 2313 = 3² · 257 | 3083 | 771 | undecided | New |
+| [9564](9564) | 2391 = 3 · 797 | 3187 | 797 | undecided | New |
+| [9612](9612) | 2403 = 3³ · 89 | 3203 | 801 | undecided | New |
+| [9780](9780) | 2445 = 3 · 5 · 163 | 3259 | 815 | undecided | New |
+| [9972](9972) | 2493 = 3² · 277 | 3323 | 831 | undecided | New |
+| [9996](9996) | 2499 = 3 · 7² · 17 | 3331 | 833 | undecided | New |
+| [14352](14352) | 897 = 3 · 13 · 23 (order 16 · v) | 4783 | 1196 | Table 5: 897(5) | New |
+
 ## How they were found
 
-The Goethals–Seidel families come from searches over multiplier structures: exact joins of complete block lists for
-small structures, exact compression chains (`search/chain.py`, run over the census by `search/census_screen.py` and
-`search/screen_chain.py`), Paley-product and cyclotomic-product configurations (`search/paley_config.py`,
-`search/cyclo_product.py`), low-energy k-trees on lists too large to store (`search/cp_lowe.py`,
-`search/skew_lowE.py`) and, for 3676, a spin structure (`search/spin_skew.py`). The orthogonal designs come from
-`search/odm_engine.py` and `search/odm_join.py`. [search/NOTES.md](../search/NOTES.md) §10–§16, §20, §23 and §31
-describe the methods, and each README records the command, code commit, seed and caps of its search.
+The orders 3(q + 1) need no search (`search/paley_blocks.py skew q`). The Goethals–Seidel families come from searches
+over multiplier structures: exact joins of complete block lists for small structures, exact compression chains
+(`search/chain.py`, run over the census by `search/census_screen.py` and `search/screen_chain.py`), Paley-product and
+cyclotomic-product configurations (`search/paley_config.py`, `search/cyclo_product.py`), low-energy k-trees on lists too
+large to store (`search/cp_lowe.py`, `search/skew_lowE.py`) and, for 3676, a spin structure (`search/spin_skew.py`). The
+orthogonal designs come from `search/odm_engine.py` and `search/odm_join.py`. [search/NOTES.md](../search/NOTES.md)
+§10–§16, §20, §23 and §31 describe the methods, and each README records the command, code commit, seed and caps of its
+search.
 
 `python3 verify/verify.py skew/<order>` rebuilds a matrix from its certificate and checks H Hᵀ = nI and H + Hᵀ = 2I.

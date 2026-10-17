@@ -1460,23 +1460,21 @@ def build_two_block(cert):
 
 
 def build_paley_blocks(cert):
-    """Paley's matrix of order q + 1 = 4s (q = 3 mod 8; a prime, or a prime power with cert["field"], see
+    """Paley's matrix of order q + 1 = 4s (q = 3 mod 4, q > 3; a prime, or a prime power with cert["field"], see
     _build_paley_blocks_field) as a 4 x 4 array of circulant s x s blocks, times
     T-matrices of order t (Seberry-Yamada 1992, Theorem 3.10), as a Goethals-Seidel quadruple of length n = st.
     Points of PG(1, q) are 0..q-1 and q (infinity), with vectors u_x = (1, x) and u_inf = (0, -1); Paley's matrix is
     P[a, b] = [a = b] + chi(det(u_a, u_b)).  The torus element g is (x -> -1/(x + tau))^power; P(ga, gb) = e(a) e(b)
     P(a, b); E(g a) = c e(a) E(a) along each g-cycle (cycles in order of their least point, each from its least point)
     makes g an automorphism of E P E, whose blocks along the cycles are circulant.  A_j(x) = sum_k T_k(x mod t)
-    N_kj(x mod s); the certificate's sequences must equal the rebuilt ones."""
+    N_kj(x mod s); the certificate's sequences must equal the rebuilt ones.  Optional fields: "shifts" r moves the
+    base point of cycle k by r_k (N_kj(y) -> N_kj(y + r_j - r_k)), and "columns" lists the block columns in the order
+    of the sequences; skew certificates (3(q + 1), see search/paley_blocks.py) use both."""
     q, t, tau, power, c = cert["q"], cert["t"], cert["tau"], cert["power"], cert["c"]
-    if q % 8 != 3:
-        raise ValueError("q must be = 3 (mod 8)")
+    if q % 4 != 3 or q < 7:
+        raise ValueError("q must be = 3 (mod 4) and at least 7")
     if not _is_prime(q):
         return _build_paley_blocks_field(cert)
-    s = (q + 1) // 4
-    grouped = math.gcd(s, t) != 1
-    if s * t != cert["v"] or grouped != (cert.get("group") == f"Z{t} x Z{s}"):
-        raise ValueError("v must be s t, with group Z_t x Z_s recorded exactly when gcd(s, t) > 1")
     chi = np.full(q, -1, dtype=np.int8)
     chi[0] = 0
     chi[(np.arange(1, q, dtype=np.int64) ** 2) % q] = 1
@@ -1499,12 +1497,20 @@ def build_paley_blocks(cert):
 
 
 def _paley_blocks_finish(cert, P, g):
-    """the common part of build_paley_blocks: cycles of g, signs, circulant blocks, T-matrices, sequences, array"""
+    """the common part of build_paley_blocks: cycles of g, signs, circulant blocks, T-matrices, sequences, array.
+    For q = 7 (mod 8), s is even and g^s acts as -I: every cycle closes with the sign -1, the blocks are negacyclic
+    (N_kj[i, j] = N~_kj(j - i) with N~(y + s) = -N~(y)), the certificate says "negacyclic": true and
+    "group": "Z_t x N_s", and the Goethals-Seidel array uses R: (i, a) -> (-i, s - 1 - a), so that R X R = X^T."""
     q, t, c = cert["q"], cert["t"], cert["c"]
     s = (q + 1) // 4
-    grouped = math.gcd(s, t) != 1
-    if s * t != cert["v"] or grouped != (cert.get("group") == f"Z{t} x Z{s}"):
-        raise ValueError("v must be s t, with group Z_t x Z_s recorded exactly when gcd(s, t) > 1")
+    nega = s % 2 == 0
+    if bool(cert.get("negacyclic")) != nega:
+        raise ValueError("the blocks are negacyclic exactly when s is even")
+    grouped = nega or math.gcd(s, t) != 1
+    group = f"Z{t} x N{s}" if nega else f"Z{t} x Z{s}"
+    if s * t != cert["v"] or grouped != (cert.get("group") == group):
+        raise ValueError("v must be s t, with the group (Z_t x Z_s, or Z_t x N_s if s is even) recorded exactly when "
+                         "gcd(s, t) > 1 or s is even")
     cyc, seen = [], set()
     for a in range(q + 1):
         if a not in seen:
@@ -1525,16 +1531,24 @@ def _paley_blocks_finish(cert, P, g):
         E[cy[0]] = 1
         for a in range(1, s):
             E[cy[a]] = c * e[cy[a - 1]] * E[cy[a - 1]]
-        if c * e[cy[-1]] * E[cy[-1]] != 1:
+        if c * e[cy[-1]] * E[cy[-1]] != (-1 if nega else 1):
             raise ValueError("sign normalisation does not close")
     order = np.array([a for cy in cyc for a in cy])
     E8 = E.astype(np.int8)
     B = (E8[order, None] * P[np.ix_(order, order)] * E8[None, order]).astype(np.int8)
     N = [[B[k * s, j * s:(j + 1) * s].astype(np.int64) for j in range(4)] for k in range(4)]
+    ia = np.arange(s)
+    wrap = np.where(ia[None, :] >= ia[:, None], 1, -1) if nega else 1      # negacyclic: sign -1 below the diagonal
+    ext = lambda row, y: (np.where((y // s) % 2 == 1, -1, 1) if nega else 1) * row[y % s]   # N~(y), y any integer
     for k in range(4):
         for j in range(4):
-            if not np.array_equal(B[k * s:(k + 1) * s, j * s:(j + 1) * s], circulant(N[k][j])):
-                raise ValueError("blocks are not circulant")
+            blk = wrap * N[k][j][(ia[None, :] - ia[:, None]) % s]
+            if not np.array_equal(B[k * s:(k + 1) * s, j * s:(j + 1) * s], blk):
+                raise ValueError("blocks are not circulant" + (" (negacyclic)" if nega else ""))
+    r, cols = cert.get("shifts", [0, 0, 0, 0]), cert.get("columns", [0, 1, 2, 3])
+    if len(r) != 4 or not all(0 <= x < (2 * s if nega else s) for x in r) or sorted(cols) != [0, 1, 2, 3]:
+        raise ValueError("shifts must be four residues mod s (2s if negacyclic) and columns a permutation of 0..3")
+    N = [[ext(N[k][j], ia + r[j] - r[k]) for j in cols] for k in range(4)]   # new base points: N_kj(y + r_j - r_k)
     T = [np.array([SIGN[ch] for ch in row], dtype=np.int64) for row in cert["T"]]
     if len(T) != 4 or any(len(r) != t for r in T) or not (np.abs(np.array(T)).sum(0) == 1).all():
         raise ValueError("T-matrices must be four rows of length t with disjoint supports covering Z_t")
@@ -1548,8 +1562,9 @@ def _paley_blocks_finish(cert, P, g):
         seqs = [sum(T[k][x % t] * N[k][j][x % s] for k in range(4)) for j in range(4)]
     if [("".join("+" if v > 0 else "-" for v in a)) for a in seqs] != cert["sequences"]:
         raise ValueError("the sequences differ from the rebuilt ones")
-    if grouped:
-        paf = sum(np.array([[int((a * np.roll(np.roll(a, -di, 0), -da, 1)).sum()) for da in range(s)]
+    if grouped:                                            # sum_x a(x) a~(x + d), a~ antiperiodic in a if negacyclic
+        sh = lambda a, da: np.concatenate([a, -a if nega else a], axis=1)[:, da:da + s]
+        paf = sum(np.array([[int((a * np.roll(sh(a, da), -di, 0)).sum()) for da in range(s)]
                             for di in range(t)]) for a in seq2).reshape(-1)
     else:
         paf = paf_sum(seqs)
@@ -1559,8 +1574,9 @@ def _paley_blocks_finish(cert, P, g):
         return goethals_seidel(*map(circulant8, seqs)), seqs
     it, ia = np.arange(t), np.arange(s)
     dt, ds = (it[None, :] - it[:, None]) % t, (ia[None, :] - ia[:, None]) % s
-    gm = [a.astype(np.int8)[dt[:, None, :, None], ds[None, :, None, :]].reshape(s * t, s * t) for a in seq2]
-    neg = (((-it) % t)[:, None] * s + ((-ia) % s)[None, :]).reshape(-1)    # R[g, h] = [g + h = 0]: X R = X[:, neg]
+    sg = (wrap if nega else np.ones((s, s), dtype=np.int64)).astype(np.int8)[None, :, None, :]
+    gm = [(a.astype(np.int8)[dt[:, None, :, None], ds[None, :, None, :]] * sg).reshape(s * t, s * t) for a in seq2]
+    neg = (((-it) % t)[:, None] * s + ((s - 1 - ia) if nega else (-ia) % s)[None, :]).reshape(-1)   # X R = X[:, neg]
     A, B, C, D = gm
     rv = lambda X: X[:, neg]
     return np.block([[A, rv(B), rv(C), rv(D)],

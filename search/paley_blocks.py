@@ -21,6 +21,21 @@ T-matrices of order t.
 
 For gcd(s, t) > 1 the sequences live on Z_t x Z_s (certificate field "group").  For a prime power q = p^k the field
 is GF(p)[x]/(f) with the first primitive f (certificate field "field"); points are coded as integers sum d_i p^i.
+
+3. Skew-Hadamard matrices of order 3(q + 1).  A reflection w of the dihedral normaliser of the torus in PGL(2, q) with
+   non-square determinant is an anti-automorphism of H (H(wx, wy) = f(x) f(y) H(y, x)) that inverts g, fixes two of the
+   four g-orbits (c and another) and swaps the other two (b and d).  Hence N_dc(y) = eps N_bc(delta - y), with a
+   constant sign eps because s is odd.  Moving the base point of orbit d by -delta (N'_kj(y) = N_kj(y + r_j - r_k),
+   r_d = -delta) gives N'_dc = eps N'_bc^T, and with the T-matrices T_c = I, T_b = Z, T_d = -eps Z^2 (Z the cyclic
+   shift of order 3) and 0 on the fourth orbit, A_c = I (x) N'_cc + Z (x) N'_bc - Z^2 (x) N'_bc^T is skew-type.  The
+   Goethals-Seidel array with A_c first is a skew-Hadamard matrix of order 12s = 3(q + 1).  For q = 7 (mod 8), s is even,
+   g^s acts as -I and the blocks are negacyclic; the same steps work over Z_3 x N_s (circulant in the Z_3 part,
+   negacyclic in the other), with R: (i, a) -> (-i, s - 1 - a).  So there is a skew-Hadamard matrix of order 3(q + 1)
+   for every prime power q = 3 (mod 4).
+
+    python3 search/paley_blocks.py skew 331                # skew/996/certificate.json and sequences.txt
+    python3 search/paley_blocks.py skew 27 /tmp/x          # the same in another directory (here q = 3^3, order 84)
+    python3 search/paley_blocks.py skew 599                # q = 7 (mod 8): skew/1800, negacyclic blocks
 """
 import json
 import sys
@@ -171,10 +186,20 @@ def torus_element(q):
     raise ValueError("no torus element of order s")
 
 
+def nega_ext(row, y, nega):
+    """row~(y) for any integer y: the periodic extension, or the antiperiodic one (row~(y + s) = -row~(y)) if nega"""
+    s = len(row)
+    return (np.where((y // s) % 2 == 1, -1, 1) if nega else 1) * row[y % s]
+
+
 def blocks(q):
-    """the 4 x 4 array of circulant s x s blocks N[k][j] (first rows) and the full rearranged matrix"""
-    assert prime_power(q) and q % 8 == 3
+    """the 4 x 4 array of circulant s x s blocks N[k][j] (first rows) and the full rearranged matrix.
+    For q = 7 (mod 8), s is even, every lift of g to SL(2, q) has order 2s, so g^s acts as -I: the signs close with -1
+    on every cycle and the blocks are negacyclic, N_kj[i, j] = N~_kj(j - i) with N~(y + s) = -N~(y)
+    (info["negacyclic"])."""
+    assert prime_power(q) and q % 4 == 3 and q >= 7
     s, n = (q + 1) // 4, q + 1
+    nega = s % 2 == 0
     H = paley(q)
     g, tau, kpow = torus_element(q)
     e = H[0] * H[g[0], g]                                 # e(0) e(y), with e(0) := 1, from H(gx, gy) = e(x) e(y) H(x, y)
@@ -189,7 +214,7 @@ def blocks(q):
             E[cy[0]] = 1
             for a in range(1, s):
                 E[cy[a]] = c * e[cy[a - 1]] * E[cy[a - 1]]
-            ok &= c * e[cy[-1]] * E[cy[-1]] == E[cy[0]]
+            ok &= c * e[cy[-1]] * E[cy[-1]] == (-1 if nega else 1) * E[cy[0]]
         if ok:
             break
     assert ok, "sign normalisation failed"
@@ -199,13 +224,15 @@ def blocks(q):
     del H
     N = [[Hb[k * s:(k + 1) * s, j * s:(j + 1) * s] for j in range(4)] for k in range(4)]
     idx = np.arange(s)
+    wrap = np.where(idx[None, :] >= idx[:, None], 1, -1) if nega else 1
     for k in range(4):
         for j in range(4):
             r = N[k][j][0]
-            assert np.array_equal(N[k][j], r[(idx[None, :] - idx[:, None]) % s]), f"block {k},{j} not circulant"
+            assert np.array_equal(N[k][j], wrap * r[(idx[None, :] - idx[:, None]) % s]), f"block {k},{j} not circulant"
     F = Hb.astype(np.float32)                              # exact: integer sums of at most n < 2^24 terms +-1
     assert np.array_equal(F @ F.T, n * np.eye(n, dtype=np.float32))
-    return [[N[k][j][0].astype(np.int64) for j in range(4)] for k in range(4)], Hb, {"tau": tau, "power": kpow, "c": c}
+    info = {"tau": tau, "power": kpow, "c": c, **({"negacyclic": True} if nega else {})}
+    return [[N[k][j][0].astype(np.int64) for j in range(4)] for k in range(4)], Hb, info
 
 
 def base_sequences(m):
@@ -258,22 +285,57 @@ def load_t(path):
     return T
 
 
-def quadruple(q, T):
-    """GS quadruple of length n = s t: A_j(x) = sum_k T_k(x mod t) N_kj(x mod s) via CRT when gcd(s, t) = 1; otherwise
-    A_j(i, a) = sum_k T_k(i) N_kj(a) on Z_t x Z_s, flattened as i s + a"""
+def skew_relation(Nrow, s, nega=False):
+    """the first block column c (in order) with two other block rows b, d, a shift delta and a sign eps such that
+    N_dc(y) = eps N_bc(delta - y) (N~ antiperiodic if nega)"""
+    for c in range(4):
+        for b in range(4):
+            for d in range(4):
+                if len({b, c, d}) < 3:
+                    continue
+                x, y = Nrow[d][c], Nrow[b][c]
+                for delta in range(2 * s if nega else s):
+                    for eps in (1, -1):
+                        if np.array_equal(x, eps * nega_ext(y, delta - np.arange(s), nega)):
+                            return c, b, d, delta, eps
+    raise ValueError("no block column with related blocks")
+
+
+def skew_data(q):
+    """the re-based blocks (shifts r), the column order (c first) and the T-matrices of order 3 that make A_c
+    skew-type"""
     Nrow, _, info = blocks(q)
+    s, nega = (q + 1) // 4, "negacyclic" in info
+    c, b, d, delta, eps = skew_relation(Nrow, s, nega)
+    r = [0, 0, 0, 0]
+    r[d] = (-delta) % (2 * s if nega else s)
+    T = np.zeros((4, 3), np.int64)
+    T[c, 0], T[b, 1], T[d, 2] = 1, 1, -eps
+    cols = [c] + [j for j in range(4) if j != c]
+    return Nrow, info, r, cols, T
+
+
+def quadruple(q, T, Nrow=None, info=None, shifts=(0, 0, 0, 0), cols=(0, 1, 2, 3)):
+    """GS quadruple of length n = s t: A_j(x) = sum_k T_k(x mod t) N_kj(x mod s) via CRT when gcd(s, t) = 1; otherwise
+    A_j(i, a) = sum_k T_k(i) N_kj(a) on Z_t x Z_s, flattened as i s + a (always so for negacyclic blocks, Z_t x N_s).
+    The blocks are first re-based, N_kj(y) -> N_kj(y + r_j - r_k), and the block columns taken in the order cols"""
+    if Nrow is None:
+        Nrow, _, info = blocks(q)
     s, t = (q + 1) // 4, T.shape[1]
+    nega, r = "negacyclic" in info, shifts
+    Nrow = [[nega_ext(Nrow[k][j], np.arange(s) + r[j] - r[k], nega) for j in cols] for k in range(4)]
     n = s * t
-    if np.gcd(s, t) == 1:
+    if np.gcd(s, t) == 1 and not nega:
         x = np.arange(n)
         A = [sum(T[k][x % t] * Nrow[k][j][x % s] for k in range(4)) for j in range(4)]
         paf = sum(np.array([int(a @ np.roll(a, -d)) for d in range(n)]) for a in A)
     else:
         A2 = [sum(np.outer(T[k], Nrow[k][j]) for k in range(4)) for j in range(4)]
-        paf = sum(np.array([[int((a * np.roll(np.roll(a, -di, 0), -da, 1)).sum()) for da in range(s)] for di in range(t)])
+        sh = lambda a, da: np.concatenate([a, -a if nega else a], axis=1)[:, da:da + s]
+        paf = sum(np.array([[int((a * np.roll(sh(a, da), -di, 0)).sum()) for da in range(s)] for di in range(t)])
                   for a in A2).reshape(-1)
         A = [a.reshape(-1) for a in A2]
-        info = {**info, "group": f"Z{t} x Z{s}"}
+        info = {**info, "group": f"Z{t} x {'N' if nega else 'Z'}{s}"}
     assert set(np.unique(np.concatenate(A))) <= {-1, 1}
     assert paf[0] == 4 * n and not paf[1:].any(), "PAF sum is not zero"
     return A, info
@@ -322,5 +384,37 @@ if __name__ == "__main__":
         (d / "certificate.json").write_text(json.dumps(cert, indent=1) + "\n")
         (d / "sequences.txt").write_text("\n".join(cert["sequences"]) + "\n")
         print(f"wrote {d}/certificate.json (order {4 * n}, sha256 {cert['sha256']})")
+    elif cmd == "skew":
+        import hashlib
+        from pathlib import Path
+        root = Path(__file__).resolve().parent.parent
+        sys.path.insert(0, str(root / "verify"))
+        import verify as V
+        q = int(sys.argv[2])
+        Nrow, info, r, cols, T = skew_data(q)
+        A, info = quadruple(q, T, Nrow, info, r, cols)
+        n = len(A[0])
+        cert = {"order": 4 * n, "construction": "paley-blocks", "skew": True, "v": n, "q": q, "t": 3,
+                **{k: (v if isinstance(v, (str, bool)) else int(v)) for k, v in info.items()},
+                "shifts": [int(x) for x in r], "columns": cols,
+                "T": ["".join("0+-"[int(v)] for v in row) for row in T],
+                "sequences": ["".join("+" if v > 0 else "-" for v in a) for a in A]}
+        if not is_prime(q):
+            F = GF(q)
+            cert = {**{k: v for k, v in cert.items() if k not in ("T", "sequences")},
+                    "field": {"p": F.p, "k": F.k, "poly": F.poly}, "T": cert["T"], "sequences": cert["sequences"]}
+        H, _ = V.build_paley_blocks(cert)
+        assert V.is_skew(H), "H + H^T != 2I"
+        sha = hashlib.sha256()
+        for chunk in V.csv_chunks(H):
+            sha.update(chunk)
+        cert["sha256"] = sha.hexdigest()
+        d = Path(sys.argv[3]) if len(sys.argv) > 3 else root / "skew" / str(4 * n)
+        if (d / "certificate.json").exists():
+            sys.exit(f"{d}/certificate.json exists; not overwritten")
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "certificate.json").write_text(json.dumps(cert, indent=1) + "\n")
+        (d / "sequences.txt").write_text("\n".join(cert["sequences"]) + "\n")
+        print(f"wrote {d}/certificate.json (skew order {4 * n}, sha256 {cert['sha256']})")
     else:
         print(__doc__)

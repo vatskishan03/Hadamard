@@ -16,6 +16,11 @@ T-matrices ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#near-willi
 a quaternary matrix of order 1142 posted concurrently by Zaitsev et al. [13].
 The smallest order we know to be unresolved is now 2396 = 4 · 599 ([FRONTIER.md](FRONTIER.md)).
 
+For skew-Hadamard matrices (H + Hᵀ = 2I) we prove that one of order 3(q + 1) exists for every prime power q ≡ 3
+(mod 4): Paley's matrix is an array of sixteen negacyclic blocks, Frobenius pairs two of them, and T-matrices of order
+3 then keep the first Goethals–Seidel block skew-type ([skew/PALEY_SKEW.md](skew/PALEY_SKEW.md)). This settles 52 values
+v < 2500 that the Đoković–Seberry census lists as undecided, from 996 = 4 · 249 to 9996 = 4 · 2499.
+
 ## Results
 
 **Unresolved Hadamard orders.** For each order 4n below, n is listed as unresolved in Table 4 of Cati and
@@ -98,9 +103,11 @@ Williamson-type matrices ([NOTES.md](NOTES.md) §7).
   those orders were obtainable classically; and the 173 · t orders have a published route since Verma's symmetric
   conference matrix of order 86 (arXiv:2610.08893, October 2026). Table 4 entries that Đoković settled through the
   corollary are in the table above (6108, 10180) or still open (2571).
-- **Skew-Hadamard matrices of 40 orders** from 820 to 9900 for which we found no earlier construction: 32 from
-  Goethals–Seidel difference families with a skew block, and 8 from Seberry's theorem with new amicable Hadamard
-  matrices or new orthogonal designs. Also independent matrices of the known skew orders 1852 and 3676.
+- **Skew-Hadamard matrices of 98 orders** from 820 to 14352 for which we found no earlier construction: 32 from
+  Goethals–Seidel difference families with a skew block, 8 from Seberry's theorem with new amicable Hadamard matrices
+  or new orthogonal designs, and 58 from the theorem above, of order 3(q + 1): 52 census values 4v (one of them,
+  3516 = 4 · 879, recorded as known by two older tables without a construction) and six orders 8v and 16v below the
+  smallest power of two in Cati–Pasechnik's Table 5. Also independent matrices of the known skew orders 1852 and 3676.
   See [skew](skew).
 - **Symmetric Hadamard matrices** of orders 532, 732, 876, 4828 and 5700, all undecided in the Đoković–Seberry
   census [4]. See [symmetric](symmetric).
@@ -156,6 +163,7 @@ gzip -dc hadamard/2092/H2092.csv.gz | ./check_matrix
 | Cyclotomic products ℤ_m × GF(q) of index 4 to 10 | 3732, 5020; skew 820, 1044, 1204, 1276, 3380, 5668 | [search/NOTES.md](search/NOTES.md) §16, §20 |
 | Spence's construction with blocks (A, B, B∘μ, B∘μ²) and a Legendre lift | 2292 | [NOTES.md](NOTES.md) §13, [search/spence_spin](search/spence_spin) |
 | Skew difference families: compression chains, Paley products, low-energy k-trees | skew orders | [skew](skew), [search/NOTES.md](search/NOTES.md) §10–16, §20 |
+| Paley's matrix in sixteen negacyclic blocks, Frobenius pairing, T-matrices of order 3 | skew 3(q + 1): 996 to 14352 | [skew/PALEY_SKEW.md](skew/PALEY_SKEW.md), [NOTES.md](NOTES.md) §27 |
 | Propus quadruples and the symmetric m(m − 1), m(m + 3) constructions | symmetric orders | [symmetric](symmetric), [search/NOTES.md](search/NOTES.md) §17, §27–31 |
 | Szöllősi's array, its bordered, character-bordered and twisted forms | complex orders | [complex-hadamard](complex-hadamard) |
 | Cooper–Wallis with T-matrices, near-Williamson and bordered Williamson-type matrices | 12596 to 39260 | [williamson-type](williamson-type), [t-matrices](t-matrices) |
