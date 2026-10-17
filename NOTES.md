@@ -1177,3 +1177,17 @@ was not accessible.
   multiplication off Yang's Lagrange identity with block-concatenated or interleaved supports gave no layout at all:
   with T-sequence outer factors, three of the four outer supports must be symmetric about a common centre, which no
   TS(5) satisfies.
+- *Searches for the missing pairs (October 17).* (i) Near-Williamson quadruples (A, B, B, D) with A, B symmetric and D
+  free (`propus.py --nwrep`, the repeated-block input that repairs Corollary 8.8) over ℤ_v for v = 93, 67, 127, 43 and
+  73, every multiplier structure whose pools fit (52 exact joins): none. (ii) Quasi-Williamson matrices of orders 67,
+  93, 107, 127, 235 and the other orders of Balonin–Đoković's list (31), constant on the orbits of a multiplier group of
+  odd order (so not symmetric), joined on PAF sums and the antisymmetric part of the cross-correlations
+  (`search/qw_mult.py`), for every such group with at most 15 orbits: none. (iii) NG pairs directly, as two sequences in
+  ℤ[y]/(y^v + 1) constant up to sign on the orbits of a multiplier group y ↦ y^k, filtered by |p(ζ)|² ≤ 2v at the odd
+  2v-th roots of unity and joined exactly on the NAF (`search/ng_mult.py`, which finds the Paley and other pairs of
+  lengths 14 to 38 at once): for v = 134 (QW(67), FRONTIER 1883) the structures with up to 24 orbits give none (24
+  orbits: 94578 of 8388608 sequences pass the spectral test, no pair), and the next structure has 46 orbits; v = 94
+  (QW(47)) has no structure between 6 and 48 orbits. A Gaussian count predicts about 70 pairs for the 24-orbit structure
+  of v = 134, so multiplier-invariant NG pairs are much rarer than the count suggests. (iv) Williamson matrices of order
+  153 constant on the orbits of a multiplier group of order 16 exist and were found at once (12260, 26972);
+  `williamson.py` with up to 24 orbits finds none of order 325 (for 3903, 9107) so far.
