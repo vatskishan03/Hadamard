@@ -3037,3 +3037,58 @@ Followed one level further down (`search --chain`, multi-level refinement), the 
 The Gaussian on a coarse quotient does not see the congruences that bind on the finer ones. The level that matched
 reality in the calibration above is the last one, one step from G: fibres of 13 for 161, as for 209 on ℤ₂ × ℤ₈.
 Structures have to be compared there.
+
+## 48. Paley plus three blocks over the census primes v ≡ 3 (mod 4) (October 17)
+
+Đoković and Kotsireas (arXiv:1511.08734) build skew-Hadamard matrices of order 4v, for v ≡ 3 (mod 4) prime, from
+Paley's block (−1 on the nonzero squares, PAF −1 off zero) and a (v; k₁, k₂, k₃; λ) difference family X₁, X₂, X₃:
+three ±1 sequences with PAF sum +1 off zero. `skew_paley3.py` searches this class with the three blocks unions of
+orbits of a subgroup H of the squares, of odd order d. That leaves m = (v − 1)/d orbits besides {0}, and m ≡ 2 (mod
+4).
+
+**Method.** `exhaust v d` works as follows.
+
+- **Encoding.** The PAF at a shift class {±gᵏH} is a quadratic form cᵀNₖc in the orbit signs. The PSD is bounded by
+  3v − 1, using Gauss periods.
+- **Symmetry.** The sign of {0} is fixed in each block (negation). The first block is reduced modulo the squares, which
+  permute the orbits and fix Paley's block.
+- **Join.** The third block is joined by hashing.
+- **Validation.** It finds the factors of [skew/9424](../skew/9424) (v = 31, ⟨2⟩) and [skew/13072](../skew/13072)
+  (v = 43, ⟨4⟩), and v = 71 under the subgroup of order 5. Under the subgroup of order 17 it finds nothing for v = 239,
+  where Đoković and Kotsireas used order 7.
+
+**Row sums.** A block has row sum c₀ + d·e with e ≡ m (mod 2), and r₁² + r₂² + r₃² = 4v − 1. This removes most
+subgroups: of the structures with 22 to 58 orbits over the census primes, eight survive.
+
+**Exhaustive and empty.** Every census-undecided prime v ≡ 3 (mod 4) and every subgroup with 6, 10, 14 or 18 orbits
+gives nothing. That is 97 structures over 65 primes:
+
+- 49 with 6 orbits, 20 with 10 and 13 with 14 (`sweep 6 14`);
+- 15 with 18 orbits, for v = 487, 523, 739, 883, 919, 991, 1063, 1423, 1567, 1747, 1783, 1999, 2143, 2251 and 2287
+  (`sweep 15 20`).
+
+None of these structures has 2, 4, 8, 12 or 16 orbits, so these four sizes cover the whole range up to 20. The other 39
+undecided primes ≡ 3 (mod 4) have no subgroup in this range.
+
+**Counts.** `estimate v/d` uses a Gaussian model:
+
+- the PAF vector of each block is normal, with mean and covariance sampled at each row sum;
+- the values lie on a lattice of spacing 4;
+- the direction fixed by the row sums (Σₛ PAF(s) = r² − v) is removed.
+
+For 31/5 and 43/7 the model predicts 10³·⁰⁹ ordered triples, and the exact count is 1008 (`p3count`, scratch).
+
+| v/d | orbits | log₁₀ E | log₁₀ density per row-feasible triple |
+|---|---:|---:|---:|
+| 239/7 (Đoković–Kotsireas) | 34 | 10.0 | −18.6 |
+| 1123/33 | 34 | 4.4 | −24.1 |
+| 1483/39 | 38 | 3.7 | −28.4 |
+| 251/5 | 50 | 14.2 | −28.7 |
+| 883/21 | 42 | 6.6 | −29.4 |
+
+All other undecided primes up to 1500 give densities below 10⁻³⁴.
+
+**Local search does not reach them.** Simulated annealing and tabu search over the orbit signs (C, scratch) solve 71/5
+within a second. They do not solve 239/7 in about ten CPU-minutes: the best energy was 48, a few classes off. The
+undecided structures are at least 10⁵·⁵ sparser. The 2 + 1 join with sampled lists costs about density^(−2/3), which
+is 10¹⁶ for 1123/33. So this class does not settle any census value without a better matcher.
