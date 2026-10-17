@@ -155,10 +155,11 @@ First explicit construction: a table records them as known, and the only constru
 | [37300](37300) | 9325 = 5² · 373 | 1865 | 7459 | 5 | Đoković's set Δ (arXiv:0912.5091) |
 | [38060](38060) | 9515 = 5 · 11 · 173 | 173 | 691 | 55 | Đoković's set Δ (arXiv:0912.5091) |
 
-The others (2611 in the range of Table 4; 3065, 3579, 3865, 3903, 4479, 4765, 5199, 5411, 5545, 5965, 5979, 6341, 6743,
-6813, 8327, 8465, 8503, 8579, 8665, 9107 and 9965 above it) are not reached by any route we know; 2427 and 8899 = 11 ·
-809 are built by Miyamoto's matrix in bordered blocks with a periodic Golay pair ([9708](9708), [35596](35596),
-[MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#periodic-golay-pairs)), and 5259 is built by Corollary 8.8(ii) instead
+The others (2611 in the range of Table 4; 3579, 3865, 3903, 4479, 4765, 5199, 5411, 5545, 5965, 5979, 6341, 6813, 8327,
+8465, 8503, 8579, 8665, 9107 and 9965 above it) are not built here. 2427, 3065, 6743 and 8899 are built by Miyamoto's
+matrix in bordered blocks, with a periodic Golay pair of length 404 or Williamson matrices of order 153
+([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#orders-recorded-only-through-corollary-88i)); 3903 and 9107 would follow in the
+same way from Williamson matrices of order 325, not implemented here; and 5259 is built by Corollary 8.8(ii) instead
 ([21036](21036)).
 
 ## Reproduction and verification

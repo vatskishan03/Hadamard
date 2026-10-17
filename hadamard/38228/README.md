@@ -32,7 +32,8 @@ odd part 9557 had order 2³ · 9557. The order lies above the range of Cati–Pa
   (1990, Theorem 4) multiply such an array by T-matrices of order 19.
 - Paley's constructions do not apply: 4n − 1 = 38227 = 7 · 43 · 127 and 2n − 1 = 19113 = 3 · 23 · 277 are not prime
   powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 9557 is not a prime power, and neither is n − 2 = 9555 = 3 · 5 · 7² · 13.
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 9558 cannot exist (9557 is not a sum
+  of two squares); Yamada–Kiyasu does not apply: n − 2 = 9555 = 3 · 5 · 7² · 13 is not a prime power.
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(38228, existence=True)`

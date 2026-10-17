@@ -30,7 +30,8 @@ odd part 4821 had order 2³ · 4821. The order lies above the range of Cati–Pa
   to an array of sixteen circulant blocks of order 1607 (Schmidt 1999, after Ito; Yamada 1991), and Seberry and
   Yamada (1990, Theorem 4) multiply such an array by T-matrices of order 3.
 - Paley's constructions do not apply: 4n − 1 = 19283 = 11 · 1753 and 2n − 1 = 9641 = 31 · 311 are not prime powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 4821 is not a prime power, and neither is n − 2 = 4819 = 61 · 79.
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 4822 cannot exist (4821 is not a sum
+  of two squares); Yamada–Kiyasu does not apply: n − 2 = 4819 = 61 · 79 is not a prime power.
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(19284, existence=True)`

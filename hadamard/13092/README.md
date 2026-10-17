@@ -31,7 +31,8 @@ odd part 3273 had order 2³ · 3273. The order lies above the range of Cati–Pa
   Yamada (1990, Theorem 4) multiply such an array by T-matrices of order 3.
 - Paley's constructions do not apply: 4n − 1 = 13091 = 13 · 19 · 53 and 2n − 1 = 6545 = 5 · 7 · 11 · 17 are not prime
   powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 3273 is not a prime power, and n − 2 = 3271 is ≡ 7 (mod 8).
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 3274 cannot exist (3273 is not a sum
+  of two squares); Yamada–Kiyasu does not apply: n − 2 = 3271 is ≡ 7 (mod 8).
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(13092, existence=True)`

@@ -65,7 +65,8 @@ condition then holds on the orbits of ⟨K, −1⟩, which gives 27 equations.
 **New.** The entry 573(3) is unresolved in Cati–Pasechnik Table 4.
 
 - Paley's constructions do not apply: 4 · 573 − 1 = 2291 = 29 · 79 and 2 · 573 − 1 = 1145 = 5 · 229.
-- Miyamoto's theorem does not apply: 573 is not a prime power.
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order 574 cannot exist (573 = 3 · 191 is not a sum
+  of two squares).
 - Yamada's theorem does not apply: 573 − 2 = 571 ≡ 3 (mod 8).
 - The orders announced in August 2026 stop below 2000.
 - After 2060, 2092, 2148 and 2284 were settled, 2292 was the smallest order we knew to be unresolved.

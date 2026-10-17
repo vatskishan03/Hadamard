@@ -14,7 +14,7 @@ matrix of order 4 · 1093 · 9 = 39348. The construction and its proof are in [M
 - The Hadamard matrix of order 1092 is [[A, B], [−Bᵀ, Aᵀ]] with A, B negacyclic of order 546: a negaperiodic Golay pair
   of length 546, from the negacyclic Paley conference matrix of order 1092 (points of PG(1, 1091) along a primitive
   element of GF(1091²)), 1091 ≡ 3 (mod 4), whose first row (0, c₁, …, c_1091) gives the pair (1, c₂, c₄, …, c_1090),
-  (c₁, c₃, …, c_1091) (Balonin–Đoković, Proposition 8; Ito's series).
+  (c₁, c₃, …, c_1091) (Balonin–Đoković, Proposition 8: the second Paley series).
 - T-matrices of order 9 ([`t-matrices/T9.txt`](../../t-matrices/T9.txt)): first rows `+00000000`, `0+++-0000`,
   `00000++-+`, `000000000`.
 
@@ -31,16 +31,21 @@ with odd part 9837 had order 2³ · 9837. The order lies above the range of Cati
 2999.
 
 - The entry does not appear in Đoković's updates (arXiv:0912.5091, arXiv:1008.2043).
-- It follows from published results combined in a way we found nowhere: Miyamoto's theorem (J. Combin. Theory Ser. A 57
-  (1991)), the negaperiodic Golay pairs of Ito and of Balonin and Đoković, and the Goethals–Seidel array with
-  T-matrices, applied to Miyamoto's blocks.
+- Seberry and Yamada (J. Combin. Math. Combin. Comput. 7 (1990), Theorem 34 and Corollary 35) write Miyamoto's matrix as
+  sixteen bordered blocks, but their multiplication theorems need circulant or type-one blocks (Theorem 4) or, for
+  general blocks, sixteen matrices that exist for no odd order t > 1 (Theorem 21). With a Hadamard matrix of 2N-type and
+  Paley's points listed along a primitive root, the blocks commute and are transposed by one reversal, so T-matrices of
+  odd order apply; we found this nowhere. Every ingredient is published (Miyamoto, J. Combin. Theory Ser. A 57 (1991);
+  the negaperiodic Golay pairs of Balonin and Đoković; T-matrices).
 - Paley's constructions do not apply: 4n − 1 = 39347 = 7² · 11 · 73 and 2n − 1 = 19673 = 103 · 191 are not prime powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 9837 is not a prime power, and n − 2 = 9835 = 5 · 7 · 281.
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1 = 9838, and none is known to
+  us (9837 is not a prime power); Yamada–Kiyasu does not apply: n − 2 = 9835 = 5 · 7 · 281 is not a prime power.
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
 - The Paley-block route ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md)) does not reach it.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(39348, existence=True)`
-  returns Unknown.
+  raises UnknownError in its Miyamoto test (no symmetric conference matrix of order 9838 is known to it), and returns
+  Unknown when that Unknown is treated as False.
 
 We found no construction or statement of order 39348. The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 

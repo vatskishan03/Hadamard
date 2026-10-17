@@ -30,13 +30,18 @@ the smallest known Hadamard matrix with odd part 9167 had order 2³ · 9167. The
 Cati–Pasechnik Table 4, which stops at n = 2999.
 
 - The entry does not appear in Đoković's updates (arXiv:0912.5091, arXiv:1008.2043).
-- It follows from published results combined in a way we found nowhere: Miyamoto's theorem (J. Combin. Theory Ser. A 57
-  (1991)), the negaperiodic Golay pairs of Ito and of Balonin and Đoković, and the Goethals–Seidel array with
-  T-matrices, applied to Miyamoto's blocks.
+- Seberry and Yamada (J. Combin. Math. Combin. Comput. 7 (1990), Theorem 34 and Corollary 35) write Miyamoto's matrix as
+  sixteen bordered blocks, but their multiplication theorems need circulant or type-one blocks (Theorem 4) or, for
+  general blocks, sixteen matrices that exist for no odd order t > 1 (Theorem 21). With a Hadamard matrix of 2N-type and
+  Paley's points listed along a primitive root, the blocks commute and are transposed by one reversal, so T-matrices of
+  odd order apply; we found this nowhere. Every ingredient is published (Miyamoto, J. Combin. Theory Ser. A 57 (1991);
+  the negaperiodic Golay pairs of Balonin and Đoković; T-matrices).
 - Paley's constructions do not apply: 4n − 1 = 36667 = 37 · 991 and 2n − 1 = 18333 = 3³ · 7 · 97 are not prime powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 9167 is not a prime power, and n − 2 = 9165 = 3 · 5 · 13 · 47.
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
+  (mod 4); Yamada–Kiyasu does not apply: n − 2 = 9165 = 3 · 5 · 13 · 47 is not a prime power.
 - Cooper–Wallis also gives it, from T-matrices of order 103 posted in 2026 and Williamson-type matrices of order 89
-  (Seberry–Yamada 1992, Table A.1).
+  (Seberry–Yamada 1992, Table A.1; Table A.1 obtains them through Corollary 8.8(i), but Corollary 8.8(ii) with a
+  symmetric Hadamard matrix of order 44 gives them validly).
 - The Paley-block route ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md)) does not reach it.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(36668, existence=True)`
   returns Unknown.

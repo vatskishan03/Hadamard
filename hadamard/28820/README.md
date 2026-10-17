@@ -33,7 +33,8 @@ odd part 7205 had order 2³ · 7205. The order lies above the range of Cati–Pa
   (1990, Theorem 4) multiply such an array by T-matrices of order 55.
 - Paley's constructions do not apply: 4n − 1 = 28819 = 7 · 23 · 179 and 2n − 1 = 14409 = 3² · 1601 are not prime
   powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 7205 is not a prime power, and neither is n − 2 = 7203 = 3 · 7⁴.
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 7206 cannot exist (7205 is not a sum
+  of two squares); Yamada–Kiyasu does not apply: n − 2 = 7203 = 3 · 7⁴ is not a prime power.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(28820, existence=True)`
   returns Unknown.
 

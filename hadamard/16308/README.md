@@ -31,7 +31,8 @@ Cati–Pasechnik Table 4, which stops at n = 2999.
   an array of sixteen circulant blocks of order 27 (Schmidt 1999, after Ito; Yamada 1991), and Seberry and Yamada
   (1990, Theorem 4) multiply such an array by T-matrices of order 151, which are known only since 2026.
 - Paley's constructions do not apply: 4n − 1 = 16307 = 23 · 709 and 2n − 1 = 8153 = 31 · 263 are not prime powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 4077 is not a prime power, and neither is n − 2 = 4075 = 5² · 163.
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 4078 cannot exist (4077 is not a sum
+  of two squares); Yamada–Kiyasu does not apply: n − 2 = 4075 = 5² · 163 is not a prime power.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(16308, existence=True)`
   returns Unknown.
 

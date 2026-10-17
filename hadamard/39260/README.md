@@ -36,7 +36,8 @@ matrix with odd part 9815 had order 2³ · 9815. The order lies above Cati–Pas
 No other construction we know of reaches 39260:
 
 - Paley I and II need 39259 = 11 · 43 · 83 and 19629 = 3³ · 727 to be prime powers.
-- Miyamoto does not apply: 9815 is not a prime power. Neither is 9815 − 2 = 9813 = 3 · 3271 (Yamada, Kiyasu).
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
+  (mod 4). Neither is 9815 − 2 = 9813 = 3 · 3271 (Yamada, Kiyasu).
 - The Mathon, Seberry–Whiteman, Spence, Whiteman and Leung–Momihara–Xiang families do not contain it.
 - Since 9815 = 5 · 13 · 151, a product theorem needs T-sequences or T-matrices of length t and Williamson-type
   matrices of order w with t · w = 9815:

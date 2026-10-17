@@ -31,7 +31,8 @@ matrix with odd part 9617 had order 2⁴ · 9617. The order lies above Cati–Pa
 No construction we know of reaches 38468:
 
 - Paley I and II need 38467 = 11 · 13 · 269 and 19233 = 3² · 2137 to be prime powers.
-- Miyamoto does not apply: 9617 is not a prime power. Neither is 9617 − 2 = 9615 = 3 · 5 · 641 (Yamada, Kiyasu).
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 9618 cannot exist (9617 is not a sum
+  of two squares). Neither is 9617 − 2 = 9615 = 3 · 5 · 641 (Yamada, Kiyasu).
 - The Mathon, Seberry–Whiteman, Spence, Whiteman and Leung–Momihara–Xiang families do not contain it.
 - Since 9617 = 59 · 163, a product theorem needs T-sequences or T-matrices of length t and Williamson-type matrices of
   order w with t · w = 9617:

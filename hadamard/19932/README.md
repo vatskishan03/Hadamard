@@ -31,7 +31,8 @@ odd part 4983 had order 2³ · 4983. The order lies above the range of Cati–Pa
   to an array of sixteen circulant blocks of order 453 (Schmidt 1999, after Ito; Yamada 1991), and Seberry and Yamada
   (1990, Theorem 4) multiply such an array by T-matrices of order 11.
 - Paley's constructions do not apply: 4n − 1 = 19931 = 19 · 1049 and 2n − 1 = 9965 = 5 · 1993 are not prime powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 4983 is not a prime power, and neither is n − 2 = 4981 = 17 · 293.
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
+  (mod 4); Yamada–Kiyasu does not apply: n − 2 = 4981 = 17 · 293 is not a prime power.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(19932, existence=True)`
   returns Unknown.
 

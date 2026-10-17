@@ -21,8 +21,8 @@ gives the Hadamard matrix of order 4 · 809 · 3 = 9708. The construction and it
 
 ## Search
 
-None: the matrix is determined by q, the periodic Golay pair and the T-matrices. `python3 search/miyamoto_blocks.py
-certify 809 3 golay2:dk202` writes the certificate.
+None beyond the Williamson matrices: the matrix is determined by q, the pair and the T-matrices. `python3
+search/miyamoto_blocks.py certify 809 3 golay2:dk202` writes the certificate.
 
 ## Status
 
@@ -35,7 +35,8 @@ Ser. A 57 (1991)), whose paper was not accessible to us; we found no valid proof
 Williamson-type matrices of order 809.
 
 - Paley's constructions do not apply: 4n − 1 = 9707 = 17 · 571 and 2n − 1 = 4853 = 23 · 211 are not prime powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 2427 is not a prime power, and n − 2 = 2425 = 5² · 97 is not a prime power.
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
+  (mod 4); Yamada–Kiyasu does not apply: n − 2 = 2425 = 5² · 97 is not a prime power.
 - Cooper–Wallis needs Williamson-type matrices of order 809 or T-matrices of order 809; neither is known to us.
 - The Paley-block route does not reach it: 4s − 1 = 3235 and 9707 are not prime powers ≡ 3 (mod 8) for the other
   divisors s of 2427, and the remaining ones need T-matrices of order 2427 (s = 1) or 809 (s = 3), which are not known

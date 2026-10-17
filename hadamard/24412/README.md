@@ -40,7 +40,7 @@ above Cati–Pasechnik Table 4, which stops at n = 2999.
   entry).
 - Other routes do not apply:
   - Paley I and II: 24411 = 3 · 79 · 103 and 12205 = 5 · 2441.
-  - Miyamoto: 6103 is not a prime power and is ≡ 3 (mod 4).
+  - Miyamoto: 6103 ≡ 3 (mod 4), so there is no symmetric conference matrix of order 6104.
   - Yamada's other two theorems need q ≡ 1 (mod 8).
   - Williamson-type families of order (q + 1)/2: 717 and 12205 are not prime powers.
   - Cooper–Wallis with 6103 = 17 · 359 needs Williamson-type matrices of order 359 or T-matrices of order 359. Neither

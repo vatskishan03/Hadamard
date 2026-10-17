@@ -31,7 +31,8 @@ odd part 6009 had order 2⁷ · 6009. The order lies above the range of Cati–P
   Yamada (1990, Theorem 4) multiply such an array by T-matrices of order 3.
 - Paley's constructions do not apply: 4n − 1 = 24035 = 5 · 11 · 19 · 23 and 2n − 1 = 12017 = 61 · 197 are not prime
   powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 6009 is not a prime power, and n − 2 = 6007 is ≡ 7 (mod 8).
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 6010 cannot exist (6009 is not a sum
+  of two squares); Yamada–Kiyasu does not apply: n − 2 = 6007 is ≡ 7 (mod 8).
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(24036, existence=True)`

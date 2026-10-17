@@ -33,7 +33,8 @@ odd part 5931 had order 2³ · 5931. The order lies above the range of Cati–Pa
   to an array of sixteen circulant blocks of order 1977 (Schmidt 1999, after Ito; Yamada 1991), and Seberry and
   Yamada (1990, Theorem 4) multiply such an array by T-matrices of order 3.
 - Paley's constructions do not apply: 4n − 1 = 23723 = 7 · 3389 and 2n − 1 = 11861 = 29 · 409 are not prime powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 5931 is not a prime power, and neither is n − 2 = 5929 = 7² · 11².
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
+  (mod 4); Yamada–Kiyasu does not apply: n − 2 = 5929 = 7² · 11² is not a prime power.
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(23724, existence=True)`

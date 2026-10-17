@@ -32,7 +32,8 @@ odd part 7545 had order 2³ · 7545. The order lies above the range of Cati–Pa
   to an array of sixteen circulant blocks of order 503 (Schmidt 1999, after Ito; Yamada 1991), and Seberry and Yamada
   (1990, Theorem 4) multiply such an array by T-matrices of order 15.
 - Paley's constructions do not apply: 4n − 1 = 30179 = 103 · 293 and 2n − 1 = 15089 = 79 · 191 are not prime powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 7545 is not a prime power, and neither is n − 2 = 7543 = 19 · 397.
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 7546 cannot exist (7545 is not a sum
+  of two squares); Yamada–Kiyasu does not apply: n − 2 = 7543 = 19 · 397 is not a prime power.
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(30180, existence=True)`

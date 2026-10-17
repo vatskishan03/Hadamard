@@ -66,20 +66,20 @@ did not combine; we found no earlier construction of them.
   [hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#beyond-table-4). Also 21036 = 4 · 3 · 1753, which Đoković claimed
   through Williamson-type matrices of order 1753 that rested on the same corollary: part (ii) of it with our symmetric
   matrix of order 876 gives them validly ([hadamard/21036](hadamard/21036)).
-- **Hadamard matrices of 15 more orders 4n with 3279 ≤ n ≤ 9991** that Handbook Table 1.53 lists as unknown, from a
-  route we found stated nowhere: Miyamoto's matrix of order 4q, built with a Hadamard matrix of order q − 1 of 2N-type
-  (a negaperiodic Golay pair), is an array of sixteen commuting bordered blocks, and Seberry and Yamada's multiplication
-  by T-matrices applies to it ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md)). Nine are obtainable
-  classically, four need the T-matrices of 2026, and two (7179 and 7323) Đoković claimed only through the failing
-  corollary below.
+- **Hadamard matrices of 15 more orders 4n with 3279 ≤ n ≤ 9991** that Handbook Table 1.53 lists as unknown. Seberry and
+  Yamada write Miyamoto's matrix of order 4q as an array of sixteen bordered blocks, but their multiplication theorems
+  do not apply to it; when its Hadamard matrix of order q − 1 is of 2N-type (a negaperiodic Golay pair) and Paley's
+  points are listed along a primitive root, the blocks commute and are transposed by one permutation, so T-matrices
+  multiply it ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md)). Nine are obtainable classically, four need
+  the T-matrices of 2026, and two (7179 and 7323) Đoković claimed only through the failing corollary below.
 - **Orders recorded only through Seberry–Yamada's Corollary 8.8(i)**, whose printed proof does not give Williamson-type
-  matrices ([NOTES.md](NOTES.md) §7): first valid constructions of 28 orders whose only traced construction used it.
+  matrices ([NOTES.md](NOTES.md) §7): first valid constructions of 30 orders whose only traced construction used it.
   Nine are omitted by Table 4 (n = 519, 865, 1211, 1465, 1557, 1903, 2051, 2249 and 2427), among them 2427 (order
-  [9708](hadamard/9708)), which [FRONTIER.md](FRONTIER.md) listed as unresolved; 19 are Handbook entries from Đoković's
-  set Δ or with t = 2, orders 12892 to 38060. 26 come from the Paley-block route, and 9708 and 35596 from Miyamoto's
-  matrix in bordered blocks with a periodic Golay pair of length 404
+  [9708](hadamard/9708)), which [FRONTIER.md](FRONTIER.md) listed as unresolved; 21 are Handbook entries from Đoković's
+  set Δ or with t = 2, orders 12260 to 38060. 26 come from the Paley-block route, and four from Miyamoto's matrix in
+  bordered blocks, two with a periodic Golay pair of length 404 and two with Williamson matrices of order 153
   ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#orders-recorded-only-through-corollary-88i),
-  [hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#periodic-golay-pairs)).
+  [hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#orders-recorded-only-through-corollary-88i)).
 - **Skew-Hadamard matrices of 40 orders** from 820 to 9900 for which we found no earlier construction: 32 from
   Goethals–Seidel difference families with a skew block, and 8 from Seberry's theorem with new amicable Hadamard
   matrices or new orthogonal designs. Also independent matrices of the known skew orders 1852 and 3676.

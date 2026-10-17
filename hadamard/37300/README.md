@@ -34,11 +34,13 @@ to Miyamoto (J. Combin. Theory Ser. A 57 (1991)), whose paper was not accessible
 and no other construction of Williamson-type matrices of order 373.
 
 - Paley's constructions do not apply: 4n − 1 = 37299 = 3 · 12433 and 2n − 1 = 18649 = 17 · 1097 are not prime powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 9325 is not a prime power, and n − 2 = 9323 is ≡ 3 (mod 8).
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1 = 9326, and none is known to
+  us (9325 is not a prime power); Yamada–Kiyasu does not apply: n − 2 = 9323 is ≡ 3 (mod 8).
 - Cooper–Wallis does not apply otherwise: the other splits of n need Williamson-type matrices or T-matrices that are not
   known to us.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(37300, existence=True)`
-  returns Unknown.
+  raises UnknownError in its Miyamoto test (no symmetric conference matrix of order 9326 is known to it), and returns
+  Unknown when that Unknown is treated as False.
 
 We found no valid construction of order 37300 before this one. The sources searched are listed in
 [NOVELTY.md](../../NOVELTY.md).

@@ -32,7 +32,8 @@ Cati–Pasechnik Table 4, which stops at n = 2999.
   (1990, Theorem 4) multiply such an array by T-matrices of order 151, which are known only since 2026.
 - Paley's constructions do not apply: 4n − 1 = 32011 = 7 · 17 · 269 and 2n − 1 = 16005 = 3 · 5 · 11 · 97 are not
   prime powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 8003 is not a prime power, and neither is n − 2 = 8001 = 3² · 7 · 127.
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
+  (mod 4); Yamada–Kiyasu does not apply: n − 2 = 8001 = 3² · 7 · 127 is not a prime power.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(32012, existence=True)`
   returns Unknown.
 

@@ -32,7 +32,8 @@ odd part 5109 had order 2³ · 5109. The order lies above the range of Cati–Pa
   (1990, Theorem 4) multiply such an array by T-matrices of order 13.
 - Paley's constructions do not apply: 4n − 1 = 20435 = 5 · 61 · 67 and 2n − 1 = 10217 = 17 · 601 are not prime
   powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 5109 is not a prime power, and n − 2 = 5107 is ≡ 3 (mod 8).
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 5110 cannot exist (5109 is not a sum
+  of two squares); Yamada–Kiyasu does not apply: n − 2 = 5107 is ≡ 3 (mod 8).
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(20436, existence=True)`
   returns Unknown.
 

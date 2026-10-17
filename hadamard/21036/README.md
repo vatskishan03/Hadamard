@@ -55,7 +55,8 @@ range of Cati–Pasechnik Table 4, which stops at n = 2999.
   Hadamard matrices until [symmetric/876](../../symmetric/876).
 - Paley's constructions do not apply: 4n − 1 = 21035 = 5 · 7 · 601 and 2n − 1 = 10517 = 13 · 809 are not prime
   powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 5259 is not a prime power, and neither is n − 2 = 5257 = 7 · 751.
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
+  (mod 4); Yamada–Kiyasu does not apply: n − 2 = 5257 = 7 · 751 is not a prime power.
 - Turyn's Williamson-type matrices of order 1753 would need 2 · 1753 − 1 = 3505 = 5 · 701 to be a prime power.
   Cooper–Wallis with the other factorization would need T-matrices of order 1753, and Yang's products would need
   base sequences of total length 1753 or 5259; none is known to us. The Paley-block route does not reach 5259

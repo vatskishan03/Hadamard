@@ -32,7 +32,8 @@ exactly: 320 solutions, the first of which is in the certificate. Under a second
 No construction we know of reaches 34196:
 
 - Paley I and II need 34195 = 5 · 7 · 977 and 17097 = 3 · 41 · 139 to be prime powers.
-- Miyamoto does not apply: 8549 is not a prime power. Neither is 8547 = 3 · 7 · 11 · 37 (Yamada, Kiyasu).
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 8550 cannot exist (8549 is not a sum
+  of two squares). Neither is 8547 = 3 · 7 · 11 · 37 (Yamada, Kiyasu).
 - 8549 is not of Spence's form q² + q + 1.
 - A product route needs an object of order 103 or of order 83 · 103. T-matrices of order 103 are from 2026
   (JD-Jones-ASES/Hadamard-T, decoded from Schneider's matrix of order 2060, and found independently in

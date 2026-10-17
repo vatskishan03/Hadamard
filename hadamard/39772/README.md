@@ -33,8 +33,9 @@ Cati–Pasechnik Table 4, which stops at n = 2999.
   (1990, Theorem 4) multiply such an array by T-matrices of order 163, which are known only since 2026.
 - Paley's constructions do not apply: 4n − 1 = 39771 = 3⁴ · 491 and 2n − 1 = 19885 = 5 · 41 · 97 are not prime
   powers.
-- Miyamoto does not apply (9943 is not a prime power). Kiyasu's theorem with q = n − 2 = 9941 needs a skew-Hadamard
-  matrix of order 4972 = 4 · 1243, and v = 1243 is undecided in the Đoković–Seberry census.
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
+  (mod 4). Kiyasu's theorem with q = n − 2 = 9941 needs a skew-Hadamard matrix of order 4972 = 4 · 1243, and v = 1243 is
+  undecided in the Đoković–Seberry census.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(39772, existence=True)`
   returns Unknown.
 

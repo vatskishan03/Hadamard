@@ -207,12 +207,13 @@ H((q−1)/2) exists, then WT(q) exists.
     reaches (q = 691 and 1171) and which are built here, 2427 (above), built here by Miyamoto blocks with a periodic
     Golay pair (§23), and 2611 (above), which no route we know reaches;
   - Handbook Table 1.53 with t = 2: 3223, 3633, 3809 and 3979 (Paley blocks; 3223 also by Yamada–Kiyasu from our skew
-    matrix of order 1612) and 3065, 3579, 3865 and 3903 (no route);
+    matrix of order 1612), 3065 (Miyamoto blocks with Williamson matrices of order 153, §23), 3903 (the same with order
+    325, not built) and 3579 and 3865 (no route);
   - Đoković's set Δ (arXiv:0912.5091), whose proof takes Williamson-type matrices from Table A.1: 4981, 5017, 5363,
-    5567, 5709, 7093, 7325, 7439, 8131, 8477, 9083, 9169, 9325 and 9515 (Paley blocks), 8899 (Miyamoto blocks with a
-    periodic Golay pair, §23), 5259 (below), and 4479, 4765, 5199, 5411, 5545, 5965, 5979, 6341, 6743, 6813, 8327, 8465,
-    8503, 8579, 8665, 9107 and 9965 (no route; for 5199 and 8503 Yamada–Kiyasu would need skew-Hadamard matrices of
-    orders 2600 and 4252, not known to us).
+    5567, 5709, 7093, 7325, 7439, 8131, 8477, 9083, 9169, 9325 and 9515 (Paley blocks), 8899 and 6743 (Miyamoto blocks
+    with a periodic Golay pair or Williamson matrices of order 153, §23), 9107 (the same with order 325, not built),
+    5259 (below), and 4479, 4765, 5199, 5411, 5545, 5965, 5979, 6341, 6813, 8327, 8465, 8503, 8579, 8665 and 9965 (no
+    route; for 5199 and 8503 Yamada–Kiyasu would need skew-Hadamard matrices of orders 2600 and 4252, not known to us).
   - 5259 = 3 · 1753 is now settled: 1753 ≡ 1 (mod 8), and Corollary 8.8(ii) with the symmetric Hadamard matrix of
     order 876 of this repository gives symmetric Williamson-type matrices of order 1753 (checked exactly), hence
     H(21036) by Cooper–Wallis ([hadamard/21036](hadamard/21036)). 8765 = 5 · 1753 has Paley I (35059 is prime).
@@ -1111,38 +1112,49 @@ reversal of a Paley-block quadruple satisfies the form-(9) condition ((q, t) = (
 
 ## 23. Miyamoto's matrix in bordered blocks, times T-matrices: 15 orders beyond Table 4 (October 17)
 
-The Paley-block route of §22 needs a Hadamard matrix of order 4s made of sixteen blocks in a commutative algebra with
-a reversal. Miyamoto's matrix of order 4q (q ≡ 1 mod 4 prime) is one, provided its Hadamard matrix K of order q − 1 is
-of 2N-type, K = [[A, B], [−Bᵀ, Aᵀ]] with A, B negacyclic, i.e. a negaperiodic Golay pair of length (q − 1)/2
-(Balonin–Đoković, arXiv:1508.00640). With Paley's matrix indexed by ∞, 0, g^(2j), g^(2j+1), each block is
-σ[[1, ±e], [±eᵀ, J₂ ⊗ U + D₂ ⊗ V]] with U circulant and V negacyclic over ℤ_(q−1)/2. Bordered matrices
-[[x, u e], [u eᵀ, M]] with M in the algebra spanned by J₂ ⊗ circulants and D₂ ⊗ negacyclics and x − r(M) = u form a
-commutative algebra (J₂D₂ = 0; the borders of XY and YX agree because w(x − μ) = u(y − ν)), and the permutation that
-fixes the border and sends (h, j) to (h, −j) for j = 0 and (1 − h, −j) otherwise transposes every block (on the D₂
-part it is the reversal times diag(1, −1, …, −1), which transposes negacyclic matrices). Seberry–Yamada's
-multiplication by T-matrices (Theorem 4 of 1990) then goes through over this algebra: H(4qt). The observation came
-from the frontier-routes workflow; it was checked there for q = 13, 29, 37 with Williamson-based K, and here
-independently (`search/miyamoto_blocks.py selftest`: q = 13, 29, 37, 41, 53, 61, with NG pairs from both Paley series,
-Williamson matrices of orders 9 and 13 and Turyn's multiplication by the Golay pair of length 2, times T-matrices of
-orders 3, 5 and 7).
+The Paley-block route of §22 needs a Hadamard matrix of order 4s made of sixteen blocks in a commutative algebra with a
+reversal. Miyamoto's matrix of order 4q (q ≡ 1 mod 4 prime) is one, provided its Hadamard matrix K of order q − 1 is of
+2N-type, K = [[A, B], [−Bᵀ, Aᵀ]] with A, B negacyclic, i.e. a negaperiodic Golay pair of length (q − 1)/2
+(Balonin–Đoković, arXiv:1508.00640). With Paley's matrix indexed by ∞, 0, g^(2j), g^(2j+1), each block is σ[[1, ±e],
+[±eᵀ, J₂ ⊗ U + D₂ ⊗ V]] with U circulant and V negacyclic over ℤ_(q−1)/2. Bordered matrices [[x, u e], [u eᵀ, M]] with M
+in the algebra spanned by J₂ ⊗ circulants and D₂ ⊗ negacyclics and x − r(M) = u form a commutative algebra (J₂D₂ = 0;
+the borders of XY and YX agree because w(x − μ) = u(y − ν)), and the permutation that fixes the border and sends (h, j)
+to (h, −j) for j = 0 and (1 − h, −j) otherwise transposes every block (on the D₂ part it is the reversal times diag(1,
+−1, …, −1), which transposes negacyclic matrices). Seberry–Yamada's multiplication by T-matrices (Theorem 4 of 1990)
+then goes through over this algebra: H(4qt). The observation came from the frontier-routes workflow; it was checked
+there for q = 13, 29, 37 with Williamson-based K, and here independently (`search/miyamoto_blocks.py selftest`: q = 13,
+29, 37, 41, 53, 61, with NG pairs from both Paley series, Williamson matrices of orders 9 and 13 and Turyn's
+multiplication by the Golay pair of length 2, times T-matrices of orders 3, 5 and 7). The bordered form itself is
+Seberry and Yamada's: they write Miyamoto's matrix as an M-structure (JCMCC 7 (1990), Theorem 34 and Corollary 35;
+survey 1992, Theorem 8.10 and Corollary 8.11), but their M-structure multiplications need circulant or type-one blocks
+(Theorem 4) or sixteen matrices T_ij with row and column orthogonality (Theorem 21), which exist for no odd t > 1: for
+each entry the 4 × 4 slice (T_ik(r, c)) is a signed permutation matrix, and a sum of t of them over c cannot vanish mod
+2. So they never multiply Miyamoto's matrix by T-matrices; what is new here is the commuting choice of K and of Paley's
+indexing. The novelty audit of October 17 found this attribution; chapter 6 of Seberry–Yamada's 2020 book (§6.4, §6.5)
+was not accessible.
 
-- *NG pairs.* The first Paley series (length p + 1, p an odd prime power) and the second (length (p + 1)/2, p ≡ 3 mod
-  4) come from a negacyclic conference matrix on PG(1, p): c_k = χ(Δ(1, w^k)/Δ(1, w)) with Δ(x, y) = x y^p − x^p y and w
-  primitive in GF(p²); Δ(w^i, w^j) = N(w)^i Δ(1, w^(j−i)) with χ(N(w)) = −1 makes it negacyclic after the signs (−1)^i.
-  Williamson (or quasi-Williamson) matrices of odd order w give length 2w through the array (29) of Balonin–Đoković,
-  read in ℤ[y]/(y^(2w) + 1) ≅ ℤ[x]/(x² + 1) ⊗ ℤ[ℤ_w] (y ↦ xz, y^j = (−1)^⌊j/2⌋ x^(j mod 2) z^(j mod w)); the CRT
-  reindexing without these signs does not give a negacyclic pair. Turyn's multiplication by a Golay pair multiplies
-  the length (their (15)–(16)).
-- *Reach.* Among the 671 Handbook entries without a valid construction (§22) the route reaches 29: 13 also reached by
-  Paley blocks (already here), 6031 (here by Yamada–Kiyasu, order 24124) and 15 new ones, 3279 to 9991
-  ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md)). Eleven use T-matrices of order 3, 5, 7 or 9 and are
-  obtainable classically; four use the 2026 T-matrices of orders 103, 151 and 163 and also follow by Cooper–Wallis.
-  Two, 7179 = 3 · 2393 (Golay 26 × Williamson matrices of order 23) and 7323 = 3 · 2441 (Golay 10 × the first Paley
-  series over GF(121)), are among the 13 that Đoković claimed only through Corollary 8.8(i) (§7).
-- *FRONTIER, negaperiodic pairs.* None: every FRONTIER entry n = qt needs an NG pair that is open. 1883 = 7 · 269 needs
-  quasi-Williamson matrices of order 67, 2823 = 3 · 941 of order 235, and the orders reopened in §7 need 93 (2611), 127
-  (1527, 2545), or NG pairs of length 404 (2427) and 428 (2571). Balonin and Đoković list quasi-Williamson matrices of
-  orders 47, 59, 65, 67, 73, 81, 89, 93, 101, 103, 107, 109, 113 and 119 as open since 1999.
+- *NG pairs.* Proposition 6 of Balonin–Đoković (length p + 1, p an odd prime power; for p ≡ 1 (mod 4) their first Paley
+  series) and the second Paley series (length (p + 1)/2, p ≡ 3 mod 4) come from a negacyclic conference matrix on PG(1,
+  p): c_k = χ(Δ(1, w^k)/Δ(1, w)) with Δ(x, y) = x y^p − x^p y and w primitive in GF(p²); Δ(w^i, w^j) = N(w)^i Δ(1,
+  w^(j−i)) with χ(N(w)) = −1 makes it negacyclic after the signs (−1)^i. Williamson (or quasi-Williamson) matrices of
+  odd order w give length 2w through the array (29) of Balonin–Đoković, read in ℤ[y]/(y^(2w) + 1) ≅ ℤ[x]/(x² + 1) ⊗
+  ℤ[ℤ_w] (y ↦ xz, y^j = (−1)^⌊j/2⌋ x^(j mod 2) z^(j mod w)); the CRT reindexing without these signs does not give a
+  negacyclic pair. Turyn's multiplication by a Golay pair multiplies the length (their (15)–(16)).
+- *Reach.* Among the Handbook entries without a valid construction (§22), with q prime and the NG pairs above, the route
+  reaches 27: 11 also reached by Paley blocks (already here), 6031 (here by Yamada–Kiyasu, order 24124) and 15 new ones,
+  3279 to 9991 ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md)). Eleven use T-matrices of order 3, 5, 7 or
+  9: nine are obtainable classically and two are First explicit constructions (below); four use the 2026 T-matrices of
+  orders 103, 151 and 163 and also follow by Cooper–Wallis. Two, 7179 = 3 · 2393 (Golay 26 × Williamson matrices of
+  order 23) and 7323 = 3 · 2441 (Golay 10 × the first Paley series over GF(121)), are among the 13 that Đoković claimed
+  only through Corollary 8.8(i) (§7). Prime powers q (25, 49) add 4075 and 6419, Paley-block orders already here;
+  Williamson matrices of order 153 (found with a multiplier group of order 16) give 3065 and 6743 (orders 12260, 26972),
+  entries recorded only through Corollary 8.8(i); those of order 325 would give 3903 and 9107 (not found by the
+  program).
+- *FRONTIER, negaperiodic pairs.* None: every FRONTIER entry n = qt needs an NG pair that is open (2427 is reached with
+  a periodic pair, below). 1883 = 7 · 269 needs quasi-Williamson matrices of order 67, 2823 = 3 · 941 of order 235, and
+  the orders reopened in §7 need 93 (2611), 127 (1527, 2545), or NG pairs of length 404 (2427) and 428 (2571). Balonin
+  and Đoković list quasi-Williamson matrices of orders 47, 59, 65, 67, 73, 81, 89, 93, 101, 103, 107, 109, 113 and 119
+  as open since 1999.
 - *Periodic Golay pairs: FRONTIER 2427.* The algebra needs only that the sixteen V_rc commute and are transposed by the
   reversal that transposes the U_rc. For a periodic Golay pair (a, b) of length m, K = [[A, B], [−Bᵀ, Aᵀ]] with A, B
   circulant is a Hadamard matrix, every V_rc is circulant, and the plain reversal (h, j) ↦ (h, −j) transposes every

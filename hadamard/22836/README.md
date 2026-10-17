@@ -32,7 +32,8 @@ to Miyamoto (J. Combin. Theory Ser. A 57 (1991)), whose paper was not accessible
 and no other construction of Williamson-type matrices of order 173.
 
 - Paley's constructions do not apply: 4n − 1 = 22835 = 5 · 4567 and 2n − 1 = 11417 = 7² · 233 are not prime powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 5709 is not a prime power, and n − 2 = 5707 = 13 · 439 is not a prime power.
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 5710 cannot exist (5709 is not a sum
+  of two squares); Yamada–Kiyasu does not apply: n − 2 = 5707 = 13 · 439 is not a prime power.
 - Cooper–Wallis does not apply otherwise: the other splits of n need Williamson-type matrices or T-matrices that are not
   known to us.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(22836, existence=True)`

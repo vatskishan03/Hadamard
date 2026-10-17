@@ -31,7 +31,8 @@ matrix with odd part 8909 had order 2³ · 8909. The order lies above Cati–Pas
 No construction we know of reaches 35636:
 
 - Paley I and II need 35635 = 5 · 7127 and 17817 = 3 · 5939 to be prime powers.
-- Miyamoto does not apply: 8909 is not a prime power. Neither is 8909 − 2 = 8907 = 3 · 2969 (Yamada, Kiyasu).
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 8910 cannot exist (8909 is not a sum
+  of two squares). Neither is 8909 − 2 = 8907 = 3 · 2969 (Yamada, Kiyasu).
 - The Mathon, Seberry–Whiteman, Spence, Whiteman and Leung–Momihara–Xiang families do not contain it.
 - Since 8909 = 59 · 151, a product theorem needs T-sequences or T-matrices of length t and Williamson-type matrices of
   order w with t · w = 8909:

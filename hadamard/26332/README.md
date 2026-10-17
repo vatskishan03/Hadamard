@@ -33,8 +33,9 @@ odd part 6583 had order 2⁴ · 6583. The order lies above the range of Cati–P
   (1990, Theorem 4) multiply such an array by T-matrices of order 29.
 - Paley's constructions do not apply: 4n − 1 = 26331 = 3 · 67 · 131 and 2n − 1 = 13165 = 5 · 2633 are not prime
   powers.
-- Miyamoto does not apply (6583 is not a prime power). Kiyasu's theorem with q = n − 2 = 6581 needs a skew-Hadamard
-  matrix of order 3292 = 4 · 823, and v = 823 is undecided in the Đoković–Seberry census.
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
+  (mod 4). Kiyasu's theorem with q = n − 2 = 6581 needs a skew-Hadamard matrix of order 3292 = 4 · 823, and v = 823 is
+  undecided in the Đoković–Seberry census.
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(26332, existence=True)`

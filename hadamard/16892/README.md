@@ -35,7 +35,8 @@ which stops at n = 2999.
 - The entry does not appear in Đoković's updates (arXiv:0912.5091, arXiv:1008.2043).
 - Paley's constructions do not apply: 4n − 1 = 16891 = 7 · 19 · 127 and 2n − 1 = 8445 = 3 · 5 · 563 are not prime
   powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 4223 is not a prime power, and neither is n − 2 = 4221 = 3² · 7 · 67.
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
+  (mod 4); Yamada–Kiyasu does not apply: n − 2 = 4221 = 3² · 7 · 67 is not a prime power.
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 

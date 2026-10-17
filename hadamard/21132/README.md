@@ -32,9 +32,9 @@ odd part 5283 had order 2³ · 5283. The order lies above the range of Cati–Pa
   (1990, Theorem 4) multiply such an array by T-matrices of order 9.
 - Paley's constructions do not apply: 4n − 1 = 21131 = 11 · 17 · 113 and 2n − 1 = 10565 = 5 · 2113 are not prime
   powers.
-- Miyamoto does not apply (5283 is not a prime power). Yamada's theorem with q = n − 2 = 5281 needs a symmetric
-  conference matrix of order 2642; 2641 = 19 · 139 is not a sum of two squares, so no conference matrix of order 2642
-  exists.
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
+  (mod 4). Yamada's theorem with q = n − 2 = 5281 needs a symmetric conference matrix of order 2642; 2641 = 19 · 139 is
+  not a sum of two squares, so no conference matrix of order 2642 exists.
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(21132, existence=True)`

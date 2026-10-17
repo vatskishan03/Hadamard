@@ -31,7 +31,8 @@ odd part 5433 had order 2⁴ · 5433. The order lies above the range of Cati–P
   Yamada (1990, Theorem 4) multiply such an array by T-matrices of order 3.
 - Paley's constructions do not apply: 4n − 1 = 21731 = 31 · 701 and 2n − 1 = 10865 = 5 · 41 · 53 are not prime
   powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 5433 is not a prime power, and n − 2 = 5431 is ≡ 7 (mod 8).
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 5434 cannot exist (5433 is not a sum
+  of two squares); Yamada–Kiyasu does not apply: n − 2 = 5431 is ≡ 7 (mod 8).
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(21732, existence=True)`

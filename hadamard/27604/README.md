@@ -31,8 +31,8 @@ matrix with odd part 6901 had order 2³ · 6901. The order lies above Cati–Pas
 No construction we know of reaches 27604:
 
 - Paley I and II need 27603 = 3² · 3067 and 13801 = 37 · 373 to be prime powers.
-- Miyamoto does not apply: 6901 is not a prime power. 6901 − 2 = 6899 is prime but ≡ 3 (mod 4), so the theorems of
-  Yamada and Kiyasu do not apply.
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 6902 cannot exist (6901 is not a sum
+  of two squares). 6901 − 2 = 6899 is prime but ≡ 3 (mod 4), so the theorems of Yamada and Kiyasu do not apply.
 - The Mathon, Seberry–Whiteman, Spence, Whiteman and Leung–Momihara–Xiang families do not contain it.
 - Since 6901 = 67 · 103, a product theorem needs T-sequences or T-matrices of length t and Williamson-type matrices of
   order w with t · w = 6901:

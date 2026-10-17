@@ -31,8 +31,9 @@ credits that case to Miyamoto (J. Combin. Theory Ser. A 57 (1991)), whose paper 
 valid proof of it and no other construction of Williamson-type matrices of order 293.
 
 - Paley's constructions do not apply: 4n − 1 = 12891 = 3 · 4297 and 2n − 1 = 6445 = 5 · 1289 are not prime powers.
-- Miyamoto does not apply (3223 is not a prime power). Yamada–Kiyasu (n − 2 = 3221 a prime ≡ 5 mod 8) also gives it,
-  from the skew-Hadamard matrix of order 1612 of this repository ([skew/1612](../../skew/1612)), found in October 2026.
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
+  (mod 4). Yamada–Kiyasu (n − 2 = 3221 a prime ≡ 5 mod 8) also gives it, from the skew-Hadamard matrix of order 1612 of
+  this repository ([skew/1612](../../skew/1612)), found in October 2026.
 - Cooper–Wallis does not apply otherwise: the other splits of n need Williamson-type matrices or T-matrices that are not
   known to us.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(12892, existence=True)`

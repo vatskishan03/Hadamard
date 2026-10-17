@@ -31,7 +31,8 @@ odd part 8305 had order 2³ · 8305. The order lies above the range of Cati–Pa
   to an array of sixteen circulant blocks of order 755 (Schmidt 1999, after Ito; Yamada 1991), and Seberry and Yamada
   (1990, Theorem 4) multiply such an array by T-matrices of order 11.
 - Paley's constructions do not apply: 4n − 1 = 33219 = 3² · 3691 and 2n − 1 = 16609 = 17 · 977 are not prime powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 8305 is not a prime power, and neither is n − 2 = 8303 = 19² · 23.
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 8306 cannot exist (8305 is not a sum
+  of two squares); Yamada–Kiyasu does not apply: n − 2 = 8303 = 19² · 23 is not a prime power.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(33220, existence=True)`
   returns Unknown.
 

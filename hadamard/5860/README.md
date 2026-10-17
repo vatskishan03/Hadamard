@@ -30,12 +30,13 @@ proof does not give Williamson-type matrices ([NOTES.md](../../NOTES.md) §7). T
 construction of Williamson-type matrices of order 293.
 
 - Paley's constructions do not apply: 4n − 1 = 5859 = 3³ · 7 · 31 and 2n − 1 = 2929 = 29 · 101 are not prime powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 1465 is not a prime power, and n − 2 = 1463 = 7 · 11 · 19 is not a prime
-  power.
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1 = 1466, and none is known to
+  us (1465 is not a prime power); Yamada–Kiyasu does not apply: n − 2 = 1463 = 7 · 11 · 19 is not a prime power.
 - Cooper–Wallis does not apply otherwise: the other splits of n need Williamson-type matrices or T-matrices that are not
   known to us.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(5860, existence=True)`
-  returns Unknown.
+  raises UnknownError in its Miyamoto test (no symmetric conference matrix of order 1466 is known to it), and returns
+  Unknown when that Unknown is treated as False.
 
 We found no valid construction of order 5860 before this one. The sources searched are listed in
 [NOVELTY.md](../../NOVELTY.md).

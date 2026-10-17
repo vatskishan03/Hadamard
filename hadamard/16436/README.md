@@ -32,7 +32,8 @@ odd part 4109 had order 2³ · 4109. The order lies above the range of Cati–Pa
   (1990, Theorem 4) multiply such an array by T-matrices of order 7.
 - Paley's constructions do not apply: 4n − 1 = 16435 = 5 · 19 · 173 and 2n − 1 = 8217 = 3² · 11 · 83 are not prime
   powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 4109 is not a prime power, and neither is n − 2 = 4107 = 3 · 37².
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 4110 cannot exist (4109 is not a sum
+  of two squares); Yamada–Kiyasu does not apply: n − 2 = 4107 = 3 · 37² is not a prime power.
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(16436, existence=True)`

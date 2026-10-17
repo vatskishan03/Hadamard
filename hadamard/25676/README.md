@@ -32,7 +32,8 @@ odd part 6419 had order 2⁴ · 6419. The order lies above the range of Cati–P
   (1990, Theorem 4) multiply such an array by T-matrices of order 49.
 - Paley's constructions do not apply: 4n − 1 = 25675 = 5² · 13 · 79 and 2n − 1 = 12837 = 3 · 11 · 389 are not prime
   powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 6419 is not a prime power, and neither is n − 2 = 6417 = 3² · 23 · 31.
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
+  (mod 4); Yamada–Kiyasu does not apply: n − 2 = 6417 = 3² · 23 · 31 is not a prime power.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(25676, existence=True)`
   returns Unknown.
 

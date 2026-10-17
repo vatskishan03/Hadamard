@@ -33,7 +33,8 @@ odd part 3013 had order 2³ · 3013. The order lies above the range of Cati–Pa
   (1990, Theorem 4) multiply such an array by T-matrices of order 23.
 - Paley's constructions do not apply: 4n − 1 = 12051 = 3² · 13 · 103 and 2n − 1 = 6025 = 5² · 241 are not prime
   powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 3013 is not a prime power, and n − 2 = 3011 is ≡ 3 (mod 8).
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 3014 cannot exist (3013 is not a sum
+  of two squares); Yamada–Kiyasu does not apply: n − 2 = 3011 is ≡ 3 (mod 8).
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(12052, existence=True)`
   returns Unknown.
 

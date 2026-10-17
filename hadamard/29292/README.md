@@ -32,11 +32,17 @@ stops at n = 2999. Its ingredients were all known before 2026.
 
 - Đoković's update arXiv:1008.2043 lists it (Proposition 3.2) only through Seberry–Yamada's Corollary 8.8(i), whose
   printed proof does not give Williamson-type matrices (see below).
-- It follows from published results combined in a way we found nowhere: Miyamoto's theorem (J. Combin. Theory Ser. A 57
-  (1991)), the negaperiodic Golay pairs of Ito and of Balonin and Đoković, and the Goethals–Seidel array with
-  T-matrices, applied to Miyamoto's blocks.
+- Seberry and Yamada (J. Combin. Math. Combin. Comput. 7 (1990), Theorem 34 and Corollary 35) write Miyamoto's matrix as
+  sixteen bordered blocks, but their multiplication theorems need circulant or type-one blocks (Theorem 4) or, for
+  general blocks, sixteen matrices that exist for no odd order t > 1 (Theorem 21). With a Hadamard matrix of 2N-type and
+  Paley's points listed along a primitive root, the blocks commute and are transposed by one reversal, so T-matrices of
+  odd order apply; we found this nowhere. Every ingredient is published (Miyamoto, J. Combin. Theory Ser. A 57 (1991);
+  the negaperiodic Golay pairs of Balonin and Đoković; T-matrices).
 - Paley's constructions do not apply: 4n − 1 = 29291 = 17 · 1723 and 2n − 1 = 14645 = 5 · 29 · 101 are not prime powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 7323 is not a prime power, and n − 2 = 7321 is a prime ≡ 1 (mod 8).
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
+  (mod 4); Yamada–Kiyasu does not apply: n − 2 = 7321 is a prime ≡ 1 (mod 8), and Yamada's theorem for q ≡ 1 (mod 8)
+  would need a symmetric conference matrix of order (n + 1)/2 = 3662, which cannot exist (3661 = 7 · 523 is not a sum of
+  two squares).
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
 - The Paley-block route ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md)) does not reach it.

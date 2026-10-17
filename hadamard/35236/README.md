@@ -33,7 +33,8 @@ odd part 8809 had order 2³ · 8809. The order lies above the range of Cati–Pa
   (1990, Theorem 4) multiply such an array by T-matrices of order 23.
 - Paley's constructions do not apply: 4n − 1 = 35235 = 3⁵ · 5 · 29 and 2n − 1 = 17617 = 79 · 223 are not prime
   powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 8809 is not a prime power, and n − 2 = 8807 is ≡ 7 (mod 8).
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 8810 cannot exist (8809 is not a sum
+  of two squares); Yamada–Kiyasu does not apply: n − 2 = 8807 is ≡ 7 (mod 8).
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(35236, existence=True)`

@@ -34,9 +34,9 @@ odd part 4075 had order 2³ · 4075. The order lies above the range of Cati–Pa
   to an array of sixteen circulant blocks of order 815 (Schmidt 1999, after Ito; Yamada 1991), and Seberry and Yamada
   (1990, Theorem 4) multiply such an array by T-matrices of order 5.
 - Paley's constructions do not apply: 4n − 1 = 16299 = 3² · 1811 and 2n − 1 = 8149 = 29 · 281 are not prime powers.
-- Miyamoto does not apply (4075 is not a prime power). Yamada's theorem with q = n − 2 = 4073 needs a symmetric
-  conference matrix of order 2038; 2037 = 3 · 7 · 97 is not a sum of two squares, so no conference matrix of order
-  2038 exists.
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
+  (mod 4). Yamada's theorem with q = n − 2 = 4073 needs a symmetric conference matrix of order 2038; 2037 = 3 · 7 · 97
+  is not a sum of two squares, so no conference matrix of order 2038 exists.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(16300, existence=True)`
   returns Unknown.
 

@@ -32,7 +32,8 @@ odd part 6071 had order 2⁴ · 6071. The order lies above the range of Cati–P
   (1990, Theorem 4) multiply such an array by T-matrices of order 13.
 - Paley's constructions do not apply: 4n − 1 = 24283 = 7 · 3469 and 2n − 1 = 12141 = 3² · 19 · 71 are not prime
   powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 6071 is not a prime power, and neither is n − 2 = 6069 = 3 · 7 · 17².
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
+  (mod 4); Yamada–Kiyasu does not apply: n − 2 = 6069 = 3 · 7 · 17² is not a prime power.
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(24284, existence=True)`

@@ -31,7 +31,8 @@ matrix with odd part 6077 had order 2⁴ · 6077. The order lies above Cati–Pa
 No construction we know of reaches 24308:
 
 - Paley I and II need 24307 = 109 · 223 and 12153 = 3 · 4051 to be prime powers.
-- Miyamoto does not apply: 6077 is not a prime power. Neither is 6077 − 2 = 6075 = 3⁵ · 5² (Yamada, Kiyasu).
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 6078 cannot exist (6077 is not a sum
+  of two squares). Neither is 6077 − 2 = 6075 = 3⁵ · 5² (Yamada, Kiyasu).
 - The Mathon, Seberry–Whiteman, Spence, Whiteman and Leung–Momihara–Xiang families do not contain it.
 - Since 6077 = 59 · 103, a product theorem needs T-sequences or T-matrices of length t and Williamson-type matrices of
   order w with t · w = 6077:

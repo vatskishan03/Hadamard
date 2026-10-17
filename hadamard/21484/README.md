@@ -33,7 +33,8 @@ odd part 5371 had order 2³ · 5371. The order lies above the range of Cati–Pa
   (1990, Theorem 4) multiply such an array by T-matrices of order 41.
 - Paley's constructions do not apply: 4n − 1 = 21483 = 3² · 7 · 11 · 31 and 2n − 1 = 10741 = 23 · 467 are not prime
   powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 5371 is not a prime power, and neither is n − 2 = 5369 = 7 · 13 · 59.
+- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
+  (mod 4); Yamada–Kiyasu does not apply: n − 2 = 5369 = 7 · 13 · 59 is not a prime power.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(21484, existence=True)`
   returns Unknown.
 

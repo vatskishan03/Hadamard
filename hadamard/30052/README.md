@@ -32,7 +32,8 @@ odd part 7513 had order 2³ · 7513. The order lies above the range of Cati–Pa
   (1990, Theorem 4) multiply such an array by T-matrices of order 11.
 - Paley's constructions do not apply: 4n − 1 = 30051 = 3⁴ · 7 · 53 and 2n − 1 = 15025 = 5² · 601 are not prime
   powers.
-- Miyamoto and Yamada–Kiyasu do not apply: 7513 is not a prime power, and neither is n − 2 = 7511 = 7 · 29 · 37.
+- Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 7514 cannot exist (7513 is not a sum
+  of two squares); Yamada–Kiyasu does not apply: n − 2 = 7511 = 7 · 29 · 37 is not a prime power.
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(30052, existence=True)`

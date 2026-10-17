@@ -10,6 +10,7 @@ corrections are welcome.
 |---|---|
 | **New** | The order is open in the reference table for its family (below), and no later construction was found. |
 | **New, beyond the tables** | The order lies above the range of the reference tables. Where Table 1.53 of the Handbook covers it, the table gives t ≥ 3 (no Hadamard matrix of order 4n known), and no later construction was found. |
+| **New, beyond the tables, but obtainable classically** | As New, beyond the tables, but every ingredient (theorems and objects) was published before 2026; only their combination is new. |
 | **First explicit construction** | A table records the order as known, but we could not trace any construction behind the entry. |
 | **Concurrent** | No published construction was found, but another group constructed the order independently at about the same time. We claim no priority. |
 | **Known** | An earlier construction exists. The matrix here is independent of it. |
@@ -88,12 +89,17 @@ For every order we checked:
   October 2026: SageMath's development version for every order (Unknown for all; its Miyamoto test raises UnknownError
   for some, rerun with Unknown treated as False); Paley I and II, Miyamoto, Yamada–Kiyasu (with the skew-Hadamard
   matrices of the Đoković–Seberry census and of this repository) and the T × WT splits of Cooper–Wallis for each n;
-  Seberry–Yamada (1992) Tables A.1 and A.2 and the survey's §5 (Yang's theorems); Đoković, arXiv:0912.5091 and
-  arXiv:1008.2043; Balonin–Đoković, arXiv:1508.00640 (negaperiodic Golay pairs and their list (31) of open
-  quasi-Williamson orders); Đoković–Kotsireas, arXiv:1310.5773 (periodic Golay pairs); the e-print texts of our arXiv
-  cache for Miyamoto's theorem combined with T-matrices or block multiplication (no source found). Miyamoto's 1991 paper
-  (J. Combin. Theory Ser. A 57) and Yang's 1989 paper (Proc. Amer. Math. Soc. 107) were not accessible; we used Yang's
-  multiplication as restated in the 1992 survey (Theorem 5.23);
+  Seberry–Yamada, JCMCC 7 (1990), Theorems 4, 21, 34 and Corollaries 22, 35, its Kobe version (Theorems 1, 8, 21,
+  Corollaries 9, 22) and the 1992 survey (Theorems 3.10, 8.1, 8.2, 8.10, Corollary 8.11; Tables A.1, A.2; §5, Yang's
+  theorems): Miyamoto's matrix is an M-structure there, but is never multiplied by T-matrices, and Theorem 21 admits
+  only t = 1 or even t; Seberry–Yamada, JCMCC 13 (1993), Theorems 6 and 7; Handbook §V.2, 2.45–2.49; Đoković,
+  arXiv:0912.5091 and arXiv:1008.2043; Balonin–Đoković, arXiv:1508.00640 (negaperiodic Golay pairs and their list (31)
+  of open quasi-Williamson orders); Đoković–Kotsireas, arXiv:1310.5773 (periodic Golay pairs); the e-print texts of our
+  arXiv cache for Miyamoto's theorem combined with T-matrices or block multiplication (no source found), and for every n
+  and 4n with a pattern that also matches numbers followed by a comma or period (the first grep missed comma-separated
+  lists; rerun on 17 October 2026, finding only Đoković's claims of 7179 and 7323 in arXiv:1008.2043). Miyamoto's 1991
+  paper (J. Combin. Theory Ser. A 57) and Yang's 1989 paper (Proc. Amer. Math. Soc. 107) were not accessible; we used
+  Yang's multiplication as restated in the 1992 survey (Theorem 5.23);
 - searches of Zenodo (records matching "hadamard"), GitHub, the e-print sources of Hadamard-related arXiv papers
   (to 2026-10-08) and the math.CO listings (to 2026-10-12), the OEIS, MathOverflow, Balonin's catalogue and the Palomar
   registry.
@@ -102,8 +108,10 @@ The searches were made between 12 and 14 October 2026.
 
 ## Not checked
 
-- The updated tables in J. Seberry, M. Yamada, *Hadamard Matrices: Constructions using Number Theory and Linear
-  Algebra* (Wiley, 2020), seen only through the papers that cite them.
+- J. Seberry, M. Yamada, *Hadamard Matrices: Constructions using Number Theory and Linear Algebra* (Wiley, 2020):
+  its updated tables, and chapter 6 (§6.4 Multiplication Theorems Using M-structures, §6.5 Miyamoto's Theorem and
+  Corollaries via M-structures), the most likely place for a prior statement of the Miyamoto-block route; only its
+  contents and index were seen.
 - J. Seberry, *Orthogonal Designs* (Springer, 2017), and Geramita–Seberry (1979).
 - The lists in §7 of Miyamoto, J. Combin. Theory Ser. A 57 (1991), which Cati and Pasechnik could not verify either.
 - The skew table of the Handbook (Table 1.51).
