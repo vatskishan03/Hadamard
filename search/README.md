@@ -178,14 +178,14 @@ start-up, is close to the list size.
 | `nw_prep.py`, `nw_exh.c`, `nw_certify.py` | near-Williamson quadruples on ℤ_v with a multiplier group, searched exhaustively: every power-spectrum-feasible triple of the symmetric blocks in a hash table, every member of the arbitrary block streamed against it (split into symmetric and antisymmetric parts, whose autocorrelations add); Cooper–Wallis certificates from a quadruple |
 | `lp_search.py`, `lp_sweep.py`, `lp_hunt.py`, `lp_lowe.py`, `lp_mult.py`, `lp_open.py`, `lp_rank_big.py` | Legendre pairs for the unresolved orders |
 | `tlp_model.py`, `tlp_rank.py`, `tlp_search.py` | twisted Legendre pairs |
-| `two_circ.py`, `two_chain.py` | two-block searches: D-optimal designs and Legendre pairs |
+| `two_circ.py`, `two_chain.py` | two-block searches: D-optimal designs, Legendre pairs and (`two_circ.py pg`) periodic Golay pairs over multiplier structures |
 
 **Paley's matrix in sixteen circulant blocks** (3156, 5260, …, 11804)
 
 | Program | Role |
 |---|---|
 | `paley_blocks.py` | Paley's matrix of order q + 1 (q ≡ 3 mod 8, a prime or a prime power) as a 4 × 4 array of circulants along the orbits of a torus element, times T-matrices of order t from base sequences or from a file (Seberry–Yamada 1990, Theorem 4), over ℤ_t × ℤ_s when gcd(s, t) > 1; writes the certificate ([../hadamard/PALEY_BLOCKS.md](../hadamard/PALEY_BLOCKS.md)): `check`, `quad`, `certify` |
-| `miyamoto_blocks.py` | Miyamoto's matrix of order 4q (q ≡ 1 mod 4 prime) with a Hadamard matrix of order q − 1 of 2N-type (a negaperiodic Golay pair: Paley series, Williamson matrices, Golay products) or two-circulant type (a periodic Golay pair: `golay2:dk202`, Đoković–Kotsireas), as sixteen commuting bordered blocks, times T-matrices of order t: H(4qt); writes the certificate ([../hadamard/MIYAMOTO_BLOCKS.md](../hadamard/MIYAMOTO_BLOCKS.md)): `selftest`, `certify` |
+| `miyamoto_blocks.py` | Miyamoto's matrix of order 4q (q ≡ 1 mod 4 prime) with a Hadamard matrix of order q − 1 of 2N-type (a negaperiodic Golay pair: Paley series, Williamson matrices, Golay products) or two-circulant type (a periodic Golay pair: `golay2:dk202`, Đoković–Kotsireas; or Williamson matrices found over a multiplier group, `wmult:w:g1,g2`), as sixteen commuting bordered blocks, times T-matrices of order t: H(4qt); writes the certificate ([../hadamard/MIYAMOTO_BLOCKS.md](../hadamard/MIYAMOTO_BLOCKS.md)): `selftest`, `certify` |
 
 **Certificates**
 

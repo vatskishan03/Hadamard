@@ -6,7 +6,9 @@ give
   * T = +2: a D-optimal design of order 2v, [[A, B], [-B^T, A^T]] with A A^T + B B^T = (2v - 2) I + 2 J
     (row sums with r_A^2 + r_B^2 = 4v - 2; group-developed blocks over any abelian group commute);
   * T = -2: a Legendre pair (row sums 1, 1), which gives a Hadamard matrix of order 2v + 2 (only cyclic G counts
-    for the Legendre-pair problem itself).
+    for the Legendre-pair problem itself);
+  * T = 0, v even (`pg`): a periodic Golay pair (row sums with r_A^2 + r_B^2 = 2v), which gives Miyamoto-block
+    Hadamard matrices (hadamard/MIYAMOTO_BLOCKS.md#periodic-golay-pairs) when v = (q - 1)/2.
 Both sequences are constant on the orbits of a group H of automorphisms (multipliers of Z_v, or for v with a split
 prime p^2 || v the GL(2, p) subgroups of propus_group.candidates_all times subgroups of Z_m^*). The autocorrelations
 are constant on the classes of <H, -1>. For every structure with at most MAXO orbits and every row pattern the two
@@ -16,6 +18,7 @@ which every member of a solution passes. Hits are verified as matrices and recor
 
   python3 search/two_circ.py dopt v1,v2,.. [--maxo 34] [--maxpool 4e7] [--psdmax 3e10] [--group]
   python3 search/two_circ.py lp l1,l2,.. [--maxo 34] [--maxpool 4e7]
+  python3 search/two_circ.py pg v1,v2,.. [--maxo 34] [--maxpool 4e7] [--psdmax 3e10]
 """
 import argparse, itertools, json, math, sys, time
 import numpy as np
@@ -43,6 +46,13 @@ def group_structures(v, maxo):
 
 def patterns(v, T):
     if T == -2: return [(1, 1)]
+    if T == 0:
+        out = []
+        for a in range(0, math.isqrt(2 * v) + 1, 2):
+            b2 = 2 * v - a * a
+            b = math.isqrt(b2)
+            if b * b == b2 and b % 2 == 0 and a <= b: out.append((a, b))
+        return out
     out = []; lim = math.isqrt(4 * v - 2)
     for a in range(1, lim + 1, 2):
         b2 = 4 * v - 2 - a * a
@@ -116,7 +126,7 @@ def psd_survivors(G, st, r, bound, log):
 
 
 def search(kind, v, name, G, mats, st, maxpool, log, psdmax=0):
-    T = 2 if kind == 'dopt' else -2
+    T = {'dopt': 2, 'lp': -2, 'pg': 0}[kind]
     pm = v % 4
     found = []
     for ra, rb in patterns(v, T):
@@ -141,7 +151,7 @@ def search(kind, v, name, G, mats, st, maxpool, log, psdmax=0):
         for i, j in sols[:2]:
             A = YA[i].astype(np.int64)[st.orb]; B = YB[j].astype(np.int64)[st.orb]
             ok = verify_pair(G, A, B, T)
-            log(f"  hit: {'D-optimal design' if T == 2 else 'Legendre pair'} verified {ok}")
+            log(f"  hit: {({2: 'D-optimal design', -2: 'Legendre pair', 0: 'periodic Golay pair'})[T]} verified {ok}")
             if ok:
                 rec = dict(kind=kind, v=v, group=[int(x) for x in G.mods], structure=name,
                            automorphisms=[np.asarray(M).tolist() for M in mats], rows=[ra, rb],
@@ -154,7 +164,7 @@ def search(kind, v, name, G, mats, st, maxpool, log, psdmax=0):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('kind', choices=['dopt', 'lp']); ap.add_argument('vs')
+    ap.add_argument('kind', choices=['dopt', 'lp', 'pg']); ap.add_argument('vs')
     ap.add_argument('--maxo', type=int, default=34); ap.add_argument('--maxpool', type=float, default=4e7)
     ap.add_argument('--group', action='store_true', help='non-cyclic groups (split primes) instead of Z_v')
     ap.add_argument('--psdmax', type=float, default=0, help='pools above --maxpool and up to this size go through the PSD test (psd_pool.c)')
