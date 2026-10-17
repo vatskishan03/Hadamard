@@ -19,8 +19,9 @@ from
   diagonal, M² + N² = 449I.
 - **Williamson-type matrices.** Seberry–Yamada's Lemma 26 with U = (I, 0, Q, Q) and V = (M, N, I, I) gives W₁ = [[1,
   −e], [−eᵀ, S₁]] and W_k = [[1, e], [eᵀ, S_k]] (k > 1), S_k = U_k ⊗ J₂ + V_k ⊗ [[1, −1], [−1, 1]], of order 451:
-  symmetric, pairwise amicable, Σ W_k² = 1804 I, and W₃ = W₄. This is also Seberry–Yamada's Corollary 31 (J. Combin.
-  Math. Combin. Comput. 7 (1990)) with a conference core in place of Paley's.
+  symmetric, pairwise amicable, Σ W_k² = 1804 I, and W₃ = W₄. These U and V are exactly Seberry–Yamada's Corollary 27,
+  cases (ib) and (iib) (J. Combin. Math. Combin. Comput. 7 (1990), p. 119), and their Corollary 31 (p. 122) is the same
+  choice with the indices 2 and 4 exchanged.
 - **The matrix.** H = [[W₁, W₃, W₃, W₂], [W₃, W₂, −W₁, −W₃], [W₃, −W₁, −W₂, W₃], [W₂, −W₃, W₃, −W₁]], Seberry and
   Balonin's propus array.
 
@@ -35,15 +36,23 @@ search/sym_propus_sb.py certify 451 CONF.npy` the certificate.
 before, but the Đoković–Seberry census (2025-05-28) omits it from its Seberry–Balonin series and lists 451 among its 595
 undecided values. We found no explicit matrix.
 
+- Seberry–Yamada (J. Combin. Math. Combin. Comput. 7 (1990)) already name 451 among the orders of symmetric
+  Williamson-type matrices with a repeated block: Corollary 27 with Remark 28 (p. 119) and Corollary 31 with
+  Remark 32 (p. 122), by exactly the U and V used here. Seberry–Balonin's Theorem 3 (Australas. J. Combin. 69
+  (2017), pp. 353–355) turns such matrices into a symmetric Hadamard matrix.
 - The census's Seberry–Balonin series is "v = q + 2, q ≡ 1 (mod 4), and (q + 1)/2 a prime power or the order of the core
   of a symmetric conference matrix"; q = 449 and (q + 1)/2 = 225 satisfy it. Seberry and Balonin name q = 89 (core of
   order 45, Mathon's matrix of order 46) as an instance of the second kind. Among the symmetric conference matrices we
-  know whose core order is not a prime power (Mathon's orders 46, 442 and 1574, and 226 from a skew-Hadamard matrix of
-  order 16), only those of orders 46, 226 and 442 give v < 2500: v = 91, 451 and 883.
+  know whose core order is not a prime power (Mathon's orders 46, 442 and 1574; 226 from a skew-Hadamard matrix of
+  order 16, in the census's C-series after Belevitch and Turyn; Verma's 86, arXiv:2610.08893; and 1226 = 35² + 1 from a
+  skew-Hadamard matrix of order 36), those of orders 46, 86, 226 and 442 give v < 2500: v = 91, 171, 451 and 883, of
+  which the census leaves only 451 and 883 undecided (1226 would need q = 2449 = 31 · 79).
 - Ordinary Hadamard matrices of order 1804 are classical, and a skew-Hadamard matrix of this order is in
   [skew/1804](../../skew/1804).
-- Seberry and Balonin print the order of Corollary 1 as 4(2q + 1), with q in place of (q + 1)/2; their examples (11 and
-  83) and the census read it as 4(q + 2).
+- Seberry and Balonin print the order of Corollary 1 as 4(2q + 1), a misprint: their derivation gives order q + 2.
+  Balonin and Đoković published the correction (Inf. Control Syst. 2018, no. 4, 2–7; arXiv:1803.08787, Introduction):
+  Corollary 1 "should read … symmetric Williamson type matrices of order q + 2 and a symmetric propus-type Hadamard
+  matrix of order 4(q + 2)". The census cites it, and the corrected statement covers 451 word for word.
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 

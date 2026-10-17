@@ -888,14 +888,15 @@ quaternary Hadamard matrix of that order (the completion below), and all seven e
 Tayfeh-Rezaie and Zaitsev, 2026), 254 (Đoković's good matrices of order 127), 326, 366 and 426 (this repository), H(428)
 and 470 (Zaitsev's page). So the completion gives these seven complex orders on its own, which were already known.
 Đoković (arXiv:1008.2043, Propositions 3.2–3.4) applies Corollary 8.8(i) to get Williamson-type matrices of orders 509
-(from good matrices of order 127) and 857 (from H(428)), and Corollary 8.9 (JCMCC 7 Corollary 31) gives 883 (q = 441);
-the near-Williamson matrices of order 67 (2026) would give 269 the same way. Corollary 8.8(i) fails as printed (§7), but
+(from good matrices of order 127) and 857 (from H(428)); for 883 he uses Yamada's 1989 theorem with q = 881 and Mathon's
+conference matrix of order 442 (Proposition 3.1), and Corollary 8.9 (JCMCC 7 Corollary 31) gives it too (q = 441); the
+near-Williamson matrices of order 67 (2026) would give 269 the same way. Corollary 8.8(i) fails as printed (§7), but
 538, 1018 and 1714 are known from explicit matrices on Zaitsev's page (checked exactly). The page attributes 1018 and
-1714 to Đoković's Williamson-type matrices and gives no further construction. Their real blocks are the printed X₁, …, X₄ of
-Lemma 26: X₁ and X₂ are symmetric, and X₁ is not amicable with X₃ or X₄. So they are not Williamson-type matrices but
-instances of the completion below, and Williamson-type matrices of orders 269, 509 and 857 remain unestablished. 1766
-is known from QH1766, which splits into explicit Williamson-type matrices of order 883. The other four, 1306, 1466, 1706
-and 1882, are on Zaitsev's page (§20), so none of this form is open.
+1714 to Đoković's Williamson-type matrices and gives no further construction. Their real blocks are the printed X₁, …,
+X₄ of Lemma 26: X₁ and X₂ are symmetric, and X₁ is not amicable with X₃ or X₄. So they are not Williamson-type matrices
+but instances of the completion below, and Williamson-type matrices of orders 269, 509 and 857 remain unestablished.
+1766 is known from QH1766, which splits into explicit Williamson-type matrices of order 883. The other four, 1306, 1466,
+1706 and 1882, are on Zaitsev's page (§20), so none of this form is open.
 
 **Why we found none.**
 - *Doubly symmetric propus over ℤ_m* (m = 67, 127, 163, 183, 213, 235; `search/propus_rank.py`, default structure):
@@ -1595,8 +1596,8 @@ only ordinary Hadamard matrices.
 - **Only a repeated block works.** A symmetric orthogonal design of order 4 in four variables would need four
   anticommuting real symmetric involutions of order 4, which do not exist (the Clifford algebra they generate is
   M₂(ℍ), whose modules have dimension divisible by 8). So the conference-matrix form of Corollary 29(ii) does not give
-  symmetric matrices this way. Corollaries 27(i) and 31 do have a repeated block, but every v < 2500 they reach is
-  decided.
+  symmetric matrices this way. Corollaries 27(i) and 31 do have a repeated block; of the v < 2500 they reach, only 451
+  and 883 are undecided in the census, and the census omits them by mistake (see Census omissions below).
 - **Iteration.** The theorem feeds itself through q = 2ᵃ · 8m + 1 from a new symmetric order 4m; below 2500 only
   q = 1753 (m = 219) is new.
 
@@ -1604,9 +1605,12 @@ only ordinary Hadamard matrices.
 of a symmetric conference matrix) does not list 451 or 883, which it covers: the cores of orders 225 (a conference
 matrix of order 226 from a skew-Hadamard matrix of order 16, Q = S ⊗ S + I ⊗ J − J ⊗ I; Brouwer's "skewhad²") and 441
 (Mathon's conference matrix of order 442) qualify with q = 449 and 881, both prime. Both orders, 1804 and 3532, are
-built and labelled Known ([symmetric/1804](symmetric/1804), [symmetric/3532](symmetric/3532)); for 883, Đoković (2010)
-already used the same Williamson-type matrices for an ordinary Hadamard matrix. Of the other core orders below 1250 that
-are not prime powers and have a symmetric conference matrix we know, 45 gives v = 91 (decided) and 1225 = 35² (from a
+built and labelled Known ([symmetric/1804](symmetric/1804), [symmetric/3532](symmetric/3532)): Seberry–Yamada (JCMCC 7,
+Remarks 28 and 32) already name 451 and 883 among their orders of symmetric Williamson-type matrices with a repeated
+block, and Balonin–Đoković's 2018 correction of Corollary 1 (arXiv:1803.08787, Introduction) states the order 4(q + 2)
+that covers both. For 883, Đoković (2010) got an ordinary Hadamard matrix from Yamada's 1989 theorem with the same
+conference matrix. Of the other core orders below 1250 that are not prime powers and have a symmetric conference matrix
+we know, 45 gives v = 91 and 85 (Verma's matrix of order 86) gives v = 171, both decided, and 1225 = 35² (from a
 skew-Hadamard matrix of order 36) gives q = 2449 = 31 · 79, not a prime power.
 
 **Skew cores.** The proof of Corollary 27(i) (Lemma 26 with U = (I, 0, BR, BR), V = (M, N, R, R)) uses of the Paley

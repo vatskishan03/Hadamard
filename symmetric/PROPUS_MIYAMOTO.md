@@ -118,7 +118,8 @@ Two of the four matrices must be equal: no symmetric orthogonal design of order 
 at most three real symmetric 4 × 4 matrices square to I and anticommute pairwise (the Clifford algebra with four such
 generators is M₂(ℍ), whose modules have dimension divisible by 8). So the conference-matrix form of Corollary 29(ii)
 (V₃, V₄ = C ± I) and its repeated-block form (V₃ ≠ V₄, [NOTES.md](../NOTES.md) §7) do not fit the propus array.
-Corollaries 27(i) and 31 also give a repeated block; every v < 2500 that they reach is decided in the census.
+Corollaries 27(i) and 31 also give a repeated block; of the v < 2500 that they reach, the census leaves only 451 and
+883 undecided (conference cores of orders 225 and 441), which are [1804](1804) and [3532](3532) (Known).
 
 ## Reach
 
