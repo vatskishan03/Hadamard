@@ -145,14 +145,24 @@ of 4 below 668 is the order of a Hadamard matrix.
 
 ## Status
 
-- All ten orders are **New** (to our knowledge, pending the audit of the literature recorded in
-  [NOTES.md](../NOTES.md) §30). Their census values are undecided, and the construction of the V-part from a
-  non-symmetric Hadamard matrix is not in the sources we read: Seberry–Yamada's Corollary 29 (1990) and its 1992
-  restatement (Corollary 8.8) use V = (I, 0, M, M) (or the conference-matrix form) and conclude only ordinary Hadamard
-  matrices; Seberry–Balonin's propus paper (2015/2017) applies the propus array only with V = (M, N, I, I); Yamada's
-  Theorem 3 (1989), with the same hypothesis as the theorem here, gives ordinary Hadamard matrices through a
-  quaternion-type array; Miyamoto's claim of a matrix "of symmetric block form" (1991) needs a symmetric Hadamard
-  matrix of order q − 1, and the census says his proof does not give it.
+- All ten orders are **New**: their census values are undecided, and we found the symmetric construction from a
+  non-symmetric input in none of the sources we read (audit of 17 October 2026).
+  - Yamada's Theorem 3 (J. Austral. Math. Soc. A 46 (1989), read in full) has the same hypothesis and gives ordinary
+    Hadamard matrices through a quaternion-type array, which kills the cross terms with J₂ and [[1, −1], [−1, 1]] as
+    here; it lists 809, 953, 1193, 2393 and 2441 among its new ordinary orders.
+  - Seberry–Yamada's Corollary 29 (JCMCC 7 (1990); 1992 survey, Corollary 8.8) gives symmetric Williamson-type
+    matrices only from a symmetric input, and their Remarks 17 and 30 put 809, 857, 953, 1193, 1433, 1913 and 1993
+    among the orders waiting for symmetric matrices of orders 4 · 101, …. Their Theorem 34 (Miyamoto's theorem
+    reformulated, Case B; survey Theorem 8.10) already allows a V-part coupled across all sixteen blocks, with
+    orthogonal block rows of weight 2n + 1, but builds an M-structure matrix that is not symmetric, and claims no
+    symmetry for it.
+  - Seberry–Balonin's propus theorem (arXiv:1512.01732; Australas. J. Combin. 69 (2017), Theorem 3) needs four
+    separate Williamson-type U_k, V_k with a repeated block and is applied only in their Corollary 1.
+  - Miyamoto's claim of a matrix "of symmetric block form" (1991, Theorem 5; Seberry–Yamada, Corollary 35) needs a
+    symmetric Hadamard matrix of order q − 1, and the census says his proof does not give it.
+  - Not read in full: Miyamoto (1991), and Seberry–Yamada's book (2020), §6.5 and §9.10; Google Books snippets of
+    p. 154 show Corollary 6.6 (Seberry–Balonin's Corollary 1, the "symmetric propus-type" matrices of the index) and
+    Miyamoto's claim, and the census of 2025, co-authored by Seberry, lists all ten values as undecided.
 - Ordinary Hadamard matrices of all ten orders are classical (Yamada's Theorem 3, or Miyamoto's theorem with
   H₂ ⊗ K). The symmetry is what is new. Doubling gives symmetric matrices of orders 8q, 16q, ….
 - 5732 uses a Hadamard matrix of order 716 that was first constructed in 2026; the other nine inputs were published

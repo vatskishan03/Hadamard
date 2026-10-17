@@ -117,8 +117,9 @@ Remarks.
 
 ## Reach
 
-Of the census's undecided v, 34 are q + 2 with q ≡ 5 (mod 8) a prime power (none of them was settled before; 189,
-473 and 1139, settled by Đoković, are not of this form). A skew-Hadamard matrix of order (v + 1)/2 is known for 27:
+Of the census's undecided v, 35 are q + 2 with q ≡ 5 (mod 8) a prime power (189, 473 and 1139, settled by Đoković, are
+not of this form). One of them, 183, was settled here earlier by a search ([732](732)); the theorem reaches it too,
+with a skew-Hadamard matrix of order 92. Of the other 34, a skew-Hadamard matrix of order (v + 1)/2 is known for 27:
 
 - Paley's matrices (p ≡ 3 mod 4), doubled: v = 319, 655, 703, 1231, 1599, 1951, 1999, 2239, 2271;
 - Szekeres's (1969) and Whiteman's (1971) complementary difference sets: v = 679, 1495, 2223;
@@ -154,7 +155,7 @@ The sources searched are listed in [NOVELTY.md](../NOVELTY.md).
 ## Reproduction and verification
 
 ```
-python3 search/sym_yk.py targets           # the 34 census values v = q + 2, q = 5 (mod 8), and their skew inputs
+python3 search/sym_yk.py targets           # the 34 remaining census values v = q + 2, q = 5 (mod 8), and their skew inputs
 python3 search/sym_yk.py certify 295       # writes symmetric/1180/certificate.json
 python3 verify/verify.py symmetric/1180    # rebuilds H and checks it
 ```
