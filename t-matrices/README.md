@@ -42,9 +42,10 @@ sequences NN(36) of Đoković (arXiv:0912.5091, 2009). The files are the instanc
 
 | t | Source of this instance |
 |----:|---|
-| 9, 11, 17 | T-sequences (1; 0), (0; (A + B)/2), (0; (A − B)/2), 0 from a Golay pair (A, B) of length t − 1 (Turyn 1974) |
+| 9, 11, 17, 21, 33 | T-sequences (1; 0), (0; (A + B)/2), (0; (A − B)/2), 0 from a Golay pair (A, B) of length t − 1 (Turyn 1974) |
 | 15, 23, 25, 29, 35, 47, 53, 59 | T-sequences of length t as stored in SageMath's `t_sequences` module (`T_sequences_smallcases`) |
-| 19, 31, 41, 49, 73 | `search/tmat_mult.py t g` with g = 7, 5, 10, 18, 8 (multiplier groups of orders 3, 3, 5, 3, 3) |
+| 19, 31, 41, 43, 49, 73 | `search/tmat_mult.py t g` with g = 7, 5, 10, 6, 18, 8 (multiplier groups of orders 3, 3, 5, 3, 3, 3) |
+| 55 | T-sequences of length 55 from Turyn's base sequences BS(6, 5) by Yang's multiplication by 5 (Seberry–Yamada 1992, Theorem 5.23, Golay pair of length 2): `search/yang5.py 5 --turyn`. SageMath stores none of length 55 |
 
 Orders 3, 5, 7, 11 and 13 are also built by `search/paley_blocks.py` itself from base sequences; for t = 11 the order
 11572 uses that built-in instance, the orders above 11804 the Golay instance of this directory.
