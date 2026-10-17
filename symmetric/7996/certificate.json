@@ -1,0 +1,25 @@
+{
+ "order": 7996,
+ "construction": "symmetric-yamada-kiyasu",
+ "symmetric": true,
+ "q": 1997,
+ "r": 2,
+ "xi": [
+  2,
+  1
+ ],
+ "Q": {
+  "order": 1000,
+  "construction": "skew-doubling",
+  "skew": true,
+  "S": {
+   "order": 500,
+   "construction": "paley-skew",
+   "skew": true,
+   "q": 499,
+   "sha256": "f302af75ac9446fefaa845bf0fe2b9f7f7883d169328bdbd41c8cb3a9241a9db"
+  },
+  "sha256": "fa7c169dd24d010b14b5d97857c47f8d018dd3cd50b70b5eb4ba4d03db4f98cf"
+ },
+ "sha256": "7130681b57998785f3b2f25140b18fecec1dcf51115cb6989fe39a744c9a856c"
+}

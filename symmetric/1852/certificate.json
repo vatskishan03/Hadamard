@@ -1,0 +1,97 @@
+{
+ "order": 1852,
+ "construction": "symmetric-yamada-kiyasu",
+ "symmetric": true,
+ "q": 461,
+ "r": 2,
+ "xi": [
+  2,
+  1
+ ],
+ "Q": {
+  "order": 232,
+  "construction": "skew-doubling",
+  "skew": true,
+  "S": {
+   "order": 116,
+   "construction": "goethals-seidel",
+   "skew": true,
+   "group": "Z_29",
+   "v": 29,
+   "multiplier": 1,
+   "subgroup_order": 1,
+   "rowsums": [
+    1,
+    5,
+    -3,
+    9
+   ],
+   "blocks": [
+    [
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     10,
+     12,
+     15,
+     16,
+     18,
+     20,
+     25,
+     28
+    ],
+    [
+     2,
+     3,
+     4,
+     9,
+     12,
+     13,
+     16,
+     17,
+     20,
+     25,
+     26,
+     27
+    ],
+    [
+     2,
+     4,
+     5,
+     6,
+     7,
+     10,
+     12,
+     13,
+     16,
+     17,
+     19,
+     22,
+     23,
+     24,
+     25,
+     27
+    ],
+    [
+     7,
+     8,
+     9,
+     11,
+     13,
+     16,
+     18,
+     20,
+     21,
+     22
+    ]
+   ],
+   "source": "SageMath good-matrix E-sequences, m = 14 (Szekeres 1988)",
+   "sha256": "513a87b006c0b36b512aa6e3e8ac5282e3dc6427c66d019216d955e0dea9e0cf"
+  },
+  "sha256": "17b735f79d5e5cc5f9e98b242bf4bc493fdcb68e703977cc6766cc14d32860c5"
+ },
+ "sha256": "0979cb41dc4bcec986a2a789486118940a626cbeac742ae0ac6831281bb0c93d"
+}

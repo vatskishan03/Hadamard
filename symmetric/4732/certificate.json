@@ -1,0 +1,116 @@
+{
+ "order": 4732,
+ "construction": "symmetric-yamada-kiyasu",
+ "symmetric": true,
+ "q": 1181,
+ "r": 2,
+ "xi": [
+  3,
+  1
+ ],
+ "Q": {
+  "order": 592,
+  "construction": "skew-doubling",
+  "skew": true,
+  "S": {
+   "order": 296,
+   "construction": "skew-doubling",
+   "skew": true,
+   "S": {
+    "order": 148,
+    "construction": "goethals-seidel",
+    "skew": true,
+    "group": "Z_37",
+    "v": 37,
+    "multiplier": 1,
+    "subgroup_order": 1,
+    "rowsums": [
+     1,
+     1,
+     5,
+     11
+    ],
+    "blocks": [
+     [
+      2,
+      5,
+      7,
+      11,
+      13,
+      14,
+      15,
+      19,
+      20,
+      21,
+      25,
+      27,
+      28,
+      29,
+      31,
+      33,
+      34,
+      36
+     ],
+     [
+      1,
+      2,
+      5,
+      7,
+      10,
+      13,
+      14,
+      15,
+      17,
+      19,
+      20,
+      22,
+      26,
+      29,
+      31,
+      33,
+      34,
+      35
+     ],
+     [
+      0,
+      1,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      16,
+      19,
+      23,
+      26,
+      27,
+      36
+     ],
+     [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      13,
+      15,
+      19,
+      20,
+      26,
+      30
+     ]
+    ],
+    "source": "search/skew_exhaustive.py 37 10",
+    "sha256": "adc973045facb1d88f00cb897c8d7623af131b9c2516773cc74f484285297133"
+   },
+   "sha256": "2949ecd129a7a12f2aacb85b19295e57e6a81f0be51050de1f934275a07e8625"
+  },
+  "sha256": "853ee97a17786b1664929c00dab9f52b8f452bf66df23a898b62bfe67ea587d9"
+ },
+ "sha256": "c1926f9f339dff11414843629092b05a378025cdd54aa01226fe86a522893858"
+}
