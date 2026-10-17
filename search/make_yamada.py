@@ -3,7 +3,7 @@ certificates in skew/ (doubled k times), with q = 2s - 3 a prime or a prime powe
 (k > 1) the certificate also gives p and a primitive polynomial of degree k over GF(p), and r and xi are encoded as
 integers whose base-p digits are polynomial coefficients (see verify.build_yamada).
 
-  python3 search/make_yamada.py SKEW_ORDER K [OUTDIR]
+  python3 search/make_yamada.py SKEW_ORDER K [OUTDIR]      (SKEW_ORDER: an order in skew/, or a certificate .json)
 
 The certificate nests the skew certificate (and k skew-doubling steps). verify/verify.py rebuilds everything:
 skew matrix -> doublings -> Yamada's construction -> H H^T = nI -> SHA-256. The matrix itself is not stored."""
@@ -92,8 +92,9 @@ def field_params(q, p, poly):
 
 
 def main():
-    s0, k = int(sys.argv[1]), int(sys.argv[2])
-    base = json.loads((ROOT / "skew" / str(s0) / "certificate.json").read_text())
+    s0, k = sys.argv[1], int(sys.argv[2])
+    base = json.loads((Path(s0) if s0.endswith(".json") else ROOT / "skew" / s0 / "certificate.json").read_text())
+    s0 = base["order"]
     Q = base
     for _ in range(k):
         Q = {"order": 2 * Q["order"], "construction": "skew-doubling", "S": Q}

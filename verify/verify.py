@@ -226,13 +226,7 @@ def build_cooper_wallis(cert):
     if not all(np.array_equal(m, m.T) for m in W) or \
             not np.array_equal(sum(m @ m for m in W), 4 * w * np.eye(w, dtype=np.int64)):
         raise ValueError("Williamson condition fails")
-    X = [circulant(x) for x in T]
-    coeff = {"A": (X[0], X[1], X[2], X[3]), "B": (X[1], -X[0], -X[3], X[2]),
-             "C": (X[2], X[3], -X[0], -X[1]), "D": (X[3], -X[2], X[1], -X[0])}
-    H = 0
-    for k in range(4):
-        H = H + np.kron(goethals_seidel(*(coeff[c][k] for c in "ABCD")), W[k])
-    return H, None
+    return assemble_cooper_wallis(T, W), None                # sum_k E_k (x) W_k, assembled in int8
 
 
 def build_cooper_wallis_near_williamson(cert):

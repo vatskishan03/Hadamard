@@ -116,7 +116,7 @@ start-up, is close to the list size.
 | `szekeres.py`, `szek_pair.c`, `szek_group.c` | Szekeres difference sets and Szekeres pairs |
 | `szek2.py` | two-block skew (and symmetric) matrices of order 2(w + 1) with a general second block |
 | `spence_plane.py` | the plane pair of Spence's skew 4(1 + q + q²) construction, from the Singer set of PG(2, q²) |
-| `make_yamada.py` | the Yamada–Kiyasu certificates (24124, 24412, 29404, 51580) |
+| `make_yamada.py` | the Yamada–Kiyasu certificates (24124, 24412, 29404, 51580; from a certificate file: 15292, with Đoković–Kotsireas's skew 956 in `data/skew956_dk.json`) |
 
 **Symmetric Hadamard matrices**
 
@@ -202,4 +202,5 @@ start-up, is close to the list size.
 | `skew_certify.py`, `skew_certify_group.py`, `skew_readme.py` | skew orders in `skew/` |
 | `sym_certify.py`, `border_certify.py` | symmetric orders in `symmetric/` |
 | `bnw_certify.py` | Cooper–Wallis orders with bordered Williamson-type matrices |
+| `cw_certify.py` | Cooper–Wallis certificates from a T-matrix file and Williamson matrices of SageMath's database (`data/williamson_sage.json`, orders 19, 23, 31, 43) or a bordered Williamson-type quadruple (12388, 13892, 14996, 18724, 20116, 20212, 25972, 28036) |
 | `ssxx_certify.py` | complex orders in `complex-hadamard/` |

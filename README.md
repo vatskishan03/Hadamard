@@ -65,12 +65,16 @@ Williamson-type matrices ([NOTES.md](NOTES.md) §7).
 
 **Other results.**
 
-- **Hadamard matrices of 21 larger orders** from 12596 to 51580, above the range of Table 4, for which we found no
+- **Hadamard matrices of 30 larger orders** from 12388 to 51580, above the range of Table 4, for which we found no
   earlier construction. They come from recursive theorems (Miyamoto [8], Yamada–Kiyasu [9], Cooper–Wallis [7]) applied
   to the matrices here and to objects published in 2026. For three of them the Handbook records the order as known, with
   no construction we could trace, and six (19028, 21044, 21748, 39260, 40244, 45044) were obtainable classically by the
-  Paley-block route [14, 15]. Also independent matrices of the known orders 2060, 3532 and 31316 (which SageMath's
-  development version builds since October 3, 2026). See [hadamard](hadamard).
+  Paley-block route [14, 15]. Nine come from the closure audit of October 17 ([NOTES.md](NOTES.md) §28): Cooper–Wallis
+  with the T-matrices of orders 151 and 163 of 2026 and Williamson matrices of orders 19 to 43 (12388, 13892, 14996,
+  18724, 20212, 25972, 28036), with T-sequences of length 107 and the Williamson-type matrices of order 47 of 2026
+  (20116), and Yamada–Kiyasu from Đoković and Kotsireas's skew matrix of order 956 (15292, obtainable classically). Also
+  independent matrices of the known orders 2060, 3532 and 31316 (which SageMath's development version builds since
+  October 3, 2026). See [hadamard](hadamard).
 - **Hadamard matrices of 117 orders 4n with 3001 ≤ n ≤ 9999** (12052 to 39916) that Table 1.53 of the Handbook, with
   Đoković's updates of 2009–2010, lists as unknown (one of them, 32316, Đoković claimed only through a corollary whose
   printed proof fails). They come from the same Paley-block route [14, 15]. For 109 of them the T-matrices (orders 3 to

@@ -1509,3 +1509,41 @@ odd v ≤ 2499. Its theorems:
 - **Not covered.** Seberry–Yamada's SX and Seberry's theorem with m ≥ 2 need specific orthogonal designs, for which we
   know no classical family. AV with general |t| needs amicable orthogonal designs. Asymptotic theorems might shorten
   the long Table 5 entries (191(226), 659(800516)) but touch none of our claims.
+
+**Hadamard matrices.** The closure runs over H(4n) for odd n ≤ 9999 in three tiers: published before 2026; published
+inputs that only our repair of Corollary 8.8(i) makes valid; and the objects of 2026 and of this repository. The
+theorems are Paley I and II, conference matrices (Paley, Mathon, Seberry–Whiteman, Turyn's products), Miyamoto,
+Yamada and Kiyasu, Cooper–Wallis and Đoković's Proposition 2.1, the Williamson-type families of Seberry–Yamada's Table
+A.1, Turyn's doubling, and our Paley-block and Miyamoto-block routes. The tables seed it.
+
+- **Validation.** It recomputes every entry of Đoković's set Δ, his list of 42 and his three further entries, except
+  the 37 that rest only on Corollary 8.8(i). It also recovers 1823 (Seberry–Whiteman) and Đoković's entries 823, 883,
+  1063, 1303, 2143 and 2335 of 2010, which Table 4 omits.
+- **FRONTIER.** No theorem reaches any of the 130 entries. The conditional routes are the known ones:
+  - 955 needs a symmetric conference matrix of order 478;
+  - 1879, 2215 and 2383 need skew-Hadamard matrices of orders 940, 1108 and 1192 (Kiyasu);
+  - 2677 needs H(2676);
+  - the splits of 191 and 223 need T-matrices or Williamson-type matrices of unknown orders.
+- **Corrections.**
+  - [hadamard/18340](hadamard/18340) and [hadamard/30916](hadamard/30916) have classical Cooper–Wallis routes that
+    their READMEs denied. 18340 comes from T-sequences of length 131 (London–Kotsireas's TT(44), 2025) with Đoković's
+    good matrices of order 35. 30916 comes from Yang's product of BS(87, 44) by the Yang number 59. Their labels
+    already said obtainable classically.
+  - [hadamard/24628](hadamard/24628) has such a route only with the Williamson-type matrices of order 47 of 2026.
+  - [hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md) now lists 18340, 28820, 30916 and 24628 among the T(131)
+    routes, and 917 = 131 · 7 among the Table 4 entries the Paley-block route reaches.
+  - Five Table 4 entries settled by the constructions of 2026, n = 131 · 7, 11, 13, 17 and 19, were reachable in 2025
+    ([FRONTIER.md](FRONTIER.md)).
+  - `search/data/wt_known_1992.txt` wrongly contained 1999, which Table A.1 gives as w#p (8-Williamson matrices only).
+- **Built from the closure.**
+  - [15292](hadamard/15292) (n = 3823) is the only Handbook entry with t ≥ 3, outside Đoković's updates, that the
+    classical closure reaches without T(131). It follows from Kiyasu with q = 3821 and the double of Đoković–Kotsireas's
+    skew matrix of order 956 (arXiv:1511.08734).
+  - Eight entries follow from objects of 2026 by Cooper–Wallis:
+    - T(151) (Schumer) with Williamson matrices of orders 23, 31 and 43: 13892, 18724, 25972;
+    - T(163) (JD-Jones-ASES) with orders 19, 23, 31 and 43: 12388, 14996, 20212, 28036;
+    - T-sequences of length 107 (2005) with the Williamson-type matrices of order 47 of 2026: 20116.
+
+  SageMath's development version already builds 12772 and 17716 (T(103) with Williamson matrices of orders 31 and 43),
+  so they are known and not added. 3903 and 9107 might follow from Miyamoto blocks with Whiteman's Williamson matrices
+  of order 325, which we have not checked.

@@ -19,6 +19,7 @@ the signs.
 | 97 | none found; T-sequences of length 97 are open (Đoković, arXiv:1008.2043) |
 | 101 | classical (T-sequences of length 1 + 10², Turyn 1974); this instance from `search/tmat_mult.py 101 95` (multiplier group of order 5) |
 | 103 | decoded from the 2060 matrix in JD-Jones-ASES/Hadamard-T (2026-08-29) |
+| 107 | classical: T-sequences from the Turyn-type sequences TT(36) of Kharaghani and Tayfeh-Rezaie (2005), through base sequences BS(71, 36), as SageMath's `t_sequences` module builds them (`T_sequences_smallcases(107)`); used for [20116](../hadamard/20116) |
 | 109 | none found |
 | 113 | Zuo–Xia–Xia (2013); Best–Đoković–Kharaghani–Ramp (2013) |
 | 131 | known: S. London and I. Kotsireas, New Turyn-type sequences, Cryptogr. Commun. 17 (2025) 1601–1610, construct TT(44), and Turyn's steps give base sequences BS(87, 44) and T-sequences of length 3 · 44 − 1 = 131 (we had missed this; found by the audit of October 16). Not among the T-matrix orders listed by Seberry and Yamada (1992, §3: every t ≤ 210 except 73, 79, 83, 89, 97, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 183, 191, 193, 197 and 199). This instance from `search/tmat_mult.py 131 53` (multiplier group of order 5, row sums 5, 0, −9, 5) |
