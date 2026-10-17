@@ -78,6 +78,20 @@ source that combines them:
 The sources searched are listed in [NOVELTY.md](../NOVELTY.md); the audit of this route is summarised in
 [NOTES.md](../NOTES.md) §22.
 
+## Beyond Table 4
+
+Above Cati–Pasechnik Table 4 the reference is Table 1.53 of the Handbook of Combinatorial Designs (2nd ed., 2007),
+which covers odd n < 10000. After Đoković's updates (arXiv:0912.5091, arXiv:1008.2043), 637 of its entries with
+3001 ≤ n ≤ 9999 still have t ≥ 3: no Hadamard matrix of order 4n was known. The route reaches 119 of them, with
+q ≡ 3 (mod 8) a prime or a prime power and T-matrices of an order we know. The orders are in the
+[index](README.md#orders-beyond-the-tables), each with its README. Most are new beyond the tables but obtainable
+classically; those that need T-matrices of order 103, 151 or 163 (known only since 2026) are new beyond the tables;
+16892 and 25132 are Known, since SageMath's development version builds them by Cooper–Wallis from October 3, 2026.
+
+The certificates are being written and verified (October 17, 2026). Each is checked exactly when written (entries
+±1, Σ PAF = 0 off 0, sequences rebuilt from Paley's matrix by `verify/verify.py`); the dense check H Hᵀ = 4n I of
+`verify/verify.py` follows.
+
 ## Reproduction and verification
 
     python3 search/paley_blocks.py check 1051          # the sixteen circulant blocks for q = 1051
