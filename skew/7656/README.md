@@ -29,10 +29,13 @@ and checks it.
 
 ## Status
 
-**New** as a skew-Hadamard matrix ([PALEY_SKEW.md](../PALEY_SKEW.md#status)).
+**Known.** Wallis and Whiteman (Bull. Austral. Math. Soc. 7, 1972) give skew-Hadamard matrices of order 4(q + 1) for
+prime powers q ≡ 9 (mod 16) (as stated by Momihara and Xiang, arXiv:1801.08776, Propositions 1.3 and 1.4 and Corollary
+1.7), and 7656 = 4 · 1914 with q = 1913 a prime ≡ 9 (mod 16); the audit of October 17 built that matrix from the
+cyclotomic classes of order 8 and checked it. Cati–Pasechnik's 957(4) is an omission. The matrix here is independent of
+it.
 
-- Cati–Pasechnik Table 5 gives 957(4): the smallest known skew order with odd part 957 was 16 · 957 = 15312. This matrix
-  has order 8 · 957.
+- Cati–Pasechnik Table 5 gives 957(4), but Wallis–Whiteman already gives 8 · 957 (above).
 - The Đoković–Seberry census covers the orders 4v only; it lists 957 as undecided, and 3828 remains open.
 
 Doubling (Seberry) gives skew-Hadamard matrices of all orders 2ᵏ · 7656. The sources searched are listed in

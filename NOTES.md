@@ -1381,7 +1381,12 @@ element to SL(2, q) has order 2s), and the construction runs over ℤ₃ × N_s 
   663, [skew/2652](skew/2652)), so 3516 is a first explicit construction. For q ≡ 7 (mod 8) the orders are 8v or 16v,
   and six of them lie below the smallest power of two in Table 5: 1800 (225(4)), 4344 (543(4)), 4632 (579(5)),
   7272 (909(4)), 7656 (957(4)) and 14352 = 16 · 897 (897(5)). Five more such values (345, 369, 513, 693, 765) are
-  already settled at 4v.
+  already settled at 4v. The audit of October 17 found that Table 5 misses Wallis–Whiteman's 4(q + 1) for q = 1913 ≡ 9
+  (mod 16), so 7656 was known (relabelled Known), and the family (|t| + 1)(q + 1) for 765 (8 · 765 with q = 509); and
+  that 14352 equals Đoković's skew 276 times our amicable pair of order 52. It also found the pairing in print: Yamada
+  (1991), restated as Theorem 1 of Seberry–Yamada (JCMCC 13, 1993), puts Paley's matrix (q ≡ 3 mod 8) in a
+  sixteen-block form with A skew and B₁ = −B₀ᵀ. The new orders are therefore labelled New, but obtainable classically:
+  every ingredient was published, and we found the combination nowhere.
 - **Checks.** `verify.py` rebuilds all 58 matrices from Paley's matrix and checks H Hᵀ = nI and H + Hᵀ = 2I densely
   (the paley-blocks builder gained optional shifts, a column order and negacyclic blocks; the 45 earlier paley-blocks
   certificates up to order 17000 and 25132 rebuild with unchanged SHA-256). `search/skew_3q.py` builds the family from
@@ -1390,8 +1395,8 @@ element to SL(2, q) has order 2s), and the construction runs over ℤ₃ × N_s 
   and a skew Y, with 2 PAF(X) + PAF(Y) = (t − 1)δ; the trivial character forces t = 2a² + 1. Exhaustive searches over
   ℤ₉, ℤ₃ × ℤ₃ and ℤ₁₉ found none, so t = 3 is the only multiplier we have.
 - **No symmetric analogue this way.** T_c = 0 and I on the other fixed orbit make A_c symmetric, but the propus array
-  needs two equal blocks among the other three; for q = 19, 43 and 67 no two of them are related by any affine map of
-  ℤ₃ × ℤ_s. Equal blocks are more than the propus array needs: its rows are orthogonal as soon as A is symmetric and B Bᵀ =
+  needs two equal blocks among the other three; for q = 19, 43 and 67 no two of them are related by any affine map of ℤ₃
+  × ℤ_s. Equal blocks are more than the propus array needs: its rows are orthogonal as soon as A is symmetric and B Bᵀ =
   C Cᵀ, so two blocks with equal Gram matrices would do. Over every placement of δ₀, δ₁, δ₂ (T-matrices of order 3) on
   three of the four orbits, all signs and all relative orbit shifts, q = 19 and 43 give no symmetric block together with
   two equal Grams that passes the dense check (q = 11 gives a symmetric H(36), since s = 3 = t). The automorphisms of
@@ -1400,7 +1405,8 @@ element to SL(2, q) has order 2s), and the construction runs over ℤ₃ × N_s 
   gives only q = 5 (H(36)) among q = 5, 9, 13, 17, 25 and 29. Nor do the new matrices have an involutive
   anti-automorphism P (which would make HP symmetric, as for [symmetric/7956](symmetric/7956)): by nauty (pynauty 2.8.8,
   on the signed digraph of H − I), for q = 11, 19, 43 and 59 they have no anti-automorphism at all, and their
-  automorphism groups have order 4, 2, 2 and 2.
+  automorphism groups have order 4, 2, 2 and 2. Nor does any of the 384 Goethals–Seidel variants (order of the last three blocks,
+  transposes, signs) for q = 11 and 19; they fall in two classes.
 - **No complex structure.** For q ≥ 11 no pairing (A_a ± iA_b, A_c ± iA_d) of the four blocks has X X* + Y Y* real, and
   the element of order 4 behind Paley's complex Hadamard matrices
   ([complex-hadamard/PALEY.md](complex-hadamard/PALEY.md)) cannot pass through T-matrices of order 3: it swaps the

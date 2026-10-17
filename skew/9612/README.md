@@ -28,7 +28,9 @@ and checks it.
 
 ## Status
 
-**New** as a skew-Hadamard matrix ([PALEY_SKEW.md](../PALEY_SKEW.md#status)).
+**New** as a skew-Hadamard matrix, but obtainable classically ([PALEY_SKEW.md](../PALEY_SKEW.md#status)): Yamada's
+sixteen-block form of Paley's matrix with its transposed pair (1991) and Seberry and Yamada's multiplication by
+T-matrices (1990) were published, and we found them combined nowhere.
 
 - The Đoković–Seberry census lists 2403 among its 737 undecided v, in none of its Paley, Szekeres, Szekeres–Whiteman or
   Spence series and not among its 41 sporadic values.

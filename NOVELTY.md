@@ -9,6 +9,7 @@ corrections are welcome.
 | Label | Meaning |
 |---|---|
 | **New** | The order is open in the reference table for its family (below), and no later construction was found. |
+| **New, but obtainable classically** | As New, but every ingredient (theorems and objects) was published before 2026; only their combination is new. |
 | **New, beyond the tables** | The order lies above the range of the reference tables. Where Table 1.53 of the Handbook covers it, the table gives t ≥ 3 (no Hadamard matrix of order 4n known), and no later construction was found. |
 | **New, beyond the tables, but obtainable classically** | As New, beyond the tables, but every ingredient (theorems and objects) was published before 2026; only their combination is new. |
 | **First explicit construction** | A table records the order as known, but we could not trace any construction behind the entry. |
@@ -109,19 +110,21 @@ For every order we checked:
   Yang's multiplication as restated in the 1992 survey (Theorem 5.23);
 - for the skew-Hadamard matrices of order 3(q + 1) ([skew/PALEY_SKEW.md](skew/PALEY_SKEW.md)), checked on 17 October
   2026: Seberry, Ars Combin. 6 (1978) (Summary 2, Theorems 2–7, Table 2); Seberry–Yamada, JCMCC 7 (1990) and its Kobe
-  version, Utilitas Math. 40 (1991), the 1992 survey (§7, the families SI–SXI, Table 7.1 on the scan, Theorem 3.10,
-  §8) and JCMCC 13 (1993); Wallis's lists of 1971 and 1973; Xia–Xia–Seberry, Discrete Appl. Math. 145 (2005), and the
+  version, Utilitas Math. 40 (1991), the 1992 survey (§7, the families SI–SXI, Table 7.1 on the scan, Theorem 3.10, §8)
+  and JCMCC 13 (1993); Wallis's lists of 1971 and 1973; Xia–Xia–Seberry, Discrete Appl. Math. 145 (2005), and the
   group's papers of 2005–2006; Handbook §V.1 with Table 1.51 (online copy); Koukouvinos–Stylianou (2008), first pages
-  only; Cati–Pasechnik Table 5 and footnote 13; the census; Đoković, arXiv:2508.17141 (XXSW at order q + 1 only) and
-  his earlier skew papers; SageMath's development source (`unknown_skew_hadamard`, and an emulation of the branches of
+  only; Cati–Pasechnik Table 5 and footnote 13; the census; Đoković, arXiv:2508.17141 (XXSW at order q + 1 only) and his
+  earlier skew papers; SageMath's development source (`unknown_skew_hadamard`, and an emulation of the branches of
   `skew_hadamard_matrix`, Unknown for all 58 orders); the arXiv skew-Hadamard records (39) and Hadamard records of
-  2025–2026, Zenodo, the JD-Jones-ASES repositories and Schumer's deposit. None gives skew matrices of order 3(q + 1)
-  in general or of any of the 58 orders; Seberry–Yamada's Table 7.1 and Cati–Pasechnik's Table 5 record 663 and 879 as
-  known without a construction. Not accessible: Whiteman, Discrete Math. 2 (1972); Haviland's BYU thesis (2023) and
-  Anderson–Haviland–Holmes–Humphries–Magland, Graphs Combin. 39 (2023), on skew relative difference sets in dicyclic
-  groups, whose abstract describes one infinite family built from Ito's and Schmidt's results (our matrices of orders
-  60 and 132 have automorphism groups of order 2, so they are not group-developed of that kind); Xia–Zuo–Lou–Xia,
-  Trans. Comb. 13 (2024);
+  2025–2026, Zenodo, the JD-Jones-ASES repositories and Schumer's deposit. None gives skew matrices of order 3(q + 1) in
+  general or of any of the 58 orders; Seberry–Yamada's Table 7.1 and Cati–Pasechnik's Table 5 record 663 and 879 as
+  known without a construction. JCMCC 13 (1993), Theorem 1 (after Yamada 1991) contains the sixteen-block form with the
+  transposed pair, so the orders are labelled New, but obtainable classically. Wallis–Whiteman (1972), as stated by
+  Momihara–Xiang (arXiv:1801.08776), gives 7656 (relabelled Known). Not accessible: Whiteman, Discrete Math. 2 (1972);
+  Haviland's BYU thesis (2023) and Anderson–Haviland–Holmes–Humphries–Magland, Graphs Combin. 39 (2023), on skew
+  relative difference sets in dicyclic groups, whose abstract describes one infinite family built from Ito's and
+  Schmidt's results (our matrices of orders 60 and 132 have automorphism groups of order 2, so they are not
+  group-developed of that kind); Xia–Zuo–Lou–Xia, Trans. Comb. 13 (2024);
 - searches of Zenodo (records matching "hadamard"), GitHub, the e-print sources of Hadamard-related arXiv papers
   (to 2026-10-08) and the math.CO listings (to 2026-10-12), the OEIS, MathOverflow, Balonin's catalogue and the Palomar
   registry.

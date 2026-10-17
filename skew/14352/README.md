@@ -29,11 +29,16 @@ and checks it.
 
 ## Status
 
-**New** as a skew-Hadamard matrix ([PALEY_SKEW.md](../PALEY_SKEW.md#status)).
+**New** as a skew-Hadamard matrix, but obtainable classically ([PALEY_SKEW.md](../PALEY_SKEW.md#status)): Yamada's
+sixteen-block form of Paley's matrix with its transposed pair (1991) and Seberry and Yamada's multiplication by
+T-matrices (1990) were published, and we found them combined nowhere.
 
 - Cati–Pasechnik Table 5 gives 897(5): the smallest known skew order with odd part 897 was 32 · 897 = 28704. This matrix
   has order 16 · 897.
 - The Đoković–Seberry census covers the orders 4v only; it lists 897 as undecided, and 3588 remains open.
+- The order was already within reach of this repository: Đoković's skew-Hadamard matrix of order 276
+  (arXiv:2301.02751) times the amicable pair of order 52 of [2652](../2652) (H = I ⊗ S + K ⊗ M) has order
+  276 · 52 = 14352; nobody had built it.
 
 Doubling (Seberry) gives skew-Hadamard matrices of all orders 2ᵏ · 14352. The sources searched are listed in
 [NOVELTY.md](../../NOVELTY.md).

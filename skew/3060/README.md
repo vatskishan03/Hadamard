@@ -28,12 +28,15 @@ and checks it.
 
 ## Status
 
-**New** as a skew-Hadamard matrix ([PALEY_SKEW.md](../PALEY_SKEW.md#status)).
+**New** as a skew-Hadamard matrix, but obtainable classically ([PALEY_SKEW.md](../PALEY_SKEW.md#status)): Yamada's
+sixteen-block form of Paley's matrix with its transposed pair (1991) and Seberry and Yamada's multiplication by
+T-matrices (1990) were published, and we found them combined nowhere.
 
 - The Đoković–Seberry census lists 765 among its 737 undecided v, in none of its Paley, Szekeres, Szekeres–Whiteman or
   Spence series and not among its 41 sporadic values.
-- Cati–Pasechnik Table 5 gives 765(4): the smallest known skew order with odd part 765 was 16 · 765 = 12240.
-  Seberry–Yamada's Table 7.1 (1992) agrees.
+- Cati–Pasechnik Table 5 gives 765(4), and Seberry–Yamada's Table 7.1 (1992) agrees, but the family (|t| + 1)(q + 1)
+  (Seberry Wallis) already gives 8 · 765 = 6120: q = 509 = 5² + 4 · 11², |t| + 1 = 12. So the smallest known skew
+  order with odd part 765 was 8 · 765, and 4 · 765 was open.
 
 Doubling (Seberry) gives skew-Hadamard matrices of all orders 2ᵏ · 3060. The sources searched are listed in
 [NOVELTY.md](../../NOVELTY.md).

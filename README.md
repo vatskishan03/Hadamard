@@ -19,7 +19,9 @@ The smallest order we know to be unresolved is now 2396 = 4 · 599 ([FRONTIER.md
 For skew-Hadamard matrices (H + Hᵀ = 2I) we prove that one of order 3(q + 1) exists for every prime power q ≡ 3
 (mod 4): Paley's matrix is an array of sixteen negacyclic blocks, Frobenius pairs two of them, and T-matrices of order
 3 then keep the first Goethals–Seidel block skew-type ([skew/PALEY_SKEW.md](skew/PALEY_SKEW.md)). This settles 52 values
-v < 2500 that the Đoković–Seberry census lists as undecided, from 996 = 4 · 249 to 9996 = 4 · 2499.
+v < 2500 that the Đoković–Seberry census lists as undecided, from 996 = 4 · 249 to 9996 = 4 · 2499. The block form and
+the pairing are Yamada's (1991) and the multiplication is Seberry and Yamada's (1990); we found them combined nowhere,
+so these orders were obtainable classically.
 
 ## Results
 
@@ -103,11 +105,12 @@ Williamson-type matrices ([NOTES.md](NOTES.md) §7).
   those orders were obtainable classically; and the 173 · t orders have a published route since Verma's symmetric
   conference matrix of order 86 (arXiv:2610.08893, October 2026). Table 4 entries that Đoković settled through the
   corollary are in the table above (6108, 10180) or still open (2571).
-- **Skew-Hadamard matrices of 98 orders** from 820 to 14352 for which we found no earlier construction: 32 from
+- **Skew-Hadamard matrices of 97 orders** from 820 to 14352 for which we found no earlier construction: 32 from
   Goethals–Seidel difference families with a skew block, 8 from Seberry's theorem with new amicable Hadamard matrices
-  or new orthogonal designs, and 58 from the theorem above, of order 3(q + 1): 52 census values 4v (one of them,
-  3516 = 4 · 879, recorded as known by two older tables without a construction) and six orders 8v and 16v below the
-  smallest power of two in Cati–Pasechnik's Table 5. Also independent matrices of the known skew orders 1852 and 3676.
+  or new orthogonal designs, and 57 from the theorem above, of order 3(q + 1), obtainable classically: 52 census values
+  4v (one of them, 3516 = 4 · 879, recorded as known by two older tables without a construction) and five orders 8v and
+  16v below the smallest power of two in Cati–Pasechnik's Table 5. Also independent matrices of the known skew orders
+  1852, 3676 and 7656 (Wallis–Whiteman, which Table 5 missed).
   See [skew](skew).
 - **Symmetric Hadamard matrices** of orders 532, 732, 876, 4828 and 5700, all undecided in the Đoković–Seberry
   census [4]. See [symmetric](symmetric).

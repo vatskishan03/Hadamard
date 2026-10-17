@@ -29,7 +29,9 @@ and checks it.
 
 ## Status
 
-**New** as a skew-Hadamard matrix ([PALEY_SKEW.md](../PALEY_SKEW.md#status)).
+**New** as a skew-Hadamard matrix, but obtainable classically ([PALEY_SKEW.md](../PALEY_SKEW.md#status)): Yamada's
+sixteen-block form of Paley's matrix with its transposed pair (1991) and Seberry and Yamada's multiplication by
+T-matrices (1990) were published, and we found them combined nowhere.
 
 - Cati–Pasechnik Table 5 gives 909(4): the smallest known skew order with odd part 909 was 16 · 909 = 14544. This matrix
   has order 8 · 909.
