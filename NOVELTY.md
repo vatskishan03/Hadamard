@@ -45,7 +45,9 @@ For every order we checked:
 
 - Đoković's updates of the Hadamard tables (arXiv:0912.5091, arXiv:1008.2043), Đoković–Golubitsky–Kotsireas
   (arXiv:1301.3671), and the later papers of Đoković and coauthors on skew and symmetric matrices (among them
-  arXiv:1511.08734, arXiv:2404.14375 and arXiv:2508.17141);
+  arXiv:1511.08734, arXiv:2404.14375 and arXiv:2508.17141, Đoković–Kotsireas, Math. Comput. Sci. 12 (2018) 373–388, and,
+  not on arXiv, Abuzin–Balonin–Đoković–Kotsireas, Inform. Control Syst. 2019, no. 5, 2–9, whose Table 1
+  of skew-propus families we missed until the audit of 17 October 2026; see [skew/README.md](skew/README.md));
 - SageMath, development version of October 2026: `hadamard_matrix(n, existence=True)`,
   `skew_hadamard_matrix(n, existence=True)` and the list `unknown_skew_hadamard` (we missed that it builds 31316 since
   the merge of October 3; corrected in [hadamard/31316](hadamard/31316/README.md#status));

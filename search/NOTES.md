@@ -1795,7 +1795,11 @@ core of a symmetric Hadamard matrix of order h gives order kh(h − 1) (unused: 
   PAF_A3 + 2 PAF_A1 + PAF_A0 = 4nδ, in the Balonin array with D = xI + y(A0 − I). The row sum of A0 is 1, so
   a3² + 2a1² = 4n − 1 is necessary. `sym_mm1.py propus n` searches exhaustively (A1 hashed on its autocorrelations,
   up to shifts; (A3, A0) pairs probed); solutions exist for n = 3, 5, 7, 11, 13, 15 (all verified up to order 3540),
-  none for n = 9 (35 is not a² + 2b²).
+  none for n = 9 (35 is not a² + 2b²). These existence results were published before (found by the audit of 17
+  October 2026): Abuzin, Balonin, Đoković and Kotsireas (Inform. Control Syst. 2019, no. 5, 2–9, Table 1, "X1 skew,
+  X2 = X3, and X4 symmetric") list such families for every odd v < 50 with 4v − 1 = a² + 2b² except 37, 43 and 47,
+  for which their Table 3 has only families with X4 neither symmetric nor skew. Their families of lengths 19, 25
+  and 31 are equivalent to ours (a multiplier, a shift of A1, and for 31 a reversal and sign change of A1).
 - *Szekeres-type pairs*: a Legendre pair (M, N) of odd length v' with M of skew type and N symmetric gives the
   bordered two-block skew-Hadamard matrix [[1, 1, e, −e], [−1, 1, −e, −e], [−e, e, A, B], [e, e, −B, Aᵀ]] of
   order 2v' + 2 (orthogonality forces the border signs up to the choices a, α, β with γ = aβ, δ = −aα), and
@@ -1826,7 +1830,9 @@ hashed on the orbit-level autocorrelations) over every odd n ≤ 267 with 4n −
 1 solvable, every H with at most 29 orbits: the only solution is n = 31, H = ⟨5⟩ (order 3, 11 orbits), with row sums
 5, 7, 1 (q = 123 = 3 · 41 = 5² + 2 · 7²), e.g. A3 = −++−−++−+++−+−+−−+−+−+++−++−−++, A1 =
 +++−++++−−++−−−−+−+++−−−+++++−+, A0 = ++++++−+−−+−−+−+−+−++−++−+−−−−− (`sym_mm1.py mpropus 31 5`), hence a symmetric
-Hadamard matrix of order 124 · 123 = 15252 = 4 · 3813 (built and checked by `sym_mm1.py build`). Paley II (q = 7625),
+Hadamard matrix of order 124 · 123 = 15252 = 4 · 3813 (built and checked by `sym_mm1.py build`). The quadruple is
+Abuzin–Balonin–Đoković–Kotsireas's (31; 15, 12, 12, 13; 21) over ⟨5⟩ (2019, Table 1) up to reversing and negating
+A1, so 15252 is obtainable from published ingredients. Paley II (q = 7625),
 XXSW (q = 15251 = 101 · 151) and Đoković's q(q + 1) (q = 123) do not reach 15252, and the census stops at v < 2500.
 The Szekeres-type pairs on multiplier orbits (`sym_mm1.py mszek`, every odd subgroup with at most 34 orbits) for v' =
 45, 57, 73, 77, 85, 93, 97, 101, 109, 117, 129, 133, 137, 145, 149, 153, 157 found nothing.

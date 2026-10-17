@@ -45,7 +45,8 @@ Nothing beyond [symmetric/5700](../../symmetric/5700) was searched for the amica
 were found by `search/sym_mm1.py` (`g_matrices(19)`: all pairs of skew-type sequences hashed on the sum of their
 autocorrelations, all symmetric pairs with row sums 5 and 7 probed; half a second). G-matrices of order 19 are
 classical (Spence's series for q = 37; Georgiou–Koukouvinos, JCMCC 40 (2002), list 9 of them, as tabulated in Đoković,
-arXiv:0903.5053, Table 1), so only the amicable pair is new.
+arXiv:0903.5053, Table 1), so only the amicable pair is new as an explicit object (its family of length 19 was
+published in 2019, see Status).
 
 **Reproduction.**
 
@@ -57,8 +58,17 @@ arXiv:0903.5053, Table 1), so only the amicable pair is new.
 
 ## Status
 
-**New** as a skew-Hadamard matrix. The Đoković–Seberry census lists 1425 among its 737 undecided values, and no table
-of skew orders 2ᵗq reaches it. The pair of order 76 is, to our knowledge, the first amicable pair of that order.
+**New, but obtainable classically** as a skew-Hadamard matrix. The Đoković–Seberry census lists 1425 among its 737
+undecided values, and no table of skew orders 2ᵗq reaches it. The pair of order 76 is, to our knowledge, the first
+explicit amicable pair of that order.
+
+- Every ingredient was published before 2026: Seberry's theorem (1978), G-matrices of order 19, and a skew-propus
+  difference family of length 19, (19; 9, 7, 7, 7; 11) of Abuzin, Balonin, Đoković and Kotsireas (Inform. Control Syst.
+  2019, no. 5, 2–9, Table 1; doi:10.31799/1684-8853-2019-5-2-9), equivalent to ours under a multiplier and a shift of
+  A1. Đoković's Balonin array (arXiv:2508.17141, proof of Theorem 1) turns the family into the symmetric orthogonal
+  design, and the step to the amicable pair (I + PN, P + N), which puts the design in Seberry's strong amicable form
+  (Australas. J. Combin. 55 (2013), Definition 5), we found nowhere in print. Only the combination is new, hence the
+  label.
 
 - The census lists 1425 among the undecided cases ("… 1417, 1423, 1425, 1427, 1429, …"). 1425 is in none of its skew
   series (Paley, Szekeres, Szekeres–Whiteman, Spence) and not among its 41 sporadic values. 737 undecided plus 513

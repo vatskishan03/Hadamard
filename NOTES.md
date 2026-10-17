@@ -1491,8 +1491,8 @@ odd v ≤ 2499. Its theorems:
   - 16 · 879 and 16 · 921 (skew 1172 or 1228 times amicable 12).
 
   This supports reading the blanks as errors ([skew/2652](skew/2652), [skew/3516](skew/3516)).
-- **Four new orders.** With the 2026 objects, the only further improvements of Table 5 are 16v for v = 589, 611 and
-  817, from Wallis's product of a skew order 4p with our amicable pairs of orders 52 and 76:
+- **Four orders below Table 5.** With the 2026 objects, the only further improvements of Table 5 are 16v for v = 589,
+  611 and 817, from Wallis's product of a skew order 4p with our amicable pairs of orders 52 and 76:
   - 9424 = 124 · 76;
   - 9776 = 188 · 52, with Đoković's skew 188 (arXiv:0704.0640);
   - 13072 = 172 · 76.
@@ -1504,6 +1504,14 @@ odd v ≤ 2499. Its theorems:
   order finds nothing else below Table 5 for v ≤ 999. The amicable orders that would add more are 92, 116 and 148
   (16 · 667, 16 · 851): length 23 has no skew-propus quadruple (91 ≠ a² + 2b²), length 29 has no admissible row sums
   (115), and length 37 was searched only under subgroups of order 3 and 9 (search/NOTES.md §31).
+
+  The audit of October 17 found that the amicable pairs are first explicit rather than new objects: Abuzin,
+  Balonin, Đoković and Kotsireas (Inform. Control Syst. 2019, no. 5, 2–9, Table 1) publish skew-propus difference
+  families of lengths 13, 19, 25 and 31 (those of 19, 25 and 31 equivalent to ours), and Đoković's Balonin array
+  (arXiv:2508.17141) turns each into a symmetric orthogonal design of type (1, n − 1); only the step to the
+  amicable pair (I + PN, P + N) is not in print. The four orders above and skew 5700 and 9900 are therefore labelled
+  New, but obtainable classically, and so is symmetric 5700. Their Table 3 reports length 37 only with the fourth
+  block neither symmetric nor skew.
 
   Every split into a skew order and a classical amicable order fails for these orders. For instance, 9424 = h m with m
   = 2 or 4 needs the open skew orders 4712 or 2356, and every larger classical amicable divisor (8, 16, 152, 248, 304,

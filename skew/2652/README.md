@@ -63,7 +63,8 @@ arXiv:0903.5053, Table 1); only the amicable pair of order 52 is new.
 **First explicit construction.** The Đoković–Seberry census lists 663 as undecided for skew matrices, but two older
 tables imply that a skew-Hadamard matrix of order 4 · 663 = 2652 is known, and we found no construction behind either
 entry. We know of no earlier skew-Hadamard matrix of order 2652, so this is the weakest of our skew novelty claims.
-The pair of order 52 is, to our knowledge, the first amicable pair of that order. A symmetric Hadamard matrix of order
+The pair of order 52 is, to our knowledge, the first explicit amicable pair of that order; skew-propus families of
+length 13, from which it follows in one step, were published in 2019 (see below). A symmetric Hadamard matrix of order
 2652 is known: 663 is not undecided in the symmetric list of the census.
 
 - The census lists 663 among its 737 undecided skew values ("… 659, 661, 663, 667, 669, …").
@@ -90,6 +91,12 @@ The pair of order 52 is, to our knowledge, the first amicable pair of that order
   two table entries as errors, but we could not confirm that.
 - The skew tables of Seberry, Ars Combin. 6 (1978) and of Seberry–Yamada, Utilitas Math. 40 (1991) stop at q = 499.
   No source we searched mentions a skew-Hadamard matrix of order 2652 or amicable Hadamard matrices of order 52.
+- Found by the audit of 17 October 2026: Abuzin, Balonin, Đoković and Kotsireas (Inform. Control Syst. 2019, no. 5, 2–9,
+  Table 1; doi:10.31799/1684-8853-2019-5-2-9) publish skew-propus difference families of length 13, (13; 6, 6, 6, 3; 8)
+  and (13; 6, 4, 4, 6; 7); ours has the parameters of the second (equivalence not checked). Đoković's Balonin array
+  (arXiv:2508.17141, proof of Theorem 1) and the elementary step (I + PN, P + N), which we found nowhere in print, turn
+  either into an amicable pair of order 52, so this order was within reach of published ingredients; the label is
+  unchanged.
 - The Handbook of Combinatorial Designs and Koukouvinos–Stylianou (Discrete Math. 308 (2008); abstract only) were not
   checked.
 

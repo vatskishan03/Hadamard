@@ -71,7 +71,9 @@ t ≤ 27 at once but did not reach t = 39 in about 20 minutes. The symmetric sea
 
 **New** as a skew-Hadamard matrix. The Đoković–Seberry census lists 1989 among its 737 undecided skew values, and no
 table of skew orders 2ᵗq reaches it (Cati–Pasechnik Table 5 stops at n ≤ 999). The OD(156; 1, 3, 152) is, to our
-knowledge, the first orthogonal design of that type, and the amicable pair of order 52 of [skew/2652](../2652) is new.
+knowledge, the first orthogonal design of that type. The amicable pair of order 52 of [skew/2652](../2652) is the first
+explicit one; the skew-propus families of length 13 behind it were published by Abuzin, Balonin, Đoković and Kotsireas
+(Inform. Control Syst. 2019, no. 5, 2–9, Table 1; doi:10.31799/1684-8853-2019-5-2-9).
 
 - The census lists 1989 among its undecided skew values ("… 1985, 1987, 1989, 1993, …") and among its undecided
   symmetric values.

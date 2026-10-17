@@ -46,7 +46,7 @@ its certificate, its README and, for the orders found by search, the matrix. Sta
 | [5284](5284) | 1321 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 660 (q′ = 659) | undecided | New, but obtainable classically |
 | [5476](5476) | 1369 = 37² | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 684 (q′ = 683) | undecided | New, but obtainable classically |
 | [5636](5636) | 1409 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = H₂^⊗4 ⊗ Paley I, order 44 (q′ = 43) | undecided | New, but obtainable classically |
-| [5700](5700) | 1425 = 19 · 75 | m(m − 1) with m = 76: a skew-propus quadruple of length 19 (row sums 5, 5, 1, invariant under the multiplier 7) gives a symmetric OD(76; 1, 75); x ↦ J, y ↦ the core of P + N | undecided | New |
+| [5700](5700) | 1425 = 19 · 75 | m(m − 1) with m = 76: a skew-propus quadruple of length 19 (row sums 5, 5, 1, invariant under the multiplier 7) gives a symmetric OD(76; 1, 75); x ↦ J, y ↦ the core of P + N | undecided | New, but obtainable classically |
 | [5956](5956) | 1489 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 744 (q′ = 743) | undecided | New, but obtainable classically |
 | [6404](6404) | 1601 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = H₂^⊗2 ⊗ Paley I, order 200 (q′ = 199) | undecided | New, but obtainable classically |
 | [6788](6788) | 1697 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = H₂^⊗2 ⊗ Paley I, order 212 (q′ = 211) | undecided | New, but obtainable classically |

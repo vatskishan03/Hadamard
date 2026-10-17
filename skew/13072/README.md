@@ -40,21 +40,29 @@ its first solution. The amicable pair is that of [skew/5700](../5700).
 
 ## Status
 
-**New.** Cati–Pasechnik Table 5 gives 817(5): the smallest skew-Hadamard order known with odd part 817 was
-32 · 817 = 26144. The Đoković–Seberry census lists 817 as undecided, so 4 · 817 = 3268 is open (our searches for it
-failed, [search/NOTES.md](../../search/NOTES.md)), and so is 8 · 817 = 6536.
+**New, but obtainable classically.** Cati–Pasechnik Table 5 gives 817(5): the smallest skew-Hadamard order known with
+odd part 817 was 32 · 817 = 26144. The Đoković–Seberry census lists 817 as undecided, so 4 · 817 = 3268 is open (our
+searches for it failed, [search/NOTES.md](../../search/NOTES.md)), and so is 8 · 817 = 6536.
 
-- The route needs the amicable pair of order 76, which we constructed in 2026 ([skew/5700](../5700#status)). Every
-  split 13072 = h m into a skew order h and a classical amicable order m fails. m = 2 and m = 4 need the open skew
-  orders 6536 and 3268. m = 8, 16, 152, 304, 344 and 688 leave h ≢ 0 (mod 4). The smallest classical amicable orders
-  with odd parts 19 and 43 are 152 and 344 (Seberry–Yamada (1992), Table 6.1; Paley with q = 151 and 343).
+- The route needs amicable Hadamard matrices of order 76 ([skew/5700](../5700#status)). No source states them, but they
+  come from a skew-propus difference family of length 19, and Abuzin, Balonin, Đoković and Kotsireas (Inform. Control
+  Syst. 2019, no. 5, 2–9, Table 1; doi:10.31799/1684-8853-2019-5-2-9) published one, (19; 9, 7, 7, 7; 11), equivalent to
+  ours under a multiplier and a shift of A1. Đoković's Balonin array (arXiv:2508.17141, proof of Theorem 1) turns such a
+  family into a symmetric orthogonal design xP + yN of type (1, n − 1), and (I + PN, P + N) is then an amicable pair;
+  this last step, which puts the design in Seberry's strong amicable form (Australas. J. Combin. 55 (2013),
+  Definition 5), we found nowhere in print. Every split 13072 = h m into a skew order h and a classical amicable order m
+  fails. m = 2 and m = 4 need the open skew orders 6536 and 3268. m = 8, 16, 152, 304, 344 and 688 leave h ≢ 0 (mod 4).
+  The smallest classical amicable orders with odd parts 19 and 43 are 152 and 344 (Seberry–Yamada (1992), Table 6.1;
+  Paley with q = 151 and 343).
 - Our closure of the classical skew theorems also stops at 2⁵ · 817, as Table 5 does. It covers Paley, Szekeres,
   Whiteman, Wallis–Whiteman, Spence, Turyn, Seberry's theorems with classical amicable orders and orthogonal designs,
   Wallis's product and doubling ([NOTES.md](../../NOTES.md) §28). It does not cover Seberry–Yamada's SX, or Seberry's
   theorem with m ≥ 2, for which we know no classical family of orthogonal designs.
 - In SageMath's development version of 2026-10-17, `skew_hadamard_matrix(13072, existence=True)` is `Unknown`; it is
   `True` for 26144. Its product branch uses only amicable orders d with d − 1 a prime power.
-- Of the ingredients, Wallis's theorem and the skew order 172 were published; the amicable pair of order 76 is new.
+- Every ingredient was published before 2026 (Wallis's theorem, the skew order 172, the family of length 19 and the
+  Balonin-array design); only their combination, with the elementary step above, is new, hence the label. The
+  amicable pair of order 76 is, as far as we know, the first explicit one.
 
 Doubling (Seberry) gives skew-Hadamard matrices of all orders 2ᵏ · 13072. The sources searched are listed in
 [NOVELTY.md](../../NOVELTY.md).

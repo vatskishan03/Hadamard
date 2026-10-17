@@ -55,41 +55,45 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 
 ## Seberry's theorem with new ingredients
 
-Seberry (1978): amicable Hadamard matrices of order n and a skew-type orthogonal design OD(mn; 1, m, mn − m − 1) give
-a skew-Hadamard matrix of order mn(n − 1). The orders below use amicable pairs or orthogonal designs that were not
-known. The amicable pairs of orders 52, 76 and 100 come from skew-propus quadruples, that is from symmetric orthogonal
-designs of type (1, n − 1) ([search/NOTES.md](../search/NOTES.md) §31). Seberry's tables of amicable orders 2ᵗq (1978,
-1991, 1992) give t = 3 for q = 13, 19 and 25, so these pairs are new as far as we know. For m = 1 the skew-type
-designs come from G-matrices, which are known for these orders. The designs for m ≥ 3 were found here.
+Seberry (1978): amicable Hadamard matrices of order n and a skew-type orthogonal design OD(mn; 1, m, mn − m − 1) give a
+skew-Hadamard matrix of order mn(n − 1). The orders below use amicable pairs or orthogonal designs that were not known.
+The amicable pairs of orders 52, 76 and 100 come from skew-propus quadruples, that is from symmetric orthogonal designs
+of type (1, n − 1) ([search/NOTES.md](../search/NOTES.md) §31). Seberry's tables of amicable orders 2ᵗq (1978, 1991,
+1992) give t = 3 for q = 13, 19 and 25, and no source we know states amicable pairs of these orders, but the skew-propus
+difference families behind them were published by Abuzin, Balonin, Đoković and Kotsireas (Inform. Control Syst. 2019,
+no. 5, 2–9, Table 1; doi:10.31799/1684-8853-2019-5-2-9), so the pairs are first explicit, not new objects. For m = 1 the
+skew-type designs come from G-matrices, which are known for these orders. The designs for m ≥ 3 were found here.
 
 | Order | v | Amicable pair | Skew-type orthogonal design | Census | Status |
 |------:|---|---|---|---|---|
 | [1716](1716) | 429 = 13 · 3 · 11 | order 12, Paley (q = 11) | OD(156; 1, 13, 142) over ℤ₃₉, new | undecided; Table 5: 429(3) | New |
 | [1900](1900) | 475 = 5 · 5 · 19 | order 20, Paley (q = 19) | OD(100; 1, 5, 94) over ℤ₂₅, new | undecided; Table 5: 475(4) | New |
-| [2652](2652) | 663 = 13 · 51 | order 52, new (skew-propus quadruple of length 13) | G-matrices of order 13 | undecided; Table 5 implies known | First explicit; see its README |
+| [2652](2652) | 663 = 13 · 51 | order 52, first explicit (skew-propus family of length 13) | G-matrices of order 13 | undecided; Table 5 implies known | First explicit; see its README |
 | [2772](2772) | 693 = 21 · 3 · 11 | order 12, Paley (q = 11) | OD(252; 1, 21, 230) over ℤ₆₃, new | undecided; Table 5: 693(4) | New |
-| [5700](5700) | 1425 = 19 · 75 | order 76, new (the design of [symmetric/5700](../symmetric/5700)) | G-matrices of order 19 | undecided | New |
+| [5700](5700) | 1425 = 19 · 75 | order 76, first explicit (the design of [symmetric/5700](../symmetric/5700)) | G-matrices of order 19 | undecided | New, obtainable classically |
 | [7956](7956) | 1989 = 3 · 13 · 51 | order 52, as for 2652 | OD(156; 1, 3, 152) over ℤ₃₉, new | undecided | New |
 | [9828](9828) | 2457 = 13 · 7 · 27 | order 28, Paley (q = 27) | OD(364; 1, 13, 350) over ℤ₉₁, new | undecided | New |
-| [9900](9900) | 2475 = 25 · 99 | order 100, new (skew-propus quadruple of length 25) | G-matrices of order 25 | undecided | New |
+| [9900](9900) | 2475 = 25 · 99 | order 100, first explicit (skew-propus family of length 25) | G-matrices of order 25 | undecided | New, obtainable classically |
 
 The matrix of order 9900 is not stored; `verify/verify.py skew/9900` rebuilds it.
 
-## Wallis's product with the new amicable pairs
+## Wallis's product with the amicable pairs
 
 J. Wallis (1976; Seberry–Yamada 1992, SXI): a skew-Hadamard matrix I + S of order h and an amicable pair (A, M) of order
 m give the skew-Hadamard matrix I ⊗ A + S ⊗ M of order hm. With the pairs of orders 52 and 76 above, and a pair of order
 124 from the skew-propus quadruple of length 31 ([search/NOTES.md](../search/NOTES.md) §31; classically the smallest
 amicable order with odd part 31 is 248), four orders 16v fall below Cati–Pasechnik's Table 5 (found by the closure audit
-of October 17, [NOTES.md](../NOTES.md) §28). The skew factors are classical or published; the new ingredient is the
-amicable pair.
+of October 17, [NOTES.md](../NOTES.md) §28). The skew factors are classical or published, and so are the skew-propus
+families of lengths 13, 19 and 31 behind the amicable pairs (Abuzin–Balonin–Đoković–Kotsireas 2019); the one step we
+found nowhere in print is the passage from such a family to the amicable pair, so the orders are labelled New,
+obtainable classically.
 
 | Order | v | Skew factor | Amicable pair | Before | Status |
 |------:|---|---|---|---|---|
-| [9424](9424) | 589 = 19 · 31 | 124 = 4 · 31: Paley plus three blocks under ⟨2⟩ (Szekeres 1969 has this order) | 76 | 589(5) | New |
-| [9776](9776) | 611 = 13 · 47 | 188 = 4 · 47: Đoković (2008) | 52 | 611(5) | New |
-| [13072](13072) | 817 = 19 · 43 | 172 = 4 · 43: Paley plus three blocks under ⟨4⟩ (Đoković 1992 has this order) | 76 | 817(5) | New |
-| [14384](14384) | 899 = 29 · 31 | 116 = 4 · 29: good matrices of order 29 (Szekeres 1988) | 124 | 899(6) | New |
+| [9424](9424) | 589 = 19 · 31 | 124 = 4 · 31: Paley plus three blocks under ⟨2⟩ (Szekeres 1969 has this order) | 76 | 589(5) | New, obtainable classically |
+| [9776](9776) | 611 = 13 · 47 | 188 = 4 · 47: Đoković (2008) | 52 | 611(5) | New, obtainable classically |
+| [13072](13072) | 817 = 19 · 43 | 172 = 4 · 43: Paley plus three blocks under ⟨4⟩ (Đoković 1992 has this order) | 76 | 817(5) | New, obtainable classically |
+| [14384](14384) | 899 = 29 · 31 | 116 = 4 · 29: good matrices of order 29 (Szekeres 1988) | 124 | 899(6) | New, obtainable classically |
 
 The matrices are not stored; `verify/verify.py` rebuilds them.
 

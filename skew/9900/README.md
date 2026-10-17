@@ -48,7 +48,7 @@ a3² + 2a1² = 99: (1, 7), (7, 5), (9, 3); A1 tabulated on its autocorrelations 
 probed); the first solution, in the pattern (9, 3), came after 18 minutes (one core, Python). The G-matrices of order
 25 are the first found by `g_matrices(25)` (row sums 1, 1, 7, 7; 22 s). G-matrices of order 25 are known
 (Georgiou–Koukouvinos, JCMCC 40 (2002), list 13 of them, as tabulated in Đoković, arXiv:0903.5053, Table 1); only the
-amicable pair of order 100 is new.
+amicable pair of order 100 is new as an explicit object (its family of length 25 was published in 2019, see Status).
 
 **Reproduction.**
 
@@ -60,9 +60,17 @@ amicable pair of order 100 is new.
 
 ## Status
 
-**New** as a skew-Hadamard matrix. The Đoković–Seberry census lists 2475 among its 737 undecided skew values, and no
-table of skew orders 2ᵗq reaches it (Cati–Pasechnik Table 5 stops at n ≤ 999). The pair of order 100 is, to our
-knowledge, the first amicable pair of that order. A symmetric Hadamard matrix of order 9900 is known: 2475 is not
+**New, but obtainable classically** as a skew-Hadamard matrix. The Đoković–Seberry census lists 2475 among its 737
+undecided skew values, and no table of skew orders 2ᵗq reaches it (Cati–Pasechnik Table 5 stops at n ≤ 999). The
+pair of order 100 is, to our knowledge, the first explicit amicable pair of that order.
+
+- Every ingredient was published before 2026: Seberry's theorem (1978), G-matrices of order 25, and a skew-propus
+  difference family of length 25, (25; 12, 11, 11, 8; 17) of Abuzin, Balonin, Đoković and Kotsireas (Inform. Control
+  Syst. 2019, no. 5, 2–9, Table 1; doi:10.31799/1684-8853-2019-5-2-9), equivalent to ours under a multiplier. Đoković's
+  Balonin array (arXiv:2508.17141, proof of Theorem 1) turns the family into the symmetric orthogonal design, and the
+  step to the amicable pair (I + PN, P + N), which puts the design in Seberry's strong amicable form (Australas. J.
+  Combin. 55 (2013), Definition 5), we found nowhere in print. Only the combination is new, hence the label. A symmetric
+  Hadamard matrix of order 9900 is known: 2475 is not
 undecided in the symmetric list of the census.
 
 - The census lists 2475 among the undecided cases ("… 2469, 2473, 2475, 2485, 2489, …"). 2475 is in none of its skew
