@@ -179,8 +179,8 @@ as we know, new.
 - **Not read.** Whiteman (Discrete Math. 2, 1972); Seberry–Yamada's book (2020), chapter 9 and its Table 9.2;
   Haviland's thesis (BYU, 2023) and Anderson–Haviland–Holmes–Humphries–Magland (Graphs Combin. 39, 2023) on skew
   relative difference sets in dicyclic groups, whose abstract describes one infinite family built from Ito's and
-  Schmidt's results. Our matrices are not group-developed in that way: for q = 19 and 43 their automorphism groups
-  have order 2. The sources searched are listed in [NOVELTY.md](../NOVELTY.md).
+  Schmidt's results. Our matrices are not group-developed in that way: for q = 19, 43 and 59 their automorphism
+  groups have order 2. The sources searched are listed in [NOVELTY.md](../NOVELTY.md).
 
 ## Reproduction and verification
 
