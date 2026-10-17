@@ -1414,8 +1414,8 @@ element to SL(2, q) has order 2s), and the construction runs over ℤ₃ × N_s 
   gives only q = 5 (H(36)) among q = 5, 9, 13, 17, 25 and 29. Nor do the new matrices have an involutive
   anti-automorphism P (which would make HP symmetric, as for [symmetric/7956](symmetric/7956)): by nauty (pynauty 2.8.8,
   on the signed digraph of H − I), for q = 11, 19, 43 and 59 they have no anti-automorphism at all, and their
-  automorphism groups have order 4, 2, 2 and 2. Nor does any of the 384 Goethals–Seidel variants (order of the last three blocks,
-  transposes, signs) for q = 11 and 19; they fall in two classes.
+  automorphism groups have order 4, 2, 2 and 2. Nor does any of the 384 Goethals–Seidel variants (order of the last
+  three blocks, transposes, signs) for q = 11 and 19; they fall in two classes.
 - **No complex structure.** For q ≥ 11 no pairing (A_a ± iA_b, A_c ± iA_d) of the four blocks has X X* + Y Y* real, and
   the element of order 4 behind Paley's complex Hadamard matrices
   ([complex-hadamard/PALEY.md](complex-hadamard/PALEY.md)) cannot pass through T-matrices of order 3: it swaps the
