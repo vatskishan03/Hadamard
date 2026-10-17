@@ -158,7 +158,15 @@ start-up, is close to the list size.
 | `ssxx_paley.py` | exact search on Paley-product structures ℤ_m × GF(q): skeletons, then joins over ℤ_m |
 | `ssxx_paleyk.py` | the same with an extra multiplier group K on ℤ_m (exhaustive over K-orbit skeletons) |
 | `kstream.py`, `kstream.c` | the streaming k-tree (382) |
-| `lowe_sz.py`, `lowe_enum.c`, `lowe_scan.py`, `sls_sz.c` | low-energy k-tree and annealing for Szöllősi structures |
+| `lowe_sz.py`, `lowe_enum.c`, `lowe_scan.py`, `lowe_dispatch.py`, `sls_sz.c` | low-energy k-tree and annealing for Szöllősi structures; resumable (`--budget`, `--auto`), with fibre filters and live split values |
+| `compress_check.py` | necessary condition before a search: the four blocks' compressions to ℤ_d joined exactly for each prime power d (also run by `lowe_sz.py`); `--joint` also joins pairs of coprime levels together |
+| `runq.py` | queue runner for `lowe_sz.py` tickets: each call stops before its budget and the next runner continues it |
+| `gauss_mc.py`, `gauss_full.py`, `gauss_lat.py` | estimates of the number of solutions of a structure: hybrid Monte Carlo and Gaussian, full covariance, joint lattice of the class values |
+| `value_mult.py` | value multiplicity of a structure's blocks: solutions per distinct value quadruple |
+| `frontier_scan.py`, `hybrid_rank.py` | every multiplier structure of the open orders with pools up to 10¹³, ranked by the per-class and the hybrid estimate |
+| `calib_bsz.py`, `retention_test.py`, `retention_diag.py`, `joint_retention.py` | calibration against exact solution sets: the estimates, and the retention of the low-energy filter |
+| `gs_hybrid.py` | the same estimates for Goethals–Seidel structures |
+| `rrr.py`, `rrr.c` | Elser's RRR (difference map) for four-sequence problems (negative, [NOTES.md](NOTES.md) §53) |
 | `comp_est.py`, `comp_triage.py` | estimates conditioned on the block compressions to ℤ_d (exact feasibility, lattice Gaussian per tuple), and the triage of the open orders with them (plain and bordered) |
 | `lowe_comp.py` | the low-energy k-tree on one compression class at a time (lowe_enum with fibre-class constraints) |
 | `comp_scan.py` | fast conditioned scans of the product families: bordered ℤ₂ × ℤ_q, plain d · q, propus d · q for the symmetric census, and `plainall`/`bordered` over every multiplier group and every listable quotient |
@@ -171,7 +179,7 @@ start-up, is close to the list size.
 | `miyamoto_wt.py` | Williamson-type matrices of order q and complex Hadamard matrices of order 2q from a symmetric commuting pair of order (q − 1)/2 (Seberry–Yamada Lemma 8.6), the pair from a doubly symmetric propus quadruple, and the completion: a complex Hadamard matrix of order 2q from any quaternary Hadamard matrix of order (q − 1)/2 ([../NOTES.md](../NOTES.md) §19), and Cooper–Wallis with the Williamson-type matrices of Corollary 8.8(ii) from a symmetric Hadamard matrix of order (q − 1)/2 (`cw`, order 21036): `selftest`, `vpatterns`, `complete`, `cw` |
 | `quaternion_type.py` | Paley's matrix in the basis of a semiregular Q₈ (quaternion type): block pattern, base-point changes, plugging into Cooper–Wallis arrays ([../NOTES.md](../NOTES.md) §21): `pattern`, `rebase`, `plug` |
 | `quaternary_check.py` | exact check of a quaternary Hadamard matrix in the text format of Zaitsev's page, and of its real double (Turyn): `--double` |
-| `complex_status.py`, `data/` | known, constructed and open complex orders; tables parsed from Seberry–Yamada (1992) |
+| `complex_status.py`, `data/` | known, constructed and open complex orders; tables parsed from Seberry–Yamada (1992), and the orders on Zaitsev's page of October 2026 (`data/complex_zaitsev_2026.txt`) |
 
 **T-matrices, Williamson-type matrices and Legendre pairs**
 

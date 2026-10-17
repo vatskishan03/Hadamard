@@ -1339,6 +1339,7 @@ def enum_block(ts, tc, kind, r, vals, center, Wm, tau, maxkeep, tag, threads):
         f.write(struct.pack("i", len(vals)))
         f.write(np.asarray(tc.fid[kind], np.int32).tobytes()); f.write(np.asarray(tc.w[kind], np.int32).tobytes())
         f.write(np.asarray(vals, np.int32).tobytes())
+        f.write(struct.pack("i", 0))                                       # no fibre filters
     p = subprocess.run([W.bin("lowe_enum"), str(inp), str(out), str(threads)], capture_output=True, text=True,
                        check=True)
     inp.unlink()
@@ -1640,7 +1641,7 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
         var = sum(np.asarray(lists[k][1][::max(1, len(lists[k][1]) // 200000)], np.float64).var(0) for k in order)
         Sx = [int(c) for c in np.argsort(-var)[:nS]]
         sf = Path(str(inp) + ".sig")
-        n, rad = LZ.sigma_file(lists, Sx, ts.tvec, nsig, sf)
+        n, rad, _ = LZ.sigma_file([lists[k] for k in order], Sx, ts.tvec, nsig, sf)
         print(f"  kt4: merge classes {Sx}, {n} split values by the solution law (radius {rad:.2f})", flush=True)
         if n == 0:
             continue

@@ -143,7 +143,9 @@ For every order we checked:
   (to 2026-10-08) and the math.CO listings (to 2026-10-12), the OEIS, MathOverflow, Balonin's catalogue and the Palomar
   registry.
 
-The searches were made between 12 and 14 October 2026.
+The searches were made between 12 and 14 October 2026. A second search for the complex orders, on 15 October 2026,
+found Zaitsev's page and Đoković's Williamson-type matrices of orders 509, 857 and 883 (arXiv:1008.2043), which give
+complex orders 1018, 1714 and 1766 that our status list had counted as open.
 
 ## Not checked
 

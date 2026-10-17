@@ -1,8 +1,9 @@
 # Complex Hadamard matrices of orders 2N, N odd
 
 A quaternary (complex) Hadamard matrix of order n has entries 1, −1, i, −i and satisfies K K* = n I. Its order is 1
-or even, and it is conjectured that one exists for every even order (Turyn). Orders divisible by 4 are covered by real
-Hadamard matrices. The open cases are therefore the orders 2N with N odd.
+or even, and it is conjectured that one exists for every even order (Turyn). A real Hadamard matrix is a quaternary
+one, and real Hadamard matrices are known for every multiple of 4 below 2000 since August 2026 ([README](../README.md)).
+The open cases below 2000 are therefore orders 2N with N odd.
 
 Recent progress at the bottom of that range:
 - Szöllősi constructed order 94 (arXiv:2603.09572, March 2026), noting that "the next outstanding order seems to be"
@@ -92,6 +93,22 @@ same conditioning over every multiplier group of ℤ_N* and every listable quoti
 11, 11; 9, 19, conditioned on ℤ₉ (13 feasible tuples); the first tuple (pools 1134, 378, 2.8 · 10⁷, 2.8 · 10⁷) gave 12
 solutions in four minutes. (A ℤ₃ estimate alone can mislead: for ⟨31⟩ the best ℤ₃ tuple is dead on ℤ₉.)
 
+Structures whose blocks C and D have 10⁸–10¹¹ members are searched by the low-energy k-tree `search/lowe_sz.py`: each
+big block is enumerated in full and only its members of low energy (the most likely to complete a solution under a
+Gaussian model of the other three blocks) are kept, and `search/kt4.c` joins the kept lists (orders 342, 366, 426, 430
+and 454). The structures are ranked by `search/gauss_mc.py`, a hybrid estimate of the number of solutions: for composite
+N (or N − 1) the per-class Gaussian estimate of `ssxx.py` can be low by several orders of magnitude, and 430 and 454
+came from structures it put at 10^−1.2 and 10^0.6 solutions (the hybrid estimate: 10^4.1 and 10^4.4). See
+[search/NOTES.md](../search/NOTES.md) §32–34.
+
+Two exact necessary conditions now come first. For each prime power d dividing the group order, the four blocks'
+compressions to ℤ_d must join exactly (`search/compress_check.py`). On 291 structures with exact counts this rules out
+244 of the 264 without solutions and none of the 27 with solutions; joining pairs of coprime levels together
+(`--joint`) rules out 15 more. Each block then keeps only members whose compressions occur
+in some level-1 solution (fibre filters). For order 366 the filters left 2.1% of C, all of which was kept, and the
+search found 1536 solutions where earlier runs without them had found none. See
+[search/NOTES.md](../search/NOTES.md) §36–39.
+
 A second construction, the bordered Szöllősi array on a group of order N − 1, is stated and proved in
 [BORDERED.md](BORDERED.md). Order 454 comes from it: 227 is a safe prime, so ℤ₂₂₇ has no usable multiplier group,
 while ℤ₂₂₆ = ℤ₂ × ℤ₁₁₃ has ⟨49⟩ of order 7. Its fibre sums over ℤ₂ are ≡ ±1 (mod 14), which the Gaussian estimate
@@ -137,6 +154,7 @@ row-wise version; the two may be equivalent ([NOTES.md](../NOTES.md) §20).
 | 518 | 259 = 7 · 37 | ⟨44⟩, order 9 (compression chain) | 5, 29; 1, 13 | [C518.json](C518.json) |
 | 534 | 267 = 3 · 89 | ⟨4⟩, order 11 | 1, 1; 21, 25 | [C534.json](C534.json) |
 | 754 | 377 = 13 · 29 | ⟨9⟩, order 42 | 27, 27; 5, 5 | [C754.json](C754.json) |
+| 1558 | 779 = 19 · 41 | ⟨49⟩, order 60 | 5, 7; 39, 39 | [C1558.json](C1558.json) |
 
 **Known orders, independent matrices** (Known: Ito; Egan 2019, since 4N − 1 is a prime power). We found 13 of them
 (142, 154, 222, 262, 286, 310, 322, 330, 342, 370, 430, 454, 742) by the searches before we knew this; the other 63
@@ -274,6 +292,8 @@ concurrent ones:
   conjecture is verified there). For N odd this covers 4N − 1 a prime power; 2N − 1 and Williamson matrices were in
   the 1992 table already.
 - Đoković's good matrices of orders 35 and 127 (1993): 70 and 254.
+- Đoković's Williamson-type matrices of orders 509, 857 and 883 (arXiv:1008.2043, 2010, from theorems of Miyamoto
+  and Yamada): 1018, 1714 and 1766. Our first status list missed these three.
 - Szöllősi (2026): 94.
 - Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev (2026): 118, 130, 134, 206 and 266.
 - Quaternary Legendre pairs, giving order 2ℓ + 2 (Kotsireas–Winterhof 2022; Kotsireas–Koutschan–Winterhof 2025;
@@ -298,26 +318,29 @@ concurrent ones:
   ([`search/data/complex_zaitsev_2026.txt`](../search/data/complex_zaitsev_2026.txt)). Besides the 11 orders of the
   first table it covers 24 orders that we had listed as open, among them 470, 490, 686, 1306, 1466, 1706 and 1882.
 
-The sweep's candidate list (`python3 search/ssxx_sweep.py list`) is exactly the blank entries of the 1992 table
-minus these. The 2026 papers cite the updated Table 11.2 of Seberry and Yamada's 2020 book (Wiley), which we could
-not consult. A construction published between 1992 and 2020 and recorded only there is the remaining caveat.
+The sweep's candidate list (`python3 search/ssxx_sweep.py list`) is the blank entries of the 1992 table minus these
+(and, since 15 October 2026, minus the orders on Zaitsev's page). Szöllősi's paper and arXiv:2605.08661 also take
+their open orders from Table 11.2 of the 1992 survey. We did not consult the tables of Seberry and Yamada's 2020 book
+(Wiley), so a construction published between 1992 and 2020 and recorded only there is the remaining caveat for the
+earlier literature. At q = 163 our copy of the table is blank; Zaitsev's page calls the entry ambiguous and treats
+the order as unknown, because the construction claimed there would need 2q − 1 = 325 to be a prime power.
 
-**What remains open** (`python3 search/complex_status.py`): after the orders in this directory and on Zaitsev's page,
-115 values of N < 1000 have no complex Hadamard matrix of order 2N known to us. The smallest open orders are 334, 358,
-418, 438, 446, 478, 498, 502, 506, 550, 574, 598, …; for none of them is 4N − 1 a prime power. Zaitsev's page ends
-with the same list of 115 orders. (The earlier count of 143
-also listed 538, 1018, 1714 and 1766, which are on Zaitsev's page, and that of 139 the 24 orders of
-Zaitsev's page; see above.) 214, 238, 302 and 326 were successively the
-smallest open order; they are in the table above. No quaternary Legendre pair family covers the length 106 of order
-214 (Jedwab–Pender need 213 or 105 to be a prime power), and the 2026 quaternary Legendre pairs (arXiv:2609.04589,
-arXiv:2609.25573) have lengths below 100.
+**Concurrent work.** V. Zaitsev's page (with Kharaghani, Mohammadian and Tayfeh-Rezaie; "Last updated: 14 October
+2026") gives matrices of 122 orders that are blank in the 1992 table, among them all 12 orders of the first table above.
+Its last modification (15 October 2026, 02:50 UTC) precedes our commits of 214 and 366. We downloaded the page's matrices
+of these orders and checked K K* = nI exactly for each. They are different matrices: where a page matrix has the layout
+of our array (orders 302, 326 and 382), none of its four sequences has the PAF spectrum of any of ours, and that
+spectrum is unchanged by shifts, multipliers, negation and reversal. These orders are therefore not new; this directory
+gives a second, independent construction of each, with a certificate that `verify/verify_complex.py` checks from the
+four sequences alone.
 
-**Correction.** An earlier version of this directory called 76 orders New that follow from Ito and Egan: the 63 halves
-of Paley's matrix and 13 orders found by search, among them 142 and 154 (which we had called the two smallest open
-orders after the 2026 papers) and 322. Neither 2026 paper cites Egan, and both take their smallest open order from the
-1992 table; we did the same. The record of how the error arose is in [PALEY.md](PALEY.md#novelty).
-
-A second correction: the 11 orders of the first table were labelled New until we found Zaitsev's page on 16 October
-2026. They are Concurrent: the page lists all 11, and its last modification (15 October 2026, 02:50 UTC) precedes our
-commits of 214 and 366. Every matrix file on the page carries the same HTTP date, 27 August 2026 (also the order-118
-file, which existed in May), so that date marks an upload or copy, not when each matrix was found.
+**What remains open** (`python3 search/complex_status.py`): 115 orders 2N below 2000 with N odd have no quaternary
+Hadamard matrix known to us. This is exactly the list of unknown orders on Zaitsev's page. The smallest are 334, 358,
+418, 438, 446, 478 and 498. Order 334 (N = 167) is out of reach of every structure we have: ℤ₁₆₇ has no usable
+multiplier group, and on ℤ₁₆₆ = ℤ₂ × ℤ₈₃ the only one has order 41 and six orbits. Order 358 (N = 179) is similar: the
+cyclic array has no structure in our range of orbit counts, and the bordered array's best has an estimate of 10⁻⁵
+solutions. For 418 the best structures have estimates of one to three solutions in pools of 10¹¹–10¹⁵ members; for 438,
+446, 478 and 498 every estimate is below one. The one open order where the array has strong structures is 682 (N = 341
+= 11 · 31): eight multiplier groups of order 10 with estimates of 10^1.7–10^3.0 solutions. The two best joins
+found no solution in 97% and 95% of their collision mass, which the estimate gave a chance of 2–5% each
+([search/NOTES.md](../search/NOTES.md) §57–59).

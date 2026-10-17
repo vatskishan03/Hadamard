@@ -72,6 +72,29 @@ Hadamard matrices of orders 26, 42 and 50. At N = 13 and 21 the solution counts,
 the Gaussian estimates 10^4.25 and 10^7.02. `verify/verify_complex.py` accepts certificates with constructions
 `szollosi-bordered` (G = ℤ_m) and `szollosi-bordered-group`.
 
+## Results
+
+**Order 454 (N = 227).** 227 = 2 · 113 + 1 is a safe prime: besides {1}, the only odd-order subgroup of ℤ₂₂₇* is the
+group of squares, with three orbits, so Szöllősi's array over ℤ₂₂₇ has no usable structure. Over ℤ₂₂₆ = ℤ₂ × ℤ₁₁₃
+the multiplier 49 has order 7 (trivial on ℤ₂, order 7 on ℤ₁₁₃) and 34 orbits.
+- Rows (0, 0, 2, 0): A and B share one complete list of 25740 members; C (row sum 2) and D (row sum 0) have pools of
+  6.0 · 10⁸ and 1.2 · 10⁹, of which the low-energy k-tree (`search/lowe_sz.py`) kept 3 · 10⁷ and 2.77 · 10⁷.
+- `kt4` found 512 solutions at the 851st split value of the solution law. The per-class Gaussian estimate of the
+  structure was 10^0.63 (10^−1.06 inside the kept lists); the hybrid estimate of `search/gauss_mc.py` was 10^4.4.
+- Border: x = s = t = y = 1, u = v = −i. Certificate [C454.json](C454.json) (construction `szollosi-bordered`).
+
+**Order 366 (N = 183).** 183 = 3 · 61. Over ℤ₁₈₂ = ℤ₂ × ℤ₇ × ℤ₁₃ the multiplier 3 has order 6 (trivial on ℤ₂, order
+6 on ℤ₇, order 3 on ℤ₁₃) and 36 orbits.
+- Rows (0, 0, 2, 0). The pools of A and B have 55968 members each; those of C (row sum 2) and D have 1.28 · 10⁹ and
+  2.57 · 10⁹.
+- Compressions to ℤ₂, ℤ₇ and ℤ₁₃ that occur in no level-1 solution rule out 93% of A and B, 97.9% of C and 96.4% of
+  D (fibre filters, `search/lowe_sz.py`, [search/NOTES.md](../search/NOTES.md) §55). That left 3880 members in A and
+  B, all 2.68 · 10⁷ allowed members of C, and 3 · 10⁷ of the 9.35 · 10⁷ allowed members of D.
+- `kt4` found 1536 solutions at the 146th split value. Earlier runs of the same structure without the filters, with
+  lists kept to 2.3% and 1.2% of C and D, processed about 4700 split values without a solution.
+- The per-class Gaussian estimate of the structure was 10^−0.1; the hybrid estimate was 10^3.2.
+- Border: x = s = t = y = 1, u = v = −i. Certificate [C366.json](C366.json).
+
 ## Context
 
 Constructions from four ±1 sequences, in two families:

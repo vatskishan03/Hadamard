@@ -2716,13 +2716,13 @@ and those 2-adic obstructions are invisible to compressions to ℤ₃ or ℤ₃�
 distributions of A and D even favour solutions at v = 93: 2.5–4 times the uniform rate). So for propus the scan
 (`comp_scan.py propus`) ranks structures but a lead needs an exact or modular check before a search.
 
-**Tools.** `lowe_enum.c` takes optional fibre-class constraints (per class, the weighted sum of the orbit signs over
-it is fixed; exact reachability pruning per class); `search/lowe_comp.py` runs the low-energy k-tree on one
-compression class at a time (classes reduced by translations by H-fixed points, reversal of C and D, and multipliers);
-`search/comp_triage.py` triages every open N (plain and `--bordered`).
+**Tools.** `lowe_enum.c` takes fibre-class constraints (per class, the weighted sum of the orbit signs over it is
+fixed; exact reachability pruning per class) next to the fibre filters of §55; `search/lowe_comp.py` runs the
+low-energy k-tree on one compression class at a time (classes reduced by translations by H-fixed points, reversal of
+C and D, and multipliers); `search/comp_triage.py` triages every open N (plain and `--bordered`).
 
 Also fixed: `kt4.c` leaked its hash table on every split value with fewer than 2¹⁸ pairs (the cause of the
-171 crashes); allocations are now checked, and `lowe_sz.py --resume --sig-from k` continues a join.
+171 crashes); allocations are now checked, and `lowe_sz.py --resume --skip k` (or `--auto`) continues a join.
 
 ## 43. Conditioned scans of every open complex order: order 430; twisted and non-cyclic conditioning (October 15)
 
@@ -2802,7 +2802,8 @@ very different sizes (1512 against 6 · 10⁶) almost none of those points is re
 values of the run above had pairs on at most one side. `lowe_sz.sigma_file` now (a) computes the sumsets
 {a_S + c_S} and {T_S − b_S − d_S} of the distinct merge-class values exactly when they are small enough and passes
 only their intersection, ordered by the solution law, so that the join is exhaustive when all of them are processed,
-and (b) otherwise filters candidates by membership in both lattice cosets. On ℤ₉, tuple 0 of 171/⟨31⟩ (pools 1134,
+and (b) otherwise passes the sampled live split values and the lattice points of the (A + C) coset nearest the
+solution law that also lie in the (B + D) coset. On ℤ₉, tuple 0 of 171/⟨31⟩ (pools 1134,
 756, 4.3 · 10⁵, 4.3 · 10⁵) has 38,086 live split values; all of them, 3.4 · 10⁸ + 2.2 · 10⁸ pairs, give no solution,
 against 10^0.48 predicted.
 
@@ -3174,3 +3175,598 @@ skew 940 and 1108.
 - The cyclotomic form of Lemma 26 with a repeated block (`l26_scheme.py`: U_k, V_k in the cyclotomic scheme of GF(p)
   of index e with −1 in the subgroup, v = 2p + 1) gives only p = 5 (v = 11) and p = 13 (v = 27) for p ≤ 400 and
   e ≤ 8, and nothing for 200 ≤ p ≤ 1250 and e ≤ 4.
+
+## 50. Complex orders 342, 426 and 1558: the low-energy k-tree and the end of the exact sweep (October 14)
+
+**Two fixes.** `sigma_file` in `lowe_sz.py` built the law of a solution's split value from kt4's lists 0 and 2
+(A + B), but kt4 pairs its lists 0 and 1 (A + C). Its split values were off the lattice of a + c, so kt4 formed no
+pairs at all. With the fix, the N = 131 control finds 416 of the 2560 solutions inside its lists in the first 3000
+split values, against 400 in kt4's own order. In `kt4.c` the small-join branch (fewer than 2¹⁸ pairs per split value)
+never freed its hash arrays: about 9 MB/s at N = 213, past 10 GB in one run.
+
+**Order 342.** N = 171 = 9 · 19, H = ⟨11⟩ of order 6 (33 orbits; ⟨H, −1⟩ has 17 classes), rows (1, 11; 11, 21).
+- The exact join is out of reach: A and B have 7128 and 6864 members, C and D 1.5 · 10⁸ and 2.6 · 10⁸.
+- The filter kept 3 · 10⁷ members of C and of D, retaining 49% and 38% of a solution's members under the model.
+  Estimate inside the lists: 10^0.94 (structure 10^1.67).
+- kt4 found 12 solutions at the 814th split value (62 s).
+
+**Order 426.** N = 213 = 3 · 71, H = ⟨37⟩ of order 7 (33 orbits), rows (13, 17; 13, 15). A and B have 6435 members;
+C and D share one pool of 4.36 · 10⁸ (one enumeration), of which 3 · 10⁷ were kept. kt4 found 72 solutions at the
+40th split value; the whole run took 274 s. Estimate inside the lists: 10^1.1. The rows (15, 17; 13, 13) of the same
+structure gave nothing in 11,000 split values.
+
+**Order 1558.** N = 779 = 19 · 41, H = ⟨49⟩ of order 60 (order 3 modulo 19, order 20 modulo 41), rows (5, 7; 39, 39).
+The exact sweep's lists of 120, 120, 18480 and 18480 hold 96 solutions (1.8 s). The per-class Gaussian estimate of
+this structure is 10^−13.6. Like 742 (⟨13⟩ of order 26 on 7 · 53) and 754 (⟨9⟩ of order 42 on 13 · 29), it is a large
+diagonal cyclotomic group on a product of two primes, with tiny lists and many solutions.
+
+**The exact sweep is complete** for the open N < 1000 (pair work up to 2 · 10¹⁰ per structure and pattern): the two
+halves of the range 583–995 met at 833. 779 was its only hit in that range.
+
+## 51. How good is the Gaussian estimate? (October 14)
+
+The per-class estimate of `ssxx.gauss` and `bsz.gauss` multiplies one Gaussian density per class (with the class's
+lattice spacing). Against exact counts (complete lists, `join4x`):
+
+| N | H | rows | exact | per-class | full covariance | hybrid |
+|---:|---|---|---:|---:|---:|---:|
+| 163 | ⟨38⟩ | 17, 19; 1, 1 | 10^3.92 | 10^3.64 | 10^3.92 | 10^3.53 |
+| 267 = 3 · 89 | ⟨4⟩ | 1, 1; 21, 25 | 10^2.76 | 10^−1.31 | 10^3.17 | 10^2.79 |
+| 143 = 11 · 13 | ⟨3⟩ | 3, 9; 11, 19 | 10^1.20 | 10^−1.47 | 10^−0.60 | 10^0.34 |
+| 247 = 13 · 19 | ⟨9, 35⟩ | 17, 19; 7, 17 | 10^1.20 | 10^−3.26 | 10^−1.99 | 10^0.72 |
+| 119 = 7 · 17 | ⟨8⟩ | 1, 5; 15, 15 | 10^3.67 | 10^−4.94 | 10^−0.87 | 10^0.68 |
+| 185 = 5 · 37 | ⟨9⟩ | 3, 3; 19, 19 | 10^2.11 | 10^−5.12 | 10^−2.68 | 10^0.34 |
+| 377 = 13 · 29 | ⟨9⟩ | 27, 27; 5, 5 | 10^2.11 | 10^−8.33 | 10^−4.93 | 10^−0.24 |
+| 371 = 7 · 53 | ⟨13⟩ | 3, 3; 25, 29 | 10^1.98 | 10^−9.25 | 10^−5.25 | 10^−3.15 |
+| 779 = 19 · 41 | ⟨49⟩ | 5, 7; 39, 39 | 10^1.98 | 10^−13.61 | 10^−7.98 | 10^−4.58 |
+
+For prime N the per-class estimate is good. For composite N it is low, by up to 15 orders of magnitude. The classes of
+shifts of small order (the compressions of ℤ_N) carry sums of a few large terms, repeated |H| times, so their joint
+distribution is lumpy and correlated, and a product of marginal Gaussians understates its mass at the target.
+
+**Hybrid estimate** (`search/gauss_mc.py`). The summed class vector is sampled from random combinations of uniform
+block samples (about 10⁶ combinations of 10⁴ samples per block). Classes are ranked by how much their Monte Carlo hit
+rate at the target exceeds the Gaussian one and taken into an exact Monte Carlo estimate while at least 40 samples hit
+all of them (two to four classes); the rest get the full-covariance Gaussian, conditioned on those classes, times the
+covolume of their joint lattice (`search/gauss_lat.py`, Hermite normal form of sample differences). It is within an
+order of magnitude when |H| is moderate (the first four rows), and still far low when |H| ≥ 26 — those structures are
+small enough to search exactly anyway. Two more calibrations:
+- **N = 93 = 3 · 31, H = ⟨4⟩** of order 5 (21 orbits; the analogue of 183 ⟨34⟩): exact counts of the eight patterns
+  10^3.75, 10^3.98, 0, 10^3.45, 10^4.33, 0, 10^3.11, 0; hybrid 10^3.65–10^4.36 for all eight; per-class 10^2.06–10^2.57.
+- **Bordered, N = 31** (ℤ₃₀): ⟨19⟩ exact 10^3.36, 10^3.36, 10^4.36, 10^4.36 (2 in A, B, C, D), hybrid 10^3.39–10^3.67,
+  per-class 10^2.83–10^2.90. ⟨11⟩: 0 with the 2 in A or B, 51200 = 10^4.71 with the 2 in C or D; hybrid 10^4.2–10^4.3
+  for all four. ⟨15⟩ on ℤ₃₂ (N = 33): 0 for all four patterns, hybrid 10^0.9–10^2.1.
+
+So where solutions exist the hybrid estimate is right to within half an order, but some patterns are empty for
+arithmetic reasons that no Gaussian model sees. For N = 31 ⟨11⟩ with the 2 in A, each single compression (to ℤ_d,
+d | 30) is satisfiable on its own (joins of the compressed complete lists); the obstruction is joint.
+
+**Results.** The frontier scan (`search/frontier_scan.py`: every structure of every open N with 20–75 orbits and pools
+up to 10¹³) re-ranked by the hybrid estimate (`search/hybrid_rank.py`) put the structures below at the top. They were
+run with `lowe_sz.py` (3 · 10⁷ members kept per big block, at most 10⁴ split values):
+- **Order 430.** N = 215 = 5 · 43, H = ⟨11⟩ of order 7 (trivial on ℤ₅, order 7 on ℤ₄₃), 35 orbits, 17 classes, rows
+  (11, 17; 15, 15). Per-class estimate 10^−1.18 (10^−2.35 inside the lists), hybrid 10^4.09. A and B have 6435
+  members; C and D share one pool of 1.45 · 10⁹ (one enumeration). kt4 found 200 solutions at the 2967th split value
+  (1107 s in all).
+- **Order 454**, the first order from the bordered array ([BORDERED.md](../complex-hadamard/BORDERED.md)). N = 227 =
+  2 · 113 + 1 is a safe prime; over ℤ₂₂₆ = ℤ₂ × ℤ₁₁₃, H = ⟨49⟩ of order 7, 34 orbits, rows (0, 0, 2, 0). Per-class
+  estimate 10^0.63, hybrid 10^4.4. C and D: pools of 6.0 · 10⁸ and 1.2 · 10⁹, 3 · 10⁷ and 2.77 · 10⁷ kept. The first
+  run's parent process was killed for memory at the 850th split value; the resumed join found 512 solutions at the
+  851st.
+
+**Counter-examples.**
+- N = 183 = 3 · 61, H = ⟨34⟩ of order 5, rows (17, 19; 1, 9): hybrid 10^6.69, per-class 10^4.98 (10^2.04 inside lists of
+  2 · 10⁷ of 2.7 · 10¹⁰). No solution after 6833 split values, which cover 17% of the pair-product mass
+  Σ_σ N_AC(σ) N_BD(t − σ). The hybrid estimate is too high here (it would put 10^4.4 solutions in the lists).
+- N = 183, H = ⟨20⟩ of order 10 (it contains the element that is −1 on ℤ₃ and 1 on ℤ₆₁): exhaustively searched,
+  no solution in any of its 14 patterns, against 10^0.4–10^1.0 each (hybrid) and 10^−0.3–10^−0.6 (per-class).
+
+## 52. Retention of the low-energy filter, measured on exact solution sets (October 14)
+
+`search/retention_test.py` lists all four blocks of a structure, finds every solution with `join4x`, and keeps the L
+members of lowest energy of each big block as `lowe_sz.py` would:
+
+| N | H | solutions | kept (C and D) | model retention (C, D) | solution members kept (C, D) | solutions kept |
+|---:|---|---:|---|---|---|---:|
+| 163 | ⟨38⟩ | 8352 | 5% | 0.093, 0.098 | 0.079, 0.080 | 0 (product of marginals: 53) |
+| 163 | ⟨38⟩ | 8352 | 21% | 0.30, 0.29 | 0.34, 0.34 | 832 (model 728) |
+| 119 | ⟨8⟩ | 4704 | 4.8% | 0.32, 0.32 | 0, 0 | 0 |
+| 119 | ⟨8⟩ | 4704 | 19% | 0.74, 0.74 | 1, 1 | 4704 |
+| 371 | ⟨13⟩ | 96 | 4.9% | 0.28, 0.28 | 1, 0.5 | 48 |
+| 267 | ⟨4⟩ | 576 | 13% of C, 40% of D | 0.41, 0.68 | 0, 1 | 0 (model 162) |
+
+The marginal retention follows the model on average, but a structure's solutions share few distinct members (267:
+576 solutions use 8, 8, 48 and 48 members of A, B, C and D), so each structure is a lottery over those members, and
+small kept fractions lose them together. Under the Gaussian model the joint retention equals the product of the
+marginals (`search/joint_retention.py`: ratio 1.05–1.07 at N = 163); the measured shortfall at 5% comes from this
+discreteness.
+
+**Where the solutions sit** (`search/retention_diag.py`, N = 267). The solution members of C lie at the 31st
+percentile of the energy and those of D at the 25th. Their values on the compression classes are fixed by the
+arithmetic: on the class of the shift 89 (order 3) every solution member sits 1.21 standard deviations from the
+filter's centre, where random members average 0.56. With the energy restricted to the unit classes (shifts prime to
+N) they move to the 21st and 2.4th percentiles. The compression classes are better handled exactly than by the
+Gaussian filter.
+
+**Unit-class energy** (`lowe_sz.py --energy units`: the filter's energy uses only the classes of shifts prime to the
+group order; `retention_test.py --energy units`). Solutions kept out of the exact sets, full energy against unit
+classes:
+
+| N | H | kept per big block | full energy | unit classes |
+|---:|---|---|---:|---:|
+| 119 | ⟨8⟩ | 2000 of 105105 (1.9%) | 0 of 4704 | 4704 of 4704 |
+| 119 | ⟨8⟩ | 5000 (4.8%) | 0 | 4704 |
+| 371 | ⟨13⟩ | 500 of 20592 (2.4%) | 24 of 96 | 48 of 96 |
+| 93 | ⟨4⟩, rows 9, 13; 1, 11 | 15000 of 1.4 · 10⁵ (11%) | 1224 of 21384 | 1368 |
+| 93 | ⟨4⟩, rows 7, 11; 9, 11 | 15000 of 1.3 · 10⁵ (11%) | 864 of 9504 | 252 |
+
+At 3.8% kept both versions lose every solution of the two 93 patterns, and at 5% the full energy loses all of 163's
+8352 solutions although each marginal keeps 8%: the joint retention of C and D falls far below the product of the
+marginals at small kept fractions. Both filters ask the two blocks to absorb the same deviation of A + B from its
+mean, and a solution's A + B is one of a few discrete values. The runs that found solutions kept 2–20% of their
+pools; the 183 run keeps 0.07%. The two energies select different members, so they are separate lottery tickets.
+
+**Split-value order.** For the 183 run above, the 6833 split values processed (kt4's order by the Gaussian law of a
+solution's split) cover 17.1% of the pair-product mass; the best order for that cost, by N_AC N_BD/(N_AC + N_BD),
+covers 19.0%. The order is close to optimal.
+
+**Memory.** The `lowe_sz.py` parent kept the full kept value arrays (about 1 GB per list) while kt4 ran, and the
+out-of-memory killer took two parents during this work (their kt4 children ran on). The parent now keeps only the
+masks and 2 · 10⁵-row subsamples.
+
+**Bordered sweep.** `bsz_sweep.py` had been run only for N = 107 and 155. It is now running over the other 210 open N.
+`bsz_group.search` handles every pattern of a spin structure, so `plan()` now makes one job per spin structure
+instead of four.
+
+## 53. Iterated maps, and the matrices of August 2026 (negative, October 14)
+
+**RRR (Elser's difference map)** for four ±1 sequences with a flat summed power spectrum (`search/rrr.c`,
+`search/rrr.py`). Constraint A: ±1 vectors with fixed row sums (and symmetry), projected by sorting. Constraint B: per
+frequency, Σ_k |X̂_k(ω)|² equals the target, projected by rescaling. It solves plain Goethals–Seidel quadruples at
+m = 19 in about 2 · 10⁵ iterations and at m = 31 in about 3 · 10⁷ (1 of 8 runs of 4 · 10⁶; β = 0.5). The cost grows
+by about 1.5 per unit of m, like local search (§26), so it is no route to unstructured lengths above about 40.
+
+**The matrices of Alpöge et al. (August 2026)**, read from the public mirror github.com/bbeartheancient/hoa64
+(commit d825201). All twelve are stored normalised (first row and column positive).
+- Undoing the normalisation (in a circulant block, x(j) = c · H′[1, j] · x(j − 1)) recovers the Goethals–Seidel
+  quadruples of 892, 1132, 1244, 1948 and 1964 (four sequences on ℤ_N with Σ PAF = 0). Under a border of 4 rows the same
+  recovers the Spence seeds of 668, 716, 1676 and 1772 (four sequences on ℤ_{N−1}, Σ PAF = −4, row sums (2, 0, 0, 0));
+  for even m each block is fixed only up to the character (−1)^t, and the twists were chosen to make Σ PAF constant.
+- No block of any of them is symmetric or skew about any centre, so none gives a Szöllősi or bordered Szöllősi
+  quadruple.
+- The Goethals–Seidel blocks are invariant up to translation under multiplier groups of orders 3, 3, 5, 9 and 7, and
+  the Spence seeds of 1676 and 1772 under groups of orders 15 and 12.
+- The seeds of 668 and 716 (lengths 166 = 2 · 83 and 178 = 2 · 89) have no affine symmetry, no relation between blocks,
+  no relation between their CRT slices, no slice correlated with a Legendre sequence beyond random size (largest
+  |correlation| 30 of 83 and 89), and per-block spectra only as flat as the sum condition forces. Their ℤ₂ splits
+  u = (a₀ + a₁)/2, v = (a₀ − a₁)/2 satisfy Σ PAF_u = −2 and Σ PAF_v = 0 on ℤ_q with weights 2q − 1 and 2q + 1, as every
+  solution must. They are unstructured solutions of length 166 and 178, far beyond local search or RRR.
+- 1388, 1436 and 1916 fit neither layout.
+
+**Safe primes.** The same split applies to the bordered Szöllősi array over ℤ₂ × ℤ_q: it is exact and the parity of
+the v-stage is automatic, but with A and B symmetric the v-stage at q = 53 (order 214) has about 82 free signs for 95
+bits of conditions, so a two-stage search needs some 10⁴ u-solutions per success, each a length-53 four-sequence
+problem. Not feasible with these tools.
+
+## 54. Dead split values, and exact compression checks before a search (October 14)
+
+**Dead split values.** kt4 splits a solution's values on the five merge classes as σ = a + c = t − b − d and, for
+each σ, joins the (A, C) pairs with a + c = σ against the (B, D) pairs with b + d = t − σ. `sigma_file` took the σ
+nearest the Gaussian law of a solution's split, on the per-class lattice (step and residue of a + c in each class).
+Recounted from kt4's progress files, most of them had no pair at all on one side:
+
+| N | H | rows | split values processed | with no pair on one side |
+|---:|---|---|---:|---:|
+| 341 | ⟨194⟩ | 19, 21, 11, 21 | 20740 | 20740 (100%) |
+| 203 | ⟨36⟩ | 3, 25, 3, 13 | 10000 | 10000 (100%) |
+| 215 | ⟨11⟩ | 11, 17, 15, 15 | 2967 | 2960 (99.8%) |
+| 275 | ⟨4⟩ | 15, 15, 5, 25 | 10000 | 9683 (97%) |
+| 183, bordered | ⟨3⟩ | 0, 0, 2, 0 | 642 | 393 (61%) |
+| 183 | ⟨34⟩ | 17, 19, 1, 9 | 9259 | 0 |
+
+Part of this is arithmetic. At N = 203 = 7 · 29 the values of A + C on the merge classes span a lattice of
+determinant 7168 = 7 · 4⁵, of index 7 in the per-class lattice (step 4 in each class): the compression to ℤ₇ ties
+the classes together, and 8574 of the 10000 split values lie off the coset. The other 1426 are on the coset but
+still have no pair on one side.
+
+`lowe_sz.py` now samples 2 · 10⁷ random (A, C) pairs and 2 · 10⁷ random (B, D) pairs, keeps the merge-class values
+that occur on both sides (`live_splits`) and orders only those by the Gaussian law. At N = 215 there are 20000 such
+values, and the one holding the 200 solutions of order 430 ranks 6th (2967th in the old order). At N = 203 none
+occurs, so the overlap Σ_σ p_AC(σ) p_BD(σ) of the two sides' distributions is below about 3/M² ≈ 10^−14 (M = 2 · 10⁷),
+and the join is skipped. The 341 and 203 runs above therefore tested nothing; 341 is queued again on its saved
+lists (`--resume`).
+
+**Exact compression checks** (`search/compress_check.py`). For every prime power d dividing the group order the
+four blocks' compressions to ℤ_d are listed with the symmetry the multiplier group forces on them and joined exactly
+(level 1 of `cchain4.py`). An empty join rules the structure/pattern out. Neither the Gaussian nor the hybrid
+estimate sees these obstructions. Checked on exact solution sets:
+- N = 93, ⟨4⟩. Rows (9, 11, 1, 13) and (11, 11, 3, 11) have no solution (complete joins of lists 126, 126,
+  145860, 43758 and 126, 126, 48620, 131274) and both fail at d = 3. Rows (9, 13, 1, 11), with 21384 solutions, pass.
+- Bordered 227, ⟨49⟩, rows (0, 0, 2, 0) (order 454) passes: 8 level-1 solutions at d = 2.
+- Bordered 31, ⟨11⟩ with the 2 in A has no solution but passes at d = 2, 3 and 5. That obstruction is of another
+  kind.
+- All 291 exact counts of the calibration runs (`calib_bsz.py`; 27 structures with solutions): no structure with
+  solutions fails. Of the 264 without, levels with up to 2 · 10⁵ states per block rule out 186 of 238 cyclic and 24
+  of 26 bordered ones, and levels with up to 3 · 10⁶ states (seconds, at most 1.4 GB) 220 of 238 and 24 of 26.
+
+For the bordered array (v = N − 1 even) the level d = 2 has a closed form; `bsz.z2_ok` already applied it in the exhaustive sweep (`bsz_sweep.py`), but `lowe_sz.py`, `frontier_scan.py` and `hybrid_rank.py` did not, so impossible bordered structures were ranked and queued. Σ PAF = −4 gives
+Σ_k |X̂_k(ω)|² = 4v + 4 = 4N at every ω ≠ 0. At the character (−1)^t this reads Σ_k e_k² = N, where 2e_k is block
+k's alternating sum. The multiplier group fixes the e_k modulo a small number.
+
+At N = 165 (v = 4 · 41, H = ⟨37⟩: trivial modulo 4, order 5 modulo 41) the orbits force:
+- e_A, e_B ≡ ±2 (mod 20) for the symmetric blocks of row sum 0;
+- e_C ≡ ±1 (mod 10);
+- e_D ≡ 0, ±2 (mod 10).
+
+The sum of the squares then lies in {9, 13, 29, 33, 49, 53, 69, 73} modulo 80, and 165 ≡ 5 (mod 80) is not in that set.
+
+Run on the queue of hybrid-ranked candidates (§51), the check removed 15 of 24 tickets:
+- ruled out at d = 2 (bordered): 165 ⟨37⟩ with the 2 in A or C; 269 ⟨9⟩ with the 2 in A, B or C; 223 ⟨7⟩ with the 2
+  in A or C. Three of them were already running and were stopped.
+- ruled out at d = 25: every 275 pattern in the queue (⟨4⟩: 15, 15, 5, 25 and 5, 15, 15, 25; ⟨14⟩: 15, 25, 5, 15 and
+  5, 15, 15, 25; ⟨9⟩: 15, 25, 5, 15; ⟨104⟩: 5, 25, 15, 15). 275 ⟨4⟩ (15, 15, 5, 25) had already run: 0 solutions at
+  retention 0.99.
+- ruled out at d = 3: 393 ⟨52⟩, rows (27, 29, 1, 1).
+- ruled out at d = 5 with 3 · 10⁶ states: 335 ⟨76⟩ in all three patterns and 395 ⟨21⟩.
+- passed: 183 ⟨34⟩ in its three patterns, 341 ⟨194⟩, 171 ⟨11⟩, 213 ⟨37⟩, 203 ⟨36⟩, 453 ⟨4⟩, bordered 183 ⟨3⟩ and
+  ⟨87⟩, and 403 ⟨16⟩ with rows (9, 9, 15, 35).
+
+Over all 143 structures of the hybrid ranking the check rules out 111. Among the 32 left, apart from the solved 215
+and 227, are 203 ⟨36⟩ (three patterns, hybrid 10^2.9–10^3.4), 453 ⟨4⟩, 403 ⟨16⟩ (two patterns), 219 ⟨82⟩ and ⟨10⟩,
+455, 291 and 407.
+
+`lowe_sz.py` now runs the check for d ≤ 64 (up to 3 · 10⁶ states) before enumerating and stops on an empty level.
+
+## 55. Fibre filters: the compressions inside the low-energy search (October 14)
+
+A solution's four compressions to ℤ_d form a level-1 solution (§54), so each block's compression lies in the
+projection of the level-1 join. `lowe_sz.py` now lists these sets for every prime power d ≤ 32 dividing the group
+order whose states fit (`fibre_filters`). `lowe_enum.c` drops every member whose compression is not among them,
+before computing its energy: a 64-bit key of the compression, linear in the orbit signs, is updated with each flip
+and looked up at the leaves. The Gaussian statistics, the energy quantile and the retention model are taken over the
+allowed sub-pool (rejection sampling).
+
+Fractions of each block's pool that are allowed, exactly from the multiplicities of the compression states, and the
+fraction of the quadruple space that the level-1 solutions cover:
+
+| N | H | rows | d | allowed (A, B, C, D) | quadruples |
+|---:|---|---|---:|---|---:|
+| 453 | ⟨4⟩ | 29, 31, 1, 3 | 3 | 0.39, 0.39, 0.10, 0.10 | 1.6 · 10⁻³ |
+| 371 | ⟨13⟩ | 3, 3, 25, 29 | 7 | 0.40, 0.40, 0.13, 0.13 | 9.4 · 10⁻⁵ |
+| 119 | ⟨8⟩ | 1, 5, 15, 15 | 7 | 0.40, 0.40, 0.026, 0.026 | 2.3 · 10⁻⁵ |
+| 267 | ⟨4⟩ | 1, 1, 21, 25 | 3 | 0.45, 0.45, 0.11, 0.33 | 7.5 · 10⁻³ |
+| 267 | ⟨4⟩ | 1, 1, 21, 25 | 89 | 0.88, 0.88, 0.78, 0.79 | 2.0 · 10⁻⁶ |
+| 203 | ⟨36⟩ | 3, 25, 3, 13 | 29 | 0.97, 0.995, 0.98, 0.74 | 1.2 · 10⁻³ |
+| 183, bordered | ⟨3⟩ | 0, 0, 2, 0 | 2 | 0.20, 0.20, 0.28, 0.14 | 1.5 · 10⁻³ |
+
+Solutions kept out of exact solution sets (`retention_test.py --fibre`), full energy:
+
+| N | H | rows | kept per big block | without fibres | with fibres |
+|---:|---|---|---:|---:|---:|
+| 119 | ⟨8⟩ | 1, 5, 15, 15 | 2000 | 0 of 4704 | 4704 |
+| 371 | ⟨13⟩ | 3, 3, 25, 29 | 500 | 24 of 96 | 56 |
+| 371 | ⟨13⟩ | 3, 3, 25, 29 | 1000 | 48 of 96 | 96 |
+| 93 | ⟨4⟩ | 9, 13, 1, 11 | 5000 | 0 of 21384 | 432 |
+| 93 | ⟨4⟩ | 9, 13, 1, 11 | 15000 | 1224 of 21384 | 6912 |
+| 93 | ⟨4⟩ | 7, 11, 9, 11 | 5000 | 0 of 9504 | 432 |
+| 93 | ⟨4⟩ | 7, 11, 9, 11 | 15000 | 864 of 9504 | 1512 |
+| 267 | ⟨4⟩ | 1, 1, 21, 25 | 5 · 10⁴ | 0 of 576 | 0 |
+
+At 119 both levels together leave 1345 members of C and of D (1.3% of 105105), so 2000 keep them all. With fibres
+`lowe_sz.py` finds the solutions of 371 at L = 1000 (order 742, verified).
+
+**267, and an energy that failed.** At d = 89 the per-block projections keep 78–88% of each pool, while the join
+keeps 2 · 10⁻⁶ of the quadruple space. The information is in the combination, and a per-block filter cannot use it.
+The compressions also fix linear functionals of the class values: the PAF of the compression to ℤ_d at j is the sum
+of PAF(g) over the shifts g ≡ j (mod d). A trial energy conditioned the Gaussian on these 5–7 directions (of 10–17
+classes). It was worse everywhere: 267 kept 0 of 576 even at L = 2 · 10⁵, and 119 without fibres 0 of 4704 at
+5000. Those directions carry most of the filter's discriminating power, so the option was dropped. A second trial
+used the joint fibres directly. Each C member got a mixture energy: the Gaussian density of t − x, summed over the
+level-1 solutions that complete its compression, with the other blocks' means taken per fibre (exact, from the
+enumerated pools). At d = 89 this ranks 267's solution members at the 18.6th (C) and 31.8th (D) percentiles, no
+better than the energies above. The 576 solutions use 48 members of C and 48 of D but only 8 distinct class-value
+vectors in each block. A structure's solutions are a handful of distinct points, and no refinement of a Gaussian
+filter makes their survival more than a lottery.
+
+**The exact chain cannot take these structures either.** For 453 the joint state space of the levels 3 and 151
+exceeds 5 · 10⁶ (and 2 · 10⁷ ran out of memory). At level 3 alone each of the 3 level-1 branches has fibres of about
+1.6 · 10⁷ members, above `cchain4.py`'s listing limit of 3 · 10⁶. The fibre filter reaches the same structure from
+the other side: its allowed pools are 4.8 · 10⁷ (C) and 1.6 · 10⁷ (D), so lists of 5 · 10⁷ keep every allowed member,
+and the low-energy search becomes a complete search of its lists, limited only by the split values kt4 processes.
+
+**kt4 on a shared machine.** For each split value kt4 opens two or three OpenMP parallel regions over about 10⁵
+pairs. With several joins and sweeps on 4 cores (load 11) their barriers wait for descheduled threads. On the 453
+lists a single thread processes 128 split values per second, two threads 57, and the default four 4. The earlier
+runs of this section and of §50–§52 thus covered about 30 times fewer split values than their running time allowed.
+`lowe_sz.py` now runs kt4 with one thread (`--kt4-threads`).
+
+**Where a solution's split value lies.** At N = 203 (⟨36⟩, rows 3, 25, 3, 13) the kept lists had no live split value
+at all (§54). The filter's centring explains it (simulation on uniform samples, `lowe_sz` filter at 3.6% kept).
+- On two classes the target lies 2.66 standard deviations (of the four-block sum) away from Σ μ.
+- The filter centres each big block at z_k = t − Σ_{j≠k} μ_j, assigning the whole offset to that block, and it does so
+  for C and for D at once. On those classes the kept C and D lie 5.5 of their own standard deviations from where a
+  solution's C and D lie.
+- The kept A + C and t − B − D sums are 2 pooled standard deviations apart, so random pairs never meet.
+- Centring at the solution law instead (c_k = μ_k + Σ_k Σ⁻¹(t − Σ μ), consistent by construction) does not help: the
+  separation becomes 2.6. On these classes A and B carry most of the variance, so a solution's split a + c lies in
+  the tails of both sides, where sampling never looks.
+
+The split values are therefore now also taken from the lattice. The values of A + C on the merge classes lie in a
+coset of Λ_A + Λ_C (a Hermite basis of the differences within each list; for 371 it has rank 4 on 5 merge classes).
+The points of that coset in a box around the solution law's mean that also lie in the coset of t − B − D are added
+to the sampled live values, and all are ordered by the law. kt4 discards a split value without pairs in about a
+millisecond.
+
+**Other centres for the filters** (`retention_test.py --center`).
+- Two alternatives to z_k were tried: splitting the offset t − Σ μ between C and D by their covariances, and the
+  solution law's mean c_k. Neither helped on the exact solution sets.
+- 163 (prime): 0 of 8352 at 5% kept for all three centres, about 850 at 21%.
+- 93: 1224 of 21384 at 15000 with z_k, 0 with the other two.
+- 371: 24 and 48 of 96 at 500 and 1000 with z_k, 0 with the others.
+- 267: 0 for all three.
+
+z_k ranks members by the likelihood ratio, which is optimal for each block alone. The joint losses come from the
+few discrete values of a solution's a + b, not from the centre.
+
+## 56. Order 366 (October 14)
+
+N = 183 = 3 · 61, bordered array over ℤ₁₈₂ ([complex-hadamard/BORDERED.md](../complex-hadamard/BORDERED.md)),
+H = ⟨3⟩ of order 6 (trivial on ℤ₂, order 6 on ℤ₇, order 3 on ℤ₁₃), 36 orbits, rows (0, 0, 2, 0).
+- **Check.** It passes the exact compression check at d = 2, 7 and 13 (16, 8 and 60216 level-1 solutions).
+- **Estimates.** The hybrid estimate is 10^3.18 solutions; with fibre filters the model's retention at L = 3 · 10⁷ is
+  10^−0.13 (`fibre_rank`).
+- **Lists.** The fibres at d = 2, 7 and 13 allow 6.9% of A and B (3880 of 55968), 2.1% of C (2.68 · 10⁷ of
+  1.28 · 10⁹, all kept) and 3.6% of D (9.35 · 10⁷ of 2.57 · 10⁹, of which 3 · 10⁷ were kept).
+- **Join.** kt4 (one thread) took 32423 split values in the law's order: 12599 sampled live values and the rest
+  lattice points. It found 1536 solutions at the 146th, about 440 s into the join, after 1.7 · 10⁹ (A, C) and
+  7.6 · 10⁹ (B, D) pairs. That split value was among the sampled live values, so the lattice points did not matter
+  here.
+- **Earlier runs.** Without fibre filters the same structure was run three times: full energy, a resume of it, and
+  unit-class energy. The lists kept 2.3% of C and 1.2% of D, and the runs processed 642, 694 and 3358 split values
+  (four threads, in part dead split values) without a solution.
+- **Certificate.** C366.json (construction `szollosi-bordered`, border x = s = t = y = 1, u = v = −i), checked by
+  `verify/verify_complex.py`. Order 366 is blank in Seberry–Yamada's Table 11.2 (label **New**, NOVELTY.md).
+
+The hybrid estimate of 10^3.2 for the structure and retention near 1 for the filtered lists put about 10^3
+solutions in the lists; 1536 at a single split value is consistent with that. For 183 ⟨87⟩, a different subgroup of
+order 6 with the same estimate, the run is in progress.
+
+**All levels at once.** Each level's fibre filter is a necessary condition, so a solution's member of each block
+must pass all of them together. When the allowed sub-pool is too small for rejection sampling, `lowe_sz.py` now lists
+it exactly (`lowe_enum` with the filters and no energy cut). An empty list rules the structure out, even though every
+single level passed.
+- Bordered 273 (ℤ₂₇₂ = ℤ₁₆ × ℤ₁₇, multiplier groups of order 8), ⟨155⟩ with rows (2, 0, 0, 0): the levels 2, 4, 8 and
+  17 each allow 19%, 10%, 6.4% and 9.4% of A, but no member of A passes all four. The per-level rates sampled from
+  the pool match the masses from the compression states (0.185 against 0.187 at d = 2).
+- The same holds for ⟨155⟩ with rows (0, 0, 2, 0) and ⟨53⟩ with rows (2, 0, 0, 0).
+- ⟨53⟩ with rows (0, 0, 2, 0) survives with 2.4% of A and B and 0.17% and 0.25% of C and D (3.2 · 10⁷ and 4.7 · 10⁷
+  members): lists of 5 · 10⁷ would be complete.
+
+## 57. Re-ranking the open orders with the checks and the fibres (October 14)
+
+**Screen.** The structures of the frontier map (`frontier_scan.py`, open N up to 581) with a per-class estimate of at
+least 10⁻⁶ and pools of at most 10¹¹ make 1416 (structure, pattern) records. Level-1 joins with up to 2 · 10⁵ states
+rule out 853 of them, among them all 40 bordered records. Levels with 3 · 10⁶ states rule out 73 of the remaining
+563. Bordered records with per-class estimates between 10⁻¹² and 10⁻⁶ add 132, of which 108 fall.
+
+**Settled by complete lists.** When the fibres leave fewer members than L in every block, the lists hold every
+allowed member, so an empty join settles the structure.
+- Bordered 287 = 7 · 41, ℤ₂₈₆ with H = ⟨3⟩ of order 15. With the 2 in C the lists are 424, 424, 31520 and 191712;
+  with the 2 in A they are 180, 324, 577472 and 577472. An exact join (`bnw.join4`) of both gives 0 solutions. The
+  patterns with the 2 in B or D are images of these.
+- Bordered 273 over ℤ₂₇₂, multiplier groups of order 8. ⟨155⟩ and ⟨19⟩ in both patterns, and ⟨53⟩ and ⟨189⟩ with
+  the 2 in A, have no member of A that passes all levels (§55). ⟨53⟩ and ⟨189⟩ with the 2 in C survive, with complete
+  lists of about 3 · 10⁷ and 5 · 10⁷ for C and D, but their hybrid estimates are 10^−1.8 and 10^−1.9.
+
+**203 ⟨36⟩.** All three patterns ran with fibres (d = 29 only, which allows 74–100% of each pool) and lattice split
+values. No random pair met on either side, and the 190512–193167 lattice points within Mahalanobis radius 3.4–4.0
+of the solution law gave no solution. With 2–4% of C and D kept, the hybrid estimate of 10^3.4 is not borne out.
+That is either a failure of the estimate on these classes or the joint retention of §52; the level that would
+decide, d = 7, has too many states to list.
+
+**341 = 11 · 31.** Eight multiplier groups carry per-class and hybrid estimates of 10^1.8–10^3.0, with pools of
+2 · 10⁹–9 · 10⁹:
+- ⟨2⟩, ⟨35⟩, ⟨95⟩ and ⟨194⟩, with fibres at d = 11;
+- ⟨15⟩, ⟨27⟩, ⟨58⟩ and ⟨170⟩, with fibres at d = 11 and 31.
+
+With fibres the expected number of solutions in lists of 3 · 10⁷ is 10^0.2–10^1.1, highest for rows (1, 21, 9, 29).
+The seven best are queued.
+
+**Pools above 10¹¹.** 677 records with pools of 10¹¹–10¹³ (per-class estimate at least 10⁻⁴, or 10⁻¹⁰ for the
+bordered array); 199 fall at the cheap levels. For the survivors the exact per-level fibre masses give a cheap
+allowed fraction; the hybrid estimate was then computed for the best:
+- **Bordered 203 = 7 · 29 over ℤ₂₀₂ = ℤ₂ × ℤ₁₀₁, H = ⟨87⟩ of order 5, rows (2, 0, 0, 0): hybrid 10^6.47.** Only d = 2
+  gives a fibre (41% of C and D, 34% of A and B), so C and D keep 3 · 10⁷ of 1.1 · 10¹¹ allowed members each. With
+  the 2 in C the structure fails at d = 2. Running (2.8 · 10¹¹ leaves per big block).
+- 463 (prime), ⟨15⟩, rows (21, 21, 21, 23): hybrid 10^4.37, but C and D have 5.1 · 10¹¹ members each and no fibre.
+- 165 = 3 · 5 · 11, ⟨16⟩: hybrid 10^−0.3–10^0.5. Fibres allow 0.8–2.6% of D but 5–36% of C.
+- Bordered 235 over ℤ₂₃₄: ⟨185⟩ and ⟨29⟩ (per-class 10^−3.1 and 10^−3.4) fail at d = 3 in every pattern. ⟨43⟩ and
+  ⟨121⟩ pass, with hybrid 10^0.4–10^1.6, but about 8% of 1.6 · 10¹² members stay allowed in C and D.
+- Cyclic 273 (pools 10¹²) and 455 (hybrid at most 10^−1.6) are out of reach.
+
+**Pruning the enumeration.** Each orbit fills one or two coordinates of a block's compression to ℤ_d (two when ±r
+lie in different H-orbits of ℤ_d, for the symmetric blocks).
+- `lowe_sz.py` orders the orbits so that whole coordinates are assigned early, most restrictive level first.
+- At each depth where a coordinate becomes final, `lowe_enum` compares the partial compression with the allowed
+  ones (64-bit keys of the finished coordinates) and skips the subtree on a miss.
+- On eleven blocks of eight structures the kept members and their class values are identical with and without the
+  checks.
+- Leaves visited: 287 bordered D 2.3 · 10⁵ against 1.5 · 10⁷; 273 bordered A 2824 against 104676; 183 bordered C
+  1.6 · 10⁸ against 1.28 · 10⁹ (4.3 times faster); 341 A 19305 against 51480; 219 C 1.2 · 10⁷ against 6.0 · 10⁷.
+- For bordered 203 ⟨87⟩ the only level is d = 2. The even orbits come first and the check at depth 21 keeps 4
+  values of the ℤ₂-compression, about 41% of the leaves.
+
+**Runs of this round** (fibres, live and lattice split values, one kt4 thread):
+- 403 ⟨16⟩, rows (9, 9, 15, 35). The fibres at d = 13 leave 4.7% of C and 5.6% of D, so C and D are complete
+  (2.04 · 10⁷ and 2.31 · 10⁷). 1.3 · 10⁶ split values (all 575692 sampled live values and lattice points) give no
+  solution; the hybrid estimate was 10^0.72.
+- 219 ⟨10⟩, rows (11, 25, 7, 9) and (9, 11, 7, 25). The fibres at d = 3 leave C and D complete (1.2 · 10⁷ and
+  6 · 10⁶). The first 3 · 10⁵ of about 1.9 · 10⁶ live split values in the law's order give no solution; the hybrid
+  estimate was 10^−1.
+- Bordered 161 (ℤ₁₆₀): all four multiplier groups of order 4 (per-class estimates 10^−0.7–10^−1.5) fail at d = 2 in
+  every pattern, so order 322 stays out of reach. The map has no structure for N = 179 in its orbit range.
+
+## 58. Resumable runs; 453 settled to 91% (October 15)
+
+**Restart.** The container was reclaimed about five minutes after the session went idle, and every background job
+died: the 341 joins at their 8164th and 8514th split values, and bordered 203 ⟨87⟩ in the middle of listing block C.
+`lowe_sz.py --budget SECONDS --auto` now makes a run resumable:
+- Big blocks (pools above 10⁸) are listed in 64 chunks of lowe_enum's parallel prefixes (`lowe_enum ... LO HI`),
+  each kept under `WORK/lowe/chunks` with a fingerprint of its input; the lowest-energy members are merged at the end.
+- The lists are saved by atomic renames, and the join records how many split values it finished, and on which merge
+  classes, in `kt4_*.bin.state.json`.
+- A call stops by itself before its budget ends (exit code 75), and the same command continues: from the first
+  unfinished chunk, or from the first unjoined split value. A run killed outright loses only its current chunk or
+  split value: the join's count is reconciled with the progress file, which holds one line per finished split value.
+
+The container was reclaimed a second time at 03:16, 30 minutes after the session went idle, although a tracked
+background task (the queue runner) was alive. 13 of the 64 chunks of 203b's block C and 6032 more split values of the
+341 ⟨2⟩ join survived on disk.
+
+**Parallel joins.** On the 203b lists (63504, 2.78 · 10⁷, 127008, 2.78 · 10⁷ members) one kt4 process with four
+threads joins 30.5 · 10⁶ pairs per second, while four single-thread processes reach about 23 · 10⁶ each, 91 · 10⁶ in
+all. `--kt4-procs P` runs P single-thread processes on the interleaved parts rest[p::P] of the unfinished split values
+and counts as done the prefix every part has finished; a killed parallel run is folded in from the parts' progress
+files when the join continues. Tested on bordered 183 ⟨3⟩: 125 split values in 96 s (one process: 30 in 90 s), and
+the 1536 solutions again near split value 140.
+
+The test was bordered 183 ⟨3⟩ (order 366), from nothing, in steps of 150 s.
+- The chunked lists are identical to the unchunked run's: D passed 30300152 members at τ = 6.607, as before.
+- The join ran over six interruptions and found the 1536 solutions at split value 146.
+- With the orbit order and prefix checks of §57, C took 2.7 · 10⁷ leaves (12 s) instead of 1.28 · 10⁹, and D
+  9.5 · 10⁷ instead of 2.57 · 10⁹.
+
+**453 ⟨4⟩, rows (29, 31, 1, 3).** The join on the fibre-complete lists (all 2520 allowed members of A and of B,
+4.8 · 10⁷ of C and 1.6 · 10⁷ of D) finished all 4329956 sampled live split values, 6.95 · 10¹⁰ (A, C) and
+2.31 · 10¹⁰ (B, D) pairs, without a solution.
+- Coverage was measured with fresh independent samples (2 · 10⁷ pairs per side, `coverage.py` in the scratchpad). The
+  processed split values hold 62% of the split values met on both sides and 90.6% of the collision mass Σ_σ n_AC n_BD.
+  The heaviest missed split values carry 10–16 sample pairs per side.
+- So at most about one solution in ten could have escaped. The hybrid estimate of 10^1.8 (about 60) is contradicted
+  by at least 1.5 orders of magnitude.
+- Either the estimate fails here, as it did for 203 ⟨36⟩, or the compression to ℤ₁₅₁ (too many states to list)
+  rules the structure out.
+
+**Bordered 203 ⟨87⟩, rows (2, 0, 0, 0)** (hybrid 10^6.47, per-class 10^3.61).
+- Lists. The d = 2 fibre allows 41% of C and D, and the listing visited 1.13 · 10¹¹ leaves of C in 7164 thread-seconds
+  over 64 chunks, keeping 2.78 · 10⁷ members (τ = 1.926). D has the same pool and filter, so it shares C's list.
+  A and B are complete (63504 and 127008).
+- Join. kt4 ordered 300000 split values (1845983 sampled live) by the solution law. The first 17505 gave no
+  solution. By a fresh sample they hold 36.8% of the collision mass, close to the third of the law that the r⁵
+  scaling of a 5-dimensional ellipsoid gives.
+- Counting. Every solution appears about 64 times among list members (negations of B, C and D, reflections of C and
+  D, C ↔ D), so the in-list estimates mean about 100 distinct solutions (hybrid) or 0.15 (per-class).
+  - No solution in a third of the law contradicts the hybrid (probability about 10⁻¹⁸), unless the retention of
+    every solution is near 0 (the lottery of §52).
+  - It is consistent with the per-class estimate.
+- After the second cycle 46729 split values are joined, without a solution. They hold 58.6% of the collision mass
+  and, by the r⁵ scaling, about 54% of the law. The remaining 253271 (up to about 92% of the law) would take about
+  ten more hours with four processes.
+  - With a log-uniform prior between the two estimates, updated on this result, the chance that they hold a
+    solution is about 20% (less if the lists hold none at all).
+  - The search was stopped there. The same `runq.py` ticket continues it from split value 46730.
+- Split values with the coarse class (shift 101, step 40) at ±40 carry much collision mass but come late in the
+  law's order. That class is PAF(101) = 202 − 4|supp W| for the ℤ₂ split X = (X₀, X₁), W = X₀ − X₁, and the split
+  value fixes how the 203 positions of Σ_k |supp W_k| = 203 divide between (A, C) and (B, D).
+
+## 59. Auditing the estimate; concurrent constructions; order 682 (October 15)
+
+**Joint compression check.** `compress_check.py --joint`: when every level passes, each pair of coprime levels d₁, d₂
+is checked together. A block's states are then its compressions to ℤ_{d₁} and ℤ_{d₂} at once, realised by one member,
+and the four blocks are joined on the PAF conditions of both levels. On the 291 structures with exact counts
+(levels up to 64, as in §54):
+- none of the 27 with solutions is ruled out;
+- of the 264 without solutions, 244 fall at single levels and 15 more at a joint pair: twelve at N = 45 (eleven at
+  d = 3, 5 and one at d = 5, 9) and three at N = 51 (d = 3, 17);
+- five pass everything: bordered 31 ⟨11⟩ with the 2 in A or in B (hybrid estimate 10^4.3), 51 ⟨38⟩ (1, 11, 1, 9),
+  143 ⟨3⟩ (3, 11, 9, 19) and 247 ⟨9, 35⟩ (17, 17, 7, 19). Over ℤ₃₀ the next check, all three levels at once, is the
+  whole problem.
+
+The calibration stops at N = 779, so how often the joint check bites on large structures is not measured. On the
+twelve 341 records whose level d = 31 can be listed (H = ⟨15⟩, ⟨27⟩, ⟨58⟩, ⟨170⟩, three patterns each) it passes,
+with 120–168 joint solutions.
+
+**How good is the hybrid estimate?** Over the 195 calibration structures with a hybrid estimate (§51–54):
+- With solutions (18): log₁₀(exact) − hybrid has median 0.09 and standard deviation 0.43, all within ±1. The
+  per-class estimate is low by a median of 1.3.
+- Without solutions: hybrid estimates up to 10^4.3. Of the 40 structures with hybrid ≥ 1, 22 have no solution. The
+  single levels rule out 16 of these and the joint check 3 more. So among structures with hybrid ≥ 1 that pass the
+  per-level checks, 6 of 24 have no solution, and 3 of 21 after the joint check.
+
+The estimate is right in magnitude when solutions exist, but a structure can have none at any estimate. At small N
+the compression checks see most of these zeros; what remains is invisible to every check we have.
+
+**Value multiplicity** (`value_mult.py`). Members of a block with equal class values have the same PAF conditions
+and the same energy, so the lists keep or drop them together and every solution comes with all such combinations.
+For each block, n Σ_v p_v² (pool size n, p_v the share of class-value vector v) is measured from collisions among
+uniform samples. The product over the four blocks predicts the number of solutions per distinct value quadruple:
+
+| structure | predicted | measured |
+|---|---:|---:|
+| 119 ⟨8⟩ (1, 5, 15, 15) | 203 | 196 |
+| 267 ⟨4⟩ (1, 1, 21, 25) | 37.1 | 36.0 |
+| 93 ⟨4⟩ (7, 11, 9, 11) | 44.4 | 40.6 |
+| 93 ⟨4⟩ (9, 13, 1, 11) | 45.6 | 47.5 |
+| 163 ⟨38⟩ (17, 19, 1, 1) | 4.0 | 4.0 |
+| 371 ⟨13⟩ (3, 3, 25, 29) | 4.1 | 4.0 |
+
+A and B (symmetric blocks) have multiplicity 1.0 in all six. For C and D the trivial part is 2 (reversal), or 4 when
+negation keeps the row sum (row sum 0). Composite N add accidental coincidences: 14 per block at N = 119.
+
+On the big structures of §50–58 (10⁶ samples, C and D):
+
+| structure | hybrid | C, D | distinct C, D values | outcome |
+|---|---:|---|---:|---|
+| 203 bordered ⟨87⟩ (2, 0, 0, 0) | 10^6.47 | 3.9, 3.9 | 10^5.3 | none in 54% of the law |
+| 183 ⟨34⟩ (17, 19, 1, 9) | 10^6.69 | 5.8, 6.3 | 10^5.1 | none |
+| 453 ⟨4⟩ (29, 31, 1, 3) | 10^1.79 | 6.0, 6.1 | 10^0.2 | none in 91% of the mass |
+| 203 ⟨36⟩ (3, 25, 3, 13) | 10^3.38 | 14.1, 13.9 | 10^1.1 | none |
+| 213 ⟨37⟩ (13, 17, 13, 15) | 10^4.82 | 6.1, 6.0 | 10^3.3 | 426 |
+| 227 bordered ⟨49⟩ (0, 0, 2, 0) | 10^4.40 | 4.0, 4.0 | 10^3.2 | 454 |
+| 171 ⟨11⟩ (1, 11, 11, 21) | 10^2.87 | 2.0, 2.0 | 10^2.3 | 342 |
+| 215 ⟨11⟩ (11, 17, 15, 15) | 10^4.09 | 10.1, 10.1 | 10^2.1 | 430 |
+| 183 bordered ⟨3⟩ (0, 0, 2, 0) | 10^3.18 | 4.2, 4.1 | 10^2.0 | 366 |
+| 341 ⟨2⟩ (1, 21, 9, 29) | 10^2.94 | 1.8, 1.8 | 10^2.4 | open (below) |
+
+The five successes lie between 10^2.0 and 10^3.3 distinct values; the four failures lie outside, on both sides.
+- 453 and 203 ⟨36⟩ have one to ten distinct value quadruples in the whole pool, so whether the low-energy lists hold
+  one is a lottery (§52), and the raw estimate overstated their chances by the multiplicity.
+- 203 bordered and 183 ⟨34⟩ would have 10⁵ distinct quadruples. Their failures are not explained by multiplicity or
+  retention; both are most likely structures without solutions that pass every check.
+
+**Concurrent constructions.** A second literature search for the complex orders found V. Zaitsev's page
+(https://www.cs.uleth.ca/~zaitsevv/quaternary.html, last updated 14 October 2026). It has matrices of all 22 of our
+orders, found independently (21 "of the Szollosi type", 454 by "unpublished approaches"), and of 95 more blank
+orders of the 1992 table. We checked its matrices of our 22 orders (K K* = nI). It also counts 1018, 1714 and 1766
+as known: Đoković's Williamson-type matrices of orders 509, 857 and 883 (arXiv:1008.2043, from theorems of
+Miyamoto and Yamada), which `ssxx_sweep.known_reason` had missed. With both added, `complex_status.py` leaves
+exactly the page's 115 unknown orders below 2000: 334, 358, 418, 438, 446, 478, 498, 502, …
+(`data/complex_zaitsev_2026.txt`; details in [complex-hadamard](../complex-hadamard/README.md#status)).
+
+**The open frontier.** Of the frontier records (§57) on the 115 open orders, every one with a hybrid estimate of
+at least 1 is at N = 341 = 11 · 31 (order 682): 24 records over eight multiplier groups of order 10, with estimates
+of 10^2.8–10^3.0 for ⟨2⟩, ⟨35⟩, ⟨95⟩, ⟨194⟩ (fibres at d = 11) and 10^1.7–10^2.0 for ⟨15⟩, ⟨27⟩, ⟨58⟩, ⟨170⟩
+(fibres at d = 11 and 31). The next are 303 ⟨95⟩ (10^0.44, pools of 8 · 10¹⁰), 209 ⟨87⟩ (10^0.3, pools of 10¹¹),
+219 (at most 10^−0.5) and 455 (at most 10^−1.6). For 341 ⟨2⟩ the per-class (10^2.84) and hybrid (10^2.94)
+estimates agree, and its multiplicity is the trivial 2 per block, so it is the best-founded candidate we have.
+
+**Order 682: the joins of §57–58 in collision-mass order.** Fresh samples (2 · 10⁷ pairs per side) measured how
+much of the collision mass the earlier joins covered: 341 ⟨2⟩, 14196 split values, 44.6%; ⟨95⟩, 8514, 32.6%.
+- The Gaussian law misorders the remaining mass: on ⟨2⟩, 40000 more split values in the law's order would reach
+  78% of it, and in order of sampled mass 86%. The heaviest split values the law left out all have the lumpy first
+  merge class at 2.
+- `lowe_sz.py --order mass` (new joins) and `--reorder` (continued joins) order the split values by sampled
+  collision mass n_AC n_BD, adding sampled split values missing from the list. On 93 ⟨4⟩ (9, 13, 1, 11) the first
+  solutions came at split value 17, against 114 in the law's order.
+- Both joins continued in mass order with two kt4 processes each (`runq.py`, 2.3 hours). ⟨2⟩ reached 126731 split
+  values and ⟨95⟩ 96840, without a solution. By fresh samples (seed 2) these hold 97.3% and 94.8% of the collision
+  mass.
+- §57 expected up to about 10 solutions inside these lists (rows (1, 21, 9, 29) were the highest), that is 3–4
+  distinct value quadruples after the multiplicity 3.2. If that were right, finding none in 95–97% of the mass
+  would have a chance of 2–5% for each structure; an expectation ten times lower would make it likely. So the
+  estimate fails here too: either these structures have no solutions, as 203 bordered and 183 ⟨34⟩ most likely,
+  or the lists' retention is far below the model's.
+- The other six groups of 341 are of the same kind (⟨35⟩ and ⟨194⟩ with the same pools and estimates, the four
+  with fibres at d = 31 ten times lower). Nothing else on the open list has an estimate above 10^0.5, so the
+  Szöllősi arrays, plain and bordered, have no strong structure left on the 115 open orders. The tickets stay in the
+  queue (`lowe_q6.txt` in the scratchpad) and continue from where they stopped.
