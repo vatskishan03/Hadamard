@@ -7,8 +7,15 @@ Hadamard matrices. The open cases are therefore the orders 2N with N odd.
 Recent progress at the bottom of that range:
 - Szöllősi constructed order 94 (arXiv:2603.09572, March 2026), noting that "the next outstanding order seems to be"
   118.
-- Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev (arXiv:2605.08661v2, September 2026) gave the first examples of
-  orders 118, 130, 134, 206 and 266, from near-Williamson matrices.
+- Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev (arXiv:2605.08661v2, September 2026) gave matrices of orders
+  118, 130, 134, 206 and 266, from near-Williamson matrices.
+- Some of these orders follow from earlier Legendre pairs. If A, B are circulant ±1 matrices of odd order ℓ with
+  A Aᵀ + B Bᵀ = (2ℓ + 2) I − 2J (a Legendre pair) and R is the back-diagonal identity, then X = ((1 − i)/2)(A + iBR)
+  has entries ±1, ±i and X X* = (ℓ + 1) I − J, because BRAᵀ = BAR = ABR = ARBᵀ; bordering X gives a quaternary
+  Hadamard matrix of order ℓ + 1. Our novelty re-audit (16 October 2026) checked this on LP(93) (Balonin–Đoković,
+  arXiv:2010.02829, 2020) and on LP(117) and LP(129) (Kotsireas–Koutschan, arXiv:2101.03116, 2021), which give 94,
+  118 and 130; LP(133) of the same paper should give 134 (not checked). We checked the map itself on LP(9) and
+  LP(13). None of the open orders has a known Legendre pair.
 - V. Zaitsev's page [Quaternary Hadamard matrices](https://www.cs.uleth.ca/~zaitsevv/quaternary.html) (last updated
   14 October 2026; work with the same coauthors) gives explicit matrices of 122 orders 2N, most of them from Szöllősi's
   array with two symmetric blocks, the construction used here.
@@ -285,4 +292,5 @@ orders after the 2026 papers) and 322. Neither 2026 paper cites Egan, and both t
 
 A second correction: the 11 orders of the first table were labelled New until we found Zaitsev's page on 16 October
 2026. They are Concurrent: the page lists all 11, and its last modification (15 October 2026, 02:50 UTC) precedes our
-commits of 214 and 366.
+commits of 214 and 366. Every matrix file on the page carries the same HTTP date, 27 August 2026 (also the order-118
+file, which existed in May), so that date marks an upload or copy, not when each matrix was found.

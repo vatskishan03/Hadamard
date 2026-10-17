@@ -27,15 +27,21 @@ H Hᵀ = 19028 I.
 
 ## Status
 
-**New, beyond the tables.** The order lies above the range of Cati–Pasechnik Table 4, which stops at n = 2999, and is
-listed as a candidate in [NOTES.md](../../NOTES.md) §7 ("4·4757 = 4·67·71 … using T-sequences of lengths 47 and 71").
-The construction here is that one.
+**New, beyond the tables**, but obtainable classically (found by the novelty re-audit of October 16, after we had
+labelled the order). Seberry–Yamada (1990, Theorem 4) applied to Paley's matrix of order 284 (q = 283 ≡ 3 mod 8), which
+is an array of sixteen circulant blocks of order 71 (Seberry–Yamada 1993, Theorem 1), and to T-matrices of order 67
+(Sawade 1985) gives the order from ingredients of 1993 or earlier ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md)). We found no
+construction or statement of the order itself.
+
+The order lies above the range of Cati–Pasechnik Table 4, which stops at n = 2999, and is listed as a candidate in
+[NOTES.md](../../NOTES.md) §7 ("4·4757 = 4·67·71 … using T-sequences of lengths 47 and 71"). The construction here is
+that one.
 
 - Paley I and II need 19027 = 53 · 359 and 9513 = 3² · 7 · 151 to be prime powers.
 - 4757 is not a prime power (Miyamoto).
 - 4755 = 3 · 5 · 317 is not a prime power (Yamada, Kiyasu).
 - 4757 is not of Spence's form q² + q + 1.
-- A product theorem needs T-sequences or T-matrices of length t and Williamson-type matrices of order w with
+- Cooper–Wallis needs T-sequences or T-matrices of length t and Williamson-type matrices of order w with
   tw = 4757.
   - t = 67, w = 71. Williamson-type matrices of order 71 are blank in Table A.1 of Seberry and Yamada (1992). The 2026
     near-Williamson paper establishes existence for every odd order up to 69, plus a list of larger orders that does

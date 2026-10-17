@@ -92,9 +92,9 @@ Tables 2 and 3: "219 SDS"; skew since Đoković 1992); the symmetry is what is n
   - Seberry–Balonin's Lemma 2 needs 437 = a² + b², two-circulant constructions need 876 = a² + b², and Miyamoto's
     route needs v ≡ 1 (mod 4).
 
-We could not read the full text of Balonin and Seberry, "Computer construction conjecture for symmetric Hadamard
-matrices", Math. Scientist 43(2) (2018) 137–143, whose abstract mentions tables of symmetric Hadamard matrices of
-order 4n for n < 400. The 2025 census, which would include it, lists 219 as undecided.
+Balonin and Seberry, "Computer construction conjecture for symmetric Hadamard matrices", Math. Scientist 43(2)
+(2018) 137–143, Table 2, give 219 with a long dash: no symmetric Hadamard matrix of order 4 · 219 was known. The 2025
+census lists 219 as undecided as well.
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md). Doubling ([[H, H], [H, −H]]) gives symmetric
 Hadamard matrices of orders 1752, 3504, …

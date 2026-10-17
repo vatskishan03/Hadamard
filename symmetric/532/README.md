@@ -61,7 +61,8 @@ D, beyond the cap of 24 of the first symmetric sweep (§17).
 - The Đoković–Seberry census lists 133 among its 595 undecided v for symmetric matrices. 133 is in none of its eight
   symmetric series nor among its 12 sporadic values.
 - The propus literature lists 133 as open: Seberry–Balonin (arXiv:1512.01732; Australas. J. Combin. 69 (2017)),
-  Balonin–Đoković (arXiv:1803.08787) and Đoković (arXiv:2101.05429v2). The Handbook (2007, Table V.1.52) lists 133(3)
+  Balonin–Đoković (arXiv:1803.08787), Balonin–Seberry (Math. Scientist 43 (2018) 137–143, Table 2: "133 —", no
+  symmetric Hadamard matrix known) and Đoković (arXiv:2101.05429v2). The Handbook (2007, Table V.1.52) lists 133(3)
   among the odd n < 200 for which no symmetric Hadamard matrix of order 4n is known.
 - SageMath has no general constructor for symmetric matrices, and its symmetric routes (regular symmetric matrices
   with constant diagonal, conference matrices of order 266, amicable pairs with 531 a prime power) do not apply.

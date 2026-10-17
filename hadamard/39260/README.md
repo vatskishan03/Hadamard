@@ -25,10 +25,15 @@ works in int8, block by block, because a Kronecker product in int64 would not fi
 
 ## Status
 
-**New, beyond the tables.** The Handbook (2007, Table 1.53) gives n = 9815 as t = 3: the smallest known Hadamard
+**New, beyond the tables**, but obtainable classically (found by the novelty re-audit of October 16, after we had
+labelled the order): Paley's matrix of order 3020 (q = 3019 ≡ 3 mod 8) is an array of sixteen circulant blocks of
+order 755, and Seberry–Yamada (1990, Theorem 4) with T-matrices of order 13 gives order 4 · 755 · 13 = 39260
+([PALEY_BLOCKS.md](../PALEY_BLOCKS.md)). We found no construction or statement of the order itself.
+
+The Handbook (2007, Table 1.53) gives n = 9815 as t = 3: the smallest known Hadamard
 matrix with odd part 9815 had order 2³ · 9815. The order lies above Cati–Pasechnik Table 4, which stops at n = 2999.
 
-No construction we know of reaches 39260:
+No other construction we know of reaches 39260:
 
 - Paley I and II need 39259 = 11 · 43 · 83 and 19629 = 3³ · 727 to be prime powers.
 - Miyamoto does not apply: 9815 is not a prime power. Neither is 9815 − 2 = 9813 = 3 · 3271 (Yamada, Kiyasu).
@@ -41,7 +46,7 @@ No construction we know of reaches 39260:
     Williamson-type matrices of order 65 appeared only in 2026.
   - The other divisors would need T-sequences of length 1963 or 755, which are not known.
 
-Every route therefore uses an object from 2026:
+Every Cooper–Wallis route therefore uses an object from 2026:
 
 - T-matrices of order 151 were first made public by Schumer (Zenodo, September 17, 2026, doi:10.5281/zenodo.22820997).
 - Near-Williamson matrices of order 65 are from Table 6 of arXiv:2605.08661v2 (Kharaghani, Mohammadian,

@@ -964,6 +964,34 @@ structure and a product that never asks for amicability settle the four orders o
   diagonal and back-circulant off it, and no affine relabelling x ↦ ax + b of each block row and column makes three
   rows circulant, since that would need a = −a), and two rows are useless because T-matrices of odd order t > 1 with two zero matrices do not exist
   (T₁ ± T₂ would be a periodic complementary ±1 pair of odd length, but PAF ≡ t (mod 4) at every shift).
+- **The same object as a quaternary pair.** A matrix in Schmidt's form (9) is a quaternary periodic complementary pair
+  of length s: P = (1 − i)(A + iB)/2 and Q = (1 − i)(C + iD)/2 have entries ±1, ±i, and P P* + Q Q* = 2s I is exactly
+  the two conditions above. So each s of the list would also give the complex order 2s (334 for s = 167, the smallest
+  open complex order). With multiplier symmetry the counting is poor: the row sums leave only |H| = 5 at s = 191 and
+  only the trivial group at s = 167 and 179, and the crude count (4s bits against s − 1 real conditions of about four
+  bits each) gives about one solution in a space of 2¹⁵⁶ at s = 191, |H| = 5. We did not search.
+- **No skew version.** A₁ = Σ T_k ⊗ N_k1 is skew-type only if T₁ = δ₀ and every other T_k with T_k ≠ 0 is odd
+  (T_k(−x) = −T_k(x)) with N_k1 a symmetric circulant. In Paley's array each block column has exactly one symmetric
+  off-diagonal block (checked for q = 43, …, 227), so at most T₁ and one odd T₂ survive, and a ternary odd T₂ with
+  T₂T₂* = (t − 1)δ₀ cannot exist for odd t > 1 (PAF at a nonzero shift is a sum of t − 2 terms ±1).
+- **No product with arbitrary Goethals–Seidel quadruples.** X_j = Σ_k A_k ⊗ M′_kj would turn every Goethals–Seidel
+  quadruple of length s into one of length st if M′ were a 4 × 4 array of (0, ±1) circulants of order t whose block
+  columns are T-matrix quadruples, pairwise orthogonal. Exhaustively there is none for t = 3 (192 admissible columns,
+  no 4-clique of orthogonal ones) or t = 5 (3,840 columns). In the arrangement of form (9) the condition is that
+  U = T₁ + iT₂ and V = T₃ + iT₄ be complementary, and that is impossible for odd t > 1: W = U + V has unit entries,
+  U − V = εW with ε = ±1, and U U* + V V* = t I would need Σ W(x) W̄(x + d) = 0 over the x with ε(x) = ε(x + d), a
+  sum of an odd number of units of ℤ[i] (the number of agreements of a ±1 sequence of odd length is odd).
 
 The tables of §9 ("no product is overlooked") missed this product; their entries WT(263) and WT(227) are no longer
-needed.
+needed. The novelty re-audit of October 16 found that the same route also reaches three of our orders beyond the
+tables, so they were obtainable classically: 19028 = 4 · 71 · 67 (q = 283, Sawade's T-matrices of order 67), 39260 =
+4 · 755 · 13 (q = 3019) and, through Miyamoto's theorem, 21748 = 4 · 5437 from 5436 = 4 · 453 · 3 (q = 1811). It also
+found that SageMath's development version builds 31316 since October 3, 2026 (Miyamoto from a Cooper–Wallis matrix
+of order 7828 with the T-matrices of order 103 decoded from Schneider's matrix of order 2060), nine days before our
+commit, so 31316 is Known. The order READMEs say so.
+
+Three more orders follow by Miyamoto's theorem. q = 4n + 1 is a prime for four of the fourteen; for 6037 the order
+4q = 24148 is Paley II already (2q − 1 = 12073 is a prime), and the other three give 21044 = 4 · 5261
+(from 5260; Handbook Table 1.53 gives 5261 with t = 6), 40244 = 4 · 10061 (from 10060) and 45044 = 4 · 11261 (from
+11260), the last two beyond every table. Paley I and II, Yamada–Kiyasu and the product theorems do not reach them,
+and they are certified and verified like the others. For the other ten, 4n + 1 is composite.

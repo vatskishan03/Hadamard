@@ -51,11 +51,12 @@ did not combine; we found no earlier construction of them.
 
 **Other results.**
 
-- **Hadamard matrices of 19 larger orders** from 12596 to 51580, above the range of Table 4, for which we found no
+- **Hadamard matrices of 21 larger orders** from 12596 to 51580, above the range of Table 4, for which we found no
   earlier construction. They come from recursive theorems (Miyamoto [8], Yamada–Kiyasu [9], Cooper–Wallis [7])
   applied to the matrices here and to objects published in 2026. For three of them the Handbook records the order as
-  known, with no construction we could trace. Also independent matrices of the known orders 2060 and 3532. See
-  [hadamard](hadamard).
+  known, with no construction we could trace, and six (19028, 21044, 21748, 39260, 40244, 45044) were obtainable
+  classically by the Paley-block route [14, 15]. Also independent matrices of the known orders 2060, 3532 and 31316 (which SageMath's
+  development version builds since October 3, 2026). See [hadamard](hadamard).
 - **Skew-Hadamard matrices of 40 orders** from 820 to 9900 for which we found no earlier construction: 32 from
   Goethals–Seidel difference families with a skew block, and 8 from Seberry's theorem with new amicable Hadamard
   matrices or new orthogonal designs. Also independent matrices of the known skew orders 1852 and 3676.
@@ -71,8 +72,9 @@ did not combine; we found no earlier construction of them.
   ([complex-hadamard/PALEY.md](complex-hadamard/PALEY.md)); these follow from Ito's dicyclic Hadamard groups and
   Egan's Theorem 4.5 [12], which we had missed at first. See [complex-hadamard](complex-hadamard).
 - **Auxiliary objects:** Williamson-type matrices of order 111 ([near-williamson](near-williamson)); T-matrices of
-  orders 97, 109 and 197, for which we found no earlier construction (and an independent instance of the known order
-  131) ([t-matrices](t-matrices)); amicable Hadamard matrices of orders 52, 76 and 100; and the orthogonal designs
+  orders 97, 109 and 197, for which we found no earlier construction (97 and 109 may appear in Lou–Xia–Xia's work on
+  order 6m + 1, which we could not read), and an independent instance of the known order 131
+  ([t-matrices](t-matrices)); amicable Hadamard matrices of orders 52, 76 and 100; and the orthogonal designs
   OD(100; 1, 5, 94), OD(156; 1, 3, 152), OD(156; 1, 13, 142), OD(252; 1, 21, 230) and OD(364; 1, 13, 350)
   ([skew](skew#seberrys-theorem-with-new-ingredients)).
 

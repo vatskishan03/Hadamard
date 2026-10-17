@@ -25,13 +25,16 @@ matrices and the SHA-256 of K) and the SHA-256 of the result.
 
 ## Status
 
-**New, beyond the tables.** In Table 1.53 of the Handbook of Combinatorial Designs (2nd ed., 2007), n = 5437 has
+**New, beyond the tables**, but obtainable classically (below). In Table 1.53 of the Handbook of Combinatorial Designs (2nd ed., 2007), n = 5437 has
 t = 8: the smallest known Hadamard matrix with odd part 5437 had order 2⁸ · 5437. The order lies above the range of
 Cati–Pasechnik Table 4, which stops at n = 2999.
 
 - The input order 4 · 1359 has t = 3 in the Handbook and in Cati–Pasechnik Table 4. Neither entry appears in
   Đoković's updates (arXiv:0912.5091, arXiv:1008.2043).
-- No classical family gives order 4 · 5437.
+- No classical family gives order 4 · 5437 directly. But the input was obtainable classically (found by the novelty
+  re-audit of October 16, after we had labelled the order): 5436 = 4 · 453 · 3 follows from Paley's matrix of order
+  1812 (q = 1811 ≡ 3 mod 8) in sixteen circulant blocks of order 453 and T-matrices of order 3 (Seberry–Yamada 1990,
+  Theorem 4; [PALEY_BLOCKS.md](../PALEY_BLOCKS.md)), and Miyamoto's theorem then gives 21748.
 - The order has followed from Miyamoto's theorem since Schumer published a matrix of order 5436 on September 17, 2026,
   but we found no construction or statement of it.
 

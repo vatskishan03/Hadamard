@@ -16,7 +16,14 @@ result.
 
 ## Status
 
-**New, beyond the tables.** The Handbook (2007, Table 1.53) gives n = 7829 as t = 8: the smallest known Hadamard
+**Known.** SageMath's development branch constructs this order since October 3, 2026 (merge of gh-42876, which added
+the T-matrices of order 103 decoded from Schneider's matrix of order 2060; 11.0.beta1): `hadamard_matrix(31316)`
+reaches Miyamoto's theorem with q = 7829 and a Cooper–Wallis matrix of order 7828 from those T-matrices and the
+Williamson matrices of order 19. That predates our commit (October 12); we missed it, and the novelty re-audit of
+October 16 found it. The matrix here is independent of it: our T-matrices of order 103 were found separately and differ
+from SageMath's.
+
+The Handbook (2007, Table 1.53) gives n = 7829 as t = 8: the smallest known Hadamard
 matrix with odd part 7829 had order 2⁸ · 7829. The order lies above Cati–Pasechnik Table 4, which stops at n = 2999.
 
 - The input order 4 · 1957 has t = 3 in the Handbook and in Cati–Pasechnik Table 4.

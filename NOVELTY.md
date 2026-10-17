@@ -41,7 +41,8 @@ For every order we checked:
   (arXiv:1301.3671), and the later papers of Đoković and coauthors on skew and symmetric matrices (among them
   arXiv:1511.08734, arXiv:2404.14375 and arXiv:2508.17141);
 - SageMath, development version of October 2026: `hadamard_matrix(n, existence=True)`,
-  `skew_hadamard_matrix(n, existence=True)` and the list `unknown_skew_hadamard`;
+  `skew_hadamard_matrix(n, existence=True)` and the list `unknown_skew_hadamard` (we missed that it builds 31316 since
+  the merge of October 3; corrected in [hadamard/31316](hadamard/31316/README.md#status));
 - the constructions published in 2026:
   - L. Alpöge, P. Voinov and S. Reynolds-Haertle, twelve orders below 2000 (2026-08-12);
   - Schneider, order 2060 (2026-08-23);

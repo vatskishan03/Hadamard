@@ -54,21 +54,23 @@ matrices are not stored (up to 7 GB as CSV); `python3 verify/verify.py <order>` 
 | [12596](12596) | 3149 = 47 · 67 | Cooper–Wallis: T-matrices of order 67, bordered Williamson-type matrices of order 47 | New, beyond the tables |
 | [14708](14708) | 3677 | Miyamoto (q = 3677) from the skew-Hadamard matrix of order [3676](../skew/3676) | New, beyond the tables |
 | [14932](14932) | 3733 | Miyamoto (q = 3733) from the matrix of order 3732 | First explicit construction |
-| [19028](19028) | 4757 = 67 · 71 | Cooper–Wallis: T-sequences of length 71, Williamson-type matrices of order 67 from near-Williamson matrices | New, beyond the tables |
+| [19028](19028) | 4757 = 67 · 71 | Cooper–Wallis: T-sequences of length 71, Williamson-type matrices of order 67 from near-Williamson matrices | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [19364](19364) | 4841 = 47 · 103 | Cooper–Wallis: T-matrices of order 103, bordered Williamson-type matrices of order 47 | New, beyond the tables |
 | [20084](20084) | 5021 | Miyamoto (q = 5021) from the matrix of order 5020 | First explicit construction |
-| [21748](21748) | 5437 | Miyamoto (q = 5437) from a Cooper–Wallis matrix of order 5436 (T-matrices of order 151, Williamson matrices of order 9) | New, beyond the tables |
+| [21044](21044) | 5261 | Miyamoto (q = 5261) from the matrix of order [5260](5260) | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
+| [21748](21748) | 5437 | Miyamoto (q = 5437) from a Cooper–Wallis matrix of order 5436 (T-matrices of order 151, Williamson matrices of order 9) | New, beyond the tables; obtainable classically (its input 5436 from [PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [24124](24124) | 6031 | Yamada–Kiyasu (q = 6029) from a skew-Hadamard matrix of order 3016, the double of [skew 1508](../skew/1508) | New, beyond the tables |
 | [24308](24308) | 6077 = 59 · 103 | Cooper–Wallis: T-matrices of order 103, near-Williamson matrices of order 59 | New, beyond the tables |
 | [24412](24412) | 6103 | Yamada–Kiyasu (q = 6101) from [skew 3052](../skew/3052) | New, beyond the tables |
 | [27604](27604) | 6901 = 67 · 103 | Cooper–Wallis: T-matrices of order 103, near-Williamson matrices of order 67 | New, beyond the tables |
 | [29404](29404) | 7351 | Yamada–Kiyasu (q = 7349) from [skew 3676](../skew/3676) | First explicit construction |
-| [31316](31316) | 7829 | Miyamoto (q = 7829) from a Cooper–Wallis matrix of order 7828 (T-matrices of order 103, Williamson matrices of order 19) | New, beyond the tables |
 | [31412](31412) | 7853 | Miyamoto (q = 7853) from a Cooper–Wallis matrix of order 7852 (T-matrices of order 151, Williamson matrices of order 13) | New, beyond the tables |
 | [34196](34196) | 8549 = 83 · 103 | Cooper–Wallis: T-matrices of order 103, bordered Williamson-type matrices of order 83 | New, beyond the tables |
 | [35636](35636) | 8909 = 59 · 151 | Cooper–Wallis: T-matrices of order 151, near-Williamson matrices of order 59 | New, beyond the tables |
 | [38468](38468) | 9617 = 59 · 163 | Cooper–Wallis: T-matrices of order 163, near-Williamson matrices of order 59 | New, beyond the tables |
-| [39260](39260) | 9815 = 5 · 13 · 151 | Cooper–Wallis: T-matrices of order 151, near-Williamson matrices of order 65 | New, beyond the tables |
+| [39260](39260) | 9815 = 5 · 13 · 151 | Cooper–Wallis: T-matrices of order 151, near-Williamson matrices of order 65 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
+| [40244](40244) | 10061 | Miyamoto (q = 10061) from the matrix of order [10060](10060) | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
+| [45044](45044) | 11261 | Miyamoto (q = 11261) from the matrix of order [11260](11260) | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [51580](51580) | 12895 = 5 · 2579 | Yamada–Kiyasu (q = 12893) from a skew-Hadamard matrix of order 6448, [skew 1612](../skew/1612) doubled twice | New, beyond the tables |
 
 ## Known orders, independent matrices
@@ -77,3 +79,4 @@ matrices are not stored (up to 7 GB as CSV); `python3 verify/verify.py <order>` 
 |------:|---|---|---|
 | [2060](2060) | 515 = 5 · 103 | Cooper–Wallis: T-matrices of order 103, Williamson matrices of order 5 | Schneider, 2026-08-23 |
 | [3532](3532) | 883 | Goethals–Seidel over ℤ₈₈₃, multiplier subgroup of order 21 | Đoković, arXiv:1008.2043 (2010) |
+| [31316](31316) | 7829 | Miyamoto (q = 7829) from a Cooper–Wallis matrix of order 7828 (T-matrices of order 103, Williamson matrices of order 19) | SageMath development version (gh-42876, merged 2026-10-03) |
