@@ -30,6 +30,14 @@ arXiv:1512.01732) and the input were all published, and we found them combined n
   series uses the propus variation only for v = q + 2.
 - Seberry and Yamada list 89 among the orders of symmetric Williamson-type matrices that Corollary 29(ii) gives (J.
   Combin. Math. Combin. Comput. 7 (1990), Remark 30). A symmetric Hadamard matrix also needs the propus array (2015).
+- Miyamoto (J. Combin. Theory Ser. A 57 (1991), Theorem 5) claimed Hadamard matrices of order 4q "of symmetric block
+  form" for every q ≡ 1 (mod 4) with a conference matrix of order q + 1 and a symmetric Hadamard matrix of order q − 1,
+  which would include this order; the census says his proof does not give it
+  ([PROPUS_MIYAMOTO.md](../PROPUS_MIYAMOTO.md#status)).
+- Seberry and Balonin's list of propus orders from Turyn's matrices (arXiv:1512.01732, p. 4; Australas. J. Combin. 69
+  (2017), p. 352) contains 89 by mistake (it needs 177 = 3 · 59 to be a prime power); Balonin and Đoković removed it
+  (arXiv:1803.08787, p. 2: "The cases 59, 89, 119, 127 are still unresolved"). Balonin's online catalogue of propus
+  matrices lists 356 without a matrix.
 - Ordinary Hadamard matrices of order 356 are classical (Miyamoto's theorem, from a Hadamard matrix of order q − 1 =
   88); the symmetry is what is new.
 

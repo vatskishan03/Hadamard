@@ -8,7 +8,8 @@ matrices W₁, W₂, W₃, W₄ of order q with W₃ = W₄ (J. Combin. Math. Co
 29(ii)), and Seberry and Balonin's propus array, into which such matrices fit (Australas. J. Combin. 69 (2017), Theorem
 3; Lemma 3 of arXiv:1512.01732). Seberry and Balonin apply it in their Corollary 1 (v = q + 2) only, and write that
 "appropriate Williamson type matrices may also be used to give propus-Hadamard matrices but do not pursue this avenue in
-this paper". We found the theorem stated nowhere. It settles 48 of the 595 values v that the Đoković–Seberry census
+this paper". We found the theorem stated nowhere; Miyamoto claimed a stronger statement in 1991, without a valid proof
+according to the census ([Status](#status)). It settles 48 of the 595 values v that the Đoković–Seberry census
 (2025-05-28) lists as undecided for symmetric Hadamard matrices of order 4v: 44 with inputs of Paley and Sylvester,
 three with published propus matrices of orders 116, 236 and 604, and v = 1753 with our symmetric matrix of order 876
 ([876](876)).
@@ -139,18 +140,30 @@ are not prime powers, and 16 · 133 + 1 = 2129 already has a Paley input.
 ## Status
 
 - 47 orders are **New, but obtainable classically**: Seberry–Yamada's lemma and corollary (1990), the propus array
-  (Seberry–Balonin 2015/2017) and the inputs (Paley's matrices, the propus matrices of 2015–2019) were all published,
+  (Seberry–Balonin 2015/2017) and the inputs (Paley's matrices, the propus matrices of 2015–2022) were all published,
   and only their combination is new. 7012 is **New**: its input, our symmetric matrix of order 876, is from 2026.
-- The census lists all 48 values as undecided. Its Seberry–Balonin series is v = q + 2 with (q + 1)/2 a prime power or
-  the order of the core of a symmetric conference matrix (Seberry–Balonin's Corollary 1, which prints the order as
-  4(2q + 1) with q in place of (q + 1)/2). It is ≡ 3 (mod 4), disjoint from the values here. Its remark on Miyamoto
-  (J. Combin. Theory Ser. A 57 (1991), Theorem 5) concerns a different claim: a Hadamard matrix of order 4q "of
-  symmetric block form" from a conference matrix of order q + 1 and a symmetric Hadamard matrix of order q − 1, which
-  the census says the proof does not give.
-- Seberry and Yamada (1990, Remark 30) list every q ≤ 1873 of the table among the orders of symmetric Williamson-type
-  matrices from Corollary 29(ii), and 233, 1753 and 1889 among those that would follow "when symmetric Hadamard
-  matrices of orders 4.29, … 4.219, 16.59 … are discovered". The Williamson-type matrices were therefore classical; the
-  symmetric Hadamard matrices need the propus array of 2015.
+- **Miyamoto's claim.** Miyamoto (J. Combin. Theory Ser. A 57 (1991), Theorem 5, last sentence, as reported by the
+  census) claimed a Hadamard matrix of order 4q "of symmetric block form" [[X, Y], [−Y, X]] (X, Y symmetric) whenever
+  q ≡ 1 (mod 4), a conference matrix of order q + 1 and a symmetric Hadamard matrix of order q − 1 exist. Such a
+  matrix gives the symmetric Hadamard matrix [[X, −Y], [−Y, −X]], so the claim covers all 48 orders (with H₂ ⊗ M of
+  order q − 1). The census says the claim is ignored in Miyamoto's proof and that his displayed blocks are not
+  symmetric, and lists the orders as undecided. We could not read Miyamoto's paper. For q ≡ 1 (mod 8) and an input
+  H₂ ⊗ M, the theorem here proves the claim in symmetric form.
+- **Earlier lists.** The census lists all 48 values as undecided, and so do the lists before it that reach them:
+  Handbook Table V.1.52 (2007, as quoted by Đoković, arXiv:2101.05429), Balonin–Đoković (arXiv:1803.08787) and
+  Đoković (arXiv:2101.05429) for 89 and 193, and Seberry and Balonin's own list of unresolved n < 200 for 193. The
+  census's Seberry–Balonin series is v = q + 2 with (q + 1)/2 a prime power or the order of the core of a symmetric
+  conference matrix (their Corollary 1, which prints the order as 4(2q + 1) with q in place of (q + 1)/2); it is ≡ 3
+  (mod 4), disjoint from the values here.
+- **The Williamson-type matrices were classical.** The proof of Seberry and Yamada's Corollary 29 prints "V3 = V4 = H"
+  (1990, p. 120; Corollary 16(ii) of the Kobe version of 1989), and their Remark 30 (Remark 17 in the Kobe version)
+  lists every q ≤ 1873 of the table among the orders of symmetric Williamson-type matrices that it gives, and 233, 1753
+  and 1889 among those that would follow "when symmetric Hadamard matrices of orders 4.29, … 4.219, 16.59 … are
+  discovered". They conclude only an ordinary Hadamard matrix of order 4q; the symmetric one needs the propus array.
+  Seberry and Balonin's propus paper applies its Theorem 3 only to the inputs of their Corollary 1.
+- **Not read.** Seberry and Yamada's book (Wiley, 2020) indexes "symmetric propus-type" on p. 154, in its section on
+  Miyamoto's theorem (§6.5, pp. 151–158), and symmetric Hadamard matrices on pp. 211–214; we could not read those
+  pages. The census of 2025, co-authored by Seberry and citing the book, lists all 48 values as undecided.
 - Ordinary Hadamard matrices of all these orders are classical (Miyamoto's theorem). Doubling gives symmetric matrices
   of orders 8q, 16q, ….
 

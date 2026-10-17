@@ -233,9 +233,9 @@ H((q−1)/2) exists, then WT(q) exists.
   Williamson-type matrices of all six orders, checked exactly (`python3 search/symwt.py "cor29r(773, cor29h(193,
   kron(paley2(5), h2(), h2(), h2())))"` and so on), and also of order 2917 from 729 (Đoković's Proposition 3.3). So
   Table A.1's entries for these primes are correct, with a proof we found in none of the sources we could read
-  (Seberry–Balonin, arXiv:1512.01732, Lemmas 1, 3 and 4, observe that these corollaries give propus-type matrices;
-  Miyamoto's paper may contain the arrangement through its symmetric block form), and the orders resting on them were
-  obtainable classically: 1465, 2051, 3223, 3809, 4981, 5567, 7325 and 9083 (q = 293, built by Paley blocks) and 3865,
+  (Seberry–Balonin, arXiv:1512.01732, use the propus form of Lemma 26 only for the inputs of Corollary 27, their
+  Corollary 1; Miyamoto's paper may contain the arrangement through its symmetric block form), and the orders resting
+  on them were obtainable classically: 1465, 2051, 3223, 3809, 4981, 5567, 7325 and 9083 (q = 293, built by Paley blocks) and 3865,
   5411, 8503, 5199, 8665, 8465 and 8751 (§26). The complex order 1546 follows at once: the array [[X, Y], [−Ȳ, X̄]] of
   the symmetric Williamson-type matrices of order 773 is a complex Hadamard matrix (checked). For 173, Verma's symmetric
   conference matrix of order 86 (arXiv:2610.08893, 6 October 2026; we checked C = Cᵀ, zero diagonal and C² = 85I from
@@ -1567,8 +1567,10 @@ Corollary 29(ii) (1990), with a symmetric Hadamard matrix M of order (q − 1)/2
 and V = (I, 0, M, M), so W₃ = W₄. Hence:
 
 **For every prime power q ≡ 1 (mod 8) with a symmetric Hadamard matrix of order (q − 1)/2, there is a symmetric
-Hadamard matrix of order 4q.** We found this stated nowhere. The proof, a check of Seberry–Balonin's five conditions,
-is in [symmetric/PROPUS_MIYAMOTO.md](symmetric/PROPUS_MIYAMOTO.md).
+Hadamard matrix of order 4q.** We found this stated nowhere. The proof, a check of the six conditions of
+Seberry–Balonin's Theorem 3 (five in arXiv Lemma 3), is in [symmetric/PROPUS_MIYAMOTO.md](symmetric/PROPUS_MIYAMOTO.md).
+Seberry and Yamada printed the repeated block ("V3 = V4 = H", 1990, p. 120) and listed the q (Remark 30), but concluded
+only ordinary Hadamard matrices.
 
 - **Reach.** 58 of the census's 595 undecided v are prime powers ≡ 1 (mod 8). 48 have an input: 44 from Paley I or II
   and Sylvester, three from the published propus matrices of orders 116, 236 and 604 (v = 29, 59, 151, sporadic in the
@@ -1576,9 +1578,12 @@ is in [symmetric/PROPUS_MIYAMOTO.md](symmetric/PROPUS_MIYAMOTO.md).
   `search/sym_propus_miyamoto.py`, `verify.py` construction `symmetric-propus-miyamoto`). The other ten need a
   symmetric matrix of order 4m with m = 101, 107, 119, 149, 179, 239, 249, 269, 299 or 305, all undecided.
 - **Labels.** 47 are New, but obtainable classically (every ingredient published before 2026); 7012 = 4 · 1753 is New.
-- **Why the census missed them.** Its remark on Miyamoto concerns his Theorem 5 (a Hadamard matrix of order 4q "of
-  symmetric block form" from a symmetric Hadamard matrix of order q − 1), whose proof it rejects; it does not consider
-  Corollary 29(ii) in the propus array.
+- **Miyamoto's claim.** Miyamoto's Theorem 5 (1991) claims a Hadamard matrix of order 4q "of symmetric block form"
+  [[X, Y], [−Y, X]] (X, Y symmetric, which gives the symmetric [[X, −Y], [−Y, −X]]) from a conference matrix of order
+  q + 1 and a symmetric Hadamard matrix of order q − 1. That would include all 48 orders; the census says his proof
+  ignores the claim, and lists them as undecided. The theorem here proves the case q ≡ 1 (mod 8) with H₂ ⊗ M. The
+  census does not consider Corollary 29(ii) in the propus array. Seberry–Yamada's book (2020) indexes "symmetric
+  propus-type" on p. 154, which we could not read.
 - **Only a repeated block works.** A symmetric orthogonal design of order 4 in four variables would need four
   anticommuting real symmetric involutions of order 4, which do not exist (the Clifford algebra they generate is
   M₂(ℍ), whose modules have dimension divisible by 8). So the conference-matrix form of Corollary 29(ii) does not give

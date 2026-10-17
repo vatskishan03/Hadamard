@@ -125,6 +125,17 @@ For every order we checked:
   relative difference sets in dicyclic groups, whose abstract describes one infinite family built from Ito's and
   Schmidt's results (our matrices of orders 60 and 132 have automorphism groups of order 2, so they are not
   group-developed of that kind); Xia–Zuo–Lou–Xia, Trans. Comb. 13 (2024);
+- for the 48 symmetric orders 4q from Miyamoto's lemma in the propus array
+  ([symmetric/PROPUS_MIYAMOTO.md](symmetric/PROPUS_MIYAMOTO.md)), checked on 17 October 2026: Seberry–Yamada, JCMCC 7
+  (1990), Lemma 26, Corollary 29 and Remarks 19 and 30, and its Kobe version (Corollary 16, Remark 17); Seberry–Balonin,
+  arXiv:1512.01732 and Australas. J. Combin. 69 (2017) (Theorem 3, Corollary 1, the unresolved list); the census (its
+  series, sporadic values and remark on Miyamoto's Theorem 5); Handbook Table V.1.52 as quoted by Đoković;
+  Balonin–Đoković, arXiv:1803.08787; Đoković, arXiv:2101.05429, 2301.02751, 2404.14375 and 2508.17141;
+  Balonin–Đoković–Karbovskiy, arXiv:1708.05098 and 1710.03037; Di Matteo–Đoković–Kotsireas, arXiv:1503.04226; the
+  chapter 1 and index excerpts of Seberry–Yamada (2020); Yamada, J. Austral. Math. Soc. A 46 (1989); Seberry, Australas.
+  J. Combin. 55 (2013); SageMath's development source; Balonin's online catalogue (propus pages); arXiv, Semantic
+  Scholar and OpenAlex for Miyamoto 1991 and its citations. None states the family; Miyamoto's claim of 1991 is
+  discussed in PROPUS_MIYAMOTO.md;
 - searches of Zenodo (records matching "hadamard"), GitHub, the e-print sources of Hadamard-related arXiv papers
   (to 2026-10-08) and the math.CO listings (to 2026-10-12), the OEIS, MathOverflow, Balonin's catalogue and the Palomar
   registry.
@@ -136,7 +147,10 @@ The searches were made between 12 and 14 October 2026.
 - J. Seberry, M. Yamada, *Hadamard Matrices: Constructions using Number Theory and Linear Algebra* (Wiley, 2020):
   its updated tables, and chapter 6 (§6.4 Multiplication Theorems Using M-structures, §6.5 Miyamoto's Theorem and
   Corollaries via M-structures), the most likely place for a prior statement of the Miyamoto-block route; only its
-  contents and index were seen.
+  contents, chapter 1 and index were seen. Its index puts "symmetric propus-type" on p. 154 and symmetric Hadamard
+  matrices on pp. 211–214, the most likely places for a prior statement of the symmetric 4q family.
+- M. Miyamoto, A construction of Hadamard matrices, J. Combin. Theory Ser. A 57 (1991) 86–108 (known to us through
+  the census's remark and Seberry–Yamada's restatements).
 - J. Seberry, *Orthogonal Designs* (Springer, 2017), and Geramita–Seberry (1979).
 - Miyamoto, J. Combin. Theory Ser. A 57 (1991): its Corollaries 2–5 on matrices of symmetric block form, to which
   Seberry and Yamada credit Table A.1's key wl (the Williamson-type matrices behind the Miyamoto-block orders of

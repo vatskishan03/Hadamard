@@ -29,6 +29,10 @@ arXiv:1512.01732) and the input were all published, and we found them combined n
 
 - The Đoković–Seberry census (2025-05-28) lists 2129 among its 595 undecided v for symmetric matrices; its
   Seberry–Balonin series uses the propus variation only for v = q + 2.
+- Miyamoto (J. Combin. Theory Ser. A 57 (1991), Theorem 5) claimed Hadamard matrices of order 4q "of symmetric block
+  form" for every q ≡ 1 (mod 4) with a conference matrix of order q + 1 and a symmetric Hadamard matrix of order q − 1,
+  which would include this order; the census says his proof does not give it
+  ([PROPUS_MIYAMOTO.md](../PROPUS_MIYAMOTO.md#status)).
 - Ordinary Hadamard matrices of order 8516 are classical (Miyamoto's theorem, from a Hadamard matrix of order q − 1 =
   2128); the symmetry is what is new.
 

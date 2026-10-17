@@ -33,6 +33,10 @@ arXiv:1512.01732) and the input were all published, and we found them combined n
 - Seberry and Yamada list 233 among the orders for which Corollary 29(ii) would give symmetric Williamson-type matrices
   "when symmetric Hadamard matrices of orders … 4.29 … are discovered" (J. Combin. Math. Combin. Comput. 7 (1990),
   Remark 30). A symmetric Hadamard matrix also needs the propus array (2015).
+- Miyamoto (J. Combin. Theory Ser. A 57 (1991), Theorem 5) claimed Hadamard matrices of order 4q "of symmetric block
+  form" for every q ≡ 1 (mod 4) with a conference matrix of order q + 1 and a symmetric Hadamard matrix of order q − 1,
+  which would include this order; the census says his proof does not give it
+  ([PROPUS_MIYAMOTO.md](../PROPUS_MIYAMOTO.md#status)).
 - Ordinary Hadamard matrices of order 932 are classical (Miyamoto's theorem, from a Hadamard matrix of order q − 1 =
   232); the symmetry is what is new.
 
