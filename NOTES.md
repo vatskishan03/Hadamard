@@ -1187,7 +1187,54 @@ was not accessible.
   2v-th roots of unity and joined exactly on the NAF (`search/ng_mult.py`, which finds the Paley and other pairs of
   lengths 14 to 38 at once): for v = 134 (QW(67), FRONTIER 1883) the structures with up to 24 orbits give none (24
   orbits: 94578 of 8388608 sequences pass the spectral test, no pair), and the next structure has 46 orbits; v = 94
-  (QW(47)) has no structure between 6 and 48 orbits. A Gaussian count predicts about 70 pairs for the 24-orbit structure
-  of v = 134, so multiplier-invariant NG pairs are much rarer than the count suggests. (iv) Williamson matrices of order
-  153 constant on the orbits of a multiplier group of order 16 exist and were found at once (12260, 26972);
-  `williamson.py` with up to 24 orbits finds none of order 325 (for 3903, 9107) so far.
+  (QW(47)) has no structure between 6 and 48 orbits. For v = 186 (2611), 214 (2571, through the doubling to 428) and 254
+  (1527, 2545) every structure with at most 24, 6 and 20 orbits gives none; the next ones have 28, 108 and 30 orbits. A
+  Gaussian count predicts about 70 pairs for the 24-orbit structure of v = 134, so multiplier-invariant NG pairs are
+  much rarer than the count suggests. (iv) Williamson matrices of order 153 constant on the orbits of a multiplier group
+  of order 16 exist and were found at once (12260, 26972); `williamson.py` with up to 24 orbits finds none of order 325
+  (for 3903, 9107) so far.
+
+## 24. Which Hadamard matrices T-matrices multiply; NG pairs and Yamada's bordered blocks (October 17)
+
+Theorem 4 of Seberry–Yamada (1990) uses only the orthogonality of the block rows of H = (N_kj), plus the fact that A_j =
+Σ_k T_k ⊗ N_kj can go into the Goethals–Seidel array. So it applies to any Hadamard matrix of order 4s on whose rows and
+columns an abelian group of order s acts semiregularly, with four orbits each, by signed permutations. In an orbit basis
+the sixteen blocks are group-developed, and the inversion of the group transposes them all. Every cocyclic Hadamard
+matrix over a group with an abelian subgroup of odd order s qualifies: the expanded group splits over that subgroup
+because s is odd. §22 is the case of a cyclic group from PSL(2, q); §23 is a bordered analogue, and so is Yamada's
+matrix below. Three more cases were examined; none reaches FRONTIER.md.
+
+- *Negaperiodic and periodic Golay pairs of length 2s, s odd.* With y ↦ −ix, ℤ[y]/(y^(2s) + 1) ≅ ℤ[i] ⊗ ℤ[ℤ_s]. So an NG
+  pair of length 2s, equivalently quasi-Williamson matrices of order s (Balonin–Đoković, arXiv:1508.00640, §9, after Ito
+  and Schmidt), is a Hadamard matrix of order 4s in sixteen circulant blocks of order s; so is a periodic Golay pair of
+  length 2s. Times T-matrices of order t this gives H(4st). The second Paley series (p = 4s − 1) is the Paley-block
+  route of §22. The first series (2s − 1 a prime power) is Paley II, whose s are Turyn's Williamson orders. Williamson
+  matrices are the classical case. Every FRONTIER entry n = s · t with T-matrices of order t known needs s ∈ {167, 179,
+  191, 223, 239, 269, 283, 347, 359, 419, 443, 463, 479, 491, 509, 571, 573, 599, 631, 643, 857, 863, 941, 947, 955,
+  971, 991}. No quasi-Williamson matrices of any of these orders are known, and an NG pair of length 334 would also
+  settle the open complex order 334.
+- *Yamada's matrix of order 4(q + 2) (Kiyasu; search/NOTES.md §13) in bordered blocks.* Its inner blocks lie in P ⊗
+  circ(n₀) ⊕ J₂ ⊗ alg(S, J), with P = [[1, −1], [−1, 1]], PJ₂ = 0, S the skew core of order n₀ = (q + 1)/2 and SJ = 0,
+  so they commute. Reassign the four border columns to the block columns in the order (0, 3, 1, 2) and sign them (1, −1,
+  −1, −1). Then every block restricted to span(border, e) is symmetric and lies in one two-dimensional algebra; 16 of
+  the 2 · 4!² · 2⁸ choices of border order, signs and reversal parity work. So the blocks commute, and diag(1, I₂ ⊗ R)
+  transposes all of them whenever R is an involutive permutation with R S R = Sᵀ, as x ↦ −x is for Paley cores. Times
+  T-matrices this gives H(4(q + 2)t), checked exactly for (q, t) = (5, 3), (5, 5), (13, 3), (13, 7) and (37, 3) (Paley
+  cores). Nothing is new: the same inputs, a skew core with such an R and symmetric circulants M, N of order n₀ with MMᵀ
+  + NNᵀ = qI, are what Seberry–Yamada's Lemma 26 (JCMCC 7 (1990), Corollary 27(i)) turns into symmetric Williamson-type
+  matrices of order q + 2, and Cooper–Wallis does the rest.
+- *New cores for Lemma 26.* FRONTIER 2315 = 5 · 463 would follow from a skew-Hadamard matrix of order 232 with an
+  involutive signed anti-automorphism fixing exactly two points (necessarily with signs + and −). The structured
+  versions fail. (a) The back-circulant input U₃ = CR, U₄ = DR, with C, D circulants of order 231 that are amicable
+  (Ĉ·conj(D̂) real) and satisfy PAF_C + PAF_D = −2: at a character of order 3, Ĉ = s v and D̂ = r v with v ∈ ℤ[ω], so
+  (s² + r²) N(v) = 462. Here N(v) ∈ {1, 3, 7, 21}, and none of 462, 154, 66, 22 is a sum of two squares. (b) Two borders
+  and two ℤ₁₁₅-orbits that the anti-automorphism swaps: the orthogonality of the two block rows forces KM = 0, so |M̂|²
+  or |K̂|² is 231 at a character of order 5, impossible since 3 is inert in ℚ(ζ₅). (c) One border and three ℤ₇₇-orbits,
+  one fixed and two swapped: |Â + 2D̂|² = 231 (or |Â|² = 231) at every non-trivial character, impossible at order 7
+  since 3 is inert in ℚ(ζ₇). Bordered two-circulant skew matrices from a skew-type U and a symmetric V with PAF_U +
+  PAF_V = −2 (J. Wallis, Yamada: w = s² + 4 a prime power) do have such an anti-automorphism: x ↦ −x on both orbits with
+  signs + and −, borders swapped. Lemma 26 turns their cores into symmetric Williamson-type matrices of order 4w + 3
+  when 4w + 1 is a prime power (checked for w = 13: order 55); the next case is w = 1093 (order 4375). Szekeres's pairs
+  (Remark 18) give cores of prime-power order, which Corollary 27 already covers.
+- *The other M-structures of JCMCC 7* (Corollaries 36–45, eight and sixty-four blocks) give orders 8m only, outside
+  FRONTIER.md.

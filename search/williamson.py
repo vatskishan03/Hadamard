@@ -5,7 +5,7 @@ For every subgroup H of Z_n^* (cyclic subgroups and products of two) the four se
 of <H, -1>; for every row pattern r1 <= r2 <= r3 <= r4 (odd, sum of squares 4n) the complete pools are joined exactly
 (join4x), up to a cap on the pair work. Hits are rebuilt in the Williamson array and checked (H H^T = 4n I).
 
-  python3 search/williamson.py n1,n2,.. [--maxo 24] [--maxwork 1e11] [--K 1]
+  python3 search/williamson.py n1,n2,.. [--mino 1] [--maxo 24] [--maxwork 1e11] [--K 1]
 Hits go to $HADAMARD_WORK/williamson_hits.jsonl.
 """
 import argparse, json, math, os, struct, subprocess, sys, tempfile, time
@@ -90,7 +90,8 @@ def search(n, gens, maxwork, K, log):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('ns'); ap.add_argument('--maxo', type=int, default=24); ap.add_argument('--maxwork', type=float, default=1e11)
+    ap.add_argument('ns'); ap.add_argument('--mino', type=int, default=1); ap.add_argument('--maxo', type=int, default=24)
+    ap.add_argument('--maxwork', type=float, default=1e11)
     ap.add_argument('--K', type=int, default=1)
     a = ap.parse_args()
     log = lambda s: print(s, flush=True)
@@ -99,9 +100,9 @@ def main():
         for S, gs in PR.subgroup_gens(n).items():
             Sm = set(S) | {(-h) % n for h in S}
             O = len({min(t * h % n for h in Sm) for t in range(n)})
-            if O <= a.maxo: jobs.append((O, gs))
+            if a.mino <= O <= a.maxo: jobs.append((O, gs))
         jobs.sort()
-        log(f"=== n={n}: {len(jobs)} structures with <= {a.maxo} orbits")
+        log(f"=== n={n}: {len(jobs)} structures with {a.mino} to {a.maxo} orbits")
         hit = False
         for _, gs in jobs:
             if search(n, gs, a.maxwork, a.K, log): hit = True; break
