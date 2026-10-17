@@ -50,10 +50,14 @@ route of NOTES.md §29 had failed (no skew-propus quadruple of length 37, search
 Let n = (q + 1)/2 (≡ 3 mod 4) and v = q + 2 = 2n + 1.
 
 - **The skew core.** Normalise the skew-Hadamard matrix of order n + 1 so that its first row is all +1; its core S
-  (delete the first row and column, subtract I) satisfies Sᵀ = −S, Se = 0 and S² = −SSᵀ = J − nI.
-- **Yamada's circulants.** M and N, symmetric circulants of order n with first rows β and α of Yamada's Lemma 3 (from a
-  primitive element of GF(q²), as in [hadamard/15292](../hadamard/15292)): M has zero diagonal and entries ±1 off it,
-  N has entries ±1, MN = NM and M² + N² = qI.
+  (delete the first row and column, subtract I) satisfies Sᵀ = −S and S² = −SSᵀ = J − nI, hence S𝟙 = 0 for the all-one
+  column 𝟙 of length n (‖Sᵀ𝟙‖² = 𝟙ᵀ(nI − J)𝟙 = 0).
+- **Yamada's circulants.** M and N, symmetric circulants of order n with first rows β and α of Yamada's Lemma 3:
+  α_m = ψ(Tr ξ^(4m)) and β_m = ψ(Tr ξ^(4m + n)) for a primitive ξ of GF(q²) and the quadratic character ψ of GF(q)
+  (as in [hadamard/15292](../hadamard/15292)). Lemma 3 gives MN = NM and M² + N² = qI. The entry pattern also holds:
+  Tr y = 0 exactly when y^(q − 1) = −1, i.e. y = ξ^k with k ≡ (q + 1)/2 (mod q + 1); among the exponents 4m and
+  4m + n (0 ≤ m < n) this happens only for 4m + n at m = 0, since 4m ≡ n (mod 2n) has no solution with n odd. So M has
+  zero diagonal and entries ±1 off it, and N has entries ±1 (verify.py checks this through X and Y).
 
 Put G = ½((M + N) + i(M − N)), Ḡ its complex conjugate, P = [[1, −1], [−1, 1]], J₂ the all-one matrix of order 2, e
 the all-one row of length 2n, and index the cores by (j, a), j < n, a ∈ {0, 1}. In blocks of orders 1, 2n, 1, 2n:
@@ -112,8 +116,9 @@ Remarks.
   Hadamard matrix [[X′, Y′], [−iY′, iX̄′]] times a monomial matrix is L: swap the two border columns and the two
   columns of each right-core pair, then multiply the columns by −1, 1, i, i on the four blocks (checked for q = 13
   and 37).
-- Only Sᵀ = −S, Se = 0, S² = J − nI and the pair M, N are used: no anti-automorphism of S, and any symmetric
-  commuting M (zero diagonal) and N with M² + N² = qI would do. q ≡ 5 (mod 8) is forced by the existence of a
+- Only Sᵀ = −S, S² = J − nI and the pair M, N are used: no anti-automorphism of S, and any symmetric commuting M
+  (zero diagonal, ±1 elsewhere) and N (±1) with M² + N² = qI would do; these conditions are also necessary for L to be
+  quaternary with L L̄ = 2vI (checked independently in the audit of 17 October 2026). q ≡ 5 (mod 8) is forced by the existence of a
   skew-Hadamard matrix of order n + 1 = (q + 3)/2.
 
 ## Reach
