@@ -52,6 +52,12 @@ contain order 163; if it does, this order was obtainable classically. We found n
 20212. The ingredients are not new, only their combination. The sources searched are listed in
 [NOVELTY.md](../../NOVELTY.md).
 
+The order has followed from published objects since August 29, 2026, but we found it stated nowhere.
+JD-Jones-ASES/Hadamard-T pairs its T-matrices of order 163 only with Williamson matrices of orders 11 and 13 (orders
+7172 and 8476). JD-Jones-ASES/Hadamard-formal (August 30, 2026) has a generic Cooper–Wallis theorem and T-matrices of
+order 163, but no Williamson matrices of order 31, and states only eight orders, from 2884 to 11948. Schumer's deposit
+(September 17, 2026) contains an independent T(163) as a control, with no product.
+
 ## Files
 
 | File | Contents |

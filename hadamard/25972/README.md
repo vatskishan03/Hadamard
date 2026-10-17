@@ -52,6 +52,11 @@ could not read, might contain order 151; if it does, this order was obtainable c
 statement of order 25972. The ingredients are not new, only their combination. The sources searched are listed in
 [NOVELTY.md](../../NOVELTY.md).
 
+The order has followed from published objects since September 17, 2026, but we found it stated nowhere. Schumer's
+deposit, which posted the T-matrices of order 151, says that Cooper–Wallis gives a Hadamard matrix of order 604w
+whenever Williamson-type matrices of order w are available, but it builds only w = 9, 11 and 13 and names only values
+with 151w ≤ 2999; w = 43 is not among them.
+
 ## Files
 
 | File | Contents |
