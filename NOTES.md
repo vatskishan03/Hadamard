@@ -235,8 +235,8 @@ H((q−1)/2) exists, then WT(q) exists.
   Table A.1's entries for these primes are correct, with a proof we found in none of the sources we could read
   (Seberry–Balonin, arXiv:1512.01732, use the propus form of Lemma 26 only for the inputs of Corollary 27, their
   Corollary 1; Miyamoto's paper may contain the arrangement through its symmetric block form), and the orders resting
-  on them were obtainable classically: 1465, 2051, 3223, 3809, 4981, 5567, 7325 and 9083 (q = 293, built by Paley blocks) and 3865,
-  5411, 8503, 5199, 8665, 8465 and 8751 (§26). The complex order 1546 follows at once: the array [[X, Y], [−Ȳ, X̄]] of
+  on them were obtainable classically: 1465, 2051, 3223, 3809, 4981, 5567, 7325 and 9083 (q = 293, built by Paley
+  blocks) and 3865, 5411, 8503, 5199, 8665, 8465 and 8751 (§26). The complex order 1546 follows at once: the array [[X, Y], [−Ȳ, X̄]] of
   the symmetric Williamson-type matrices of order 773 is a complex Hadamard matrix (checked). For 173, Verma's symmetric
   conference matrix of order 86 (arXiv:2610.08893, 6 October 2026; we checked C = Cᵀ, zero diagonal and C² = 85I from
   the printed 12 × 12 array of circulants) gives symmetric Williamson-type matrices of order 173 by Corollary 8.8(ii),
