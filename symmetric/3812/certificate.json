@@ -1,0 +1,27 @@
+{
+ "order": 3812,
+ "construction": "symmetric-propus-weighing",
+ "symmetric": true,
+ "q": 953,
+ "g": 3,
+ "K": {
+  "order": 476,
+  "construction": "cooper-wallis",
+  "t": 17,
+  "w": 7,
+  "t_matrices": [
+   "+0000000000000000",
+   "0+++-++-+00000000",
+   "000000000+++---+-",
+   "00000000000000000"
+  ],
+  "williamson": [
+   "+-+--+-",
+   "++-++-+",
+   "---++--",
+   "---++--"
+  ],
+  "sha256": "5e6d0f8dcf08704a95ed1feb60fb30858c343a363edd841f0a9cc8f8a9b0369e"
+ },
+ "sha256": "ee82d4d8c2d5c28b9ac9f93881e2e3ba0a56ab2ba3b0595310159d379e525d12"
+}

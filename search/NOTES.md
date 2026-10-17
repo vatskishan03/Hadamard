@@ -3174,3 +3174,7 @@ skew 940 and 1108.
 - The cyclotomic form of Lemma 26 with a repeated block (`l26_scheme.py`: U_k, V_k in the cyclotomic scheme of GF(p)
   of index e with −1 in the subgroup, v = 2p + 1) gives only p = 5 (v = 11) and p = 13 (v = 27) for p ≤ 400 and
   e ≤ 8, and nothing for 200 ≤ p ≤ 1250 and e ≤ 4.
+- **Afterwards (NOTES.md §31).** The repeated block, and with it the skew-propus quadruple, turned out to be
+  unnecessary: Yamada's data in quaternary form give a symmetric matrix for any skew core. Of the eight values above,
+  295, 679, 823, 1063 and 1495 are now built that way (skew inputs of orders 148, 340, 412, 532 and 748); 1879, 2215
+  and 2359 wait for skew-Hadamard matrices of orders 940, 1108 and 1180.

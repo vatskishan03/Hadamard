@@ -1585,7 +1585,8 @@ only ordinary Hadamard matrices.
   and Sylvester, three from the published propus matrices of orders 116, 236 and 604 (v = 29, 59, 151, sporadic in the
   census), and q = 1753 from our matrix of order 876. All 48 are built and verified (orders 356 to 9892,
   `search/sym_propus_miyamoto.py`, `verify.py` construction `symmetric-propus-miyamoto`). The other ten need a
-  symmetric matrix of order 4m with m = 101, 107, 119, 149, 179, 239, 249, 269, 299 or 305, all undecided.
+  symmetric matrix of order 4m with m = 101, 107, 119, 149, 179, 239, 249, 269, 299 or 305, all undecided; §30 settles
+  them without a symmetric input.
 - **Labels.** 47 are New, but obtainable classically (every ingredient published before 2026); 7012 = 4 · 1753 is New.
 - **Miyamoto's claim.** Miyamoto's Theorem 5 (1991) claims a Hadamard matrix of order 4q "of symmetric block form"
   [[X, Y], [−Y, X]] (X, Y symmetric, which gives the symmetric [[X, −Y], [−Y, −X]]) from a conference matrix of order
@@ -1621,7 +1622,7 @@ skew matrices of this kind (orders 52, 76, 100, 124) give v = 103, 151, 199 (all
 4 · 183 would follow from such a skew matrix of order 92, which is not known. The census values a skew-propus
 quadruple of length ℓ could reach are v = 8ℓ − 1 for ℓ = 37, 85, 103, 133, 187, 235, 277 and 295 (q = 8ℓ − 3 prime);
 an exhaustive search shows that there is no skew-propus quadruple of length 37, and the longer lengths are far beyond
-the random-model range (search/NOTES.md §49).
+the random-model range (search/NOTES.md §49). §31 removes the need for the anti-automorphism altogether.
 
 **Symmetric multiplication by odd t.** The propus array has no analogue of Cooper–Wallis's T-matrices in the natural
 form X_k = Σ_j M_kj ⊗ Y_j with symmetric commuting M_kj of disjoint supports: at the trivial character the row sums form
@@ -1629,5 +1630,61 @@ an integer matrix with Mᵀ diag(1, 2, 1) M = t diag(1, 2, 1), which forces t to
 determinants in the same square class), and exhaustive searches over symmetric elements of ℤ₉ and ℤ₃² find none for t =
 9 either.
 
-The symmetric census now has 537 undecided values: 595, less Đoković's three (arXiv:2508.17141), less the 55 orders of
-[symmetric](symmetric).
+The symmetric census then had 537 undecided values: 595, less Đoković's three (arXiv:2508.17141), less the 55 orders
+of [symmetric](symmetric) at the time; after §30 and §31 it has 500.
+
+
+## 30. Symmetric Hadamard matrices of order 4q from any Hadamard matrix of order (q − 1)/2 (October 17)
+
+**For every prime power q ≡ 1 (mod 8) with a Hadamard matrix of order (q − 1)/2, there is a symmetric Hadamard matrix
+of order 4q.** §29 needed a symmetric input. The proof ([symmetric/PROPUS_WEIGHING.md](symmetric/PROPUS_WEIGHING.md)):
+in the matrix of §29, the U-part H₀ (W₁, W₂, W₃ = W₄ with V = 0) and the lift Λ(V) of the V-part (V ⊗ [[1, −1],
+[−1, 1]] on the core coordinates) annihilate each other, since the rows of H₀ are constant on the pairs of core
+coordinates and the columns of [[1, −1], [−1, 1]] sum to 0. So H = H₀ + Λ(V) is a symmetric Hadamard matrix for every
+symmetric V of order 2(q − 1) with V² = qI and the support complementary to the zeros of H₀; the Williamson-type form
+of V, which forced the repeated block and the symmetric M, is not needed. With K = [A | B] any Hadamard matrix of
+order n = (q − 1)/2, E = diag(1, −1) ⊗ I, X = [Aᵀ; Aᵀ] and Y = [B, B],
+
+    V = [[E, X, −EX, 0], [Xᵀ, 0, I, Y], [−XᵀE, I, 0, −YE], [0, Yᵀ, −EYᵀ, E]]
+
+is such a matrix; conversely every such V contains a Hadamard matrix of order n, so the theorem is the most this U-part
+gives. Ordinary matrices under the same hypothesis are Yamada's Theorem 3 (1989).
+
+- **Reach.** The ten census values that §29 left open: q = 809, 857, 953, 1193, 1433, 1913, 1993, 2153, 2393 and 2441
+  (orders 3236 to 9764). Their inputs of orders 4m (m = 101, 107, 119, 149, 179, 239, 249, 269, 299, 305) are
+  Cooper–Wallis products (T-matrices of orders 101, 107, 17, 23, 5 with Williamson matrices of orders 1, 1, 7, 13, 61,
+  Turyn's for 7, 13, 61), Miyamoto's theorem (q′ = 149, 269), Đoković–Kotsireas's skew 956, our skew 996, and for 716
+  the 2026 matrix of Alpöge, Voinov and Reynolds-Haertle, whose decoded seeds fit `verify.py`'s bordered
+  Goethals–Seidel array unchanged. Every census prime power q ≡ 1 (mod 8) is now decided.
+- **Checks.** `verify.py` construction `symmetric-propus-weighing` (nested certificate of K; V symmetric with V² = qI
+  and the right support; H = Hᵀ, H Hᵀ = 4qI); random non-symmetric inputs (signed permutations of Sylvester and Paley
+  matrices, two different K, random F) for q = 17, 41 and 89, and the builder for q = 17, 49 (over GF(49)), 73, 89 and
+  137; the C checker on 3236 and 5732.
+- **Labels.** New (the construction is new to us; [symmetric/PROPUS_WEIGHING.md](symmetric/PROPUS_WEIGHING.md#status)).
+
+## 31. Symmetric Hadamard matrices of order 4(q + 2) from any skew-Hadamard matrix of order (q + 3)/2 (October 17)
+
+**For every prime power q ≡ 5 (mod 8) with a skew-Hadamard matrix of order (q + 3)/2, there is a symmetric Hadamard
+matrix of order 4(q + 2).** Yamada's Lemma 26 data for his (Kiyasu's) ordinary matrices, U = (I, 0, S, −S) and
+V = (M, N, I, I) with S the skew core and M, N Yamada's circulants, give Williamson-type matrices with W₄ = W₃ᵀ, which
+do not fit the propus array. In quaternary form they do fit a symmetric matrix: L of order 2(q + 2), written out in
+[symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md), is symmetric with entries ±1, ±i for every skew core, and
+L L̄ = 2(q + 2)I because L splits over the vectors x ⊗ (1, −1), where it acts as 2[[G, −iI], [−iI, Ḡ]] with
+G = ½((M + N) + i(M − N)) and GḠ = (q/2)I, and the borders with the vectors x ⊗ (1, 1), where only Sᵀ = −S, Se = 0 and
+S² = J − nI enter. Turyn's map [[X + Y, X − Y], [X − Y, −X − Y]] of L = X + iY is then a symmetric Hadamard matrix. No
+anti-automorphism of the skew matrix is used, which is what §29 needed.
+
+- **Reach.** 34 census values are q + 2 with q ≡ 5 (mod 8) a prime power; a skew-Hadamard matrix of order (q + 3)/2 is
+  known for 27 of them, v = 295 to 2335 (orders 1180 to 9340): Paley's matrices and doublings (9), Szekeres's and
+  Whiteman's complementary difference sets (3), published Goethals–Seidel data (good matrices of order 29,
+  Fletcher–Koukouvinos–Seberry's 236, Đoković's 67, 103, 163, 247; 6), quick multiplier searches for orders 148, 196,
+  292, 532 (5), and our skew matrices of orders 820, 836, 1036, 1148 (4). The other seven, v = 1711, 1879, 1903, 2215,
+  2359, 2383 and 2391, need the undecided skew orders 4w, w = 107, 235, 119, 277, 295, 149 and 299 (or twice them).
+- **Zaitsev et al.** The quaternary matrices QH590, QH638, QH782 and QH926 of Zaitsev, Kharaghani, Mohammadian and
+  Tayfeh-Rezaie (page of 14 October 2026, "unpublished approaches") are of this kind; for each, a monomial matrix found
+  with nauty makes it symmetric (checked: same rows, columns up to units, symmetric, Hadamard), so they too give
+  symmetric matrices of orders 1180, 1276, 1564 and 1852. The page does not mention symmetry.
+- **Checks.** `verify.py` construction `symmetric-yamada-kiyasu` (nested skew certificate; 2X and 2Y built in integers;
+  X, Y symmetric with complementary supports; H = Hᵀ, H Hᵀ = 4vI); q = 5, 13, 29 (Paley's skew matrix of order 8,
+  doubled), 37, 53, 61, 125 (over GF(125)) and 317; the C checker on 1180 and 2716.
+- **Labels.** New ([symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md#status)).

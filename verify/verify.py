@@ -599,6 +599,17 @@ def build_symmetric_propus_miyamoto(cert):
     is a symmetric Hadamard matrix of order 4q. "q" is a prime (with "g" a primitive root) or {"p", "poly"} for
     q = p^k (elements are integers whose base-p digits are polynomial coefficients; the class of x is primitive,
     checked). "input" describes M (_symmetric_input). Everything is checked here."""
+    n, U1, U2 = _miyamoto_upart(cert)
+    M = _symmetric_input(cert["input"])
+    if M.shape[0] != n:
+        raise ValueError("the input must have order (q - 1)/2")
+    Z, I = np.zeros((n, n), dtype=np.int64), np.eye(n, dtype=np.int64)
+    return _lemma26_propus([U1, U2, Z, Z], [I, Z, M, M]), None
+
+
+def _miyamoto_upart(cert):
+    """n = (q - 1)/2, U_1 = -[chi(s_i - s_j)] and U_2 = [chi(s_i - t_j)] (s_i = g^(2i), t_j = g^(1 - 2j), i, j < n) over
+    GF(q), q = 1 (mod 8), from cert["q"] (and cert["g"]) as in build_symmetric_propus_miyamoto."""
     qs = cert["q"]
     if isinstance(qs, int):
         q = qs
@@ -634,15 +645,64 @@ def build_symmetric_propus_miyamoto(cert):
     chi = np.where(log % 2 == 0, 1, -1).astype(np.int64)
     chi[0] = 0
     n = (q - 1) // 2
-    M = _symmetric_input(cert["input"])
-    if M.shape[0] != n:
-        raise ValueError("the input must have order (q - 1)/2")
     s = exp[2 * np.arange(n)]
     t = exp[(1 - 2 * np.arange(n)) % (q - 1)]
-    Z, I = np.zeros((n, n), dtype=np.int64), np.eye(n, dtype=np.int64)
-    U = [-chi[sub(s[:, None], s[None, :])], chi[sub(s[:, None], t[None, :])], Z, Z]
-    V = [I, Z, M, M]
-    return _lemma26_propus(U, V), None
+    return n, -chi[sub(s[:, None], s[None, :])], chi[sub(s[:, None], t[None, :])]
+
+
+def build_symmetric_propus_weighing(cert):
+    """Symmetric Hadamard matrix of order 4q, q = 1 (mod 8) a prime power, from ANY Hadamard matrix K of order
+    n = (q - 1)/2 (NOTES.md §30). The U-part is that of build_symmetric_propus_miyamoto: H_0 is the propus array of
+    W_1 = [[1, -e], [-e^T, U_1 (x) J_2]], W_2 = [[1, e], [e^T, U_2 (x) J_2]] and W_3 = W_4 = [[1, e], [e^T, 0]]
+    (_miyamoto_upart). Its zeros are, in the cores of the four block rows and columns (m = q, core index
+    k m + 1 + 2i + a, a = 0, 1), the 2 x 2 blocks at the nonzeros of the support pattern
+
+        P = [[I, J, J, 0], [J, 0, I, J], [J, I, 0, J], [0, J, J, I]]
+
+    (U_1 has zero diagonal and no other zero, U_2 has no zero). For any symmetric (0, +-1) matrix V of order 4n with
+    support P and V^2 = qI, put V[k n + i, l n + j] [[1, -1], [-1, 1]] at rows k m + 1 + 2i + (0, 1), columns
+    l m + 1 + 2j + (0, 1): this L has H_0 L = L H_0 = 0 (J_2 D_2 = 0, e D_2 = 0) and the same L^2 as the lift of
+    Seberry-Yamada's V = (I, 0, M, M), so H = H_0 + L is a symmetric Hadamard matrix. With h = n/2, K = [A | B]
+    (A the first h columns), E = diag(1^h, (-1)^h), X = [A^T; A^T] and Y = [B, B],
+
+        V = [[E, X, -E X, 0], [X^T, 0, I, Y], [-X^T E, I, 0, -Y E], [0, Y^T, -E Y^T, E]]
+
+    and V^2 = qI because the columns of K are orthogonal. "K" is the complete certificate of K, rebuilt and checked
+    with its own builder; "q" (and "g") as in build_symmetric_propus_miyamoto. Everything is checked here."""
+    n, U1, U2 = _miyamoto_upart(cert)
+    if cert["K"]["order"] != n:
+        raise ValueError("K must have order (q - 1)/2")
+    try:
+        K = build_checked(cert["K"])[0].astype(np.int8)
+    except ValueError as exc:
+        raise ValueError(f"K: {exc}") from None
+    h, m = n // 2, 2 * n + 1
+    A, B = K[:, :h], K[:, h:]
+    X, Y = np.vstack([A.T, A.T]), np.hstack([B, B])
+    E = np.diag(np.repeat(np.array([1, -1], dtype=np.int8), h))
+    I, Z = np.eye(n, dtype=np.int8), np.zeros((n, n), dtype=np.int8)
+    V = np.block([[E, X, -E @ X, Z], [X.T, Z, I, Y], [-X.T @ E, I, Z, -Y @ E], [Z, Y.T, -E @ Y.T, E]])
+    P = np.block([[I, 1 - Z, 1 - Z, Z], [1 - Z, Z, I, 1 - Z], [1 - Z, I, Z, 1 - Z], [Z, 1 - Z, 1 - Z, I]])
+    if not np.array_equal(V, V.T) or not np.array_equal(np.abs(V), P) or not gram_is_scalar(V, 2 * n + 1):
+        raise ValueError("V is not a symmetric weighing matrix of weight q with support P")
+    J2 = np.ones((2, 2), dtype=np.int8)
+    W = []
+    for k, Uk in enumerate([U1, U2, None, None]):
+        Wk = np.zeros((m, m), dtype=np.int8)
+        Wk[0, 0], Wk[0, 1:], Wk[1:, 0] = 1, -1 if k == 0 else 1, -1 if k == 0 else 1
+        if Uk is not None:
+            Wk[1:, 1:] = np.kron(Uk.astype(np.int8), J2)
+        W.append(Wk)
+    Wa, Wb, Wd = W[0], W[2], W[1]
+    H = np.block([[Wa, Wb, Wb, Wd], [Wb, Wd, -Wa, -Wb], [Wb, -Wa, -Wd, Wb], [Wd, -Wb, Wb, -Wa]])
+    idx = (m * np.arange(4)[:, None] + 1 + np.arange(2 * n)[None, :]).ravel()
+    core = H[np.ix_(idx, idx)]
+    if core[np.kron(P, J2) == 1].any():
+        raise ValueError("the U-part is not zero on the support of V")
+    H[np.ix_(idx, idx)] = core + np.kron(V, np.array([[1, -1], [-1, 1]], dtype=np.int8))
+    if not np.array_equal(H, H.T):
+        raise ValueError("H is not symmetric")
+    return H, None
 
 
 def _lemma26_propus(U, V):
@@ -1245,16 +1305,23 @@ def _yamada_alpha_beta(q, r, xi):
 
 
 def _build_yamada_field(cert):
-    """build_yamada for a prime power q = p^k = 5 (mod 8). Elements of GF(q) are integers 0 .. q - 1 whose base-p
-    digits (least significant first) are the coefficients of a polynomial in x modulo cert["poly"] (monic, given by
-    its coefficients c_0 .. c_{k-1}: x^k = -(c_0 + c_1 x + ... + c_{k-1} x^{k-1})). r is a non-square of GF(q) and
-    xi = (xa, xb) = xa + xb w a primitive element of GF(q^2) = GF(q)[w]/(w^2 - r), in the same encoding."""
+    """build_yamada for a prime power q = p^k = 5 (mod 8) (_yamada_field_alpha_beta)."""
+    if cert["Q"]["order"] != (cert["q"] + 3) // 2:
+        raise ValueError("Q must have order (q + 3)/2")
+    q, alpha, beta = _yamada_field_alpha_beta(cert)
+    return _yamada_matrix(cert, q, alpha, beta)
+
+
+def _yamada_field_alpha_beta(cert):
+    """Yamada's alpha, beta (build_yamada) for a prime power q = p^k = 5 (mod 8). Elements of GF(q) are integers
+    0 .. q - 1 whose base-p digits (least significant first) are the coefficients of a polynomial in x modulo
+    cert["poly"] (monic, given by its coefficients c_0 .. c_{k-1}: x^k = -(c_0 + c_1 x + ... + c_{k-1} x^{k-1})). r is
+    a non-square of GF(q) and xi = (xa, xb) = xa + xb w a primitive element of GF(q^2) = GF(q)[w]/(w^2 - r), in the
+    same encoding."""
     q, r, (xa, xb), poly = cert["q"], cert["r"], cert["xi"], cert["poly"]
     p, k = cert["p"], len(poly)
     if p ** k != q or q % 8 != 5 or any(p % d == 0 for d in range(2, math.isqrt(p) + 1)):
         raise ValueError("q must be a prime power p^k = 5 (mod 8)")
-    if cert["Q"]["order"] != (q + 3) // 2:
-        raise ValueError("Q must have order (q + 3)/2")
     digits = np.array([[(e // p ** j) % p for j in range(k)] for e in range(q)], dtype=np.int64)
     weights = p ** np.arange(k)
     enc = lambda d: int((np.asarray(d) % p) @ weights)
@@ -1303,10 +1370,12 @@ def _build_yamada_field(cert):
     for m in range(n0):
         alpha[m], beta[m] = psi[two(a[0])], psi[two(b[0])]
         a, b = mul(a, x4), mul(b, x4)
-    return _yamada_matrix(cert, q, alpha, beta)
+    return q, alpha, beta
 
 
-def _yamada_matrix(cert, q, alpha, beta):
+def _yamada_inputs(cert, q, alpha, beta):
+    """Checks alpha, beta (symmetric, alpha alpha^T + beta beta^T = qI) and returns the skew core S of the skew-Hadamard
+    matrix of cert["Q"], normalised to [[1, e^T], [-e, S + I]] (S^T = -S, S J = 0, S S^T = nI - J, n = (q + 1)/2)."""
     n0 = (q + 1) // 2
     s = np.arange(n0)
     if not (np.array_equal(alpha, alpha[-s % n0]) and np.array_equal(beta, beta[-s % n0])):
@@ -1322,7 +1391,12 @@ def _yamada_matrix(cert, q, alpha, beta):
         raise ValueError("Q is not skew (Q + Q^T != 2I)")
     d = Q[0].copy()
     d[0] = 1
-    S = (Q * d[:, None] * d[None, :])[1:, 1:] - np.eye(n0, dtype=np.int8)
+    return (Q * d[:, None] * d[None, :])[1:, 1:] - np.eye(n0, dtype=np.int8)
+
+
+def _yamada_matrix(cert, q, alpha, beta):
+    n0 = (q + 1) // 2
+    S = _yamada_inputs(cert, q, alpha, beta)
     P, J2, I = np.array([[1, -1], [-1, 1]], dtype=np.int8), np.ones((2, 2), dtype=np.int8), np.eye(n0, dtype=np.int8)
     A = np.kron(P, circulant(beta).astype(np.int8)) + np.kron(J2, I)
     B = np.kron(P, circulant(alpha).astype(np.int8))
@@ -1339,6 +1413,74 @@ def _yamada_matrix(cert, q, alpha, beta):
     for i, row in enumerate([[A, B, C, D], [-B.T, A.T, -D.T, C.T], [-C.T, D, A.T, -B], [-D.T, -C, B.T, A]]):
         for j, X in enumerate(row):
             H[4 + i * n:4 + (i + 1) * n, 4 + j * n:4 + (j + 1) * n] = X
+    return H, None
+
+
+def build_symmetric_yamada_kiyasu(cert):
+    """Symmetric Hadamard matrix of order 4v, v = q + 2, for a prime power q = 5 (mod 8) and ANY skew-Hadamard matrix of
+    order (q + 3)/2 (NOTES.md §31). n = (q + 1)/2; S is the normalised skew core and alpha, beta are Yamada's circulants,
+    as in build_yamada (same fields "q", "r", "xi", "Q", and "p", "poly" for a prime power); M = circ(beta) (zero
+    diagonal), N = circ(alpha), M^2 + N^2 = qI, G = ((M + N) + i(M - N))/2, P = [[1, -1], [-1, 1]], J_2 the all-one
+    matrix of order 2, e the all-one row of length 2n. The quaternary matrix of order 2v (blocks of orders 1, 2n, 1, 2n)
+
+        L = [[-1,    -e,                           -1,     i e                          ],
+             [-e^T,  (1 + i)/2 I (x) J_2 + G (x) P,  -i e^T, -i I (x) P - S (x) J_2         ],
+             [-1,    -i e,                          1,     e                            ],
+             [i e^T, -i I (x) P + S (x) J_2,         e^T,   (i - 1)/2 I (x) J_2 + G* (x) P]]
+
+    is symmetric with entries +-1, +-i, and L L* = 2vI: on the vectors x (x) (1, -1) it acts as
+    2 [[G, -iI], [-iI, G*]] (G G* = qI/2 since MN = NM), on the borders and the x (x) (1, 1) as a matrix of order 2n + 2
+    whose square norm needs only S^T = -S, S J = 0, S^2 = J - nI, and the two parts do not meet (J_2 P = 0, e P = 0).
+    It is Yamada's Lemma 26 data U = (I, 0, S, -S), V = (M, N, I, I) (Theorem 4, after Kiyasu) put in quaternary form.
+    With L = X + iY (X, Y symmetric, of disjoint supports, X^2 + Y^2 = 2vI, XY = YX),
+    H = [[X + Y, X - Y], [X - Y, -X - Y]] is a symmetric Hadamard matrix. Everything is checked here."""
+    if "poly" in cert:
+        q, alpha, beta = _yamada_field_alpha_beta(cert)
+    else:
+        q = cert["q"]
+        if q % 8 != 5 or not _is_prime(q):
+            raise ValueError("q must be a prime = 5 (mod 8)")
+        alpha, beta = _yamada_alpha_beta(q, cert["r"], tuple(cert["xi"]))
+    if cert["Q"]["order"] != (q + 3) // 2:
+        raise ValueError("Q must have order (q + 3)/2")
+    S = _yamada_inputs(cert, q, alpha, beta).astype(np.int16)
+    n = (q + 1) // 2
+    M, N = circulant(beta).astype(np.int16), circulant(alpha).astype(np.int16)
+    I, J2 = np.eye(n, dtype=np.int16), np.ones((2, 2), dtype=np.int16)
+    P = np.array([[1, -1], [-1, 1]], dtype=np.int16)
+    k = np.kron
+    e, o, z = np.full((1, 2 * n), 2, np.int16), np.zeros((1, 1), np.int16), np.zeros((1, 2 * n), np.int16)
+    c = lambda x: np.full((1, 1), x, np.int16)
+    X2 = np.block([[c(-2), -e, c(-2), z],                     # 2 Re L
+                   [-e.T, k(I, J2) + k(M + N, P), z.T, -2 * k(S, J2)],
+                   [c(-2), z, c(2), e],
+                   [z.T, 2 * k(S, J2), e.T, -k(I, J2) + k(M + N, P)]])
+    Y2 = np.block([[o, z, o, e],                              # 2 Im L
+                   [z.T, k(I, J2) + k(M - N, P), -e.T, -2 * k(I, P)],
+                   [o, -e, o, z],
+                   [e.T, -2 * k(I, P), z.T, k(I, J2) - k(M - N, P)]])
+    if (X2 % 2).any() or (Y2 % 2).any():
+        raise ValueError("L has non-integral parts")
+    X, Y = (X2 // 2).astype(np.int8), (Y2 // 2).astype(np.int8)
+    del X2, Y2
+    if not (np.abs(X) + np.abs(Y) == 1).all() or not (np.array_equal(X, X.T) and np.array_equal(Y, Y.T)):
+        raise ValueError("L is not a symmetric matrix with entries +-1, +-i")
+    H = np.block([[X + Y, X - Y], [X - Y, -X - Y]])
+    if not np.array_equal(H, H.T):
+        raise ValueError("H is not symmetric")
+    return H, None
+
+
+def build_paley_skew(cert):
+    """Paley's skew-Hadamard matrix I + C of order q + 1, q = 3 (mod 4) a prime ("q") or a prime power ({"p", "poly"}
+    under "q", as in _paley_sym_od_field); C[0, x] = 1, C[x, 0] = -1, C[x, y] = chi(y - x)."""
+    qs = cert["q"]
+    P, CP = _paley_sym_od(qs) if isinstance(qs, int) else _paley_sym_od_field(qs["p"], qs["poly"])
+    C = CP @ P
+    m = C.shape[0]
+    H = (np.eye(m, dtype=np.int64) + C).astype(np.int8)
+    if not is_skew(H):
+        raise ValueError("I + C is not skew")
     return H, None
 
 
@@ -1924,6 +2066,8 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "symmetric-propus-miyamoto": build_symmetric_propus_miyamoto,
             "symmetric-propus-sb": build_symmetric_propus_sb,
             "symmetric-propus-skewcore": build_symmetric_propus_skewcore,
+            "symmetric-propus-weighing": build_symmetric_propus_weighing,
+            "symmetric-yamada-kiyasu": build_symmetric_yamada_kiyasu, "paley-skew": build_paley_skew,
             "two-block": build_two_block, "paley-blocks": build_paley_blocks}
 
 
