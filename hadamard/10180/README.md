@@ -46,7 +46,9 @@ well as the near-Williamson matrices of the 2026 database.
 - The Miyamoto-block route with a negaperiodic or periodic Golay pair of length 254 does not apply: no negaperiodic pair
   of that length is known (Balonin–Đoković, list (31), quasi-Williamson matrices of order 127), and a periodic one
   cannot exist (508 = 2² · 127 is not a sum of two squares).
-- SageMath (passagemath 10.8) does not construct it: `hadamard_matrix(10180, existence=True)` returns Unknown.
+- SageMath 10.8 (passagemath 10.8.13, October 2026) does not construct it: `hadamard_matrix(10180, existence=True)`
+  raises UnknownError in its Miyamoto test (`hadamard_matrix_miyamoto_construction`), since the existence of a symmetric
+  conference matrix of order 2546 is Unknown to it.
 
 We found no valid construction of order 10180 before this one. The sources searched are listed in
 [NOVELTY.md](../../NOVELTY.md).

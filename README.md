@@ -78,17 +78,20 @@ Williamson-type matrices ([NOTES.md](NOTES.md) §7).
   do not apply to it; when its Hadamard matrix of order q − 1 is of 2N-type (a negaperiodic Golay pair) and Paley's
   points are listed along a primitive root, the blocks commute and are transposed by one permutation, so T-matrices
   multiply it ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md)). Nine are obtainable classically, four need
-  the T-matrices of 2026, and two (7179 and 7323) Đoković claimed only through the failing corollary below.
+  the T-matrices of 2026, and two (7179 and 7323) Đoković claimed only through the failing corollary below. With
+  near-Williamson matrices of 2026 in the same bordered blocks, five more Handbook entries, 13988, 18292, 33356, 39308
+  and 39812 (n = 3497, 4573, 8339, 9827 and 9953), are new beyond the tables
+  ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#near-williamson-matrices)).
 - **Orders recorded only through Seberry–Yamada's Corollary 8.8(i)**, whose printed proof does not give Williamson-type
-  matrices ([NOTES.md](NOTES.md) §7): first valid constructions of 31 orders whose only traced construction used it. Ten
+  matrices ([NOTES.md](NOTES.md) §7): first valid constructions of 36 orders whose only traced construction used it. Ten
   are omitted by Table 4 (n = 519, 865, 1211, 1465, 1557, 1903, 2051, 2249, 2427 and 2611), among them 2427 and 2611
-  (orders [9708](hadamard/9708) and [10444](hadamard/10444)), which [FRONTIER.md](FRONTIER.md) listed as unresolved; 21
-  are Handbook entries from Đoković's set Δ or with t = 2, orders 12260 to 38060. 26 come from the Paley-block route,
-  and five from Miyamoto's matrix in bordered blocks: two with a periodic Golay pair of length 404, two with Williamson
-  matrices of order 153 and one with near-Williamson matrices of order 93
+  (orders [9708](hadamard/9708) and [10444](hadamard/10444)), which [FRONTIER.md](FRONTIER.md) listed as unresolved; 26
+  are Handbook entries from Đoković's set Δ, his 2010 claims or with t = 2, orders 12260 to 38684. 26 come from the
+  Paley-block route, and ten from Miyamoto's matrix in bordered blocks: two with a periodic Golay pair of length 404,
+  two with Williamson matrices of order 153 and six with near-Williamson matrices of order 93 or 127
   ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#orders-recorded-only-through-corollary-88i),
-  [hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#orders-recorded-only-through-corollary-88i)). Table 4
-  entries that Đoković settled through the corollary are in the table above (6108, 10180) or still open (2571).
+  [hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#near-williamson-matrices)). Table 4 entries that Đoković
+  settled through the corollary are in the table above (6108, 10180) or still open (2571).
 - **Skew-Hadamard matrices of 40 orders** from 820 to 9900 for which we found no earlier construction: 32 from
   Goethals–Seidel difference families with a skew block, and 8 from Seberry's theorem with new amicable Hadamard
   matrices or new orthogonal designs. Also independent matrices of the known skew orders 1852 and 3676.

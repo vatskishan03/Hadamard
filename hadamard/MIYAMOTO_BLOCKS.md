@@ -14,8 +14,8 @@ The route gives 15 orders that Table 1.53 of the Handbook lists as unknown (n = 
 Đoković claimed only through Seberry–Yamada's Corollary 8.8(i), and four orders that the tables record only through that
 corollary ([below](#orders-recorded-only-through-corollary-88i)), among them 9708 = 4 · 2427, which
 [FRONTIER.md](../FRONTIER.md) listed as unresolved. With near-Williamson matrices of 2026 in place of the Golay pair
-([below](#near-williamson-matrices)) it gives three orders of Cati–Pasechnik's Table 4, n = 1527, 1883 and 2545, and the
-reopened order n = 2611.
+([below](#near-williamson-matrices)) it gives three orders of Cati–Pasechnik's Table 4, n = 1527, 1883 and 2545, the
+reopened order n = 2611 and ten Handbook entries.
 
 | Order | n | q | t | negaperiodic Golay pair of length (q − 1)/2 |
 |------:|---:|---:|---:|---|
@@ -131,8 +131,26 @@ matrices of order 67 and its own implementation; the certificates here were buil
 | [10444](10444) | 2611 = 7 · 373 | 373 | 7 | 93, database of arXiv:2605.08661v2 | First explicit construction: omitted by Table 4 through Seberry–Yamada Table A.2 (Corollary 8.8(i)) |
 
 The database also holds orders 73, 79 and 97 with q = 4w + 1 a prime (293, 317, 389). Over the Handbook entries 3001 ≤ n
-≤ 9999 listed with t ≥ 3, the same route reaches n = 3497, 4573, 8339 and 9953 (q = 269), 9827 (q = 317), 6341 and 8579
-(q = 373), and 6617, 8653 and 9671 (q = 509), besides orders already here; these are not built yet.
+≤ 9999 with no valid construction, the route reaches ten more, all built (T-matrices of order 37 from
+`search/tmat_mult.py 37 10`, [t-matrices/T37.txt](../t-matrices/T37.txt)):
+
+| Order | n | q | t | Status |
+|------:|---:|---:|---:|---|
+| [13988](13988) | 3497 = 13 · 269 | 269 | 13 | New, beyond the tables (Handbook t = 3) |
+| [18292](18292) | 4573 = 17 · 269 | 269 | 17 | New, beyond the tables (t = 3) |
+| [25364](25364) | 6341 = 17 · 373 | 373 | 17 | First explicit construction: Đoković's set Δ, through Corollary 8.8(i) (Handbook t = 8) |
+| [26468](26468) | 6617 = 13 · 509 | 509 | 13 | First explicit construction: Đoković 2010, through Corollary 8.8(i) (t = 4) |
+| [33356](33356) | 8339 = 31 · 269 | 269 | 31 | New, beyond the tables (t = 3) |
+| [34316](34316) | 8579 = 23 · 373 | 373 | 23 | First explicit construction: Đoković's set Δ (t = 3) |
+| [34612](34612) | 8653 = 17 · 509 | 509 | 17 | First explicit construction: Đoković 2010 (t = 3) |
+| [38684](38684) | 9671 = 19 · 509 | 509 | 19 | First explicit construction: Đoković 2010 (t = 3) |
+| [39308](39308) | 9827 = 31 · 317 | 317 | 31 | New, beyond the tables (t = 3) |
+| [39812](39812) | 9953 = 37 · 269 | 269 | 37 | New, beyond the tables (t = 3) |
+
+The orders with q = 269 and 317 need the near-Williamson matrices of 2026. For q = 509, Đoković's good matrices of order
+127 (J. Combin. Math. Combin. Comput. 14 (1993)) satisfy the same hypotheses, so those orders were obtainable
+classically, by a combination we found nowhere. For q = 373 we know no classical input of this kind (Table A.1 records
+Williamson-type matrices of order 93, but not symmetric ones).
 
 ## Orders recorded only through Corollary 8.8(i)
 
@@ -181,8 +199,9 @@ of length 134, 186, 254, 428 or 470 cannot exist, since 2m is not a sum of two s
   matrix of order 44 gives them validly).
 - 9708, 12260, 26972 and 35596 are **First explicit constructions**: tables record them as known, through Corollary
   8.8(i) only.
-- 6108, 10180 and 10444 are **First explicit constructions** and 7532 is **New**; their inputs include the
-  near-Williamson matrices of 2026, so none of the four is obtainable classically.
+- 6108, 10180 and 10444 are **First explicit constructions** and 7532 is **New**. 7532 and 10444 need the
+  near-Williamson matrices of 2026; 6108 and 10180 were obtainable classically with Đoković's good matrices of order
+  127. The ten Handbook entries of the second near-Williamson table are labelled as there.
 - SageMath's development version (October 17, 2026) constructs none of the 19. It returns Unknown for 14 and raises
   UnknownError in its Miyamoto test for 12260, 33380, 35780, 38660 and 39348 (no symmetric conference matrix of order
   n + 1 is known to it; with that Unknown treated as False it returns Unknown).

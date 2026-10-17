@@ -45,7 +45,8 @@ Williamson-type matrices of order 93. The printed proof of that corollary does n
 - The Miyamoto-block route with a negaperiodic or periodic Golay pair of length 186 does not apply: no negaperiodic pair
   of that length is known (Balonin–Đoković, list (31), quasi-Williamson matrices of order 93), and a periodic one cannot
   exist (372 = 2² · 3 · 31 is not a sum of two squares).
-- SageMath (passagemath 10.8) does not construct it: `hadamard_matrix(10444, existence=True)` returns Unknown.
+- SageMath 10.8 (passagemath 10.8.13, October 2026) does not construct it: `hadamard_matrix(10444, existence=True)`
+  returns Unknown.
 
 We found no valid construction of order 10444 before this one. The sources searched are listed in
 [NOVELTY.md](../../NOVELTY.md).

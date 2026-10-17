@@ -44,7 +44,8 @@ Cooper–Wallis would then give this order. But the printed proof of that coroll
 - The Miyamoto-block route with a negaperiodic or periodic Golay pair of length 134 does not apply: no negaperiodic pair
   of that length is known (Balonin–Đoković, list (31), quasi-Williamson matrices of order 67), and a periodic one cannot
   exist (268 = 2² · 67 is not a sum of two squares).
-- SageMath (passagemath 10.8) does not construct it: `hadamard_matrix(7532, existence=True)` returns Unknown.
+- SageMath 10.8 (passagemath 10.8.13, October 2026) does not construct it: `hadamard_matrix(7532, existence=True)`
+  returns Unknown.
 
 We found no valid construction of order 7532 before this one. The sources searched are listed in
 [NOVELTY.md](../../NOVELTY.md).

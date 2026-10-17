@@ -1270,5 +1270,8 @@ This does not give Williamson-type matrices of order q; Corollary 8.8(i) stays u
 entries. Of its entries of the form n = qt with q ≡ 1 (mod 4) a prime and T-matrices of order t known, the route still
 misses 2571 (q = 857, w = 214), 2823 (q = 941, w = 235) and 2677 (t = 1, which needs H(2676)). The database orders with
 q = 4w + 1 prime are 67, 73, 79, 93, 97 and 127. Beyond Table 4 they reach the Handbook entries listed with t ≥ 3 n =
-3497, 4573, 8339, 9953 (q = 269), 9827 (317), 6341, 8579 (373), 6617, 8653 and 9671 (509), not built yet. Their status
-needs the usual check for classical routes, and the 2026 inputs make none of them classical.
+3497, 4573, 8339, 9953 (q = 269), 9827 (317), 6341, 8579 (373), 6617, 8653 and 9671 (509), now all built
+(hadamard/MIYAMOTO_BLOCKS.md; T-matrices of order 37 from `search/tmat_mult.py 37 10`). 6341 and 8579 are in Đoković's
+set Δ and 6617, 8653 and 9671 among his 2010 claims, all through Corollary 8.8(i); the other five are new beyond the
+tables. For q = 509 Đoković's good matrices of order 127 (1993) satisfy the hypotheses too, so 1527, 2545 and the 509 ·
+t entries were obtainable classically; for q = 269, 317 and 373 the inputs are the 2026 near-Williamson matrices.
