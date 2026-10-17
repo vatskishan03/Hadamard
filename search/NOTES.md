@@ -3134,7 +3134,11 @@ of the four circulant variables symmetric (blocks ±X, ±XR) or arbitrary (±XR,
 cancelling monomials. No array with four distinct variables exists, whichever variables are symmetric. With X₃ = X₂
 there are 768 arrays when only X₁ is symmetric (Balonin's among them), 1152 when X₁ and X₄ are, 6144 when X₁, X₂ and X₄
 are, and none when X₁ is arbitrary. So every symmetric Hadamard matrix of Goethals–Seidel type over ℤ_v needs a repeated
-block and a symmetric block, as in the propus family.
+block and a symmetric block, as in the propus family. Twisting by any involutive multiplier does not help either
+(`--klein`). For v with two odd prime factors, ℤ_v* contains u ≠ ±1 with u² = 1, and X P_u is symmetric when X is
+invariant under the multiplier −u. Over all 35 type assignments in {1, −1, u, −u}, none of the arrays has four distinct
+variables. The twisted repeated-block arrays that do exist (448 with D of type u) impose the same autocorrelation
+equation as propus with extra symmetry, so they reach nothing new.
 
 **Corollary 27(i) with a skew core, and length 37** (`sym_skewcore.py`, `sp_mitm.c`, `l26_scheme.py`). The proof of
 Seberry–Yamada's Corollary 27(i) uses of Paley's skew core only a skew core B with B R symmetric for the reversal R

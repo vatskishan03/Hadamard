@@ -10,9 +10,12 @@ blocks of H^2 vanish identically iff the signed monomials cancel. The search ass
 each off-diagonal block of H^2 as soon as both rows are complete.
 
     python3 search/sym_arrays.py           every type assignment, four distinct variables; then X_3 = X_2 (control)
+    python3 search/sym_arrays.py --klein   blocks twisted by any involutive multiplier in {1, -1, u, -u}
 
 Result: no array with four distinct variables, for any choice of which are symmetric; with X_3 = X_2 (Balonin's
-propus/Balonin array among them) 768 arrays when X_1 is symmetric and X_2, X_4 arbitrary.
+propus/Balonin array among them) 768 arrays when X_1 is symmetric and X_2, X_4 arbitrary. With the Klein twists,
+still none with four distinct variables (35 type combinations); the twisted repeated-block arrays impose the same
+autocorrelation equation as propus.
 """
 import itertools
 from collections import Counter
@@ -67,6 +70,63 @@ def count(L, name, symset):
     rec(0)
     return total
 
+# Twisted blocks: the Klein group {e, a, b, ab} of involutive multipliers of Z_v (a = -1, b = u, ab = -u, for v with
+# two odd prime factors). Variable k has a type t_k and is invariant under the multiplier a*t_k; its blocks are
+# X P_t and P_t X = X^T P_t (both symmetric), and (M1 P_t1)(M2 P_t2) = M1 M2^(t1) P_(t1 t2).
+# encode K as bit pairs: e=0, a=1, b=2, ab=3 ; product = xor
+E, A_, B_, AB = 0, 1, 2, 3
+def _unused_latin():
+    out = []
+    for rows in itertools.permutations(itertools.permutations(range(4)), 4):
+        if all(len({r[j] for r in rows}) == 4 for j in range(4)) and all(rows[i][j] == rows[j][i] for i in range(4) for j in range(4)):
+            out.append(rows)
+    return out
+def count_klein(L, name, types):
+    # canonical form of X_k^(w) given transposition flag tr (0: X, 1: X^T): returns flag
+    def tr_after(k, flag, w):
+        t = types[k]; m = A_ ^ t
+        if t == E: return 0                      # symmetric: X = X^T
+        # X^T = X^(a); so (X^tr)^(w) = X^(a^tr * w)
+        ww = w ^ (A_ if flag else 0)
+        return 0 if ww in (E, m) else 1
+    def norm(k, flag):
+        return 0 if types[k] == E else flag
+    def blocks(k):
+        return [(k, 0), (k, 1)] if types[k] != E else [(k, 0)]
+    def prod(b1, b2):
+        (k1, f1), (k2, f2) = b1, b2
+        t1, t2 = types[k1], types[k2]
+        m1 = (k1, norm(k1, f1))
+        m2 = (k2, tr_after(k2, f2, t1))
+        return (tuple(sorted([m1, m2])), t1 ^ t2)
+    order = [(i, j) for i in range(4) for j in range(i, 4)]
+    ent = {}
+    def check(i, k):
+        c = Counter()
+        for j in range(4):
+            b1, s1 = ent[(min(i, j), max(i, j))]; b2, s2 = ent[(min(j, k), max(j, k))]
+            c[prod(b1, b2)] += s1 * s2
+        return not any(c.values())
+    total = 0; example = None
+    def rec(p):
+        nonlocal total, example
+        if p == len(order):
+            total += 1
+            if example is None: example = dict(ent)
+            return
+        i, j = order[p]
+        for b in blocks(name[L[i][j]]):
+            for s in ((1,) if p == 0 else (1, -1)):
+                ent[(i, j)] = (b, s)
+                ok = True
+                if j == 3:
+                    for i2 in range(i):
+                        if not check(i2, i): ok = False; break
+                if ok: rec(p + 1)
+        ent.pop((i, j), None)
+    rec(0)
+    return total, example
+
 if __name__ == '__main__':
     lat = latin_squares()
     print('symmetric Latin squares of order 4:', len(lat))
@@ -75,6 +135,14 @@ if __name__ == '__main__':
         for symset in itertools.combinations(range(4), nsym):
             tot += sum(count(L, [0, 1, 2, 3], set(symset)) for L in lat)
         print(f'four distinct variables, {nsym} of them symmetric: {tot} arrays', flush=True)
+    import sys
+    if '--klein' in sys.argv:
+        for types in itertools.product(range(4), repeat=4):
+            if list(types) == sorted(types):
+                tot = sum(count_klein(L, [0, 1, 2, 3], types)[0] for L in lat)
+                print('Klein types', types, ':', tot, 'arrays with four distinct variables', flush=True)
+        print('control X_3 = X_2, types (e, a, a, a):', sum(count_klein(L, [0, 1, 1, 3], (0, 1, 1, 1))[0] for L in lat))
+        sys.exit()
     for symset in [{0}, {0, 3}, set(), {0, 1, 3}]:
         tot = sum(count(L, [0, 1, 1, 3], symset) for L in lat)
         print(f'X_3 = X_2, symmetric variables {sorted(symset)}: {tot} arrays', flush=True)
