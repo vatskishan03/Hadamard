@@ -1,7 +1,7 @@
 # Unresolved orders
 
-This page lists the 133 entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard matrix of order 4n
-is known. The other 62 entries are settled:
+This page lists the 130 entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard matrix of order 4n
+is known. The other 65 entries are settled:
 
 - 12 by Alpöge, Voinov and Reynolds-Haertle (2026);
 - 19 by other public constructions of 2026 (Schneider; the JD-Jones-ASES repositories Hadamard-T and Hadamard-M;
@@ -19,6 +19,11 @@ is known. The other 62 entries are settled:
   as sixteen circulant blocks (q ≡ 3 mod 8) times T-matrices of order t
   ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md)): n = 789, 1315, 1509, 1589, 1689, 1841, 1915, 2155, 2515,
   2661, 2733, 2815, 2893 and 2951.
+- 3 in this repository from near-Williamson matrices (2026) in Miyamoto's matrix of order 4q, q = 4w + 1, as sixteen
+  commuting bordered blocks, times T-matrices: n = 1527 and 2545 (q = 509, w = 127) and 1883 (q = 269, w = 67), the
+  orders [6108](hadamard/6108), [10180](hadamard/10180) and [7532](hadamard/7532)
+  ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#near-williamson-matrices)). Đoković claimed 1527 and 2545
+  in 2010 through Corollary 8.8(i) (below).
 
 **Claimed through Seberry–Yamada's Corollary 8.8(i).** Đoković (arXiv:1008.2043, Propositions 3.2–3.4; Int. Math. Forum
 6 (2011) 3061–3067) also settled n = 1527 = 3 · 509, 2545 = 5 · 509 and 2571 = 3 · 857, with Williamson-type matrices of
@@ -26,16 +31,18 @@ orders 509 (from good matrices of order 127) and 857 (from H(428)). He took them
 Yamada (1992), Corollary 29(i) of JCMCC 7 (1990). The printed proof of that corollary does not give Williamson-type
 matrices: its X₁ and X₄ are amicable only when V₄ is symmetric, which never happens for Williamson-type inputs and, for
 an Hadamard input H, only when H is symmetric. That is part (ii), and no symmetric H(428) is known ([NOTES.md](NOTES.md)
-§7, §19). We found no other proof and no other construction; Miyamoto's 1991 paper, credited with the Williamson-type
-case, was not accessible. We list the three orders as unresolved (rows 6108, 10180 and 10284; their Spence columns were
-not computed). The same holds for n = 2427 = 3 · 809 and 2611 = 7 · 373, which Table 4 omits: it inherits m = 2 from
-Seberry–Yamada's 2020 Table A.17, and the 1992 Table A.2 builds them (code o2) from Williamson-type matrices of orders
-809 and 373 that their Table A.1 obtains only from Corollary 8.8(i). 2427 now has a valid construction: Miyamoto's
-matrix of order 3236 in sixteen bordered blocks, with a periodic Golay pair of length 404, times T-matrices of order 3
-([hadamard/9708](hadamard/9708), [hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#periodic-golay-pairs)); 2611
-remains unresolved. Eight more orders that Table 4 omits for the same reason, n = 519, 865, 1211, 1557, 1903 and 2249
-(Williamson-type matrices of order 173) and 1465 and 2051 (order 293), are no longer open: Paley's matrix of order 692
-or 1172 in sixteen circulant blocks gives them without the corollary
+§7, §19). We found no other proof, and Miyamoto's 1991 paper, credited with the Williamson-type case, was not
+accessible. 1527 and 2545 now have a valid construction that bypasses the corollary: near-Williamson matrices of order
+127 (good matrices would do as well) in Miyamoto's matrix of order 2036 in bordered blocks, times T-matrices of order 3
+or 5 ([hadamard/6108](hadamard/6108), [hadamard/10180](hadamard/10180)). 2571 remains unresolved (row 10284; its Spence
+columns were not computed). The same holds for n = 2427 = 3 · 809 and 2611 = 7 · 373, which Table 4 omits: it inherits m
+= 2 from Seberry–Yamada's 2020 Table A.17, and the 1992 Table A.2 builds them (code o2) from Williamson-type matrices of
+orders 809 and 373 that their Table A.1 obtains only from Corollary 8.8(i). Both now have valid constructions in
+bordered blocks: 2427 with a periodic Golay pair of length 404 ([hadamard/9708](hadamard/9708),
+[hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#periodic-golay-pairs)) and 2611 with near-Williamson matrices
+of order 93 ([hadamard/10444](hadamard/10444)). Eight more orders that Table 4 omits for the same reason, n = 519, 865,
+1211, 1557, 1903 and 2249 (Williamson-type matrices of order 173) and 1465 and 2051 (order 293), are no longer open:
+Paley's matrix of order 692 or 1172 in sixteen circulant blocks gives them without the corollary
 ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#orders-recorded-only-through-corollary-88i)).
 
 **Columns.** For each order the table lists the cheapest structure of each kind
@@ -69,8 +76,11 @@ order from a smaller object, where one applies:
 - Cooper–Wallis: Williamson-type matrices of order w, for n = t·w with T-matrices of order t known. Listed for
   w = 191 (t = 5, 9, 15), where neither T-matrices of order 191 nor near-Williamson matrices of order 191 with a
   multiplier symmetry exist ([NOTES.md](search/NOTES.md) §6, §37).
-  Also listed for w = 509 and 857, whose Williamson-type matrices are claimed only through Seberry–Yamada's
-  Corollary 8.8(i).
+  Also listed for w = 857, whose Williamson-type matrices are claimed only through Seberry–Yamada's Corollary 8.8(i).
+- Miyamoto blocks ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md)): for n = q·t with q = 4w + 1 a prime
+  and T-matrices of order t known, near-Williamson matrices of order w or a negaperiodic Golay pair of length 2w. Not
+  listed in the table; the open cases are 2571 (w = 214), 2823 (w = 235) and 2677 (q = 2677, t = 1, which needs
+  a Hadamard matrix of order 2676 = 4 · 669).
 
 A conference matrix of that order cannot exist when (n − 1)/2 is not a sum of two
 squares.
@@ -119,7 +129,6 @@ squares.
 | 5892 | 1473 | – | – | – | – | – | ℤ8xℤ8 × ℤ23 | 35.4 |  |
 | 5948 | 1487 | – | – | – | – | – | – | – |  |
 | 5996 | 1499 | – | – | – | – | – | – | – |  |
-| 6108 | 1527 | – | – | – | – | – | n.c. | n.c. | Cooper–Wallis from Williamson-type matrices of order 509 (claimed only through Seberry–Yamada Cor. 8.8(i)) |
 | 6172 | 1543 | – | – | – | – | – | – | – |  |
 | 6236 | 1559 | – | – | – | – | – | – | – |  |
 | 6268 | 1567 | – | – | – | – | – | – | – |  |
@@ -140,7 +149,6 @@ squares.
 | 7388 | 1847 | – | – | – | – | – | ℤ2 × ℤ13 × ℤ71 | 72.5 |  |
 | 7484 | 1871 | – | – | – | – | – | – | – |  |
 | 7516 | 1879 | – | – | – | – | – | – | – | Kiyasu from a skew Hadamard matrix of order 940 |
-| 7532 | 1883 | – | – | – | – | – | ℤ2 × ℤ941 | 20.5 |  |
 | 7572 | 1893 | 42 | 62 | 31 | 4.4 | 33.1 | ℤ2xℤ2 × ℤ11 × ℤ43 | 70.7 |  |
 | 7628 | 1907 | – | – | – | – | – | – | – |  |
 | 7716 | 1929 | – | – | – | – | – | – | – |  |
@@ -175,7 +183,6 @@ squares.
 | 10052 | 2513 | – | – | – | – | – | – | – |  |
 | 10124 | 2531 | – | – | – | – | – | – | – |  |
 | 10172 | 2543 | – | – | – | – | – | ℤ2 × ℤ31 × ℤ41 | 46.5 |  |
-| 10180 | 2545 | – | – | – | – | – | n.c. | n.c. | Cooper–Wallis from Williamson-type matrices of order 509 (claimed only through Seberry–Yamada Cor. 8.8(i)) |
 | 10284 | 2571 | – | – | – | – | – | n.c. | n.c. | Cooper–Wallis from Williamson-type matrices of order 857 (claimed only through Seberry–Yamada Cor. 8.8(i)) |
 | 10316 | 2579 | – | – | – | – | – | – | – |  |
 | 10356 | 2589 | – | – | – | – | – | – | – |  |

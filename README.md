@@ -4,14 +4,16 @@ Explicit Hadamard, skew-Hadamard and symmetric Hadamard matrices of orders that 
 Hadamard matrices of orders found here and, concurrently, by another group. Every matrix comes with a certificate from
 which `verify/` rebuilds it and checks it in exact arithmetic.
 
-A Hadamard matrix of order n is an n × n matrix H with entries ±1 and H Hᵀ = n I. It can exist only for n = 1, 2 or
-n ≡ 0 (mod 4), and the Hadamard conjecture asserts that it exists for every multiple of 4. In August 2026 Alpöge,
-Voinov and Reynolds-Haertle constructed the twelve unresolved orders below 2000 [1], and Schneider constructed
-2060 [2]. This repository constructs the next four, 2092, 2148, 2284 and 2292, and twenty more open orders up to
-11804. Fourteen of these follow from two published theorems that the tables did not combine: Paley's matrix of order
-q + 1 is an array of sixteen circulants when q ≡ 3 (mod 8), and Seberry and Yamada multiply such arrays by T-matrices
-([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md)). 2284 also follows from a quaternary matrix of order 1142 posted
-concurrently by Zaitsev et al. [13].
+A Hadamard matrix of order n is an n × n matrix H with entries ±1 and H Hᵀ = n I. It can exist only for n = 1, 2 or n ≡
+0 (mod 4), and the Hadamard conjecture asserts that it exists for every multiple of 4. In August 2026 Alpöge, Voinov and
+Reynolds-Haertle constructed the twelve unresolved orders below 2000 [1], and Schneider constructed 2060 [2]. This
+repository constructs the next four, 2092, 2148, 2284 and 2292, and twenty-three more open orders up to 11804. Fourteen
+of these follow from two published theorems that the tables did not combine: Paley's matrix of order q + 1 is an array
+of sixteen circulants when q ≡ 3 (mod 8), and Seberry and Yamada multiply such arrays by T-matrices
+([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md)). Three more, 6108, 7532 and 10180, come from Miyamoto's matrix of
+order 4q in sixteen commuting bordered blocks, built with the near-Williamson matrices of 2026 [11] and multiplied by
+T-matrices ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#near-williamson-matrices)). 2284 also follows from
+a quaternary matrix of order 1142 posted concurrently by Zaitsev et al. [13].
 The smallest order we know to be unresolved is now 2396 = 4 · 599 ([FRONTIER.md](FRONTIER.md)).
 
 ## Results
@@ -19,8 +21,10 @@ The smallest order we know to be unresolved is now 2396 = 4 · 599 ([FRONTIER.md
 **Unresolved Hadamard orders.** For each order 4n below, n is listed as unresolved in Table 4 of Cati and
 Pasechnik [3], and we found no later construction, except that 2284 follows from a quaternary matrix of order 1142
 posted concurrently by Zaitsev et al. [13] (Turyn's doubling; [hadamard/2284](hadamard/2284/README.md#status)).
-The fourteen orders built from Paley's matrix were within reach of two published theorems [14, 15], which the tables
-did not combine; we found no earlier construction of them.
+The fourteen orders built from Paley's matrix were within reach of two published theorems [14, 15], which the tables did
+not combine; we found no earlier construction of them. 6108 and 10180 (n = 1527 and 2545) are first explicit
+constructions: Đoković claimed them in 2010 through Seberry–Yamada's Corollary 8.8(i), whose printed proof does not give
+Williamson-type matrices ([NOTES.md](NOTES.md) §7).
 
 | Order | n | Construction |
 |------:|---|---|
@@ -36,13 +40,16 @@ did not combine; we found no earlier construction of them.
 | [5260](hadamard/5260) | 1315 = 5 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks [14], T-matrices of order 5 [15] |
 | [5932](hadamard/5932) | 1483 | Goethals–Seidel array over ℤ₁₄₈₃, multiplier subgroup of order 39 |
 | [6036](hadamard/6036) | 1509 = 3 · 503 | Paley's matrix of order 2012 in sixteen circulant blocks [14], T-matrices of order 3 [15] |
+| [6108](hadamard/6108) | 1527 = 3 · 509 | Miyamoto's matrix [8] in sixteen bordered blocks with near-Williamson matrices of order 127 [11], T-matrices of order 3 [15] |
 | [6356](hadamard/6356) | 1589 = 7 · 227 | Paley's matrix of order 908 in sixteen circulant blocks [14], T-matrices of order 7 [15] |
 | [6756](hadamard/6756) | 1689 = 3 · 563 | Paley's matrix of order 2252 in sixteen circulant blocks [14], T-matrices of order 3 [15] |
 | [7364](hadamard/7364) | 1841 = 7 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks [14], T-matrices of order 7 [15] |
+| [7532](hadamard/7532) | 1883 = 7 · 269 | Miyamoto's matrix [8] in sixteen bordered blocks with near-Williamson matrices of order 67 [11], T-matrices of order 7 [15] |
 | [7660](hadamard/7660) | 1915 = 5 · 383 | Paley's matrix of order 1532 in sixteen circulant blocks [14], T-matrices of order 5 [15] |
 | [8620](hadamard/8620) | 2155 = 5 · 431 | Paley's matrix of order 1724 in sixteen circulant blocks [14], T-matrices of order 5 [15] |
 | [9172](hadamard/9172) | 2293 | Miyamoto's theorem [8] from the matrix of order 2292 |
 | [10060](hadamard/10060) | 2515 = 5 · 503 | Paley's matrix of order 2012 in sixteen circulant blocks [14], T-matrices of order 5 [15] |
+| [10180](hadamard/10180) | 2545 = 5 · 509 | Miyamoto's matrix [8] in sixteen bordered blocks with near-Williamson matrices of order 127 [11], T-matrices of order 5 [15] |
 | [10644](hadamard/10644) | 2661 = 3 · 887 | Paley's matrix of order 3548 in sixteen circulant blocks [14], T-matrices of order 3 [15] |
 | [10932](hadamard/10932) | 2733 = 3 · 911 | Paley's matrix of order 3644 in sixteen circulant blocks [14], T-matrices of order 3 [15] |
 | [11260](hadamard/11260) | 2815 = 5 · 563 | Paley's matrix of order 2252 in sixteen circulant blocks [14], T-matrices of order 5 [15] |
@@ -73,13 +80,15 @@ did not combine; we found no earlier construction of them.
   multiply it ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md)). Nine are obtainable classically, four need
   the T-matrices of 2026, and two (7179 and 7323) Đoković claimed only through the failing corollary below.
 - **Orders recorded only through Seberry–Yamada's Corollary 8.8(i)**, whose printed proof does not give Williamson-type
-  matrices ([NOTES.md](NOTES.md) §7): first valid constructions of 30 orders whose only traced construction used it.
-  Nine are omitted by Table 4 (n = 519, 865, 1211, 1465, 1557, 1903, 2051, 2249 and 2427), among them 2427 (order
-  [9708](hadamard/9708)), which [FRONTIER.md](FRONTIER.md) listed as unresolved; 21 are Handbook entries from Đoković's
-  set Δ or with t = 2, orders 12260 to 38060. 26 come from the Paley-block route, and four from Miyamoto's matrix in
-  bordered blocks, two with a periodic Golay pair of length 404 and two with Williamson matrices of order 153
+  matrices ([NOTES.md](NOTES.md) §7): first valid constructions of 31 orders whose only traced construction used it. Ten
+  are omitted by Table 4 (n = 519, 865, 1211, 1465, 1557, 1903, 2051, 2249, 2427 and 2611), among them 2427 and 2611
+  (orders [9708](hadamard/9708) and [10444](hadamard/10444)), which [FRONTIER.md](FRONTIER.md) listed as unresolved; 21
+  are Handbook entries from Đoković's set Δ or with t = 2, orders 12260 to 38060. 26 come from the Paley-block route,
+  and five from Miyamoto's matrix in bordered blocks: two with a periodic Golay pair of length 404, two with Williamson
+  matrices of order 153 and one with near-Williamson matrices of order 93
   ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#orders-recorded-only-through-corollary-88i),
-  [hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#orders-recorded-only-through-corollary-88i)).
+  [hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#orders-recorded-only-through-corollary-88i)). Table 4
+  entries that Đoković settled through the corollary are in the table above (6108, 10180) or still open (2571).
 - **Skew-Hadamard matrices of 40 orders** from 820 to 9900 for which we found no earlier construction: 32 from
   Goethals–Seidel difference families with a skew block, and 8 from Seberry's theorem with new amicable Hadamard
   matrices or new orthogonal designs. Also independent matrices of the known skew orders 1852 and 3676.
@@ -96,9 +105,7 @@ did not combine; we found no earlier construction of them.
   of 1618 and 1906, which the 1992 table records only through Seberry–Yamada's Corollary 8.8(i): its printed proof
   does not give Williamson-type matrices, but its matrices give a complex Hadamard matrix of order 2q from any
   quaternary Hadamard matrix of order (q − 1)/2, which we prove and use ([NOTES.md](NOTES.md) §19; Zaitsev's matrices of
-  orders 538, 1018 and 1714 have this form, unstated). The same audit
-  returns n = 1527, 2545 and 2571, which Đoković settled through that corollary, to [FRONTIER.md](FRONTIER.md). See
-  [complex-hadamard](complex-hadamard).
+  orders 538, 1018 and 1714 have this form, unstated). See [complex-hadamard](complex-hadamard).
 - **Auxiliary objects:** Williamson-type matrices of order 111 ([near-williamson](near-williamson)); T-matrices of
   orders 97, 109 and 197, for which we found no earlier construction (97 and 109 may appear in Lou–Xia–Xia's work on
   order 6m + 1, which we could not read), and an independent instance of the known order 131

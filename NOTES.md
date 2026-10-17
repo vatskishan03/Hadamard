@@ -1238,3 +1238,37 @@ matrix below. Three more cases were examined; none reaches FRONTIER.md.
   (Remark 18) give cores of prime-power order, which Corollary 27 already covers.
 - *The other M-structures of JCMCC 7* (Corollaries 36–45, eight and sixty-four blocks) give orders 8m only, outside
   FRONTIER.md.
+
+## 25. Miyamoto blocks with near-Williamson matrices: 1527, 1883, 2545 and 2611 (October 17)
+
+§23 needed the four quadrants of the Hadamard matrix K of order q − 1 in Miyamoto's array to lie in a commutative
+algebra transposed by one signed reversal, and looked for K among negaperiodic or periodic Golay pairs (two-block
+matrices of 2N or 2C type). A third kind works. If X₁, …, X₄ are pairwise commuting symmetric ±1 matrices of order w
+with Σ Xᵢ² = 4wI, their Williamson array has quadrants [[X, Y], [−Y, X]], which form a commutative algebra closed under
+transposition, and the half swap transposes them. Near-Williamson matrices give such Xᵢ: A, B, C, D circulant with B, C,
+D symmetric (arXiv:2605.08661v2, September 2026; good matrices and Williamson matrices are special cases), and Xᵢ = (AR,
+B, C, D) with R the back-identity, since AR is symmetric and commutes with every symmetric circulant. Relabelled so that
+the half swap is j ↦ 1 − j on ℤ_m, which also reverses Paley's circulant blocks, the sixteen bordered blocks commute and
+the permutation fixing the border and sending (b, j) to (b, 1 − j) transposes them
+([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#near-williamson-matrices)).
+
+The judge stage of the frontier workflow of October 17 (scratch work, not in the repository) built H(7532) this way with
+near-Williamson matrices of order 67 and its own code; the run ended before its result was read. The saved matrix checks
+exactly (±1 entries, H Hᵀ = 7532 I). `search/miyamoto_blocks.py` now takes the near-Williamson matrices as SPEC
+`nw:FILE` and stores them as "nw" in the certificate, and `verify/verify.py` rebuilds K from them (`miyamoto_nw_k`, with
+the back-identity, so the matrix differs from the judge's). All four orders are verified densely:
+
+- 7532 = 4 · 1883 (q = 269, near-Williamson matrices of order 67, T-matrices of order 7): New. Table 4 lists 1883 as
+  open, and no one claimed it through Corollary 8.8(i).
+- 6108 = 4 · 1527 and 10180 = 4 · 2545 (q = 509, order 127 from the database of the 2026 paper, T-matrices of order 3
+  and 5): First explicit constructions. Table 4 lists both as open; Đoković claimed them in 2010 through Corollary
+  8.8(i) with his good matrices of order 127, which satisfy the same hypotheses.
+- 10444 = 4 · 2611 (q = 373, order 93 from the database, T-matrices of order 7): First explicit construction. Table 4
+  omits it through Seberry–Yamada's Table A.2 (Williamson-type matrices of order 373 from Corollary 8.8(i)).
+
+This does not give Williamson-type matrices of order q; Corollary 8.8(i) stays unproven (§7). FRONTIER.md now has 130
+entries. Of its entries of the form n = qt with q ≡ 1 (mod 4) a prime and T-matrices of order t known, the route still
+misses 2571 (q = 857, w = 214), 2823 (q = 941, w = 235) and 2677 (t = 1, which needs H(2676)). The database orders with
+q = 4w + 1 prime are 67, 73, 79, 93, 97 and 127. Beyond Table 4 they reach the Handbook entries listed with t ≥ 3 n =
+3497, 4573, 8339, 9953 (q = 269), 9827 (317), 6341, 8579 (373), 6617, 8653 and 9671 (509), not built yet. Their status
+needs the usual check for classical routes, and the 2026 inputs make none of them classical.
