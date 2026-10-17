@@ -29,26 +29,15 @@ certify 317 31 nw:near-williamson/NW79.txt t-matrices/T31.txt` writes the certif
 
 ## Status
 
-**New, beyond the tables** ([MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md#near-williamson-matrices)). Table 1.53 of the
-Handbook of Combinatorial Designs (2nd ed., 2007) gives n = 9827 with t = 3: no Hadamard matrix of order 4n was known.
-Đoković's updates (arXiv:0912.5091, arXiv:1008.2043) do not cover it, and we found no later construction. The
-near-Williamson matrices of order 79 are from 2026, so the order is not obtainable classically by this route.
-
-- Paley's constructions do not apply: 4n − 1 = 39307 = 23 · 1709 and 2n − 1 = 19653 = 3 · 6551 are not prime powers.
-- Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
-  (mod 4).
-- Yamada–Kiyasu does not apply: n − 2 = 9825 = 3 · 5² · 131 is not a prime power ≡ 1 (mod 4).
-- Cooper–Wallis needs Williamson-type matrices of order 317 or T-matrices of order 317; neither is known to us.
-- The Paley-block route does not reach it: 4s − 1 = 123, 1267 and 39307 are not prime powers ≡ 3 (mod 8) for the other
-  divisors s of 9827, and the remaining ones need T-matrices of order 9827 (s = 1), which are not known to us.
-- The Miyamoto-block route with a negaperiodic or periodic Golay pair of length 158 does not apply: no negaperiodic pair
-  of that length is known (Balonin–Đoković, list (31), quasi-Williamson matrices of order 79), and a periodic one cannot
-  exist (316 = 2² · 79 is not a sum of two squares).
-- SageMath 10.8 (passagemath 10.8.13, October 2026) does not construct it: `hadamard_matrix(39308, existence=True)`
-  returns Unknown.
-
-We found no valid construction of order 39308 before this one. The sources searched are listed in
-[NOVELTY.md](../../NOVELTY.md).
+**Known** ([MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md#near-williamson-matrices)); the matrix here is independent. Table
+1.53 of the Handbook of Combinatorial Designs (2nd ed., 2007) gives n = 9827 with t = 3, but Đoković (arXiv:0912.5091)
+lists it in his set Δ of entries that should have had t = 2: Cooper–Wallis with T-matrices of order 31 and
+Williamson-type matrices of order 317 from Seberry–Yamada's Table A.1 (1992), which Corollary 8.8(ii) gives validly
+from Paley's symmetric conference matrix of order 158 (157 is a prime ≡ 1 mod 4). The route here was open classically
+too: Turyn's Williamson matrices of order 79 = (157 + 1)/2 (J. Combin. Theory Ser. A 12 (1972)) satisfy the same
+hypotheses as the near-Williamson matrices, and Paley's negaperiodic Golay pair of length 158 (Balonin–Đoković,
+Proposition 6, p = 157) gives the Golay-pair version of [MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md). An earlier version
+of this README labelled the order New, beyond the tables; the audit of October 17, 2026 found it in Δ.
 
 ## Files
 

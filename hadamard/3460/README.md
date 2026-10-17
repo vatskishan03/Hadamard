@@ -22,12 +22,15 @@ certificate.
 ## Status
 
 **First explicit construction** ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md#orders-recorded-only-through-corollary-88i)).
-Cati–Pasechnik's Table 4 omits n = 865: it inherits m = 2 from Seberry–Yamada's 2020 Table A.17, and their 1992 Table
-A.2 builds the order (code o2) from Williamson-type matrices of order 173. Table A.1 obtains Williamson-type matrices of
-order 173 only from Corollary 8.8(i) (key wl, with Williamson-type matrices of order 43 = (173 − 1)/4), whose printed
-proof does not give Williamson-type matrices ([NOTES.md](../../NOTES.md) §7). Table A.1 credits that case to Miyamoto
-(J. Combin. Theory Ser. A 57 (1991)), whose paper was not accessible to us; we found no valid proof of it and no other
-construction of Williamson-type matrices of order 173.
+Cati–Pasechnik's Table 4 omits n = 865 (m = 2, which by Cati–Pasechnik §6 and their footnote 11 comes from
+Seberry–Yamada's 2020 Table A.17; we did not read that table), and their 1992 Table A.2 builds the order (code o2) from
+Williamson-type matrices of order 173. Table A.1 obtains Williamson-type matrices of order 173 only from Corollary
+8.8(i) (key wl, with Williamson-type matrices of order 43 = (173 − 1)/4), whose printed proof does not give
+Williamson-type matrices ([NOTES.md](../../NOTES.md) §7). Table A.1 credits that case to Miyamoto (J. Combin. Theory
+Ser. A 57 (1991)), whose paper was not accessible to us; we found no valid proof of it. Since 6 October 2026 there is
+another construction: Verma's symmetric conference matrix of order 86 (arXiv:2610.08893, checked exactly here) gives
+symmetric Williamson-type matrices of order 173 by Corollary 8.8(ii), and Cooper–Wallis then gives this order; we found
+no statement of this.
 
 - Paley's constructions do not apply: 4n − 1 = 3459 = 3 · 1153 and 2n − 1 = 1729 = 7 · 13 · 19 are not prime powers.
 - Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1 = 866, and none is known to

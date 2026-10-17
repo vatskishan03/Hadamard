@@ -353,7 +353,7 @@ def assemble_cooper_wallis(T, W):
 
 def miyamoto_nw_k(rows, m):
     """K of order 2m = 4w for build_miyamoto_blocks from near-Williamson matrices (a, b, c, d) of order w (checked):
-    the Williamson array of (A R_w, B, C, D), relabelled so that the half swap of every quadrant becomes j -> 1 - j."""
+    miyamoto_wt_k of (A R_w, B, C, D) with R_w the back identity."""
     a, b, c, d = (np.array([SIGN[ch] for ch in r], dtype=np.int64) for r in rows)
     w = len(a)
     if 2 * w != m or any(len(x) != w for x in (b, c, d)):
@@ -363,8 +363,36 @@ def miyamoto_nw_k(rows, m):
     paf = paf_sum([a, b, c, d])
     if paf[0] != 4 * w or np.any(paf[1:] != 0):
         raise ValueError("the periodic autocorrelations of a, b, c, d must sum to 4w delta")
-    Rw = back_identity(w)
-    X1, X2, X3, X4 = circulant(a) @ Rw, circulant(b), circulant(c), circulant(d)
+    return miyamoto_wt_k([circulant(a) @ back_identity(w), circulant(b), circulant(c), circulant(d)], m)
+
+
+def unpack_symmetric(s, w):
+    """the symmetric +-1 matrix of order w whose upper triangle (row by row, diagonal included) is the bit string
+    base64 `s` (np.packbits order, 1 for +1)"""
+    import base64
+    k = w * (w + 1) // 2
+    bits = np.unpackbits(np.frombuffer(base64.b64decode(s), dtype=np.uint8))
+    if len(bits) != 8 * ((k + 7) // 8) or bits[k:].any():
+        raise ValueError("packed symmetric matrix of the wrong length")
+    X = np.zeros((w, w), dtype=np.int64)
+    X[np.triu_indices(w)] = 2 * bits[:k].astype(np.int64) - 1
+    return X + np.triu(X, 1).T
+
+
+def miyamoto_wt_k(X, m):
+    """K of order 2m = 4w for build_miyamoto_blocks from symmetric Williamson-type matrices X_1..X_4 of order w,
+    checked here: +-1 entries, symmetric, pairwise commuting, X_1^2 + X_2^2 + X_3^2 + X_4^2 = 4w I. K is their
+    Williamson array, relabelled so that the half swap of every quadrant becomes j -> 1 - j."""
+    w = X[0].shape[0]
+    if 2 * w != m or len(X) != 4 or any(x.shape != (w, w) for x in X):
+        raise ValueError("four matrices of order (q - 1)/4 required")
+    if any(not np.all(np.abs(x) == 1) or not np.array_equal(x, x.T) for x in X):
+        raise ValueError("Williamson-type matrices: symmetric +-1 matrices required")
+    if any(not np.array_equal(X[i] @ X[j], X[j] @ X[i]) for i in range(4) for j in range(i + 1, 4)):
+        raise ValueError("Williamson-type matrices must commute")
+    if not np.array_equal(sum(x @ x for x in X), 4 * w * np.eye(w, dtype=np.int64)):
+        raise ValueError("Williamson-type matrices: the sum of squares must be 4w I")
+    X1, X2, X3, X4 = X
     K0 = np.block([[X1, X2, X3, X4], [-X2, X1, -X4, X3], [-X3, X4, X1, -X2], [-X4, -X3, X2, X1]])
     P = np.zeros((m, m), dtype=np.int64)
     used, y = set(), 0
@@ -390,12 +418,15 @@ def build_miyamoto_blocks(cert):
     A_j = sum_k T_k (x) N_kj, and R = R_t (x) R_B, where R_t is x -> -x on Z_t and R_B fixes the border and sends
     (b, j) to (b, -j) if j = 0 or the pair is periodic, to (1 - b, -j) otherwise, the matrix is the Goethals-Seidel array
     [[A1, A2 R, A3 R, A4 R], [-A2 R, A1, A4^T R, -A3^T R], [-A3 R, -A4^T R, A1, A2^T R], [-A4 R, A3^T R, -A2^T R, A1]].
-    If the certificate has "nw" = (a, b, c, d) instead, these must be near-Williamson matrices of order w = (q - 1)/4
-    (circulant, b, c, d symmetric, PAF sum 4w delta); with R_w the reversal x -> -x of Z_w, W = (AR_w, B, C, D) are
-    pairwise commuting symmetric matrices, K0 is their Williamson array of order 4w = 2m, and K = (I_2 (x) P) K0 (I_2 (x) P)^T
-    where P relabels the indices (h, y) of each quadrant (h = 0, 1; y in Z_w) to Z_m: the pairs {j, 1 - j} of Z_m in order
-    of their smaller element j become (0, y) -> j and (1, y) -> 1 - j for y = 0, 1, ... Then R_B fixes the border and
-    sends (b, j) to (b, 1 - j).
+    If the certificate has "wt" instead, these are symmetric Williamson-type matrices X_1..X_4 of order w = (q - 1)/4
+    (each a base64 bit string of its upper triangle, row by row with the diagonal, 1 for +1), checked here to be
+    symmetric, pairwise commuting and with X_1^2 + ... + X_4^2 = 4w I. Then the quadrants [[X, Y], [-Y, X]] of their
+    Williamson array K0 (order 4w = 2m) lie in a commutative algebra and the half swap transposes them;
+    K = (I_2 (x) P) K0 (I_2 (x) P)^T, where P relabels the indices (h, y) of each quadrant (h = 0, 1; y < w) to Z_m: the
+    pairs {j, 1 - j} of Z_m in order of their smaller element j become (0, y) -> j and (1, y) -> 1 - j for y = 0, 1, ...
+    R_B fixes the border and sends (b, j) to (b, 1 - j). If the certificate has "nw" = (a, b, c, d), these must be
+    near-Williamson matrices of order w (circulant, b, c, d symmetric, PAF sum 4w delta), and X = (A R_w, B, C, D) with
+    R_w the back identity are used in the same way.
     Its H H^T = 4qt I is checked densely by build_checked."""
     q, g = cert["q"], cert["g"]
     if q % 4 != 1 or q < 5 or any(q % d == 0 for d in range(2, math.isqrt(q) + 1)):
@@ -405,7 +436,9 @@ def build_miyamoto_blocks(cert):
         raise ValueError("g is not a primitive root mod q")
     m = (q - 1) // 2
     periodic = "pg" in cert
-    if "nw" in cert:
+    if "wt" in cert:
+        K = miyamoto_wt_k([unpack_symmetric(x, m // 2) for x in cert["wt"]], m)
+    elif "nw" in cert:
         K = miyamoto_nw_k(cert["nw"], m)
     else:
         a, b = (np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["pg" if periodic else "ng"])
@@ -439,7 +472,7 @@ def build_miyamoto_blocks(cert):
     Rb = np.zeros(q, dtype=np.int64)
     for half in range(2):
         for j in range(m):
-            if "nw" in cert:
+            if "nw" in cert or "wt" in cert:
                 Rb[1 + half * m + j] = 1 + half * m + (1 - j) % m
             else:
                 Rb[1 + half * m + j] = 1 + (half if (j == 0 or periodic) else 1 - half) * m + (-j) % m

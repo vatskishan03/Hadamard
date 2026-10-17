@@ -22,12 +22,17 @@ certificate.
 ## Status
 
 **First explicit construction** ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md#orders-recorded-only-through-corollary-88i)).
-Cati–Pasechnik's Table 4 omits n = 2051: it inherits m = 2 from Seberry–Yamada's 2020 Table A.17, and their 1992 Table
-A.2 builds the order (code o2) from Williamson-type matrices of order 293. Table A.1 obtains Williamson-type matrices of
-order 293 only from Corollary 8.8(i) (key wl, with Williamson-type matrices of order 73 = (293 − 1)/4), whose printed
-proof does not give Williamson-type matrices ([NOTES.md](../../NOTES.md) §7). Table A.1 credits that case to Miyamoto
-(J. Combin. Theory Ser. A 57 (1991)), whose paper was not accessible to us; we found no valid proof of it and no other
-construction of Williamson-type matrices of order 293.
+Cati–Pasechnik's Table 4 omits n = 2051 (m = 2, which by Cati–Pasechnik §6 and their footnote 11 comes from
+Seberry–Yamada's 2020 Table A.17; we did not read that table), and their 1992 Table A.2 builds the order (code o2) from
+Williamson-type matrices of order 293. Table A.1 obtains Williamson-type matrices of order 293 only from Corollary
+8.8(i) (key wl, with Williamson-type matrices of order 73 = (293 − 1)/4), whose printed proof does not give
+Williamson-type matrices ([NOTES.md](../../NOTES.md) §7). Table A.1 credits that case to Miyamoto (J. Combin. Theory
+Ser. A 57 (1991)), whose paper was not accessible to us; we found no valid proof of it. For q = 293 the corollary can be
+repaired: Seberry–Yamada's symmetric Williamson-type matrices of order 73 (Corollary 8.8(ii) with Paley's symmetric
+Hadamard matrix of order 36) have a repeated block, and Lemma 26 in the repeated-block form of
+[NOTES.md](../../NOTES.md) §7 turns them into Williamson-type matrices of order 293 (checked exactly: `python3
+search/symwt.py "cor29r(293, cor29h(73, paley2(17)))"`). So the order was obtainable from published lemmas, by an
+arrangement we did not find in the literature.
 
 - Paley's constructions do not apply: 4n − 1 = 8203 = 13 · 631 and 2n − 1 = 4101 = 3 · 1367 are not prime powers.
 - Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3

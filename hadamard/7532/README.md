@@ -31,7 +31,9 @@ certify 269 7 nw:near-williamson/NW67.txt` writes the certificate.
 as open, and [FRONTIER.md](../../FRONTIER.md) listed it as unresolved. The near-Williamson matrices of order 67 are from
 September 2026. Seberry–Yamada's Corollary 8.8(i) would turn them into Williamson-type matrices of order 269, and
 Cooper–Wallis would then give this order. But the printed proof of that corollary does not give Williamson-type matrices
-([NOTES.md](../../NOTES.md) §7), and we found no claim of n = 1883 through it.
+([NOTES.md](../../NOTES.md) §7), and we found no claim of n = 1883 through it. Seberry and Yamada (J. Combin. Math.
+Combin. Comput. 7 (1990), Remark 30) list 269 among the orders that Corollary 29(i) would give once Williamson-type
+matrices of order 67 were found.
 
 - Paley's constructions do not apply: 4n − 1 = 7531 = 17 · 443 and 2n − 1 = 3765 = 3 · 5 · 251 are not prime powers.
 - Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3

@@ -187,39 +187,63 @@ H((q−1)/2) exists, then WT(q) exists.
   Williamson-type matrices of orders 809 and 373 that their Table A.1 obtains only from this corollary. We checked
   this with code written from the printed pages, against positive controls (Corollary 29(ii) with symmetric
   conference matrices, part (i) with a symmetric H) that do give Williamson-type matrices.
-- **Beyond Table 4.** Đoković's Propositions 3.2–3.4 rest on the corollary alone for 13 entries between 3001 and
-  9999: 4285, 5999, 6617, 7179, 7323, 8079, 8187, 8653, 8751, 8859, 9427, 9627 (printed as 9087) and 9671. 8079 is
-  now reached by the Paley-block route ([hadamard/32316](hadamard/32316)); the others are unresolved as far as we
-  know. His other uses of the corollary have valid alternatives, checked for every q: Corollary 29(ii) with a
-  symmetric H((q − 1)/2) or a symmetric conference matrix, or Turyn (e.g. 7167 through Paley's conference matrix of
-  order 1194, 9111 through Turyn with 6073 prime).
-- **Through Table A.1 (October 17).** The failure also reaches orders built by Cooper–Wallis (or Yang's products)
-  from the Williamson-type matrices of Table A.1 that rest on the corollary alone: the 19 primes q = 173, 293, 373,
-  521, 613, 757, 773, 809, 953, 1109, 1193, 1301, 1453, 1493, 1637, 1693, 1733, 1753 and 1993 (all of key wl, credited
-  to Miyamoto's paper, which we could not read), for which Turyn, Corollary 8.8(ii) with a symmetric input known before
+- **Beyond Table 4.** Đoković's Propositions 3.2–3.4 rest on the corollary alone for 13 entries between 3001 and 9999:
+  4285, 5999, 6617, 7179, 7323, 8079, 8187, 8653, 8751, 8859, 9427, 9627 (printed as 9087) and 9671. 8079 is now reached
+  by the Paley-block route ([hadamard/32316](hadamard/32316)), 7179 and 7323 by Miyamoto blocks (§23), 6617, 8653 and
+  9671 with near-Williamson matrices (§25), and 8187, 8751, 8859 and 9627 with symmetric Williamson-type matrices (§26);
+  4285, 5999 and 9427 (q = 857) are unresolved as far as we know. His other uses of the corollary have valid
+  alternatives, checked for every q: Corollary 29(ii) with a symmetric H((q − 1)/2) or a symmetric conference matrix, or
+  Turyn (e.g. 7167 through Paley's conference matrix of order 1194, 9111 through Turyn with 6073 prime).
+- **Through Table A.1 (October 17).** The failure also reaches orders built by Cooper–Wallis (or Yang's products) from
+  the Williamson-type matrices of Table A.1 that rest on the corollary alone: the 19 primes q = 173, 293, 373, 521, 613,
+  757, 773, 809, 953, 1109, 1193, 1301, 1453, 1493, 1637, 1693, 1733, 1753 and 1993 (all of key wl, credited to
+  Miyamoto's paper, which we could not read), for which Turyn, Corollary 8.8(ii) with a symmetric input known before
   2026, and Corollaries 8.7 and 8.9 all fail. (An earlier version of this list left out 173, whose wl entry comes from
-  Williamson matrices of order 43; it would need a symmetric conference matrix of order 86 for part (ii).) The orders
-  n ≤ 9999 that a table records as known and that rest only on these primes, after checking Paley I and II, Miyamoto,
-  Yamada–Kiyasu (with the skew-Hadamard matrices known to the Đoković–Seberry census or built here), Spence, the other
-  T × WT splits and SageMath's development version (Unknown for each), are:
+  Williamson matrices of order 43; it would need a symmetric conference matrix of order 86 for part (ii), and Verma's of
+  arXiv:2610.08893 (6 October 2026) now provides one; see the last bullet.) The orders n ≤ 9999 that a table records as
+  known and that rest only on these primes, after checking Paley I and II, Miyamoto, Yamada–Kiyasu (with the
+  skew-Hadamard matrices known to the Đoković–Seberry census or built here), Spence, the other T × WT splits and
+  SageMath's development version (Unknown for each), are:
   - n ≤ 2999, omitted by Cati–Pasechnik's Table 4 (m = 2 from Seberry–Yamada's Table A.17; code o2 in the 1992 Table
     A.2): 519, 865, 1211, 1557, 1903 and 2249 (from WT(173)), 1465 and 2051 (from WT(293)), which the Paley-block route
     reaches (q = 691 and 1171) and which are built here, 2427 (above), built here by Miyamoto blocks with a periodic
     Golay pair (§23), and 2611 (above), which no route we know reaches;
   - Handbook Table 1.53 with t = 2: 3223, 3633, 3809 and 3979 (Paley blocks; 3223 also by Yamada–Kiyasu from our skew
     matrix of order 1612), 3065 (Miyamoto blocks with Williamson matrices of order 153, §23), 3903 (the same with order
-    325, not built) and 3579 and 3865 (no route);
+    325, not built) and 3579 and 3865 (Miyamoto blocks with symmetric Williamson-type matrices, §26);
   - Đoković's set Δ (arXiv:0912.5091), whose proof takes Williamson-type matrices from Table A.1: 4981, 5017, 5363,
     5567, 5709, 7093, 7325, 7439, 8131, 8477, 9083, 9169, 9325 and 9515 (Paley blocks), 8899 and 6743 (Miyamoto blocks
     with a periodic Golay pair or Williamson matrices of order 153, §23), 9107 (the same with order 325, not built),
-    5259 (below), and 4479, 4765, 5199, 5411, 5545, 5965, 5979, 6341, 6813, 8327, 8465, 8503, 8579, 8665 and 9965 (no
-    route; for 5199 and 8503 Yamada–Kiyasu would need skew-Hadamard matrices of orders 2600 and 4252, not known to us).
+    5259 (below), 6341 and 8579 (near-Williamson matrices, §25), 4765, 5199, 5411, 5545, 5965, 5979, 8465, 8503, 8665
+    and 9965 (symmetric Williamson-type matrices, §26), and 4479, 6813 and 8327 (no route).
   - 5259 = 3 · 1753 is now settled: 1753 ≡ 1 (mod 8), and Corollary 8.8(ii) with the symmetric Hadamard matrix of
     order 876 of this repository gives symmetric Williamson-type matrices of order 1753 (checked exactly), hence
     H(21036) by Cooper–Wallis ([hadamard/21036](hadamard/21036)). 8765 = 5 · 1753 has Paley I (35059 is prime).
   - The orders built here are labelled First explicit construction: a table records them as known, and the only
     construction we could trace is the corollary's. If Miyamoto's 1991 paper proves the Williamson-type case, they
     were known.
+
+- **Repaired primes (October 17, later).** The list of 19 was too long. The corollary works when the Williamson-type
+  matrices of order (q − 1)/4 have a repeated block (above), and Seberry–Yamada's own symmetric constructions give
+  repeated blocks: Corollary 8.8(ii) with M₃ = M₄ = H, Corollary 27 (U₃ = U₄, V₃ = V₄) and Corollary 31 all have X₃ =
+  X₄. Their Remark 30 derives Williamson-type matrices of orders 293, 773, 1453, 1637, 1693 and 1733 from orders 73,
+  193, 363, 409, 423 and 433, and those are exactly of these kinds (73, 193, 409 and 433 by Corollary 8.8(ii) with
+  symmetric Hadamard matrices of orders 36, 96, 204 and 216; 363 by Corollary 27 (their Remark 28) or Corollary 31 with
+  q = 181 over GF(361), which we used; 423 by Corollary 27(i)). The repeated-block form of Lemma 26 then gives symmetric
+  Williamson-type matrices of all six orders, checked exactly (`python3 search/symwt.py "cor29r(773, cor29h(193,
+  kron(paley2(5), h2(), h2(), h2())))"` and so on), and also of order 2917 from 729 (Đoković's Proposition 3.3). So
+  Table A.1's entries for these primes are correct, with a proof that is ours, and the orders resting on them were
+  obtainable classically: 1465, 2051, 3223, 3809, 4981, 5567, 7325 and 9083 (q = 293, built by Paley blocks) and 3865,
+  5411, 8503, 5199, 8665, 8465 and 8751 (§26). The complex order 1546 follows at once: the array [[X, Y], [−Ȳ, X̄]] of
+  the symmetric Williamson-type matrices of order 773 is a complex Hadamard matrix (checked). For 173, Verma's symmetric
+  conference matrix of order 86 (arXiv:2610.08893, 6 October 2026; we checked C = Cᵀ, zero diagonal and C² = 85I from
+  the printed 12 × 12 array of circulants) gives symmetric Williamson-type matrices of order 173 by Corollary 8.8(ii),
+  so the orders 519, 865, 1211, 1557, 1903, 2249, 3633 and 3979 and the other 173 · t entries built by Paley blocks have
+  a published route since then, which no one has stated. The other twelve primes, 373, 521, 613, 757, 809, 953, 1109,
+  1193, 1301, 1493, 1753 and 1993, keep their status (1753 was settled by H(876) above). Their inputs are Williamson
+  matrices or Williamson-type matrices with four distinct blocks, or a non-symmetric Hadamard matrix of order (q − 1)/2.
+  A search for circulant Williamson matrices (A, B, C, C) of orders 43, 93, 153, 189, 277, 325 and 373 over the
+  multiplier groups containing −1 with at most 18 orbits (some row-sum classes skipped as too large) found none.
 
 **Spence-W: Williamson-type matrices from Spence sequences.** Take four ±1 sequences on ℤ₂ × ℤ_n with ΣPAF = −4 off
 zero (Spence's condition for order 4(2n+1)), one invariant under a multiplier group H and three under ⟨H, −1⟩.
@@ -1266,12 +1290,56 @@ the back-identity, so the matrix differs from the judge's). All four orders are 
 - 10444 = 4 · 2611 (q = 373, order 93 from the database, T-matrices of order 7): First explicit construction. Table 4
   omits it through Seberry–Yamada's Table A.2 (Williamson-type matrices of order 373 from Corollary 8.8(i)).
 
-This does not give Williamson-type matrices of order q; Corollary 8.8(i) stays unproven (§7). FRONTIER.md now has 130
-entries. Of its entries of the form n = qt with q ≡ 1 (mod 4) a prime and T-matrices of order t known, the route still
-misses 2571 (q = 857, w = 214), 2823 (q = 941, w = 235) and 2677 (t = 1, which needs H(2676)). The database orders with
-q = 4w + 1 prime are 67, 73, 79, 93, 97 and 127. Beyond Table 4 they reach the Handbook entries listed with t ≥ 3 n =
-3497, 4573, 8339, 9953 (q = 269), 9827 (317), 6341, 8579 (373), 6617, 8653 and 9671 (509), now all built
-(hadamard/MIYAMOTO_BLOCKS.md; T-matrices of order 37 from `search/tmat_mult.py 37 10`). 6341 and 8579 are in Đoković's
-set Δ and 6617, 8653 and 9671 among his 2010 claims, all through Corollary 8.8(i); the other five are new beyond the
+This does not give Williamson-type matrices of order q; Corollary 8.8(i) stays unproven in general (§7; for some q a
+repeated block repairs it, §26). FRONTIER.md now has 130 entries. Of its entries of the form n = qt with q ≡ 1 (mod 4) a
+prime and T-matrices of order t known, the route still misses 2571 (q = 857, w = 214), 2823 (q = 941, w = 235) and 2677
+(t = 1, which needs H(2676)). Of the database's existence orders (53 to 181), those with q = 4w + 1 prime are 67, 73,
+79, 93, 97 and 127. Among the Handbook entries with t ≥ 3 they reach n = 3497, 4573, 8339, 9953 (q = 269), 9827 (317),
+6341, 8579 (373), 6617, 8653 and 9671 (509), now all built (hadamard/MIYAMOTO_BLOCKS.md; T-matrices of order 37 from
+`search/tmat_mult.py 37 10`); 4981, 5567, 7325, 9083 (q = 293) and 9325 (373) are reached too but were built by Paley
+blocks. 6341 and 8579 are in Đoković's set Δ and 6617, 8653 and 9671 among his 2010 claims, all through Corollary
+8.8(i). 9827 is in Δ as well, validly: Cooper–Wallis with Williamson-type matrices of order 317 from Corollary 8.8(ii)
+and Paley's conference matrix of order 158. So 39308 is a new matrix of a known order; an earlier version of this
+section called it new beyond the tables, and the audit of October 17 corrected it. The other four are new beyond the
 tables. For q = 509 Đoković's good matrices of order 127 (1993) satisfy the hypotheses too, so 1527, 2545 and the 509 ·
-t entries were obtainable classically; for q = 269, 317 and 373 the inputs are the 2026 near-Williamson matrices.
+t entries were obtainable classically, and for q = 317 Turyn's Williamson matrices of order 79 would do; for q = 269 and
+373 the inputs are the 2026 near-Williamson matrices (J. Wallis's Williamson-type matrices of order 93 are not
+symmetric, and the propus symmetric Hadamard matrices of orders 268 and 372 do not have commuting quadrants, checked by
+the audit).
+
+## 26. Miyamoto blocks with symmetric Williamson-type matrices, and the corollary with a repeated block (October 17)
+
+§25 used only that X₁, …, X₄ are symmetric, commute pairwise and have Σ Xᵢ² = 4wI. Seberry and Yamada's corollaries of
+1990 make many such matrices: Corollary 25 (order 2uv from orders u and v), 27 (order p + 2), 29(ii) (order q from a
+symmetric conference or Hadamard matrix of order (q − 1)/2) and 31 (order 2p + 1), seeded by circulant Williamson
+matrices and Turyn's family of order (p + 1)/2. `search/symwt.py` builds them all, over GF(p^k) where needed (Yamada's
+circulants α, β with α² + β² = pI from GF(p²), Miyamoto's lemma over GF(729), Paley II over GF(49)), and checks them.
+`miyamoto_blocks.py certify q t "wt:RECIPE"` stores the four matrices (upper triangles, base64), and `verify.py` checks
+them before building K (`miyamoto_wt_k`; a flipped bit is rejected).
+
+Over the Handbook entries 3001 ≤ n ≤ 9999 with t ≥ 3, or recorded only through Corollary 8.8(i), the route reaches 148.
+124 already had valid constructions (Đoković's set Δ and his 2010 propositions, or orders built here), and 8
+corollary-only ones were built here before by other routes. The other sixteen are built (dense checks of verify.py:
+hadamard/MIYAMOTO_BLOCKS.md), all First explicit constructions: 3579 and 5965 (q = 1193, w = 298 = 2 · 1 · 149), 3865,
+5411 and 8503 (773, w = 193), 4765 (953, w = 238 = 2 · 7 · 17), 5199 and 8665 (1733, w = 433), 5545 (1109, w = 277),
+5979 and 9965 (1993, w = 498 = 2 · 3 · 83), 8187 (2729, w = 682 = 2 · 11 · 31), 8465 (1693, w = 423), 8751 (2917, w =
+729), 8859 (2953, w = 738 = 2 · 9 · 41) and 9627 (3209, w = 802 = 2 · 1 · 401), with T-matrices of order 3, 5, 7 or 11
+(hadamard/MIYAMOTO_BLOCKS.md). Among the 85 other reach orders not built here none lies outside Δ and Đoković's 2010
+propositions. FRONTIER.md gains nothing: 2571 and 2823 would need order 214 = 2 · 107 or 235, which none of the
+corollaries gives.
+
+The search for inputs showed that the corollary itself can be repaired for seven primes: Seberry–Yamada's symmetric
+matrices from Corollaries 8.8(ii) with M₃ = M₄, 27 and 31 have X₃ = X₄, and the repeated-block form of Lemma 26 (§7)
+gives symmetric Williamson-type matrices of orders 293, 773, 1453, 1637, 1693, 1733 and 2917, checked exactly. §7 now
+says which entries this repairs (also the complex order 1546).
+
+The audit of §25 (workflow of October 17: an independent rebuild of the four near-Williamson orders, which reproduced
+their SHA-256 values, two novelty lenses and a claims check) found that 9827 is in Đoković's set Δ through valid
+Williamson-type matrices of order 317, so 39308 is relabelled Known, and that Verma's symmetric conference matrix of
+order 86 (arXiv:2610.08893, 6 October 2026) settles Williamson-type matrices of order 173 through Corollary 8.8(ii); we
+checked the matrix exactly. Smaller corrections (citations of Đoković's propositions, the range of Balonin–Đoković's
+list (31), the provenance of the near-Williamson files, the Table A.17 inference) are applied in the READMEs.
+
+Negative: no circulant Williamson matrices (A, B, C, C) of orders 43, 93, 153, 189, 277, 325 or 373 in the multiplier
+structures with at most 18 orbits (some row-sum classes skipped), so the repair does not reach 173, 373, 613, 757, 1109,
+1301 or 1493 this way.

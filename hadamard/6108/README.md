@@ -28,12 +28,15 @@ certify 509 3 nw:near-williamson/NW127.txt` writes the certificate.
 ## Status
 
 **First explicit construction** ([MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md#near-williamson-matrices)). Cati–Pasechnik's
-Table 4 lists n = 1527 as open. Đoković (arXiv:1008.2043, Propositions 3.2–3.4; Int. Math. Forum 6 (2011) 3061–3067)
-settles it with Williamson-type matrices of order 509, which he obtains from his good matrices of order 127 through
+Table 4 lists n = 1527 as open. Đoković (arXiv:1008.2043, Proposition 3.3; Int. Math. Forum 6 (2011) 3061–3067)
+claims it with Williamson-type matrices of order 509, which he obtains from his good matrices of order 127 through
 Seberry–Yamada's Corollary 8.8(i). The printed proof of that corollary does not give Williamson-type matrices
 ([NOTES.md](../../NOTES.md) §7), and [FRONTIER.md](../../FRONTIER.md) listed the order as unresolved. Good matrices of
 order 127 also satisfy the hypotheses used here (circulant, B, C, D symmetric), so Đoković's matrices would serve as
-well as the near-Williamson matrices of the 2026 database.
+well as the near-Williamson matrices of the 2026 database. Miyamoto's 1991 paper (J. Combin. Theory Ser. A 57) may record
+the order too: by the transcription in the JD-Jones-ASES Hadamard-M note, its list (2) of Williamson-type orders
+contains 127, which would give 509 and so 1527 = 3 · 509 in its list (3); the same note finds that entry unsupported by
+Miyamoto's Corollary 4. We could not read the paper itself (zbMATH review Zbl 0733.05017), so this is unverified.
 
 - Paley's constructions do not apply: 4n − 1 = 6107 = 31 · 197 and 2n − 1 = 3053 = 43 · 71 are not prime powers.
 - Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
@@ -44,8 +47,8 @@ well as the near-Williamson matrices of the 2026 database.
   divisors s of 1527, and the remaining ones need T-matrices of order 1527 (s = 1) or 509 (s = 3), which are not known
   to us.
 - The Miyamoto-block route with a negaperiodic or periodic Golay pair of length 254 does not apply: no negaperiodic pair
-  of that length is known (Balonin–Đoković, list (31), quasi-Williamson matrices of order 127), and a periodic one
-  cannot exist (508 = 2² · 127 is not a sum of two squares).
+  of that length is known to us (Balonin–Đoković's lists (25) and (31) cover odd orders below 120 only, and none of their
+  families gives length 254: 253 = 11 · 23 and 507 = 3 · 13² are not prime powers), and a periodic one cannot exist (508 = 2² · 127 is not a sum of two squares).
 - SageMath 10.8 (passagemath 10.8.13, October 2026) does not construct it: `hadamard_matrix(6108, existence=True)`
   returns Unknown.
 

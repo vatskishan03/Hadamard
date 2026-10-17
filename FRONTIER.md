@@ -31,19 +31,25 @@ orders 509 (from good matrices of order 127) and 857 (from H(428)). He took them
 Yamada (1992), Corollary 29(i) of JCMCC 7 (1990). The printed proof of that corollary does not give Williamson-type
 matrices: its X₁ and X₄ are amicable only when V₄ is symmetric, which never happens for Williamson-type inputs and, for
 an Hadamard input H, only when H is symmetric. That is part (ii), and no symmetric H(428) is known ([NOTES.md](NOTES.md)
-§7, §19). We found no other proof, and Miyamoto's 1991 paper, credited with the Williamson-type case, was not
-accessible. 1527 and 2545 now have a valid construction that bypasses the corollary: near-Williamson matrices of order
-127 (good matrices would do as well) in Miyamoto's matrix of order 2036 in bordered blocks, times T-matrices of order 3
-or 5 ([hadamard/6108](hadamard/6108), [hadamard/10180](hadamard/10180)). 2571 remains unresolved (row 10284; its Spence
-columns were not computed). The same holds for n = 2427 = 3 · 809 and 2611 = 7 · 373, which Table 4 omits: it inherits m
-= 2 from Seberry–Yamada's 2020 Table A.17, and the 1992 Table A.2 builds them (code o2) from Williamson-type matrices of
-orders 809 and 373 that their Table A.1 obtains only from Corollary 8.8(i). Both now have valid constructions in
-bordered blocks: 2427 with a periodic Golay pair of length 404 ([hadamard/9708](hadamard/9708),
+§7, §19). We found no other proof, and Miyamoto's 1991 paper, credited with the Williamson-type case, was not accessible
+(by a secondary transcription, its list (3) may record 1527 as well, through an entry 127 of its list (2) that its
+Corollary 4 does not support; unverified). 1527 and 2545 now have a valid construction that bypasses the corollary:
+near-Williamson matrices of order 127 (good matrices would do as well) in Miyamoto's matrix of order 2036 in bordered
+blocks, times T-matrices of order 3 or 5 ([hadamard/6108](hadamard/6108), [hadamard/10180](hadamard/10180)). 2571
+remains unresolved (row 10284; its Spence columns were not computed). Table 4 also omits, for the same reason, n = 2427
+= 3 · 809 and 2611 = 7 · 373 (m = 2, which by Cati–Pasechnik §6 and their footnote 11 comes from Seberry–Yamada's 2020
+Table A.17, a table we did not read); the 1992 Table A.2 builds them (code o2) from Williamson-type matrices of orders
+809 and 373 that their Table A.1 obtains only from Corollary 8.8(i). Both now have valid constructions in bordered
+blocks: 2427 with a periodic Golay pair of length 404 ([hadamard/9708](hadamard/9708),
 [hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#periodic-golay-pairs)) and 2611 with near-Williamson matrices
 of order 93 ([hadamard/10444](hadamard/10444)). Eight more orders that Table 4 omits for the same reason, n = 519, 865,
 1211, 1557, 1903 and 2249 (Williamson-type matrices of order 173) and 1465 and 2051 (order 293), are no longer open:
 Paley's matrix of order 692 or 1172 in sixteen circulant blocks gives them without the corollary
-([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#orders-recorded-only-through-corollary-88i)).
+([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#orders-recorded-only-through-corollary-88i)). The Williamson-type
+matrices themselves are now valid too: for 293, Seberry–Yamada's symmetric ones of order 73 have a repeated block, and
+Lemma 26 in the repeated-block form turns them into order 293 ([NOTES.md](NOTES.md) §7, checked); for 173, Verma's
+symmetric conference matrix of order 86 (arXiv:2610.08893, 6 October 2026, checked) gives order 173 by Corollary
+8.8(ii).
 
 **Columns.** For each order the table lists the cheapest structure of each kind
 found by `search/triage.py` that is expected to contain at least ten solutions:
@@ -78,9 +84,10 @@ order from a smaller object, where one applies:
   multiplier symmetry exist ([NOTES.md](search/NOTES.md) §6, §37).
   Also listed for w = 857, whose Williamson-type matrices are claimed only through Seberry–Yamada's Corollary 8.8(i).
 - Miyamoto blocks ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md)): for n = q·t with q = 4w + 1 a prime
-  and T-matrices of order t known, near-Williamson matrices of order w or a negaperiodic Golay pair of length 2w. Not
-  listed in the table; the open cases are 2571 (w = 214), 2823 (w = 235) and 2677 (q = 2677, t = 1, which needs
-  a Hadamard matrix of order 2676 = 4 · 669).
+  and T-matrices of order t known, symmetric Williamson-type matrices of order w (near-Williamson matrices give them;
+  Kharaghani et al. define those for odd w only) or a negaperiodic Golay pair of length 2w. Not listed in the table;
+  the open cases are 2571 (w = 214), 2823 (w = 235) and 2677 (q = 2677, t = 1, which needs a Hadamard matrix of order
+  2676 = 4 · 669).
 
 A conference matrix of that order cannot exist when (n − 1)/2 is not a sum of two
 squares.

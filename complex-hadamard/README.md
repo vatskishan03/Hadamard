@@ -236,9 +236,11 @@ constructs (Miyamoto; Cooper–Wallis), stored in [`inputs/`](inputs).
 | 1618 | 809 | completion of Seberry–Yamada's Corollary 8.8(i), q = 809 | H(404), [`inputs/H404.txt`](inputs/H404.txt) | [C1618.json](C1618.json) |
 | 1906 | 953 | completion of Seberry–Yamada's Corollary 8.8(i), q = 953 | H(476), [`inputs/H476.txt`](inputs/H476.txt) | [C1906.json](C1906.json) |
 
-The same completion gives 746, 1514 and 1546 (q = 373, 757, 773) from complex Hadamard matrices of orders 186, 378
-and 386, which Table A.1's Williamson-type matrices of orders 93, 189 and 193 provide; we did not build them. Without
-the completion these five orders would rest on the corollary alone.
+The same completion gives 746, 1514 and 1546 (q = 373, 757, 773) from complex Hadamard matrices of orders 186, 378 and
+386, which Table A.1's Williamson-type matrices of orders 93, 189 and 193 provide; we did not build them. Without the
+completion these five orders would rest on the corollary alone. 1546 also comes directly from Williamson-type matrices
+of order 773, which Lemma 26 gives from Seberry–Yamada's symmetric ones of order 193 with a repeated block
+([NOTES.md](../NOTES.md) §7; the complex array checks exactly, not stored here).
 
 Each certificate gives N, the multiplier group, the row sums, the first rows of A, B, C, D (`+`, `-`) (for the
 bordered array also the group of order N − 1 and the border; for the character-bordered array the group, the fibre

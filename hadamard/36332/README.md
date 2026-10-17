@@ -28,8 +28,12 @@ Table 1.53 of the Handbook of Combinatorial Designs (2nd ed., 2007) gives n = 90
 matrices from Seberry–Yamada's Table A.1 (1992); for 9083 they are of order 293. Table A.1 obtains Williamson-type
 matrices of order 293 only from Corollary 8.8(i) (key wl, with Williamson-type matrices of order 73 = (293 − 1)/4),
 whose printed proof does not give Williamson-type matrices ([NOTES.md](../../NOTES.md) §7). Table A.1 credits that case
-to Miyamoto (J. Combin. Theory Ser. A 57 (1991)), whose paper was not accessible to us; we found no valid proof of it
-and no other construction of Williamson-type matrices of order 293.
+to Miyamoto (J. Combin. Theory Ser. A 57 (1991)), whose paper was not accessible to us; we found no valid proof of it.
+For q = 293 the corollary can be repaired: Seberry–Yamada's symmetric Williamson-type matrices of order 73 (Corollary
+8.8(ii) with Paley's symmetric Hadamard matrix of order 36) have a repeated block, and Lemma 26 in the repeated-block
+form of [NOTES.md](../../NOTES.md) §7 turns them into Williamson-type matrices of order 293 (checked exactly: `python3
+search/symwt.py "cor29r(293, cor29h(73, paley2(17)))"`). So the order was obtainable from published lemmas, by an
+arrangement we did not find in the literature.
 
 - Paley's constructions do not apply: 4n − 1 = 36331 = 47 · 773 and 2n − 1 = 18165 = 3 · 5 · 7 · 173 are not prime
   powers.

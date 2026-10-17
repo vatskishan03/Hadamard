@@ -56,6 +56,9 @@ For every order we checked:
     Theorem 4.5, which give every order 2N with 4N − 1 a prime power (found on 16 October 2026, after we had
     labelled 76 such orders New; corrected in [complex-hadamard](complex-hadamard/README.md#status));
   - Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev, arXiv:2605.08661 (near-Williamson matrices);
+  - H. Verma, A symmetric conference matrix of order 86, arXiv:2610.08893 (6 October 2026; found by the audit of 17
+    October 2026 and checked exactly here), which gives Williamson-type matrices of order 173 through Seberry–Yamada's
+    Corollary 8.8(ii) ([NOTES.md](NOTES.md) §7);
   - for the T-matrices, S. London and I. Kotsireas, New Turyn-type sequences, Cryptogr. Commun. 17 (2025)
     1601–1610 (TT(40), TT(42), TT(44)), which give T-sequences of length 131 (found on 16 October 2026, after we
     had listed 131 as new; corrected in [t-matrices](t-matrices/README.md));
@@ -113,7 +116,10 @@ The searches were made between 12 and 14 October 2026.
   Corollaries via M-structures), the most likely place for a prior statement of the Miyamoto-block route; only its
   contents and index were seen.
 - J. Seberry, *Orthogonal Designs* (Springer, 2017), and Geramita–Seberry (1979).
-- The lists in §7 of Miyamoto, J. Combin. Theory Ser. A 57 (1991), which Cati and Pasechnik could not verify either.
+- The lists in §7 of Miyamoto, J. Combin. Theory Ser. A 57 (1991), which Cati and Pasechnik could not verify either. We
+  know them only through secondary sources: the zbMATH review (Zbl 0733.05017) and the transcription in the
+  JD-Jones-ASES Hadamard-M note, by which list (2) contains 127 (unsupported by Miyamoto's Corollary 4, per that note),
+  so that list (3) may record 1527 = 3 · 509.
 - The skew table of the Handbook (Table 1.51).
 - MathSciNet, zbMATH, and the full texts of paywalled journals from 2025–2026.
 

@@ -28,7 +28,9 @@ construction we traced uses Williamson-type matrices of order 173 from Seberry�
 obtains Williamson-type matrices of order 173 only from Corollary 8.8(i) (key wl, with Williamson-type matrices of order
 43 = (173 − 1)/4), whose printed proof does not give Williamson-type matrices ([NOTES.md](../../NOTES.md) §7). Table A.1
 credits that case to Miyamoto (J. Combin. Theory Ser. A 57 (1991)), whose paper was not accessible to us; we found no
-valid proof of it and no other construction of Williamson-type matrices of order 173.
+valid proof of it. Since 6 October 2026 there is another construction: Verma's symmetric conference matrix of order 86
+(arXiv:2610.08893, checked exactly here) gives symmetric Williamson-type matrices of order 173 by Corollary 8.8(ii), and
+Cooper–Wallis then gives this order; we found no statement of this.
 
 - Paley's constructions do not apply: 4n − 1 = 15915 = 3 · 5 · 1061 and 2n − 1 = 7957 = 73 · 109 are not prime powers.
 - Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3

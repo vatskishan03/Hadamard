@@ -125,6 +125,12 @@ with T-matrices of order t; for s = 373 it reaches 9325 = 25 · 373 through q = 
 We built 26 of them; the T-matrices of orders 21 and 33 come from the Golay pairs of lengths 20 and 32 (Turyn), those of
 order 43 from `search/tmat_mult.py 43 6`, and those of order 55 from Yang's multiplication (above). They are labelled
 First explicit construction: a table records them as known, and the only construction we could trace is the corollary's.
+Two later findings give the Williamson-type matrices themselves for s = 293 and 173 ([NOTES.md](../NOTES.md) §7): for
+293, Seberry–Yamada's symmetric Williamson-type matrices of order 73 have a repeated block, and Lemma 26 in the
+repeated-block form turns them into order 293 (checked); for 173, Verma's symmetric conference matrix of order 86
+(arXiv:2610.08893, 6 October 2026, checked) gives them by Corollary 8.8(ii). So the orders with s = 293 were obtainable
+classically, and those with s = 173 have a published route since October 6, 2026; the labels stay, as no one stated
+these constructions.
 
 | Order | n | s | q | t | Recorded by |
 |------:|---:|---:|---:|---:|---|
