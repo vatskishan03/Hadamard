@@ -1,12 +1,13 @@
 # Unresolved orders
 
-This page lists the 130 entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard matrix of order 4n
-is known. The other 65 entries are settled:
+This page lists the 133 entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard matrix of order 4n
+is known. The other 62 entries are settled:
 
 - 12 by Alpöge, Voinov and Reynolds-Haertle (2026);
 - 19 by other public constructions of 2026 (Schneider; the JD-Jones-ASES repositories Hadamard-T and Hadamard-M;
   Schumer);
-- 9 by Đoković in 2010;
+- 6 by Đoković in 2010 (n = 823, 883, 1063, 1303, 2143 and 2335, by Yamada's theorems; arXiv:1008.2043,
+  Propositions 3.1 and 3.4);
 - 1 in 1988: n = 1823, from the symmetric conference matrix of order 3646 of Seberry and Whiteman, which the tables
   missed ([NOTES.md](NOTES.md) §7);
 - 10 in this repository: n = 523, 537, 571, 573, 933, 991, 1123, 1255, 1483 and 2293 (the orders
@@ -18,6 +19,17 @@ is known. The other 65 entries are settled:
   as sixteen circulant blocks (q ≡ 3 mod 8) times T-matrices of order t
   ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md)): n = 789, 1315, 1509, 1589, 1689, 1841, 1915, 2155, 2515,
   2661, 2733, 2815, 2893 and 2951.
+
+**Claimed through Seberry–Yamada's Corollary 8.8(i).** Đoković (arXiv:1008.2043, Propositions 3.2–3.4; Int. Math.
+Forum 6 (2011) 3061–3067) also settled n = 1527 = 3 · 509, 2545 = 5 · 509 and 2571 = 3 · 857, with Williamson-type
+matrices of orders 509 (from good matrices of order 127) and 857 (from H(428)). He took them from Corollary 8.8(i) of
+Seberry and Yamada (1992), Corollary 29(i) of JCMCC 7 (1990). The printed proof of that corollary does not give
+Williamson-type matrices: its X₁ and X₄ are not amicable for any input ([NOTES.md](NOTES.md) §19). We found no other
+proof and no other construction; Miyamoto's 1991 paper, credited with the Williamson-type case, was not accessible.
+We list the three orders as unresolved (rows 6108, 10180 and 10284; their Spence columns were not computed). The same
+holds for n = 2427 = 3 · 809 and 2611 = 7 · 373, which Table 4 omits because Seberry–Yamada's Table A.2 (1992, code
+o2) builds them from Williamson-type matrices of orders 809 and 373 that their Table A.1 obtains only from Corollary
+8.8(i).
 
 **Columns.** For each order the table lists the cheapest structure of each kind
 found by `search/triage.py` that is expected to contain at least ten solutions:
@@ -50,6 +62,8 @@ order from a smaller object, where one applies:
 - Cooper–Wallis: Williamson-type matrices of order w, for n = t·w with T-matrices of order t known. Listed for
   w = 191 (t = 5, 9, 15), where neither T-matrices of order 191 nor near-Williamson matrices of order 191 with a
   multiplier symmetry exist ([NOTES.md](search/NOTES.md) §6, §37).
+  Also listed for w = 509 and 857, whose Williamson-type matrices are claimed only through Seberry–Yamada's
+  Corollary 8.8(i).
 
 A conference matrix of that order cannot exist when (n − 1)/2 is not a sum of two
 squares.
@@ -98,6 +112,7 @@ squares.
 | 5892 | 1473 | – | – | – | – | – | ℤ8xℤ8 × ℤ23 | 35.4 |  |
 | 5948 | 1487 | – | – | – | – | – | – | – |  |
 | 5996 | 1499 | – | – | – | – | – | – | – |  |
+| 6108 | 1527 | – | – | – | – | – | n.c. | n.c. | Cooper–Wallis from Williamson-type matrices of order 509 (claimed only through Seberry–Yamada Cor. 8.8(i)) |
 | 6172 | 1543 | – | – | – | – | – | – | – |  |
 | 6236 | 1559 | – | – | – | – | – | – | – |  |
 | 6268 | 1567 | – | – | – | – | – | – | – |  |
@@ -153,6 +168,8 @@ squares.
 | 10052 | 2513 | – | – | – | – | – | – | – |  |
 | 10124 | 2531 | – | – | – | – | – | – | – |  |
 | 10172 | 2543 | – | – | – | – | – | ℤ2 × ℤ31 × ℤ41 | 46.5 |  |
+| 10180 | 2545 | – | – | – | – | – | n.c. | n.c. | Cooper–Wallis from Williamson-type matrices of order 509 (claimed only through Seberry–Yamada Cor. 8.8(i)) |
+| 10284 | 2571 | – | – | – | – | – | n.c. | n.c. | Cooper–Wallis from Williamson-type matrices of order 857 (claimed only through Seberry–Yamada Cor. 8.8(i)) |
 | 10316 | 2579 | – | – | – | – | – | – | – |  |
 | 10356 | 2589 | – | – | – | – | – | – | – |  |
 | 10364 | 2591 | – | – | – | – | – | – | – |  |

@@ -57,11 +57,12 @@ did not combine; we found no earlier construction of them.
   known, with no construction we could trace, and six (19028, 21044, 21748, 39260, 40244, 45044) were obtainable
   classically by the Paley-block route [14, 15]. Also independent matrices of the known orders 2060, 3532 and 31316 (which SageMath's
   development version builds since October 3, 2026). See [hadamard](hadamard).
-- **Hadamard matrices of 115 orders 4n with 3001 ≤ n ≤ 9999** (12052 to 39916) that Table 1.53 of the Handbook, with
-  Đoković's updates of 2009–2010, lists as unknown. They come from the same Paley-block route [14, 15]. For 107 of
-  them the T-matrices (orders 3 to 73) were known before 2026, so these orders were obtainable classically; six need
-  T-matrices of order 103, 151 or 163 from 2026; and two (16892, 25132) are built by SageMath's development version
-  since October 3, 2026. See [hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#beyond-table-4).
+- **Hadamard matrices of 116 orders 4n with 3001 ≤ n ≤ 9999** (12052 to 39916) that Table 1.53 of the Handbook, with
+  Đoković's updates of 2009–2010, lists as unknown (one of them, 32316, Đoković claimed only through a corollary
+  whose printed proof fails). They come from the same Paley-block route [14, 15]. For 108 of them the T-matrices
+  (orders 3 to 73) were known before 2026, so these orders were obtainable classically; six need T-matrices of order
+  103, 151 or 163 from 2026; and two (16892, 25132) are built by SageMath's development version since October 3,
+  2026. See [hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#beyond-table-4).
 - **Skew-Hadamard matrices of 40 orders** from 820 to 9900 for which we found no earlier construction: 32 from
   Goethals–Seidel difference families with a skew block, and 8 from Seberry's theorem with new amicable Hadamard
   matrices or new orthogonal designs. Also independent matrices of the known skew orders 1852 and 3676.
@@ -72,10 +73,14 @@ did not combine; we found no earlier construction of them.
   and in the papers since [10, 11, 12]: 214, 238, 302, 326, 366, 382, 426, 494, 518, 534 and 754, from searches over
   Szöllősi's array [10] and its bordered, character-bordered and twisted forms. They were found concurrently and
   independently by Zaitsev et al. [13], whose page has matrices of all 11; we claim no priority. 334 is the smallest
-  open order now. Also explicit matrices of 76 known
-  orders from 142 to 1966 with 4N − 1 a prime power, among them halves of Paley's matrix of order q + 1
-  ([complex-hadamard/PALEY.md](complex-hadamard/PALEY.md)); these follow from Ito's dicyclic Hadamard groups and
-  Egan's Theorem 4.5 [12], which we had missed at first. See [complex-hadamard](complex-hadamard).
+  open order now. Also explicit matrices of 76 known orders from 142 to 1966 with 4N − 1 a prime power, among them
+  halves of Paley's matrix of order q + 1 ([complex-hadamard/PALEY.md](complex-hadamard/PALEY.md)); these follow from
+  Ito's dicyclic Hadamard groups and Egan's Theorem 4.5 [12], which we had missed at first. First explicit matrices
+  of 1618 and 1906, which the 1992 table records only through Seberry–Yamada's Corollary 8.8(i): its printed proof
+  does not give Williamson-type matrices, but its matrices give a complex Hadamard matrix of order 2q from any
+  quaternary Hadamard matrix of order (q − 1)/2, which we prove and use ([NOTES.md](NOTES.md) §19). The same audit
+  returns n = 1527, 2545 and 2571, which Đoković settled through that corollary, to [FRONTIER.md](FRONTIER.md). See
+  [complex-hadamard](complex-hadamard).
 - **Auxiliary objects:** Williamson-type matrices of order 111 ([near-williamson](near-williamson)); T-matrices of
   orders 97, 109 and 197, for which we found no earlier construction (97 and 109 may appear in Lou–Xia–Xia's work on
   order 6m + 1, which we could not read), and an independent instance of the known order 131
@@ -147,7 +152,7 @@ the unresolved orders up to 4 · 2999 with the cheapest structure known for each
    Contemporary Design Theory: A Collection of Surveys, Wiley (1992) 431–560.
 6. J.-M. Goethals, J. J. Seidel, Orthogonal matrices with zero diagonal, Canad. J. Math. 19 (1967) 1001–1010.
 7. J. Cooper, J. Wallis, A construction for Hadamard arrays, Bull. Austral. Math. Soc. 7 (1972) 269–278.
-8. Y. Miyamoto, A construction of Hadamard matrices, J. Combin. Theory Ser. A 57 (1991) 86–108.
+8. M. Miyamoto, A construction of Hadamard matrices, J. Combin. Theory Ser. A 57 (1991) 86–108.
 9. M. Yamada, Some new series of Hadamard matrices, J. Austral. Math. Soc. Ser. A 46 (1989) 371–383.
 10. Szöllősi, A complex Hadamard matrix of order 94, arXiv:2603.09572 (2026).
 11. H. Kharaghani, A. Mohammadian, B. Tayfeh-Rezaie, V. Zaitsev, arXiv:2605.08661v2 (2026).

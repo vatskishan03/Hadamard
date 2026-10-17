@@ -25,6 +25,11 @@ a prime.
 
     python3 search/miyamoto_wt.py selftest      # Paley, Sylvester and small propus inputs, q = 13 ... 61
     python3 search/miyamoto_wt.py vpatterns     # the 2 x 2 V-patterns over commuting symmetric blocks (NOTES.md §19)
+    python3 search/miyamoto_wt.py complete 809 complex-hadamard/inputs/H404.txt complex-hadamard/C1618.json
+
+`complete` is the completion of NOTES.md §19: any quaternary Hadamard matrix C of order (q - 1)/2, not necessarily
+symmetric, gives a quaternary Hadamard matrix of order 2q through the same U_i, V_i, with V_3 + i V_4 = (1 + i) C and
+the array [[X, Y], [-Y*, X*]].
 """
 import sys
 import numpy as np
@@ -88,6 +93,31 @@ def complex_hadamard(X):
           and not (im @ re.T - re @ im.T).any() and np.array_equal(re * re + im * im, np.ones((m, m), np.int64)))
     E = np.select([re == 1, im == 1, re == -1], [0, 1, 2], 3)
     return E, ok
+
+
+def complex_general(X):
+    """exponent matrix of K = [[X, Y], [-Y*, X*]] (* = conjugate transpose), X = ((X_1 + X_2) + i (X_1 - X_2))/2,
+    Y = ((X_3 + X_4) + i (X_3 - X_4))/2, checked exactly (entries i^e and K K* = m I); for symmetric X_i this is the
+    array of complex_hadamard"""
+    A, B, C, D = X
+    xr, xi, yr, yi = (A + B) // 2, (A - B) // 2, (C + D) // 2, (C - D) // 2
+    re = np.block([[xr, yr], [-yr.T, xr.T]])
+    im = np.block([[xi, yi], [yi.T, -xi.T]])
+    m = re.shape[0]
+    ok = (np.array_equal(re * re + im * im, np.ones((m, m), np.int64))
+          and np.array_equal(re @ re.T + im @ im.T, m * np.eye(m, dtype=np.int64)) and not (im @ re.T - re @ im.T).any())
+    return np.select([re == 1, im == 1, re == -1], [0, 1, 2], 3), ok
+
+
+def completion(q, C):
+    """the completion of the printed proof of Seberry-Yamada's Corollary 8.8(i) (NOTES.md section 19): for a prime
+    q = 1 (mod 4) and any quaternary Hadamard matrix C of order (q - 1)/2 (exponent matrix, entry i^e), write
+    (1 + i) C = M_3 + i M_4 and take U = (A, BR, 0, 0), V = (I, 0, M_3, M_4) in Lemma 8.6.  The X_i are not
+    Williamson-type unless M_3, M_4 are symmetric, but K = [[X, Y], [-Y*, X*]] is a quaternary Hadamard matrix of
+    order 2q.  Returns the exponent matrix of K and the exact check."""
+    M3 = np.choose(C, [1, -1, -1, 1]).astype(np.int64)        # (1 + i) i^e = M3 + i M4
+    M4 = np.choose(C, [1, 1, -1, -1]).astype(np.int64)
+    return complex_general(williamson_type(q, M3, M4))
 
 
 def pair_from_paley(p):
@@ -215,7 +245,29 @@ def vpatterns():
         print(v, " ".join(k))
 
 
+def read_exponents(path):
+    """a matrix file: rows over +, - (real) or over the digits 0..3 (entry i^e)"""
+    rows = [l.strip() for l in open(path) if l.strip() and not l.startswith("#")]
+    return np.array([[{"+": 0, "-": 2}.get(ch, None) if ch in "+-" else int(ch) for ch in r] for r in rows], np.int64)
+
+
 if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] == "complete":
+        import hashlib, json
+        from pathlib import Path
+        q, inp, out = int(sys.argv[2]), sys.argv[3], sys.argv[4]
+        C = read_exponents(inp)
+        E, ok = completion(q, C)
+        assert ok, "not a complex Hadamard matrix"
+        text = "".join("".join(map(str, r)) + "\n" for r in E).encode()
+        root = Path(__file__).resolve().parent.parent / "complex-hadamard"
+        rel = Path(inp).resolve().relative_to(root)
+        cert = {"order": 2 * q, "N": q, "construction": "miyamoto-completion", "q": q, "g": prim_root(q),
+                "input": str(rel), "input_sha256": hashlib.sha256(open(inp, "rb").read()).hexdigest(),
+                "sha256": hashlib.sha256(text).hexdigest()}
+        Path(out).write_text(json.dumps(cert, indent=1) + "\n")
+        print(f"q = {q}: quaternary Hadamard matrix of order {2 * q} from {rel}, sha256 {cert['sha256']}")
+        raise SystemExit(0)
     if len(sys.argv) > 1 and sys.argv[1] == "selftest":
         raise SystemExit(0 if selftest() else 1)
     if len(sys.argv) > 1 and sys.argv[1] == "vpatterns":

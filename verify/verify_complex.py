@@ -20,6 +20,9 @@ labels of a map phi: G -> Q and a border (Xb, Rh, Ch) of exponent matrices (comp
 K = [[Xb, R], [R', Kc]] with Kc the array above over G, R[a, (i, g)] = Rh[a, i q + phi(g)], R'[(i, g), b] =
 Ch[i q + phi(g), b].
 
+Certificates with construction "miyamoto-completion" give q, a primitive root g and an input file: the completion
+of Seberry-Yamada's Corollary 8.8(i) (completion_build, NOTES.md section 19).
+
 This script rebuilds K from the sequences alone, checks every entry and K K* = n I exactly in integer arithmetic
 (real and imaginary parts separately), and compares the SHA-256 of the canonical text of K: n lines of n digits,
 digit e for the entry i^e.
@@ -177,7 +180,52 @@ def paley_build(cert):
     return (A + B) // 2, (B - A) // 2
 
 
+def completion_build(cert):
+    """The completion of the printed proof of Seberry-Yamada's Corollary 8.8(i) (NOTES.md section 19). q = 1 (mod 4)
+    a prime, g a primitive root, n = (q - 1)/2, chi the quadratic character, s_i = g^(2i) and t_j = g^(1 - 2j).
+    U_1 = -[chi(s_i - s_j)], U_2 = [chi(s_i - t_j)], U_3 = U_4 = 0; V_1 = I, V_2 = 0, V_3 + i V_4 = (1 + i) C for the
+    input quaternary Hadamard matrix C of order n (complex-hadamard/<input>, rows over +, - or the digits e of i^e).
+    S_k = U_k (x) [[1, 1], [1, 1]] + V_k (x) [[1, -1], [-1, 1]], X_1 = [[1, -e], [-e^T, S_1]], X_k = [[1, e], [e^T,
+    S_k]] (k > 1), X = ((X_1 + X_2) + i (X_1 - X_2))/2, Y = ((X_3 + X_4) + i (X_3 - X_4))/2 and
+    K = [[X, Y], [-Y*, X*]], * the conjugate transpose. Written from the statement, independently of
+    search/miyamoto_wt.py; the input is checked exactly (C C* = n I) and its SHA-256 compared."""
+    q, g = int(cert["q"]), int(cert["g"])
+    if q % 4 != 1 or any(q % d == 0 for d in range(2, int(q ** 0.5) + 1)) or cert["order"] != 2 * q:
+        raise ValueError("q must be a prime = 1 (mod 4) and the order 2q")
+    fac = [d for d in range(2, q) if (q - 1) % d == 0 and all(d % e for e in range(2, int(d ** 0.5) + 1))]
+    if any(pow(g, (q - 1) // d, q) == 1 for d in fac):
+        raise ValueError("g is not a primitive root")
+    raw = (ROOT / cert["input"]).read_bytes()
+    if hashlib.sha256(raw).hexdigest() != cert["input_sha256"]:
+        raise ValueError("input file changed")
+    rows = [l.strip() for l in raw.decode().splitlines() if l.strip()]
+    E = np.array([[{"+": 0, "-": 2, "0": 0, "1": 1, "2": 2, "3": 3}[ch] for ch in r] for r in rows], np.int64)
+    n = (q - 1) // 2
+    if E.shape != (n, n):
+        raise ValueError("input must have order (q - 1)/2")
+    Cr = np.choose(E, [1, 0, -1, 0]); Ci = np.choose(E, [0, 1, 0, -1])
+    if not (np.array_equal(Cr @ Cr.T + Ci @ Ci.T, n * np.eye(n, dtype=np.int64)) and not (Ci @ Cr.T - Cr @ Ci.T).any()):
+        raise ValueError("the input is not a quaternary Hadamard matrix")
+    V3, V4 = Cr - Ci, Cr + Ci                               # (1 + i)(Cr + i Ci)
+    chi = -np.ones(q, np.int64); chi[0] = 0; chi[(np.arange(1, q) ** 2) % q] = 1
+    s_ = np.array([pow(g, 2 * i, q) for i in range(n)]); t_ = np.array([pow(g, (1 - 2 * j) % (q - 1), q) for j in range(n)])
+    U1 = -chi[(s_[:, None] - s_[None, :]) % q]; U2 = chi[(s_[:, None] - t_[None, :]) % q]
+    Z, I = np.zeros((n, n), np.int64), np.eye(n, dtype=np.int64)
+    J2, D2 = np.ones((2, 2), np.int64), np.array([[1, -1], [-1, 1]], np.int64)
+    e = np.ones((1, 2 * n), np.int64)
+    X = []
+    for k, (U, V) in enumerate(((U1, I), (U2, Z), (Z, V3), (Z, V4))):
+        S = np.kron(U, J2) + np.kron(V, D2)
+        sg = -1 if k == 0 else 1
+        X.append(np.block([[np.ones((1, 1), np.int64), sg * e], [sg * e.T, S]]))
+    xr, xi = (X[0] + X[1]) // 2, (X[0] - X[1]) // 2
+    yr, yi = (X[2] + X[3]) // 2, (X[2] - X[3]) // 2
+    return np.block([[xr, yr], [-yr.T, xr.T]]), np.block([[xi, yi], [yi.T, -xi.T]])
+
+
 def build(cert):
+    if cert["construction"] == "miyamoto-completion":
+        return completion_build(cert)
     if cert["construction"] == "paley":
         return paley_build(cert)
     if cert["construction"] == "szollosi-tbordered":

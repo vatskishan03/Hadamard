@@ -172,11 +172,26 @@ H((q−1)/2) exists, then WT(q) exists.
 - **Order 67.** The three known WT(67) (near-Williamson, see below) give no arrangement. The repeated-block structure
   at 67 with H = {1, 29, 37} is empty, by an exhaustive search. Other multiplier orders fail on row sums. So 1883 =
   7·269 is not reached this way.
-- **Consequences.** Đoković (Int. Math. Forum 6 (2011)) settled 1527 = 3·509, 2545 = 5·509 and 2571 = 3·857 through
-  Cor. 29(i), using WT(509) from good matrices of order 127, and H(428). Under the Lemma 26 proof these need a
-  symmetric BH(254, 4) and a symmetric BH(428, 4); we found neither.
-- **Open point.** We could not read Miyamoto's 1991 paper (J. Combin. Theory A 57), which is credited with the
-  Williamson version. Unless it uses a different construction, these three orders are only conditionally settled.
+- **Consequences (corrected October 17).** Đoković (arXiv:1008.2043; Int. Math. Forum 6 (2011)) claimed 1527 = 3·509,
+  2545 = 5·509 and 2571 = 3·857 through Cor. 29(i), using WT(509) from good matrices of order 127, and H(428). The
+  printed proof fails for every input. With U₄ = 0 and V₁ = I, X₁X₄ᵀ − X₄X₁ᵀ = diag(0, 2(V₄ᵀ − V₄) ⊗ [[1, −1], [−1,
+  1]]), and the printed V₄ = [[W₃, W₄], [−W₄, W₃]] has V₄ᵀ − V₄ with off-diagonal block −(W₄ + W₄ᵀ), whose diagonal
+  is ±2 for every ±1 matrix W₄. With V₃ = V₄ = H, X₁ and X₃ are amicable only if H = Hᵀ, which is part (ii). Both
+  papers define Williamson-type matrices as pairwise amicable (JCMCC 7 p. 98, (4); 1992 Definition 3.3), and Lemma 26
+  needs it (its condition (ii)). The H variant is Seberry–Yamada's own ("new", their Remark 30); the Williamson-type
+  variant is credited to Miyamoto (JCTA 57, 1991), which we could not read (ScienceDirect, the Elsevier API, CORE and
+  the Internet Archive all failed). We found no valid proof, erratum or other construction, in Đoković's later
+  papers, Cati–Pasechnik, SageMath, Zaitsev's page or KMTZ. FRONTIER.md therefore lists 1527, 2545 and 2571 as
+  unresolved, together with 2427 = 3·809 and 2611 = 7·373, which Seberry–Yamada's Table A.2 (code o2) builds from
+  Williamson-type matrices of orders 809 and 373 that their Table A.1 obtains only from this corollary. We checked
+  this with code written from the printed pages, against positive controls (Corollary 29(ii) with symmetric
+  conference matrices, part (i) with a symmetric H) that do give Williamson-type matrices.
+- **Beyond Table 4.** Đoković's Propositions 3.2–3.4 rest on the corollary alone for 13 entries between 3001 and
+  9999: 4285, 5999, 6617, 7179, 7323, 8079, 8187, 8653, 8751, 8859, 9427, 9627 (printed as 9087) and 9671. 8079 is
+  now reached by the Paley-block route ([hadamard/32316](hadamard/32316)); the others are unresolved as far as we
+  know. His other uses of the corollary have valid alternatives, checked for every q: Corollary 29(ii) with a
+  symmetric H((q − 1)/2) or a symmetric conference matrix, or Turyn (e.g. 7167 through Paley's conference matrix of
+  order 1194, 9111 through Turyn with 6073 prime).
 
 **Spence-W: Williamson-type matrices from Spence sequences.** Take four ±1 sequences on ℤ₂ × ℤ_n with ΣPAF = −4 off
 zero (Spence's condition for order 4(2n+1)), one invariant under a multiplier group H and three under ⟨H, −1⟩.
@@ -751,7 +766,7 @@ as they stand.
   blank.
 - *A lead not yet built.* Seberry and Yamada's Corollary 8.8 (after Miyamoto) turns Williamson-type matrices of order
   (q − 1)/4, or a Hadamard matrix of order (q − 1)/2, into Williamson-type matrices of order q ≡ 1 (mod 4). The 2026
-  inputs make three orders reachable that we then took for open (they are known through this corollary; §19):
+  inputs make three orders reachable that we then took for open (they are known from Zaitsev's explicit matrices, not through this corollary, whose printed proof fails; §7, §19):
   538 (q = 269, from the near-Williamson matrices of order 67 of arXiv:2605.08661, made pairwise amicable as
   (AR, B, C, D)), 1018 (q = 509, from Đoković's good matrices of order 127) and 1714 (q = 857, from H(428)). The
   survey does not give the matrices U_i, V_i of its Lemma 8.6. The natural choice (U = (C₁, C₂, 0, 0) from the
@@ -799,11 +814,12 @@ of orders 3, 7 and 9 found by brute force.
 
 **What it would give.** The complex orders 2q with q ≡ 1 (mod 4) prime that we had listed as open are 538, 1018,
 1306, 1466, 1706, 1714 and 1882 (q = 269, 509, 653, 733, 853, 857, 941). They would need a symmetric quaternary
-Hadamard matrix of order 134, 254, 326, 366, 426, 428 and 470. Three of them are not open: Đoković (arXiv:1008.2043,
-Propositions 3.2–3.4) applies Corollary 8.8(i) to get Williamson-type matrices of orders 509 (from good matrices of
-order 127) and 857 (from H(428)), and Corollary 18 gives 883 (q = 441). By the same corollary, the near-Williamson
-matrices of order 67 (2026) give 269. So 538, 1018, 1714 and 1766 are known, through the corollary we could not
-rebuild (below). The other four, 1306, 1466, 1706 and 1882, are on Zaitsev's page (§20), so none of this form is
+Hadamard matrix of order 134, 254, 326, 366, 426, 428 and 470. Đoković (arXiv:1008.2043, Propositions 3.2–3.4) applies Corollary 8.8(i) to get Williamson-type matrices of
+orders 509 (from good matrices of order 127) and 857 (from H(428)), and Corollary 18 gives 883 (q = 441); the
+near-Williamson matrices of order 67 (2026) would give 269 the same way. Corollary 8.8(i) fails as printed (§7),
+but 538, 1018 and 1714 are known from explicit matrices on Zaitsev's page (checked exactly; they are not built from
+Williamson-type matrices, so Williamson-type matrices of orders 269, 509 and 857 remain unestablished), and 1766
+from QH1766, which splits into explicit Williamson-type matrices of order 883. The other four, 1306, 1466, 1706 and 1882, are on Zaitsev's page (§20), so none of this form is
 open.
 
 **Why we found none.**
@@ -839,8 +855,35 @@ commuting. An arbitrary Hadamard matrix of order (q − 1)/2, which Corollary 8.
 either.
 
 So the corollary must use U-matrices that are not invariant under the quartic (or octic) subgroup, or a different
-lemma. The literature treats it as proved (Đoković uses it in arXiv:1008.2043), so we count the orders it gives as
-known (`search/ssxx_sweep.py`, `miyamoto_wt`), but we have no matrices for 538, 1018 and 1714.
+lemma. The October 17 audit (§7) settles the question for the printed proof: it fails for every input, and no repair
+inside Lemma 26 works for general Williamson-type inputs. If W₁ = W₂ for symmetric commuting Williamson matrices W₁,
+…, W₄, then V₁ = I, V₃ = [[W₃, W₁], [W₁, W₄]] and V₄ = [[W₄, −W₁], [−W₁, W₃]] satisfy every hypothesis (checked for q
+= 13, 29, 37, 53, 61); this is the repeated-block case of §7.
+
+**A completion that the printed matrices do give (October 17).** Let q ≡ 1 (mod 4) be a prime power, n = (q − 1)/2,
+and C any quaternary Hadamard matrix of order n, symmetric or not (a real Hadamard matrix of order n will do). Write
+(1 + i)C = M₃ + iM₄ and take U = (A, BR, 0, 0) and V = (I, 0, M₃, M₄) in Lemma 8.6, with A, BR Yamada's matrices as
+in the printed proof. The X_i are then ±1 matrices with ΣX_iX_iᵀ = 4qI that are not pairwise amicable, but X = ½((X₁
++ X₂) + i(X₁ − X₂)) and Y = ½((X₃ + X₄) + i(X₃ − X₄)) give K = [[X, Y], [−Y*, X*]], with entries ±1, ±i and KK* =
+2qI.
+- *Proof.* X₁ and X₂ are symmetric, and each commutes with X₂, X₃ and X₄: this uses the row and column sums (1, 0, 0,
+  0) of the U's, AC = CA, U₃ = U₄ = 0, V₁ = I and V₂ = 0. Hence XY = YX, so the off-diagonal blocks of KK* vanish.
+  XX* + YY* = ½ΣX_iX_iᵀ + (i/2)(N₁₂ + N₃₄) with N_ab = X_aX_bᵀ − X_bX_aᵀ. N₁₂ = 0, and N₃₄ = diag(0, 2(M₃M₄ᵀ − M₄M₃ᵀ)
+  ⊗ [[1, −1], [−1, 1]]), which is 0 because CC* = nI gives M₃M₄ᵀ = M₄M₃ᵀ. The other diagonal block uses M₃ᵀM₄ =
+  M₄ᵀM₃, from C*C = nI.
+- Checked exactly for q = 13 (a scrambled non-real BH(6, 4)), 17, 41 and 89 (column-scrambled real Hadamard
+  matrices), and in the audit for q = 13, 29, 37, 61 and 269. We found it in none of the papers we read: JCMCC 7
+  Corollary 36 gives only the real order 4q from a complex Hadamard matrix of order (q − 1)/2. `search/miyamoto_wt.py
+  complete` builds it, and `verify/verify_complex.py` (construction `miyamoto-completion`) rebuilds it independently.
+- Consequences. The complex orders 746, 1514, 1546, 1618 and 1906 (q = 373, 757, 773, 809, 953), which the 1992 Table
+  11.2 records only through Corollary 8.8(i), are known through the completion; without it the open count of N < 1000
+  would be 120 instead of 115. 1618 and 1906 are built here from H(404) and H(476)
+  ([complex-hadamard](complex-hadamard/README.md)); the other three need complex matrices of orders 186, 378 and 386,
+  from Table A.1's Williamson-type matrices of orders 93, 189 and 193, which we did not build. The completion settles
+  no open N < 1000 by itself.
+- Real orders are unaffected: the completion gives complex 2q, hence real 4q, which Miyamoto's first theorem already
+  gives (C doubles to a real H(q − 1)), and it gives no Williamson-type matrices, so the Cooper–Wallis products that
+  Đoković built on WT(509) and WT(857) stay unproved.
 
 **The 2026 matrices once more.** A complex structure on a Goethals–Seidel matrix can also come from seeds related by a
 multiplier (Y = ±X∘μ up to translation, as in the twisted arrays), not only from symmetric seeds. For the nine
@@ -996,15 +1039,16 @@ Three more orders follow by Miyamoto's theorem. q = 4n + 1 is a prime for four o
 11260), the last two beyond every table. Paley I and II, Yamada–Kiyasu and the product theorems do not reach them,
 and they are certified and verified like the others. For the other ten, 4n + 1 is composite.
 
-**Beyond Table 4 (October 17).** The route also reaches 119 of the 637 entries 3001 ≤ n ≤ 9999 that Handbook Table
-1.53 still lists with t ≥ 3 after Đoković's updates. We built 115, of orders 12052 to 39916
-([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#beyond-table-4)): 107 with T-matrices known before 2026 (orders
-3 to 73, from base sequences, Golay pairs, SageMath's stored T-sequences, and multiplier-subgroup searches for 19,
-31, 41, 49 and 73), six with the 2026 T-matrices of orders 103, 151 and 163, and 16892 and 25132, which SageMath's
-development version builds. Two extensions were needed: the group-developed array over ℤ_t × ℤ_s when gcd(s, t) > 1
-(seven orders), and Paley's matrix over GF(3⁵) (s = 61, three orders), with the field recorded in the certificate. Of
-the other four, three were already in the repository, and 28820 = 4 · 131 · 55 lacks T-matrices of order 55. Nothing
-of this reaches FRONTIER.md. A Paley II analogue (s = (q + 1)/2) would add nothing, because those s are Turyn's
-Williamson orders and Cooper–Wallis already covers them. No ordering, sign or reversal of a Paley-block quadruple
-satisfies the form-(9) condition ((q, t) = (11, 5), (19, 3), (43, 3), (43, 5) and (67, 3)), as the parity argument
-above predicts, so the route gives no complex orders.
+**Beyond Table 4 (October 17).** The route also reaches 120 of the 650 entries 3001 ≤ n ≤ 9999 that Handbook Table
+1.53 still lists with t ≥ 3 after Đoković's updates (counting the 13 that he settled only through Corollary 8.8(i),
+§7). We built 116, of orders 12052 to 39916 ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#beyond-table-4)):
+108 with T-matrices known before 2026 (one of them 32316, from the 13) (orders 3 to 73, from base sequences, Golay
+pairs, SageMath's stored T-sequences, and multiplier-subgroup searches for 19, 31, 41, 49 and 73), six with the 2026
+T-matrices of orders 103, 151 and 163, and 16892 and 25132, which SageMath's development version builds. Two
+extensions were needed: the group-developed array over ℤ_t × ℤ_s when gcd(s, t) > 1 (seven orders), and Paley's
+matrix over GF(3⁵) (s = 61, three orders), with the field recorded in the certificate. Of the other four, three were
+already in the repository, and 28820 = 4 · 131 · 55 lacks T-matrices of order 55. Nothing of this reaches
+FRONTIER.md. A Paley II analogue (s = (q + 1)/2) would add nothing, because those s are Turyn's Williamson orders and
+Cooper–Wallis already covers them. No ordering, sign or reversal of a Paley-block quadruple satisfies the form-(9)
+condition ((q, t) = (11, 5), (19, 3), (43, 3), (43, 5) and (67, 3)), as the parity argument above predicts, so the
+route gives no complex orders.

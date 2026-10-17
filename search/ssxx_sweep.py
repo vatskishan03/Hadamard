@@ -18,13 +18,14 @@ search/data/complex_known_1992.txt) or one of these gives it:
   after Schmidt 1999, Corollary 3.6): BH(2v, 4) for v = 2^a 10^b 26^c m with 2m - 1 or 4m - 1 a prime power or a
   Williamson matrix of order m. For odd v this adds every v with 4v - 1 a prime power (Paley's matrix; see
   complex-hadamard/PALEY.md);
-- Williamson-type matrices of order N from the corollaries of Miyamoto's lemma (Seberry-Yamada 1992, Corollary 8.8;
-  the M-structure paper, Corollaries 16, 18 and 20) with inputs known today: N = q = 5 (mod 8) a prime power with
-  Williamson-type matrices of order (q - 1)/4, q = 1 (mod 8) with a Hadamard matrix of order (q - 1)/2, and
-  N = 2q + 1 with q = 1 (mod 4), q + 1 a symmetric conference order and 2q - 1 a prime power. Djokovic
-  (arXiv:1008.2043, Props 3.2-3.4) states 509, 857 and 883; 269 follows from the near-Williamson matrices of order 67
-  (2026). We could not reconstruct the construction behind Corollary 8.8(i) (NOTES.md section 19) and follow the
-  literature in counting it;
+- the matrices of Seberry-Yamada's Lemma 8.6 (after Miyamoto) with inputs known today: N = q = 5 (mod 8) a prime
+  power with Williamson-type matrices of order (q - 1)/4, or q = 1 (mod 8) with a Hadamard matrix of order (q - 1)/2.
+  Corollary 8.8(i) does not give Williamson-type matrices as printed (NOTES.md sections 7 and 19), but its matrices
+  give a complex Hadamard matrix of order 2q from any quaternary Hadamard matrix of order (q - 1)/2 (the completion
+  of NOTES.md section 19; search/miyamoto_wt.py complete), so these N count for complex orders only. Table A.1
+  entries that rest on Corollary 8.8(i) (keys wl/wm) count only here, never as Williamson-type matrices. Also
+  N = 2q + 1 with q = 1 (mod 4), q + 1 a symmetric conference order and 2q - 1 a prime power (the M-structure
+  paper, Corollary 18), which does give Williamson-type matrices (883 = 2 * 441 + 1);
 - V. Zaitsev's page "Quaternary Hadamard matrices" (https://www.cs.uleth.ca/~zaitsevv/quaternary.html, last updated
   14 Oct 2026; with Kharaghani, Mohammadian and Tayfeh-Rezaie): explicit matrices of 122 orders, checked here
   (search/data/complex_zaitsev_2026.txt). It covers the 11 orders found here by search, concurrently;
@@ -170,13 +171,14 @@ def known_reason(N):
 
 
 def miyamoto_wt(N, wt):
-    """Williamson-type matrices of order N from the corollaries of Miyamoto's lemma with inputs known today"""
+    """complex 2N from the matrices of Seberry-Yamada's Lemma 8.6 (the completion of NOTES.md section 19), or
+    Williamson-type matrices of order N from the M-structure paper's Corollary 18, with inputs known today"""
     W = set(wt) | KMT | DJOKOVIC_1993 | {33}
     pk = prime_power(N)
     if pk and N % 8 == 5 and (N - 1) // 4 in W:
-        return f"Williamson-type, Miyamoto's corollary from Williamson-type of order {(N - 1) // 4}"
+        return f"complex 2N from Lemma 8.6 matrices (completion, NOTES.md section 19), input Williamson-type of order {(N - 1) // 4}; Williamson type not established"
     if pk and N % 8 == 1:                          # a Hadamard matrix of order (N - 1)/2 = 0 (mod 4) exists for N < 1000
-        return f"Williamson-type, Miyamoto's corollary from H({(N - 1) // 2})"
+        return f"complex 2N from Lemma 8.6 matrices (completion, NOTES.md section 19), input H({(N - 1) // 2}); Williamson type not established"
     q = (N - 1) // 2
     sym_conf = (q + 1) % 4 == 2 and (prime_power(q) or (q + 1) // 2 in mathon_orders(q + 1))
     if q % 4 == 1 and sym_conf and prime_power(2 * q - 1):

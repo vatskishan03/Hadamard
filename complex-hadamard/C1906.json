@@ -1,0 +1,10 @@
+{
+ "order": 1906,
+ "N": 953,
+ "construction": "miyamoto-completion",
+ "q": 953,
+ "g": 3,
+ "input": "inputs/H476.txt",
+ "input_sha256": "515ccd214940179419f8e278ebd4d04da3719413e1832a35230bca1d603097b5",
+ "sha256": "8ff93deefdafa840b769de213d39773bdb661752d70c2676ef216308587d45ad"
+}

@@ -1,7 +1,7 @@
 # Paley's matrix in circulant blocks, times T-matrices
 
 Fourteen orders 4n of [FRONTIER.md](../FRONTIER.md) follow from two published results that the tables never combined.
-For each we give an explicit Goethals–Seidel quadruple and the Hadamard matrix of order 4n. The same route gives 115
+For each we give an explicit Goethals–Seidel quadruple and the Hadamard matrix of order 4n. The same route gives 116
 orders beyond Table 4 ([below](#beyond-table-4)).
 
 | Order | n | q | s = (q + 1)/4 | t |
@@ -82,13 +82,15 @@ The sources searched are listed in [NOVELTY.md](../NOVELTY.md); the audit of thi
 ## Beyond Table 4
 
 Above Cati–Pasechnik Table 4 the reference is Table 1.53 of the Handbook of Combinatorial Designs (2nd ed., 2007),
-which covers odd n < 10000. After Đoković's updates (arXiv:0912.5091, arXiv:1008.2043), 637 of its entries with 3001
-≤ n ≤ 9999 still have t ≥ 3: no Hadamard matrix of order 4n was known. The route reaches 119 of them, with q ≡ 3 (mod
-8) a prime or a prime power and T-matrices of an order we know. We built 115, of orders 12052 to 39916. They are in
-the [index](README.md#orders-beyond-the-tables), each with its README.
+which covers odd n < 10000. After Đoković's updates (arXiv:0912.5091, arXiv:1008.2043), 650 of its entries with 3001
+≤ n ≤ 9999 still have t ≥ 3: no Hadamard matrix of order 4n was known. The count includes the 13 entries that Đoković
+settled only through Seberry–Yamada's Corollary 8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7). The
+route reaches 120 of them, with q ≡ 3 (mod 8) a prime or a prime power and T-matrices of an order we know. We built
+116, of orders 12052 to 39916. They are in the [index](README.md#orders-beyond-the-tables), each with its README.
 
-- 107 are new beyond the tables but obtainable classically: their T-matrices (orders 3 to 73) were known before 2026,
-  those of order 73 from the near-normal sequences NN(36) of Đoković (2009).
+- 108 are new beyond the tables but obtainable classically: their T-matrices (orders 3 to 73) were known before 2026,
+  those of order 73 from the near-normal sequences NN(36) of Đoković (2009). One of them, 32316 = 4 · 3 · 2693, is an
+  order that Đoković claimed through Corollary 8.8(i).
 - 6 need T-matrices of order 103, 151 or 163, known only since 2026, and are new beyond the tables: 16308, 21836,
   32012, 34556, 36844 and 39772.
 - 16892 and 25132 are Known: SageMath's development version builds them by Cooper–Wallis since October 3, 2026, from
