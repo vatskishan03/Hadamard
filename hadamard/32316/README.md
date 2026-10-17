@@ -21,9 +21,10 @@ certificate.
 
 ## Status
 
-**New, beyond the tables, but obtainable classically** ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md#status)). In Table 1.53
-of the Handbook of Combinatorial Designs (2nd ed., 2007), n = 8079 has t = 3: the smallest known Hadamard matrix with
-odd part 8079 had order 2³ · 8079. The order lies above the range of Cati–Pasechnik Table 4, which stops at n = 2999.
+**First explicit construction** ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md#orders-recorded-only-through-corollary-88i)).
+In Table 1.53 of the Handbook of Combinatorial Designs (2nd ed., 2007), n = 8079 has t = 3, and Đoković's update
+arXiv:1008.2043 lists it as settled, through Seberry–Yamada's Corollary 8.8(i) only (below). The order lies above the
+range of Cati–Pasechnik Table 4, which stops at n = 2999. Its ingredients were all known before 2026.
 
 - Đoković's update arXiv:1008.2043 lists it (Proposition 3.3), but only through Seberry–Yamada's Corollary 8.8(i),
   whose printed proof does not give Williamson-type matrices (see below).

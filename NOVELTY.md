@@ -82,6 +82,18 @@ For every order we checked:
   Cooper–Wallis, Miyamoto, Yamada–Kiyasu and Paley for each n with the T-matrix and Williamson-type orders known in
   2026 (the routes found are stated in the READMEs). London and Kotsireas, Cryptogr. Commun. 17 (2025), whose
   T-sequences of length 131 give eight of the orders by Cooper–Wallis, was not accessible;
+- for the Miyamoto-block orders ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md)) and the orders recorded
+  only through Corollary 8.8(i)
+  ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#orders-recorded-only-through-corollary-88i)), checked on 17
+  October 2026: SageMath's development version for every order (Unknown for all; its Miyamoto test raises UnknownError
+  for some, rerun with Unknown treated as False); Paley I and II, Miyamoto, Yamada–Kiyasu (with the skew-Hadamard
+  matrices of the Đoković–Seberry census and of this repository) and the T × WT splits of Cooper–Wallis for each n;
+  Seberry–Yamada (1992) Tables A.1 and A.2 and the survey's §5 (Yang's theorems); Đoković, arXiv:0912.5091 and
+  arXiv:1008.2043; Balonin–Đoković, arXiv:1508.00640 (negaperiodic Golay pairs and their list (31) of open
+  quasi-Williamson orders); Đoković–Kotsireas, arXiv:1310.5773 (periodic Golay pairs); the e-print texts of our arXiv
+  cache for Miyamoto's theorem combined with T-matrices or block multiplication (no source found). Miyamoto's 1991 paper
+  (J. Combin. Theory Ser. A 57) and Yang's 1989 paper (Proc. Amer. Math. Soc. 107) were not accessible; we used Yang's
+  multiplication as restated in the 1992 survey (Theorem 5.23);
 - searches of Zenodo (records matching "hadamard"), GitHub, the e-print sources of Hadamard-related arXiv papers
   (to 2026-10-08) and the math.CO listings (to 2026-10-12), the OEIS, MathOverflow, Balonin's catalogue and the Palomar
   registry.

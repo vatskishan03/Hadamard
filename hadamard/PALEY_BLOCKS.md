@@ -82,17 +82,17 @@ The sources searched are listed in [NOVELTY.md](../NOVELTY.md); the audit of thi
 ## Beyond Table 4
 
 Above Cati–Pasechnik Table 4 the reference is Table 1.53 of the Handbook of Combinatorial Designs (2nd ed., 2007), which
-covers odd n < 10000. After Đoković's updates (arXiv:0912.5091, arXiv:1008.2043), 671 of its entries with 3001 ≤ n ≤
-9999 had no valid construction: 637 still have t ≥ 3, and 34 were settled only through Seberry–Yamada's Corollary
-8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7): 13 by Đoković in 2010, 17 of his set Δ of 2009 and 4
-that the Handbook lists with t = 2. One of the 17, 5259, is now settled through part (ii) of the corollary
-([21036](21036)). The route reaches 120 of the 671, with q ≡ 3 (mod 8) a prime or a prime power and T-matrices of an
-order we know. We built 116, of orders 12052 to 39916. They are in the [index](README.md#orders-beyond-the-tables), each
-with its README.
+covers odd n < 10000. After Đoković's updates (arXiv:0912.5091, arXiv:1008.2043), 691 of its entries with 3001 ≤ n ≤
+9999 had no valid construction: 637 still have t ≥ 3, and 54 are recorded as known only through Seberry–Yamada's
+Corollary 8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7) — 13 that Đoković settled in 2010, 33 of his
+set Δ of 2009 and 8 that the Handbook lists with t = 2 ([below](#orders-recorded-only-through-corollary-88i)). The route
+reaches 138 of the 691, with q ≡ 3 (mod 8) a prime or a prime power and T-matrices of an order we know. Among the 120
+entries with t ≥ 3 or settled by Đoković in 2010 it reaches, we built 117, of orders 12052 to 39916. They are in the
+[index](README.md#orders-beyond-the-tables), each with its README.
 
-- 108 are new beyond the tables but obtainable classically: their T-matrices (orders 3 to 73) were known before 2026,
+- 109 are new beyond the tables but obtainable classically: their T-matrices (orders 3 to 73) were known before 2026,
   those of order 73 from the near-normal sequences NN(36) of Đoković (2009). One of them, 32316 = 4 · 3 · 2693, is an
-  order that Đoković claimed through Corollary 8.8(i).
+  order that Đoković claimed through Corollary 8.8(i), and is labelled First explicit construction.
 - 6 need T-matrices of order 103, 151 or 163, known only since 2026, and are new beyond the tables: 16308, 21836,
   32012, 34556, 36844 and 39772.
 - 16892 and 25132 are Known: SageMath's development version builds them by Cooper–Wallis since October 3, 2026, from
@@ -104,12 +104,62 @@ with its README.
   paper, which may list them). Cooper–Wallis with T-matrices posted in 2026 reaches 16300, 16308, 19932, 21836,
   32012, 33220, 34556, 36844 and 39772. Kiyasu's theorem reaches 15196 from our skew-Hadamard matrix of order 1900.
 - 19028, 34196 and 39260 were already in this repository, by Cooper–Wallis.
-- Not built: 28820 = 4 · 131 · 55, for want of T-matrices of order 55 (`search/tmat_mult.py` found none over its
-  multiplier subgroups); it also follows by Cooper–Wallis from T-matrices of order 131.
+- 28820 = 4 · 5 · 11 · 131 needs T-matrices of order 55, which SageMath does not store. We built them from base
+  sequences BS(6, 5) by Yang's multiplication by 5 (Seberry–Yamada 1992, Theorem 5.23, with the Golay pair of length
+  2; [`t-matrices/T55.txt`](../t-matrices/T55.txt)), so 28820 is among the 109. The same T-matrices give 38060
+  ([below](#orders-recorded-only-through-corollary-88i)).
 
 SageMath's development version (`hadamard_matrix(4n, existence=True)`, October 17, 2026) returns Unknown for all the
 others. Each certificate is checked exactly when it is written (entries ±1, Σ PAF = 0 off 0, sequences rebuilt from
 Paley's matrix by `verify/verify.py`); the dense check H Hᵀ = 4n I of `verify/verify.py` is running.
+
+## Orders recorded only through Corollary 8.8(i)
+
+Seberry and Yamada's Table A.1 (1992) obtains Williamson-type matrices of the primes 173, 293, 373, …, 1993 only from
+their Corollary 8.8(i) (key wl, credited to Miyamoto's 1991 paper, which we could not read), and the printed proof of
+that corollary does not give Williamson-type matrices ([NOTES.md](../NOTES.md) §7). Orders built by Cooper–Wallis from
+those matrices are recorded as known by Seberry–Yamada's Table A.2 (and hence omitted by Cati–Pasechnik's Table 4), by
+Đoković's set Δ (arXiv:0912.5091) or by Handbook Table 1.53 with t = 2, but have no other construction that we could
+find. For s = 173 and 293, q = 4s − 1 = 691 and 1171 are primes ≡ 3 (mod 8), so the route reaches every multiple s · t
+with T-matrices of order t; for s = 373 it reaches 9325 = 25 · 373 through q = 7459 (s = 1865, t = 5, over ℤ₅ × ℤ₁₈₆₅).
+We built 26 of them; the T-matrices of orders 21 and 33 come from the Golay pairs of lengths 20 and 32 (Turyn), those of
+order 43 from `search/tmat_mult.py 43 6`, and those of order 55 from Yang's multiplication (above). They are labelled
+First explicit construction: a table records them as known, and the only construction we could trace is the corollary's.
+
+| Order | n | s | q | t | Recorded by |
+|------:|---:|---:|---:|---:|---|
+| [2076](2076) | 519 = 3 · 173 | 173 | 691 | 3 | Seberry–Yamada Table A.2; omitted by Cati–Pasechnik Table 4 |
+| [3460](3460) | 865 = 5 · 173 | 173 | 691 | 5 | Seberry–Yamada Table A.2; omitted by Cati–Pasechnik Table 4 |
+| [4844](4844) | 1211 = 7 · 173 | 173 | 691 | 7 | Seberry–Yamada Table A.2; omitted by Cati–Pasechnik Table 4 |
+| [5860](5860) | 1465 = 5 · 293 | 293 | 1171 | 5 | Seberry–Yamada Table A.2; omitted by Cati–Pasechnik Table 4 |
+| [6228](6228) | 1557 = 3² · 173 | 173 | 691 | 9 | Seberry–Yamada Table A.2; omitted by Cati–Pasechnik Table 4 |
+| [7612](7612) | 1903 = 11 · 173 | 173 | 691 | 11 | Seberry–Yamada Table A.2; omitted by Cati–Pasechnik Table 4 |
+| [8204](8204) | 2051 = 7 · 293 | 293 | 1171 | 7 | Seberry–Yamada Table A.2; omitted by Cati–Pasechnik Table 4 |
+| [8996](8996) | 2249 = 13 · 173 | 173 | 691 | 13 | Seberry–Yamada Table A.2; omitted by Cati–Pasechnik Table 4 |
+| [12892](12892) | 3223 = 11 · 293 | 293 | 1171 | 11 | Handbook Table 1.53, t = 2 |
+| [14532](14532) | 3633 = 3 · 7 · 173 | 173 | 691 | 21 | Handbook Table 1.53, t = 2 |
+| [15236](15236) | 3809 = 13 · 293 | 293 | 1171 | 13 | Handbook Table 1.53, t = 2 |
+| [15916](15916) | 3979 = 23 · 173 | 173 | 691 | 23 | Handbook Table 1.53, t = 2 |
+| [19924](19924) | 4981 = 17 · 293 | 293 | 1171 | 17 | Đoković's set Δ (arXiv:0912.5091) |
+| [20068](20068) | 5017 = 29 · 173 | 173 | 691 | 29 | Đoković's set Δ (arXiv:0912.5091) |
+| [21452](21452) | 5363 = 31 · 173 | 173 | 691 | 31 | Đoković's set Δ (arXiv:0912.5091) |
+| [22268](22268) | 5567 = 19 · 293 | 293 | 1171 | 19 | Đoković's set Δ (arXiv:0912.5091) |
+| [22836](22836) | 5709 = 3 · 11 · 173 | 173 | 691 | 33 | Đoković's set Δ (arXiv:0912.5091) |
+| [28372](28372) | 7093 = 41 · 173 | 173 | 691 | 41 | Đoković's set Δ (arXiv:0912.5091) |
+| [29300](29300) | 7325 = 5² · 293 | 293 | 1171 | 25 | Đoković's set Δ (arXiv:0912.5091) |
+| [29756](29756) | 7439 = 43 · 173 | 173 | 691 | 43 | Đoković's set Δ (arXiv:0912.5091) |
+| [32524](32524) | 8131 = 47 · 173 | 173 | 691 | 47 | Đoković's set Δ (arXiv:0912.5091) |
+| [33908](33908) | 8477 = 7² · 173 | 173 | 691 | 49 | Đoković's set Δ (arXiv:0912.5091) |
+| [36332](36332) | 9083 = 31 · 293 | 293 | 1171 | 31 | Đoković's set Δ (arXiv:0912.5091) |
+| [36676](36676) | 9169 = 53 · 173 | 173 | 691 | 53 | Đoković's set Δ (arXiv:0912.5091) |
+| [37300](37300) | 9325 = 5² · 373 | 1865 | 7459 | 5 | Đoković's set Δ (arXiv:0912.5091) |
+| [38060](38060) | 9515 = 5 · 11 · 173 | 173 | 691 | 55 | Đoković's set Δ (arXiv:0912.5091) |
+
+The others (2611 in the range of Table 4; 3065, 3579, 3865, 3903, 4479, 4765, 5199, 5411, 5545, 5965, 5979, 6341, 6743,
+6813, 8327, 8465, 8503, 8579, 8665, 9107 and 9965 above it) are not reached by any route we know; 2427 and 8899 = 11 ·
+809 are built by Miyamoto's matrix in bordered blocks with a periodic Golay pair ([9708](9708), [35596](35596),
+[MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#periodic-golay-pairs)), and 5259 is built by Corollary 8.8(ii) instead
+([21036](21036)).
 
 ## Reproduction and verification
 

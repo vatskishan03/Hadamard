@@ -57,14 +57,29 @@ did not combine; we found no earlier construction of them.
   no construction we could trace, and six (19028, 21044, 21748, 39260, 40244, 45044) were obtainable classically by the
   Paley-block route [14, 15]. Also independent matrices of the known orders 2060, 3532 and 31316 (which SageMath's
   development version builds since October 3, 2026). See [hadamard](hadamard).
-- **Hadamard matrices of 116 orders 4n with 3001 ≤ n ≤ 9999** (12052 to 39916) that Table 1.53 of the Handbook, with
-  Đoković's updates of 2009–2010, lists as unknown (one of them, 32316, Đoković claimed only through a corollary
-  whose printed proof fails). They come from the same Paley-block route [14, 15]. For 108 of them the T-matrices
-  (orders 3 to 73) were known before 2026, so these orders were obtainable classically; six need T-matrices of order
-  103, 151 or 163 from 2026; and two (16892, 25132) are built by SageMath's development version since October 3,
-  2026. See [hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#beyond-table-4). Also 21036 = 4 · 3 · 1753, which
-  Đoković claimed through Williamson-type matrices of order 1753 that rested on the same corollary: part (ii) of it
-  with our symmetric matrix of order 876 gives them validly ([hadamard/21036](hadamard/21036)).
+- **Hadamard matrices of 117 orders 4n with 3001 ≤ n ≤ 9999** (12052 to 39916) that Table 1.53 of the Handbook, with
+  Đoković's updates of 2009–2010, lists as unknown (one of them, 32316, Đoković claimed only through a corollary whose
+  printed proof fails). They come from the same Paley-block route [14, 15]. For 109 of them the T-matrices (orders 3 to
+  73; for 28820 those of order 55, which we built by Yang's multiplication) were known before 2026, so these orders were
+  obtainable classically; six need T-matrices of order 103, 151 or 163 from 2026; and two (16892, 25132) are built by
+  SageMath's development version since October 3, 2026. See
+  [hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#beyond-table-4). Also 21036 = 4 · 3 · 1753, which Đoković claimed
+  through Williamson-type matrices of order 1753 that rested on the same corollary: part (ii) of it with our symmetric
+  matrix of order 876 gives them validly ([hadamard/21036](hadamard/21036)).
+- **Hadamard matrices of 15 more orders 4n with 3279 ≤ n ≤ 9991** that Handbook Table 1.53 lists as unknown, from a
+  route we found stated nowhere: Miyamoto's matrix of order 4q, built with a Hadamard matrix of order q − 1 of 2N-type
+  (a negaperiodic Golay pair), is an array of sixteen commuting bordered blocks, and Seberry and Yamada's multiplication
+  by T-matrices applies to it ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md)). Nine are obtainable
+  classically, four need the T-matrices of 2026, and two (7179 and 7323) Đoković claimed only through the failing
+  corollary below.
+- **Orders recorded only through Seberry–Yamada's Corollary 8.8(i)**, whose printed proof does not give Williamson-type
+  matrices ([NOTES.md](NOTES.md) §7): first valid constructions of 28 orders whose only traced construction used it.
+  Nine are omitted by Table 4 (n = 519, 865, 1211, 1465, 1557, 1903, 2051, 2249 and 2427), among them 2427 (order
+  [9708](hadamard/9708)), which [FRONTIER.md](FRONTIER.md) listed as unresolved; 19 are Handbook entries from Đoković's
+  set Δ or with t = 2, orders 12892 to 38060. 26 come from the Paley-block route, and 9708 and 35596 from Miyamoto's
+  matrix in bordered blocks with a periodic Golay pair of length 404
+  ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#orders-recorded-only-through-corollary-88i),
+  [hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#periodic-golay-pairs)).
 - **Skew-Hadamard matrices of 40 orders** from 820 to 9900 for which we found no earlier construction: 32 from
   Goethals–Seidel difference families with a skew block, and 8 from Seberry's theorem with new amicable Hadamard
   matrices or new orthogonal designs. Also independent matrices of the known skew orders 1852 and 3676.

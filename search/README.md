@@ -122,7 +122,7 @@ start-up, is close to the list size.
 
 | Program | Role |
 |---|---|
-| `propus.py`, `propus_group.py`, `propus_chain.py`, `propus_gchain.py`, `propus_bgroup.py`, `propus_paley.py` | propus quadruples (A, B, B, D): cyclic, non-cyclic, with compressions, bordered; `propus_chain.py --symD` keeps D symmetric too (doubly symmetric quadruples, the symmetric pairs of [../NOTES.md](../NOTES.md) §19) |
+| `propus.py`, `propus_group.py`, `propus_chain.py`, `propus_gchain.py`, `propus_bgroup.py`, `propus_paley.py` | propus quadruples (A, B, B, D): cyclic, non-cyclic, with compressions, bordered; `propus_chain.py --symD` keeps D symmetric too (doubly symmetric quadruples, the symmetric pairs of [../NOTES.md](../NOTES.md) §19); `propus.py --nwrep` searches near-Williamson quadruples (A, B, B, D) with A and B symmetric and D free, the repeated-block input of Corollary 8.8 ([../NOTES.md](../NOTES.md) §7) |
 | `propus_rank.py`, `propus_sat.py`, `propus_ls.c` | estimates, a CP-SAT model, local search |
 | `prow.c`, `p65.c`, `pz5.c`, `hit2rec.py` | dedicated row searches (732) |
 | `qborder_clique.c` | the border problem of the ℤ_q-bordered propus array |
@@ -170,6 +170,7 @@ start-up, is close to the list size.
 | Program | Role |
 |---|---|
 | `tmatrix.py`, `tmat_mult.py`, `tmat_scan.py`, `tmat_composite.py`, `tmat_t3_model.py` | T-matrices by support splits and multiplier structures |
+| `yang5.py` | T-sequences of length 5t from base sequences BS(m + 1, m), t = 2m + 1, by Yang's multiplication by 5 (Seberry–Yamada 1992, Theorem 5.23); `5 --turyn` writes [../t-matrices/T55.txt](../t-matrices/T55.txt) |
 | `bt/` | bordered T-matrices |
 | `williamson.py` | Williamson matrices with multiplier symmetry |
 | `bnw.py`, `bnw_enum.c` | bordered Williamson-type matrices ([williamson-type](../williamson-type)) |
@@ -184,6 +185,7 @@ start-up, is close to the list size.
 | Program | Role |
 |---|---|
 | `paley_blocks.py` | Paley's matrix of order q + 1 (q ≡ 3 mod 8, a prime or a prime power) as a 4 × 4 array of circulants along the orbits of a torus element, times T-matrices of order t from base sequences or from a file (Seberry–Yamada 1990, Theorem 4), over ℤ_t × ℤ_s when gcd(s, t) > 1; writes the certificate ([../hadamard/PALEY_BLOCKS.md](../hadamard/PALEY_BLOCKS.md)): `check`, `quad`, `certify` |
+| `miyamoto_blocks.py` | Miyamoto's matrix of order 4q (q ≡ 1 mod 4 prime) with a Hadamard matrix of order q − 1 of 2N-type (a negaperiodic Golay pair: Paley series, Williamson matrices, Golay products) or two-circulant type (a periodic Golay pair: `golay2:dk202`, Đoković–Kotsireas), as sixteen commuting bordered blocks, times T-matrices of order t: H(4qt); writes the certificate ([../hadamard/MIYAMOTO_BLOCKS.md](../hadamard/MIYAMOTO_BLOCKS.md)): `selftest`, `certify` |
 
 **Certificates**
 

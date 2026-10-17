@@ -285,7 +285,7 @@ concurrent ones:
   Williamson-type matrices as printed ([NOTES.md](../NOTES.md) §7), so Đoković's Williamson-type matrices of orders 509
   and 857 (arXiv:1008.2043, Propositions 3.2–3.4) and our 269 (near-Williamson matrices of order 67) are not
   established. The complex orders 538, 1018 and 1714 are known anyway, from explicit matrices on Zaitsev's page (checked
-  exactly). The page attributes 1018 and 1714 to Đoković's Williamson-type matrices and claims nothing for them; their
+  exactly). The page derives 1018 and 1714 from Đoković's Williamson-type matrices and gives no further construction; their
   blocks are the printed matrices of Corollary 8.8(i), not Williamson-type matrices, so they are instances of the
   completion described above. 1766 is known from QH1766 there, which splits into explicit Williamson-type matrices of
   order 883 (Corollary 8.9, q = 441). 746, 1514, 1546, 1618 and 1906, recorded in 1992 only through Corollary 8.8(i),

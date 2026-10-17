@@ -30,7 +30,13 @@ an Hadamard input H, only when H is symmetric. That is part (ii), and no symmetr
 case, was not accessible. We list the three orders as unresolved (rows 6108, 10180 and 10284; their Spence columns were
 not computed). The same holds for n = 2427 = 3 · 809 and 2611 = 7 · 373, which Table 4 omits: it inherits m = 2 from
 Seberry–Yamada's 2020 Table A.17, and the 1992 Table A.2 builds them (code o2) from Williamson-type matrices of orders
-809 and 373 that their Table A.1 obtains only from Corollary 8.8(i).
+809 and 373 that their Table A.1 obtains only from Corollary 8.8(i). 2427 now has a valid construction: Miyamoto's
+matrix of order 3236 in sixteen bordered blocks, with a periodic Golay pair of length 404, times T-matrices of order 3
+([hadamard/9708](hadamard/9708), [hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#periodic-golay-pairs)); 2611
+remains unresolved. Eight more orders that Table 4 omits for the same reason, n = 519, 865, 1211, 1557, 1903 and 2249
+(Williamson-type matrices of order 173) and 1465 and 2051 (order 293), are no longer open: Paley's matrix of order 692
+or 1172 in sixteen circulant blocks gives them without the corollary
+([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#orders-recorded-only-through-corollary-88i)).
 
 **Columns.** For each order the table lists the cheapest structure of each kind
 found by `search/triage.py` that is expected to contain at least ten solutions:
