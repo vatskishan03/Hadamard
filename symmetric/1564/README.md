@@ -26,17 +26,19 @@ certificate.
 
 ## Status
 
-**New** as a symmetric Hadamard matrix.
+**Concurrent** as a symmetric Hadamard matrix; we claim no priority for the order. Zaitsev, Kharaghani,
+Mohammadian and Tayfeh-Rezaie's page of quaternary Hadamard matrices (last updated 14 October 2026) lists
+QH782 under "unpublished approaches". It is a quaternary Yamada–Kiyasu matrix of order 782, a monomial
+matrix takes it to a symmetric one (found with nauty, checked exactly: same rows, columns up to units, symmetric,
+Hadamard), and Turyn's map then gives a symmetric Hadamard matrix of order 1564. The page does not mention
+symmetry or real matrices, and the construction for an arbitrary skew input is ours
+([YAMADA_KIYASU.md](../YAMADA_KIYASU.md#status)).
 
 - The Đoković–Seberry census (2025-05-28) lists 391 among its 595 undecided v for symmetric matrices. Seberry–Yamada's
   Corollary 27(i) in the propus array would need a symmetric conference matrix of order 196 or a skew-Hadamard
   matrix of order 196 with an involutive anti-automorphism ([NOTES.md](../../NOTES.md) §29).
 - The symmetric quaternary form of Yamada's matrix is the new step ([YAMADA_KIYASU.md](../YAMADA_KIYASU.md#status)); we
   found it in none of the sources listed there. The skew input is classical.
-- Zaitsev, Kharaghani, Mohammadian and Tayfeh-Rezaie's page of quaternary Hadamard matrices (last updated 14 October
-  2026) lists QH782 under "unpublished approaches". It is a quaternary Yamada–Kiyasu matrix of order 782, and a
-  monomial matrix takes it to a symmetric one, from which Turyn's map gives a symmetric Hadamard matrix of order 1564
-  too ([YAMADA_KIYASU.md](../YAMADA_KIYASU.md#status)). The page does not mention symmetry or real matrices.
 - Ordinary Hadamard matrices of order 1564 are classical (Yamada 1989, Theorem 4, from the same skew input); the
   symmetry is what is new.
 

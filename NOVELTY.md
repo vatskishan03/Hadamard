@@ -150,9 +150,9 @@ For every order we checked:
   arXiv:2608.06920; Goryainov–Haemers–Konstantinova–Li, arXiv:2512.16653; Barrera Acevedo–Dietrich, Australas. J.
   Combin. 73 (2019); Cati–Pasechnik; Balonin's online catalogue; Kiyasu, RIMS Kōkyūroku 587 (1986); arXiv, Crossref,
   OpenAlex and CiNii searches for symmetric Hadamard matrices, propus matrices and symmetric weighing matrices; and
-  Zaitsev's page, whose quaternary matrices QH590, QH638, QH782 and QH926 are of the Yamada–Kiyasu kind and
-  monomially equivalent to symmetric ones (noted in the READMEs of 1180, 1276, 1564 and 1852). None states either
-  construction or a symmetric matrix of any of the 37 orders;
+  Zaitsev's page, whose quaternary matrices QH590, QH638, QH782, QH926, QH1310, QH1358, QH1646 and QH1886 are of the
+  Yamada–Kiyasu kind and monomially equivalent to symmetric ones, so 1180, 1276, 1564, 1852, 2620, 2716, 3292 and 3772
+  are labelled Concurrent. None states either construction or a symmetric matrix of any of the 37 orders;
 - searches of Zenodo (records matching "hadamard"), GitHub, the e-print sources of Hadamard-related arXiv papers
   (to 2026-10-08) and the math.CO listings (to 2026-10-12), the OEIS, MathOverflow, Balonin's catalogue and the Palomar
   registry.

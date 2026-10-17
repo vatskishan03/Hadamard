@@ -26,7 +26,13 @@ certificate.
 
 ## Status
 
-**New** as a symmetric Hadamard matrix.
+**Concurrent** as a symmetric Hadamard matrix; we claim no priority for the order. Zaitsev, Kharaghani,
+Mohammadian and Tayfeh-Rezaie's page of quaternary Hadamard matrices (last updated 14 October 2026) lists
+QH1310 under "unpublished approaches". It is a quaternary Yamada–Kiyasu matrix of order 1310, a monomial
+matrix takes it to a symmetric one (found with nauty, checked exactly: same rows, columns up to units, symmetric,
+Hadamard), and Turyn's map then gives a symmetric Hadamard matrix of order 2620. The page does not mention
+symmetry or real matrices, and the construction for an arbitrary skew input is ours
+([YAMADA_KIYASU.md](../YAMADA_KIYASU.md#status)).
 
 - The Đoković–Seberry census (2025-05-28) lists 655 among its 595 undecided v for symmetric matrices. Seberry–Yamada's
   Corollary 27(i) in the propus array would need a symmetric conference matrix of order 328 or a skew-Hadamard

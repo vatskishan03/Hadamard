@@ -127,7 +127,8 @@ Williamson-type matrices ([NOTES.md](NOTES.md) §7).
   ([symmetric/PROPUS_WEIGHING.md](symmetric/PROPUS_WEIGHING.md), 10 orders, 3236 to 9764, which settle every census
   value q ≡ 1 mod 8 that is a prime power), and one of order 4(q + 2) from any skew-Hadamard matrix of order (q + 3)/2,
   q ≡ 5 (mod 8), Yamada's matrix in symmetric quaternary form ([symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md),
-  27 orders, 1180 to 9340). Also 1804 and 3532, which Seberry–Balonin's Corollary 1 gives with conference cores of
+  27 orders, 1180 to 9340; 8 of them are Concurrent, since quaternary matrices on Zaitsev et al.'s page of 14 October
+  2026 turn out to be equivalent to symmetric ones). Also 1804 and 3532, which Seberry–Balonin's Corollary 1 gives with conference cores of
   orders 225 and 441 but the census omits (Known). The census now has 500 undecided values. See [symmetric](symmetric).
 - **Complex Hadamard matrices** of 11 orders 2N with N odd, blank in Seberry and Yamada's table of known orders [5]
   and in the papers since [10, 11, 12]: 214, 238, 302, 326, 366, 382, 426, 494, 518, 534 and 754, from searches over

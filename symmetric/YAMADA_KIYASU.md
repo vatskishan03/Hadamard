@@ -17,15 +17,15 @@ route of NOTES.md §29 had failed (no skew-propus quadruple of length 37, search
 
 | Order | v = q + 2 | (q + 3)/2 | Skew-Hadamard input | Status |
 |------:|---:|---:|---|---|
-| [1180](1180) | 295 = 5 · 59 | 148 | Goethals–Seidel over ℤ₃₇ (our search; Đoković 1992) | New |
-| [1276](1276) | 319 = 11 · 29 | 160 | Paley (p = 19), doubled three times | New |
-| [1564](1564) | 391 = 17 · 23 | 196 | Goethals–Seidel over ℤ₄₉ (our search; Đoković 1992) | New |
-| [1852](1852) | 463 | 232 | good matrices of order 29 (Szekeres 1988), doubled | New |
-| [2620](2620) | 655 = 5 · 131 | 328 | Paley (p = 163), doubled | New |
-| [2716](2716) | 679 = 7 · 97 | 340 | Whiteman's complementary difference sets in GF(13²) (1971) | New |
+| [1180](1180) | 295 = 5 · 59 | 148 | Goethals–Seidel over ℤ₃₇ (our search; Đoković 1992) | Concurrent |
+| [1276](1276) | 319 = 11 · 29 | 160 | Paley (p = 19), doubled three times | Concurrent |
+| [1564](1564) | 391 = 17 · 23 | 196 | Goethals–Seidel over ℤ₄₉ (our search; Đoković 1992) | Concurrent |
+| [1852](1852) | 463 | 232 | good matrices of order 29 (Szekeres 1988), doubled | Concurrent |
+| [2620](2620) | 655 = 5 · 131 | 328 | Paley (p = 163), doubled | Concurrent |
+| [2716](2716) | 679 = 7 · 97 | 340 | Whiteman's complementary difference sets in GF(13²) (1971) | Concurrent |
 | [2812](2812) | 703 = 19 · 37 | 352 | Paley (p = 43), doubled three times | New |
-| [3292](3292) | 823 | 412 | Goethals–Seidel over ℤ₁₀₃ (Đoković 1994) | New |
-| [3772](3772) | 943 = 23 · 41 | 472 | Goethals–Seidel over ℤ₅₉ (Fletcher–Koukouvinos–Seberry 2004), doubled | New |
+| [3292](3292) | 823 | 412 | Goethals–Seidel over ℤ₁₀₃ (Đoković 1994) | Concurrent |
+| [3772](3772) | 943 = 23 · 41 | 472 | Goethals–Seidel over ℤ₅₉ (Fletcher–Koukouvinos–Seberry 2004), doubled | Concurrent |
 | [4252](4252) | 1063 | 532 | Goethals–Seidel over ℤ₁₃₃ (our search; Đoković 1992) | New |
 | [4732](4732) | 1183 = 7 · 13² | 592 | Goethals–Seidel over ℤ₃₇, doubled twice | New |
 | [4924](4924) | 1231 | 616 | Paley (p = 307), doubled | New |
@@ -144,8 +144,8 @@ would decide one more symmetric value.
 
 ## Status
 
-- All 27 orders are **New**: their census values are undecided, and we found the symmetric form of Yamada's matrix
-  nowhere (audit of 17 October 2026). Ordinary Hadamard matrices of all these orders are classical (Yamada 1989,
+- 19 orders are **New** and 8 are **Concurrent** (below): all 27 census values are undecided, and we found the symmetric
+  form of Yamada's matrix nowhere (audit of 17 October 2026). Ordinary Hadamard matrices of all these orders are classical (Yamada 1989,
   Theorem 4, announced in Proc. Japan Acad. 63 (1987); Đoković, arXiv:1008.2043, applies it to 823, 1063, 1303, 2143
   and 2335); the symmetry is what is new.
   - The symmetric case published so far is Paley's skew core: Seberry–Yamada's Corollary 27(i) (JCMCC 7 (1990); 1992
@@ -155,13 +155,18 @@ would decide one more symmetric value.
   - Not read: Kiyasu's book (1980, in Japanese) and his 1974 series, which state the ordinary result; the full text
     of Seberry–Yamada (2020), chapters 3 and 6 and pp. 211–214; Miyamoto (1991). The census of 2025, co-authored by
     Seberry, lists all 27 values as undecided.
-- **Zaitsev et al.** The page [Quaternary Hadamard matrices](https://www.cs.uleth.ca/~zaitsevv/quaternary.html) of
-  Zaitsev, Kharaghani, Mohammadian and Tayfeh-Rezaie (last updated 14 October 2026) lists quaternary Hadamard matrices
-  QH590, QH638, QH782 and QH926 under "unpublished approaches". They are of this Yamada–Kiyasu kind (we recovered
-  U = (I, 0, S, −S) and V = (M, N, I, I) from QH590), and nauty finds monomial matrices taking each of them to a
-  symmetric quaternary matrix, so Turyn's map gives symmetric Hadamard matrices of orders 1180, 1276, 1564 and 1852 from
-  them too. The page says nothing about symmetry, and the real orders 4v are not listed; we report this overlap for the
-  four values v = 295, 319, 391 and 463.
+- **Zaitsev et al. (Concurrent).** The page [Quaternary Hadamard matrices](https://www.cs.uleth.ca/~zaitsevv/quaternary.html)
+  of Zaitsev, Kharaghani, Mohammadian and Tayfeh-Rezaie (last updated 14 October 2026) lists quaternary Hadamard
+  matrices QH590, QH638, QH782, QH926, QH1310, QH1358, QH1646 and QH1886, of orders 2v for v = 295, 319, 391, 463, 655,
+  679, 823 and 943, under "unpublished approaches". They are of this Yamada–Kiyasu kind (we recovered U = (I, 0, S, −S)
+  and V = (M, N, I, I) from QH590; the others share its 2 × 2 block structure), and nauty finds monomial matrices taking
+  each of them to a symmetric quaternary matrix (all eight checked here and twice independently in the audit),
+  so Turyn's map
+  gives symmetric Hadamard matrices of orders 1180, 1276, 1564, 1852, 2620, 2716, 3292 and 3772 from published data.
+  The page says nothing about symmetry and lists no real orders 4v, but the matrices are public, so these eight orders
+  are labelled Concurrent and we claim no priority for them. The general construction for an arbitrary skew input is
+  ours. (The 1992 Table 11.2 had no complex matrix for these eight v; for 703 it records one from Williamson-type
+  matrices, which gives no symmetric matrix.)
 - The skew inputs are classical except our skew matrices of orders 820, 836, 1036 and 1148 (2026).
 
 The sources searched are listed in [NOVELTY.md](../NOVELTY.md).
