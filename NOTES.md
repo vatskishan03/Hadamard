@@ -1249,6 +1249,11 @@ matrix below. Three more cases were examined; none reaches FRONTIER.md.
   191, 223, 239, 269, 283, 347, 359, 419, 443, 463, 479, 491, 509, 571, 573, 599, 631, 643, 857, 863, 941, 947, 955,
   971, 991}. No quasi-Williamson matrices of any of these orders are known, and an NG pair of length 334 would also
   settle the open complex order 334.
+  Balonin and Đoković (arXiv:1508.00640) show that NG pairs of every even length are equivalent to Ito's conjecture,
+  so for s = 167, 179, 191 and 223 the route is Ito's conjecture at t = s. An exact meet-in-the-middle over NG pairs of
+  lengths 334, 358, 382 and 446 invariant under every admissible multiplier group with at most 24 sign pairs (|H| =
+  166, 83; 178, 89; 190, 95, 38, 19; 222, 111, 74, 37) found none; the same program finds NG pairs of lengths 26–42
+  under groups of order 2 to 6 (`search/ng_mitm.py`).
 - *Yamada's matrix of order 4(q + 2) (Kiyasu; search/NOTES.md §13) in bordered blocks.* Its inner blocks lie in P ⊗
   circ(n₀) ⊕ J₂ ⊗ alg(S, J), with P = [[1, −1], [−1, 1]], PJ₂ = 0, S the skew core of order n₀ = (q + 1)/2 and SJ = 0,
   so they commute. Reassign the four border columns to the block columns in the order (0, 3, 1, 2) and sign them (1, −1,
