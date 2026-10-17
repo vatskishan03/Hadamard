@@ -1798,7 +1798,8 @@ core of a symmetric Hadamard matrix of order h gives order kh(h − 1) (unused: 
   none for n = 9 (35 is not a² + 2b²). These existence results were published before (found by the audit of 17
   October 2026): Abuzin, Balonin, Đoković and Kotsireas (Inform. Control Syst. 2019, no. 5, 2–9, Table 1, "X1 skew,
   X2 = X3, and X4 symmetric") list such families for every odd v < 50 with 4v − 1 = a² + 2b² except 37, 43 and 47,
-  for which their Table 3 has only families with X4 neither symmetric nor skew. Their families of lengths 19, 25
+  for which their Table 3 has only families with X4 neither symmetric nor skew; for 37 there is none with X4
+  symmetric (`sp_mitm.c`, exhaustive, §49). Their families of lengths 19, 25
   and 31 are equivalent to ours (a multiplier, a shift of A1, and for 31 a reversal and sign change of A1).
 - *Szekeres-type pairs*: a Legendre pair (M, N) of odd length v' with M of skew type and N symmetric gives the
   bordered two-block skew-Hadamard matrix [[1, 1, e, −e], [−1, 1, −e, −e], [−e, e, A, B], [e, e, −B, Aᵀ]] of
@@ -3127,3 +3128,36 @@ square. Exhaustive searches over the symmetric elements of ℤ₃, ℤ₅, ℤ�
 finds the 16 signed permutations). Four distinct symmetric blocks do not help either: a symmetric orthogonal design of
 order 4 in four variables would need four anticommuting real symmetric involutions of order 4, and their Clifford
 algebra M₂(ℍ) has no module of dimension 4.
+
+**Corollary 27(i) with a skew core, and length 37** (`sym_skewcore.py`, `sp_mitm.c`, `l26_scheme.py`). The proof of
+Seberry–Yamada's Corollary 27(i) uses of Paley's skew core only a skew core B with B R symmetric for the reversal R
+(NOTES.md §29). A skew-propus quadruple of length ℓ gives, in the Balonin array, a skew-Hadamard matrix S = I + NP of
+order 4ℓ with the involutive anti-automorphism P, which fixes two points. Normalised at one of them, its core,
+relabelled on ℤ_n (n = 4ℓ − 1) so that P acts as x ↦ −x, is such a B. With Yamada's circulants for the prime
+q = 2n − 1 = 8ℓ − 3, Lemma 26 with U = (I, 0, BR, BR) and V = (M, N, R, R) gives symmetric Williamson-type matrices of
+order q + 2 with W₃ = W₄, and the propus array a symmetric Hadamard matrix of order 4(q + 2) (verify.py construction
+`symmetric-propus-skewcore`; the lengths 13 and 19 give orders 412 and 604, checked). The census values in reach are
+v = 8ℓ − 1 with q prime and a₃² + 2a₁² = 4ℓ − 1 solvable: ℓ = 37 (v = 295), 85 (679), 103 (823), 133 (1063), 187
+(1495), 235 (1879), 277 (2215) and 295 (2359). Of these, 1879 and 2215 are also FRONTIER orders, through Kiyasu from
+skew 940 and 1108.
+- Length 37 has no skew-propus quadruple. `sp_mitm.c` is exhaustive. The row sums must be (7, 7, 1). A3 runs over its
+  1768 classes under the multipliers and A0 over all 2¹⁸ skew-type sequences. The 2,937,404 pairs that pass the
+  power-spectrum test |Â3|² + |Â0|² ≤ 148 are tabled by the autocorrelation A1 would need. All 3.65 · 10⁹ sequences
+  A1 with row sum 7 and A1(0) = −1 (every A1 has such a shift) are looked up: no match (3 cores, 14 minutes).
+  - Controls: the program finds quadruples at every length 3 ≤ n ≤ 35 for which Abuzin–Balonin–Đoković–Kotsireas
+    (2019, Table 1) give one.
+  - It finds none for n = 25 with row sums (7, 5) or (1, 7), and none for n = 31 with (11, 1), the patterns for
+    which their Table 3 has only a fourth block that is neither symmetric nor skew.
+  - For 37 their Table 3 also has only such a family, under ⟨10⟩; no family with X₄ symmetric exists. So v = 295 is
+    not reached this way, and neither are the amicable order 148 (16 · 851 in NOTES.md §28) nor the m(m − 1) order
+    148 · 147.
+  - The counts are Poisson-like. A random model (2^{2ℓ} sign choices, each of the ℓ − 1 independent autocorrelation
+    classes 0 with probability 4/√(2π · 8ℓ)) predicts about 10^2.5 solutions per row pattern for 13 ≤ n ≤ 37. The
+    exhaustive counts are about 10^3 when non-zero, that is one to four classes under multipliers, shifts of A1 and
+    A0 ↦ A0ᵀ, and zero for four of the fourteen patterns.
+- The longer lengths are out of reach. The same model gives 10^−1.2 solutions in all at ℓ = 85, 10^−8 at 133 and
+  10^−28 at 235, and the only odd-order multiplier group of ℤ₈₅ is trivial, so these lengths need an algebraic
+  family.
+- The cyclotomic form of Lemma 26 with a repeated block (`l26_scheme.py`: U_k, V_k in the cyclotomic scheme of GF(p)
+  of index e with −1 in the subgroup, v = 2p + 1) gives only p = 5 (v = 11) and p = 13 (v = 27) for p ≤ 400 and
+  e ≤ 8, and nothing for 200 ≤ p ≤ 1250 and e ≤ 4.

@@ -1504,7 +1504,7 @@ odd v ≤ 2499. Its theorems:
   ([skew/14384](skew/14384)). A scan of every repository skew order against every classical or repository amicable
   order finds nothing else below Table 5 for v ≤ 999. The amicable orders that would add more are 92, 116 and 148
   (16 · 667, 16 · 851): length 23 has no skew-propus quadruple (91 ≠ a² + 2b²), length 29 has no admissible row sums
-  (115), and length 37 was searched only under subgroups of order 3 and 9 (search/NOTES.md §31).
+  (115), and length 37 has none at all (exhaustive search, search/NOTES.md §49).
 
   The audit of October 17 found that the amicable pairs are first explicit rather than new objects: Abuzin,
   Balonin, Đoković and Kotsireas (Inform. Control Syst. 2019, no. 5, 2–9, Table 1) publish skew-propus difference
@@ -1618,7 +1618,10 @@ core B only that it is a skew core with an involutive anti-automorphism R, so an
 (q + 3)/2 with an involutive anti-automorphism fixing two points gives symmetric Williamson-type matrices of order q + 2
 with a repeated block (the audit of October 17 checked it for the skew-propus quadruple of length 19, order 151). Our
 skew matrices of this kind (orders 52, 76, 100, 124) give v = 103, 151, 199 (all decided) and nothing for 124; 732 =
-4 · 183 would follow from such a skew matrix of order 92, which is not known.
+4 · 183 would follow from such a skew matrix of order 92, which is not known. The census values a skew-propus
+quadruple of length ℓ could reach are v = 8ℓ − 1 for ℓ = 37, 85, 103, 133, 187, 235, 277 and 295 (q = 8ℓ − 3 prime);
+an exhaustive search shows that there is no skew-propus quadruple of length 37, and the longer lengths are far beyond
+the random-model range (search/NOTES.md §49).
 
 **Symmetric multiplication by odd t.** The propus array has no analogue of Cooper–Wallis's T-matrices in the natural
 form X_k = Σ_j M_kj ⊗ Y_j with symmetric commuting M_kj of disjoint supports: at the trivial character the row sums form
