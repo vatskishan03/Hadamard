@@ -139,6 +139,20 @@ For every order we checked:
   J. Combin. 55 (2013); SageMath's development source; Balonin's online catalogue (propus pages); arXiv, Semantic
   Scholar and OpenAlex for Miyamoto 1991 and its citations. None states the family; Miyamoto's claim of 1991 is
   discussed in PROPUS_MIYAMOTO.md;
+- for the 37 symmetric orders from the two constructions without a symmetric input
+  ([symmetric/PROPUS_WEIGHING.md](symmetric/PROPUS_WEIGHING.md), [symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md)),
+  checked on 17 October 2026: Yamada, J. Austral. Math. Soc. A 46 (1989), read in full (Theorems 3–5, ordinary
+  matrices only); Seberry–Yamada, JCMCC 7 (1990) and its Kobe version (Lemma 26, Corollaries 27, 29 and 31, Remarks 17
+  and 30, Theorem 34 with its Case B, a V-part coupled across sixteen blocks for ordinary M-structure matrices, and
+  Corollary 35), the 1992 survey (Lemma 8.6, Corollaries 8.7, 8.8, 8.11, Theorem 8.10, Lemma 11.3) and JCMCC 13 (1993),
+  Corollary 5; Google Books snippets of Seberry–Yamada (2020), §6.5; Seberry–Balonin (2015, 2017); Balonin–Đoković,
+  arXiv:1803.08787; the census; Đoković, arXiv:1008.2043, 2101.05429, 2404.14375 and 2508.17141; Valtonen,
+  arXiv:2608.06920; Goryainov–Haemers–Konstantinova–Li, arXiv:2512.16653; Barrera Acevedo–Dietrich, Australas. J.
+  Combin. 73 (2019); Cati–Pasechnik; Balonin's online catalogue; Kiyasu, RIMS Kōkyūroku 587 (1986); arXiv, Crossref,
+  OpenAlex and CiNii searches for symmetric Hadamard matrices, propus matrices and symmetric weighing matrices; and
+  Zaitsev's page, whose quaternary matrices QH590, QH638, QH782 and QH926 are of the Yamada–Kiyasu kind and
+  monomially equivalent to symmetric ones (noted in the READMEs of 1180, 1276, 1564 and 1852). None states either
+  construction or a symmetric matrix of any of the 37 orders;
 - searches of Zenodo (records matching "hadamard"), GitHub, the e-print sources of Hadamard-related arXiv papers
   (to 2026-10-08) and the math.CO listings (to 2026-10-12), the OEIS, MathOverflow, Balonin's catalogue and the Palomar
   registry.
