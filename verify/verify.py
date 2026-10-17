@@ -712,6 +712,83 @@ def build_symmetric_propus_sb(cert):
     return _lemma26_propus([I, Z, Q, Q], [M, N, I, I]), None
 
 
+def build_symmetric_propus_skewcore(cert):
+    """Symmetric Hadamard matrix of order 4(q + 2) from a skew-propus quadruple of length l = (q + 3)/8 (NOTES.md
+    §29): Seberry-Yamada's Corollary 27(i) with the core of a skew-Hadamard matrix that has an involutive
+    anti-automorphism in place of Paley's skew core. "skew_propus" gives A3 (symmetric), A1, A0 (skew type) as +-
+    strings with PAF_A3 + 2 PAF_A1 + PAF_A0 = 4l delta. With A, B, D0 the circulants of A3, A1 and A0 - I and R the
+    back-diagonal permutation, N = [[-A, BR, BR, D0R], [BR, RD0, A, -RB], [BR, A, -RD0, RB], [D0R, -RB, RB, A]] and
+    P = [[0, 0, 0, R], [0, R, 0, 0], [0, 0, -R, 0], [R, 0, 0, 0]] are symmetric with N^2 = (4l - 1)I, P^2 = I and
+    PN = -NP, so S = I + NP is skew-Hadamard with PSP = S^T. S is normalised at a fixed point of P, and its core
+    B (order n = 4l - 1, skew, BJ = 0) is relabelled so that P acts as x -> -x on Z_n (RBR = B^T, R now that
+    reversal). Lemma 26 with U = (I, 0, BR, BR), V = (M, N, R, R) and Yamada's circulants M, N (q = 2n - 1, "r",
+    "xi") gives the W_k (_lemma26_propus). Everything is checked here."""
+    s = [np.array([SIGN[c] for c in x], dtype=np.int64) for x in cert["skew_propus"]]
+    l = len(s[0])
+    a3, a1, a0 = s
+    t = (-np.arange(l)) % l
+    if any(len(x) != l for x in s) or not np.array_equal(a3, a3[t]) or a0[0] != 1 or \
+            not np.array_equal(a0[t][1:], -a0[1:]):
+        raise ValueError("A3 must be symmetric and A0 of skew type, all of one length")
+    paf = paf_sum([a3, a1, a0]) + paf_sum([a1])
+    if paf[0] != 4 * l or np.any(paf[1:] != 0):
+        raise ValueError("PAF_A3 + 2 PAF_A1 + PAF_A0 is not 4l delta")
+    A, B, D0 = circulant(a3), circulant(a1), circulant(a0) - np.eye(l, dtype=np.int64)
+    Rl = back_identity(l)
+    Z = np.zeros((l, l), dtype=np.int64)
+    N = np.block([[-A, B @ Rl, B @ Rl, D0 @ Rl], [B @ Rl, Rl @ D0, A, -Rl @ B], [B @ Rl, A, -Rl @ D0, Rl @ B],
+                  [D0 @ Rl, -Rl @ B, Rl @ B, A]])
+    P = np.block([[Z, Z, Z, Rl], [Z, Rl, Z, Z], [Z, Z, -Rl, Z], [Rl, Z, Z, Z]])
+    m4 = 4 * l
+    I4 = np.eye(m4, dtype=np.int64)
+    if not (np.array_equal(N, N.T) and np.array_equal(P, P.T) and np.array_equal(P @ P, I4) and
+            np.array_equal(N @ N, (m4 - 1) * I4) and not (P @ N + N @ P).any()):
+        raise ValueError("xP + yN is not a symmetric orthogonal design of type (1, 4l - 1)")
+    S = I4 + N @ P
+    if not (np.array_equal(S + S.T, 2 * I4) and np.array_equal(S @ S.T, m4 * I4) and np.array_equal(P @ S @ P, S.T)):
+        raise ValueError("S = I + NP is not a skew-Hadamard matrix with anti-automorphism P")
+    perm = np.argmax(np.abs(P), axis=0)
+    n = m4 - 1
+    for i0 in [i for i in range(m4) if perm[i] == i]:
+        d = np.where(np.arange(m4) == i0, 1, S[i0])
+        order = [i0] + [j for j in range(m4) if j != i0]
+        Sn = ((d[:, None] * S) * d[None, :])[np.ix_(order, order)]
+        W = Sn[1:, 1:] - np.eye(n, dtype=np.int64)
+        pos = {v: k for k, v in enumerate(order)}
+        sig = [pos[perm[order[k + 1]]] - 1 for k in range(n)]
+        fixc = [k for k in range(n) if sig[k] == k]
+        Sg = np.zeros((n, n), dtype=np.int64)
+        Sg[sig, np.arange(n)] = 1
+        if len(fixc) != 1 or not np.array_equal(Sg @ W @ Sg.T, W.T):
+            continue
+        lab, x = [None] * n, 1
+        lab[fixc[0]] = 0
+        for k in range(n):
+            if lab[k] is None:
+                lab[k], lab[sig[k]], x = x, (-x) % n, x + 1
+        Qp = np.zeros((n, n), dtype=np.int64)
+        Qp[lab, np.arange(n)] = 1
+        Bc = Qp @ W @ Qp.T
+        break
+    else:
+        raise ValueError("no fixed point of P gives a core with the reversal as anti-automorphism")
+    I = np.eye(n, dtype=np.int64)
+    R = I[(-np.arange(n)) % n]
+    if not (np.array_equal(R @ Bc @ R, Bc.T) and np.array_equal(Bc + Bc.T, 0 * I) and not (Bc @ np.ones(n)).any()
+            and np.array_equal(Bc @ Bc.T, n * I - 1)):
+        raise ValueError("the relabelled core is not a skew core with the reversal as anti-automorphism")
+    q = cert["q"]
+    if q != 2 * n - 1 or q % 4 != 1 or not _is_prime(q):
+        raise ValueError("q must be the prime 2n - 1 = 8l - 3, = 1 (mod 4)")
+    alpha, beta = _yamada_alpha_beta(q, cert["r"], tuple(cert["xi"]))
+    M, Nc = circulant(beta), circulant(alpha)
+    if M[0, 0] != 0 or not (np.array_equal(M, M.T) and np.array_equal(Nc, Nc.T)) or \
+            not np.array_equal(M @ M + Nc @ Nc, q * I):
+        raise ValueError("Yamada's circulants are not symmetric with M^2 + N^2 = qI")
+    Zn = np.zeros((n, n), dtype=np.int64)
+    return _lemma26_propus([I, Zn, Bc @ R, Bc @ R], [M, Nc, R, R]), None
+
+
 def build_cooper_wallis_bordered(cert):
     """Cooper-Wallis with bordered Williamson-type matrices (bordered_williamson_type): T-matrices of order t under
     "t_matrices" and the four sequences on Z_(w-1) under "bordered_williamson" give a Hadamard matrix of order 4tw."""
@@ -1846,6 +1923,7 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "skew-amicable-product": build_skew_amicable_product,
             "symmetric-propus-miyamoto": build_symmetric_propus_miyamoto,
             "symmetric-propus-sb": build_symmetric_propus_sb,
+            "symmetric-propus-skewcore": build_symmetric_propus_skewcore,
             "two-block": build_two_block, "paley-blocks": build_paley_blocks}
 
 
