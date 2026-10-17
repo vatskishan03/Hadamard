@@ -1398,7 +1398,12 @@ element to SL(2, q) has order 2s), and the construction runs over ℤ₃ × N_s 
   the closed formula, independently of `paley_blocks.py`, and passes for all 86 primes q ≡ 3 (mod 4) from 7 to 991.
 - **No other multiplier.** For A_c to be skew-type in general, T_c = I and the other three T-matrices must be X, −εXᵀ
   and a skew Y, with 2 PAF(X) + PAF(Y) = (t − 1)δ; the trivial character forces t = 2a² + 1. Exhaustive searches over
-  ℤ₉, ℤ₃ × ℤ₃ and ℤ₁₉ found none, so t = 3 is the only multiplier we have.
+  ℤ₉, ℤ₃ × ℤ₃ and ℤ₁₉ found none, so t = 3 is the only multiplier we have. For even a there is a proof whenever −1 is
+  a power of 2 modulo t: at every character 2|X̂|² + |Ŷ|² = 2a², the primes above 2 are then self-conjugate, and a
+  2-adic descent gives Ŷ ≡ X̂ ≡ 0 (mod 2) at every character, so by Fourier inversion (t odd) every entry of X is even
+  and X = 0. This excludes t = 9, 33, 129, 201, 289 and 393; t = 73 (2 has order 9 mod 73) and the odd a (t = 19, 51,
+  99, 163, …) escape it. Under the multiplier of order 3 of ℤ₇₃ (12 orbit pairs, a spectral meet in the middle over
+  the choice of Y-pairs, `search/skew_tmitm.py`) the search for t = 73 finds none.
 - **An orthogonal design.** Splitting the product into the identity, the rest of row c of Paley's matrix and the paired
   rows b, d gives a skew-type OD(3(q + 1); 1, q, 2(q + 1)) (the cross terms vanish because the paired part is skew;
   checked for q = 11, 19 and 43). It does not feed Seberry's Theorem 7, whose weight m must divide the order.
