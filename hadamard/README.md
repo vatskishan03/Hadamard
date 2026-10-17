@@ -146,8 +146,16 @@ matrices are not stored (up to 7 GB as CSV); `python3 verify/verify.py <order>` 
 | [36204](36204) | 9051 = 3 · 7 · 431 | Paley's matrix of order 5172 in sixteen circulant blocks, T-matrices of order 7 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [36220](36220) | 9055 = 5 · 1811 | Paley's matrix of order 7244 in sixteen circulant blocks, T-matrices of order 5 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [36388](36388) | 9097 = 11 · 827 | Paley's matrix of order 3308 in sixteen circulant blocks, T-matrices of order 11 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
+| [36596](36596) | 9149 = 7 · 1307 | Paley's matrix of order 5228 in sixteen circulant blocks, T-matrices of order 7 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [36844](36844) | 9211 = 61 · 151 | Paley's matrix of order 244 in sixteen circulant blocks, T-matrices of order 151 | New, beyond the tables |
+| [37204](37204) | 9301 = 71 · 131 | Paley's matrix of order 524 in sixteen circulant blocks, T-matrices of order 71 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
+| [37228](37228) | 9307 = 41 · 227 | Paley's matrix of order 908 in sixteen circulant blocks, T-matrices of order 41 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
+| [37860](37860) | 9465 = 3 · 5 · 631 | Paley's matrix of order 12620 in sixteen circulant blocks, T-matrices of order 3 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
+| [38228](38228) | 9557 = 19 · 503 | Paley's matrix of order 2012 in sixteen circulant blocks, T-matrices of order 19 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
+| [38292](38292) | 9573 = 3 · 3191 | Paley's matrix of order 12764 in sixteen circulant blocks, T-matrices of order 3 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [38468](38468) | 9617 = 59 · 163 | Cooper–Wallis: T-matrices of order 163, near-Williamson matrices of order 59 | New, beyond the tables |
+| [38636](38636) | 9659 = 13 · 743 | Paley's matrix of order 2972 in sixteen circulant blocks, T-matrices of order 13 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
+| [39012](39012) | 9753 = 3 · 3251 | Paley's matrix of order 13004 in sixteen circulant blocks, T-matrices of order 3 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [39260](39260) | 9815 = 5 · 13 · 151 | Cooper–Wallis: T-matrices of order 151, near-Williamson matrices of order 65 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [39772](39772) | 9943 = 61 · 163 | Paley's matrix of order 244 in sixteen circulant blocks, T-matrices of order 163 | New, beyond the tables |
 | [40244](40244) | 10061 | Miyamoto (q = 10061) from the matrix of order [10060](10060) | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
