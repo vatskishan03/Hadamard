@@ -14,6 +14,7 @@ Entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard mat
 | [2148](2148) | 537 = 3 · 179 | bordered Goethals–Seidel array over ℤ₃ × ℤ₁₇₈ with a border of size 12, multiplier subgroup of order 11 |
 | [2284](2284) | 571 | Goethals–Seidel over ℤ₅₇₁, multiplier subgroup of order 5, three blocks related by a multiplier of order 3 |
 | [2292](2292) | 573 = 3 · 191 | Spence's bordered construction over ℤ₂ × ℤ₂ × ℤ₁₄₃, three blocks related by an automorphism of order 15 |
+| [2636](2636) | 659 | bordered Goethals–Seidel array over ℤ₄ × ℤ₄ × ℤ₄₁ with a border of size 12, symmetry group of order 15 |
 | [3156](3156) | 789 = 3 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks, T-matrices of order 3 |
 | [3732](3732) | 933 = 3 · 311 | Goethals–Seidel over ℤ₃ × GF(311), multiplier subgroup of order 31; the matrix is skew |
 | [3964](3964) | 991 | bordered Goethals–Seidel array over ℤ₂ × ℤ₂ × ℤ₂₄₇ with a border of size 12, symmetry group of order 27 |
@@ -45,8 +46,8 @@ are New. The fourteen orders from Paley's matrix in sixteen circulant blocks wer
 that the tables did not combine ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)); 7532, 6108 and 10180 use the near-Williamson
 matrices of 2026.
 
-Doubling the matrix of order 3732 gives order 7464, which was open as well, and doubling 9172 gives 18344, 36688 and
-73376 (the table entry is 2293(6)).
+Doubling the matrices of orders 2636 and 3732 gives orders 5272 and 7464, which were open as well, and doubling 9172
+gives 18344, 36688 and 73376 (the table entry is 2293(6)).
 
 ## Orders recorded only through Corollary 8.8(i)
 

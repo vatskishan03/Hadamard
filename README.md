@@ -7,7 +7,7 @@ which `verify/` rebuilds it and checks it in exact arithmetic.
 A Hadamard matrix of order n is an n × n matrix H with entries ±1 and H Hᵀ = n I. It can exist only for n = 1, 2 or n ≡
 0 (mod 4), and the Hadamard conjecture asserts that it exists for every multiple of 4. In August 2026 Alpöge, Voinov and
 Reynolds-Haertle constructed the twelve unresolved orders below 2000 [1], and Schneider constructed 2060 [2]. This
-repository constructs the next four, 2092, 2148, 2284 and 2292, and twenty-three more open orders up to 11804. Fourteen
+repository constructs the next four, 2092, 2148, 2284 and 2292, and twenty-four more open orders up to 11804. Fourteen
 of these follow from two published theorems that the tables did not combine: Paley's matrix of order q + 1 is an array
 of sixteen circulants when q ≡ 3 (mod 8), and Seberry and Yamada multiply such arrays by T-matrices
 ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md)). Three more, 6108, 7532 and 10180, come from Miyamoto's matrix of
@@ -39,6 +39,7 @@ Williamson-type matrices ([NOTES.md](NOTES.md) §7).
 | [2148](hadamard/2148) | 537 = 3 · 179 | bordered Goethals–Seidel array over ℤ₃ × ℤ₁₇₈, border of size 12 |
 | [2284](hadamard/2284) | 571 | Goethals–Seidel array over ℤ₅₇₁, three blocks related by a multiplier of order 3 |
 | [2292](hadamard/2292) | 573 = 3 · 191 | Spence's construction over ℤ₂ × ℤ₂ × ℤ₁₄₃, three blocks related by an automorphism of order 15 |
+| [2636](hadamard/2636) | 659 | bordered Goethals–Seidel array over ℤ₄ × ℤ₄ × ℤ₄₁, border of size 12 |
 | [3156](hadamard/3156) | 789 = 3 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks [14], T-matrices of order 3 [15] |
 | [3732](hadamard/3732) | 933 = 3 · 311 | Goethals–Seidel array over ℤ₃ × GF(311), multiplier subgroup of order 31; skew |
 | [3964](hadamard/3964) | 991 | bordered Goethals–Seidel array over ℤ₂ × ℤ₂ × ℤ₂₄₇, border of size 12 |
@@ -174,7 +175,7 @@ gzip -dc hadamard/2092/H2092.csv.gz | ./check_matrix
 |---|---|---|
 | Goethals–Seidel difference families invariant under a multiplier subgroup, found by an extended k-tree search | 2092, 3532, 4492, 5932 | [METHOD.md](METHOD.md) |
 | The same with blocks permuted by a multiplier of order 3 | 2284 | [METHOD.md](METHOD.md), Block symmetries |
-| Bordered Goethals–Seidel arrays: exact compression chains, and a split along ℤ₂ | 2148, 3964 | [METHOD.md](METHOD.md), [search/NOTES.md](search/NOTES.md) §18–19 |
+| Bordered Goethals–Seidel arrays: exact compression chains, and a split along ℤ₂ | 2148, 2636, 3964 | [METHOD.md](METHOD.md), [search/NOTES.md](search/NOTES.md) §18–19 |
 | Cyclotomic products ℤ_m × GF(q) of index 4 to 10 | 3732, 5020; skew 820, 1044, 1204, 1276, 3380, 5668 | [search/NOTES.md](search/NOTES.md) §16, §20 |
 | Spence's construction with blocks (A, B, B∘μ, B∘μ²) and a Legendre lift | 2292 | [NOTES.md](NOTES.md) §13, [search/spence_spin](search/spence_spin) |
 | Skew difference families: compression chains, Paley products, low-energy k-trees | skew orders | [skew](skew), [search/NOTES.md](search/NOTES.md) §10–16, §20 |

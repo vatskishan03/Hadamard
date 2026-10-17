@@ -1,7 +1,7 @@
 # Unresolved orders
 
-This page lists the 130 entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard matrix of order 4n
-is known. The other 65 entries are settled:
+This page lists the 129 entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard matrix of order 4n
+is known. The other 66 entries are settled:
 
 - 12 by Alpöge, Voinov and Reynolds-Haertle (2026);
 - 19 by other public constructions of 2026 (Schneider; the JD-Jones-ASES repositories Hadamard-T and Hadamard-M;
@@ -12,10 +12,10 @@ is known. The other 65 entries are settled:
   Propositions 3.1 and 3.4);
 - 1 in 1988: n = 1823, from the symmetric conference matrix of order 3646 of Seberry and Whiteman, which the tables
   missed ([NOTES.md](NOTES.md) §7);
-- 10 in this repository: n = 523, 537, 571, 573, 933, 991, 1123, 1255, 1483 and 2293 (the orders
+- 11 in this repository: n = 523, 537, 571, 573, 659, 933, 991, 1123, 1255, 1483 and 2293 (the orders
   [2092](hadamard/2092), [2148](hadamard/2148), [2284](hadamard/2284), [2292](hadamard/2292),
-  [3732](hadamard/3732), [3964](hadamard/3964), [4492](hadamard/4492), [5020](hadamard/5020),
-  [5932](hadamard/5932) and [9172](hadamard/9172)). For n = 571 a quaternary Hadamard matrix of order 1142 on
+  [2636](hadamard/2636), [3732](hadamard/3732), [3964](hadamard/3964), [4492](hadamard/4492),
+  [5020](hadamard/5020), [5932](hadamard/5932) and [9172](hadamard/9172)). For n = 571 a quaternary Hadamard matrix of order 1142 on
   Zaitsev's page (October 2026) gives H(2284) concurrently, by Turyn's doubling.
 - 14 in this repository from two published theorems that the tables did not combine: Paley's matrix of order q + 1
   as sixteen circulant blocks (q ≡ 3 mod 8) times T-matrices of order t
@@ -99,7 +99,6 @@ squares.
 | 2396 | 599 | – | – | – | – | – | ℤ2 × ℤ13 × ℤ23 | 36.4 |  |
 | 2572 | 643 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 322 (cannot exist) |
 | 2588 | 647 | – | – | – | – | – | ℤ2 × ℤ17 × ℤ19 | 35.7 |  |
-| 2636 | 659 | 7 | 95 | 47 | 39.8 | 26.0 | ℤ2 × ℤ7 × ℤ47 | 19.4 |  |
 | 2676 | 669 | – | – | – | – | – | – | – |  |
 | 2876 | 719 | – | – | – | – | – | – | – |  |
 | 2956 | 739 | 9 | 83 | 41 | 33.5 | 22.7 | ℤ2 × ℤ3xℤ3 × ℤ41 | 42.4 |  |
