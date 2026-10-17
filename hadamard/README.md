@@ -39,12 +39,12 @@ Entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard mat
 | [11572](11572) | 2893 = 11 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks, T-matrices of order 11 |
 | [11804](11804) | 2951 = 13 · 227 | Paley's matrix of order 908 in sixteen circulant blocks, T-matrices of order 13 |
 
-2284 is Concurrent: it also follows, by Turyn's doubling, from the quaternary Hadamard matrix of order 1142 on Zaitsev's
-page ([2284](2284/README.md#status)). 6108 and 10180 are First explicit constructions: Đoković claimed n = 1527 and 2545
-in 2010 through Seberry–Yamada's Corollary 8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7). The others
-are New. The fourteen orders from Paley's matrix in sixteen circulant blocks were obtainable from two published theorems
-that the tables did not combine ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)); 7532, 6108 and 10180 use the near-Williamson
-matrices of 2026.
+The fourteen orders from Paley's matrix in sixteen circulant blocks are New, but obtainable classically: they follow
+from two published theorems that the tables did not combine ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)). 2284 is Concurrent:
+it also follows, by Turyn's doubling, from the quaternary Hadamard matrix of order 1142 on Zaitsev's page
+([2284](2284/README.md#status)). 6108 and 10180 are First explicit constructions: Đoković claimed n = 1527 and 2545 in
+2010 through Seberry–Yamada's Corollary 8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7). The other
+eleven are New; 6108, 7532 and 10180 use the near-Williamson matrices of 2026.
 
 Doubling the matrices of orders 2636 and 3732 gives orders 5272 and 7464, which were open as well, and doubling 9172
 gives 18344, 36688 and 73376 (the table entry is 2293(6)).
@@ -54,8 +54,8 @@ gives 18344, 36688 and 73376 (the table entry is 2293(6)).
 Cati–Pasechnik Table 4 omits these n as known: Seberry–Yamada (1992, Table A.2) build them from Williamson-type matrices
 of order 173, 293, 373 or 809 that their Table A.1 obtains only from Corollary 8.8(i), whose printed proof fails
 ([NOTES.md](../NOTES.md) §7). Paley's matrix in sixteen circulant blocks gives them without it
-([PALEY_BLOCKS.md](PALEY_BLOCKS.md#orders-recorded-only-through-corollary-88i)), and for 2427 and 2611, which
-FRONTIER.md listed as unresolved, Miyamoto's matrix in sixteen bordered blocks with a periodic Golay pair
+([PALEY_BLOCKS.md](PALEY_BLOCKS.md#orders-recorded-only-through-corollary-88i)), and for 2427 and 2611 Miyamoto's
+matrix in sixteen bordered blocks with a periodic Golay pair
 ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#periodic-golay-pairs)) or with near-Williamson matrices
 ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#near-williamson-matrices)). All are First explicit constructions. For 293 and
 173 the Williamson-type matrices themselves now have valid constructions: Lemma 26 with a repeated block for 293, and
@@ -76,10 +76,10 @@ Verma's symmetric conference matrix of order 86 (arXiv:2610.08893, October 2026)
 
 ## Orders beyond the tables
 
-These orders lie above the range of Cati–Pasechnik Table 4. They come from recursive theorems (Miyamoto,
-Yamada–Kiyasu, Cooper–Wallis) applied to matrices of this repository or to objects published in 2026, and,
-for the Handbook entries from n = 3013 on, from Paley's matrix in sixteen circulant blocks times T-matrices
-([PALEY_BLOCKS.md](PALEY_BLOCKS.md#beyond-table-4)). Most of their
+These orders lie above the range of Cati–Pasechnik Table 4. They come from Paley's matrix in sixteen circulant blocks
+([PALEY_BLOCKS.md](PALEY_BLOCKS.md#beyond-table-4)) and Miyamoto's matrix in sixteen bordered blocks
+([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md)), both times T-matrices, and from recursive theorems (Miyamoto,
+Yamada–Kiyasu, Cooper–Wallis) applied to matrices of this repository or to objects published in 2026. Most of their
 matrices are not stored (up to 7 GB as CSV); `python3 verify/verify.py <order>` rebuilds them.
 
 | Order | n | Construction | Status |

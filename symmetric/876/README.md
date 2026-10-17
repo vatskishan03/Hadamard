@@ -48,9 +48,8 @@ the direct join of the pools of 10^3.0, 10^6.9 and 10^6.9 sequences), and the 57
 members) holds 18 solutions. Over all 768 triples the structure and row pattern have 288 solutions, in 16 triples:
 the 16 cosets of H in ℤ₂₁₉* permute them, so there are about 18 up to multipliers.
 
-The Gaussian estimate of `search/propus_rank.py` for this structure and row pattern is 10^0.6 solutions
-(13 classes, full covariance, lattice of the class values), against 288 found. (An earlier version of the estimator
-dropped the lattice factor and gave 10^−8.1; see [search/NOTES.md](../../search/NOTES.md) §29.)
+The Gaussian estimate of `search/propus_rank.py` for this structure and row pattern is 10^0.6 solutions (13 classes,
+full covariance, lattice of the class values), against 288 found.
 
 **Reproduction.**
 

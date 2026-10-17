@@ -52,8 +52,8 @@ program finds the base sequences by a meet in the middle. Each certificate lists
 (q + 1)/4 dividing n and every T-matrix order we know, allowing gcd(s, t) > 1 (the Goethals–Seidel array over
 ℤ_t × ℤ_s). Exactly the fourteen orders above come out. The route also reaches seven further entries of Cati–Pasechnik
 Table 4, which 2026 constructions have since settled: 1359 = 453 · 3 (q = 1811), 917 = 131 · 7, 1441 = 131 · 11,
-1703 = 131 · 13, 2227 = 131 · 17, 2489 = 131 · 19 (q = 523) and 2335 = 467 · 5 (q = 1867). (An earlier version
-listed six and missed 917; `paley_blocks.py quad 523 7` gives its quadruple.)
+1703 = 131 · 13, 2227 = 131 · 17, 2489 = 131 · 19 (q = 523) and 2335 = 467 · 5 (q = 1867). (`paley_blocks.py quad 523 7`
+gives the quadruple for 917.)
 
 ## Status
 
@@ -77,8 +77,8 @@ source that combines them:
 - Williamson-type matrices of these orders s are not known to us, and Paley's quaternion-type blocks are not amicable
   ([NOTES.md](../NOTES.md) §21), so Cooper–Wallis does not apply directly.
 
-The sources searched are listed in [NOVELTY.md](../NOVELTY.md); the audit of this route is summarised in
-[NOTES.md](../NOTES.md) §22.
+The sources searched are listed in [NOVELTY.md](../NOVELTY.md); [NOTES.md](../NOTES.md) §22 describes the route, its
+reach and its limits.
 
 ## Beyond Table 4
 
@@ -104,9 +104,9 @@ entries with t ≥ 3 or settled by Đoković in 2010 it reaches, we built 117, o
   and Kotsireas (2025) reaches 12052, 15196, 16244, 18340, 20436, 21484, 25676, 27772, 28820 and 38252 (for 18340 with
   Đoković's good matrices of order 35; we could not read that paper, which may list them), and Yang's multiplication of
   the same base sequences by 59 reaches 30916. With the Williamson-type matrices of order 47 of 2026 the T-matrices of
-  order 131 also reach 24628. (18340, 28820, 30916 and 24628 were added by the closure audit of October 17,
-  [NOTES.md](../NOTES.md) §28.) Cooper–Wallis with T-matrices posted in 2026 reaches 16300, 16308, 19932, 21836, 32012,
-  33220, 34556, 36844 and 39772. Kiyasu's theorem reaches 15196 from our skew-Hadamard matrix of order 1900.
+  order 131 also reach 24628 ([NOTES.md](../NOTES.md) §28 treats 18340, 28820, 30916 and 24628). Cooper–Wallis with
+  T-matrices posted in 2026 reaches 16300, 16308, 19932, 21836, 32012, 33220, 34556, 36844 and 39772. Kiyasu's theorem
+  reaches 15196 from our skew-Hadamard matrix of order 1900.
 - 19028, 34196 and 39260 were already in this repository, by Cooper–Wallis.
 - 28820 = 4 · 5 · 11 · 131 needs T-matrices of order 55, which SageMath does not store. We built them from base
   sequences BS(6, 5) by Yang's multiplication by 5 (Seberry–Yamada 1992, Theorem 5.23, with the Golay pair of length
@@ -115,7 +115,8 @@ entries with t ≥ 3 or settled by Đoković in 2010 it reaches, we built 117, o
 
 SageMath's development version (`hadamard_matrix(4n, existence=True)`, October 17, 2026) returns Unknown for all the
 others. Each certificate is checked exactly when it is written (entries ±1, Σ PAF = 0 off 0, sequences rebuilt from
-Paley's matrix by `verify/verify.py`); the dense check H Hᵀ = 4n I of `verify/verify.py` is running.
+Paley's matrix by `verify/verify.py`). `verify/verify.py` also rebuilds every certificate and checks H Hᵀ = 4n I
+densely; every certificate passes.
 
 ## Orders recorded only through Corollary 8.8(i)
 
@@ -129,12 +130,11 @@ with T-matrices of order t; for s = 373 it reaches 9325 = 25 · 373 through q = 
 We built 26 of them; the T-matrices of orders 21 and 33 come from the Golay pairs of lengths 20 and 32 (Turyn), those of
 order 43 from `search/tmat_mult.py 43 6`, and those of order 55 from Yang's multiplication (above). They are labelled
 First explicit construction: a table records them as known, and the only construction we could trace is the corollary's.
-Two later findings give the Williamson-type matrices themselves for s = 293 and 173 ([NOTES.md](../NOTES.md) §7): for
-293, Seberry–Yamada's symmetric Williamson-type matrices of order 73 have a repeated block, and Lemma 26 in the
-repeated-block form turns them into order 293 (checked); for 173, Verma's symmetric conference matrix of order 86
-(arXiv:2610.08893, 6 October 2026, checked) gives them by Corollary 8.8(ii). So the orders with s = 293 were obtainable
-classically, and those with s = 173 have a published route since October 6, 2026; the labels stay, as no one stated
-these constructions.
+Williamson-type matrices themselves exist for s = 293 and 173 ([NOTES.md](../NOTES.md) §7): for 293, Seberry–Yamada's
+symmetric Williamson-type matrices of order 73 have a repeated block, and Lemma 26 in the repeated-block form turns them
+into order 293 (checked); for 173, Verma's symmetric conference matrix of order 86 (arXiv:2610.08893, 6 October 2026,
+checked) gives them by Corollary 8.8(ii). So the orders with s = 293 were obtainable classically, and those with s = 173
+have a published route since October 6, 2026; the labels stay, as no one stated these constructions.
 
 | Order | n | s | q | t | Recorded by |
 |------:|---:|---:|---:|---:|---|

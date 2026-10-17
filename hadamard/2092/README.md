@@ -16,12 +16,10 @@ in ℤ₅₂₃. Each block is a union of cosets rH of the multiplier subgroup
 H = ⟨468⟩ = {1, 19, 60, 94, 217, 361, 410, 462, 468} ≤ ℤ₅₂₃*
 ```
 
-and `certificate.json` lists one representative r for each coset in each block.
-Setting xᵢ(t) = −1 when t lies in block i and +1 otherwise gives four sequences
-with row sums 1, 19, 19, 37 (1² + 19² + 19² + 37² = 2092) whose periodic
-autocorrelations sum to zero at every nonzero shift. With A, B, C, D the
-circulant matrices having these first rows (`sequences.txt`) and R the
-back-diagonal identity matrix, the Goethals–Seidel array
+and `certificate.json` lists one representative r for each coset in each block. Setting xᵢ(t) = −1 when t lies in block
+i and +1 otherwise gives four sequences with row sums 1, 19, 19, 37 (1² + 19² + 19² + 37² = 2092) whose periodic
+autocorrelations sum to zero at every nonzero shift. With A, B, C, D the circulant matrices having these first rows
+(`sequences.txt`) and R the back-diagonal identity matrix, the Goethals–Seidel array
 
 ```
     [  A     BR     CR     DR  ]
@@ -38,8 +36,8 @@ is a Hadamard matrix of order 2092.
 was the smallest order without a published Hadamard matrix.
 
 - 523 does not satisfy the hypotheses of the Paley, Miyamoto, Yamada, Mathon or Spence constructions.
-- The closest of these, Yamada's theorem with q = 521 ≡ 1 (mod 8), would require a symmetric conference matrix of
-  order 262, which is not known.
+- The closest of these, Yamada's theorem with q = 521 ≡ 1 (mod 8), would require a symmetric conference matrix of order
+  262, which is not known.
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 

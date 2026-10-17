@@ -182,5 +182,4 @@ python3 verify/verify.py symmetric/356                 # rebuilds H and checks i
 I or II over a prime field, Kronecker products with H₂, or another certificate of this repository, checked by its
 SHA-256) and checks that it is a symmetric Hadamard matrix. It builds U and V over GF(q) (from exponent and logarithm
 tables for prime powers), checks that the W_k are ±1, symmetric and pairwise amicable, with Σ W_k² = 4qI and W₃ = W₄,
-and checks that H = Hᵀ, H Hᵀ = 4qI and the SHA-256 of the canonical CSV. `search/sym_propus_miyamoto.py` ran these
-checks for all 48 orders.
+and checks that H = Hᵀ, H Hᵀ = 4qI and the SHA-256 of the canonical CSV. All 48 certificates pass.

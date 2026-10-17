@@ -90,8 +90,8 @@ the multiplier 49 has order 7 (trivial on ℤ₂, order 7 on ℤ₁₁₃) and 3
 - Compressions to ℤ₂, ℤ₇ and ℤ₁₃ that occur in no level-1 solution rule out 93% of A and B, 97.9% of C and 96.4% of
   D (fibre filters, `search/lowe_sz.py`, [search/NOTES.md](../search/NOTES.md) §55). That left 3880 members in A and
   B, all 2.68 · 10⁷ allowed members of C, and 3 · 10⁷ of the 9.35 · 10⁷ allowed members of D.
-- `kt4` found 1536 solutions at the 146th split value. Earlier runs of the same structure without the filters, with
-  lists kept to 2.3% and 1.2% of C and D, processed about 4700 split values without a solution.
+- `kt4` found 1536 solutions at the 146th split value. Without the filters, with lists kept to 2.3% and 1.2% of C and
+  D, it processed about 4700 split values without a solution.
 - The per-class Gaussian estimate of the structure was 10^−0.1; the hybrid estimate was 10^3.2.
 - Border: x = s = t = y = 1, u = v = −i. Certificate [C366.json](C366.json).
 
@@ -106,8 +106,8 @@ Constructions from four ±1 sequences, in two families:
 | three | near-Williamson (Kharaghani, Mohammadian, Tayfeh-Rezaie, Zaitsev 2026): Williamson-type of order N | bordered Williamson-type ([williamson-type](../williamson-type)): Williamson-type of order N |
 
 The bordered versions move the search to a group of order N − 1. That helps when ℤ_N has no useful multiplier group,
-for example the safe primes N = 2q + 1. The first matrix the array gave here is of this kind: N = 227 = 2 · 113 + 1, on
-ℤ₂₂₆ with H = ⟨49⟩ of order 7, the complex Hadamard matrix of order 454 ([C454.json](C454.json), rows 0, 0; 2, 0; border
+for example the safe primes N = 2q + 1. Order 454 is of this kind: N = 227 = 2 · 113 + 1, on ℤ₂₂₆ with H = ⟨49⟩ of
+order 7, the complex Hadamard matrix of order 454 ([C454.json](C454.json), rows 0, 0; 2, 0; border
 (1, 1, 1, 1, −i, −i)). The order itself is known (4 · 227 − 1 = 907 is a prime; [README.md](README.md#status)).
 
 **Negative results** (NOTES.md §9). A 3-point border with border rows and columns constant on the cosets of an

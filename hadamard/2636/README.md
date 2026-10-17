@@ -49,11 +49,13 @@ The row sums satisfy 8² + 42² + 18² + 22² = 2636.
 
 ## Search
 
-The structure came from an exact-gate census of symmetric structures over the open orders. The census used the
-frames of [METHOD.md](../../METHOD.md) and supplementary 2-groups such as ℤ₄ × ℤ₄. Each candidate was ranked by a
-stratified count: the coarse compressions are counted exactly, and a lattice Gaussian is used only for the
-remaining classes. That count gave about 10^15.5 solutions here and a cost of about 10^10.4 list operations per
-solution. FRONTIER.md's best entries for this order were 10^19.4 (Spence) and 10^26 (Goethals–Seidel).
+The certificate alone proves the result; the search programs for this order are not included in this repository.
+
+The structure came from an exact-gate census of symmetric structures over the open orders. The census used the frames of
+[METHOD.md](../../METHOD.md) and supplementary 2-groups such as ℤ₄ × ℤ₄. Each candidate was ranked by a stratified
+count: the coarse compressions are counted exactly, and a lattice Gaussian is used only for the remaining classes. That
+count gave about 10^15.5 solutions here and a cost of about 10^10.4 list operations per solution, against 10^19.4
+(Spence) and 10^26 (Goethals–Seidel) for the cheapest structures that `search/triage.py` had found for this order.
 
 Every exact compression gate of the structure passes, each with explicit witnesses:
 
@@ -69,7 +71,7 @@ The search descends through the same levels:
 1. a level-1 tuple;
 2. a solution of the ℤ₄₁ equations;
 3. a solution of the joint compressed equations;
-4. a completion of the remaining signs by an exact four-list join on all 27 equations, written in C.
+4. a completion of the remaining signs by an exact four-list join on all 27 equations.
 
 About 10⁴ completion problems are expected per solution, at 0.3 to 3.5 s each. The pipeline was first checked on
 the analogues with ℤ₄₁ replaced by ℤ₇ and ℤ₁₃, giving matrices of orders 460 and 844. On three cores the first

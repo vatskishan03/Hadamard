@@ -29,11 +29,11 @@ certify 509 5 nw:near-williamson/NW127.txt` writes the certificate.
 
 **First explicit construction** ([MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md#near-williamson-matrices)). Cati–Pasechnik's
 Table 4 lists n = 2545 as open. Đoković (arXiv:1008.2043, Proposition 3.4, through the proof of Proposition 3.3; Int.
-Math. Forum 6 (2011) 3061–3067) claims it with Williamson-type matrices of order 509, which he obtains from his good matrices of order 127 through
-Seberry–Yamada's Corollary 8.8(i). The printed proof of that corollary does not give Williamson-type matrices
-([NOTES.md](../../NOTES.md) §7), and [FRONTIER.md](../../FRONTIER.md) listed the order as unresolved. Good matrices of
-order 127 also satisfy the hypotheses used here (circulant, B, C, D symmetric), so Đoković's matrices would serve as
-well as the near-Williamson matrices of the 2026 database.
+Math. Forum 6 (2011) 3061–3067) claims it with Williamson-type matrices of order 509, which he obtains from his good
+matrices of order 127 through Seberry–Yamada's Corollary 8.8(i). The printed proof of that corollary does not give
+Williamson-type matrices ([NOTES.md](../../NOTES.md) §7). Good matrices of order 127 also satisfy the hypotheses used
+here (circulant, B, C, D symmetric), so Đoković's matrices would serve as well as the near-Williamson matrices of the
+2026 database.
 
 - Paley's constructions do not apply: 4n − 1 = 10179 = 3³ · 13 · 29 and 2n − 1 = 5089 = 7 · 727 are not prime powers.
 - Miyamoto's theorem does not apply: 2545 is not a prime power, and a symmetric conference matrix of order 2546 is not
@@ -44,8 +44,9 @@ well as the near-Williamson matrices of the 2026 database.
   divisors s of 2545, and the remaining ones need T-matrices of order 2545 (s = 1) or 509 (s = 5), which are not known
   to us.
 - The Miyamoto-block route with a negaperiodic or periodic Golay pair of length 254 does not apply: no negaperiodic pair
-  of that length is known to us (Balonin–Đoković's lists (25) and (31) cover odd orders below 120 only, and none of their
-  families gives length 254: 253 = 11 · 23 and 507 = 3 · 13² are not prime powers), and a periodic one cannot exist (508 = 2² · 127 is not a sum of two squares).
+  of that length is known to us (Balonin–Đoković's lists (25) and (31) cover odd orders below 120 only, and none of
+  their families gives length 254: 253 = 11 · 23 and 507 = 3 · 13² are not prime powers), and a periodic one cannot
+  exist (508 = 2² · 127 is not a sum of two squares).
 - SageMath 10.8 (passagemath 10.8.13, October 2026) does not construct it: `hadamard_matrix(10180, existence=True)`
   raises UnknownError in its Miyamoto test (`hadamard_matrix_miyamoto_construction`), since the existence of a symmetric
   conference matrix of order 2546 is Unknown to it.

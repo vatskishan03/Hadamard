@@ -35,13 +35,13 @@ search/miyamoto_blocks.py certify 1993 3 "wt:cor25(turyn(5), cor31(41))"` writes
 lists it in his set Δ of entries that should have had t = 2. His proof for Δ takes Williamson-type matrices from
 Seberry–Yamada's Table A.1 (1992); for 5979 they are of order 1993, which Table A.1 obtains only from Corollary 8.8(i)
 (key wl, which Seberry and Yamada credit to Miyamoto (1991), with Williamson-type matrices of order 498 = (1993 − 1)/4
-from their Corollary 25, key wo; their Remark 30 also lists the variant with an Hadamard matrix of order 996 = (1993 −
-1)/2). The printed proof of that corollary does not give Williamson-type matrices ([NOTES.md](../../NOTES.md) §7). The
-route here needs only symmetric ones of order (q − 1)/4 = 498, which Seberry and Yamada's corollaries give.
-Cooper–Wallis also gives this order from ingredients published before 2026 (found by the audit of October 17, 2026):
-Lemma 26 needs only a symmetric quaternary Hadamard matrix of order (q − 1)/2 = 996 = 6 · 166, the Kronecker product of
-Paley's conference matrix of order 6 and the repeated-block arrangement of those of order 83 from Corollary 31 is one,
-and `python3 search/symwt.py "cor29q(1993, qconf(5), qwt(cor31(41)))"` gives symmetric Williamson-type matrices of order
+from their Corollary 25, key wo; their Remark 30 also lists the variant with an Hadamard matrix of order
+996 = (1993 − 1)/2). The printed proof of that corollary does not give Williamson-type matrices
+([NOTES.md](../../NOTES.md) §7). The route here needs only symmetric ones of order (q − 1)/4 = 498, which Seberry and
+Yamada's corollaries give. Cooper–Wallis also gives this order from ingredients published before 2026: Lemma 26 needs
+only a symmetric quaternary Hadamard matrix of order (q − 1)/2 = 996 = 6 · 166, the Kronecker product of Paley's
+conference matrix of order 6 and the repeated-block arrangement of those of order 83 from Corollary 31 is one, and
+`python3 search/symwt.py "cor29q(1993, qconf(5), qwt(cor31(41)))"` gives symmetric Williamson-type matrices of order
 1993 (checked).
 
 - Seberry and Yamada (J. Combin. Math. Combin. Comput. 7 (1990), Theorem 34 and Corollary 35) write Miyamoto's matrix as

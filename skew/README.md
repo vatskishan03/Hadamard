@@ -56,13 +56,14 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 ## Seberry's theorem with new ingredients
 
 Seberry (1978): amicable Hadamard matrices of order n and a skew-type orthogonal design OD(mn; 1, m, mn − m − 1) give a
-skew-Hadamard matrix of order mn(n − 1). The orders below use amicable pairs or orthogonal designs that were not known.
-The amicable pairs of orders 52, 76 and 100 come from skew-propus quadruples, that is from symmetric orthogonal designs
-of type (1, n − 1) ([search/NOTES.md](../search/NOTES.md) §31). Seberry's tables of amicable orders 2ᵗq (1978, 1991,
-1992) give t = 3 for q = 13, 19 and 25, and no source we know states amicable pairs of these orders, but the skew-propus
-difference families behind them were published by Abuzin, Balonin, Đoković and Kotsireas (Inform. Control Syst. 2019,
-no. 5, 2–9, Table 1; doi:10.31799/1684-8853-2019-5-2-9), so the pairs are first explicit, not new objects. For m = 1 the
-skew-type designs come from G-matrices, which are known for these orders. The designs for m ≥ 3 were found here.
+skew-Hadamard matrix of order mn(n − 1). The orders below use amicable pairs or orthogonal designs that no source
+states. The amicable pairs of orders 52, 76 and 100 come from skew-propus quadruples, that is from symmetric orthogonal
+designs of type (1, n − 1) ([search/NOTES.md](../search/NOTES.md) §31). Seberry's tables of amicable orders 2ᵗq (1978,
+1991, 1992) give t = 3 for q = 13, 19 and 25, and no source we know states amicable pairs of these orders, but the
+skew-propus difference families behind them were published by Abuzin, Balonin, Đoković and Kotsireas (Inform. Control
+Syst. 2019, no. 5, 2–9, Table 1; doi:10.31799/1684-8853-2019-5-2-9), so the pairs are first explicit, not new objects.
+For m = 1 the skew-type designs come from G-matrices, which are known for these orders. The designs for m ≥ 3 were found
+here.
 
 | Order | v | Amicable pair | Skew-type orthogonal design | Census | Status |
 |------:|---|---|---|---|---|
@@ -82,11 +83,10 @@ The matrix of order 9900 is not stored; `verify/verify.py skew/9900` rebuilds it
 J. Wallis (1976; Seberry–Yamada 1992, SXI): a skew-Hadamard matrix I + S of order h and an amicable pair (A, M) of order
 m give the skew-Hadamard matrix I ⊗ A + S ⊗ M of order hm. With the pairs of orders 52 and 76 above, and a pair of order
 124 from the skew-propus quadruple of length 31 ([search/NOTES.md](../search/NOTES.md) §31; classically the smallest
-amicable order with odd part 31 is 248), four orders 16v fall below Cati–Pasechnik's Table 5 (found by the closure audit
-of October 17, [NOTES.md](../NOTES.md) §28). The skew factors are classical or published, and so are the skew-propus
-families of lengths 13, 19 and 31 behind the amicable pairs (Abuzin–Balonin–Đoković–Kotsireas 2019); the one step we
-found nowhere in print is the passage from such a family to the amicable pair, so the orders are labelled New,
-obtainable classically.
+amicable order with odd part 31 is 248), four orders 16v fall below Cati–Pasechnik's Table 5 ([NOTES.md](../NOTES.md)
+§28). The skew factors are classical or published, and so are the skew-propus families of lengths 13, 19 and 31 behind
+the amicable pairs (Abuzin–Balonin–Đoković–Kotsireas 2019); the one step we found nowhere in print is the passage from
+such a family to the amicable pair, so the orders are labelled New, obtainable classically.
 
 | Order | v | Skew factor | Amicable pair | Before | Status |
 |------:|---|---|---|---|---|
@@ -103,7 +103,7 @@ A skew-Hadamard matrix of order 3(q + 1) for every prime power q ≡ 3 (mod 4) (
 matrix of order q + 1 = 4s is a 4 × 4 array of negacyclic s × s blocks, Frobenius pairs two blocks of one block column,
 and T-matrices of order 3 in the Goethals–Seidel array then give a skew-type first block. No search is involved. The
 orders below are the 52 values v = 3(q + 1)/4 < 2500 that the census lists as undecided and that were not already in
-this repository, and six orders 8v and 16v (q ≡ 7 mod 8), five of which improve Cati–Pasechnik Table 5; 7656 was known
+this repository, and six orders 8v and 16v (q ≡ 7 mod 8), five of which improve Cati–Pasechnik Table 5; 7656 is Known
 (Wallis–Whiteman). The block form and its pairing are Yamada's (1991) and the multiplication is Seberry and Yamada's
 (1990), so the new orders were obtainable classically ([status](PALEY_SKEW.md#status)). The family also contains
 the census values 261, 285, 429, 465, 513, 663 and 2475, which are above with other constructions. The matrices are not

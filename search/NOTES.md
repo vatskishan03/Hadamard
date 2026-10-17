@@ -1,8 +1,9 @@
 # Search notes: structures, obstructions and searches
 
 Working notes on the searches for the unresolved orders of [FRONTIER.md](../FRONTIER.md) and for the skew and
-symmetric orders, in the order the work was done. Everything here is either proved below or measured with the code in
-this directory. [NOTES.md](../NOTES.md) collects the structural results.
+symmetric orders, in the order the work was done; sections 50–59 record a parallel line of work on the complex orders
+(October 14–15). Everything here is either proved below or measured with the code in this directory.
+[NOTES.md](../NOTES.md) collects the structural results.
 
 ## 1. The bottleneck is the coarse characters
 
@@ -39,7 +40,7 @@ the m² + m + 1 family. For prime p this is a property of the divisors of p − 
 
 ## 3. Variants that do not escape the bound
 
-### 3.1 Spence's construction and the slice character (FRONTIER correction)
+### 3.1 Spence's construction and the slice character
 
 Take G = ℤ₂ × K with |K| odd, and H acting on K. The character χ(z, k) = (−1)^z
 has X_i(χ) = a_i − b_i, the difference of the two slice sums. The Spence
@@ -414,10 +415,12 @@ lists 234 odd v ≤ 999 for which no skew matrix of order 4v is known. The FRONT
     moves/s.
   - The row sums are forced: 1 + 3b² = 4v. For open v ≤ 999 that leaves v = 469, 721, 817 and 919.
   - 919 (|H| = 17, μ = 52, 9 classes, predicted 2·10⁵ solutions) was solved in 37 s.
-  - 721 (|H| = 17, μ = 46, predicted 200) is still open after 6·10⁶ moves; the best residual is two classes off by 4.
-  - 817: an earlier version required μ³ = 1 and found no structure with E > 10⁻³. That was too narrow, because μ³ ∈ H
-    suffices: the blocks B, B∘μ, B∘μ² close up since B is H-invariant. With μ³ ∈ H, H = ⟨11⟩ (order 21) and μ ∈ {6, 9,
-    17, 24} give spin structures with 8 classes and model E ≈ 10³·². Tabu searches on them are running.
+  - 721 (|H| = 17, μ = 46, predicted 200): no solution after 6·10⁶ moves (best residual: two classes off by 4); the
+    structure is infeasible by the fibre test of §36 (μ = 46 is equivalent to μ = 18).
+  - 817: μ³ = 1 gives no structure with E > 10⁻³, but μ³ ∈ H suffices: the blocks B, B∘μ, B∘μ² close up since B is
+    H-invariant. With μ³ ∈ H, H = ⟨11⟩ (order 21) and μ ∈ {6, 9, 17, 24} give spin structures with 8 classes and model
+    E ≈ 10³·². Tabu searches on them found no solution; for μ = 9 and 6 the fibre test of §36 shows the structure
+    infeasible.
   - Since a skew block has row sum 1, spin needs 4v = 1 + 3b², i.e. v = 3m² + 3m + 1, a centred hexagonal number.
     Đoković's 397 and the DGK order 631 are of this form, as are the four values above.
   - `spin_skew.py exhaust` joins all A against all B exactly when the pools are small. For 817 (|H| = 63, μ = 49 or
@@ -430,9 +433,9 @@ lists 234 odd v ≤ 999 for which no skew matrix of order 4v is known. The FRONT
     H-orbits of ℤ_d, and the skew block has x₀ = 1 and x₋ⱼ = −xⱼ.
   - Enumerating each role's achievable compressed vectors and meeting the integer equations is exact and cheap for
     small d. These are the coarse characters of §1 again.
-  - **Correction.** The first version compared the norms |X̂(χ)|² after rounding them to integers. For d ≥ 5 they are
-    not rational integers (they lie in ℚ(ζ_d)⁺), so that test was not exact; only its d = 3 verdicts were sound. Every
-    verdict below was re-checked with the integer test.
+  - **The test must be integral.** For d ≥ 5 the norms |X̂(χ)|² are not rational integers (they lie in ℚ(ζ_d)⁺), so
+    comparing them after rounding to integers is not exact; only its d = 3 verdicts are sound. The verdicts below use
+    the integer test.
   - It proves there are no solutions for:
     - 201/⟨22⟩, rows (1, 1, 19, 21): d = 3, predicted 10³;
     - 301/⟨4⟩, rows (1, 1, 19, 29): d = 7, predicted 4;
@@ -457,9 +460,8 @@ lists 234 odd v ≤ 999 for which no skew matrix of order 4v is known. The FRONT
   For the spin structure, a walk that looks up all 512 skew A's at every swap neighbour (the
   METHOD.md technique for 2284, `spin_walk.c`) did 4·10⁹ lookups in 300 s without finding 919,
   which the joint tabu finds in under a minute.
-- **Second-tier sweep** (pair work 1.5·10⁹–5·10¹⁰, ≤ 37 orbits). The first list of verdicts came
-  from the rounded-norm test and is **withdrawn**. The lists are being recomputed with the integer test,
-  and the structures are covered exactly by the compression-chain sweep below.
+- **Second-tier sweep** (pair work 1.5·10⁹–5·10¹⁰, ≤ 37 orbits). Its structures are covered exactly by the
+  compression-chain sweep below; verdicts of the rounded-norm test are not used.
 - **Compression-chain engine** (`chain.py`, `chain_sweep.py`), after the search for order 3964. For v = p·q
   (or a prime power):
   1. A DP over the H-orbits lists every block's pairs of compressions (ℤ_d1, ℤ_d2) with multiplicities.
@@ -788,12 +790,12 @@ verified.
 | 513 = 19 · 27 (ℤ₁₉ × GF(27)) | 3 | 2 | 12,124,320 | 6 | about 60 min | **skew 2052**, see [skew/2052](../skew/2052) |
 | 1501 = 19 · 79 | 1 | 1 | 95,552,064 | 24 | about 40 min | **skew 6004**, see [skew/6004](../skew/6004) |
 
-- **1140 was within classical reach.** The audit of 1140 found that Seberry's theorem (Ars Combin. 6 (1978),
-  Thm 7: an OD(mn; 1, m, mn − m − 1) and amicable designs of order n give a skew order mn(n − 1)) produces it with
-  m = 3, n = 20 from an OD(60; 1, 3, 56), which a Goethals–Seidel search over ℤ₁₅ finds in 0.1 s; we rebuilt that
-  matrix and it verifies. The design was not recorded anywhere we looked, and every list had 1140 as unknown. In our
-  terms this is the case where (q + 1)/4 divides m (285 = 15 · 19 with (19 + 1)/4 = 5). For 1012, 1380, 1564, 1860
-  and 6004 it does not divide m, and none of Seberry's theorems applies.
+- **1140 was within classical reach.** Seberry's theorem (Ars Combin. 6 (1978), Thm 7: an OD(mn; 1, m, mn − m − 1) and
+  amicable designs of order n give a skew order mn(n − 1)) produces it with m = 3, n = 20 from an OD(60; 1, 3, 56),
+  which a Goethals–Seidel search over ℤ₁₅ finds in 0.1 s; we rebuilt that matrix and it verifies. The design was not
+  recorded anywhere we looked, and every list had 1140 as unknown. In our terms this is the case where (q + 1)/4
+  divides m (285 = 15 · 19 with (19 + 1)/4 = 5). For 1012, 1380, 1564, 1860 and 6004 it does not divide m, and none of
+  Seberry's theorems applies.
 - **Open lead: 475 = 25 · 19** has the same classical route through an OD(100; 1, 5, 94). The Goethals–Seidel layout
   "a at A(0); b at {0, 5} in B and C and at 0 in D; c elsewhere" has no solution invariant under the multipliers of
   order 5; without that symmetry the exact join (about 7·10¹³ probe pairs) is out of reach.
@@ -837,7 +839,7 @@ passes (34 = 3² + 5²) with the single row pattern (1, 3, 5, 73).
     a = 0. If that were the only ψ-type position in all four blocks, the κ-equation would need
     |±Re J′ ± Im J′| = 1, which is impossible, so ψ-type positions occur elsewhere too.
   - Stage 2 has six channel patterns per position against two in the Paley case. A direct low-energy test on 1341
-    (O = 45) needed 8 GB in the exact join and was stopped; a dedicated search is still to be written.
+    (O = 45) needed 8 GB in the exact join and was stopped; no dedicated search has been written.
 
 
 ## 16. Cyclotomic products of higher index, and the order 3732
@@ -869,8 +871,8 @@ v = 5259). For m = 9: 149 (e = 4, v = 1341), 331 (e = 6, v = 2979).
 512, 55,915, 57,892 and 57,917 groups. join3 found 24 solutions among the first 6,978 of about 6 · 10⁷ matching group
 quadruples (5 minutes on 3 threads): of the order of 10⁵ skew solutions in all. A Gaussian model over the 14
 independent equations conditioned on the compressions predicts 10^4.2 to 10^4.6 (skew) and 10^8.1 (plain). The
-estimate in §5 for the same subgroup was 10^0.3 with 10¹⁷ pair operations. This settles the order 3732, which
-FRONTIER.md listed as unresolved; see [3732](../hadamard/3732).
+estimate in §5 for the same subgroup was 10^0.3 with 10¹⁷ pair operations. This settles the order 3732; see
+[3732](../hadamard/3732).
   - Since 3733 is prime and ≡ 1 (mod 4), Miyamoto's theorem gives H(4 · 3733) = H(14932) from H(3732). The
     repository's Miyamoto builder rebuilds and checks it (H Hᵀ = 14932 I) in about 4 minutes.
 
@@ -1051,7 +1053,7 @@ of about 200 vectors per block. This is the four-list split of T-matrices (§6) 
    (seed 1) gave no completion.
 5. `python3 search/bgs_uw.py search 89 8 --L 10000000 --sigmas 2 --maxu 300000 --threads 4 --seed 2`: 284,292
    U-solutions, **one completion**, verified as a Hadamard matrix of order 2148 (197 s on 4 cores); see
-   [2148](../hadamard/2148). The observed rate 3.5 · 10⁻⁶ matches the lattice-corrected estimate.
+   [2148](../hadamard/2148). The observed rate 3.5 · 10⁻⁶ matches the estimate with the parity lattice.
 
 So the structure that §18 judged out of reach takes minutes once the ℤ₂-split separates the conditions: the U-problem
 has 12 equations and very many solutions, and each U-solution leaves a W-problem small enough to solve exactly.
@@ -1152,7 +1154,9 @@ prunes on the reachable tag range and buckets the last group's patterns by tag. 
 - 761 (e = 40, F = 19): the best class has 10^9.5 solutions, but only 10^−0.2 inside lists of 10⁷ members, at a
   predicted 10^14.2 pairs per solution. Not run. 1483 (e = 38): 10^6.35 and 10^−1.7. Not run.
 - 1123 (e = 34, F = 33, rows 1, 1, 1, 67, one class): 10^6.63 for the class and 10^2.24 inside lists of
-  6 · 10⁷, 10⁷ and 10⁷ members (all 131,072 members of the skew block). Predicted 10^11.8 pairs per solution. Running.
+  6 · 10⁷, 10⁷ and 10⁷ members (all 131,072 members of the skew block). Predicted 10^11.8 pairs per solution. A run
+  with lists of 3 · 10⁷, 10⁷ and 10⁷ found no solution in 6000 split values (§22); the run with 6 · 10⁷ was killed after
+  72 split values.
 
 **The Yamada–Kiyasu routes of FRONTIER.md have no usable multiplier structure.** H(7516), H(8860) and H(9532) need
 skew orders 940 = 4 · 235, 1108 = 4 · 277 and 1192 = 2 · 596 = 8 · 149. A skew Goethals–Seidel family over ℤ_v with
@@ -1205,8 +1209,8 @@ the group negation and the automorphisms, and `skew_certify_group.py` writes the
   search and a random hash load per member. On the 261 lists the same 12 solutions come in 79 s instead of 395 s.
 
 **The 1123 run.** With lists of 5.8 · 10⁷, 10⁷ and 10⁷ (10^2.23 solutions expected inside), the old `kt4` processed
-72 of 6000 split values in 830 s without a solution before it was killed for memory (another job was running). It
-is being rerun with lists of 3 · 10⁷, 10⁷, 10⁷ (10^1.98) and the new `kt4`.
+72 of 6000 split values in 830 s without a solution before it was killed for memory (another job was running). The run
+with lists of 3 · 10⁷, 10⁷, 10⁷ (10^1.98) and the new `kt4` is in §22: no solution.
 
 **Bordered structures through the same machinery** (`search/bcp.py`: `bgs.Structure` seen as a cyclotomic product,
 level-B/level-C targets −(m/q) Σ_α Γ(α) and −Γ(b mod q)). On the 2148 structure (ℤ₆ × GF(89), e = 8, Q = ℤ₃) the class
@@ -1287,8 +1291,8 @@ R̂, the border condition becomes Ĉ = −(1/4t) Mc R̂ᵀ X: the columns of X a
   G = ℤ₁₂ = ℤ₄ × ℤ₃ (targets −Γ(g mod 4): −12, −4, +4, −4 and −12, +4, +4, +4), find borders for their compressions
   and assemble Hadamard matrices of order 60 (H Hᵀ = 60 I for all six tested). The second set has the targets of
   Alpöge et al.'s ℤ₂ × ℤ₂ family. So every n ≡ 3 (mod 4) has bordered structures with border 12 over the cyclic group
-  ℤ_{n−3} (and over ℤ₄ × K), where the ℤ₂ × ℤ₂ family needs a non-cyclic group. A census of these structures for the
-  FRONTIER orders n ≡ 3 (mod 4) is the next step.
+  ℤ_{n−3} (and over ℤ₄ × K), where the ℤ₂ × ℤ₂ family needs a non-cyclic group. The census of these structures for the
+  FRONTIER orders 599, 643 and 647 is in §23.
 - Q = ℤ₈, T = {1} ∪ {characters of order 8} (t = 5, the 573 lead of §21): the compressions have row sums (±4, ±2, 0,
   0) and an antiperiodic part with five ±1 cells and Σ NPAF = 0 off 0 (48,640 patterns). Random bases give S_R = ∅
   (each R̂ is compatible with about 12.5 % of all ±1 vectors of V_T per row). Unresolved.
@@ -1304,7 +1308,8 @@ ignore the exact compression budget Σ (F s² + 2 f s) = 4(m − t)e of `bgs.sta
 **Prime-power fibres.** `cp_hunt.py --fibre-only --estimate-only` over the 76 census values with a fibre GF(p^k):
 GF(25) and GF(49) structures (F = 3) come out between 10^−67 and 10^−0.04 per class; the best lead is 845 = 5 · 13²,
 ℤ₅ × GF(169), e = 8, F = 21, K₅ trivial, class 1 of the sampled stage 1, rows (1, 43, −3, −39): 10^4.54 for the class
-and 10^1.48 inside lists of 5 · 10⁷, 2.5 · 10⁷ and 2.5 · 10⁷ members (blocks of 1.3–1.7 · 10⁹). Queued after 319.
+and 10^1.48 inside lists of 5 · 10⁷, 2.5 · 10⁷ and 2.5 · 10⁷ members (blocks of 1.3–1.7 · 10⁹). Searched after 319:
+skew order 3380 (§23).
 
 ## 23. Skew orders 1276 and 3380, a symmetric order 532, and calibrations (October 13, night)
 
@@ -1314,7 +1319,7 @@ H = ⟨45⟩ of order 7, stage-1 class 0 of the sampled three, rows 1, 25, 19, 1
 in 6000 split values) found a solution at the 321st split value of the resumed run (the first run had searched 267
 values; 131 recurred), about 450 distinct split values in all. With about 4 solutions expected over 6000 values and
 the densest values first, this is in line with the estimate for composite v (unlike the prime-field 1123 run of §22).
-Census: undecided; Cati–Pasechnik Table 5: 319(3); the audit found no earlier skew 1276 (its README).
+Census: undecided; Cati–Pasechnik Table 5: 319(3); no classical construction gives skew 1276 (its README).
 
 **Skew-Hadamard matrix of order 3380** ([skew/3380](../skew/3380)), the lead of §22: ℤ₅ × GF(169), e = 8, F = 21,
 H = ⟨w⁸⟩ of order 21, stage-1 class 1, rows 1, 43, −3, −39. Lists of 78,400 (skew block), 50,002,409, 25,105,989 and
@@ -1337,25 +1342,24 @@ with the orbit cap raised from 24 to 30 (`propus.py 133 --sweep --mino 1 --maxo 
 in the structure H = ⟨26⟩ of order 6 (A on the 14 orbits of ⟨H, −1⟩; B and D on the 26 orbits of H), only A
 symmetric, rows (11, 5, 19). The census lists 133 among the undecided symmetric values; ordinary and skew matrices of
 order 532 are known. `verify.py` gained the construction `propus` (it checks H = Hᵀ).
-- **Gaussian estimate (corrected in §29).** `propus_rank.py` gave log₁₀ E = −7.33 for exactly this structure and row
-  pattern (pools 10^3.0, 10^6.5, 10^6.4; 12 independent classes), against 72 solutions. That version dropped the
-  lattice factor of the class values (about C log₁₀ 4); with it the estimate is 10^0.5, and 72 is a factor of about
-  10^1.4 above it. The other row patterns of the structure have none. [The conclusion first drawn here, that propus
-  structures cannot be ranked, rested on the faulty estimator.]
-- Sweeps (`--maxo 30`) are now running over the symmetric census values 89 < v ≤ 400 and 400 < v ≤ 1000
-  (`$HADAMARD_WORK/logs/sym_queueA.log`, `sym_queueB.log`). v = 89 has no structure with a non-empty pool pattern
-  within the cap.
+- **Gaussian estimate (§29).** Without the lattice factor of the class values (about C log₁₀ 4), `propus_rank.py` gives
+  log₁₀ E = −7.33 for exactly this structure and row pattern (pools 10^3.0, 10^6.5, 10^6.4; 12 independent classes),
+  against 72 solutions; with the factor the estimate is 10^0.5, and 72 is a factor of about 10^1.4 above it. The other
+  row patterns of the structure have none.
+- Sweeps (`--maxo 30`) over the symmetric census values 89 < v ≤ 400 and 400 < v ≤ 1000
+  (`$HADAMARD_WORK/logs/sym_queueA.log`, `sym_queueB.log`) were not completed; the sweeps of small structures for
+  v > 275 were stopped (§30). v = 89 has no structure with a non-empty pool pattern within the cap.
 
-**Symmetric Hadamard matrices: the propus estimate seemed far too pessimistic** [it was the estimator; §29].
-`search/propus_rank.py` (Gaussian estimate of the propus structures of `propus.py`) gave, for the structures in which
+**Symmetric Hadamard matrices: propus estimates without the lattice factor.** `search/propus_rank.py` (Gaussian
+estimate of the propus structures of `propus.py`) gives, without the lattice factor (§29), for the structures in which
 Balonin and Đoković found propus difference families: v = 67, H of order 3 (A symmetric, D free) 10^−2.9; v = 109, H
 of order 3, 10^−6.6; v = 151, H of order 5, 10^−6.5. Solutions exist in all three (six, three and one families in
-their Table 1). These numbers lack the lattice factor (§29) and are too low by roughly C log₁₀ 4 for C classes.
+their Table 1). These numbers are too low by roughly C log₁₀ 4 for C classes.
 - v = 65 (the smallest open symmetric order, 260): every cyclic propus structure scores at most 10^−4.7 (H of order 3,
   25 orbits); the exhaustive sweep `propus.py 65 --sweep --maxo 30 --maxpool 1e8` (all structures up to 30 orbits, 207
   row patterns, including the 25- and 26-orbit structures beyond the earlier cap of 24) finds no solution.
-- Larger structures (v = 163 with H of order 3: 28/55/55 orbits, 10^−12.1; v = 193: 10^−15.5 with the faulty
-  estimator, both far above 1 after the correction of §29) need a low-energy three-list search, not written yet.
+- Larger structures (v = 163 with H of order 3: 28/55/55 orbits, 10^−12.1; v = 193: 10^−15.5; both without the lattice
+  factor of §29; for 163 with it see §40) need a low-energy three-list search, which has not been written.
 
 **Parallel tempering for the spin structures** (`search/spin_pt.c`, same input as `spin_ls.c`; replicas at geometric
 temperatures, swap or pair-flip moves in O(C), replica exchange after every sweep). On 631 it needs 5–23 s per
@@ -1422,8 +1426,10 @@ sampled. The modulus is the largest prime factor whose H-orbits on ℤ_d number 
   1.6 · 10¹⁴.
 - `--plain` runs the same search for Goethals–Seidel quadruples (A, B, B, D) with A on the H-orbits (ordinary
   Hadamard matrices); checked on n = 21 and 33.
-- Running: all composite symmetric census values v ≤ 1000, every structure with at most 44 orbits (freeD form);
-  the composite open orders of FRONTIER.md with `--plain` and 20–44 orbits.
+- The sweep over all composite symmetric census values v ≤ 1000 (structures with at most 36 orbits, freeD form; a
+  37–44-orbit pass is not recorded) found order 876 (§28) and covered the values up to 435 before it was stopped
+  (§40). No result is recorded for the sweep of the composite open orders of FRONTIER.md with `--plain` and 20–44
+  orbits.
 
 **D-optimal designs and Legendre pairs** (`search/two_circ.py`, `search/two_chain.py`). Two ±1 sequences with
 PAF_A + PAF_B = 2 off 0 give a D-optimal design of order 2v ([[A, B], [−Bᵀ, Aᵀ]], over any abelian group); with −2
@@ -1443,7 +1449,7 @@ abelian group); Legendre pairs of lengths 115, 145, 159, 161, 169, 175, 177, 185
 **Williamson matrices of orders 65 and 67** (`search/williamson.py`; the only odd orders below 71 for which
 Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev, arXiv:2605.08661, list Williamson matrices as not yet found):
 four symmetric ±1 sequences on the orbits of ⟨H, −1⟩, all row patterns, exact four-list joins. Checked on n = 13, 25
-and 37. Running.
+and 37. No result is recorded.
 
 ## 26. Local search without symmetry, and the skew hunt beyond 627 (October 13, late night)
 
@@ -1482,15 +1488,15 @@ positions per block.
 **Compression DP.** `Comp.dp` (propus_chain.py, used by two_chain.py) drops partial row sums that can no longer reach
 the target and gives up above 3 · 10⁷ states (numpy codes) or 3.75 · 10⁶ states (dictionary); the structure is then
 reported as skipped instead of exhausting memory. The 133 check gives the same 15,096 compatible triples and the
-solution. The v = 99 and 123 D-optimal runs that died in the DP are being repeated.
+solution. The v = 99 and 123 D-optimal runs that died in the DP were not completed.
 
 **Skew census hunt beyond 627** (`cp_hunt.py --trivial-k`, then all K_m). Of the 410 remaining composite census values
 in 629..2499, 213 have cyclotomic-product structures within the member caps (477 structures, 89 with K_m trivial). The
 trivial-K structures have large class sizes (F = 11 … 45) and their sampled stage 1 is empty except for 1565
-(ℤ₅ × GF(313), e = 8, F = 39: 10^1.93 for the class but 10^−2.45 inside lists of 10⁷, blocks of 10^9.2), 1313
-(10^−1.86) and 927 (a block of 3.8 · 10¹¹ members, above the enumeration cap). With F > me a spike alone exceeds
-the budget Σ y² = 4v, so large-F structures are infeasible as soon as F ≳ me. The structures with K_m nontrivial
-are running.
+(ℤ₅ × GF(313), e = 8, F = 39: 10^1.93 for the class but 10^−2.45 inside lists of 10⁷, blocks of 10^9.2), 1313 (10^−1.86)
+and 927 (a block of 3.8 · 10¹¹ members, above the enumeration cap). With F > me a spike alone exceeds the budget Σ
+y² = 4v, so large-F structures are infeasible as soon as F ≳ me. No result is recorded for the structures with K_m
+nontrivial.
 
 ## 27. Bordered propus: symmetric Hadamard matrices of order 4(m + 1) from groups of order m (October 14)
 
@@ -1523,17 +1529,20 @@ construction `propus-bordered`, `border_certify.py`.
 
 **Order 260 (v = 65, the smallest open symmetric order).**
 - ℤ₆₄, direct joins: every multiplier structure with at most 25 orbits is empty (both row patterns).
-- ℤ₆₄, compressions: ⟨31, 33⟩ (25 orbits) has no compatible ℤ₁₆-compression triple for either pattern (ruled out);
-  ⟨17⟩ (17/32 orbits): pattern (0, 0, 2) has no compatible ℤ₈ triple, pattern (2, 0, 0) has 640 (pair work
-  5.2 · 10¹⁰, being completed); ⟨31⟩ (25/33) running. ⟨33⟩ (25/48 orbits) is out of reach: 55,616 compatible ℤ₈
-  triples with pair work 3 · 10¹⁸, and H acts trivially on ℤ₁₆ and ℤ₃₂, so no finer compression stays small.
+- ℤ₆₄, compressions: ⟨31, 33⟩ (25 orbits) has no compatible ℤ₁₆-compression triple for either pattern (ruled out); ⟨17⟩
+  (17/32 orbits): pattern (0, 0, 2) has no compatible ℤ₈ triple, pattern (2, 0, 0) has 640 (pair work 5.2 · 10¹⁰; no
+  result is recorded); no result is recorded for ⟨31⟩ (25/33) either. ⟨33⟩ (25/48 orbits) is out of reach: 55,616
+  compatible ℤ₈ triples with pair work 3 · 10¹⁸, and H acts trivially on ℤ₁₆ and ℤ₃₂, so no finer compression stays
+  small. For the whole ℤ₆₄ family §30 gives at most 10⁻⁵ expected solution orbits.
 - Non-cyclic groups of order 64, cyclic automorphism subgroups, at most 30 orbits: ℤ₂ × ℤ₃₂ (6 structures),
-  ℤ₄ × ℤ₁₆ (12), ℤ₂² × ℤ₁₆ (14), ℤ₂ × ℤ₄ × ℤ₈ (21), ℤ₈², ℤ₄³ (17), ℤ₂³ × ℤ₈, ℤ₂² × ℤ₄² — no solution. The
-  2-generated subgroups (≤ 30 orbits) and the quotient chain (`propus_gchain.py`, 26–46 orbits) are running.
+  ℤ₄ × ℤ₁₆ (12), ℤ₂² × ℤ₁₆ (14), ℤ₂ × ℤ₄ × ℤ₈ (21), ℤ₈², ℤ₄³ (17), ℤ₂³ × ℤ₈, ℤ₂² × ℤ₄² — no solution. No
+  result is recorded for the 2-generated subgroups (≤ 30 orbits) and the quotient chain (`propus_gchain.py`, 26–46
+  orbits).
 
 **All census values v ≤ 1000** (197 values): ℤ_{v−1} with at most 30 orbits (direct) and 31–44 orbits
-(compressions), and the 319 non-cyclic groups of order v − 1 whose endomorphisms number at most 2 · 10⁶, are
-queued (`border_queue.sh`, `bgroup_census.sh`).
+(compressions), and the 319 non-cyclic groups of order v − 1 whose endomorphisms number at most 2 · 10⁶, were queued
+(`border_queue.sh`, `bgroup_census.sh`). For the census primes these queues searched the structures of at most 18
+orbits exhaustively (§30).
 
 ## 28. A symmetric Hadamard matrix of order 876, and small product structures (October 14)
 
@@ -1544,28 +1553,25 @@ cyclotomic product ℤ₃ × GF(73) of index 8 (27 orbits for B and D, 14 for A,
 compressions to ℤ₇₃ give 768 compatible triples (pair work 3.4 · 10⁷ against 6.9 · 10⁹ for the direct join); the
 573rd holds 18 solutions, and all 768 together hold 288, in 16 triples (the 16 cosets of H in ℤ₂₁₉* permute them).
 Verified by `verify.py`, by `check_matrix` and by an independent rebuild; reproduced from scratch with the same
-sequences. Novelty audit (its README): 219 is undecided in the Đoković–Seberry census of 2025-05-28 and in no series
-of it; no paper, database or 2026 deposit we could read has a symmetric matrix of order 876, and every classical
-route fails by arithmetic; the 2018 Balonin–Seberry tables (n < 400) could not be read.
+sequences. Literature status (its README): 219 is undecided in the Đoković–Seberry census of 2025-05-28 and in no
+series of it; no paper, database or 2026 deposit we could read has a symmetric matrix of order 876, every classical
+route fails by arithmetic, and the 2018 Balonin–Seberry table (Math. Scientist 43(2), Table 2) lists 219 with a dash.
 
-**The Gaussian model seemed to miss by 10^10.6** [corrected in §29: the estimator dropped the lattice factor; the
-corrected estimate is 10^0.6, a factor 10^1.9 below the 288 found, and 10^0.5 against 72 for 532]. `propus_rank.py`
-gave 10^−8.1 solutions for this structure and pattern (pools 10^3.0, 10^6.9, 10^6.9; 13 classes, full covariance),
-against 288. For 532 the apparent miss was 10^9.6 (§23). Both structures are products ℤ_m × GF(q) in which H meets
-GF(q)* in a cyclotomic subgroup: for 876, H is the eighth powers and fixes ℤ₃; for 532 (ℤ₇ × GF(19)), H = {(h, φ(h))}
-is the graph of a homomorphism φ: ℤ₇* → ⟨7⟩ ≤ GF(19)* of order 3, so its orbits on ℤ₇* × GF(19)* are indexed by
-GF(19)* (an index-18 cyclotomic product with a twist). There the class values are linear in a few quadratic invariants
-of short ℤ_m-sequences (the f-layer autocorrelations and the cross-correlations of the class sequences, weighted by
-cyclotomic numbers), so they sit on a sparse lattice that a Gaussian with the right covariance badly underweights near
-0. Practical consequence: rank nothing by the Gaussian in these families; exhaust them, smallest first. [§29 withdraws
-most of this paragraph: with the lattice factor restored the excess is 10^1.4–10^1.9, not 10^10, and the estimator
-matches exact counts within ±0.3 on small v.] Running on the same principle:
-- the compressed propus sweep of the composite census values ≤ 1000 up to 36 orbits (now with priority), then 37–44
-  orbits, then the composite values 1000 < v < 2500 up to 44 orbits;
-- the bordered sweeps of §27 over ℤ_{v−1} and the non-cyclic groups of order v − 1;
-- for skew orders, the exact chain (`screen_chain.py 3600 36 0 --order orbits`) over the 102 census-screen survivors
-  with at most 36 orbits that no chain run had touched (§17–§22 ranked them by the Gaussian, which is unreliable
-  here).
+**The propus estimate without the lattice factor.** Without the lattice factor of §29, `propus_rank.py` gives 10^−8.1
+solutions for this structure and pattern (pools 10^3.0, 10^6.9, 10^6.9; 13 classes, full covariance), against 288
+found: a gap of 10^10.6. With the factor the estimate is 10^0.6, a factor 10^1.9 below the 288 found. For 532 the gap
+without the factor is 10^9.2 (§23), and with it the estimate is 10^0.5 against 72. Both structures are products
+ℤ_m × GF(q) in which H meets GF(q)* in a cyclotomic subgroup: for 876, H is the eighth powers and fixes ℤ₃; for 532
+(ℤ₇ × GF(19)), H = {(h, φ(h))} is the graph of a homomorphism φ: ℤ₇* → ⟨7⟩ ≤ GF(19)* of order 3, so its orbits on
+ℤ₇* × GF(19)* are indexed by GF(19)* (an index-18 cyclotomic product with a twist). There the class values are linear
+in a few quadratic invariants of short ℤ_m-sequences (the f-layer autocorrelations and the cross-correlations of the
+class sequences, weighted by cyclotomic numbers), so they sit on a sparse lattice that a Gaussian with the right
+covariance underweights near 0 unless the lattice factor is included. With the factor the excess over the estimate is
+10^1.4–10^1.9, and the estimator matches exact counts within ±0.3 on small v (§29).
+
+The sweeps run alongside were the compressed propus sweep of the composite census values (it covered the values up to
+435 before it was stopped, §40), the bordered sweeps of §27 (outcome in §27 and §30) and the exact skew chain
+(`screen_chain.py 3600 36 0 --order orbits`) over the census-screen survivors (results for at most 33 orbits in §20).
 
 ## 29. ℤ_q-bordered propus: symmetric Hadamard matrices of order 4(m + q) (October 14)
 
@@ -1599,7 +1605,7 @@ odd q dividing v.
   (s, t), MCQ on N(s) ∩ N(t), |N(s) ∩ N(t)| ≈ 250): every ℤ₅ pattern met so far is solved in about a second. Simulated
   annealing over the signed column permutations of a fixed Paley matrix of order 20 does not work (cost stuck far from
   0). q = 7: 17.4 million candidate rows, |N(s)| ≈ 370,000, |N(s) ∩ N(t)| ≈ 15,000; 329 start pairs on the pattern
-  (z_A, z_B, z_D) = (δ₀, δ₀, (1, 1, 0, 1, 0, 0, −1)) found no clique (open; a longer run is going). Hits without a
+  (z_A, z_B, z_D) = (δ₀, δ₀, (1, 1, 0, 1, 0, 0, −1)) found no clique (open). Hits without a
   border are kept in `qborder_pending.jsonl`.
 - **Checks.** ℤ₃: every one of the 576 triples on ℤ₆ gives a symmetric Hadamard matrix of order 36; the chain finds
   and verifies orders 108 (ℤ₂₄), 132 (ℤ₃₀) and 36 on ℤ₂ × ℤ₃; ℤ₁₂ and ℤ₁₈ have no triple (exhaustive, ℤ₁₂ also by
@@ -1616,8 +1622,9 @@ odd q dividing v.
 - **Runs.** The 117 census values divisible by 3 (`qborder_pool.sh symQ3.txt … 3`: direct joins up to 30 orbits, the
   chain for 31–44) and the 98 divisible by 5; v = 65 (order 260, the smallest open symmetric order) on ℤ₆₀ (chain,
   1–44 orbits) and on ℤ₂ × ℤ₃₀ (`propus_bgroup.py 2,30 --qborder 5 --phi 0,1 --pairs`). On ℤ₆₀ every structure up to
-  24 orbits is empty (direct joins), and so far the chain has found no compatible compression triple in any structure
-  except one of 30 orbits (60 triples, no solution).
+  24 orbits is empty (direct joins), and the chain found no compatible compression triple in any structure except one
+  of 30 orbits (60 triples, no solution). The ℤ₃- and ℤ₅-bordered sweeps of small structures for v > 275 were stopped
+  (§30).
 
 **Symmetric Legendre pairs (checked, not pursued).** In the standard Legendre-pair array of order 2ℓ + 2,
 [[X, E], [Eᵀ, M]] with X = [[1, 1], [1, −1]], E = [[eᵀ, eᵀ], [eᵀ, −eᵀ]], M = [[A, B], [Bᵀ, −A]] and row sums −1, H is
@@ -1632,14 +1639,14 @@ margin where propus has a positive one, so the CPU stays with the propus familie
 757,000 compressions took 15 minutes per pattern in a Python loop (the ℤ₃ chain pass of v = 153 timed out on them);
 stage 1 of v = 219 dropped from 18.8 s to 1.5 s.
 
-**The Gaussian estimator was wrong, and most of the apparent yield was an artifact.** `propus_rank.estimate` dropped
-the lattice factor of the class values whenever the sampled covariance was singular, and for propus it always is: the
-row sums fix Σ_c |c| · val_c. The estimates were therefore too low by about Σ_c log₁₀ g_c ≈ C log₁₀ 4. Corrected (the
-density on the hyperplane w^⊥, w = (|c|), times the covolume ∏ g_c · |w| / gcd(g_c w_c) of the lattice points there),
-the estimator matches exhaustive counts on ℤ_v with trivial H within ±0.3 in log₁₀ (v = 7, 9, 11, 13, every row
-pattern; one arithmetic zero at v = 7, rows (1, 1, 5), predicted 10^1.8). Revised figures:
+**The lattice factor in the propus estimate.** The sampled covariance of the class values of a propus structure is
+always singular: the row sums fix Σ_c |c| · val_c. `propus_rank.estimate` therefore takes the density on the
+hyperplane w^⊥, w = (|c|), times the covolume ∏ g_c · |w| / gcd(g_c w_c) of the lattice points there. Without this
+factor the estimates are too low by about Σ_c log₁₀ g_c ≈ C log₁₀ 4. With it the estimator matches exhaustive counts
+on ℤ_v with trivial H within ±0.3 in log₁₀ (v = 7, 9, 11, 13, every row pattern; one arithmetic zero at v = 7, rows
+(1, 1, 5), predicted 10^1.8). Figures without and with the factor:
 
-| structure | old estimate | corrected | found |
+| structure | without the factor | with the factor | found |
 |---|---|---|---|
 | 876: ℤ₂₁₉, ⟨4⟩, rows (3, 17, 17) | 10^−8.1 | 10^0.6 | 288 |
 | 532: ℤ₁₃₃, ⟨26⟩, rows (1, 1, 23) / (1, 11, 17) | 10^−7.4 | 10^0.5 | 72 (rows (11, 5, 19)) |
@@ -1647,18 +1654,18 @@ pattern; one arithmetic zero at v = 7, rows (1, 1, 5), predicted 10^1.8). Revise
 
 So the two finds sit in structures where about one solution was expected, with a structural excess of 10^1.4–10^1.9,
 and the small structures (≤ 30 orbits) we swept mostly have expectations below one. The large ones are where solutions
-are plentiful: the propus ranking can now be trusted to choose them, and the problem becomes search technology for
+are plentiful: the propus ranking can be trusted to choose them, and the problem becomes search technology for
 structures of 45–80 orbits (multi-level compression for composite v, low-energy lists for prime v), as it was for the
-skew orders. The skew estimators (`cp_lowe.estimate_in_lists`, census screen) are separate code and are not affected
-by this fix; they are checked separately.
+skew orders. The skew estimators (`cp_lowe.estimate_in_lists`, census screen) are separate code that does not use
+`propus_rank.estimate`; they are checked separately.
 
-**Calibration of the corrected estimator on the swept structures.** For v = 133 and 219 (all structures up to 30
-orbits searched exhaustively) the corrected estimates stay below 10^0.9, and the two structures that hold solutions
-are among the highest (133/⟨26⟩: 10^0.77, 72 found; 219/⟨4⟩: 10^0.57, 288 found; the best empty one, 133/⟨4⟩ with H
-of order 9, 10^0.81). So in the swept range each structure holds at most about one expected solution, and a sweep
-succeeds or fails by chance. v = 65 is the exception:
+**Calibration of the estimator on the swept structures.** For v = 133 and 219 (all structures up to 30 orbits searched
+exhaustively) the estimates stay below 10^0.9, and the two structures that hold solutions are among the highest
+(133/⟨26⟩: 10^0.77, 72 found; 219/⟨4⟩: 10^0.57, 288 found; the best empty one, 133/⟨4⟩ with H of order 9, 10^0.81). So
+in the swept range each structure holds at most about one expected solution, and a sweep succeeds or fails by chance.
+v = 65 is the exception:
 
-| v = 65 structure | orbits A, B/D | corrected estimate (best rows) | searched | found |
+| v = 65 structure | orbits A, B/D | estimate (best rows) | searched | found |
 |---|---|---|---|---|
 | ⟨16⟩ (ℤ₅ × GF(13), index 4) | 13, 25 | 10^2.9 | exhaustive (direct, chain, and an independent numpy hash join over the full pools of rows (11, 3, 11): 420 · 1.76 · 10⁶ · 1.43 · 10⁶) | 0 |
 | ⟨51⟩ | 21, 35 | 10^2.0 | exhaustive (chain, d = 13) | 0 |
@@ -1725,12 +1732,13 @@ triple; all do. Hits are rebuilt on ℤ_v and checked before they are printed; `
   row PAF is 1 mod 4), so all parts together cost one enumeration of D, and each part is probed by every pair (A, B).
   - 213/⟨37⟩ (e = 10): two ℤ₃-compatible triples, exhaustive in two minutes: **no solution**. The row pattern (11, 1,
     27), on which the chain had spent hours (12,140 ℤ₇₁-compatible triples), has no ℤ₃-compatible compression.
-  - 183/⟨34⟩ (e = 12): 8 triples, B ≈ 4·10⁶ and D ≈ 4–6·10⁸ per triple, about 2·10⁹ probes each; running.
+  - 183/⟨34⟩ (e = 12): 8 triples, B ≈ 4·10⁶ and D ≈ 4–6·10⁸ per triple, about 2·10⁹ probes each; this gave order 732
+    (§31).
   - 213/⟨25⟩ (e = 14): about 3,000 rows per row sum, B ≈ 3·10¹⁰ before the filters per triple: beyond this join.
 
 **Order 260 by the bordered families**, in expected orbits: ℤ₅-bordered on ℤ₆₀, ⟨49⟩ 0.37 and ⟨11⟩ 0.19 (both empty,
 above), the rest ≤ 0.02; ℤ₁₃-bordered on ℤ₅₂, ⟨9⟩ 0.22 (20 orbits, but the border is a clique problem with rows of
-length 52 that the solver of §29 cannot handle yet); bordered (q = 1) on ℤ₆₄, at most 10⁻⁵ (the character obstruction
+length 52 that the solver of §29 cannot handle); bordered (q = 1) on ℤ₆₄, at most 10⁻⁵ (the character obstruction
 of §27). For the census primes (89, 101, 107, 149, …) the bordered family over ℤ_{v−1} holds at most 0.3 expected
 orbits, all in structures of ≤ 18 orbits that the border queues of §27 searched exhaustively.
 
@@ -1765,8 +1773,9 @@ none with three variables. Neither admits circulant plug-ins of length 13: (1, 1
 |PAF_X| ≤ 13, and (2, 18) needs PAF_X = −9 PAF_Y, i.e. PAF_Y = +1 at every shift (PAF ≡ 13 mod 4), forcing the row sum
 of Y to be ±5 against r_X² + 9 r_Y² = 130. So this route to 260 is closed as well.
 
-**Unsearched small structures.** 247/⟨35⟩, ⟨9⟩, ⟨49⟩, ⟨30⟩, ⟨68, 87⟩, ⟨107⟩, ⟨126⟩ and 259/⟨44⟩, ⟨9⟩ (0.02–0.04
-expected orbits each) never appeared in any sweep log; they are being run with the current chain (no solution so far).
+**Unsearched small structures.** 247/⟨35⟩, ⟨9⟩, ⟨49⟩, ⟨30⟩, ⟨68, 87⟩, ⟨107⟩, ⟨126⟩ and 259/⟨44⟩, ⟨9⟩ (0.02–0.04 expected
+orbits each) never appeared in any sweep log; the run with the chain then current had found no solution when these notes
+were written; its outcome is not recorded.
 
 ## 31. Symmetric Hadamard matrices of order m(m − 1), and orders 5700 and 732 (October 14)
 
@@ -1795,12 +1804,12 @@ core of a symmetric Hadamard matrix of order h gives order kh(h − 1) (unused: 
   PAF_A3 + 2 PAF_A1 + PAF_A0 = 4nδ, in the Balonin array with D = xI + y(A0 − I). The row sum of A0 is 1, so
   a3² + 2a1² = 4n − 1 is necessary. `sym_mm1.py propus n` searches exhaustively (A1 hashed on its autocorrelations,
   up to shifts; (A3, A0) pairs probed); solutions exist for n = 3, 5, 7, 11, 13, 15 (all verified up to order 3540),
-  none for n = 9 (35 is not a² + 2b²). These existence results were published before (found by the audit of 17
-  October 2026): Abuzin, Balonin, Đoković and Kotsireas (Inform. Control Syst. 2019, no. 5, 2–9, Table 1, "X1 skew,
-  X2 = X3, and X4 symmetric") list such families for every odd v < 50 with 4v − 1 = a² + 2b² except 37, 43 and 47,
-  for which their Table 3 has only families with X4 neither symmetric nor skew; for 37 there is none with X4
-  symmetric (`sp_mitm.c`, exhaustive, §49). Their families of lengths 19, 25
-  and 31 are equivalent to ours (a multiplier, a shift of A1, and for 31 a reversal and sign change of A1).
+  none for n = 9 (35 is not a² + 2b²). These existence results were published before: Abuzin, Balonin, Đoković and
+  Kotsireas (Inform. Control Syst. 2019, no. 5, 2–9, Table 1, "X1 skew, X2 = X3, and X4 symmetric") list such families
+  for every odd v < 50 with 4v − 1 = a² + 2b² except 37, 43 and 47, for which their Table 3 has only families with X4
+  neither symmetric nor skew; for 37 there is none with X4 symmetric (`sp_mitm.c`, exhaustive, §49). Their families of
+  lengths 19, 25 and 31 are equivalent to ours (a multiplier, a shift of A1, and for 31 a reversal and sign change of
+  A1).
 - *Szekeres-type pairs*: a Legendre pair (M, N) of odd length v' with M of skew type and N symmetric gives the
   bordered two-block skew-Hadamard matrix [[1, 1, e, −e], [−1, 1, −e, −e], [−e, e, A, B], [e, e, −B, Aᵀ]] of
   order 2v' + 2 (orthogonality forces the border signs up to the choices a, α, β with γ = aβ, δ = −aα), and
@@ -1887,7 +1896,7 @@ amicable Hadamard matrices of order 52 (not a classical amicable order) and, wit
 skew-Hadamard matrix of order 52 · 51 = 2652** ([skew/2652](../skew/2652)). **2475: the exhaustive skew-propus search
 of length 25 finds a quadruple (row sums 9, 3, 1; 18 minutes), so amicable Hadamard matrices of order 100 and, with
 G-matrices of order 25, a skew-Hadamard matrix of order 100 · 99 = 9900** ([skew/9900](../skew/9900); not stored,
-verify.py rebuilds it). The new amicable orders 52, 76, 100 (and 124 from n = 31) are ≡ 4 (mod 8) but not of the
+verify.py rebuilds it). The amicable orders 52, 76, 100 (and 124 from n = 31) are ≡ 4 (mod 8) but not of the
 classical form q + 1 with q ≡ 3 (mod 8) a prime power. No Szekeres-type pair of length 49 exists in ℤ₄₉ or ℤ₇²
 (`szek_group`), so 100 comes only from the skew-propus quadruple.
 
@@ -1900,9 +1909,9 @@ circulant weighing block CW(n, k) for the x-part needs k to be a square; no such
 twelfth powers on GF(61), trivial on ℤ₃; 20 orbits for A, 39 for B and D, 19 classes; §30) found two solutions in the
 fifth ℤ₃-compatible triple (rows (21, 1, 17); A (−1, 11, 11), B (−9, 1, 9), D (−1, 9, 9) by rows; |A| = 464,
 B 3.8 · 10⁶, D 4.3 · 10⁸, 1.75 · 10⁹ pairs), in part 3 of 29, after about 1.5 hours with two processes on eight
-triples. The corrected estimate of `propus_rank.py` for the structure was 0.69 expected solution orbits (|Γ| = 432),
-0.06 for this row pattern. The remaining triples were not finished; the rerun of the fifth triple alone (commit
-`913f7b5`) finishes it with exactly the two solutions.
+triples. The estimate of `propus_rank.py` (§29) for the structure is 0.69 expected solution orbits (|Γ| = 432), 0.06
+for this row pattern. The remaining triples were not finished; a separate run of the fifth triple alone (commit
+`913f7b5`) completes it with exactly the two solutions.
 
 **prow.c part keys (fix).** The D parts of `join3`/`join4` were chosen by the additive key
 (F₀ − 3)/4 + 7 (F₁ − 3)/4 mod np of the first two x = 0 classes. Those class values span only a few hundred residues,
@@ -1912,9 +1921,12 @@ all e/2 classes with fixed pseudo-random μ_k (μ₀ = 1), which is still additi
 A part and a B part for a needed vector. The planted tests (join3 and join4) recover their solutions; 213/⟨25⟩ was
 restarted with it.
 
-**Skew audit (5700, 2652, 9900).** The skew audit (statuses in the READMEs) found no earlier construction for 5700 and
-9900, and none for amicable orders 52, 76, 100: Seberry's tables of amicable orders 2ᵗq (1978, 1991, 1992) give
-t = 3 for q = 13, 19, 25. The 1992 summary line "AV 2(q + 1), q ≡ 5 (mod 8); J. Wallis" is the |t| = 1 case
+**Status of 5700, 2652 and 9900** (statuses in the READMEs). Seberry's tables of amicable orders 2ᵗq (1978, 1991,
+1992) give t = 3 for q = 13, 19, 25, so they list no amicable pair of order 52, 76 or 100. These pairs follow from the
+skew-propus families of Abuzin, Balonin, Đoković and Kotsireas (2019) by the step (I + PN, P + N), which we found
+nowhere in print, so 5700 and 9900 were obtainable classically; the first explicit amicable pairs of orders 52, 76 and
+100 are ours.
+The 1992 summary line "AV 2(q + 1), q ≡ 5 (mod 8); J. Wallis" is the |t| = 1 case
 (q = s² + 4) of the line above it; q = 37 = 1 + 4 · 3² gives (|t| + 1)(q + 1) = 152, consistent with the table entry
 "19 3". 2652 is the exception: the census lists 663 as undecided, but Seberry–Yamada 1992 (Table 7.1, a blank
 meaning t = 2) and Cati–Pasechnik (Table 5, m = 2 not shown) both imply that 4 · 663 is known, without a construction
@@ -1933,7 +1945,7 @@ multiple of 3, but needs an OD of order 4v/3, as hard as the original):
 
 | n (amicable) | v (m) |
 |---|---|
-| 52 (new) | **1989 (3): done, [skew/7956](../skew/7956)** |
+| 52 (first explicit) | **1989 (3): done, [skew/7956](../skew/7956)** |
 | 20 (q = 19) | 475 (5), 1045 (11), 1235 (13), 2185 (23), 2375 (25); 285 (3) is [skew/1140](../skew/1140), 1425 (15) is [skew/5700](../skew/5700) |
 | 12 (q = 11) | 429 (13), 627 (19), 693 (21), 759 (23), 891 (27), 957 (29), 1089 (33), 1221 (37), 1353 (41), 1617 (49), 1683 (51), 1749 (53), 1815 (55), 1947 (59), 2013 (61), 2145 (65), 2277 (69), 2409 (73); 2475 (75) is [skew/9900](../skew/9900) (n = 100) |
 | 28 (q = 27) | 1323 (7), 2457 (13) |
@@ -2034,7 +2046,7 @@ candidate arrays).
 
 | v | t | m | n | H | b part | outcome |
 |---:|---:|---:|---:|---|---|---|
-| 1989 | 39 | 3 | 52 (new) | {1, 16, 22} | three singletons | **2688 solutions → skew 7956** |
+| 1989 | 39 | 3 | 52 (first explicit) | {1, 16, 22} | three singletons | **2688 solutions → skew 7956** |
 | 475 | 25 | 5 | 20 | none (annealing) | δ₀ ± δ₁₀, δ₀ | **found → skew 1900** |
 | 429 | 39 | 13 | 12 | {1, 16, 22} | on 3ℤ₃₉ | **18 solutions → skew 1716** |
 | 2457 | 91 | 13 | 28 | ⟨79, 29⟩, order 9 | on 7ℤ₉₁ (found also unrestricted) | **8 solutions → skew 9828** |
@@ -2047,7 +2059,7 @@ candidate arrays).
 | 1089 | 99 | 33 | 12 | ⟨4⟩, order 15 | 278 templates (b on 33ℤ) | no c part |
 | 177, 201, 249, 309 | 59, 67, 83, 103 | t | 4 | the squares (and orders 11, 17) | no template | none |
 | 2375 | 125 | 25 | 20 | ⟨6⟩, order 25 | no template | Eades fails anyway |
-| 891 | 81 | 27 | 12 | ⟨4⟩, order 27 | no template | (order 9: running) |
+| 891 | 81 | 27 | 12 | ⟨4⟩, order 27 | no template | none (order 9: no design, capped search, §33) |
 | 693 | 63 | 21 | 12 | ⟨4⟩ = {1, 4, 16} | on 3ℤ₆₃; 1848 templates from 200 000 of 1 054 944 b quadruples (cap) | **4 solutions → skew 2772** |
 | 1617 | 147 | 49 | 12 | ⟨4⟩, order 21 | 3169 templates from 200 000 of 81 450 144 (cap) | none passes the row-sum screen |
 
@@ -2090,8 +2102,9 @@ from scratch per template: about 25 minutes per template at t = 63 with |H| = 3.
 N² = (4t − μ)I, PN + NP = 0) and a symmetric Hadamard matrix of order h with 4t = μh give the symmetric Hadamard matrix
 P ⊗ J_{h−1} + N ⊗ D of order μh(h − 1), D the core of the symmetric matrix (§31: the J terms cancel exactly when the
 weight of P is μ = 4t/h). No amicable pair is needed, only a symmetric matrix of order h = 4k, so on paper the census
-values v = μk(4k − 1) are in reach: 125 symmetric-undecided values in 139 splits, 122 in 134 without the values
-already settled here (k = 1, h = 4 alone covers every multiple of 3), e.g. 475 (t = 25, μ = 5, h = 20), 891 (t = 81, μ = 27, h = 12), 1989 (t = 39, μ = 3, h = 52).
+values v = μk(4k − 1) are in reach: 125 symmetric-undecided values in 139 splits, 122 in 134 without the values already
+settled here (k = 1, h = 4 alone covers every multiple of 3), e.g. 475 (t = 25, μ = 5, h = 20), 891 (t = 81, μ = 27,
+h = 12), 1989 (t = 39, μ = 3, h = 52).
 
 **Balonin form.** With A symmetric and B, D any circulants (or group-developed matrices),
 
@@ -2100,13 +2113,13 @@ already settled here (k = 1, h = 4 alone covers every multiple of 3), e.g. 475 (
     [ BR   A   −RD   RB ]
     [ DR  −RB   RB   A  ]
 
-is symmetric and orthogonal whenever AAᵀ + 2BBᵀ + DDᵀ is scalar (the off-diagonal blocks cancel identically, also
-with variables, provided both parts of A are symmetric). Splitting each block into an x part and a y part, the design
-conditions are PAF(A_x) + 2PAF(B_x) + PAF(D_x) = μδ, the same for y with 4t − μ, and X_A + 2X_B + X_D = 0 for the
-cross terms X(s) = Σ_g x(g)[y(g + s) + y(g − s)]. Summing the cross condition over s gives the row-sum screen
-r_Aρ_A + 2r_Bρ_B + r_Dρ_D = 0 with r_A² + 2r_B² + r_D² = μ and ρ_A² + 2ρ_B² + ρ_D² = 4t − μ
-(`search/symod_reach.py`). It removes 1989 (μ = 3), 693 (μ = 21), 1235, 1353, 2013, 2093 (μ = 1, as in §31) and most of the
-n = 4 splits; it keeps 475, 891, 1089, 2185, 2375, 1617, 1749, 1815, 1947, 2277, 513, 657, 669 and 723.
+is symmetric and orthogonal whenever AAᵀ + 2BBᵀ + DDᵀ is scalar (the off-diagonal blocks cancel identically, also with
+variables, provided both parts of A are symmetric). Splitting each block into an x part and a y part, the design
+conditions are PAF(A_x) + 2PAF(B_x) + PAF(D_x) = μδ, the same for y with 4t − μ, and X_A + 2X_B + X_D = 0 for the cross
+terms X(s) = Σ_g x(g)[y(g + s) + y(g − s)]. Summing the cross condition over s gives the row-sum screen
+r_Aρ_A + 2r_Bρ_B + r_Dρ_D = 0 with r_A² + 2r_B² + r_D² = μ and ρ_A² + 2ρ_B² + ρ_D² = 4t − μ (`search/symod_reach.py`).
+It removes 1989 (μ = 3), 693 (μ = 21), 1235, 1353, 2013, 2093 (μ = 1, as in §31) and most of the n = 4 splits; it keeps
+475, 891, 1089, 2185, 2375, 1617, 1749, 1815, 1947, 2277, 513, 657, 669 and 723.
 
 Small x parts are rigid. For μ = 3 the cross condition forces B and D to be of skew type around their single x
 entries, so PAF(A) + 2PAF(B) + PAF(D) = 4tδ with A symmetric and a² = 4t − 3 for the row sum of A.
@@ -2143,15 +2156,15 @@ and `search/odm_g.py` (skew Goethals–Seidel, Theorem 7) work over any such gro
   held.
 
 Checks: the engines reproduce the 1716 designs (12 solutions over ℤ₃₉ with H = ⟨16⟩, b on 3ℤ₃₉; the annealer finds one
-too), μ = 1 skew-propus designs, and the ℤ₂₅ negative. Fixed on the way: the signed row-sum size of a skew pair is 0,
-not its weight. verify.py's Theorem-7 "od" form takes an optional "group" (blocks over ∏ ℤ_n^k, R the negation).
+too), μ = 1 skew-propus designs, and the ℤ₂₅ negative. In the engines the signed row-sum size of a skew pair is 0, not
+its weight. verify.py's Theorem-7 "od" form takes an optional "group" (blocks over ∏ ℤ_n^k, R the negation).
 
 **Theorem 7 with n = 4.** A skew OD(4t; 1, t, 3t − 1) gives a skew-Hadamard matrix of order 12t, so t = v/3 reaches
 every undecided skew v divisible by 3 (172 of them). Exhaustively over ℤ_t (H trivial, Goethals–Seidel form):
 - t = 3, 5, 9: designs exist;
 - t = 7: impossible, since 7 is not a sum of three squares (Eades), as for every t ≡ 7 (mod 8).
 - t = 11: a design exists (template from a capped sample of 2 · 10⁶ b quadruples).
-- t = 13: running.
+- t = 13: no result is recorded.
 In every design found the b parts sit in a short window around 0, where periodic and aperiodic autocorrelations agree.
 They are four short ternary complementary sequences with u₁ antisymmetric. For t = 11:
 - u₁ = (1, 0, −1) on positions (−1, 0, 1);
@@ -2164,7 +2177,7 @@ of any weight are plentiful (from complementary ternary sequences); the c part i
 
 The census sweep (`n4sweep.py` in the work directory) covers every cyclic H of odd order with at most 15 orbits for
 the 120 targets with t a sum of three squares: 3-orbit groups (squares) and most 5–9-orbit groups have no b
-template at all, and no c part was found in any run (results in the table below when complete).
+template at all, and no c part was found in any run.
 
 **Theorem-7 targets: what the H-invariant searches can and cannot reach.**
 - Non-cyclic groups, exhaustive. Over ℤ₃² × ℤ₁₁ (H = unipotent × ⟨3⟩, order 15, 15 orbits) 1089 has 5 templates
@@ -2177,9 +2190,9 @@ template at all, and no c part was found in any run (results in the table below 
 - `search/odm_estimate.py` (Gaussian model: exact list sizes times the per-coordinate probability of a zero sum)
   under-counts badly. The known hits sit 3 (1716) to 5 (2772) orders of magnitude above the model, so it cannot rule
   a structure out; for 1353/⟨10⟩ it gives 10⁻¹¹ per template and for 1089/⟨91⟩ 10⁻¹⁵.
-- Orbit annealing (`osa.c`) finds the 1716 design. For 1089 with H of order 3 (55 H-orbits, about 52 variables per block) the energy
-  never drops below about 10⁵ (random level), at T₀ = 40 or 3000. This agrees with §26: local search is not
-  competitive above about 40 free positions per block.
+- Orbit annealing (`osa.c`) finds the 1716 design. For 1089 with H of order 3 (55 H-orbits, about 52 variables per
+  block) the energy never drops below about 10⁵ (random level), at T₀ = 40 or 3000. This agrees with §26: local search
+  is not competitive above about 40 free positions per block.
 
 **A second plug for Theorem 7 (negative).** In H = I ⊗ (I + W) + B ⊗ X + C ⊗ D, any symmetric ±1 X with WX = −XW,
 XD = DX and X² = αI + βJ works, and the weights must satisfy c = m(r − 4n') − 1, N = m(r + 1 − 4n') for
@@ -2202,11 +2215,11 @@ any, row sums −1, the Legendre-pair array of §29) has the same count. Exhaust
 - skew: w = 5, 9, 13, 21 give matrices, 17 and 25 none;
 - symmetric: w = 5, 9, 13, 17, 21 give matrices, 25 none.
 
-The census sweeps (w = 2v − 1 for every undecided v, cyclic ℤ_w, every odd-order cyclic H with both lists ≤ 3 · 10⁷)
-are complete and empty: 631 skew structures and 504 symmetric ones, no hit (most symmetric ones have no symmetric a
-with row sum −1 at all, nA = 0). The Kiyasu routes are empty in this form for the largest groups: 235 (ℤ₄₆₉, |H| = 33), 277 (ℤ₅₅₃,
-|H| = 39) and 149 (ℤ₂₉₇, |H| = 45). verify.py has a construction "two-block" (kinds skew and symmetric, any abelian
-group) ready for certificates.
+The census sweeps (w = 2v − 1 for every undecided v, cyclic ℤ_w, every odd-order cyclic H with both lists ≤ 3 · 10⁷) are
+complete and empty: 631 skew structures and 504 symmetric ones, no hit (most symmetric ones have no symmetric a with row
+sum −1 at all, nA = 0). The Kiyasu routes are empty in this form for the largest groups: 235 (ℤ₄₆₉, |H| = 33), 277
+(ℤ₅₅₃, |H| = 39) and 149 (ℤ₂₉₇, |H| = 45). verify.py has a construction "two-block" (kinds skew and symmetric, any
+abelian group) ready for certificates.
 
 ## 33. Plug-in balances, two weight-1 symmetric variables, and cyclotomic plugs (October 14, evening)
 
@@ -2259,19 +2272,19 @@ minute and twenty minutes. Treating A as continuous variables too (one 7-vector 
 general skew Goethals–Seidel version (four independent blocks, 7-vector per character class) does not find 353/⟨22⟩
 (16 classes, 10⁹ solutions) in 20 restarts. So the projection method is not a substitute for the tabu search here.
 
-**Faster spin tabu (`spin_ls2.c`, `SPIN_LS=spin_ls2 spin_skew.py csearch ...`).** The same moves and acceptance
-rule as `spin_ls.c` (identical trajectories for a given seed: the best residual after 60 restarts on 1657 is 26 496
-in both), but the swap scan evaluates, for each + orbit i, all partner orbits j at once in single precision with
-the j-dependent terms (2g_cj + 2M_cjj and the row i of M_c) laid out contiguously, so the compiler vectorises it; the
-exact integer objective is recomputed after every move. 2.75 times faster: 60 restarts of 3000 steps on 1657 take 4 s
-instead of 11 s. Measured restarts per solution on 919 (|H| = 17, μ = 8, 9 classes): 1361, 3753, 8848 (steps 3000),
-328 and 1695 (steps 8000), 14 543 (steps 1000), i.e. one to five minutes per solution on a loaded machine, against
-twenty minutes before; on 631 (|H| = 7, μ = 2, 7 classes) 7–50 restarts (under a second). Two variants did not
-help on 631: jumping A to the best of the 2^NP pool every 10 or 50 steps, and restarting half the time from the best
-state so far perturbed by six swaps. The census queue (817 and 721 on their 8-class structures, then 1657, 1801 and
-1951 in two-hour slices) runs with it.
+**Faster spin tabu (`spin_ls2.c`, `SPIN_LS=spin_ls2 spin_skew.py csearch ...`).** The same moves and acceptance rule as
+`spin_ls.c` (identical trajectories for a given seed: the best residual after 60 restarts on 1657 is 26 496 in both),
+but the swap scan evaluates, for each + orbit i, all partner orbits j at once in single precision with the j-dependent
+terms (2g_cj + 2M_cjj and the row i of M_c) laid out contiguously, so the compiler vectorises it; the exact integer
+objective is recomputed after every move. 2.75 times faster: 60 restarts of 3000 steps on 1657 take 4 s instead of 11 s.
+Measured restarts per solution on 919 (|H| = 17, μ = 8, 9 classes): 1361, 3753, 8848 (steps 3000), 328 and 1695 (steps
+8000), 14 543 (steps 1000), i.e. one to five minutes per solution on a loaded machine, against twenty minutes before; on
+631 (|H| = 7, μ = 2, 7 classes) 7–50 restarts (under a second). Two variants did not help on 631: jumping A to the best
+of the 2^NP pool every 10 or 50 steps, and restarting half the time from the best state so far perturbed by six swaps.
+The census queue run with it (817 and 721 on their 8-class structures, then 1657, 1801 and 1951 in two-hour slices)
+found no solution (817 and 721 are infeasible, §36; earlier `spin_ls` runs on 1657, 1801 and 1951 found nothing, §14).
 
-## 34. Spence's skew 4(1 + q + q²) construction, made explicit; the missing ingredient is a cyclic CDS (October 14, evening)
+## 34. Spence's skew 4(1 + q + q²) construction made explicit: it needs a cyclic CDS (October 14, evening)
 
 Spence (Canad. J. Math. 27 (1975) 555–560) builds a skew-Hadamard matrix of Goethals–Seidel type of order
 4(1 + q + q²) from a cyclic projective plane of order q and complementary difference sets (CDS) in ℤ_v,
@@ -2356,7 +2369,7 @@ the term of fibre a at the pulled-back shift g⁻¹s. So a DP over fibre orbits 
 The spin condition P_A(s) + T_B(s) = 0 needs the two sets to meet on every subgroup class. The DP agrees with brute
 force (all 256 A of 721) and contains every sampled T_B.
 
-The two composite hexagonal structures that had been in the tabu queue are **infeasible**:
+The two composite hexagonal structures of the tabu queue (§33) are **infeasible**:
 - 721, H = ⟨8⟩, μ = 2 or 18: on the class of 7, P_A ∈ {−7, 57, 65, 257, 273, 593, 617}, but T_B ≥ 11.
 - 817, H = ⟨11⟩, μ = 9 or 6: on the class of 19, P_A ∈ {−19, 53, 77, …}. The value needed, T_B = 19, is not
   attainable (attainable values run −41, −5, 7, 43, …), and T_B ≥ −41 rules out the larger P_A.
@@ -2391,8 +2404,8 @@ Near-Williamson quadruples (A, B, C, D) — circulant, B, C, D symmetric, ΣPAF 
 matrices (AR, B, C, D) ([near-williamson](../near-williamson)), and since three blocks are symmetric they are also
 Szöllősi quadruples, i.e. complex Hadamard matrices of order 2w. For w = 191, T-matrices of orders 5, 9 and 15
 (from base sequences BS(3, 2), BS(5, 4), BS(8, 7)) would settle three entries of FRONTIER.md at once: 3820
-(n = 955), 6876 (n = 1719) and 11460 (n = 2865). §6 and williamson-type/README.md had ruled out T-matrices of order
-191 and the bordered form on ℤ₁₉₀; the plain form on ℤ₁₉₁ had not been ranked.
+(n = 955), 6876 (n = 1719) and 11460 (n = 2865). §6 and williamson-type/README.md rule out T-matrices of order 191 and
+the bordered form on ℤ₁₉₀; the plain form on ℤ₁₉₁ is ranked here.
 
 `bnw.py triage 191 --plain`: one admissible structure, H = ⟨39⟩ (order 5), A on the 39 H-orbits, B, C, D on the 20
 L-orbits (L = ⟨39, −1⟩), 19 classes, row sums 21 | 11, 11, 9, log₁₀ E = 1.38. Pools: A 2.9 · 10¹⁰, each symmetric
@@ -2431,9 +2444,10 @@ matrices of orders 1220 and 2196 (`search/nw_certify.py`, construction `cooper-w
 
 So no near-Williamson quadruple of order 191 is constant on the orbits of ⟨39⟩. The other nontrivial subgroups of
 ℤ₁₉₁* fail the row-sum equation (symmetric rows ±1 + 38ℤ or ±1 + 190ℤ), so the plain near-Williamson route to 3820,
-6876 and 11460 now needs a quadruple without multiplier symmetry. 183 (complex order 366) and 213 (426) are open complex orders; their best
-structures are empty too. Single-precision sums of spectra are compared with 4w + 1, so rounding cannot reject a
-quadruple; the 191 run was repeated with this margin (the first run used 4w + 10⁻⁶, also empty).
+6876 and 11460 needs a quadruple without multiplier symmetry. For 183 (complex order 366) and 213 (426) the best
+near-Williamson structures are empty too; both orders are constructed from other structures (§41 and §42).
+Single-precision sums of spectra are compared with 4w + 1, so rounding cannot reject a quadruple; the 191 run used
+this margin (a run with 4w + 10⁻⁶ was also empty).
 
 **Where the route stands.** The same triage over the other FRONTIER composites n = t·w with known T-matrices of
 order t: w = 463 (|H| = 11, rows 23 | 21, 21, 21, log₁₀ E = −2.3, would give n = 2315), 631 (|H| = 15,
@@ -2467,17 +2481,17 @@ The tensor version P = P₁ ⊗ Q on H itself would also need Q W Q = −W and Q
   group of order 3 (up to sign). So the tensor version fails for this pair; the plug-in version needs only P₁.
 - *Block-monomial P₁.* Let P₁ map block i to block π(i) by ε_i times a signed permutation g ↦ c_i + k_i g of ℤ₃₉. The
   diagonal blocks (all equal to the skew-type first block) need k_i ∈ −Stab(A), the off-diagonal blocks force all k_i
-  equal, and P₁² = I needs k_i² = 1. When Stab(A) has odd order (here {1, 16, 22}) the only such k is −1: reflections, as
-  in `gs_anti.py`. The b part (one entry at 0 in each of
-  blocks 2–4, so ±R in every off-diagonal block of B) forces c_i + c_j to be the same for all i ≠ j, hence one common
-  centre, and P₁ is block-monomial in ±R: an involution π and signs ε, 80 candidates. For every sign pattern of the b
-  entries, the signed union-find of P₁GP₁ = Gᵀ (G the design in the normal form of `od13.c`) leaves 48 consistent
-  configurations (computed for t = 5, 7 and 39; the form does not depend on t). In every one of them one of W₂, W₃,
-  W₄ is symmetric and the other two are tied, W_l(g) = ±W_k(±g). The bc condition of §31 asks that the symmetric
-  parts of W₂, W₃, W₄ add to 0 on every pair {s, −s}; the symmetric block contributes ±1 and the tied pair S_k + S_l
-  with S_l = ±S_k, which is 0 or ±2. So **no Goethals–Seidel OD(4t; 1, 3, 4t − 4) has a block-monomial involutive
-  anti-automorphism** when the stabiliser of the first block has odd order, for any t. For the design of the certificate, the direct test over all reflection
-  configurations with arbitrary centres also finds none (`od_anti.py cert`).
+  equal, and P₁² = I needs k_i² = 1. When Stab(A) has odd order (here {1, 16, 22}) the only such k is −1: reflections,
+  as in `gs_anti.py`. The b part (one entry at 0 in each of blocks 2–4, so ±R in every off-diagonal block of B) forces
+  c_i + c_j to be the same for all i ≠ j, hence one common centre, and P₁ is block-monomial in ±R: an involution π and
+  signs ε, 80 candidates. For every sign pattern of the b entries, the signed union-find of P₁GP₁ = Gᵀ (G the design in
+  the normal form of `od13.c`) leaves 48 consistent configurations (computed for t = 5, 7 and 39; the form does not
+  depend on t). In every one of them one of W₂, W₃, W₄ is symmetric and the other two are tied, W_l(g) = ±W_k(±g). The
+  bc condition of §31 asks that the symmetric parts of W₂, W₃, W₄ add to 0 on every pair {s, −s}; the symmetric block
+  contributes ±1 and the tied pair S_k + S_l with S_l = ±S_k, which is 0 or ±2. So **no Goethals–Seidel OD(4t; 1, 3,
+  4t − 4) has a block-monomial involutive anti-automorphism** when the stabiliser of the first block has odd order, for
+  any t. For the design of the certificate, the direct test over all reflection configurations with arbitrary centres
+  also finds none (`od_anti.py cert`).
 
 The same question for the other Theorem 7 designs of the repository, whose orders are symmetric-census values too:
 - [skew/1900](../skew/1900) (OD(100; 1, 5, 94), b parts δ₀ + δ_d, δ₀ − δ_d, δ₀; plug-in order 5 · 20 · 19 = 4 · 475):
@@ -2535,14 +2549,14 @@ below 10⁻¹.
 ## 40. What the rankings say about the remaining symmetric and FRONTIER leads (October 15)
 
 **The symmetric chain sweep beyond v ≈ 440.** The compressed propus sweep of §28 had covered the composite census
-values up to 435 (a coverage map rebuilt from the chain logs) before it was stopped; it is running again on the 85
-composite values from 445 to 995 (orbits 1–36). The corrected Gaussian (§29) puts every ranked structure with at most
-45 orbits for v ≥ 440 below 10^−1.5 (best: 589/⟨28⟩ 10^−1.5, 451/⟨5⟩ 10^−2.3, 445/⟨16⟩ 10^−3.1), so the sweep mostly
-produces exact negatives. The estimates were low by 10^1.4–10^1.9 for the two hits of this family (532, 876), so a
-hit is not excluded.
+values up to 435 (a coverage map rebuilt from the chain logs) before it was stopped. It was restarted on the 85
+composite values from 445 to 995 (orbits 1–36); its outcome is not recorded. The Gaussian estimate (§29) puts every
+ranked structure with at most 45 orbits for v ≥ 440 below 10^−1.5 (best: 589/⟨28⟩ 10^−1.5, 451/⟨5⟩ 10^−2.3, 445/⟨16⟩
+10^−3.1), so the sweep mostly produces exact negatives. The estimates were low by 10^1.4–10^1.9 for the two hits of
+this family (532, 876), so a hit is not excluded.
 
 **163 (order 652).** The estimates disagree with the exact count where the count is available. With H = ⟨38⟩ (order
-9; A on 10 orbits, B and D on 19, 9 classes) the corrected estimate is 10^1.47 for the row patterns (17, 1, 19) and
+9; A on 10 orbits, B and D on 19, 9 classes) the estimate is 10^1.47 for the row patterns (17, 1, 19) and
 (19, 1, 17), but the exhaustive joins (pools 126, 48 620, 43 758) are empty. This is not a congruence obstruction:
 the class values of A + D and of 2B reach compatible residue vectors modulo 2, 3, 4 and 8. With H = ⟨58⟩ (order 3)
 the estimate is 10^4.2 (rows 19, 11, 7), but the pools are 10^7.2, 10^15.2 and 10^15.3, beyond any join, and 163 is
@@ -2584,11 +2598,12 @@ group; stage 2 joins the z_k on (II) and (III). Every hit is lifted to ℤ_N and
   6 stage-1 orbits, of which the same 4 extend.
 
 **Order 330.** N = 165 = 15 · 11, H = ⟨136⟩ of order 5. The counting identity allows (N_w, N₋) = (5, 0), (6, 3) and
-(7, 6). N_w = 5 (34 skeletons) has no solution. Among the 2455 skeletons of N_w = 6 the run had found three verified
-solutions when it ran out of memory (it kept every stage-1 orbit as a tuple; now they are packed bytes, and the
-exhaustive count is being rerun). This gives the complex Hadamard matrix of order 330 ([C330.json](../complex-hadamard/C330.json), rows
-7, 9; 1, 23). The order is blank in Seberry–Yamada's Table 11.2, 329 = 7 · 47 is not a prime power, and no
-quaternary Legendre pair of length 164 is known (neither family of Jedwab–Pender covers it).
+(7, 6). N_w = 5 (34 skeletons) has no solution. Among the 2455 skeletons of N_w = 6 the run found three verified
+solutions when it ran out of memory (it kept every stage-1 orbit as a tuple; they are now packed bytes). No exhaustive
+count is recorded. This gives the complex Hadamard matrix of order 330
+([C330.json](../complex-hadamard/C330.json), rows 7, 9; 1, 23). The order is blank in Seberry–Yamada's Table 11.2,
+329 = 7 · 47 is not a prime power, and no quaternary Legendre pair of length 164 is known (neither family of
+Jedwab–Pender covers it).
 
 **Empty structures** (every admissible (N_w, N₋), all skeletons, all stage-1 orbits):
 
@@ -2629,14 +2644,13 @@ patterns) satisfies the bordered equations, and the solver's hits pass bsz.build
   sign pattern in which one of them does not, and with both equal the cost 2 · 1764 + 400 exceeds 2212. **The bordered
   Paley structure of 599 is empty.**
 
-**A bug in `lowe_sz.py`, and order 426.** Its ordered split values were computed for the pair (A, B), while kt4
-joins (A, C) and (B, D): at N = 183 every split value missed the lattice of A + C (residue 18 against 2 modulo 20 on
-the first merge class), and the first join examined no pair at all. With the fix, the first structure ranked after it
-by the mid-size triage, N = 213 = 3 · 71 with H = ⟨37⟩ of order 7 (33 orbits for C and D, 16 classes; rows 13, 17;
-13, 15; estimate 10^2.2 in the structure and 10^0.95 inside lists of 6435, 6435, 3 · 10⁷ and 3 · 10⁷ kept from pools
-of 4.4 · 10⁸), gave 72 solutions within the first split values (six minutes in all), all checked. This is the complex
-Hadamard matrix of order 426 ([C426.json](../complex-hadamard/C426.json)); 425 = 5² · 17 is not a prime power and no
-quaternary Legendre pair of length 212 is known. The 183 join is being repeated from its saved lists.
+**Order 426.** The split values of `lowe_sz.py` are ordered for kt4's pairing (A, C), (B, D) (§50, "Two fixes"). The
+first structure ranked by the mid-size triage, N = 213 = 3 · 71 with H = ⟨37⟩ of order 7 (33 orbits for C and D, 16
+classes; rows 13, 17; 13, 15; estimate 10^2.2 in the structure and 10^0.95 inside lists of 6435, 6435, 3 · 10⁷ and
+3 · 10⁷ kept from pools of 4.4 · 10⁸), gave 72 solutions within the first split values (six minutes in all), all
+checked. This is the complex Hadamard matrix of order 426 ([C426.json](../complex-hadamard/C426.json)); 425 = 5² · 17
+is not a prime power and no quaternary Legendre pair of length 212 is known. The 183 ⟨34⟩ join (rows 17, 19; 1,
+9) found no solution in the first 6833 split values, 17% of the pair-product mass (§51).
 
 ## 42. Compressions decide which row patterns live: orders 366 and 454 (October 15)
 
@@ -2807,13 +2821,13 @@ solution law that also lie in the (B + D) coset. On ℤ₉, tuple 0 of 171/⟨31
 756, 4.3 · 10⁵, 4.3 · 10⁵) has 38,086 live split values; all of them, 3.4 · 10⁸ + 2.2 · 10⁸ pairs, give no solution,
 against 10^0.48 predicted.
 
-**Calibration from the searches.** kt4 stops at its solution cap, so the N = 215 run says little about the size of
-the class beyond its density: 8 solutions in the first 574 split values (1.5 · 10⁷ pairs per side), consistent with
-the 10^2.29 predicted. N = 453 (pools 2520, 2520, 1.6 · 10⁷, 1.6 · 10⁷, 10^1.58 predicted): every split value was live
-on both sides, and all 2 · 10⁵ of them (3.8 · 10⁹ pairs per side, about 9.5% of the A × C pairs, the inner part of
-the solution law) gave no solution. Sampling the class sums of that tuple shows no pair or triple of classes that never vanishes jointly,
-so no low-order obstruction explains it; the finer quotient ℤ₁₅₁ (H of order 15 acting on it) is not listable by the
-scan and is the next suspect.
+**Calibration from the searches.** kt4 stops at its solution cap, so the N = 215 run says little about the size of the
+class beyond its density: 8 solutions in the first 574 split values (1.5 · 10⁷ pairs per side), consistent with the
+10^2.29 predicted. N = 453 (pools 2520, 2520, 1.6 · 10⁷, 1.6 · 10⁷, 10^1.58 predicted): every split value was live on
+both sides, and all 2 · 10⁵ of them (3.8 · 10⁹ pairs per side, about 9.5% of the A × C pairs, the inner part of the
+solution law) gave no solution. Sampling the class sums of that tuple shows no pair or triple of classes that never
+vanishes jointly, so no low-order obstruction explains it; the finer quotient ℤ₁₅₁ (H of order 15 acting on it) is not
+listable by the scan and is the next suspect.
 
 ## 45. The character-bordered Szöllősi array: order 214 (October 15)
 
@@ -2841,15 +2855,15 @@ y_C = (−4, 4, −4, 6), y_D = (0, 0, 2, 0) on ℤ₄; pools 5040, 2520, 1.97 �
 All five complete, and the first is [C214.json](../complex-hadamard/C214.json). With 10^3.48 predicted and the
 first 0.5% of the split values (by the solution law) giving 5, the estimate is consistent with the run.
 
-**A convention bug, caught by the verifier.** `spence_lib.AbGroup.index` reverses all axes of a 3-dimensional
-coordinate array, so the first version of `tbsz.szarray` and `tbsz.build` developed every block as X[g, h] = x(g − h).
-Its matrices were still complex Hadamard (the same construction for the reflected sequences, with the border solved
-for the reflected compressions), but the certificate, read in the standard convention by `verify_complex.py`, failed.
-`tbsz.devidx` now flattens the coordinates first, `certify` re-solves the border from the core sequences, and the
-certificate verifies.
+**A convention pitfall.** `spence_lib.AbGroup.index` reverses all axes of a 3-dimensional coordinate array, so blocks
+developed through it are X[g, h] = x(g − h). Such matrices are still complex Hadamard (the same construction
+for the reflected sequences, with the border solved for the reflected compressions), but a certificate read in the
+standard convention by `verify_complex.py` fails. `tbsz.devidx` therefore flattens the coordinates first, and
+`certify` solves the border from the core sequences.
 
 **Other N ≡ 3 (mod 4).** See [NOTES.md](../NOTES.md) §16: N = 167 is empty in both families on ℤ₄ × ℤ₄₁ and ℤ₂² × ℤ₄₁
-(odd fibres of 41 points); N = 179 on ℤ₁₆ × ℤ₁₁ lives only for ⟨(1, 3)⟩ at 10^−1.9; N = 223 and 239 are being ranked.
+(odd fibres of 41 points); N = 179 on ℤ₁₆ × ℤ₁₁ lives only for ⟨(1, 3)⟩ at 10^−1.9; N = 239 is empty in both families.
+No result for N = 223 in these families is recorded.
 
 **After order 214** (`tbsz.py rank`, families z4cyc, z3cyc, z6s/z6t, v4n/v4t, all3; `--cond` conditions a search on a
 finer quotient that refines Q):
@@ -2871,11 +2885,11 @@ finer quotient that refines Q):
 
 ## 46. The ℤ₆ character-bordered array: order 322 (October 15)
 
-*Correction (October 16).* 322 was not open, nor were 330, 342, 430 and 454 of §§41–44: 4N − 1 is a prime power
+*Status of the orders of §§41–46.* None of 322 and of 330, 342, 430 and 454 (§§41–44) is open: 4N − 1 is a prime power
 for each, and Ito's Hadamard groups with Egan 2019, Theorem 4.5, give them ([NOTES.md](../NOTES.md) §18,
-[PALEY.md](../complex-hadamard/PALEY.md)). The searches and their calibrations stand. The orders 214, 366 and 426
-of §§41–45, and the other eight found by search, were constructed concurrently by Zaitsev et al.
-([NOTES.md](../NOTES.md) §20).
+[PALEY.md](../complex-hadamard/PALEY.md)). The searches and their calibrations are unaffected. The 12 orders 214, 238,
+302, 326, 366, 382, 426, 494, 518, 534, 754 and 1558 constructed by the searches were obtained concurrently by Zaitsev
+et al. ([NOTES.md](../NOTES.md) §20).
 
 **Equivalences.** Multiplying the sequences by λ ∘ φ (λ a real character of Q) maps the family of T to that of λT,
 border included, so z4n ≡ z4cyc, v4n ≡ v4t and z6s ≡ z6t (the small-group core counts agree: 32768, 49152 and
@@ -3155,8 +3169,8 @@ skew 940 and 1108.
 - Length 37 has no skew-propus quadruple. `sp_mitm.c` is exhaustive. The row sums must be (7, 7, 1). A3 runs over its
   1768 classes under the multipliers and A0 over all 2¹⁸ skew-type sequences. The 2,937,404 pairs that pass the
   power-spectrum test |Â3|² + |Â0|² ≤ 148 are tabled by the autocorrelation A1 would need. All 3.65 · 10⁹ sequences
-  A1 with row sum 7 and A1(0) = −1 (every A1 has such a shift) are looked up: no match (3 cores, 14 minutes). A
-  rerun with the work split over the first two −1 positions of A1 and a Bloom filter in front of the table also finds
+  A1 with row sum 7 and A1(0) = −1 (every A1 has such a shift) are looked up: no match (3 cores, 14 minutes). A second
+  run with the work split over the first two −1 positions of A1 and a Bloom filter in front of the table also finds
   none (4 minutes).
   - Controls: the program finds quadruples at every length 3 ≤ n ≤ 35 for which Abuzin–Balonin–Đoković–Kotsireas
     (2019, Table 1) give one, and at n = 41 (row sums 1, 9; their (41; 20, 16, 16, 20; 31)).
@@ -3179,10 +3193,11 @@ skew 940 and 1108.
 ## 50. Complex orders 342, 426 and 1558: the low-energy k-tree and the end of the exact sweep (October 14)
 
 **Two fixes.** `sigma_file` in `lowe_sz.py` built the law of a solution's split value from kt4's lists 0 and 2
-(A + B), but kt4 pairs its lists 0 and 1 (A + C). Its split values were off the lattice of a + c, so kt4 formed no
-pairs at all. With the fix, the N = 131 control finds 416 of the 2560 solutions inside its lists in the first 3000
-split values, against 400 in kt4's own order. In `kt4.c` the small-join branch (fewer than 2¹⁸ pairs per split value)
-never freed its hash arrays: about 9 MB/s at N = 213, past 10 GB in one run.
+(A + B), but kt4 pairs its lists 0 and 1 (A + C) against its lists 2 and 3 (B + D). Its split values were off the
+lattice of a + c (at N = 183, residue 18 against 2 modulo 20 on the first merge class), so kt4 formed no pairs at all
+and the first join examined none. With the fix, the N = 131 control finds 416 of the 2560 solutions inside its lists in
+the first 3000 split values, against 400 in kt4's own order. In `kt4.c` the small-join branch (fewer than 2¹⁸ pairs per
+split value) never freed its hash arrays: about 9 MB/s at N = 213, past 10 GB in one run.
 
 **Order 342.** N = 171 = 9 · 19, H = ⟨11⟩ of order 6 (33 orbits; ⟨H, −1⟩ has 17 classes), rows (1, 11; 11, 21).
 - The exact join is out of reach: A and B have 7128 and 6864 members, C and D 1.5 · 10⁸ and 2.6 · 10⁸.
@@ -3314,8 +3329,8 @@ covers 19.0%. The order is close to optimal.
 out-of-memory killer took two parents during this work (their kt4 children ran on). The parent now keeps only the
 masks and 2 · 10⁵-row subsamples.
 
-**Bordered sweep.** `bsz_sweep.py` had been run only for N = 107 and 155. It is now running over the other 210 open N.
-`bsz_group.search` handles every pattern of a spin structure, so `plan()` now makes one job per spin structure
+**Bordered sweep.** `bsz_sweep.py` was run for N = 107 and 155; the outcome of the sweep over the other 210 open N is
+not recorded. `bsz_group.search` handles every pattern of a spin structure, so `plan()` makes one job per spin structure
 instead of four.
 
 ## 53. Iterated maps, and the matrices of August 2026 (negative, October 14)
@@ -3373,8 +3388,9 @@ still have no pair on one side.
 that occur on both sides (`live_splits`) and orders only those by the Gaussian law. At N = 215 there are 20000 such
 values, and the one holding the 200 solutions of order 430 ranks 6th (2967th in the old order). At N = 203 none
 occurs, so the overlap Σ_σ p_AC(σ) p_BD(σ) of the two sides' distributions is below about 3/M² ≈ 10^−14 (M = 2 · 10⁷),
-and the join is skipped. The 341 and 203 runs above therefore tested nothing; 341 is queued again on its saved
-lists (`--resume`).
+and the join is skipped. The 341 and 203 runs above therefore tested nothing. 341 was searched again with live split
+values on ⟨2⟩ and ⟨95⟩ (§57–59): no solution in 97% and 95% of the collision mass; ⟨194⟩ with rows (19, 21, 11, 21)
+was not searched again.
 
 **Exact compression checks** (`search/compress_check.py`). For every prime power d dividing the group order the
 four blocks' compressions to ℤ_d are listed with the symmetry the multiplier group forces on them and joined exactly
@@ -3389,9 +3405,11 @@ estimate sees these obstructions. Checked on exact solution sets:
   solutions fails. Of the 264 without, levels with up to 2 · 10⁵ states per block rule out 186 of 238 cyclic and 24
   of 26 bordered ones, and levels with up to 3 · 10⁶ states (seconds, at most 1.4 GB) 220 of 238 and 24 of 26.
 
-For the bordered array (v = N − 1 even) the level d = 2 has a closed form; `bsz.z2_ok` already applied it in the exhaustive sweep (`bsz_sweep.py`), but `lowe_sz.py`, `frontier_scan.py` and `hybrid_rank.py` did not, so impossible bordered structures were ranked and queued. Σ PAF = −4 gives
-Σ_k |X̂_k(ω)|² = 4v + 4 = 4N at every ω ≠ 0. At the character (−1)^t this reads Σ_k e_k² = N, where 2e_k is block
-k's alternating sum. The multiplier group fixes the e_k modulo a small number.
+For the bordered array (v = N − 1 even) the level d = 2 has a closed form; `bsz.z2_ok` already applied it in the
+exhaustive sweep (`bsz_sweep.py`), but `lowe_sz.py`, `frontier_scan.py` and `hybrid_rank.py` did not, so impossible
+bordered structures were ranked and queued. Σ PAF = −4 gives Σ_k |X̂_k(ω)|² = 4v + 4 = 4N at every ω ≠ 0. At the
+character (−1)^t this reads Σ_k e_k² = N, where 2e_k is block k's alternating sum. The multiplier group fixes the e_k
+modulo a small number.
 
 At N = 165 (v = 4 · 41, H = ⟨37⟩: trivial modulo 4, order 5 modulo 41) the orbits force:
 - e_A, e_B ≡ ±2 (mod 20) for the symmetric blocks of row sum 0;
@@ -3529,7 +3547,7 @@ H = ⟨3⟩ of order 6 (trivial on ℤ₂, order 6 on ℤ₇, order 3 on ℤ₁�
 
 The hybrid estimate of 10^3.2 for the structure and retention near 1 for the filtered lists put about 10^3
 solutions in the lists; 1536 at a single split value is consistent with that. For 183 ⟨87⟩, a different subgroup of
-order 6 with the same estimate, the run is in progress.
+order 6 with the same estimate, no result is recorded.
 
 **All levels at once.** Each level's fibre filter is a necessary condition, so a solution's member of each block
 must pass all of them together. When the allowed sub-pool is too small for rejection sampling, `lowe_sz.py` now lists
@@ -3570,14 +3588,15 @@ decide, d = 7, has too many states to list.
 - ⟨15⟩, ⟨27⟩, ⟨58⟩ and ⟨170⟩, with fibres at d = 11 and 31.
 
 With fibres the expected number of solutions in lists of 3 · 10⁷ is 10^0.2–10^1.1, highest for rows (1, 21, 9, 29).
-The seven best are queued.
+The seven best were queued; the joins of ⟨2⟩ and ⟨95⟩ found no solution (§59).
 
 **Pools above 10¹¹.** 677 records with pools of 10¹¹–10¹³ (per-class estimate at least 10⁻⁴, or 10⁻¹⁰ for the
 bordered array); 199 fall at the cheap levels. For the survivors the exact per-level fibre masses give a cheap
 allowed fraction; the hybrid estimate was then computed for the best:
 - **Bordered 203 = 7 · 29 over ℤ₂₀₂ = ℤ₂ × ℤ₁₀₁, H = ⟨87⟩ of order 5, rows (2, 0, 0, 0): hybrid 10^6.47.** Only d = 2
   gives a fibre (41% of C and D, 34% of A and B), so C and D keep 3 · 10⁷ of 1.1 · 10¹¹ allowed members each. With
-  the 2 in C the structure fails at d = 2. Running (2.8 · 10¹¹ leaves per big block).
+  the 2 in C the structure fails at d = 2. The listing takes 2.8 · 10¹¹ leaves per big block; the result is in §58: no
+  solution in the part of the join completed.
 - 463 (prime), ⟨15⟩, rows (21, 21, 21, 23): hybrid 10^4.37, but C and D have 5.1 · 10¹¹ members each and no fibre.
 - 165 = 3 · 5 · 11, ⟨16⟩: hybrid 10^−0.3–10^0.5. Fibres allow 0.8–2.6% of D but 5–36% of C.
 - Bordered 235 over ℤ₂₃₄: ⟨185⟩ and ⟨29⟩ (per-class 10^−3.1 and 10^−3.4) fail at d = 3 in every pattern. ⟨43⟩ and
@@ -3608,9 +3627,9 @@ lie in different H-orbits of ℤ_d, for the symmetric blocks).
 
 ## 58. Resumable runs; 453 settled to 91% (October 15)
 
-**Restart.** The container was reclaimed about five minutes after the session went idle, and every background job
-died: the 341 joins at their 8164th and 8514th split values, and bordered 203 ⟨87⟩ in the middle of listing block C.
-`lowe_sz.py --budget SECONDS --auto` now makes a run resumable:
+**Restart.** Every background job died when the container was reclaimed: the 341 joins at their 8164th and 8514th
+split values, and bordered 203 ⟨87⟩ in the middle of listing block C. `lowe_sz.py --budget SECONDS --auto` makes a run
+resumable:
 - Big blocks (pools above 10⁸) are listed in 64 chunks of lowe_enum's parallel prefixes (`lowe_enum ... LO HI`),
   each kept under `WORK/lowe/chunks` with a fingerprint of its input; the lowest-energy members are merged at the end.
 - The lists are saved by atomic renames, and the join records how many split values it finished, and on which merge
@@ -3619,9 +3638,8 @@ died: the 341 joins at their 8164th and 8514th split values, and bordered 203 �
   unfinished chunk, or from the first unjoined split value. A run killed outright loses only its current chunk or
   split value: the join's count is reconciled with the progress file, which holds one line per finished split value.
 
-The container was reclaimed a second time at 03:16, 30 minutes after the session went idle, although a tracked
-background task (the queue runner) was alive. 13 of the 64 chunks of 203b's block C and 6032 more split values of the
-341 ⟨2⟩ join survived on disk.
+The container was reclaimed a second time at 03:16, although the queue runner was alive. 13 of the 64 chunks of 203b's
+block C and 6032 more split values of the 341 ⟨2⟩ join survived on disk.
 
 **Parallel joins.** On the 203b lists (63504, 2.78 · 10⁷, 127008, 2.78 · 10⁷ members) one kt4 process with four
 threads joins 30.5 · 10⁶ pairs per second, while four single-thread processes reach about 23 · 10⁶ each, 91 · 10⁶ in
@@ -3639,7 +3657,7 @@ The test was bordered 183 ⟨3⟩ (order 366), from nothing, in steps of 150 s.
 **453 ⟨4⟩, rows (29, 31, 1, 3).** The join on the fibre-complete lists (all 2520 allowed members of A and of B,
 4.8 · 10⁷ of C and 1.6 · 10⁷ of D) finished all 4329956 sampled live split values, 6.95 · 10¹⁰ (A, C) and
 2.31 · 10¹⁰ (B, D) pairs, without a solution.
-- Coverage was measured with fresh independent samples (2 · 10⁷ pairs per side, `coverage.py` in the scratchpad). The
+- Coverage was measured with fresh independent samples (2 · 10⁷ pairs per side, `coverage.py`, a scratch script). The
   processed split values hold 62% of the split values met on both sides and 90.6% of the collision mass Σ_σ n_AC n_BD.
   The heaviest missed split values carry 10–16 sample pairs per side.
 - So at most about one solution in ten could have escaped. The hybrid estimate of 10^1.8 (about 60) is contradicted
@@ -3669,7 +3687,7 @@ The test was bordered 183 ⟨3⟩ (order 366), from nothing, in steps of 150 s.
   law's order. That class is PAF(101) = 202 − 4|supp W| for the ℤ₂ split X = (X₀, X₁), W = X₀ − X₁, and the split
   value fixes how the 203 positions of Σ_k |supp W_k| = 203 divide between (A, C) and (B, D).
 
-## 59. Auditing the estimate; concurrent constructions; order 682 (October 15)
+## 59. Testing the estimate; concurrent constructions; order 682 (October 15)
 
 **Joint compression check.** `compress_check.py --joint`: when every level passes, each pair of coprime levels d₁, d₂
 is checked together. A block's states are then its compressions to ℤ_{d₁} and ℤ_{d₂} at once, realised by one member,
@@ -3734,12 +3752,12 @@ The five successes lie between 10^2.0 and 10^3.3 distinct values; the four failu
 - 203 bordered and 183 ⟨34⟩ would have 10⁵ distinct quadruples. Their failures are not explained by multiplicity or
   retention; both are most likely structures without solutions that pass every check.
 
-**Concurrent constructions.** A second literature search for the complex orders found V. Zaitsev's page
+**Concurrent constructions.** A literature search for the complex orders found V. Zaitsev's page
 (https://www.cs.uleth.ca/~zaitsevv/quaternary.html, last updated 14 October 2026). It has matrices of all 22 of our
 orders, found independently (21 "of the Szollosi type", 454 by "unpublished approaches"), and of 95 more blank
 orders of the 1992 table. We checked its matrices of our 22 orders (K K* = nI). It also counts 1018, 1714 and 1766
 as known: Đoković's Williamson-type matrices of orders 509, 857 and 883 (arXiv:1008.2043, from theorems of
-Miyamoto and Yamada), which `ssxx_sweep.known_reason` had missed. With both added, `complex_status.py` leaves
+Miyamoto and Yamada). With these three and the page's matrices, `complex_status.py` leaves
 exactly the page's 115 unknown orders below 2000: 334, 358, 418, 438, 446, 478, 498, 502, …
 (`data/complex_zaitsev_2026.txt`; details in [complex-hadamard](../complex-hadamard/README.md#status)).
 
@@ -3768,5 +3786,5 @@ much of the collision mass the earlier joins covered: 341 ⟨2⟩, 14196 split v
   or the lists' retention is far below the model's.
 - The other six groups of 341 are of the same kind (⟨35⟩ and ⟨194⟩ with the same pools and estimates, the four
   with fibres at d = 31 ten times lower). Nothing else on the open list has an estimate above 10^0.5, so the
-  Szöllősi arrays, plain and bordered, have no strong structure left on the 115 open orders. The tickets stay in the
-  queue (`lowe_q6.txt` in the scratchpad) and continue from where they stopped.
+  Szöllősi arrays, plain and bordered, have no strong structure left on the 115 open orders. The joins were stopped at
+  the split values stated above and can be continued from them (`--resume`).

@@ -36,12 +36,12 @@ Proposition 3.2; Int. Math. Forum 6 (2011) 3061–3067) settles it with Williams
 takes from Seberry–Yamada's Corollary 8.8(i) with an Hadamard matrix of order (q − 1)/2 = 1364. The printed proof of
 that corollary gives pairwise amicable matrices only for a symmetric input ([NOTES.md](../../NOTES.md) §7), and no
 symmetric Hadamard matrix of order 1364 is known to us. Cooper–Wallis also gives this order from ingredients published
-before 2026 (found by the audit of October 17, 2026): Lemma 26 needs only a symmetric quaternary Hadamard matrix of
-order (q − 1)/2 = 1364 = 22 · 62, the Kronecker product of the repeated-block arrangement of the symmetric
-Williamson-type matrices of order 11 from Corollary 31 and Paley's conference matrix of order 62 is one, and `python3
-search/symwt.py "cor29q(2729, qwt(cor31(5)), qconf(61))"` gives symmetric Williamson-type matrices of order 2729
-(checked). The route here needs only symmetric ones of order (q − 1)/4 = 682, which Seberry and Yamada's corollaries
-give.
+before 2026: Lemma 26 needs only a symmetric quaternary Hadamard matrix of order (q − 1)/2 = 1364 = 22 · 62, the
+Kronecker product of the repeated-block arrangement of the symmetric Williamson-type matrices of order 11 from Corollary
+31 and Paley's conference matrix of order 62 is one, and
+`python3 search/symwt.py "cor29q(2729, qwt(cor31(5)), qconf(61))"` gives symmetric Williamson-type matrices of order
+2729 (checked). The route here needs only symmetric ones of order (q − 1)/4 = 682, which Seberry and Yamada's
+corollaries give.
 
 - Seberry and Yamada (J. Combin. Math. Combin. Comput. 7 (1990), Theorem 34 and Corollary 35) write Miyamoto's matrix as
   sixteen bordered blocks, but their multiplication theorems need circulant or type-one blocks (Theorem 4) or, for

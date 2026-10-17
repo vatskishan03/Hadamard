@@ -37,12 +37,12 @@ Proposition 3.2 (printed there as 9087; its q is 3209, and 3 · 3209 = 9627); In
 settles it with Williamson-type matrices of order 3209, which he takes from Seberry–Yamada's Corollary 8.8(i) with an
 Hadamard matrix of order (q − 1)/2 = 1604. The printed proof of that corollary gives pairwise amicable matrices only for
 a symmetric input ([NOTES.md](../../NOTES.md) §7), and no symmetric Hadamard matrix of order 1604 is known to us.
-Cooper–Wallis also gives this order from ingredients published before 2026 (found by the audit of October 17, 2026):
-Lemma 26 needs only a symmetric quaternary Hadamard matrix of order (q − 1)/2 = 1604 = 2 · 802, the Kronecker product of
-Sylvester's matrix of order 2 and the repeated-block arrangement of the symmetric Williamson-type matrices of order 401
-from Corollary 29(ii) is one, and `python3 search/symwt.py "cor29q(3209, qh(h2()), qwt(cor29h(401, kron(paley2(49),
-h2()))))"` gives symmetric Williamson-type matrices of order 3209 (checked). The route here needs only symmetric ones of
-order (q − 1)/4 = 802, which Seberry and Yamada's corollaries give.
+Cooper–Wallis also gives this order from ingredients published before 2026: Lemma 26 needs only a symmetric quaternary
+Hadamard matrix of order (q − 1)/2 = 1604 = 2 · 802, the Kronecker product of Sylvester's matrix of order 2 and the
+repeated-block arrangement of the symmetric Williamson-type matrices of order 401 from Corollary 29(ii) is one, and
+`python3 search/symwt.py "cor29q(3209, qh(h2()), qwt(cor29h(401, kron(paley2(49), h2()))))"` gives symmetric
+Williamson-type matrices of order 3209 (checked). The route here needs only symmetric ones of order (q − 1)/4 = 802,
+which Seberry and Yamada's corollaries give.
 
 - Seberry and Yamada (J. Combin. Math. Combin. Comput. 7 (1990), Theorem 34 and Corollary 35) write Miyamoto's matrix as
   sixteen bordered blocks, but their multiplication theorems need circulant or type-one blocks (Theorem 4) or, for

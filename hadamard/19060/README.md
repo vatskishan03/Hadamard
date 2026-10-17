@@ -36,14 +36,15 @@ search/miyamoto_blocks.py certify 953 5 "wt:cor25(turyn(13), circ(17))"` writes 
 lists it in his set Δ of entries that should have had t = 2. His proof for Δ takes Williamson-type matrices from
 Seberry–Yamada's Table A.1 (1992); for 4765 they are of order 953, which Table A.1 obtains only from Corollary 8.8(i)
 (key wl, which Seberry and Yamada credit to Miyamoto (1991), with Williamson-type matrices of order 238 = (953 − 1)/4
-from their Corollary 25, key wo; their Remark 30 also lists the variant with an Hadamard matrix of order 476 = (953 −
-1)/2). The printed proof of that corollary does not give Williamson-type matrices ([NOTES.md](../../NOTES.md) §7). The
-route here needs only symmetric ones of order (q − 1)/4 = 238, which Seberry and Yamada's corollaries give.
-Cooper–Wallis also gives this order from ingredients published before 2026 (found by the audit of October 17, 2026):
-Lemma 26 needs only a symmetric quaternary Hadamard matrix of order (q − 1)/2 = 476 = 14 · 34, the Kronecker product of
-Paley's conference matrix of order 14 (C ± I) and the repeated-block arrangement of the symmetric Williamson-type
-matrices of order 17 from Corollary 29(ii) is one, and `python3 search/symwt.py "cor29q(953, qconf(13), qwt(cor29h(17,
-kron(h2(), h2(), h2()))))"` gives symmetric Williamson-type matrices of order 953 (checked).
+from their Corollary 25, key wo; their Remark 30 also lists the variant with an Hadamard matrix of order
+476 = (953 − 1)/2). The printed proof of that corollary does not give Williamson-type matrices
+([NOTES.md](../../NOTES.md) §7). The route here needs only symmetric ones of order (q − 1)/4 = 238, which Seberry and
+Yamada's corollaries give. Cooper–Wallis also gives this order from ingredients published before 2026: Lemma 26 needs
+only a symmetric quaternary Hadamard matrix of order (q − 1)/2 = 476 = 14 · 34, the Kronecker product of Paley's
+conference matrix of order 14 (C ± I) and the repeated-block arrangement of the symmetric Williamson-type matrices of
+order 17 from Corollary 29(ii) is one, and
+`python3 search/symwt.py "cor29q(953, qconf(13), qwt(cor29h(17, kron(h2(), h2(), h2()))))"` gives symmetric
+Williamson-type matrices of order 953 (checked).
 
 - Seberry and Yamada (J. Combin. Math. Combin. Comput. 7 (1990), Theorem 34 and Corollary 35) write Miyamoto's matrix as
   sixteen bordered blocks, but their multiplication theorems need circulant or type-one blocks (Theorem 4) or, for

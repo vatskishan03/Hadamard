@@ -46,10 +46,10 @@ over the orbits of ⟨5⟩, in a fraction of a second); Abuzin, Balonin, Đokovi
 with odd part 899 was 64 · 899. The Đoković–Seberry census lists 899 as undecided, so 4 · 899 = 3596 is open, and so is
 8 · 899 = 7192.
 
-- The best classical route we know gives 32 · 899: Seberry–Yamada's amicable pair of order 248 = 2²(61 + 1) (AV, 61 = 5²
-  + 4 · 3²) times a skew-Hadamard matrix of order 116 (Wallis's product). This omission is Seberry–Yamada's own: their
-  1992 Table 6.1 has the amicable order 248 for q = 31, yet their Table 7.1 prints 899 → 6, and Table 5 carries the
-  entry over. The closure audit found it ([NOTES.md](../../NOTES.md) §28).
+- The best classical route we know gives 32 · 899: Seberry–Yamada's amicable pair of order 248 = 2²(61 + 1) (AV,
+  61 = 5² + 4 · 3²) times a skew-Hadamard matrix of order 116 (Wallis's product). This omission is Seberry–Yamada's own:
+  their 1992 Table 6.1 has the amicable order 248 for q = 31, yet their Table 7.1 prints 899 → 6, and Table 5 carries
+  the entry over ([NOTES.md](../../NOTES.md) §28).
 - The route here needs amicable Hadamard matrices of order 124. No source states them, but they come in one step
   from the 2019 family above: Đoković's Balonin array (arXiv:2508.17141, proof of Theorem 1) gives a symmetric
   orthogonal design xP + yN of type (1, 123), and (I + PN, P + N) is an amicable pair; this step, which puts the

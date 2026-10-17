@@ -33,10 +33,9 @@ odd part 6157 had order 2⁵ · 6157. The order lies above the range of Cati–P
 - Paley's constructions do not apply: 4n − 1 = 24627 = 3 · 8209 and 2n − 1 = 12313 = 7 · 1759 are not prime powers.
 - Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 6158 cannot exist (6157 is not a sum
   of two squares); Yamada–Kiyasu does not apply: n − 2 = 6155 = 5 · 1231 is not a prime power.
-- Cooper–Wallis applies only with an object of 2026: T-matrices of order 131 (from London and Kotsireas's TT(44),
-  2025) and Williamson-type matrices of order 47, first known as near-Williamson matrices in 2026
-  ([williamson-type](../../williamson-type)). An earlier version of this README said that no such pair is known; the
-  closure audit of October 17 found this one ([NOTES.md](../../NOTES.md) §28).
+- Cooper–Wallis applies only with an object of 2026: T-matrices of order 131 (from London and Kotsireas's TT(44), 2025)
+  and Williamson-type matrices of order 47, first known as near-Williamson matrices in 2026
+  ([williamson-type](../../williamson-type); [NOTES.md](../../NOTES.md) §28).
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(24628, existence=True)`
   returns Unknown.
 

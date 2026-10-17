@@ -8,8 +8,8 @@ A skew-Hadamard matrix is a Hadamard matrix H with H + Hᵀ = 2I.
 
 **Difference family.** Four ±1 sequences x₁, …, x₄ on ℤ₂₅₉ satisfy two conditions:
 
-- each is constant on the orbits of the multiplier subgroup
-  H = ⟨9⟩ ≤ ℤ₂₅₉*, of order 9: {1, 9, 16, 81, 86, 144, 211, 232, 256};
+- each is constant on the orbits of the multiplier subgroup H = ⟨9⟩ ≤ ℤ₂₅₉*, of order 9: {1, 9, 16, 81, 86, 144, 211,
+  232, 256};
 - their periodic autocorrelations sum to zero at every nonzero shift.
 
 `certificate.json` lists, for each sequence, one representative r of each orbit rH on which the sequence is −1.
@@ -19,8 +19,8 @@ because −1 ∉ H, so negation pairs the orbits.
 
 **Row sums.** The row sums are 1, 7, 31, 5, and 1² + 7² + 31² + 5² = 1036.
 
-**The matrix.** Let A, B, C, D be the circulant matrices with these first rows (`sequences.txt`) and R the
-back-diagonal identity. The Goethals–Seidel array
+**The matrix.** Let A, B, C, D be the circulant matrices with these first rows (`sequences.txt`) and R the back-diagonal
+identity. The Goethals–Seidel array
 
 ```
     [  A     BR     CR     DR  ]
@@ -39,8 +39,8 @@ is then a Hadamard matrix of order 1036. Because A + Aᵀ = 2I, it satisfies H +
    - 31 orbits and 15 autocorrelation classes;
    - 32768 skew first blocks;
    - pools of 3·10⁷ to 4·10⁷ sequences for the other three blocks.
-2. `search/skew_ktree.py` (four-list k-tree matcher `search/match4.c`) matched uniform samples of 3.9·10⁶ sequences
-   from each pool, row sums (7, 31, 5).
+2. `search/skew_ktree.py` (four-list k-tree matcher `search/match4.c`) matched uniform samples of 3.9·10⁶ sequences from
+   each pool, row sums (7, 31, 5).
 3. It found 2 solutions for the most likely partial-sum value.
 
 **Reproduction.**
@@ -54,8 +54,8 @@ is then a Hadamard matrix of order 1036. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Status
 
-**New** as a skew-Hadamard matrix. Cati–Pasechnik Table 5 lists 259(4): the smallest known skew order 2ᵐ · 259 was
-4144, so 1036 was unknown.
+**New** as a skew-Hadamard matrix. Cati–Pasechnik Table 5 lists 259(4): the smallest known skew order 2ᵐ · 259 was 4144,
+so 1036 was unknown.
 
 - 1036 is inside the range (≤ 1208) that Cati and Pasechnik checked against implemented constructions.
 - The Đoković–Seberry census lists 259 among its 737 undecided v. Koukouvinos–Stylianou (2008, Tables 1 and 3) and

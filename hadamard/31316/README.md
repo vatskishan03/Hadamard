@@ -16,11 +16,10 @@ result.
 
 ## Status
 
-**Known.** SageMath's development branch constructs this order since October 3, 2026 (merge of gh-42876, which added
-the T-matrices of order 103 decoded from Schneider's matrix of order 2060; 11.0.beta1): `hadamard_matrix(31316)`
-reaches Miyamoto's theorem with q = 7829 and a Cooper–Wallis matrix of order 7828 from those T-matrices and the
-Williamson matrices of order 19. That predates our commit (October 12); we missed it, and the novelty re-audit of
-October 16 found it. The matrix here is independent of it: our T-matrices of order 103 were found separately and differ
+**Known.** SageMath's development version constructs this order since October 3, 2026 (merge of gh-42876, which added
+the T-matrices of order 103 decoded from Schneider's matrix of order 2060; 11.0.beta1): `hadamard_matrix(31316)` reaches
+Miyamoto's theorem with q = 7829 and a Cooper–Wallis matrix of order 7828 from those T-matrices and the Williamson
+matrices of order 19. The matrix here is independent of it: our T-matrices of order 103 were found separately and differ
 from SageMath's.
 
 The Handbook (2007, Table 1.53) gives n = 7829 as t = 8: the smallest known Hadamard
