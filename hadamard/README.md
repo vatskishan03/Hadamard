@@ -150,6 +150,7 @@ matrices are not stored (up to 7 GB as CSV); `python3 verify/verify.py <order>` 
 | [31956](31956) | 7989 = 3 · 2663 | Paley's matrix of order 10652 in sixteen circulant blocks, T-matrices of order 3 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [32012](32012) | 8003 = 53 · 151 | Paley's matrix of order 212 in sixteen circulant blocks, T-matrices of order 151 | New, beyond the tables |
 | [32228](32228) | 8057 = 7 · 1151 | Paley's matrix of order 4604 in sixteen circulant blocks, T-matrices of order 7 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
+| [32316](32316) | 8079 = 3 · 2693 | Paley's matrix of order 10772 in sixteen circulant blocks, T-matrices of order 3 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [32692](32692) | 8173 = 11 · 743 | Paley's matrix of order 2972 in sixteen circulant blocks, T-matrices of order 11 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [32756](32756) | 8189 = 19 · 431 | Paley's matrix of order 1724 in sixteen circulant blocks, T-matrices of order 19 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [32796](32796) | 8199 = 3² · 911 | Paley's matrix of order 3644 in sixteen circulant blocks, T-matrices of order 9 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
