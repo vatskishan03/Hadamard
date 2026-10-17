@@ -35,6 +35,7 @@ static inline void paf_mask(uint64_t m, int *p) {
 typedef struct { uint64_t k0, k1; uint32_t a3, a0; } entry;
 static entry *tab;
 static uint64_t cap, used;
+static uint64_t *bloom, bmask;         /* two-probe Bloom filter in front of the table */
 
 static inline uint64_t mix(uint64_t a, uint64_t b) {
     uint64_t x = a * 0x9E3779B97F4A7C15ULL ^ (b + 0x632BE59BD9B4E019ULL + (a << 6) + (a >> 2));
@@ -57,6 +58,13 @@ static void insert(uint64_t k0, uint64_t k1, uint32_t a3, uint32_t a0) {
     while (tab[i].k0 | tab[i].k1) i = (i + 1) & (cap - 1);
     tab[i].k0 = k0; tab[i].k1 = k1; tab[i].a3 = a3; tab[i].a0 = a0;
     used++;
+    uint64_t h = mix(k1, k0), b1 = h & bmask, b2 = (h >> 32) & bmask;
+    bloom[b1 >> 6] |= 1ULL << (b1 & 63); bloom[b2 >> 6] |= 1ULL << (b2 & 63);
+}
+
+static inline int maybe(uint64_t k0, uint64_t k1) {
+    uint64_t h = mix(k1, k0), b1 = h & bmask, b2 = (h >> 32) & bmask;
+    return (bloom[b1 >> 6] >> (b1 & 63) & 1) && (bloom[b2 >> 6] >> (b2 & 63) & 1);
 }
 
 static int seq_of_mask(uint64_t m, int *x) { int r = 0; for (int i = 0; i < n; i++) { x[i] = (m >> i & 1) ? -1 : 1; r += x[i]; } return r; }
@@ -143,7 +151,9 @@ int main(int argc, char **argv) {
     fprintf(stderr, "%llu pairs pass the spectrum test; table of %llu slots (%.2f GB)\n",
             (unsigned long long)surv, (unsigned long long)cap, cap * sizeof(entry) / 1e9);
     tab = calloc(cap, sizeof(entry));
-    if (!tab) { fprintf(stderr, "out of memory\n"); return 1; }
+    uint64_t bbits = 1ULL << 20; while (bbits < 8 * surv) bbits <<= 1;     /* load <= 1/8 per probe bit */
+    bmask = bbits - 1; bloom = calloc(bbits / 64, 8);
+    if (!tab || !bloom) { fprintf(stderr, "out of memory\n"); return 1; }
     for (int i = 0; i < n3; i++)
         for (int j = 0; j < n0; j++) {
             int ok = 1, need[64];
@@ -176,33 +186,42 @@ int main(int argc, char **argv) {
                 }
             }
     }
-    /* split on the smallest further position f: A1 has -1 at 0 and f, the rest above f */
+    /* split on the two smallest further positions f < g: A1 has -1 at 0, f and g, the rest above g */
+    int npair = 0, (*pr)[2] = malloc(sizeof(int[2]) * 64 * 64);
+    if (w >= 2)
+        for (int f = 1; f < n; f++) for (int g = f + 1; g < n; g++) if (n - 1 - g >= w - 2) { pr[npair][0] = f; pr[npair][1] = g; npair++; }
+    if (w == 1)
+        for (int f = 1; f < n; f++) { pr[npair][0] = f; pr[npair][1] = 0; npair++; }
     #pragma omp parallel for schedule(dynamic, 1) reduction(+:hits, sols)
-    for (int f = 1; f <= n - w; f++) {
-        if (w == 0) continue;
-        int k = w - 1;                       /* positions to choose in (f, n) */
-        int m = n - 1 - f;                   /* candidates f+1 .. n-1 */
-        if (k > m) continue;
+    for (int pi = 0; pi < npair; pi++) {
+        int f = pr[pi][0], g = pr[pi][1];
+        int k = (w >= 2) ? w - 2 : 0;          /* positions to choose in (g, n) */
+        int lo = (w >= 2) ? g + 1 : n;         /* first candidate */
+        int m = n - lo;
+        uint64_t base = 1ULL | (1ULL << f) | (w >= 2 ? (1ULL << g) : 0);
         int c[64];
         for (int i = 0; i < k; i++) c[i] = i;
         for (;;) {
-            uint64_t mask = 1ULL | (1ULL << f);
-            for (int i = 0; i < k; i++) mask |= 1ULL << (f + 1 + c[i]);
+            uint64_t mask = base;
+            for (int i = 0; i < k; i++) mask |= 1ULL << (lo + c[i]);
             int p[64]; paf_mask(mask, p);
             uint64_t k0, k1; pack(p, &k0, &k1);
-            uint64_t idx = mix(k0, k1) & (cap - 1);
-            while (tab[idx].k0 | tab[idx].k1) {
-                if (tab[idx].k0 == k0 && tab[idx].k1 == k1) {
-                    hits++;
-                    uint64_t m3 = r3[tab[idx].a3], m0 = r0[tab[idx].a0];
-                    if (full_check(m3, mask, m0)) {
-                        sols++;
-                        #pragma omp critical
-                        { printf("SOL "); print_seq(m3); putchar(' '); print_seq(mask); putchar(' '); print_seq(m0); putchar('\n'); fflush(stdout); }
+            if (maybe(k0, k1)) {
+                uint64_t idx = mix(k0, k1) & (cap - 1);
+                while (tab[idx].k0 | tab[idx].k1) {
+                    if (tab[idx].k0 == k0 && tab[idx].k1 == k1) {
+                        hits++;
+                        uint64_t m3 = r3[tab[idx].a3], m0 = r0[tab[idx].a0];
+                        if (full_check(m3, mask, m0)) {
+                            sols++;
+                            #pragma omp critical
+                            { printf("SOL "); print_seq(m3); putchar(' '); print_seq(mask); putchar(' '); print_seq(m0); putchar('\n'); fflush(stdout); }
+                        }
                     }
+                    idx = (idx + 1) & (cap - 1);
                 }
-                idx = (idx + 1) & (cap - 1);
             }
+            if (k == 0) break;
             int i = k - 1;
             while (i >= 0 && c[i] == m - k + i) i--;
             if (i < 0) break;
@@ -211,8 +230,10 @@ int main(int argc, char **argv) {
         }
         #pragma omp atomic
         done++;
-        #pragma omp critical
-        { fprintf(stderr, "first position %d done (%lld of %d)\n", f, done, n - w); }
+        if (done % 50 == 0) {
+            #pragma omp critical
+            { fprintf(stderr, "%lld of %d starts done\n", done, npair); }
+        }
     }
     fprintf(stderr, "STAT n=%d rows=(%d,%d,1) A3classes=%d pairs=%llu table_hits=%lld solutions=%lld\n", n, a3, a1, n3,
             (unsigned long long)used, hits, sols);

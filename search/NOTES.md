@@ -3143,9 +3143,11 @@ skew 940 and 1108.
 - Length 37 has no skew-propus quadruple. `sp_mitm.c` is exhaustive. The row sums must be (7, 7, 1). A3 runs over its
   1768 classes under the multipliers and A0 over all 2¹⁸ skew-type sequences. The 2,937,404 pairs that pass the
   power-spectrum test |Â3|² + |Â0|² ≤ 148 are tabled by the autocorrelation A1 would need. All 3.65 · 10⁹ sequences
-  A1 with row sum 7 and A1(0) = −1 (every A1 has such a shift) are looked up: no match (3 cores, 14 minutes).
+  A1 with row sum 7 and A1(0) = −1 (every A1 has such a shift) are looked up: no match (3 cores, 14 minutes). A
+  rerun with the work split over the first two −1 positions of A1 and a Bloom filter in front of the table also finds
+  none (4 minutes).
   - Controls: the program finds quadruples at every length 3 ≤ n ≤ 35 for which Abuzin–Balonin–Đoković–Kotsireas
-    (2019, Table 1) give one.
+    (2019, Table 1) give one, and at n = 41 (row sums 1, 9; their (41; 20, 16, 16, 20; 31)).
   - It finds none for n = 25 with row sums (7, 5) or (1, 7), and none for n = 31 with (11, 1), the patterns for
     which their Table 3 has only a fourth block that is neither symmetric nor skew.
   - For 37 their Table 3 also has only such a family, under ⟨10⟩; no family with X₄ symmetric exists. So v = 295 is
