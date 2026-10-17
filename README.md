@@ -116,11 +116,13 @@ Williamson-type matrices ([NOTES.md](NOTES.md) §7).
   52 census values 4v (one of them, 3516 = 4 · 879, recorded as known by two older tables without a construction) and
   five orders 8v and 16v below the smallest power of two in Cati–Pasechnik's Table 5. Also independent matrices of the
   known skew orders 1852, 3676 and 7656 (Wallis–Whiteman, which Table 5 missed). See [skew](skew).
-- **Symmetric Hadamard matrices** of 53 orders, all undecided in the Đoković–Seberry census [4]: 532, 732, 876, 4828
+- **Symmetric Hadamard matrices** of 55 orders, all undecided in the Đoković–Seberry census [4]: 532, 732, 876, 4828
   and 5700 from searches and new plug-in constructions, and 48 orders 4q (q ≡ 1 mod 8 a prime power, 356 to 9892) from
   Seberry–Yamada's Williamson-type matrices with a repeated block in Seberry–Balonin's propus array, for which we found
   no statement: 47 obtainable classically, and 7012 = 4 · 1753 from our matrix of order 876
-  ([symmetric/PROPUS_MIYAMOTO.md](symmetric/PROPUS_MIYAMOTO.md)). See [symmetric](symmetric).
+  ([symmetric/PROPUS_MIYAMOTO.md](symmetric/PROPUS_MIYAMOTO.md)). Also 1804 and 3532, which Seberry–Balonin's
+  Corollary 1 gives with conference cores of orders 225 and 441 but the census omits (Known). See
+  [symmetric](symmetric).
 - **Complex Hadamard matrices** of 11 orders 2N with N odd, blank in Seberry and Yamada's table of known orders [5]
   and in the papers since [10, 11, 12]: 214, 238, 302, 326, 366, 382, 426, 494, 518, 534 and 754, from searches over
   Szöllősi's array [10] and its bordered, character-bordered and twisted forms. They were found concurrently and

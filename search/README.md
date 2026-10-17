@@ -127,6 +127,7 @@ start-up, is close to the list size.
 | `prow.c`, `p65.c`, `pz5.c`, `hit2rec.py` | dedicated row searches (732) |
 | `qborder_clique.c` | the border problem of the ℤ_q-bordered propus array |
 | `sym_mm1.py`, `spropus.c`, `symod.c` | symmetric Hadamard matrices of order m(m − 1) and m(m + 3) (4828, 5700) |
+| `sym_propus_sb.py` | Seberry–Balonin's Corollary 1 with the core of any symmetric conference matrix of order (q + 1)/2 + 1 (q ≡ 1 mod 4 prime): `mathon t OUT.npy` (Mathon's matrix from SageMath), `skewsq m OUT.npy` (order (m − 1)² + 1 from a skew-Hadamard matrix of order m), `certify v CONF.npy` writes `symmetric/<4v>/certificate.json` (1804, 3532) |
 | `sym_propus_miyamoto.py` | symmetric Hadamard matrices of order 4q, q ≡ 1 (mod 8) a prime power, from a symmetric Hadamard matrix of order (q − 1)/2: Seberry–Yamada's Corollary 29(ii) matrices (W₃ = W₄) in the propus array; `targets` lists the census values (`data/symmetric_census_undecided.txt`) and their inputs, `certify v` writes `symmetric/<4v>/certificate.json` ([../symmetric/PROPUS_MIYAMOTO.md](../symmetric/PROPUS_MIYAMOTO.md)) |
 | `symod_g.py`, `symod_engine.py`, `symod_join.py`, `symod_reach.py`, `symtpl.c` | symmetric ODs in Balonin form over abelian groups for the weighted plug-in |
 

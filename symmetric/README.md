@@ -2,7 +2,8 @@
 
 A Hadamard matrix H is symmetric if H = Hᵀ. The Đoković–Seberry census (2025-05-28) lists 595 odd v < 2500 for which
 no symmetric Hadamard matrix of order 4v was known; three of them, 189, 473 and 1139, were settled by Đoković in
-August 2025 (arXiv:2508.17141). The 53 orders here settle 53 more, leaving 539. Each directory holds one order with
+August 2025 (arXiv:2508.17141). The 55 orders here remove 55 more, leaving 537: 53 that no published construction
+gave, and two (1804, 3532) that a published corollary gives but the census omits. Each directory holds one order with
 its certificate, its README and, for the orders found by search, the matrix. Status labels are defined in
 [NOVELTY.md](../NOVELTY.md).
 
@@ -22,6 +23,7 @@ its certificate, its README and, for the orders found by search, the matrix. Sta
 | [1636](1636) | 409 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley II, order 204 (q′ = 101) | undecided | New, but obtainable classically |
 | [1732](1732) | 433 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = H₂ ⊗ Paley I, order 108 (q′ = 107) | undecided | New, but obtainable classically |
 | [1796](1796) | 449 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 224 (q′ = 223) | undecided | New, but obtainable classically |
+| [1804](1804) | 451 = 11 · 41 | Seberry–Balonin's Corollary 1 with q = 449 and the core of a symmetric conference matrix of order 226 (from a skew-Hadamard matrix of order 16) | undecided (omitted) | Known |
 | [1828](1828) | 457 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 228 (q′ = 227) | undecided | New, but obtainable classically |
 | [2116](2116) | 529 = 23² | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 264 (q′ = 263) | undecided | New, but obtainable classically |
 | [2276](2276) | 569 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 284 (q′ = 283) | undecided | New, but obtainable classically |
@@ -29,6 +31,7 @@ its certificate, its README and, for the orders found by search, the matrix. Sta
 | [2692](2692) | 673 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = H₂ ⊗ Paley I, order 168 (q′ = 167) | undecided | New, but obtainable classically |
 | [3076](3076) | 769 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 384 (q′ = 383) | undecided | New, but obtainable classically |
 | [3524](3524) | 881 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 440 (q′ = 439) | undecided | New, but obtainable classically |
+| [3532](3532) | 883 | Seberry–Balonin's Corollary 1 with q = 881 and the core of Mathon's conference matrix of order 442 | undecided (omitted) | Known |
 | [3716](3716) | 929 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 464 (q′ = 463) | undecided | New, but obtainable classically |
 | [3844](3844) | 961 = 31² | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 480 (q′ = 479) | undecided | New, but obtainable classically |
 | [4132](4132) | 1033 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley II, order 516 (q′ = 257) | undecided | New, but obtainable classically |
@@ -75,6 +78,12 @@ exact joins (`search/propus.py`, [search/NOTES.md](../search/NOTES.md) §17), th
 fill Seberry and Balonin's propus array, which gives a symmetric Hadamard matrix of order 4q
 ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md), `search/sym_propus_miyamoto.py`). This settles 48 census values; for 47 of
 them every ingredient was published before 2026, and 7012 = 4 · 1753 uses our matrix of order 876.
+
+**Seberry and Balonin's Corollary 1.** For a prime power q ≡ 1 (mod 4) such that (q + 1)/2 is a prime power or the order
+of the core of a symmetric conference matrix, Lemma 26 with Paley's or that core and Yamada's circulants gives
+Williamson-type matrices of order q + 2 with a repeated block, hence a symmetric Hadamard matrix of order 4(q + 2). The
+census lists neither of the orders that the cores of orders 225 and 441 give, 1804 and 3532 (`search/sym_propus_sb.py`,
+`verify.py` construction `symmetric-propus-sb`).
 
 **Order m(m − 1).** A skew-Hadamard matrix S = I + C of order m with an involutive signed permutation P such that
 PCP = −C is the same as a symmetric orthogonal design xP + yN of type (1, m − 1), with N = CP. Replacing x by J and y

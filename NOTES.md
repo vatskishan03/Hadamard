@@ -1592,5 +1592,20 @@ only ordinary Hadamard matrices.
 - **Iteration.** The theorem feeds itself through q = 2ᵃ · 8m + 1 from a new symmetric order 4m; below 2500 only
   q = 1753 (m = 219) is new.
 
-The symmetric census now has 539 undecided values: 595, less Đoković's three (arXiv:2508.17141), less the 53 orders of
+**Census omissions.** The census's Seberry–Balonin series (v = q + 2, (q + 1)/2 a prime power or the order of the core
+of a symmetric conference matrix) does not list 451 or 883, which it covers: the cores of orders 225 (a conference
+matrix of order 226 from a skew-Hadamard matrix of order 16, Q = S ⊗ S + I ⊗ J − J ⊗ I; Brouwer's "skewhad²") and 441
+(Mathon's conference matrix of order 442) qualify with q = 449 and 881, both prime. Both orders, 1804 and 3532, are
+built and labelled Known ([symmetric/1804](symmetric/1804), [symmetric/3532](symmetric/3532)); for 883, Đoković (2010)
+already used the same Williamson-type matrices for an ordinary Hadamard matrix. Of the other core orders below 1250 that
+are not prime powers and have a symmetric conference matrix we know, 45 gives v = 91 (decided) and 1225 = 35² (from a
+skew-Hadamard matrix of order 36) gives q = 2449 = 31 · 79, not a prime power.
+
+**Symmetric multiplication by odd t.** The propus array has no analogue of Cooper–Wallis's T-matrices in the natural
+form X_k = Σ_j M_kj ⊗ Y_j with symmetric commuting M_kj of disjoint supports: at the trivial character the row sums form
+an integer matrix with Mᵀ diag(1, 2, 1) M = t diag(1, 2, 1), which forces t to be a square (similar ternary forms have
+determinants in the same square class), and exhaustive searches over symmetric elements of ℤ₉ and ℤ₃² find none for t =
+9 either.
+
+The symmetric census now has 537 undecided values: 595, less Đoković's three (arXiv:2508.17141), less the 55 orders of
 [symmetric](symmetric).

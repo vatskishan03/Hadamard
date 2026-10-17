@@ -642,21 +642,74 @@ def build_symmetric_propus_miyamoto(cert):
     Z, I = np.zeros((n, n), dtype=np.int64), np.eye(n, dtype=np.int64)
     U = [-chi[sub(s[:, None], s[None, :])], chi[sub(s[:, None], t[None, :])], Z, Z]
     V = [I, Z, M, M]
+    return _lemma26_propus(U, V), None
+
+
+def _lemma26_propus(U, V):
+    """Seberry-Yamada's Lemma 26 (Seberry-Balonin's propus variation): from (0, +-1) matrices U_k, V_k of order n, the
+    bordered matrices W_1 = [[1, -e], [-e^T, S_1]], W_k = [[1, e], [e^T, S_k]] (k > 1) of order m = 2n + 1, with
+    S_k = U_k (x) J_2 + V_k (x) [[1, -1], [-1, 1]], checked here to be +-1, symmetric, pairwise amicable, with
+    sum W_k W_k^T = 4m I and W_3 = W_4; returns the propus array of A = W_1, B = W_3, D = W_2."""
+    n = U[0].shape[0]
+    m = 2 * n + 1
     J2, D2 = np.ones((2, 2), dtype=np.int64), np.array([[1, -1], [-1, 1]], dtype=np.int64)
     W = []
     for k in range(4):
         b = -1 if k == 0 else 1
-        Wk = np.empty((q, q), dtype=np.int64)
+        Wk = np.empty((m, m), dtype=np.int64)
         Wk[0, 0], Wk[0, 1:], Wk[1:, 0] = 1, b, b
         Wk[1:, 1:] = np.kron(U[k], J2) + np.kron(V[k], D2)
         W.append(Wk)
     F = [x.astype(np.float64) for x in W]
     if not all(np.all(np.abs(x) == 1) and np.array_equal(x, x.T) for x in W) or not np.array_equal(W[2], W[3]) or \
             not all(np.array_equal(F[k] @ F[l].T, F[l] @ F[k].T) for k in range(4) for l in range(k + 1, 4)) or \
-            not np.array_equal(sum(x @ x.T for x in F), 4.0 * q * np.eye(q)):
+            not np.array_equal(sum(x @ x.T for x in F), 4.0 * m * np.eye(m)):
         raise ValueError("the W_k are not symmetric pairwise amicable Williamson-type matrices with W_3 = W_4")
     A, B, D = (x.astype(np.int8) for x in (W[0], W[2], W[1]))
-    return np.block([[A, B, B, D], [B, D, -A, -B], [B, -A, -D, B], [D, -B, B, -A]]), None
+    return np.block([[A, B, B, D], [B, D, -A, -B], [B, -A, -D, B], [D, -B, B, -A]])
+
+
+def unpack_conference_core(s, n):
+    """the symmetric (0, +-1) matrix of order n with zero diagonal whose strict upper triangle (row by row) is the bit
+    string base64 `s` (np.packbits order, 1 for +1)"""
+    import base64
+    k = n * (n - 1) // 2
+    bits = np.unpackbits(np.frombuffer(base64.b64decode(s), dtype=np.uint8))
+    if len(bits) != 8 * ((k + 7) // 8) or bits[k:].any():
+        raise ValueError("packed core of the wrong length")
+    X = np.zeros((n, n), dtype=np.int64)
+    X[np.triu_indices(n, 1)] = 2 * bits[:k].astype(np.int64) - 1
+    return X + X.T
+
+
+def build_symmetric_propus_sb(cert):
+    """Symmetric Hadamard matrix of order 4(q + 2) by Seberry and Balonin's Corollary 1 (Australas. J. Combin. 69
+    (2017), Theorem 3 with Corollary 1; the census's Seberry-Balonin series), for a prime q = 1 (mod 4) and the core Q
+    of a symmetric conference matrix of order n + 1, n = (q + 1)/2: Lemma 26 with U = (I, 0, Q, Q) and
+    V = (M, N, I, I), where M, N are Yamada's symmetric circulants of order n with M^2 + N^2 = qI and M of zero
+    diagonal (first rows beta, alpha of build_yamada, from "r" and "xi"), gives symmetric Williamson-type matrices of
+    order q + 2 with W_3 = W_4, and the propus array. Q is given under "core" as its packed strict upper triangle
+    (unpack_conference_core) with the SHA-256 of its rows; checked: symmetric, zero diagonal, Q e = 0, Q^2 = nI - J."""
+    q = cert["q"]
+    if q % 4 != 1 or not _is_prime(q):
+        raise ValueError("q must be a prime = 1 (mod 4)")
+    n = (q + 1) // 2
+    core = cert["core"]
+    if core["order"] != n:
+        raise ValueError("the core must have order (q + 1)/2")
+    Q = unpack_conference_core(core["upper"], n)
+    if hashlib.sha256(Q.astype(np.int8).tobytes()).hexdigest() != core["sha256"]:
+        raise ValueError("the core does not match its SHA-256")
+    I = np.eye(n, dtype=np.int64)
+    if (Q @ np.ones(n, dtype=np.int64)).any() or not np.array_equal(Q @ Q, n * I - 1):
+        raise ValueError("Q is not the core of a symmetric conference matrix")
+    alpha, beta = _yamada_alpha_beta(q, cert["r"], tuple(cert["xi"]))
+    M, N = circulant(beta), circulant(alpha)
+    if M[0, 0] != 0 or not (np.array_equal(M, M.T) and np.array_equal(N, N.T)) or \
+            not np.array_equal(M @ M + N @ N, q * I):
+        raise ValueError("Yamada's circulants are not symmetric with M^2 + N^2 = qI")
+    Z = np.zeros((n, n), dtype=np.int64)
+    return _lemma26_propus([I, Z, Q, Q], [M, N, I, I]), None
 
 
 def build_cooper_wallis_bordered(cert):
@@ -1072,6 +1125,14 @@ def build_yamada(cert):
         raise ValueError("q must be a prime = 5 (mod 8)")
     if cert["Q"]["order"] != (q + 3) // 2:
         raise ValueError("Q must have order (q + 3)/2")
+    alpha, beta = _yamada_alpha_beta(q, r, (xa, xb))
+    return _yamada_matrix(cert, q, alpha, beta)
+
+
+def _yamada_alpha_beta(q, r, xi):
+    """Yamada's circulant first rows alpha, beta of order (q + 1)/2 for a prime q (see build_yamada); r must be a
+    non-square and xi = xa + xb w primitive in GF(q)[w]/(w^2 - r), both checked."""
+    xa, xb = xi
     psi = -np.ones(q, dtype=np.int64)
     psi[np.arange(1, q) ** 2 % q] = 1
     psi[0] = 0
@@ -1103,7 +1164,7 @@ def build_yamada(cert):
     for m in range(n0):
         alpha[m], beta[m] = psi[2 * a[0] % q], psi[2 * b[0] % q]
         a, b = mul(a, x4), mul(b, x4)
-    return _yamada_matrix(cert, q, alpha, beta)
+    return alpha, beta
 
 
 def _build_yamada_field(cert):
@@ -1784,6 +1845,7 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "sym-od-plug": build_sym_od_plug, "skew-amicable-plug": build_skew_amicable_plug,
             "skew-amicable-product": build_skew_amicable_product,
             "symmetric-propus-miyamoto": build_symmetric_propus_miyamoto,
+            "symmetric-propus-sb": build_symmetric_propus_sb,
             "two-block": build_two_block, "paley-blocks": build_paley_blocks}
 
 
