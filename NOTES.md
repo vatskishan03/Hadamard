@@ -1394,6 +1394,15 @@ element to SL(2, q) has order 2s), and the construction runs over ℤ₃ × N_s 
 - **No other multiplier.** For A_c to be skew-type in general, T_c = I and the other three T-matrices must be X, −εXᵀ
   and a skew Y, with 2 PAF(X) + PAF(Y) = (t − 1)δ; the trivial character forces t = 2a² + 1. Exhaustive searches over
   ℤ₉, ℤ₃ × ℤ₃ and ℤ₁₉ found none, so t = 3 is the only multiplier we have.
+- **Twisted T-matrices.** The proof of t = 2a² + 1 uses an integer character of the block ring Z[x]/(x^s + 1), which
+  exists only for s odd. For q ≡ 7 (mod 8) (s even) we let each point g of ℤ_t carry a unit ±x^a of the block ring
+  as well as an orbit. The skew conditions then force the self-paired orbit to stay empty (a mirror pair at difference
+  d contributes twice, the self-mirror pair at ±d/2 once), and everything reduces to one object: T_b supported on a half
+  G of ℤ_t (G ⊔ −G = ℤ_t ∖ 0) with unit entries and T_b T_b* = (t − 1)/2 in ℤ[ℤ_t] ⊗ ℤ[x]/(x^s + 1). Units are ≡ 1
+  modulo (2, x − 1), so every difference must occur an even number of times in G: t = 3, or t ≡ 3 (mod 8) with G the
+  quadratic residues. t = 5 and 7 have no solution (exhaustive, q = 23 and 31); for t = 11 the congruences on the
+  exponents are unsolvable for every even s (Smith form 1, 1, 1, 11, 0), and there is not even a complex solution with
+  4th, 8th, 12th or 16th roots of unity; t = 19 has none with 8th roots; no half of ℤ₉ or ℤ₃² passes the parity test.
 - **No symmetric analogue this way.** T_c = 0 and I on the other fixed orbit make A_c symmetric, but the propus array
   needs two equal blocks among the other three; for q = 19, 43 and 67 no two of them are related by any affine map of ℤ₃
   × ℤ_s. Equal blocks are more than the propus array needs: its rows are orthogonal as soon as A is symmetric and B Bᵀ =
