@@ -146,8 +146,10 @@ its blocks are negacyclic and the certificate says so.
   The trivial character forces t = 2a² + 1 (Y has sum 0). An exhaustive search over ℤ₉, ℤ₃ × ℤ₃ and ℤ₁₉ found no such
   structure; t = 3 (X = Z, Y = 0) is the only one we have.
 - A symmetric analogue. The same blocks give a symmetric A_c (T_c = 0, T_o = I on the other fixed orbit), but the
-  propus array also needs two equal blocks among the other three, and for q = 19, 43, 67 no two of them are related
-  by any affine map of ℤ₃ × ℤ_s.
+  propus array also needs two of the other three blocks with equal Gram matrices (A_j A_jᵀ = A_k A_kᵀ; one of them is
+  then used twice). For q = 19, 43, 67 no two of them are related by any affine map of ℤ₃ × ℤ_s, and an exhaustive
+  check of all 192 placements of the T-matrices of order 3 and all base points of the orbits finds equal Gram matrices
+  for q = 11 only (order 36), none for q = 7, 19, 23, 31 and 43.
 
 ## Status
 
