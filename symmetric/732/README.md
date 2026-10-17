@@ -68,6 +68,10 @@ Table 2: "183 CW(3)"; Table 3: "183 Spence(13)"); the symmetry is what is new.
 
 - The Đoković–Seberry census lists 183 among its 595 undecided v for symmetric matrices. 183 is in none of its eight
   symmetric series nor among its 12 sporadic values.
+- Later (October 17) we found a construction that also gives this order: 183 = 181 + 2 with 181 ≡ 5 (mod 8) prime,
+  and Yamada's matrix in symmetric quaternary form ([YAMADA_KIYASU.md](../YAMADA_KIYASU.md)) with a skew-Hadamard
+  matrix of order 92 (Szekeres's good matrices of order 23) gives a symmetric Hadamard matrix of order 732 (checked
+  exactly, not stored). The matrix here, from the search, is independent of it.
 - The propus literature lists 183 as open: Seberry–Balonin (arXiv:1512.01732; Australas. J. Combin. 69 (2017)),
   Balonin–Đoković (arXiv:1803.08787), Balonin–Seberry (Math. Scientist 43 (2018) 137–143, Table 2: "183 —", where a
   long dash denotes that no symmetric Hadamard matrix is known) and Đoković (arXiv:2101.05429v2). The Handbook

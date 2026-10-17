@@ -1674,7 +1674,8 @@ G = ½((M + N) + i(M − N)) and GḠ = (q/2)I, and the borders with the vectors
 S² = J − nI enter. Turyn's map [[X + Y, X − Y], [X − Y, −X − Y]] of L = X + iY is then a symmetric Hadamard matrix. No
 anti-automorphism of the skew matrix is used, which is what §29 needed.
 
-- **Reach.** 34 census values are q + 2 with q ≡ 5 (mod 8) a prime power; a skew-Hadamard matrix of order (q + 3)/2 is
+- **Reach.** 35 census values are q + 2 with q ≡ 5 (mod 8) a prime power; one, 183, was already settled here by search
+  (symmetric/732). Of the other 34, a skew-Hadamard matrix of order (q + 3)/2 is
   known for 27 of them, v = 295 to 2335 (orders 1180 to 9340): Paley's matrices and doublings (9), Szekeres's and
   Whiteman's complementary difference sets (3), published Goethals–Seidel data (good matrices of order 29,
   Fletcher–Koukouvinos–Seberry's 236, Đoković's 67, 103, 163, 247; 6), quick multiplier searches for orders 148, 196,
