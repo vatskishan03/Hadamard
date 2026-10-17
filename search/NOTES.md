@@ -3092,3 +3092,32 @@ All other undecided primes up to 1500 give densities below 10⁻³⁴.
 within a second. They do not solve 239/7 in about ten CPU-minutes: the best energy was 48, a few classes off. The
 undecided structures are at least 10⁵·⁵ sparser. The 2 + 1 join with sampled lists costs about density^(−2/3), which
 is 10¹⁶ for 1123/33. So this class does not settle any census value without a better matcher.
+
+## 49. Symmetric matrices of order 4q: inputs, census omissions, and no odd multiplier (October 17)
+
+**Inputs of the 4q family** ([../symmetric/PROPUS_MIYAMOTO.md](../symmetric/PROPUS_MIYAMOTO.md)). Of the 58
+census-undecided prime powers q ≡ 1 (mod 8), 44 take a symmetric Hadamard matrix of order (q − 1)/2 from Paley I or II
+and Sylvester, and 1753 takes symmetric/876. Three take published sporadic matrices, transcribed from the LaTeX sources
+and rebuilt by `verify.py` in the propus array of `build_propus` (input kind `propus`): order 116 (Di Matteo, Đoković
+and Kotsireas, arXiv:1503.04226v2, the first of their fifteen SDSs), 236 (Đoković, arXiv:2101.05429v2, the first PDF
+for v = 59, X₁ = X₁′ ∪ −X₁′) and 604 (Balonin and Đoković, arXiv:1803.08787, Table 1, orbit representatives under
+{1, 8, 19, 59, 64}). Every published solution of those papers checked (15 for v = 29, 6 for v = 59, 1 for v = 151).
+The last ten values need a symmetric matrix of order 4m with m = 101, 107, 119, 149, 179, 239, 249, 269, 299 or 305,
+all undecided.
+
+**Seberry–Balonin with conference cores** (`sym_propus_sb.py`). Mathon's conference matrix of order 442 comes from
+SageMath's `MathonPseudocyclicStronglyRegularGraph(2)` (29 s; the same matrix on a rerun), the one of order 226 from
+the skew-Hadamard matrix of order 16 (Paley 8, doubled) as Q = S ⊗ S + I ⊗ J − J ⊗ I. With Yamada's circulants for
+q = 881 and 449 they give 3532 and 1804. A mutated core is rejected by its SHA-256, and a changed ξ by the primitivity
+test. The variant with 2n − 1 an odd square instead of a prime power would need new symmetric circulant pairs
+(M, N) with M² + N² = s²I: among the census values it would reach only v = 1227 (n = 613, s = 35) and 2027 (n = 1013,
+s = 45), and the lattice count for multiplier-invariant pairs, about 2 · (4c/√n)^k for k orbits, is far below one.
+
+**No odd t multiplies the propus array** (`sym_tmult.py`). Cooper–Wallis multiplies four Williamson-type matrices by
+T-matrices; the symmetric analogue would write X_k = Σ_j M_kj ⊗ Y_j (k, j ∈ {a, b, d}) with symmetric commuting
+(0, ±1) M_kj of disjoint supports in each row and Σ_k c_k M_kj M_ki = t c_j δ_ij for c = (1, 2, 1). At the trivial
+character the row sums give an integer M with Mᵀ diag(1, 2, 1) M = t diag(1, 2, 1), so det(M)² = t³ and t must be a
+square. Exhaustive searches over the symmetric elements of ℤ₃, ℤ₅, ℤ₉ and ℤ₃² find no solution (the control t = 1
+finds the 16 signed permutations). Four distinct symmetric blocks do not help either: a symmetric orthogonal design of
+order 4 in four variables would need four anticommuting real symmetric involutions of order 4, and their Clifford
+algebra M₂(ℍ) has no module of dimension 4.
