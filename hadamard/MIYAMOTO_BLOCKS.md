@@ -207,9 +207,10 @@ by other routes (6341, 6617, 7179, 7323, 8079, 8579, 8653 and 9671). The other s
 These tables obtain each order from Williamson-type matrices of order q through Corollary 8.8(i), with Williamson-type
 matrices of order (q − 1)/4 (q = 773, 1109, 1693, 1733, 2917) or an Hadamard matrix of order (q − 1)/2 (the others), and
 the printed proof of that corollary fails ([NOTES.md](../NOTES.md) §7). All sixteen are labelled First explicit
-construction. Every ingredient here was published before 2026; the combination is ours. Dense checks by `verify.py` (H
-Hᵀ = nI, SHA-256 as in the READMEs): 14316, 15460, 19060, 20796, 21644, 22180, 23860, 23916, 32748 and 33860 so far; the
-others are running.
+construction. Every ingredient here was published before 2026; the combination is ours. All sixteen pass the dense
+check of `verify.py` (H Hᵀ = nI, SHA-256 as in the READMEs). An independent rebuild for the audit of October 17 (own
+Miyamoto array, relabelling and T-matrices) checks H Hᵀ = nI densely for 14316, 15460 and 35004 and reproduces their
+SHA-256 in the repository's convention.
 
 **The corollary with a repeated block.** For q = 773, 1693, 1733 and 2917 the corollary itself can be repaired. Seberry
 and Yamada's symmetric Williamson-type matrices of orders 193, 433, 729 (Corollary 29(ii) with M₃ = M₄ = H) and 423

@@ -97,27 +97,30 @@ Williamson-type matrices ([NOTES.md](NOTES.md) §7).
   repeated block, and Lemma 26 then gives Williamson-type matrices of orders 293, 773, 1693, 1733 and 2917 (checked), so
   those orders were obtainable classically; and the 173 · t orders have a published route since Verma's symmetric
   conference matrix of order 86 (arXiv:2610.08893, October 2026). Table 4 entries that Đoković settled through the
-  corollary are in the table above (6108, 10180) or still open (2571). - **Skew-Hadamard matrices of 40 orders** from
-  820 to 9900 for which we found no earlier construction: 32 from Goethals–Seidel difference families with a skew block,
-  and 8 from Seberry's theorem with new amicable Hadamard matrices or new orthogonal designs. Also independent matrices
-  of the known skew orders 1852 and 3676. See [skew](skew). - **Symmetric Hadamard matrices** of orders 532, 732, 876,
-  4828 and 5700, all undecided in the Đoković–Seberry census [4]. See [symmetric](symmetric). - **Complex Hadamard
-  matrices** of 11 orders 2N with N odd, blank in Seberry and Yamada's table of known orders [5] and in the papers since
-  [10, 11, 12]: 214, 238, 302, 326, 366, 382, 426, 494, 518, 534 and 754, from searches over Szöllősi's array [10] and
-  its bordered, character-bordered and twisted forms. They were found concurrently and independently by Zaitsev et al.
-  [13], whose page has matrices of all 11; we claim no priority. 334 is the smallest open order now. Also explicit
-  matrices of 76 known orders from 142 to 1966 with 4N − 1 a prime power, among them halves of Paley's matrix of order q
-  + 1 ([complex-hadamard/PALEY.md](complex-hadamard/PALEY.md)); these follow from Ito's dicyclic Hadamard groups and
-  Egan's Theorem 4.5 [12], which we had missed at first. First explicit matrices of 1618 and 1906, which the 1992 table
-  records only through Seberry–Yamada's Corollary 8.8(i): its printed proof does not give Williamson-type matrices, but
-  its matrices give a complex Hadamard matrix of order 2q from any quaternary Hadamard matrix of order (q − 1)/2, which
-  we prove and use ([NOTES.md](NOTES.md) §19; Zaitsev's matrices of orders 538, 1018 and 1714 have this form, unstated).
-  See [complex-hadamard](complex-hadamard). - **Auxiliary objects:** Williamson-type matrices of order 111
-  ([near-williamson](near-williamson)); T-matrices of orders 97, 109 and 197, for which we found no earlier construction
-  (97 and 109 may appear in Lou–Xia–Xia's work on order 6m + 1, which we could not read), and an independent instance of
-  the known order 131 ([t-matrices](t-matrices)); amicable Hadamard matrices of orders 52, 76 and 100; and the
-  orthogonal designs OD(100; 1, 5, 94), OD(156; 1, 3, 152), OD(156; 1, 13, 142), OD(252; 1, 21, 230) and OD(364; 1, 13,
-  350) ([skew](skew#seberrys-theorem-with-new-ingredients)).
+  corollary are in the table above (6108, 10180) or still open (2571).
+- **Skew-Hadamard matrices of 40 orders** from 820 to 9900 for which we found no earlier construction: 32 from
+  Goethals–Seidel difference families with a skew block, and 8 from Seberry's theorem with new amicable Hadamard
+  matrices or new orthogonal designs. Also independent matrices of the known skew orders 1852 and 3676.
+  See [skew](skew).
+- **Symmetric Hadamard matrices** of orders 532, 732, 876, 4828 and 5700, all undecided in the Đoković–Seberry
+  census [4]. See [symmetric](symmetric).
+- **Complex Hadamard matrices** of 11 orders 2N with N odd, blank in Seberry and Yamada's table of known orders [5]
+  and in the papers since [10, 11, 12]: 214, 238, 302, 326, 366, 382, 426, 494, 518, 534 and 754, from searches over
+  Szöllősi's array [10] and its bordered, character-bordered and twisted forms. They were found concurrently and
+  independently by Zaitsev et al. [13], whose page has matrices of all 11; we claim no priority. 334 is the smallest
+  open order now. Also explicit matrices of 76 known orders from 142 to 1966 with 4N − 1 a prime power, among them
+  halves of Paley's matrix of order q + 1 ([complex-hadamard/PALEY.md](complex-hadamard/PALEY.md)); these follow from
+  Ito's dicyclic Hadamard groups and Egan's Theorem 4.5 [12], which we had missed at first. First explicit matrices
+  of 1618 and 1906, which the 1992 table records only through Seberry–Yamada's Corollary 8.8(i): its printed proof
+  does not give Williamson-type matrices, but its matrices give a complex Hadamard matrix of order 2q from any
+  quaternary Hadamard matrix of order (q − 1)/2, which we prove and use ([NOTES.md](NOTES.md) §19; Zaitsev's matrices of
+  orders 538, 1018 and 1714 have this form, unstated). See [complex-hadamard](complex-hadamard).
+- **Auxiliary objects:** Williamson-type matrices of order 111 ([near-williamson](near-williamson)); T-matrices of
+  orders 97, 109 and 197, for which we found no earlier construction (97 and 109 may appear in Lou–Xia–Xia's work on
+  order 6m + 1, which we could not read), and an independent instance of the known order 131
+  ([t-matrices](t-matrices)); amicable Hadamard matrices of orders 52, 76 and 100; and the orthogonal designs
+  OD(100; 1, 5, 94), OD(156; 1, 3, 152), OD(156; 1, 13, 142), OD(252; 1, 21, 230) and OD(364; 1, 13, 350)
+  ([skew](skew#seberrys-theorem-with-new-ingredients)).
 
 "New" means new to our knowledge after the literature search described in [NOVELTY.md](NOVELTY.md), which also
 defines the status labels used in each README.
