@@ -122,7 +122,7 @@ start-up, is close to the list size.
 
 | Program | Role |
 |---|---|
-| `propus.py`, `propus_group.py`, `propus_chain.py`, `propus_gchain.py`, `propus_bgroup.py`, `propus_paley.py` | propus quadruples (A, B, B, D): cyclic, non-cyclic, with compressions, bordered |
+| `propus.py`, `propus_group.py`, `propus_chain.py`, `propus_gchain.py`, `propus_bgroup.py`, `propus_paley.py` | propus quadruples (A, B, B, D): cyclic, non-cyclic, with compressions, bordered; `propus_chain.py --symD` keeps D symmetric too (doubly symmetric quadruples, the symmetric pairs of [../NOTES.md](../NOTES.md) §19) |
 | `propus_rank.py`, `propus_sat.py`, `propus_ls.c` | estimates, a CP-SAT model, local search |
 | `prow.c`, `p65.c`, `pz5.c`, `hit2rec.py` | dedicated row searches (732) |
 | `qborder_clique.c` | the border problem of the ℤ_q-bordered propus array |

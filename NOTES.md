@@ -855,6 +855,15 @@ and 1882, are on Zaitsev's page (§20), so none of this form is open.
   the other m rate 10^−1.3 (163, H = ⟨38⟩ of order 9, which we exhausted: no solution), 10^−2.4 (127), 10^−3.8 (213)
   and 10^−3.9 (183). The Szöllősi solutions we certified for 326, 366 and 426 do not have C = D, not even up to
   shift, sign and reversal.
+- *m = 93 (October 17).* With Yamada's U₁, U₂, Lemma 26 needs exactly a symmetric commuting pair (M₃, M₄) of order
+  (q − 1)/2 with M₃² + M₄² = (q − 1)I, i.e. a symmetric quaternary Hadamard matrix; a doubly symmetric propus
+  quadruple of order m gives one of order 2m. For real orders this is the open input of four FRONTIER entries:
+  2611 = 7 · 373 needs one of order 186 (m = 93), 1527 and 2545 one of order 254 (m = 127), 2427 and 2571 one of
+  order 404 or 428 (or a symmetric Hadamard matrix of that order, v = 101 or 107 of the symmetric census), and 1883
+  = 7 · 269 one of order 134. For m = 93 every multiplier subgroup of ℤ₉₃* of order 3 to 30 was searched
+  exhaustively, A and D symmetric and B free or symmetric (`search/propus.py 93 g`, and `search/propus_chain.py 93
+  25 --symD` for the 33-orbit structure): no solution. The best of them rated 10^−0.8 (H = ⟨4⟩); H = ⟨61⟩ and
+  ⟨32⟩ rate 10^−8.8 and 10^−6.1 and H = 1 rates 10^−2.2 in a space of 2^140, beyond exhaustive search.
 - *Bordered symmetric pairs.* A border of one point turns the problem into a symmetric Legendre pair of length
   n − 1 (PAF_a + PAF_b = −2). An exhaustive search of cyclic lengths up to 33 finds them only for 3 and the primes
   ≡ 1 (mod 4), where they come from Paley's matrix. A count of orbits explains this. Symmetric blocks have half the

@@ -241,7 +241,8 @@ def search(v, gens, rows, d, a, log):
         Hd = sorted({h % d for h in Hs})
         Hd_sym = sorted({h % d for h in Hs} | {(-h) % d for h in Hs})
         ca = Comp(st_ad, v, d, Hd if a.plain else Hd_sym); cb = Comp(st_b, v, d, Hd)
-        Da = ca.dp(st_ad, ra); Db = cb.dp(st_b, rb) if Da is not None else None; Dd = cb.dp(st_b, rd) if Db is not None else None
+        Da = ca.dp(st_ad, ra); Db = cb.dp(st_b, rb) if Da is not None else None
+        Dd = (ca.dp(st_ad, rd) if a.symD else cb.dp(st_b, rd)) if Db is not None else None
         if Da is not None and Db is not None and Dd is not None: break
         log(f"v={v} gens={gens} d={d} rows={rows}: compression DP above its cap")
     else:
@@ -249,7 +250,8 @@ def search(v, gens, rows, d, a, log):
     log(f"v={v} gens={gens} d={d} rows={rows}: orbits A {st_ad.O}, B/D {st_b.O}, classes {st_ad.C}; compressions "
         f"A {len(Da)}, B {len(Db)}, D {len(Dd)} [{time.time() - t0:.1f}s]")
     KA, KB, KD = list(Da), list(Db), list(Dd)
-    PA = cpaf_batch(KA, ca); PB = 2 * cpaf_batch(KB, cb); PD = cpaf_batch(KD, cb)
+    st_dd, cd = (st_ad, ca) if a.symD else (st_b, cb)       # --symD: D symmetric like A (doubly symmetric propus)
+    PA = cpaf_batch(KA, ca); PB = 2 * cpaf_batch(KB, cb); PD = cpaf_batch(KD, cd)
     triples = []
     tgt_d = np.array([int(tgt[r::d].sum()) for r in range(1, d // 2 + 1)], np.int64)   # compressed target
     for i, j, k in join3(PA, PB, PD, tgt_d):
@@ -289,7 +291,7 @@ def search(v, gens, rows, d, a, log):
     for i, (w_, na, nb, nd, ka, kb, kd) in enumerate(triples[:a.maxtriples]):
         if done_work + w_ > a.maxwork:
             log(f"  work cap reached after {i} triples ({done_work:.2e})"); break
-        LA = lst('A', st_ad, ca, ra, ka, 1); LB = lst('B', st_b, cb, rb, kb, 2); LD = lst('D', st_b, cb, rd, kd, 1)
+        LA = lst('A', st_ad, ca, ra, ka, 1); LB = lst('B', st_b, cb, rb, kb, 2); LD = lst('D', st_dd, cd, rd, kd, 1)
         if LA is None or LB is None or LD is None:
             log(f"  triple {i}: a list exceeds {a.maxlist:.0e}; skipped"); continue
         Va, Vb, Vd = LA[2], LB[2], LD[2]
@@ -315,7 +317,7 @@ def search(v, gens, rows, d, a, log):
             ids = list(map(int, line.split()[1:]))
             A = rows_of(st_ad, ca, LA[0], LA[1], ids[slot[0]]).astype(np.int64)[st_ad.orb]
             B = rows_of(st_b, cb, LB[0], LB[1], ids[slot[2]]).astype(np.int64)[st_b.orb]
-            D = rows_of(st_b, cb, LD[0], LD[1], ids[slot[1]]).astype(np.int64)[st_b.orb]
+            D = rows_of(st_dd, cd, LD[0], LD[1], ids[slot[1]]).astype(np.int64)[st_dd.orb]
             tot = verify.paf_sum([A, B, D]) + verify.paf_sum([B])
             if not (tot[0] == 4 * v and np.array_equal(tot[1:], tgt[1:])): log('  WRONG autocorrelations'); continue
             Kb = None
@@ -333,7 +335,7 @@ def search(v, gens, rows, d, a, log):
                 ok = np.array_equal(Hm, Hm.T) and np.array_equal(Hm @ Hm.T, 4 * v * np.eye(4 * v, dtype=Hm.dtype))
                 log(f"  hit: symmetric Hadamard {ok}")
             if ok:
-                rec = dict(n=v, gens=list(gens), symB=False, freeD=True, plain=bool(a.plain), rows=[int(A.sum()), int(B.sum()), int(D.sum())],
+                rec = dict(n=v, gens=list(gens), symB=False, freeD=not a.symD, plain=bool(a.plain), rows=[int(A.sum()), int(B.sum()), int(D.sum())],
                            method=f'propus_chain d={d}', seqs=[''.join('+' if x > 0 else '-' for x in s) for s in (A, B, D)])
                 if qb == 1: rec.update(border=True, order=4 * (v + 1), K=Kb.tolist())
                 elif qb: rec.update(border=True, q=qb, order=4 * (v + qb), R=Kb.tolist())
@@ -366,6 +368,7 @@ def main():
     ap.add_argument('--kdmax', type=int, default=16, help='largest number of compression coordinates tried first')
     ap.add_argument('--cache', type=float, default=2e7, help='members kept in the stage-2 list cache')
     ap.add_argument('--qborder', type=int, default=0, help='Z_q-bordered propus on Z_v (q | v): PAF sum -4q on qZ_v, 0 off it; order 4(v + q)')
+    ap.add_argument('--symD', action='store_true', help='D symmetric too (doubly symmetric propus: a symmetric pair of order 2v, NOTES.md §19)')
     a = ap.parse_args()
     a.qb = a.qborder or (1 if a.border else 0)
     if a.qb > 1 and a.v % a.qb: print(f'q = {a.qb} does not divide {a.v}'); return
