@@ -5,10 +5,10 @@ pair of order m (J. Wallis, J. Combin. Theory Ser. A 21 (1976); Seberry-Yamada 1
                                                   the Paley sequence first, three blocks invariant under the subgroup
                                                   of order h of the squares (exhaustive over unions of orbits)
     python3 search/skew_wallis.py certify order   writes skew/<order>/certificate.json and sequences.txt
-                                                  (orders 9424, 9776, 13072)
+                                                  (orders 9424, 9776, 13072, 14384)
 
 The amicable pairs of orders 52 and 76 are those of skew/2652 and skew/5700 (skew-propus quadruples of lengths 13
-and 19). verify/verify.py (build_skew_amicable_product) rebuilds and checks the matrices.
+and 19); that of order 124 comes from the skew-propus quadruple of length 31 of search/NOTES.md section 31. verify/verify.py (build_skew_amicable_product) rebuilds and checks the matrices.
 """
 import hashlib
 import json
@@ -101,15 +101,37 @@ DJOKOVIC_47 = [[2, 3, 5, 6, 7, 9, 10, 11, 12, 13, 14, 17, 18, 19, 20, 21, 22, 25
                [1, 3, 6, 7, 8, 11, 13, 14, 15, 19, 20, 21, 24, 27, 30, 33, 39, 41, 43, 44, 45, 46],
                [3, 6, 8, 10, 11, 12, 14, 20, 21, 23, 24, 25, 26, 27, 30, 31, 32, 34, 35, 41, 42, 45]]
 
-ORDERS = {9424: (31, 5, "5700"), 13072: (43, 7, "5700"), 9776: (47, 1, "2652")}
+# Good matrices of order 29 (Szekeres 1988, as SageMath stores them: E-sequence l = 14): A of skew type, B, C, D
+# symmetric, PAF sum 116 delta; positions of -1
+GOOD_29 = [[2, 3, 5, 6, 7, 8, 10, 12, 15, 16, 18, 20, 25, 28], [2, 3, 4, 9, 12, 13, 16, 17, 20, 25, 26, 27],
+           [2, 4, 5, 6, 7, 10, 12, 13, 16, 17, 19, 22, 23, 24, 25, 27], [7, 8, 9, 11, 13, 16, 18, 20, 21, 22]]
+
+
+def propus_31():
+    """The skew-propus quadruple of length 31 under <5> (search/NOTES.md section 31; `sym_mm1.py mpropus 31 5`):
+    A3, A1, A0 as positions of -1 and row sums. It gives the amicable pair of order 124."""
+    seqs = ["-++--++-+++-+-+--+-+-+++-++--++", "+++-++++--++----+-+++---+++++-+", "++++++-+--+--+-+-+-++-++-+-----"]
+    return {"n": 31, "blocks": [[i for i, c in enumerate(x) if c == "-"] for x in seqs],
+            "rowsums": [sum(1 if c == "+" else -1 for c in x) for x in seqs]}
+
+
+ORDERS = {9424: (31, 5, "5700"), 13072: (43, 7, "5700"), 9776: (47, 1, "2652"), 14384: (29, 0, "propus31")}
 
 
 def certify(order):
-    v, h, amicable_dir = ORDERS[order]
-    sets = DJOKOVIC_47 if v == 47 else paley3(v, h, 1)[1][0]
-    am = json.loads((ROOT / "skew" / amicable_dir / "certificate.json").read_text())
-    cert = {"order": order, "construction": "skew-amicable-product", "skew": True, "factor": factor_cert(v, h, sets),
-            "amicable": {"n": am["n"], "blocks": am["blocks"], "rowsums": am["rowsums"]}}
+    v, h, amicable_src = ORDERS[order]
+    if v == 29:                                   # good matrices: four explicit blocks, no multiplier
+        rows = [v - 2 * len(x) for x in GOOD_29]
+        factor = {"v": v, "multiplier": 1, "subgroup_order": 1, "blocks": GOOD_29, "rowsums": rows}
+    else:
+        sets = DJOKOVIC_47 if v == 47 else paley3(v, h, 1)[1][0]
+        factor = factor_cert(v, h, sets)
+    if amicable_src == "propus31":
+        amic = propus_31()
+    else:
+        am = json.loads((ROOT / "skew" / amicable_src / "certificate.json").read_text())
+        amic = {"n": am["n"], "blocks": am["blocks"], "rowsums": am["rowsums"]}
+    cert = {"order": order, "construction": "skew-amicable-product", "skew": True, "factor": factor, "amicable": amic}
     K, seqs = V.build_skew_amicable_product(cert)
     if not (K.shape[0] == order and V.is_pm1(K) and V.gram_is_scalar(K, order)
             and np.array_equal(K + K.T, 2 * np.eye(order, dtype=K.dtype))):

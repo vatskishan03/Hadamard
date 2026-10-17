@@ -1491,11 +1491,19 @@ odd v ≤ 2499. Its theorems:
   - 16 · 879 and 16 · 921 (skew 1172 or 1228 times amicable 12).
 
   This supports reading the blanks as errors ([skew/2652](skew/2652), [skew/3516](skew/3516)).
-- **Three new orders.** With the 2026 objects, the only further improvements of Table 5 are 16v for v = 589, 611 and
+- **Four new orders.** With the 2026 objects, the only further improvements of Table 5 are 16v for v = 589, 611 and
   817, from Wallis's product of a skew order 4p with our amicable pairs of orders 52 and 76:
   - 9424 = 124 · 76;
   - 9776 = 188 · 52, with Đoković's skew 188 (arXiv:0704.0640);
   - 13072 = 172 · 76.
+
+  A fourth came afterwards. The skew-propus quadruple of length 31 under ⟨5⟩ (search/NOTES.md §31) gives an amicable
+  pair of order 124, where the classical minimum is 248. With the good matrices of order 29 (skew 116) it gives
+  14384 = 16 · 899, where Table 5 has 899(6) and the classical closure 899(5)
+  ([skew/14384](skew/14384)). A scan of every repository skew order against every classical or repository amicable
+  order finds nothing else below Table 5 for v ≤ 999. The amicable orders that would add more are 92, 116 and 148
+  (16 · 667, 16 · 851): length 23 has no skew-propus quadruple (91 ≠ a² + 2b²), length 29 has no admissible row sums
+  (115), and length 37 was searched only under subgroups of order 3 and 9 (search/NOTES.md §31).
 
   Every split into a skew order and a classical amicable order fails for these orders. For instance, 9424 = h m with m
   = 2 or 4 needs the open skew orders 4712 or 2356, and every larger classical amicable divisor (8, 16, 152, 248, 304,
