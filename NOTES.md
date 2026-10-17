@@ -1601,6 +1601,13 @@ already used the same Williamson-type matrices for an ordinary Hadamard matrix. 
 are not prime powers and have a symmetric conference matrix we know, 45 gives v = 91 (decided) and 1225 = 35² (from a
 skew-Hadamard matrix of order 36) gives q = 2449 = 31 · 79, not a prime power.
 
+**Skew cores.** The proof of Corollary 27(i) (Lemma 26 with U = (I, 0, BR, BR), V = (M, N, R, R)) uses of the Paley
+core B only that it is a skew core with an involutive anti-automorphism R, so any skew-Hadamard matrix of order
+(q + 3)/2 with an involutive anti-automorphism fixing two points gives symmetric Williamson-type matrices of order q + 2
+with a repeated block (the audit of October 17 checked it for the skew-propus quadruple of length 19, order 151). Our
+skew matrices of this kind (orders 52, 76, 100, 124) give v = 103, 151, 199 (all decided) and nothing for 124; 732 =
+4 · 183 would follow from such a skew matrix of order 92, which is not known.
+
 **Symmetric multiplication by odd t.** The propus array has no analogue of Cooper–Wallis's T-matrices in the natural
 form X_k = Σ_j M_kj ⊗ Y_j with symmetric commuting M_kj of disjoint supports: at the trivial character the row sums form
 an integer matrix with Mᵀ diag(1, 2, 1) M = t diag(1, 2, 1), which forces t to be a square (similar ternary forms have

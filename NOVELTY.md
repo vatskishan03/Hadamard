@@ -124,7 +124,8 @@ For every order we checked:
   Haviland's BYU thesis (2023) and Anderson–Haviland–Holmes–Humphries–Magland, Graphs Combin. 39 (2023), on skew
   relative difference sets in dicyclic groups, whose abstract describes one infinite family built from Ito's and
   Schmidt's results (our matrices of orders 60 and 132 have automorphism groups of order 2, so they are not
-  group-developed of that kind); Xia–Zuo–Lou–Xia, Trans. Comb. 13 (2024);
+  group-developed of that kind); Xia–Zuo–Lou–Xia, Trans. Comb. 13 (2024), read only through a summary of a cached
+  copy (its Theorems 2.6 and 2.9 and the sets S1–S3 reach none of our orders);
 - for the 48 symmetric orders 4q from Miyamoto's lemma in the propus array
   ([symmetric/PROPUS_MIYAMOTO.md](symmetric/PROPUS_MIYAMOTO.md)), checked on 17 October 2026: Seberry–Yamada, JCMCC 7
   (1990), Lemma 26, Corollary 29 and Remarks 19 and 30, and its Kobe version (Corollary 16, Remark 17); Seberry–Balonin,

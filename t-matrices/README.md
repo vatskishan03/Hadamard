@@ -28,8 +28,10 @@ the signs.
 | 181 | JD-Jones-ASES/Hadamard-T (2026-08-29) |
 | 197 | none found |
 
-For 97 and 109, which have the form 6m + 1, we could not check Lou, Xia and Xia,
-"On T-matrices of order 6m + 1". Treat those two as possibly known.
+For 97, 109, 151 and 163, which have the form 6m + 1, we could not check Lou, Xia and Xia, "On T-matrices of order
+6m + 1" (Adv. Appl. Discrete Math. 21 (2019), paywalled). Treat them as possibly known. Against it: Seberry and
+Yamada's book (2020, §1.16, p. 47), co-authored by Seberry, lists the known orders of T-matrices without 151 and 163,
+and Xia, Zuo, Lou and Xia (Trans. Comb. 13 (2024)) mention neither order.
 
 To check a file, the conditions are that every column of the 4 × t array has exactly
 one nonzero entry and that the periodic autocorrelations of the four rows sum to t

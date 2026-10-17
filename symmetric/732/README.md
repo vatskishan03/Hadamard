@@ -85,6 +85,10 @@ Table 2: "183 CW(3)"; Table 3: "183 Spence(13)"); the symmetry is what is new.
   - Đoković's q(q + 1) (arXiv:2508.17141) and m(m − 1) have no integer solution for 732.
   - The one route not ruled out is a symmetric conference matrix of order 366 (365 = 13² + 14²). None is known:
     Brouwer's table lists srg(365, 182, 90, 91) with "?".
+  - Seberry–Yamada's Corollary 27(i) (Lemma 26 with U = (I, 0, BR, BR) and Yamada's circulants, then the propus
+    array) works with the core of any skew-Hadamard matrix of order (q + 3)/2 that has an involutive
+    anti-automorphism fixing two points. With q = 181 it would need such a skew matrix of order 92. None is known: no
+    Goethals–Seidel skew matrix of order 92 has a block-monomial one ([search/NOTES.md](../../search/NOTES.md) §31).
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md). Doubling ([[H, H], [H, −H]]) gives symmetric
 Hadamard matrices of orders 1464, 2928, …
