@@ -28,6 +28,9 @@ published, but its input, our symmetric matrix of order 876, is from 2026.
 
 - The Đoković–Seberry census (2025-05-28) lists 1753 among its 595 undecided v for symmetric matrices; its
   Seberry–Balonin series uses the propus variation only for v = q + 2.
+- Seberry and Yamada list 1753 among the orders for which Corollary 29(ii) would give symmetric Williamson-type matrices
+  "when symmetric Hadamard matrices of orders … 4.219 … are discovered" (J. Combin. Math. Combin. Comput. 7 (1990),
+  Remark 30). A symmetric Hadamard matrix also needs the propus array (2015).
 - Ordinary Hadamard matrices of order 7012 are classical (Miyamoto's theorem, from a Hadamard matrix of order q − 1 =
   1752); the symmetry is what is new.
 

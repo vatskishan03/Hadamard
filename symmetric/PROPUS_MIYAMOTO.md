@@ -81,7 +81,7 @@ t_j = g¹⁻²ʲ (the non-squares), i, j ∈ ℤ_n, and M a symmetric Hadamard m
 U₁ = −[χ(s_i − s_j)],  U₂ = [χ(s_i − t_j)],  U₃ = U₄ = 0,      V₁ = I,  V₂ = 0,  V₃ = V₄ = M.
 ```
 
-These satisfy the conditions of Seberry and Balonin's Theorem 3:
+These satisfy the conditions of Seberry and Balonin's Theorem 3 (their indices 2 and 3 are our 3 and 4):
 
 - (i) U₁ is a symmetric circulant, since χ(s_i − s_j) = χ(g²⁽ⁱ⁻ʲ⁾ − 1) and χ(−1) = 1. U₂ is back-circulant, since
   χ(s_i − t_j) = χ(g⁻²ʲ) χ(g²⁽ⁱ⁺ʲ⁾ − g) depends on i + j only. A product of a symmetric circulant and a back-circulant
@@ -91,6 +91,10 @@ These satisfy the conditions of Seberry and Balonin's Theorem 3:
 - (iv) U₁ has row sum 1 and U₂ row sum 0, by the cyclotomic numbers of order 2 ((0, 0) = (q − 5)/4,
   (0, 1) = (q − 1)/4).
 - (v) U₁U₁ᵀ + U₂U₂ᵀ = qI − 2J (Seberry–Yamada, from Paley's core), and V₁V₁ᵀ + V₃V₃ᵀ + V₄V₄ᵀ = I + 2nI = qI.
+- (vi) U₃ = U₄ and V₃ = V₄.
+
+U₁ and U₂ have the properties of Yamada's matrices that Seberry and Yamada's Corollary 29 uses (their Remark 19); the
+formulas are ours.
 
 With S_k = U_k ⊗ J₂ + V_k ⊗ [[1, −1], [−1, 1]], W₁ = [[1, −e], [−eᵀ, S₁]] and W_k = [[1, e], [eᵀ, S_k]] (k = 2, 3,
 4), the theorem gives symmetric, pairwise commuting ±1 matrices of order q with W₁² + W₂² + W₃² + W₄² = 4qI, and
@@ -105,7 +109,8 @@ H = [[A,  B,  B,  D],
 ```
 
 is symmetric, its diagonal blocks of H Hᵀ = H² are A² + 2B² + D² = 4qI, and each off-diagonal block is a sum of
-commutators, e.g. AB + BD − BA − DB = 0. So H is a symmetric Hadamard matrix of order 4q. The condition q ≡ 1 (mod 8)
+commutators, e.g. AB + BD − BA − DB = 0. So H is a symmetric Hadamard matrix of order 4q. (The array needs only
+W₃² = W₄²: V₄ = −M also works.) The condition q ≡ 1 (mod 8)
 is only that n = (q − 1)/2 is the order of a Hadamard matrix (q = 5 gives order 20).
 
 Two of the four matrices must be equal: no symmetric orthogonal design of order 4 has four distinct variables, since
@@ -137,10 +142,15 @@ are not prime powers, and 16 · 133 + 1 = 2129 already has a Paley input.
   (Seberry–Balonin 2015/2017) and the inputs (Paley's matrices, the propus matrices of 2015–2019) were all published,
   and only their combination is new. 7012 is **New**: its input, our symmetric matrix of order 876, is from 2026.
 - The census lists all 48 values as undecided. Its Seberry–Balonin series is v = q + 2 with (q + 1)/2 a prime power or
-  the order of the core of a symmetric conference matrix (Seberry–Balonin's Corollary 1). Its remark on Miyamoto
+  the order of the core of a symmetric conference matrix (Seberry–Balonin's Corollary 1, which prints the order as
+  4(2q + 1) with q in place of (q + 1)/2). It is ≡ 3 (mod 4), disjoint from the values here. Its remark on Miyamoto
   (J. Combin. Theory Ser. A 57 (1991), Theorem 5) concerns a different claim: a Hadamard matrix of order 4q "of
   symmetric block form" from a conference matrix of order q + 1 and a symmetric Hadamard matrix of order q − 1, which
   the census says the proof does not give.
+- Seberry and Yamada (1990, Remark 30) list every q ≤ 1873 of the table among the orders of symmetric Williamson-type
+  matrices from Corollary 29(ii), and 233, 1753 and 1889 among those that would follow "when symmetric Hadamard
+  matrices of orders 4.29, … 4.219, 16.59 … are discovered". The Williamson-type matrices were therefore classical; the
+  symmetric Hadamard matrices need the propus array of 2015.
 - Ordinary Hadamard matrices of all these orders are classical (Miyamoto's theorem). Doubling gives symmetric matrices
   of orders 8q, 16q, ….
 

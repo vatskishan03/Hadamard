@@ -10,8 +10,8 @@ A Hadamard matrix H is symmetric if H = Hᵀ. This one is the case q = 361 of th
 
 - **The input.** A symmetric Hadamard matrix M of order 180: the symmetric member P + N of Paley's amicable pair of
   order 180 (q′ = 179 ≡ 3 mod 4).
-- **The field.** GF(361) = GF(19)[x]/(x² + 1x + 2), with g = x primitive; χ is the quadratic character, s_i = g²ⁱ and
-  t_j = g¹⁻²ʲ (i, j < 180).
+- **The field.** GF(361) = GF(19)[x]/(x² + x + 2), with g = x primitive; χ is the quadratic character, s_i = g²ⁱ and t_j
+  = g¹⁻²ʲ (i, j < 180).
 - **Williamson-type matrices.** U₁ = −[χ(s_i − s_j)], U₂ = [χ(s_i − t_j)], U₃ = U₄ = 0 and V = (I, 0, M, M) give W₁ =
   [[1, −e], [−eᵀ, S₁]] and W_k = [[1, e], [eᵀ, S_k]] (k > 1), with S_k = U_k ⊗ J₂ + V_k ⊗ [[1, −1], [−1, 1]]. They are
   symmetric and pairwise amicable, Σ W_k W_kᵀ = 1444 I, and W₃ = W₄.
@@ -30,6 +30,8 @@ arXiv:1512.01732) and the input were all published, and we found them combined n
 
 - The Đoković–Seberry census (2025-05-28) lists 361 among its 595 undecided v for symmetric matrices; its
   Seberry–Balonin series uses the propus variation only for v = q + 2.
+- Seberry and Yamada list 361 among the orders of symmetric Williamson-type matrices that Corollary 29(ii) gives (J.
+  Combin. Math. Combin. Comput. 7 (1990), Remark 30). A symmetric Hadamard matrix also needs the propus array (2015).
 - Ordinary Hadamard matrices of order 1444 are classical (Miyamoto's theorem, from a Hadamard matrix of order q − 1 =
   360); the symmetry is what is new.
 

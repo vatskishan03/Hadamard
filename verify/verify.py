@@ -583,15 +583,16 @@ def _symmetric_input(spec):
 def build_symmetric_propus_miyamoto(cert):
     """Symmetric Hadamard matrix of order 4q, q = 1 (mod 8) a prime power, from a symmetric Hadamard matrix M of order
     n = (q - 1)/2. Seberry and Yamada's Corollary 29(ii) (JCMCC 7 (1990); their 1992 Corollary 8.8(ii), through
-    Miyamoto's lemma) builds, from Yamada's matrices U_1 = -[chi(s_i - s_j)], U_2 = [chi(s_i - t_j)] over GF(q)
-    (s_i = g^(2i), t_j = g^(1 - 2j), g primitive, chi the quadratic character), U_3 = U_4 = 0 and V = (I, 0, M, M),
-    the matrices
+    Miyamoto's lemma) builds, from matrices with the properties of Yamada's (their Remark 19), here
+    U_1 = -[chi(s_i - s_j)] and U_2 = [chi(s_i - t_j)] over GF(q) (s_i = g^(2i), t_j = g^(1 - 2j), g primitive, chi the
+    quadratic character), with U_3 = U_4 = 0 and V = (I, 0, M, M), the matrices
 
         W_1 = [[1, -e], [-e^T, S_1]],   W_k = [[1, e], [e^T, S_k]] (k > 1),   S_k = U_k (x) J_2 + V_k (x) [[1, -1], [-1, 1]],
 
     which are symmetric, pairwise amicable, with sum W_k W_k^T = 4q I, and W_3 = W_4 because U_3 = U_4 and V_3 = V_4.
-    That repeated block is the hypothesis of Seberry and Balonin's propus variation of Miyamoto's lemma (arXiv:1512.01732,
-    Lemma 3), and the propus array
+    That repeated block is hypothesis (vi) of Seberry and Balonin's propus variation of Miyamoto's lemma (Australas. J.
+    Combin. 69 (2017), Theorem 3; Lemma 3 of arXiv:1512.01732), with their indices 2, 3 for our 3, 4, and the propus
+    array
 
         H = [[W_1, W_3, W_3, W_2], [W_3, W_2, -W_1, -W_3], [W_3, -W_1, -W_2, W_3], [W_2, -W_3, W_3, -W_1]]
 
