@@ -49,6 +49,15 @@ def circulant(row):
     return row[(idx[None, :] - idx[:, None]) % n]
 
 
+def circulant8(row):
+    """The circulant of a +-1 row as an int8 matrix, without int64 index arrays (for large orders)."""
+    row = np.asarray(row).astype(np.int8)
+    n = len(row)
+    w = np.concatenate([row, row])
+    view = np.lib.stride_tricks.as_strided(w[n:], shape=(n, n), strides=(-w.strides[0], w.strides[0]))
+    return np.ascontiguousarray(view)
+
+
 def back_identity(n):
     R = np.zeros((n, n), dtype=np.int64)
     R[np.arange(n), n - 1 - np.arange(n)] = 1
@@ -1264,12 +1273,19 @@ def build_paley_blocks(cert):
     if not (_is_prime(q) and q % 8 == 3):
         raise ValueError("q must be a prime = 3 (mod 8)")
     s = (q + 1) // 4
-    if math.gcd(s, t) != 1 or s * t != cert["v"]:
-        raise ValueError("v must be s t with gcd(s, t) = 1")
-    chi = np.array([0] + [1 if pow(x, (q - 1) // 2, q) == 1 else -1 for x in range(1, q)], dtype=np.int64)
-    U = [(1, x) for x in range(q)] + [(0, q - 1)]
-    P = np.array([[(1 if a == b else 0) + chi[(U[a][0] * U[b][1] - U[a][1] * U[b][0]) % q]
-                   for b in range(q + 1)] for a in range(q + 1)], dtype=np.int64)
+    grouped = math.gcd(s, t) != 1
+    if s * t != cert["v"] or grouped != (cert.get("group") == f"Z{t} x Z{s}"):
+        raise ValueError("v must be s t, with group Z_t x Z_s recorded exactly when gcd(s, t) > 1")
+    chi = np.full(q, -1, dtype=np.int8)
+    chi[0] = 0
+    chi[(np.arange(1, q, dtype=np.int64) ** 2) % q] = 1
+    u0 = np.array([1] * q + [0], dtype=np.int64)
+    u1 = np.array(list(range(q)) + [q - 1], dtype=np.int64)
+    P = np.empty((q + 1, q + 1), dtype=np.int8)
+    for a in range(0, q + 1, 1024):                         # P[a, b] = [a = b] + chi(det(u_a, u_b)), by row blocks
+        r = slice(a, min(a + 1024, q + 1))
+        P[r] = chi[(u0[r, None] * u1[None, :] - u1[r, None] * u0[None, :]) % q]
+    P[np.arange(q + 1), np.arange(q + 1)] += 1
     def step(x):                                           # x -> -1/(x + tau) on PG(1, q)
         if x == q:
             return 0
@@ -1289,10 +1305,11 @@ def build_paley_blocks(cert):
             cyc.append(cy)
     if sorted(len(cy) for cy in cyc) != [s] * 4:
         raise ValueError("g does not have four cycles of length s")
-    Pg = P[np.ix_(g, g)]
-    e = P[0] * Pg[0]
-    if not np.array_equal(e[:, None] * e[None, :] * P, Pg):
-        raise ValueError("g is not a signed automorphism of Paley's matrix")
+    e = (P[0] * P[g[0], g]).astype(np.int8)
+    for a in range(0, q + 1, 1024):                         # P(ga, gb) = e(a) e(b) P(a, b), by row blocks
+        r = slice(a, min(a + 1024, q + 1))
+        if not np.array_equal(e[r, None] * e[None, :] * P[r], P[np.ix_(g[r], g)]):
+            raise ValueError("g is not a signed automorphism of Paley's matrix")
     E = np.zeros(q + 1, dtype=np.int64)
     for cy in cyc:
         E[cy[0]] = 1
@@ -1300,9 +1317,10 @@ def build_paley_blocks(cert):
             E[cy[a]] = c * e[cy[a - 1]] * E[cy[a - 1]]
         if c * e[cy[-1]] * E[cy[-1]] != 1:
             raise ValueError("sign normalisation does not close")
-    order = [a for cy in cyc for a in cy]
-    B = (E[:, None] * P * E[None, :])[np.ix_(order, order)]
-    N = [[B[k * s, j * s:(j + 1) * s] for j in range(4)] for k in range(4)]
+    order = np.array([a for cy in cyc for a in cy])
+    E8 = E.astype(np.int8)
+    B = (E8[order, None] * P[np.ix_(order, order)] * E8[None, order]).astype(np.int8)
+    N = [[B[k * s, j * s:(j + 1) * s].astype(np.int64) for j in range(4)] for k in range(4)]
     for k in range(4):
         for j in range(4):
             if not np.array_equal(B[k * s:(k + 1) * s, j * s:(j + 1) * s], circulant(N[k][j])):
@@ -1312,14 +1330,33 @@ def build_paley_blocks(cert):
         raise ValueError("T-matrices must be four rows of length t with disjoint supports covering Z_t")
     if not np.array_equal(sum(circulant(r) @ circulant(r).T for r in T), t * np.eye(t, dtype=np.int64)):
         raise ValueError("not T-matrices")
-    x = np.arange(s * t)
-    seqs = [sum(T[k][x % t] * N[k][j][x % s] for k in range(4)) for j in range(4)]
+    if grouped:                                            # Z_t x Z_s, element (i, a) at index i s + a
+        seq2 = [sum(np.outer(T[k], N[k][j]) for k in range(4)) for j in range(4)]
+        seqs = [a.reshape(-1) for a in seq2]
+    else:
+        x = np.arange(s * t)
+        seqs = [sum(T[k][x % t] * N[k][j][x % s] for k in range(4)) for j in range(4)]
     if [("".join("+" if v > 0 else "-" for v in a)) for a in seqs] != cert["sequences"]:
         raise ValueError("the sequences differ from the rebuilt ones")
-    paf = paf_sum(seqs)
+    if grouped:
+        paf = sum(np.array([[int((a * np.roll(np.roll(a, -di, 0), -da, 1)).sum()) for da in range(s)]
+                            for di in range(t)]) for a in seq2).reshape(-1)
+    else:
+        paf = paf_sum(seqs)
     if paf[0] != 4 * s * t or np.any(paf[1:] != 0):
         raise ValueError("sequences are not complementary")
-    return goethals_seidel(*map(circulant, seqs)), seqs
+    if not grouped:
+        return goethals_seidel(*map(circulant8, seqs)), seqs
+    it, ia = np.arange(t), np.arange(s)
+    dt, ds = (it[None, :] - it[:, None]) % t, (ia[None, :] - ia[:, None]) % s
+    gm = [a.astype(np.int8)[dt[:, None, :, None], ds[None, :, None, :]].reshape(s * t, s * t) for a in seq2]
+    neg = (((-it) % t)[:, None] * s + ((-ia) % s)[None, :]).reshape(-1)    # R[g, h] = [g + h = 0]: X R = X[:, neg]
+    A, B, C, D = gm
+    rv = lambda X: X[:, neg]
+    return np.block([[A, rv(B), rv(C), rv(D)],
+                     [-rv(B), A, rv(D.T), -rv(C.T)],
+                     [-rv(C), -rv(D.T), A, rv(B.T)],
+                     [-rv(D), rv(C.T), -rv(B.T), A]]), seqs
 
 
 BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": build_goethals_seidel_group,

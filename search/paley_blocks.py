@@ -15,6 +15,7 @@
     python3 search/paley_blocks.py check 1051              # the 16 circulant blocks of Paley's matrix of order 1052
     python3 search/paley_blocks.py quad 1051 3 out.json    # GS quadruple of length 789 (T-matrices of order 3)
     python3 search/paley_blocks.py certify 1051 3          # hadamard/3156/certificate.json and sequences.txt
+    python3 search/paley_blocks.py certify 523 29 T29.txt  # with T-matrices read from a file (four rows over 0, +, -)
 """
 import json
 import sys
@@ -26,13 +27,18 @@ def is_prime(n):
 
 
 def paley(q):
-    """Paley's skew-Hadamard matrix of order q + 1 on the points 0..q-1, q (= infinity)"""
-    chi = np.array([0] + [1 if pow(x, (q - 1) // 2, q) == 1 else -1 for x in range(1, q)], np.int64)
+    """Paley's skew-Hadamard matrix of order q + 1 on the points 0..q-1, q (= infinity), as int8"""
+    chi = np.full(q, -1, np.int8)
+    chi[0] = 0
+    chi[(np.arange(1, q, dtype=np.int64) ** 2) % q] = 1
     x = np.arange(q)
-    S = np.zeros((q + 1, q + 1), np.int64)
-    S[:q, :q] = chi[(x[None, :] - x[:, None]) % q]
+    S = np.zeros((q + 1, q + 1), np.int8)
+    for a in range(0, q, 1024):
+        b = min(a + 1024, q)
+        S[a:b, :q] = chi[(x[None, :] - x[a:b, None]) % q]
     S[q, :q], S[:q, q] = 1, -1
-    return S + np.eye(q + 1, dtype=np.int64)
+    S[np.arange(q + 1), np.arange(q + 1)] += 1
+    return S
 
 
 def mobius(q, a, b, c, d):
@@ -81,9 +87,11 @@ def blocks(q):
     s, n = (q + 1) // 4, q + 1
     H = paley(q)
     g, tau, kpow = torus_element(q)
-    Hg = H[np.ix_(g, g)]                                  # Hg[x, y] = H(gx, gy) = e(x) e(y) H(x, y)
-    e = H[0] * Hg[0]                                      # e(0) e(y), with e(0) := 1
-    assert np.array_equal(e[:, None] * e[None, :] * H, Hg), "g is not a signed automorphism"
+    e = H[0] * H[g[0], g]                                 # e(0) e(y), with e(0) := 1, from H(gx, gy) = e(x) e(y) H(x, y)
+    for a in range(0, n, 1024):
+        assert np.array_equal(e[a:a + 1024, None] * e[None, :] * H[a:a + 1024], H[np.ix_(g[a:a + 1024], g)]), \
+            "g is not a signed automorphism"
+    e = e.astype(np.int64)
     cyc = cycles(g)
     for c in (1, -1):
         E, ok = np.zeros(n, np.int64), True
@@ -95,16 +103,19 @@ def blocks(q):
         if ok:
             break
     assert ok, "sign normalisation failed"
-    order = [x for cy in cyc for x in cy]
-    Hb = (E[:, None] * H * E[None, :])[np.ix_(order, order)]
+    order = np.array([x for cy in cyc for x in cy])
+    E8 = E.astype(np.int8)
+    Hb = E8[order, None] * H[np.ix_(order, order)] * E8[None, order]
+    del H
     N = [[Hb[k * s:(k + 1) * s, j * s:(j + 1) * s] for j in range(4)] for k in range(4)]
+    idx = np.arange(s)
     for k in range(4):
         for j in range(4):
             r = N[k][j][0]
-            assert all(np.array_equal(N[k][j][a], np.roll(r, a)) for a in range(s)), f"block {k},{j} not circulant"
+            assert np.array_equal(N[k][j], r[(idx[None, :] - idx[:, None]) % s]), f"block {k},{j} not circulant"
     F = Hb.astype(np.float32)                              # exact: integer sums of at most n < 2^24 terms +-1
     assert np.array_equal(F @ F.T, n * np.eye(n, dtype=np.float32))
-    return [[N[k][j][0] for j in range(4)] for k in range(4)], Hb, {"tau": tau, "power": kpow, "c": c}
+    return [[N[k][j][0].astype(np.int64) for j in range(4)] for k in range(4)], Hb, {"tau": tau, "power": kpow, "c": c}
 
 
 def base_sequences(m):
@@ -146,15 +157,33 @@ def t_matrices(t):
     return T
 
 
+def load_t(path):
+    """T-matrices from a file of four first rows over 0, +, - (as in t-matrices/), checked"""
+    rows = [l.strip() for l in open(path) if l.strip() and not l.startswith('#')]
+    T = np.array([[{'0': 0, '+': 1, '-': -1}[ch] for ch in r] for r in rows], np.int64)
+    t = T.shape[1]
+    assert T.shape[0] == 4 and (np.abs(T).sum(0) == 1).all()
+    paf = sum(np.array([int(r @ np.roll(r, -d)) for d in range(t)]) for r in T)
+    assert paf[0] == t and not paf[1:].any(), "not T-matrices"
+    return T
+
+
 def quadruple(q, T):
-    """GS quadruple of length n = s t (gcd(s, t) = 1): A_j(x) = sum_k T_k(x mod t) N_kj(x mod s) via CRT"""
+    """GS quadruple of length n = s t: A_j(x) = sum_k T_k(x mod t) N_kj(x mod s) via CRT when gcd(s, t) = 1; otherwise
+    A_j(i, a) = sum_k T_k(i) N_kj(a) on Z_t x Z_s, flattened as i s + a"""
     Nrow, _, info = blocks(q)
     s, t = (q + 1) // 4, T.shape[1]
-    assert np.gcd(s, t) == 1
     n = s * t
-    x = np.arange(n)
-    A = [sum(T[k][x % t] * Nrow[k][j][x % s] for k in range(4)) for j in range(4)]
-    paf = sum(np.array([int(a @ np.roll(a, -d)) for d in range(n)]) for a in A)
+    if np.gcd(s, t) == 1:
+        x = np.arange(n)
+        A = [sum(T[k][x % t] * Nrow[k][j][x % s] for k in range(4)) for j in range(4)]
+        paf = sum(np.array([int(a @ np.roll(a, -d)) for d in range(n)]) for a in A)
+    else:
+        A2 = [sum(np.outer(T[k], Nrow[k][j]) for k in range(4)) for j in range(4)]
+        paf = sum(np.array([[int((a * np.roll(np.roll(a, -di, 0), -da, 1)).sum()) for da in range(s)] for di in range(t)])
+                  for a in A2).reshape(-1)
+        A = [a.reshape(-1) for a in A2]
+        info = {**info, "group": f"Z{t} x Z{s}"}
     assert set(np.unique(np.concatenate(A))) <= {-1, 1}
     assert paf[0] == 4 * n and not paf[1:].any(), "PAF sum is not zero"
     return A, info
@@ -181,10 +210,12 @@ if __name__ == "__main__":
         sys.path.insert(0, str(root / "verify"))
         import verify as V
         q, t = int(sys.argv[2]), int(sys.argv[3])
-        T = t_matrices(t)
+        T = load_t(sys.argv[4]) if len(sys.argv) > 4 else t_matrices(t)
+        assert T.shape[1] == t
         A, info = quadruple(q, T)
         n = len(A[0])
-        cert = {"order": 4 * n, "construction": "paley-blocks", "v": n, "q": q, "t": t, **{k: int(v) for k, v in info.items()},
+        cert = {"order": 4 * n, "construction": "paley-blocks", "v": n, "q": q, "t": t,
+                **{k: (v if isinstance(v, str) else int(v)) for k, v in info.items()},
                 "T": ["".join("0+-"[int(v)] for v in r) for r in T],
                 "sequences": ["".join("+" if v > 0 else "-" for v in a) for a in A]}
         H, _ = V.build_paley_blocks(cert)
