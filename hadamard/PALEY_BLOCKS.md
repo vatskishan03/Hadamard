@@ -50,9 +50,10 @@ program finds the base sequences by a meet in the middle. Each certificate lists
 
 **Reach.** We checked every entry of [FRONTIER.md](../FRONTIER.md) against every prime power q ≡ 3 (mod 8) with
 (q + 1)/4 dividing n and every T-matrix order we know, allowing gcd(s, t) > 1 (the Goethals–Seidel array over
-ℤ_t × ℤ_s). Exactly the fourteen orders above come out. The route also reaches six further entries of Cati–Pasechnik
-Table 4, which 2026 constructions have since settled: 1359 = 453 · 3 (q = 1811), 1441 = 131 · 11, 1703 = 131 · 13,
-2227 = 131 · 17, 2489 = 131 · 19 (q = 523) and 2335 = 467 · 5 (q = 1867).
+ℤ_t × ℤ_s). Exactly the fourteen orders above come out. The route also reaches seven further entries of Cati–Pasechnik
+Table 4, which 2026 constructions have since settled: 1359 = 453 · 3 (q = 1811), 917 = 131 · 7, 1441 = 131 · 11,
+1703 = 131 · 13, 2227 = 131 · 17, 2489 = 131 · 19 (q = 523) and 2335 = 467 · 5 (q = 1867). (An earlier version
+listed six and missed 917; `paley_blocks.py quad 523 7` gives its quadruple.)
 
 ## Status
 
@@ -100,9 +101,12 @@ entries with t ≥ 3 or settled by Đoković in 2010 it reaches, we built 117, o
 - For seven of them gcd(s, t) > 1 (16300, 17532, 18036, 23724, 26604, 27036 and 37436), and the sequences live on ℤ_t
   × ℤ_s. For 25132, 36844 and 39772, q = 243 = 3⁵.
 - Other routes reach some of them, and their READMEs say so. Cooper–Wallis with the T-matrices of order 131 of London
-  and Kotsireas (2025) reaches 12052, 15196, 16244, 20436, 21484, 25676, 27772 and 38252 (we could not read that
-  paper, which may list them). Cooper–Wallis with T-matrices posted in 2026 reaches 16300, 16308, 19932, 21836,
-  32012, 33220, 34556, 36844 and 39772. Kiyasu's theorem reaches 15196 from our skew-Hadamard matrix of order 1900.
+  and Kotsireas (2025) reaches 12052, 15196, 16244, 18340, 20436, 21484, 25676, 27772, 28820 and 38252 (for 18340 with
+  Đoković's good matrices of order 35; we could not read that paper, which may list them), and Yang's multiplication of
+  the same base sequences by 59 reaches 30916. With the Williamson-type matrices of order 47 of 2026 the T-matrices of
+  order 131 also reach 24628. (18340, 28820, 30916 and 24628 were added by the closure audit of October 17,
+  [NOTES.md](../NOTES.md) §28.) Cooper–Wallis with T-matrices posted in 2026 reaches 16300, 16308, 19932, 21836, 32012,
+  33220, 34556, 36844 and 39772. Kiyasu's theorem reaches 15196 from our skew-Hadamard matrix of order 1900.
 - 19028, 34196 and 39260 were already in this repository, by Cooper–Wallis.
 - 28820 = 4 · 5 · 11 · 131 needs T-matrices of order 55, which SageMath does not store. We built them from base
   sequences BS(6, 5) by Yang's multiplication by 5 (Seberry–Yamada 1992, Theorem 5.23, with the Golay pair of length

@@ -34,8 +34,12 @@ odd part 7729 had order 2³ · 7729. The order lies above the range of Cati–Pa
   powers.
 - Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 7730 cannot exist (7729 is not a sum
   of two squares); Yamada–Kiyasu does not apply: n − 2 = 7727 is ≡ 7 (mod 8).
-- Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
-  matrices of order b, and no such pair is known to us.
+- Cooper–Wallis applies as well, from inputs published before 2026 (Đoković's Proposition 2.1, arXiv:0912.5091):
+  Yang's multiplication of the base sequences BS(87, 44), which the Turyn-type sequences TT(44) of London and
+  Kotsireas (Cryptogr. Commun. 17 (2025)) give, by the Yang number 59 (normal sequences NS(29), used by Đoković in
+  2009) gives T-sequences of length 59 · 131 = 7729, hence an OD(4 · 7729; 7729, 7729, 7729, 7729). An earlier version
+  of this README said that Cooper–Wallis does not apply; the closure audit of October 17 found the route
+  ([NOTES.md](../../NOTES.md) §28).
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(30916, existence=True)`
   returns Unknown.
 

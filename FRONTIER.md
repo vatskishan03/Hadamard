@@ -5,7 +5,9 @@ is known. The other 65 entries are settled:
 
 - 12 by Alpöge, Voinov and Reynolds-Haertle (2026);
 - 19 by other public constructions of 2026 (Schneider; the JD-Jones-ASES repositories Hadamard-T and Hadamard-M;
-  Schumer);
+  Schumer). Five of them, n = 131 · 7, 131 · 11, 131 · 13, 131 · 17 and 131 · 19, were already reachable in 2025:
+  Cooper–Wallis with T-matrices of order 131 (from the Turyn-type sequences TT(44) of London and Kotsireas, Cryptogr.
+  Commun. 17 (2025)) and Williamson matrices of those orders ([NOTES.md](NOTES.md) §28);
 - 6 by Đoković in 2010 (n = 823, 883, 1063, 1303, 2143 and 2335, by Yamada's theorems; arXiv:1008.2043,
   Propositions 3.1 and 3.4);
 - 1 in 1988: n = 1823, from the symmetric conference matrix of order 3646 of Seberry and Whiteman, which the tables

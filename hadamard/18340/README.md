@@ -35,8 +35,11 @@ odd part 4585 had order 2³ · 4585. The order lies above the range of Cati–Pa
 - Paley's constructions do not apply: 4n − 1 = 18339 = 3 · 6113 and 2n − 1 = 9169 = 53 · 173 are not prime powers.
 - Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 4586 cannot exist (4585 is not a sum
   of two squares); Yamada–Kiyasu does not apply: n − 2 = 4583 is ≡ 7 (mod 8).
-- Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
-  matrices of order b, and no such pair is known to us.
+- Cooper–Wallis applies as well, from inputs published before 2026 (Đoković's Proposition 2.1, arXiv:0912.5091):
+  T-sequences of length 131 from the base sequences BS(87, 44) that the Turyn-type sequences TT(44) of London and
+  Kotsireas (Cryptogr. Commun. 17 (2025)) give, and Williamson-type matrices of order 35 (Đoković's good matrices,
+  JCMCC 14 (1993); Handbook Table V.1.50). An earlier version of this README said that Cooper–Wallis does not apply;
+  the closure audit of October 17 found the route ([NOTES.md](../../NOTES.md) §28).
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(18340, existence=True)`
   returns Unknown.
 
