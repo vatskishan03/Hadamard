@@ -156,8 +156,11 @@ matrices are not stored (up to 7 GB as CSV); `python3 verify/verify.py <order>` 
 | [38468](38468) | 9617 = 59 · 163 | Cooper–Wallis: T-matrices of order 163, near-Williamson matrices of order 59 | New, beyond the tables |
 | [38636](38636) | 9659 = 13 · 743 | Paley's matrix of order 2972 in sixteen circulant blocks, T-matrices of order 13 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [39012](39012) | 9753 = 3 · 3251 | Paley's matrix of order 13004 in sixteen circulant blocks, T-matrices of order 3 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
+| [39028](39028) | 9757 = 11 · 887 | Paley's matrix of order 3548 in sixteen circulant blocks, T-matrices of order 11 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [39260](39260) | 9815 = 5 · 13 · 151 | Cooper–Wallis: T-matrices of order 151, near-Williamson matrices of order 65 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
+| [39540](39540) | 9885 = 3 · 5 · 659 | Paley's matrix of order 7908 in sixteen circulant blocks, T-matrices of order 5 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [39772](39772) | 9943 = 61 · 163 | Paley's matrix of order 244 in sixteen circulant blocks, T-matrices of order 163 | New, beyond the tables |
+| [39916](39916) | 9979 = 17 · 587 | Paley's matrix of order 2348 in sixteen circulant blocks, T-matrices of order 17 | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [40244](40244) | 10061 | Miyamoto (q = 10061) from the matrix of order [10060](10060) | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [45044](45044) | 11261 | Miyamoto (q = 11261) from the matrix of order [11260](11260) | New, beyond the tables; obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [51580](51580) | 12895 = 5 · 2579 | Yamada–Kiyasu (q = 12893) from a skew-Hadamard matrix of order 6448, [skew 1612](../skew/1612) doubled twice | New, beyond the tables |
