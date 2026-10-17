@@ -184,6 +184,8 @@ gzip -dc hadamard/2092/H2092.csv.gz | ./check_matrix
 | Skew difference families: compression chains, Paley products, low-energy k-trees | skew orders | [skew](skew), [search/NOTES.md](search/NOTES.md) §10–16, §20 |
 | Paley's matrix in sixteen negacyclic blocks, Frobenius pairing, T-matrices of order 3 | skew 3(q + 1): 996 to 14352 | [skew/PALEY_SKEW.md](skew/PALEY_SKEW.md), [NOTES.md](NOTES.md) §27 |
 | Propus quadruples and the symmetric m(m − 1), m(m + 3) constructions | symmetric orders | [symmetric](symmetric), [search/NOTES.md](search/NOTES.md) §17, §27–31 |
+| Miyamoto's lemma in the propus array; its V-part replaced by a symmetric weighing matrix from any Hadamard matrix | symmetric 4q: 356 to 9892 | [symmetric/PROPUS_MIYAMOTO.md](symmetric/PROPUS_MIYAMOTO.md), [symmetric/PROPUS_WEIGHING.md](symmetric/PROPUS_WEIGHING.md), [NOTES.md](NOTES.md) §29–30 |
+| Yamada–Kiyasu matrices in symmetric quaternary form, and Turyn's map | symmetric 4(q + 2): 1180 to 9340 | [symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md), [NOTES.md](NOTES.md) §31 |
 | Szöllősi's array, its bordered, character-bordered and twisted forms | complex orders | [complex-hadamard](complex-hadamard) |
 | Cooper–Wallis with T-matrices, near-Williamson and bordered Williamson-type matrices | 12596 to 39260 | [williamson-type](williamson-type), [t-matrices](t-matrices) |
 

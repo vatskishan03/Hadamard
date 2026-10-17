@@ -9,7 +9,8 @@ symmetric route of the literature, Seberry–Yamada's Corollary 27(i) in Seberry
 symmetric conference core, or (NOTES.md §29) a skew core with an involutive anti-automorphism, so that the
 Williamson-type matrices have a repeated block. Here the repeated block is not needed: Yamada's Lemma 26 data are put in
 quaternary form, as a symmetric matrix L with entries ±1, ±i and L L̄ = 2(q + 2)I, and Turyn's map
-[[X + Y, X − Y], [X − Y, −X − Y]] of L = X + iY is a symmetric Hadamard matrix.
+[[X + Y, X − Y], [X − Y, −X − Y]] of L = X + iY is a symmetric Hadamard matrix (the map is classical: Seberry–Yamada
+1992, Lemma 11.3 with a = b = 1, symmetric whenever L is).
 
 The theorem settles 27 values of the Đoković–Seberry census (2025-05-28), from v = 295 to 2335. For 295 the skew-propus
 route of NOTES.md §29 had failed (no skew-propus quadruple of length 37, search/NOTES.md §49).
@@ -138,9 +139,17 @@ would decide one more symmetric value.
 
 ## Status
 
-- All 27 orders are **New** (to our knowledge, pending the audit of the literature recorded in [NOTES.md](../NOTES.md)
-  §31): their census values are undecided, and we found the symmetric form of Yamada's matrix nowhere. Ordinary
-  Hadamard matrices of all these orders are classical (Yamada 1989, Theorem 4); the symmetry is what is new.
+- All 27 orders are **New**: their census values are undecided, and we found the symmetric form of Yamada's matrix
+  nowhere (audit of 17 October 2026). Ordinary Hadamard matrices of all these orders are classical (Yamada 1989,
+  Theorem 4, announced in Proc. Japan Acad. 63 (1987); Đoković, arXiv:1008.2043, applies it to 823, 1063, 1303, 2143
+  and 2335); the symmetry is what is new.
+  - The symmetric case published so far is Paley's skew core: Seberry–Yamada's Corollary 27(i) (JCMCC 7 (1990); 1992
+    survey, Corollary 8.7; book of 2020, Corollary 6.3) gives Williamson-type matrices with a repeated block when
+    (q + 1)/2 is a prime power, and Seberry–Balonin's propus array (2017; the order corrected by Balonin–Đoković,
+    arXiv:1803.08787) makes them symmetric. For none of the 27 values is (q + 1)/2 a prime power.
+  - Not read: Kiyasu's book (1980, in Japanese) and his 1974 series, which state the ordinary result; the full text
+    of Seberry–Yamada (2020), chapters 3 and 6 and pp. 211–214; Miyamoto (1991). The census of 2025, co-authored by
+    Seberry, lists all 27 values as undecided.
 - **Zaitsev et al.** The page [Quaternary Hadamard matrices](https://www.cs.uleth.ca/~zaitsevv/quaternary.html) of
   Zaitsev, Kharaghani, Mohammadian and Tayfeh-Rezaie (last updated 14 October 2026) lists quaternary Hadamard matrices
   QH590, QH638, QH782 and QH926 under "unpublished approaches". They are of this Yamada–Kiyasu kind (we recovered

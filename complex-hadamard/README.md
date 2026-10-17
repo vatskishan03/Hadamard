@@ -321,3 +321,10 @@ A second correction: the 11 orders of the first table were labelled New until we
 2026. They are Concurrent: the page lists all 11, and its last modification (15 October 2026, 02:50 UTC) precedes our
 commits of 214 and 366. Every matrix file on the page carries the same HTTP date, 27 August 2026 (also the order-118
 file, which existed in May), so that date marks an upload or copy, not when each matrix was found.
+
+**Yamada–Kiyasu in quaternary form (17 October 2026).** The symmetric quaternary matrix L of
+[NOTES.md](../NOTES.md) §31 ([symmetric/YAMADA_KIYASU.md](../symmetric/YAMADA_KIYASU.md)) is a complex Hadamard matrix
+of order 2(q + 2) for every prime power q ≡ 5 (mod 8) with a skew-Hadamard matrix of order (q + 3)/2. It gives 206
+(q = 101), 302 (q = 149) and 366 (q = 181) from Szekeres's good matrices of orders 13, 19 and 23 (checked exactly), and
+Zaitsev's QH590, QH638, QH782 and QH926 are of this kind. For no open N is N − 2 a prime power ≡ 5 (mod 8), so it
+settles no open complex order.
