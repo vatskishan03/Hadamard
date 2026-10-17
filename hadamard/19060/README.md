@@ -35,10 +35,15 @@ search/miyamoto_blocks.py certify 953 5 "wt:cor25(turyn(13), circ(17))"` writes 
 1.53 of the Handbook of Combinatorial Designs (2nd ed., 2007) gives n = 4765 with t = 3, and Đoković (arXiv:0912.5091)
 lists it in his set Δ of entries that should have had t = 2. His proof for Δ takes Williamson-type matrices from
 Seberry–Yamada's Table A.1 (1992); for 4765 they are of order 953, which Table A.1 obtains only from Corollary 8.8(i)
-(key wl, with an Hadamard matrix of order 476 = (953 − 1)/2 (Seberry–Yamada, Remark 30)). The printed proof of that
-corollary does not give Williamson-type matrices ([NOTES.md](../../NOTES.md) §7). We found no other construction of
-Williamson-type matrices of order 953. The route here needs only symmetric ones of order (q − 1)/4 = 238, which Seberry
-and Yamada's corollaries give.
+(key wl, which Seberry and Yamada credit to Miyamoto (1991), with Williamson-type matrices of order 238 = (953 − 1)/4
+from their Corollary 25, key wo; their Remark 30 also lists the variant with an Hadamard matrix of order 476 = (953 −
+1)/2). The printed proof of that corollary does not give Williamson-type matrices ([NOTES.md](../../NOTES.md) §7). The
+route here needs only symmetric ones of order (q − 1)/4 = 238, which Seberry and Yamada's corollaries give.
+Cooper–Wallis also gives this order from ingredients published before 2026 (found by the audit of October 17, 2026):
+Lemma 26 needs only a symmetric quaternary Hadamard matrix of order (q − 1)/2 = 476 = 14 · 34, the Kronecker product of
+Paley's conference matrix of order 14 (C ± I) and the repeated-block arrangement of the symmetric Williamson-type
+matrices of order 17 from Corollary 29(ii) is one, and `python3 search/symwt.py "cor29q(953, qconf(13), qwt(cor29h(17,
+kron(h2(), h2(), h2()))))"` gives symmetric Williamson-type matrices of order 953 (checked).
 
 - Seberry and Yamada (J. Combin. Math. Combin. Comput. 7 (1990), Theorem 34 and Corollary 35) write Miyamoto's matrix as
   sixteen bordered blocks, but their multiplication theorems need circulant or type-one blocks (Theorem 4) or, for
@@ -49,8 +54,8 @@ and Yamada's corollaries give.
 - Miyamoto's theorem does not apply: 4765 is not a prime power, and a symmetric conference matrix of order 4766 is not
   known to us.
 - Yamada–Kiyasu does not apply: n − 2 = 4763 = 11 · 433 is not a prime power.
-- Cooper–Wallis needs Williamson-type matrices of order 953 (only through Corollary 8.8(i), above) or T-matrices of
-  order 953; neither is known to us.
+- Cooper–Wallis applies with the Williamson-type matrices of order 953 of the Kronecker route above and T-matrices of
+  order 5; the other split needs T-matrices of order 953, which are not known to us.
 - The Paley-block route does not reach it: 4s − 1 = 3811 and 19059 are not prime powers ≡ 3 (mod 8) for the divisors s
   of 4765, and the remaining ones need T-matrices of order 4765 (s = 1) or 953 (s = 5), which are not known to us.
 - The Miyamoto-block route with a negaperiodic or periodic Golay pair of length 476 does not apply: none of that length

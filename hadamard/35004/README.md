@@ -38,7 +38,8 @@ A.1. The printed proof of that corollary does not give Williamson-type matrices 
 729 used here have X₃ = X₄, and Lemma 26 with M₃ = [[Y, X], [X, −Z]], M₄ = [[Z, X], [X, −Y]] (the repeated-block form of
 [NOTES.md](../../NOTES.md) §7) does give symmetric Williamson-type matrices of order 2917, checked exactly by `python3
 search/symwt.py "cor29r(2917, cor29h(729, paley2(181)))"`. So Cooper–Wallis also gives this order from ingredients
-published before 2026; that arrangement is ours, and we did not find it in the literature.
+published before 2026; we found that arrangement in none of the sources we could read (Miyamoto's paper of 1991, to
+which Seberry and Yamada credit key wl, was not accessible).
 
 - Seberry and Yamada (J. Combin. Math. Combin. Comput. 7 (1990), Theorem 34 and Corollary 35) write Miyamoto's matrix as
   sixteen bordered blocks, but their multiplication theorems need circulant or type-one blocks (Theorem 4) or, for

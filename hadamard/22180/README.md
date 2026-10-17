@@ -36,8 +36,9 @@ lists it in his set Δ of entries that should have had t = 2. His proof for Δ t
 Seberry–Yamada's Table A.1 (1992); for 5545 they are of order 1109, which Table A.1 obtains only from Corollary 8.8(i)
 (key wl, with Williamson-type matrices of order 277 = (1109 − 1)/4). The printed proof of that corollary does not give
 Williamson-type matrices ([NOTES.md](../../NOTES.md) §7). We found no other construction of Williamson-type matrices of
-order 1109. The route here needs only symmetric ones of order (q − 1)/4 = 277, which Seberry and Yamada's corollaries
-give.
+order 1109: Lemma 26 would need a symmetric quaternary Hadamard matrix of order 554 = 2 · 277 (for instance from a
+repeated-block Williamson-type input), and we know none. The route here needs only symmetric ones of order (q − 1)/4 =
+277, which Seberry and Yamada's corollaries give.
 
 - Seberry and Yamada (J. Combin. Math. Combin. Comput. 7 (1990), Theorem 34 and Corollary 35) write Miyamoto's matrix as
   sixteen bordered blocks, but their multiplication theorems need circulant or type-one blocks (Theorem 4) or, for

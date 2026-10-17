@@ -31,6 +31,12 @@ Builders, all from Seberry and Yamada (J. Combin. Math. Combin. Comput. 7 (1990)
     cor29h(q, H)         the same with a symmetric Hadamard matrix H of order (q - 1)/2 (M3 = M4 = H), e.g.
                          kron(paley2(p), h2(), ...): Paley II, [[C + I, C - I], [C - I, -C - I]] of order 2(p + 1) for a
                          prime power p = 1 (mod 4), times Sylvester's h2() = [[1, 1], [1, -1]]
+    cor29q(q, f1, f2, ...) the same with (M3, M4) any symmetric, commuting +-1 pair of order (q - 1)/2 with
+                         M3^2 + M4^2 = (q - 1) I, that is a symmetric quaternary Hadamard matrix W = (M3 + M4)/2 +
+                         i (M4 - M3)/2 (NOTES.md section 19), built as the Kronecker product of factors: qconf(p) =
+                         (C + I, C - I) with Paley's conference matrix of order p + 1 (Turyn), qh(H) = (H, H) with a
+                         symmetric Hadamard matrix, qwt(W) = the repeated-block arrangement of cor29r. It contains
+                         cor29c, cor29h and cor29r as the cases with one factor; e.g. cor29q(2953, qconf(17), qconf(81)).
 
     python3 search/symwt.py "cor25(circ(7), circ(17))"      # builds and checks; prints the order
 """
@@ -331,9 +337,41 @@ def cor29r(q, W):
     return check(miyamoto_lemma(q, np.block([[Y, X], [X, -Z]]), np.block([[Z, X], [X, -Y]])))
 
 
+def qconf(p):
+    C = conference(p)
+    I = np.eye(p + 1, dtype=np.int64)
+    return C + I, C - I
+
+
+def qh(H):
+    assert np.array_equal(H, H.T) and np.array_equal(H @ H, len(H) * np.eye(len(H), dtype=np.int64))
+    return H, H
+
+
+def qwt(W):
+    i, j = next((i, j) for i in range(4) for j in range(i + 1, 4) if np.array_equal(W[i], W[j]))
+    X = W[i]
+    Y, Z = (W[k] for k in range(4) if k not in (i, j))
+    return np.block([[Y, X], [X, -Z]]), np.block([[Z, X], [X, -Y]])
+
+
+def cor29q(q, *factors):
+    """Lemma 26 with M3 + i M4 = (1 + i) (W_1 (x) W_2 (x) ...), W_k = ((A + B) + i (B - A))/2 for the factor (A, B)"""
+    re, im = np.ones((1, 1), np.int64), np.zeros((1, 1), np.int64)
+    for A, B in factors:
+        a, b = (A + B) // 2, (B - A) // 2
+        re, im = np.kron(re, a) - np.kron(im, b), np.kron(re, b) + np.kron(im, a)
+    M3, M4 = re - im, re + im
+    n = (q - 1) // 2
+    assert M3.shape == (n, n) and np.array_equal(M3, M3.T) and np.array_equal(M4, M4.T)
+    F3, F4 = M3.astype(np.float64), M4.astype(np.float64)
+    assert np.array_equal(F3 @ F4, F4 @ F3) and np.array_equal(F3 @ F3 + F4 @ F4, 2.0 * n * np.eye(n))
+    return check(miyamoto_lemma(q, M3, M4))
+
+
 def build(recipe):
     env = {f: globals()[f] for f in ("circ", "circm", "nw", "turyn", "one", "cor25", "cor27i", "cor31", "cor29c",
-                                     "cor29h", "cor29r", "paley2", "h2", "kron")}
+                                     "cor29h", "cor29r", "cor29q", "qconf", "qh", "qwt", "paley2", "h2", "kron")}
     return check(eval(recipe, {"__builtins__": {}}, env))
 
 

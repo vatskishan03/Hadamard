@@ -232,16 +232,28 @@ H((q−1)/2) exists, then WT(q) exists.
   q = 181 over GF(361), which we used; 423 by Corollary 27(i)). The repeated-block form of Lemma 26 then gives symmetric
   Williamson-type matrices of all six orders, checked exactly (`python3 search/symwt.py "cor29r(773, cor29h(193,
   kron(paley2(5), h2(), h2(), h2())))"` and so on), and also of order 2917 from 729 (Đoković's Proposition 3.3). So
-  Table A.1's entries for these primes are correct, with a proof that is ours, and the orders resting on them were
+  Table A.1's entries for these primes are correct, with a proof we found in none of the sources we could read
+  (Seberry–Balonin, arXiv:1512.01732, Lemmas 1, 3 and 4, observe that these corollaries give propus-type matrices;
+  Miyamoto's paper may contain the arrangement through its symmetric block form), and the orders resting on them were
   obtainable classically: 1465, 2051, 3223, 3809, 4981, 5567, 7325 and 9083 (q = 293, built by Paley blocks) and 3865,
   5411, 8503, 5199, 8665, 8465 and 8751 (§26). The complex order 1546 follows at once: the array [[X, Y], [−Ȳ, X̄]] of
   the symmetric Williamson-type matrices of order 773 is a complex Hadamard matrix (checked). For 173, Verma's symmetric
   conference matrix of order 86 (arXiv:2610.08893, 6 October 2026; we checked C = Cᵀ, zero diagonal and C² = 85I from
   the printed 12 × 12 array of circulants) gives symmetric Williamson-type matrices of order 173 by Corollary 8.8(ii),
   so the orders 519, 865, 1211, 1557, 1903, 2249, 3633 and 3979 and the other 173 · t entries built by Paley blocks have
-  a published route since then, which no one has stated. The other twelve primes, 373, 521, 613, 757, 809, 953, 1109,
-  1193, 1301, 1493, 1753 and 1993, keep their status (1753 was settled by H(876) above). Their inputs are Williamson
-  matrices or Williamson-type matrices with four distinct blocks, or a non-symmetric Hadamard matrix of order (q − 1)/2.
+  a published route since then, which no one has stated.
+- **Kronecker products (audit of October 17).** Lemma 26 asks only for a symmetric quaternary Hadamard matrix
+  (M₃ + M₄)/2 + i(M₄ − M₃)/2 of order (q − 1)/2 (§19). Paley's symmetric conference matrices give one (C ± I),
+  symmetric Hadamard matrices give (H, H), the repeated-block arrangement gives one from (Y, Z, X, X), and Kronecker
+  products of these are again of this kind (`symwt.py "cor29q(q, …)"`). This repairs 521 (260 = 10 · 26, conference
+  matrices of orders 10 and 26), 953 (476 = 14 · 34, with Williamson-type matrices of order 17 from Corollary 8.8(ii)
+  with a symmetric H(8)) and 1993 (996 = 6 · 166, Corollary 31 with p = 41), and Đoković's 2729, 2953 and 3209 (§26),
+  all checked exactly. The primes of the list still without a route are 373, 613, 757, 809, 1109, 1193, 1301 and 1493
+  (1753 was settled by H(876) above). For six of them (q − 1)/2 = 186, 306, 378, 554, 650 and 746 is twice an odd
+  number, so it has no factorisation into even orders (a quaternary Hadamard matrix of order > 1 has even order), and
+  no conference matrix (185, 305, 377, 553, 649 and 745 are not prime powers) or repeated-block Williamson-type matrix
+  of half that order is known. 404 = 4 · 101 and 596 = 4 · 149 would need symmetric Hadamard matrices of those orders,
+  which the census lists as undecided, or repeated-block Williamson-type matrices of orders 101 or 149.
   A search for circulant Williamson matrices (A, B, C, C) of orders 43, 93, 153, 189, 277, 325 and 373 over the
   multiplier groups containing −1 with at most 18 orbits (some row-sum classes skipped as too large) found none.
 
@@ -1331,7 +1343,10 @@ corollaries gives.
 The search for inputs showed that the corollary itself can be repaired for seven primes: Seberry–Yamada's symmetric
 matrices from Corollaries 8.8(ii) with M₃ = M₄, 27 and 31 have X₃ = X₄, and the repeated-block form of Lemma 26 (§7)
 gives symmetric Williamson-type matrices of orders 293, 773, 1453, 1637, 1693, 1733 and 2917, checked exactly. §7 now
-says which entries this repairs (also the complex order 1546).
+says which entries this repairs (also the complex order 1546). The audit added Kronecker products of symmetric
+quaternary Hadamard matrices (§7), which repair 521, 953, 1993, 2729, 2953 and 3209 as well; of the sixteen orders only
+3579, 5545 and 5965 (q = 1193 and 1109) keep no Williamson-type route that we know. All sixteen keep the label First
+explicit construction (NOVELTY.md): the tables' printed route fails, and the repairs were found here.
 
 The audit of §25 (workflow of October 17: an independent rebuild of the four near-Williamson orders, which reproduced
 their SHA-256 values, two novelty lenses and a claims check) found that 9827 is in Đoković's set Δ through valid

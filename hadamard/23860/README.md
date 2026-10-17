@@ -35,10 +35,12 @@ search/miyamoto_blocks.py certify 1193 5 "wt:cor25(one(), cor29c(149))"` writes 
 1.53 of the Handbook of Combinatorial Designs (2nd ed., 2007) gives n = 5965 with t = 3, and Đoković (arXiv:0912.5091)
 lists it in his set Δ of entries that should have had t = 2. His proof for Δ takes Williamson-type matrices from
 Seberry–Yamada's Table A.1 (1992); for 5965 they are of order 1193, which Table A.1 obtains only from Corollary 8.8(i)
-(key wl, with an Hadamard matrix of order 596 = (1193 − 1)/2 (Seberry–Yamada, Remark 30)). The printed proof of that
-corollary does not give Williamson-type matrices ([NOTES.md](../../NOTES.md) §7). We found no other construction of
-Williamson-type matrices of order 1193. The route here needs only symmetric ones of order (q − 1)/4 = 298, which Seberry
-and Yamada's corollaries give.
+(key wl, which Seberry and Yamada credit to Miyamoto (1991), with Williamson-type matrices of order 298 = (1193 − 1)/4
+from their Corollary 25, key wo; their Remark 30 also lists the variant with an Hadamard matrix of order 596 = (1193 −
+1)/2). The printed proof of that corollary does not give Williamson-type matrices ([NOTES.md](../../NOTES.md) §7). We
+found no other construction of Williamson-type matrices of order 1193: Lemma 26 would need a symmetric quaternary
+Hadamard matrix of order 596 = 4 · 149 (for instance from a repeated-block Williamson-type input), and we know none. The
+route here needs only symmetric ones of order (q − 1)/4 = 298, which Seberry and Yamada's corollaries give.
 
 - Seberry and Yamada (J. Combin. Math. Combin. Comput. 7 (1990), Theorem 34 and Corollary 35) write Miyamoto's matrix as
   sixteen bordered blocks, but their multiplication theorems need circulant or type-one blocks (Theorem 4) or, for

@@ -204,22 +204,41 @@ by other routes (6341, 6617, 7179, 7323, 8079, 8579, 8653 and 9671). The other s
 | [38508](38508) | 9627 = 3 · 3209 | 3209 | 3 | 802: Corollary 25 from orders 1 and 401 (Corollary 29(ii), symmetric Hadamard matrix of order 200 over GF(49)) | Đoković 2010, Proposition 3.2 (printed as 9087) |
 | [39860](39860) | 9965 = 5 · 1993 | 1993 | 5 | 498, as for 23916 | Đoković's set Δ |
 
-These tables obtain each order from Williamson-type matrices of order q through Corollary 8.8(i), with Williamson-type
-matrices of order (q − 1)/4 (q = 773, 1109, 1693, 1733, 2917) or an Hadamard matrix of order (q − 1)/2 (the others), and
-the printed proof of that corollary fails ([NOTES.md](../NOTES.md) §7). All sixteen are labelled First explicit
-construction. Every ingredient here was published before 2026; the combination is ours. All sixteen pass the dense
-check of `verify.py` (H Hᵀ = nI, SHA-256 as in the READMEs). An independent rebuild for the audit of October 17 (own
-Miyamoto array, relabelling and T-matrices) checks H Hᵀ = nI densely for 14316, 15460 and 35004 and reproduces their
-SHA-256 in the repository's convention.
+These tables obtain each order from Williamson-type matrices of order q through Corollary 8.8(i): for q < 2000 by
+Table A.1's key wl, which Seberry and Yamada credit to Miyamoto (1991), with Williamson-type matrices of order (q − 1)/4
+(for 953, 1193 and 1993 those of orders 238, 298 and 498 from key wo), for 2917 by Đoković's Proposition 3.3 with
+Williamson-type matrices of order 729, and for 2729, 2953 and 3209 by his Proposition 3.2 with an Hadamard matrix of
+order (q − 1)/2. The printed proof of that corollary fails
+([NOTES.md](../NOTES.md) §7). Miyamoto's paper, which we could not read, defines matrices of symmetric block form,
+[[A, B], [−B, A]] with A and B symmetric; his corollary probably assumes an Hadamard matrix of order q − 1 of that form,
+and the failing step may be Seberry and Yamada's restatement. All sixteen are labelled First explicit construction.
+Every ingredient here was published before 2026; the combination is ours. All sixteen pass the dense check of
+`verify.py` (H Hᵀ = nI, SHA-256 as in the READMEs). An independent rebuild for the audit of October 17 (own Miyamoto
+array, relabelling and T-matrices) checks H Hᵀ = nI densely for 14316, 15460 and 35004 and reproduces their SHA-256 in
+the repository's convention.
 
-**The corollary with a repeated block.** For q = 773, 1693, 1733 and 2917 the corollary itself can be repaired. Seberry
-and Yamada's symmetric Williamson-type matrices of orders 193, 433, 729 (Corollary 29(ii) with M₃ = M₄ = H) and 423
-(Corollary 27(i)) have X₃ = X₄, and Lemma 26 with M₃ = [[Y, X], [X, −Z]], M₄ = [[Z, X], [X, −Y]] (the repeated-block
-form of [NOTES.md](../NOTES.md) §7) turns such (Y, Z, X, X) into symmetric Williamson-type matrices of order 4w + 1. So
-Cooper–Wallis gives 3865, 5411, 8503, 5199, 8665, 8465 and 8751 as well. The same holds for q = 293, 1453 and 1637, from
-their matrices of orders 73, 363 and 409 (`symwt.py "cor29r(q, …)"` checks all seven). The arrangement is ours; we did
-not find it in the literature. For q = 953, 1109, 1193, 1993, 2729, 2953 and 3209 the symmetric matrices used here have
-four distinct blocks, and we know no Williamson-type matrices of order q.
+**The corollary with valid inputs.** Lemma 26 (Seberry–Yamada's Corollary 29) needs symmetric, commuting ±1 matrices
+M₃, M₄ of order (q − 1)/2 with M₃² + M₄² = (q − 1)I, that is a symmetric quaternary Hadamard matrix (M₃ + M₄)/2 +
+i(M₄ − M₃)/2 ([NOTES.md](../NOTES.md) §19). Paley's symmetric conference matrices give one (C ± I, Turyn), symmetric
+Hadamard matrices give one (H, H), and so do symmetric Williamson-type matrices (Y, Z, X, X) with a repeated block,
+arranged as M₃ = [[Y, X], [X, −Z]], M₄ = [[Z, X], [X, −Y]]. Such propus-type inputs come out of Turyn's family and of
+Corollaries 27, 29(ii) with M₃ = M₄ and 31 (Seberry–Balonin, arXiv:1512.01732, Lemmas 1, 3 and 4). The symmetric
+quaternary Hadamard matrices are closed under Kronecker products. So symmetric Williamson-type matrices of order q
+exist, and Cooper–Wallis gives the order as well, for
+
+- q = 773, 1693, 1733 and 2917, from repeated-block inputs of orders 193, 423, 433 and 729 (Corollaries 29(ii) with
+  M₃ = M₄ = H and 27(i)): 3865, 5411, 8503, 8465, 5199, 8665 and 8751 (also q = 293, 1453 and 1637, from orders 73, 363
+  and 409);
+- q = 953, 1993, 2729, 2953 and 3209, from Kronecker products: (q − 1)/2 = 476 = 14 · 34, 996 = 6 · 166, 1364 = 22 · 62,
+  1476 = 18 · 82 and 1604 = 2 · 802, with Paley conference matrices of orders 14, 6, 62, 18 and 82, Sylvester's matrix
+  of order 2 and the repeated-block arrangements of orders 34, 166, 22 and 802 (Williamson-type matrices of orders 17,
+  83, 11 and 401): 4765, 5979, 9965, 8187, 8859 and 9627. The same gives q = 521 (260 = 10 · 26).
+
+`symwt.py "cor29r(q, …)"` and `"cor29q(q, …)"` check all of them; the Kronecker step was found by the audit of October
+17, 2026. We found the repeated-block arrangement in none of the sources we could read; Miyamoto's paper may contain the
+equivalent statement through its symmetric block form. Only q = 1109 and 1193 (orders 5545, 3579 and 5965) have no
+Williamson-type route that we know: Lemma 26 would need a symmetric quaternary Hadamard matrix of order 554 = 2 · 277 or
+596 = 4 · 149.
 
 ## Orders recorded only through Corollary 8.8(i)
 

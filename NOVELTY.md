@@ -18,6 +18,10 @@ corrections are welcome.
 For skew and symmetric matrices the property is what is new: an ordinary Hadamard matrix of the same order may have
 been known. Each order's README says so where it applies.
 
+When a table's entry rests on a printed route that fails (Corollary 8.8(i) of Seberry–Yamada, [NOTES.md](NOTES.md) §7),
+the order keeps the label First explicit construction even if a repaired route from ingredients published before 2026
+exists; the README names that route where we found one.
+
 ## Reference tables
 
 | Family | Table | Range |
@@ -131,10 +135,12 @@ The searches were made between 12 and 14 October 2026.
   Corollaries via M-structures), the most likely place for a prior statement of the Miyamoto-block route; only its
   contents and index were seen.
 - J. Seberry, *Orthogonal Designs* (Springer, 2017), and Geramita–Seberry (1979).
-- The lists in §7 of Miyamoto, J. Combin. Theory Ser. A 57 (1991), which Cati and Pasechnik could not verify either. We
-  know them only through secondary sources: the zbMATH review (Zbl 0733.05017) and the transcription in the
-  JD-Jones-ASES Hadamard-M note, by which list (2) contains 127 (unsupported by Miyamoto's Corollary 4, per that note),
-  so that list (3) may record 1527 = 3 · 509.
+- Miyamoto, J. Combin. Theory Ser. A 57 (1991): its Corollaries 2–5 on matrices of symmetric block form, to which
+  Seberry and Yamada credit Table A.1's key wl (the Williamson-type matrices behind the Miyamoto-block orders of
+  [hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md)), and the lists in its §7, which Cati and Pasechnik could
+  not verify either. We know them only through secondary sources: the zbMATH review (Zbl 0733.05017) and the
+  transcription in the JD-Jones-ASES Hadamard-M note, by which list (2) contains 127 (unsupported by Miyamoto's
+  Corollary 4, per that note), so that list (3) may record 1527 = 3 · 509.
 - The skew table of the Handbook (Table 1.51).
 - MathSciNet, zbMATH, and the full texts of paywalled journals from 2025–2026.
 

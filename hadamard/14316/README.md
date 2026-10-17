@@ -33,10 +33,13 @@ search/miyamoto_blocks.py certify 1193 3 "wt:cor25(one(), cor29c(149))"` writes 
 **First explicit construction** ([MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md#symmetric-williamson-type-matrices)). Table
 1.53 of the Handbook of Combinatorial Designs (2nd ed., 2007) gives n = 3579 with t = 2, as known. The only construction
 we traced is Cooper–Wallis with T-matrices of order 3 and Williamson-type matrices of order 1193 from Seberry–Yamada's
-Table A.1 (1992), which obtains those only from Corollary 8.8(i) (key wl, with an Hadamard matrix of order 596 = (1193 −
-1)/2 (Seberry–Yamada, Remark 30)). The printed proof of that corollary does not give Williamson-type matrices
-([NOTES.md](../../NOTES.md) §7). We found no other construction of Williamson-type matrices of order 1193. The route
-here needs only symmetric ones of order (q − 1)/4 = 298, which Seberry and Yamada's corollaries give.
+Table A.1 (1992), which obtains those only from Corollary 8.8(i) (key wl, which Seberry and Yamada credit to Miyamoto
+(1991), with Williamson-type matrices of order 298 = (1193 − 1)/4 from their Corollary 25, key wo; their Remark 30 also
+lists the variant with an Hadamard matrix of order 596 = (1193 − 1)/2). The printed proof of that corollary does not
+give Williamson-type matrices ([NOTES.md](../../NOTES.md) §7). We found no other construction of Williamson-type
+matrices of order 1193: Lemma 26 would need a symmetric quaternary Hadamard matrix of order 596 = 4 · 149 (for instance
+from a repeated-block Williamson-type input), and we know none. The route here needs only symmetric ones of order (q −
+1)/4 = 298, which Seberry and Yamada's corollaries give.
 
 - Seberry and Yamada (J. Combin. Math. Combin. Comput. 7 (1990), Theorem 34 and Corollary 35) write Miyamoto's matrix as
   sixteen bordered blocks, but their multiplication theorems need circulant or type-one blocks (Theorem 4) or, for

@@ -36,9 +36,13 @@ search/miyamoto_blocks.py certify 3209 3 "wt:cor25(one(), cor29h(401, kron(paley
 Proposition 3.2 (printed there as 9087; its q is 3209, and 3 · 3209 = 9627); Int. Math. Forum 6 (2011) 3061–3067)
 settles it with Williamson-type matrices of order 3209, which he takes from Seberry–Yamada's Corollary 8.8(i) with an
 Hadamard matrix of order (q − 1)/2 = 1604. The printed proof of that corollary gives pairwise amicable matrices only for
-a symmetric input ([NOTES.md](../../NOTES.md) §7), and no symmetric Hadamard matrix of order 1604 is known to us. We
-found no other construction of Williamson-type matrices of order 3209. The route here needs only symmetric ones of order
-(q − 1)/4 = 802, which Seberry and Yamada's corollaries give.
+a symmetric input ([NOTES.md](../../NOTES.md) §7), and no symmetric Hadamard matrix of order 1604 is known to us.
+Cooper–Wallis also gives this order from ingredients published before 2026 (found by the audit of October 17, 2026):
+Lemma 26 needs only a symmetric quaternary Hadamard matrix of order (q − 1)/2 = 1604 = 2 · 802, the Kronecker product of
+Sylvester's matrix of order 2 and the repeated-block arrangement of the symmetric Williamson-type matrices of order 401
+from Corollary 29(ii) is one, and `python3 search/symwt.py "cor29q(3209, qh(h2()), qwt(cor29h(401, kron(paley2(49),
+h2()))))"` gives symmetric Williamson-type matrices of order 3209 (checked). The route here needs only symmetric ones of
+order (q − 1)/4 = 802, which Seberry and Yamada's corollaries give.
 
 - Seberry and Yamada (J. Combin. Math. Combin. Comput. 7 (1990), Theorem 34 and Corollary 35) write Miyamoto's matrix as
   sixteen bordered blocks, but their multiplication theorems need circulant or type-one blocks (Theorem 4) or, for
@@ -49,8 +53,8 @@ found no other construction of Williamson-type matrices of order 3209. The route
 - Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
   (mod 4).
 - Yamada–Kiyasu does not apply: n − 2 = 9625 = 5³ · 7 · 11 is not a prime power.
-- Cooper–Wallis needs Williamson-type matrices of order 3209 (only through Corollary 8.8(i), above) or T-matrices of
-  order 3209; neither is known to us.
+- Cooper–Wallis applies with the Williamson-type matrices of order 3209 of the Kronecker route above and T-matrices of
+  order 3; the other split needs T-matrices of order 3209, which are not known to us.
 - The Paley-block route does not reach it: 4s − 1 = 12835 and 38507 are not prime powers ≡ 3 (mod 8) for the divisors s
   of 9627, and the remaining ones need T-matrices of order 9627 (s = 1) or 3209 (s = 3), which are not known to us.
 - The Miyamoto-block route with a negaperiodic or periodic Golay pair of length 1604 does not apply: none of that length

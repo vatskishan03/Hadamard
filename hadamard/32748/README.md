@@ -35,8 +35,12 @@ search/miyamoto_blocks.py certify 2729 3 "wt:cor25(circ(11), turyn(61))"` writes
 Proposition 3.2; Int. Math. Forum 6 (2011) 3061–3067) settles it with Williamson-type matrices of order 2729, which he
 takes from Seberry–Yamada's Corollary 8.8(i) with an Hadamard matrix of order (q − 1)/2 = 1364. The printed proof of
 that corollary gives pairwise amicable matrices only for a symmetric input ([NOTES.md](../../NOTES.md) §7), and no
-symmetric Hadamard matrix of order 1364 is known to us. We found no other construction of Williamson-type matrices of
-order 2729. The route here needs only symmetric ones of order (q − 1)/4 = 682, which Seberry and Yamada's corollaries
+symmetric Hadamard matrix of order 1364 is known to us. Cooper–Wallis also gives this order from ingredients published
+before 2026 (found by the audit of October 17, 2026): Lemma 26 needs only a symmetric quaternary Hadamard matrix of
+order (q − 1)/2 = 1364 = 22 · 62, the Kronecker product of the repeated-block arrangement of the symmetric
+Williamson-type matrices of order 11 from Corollary 31 and Paley's conference matrix of order 62 is one, and `python3
+search/symwt.py "cor29q(2729, qwt(cor31(5)), qconf(61))"` gives symmetric Williamson-type matrices of order 2729
+(checked). The route here needs only symmetric ones of order (q − 1)/4 = 682, which Seberry and Yamada's corollaries
 give.
 
 - Seberry and Yamada (J. Combin. Math. Combin. Comput. 7 (1990), Theorem 34 and Corollary 35) write Miyamoto's matrix as
@@ -48,8 +52,8 @@ give.
 - Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
   (mod 4).
 - Yamada–Kiyasu does not apply: n − 2 = 8185 = 5 · 1637 is not a prime power.
-- Cooper–Wallis needs Williamson-type matrices of order 2729 (only through Corollary 8.8(i), above) or T-matrices of
-  order 2729; neither is known to us.
+- Cooper–Wallis applies with the Williamson-type matrices of order 2729 of the Kronecker route above and T-matrices of
+  order 3; the other split needs T-matrices of order 2729, which are not known to us.
 - The Paley-block route does not reach it: 4s − 1 = 10915 and 32747 are not prime powers ≡ 3 (mod 8) for the divisors s
   of 8187, and the remaining ones need T-matrices of order 8187 (s = 1) or 2729 (s = 3), which are not known to us.
 - The Miyamoto-block route with a negaperiodic or periodic Golay pair of length 1364 does not apply: none of that length
