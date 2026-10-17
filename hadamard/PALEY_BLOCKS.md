@@ -115,7 +115,8 @@ entries with t ≥ 3 or settled by Đoković in 2010 it reaches, we built 117, o
 
 SageMath's development version (`hadamard_matrix(4n, existence=True)`, October 17, 2026) returns Unknown for all the
 others. Each certificate is checked exactly when it is written (entries ±1, Σ PAF = 0 off 0, sequences rebuilt from
-Paley's matrix by `verify/verify.py`); the dense check H Hᵀ = 4n I of `verify/verify.py` is running.
+Paley's matrix by `verify/verify.py`). The dense check H Hᵀ = 4n I of `verify/verify.py` has passed for the 128
+Paley-block certificates of orders up to 33908; the 29 orders from 34204 to 39916 are checked through the sequences only.
 
 ## Orders recorded only through Corollary 8.8(i)
 
