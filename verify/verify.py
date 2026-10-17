@@ -15,10 +15,9 @@ Products are formed in float32, one block of rows at a time. The matrices multip
 have entries 0 and +-1 and fewer than 2^24 columns, so every partial sum is an integer
 of absolute value below 2^24 and the computation is exact.
 
-The matrices of 14708, 14932 and of the orders above 20000 (20084, 21748, 24124, 24308, 24412, 27604, 29404,
-31316, 31412, 35636, 38468, 39260, 51580) are not stored. Rebuilding and checking one of them takes from 30 seconds
-(six cores) to 40 minutes (51580, about 3.5 GB of memory); the orders 24308 to 39260 from near-Williamson matrices
-are assembled in int8 (0.6 to 1.5 GB).
+The matrices of most orders above 10000 are not stored (each README says so). Rebuilding and checking one of them
+takes from seconds to 40 minutes (51580, about 3.5 GB of memory); the Cooper-Wallis and near-Williamson orders are
+assembled in int8 (0.6 to 1.5 GB).
 
 Yamada certificates accept a prime q or a prime power q = p^k (fields "p" and "poly" give GF(q)).
 
@@ -239,7 +238,7 @@ def build_cooper_wallis_near_williamson(cert):
     Tayfeh-Rezaie, arXiv:2605.08661): circulant +-1 matrices A, B, C, D of order w, with B, C, D symmetric
     and A arbitrary, such that A A^T + B B^T + C C^T + D D^T = 4w I. Then (A R, B, C, D), with R the
     back-identity, are Williamson-type matrices: A R is symmetric and commutes with the symmetric circulants.
-    The certificate gives the first rows of A, B, C, D under "near_williamson". Unlike `build_cooper_wallis`
+    The certificate gives the first rows of A, B, C, D under "near_williamson". As in `build_cooper_wallis`
     the matrix is assembled block by block in int8 (a Kronecker product in int64 would need 8 bytes per
     entry, 12 GB at order 38468)."""
     T = [np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["t_matrices"]]
@@ -285,7 +284,8 @@ def build_cooper_wallis_near_williamson(cert):
 def bordered_williamson_type(seq):
     """Williamson-type matrices of order N = m + 1 from four +-1 sequences x_1, ..., x_4 on Z_m (search/bnw.py,
     williamson-type/README.md): x_2, x_3, x_4 symmetric and PAF_1 + ... + PAF_4 = -4 off 0. Then the row sums are
-    +-2 at one index j and 0 elsewhere; with M_k the circulant of x_k (M_1 replaced by M_1 R) and s = r_j / 2,
+    +-2 at one index j and 0 elsewhere; with M_k the circulant of x_k (M_1 replaced by M_1 R, R the back-diagonal
+    permutation i -> m - 1 - i) and s = r_j / 2,
     W_k = [[1, b_k e^T], [c_k e, M_k]] with c_k = 1, b_k = s for k != j and c_j = -1, b_j = -s. Checked here:
     W_k W_l^T = W_l W_k^T and sum W_k W_k^T = 4N I."""
     m = len(seq[0])

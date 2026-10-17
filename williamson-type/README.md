@@ -13,8 +13,9 @@ Let m = w − 1 and let x₁, x₂, x₃, x₄ be ±1 sequences on ℤ_m with x�
     PAF₁(g) + PAF₂(g) + PAF₃(g) + PAF₄(g) = −4      for every g ≠ 0.
 
 Summing over g gives Σ rₖ² = 4 for the row sums, so rⱼ = ±2 for one index j and rₖ = 0 otherwise. Let Mₖ be the
-circulant matrix of xₖ, except M₁ R in place of M₁ (R the permutation g ↦ −g, so M₁R is symmetric), let e be the
-all-ones vector of length m and s = rⱼ/2. Put
+circulant matrix of xₖ, except M₁ R in place of M₁ (R the back-diagonal permutation i ↦ m − 1 − i, so M₁R is
+symmetric; the permutation g ↦ −g works as well and gives another matrix, but the certificates use the
+back-diagonal), let e be the all-ones vector of length m and s = rⱼ/2. Put
 
     Wₖ = [ 1     bₖ eᵀ ]        cₖ = 1, bₖ = s (k ≠ j),      cⱼ = −1, bⱼ = −s.
          [ cₖ e   Mₖ   ]
