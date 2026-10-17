@@ -1271,6 +1271,33 @@ def build_skew_amicable_plug(cert):
     return H, seqs + g
 
 
+def build_skew_amicable_product(cert):
+    """Skew-Hadamard matrix of order h m by J. Wallis's product (J. Combin. Theory Ser. A 21 (1976); Seberry-Yamada
+    1992, SXI). If I + S is a skew-Hadamard matrix of order h and (A, M) an amicable pair of order m (A skew-Hadamard,
+    M symmetric Hadamard, A M^T = M A^T), then K = I (x) A + S (x) M is a skew-Hadamard matrix of order h m:
+    K + K^T = I (x) (A + A^T) + (S + S^T) (x) M = 2I, and
+    K K^T = I (x) A A^T + (S + S^T) (x) A M^T + S S^T (x) M M^T = m I + (h - 1) m I.
+    "factor": the certificate fields of build_goethals_seidel for a skew-Hadamard matrix of order h = 4v (first
+    block of skew type; checked). "amicable": {"n", "blocks", "rowsums"}, a skew-propus quadruple of length n; the
+    pair A = I + PN, M = P + N of order m = 4n is that of build_skew_amicable_plug (checked)."""
+    F, fseqs = build_goethals_seidel(cert["factor"])
+    h = F.shape[0]
+    Ih = np.eye(h, dtype=np.int64)
+    if not (np.array_equal(F + F.T, 2 * Ih) and np.array_equal(F @ F.T, h * Ih)):
+        raise ValueError("the factor is not a skew-Hadamard matrix")
+    am = cert["amicable"]
+    P, N, aseqs = _skew_propus_od(am["n"], am["blocks"], am["rowsums"])
+    m = P.shape[0]
+    I = np.eye(m, dtype=np.int64)
+    A, M = I + P @ N, P + N
+    if not (np.array_equal(A + A.T, 2 * I) and np.array_equal(M, M.T) and np.array_equal(A @ A.T, m * I)
+            and np.array_equal(M @ M, m * I) and np.array_equal(A @ M.T, M @ A.T)):
+        raise ValueError("A = I + PN and M = P + N are not an amicable pair")
+    K = (np.kron(np.eye(h, dtype=np.int8), A.astype(np.int8))
+         + np.kron((F - Ih).astype(np.int8), M.astype(np.int8)))
+    return K, fseqs + aseqs
+
+
 def _is_prime(q):
     return q > 1 and all(q % p for p in range(2, int(math.isqrt(q)) + 1))
 
@@ -1645,6 +1672,7 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "yamada": build_yamada, "propus": build_propus, "propus-bordered": build_propus_bordered,
             "propus-qbordered": build_propus_qbordered, "skew-propus-plug": build_skew_propus_plug,
             "sym-od-plug": build_sym_od_plug, "skew-amicable-plug": build_skew_amicable_plug,
+            "skew-amicable-product": build_skew_amicable_product,
             "two-block": build_two_block, "paley-blocks": build_paley_blocks}
 
 

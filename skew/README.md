@@ -75,6 +75,21 @@ designs come from G-matrices, which are known for these orders. The designs for 
 
 The matrix of order 9900 is not stored; `verify/verify.py skew/9900` rebuilds it.
 
+## Wallis's product with the new amicable pairs
+
+J. Wallis (1976; Seberry–Yamada 1992, SXI): a skew-Hadamard matrix I + S of order h and an amicable pair (A, M) of
+order m give the skew-Hadamard matrix I ⊗ A + S ⊗ M of order hm. With the pairs of orders 52 and 76 above, three
+orders 16v fall below Cati–Pasechnik's Table 5 (found by the closure audit of October 17, [NOTES.md](../NOTES.md) §28).
+The skew factors are classical or published; the new ingredient is the amicable pair.
+
+| Order | v | Skew factor | Amicable pair | Before | Status |
+|------:|---|---|---|---|---|
+| [9424](9424) | 589 = 19 · 31 | 124 = 4 · 31: Paley plus three blocks under ⟨2⟩ (Szekeres 1969 has this order) | 76 | 589(5) | New |
+| [9776](9776) | 611 = 13 · 47 | 188 = 4 · 47: Đoković (2008) | 52 | 611(5) | New |
+| [13072](13072) | 817 = 19 · 43 | 172 = 4 · 43: Paley plus three blocks under ⟨4⟩ (Đoković 1992 has this order) | 76 | 817(5) | New |
+
+The matrices are not stored; `verify/verify.py` rebuilds them.
+
 ## Paley's matrix in sixteen blocks, times three
 
 A skew-Hadamard matrix of order 3(q + 1) for every prime power q ≡ 3 (mod 4) ([PALEY_SKEW.md](PALEY_SKEW.md)): Paley's

@@ -1453,3 +1453,59 @@ element to SL(2, q) has order 2s), and the construction runs over ℤ₃ × N_s 
   that are symmetric up to a shift admit only skew T_k, whose row sum 0 forces t = 1. The other Szekeres-type matrices
   (from C₀ ∪ C₂, when they exist) have anti-automorphisms but automorphism groups of order q(q − 1) only, with no
   element of order (q + 1)/2.
+
+## 28. Closure audit: what the published theorems reach (October 17)
+
+For each family, an audit computed the closure of the published constructions over the range of its reference
+tables. Each closure was iterated to a fixpoint, seeded with the tables, and then extended by this repository's
+objects and those of 2026. Every label was checked against the result, and anything reachable but not built was
+listed.
+
+**Skew-Hadamard matrices.** The closure computes the smallest exponent of 2ᵐ v, for skew and for amicable orders, for
+odd v ≤ 2499. Its theorems:
+
+- Paley; Szekeres, Whiteman and Momihara–Xiang 2(qᵉ + 1); Wallis–Whiteman and Momihara–Xiang 4(qᵉ + 1); Spence
+  4(q² + q + 1); Turyn (p − 1)ᵘ + 1; J. Wallis (|t| + 1)(q + 1);
+- Seberry's mn(n − 1) with G-matrices; the amicable families AI–AVI of Seberry–Yamada (1992);
+- Wallis's product (a skew order times an amicable order) and doubling.
+
+- **Validation.**
+  - The theorems alone give exactly the census's 472 non-sporadic decided values.
+  - The amicable closure gives Seberry–Yamada's Table 6.1 for q ≤ 109, except at q = 61, where Paley with q = 243
+    gives amicable order 244 and the table has a larger t.
+  - Among the 737 undecided v, no single classical family reaches 4v. Products cannot, since both factors are 1, 2 or
+    multiples of 4.
+- **Labels.** The classical closure reaches only 1852 and 7656 among our orders, and both are labelled Known. Every
+  New, New-but-obtainable-classically and First-explicit order stays unreached at its own exponent.
+- **Table 5 omissions.** Cati–Pasechnik's Table 5 never applies Wallis–Whiteman or Momihara–Xiang's Corollary 1.7.
+  - 4(q + 1) for the primes q ≡ 9 (mod 16) gives 8 · (q + 1)/2 for (q + 1)/2 = 517, 597, 661, 717, 805, 829, 861,
+    877, 957 and 997, where Table 5 has exponents 4, 4, 9, 4, 4, 53, 4, 13, 4 and 9.
+  - 4(41² + 1) gives 8 · 841, where Table 5 has 6.
+  - The amicable pair 248 = 2²(61 + 1) (Seberry–Yamada's AV) times skew 116 gives 32 · 899, where Table 5 has 6.
+
+  The omission of 957 noted in [skew/PALEY_SKEW.md](skew/PALEY_SKEW.md) is therefore systematic. It changes none of
+  our labels: for 1800, 4344, 4632, 7272 and 14352 the classical minimum stays at Table 5's value.
+- **Table 5's blanks.** Five census-undecided v have no entry in Table 5, which implies m = 2. Their best classical
+  routes are:
+  - 8 · 451, 8 · 663 and 8 · 783 (Paley with q = 3607, 5303 and 6263);
+  - 16 · 879 and 16 · 921 (skew 1172 or 1228 times amicable 12).
+
+  This supports reading the blanks as errors ([skew/2652](skew/2652), [skew/3516](skew/3516)).
+- **Three new orders.** With the 2026 objects, the only further improvements of Table 5 are 16v for v = 589, 611 and
+  817, from Wallis's product of a skew order 4p with our amicable pairs of orders 52 and 76:
+  - 9424 = 124 · 76;
+  - 9776 = 188 · 52, with Đoković's skew 188 (arXiv:0704.0640);
+  - 13072 = 172 · 76.
+
+  Every split into a skew order and a classical amicable order fails for these orders. For instance, 9424 = h m with m
+  = 2 or 4 needs the open skew orders 4712 or 2356, and every larger classical amicable divisor (8, 16, 152, 248, 304,
+  496) leaves h ≢ 0 (mod 4). The orders are built in [skew/9424](skew/9424), [skew/9776](skew/9776) and
+  [skew/13072](skew/13072) (`search/skew_wallis.py`, `verify.py` construction `skew-amicable-product`).
+- **Paley plus three blocks.** The skew factors of orders 124 and 172 were found in about a second as Goethals–Seidel
+  quadruples. The first block is Paley's (−1 on the nonzero squares, PAF −1 off zero), and the other three are unions
+  of orbits of a subgroup of the squares (⟨2⟩ of order 5 mod 31, ⟨4⟩ of order 7 mod 43) with PAF sum +1 off zero.
+  This is the class of difference families of Đoković and Kotsireas (arXiv:1511.08734), which gave the first skew
+  matrices of orders 4 · 239 and 4 · 331.
+- **Not covered.** Seberry–Yamada's SX and Seberry's theorem with m ≥ 2 need specific orthogonal designs, for which we
+  know no classical family. AV with general |t| needs amicable orthogonal designs. Asymptotic theorems might shorten
+  the long Table 5 entries (191(226), 659(800516)) but touch none of our claims.

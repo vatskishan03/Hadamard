@@ -105,13 +105,13 @@ Williamson-type matrices ([NOTES.md](NOTES.md) §7).
   those orders were obtainable classically; and the 173 · t orders have a published route since Verma's symmetric
   conference matrix of order 86 (arXiv:2610.08893, October 2026). Table 4 entries that Đoković settled through the
   corollary are in the table above (6108, 10180) or still open (2571).
-- **Skew-Hadamard matrices of 97 orders** from 820 to 14352 for which we found no earlier construction: 32 from
-  Goethals–Seidel difference families with a skew block, 8 from Seberry's theorem with new amicable Hadamard matrices
-  or new orthogonal designs, and 57 from the theorem above, of order 3(q + 1), obtainable classically: 52 census values
-  4v (one of them, 3516 = 4 · 879, recorded as known by two older tables without a construction) and five orders 8v and
-  16v below the smallest power of two in Cati–Pasechnik's Table 5. Also independent matrices of the known skew orders
-  1852, 3676 and 7656 (Wallis–Whiteman, which Table 5 missed).
-  See [skew](skew).
+- **Skew-Hadamard matrices of 100 orders** from 820 to 14352 for which we found no earlier construction: 32 from
+  Goethals–Seidel difference families with a skew block, 8 from Seberry's theorem with new amicable Hadamard matrices or
+  new orthogonal designs, 3 orders 16v (9424, 9776, 13072) from Wallis's product of a published skew matrix with our
+  amicable pairs of orders 52 and 76, and 57 from the theorem above, of order 3(q + 1), obtainable classically: 52
+  census values 4v (one of them, 3516 = 4 · 879, recorded as known by two older tables without a construction) and five
+  orders 8v and 16v below the smallest power of two in Cati–Pasechnik's Table 5. Also independent matrices of the known
+  skew orders 1852, 3676 and 7656 (Wallis–Whiteman, which Table 5 missed). See [skew](skew).
 - **Symmetric Hadamard matrices** of orders 532, 732, 876, 4828 and 5700, all undecided in the Đoković–Seberry
   census [4]. See [symmetric](symmetric).
 - **Complex Hadamard matrices** of 11 orders 2N with N odd, blank in Seberry and Yamada's table of known orders [5]

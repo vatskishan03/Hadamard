@@ -1,0 +1,82 @@
+# Skew-Hadamard matrix of order 9424
+
+9424 = 16 · 589 = 124 · 76, with 589 = 19 · 31.
+
+## Construction
+
+A skew-Hadamard matrix is a Hadamard matrix H with H + Hᵀ = 2I. This one is J. Wallis's product (J. Combin. Theory
+Ser. A 21 (1976); Seberry–Yamada (1992), SXI) of a skew-Hadamard matrix of order 124 = 4 · 31 with the amicable pair of
+order 76 of [skew/5700](../5700).
+
+- **A skew-Hadamard matrix of order 124.** Four circulants of order 31 in the Goethals–Seidel array: A₀ has −1 on the
+  nonzero squares mod 31 (Paley; skew type), and A₁, A₂, A₃ are unions of orbits of H = ⟨2⟩ = {1, 2, 4, 8, 16}, with
+  row sums 1, −1, 11 and PAF_A₁ + PAF_A₂ + PAF_A₃ = 1 off zero, so the four autocorrelations sum to 124δ. This is the
+  class of difference families of Đoković and Kotsireas (arXiv:1511.08734), who list v = 31 among the solved
+  parameter sets. Skew-Hadamard matrices of order 124 are classical (Szekeres 1969, q = 61), and any of them would do.
+- **The amicable pair of order 76.** A = I + PN (skew-Hadamard) and M = P + N (symmetric Hadamard), with A Mᵀ = M Aᵀ,
+  from the skew-propus quadruple of length 19 of [skew/5700](../5700) (step 1 of its README).
+- **The product.** With I + S the matrix of order 124 (S skew, S Sᵀ = 123 I),
+
+      K = I ⊗ A + S ⊗ M        (order 124 · 76).
+
+  K + Kᵀ = I ⊗ (A + Aᵀ) + (S + Sᵀ) ⊗ M = 2I, and since A Mᵀ = M Aᵀ,
+
+      K Kᵀ = I ⊗ A Aᵀ + (S + Sᵀ) ⊗ A Mᵀ + S Sᵀ ⊗ M Mᵀ = 76 I + 123 · 76 I = 9424 I.
+
+## Search
+
+`python3 search/skew_wallis.py paley3 31 5` enumerates every union of the seven orbits of ⟨2⟩ on ℤ₃₁ (orbit {0}
+included), tabulates them by autocorrelation and joins three; it finishes in about a second, and the certificate uses
+its first solution. The amicable pair is that of [skew/5700](../5700).
+
+**Reproduction.**
+
+| | |
+|---|---|
+| Code | `search/skew_wallis.py` (`paley3`, `certify`) and `verify/verify.py` (`build_skew_amicable_product`) |
+| Command | `python3 search/skew_wallis.py certify 9424` writes the certificate; `python3 verify/verify.py skew/9424` rebuilds and checks it |
+| Randomness and caps | none |
+
+## Status
+
+**New.** Cati–Pasechnik Table 5 gives 589(5): the smallest skew-Hadamard order known with odd part 589 was
+32 · 589 = 18848. The Đoković–Seberry census lists 589 as undecided, so 4 · 589 = 2356 is open, and so is
+8 · 589 = 4712.
+
+- The route needs the amicable pair of order 76, which we constructed in 2026 ([skew/5700](../5700#status)). Every
+  split 9424 = h m into a skew order h and a classical amicable order m fails. m = 2 and m = 4 need the open skew
+  orders 4712 and 2356. m = 8, 16, 152, 248, 304 and 496 leave h ≢ 0 (mod 4). The smallest classical amicable orders
+  with odd parts 19 and 31 are 152 and 248 (Seberry–Yamada (1992), Table 6.1).
+- Our closure of the classical skew theorems also stops at 2⁵ · 589, as Table 5 does. It covers Paley, Szekeres,
+  Whiteman, Wallis–Whiteman, Spence, Turyn, Seberry's theorems with classical amicable orders and orthogonal designs,
+  Wallis's product and doubling ([NOTES.md](../../NOTES.md) §28). It does not cover Seberry–Yamada's SX, or Seberry's
+  theorem with m ≥ 2, for which we know no classical family of orthogonal designs.
+- In SageMath's development version of 2026-10-17, `skew_hadamard_matrix(9424, existence=True)` is `Unknown`; it is
+  `True` for 18848. Its product branch uses only amicable orders d with d − 1 a prime power.
+- Of the ingredients, Wallis's theorem and the skew order 124 are classical; the amicable pair of order 76 is new.
+
+Doubling (Seberry) gives skew-Hadamard matrices of all orders 2ᵏ · 9424. The sources searched are listed in
+[NOVELTY.md](../../NOVELTY.md).
+
+## Files
+
+| File | Contents |
+|---|---|
+| `certificate.json` | the factor of order 124 ("factor": v, multiplier, orbit representatives of the four blocks, row sums), the skew-propus quadruple of the pair ("amicable"), and the SHA-256 of the matrix |
+| `sequences.txt` | A₀, A₁, A₂, A₃ (length 31), then the skew-propus quadruple A3, A1, A0 of [skew/5700](../5700) (length 19), one per line |
+
+The matrix itself is not stored (about 220 MB as CSV); `verify/verify.py` rebuilds it in under a minute.
+
+## Verification
+
+```
+python3 verify/verify.py skew/9424
+python3 verify/verify.py skew/9424 --write && ./check_matrix < skew/9424/H9424.csv
+```
+
+`verify/verify.py` (construction `skew-amicable-product`) rebuilds the Goethals–Seidel matrix of order 124 and checks
+that it is skew-Hadamard. It rebuilds the amicable pair from the skew-propus quadruple and checks A + Aᵀ = 2I,
+M = Mᵀ, A Aᵀ = M M = 76 I and A Mᵀ = M Aᵀ. Then it assembles K and checks K Kᵀ = 9424 I, K + Kᵀ = 2I and the SHA-256 of
+the canonical CSV.
+
+SHA-256 of `H9424.csv`: `585417a06f5debe8ab574e8b416bbb2f6bd951d963faabb71229a5935ed0d2b3`
