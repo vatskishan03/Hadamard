@@ -1399,6 +1399,9 @@ element to SL(2, q) has order 2s), and the construction runs over ℤ₃ × N_s 
 - **No other multiplier.** For A_c to be skew-type in general, T_c = I and the other three T-matrices must be X, −εXᵀ
   and a skew Y, with 2 PAF(X) + PAF(Y) = (t − 1)δ; the trivial character forces t = 2a² + 1. Exhaustive searches over
   ℤ₉, ℤ₃ × ℤ₃ and ℤ₁₉ found none, so t = 3 is the only multiplier we have.
+- **An orthogonal design.** Splitting the product into the identity, the rest of row c of Paley's matrix and the paired
+  rows b, d gives a skew-type OD(3(q + 1); 1, q, 2(q + 1)) (the cross terms vanish because the paired part is skew;
+  checked for q = 11, 19 and 43). It does not feed Seberry's Theorem 7, whose weight m must divide the order.
 - **Twisted T-matrices.** The proof of t = 2a² + 1 uses an integer character of the block ring Z[x]/(x^s + 1), which
   exists only for s odd. For q ≡ 7 (mod 8) (s even) we let each point g of ℤ_t carry a unit ±x^a of the block ring
   as well as an orbit. The skew conditions then force the self-paired orbit to stay empty (a mirror pair at difference
