@@ -3304,7 +3304,8 @@ q ≡ 5 (mod 8) class through quaternary pairs; nothing was found. Scripts in th
 (i, j, x) under transposition and h = (σ, μ); exact correlation equations; meet in the middle on the base rows,
 forward-checking CSP on the σ-fixed rows, DFS on the moving cycles; scratchpad `round4/blk/`) was calibrated first:
 from Verma's group alone (m = 7, k = 12, F = 2, μ = 2, σ = (6 7 8)(9 10 11)) it rediscovers his order-86 matrix (equal
-to the published one up to signed permutation; its other border pattern is exhaustively empty), and with σ swapping
+to the negative of the published one up to signed permutation, and a rerun found one equivalent to the published
+one itself; its other border pattern is exhaustively empty), and with σ swapping
 blocks in pairs it finds Paley's matrices of orders 30, 42, 54, 62 and a non-Paley matrix of order 38 (which has an
 R-structure). It agrees with an independent CP-SAT model on 64 small configurations.
 
