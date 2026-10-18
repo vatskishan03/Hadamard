@@ -3299,3 +3299,27 @@ q ≡ 5 (mod 8) class through quaternary pairs; nothing was found. Scripts in th
 - **Propus chain sweep** (§28, §40) resumed on the composite census values from 445: complete with no solution (every
   structure with 1–36 orbits) for 445, 473, 485 and 493; 455 and 475 stopped at the 50-minute limit per value; the
   job was then stopped by the session's time limit before 509.
+
+**Round 4 (October 18): block-permuting groups and an automorphism lemma.** A dedicated engine (orbit classes of
+(i, j, x) under transposition and h = (σ, μ); exact correlation equations; meet in the middle on the base rows,
+forward-checking CSP on the σ-fixed rows, DFS on the moving cycles; scratchpad `round4/blk/`) was calibrated first:
+from Verma's group alone (m = 7, k = 12, F = 2, μ = 2, σ = (6 7 8)(9 10 11)) it rediscovers his order-86 matrix (equal
+to the published one up to signed permutation; its other border pattern is exhaustively empty), and with σ swapping
+blocks in pairs it finds Paley's matrices of orders 30, 42, 54, 62 and a non-Paley matrix of order 38 (which has an
+R-structure). It agrees with an independent CP-SAT model on 64 small configurations.
+
+- **Lemma** (proved, and checked on about 7000 automorphisms of matrices of orders 6–86). If π is a permutation
+  automorphism of order r of a symmetric conference matrix of order n, then for every d | r the number of cycles of π
+  of length divisible by d is even unless √(n − 1) ∈ ℚ(ζ_d) (the trace of C on the ζ-eigenspace is (a − b)√(n − 1) ∈
+  ℚ(ζ)). For n = 118 and 154 an involution has f ≡ 2 (mod 4) fixed points and an element of order 3 has f ≡ 4
+  (mod 6); for n = 118 order 5 needs f ≡ 8 (mod 10) and order 7 needs f ≡ 6 (mod 14). This excludes every ℤ_m-
+  translation structure with 3 | m and one fixed point ((m, k, F) = (39, 3, 1), (9, 13, 1), (3, 39, 1), (117, 1, 1)
+  for 118; (51, 3, 1), (9, 17, 1), … for 154), Verma-like layouts with σ of cycle type 1⁶3 or 3³ and μ of order 3, and
+  most (σ, μ) pairs (201 of 226 for (118; 13, 9, 1), 23 of 36 for (118; 29, 4, 2)).
+- **Exhaustive, no solution:** for n = 118, 35 of the 37 admissible groups with at most 48 free bits in the first
+  row, among them the Verma-type group (13, 9, 1), μ = 3, σ = (3 4 5)(6 7 8) (none of its 31 380 canonical first rows
+  has a compatible second row; CP-SAT agrees), all groups on (29, 4, 2), (59, 2, 0) and (58, 2, 2); open: (13, 9, 1)
+  with μ = 5, σ of type 1·2·2·4 and with μ = 3, σ = id. For n = 154, 144 of 322 admissible groups are settled (no
+  solution), 178 unresolved (the sweep was cut by machine load, not by a finding). So no conference matrix of order
+  118 or 154 with this much symmetry (about 20 or more bits of reduction) exists in the searched families; Ho's and
+  Wang's matrices, if they are of this kind, use weaker symmetry.
