@@ -3365,13 +3365,14 @@ with B fixed must still enumerate all of them.
   - The first version of this section said no such matrix of order 28 exists. That version fixed the pair signs of P
     to +1, which is invalid when B is fixed, and so searched only 1/16 of the patterns. `sym_bigf.py` now enumerates
     every sign pattern and reproduces the counts above.
-  - So the reversed decoupling fails with Paley's V. For q ≡ 3 (mod 4) a fixed-point-free π needs a symmetric
-    W(q + 1, q) whose zero set is fixed-point-free. Writing a symmetric V equivalent to a skew core K as M K N, the
-    signed permutation R = NM is an anti-automorphism of K (RKR = −K), and π has the cycle type of R. For the Paley
-    core of order 8 such an R exists, since all conference matrices of order 8 are equivalent. For prime q > 11 the
-    monomial automorphisms of Paley's matrix come from PΣL(2, q) (Kantor 1969), and the anti-automorphic involutions
-    of PGL(2, q) ∖ PSL(2, q) fix two points. So a family needs another skew core with a fixed-point-free involutory
-    anti-automorphism, together with Q-parts for all q; a later section reports on whether these exist.
+  - So the reversed decoupling fails with V = KR (π fixing 0 and ∞), but not with every Paley-type V. For every
+    prime power q ≡ 3 (mod 4), V_xy = −χ(1 + xy) (x, y ∈ GF(q)), V_x∞ = χ(x), V_∞∞ = −1 is a symmetric W(q + 1, q)
+    whose zero set is the fixed-point-free involution x ↦ −1/x (0 ↔ ∞). This is Paley's core twisted by an element of
+    PSL(2, q) with the signs χ(x), which turn it into an anti-automorphism. Found by a round-7 agent; checked here for
+    q = 3, 7, 11, 19, 23, 31, 43 (an earlier version of this paragraph wrongly argued from unsigned permutations that
+    Paley's core has no such V). So for q ≡ 3 (mod 4) only the field-free Q-part with π fixed-point-free remains: at
+    q = 7 it exists, F = K(−2P ⊕ 2N)Kᵀ/12 with K = H(12) and N a symmetric integer 4 × 4 matrix with N² = 7I. Later
+    sections report on larger q.
 - The other admissible shapes for q ≡ 3 (mod 4) need t ≡ 0 (mod 4), q + 1 ≤ t ≤ 2q − 2, f = 4q − 2t. A symmetric
   weighing matrix of order t ≡ 2 (mod 4) and weight q needs q to be a sum of two squares. The case f = 0 would be two
   symmetric W(2q, q) with complementary supports, which this rules out for q ≡ 3 (mod 4) prime. Paley gives V only
