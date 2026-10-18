@@ -3373,3 +3373,101 @@ both values taken at a zero.
   for every prime 7 ≤ q ≤ 47. It built the §27 matrices of orders 20 and 28 from all the small triples.
 - §27 found the same for character blocks on GF(q)* (v = q), so single quadratic characters do not give bordered
   propus quadruples on either torus.
+
+## 54. Skew analogues of the decoupling (October 18, exploration round 4)
+
+Theorems A and B split a symmetric matrix along a pair-swapping involution. Three agents looked for skew analogues:
+amicable pairs, automorphisms of order 3, and a direct skew Yamada–Kiyasu. Each claim was checked by two or three
+independent refuters. No census value is settled. Scripts are in the session scratchpad (`skewwf/`).
+
+**No involutions.** A skew-type Hadamard matrix H = I + S admits no signed permutation P with P² = I and
+PHPᵀ = H other than ±I. A two-cycle (a, b) with sign product +1 would give H_ba = H_ab, and a diagonal P with all
+signs equal is ±I. So Aut(H) contains a unique involution, −I, and its Sylow 2-subgroups are cyclic or generalised
+quaternion. Examples: Q₁₆ for Paley's H(8), Q₈ for the Goethals–Seidel matrices over ℤ₇, and only {±I} for some
+Goethals–Seidel skew H(36) over ℤ₉ (a refuter's counterexample to a claimed Q₈ in every such array). The pair
+decoupling of Theorems A, B and of Miyamoto's matrices can never be skew. An automorphism of odd order d cannot
+decouple supports either: on every cycle of length l > 1 a ±1 row has an odd number of entries, so its cycle sums
+never vanish. For an automorphism of odd prime order p with t cycles of length p, t is even unless p ≡ 3 (mod 4) and
+4v − 1 = pk² (character trace argument; checked by CP-SAT for p = 3, 5, 7 at orders up to 36).
+
+**Amicable pairs.** Skew H(4v) = [[I + S, A], [−A, I + S]] holds iff A is symmetric ±1, S is skew ±1 with zero
+diagonal, AS = −SA and A² + SSᵀ = (4v − 1)I (Wallis–Turyn; classical).
+- *Circulant normal form.* For 2 × 2 blocks of circulants over an abelian group of odd order v, every pair has the
+  form A = [[a, b], [b*, −a]], S = [[s, t], [−t*, −s]] with aa* + bb* + ss* + tt* = 4v − 1 and 2as = bt* − b*t. The
+  traceless form is forced: at each character write the blocks in the Pauli basis. The scalar case would put
+  √(4v − 1) or i√(4v − 1) into ℚ(ζ_e), e | v. That is impossible because the odd primes of the square-free part of
+  4v − 1 ramify there; a refuter supplied this step.
+- *Counts over ℤ_v.* v = 3, 5, 7, 9, 11, 13: 48, 160, 112, 0, 880 and 832 solutions; none over ℤ₃². All counts are
+  divisible by 4v, and every solution (2032 in all) builds a skew H(4v), checked exactly.
+- *Paley plus a diagonal.* A = C + Δ with C the Paley conference matrix of order q + 1 works only for q = 5 and 9
+  among q ≤ 17. The search is exhaustive over the balanced Δ for q = 13 and 17, and Δ must be balanced since tr A = 0.
+  At q = 9 the admissible Δ form one orbit of 72: the index-2 cosets of the non-split tori ℤ₁₀. In torus
+  coordinates the ansatz is empty for q = 13, 17, 25, 29, 37 and 41. The trivial character needs t₀² = q − 2m₀,
+  which fails for q = 73, 89, 97, …
+- *Twisted pairs* H = LHR, L ≠ R signed involutions. They decouple H into two eigenspace blocks with MMᵀ = VVᵀ = NI,
+  with entries 0, ±1, ±√2, ±2 where fixed points occur. Corrected by a refuter:
+  - cycles have even length, holonomy −1, and equal 2-adic valuation within one layout;
+  - quartets of half-length w need 2w − 1 to be a square when w is odd;
+  - a path of c vertices has a forced diagonal block of squared norm 1/sin²(π/2c), so c < (π/2)√N.
+  The layouts with exactly four fixed points on each side are four odd paths of one sign: N = 12, 20, 28 and no
+  larger (w = 9 by exhaustive search, w ≥ 11 by the norm bound). Other twisted layouts do exist beyond 28 (12 paths
+  of 3 vertices at N = 36). None reaches the census.
+- *A two-sector arrangement for v = q + 2.* Coefficient matrices over {I, J, M, N, S}, with Yamada's (M, N) and any
+  skew core S, would need W = λXY with λ² = −7/16. That is impossible in ℚ(i), so this fails for every q ≥ 87.
+- *Symmetric matrices are not skew in disguise.* The symmetric matrices of Theorem A (q = 9, 17, 25) and Theorem B
+  (q = 5, 13, 29), Miyamoto's (q = 5, 13, 17) and Paley II (orders 28, 60) are not monomially equivalent to skew-type
+  matrices. Complete searches: `skeweq.c`, and CP-SAT in independent forms. The control, Paley II of order 12, is
+  equivalent.
+
+**Order 3** (the Z₃-gluing theorem). Let H be skew-Hadamard of order 4v with a permutation automorphism σ of order 3,
+f fixed points and t three-cycles, N = f + 3t. Write Z′_ab for the sum of the circulant block (a, b) and
+V_ab = ½ Σ_c h_ab(c) ω^c. Then:
+- either |Z′_ab| = 3 and V_ab = 0, or Z′_ab = ±1 and V_ab = −Z′_ab ω^{k_ab}, with k_ab the position of the minority
+  entry;
+- Q = [[F, √3B], [−√3Bᵀ, Z′]] has Q + Qᵀ = 2I and QQᵀ = 4vI; V has V + V* = I and VV* = vI, so V² = V − vI;
+- k_ba = −k_ab for a ≠ b, and conversely F, B ±1 with these relations rebuild H.
+- Each row of V has exactly v units, so f ≤ v and f ≡ v (mod 3).
+- If t is odd then 4v − 1 = 3s². This is the centred-hexagonal gate of §35–36, now for every order-3 automorphism.
+  Otherwise t is even and the diagonal of V is balanced.
+- For f = 4, F is a skew H(4) and BBᵀ = tI.
+
+So the invariant part fixes the signs of the ω-part. Unlike Theorem A, no input can sit freely in V. Further
+results:
+- Theorem A's block shape (three full blocks and a diagonal one per block row) forces the constant pairs into four
+  cliques K_m.
+- The borders cannot be constant on blocks, by a column-sum budget.
+- Lemma D: V cannot have the form V_kl = D_kl U_l with diagonal D_kl and one free unitary U_l per block column,
+  once m ≥ 3.
+- If the class counts R vanish, or the three off-diagonal blocks have rank-one sign patterns, then m ≤ 4.
+- Skew matrices of orders 28 and 52 with the four-clique shape exist (CP-SAT plus a SAT lift of the phases; a refuter
+  built its own). The shape is specific to Z₃; it is not the support of Theorem A's V, as first claimed.
+- Translation-invariant Goethals–Seidel matrices with a multiplier of order 3 (f = 4) exist for q = 7, …, 43, and
+  their constant pairs never form cliques.
+- The ω-part of a fixed invariant part is not free in practice. Exact counts of completions (raw / up to gauge),
+  reproduced by an independent DFS and a direct CP-SAT model:
+  - Paley's skew matrix of order p + 1 with its multiplier of order 3: 2/2, 24/8, 774/86 and 3834/142 for
+    p = 7, 19, 31 and 43;
+  - Paley(27) with the Frobenius map: 816/272, which form 15 Hadamard classes (11 if H ~ Hᵀ);
+  - the order-52 clique invariant part: at least 57 up to gauge.
+  None of these is parametrised by a Hadamard-type object.
+
+**Direct skew Yamada–Kiyasu.**
+- *Literature.* Yamada's J. Austral. Math. Soc. 46 (1989), Theorems 3–5 (Theorem 4 is Kiyasu's) give ordinary
+  matrices only. No skew version appears in the sources read: Cati–Pasechnik's implementation of every skew
+  construction to order 1208, Momihara–Xiang (arXiv:1801.08776), Karoui (arXiv:2602.16089) and Đoković
+  (arXiv:2301.02751). The known cyclotomic skew families give the orders 2(q^e + 1) and 4(q^e + 1).
+- *Yamada's trimming.* A skew matrix with a 4 × 4 corner and block-constant borders needs v even.
+- *Z[C₃] array.* The pattern with the core in the constant part of one block has a solution at v = 7 (order 28),
+  none at v = 13 (three independent proofs, among them a mod-2 system UNSAT in 0.1 s), and is open at v = 19, 25,
+  where the mod-2 system is satisfiable.
+- *Quaternary route.* A quaternary Hadamard K of order 2v gives a skew H(4v) by Turyn's map when a monomial W makes
+  M = KW twisted-Hermitian, M* = iM + (1 − i)I, and only then. M then has eigenvalues
+  ((1 + i) ± (1 − i)√(4v − 1))/2, each of multiplicity v, and det M = (2iv)^v. Hence a necessary invariant:
+  arg det K ∈ (π/2)ℤ. Zaitsev's QH322 and QH330 are already in this form up to column phases. Their orders, 644 and
+  660, were already settled; a refuter rebuilt both skew matrices. QH214, QH238 and our C214, C238 have none
+  (complete DFS). The invariant excludes QH490, QH610, QH890, QH1066 and QH1690 (v = 245, 305, 445, 533, 845).
+  QH382 and QH470 timed out, and 18 more at open v were not run: round 6 (below) scans them.
+
+**Lead.** 106 open skew census values are v = (q + 1)/2 with q ≡ 1 (mod 8) a prime power, i.e. skew H(2(q + 1)),
+the classical gap between Szekeres (q ≡ 5 mod 8) and Whiteman (q = p^t, p ≡ 5 mod 8, t ≡ 2 mod 4). Round 5 attacks
+it.
