@@ -3180,3 +3180,44 @@ skew 940 and 1108.
   unnecessary: Yamada's data in quaternary form give a symmetric matrix for any skew core. Of the eight values above,
   295, 679, 823, 1063 and 1495 are now built that way (skew inputs of orders 148, 340, 412, 532 and 748); 1879, 2215
   and 2359 wait for skew-Hadamard matrices of orders 940, 1108 and 1180.
+
+
+## 50. The largest remaining symmetric classes: what fails (October 17, exploration round 2)
+
+After NOTES.md §30–32 the census has 499 undecided values; the two largest algebraic classes are v ≡ 5 (mod 8) prime
+powers (57 values) and v = q + 2 with q ≡ 1 (mod 8) a prime power (35 values). Four exploration agents attacked them
+and the composite cases; none found a construction. Their exact findings (scripts kept only in the session scratchpad;
+"proved" means a complete CP-SAT run or enumeration):
+
+- **q ≡ 5 (mod 8), order 4q.** The propus-support V-part of NOTES.md §30 (symmetric V of order 4n, V² = qI, support
+  [[I, J, J, 0], [J, 0, I, J], [J, I, 0, J], [0, J, J, I]]) exists for n = 2, 4 (q = 5, 9) and is infeasible for
+  n = 3, 6 and 10 (q = 7, 13, 21; proved). Cyclotomic propus quadruples (Legendre-type A, D, B constant on quartic
+  classes) exist only for q = 5 and 13 among the primes q ≡ 5 (mod 8) below 400, and the quaternary 2-circulant
+  cyclotomic ansatz of order 2q only for q = 5, 13. A ℤ₂²-refined "skeleton" (two complementary-support symmetric
+  weighing matrices plus a conference matrix of order q + 1, which builds symmetric matrices of orders 20 and 36) has
+  no instance at q = 13 in any of its splits (proved, using that every 12 × 8 and 12 × 10 partial Hadamard matrix
+  extends to H₁₂ and that Aut(H₁₂) is 5-transitive on columns). The known symmetric matrices of orders 4q in this
+  class show no structure to generalise: 52 is Paley II, and the propus matrix of order 116 has an automorphism group
+  of order 2.
+- **v = q + 2, q ≡ 1 (mod 8).** In the quaternary template of NOTES.md §31 the cross-block orthogonality forces the
+  core to be a unit times a real matrix, so a real symmetric conference matrix of order (v + 1)/2 is necessary and
+  sufficient there; this is Seberry–Balonin's condition, and the complex Yamada–Kiyasu matrices with quaternary cores
+  (q = 17, 73, 193 tested) have no anti-automorphism. Only 8 of the 35 values (235, 523, 731, 955, 1011, 1491, 1603,
+  2379) have (v − 1)/2 a sum of two squares, so for the other 27 no real conference matrix of that order exists. A
+  ℤ_{q+1}-circulant two-orbit family finds symmetric quaternary matrices at n = 5, 7, 9 by annealing (at n = 9 one
+  that comes from a non-Paley symmetric conference matrix of order 38) and none for n = 15; orbit-reduced CP-SAT with
+  multiplier groups proved infeasibility in many small structures, including n = 117 (v = 235) with four subgroups of
+  order 12.
+- **Composite q.** Theorem A's U-part, Yamada–Kiyasu's (M, N) and Seberry–Balonin's V-part are all equivalent to a
+  symmetric conference matrix C of order q + 1 with a signed permutation R, R² = −I, RCRᵀ = −C (then C = [[M, N],
+  [N, −M]] in a basis (e_x, Re_x)); Paley's matrices have one (x ↦ g/x, g a non-square). The three constructions go
+  through for any such C (checked for random R at q = 5 to 41), so composite values need a conference matrix with R:
+  40 values of Theorem-A type (65, 153, 305, …), 18 of Yamada–Kiyasu type (119, 223, 247, …) and the Seberry–Balonin
+  values would follow; no non-Paley conference matrix with R is known at those orders.
+- **Symmetrization of quaternary arrays.** The array [[X, Y], [−Y*, X*]] of a complementary pair (x, y) becomes
+  symmetric by a monomial diag(Q₁, Q₂) exactly when XQ₁, X*Q₂ are symmetric and YQ₂ = −Q₁ᵀȲ; this gives the propus
+  type (x symmetric, y real, which settled 260: NOTES.md §32), Hermitian or skew-Hermitian y with arbitrary x, and
+  α-twisted pairs for an involutive automorphism α. All were checked exactly on small groups; no published pair of a
+  remaining census order is of these types beyond Verma's.
+- **Zaitsev's matrices.** None of QH130 … QH1526 of the remaining census orders is equivalent to a symmetric matrix
+  (NOTES.md §31).
