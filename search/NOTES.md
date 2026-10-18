@@ -3707,3 +3707,24 @@ w = (q − 1)/4 ∈ {97, 193, 205, 277, 373, 405, 433, 493, 549, 577, 585}.
 - No factorised multiplier M = M₂M₁ through ℤ₅ exists. The trivial character forces det(M₁)² c′₁c′₂c′₃ = 250 for the
   intermediate form C′, so c′₁c′₂c′₃ ∈ {10, 250}. For none of these C′ is there an M₁ over ℤ[ℤ₅] with
   M₁ᵀC′M₁ = 5C (scratchpad `bigf/tfactor.py 5 250`).
+
+**Paley's skew set as the repeated propus block, q ≡ 3 (mod 4).** In the second propus form of §17 (only A
+symmetric), put B = C = I + Q, with Q Paley's skew core over ℤ_q (q ≡ 3 mod 4 prime). The known matrix with v = 43
+has this B.
+- BBᵀ = (q + 1)I − J, so the condition becomes PAF_A + PAF_D = 2 off 0 with A symmetric: a D-optimal pair over ℤ_q
+  with one symmetric member.
+- The row sums satisfy s_A² + s_D² = 4q − 2, so 2q − 1 must be a sum of two squares. That leaves 35 census prime
+  powers q ≡ 3 (mod 4): 163, 167, 223, 239, 283, 343, 491, ….
+- Exact counts with A on the orbits of ⟨H₀, −1⟩ and D on those of H₀ (|H₀| = m odd; scratchpad `paleyprop/ppc.c`):
+  - solutions: q = 7, m = 1: 56; q = 19, m = 1: 912; q = 19, m = 3: 48; q = 31, m = 5: 24; q = 43, m = 7: 24. The
+    matrices of orders 76, 124 and 172 were built and checked.
+  - none for q = 23 (m = 1, exhaustive), 31 (m = 3), 43 (m = 3), 59 (29), 79 (3, 13), 103 (17), 127 (7, 9),
+    131 (13), 139 (23).
+- None in the 64 structures with D on at most 19 orbits for the 35 census values.
+- For q = 163 and 167, D-optimal designs of orders 326 and 334 are themselves open (§25). So there the route is at
+  least as hard as those problems.
+
+**Quadratic characters on the norm-one torus give no periodic Golay pairs.** On the torus T ⊂ GF(p²)* of order p + 1
+(p = 17, 73, 89, 97), the sequences χ(Tr(αt) + c) and χ(N(t − β)), with every fill of their zeros, contain no
+periodic Golay pair (exact matching of autocorrelations). §53 found the same for bordered propus. So the torus gives
+no K for Theorem F through a prime q′ = 2w − 1, although q′ is prime for w = 97, 205, 405, 549 and 577.
