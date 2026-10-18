@@ -3370,7 +3370,7 @@ with B fixed must still enumerate all of them.
     core of order 8 such an R exists, since all conference matrices of order 8 are equivalent. For prime q > 11 the
     monomial automorphisms of Paley's matrix come from PΣL(2, q) (Kantor 1969), and the anti-automorphic involutions
     of PGL(2, q) ∖ PSL(2, q) fix two points. So a family needs another skew core with a fixed-point-free involutory
-    anti-automorphism, together with Q-parts for all q. NOTES.md §55 reports on whether these exist.
+    anti-automorphism, together with Q-parts for all q; a later section reports on whether these exist.
 - The other admissible shapes for q ≡ 3 (mod 4) need t ≡ 0 (mod 4), q + 1 ≤ t ≤ 2q − 2, f = 4q − 2t. A symmetric
   weighing matrix of order t ≡ 2 (mod 4) and weight q needs q to be a sum of two squares. The case f = 0 would be two
   symmetric W(2q, q) with complementary supports, which this rules out for q ≡ 3 (mod 4) prime. Paley gives V only
