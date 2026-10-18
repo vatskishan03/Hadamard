@@ -1778,3 +1778,13 @@ complementary symmetric W(n, n/2)) makes both Z-blocks of the (0, ±2) type, and
 [I, 0, J, J], [0, I, J, J]] (V-part from a symmetric Hadamard matrix of order q − 1) gives F a diagonal of 0 or ±2; so
 Theorem A's pattern is the only one, and for q ≡ 5 (mod 8) a symmetric construction of this kind needs a different
 U-part or more fixed points. (Scripts: session scratchpad `nogo/`.)
+
+**The quaternary form does not help either.** In the quaternary template of §31 (symmetric L of order 2q with two
+borders and two cores of n pairs, L|𝒰 and L|𝒱 decoupled, Turyn's map giving the real matrix), Paley's U-part enters as
+G = ½((U₁ + U₂) + i(U₁ − U₂)) (GḠ = (q/2)I − J; diagonal ½(1 − i)(U₂)ⱼⱼ of modulus 1/√2). If L|𝒰 has cores G and Ḡ
+(or GΠ and ḠΠ, Π the pairing s ↦ −s of the squares, which commutes with U₁ and U₂), the entries of modulus 1/√2 force
+L|𝒱 = 2[[A, K], [Kᵀ, B]] with A = ½(1 + i)Π_s, B = ½(1 − i)Π_{s′} (signed copies of I or of Π), and LL̄ = 2qI reduces
+to KK* = nI and Π_s K̄ = −K Π_{s′}. With Π = I this makes K a phase-twisted real Hadamard matrix of order n ≡ 2 (mod 4);
+with the fixed-point-free Π it gives K = [[P, Q], [−DQ̄D′, −DP̄D′]] with PD′Qᵀ skew, whose diagonal entries are sums
+of m = n/2 units ±1, ±i with m odd, never 0. So for q ≡ 5 (mod 8) both choices fail by parity, as the real
+arrangements do.
