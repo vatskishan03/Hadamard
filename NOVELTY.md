@@ -153,6 +153,15 @@ For every order we checked:
   Zaitsev's page, whose quaternary matrices QH590, QH638, QH782, QH926, QH1310, QH1358, QH1646 and QH1886 are of the
   Yamada–Kiyasu kind and monomially equivalent to symmetric ones, so 1180, 1276, 1564, 1852, 2620, 2716, 3292 and 3772
   are labelled Concurrent. None states either construction or a symmetric matrix of any of the 37 orders;
+- for the symmetric orders 404 and 596 ([symmetric/PERIODIC_GOLAY.md](symmetric/PERIODIC_GOLAY.md)), checked on 18
+  October 2026: the census (both v undecided); Miyamoto's claim of 1991 as the census reports it (a symmetric input of
+  order q − 1, rejected by the census); Seberry–Balonin (2015, 2017); Balonin–Đoković, arXiv:1803.08787; Di Matteo,
+  Đoković and Kotsireas, arXiv:1503.04226; Đoković, arXiv:2101.05429 and 2508.17141; Đoković–Kotsireas,
+  arXiv:1310.5773 (the pair of length 74); Momihara–Xiang, arXiv:1801.08776; Zaitsev's page (no quaternary matrix of
+  order 202 or 298); web searches for symmetric Hadamard matrices of orders 404 and 596 and for symmetric constructions
+  from periodic Golay pairs (Balonin and Đoković's 2015 paper on symmetric two-circulant Hadamard matrices and periodic
+  Golay pairs was seen only by title; two-circulant matrices from a pair of length ℓ have order 2ℓ, not 4(2ℓ + 1)).
+  None gives a symmetric matrix of either order or the construction;
 - for the symmetric order 260 ([symmetric/260](symmetric/260)), checked on 17 October 2026: the census; Đoković,
   arXiv:2101.05429 (65 first among the open v < 200, and the Handbook's Table 1.52 list as he quotes it); Seberry–Balonin
   (2015, 2017); Balonin–Đoković, arXiv:1803.08787; Verma, arXiv:2609.25573 (the pair only); Lebedev, arXiv:2609.04589;

@@ -1876,6 +1876,110 @@ def build_two_block(cert):
     return H, [a, b]
 
 
+def _pgp_s_form(cert, n):
+    """The Hadamard matrix K = [[P, Q], [Q, P]] of order 2n of a periodic Golay pair (a, b) over an abelian group
+    Gamma of order n with an element t of order 2: K' = [[A, B], [-B^T, A^T]] (A, B group-developed) is Hadamard, the
+    translation by t (on rows and columns of both halves) is a fixed-point-free involutory automorphism, and ordering
+    the indices as (coset c, half r, transversal element u), with element u + c t, makes it the block swap."""
+    a = np.array(cert["a"], dtype=np.int64)
+    b = np.array(cert["b"], dtype=np.int64)
+    tg, add, neg = abelian_group(cert.get("group", str(len(a))))
+    t = int(cert["t"])
+    if tg != n or len(a) != n or len(b) != n or t == 0 or add[t, t] != 0:
+        raise ValueError("periodic Golay pair: wrong length or t is not of order 2")
+    if not (np.abs(a) == 1).all() or not (np.abs(b) == 1).all():
+        raise ValueError("periodic Golay pair: entries must be +-1")
+    paf = np.array([int(a @ a[add[:, s]] + b @ b[add[:, s]]) for s in range(n)])
+    if paf[0] != 2 * n or np.any(paf[1:] != 0):
+        raise ValueError("(a, b) is not a periodic Golay pair")
+    A, B = group_matrix(add, neg, a), group_matrix(add, neg, b)
+    K = np.block([[A, B], [-B.T, A.T]])
+    U = [g for g in range(n) if g < add[g, t]]
+    order = [r * n + (u if c == 0 else int(add[u, t])) for c in (0, 1) for r in (0, 1) for u in U]
+    K = K[np.ix_(order, order)]
+    if not np.array_equal(K[n:, n:], K[:n, :n]) or not np.array_equal(K[n:, :n], K[:n, n:]):
+        raise ValueError("K is not of the form [[P, Q], [Q, P]]")
+    if not gram_is_scalar(K, 2 * n):
+        raise ValueError("K is not a Hadamard matrix")
+    return K, [a, b]
+
+
+def build_symmetric_involution(cert):
+    """Symmetric Hadamard matrix of order 4q, q = 1 (mod 4) a prime, from a Hadamard matrix K = [[P, Q], [Q, P]] of
+    order q - 1 (symmetric/THEOREM_F.md), here from a periodic Golay pair of length (q - 1)/2 (_pgp_s_form).
+
+    Points of the projective line: x = 0 .. q - 1 and infinity; chi is the quadratic character. On the q - 1 points
+    x != 0 put A[x, y] = chi(x + y) (zero exactly at y = -x) and Z[x, y] = [x + y = 0]. Row r < (q - 1)/2 of K is the
+    point r + 1 and row (q - 1)/2 + r the point -(r + 1), so that x -> -x acts on the rows of K as the block swap; Kp
+    is K with its rows so relabelled. Then
+
+        F = [[A + Z, A - Z], [A - Z, A + Z]],   B = [ (1; 1) | (chi; chi) | (k_j; -k_j) ],   P = -B^T F B / (4(q - 1)),
+
+    where k_j are the columns of Kp, satisfy B^T B = 2(q - 1) I, F B = -2 B P and F^2 + 2 B B^T = 4q I, and P is a
+    symmetric signed permutation matrix without fixed points. For a non-square nu, V0[x, y] = chi(xy - nu),
+    V0[x, inf] = chi(x), V0[inf, inf] = 1 is a symmetric weighing matrix of order q + 1 and weight q whose zeros are
+    the fixed-point-free involution x -> nu/x (0 <-> inf); V is V0 relabelled so that its zeros are those of P. Then
+
+        H = [[F, B, B], [B^T, P + V, P - V], [B^T, P - V, P + V]]
+
+    is symmetric with entries +-1 and H^2 = 4q I. "q", "nu" (optional, default the least non-square) and the pair
+    ("a", "b", "group", "t") as in _pgp_s_form. Every step is checked here."""
+    q = int(cert["q"])
+    if not _is_prime(q) or q % 4 != 1:
+        raise ValueError("symmetric-involution: q must be a prime = 1 (mod 4)")
+    m, n = q - 1, (q - 1) // 2
+    K, seqs = _pgp_s_form(cert, n)
+    chi = -np.ones(q, dtype=np.int64)
+    chi[np.arange(1, q) ** 2 % q] = 1
+    chi[0] = 0
+    nu = int(cert.get("nu", next(x for x in range(2, q) if chi[x] == -1)))
+    if chi[nu % q] != -1:
+        raise ValueError("nu must be a non-square")
+    x = np.arange(1, q)
+    A = chi[(x[:, None] + x[None, :]) % q]
+    Z = ((x[:, None] + x[None, :]) % q == 0).astype(np.int64)
+    point = np.concatenate([np.arange(1, n + 1), q - np.arange(1, n + 1)])
+    Kp = np.zeros_like(K)
+    Kp[point - 1] = K
+    F = np.block([[A + Z, A - Z], [A - Z, A + Z]])
+    B = np.hstack([np.ones((2 * m, 1), dtype=np.int64), np.concatenate([chi[x], chi[x]])[:, None],
+                   np.vstack([Kp, -Kp])])
+    if not (np.abs(F) == 1).all() or not np.array_equal(F, F.T):
+        raise ValueError("F is not a symmetric +-1 matrix")
+    if not np.array_equal(B.T @ B, 2 * m * np.eye(q + 1, dtype=np.int64)):
+        raise ValueError("B^T B != 2(q - 1) I")
+    G = -(B.T @ F @ B)
+    if np.any(G % (4 * m)):
+        raise ValueError("B^T F B is not divisible by 4(q - 1)")
+    P = G // (4 * m)
+    if (not np.array_equal(P, P.T) or not np.array_equal(np.abs(P).sum(axis=1), np.ones(q + 1, dtype=np.int64))
+            or np.any(np.diag(P) != 0)):
+        raise ValueError("P is not a fixed-point-free symmetric signed permutation matrix")
+    if not np.array_equal(F @ B, -2 * B @ P) or not np.array_equal(F @ F + 2 * B @ B.T,
+                                                                    4 * q * np.eye(2 * m, dtype=np.int64)):
+        raise ValueError("F B != -2 B P or F^2 + 2 B B^T != 4q I")
+    V0 = np.zeros((q + 1, q + 1), dtype=np.int64)
+    f = np.arange(q)
+    V0[:q, :q] = chi[(f[:, None] * f[None, :] - nu) % q]
+    V0[:q, q] = V0[q, :q] = chi[f]
+    V0[q, q] = 1
+    if not np.array_equal(V0, V0.T) or not np.array_equal(V0 @ V0, q * np.eye(q + 1, dtype=np.int64)):
+        raise ValueError("V0 is not a symmetric weighing matrix of weight q")
+    def pairs(M):
+        z = [int(np.flatnonzero(row)[0]) for row in M]
+        if any(z[z[i]] != i or z[i] == i for i in range(len(z))):
+            raise ValueError("the zero pattern is not a fixed-point-free involution")
+        return sorted((i, z[i]) for i in range(len(z)) if i < z[i])
+    tau = np.zeros(q + 1, dtype=np.int64)
+    for (i, j), (u, w) in zip(pairs(np.abs(P)), pairs((V0 == 0).astype(np.int64))):
+        tau[i], tau[j] = u, w
+    V = V0[np.ix_(tau, tau)]
+    if not np.array_equal(V == 0, P != 0):
+        raise ValueError("the zeros of V are not the support of P")
+    H = np.block([[F, B, B], [B.T, P + V, P - V], [B.T, P - V, P + V]])
+    return H, seqs
+
+
 def build_paley_blocks(cert):
     """Paley's matrix of order q + 1 = 4s (q = 3 mod 4, q > 3; a prime, or a prime power with cert["field"], see
     _build_paley_blocks_field) as a 4 x 4 array of circulant s x s blocks, times
@@ -2068,7 +2172,8 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "symmetric-propus-skewcore": build_symmetric_propus_skewcore,
             "symmetric-propus-weighing": build_symmetric_propus_weighing,
             "symmetric-yamada-kiyasu": build_symmetric_yamada_kiyasu, "paley-skew": build_paley_skew,
-            "two-block": build_two_block, "paley-blocks": build_paley_blocks}
+            "two-block": build_two_block, "paley-blocks": build_paley_blocks,
+            "symmetric-involution": build_symmetric_involution}
 
 
 def csv_chunks(H, rows=512):
