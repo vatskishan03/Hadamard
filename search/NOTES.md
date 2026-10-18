@@ -3728,3 +3728,61 @@ has this B.
 (p = 17, 73, 89, 97), the sequences χ(Tr(αt) + c) and χ(N(t − β)), with every fill of their zeros, contain no
 periodic Golay pair (exact matching of autocorrelations). §53 found the same for bordered propus. So the torus gives
 no K for Theorem F through a prime q′ = 2w − 1, although q′ is prime for w = 97, 205, 405, 549 and 577.
+
+## 57. Four fixed points for q ≡ 3 (mod 4), symmetric orthogonal designs, PGP(194) (October 18, rounds 8 and 11)
+
+No census value is settled here. Scripts are in the session scratchpad (`round11/q3/`, `round11/pgp194/`,
+`round8/symod/`).
+
+**Involutions of the symmetric H(28).** Valtonen's 91 classes, expanded over their polarities, give 168 conjugacy
+classes of symmetric matrices (1958 polarities, matching his file).
+- Permutation involutions have f = 4 (24 classes) or f = 12 (24 classes), never both in one class.
+- Elements of order 3 always act as 1⁴3⁸. Orders 7 and 13 occur only in a few classes (Paley II(13) and the symmetric
+  form of Paley I(27)).
+- No element of projective order 4, 5, 9 or 21 occurs, and no signed automorphism squares to −I.
+
+**Theorem G (four fixed points).** Let n be odd, q = 2n + 1, and Q the core of a conference matrix of order n + 1 (Q
+symmetric if n ≡ 1, skew if n ≡ 3 (mod 4)). Let A, B be commuting symmetric matrices of order n, A with entries ±1,
+B with zero diagonal and ±1 elsewhere, and A² + B² = (q − 2)I. Then
+- P = [[0, a₁Q, eI, a₂Q], [a₁Qᵀ, d₁I, a₃Q, 0], [eI, a₃Qᵀ, 0, a₄Q], [a₂Qᵀ, 0, a₄Qᵀ, d₃I]] with fixed signs has
+  P² = qI − 2 I₄ ⊗ J;
+- V = [[A, I, B, I], [I, −B, I, −A], [B, I, −A, −I], [I, −A, −I, B]] has V² = qI and the complementary support;
+- with B₀ a Hadamard matrix of order 4 and F = −½B₀PₐB₀ᵀ, the decoupling of §53 (f = 4, t = 2q − 2) gives a symmetric
+  Hadamard matrix of order 4q.
+Facts about it:
+- Built and checked exactly for q = 7, 11, 15, 19, 27, 31, 39, 63, 75 (the lead re-checked the matrices). The
+  "sporadic" decoupled H(44) of round 4 (§56) is the case q = 11.
+- (A, B) is a symmetric conference matrix of order q − 1 with a skew anti-automorphism (Yamada's circulant pairs when q − 2
+  is a prime ≡ 1 (mod 4)). So for n ≡ 3 (mod 4) the inputs are those of the symmetric Yamada–Kiyasu construction
+  (symmetric/YAMADA_KIYASU.md), and for n ≡ 1 (mod 4) those of Seberry–Balonin's conference-core corollary.
+- It reaches no census value: the 41 open v ≡ 3 (mod 4) with v − 2 a prime power all lack the core of order (v + 1)/2.
+- Necessity within this skeleton: any V completing such a P contains a conference matrix of order q − 1, so q − 2
+  must be a sum of two squares. With Paley II (2q − 1 a sum of two squares), 39 of the 97 open prime powers
+  q ≡ 3 (mod 4) fail both: 107, 179, 251, 311, 347, 359, 419, 599, ….
+- Other proved obstructions:
+  - A bipartite P (for example the Jacobsthal core of GF(q)* doubled) needs a Hadamard matrix of order q − 1, so the
+    GF(q)-natural Q-part cannot be completed.
+  - A 4 × 4 array of blocks in span{I, J, Q_GF(q)} exists only for q = 3.
+  - An array of eight blocks in span{I, J, Q_GF(n)} is impossible for n ≥ 9.
+- At q = 23 the ℤ₂₂-regular structure with any of 32 involutory symmetry templates is UNSAT. The generic structure
+  there is UNKNOWN.
+- Symmetric H(4q) with a fixed-point-free anti-automorphism R (R² = −I, RHRᵀ = −H) are exactly the Turyn images of
+  complex-symmetric quaternary Hadamard matrices of order 2q. 74 of the 168 classes of order 28 have one.
+
+**Symmetric orthogonal designs OD(4t; t, 2t, t)** (round 8). These would serve as symmetric plug-ins of §32 for odd t.
+- t = 3: none (28 CNFs, each with a verified DRAT proof; already the mod-4 relaxation is UNSAT).
+- t = 5: none, by an exhaustive case split over the 256 conjugacy classes of symmetric W(20, 5). 248 cases are
+  DRAT-certified; classes 174, 188, 189, 190, 253 and 255 rest on single kissat runs, and 252 and 254 on cube splits.
+- t = 4: an exact OD(16; 4, 8, 4) was found.
+- No rational obstruction exists for (5, 10, 5), so the obstruction is integral.
+- Among the other symmetric OD(12; a, b, c), only (9, 2, 1), (8, 2, 2) and (5, 5, 2) exist (two encoders agree; no
+  proofs).
+
+**PGP(194), the untwisted |H| = 3 family** (§56). Still UNKNOWN.
+- The symmetries force the sums (13, 5, 13, −5), and the family has 31 independent equations in 132 bits.
+- Kissat (sorting-network encoding) and CP-SAT already fail on the 52-variable analogue (37, 3), which tabu search
+  solves in 0.2 s. Tabu search solves analogues up to (113, 7). At w = 97, a 3600 s kissat run, six cube runs and
+  3.3·10⁸ tabu steps (best energy 224) found nothing; both methods extrapolate to 2⁶³–2⁶⁷ steps.
+- A heuristic count predicts 1 to 6 equivalence classes. The decisive route is an exhaustive row enumeration with
+  canonical rotations (about 6.5·10¹² nodes, 8–14 core-days, then the support join). The same scheme would settle
+  (73, 3) in about a core-hour.
