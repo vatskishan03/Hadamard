@@ -1521,7 +1521,9 @@ of m), `propus_bgroup.py` (non-cyclic groups: all automorphisms by enumeration o
 M_ij ∈ (n_i / gcd(n_i, n_j))ℤ, cyclic and 2-generated subgroups up to an invariant of the action), verify.py
 construction `propus-bordered`, `border_certify.py`.
 
-**Order 260 (v = 65, the smallest open symmetric order).**
+**Order 260 (v = 65, the smallest open symmetric order).** Settled on October 17 by a quadruple with no multiplier
+symmetry, decoded from Verma's quaternary Legendre pair of length 64 (NOTES.md §32); the structured searches below
+had no chance to find it.
 - ℤ₆₄, direct joins: every multiplier structure with at most 25 orbits is empty (both row patterns).
 - ℤ₆₄, compressions: ⟨31, 33⟩ (25 orbits) has no compatible ℤ₁₆-compression triple for either pattern (ruled out);
   ⟨17⟩ (17/32 orbits): pattern (0, 0, 2) has no compatible ℤ₈ triple, pattern (2, 0, 0) has 640 (pair work

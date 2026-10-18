@@ -153,6 +153,11 @@ For every order we checked:
   Zaitsev's page, whose quaternary matrices QH590, QH638, QH782, QH926, QH1310, QH1358, QH1646 and QH1886 are of the
   Yamada–Kiyasu kind and monomially equivalent to symmetric ones, so 1180, 1276, 1564, 1852, 2620, 2716, 3292 and 3772
   are labelled Concurrent. None states either construction or a symmetric matrix of any of the 37 orders;
+- for the symmetric order 260 ([symmetric/260](symmetric/260)), checked on 17 October 2026: the census; Đoković,
+  arXiv:2101.05429 (65 first among the open v < 200, and the Handbook's Table 1.52 list as he quotes it); Seberry–Balonin
+  (2015, 2017); Balonin–Đoković, arXiv:1803.08787; Verma, arXiv:2609.25573 (the pair only); Lebedev, arXiv:2609.04589;
+  Kotsireas–Winterhof and Jedwab–Pender as cited by Verma; Zaitsev's page (QH130, not equivalent to a symmetric
+  matrix); web searches for a symmetric Hadamard matrix of order 260;
 - searches of Zenodo (records matching "hadamard"), GitHub, the e-print sources of Hadamard-related arXiv papers
   (to 2026-10-08) and the math.CO listings (to 2026-10-12), the OEIS, MathOverflow, Balonin's catalogue and the Palomar
   registry.

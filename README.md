@@ -118,8 +118,9 @@ Williamson-type matrices ([NOTES.md](NOTES.md) §7).
   by two older tables without a construction) and five orders 8v and 16v below the smallest power of two in
   Cati–Pasechnik's Table 5. Also independent matrices of the known skew orders 1852, 3676 and 7656 (Wallis–Whiteman,
   which Table 5 missed). See [skew](skew).
-- **Symmetric Hadamard matrices** of 92 orders, all undecided in the Đoković–Seberry census [4]: 532, 732, 876, 4828 and
-  5700 from searches and new plug-in constructions (5700 obtainable classically), and 48 orders 4q (q ≡ 1 mod 8 a prime
+- **Symmetric Hadamard matrices** of 93 orders, all undecided in the Đoković–Seberry census [4]: 260 (v = 65, the
+  census's smallest value), a bordered propus quadruple decoded from Verma's quaternary Legendre pair of length 64
+  (2026); 532, 732, 876, 4828 and 5700 from searches and new plug-in constructions (5700 obtainable classically), and 48 orders 4q (q ≡ 1 mod 8 a prime
   power, 356 to 9892) from Seberry–Yamada's Williamson-type matrices with a repeated block in Seberry–Balonin's propus
   array, for which we found no statement: 47 obtainable classically, and 7012 = 4 · 1753 from our matrix of order 876
   ([symmetric/PROPUS_MIYAMOTO.md](symmetric/PROPUS_MIYAMOTO.md)). Two new constructions need no symmetric input: a
@@ -129,7 +130,7 @@ Williamson-type matrices ([NOTES.md](NOTES.md) §7).
   q ≡ 5 (mod 8), Yamada's matrix in symmetric quaternary form ([symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md),
   27 orders, 1180 to 9340; 8 of them are Concurrent, since quaternary matrices on Zaitsev et al.'s page of 14 October
   2026 turn out to be equivalent to symmetric ones). Also 1804 and 3532, which Seberry–Balonin's Corollary 1 gives with conference cores of
-  orders 225 and 441 but the census omits (Known). The census now has 500 undecided values. See [symmetric](symmetric).
+  orders 225 and 441 but the census omits (Known). The census now has 499 undecided values. See [symmetric](symmetric).
 - **Complex Hadamard matrices** of 11 orders 2N with N odd, blank in Seberry and Yamada's table of known orders [5]
   and in the papers since [10, 11, 12]: 214, 238, 302, 326, 366, 382, 426, 494, 518, 534 and 754, from searches over
   Szöllősi's array [10] and its bordered, character-bordered and twisted forms. They were found concurrently and

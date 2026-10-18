@@ -1631,7 +1631,7 @@ determinants in the same square class), and exhaustive searches over symmetric e
 9 either.
 
 The symmetric census then had 537 undecided values: 595, less Đoković's three (arXiv:2508.17141), less the 55 orders
-of [symmetric](symmetric) at the time; after §30 and §31 it has 500.
+of [symmetric](symmetric) at the time; after §30 and §31 it has 500, and after §32 499.
 
 
 ## 30. Symmetric Hadamard matrices of order 4q from any Hadamard matrix of order (q − 1)/2 (October 17)
@@ -1709,3 +1709,28 @@ anti-automorphism of the skew matrix is used, which is what §29 needed.
   2383 from quaternary conference matrices of order (N + 1)/2; zero-diagonal Szöllősi searches with multiplier groups
   found none of orders 262, 298, 322, 430, 478 or 490. The symmetric template above does not take a non-real core:
   the (core_L, core_R) block of L L̄ is 2(1 + i)(S − S̄).
+
+
+## 32. Order 260 from a quaternary Legendre pair (October 17)
+
+**A symmetric Hadamard matrix of order 260 = 4 · 65**, the smallest undecided value of the symmetric census
+([symmetric/260](symmetric/260)). Verma's quaternary Legendre pair (A, B) of length 64 (arXiv:2609.25573, September
+2026) has A real and B symmetric, which the paper does not note. Writing B = ((1 + i)p + (1 − i)q)/2 with p, q = ±1,
+PAF_A + PAF_B = −2 becomes PAF_p + 2 PAF_A + PAF_q = −4 with p, q symmetric: a bordered propus quadruple (p, A, A, q)
+over ℤ₆₄ (search/NOTES.md §27), and the bordered propus array gives the matrix (`search/sym_qlp.py`). The quadruple
+has no multiplier symmetry, which is why the multiplier-invariant searches of search/NOTES.md §27–28 (every structure
+up to 25–30 orbits on the groups of order 64) found nothing.
+
+- **General principle.** A quaternary (or complex) complementary pair (x, y) on a group G with x symmetric and y
+  real gives, through the Turyn-type array and the monomial diag(I, −I), a symmetric quaternary Hadamard matrix and
+  hence a symmetric real one (order 4m unbordered, 4m + 4 bordered); with the decoding above this is exactly the
+  propus condition, so it adds no new cases, but it makes quaternary Legendre pairs a source of propus quadruples.
+  The exploration of October 17 also classified the monomial symmetrizations of the array [[X, Y], [−Y*, X*]]
+  (Hermitian or skew-Hermitian y with arbitrary x, and α-twisted pairs with x(−αg) = x(g), y(αg) = ±ȳ(g) for an
+  involutive automorphism α), checked exactly on small groups; no published pair of a remaining census order is of
+  any of these types.
+- **Other published pairs.** Lengths up to 34 (Kotsireas–Winterhof, Kotsireas–Koutschan–Winterhof), Jedwab–Pender's
+  families (lengths (q − 1)/2 and 2p) and Lebedev's lengths 42–80 (arXiv:2609.04589) give v ≤ 81 or v covered by
+  Paley's series, none of the remaining census values.
+- **Label.** New: the input is from 2026, and no source we found notes the symmetric matrix. Zaitsev et al.'s QH130
+  has no anti-automorphism, so it does not give it.
