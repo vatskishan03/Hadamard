@@ -16,8 +16,9 @@ unique H(12) (every such B extends; M₁₂ is 5-transitive on the columns), and
 {x ∈ {±1}¹²: Bᵀx = -2(BP)ᵢ}. This program enumerates those sets for every involution π on the 8 columns and every
 sign pattern of P, and backtracks on symmetry and the Gram condition.
 
-    python3 search/sym_bigf.py 3      # control: Q-parts exist (order 12)
-    python3 search/sym_bigf.py 7      # all π: Q-parts only for π with 4 fixed points, and no V for those
+    python3 search/sym_bigf.py 3      # order 12: Q-parts and completions
+    python3 search/sym_bigf.py 7      # order 28: Q-parts for π with 0 or 4 fixed points; V only for 0 or 2, so
+                                      # the completions have π fixed-point-free (Paley's V, 2 fixed points, fails)
 """
 import itertools
 import sys
@@ -130,15 +131,14 @@ def main(q):
         tried = found = complete = 0
         for fixed in itertools.combinations(range(n), k):
             rest = [c for c in range(n) if c not in fixed]
-            for signs in itertools.product((1, -1), repeat=k):
-                if k and signs[0] == -1:
-                    continue  # P ↦ -P, F ↦ -F
-                for mt in matchings(rest):
+            for mt in matchings(rest):
+                # B is fixed, so every sign pattern of P is needed (a sign change of P is a column sign change of B)
+                for signs in itertools.product((1, -1), repeat=k + len(mt)):
                     P = np.zeros((n, n), dtype=int)
                     for c, s in zip(fixed, signs):
                         P[c, c] = s
-                    for a, b in mt:
-                        P[a, b] = P[b, a] = 1  # pair signs are absorbed by column signs of B
+                    for (a, b), s in zip(mt, signs[k:]):
+                        P[a, b] = P[b, a] = s
                     tried += 1
                     sols = q_parts(B, P, q)
                     if not sols:

@@ -3326,7 +3326,8 @@ R-structure). It agrees with an independent CP-SAT model on 64 small configurati
 
 ## 53. Large fixed sets for q ≡ 3 (mod 4), and bordered propus over the torus (October 18)
 
-Two constructions aimed at classes that Theorems A and B do not reach. Neither works.
+Two constructions aimed at classes that Theorems A and B do not reach. Neither works as first posed; the first one
+survives with a non-Paley V (corrected the same day).
 
 **An involution with 2q − 2 fixed points** (`sym_bigf.py`). In Theorem A the involution has 4 fixed points, the
 field part is the U-part and the weighing matrix V of order 2(q − 1) is field-free. The roles can be reversed for
@@ -3339,26 +3340,44 @@ signed permutation matrix on it, and H² = 4qI becomes
     V² = qI,   BᵀB = (2q − 2) I,   F B = −2 B P,   F² + 2 B Bᵀ = 4q I.
 
 Paley's skew core K and R: x ↦ −x, with −1 at ∞, give V = KR, which is symmetric with π fixing 0 and ∞. The Q-part
-(F, B, P) is field-free: it depends on q only through its size. The signs of P on the pairs can be absorbed into the
-column signs of B. So only the signs at the fixed points of π matter, and P ↦ −P is absorbed by F ↦ −F.
-- q = 3 (order 12): Q-parts exist exactly when the two fixed points of π carry opposite signs, and they complete.
+(F, B, P) is field-free: it depends on q only through its size. Changing the sign of P on a pair is the same as
+changing the sign of one column of B, so up to equivalence only the signs at the fixed points of π matter. A search
+with B fixed must still enumerate all of them.
+- q = 3 (order 12): Q-parts exist for π with 2 fixed points (24 of 48 signed patterns) and with 4 (8 of 16). Only
+  the first complete: a symmetric W(4, 3) cannot have zero diagonal.
 - q = 7 (order 28): B is 12 × 8 with orthogonal columns. Such a B is equivalent to 8 columns of Paley's H(12). An
   independent check (scratchpad `verify53/extension/`) classified the k × 12 partial Hadamard matrices exhaustively,
   confirmed by a mass formula against a clique count. The class counts for k = 1, …, 12 are 1, 1, 1, 2, 1, 2, 1, 1,
   1, 1, 1, 1, and every class with k ≥ 5 completes; this is Verheiden's completion of the last seven rows. The check
-  also enumerated the 190080 automorphisms of H(12), whose 95040 column permutations act sharply 5-transitively. Each row of F then lies in the affine set {x ∈ {±1}¹²: Bᵀx = −2(BP)ᵢ}. Exhaustive over every
-  involution π on the 8 columns and every sign pattern:
-  - no Q-part when π has 0, 2, 6 or 8 fixed points (105, 840, 896 and 128 labellings), so Paley's V never fits;
-  - six labellings when π has 4 fixed points (signs balanced), but no symmetric W(8, 7) has that zero pattern
-    (CP-SAT).
-  So no symmetric Hadamard matrix of order 28 has an involutory permutation automorphism with 12 fixed points, and
-  the reversed decoupling gives no family.
+  also enumerated the 190080 automorphisms of H(12), whose 95040 column permutations act sharply 5-transitively.
+  With B fixed, each row of F lies in the affine set {x ∈ {±1}¹²: Bᵀx = −2(BP)ᵢ}. Exhaustive over every involution π
+  on the 8 columns and every sign pattern of P (sign changes of P are column sign changes of B, so with B fixed none
+  can be dropped):
+  - Q-parts exist only for π with 0 fixed points (24 of 1680 signed patterns) or 4 fixed points (24 of 13440). There
+    are none for π with 2, 6 or 8 fixed points, so Paley's V never fits.
+  - A symmetric W(8, 7) with zero set π exists exactly when π has 0 or 2 fixed points (exhaustive DFS and CP-SAT).
+  - Hence the completions are exactly those with π fixed-point-free: symmetric Hadamard matrices of order 28 with an
+    involutory permutation automorphism with 12 fixed points exist. An independent check found them by four routes,
+    including two representatives in Valtonen's classification data (arXiv:2608.06920, Zenodo
+    10.5281/zenodo.22671922), and reached at least 8 of the 91 symmetric classes. It also found order 20 with 8 fixed
+    points (q = 5).
+  - The first version of this section said no such matrix of order 28 exists. That version fixed the pair signs of P
+    to +1, which is invalid when B is fixed, and so searched only 1/16 of the patterns. `sym_bigf.py` now enumerates
+    every sign pattern and reproduces the counts above.
+  - So the reversed decoupling fails with Paley's V. For q ≡ 3 (mod 4) a fixed-point-free π needs a symmetric
+    W(q + 1, q) whose zero set is fixed-point-free. Writing a symmetric V equivalent to a skew core K as M K N, the
+    signed permutation R = NM is an anti-automorphism of K (RKR = −K), and π has the cycle type of R. For the Paley
+    core of order 8 such an R exists, since all conference matrices of order 8 are equivalent. For prime q > 11 the
+    monomial automorphisms of Paley's matrix come from PΣL(2, q) (Kantor 1969), and the anti-automorphic involutions
+    of PGL(2, q) ∖ PSL(2, q) fix two points. So a family needs another skew core with a fixed-point-free involutory
+    anti-automorphism, together with Q-parts for all q; a later section reports on whether these exist.
 - The other admissible shapes for q ≡ 3 (mod 4) need t ≡ 0 (mod 4), q + 1 ≤ t ≤ 2q − 2, f = 4q − 2t. A symmetric
   weighing matrix of order t ≡ 2 (mod 4) and weight q needs q to be a sum of two squares. The case f = 0 would be two
   symmetric W(2q, q) with complementary supports, which this rules out for q ≡ 3 (mod 4) prime. Paley gives V only
   for t = q + 1.
-- With an order-3 automorphism in addition (the squares of GF(7)* acting on the pairs and with every orbit type on
-  the fixed points), CP-SAT finds no solution for q = 7 either (scratchpad `bigf/qinv2.py`).
+- With an order-3 automorphism in addition (the squares of GF(7)* acting on the pairs and every orbit type on the
+  fixed points, with π = Paley's and free signs on the pair orbits), CP-SAT finds no solution for q = 7, consistent
+  with the above (scratchpad `bigf/qinv2.py`).
 
 **Bordered propus over the norm-one torus** (`border_torus.py`). §27 builds symmetric H(4v) from a bordered propus
 quadruple over any abelian group of order v − 1. For v = q + 2 the norm-one torus T ⊂ GF(q²)*, cyclic of order q + 1,
