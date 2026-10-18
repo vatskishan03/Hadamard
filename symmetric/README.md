@@ -2,9 +2,10 @@
 
 A Hadamard matrix H is symmetric if H = Hᵀ. The Đoković–Seberry census (2025-05-28) lists 595 odd v < 2500 for which
 no symmetric Hadamard matrix of order 4v was known; three of them, 189, 473 and 1139, were settled by Đoković in
-August 2025 (arXiv:2508.17141). The 92 orders here remove 92 more, leaving 500: 82 that no published construction
+August 2025 (arXiv:2508.17141). The 93 orders here remove 93 more, leaving 499: 83 that no published construction
 gave, 8 that also follow from quaternary matrices published on Zaitsev et al.'s page of 14 October 2026 (Concurrent),
-and two (1804, 3532) that a published corollary gives but the census omits. 37 of them come from two
+and two (1804, 3532) that a published corollary gives but the census omits. Among them is 260, the census's smallest
+value v = 65. 37 of them come from two
 constructions of October 17 that need no symmetric input: [PROPUS_WEIGHING.md](PROPUS_WEIGHING.md) (order 4q from any
 Hadamard matrix of order (q − 1)/2, q ≡ 1 mod 8) and [YAMADA_KIYASU.md](YAMADA_KIYASU.md) (order 4(q + 2) from any
 skew-Hadamard matrix of order (q + 3)/2, q ≡ 5 mod 8). Each directory holds one order with
@@ -13,6 +14,7 @@ its certificate, its README and, for the orders found by search, the matrix. Sta
 
 | Order | v | Construction | Census | Status |
 |------:|---|---|---|---|
+| [260](260) | 65 = 5 · 13 | bordered propus quadruple over ℤ₆₄ decoded from Verma's quaternary Legendre pair of length 64 (A real, B symmetric); row sums 2, 0, 0 | undecided | New |
 | [356](356) | 89 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 44 (q′ = 43) | undecided | New, but obtainable classically |
 | [532](532) | 133 = 7 · 19 | propus quadruple over ℤ₁₃₃, H = ⟨26⟩ of order 6; row sums 11, 5, 19 | undecided | New |
 | [732](732) | 183 = 3 · 61 | propus quadruple over ℤ₁₈₃, H = ⟨34⟩ of order 5 (cyclotomic product ℤ₃ × GF(61) of index 12); row sums 21, 1, 17 | undecided | New |
