@@ -3323,3 +3323,46 @@ R-structure). It agrees with an independent CP-SAT model on 64 small configurati
   solution), 178 unresolved (the sweep was cut by machine load, not by a finding). So no conference matrix of order
   118 or 154 with this much symmetry (about 20 or more bits of reduction) exists in the searched families; Ho's and
   Wang's matrices, if they are of this kind, use weaker symmetry.
+
+## 53. Large fixed sets for q ≡ 3 (mod 4), and bordered propus over the torus (October 18)
+
+Two constructions aimed at classes that Theorems A and B do not reach. Neither works.
+
+**An involution with 2q − 2 fixed points** (`sym_bigf.py`). In Theorem A the involution has 4 fixed points, the
+field part is the U-part and the weighing matrix V of order 2(q − 1) is field-free. The roles can be reversed for
+q ≡ 3 (mod 4). Let H be symmetric of order 4q with a permutation automorphism σ of order 2 that has f fixed points
+and t two-cycles. In the basis (fixed points, first points of the pairs, second points),
+H = [[F, B, B], [Bᵀ, P + V, P − V], [Bᵀ, P − V, P + V]]. Here V is a symmetric weighing matrix of order t and weight q,
+and P is a symmetric signed matrix on the zero set of V. With t = q + 1 the zero set of V is an involution π, P is a
+signed permutation matrix on it, and H² = 4qI becomes
+
+    V² = qI,   BᵀB = (2q − 2) I,   F B = −2 B P,   F² + 2 B Bᵀ = 4q I.
+
+Paley's skew core K and R: x ↦ −x, with −1 at ∞, give V = KR, which is symmetric with π fixing 0 and ∞. The Q-part
+(F, B, P) is field-free: it depends on q only through its size. The signs of P on the pairs can be absorbed into the
+column signs of B. So only the signs at the fixed points of π matter, and P ↦ −P is absorbed by F ↦ −F.
+- q = 3 (order 12): Q-parts exist exactly when the two fixed points of π carry opposite signs, and they complete.
+- q = 7 (order 28): B is 12 × 8 with orthogonal columns. Every such B extends to the unique H(12) (as in §50; 2964
+  random samples all extend), and M₁₂ is 5-transitive on the columns, so B can be taken as any 8 columns of
+  Paley's H(12). Each row of F then lies in the affine set {x ∈ {±1}¹²: Bᵀx = −2(BP)ᵢ}. Exhaustive over every
+  involution π on the 8 columns and every sign pattern:
+  - no Q-part when π has 0, 2, 6 or 8 fixed points (105, 840, 896 and 128 labellings), so Paley's V never fits;
+  - six labellings when π has 4 fixed points (signs balanced), but no symmetric W(8, 7) has that zero pattern
+    (CP-SAT).
+  So, granted that every such B extends, no symmetric Hadamard matrix of order 28 has an involutory permutation
+  automorphism with 12 fixed points, and the reversed decoupling gives no family.
+- The other admissible shapes for q ≡ 3 (mod 4) need t ≡ 0 (mod 4), q + 1 ≤ t ≤ 2q − 2, f = 4q − 2t. A symmetric
+  weighing matrix of order t ≡ 2 (mod 4) and weight q needs q to be a sum of two squares. The case f = 0 would be two
+  symmetric W(2q, q) with complementary supports, which this rules out for q ≡ 3 (mod 4) prime. Paley gives V only
+  for t = q + 1.
+- With an order-3 automorphism in addition (the squares of GF(7)* acting on the pairs and with every orbit type on
+  the fixed points), CP-SAT finds no solution for q = 7 either (scratchpad `bigf/qinv2.py`).
+
+**Bordered propus over the norm-one torus** (`border_torus.py`). §27 builds symmetric H(4v) from a bordered propus
+quadruple over any abelian group of order v − 1. For v = q + 2 the norm-one torus T ⊂ GF(q²)*, cyclic of order q + 1,
+is the natural group. It acts regularly on the projective line and puts Paley's matrices in two-block circulant
+form. Candidate functions: χ(Tr t + c), χ(Tr(zt) + c) and η(t − β), with χ and η the quadratic characters of GF(q)
+and GF(q²), z primitive and both values taken at a zero. Up to shifts and scalings these exhaust their families.
+Every triple (A symmetric, B, D) with |Â|² + 2|B̂|² + |D̂|² = 4v and admissible row sums exists only at q = 3 and 5
+(504 and 64 triples). There are none for q = 7, 11, 13, 17, 19, 23. §27 found the same for character blocks on
+GF(q)* (v = q), so single quadratic characters do not give bordered propus quadruples on either torus.
