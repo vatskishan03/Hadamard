@@ -3262,7 +3262,9 @@ q ≡ 5 (mod 8) class through quaternary pairs; nothing was found. Scripts in th
 
 - **Exhaustive census for L ≤ 32** (meet in the middle of balanced A against symmetric (p, q), every candidate
   rechecked; L = 20 and 12 recounted independently). Normalised counts (p₀ = q₀ = A₀ = 1, unordered {p, q}): L = 4: 4;
-  8: 64; 12: 48; 16: 0; 20: 960; 24: 2688; 28: 0; 32: 18432. So there is no such quadruple over ℤ₁₆ or ℤ₂₈, and
+  8: 64; 12: 48; 16: 0; 20: 960; 24: 2688; 28: 0; 32: 18432. A second, independent exhaustive search over all even
+  L ≤ 32 (A up to rotation; checked against a brute force at L = 16, 22, 24) finds A-necklaces with a partner for
+  L = 8, 10, 12, 14, 18, 20, 24, 26, 30, 32 and none for L = 16, 22, 28. So there is no such quadruple over ℤ₁₆ or ℤ₂₈, and
   hence no uniform algebraic family of length q − 1 for q ≡ 5 (mod 8): q = 17 and 29 already fail, and so does every
   cyclotomic or Sidelnikov decimation of index e of GF(Q) landing on L = 16 or 28 (e = 1, 3, 4, 5, 6, 7, 10, 12, …).
   The zeros come from the antipodal compression to ℤ_{L/2}, which is infeasible at L = 16 and 28 only (among L ≤ 148
@@ -3287,9 +3289,13 @@ q ≡ 5 (mod 8) class through quaternary pairs; nothing was found. Scripts in th
   ansätze on ℤ_m × ℤ_p: no family; multiplier-invariant sweeps at census v ∈ [101, 300] (206 structures): none.
   Lattice-corrected Gaussian estimates leave only v = 101 (bordered ℤ₁₀₀, α = 51: about 2⁴·⁵ expected solutions) and
   v = 119 (unbordered ℤ₁₁₉, α = 69: 2⁴·²) with E > 1, in spaces of 2²⁰⁰–2²⁵⁰ candidates.
-- **Unstructured search** at the smallest values: a meet-in-the-middle and Markov-chain search for bordered propus
-  quadruples finds them at L = 40, 42, 46 (orders 164, 172, 188, decided) in minutes, but not at L = 100 (v = 101) in
-  the time available.
+- **Unstructured search** at the smallest values. A Markov chain over A inside the spectral region, with a cascade of
+  compression tables and an exact lift of the partners (p, q), finds bordered propus quadruples without multiplier
+  symmetry at every L = 34 … 52 tried (orders 140 … 212, all decided; 21 of the 22 found at L = 40 … 48 have trivial
+  automorphism group, so solutions are plentiful and unstructured), and it recovers Verma's (p, q) from his A at L = 64;
+  but its cost grows by about 1.8–1.95 per unit of L (≈ 800 CPU-s per hit at L = 52; Verma's pair was not re-found in
+  1000 CPU-s at L = 64), which puts L = 88, 100, 106 and 118 (v = 89, 101, 107, 119) at 10⁴–10¹⁴ CPU-years.
+  Simulated annealing at L = 100, 106, 118 and on unbordered propus over ℤ₁₀₁, ℤ₁₀₇ stays far from a solution.
 - **Propus chain sweep** (§28, §40) resumed on the composite census values from 445: complete with no solution (every
   structure with 1–36 orbits) for 445, 473, 485 and 493; 455 and 475 stopped at the 50-minute limit per value; the
   job was then stopped by the session's time limit before 509.
