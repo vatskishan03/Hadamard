@@ -1734,3 +1734,47 @@ up to 25–30 orbits on the groups of order 64) found nothing.
   Paley's series, none of the remaining census values.
 - **Label.** New: the input is from 2026, and no source we found notes the symmetric matrix. Zaitsev et al.'s QH130
   has no anti-automorphism, so it does not give it.
+
+## 33. Miyamoto's V-part cannot be decoupled symmetrically (October 18)
+
+Theorem A (§30) is the decoupled form H = H₀ + Λ(V) of a symmetric Hadamard matrix of order 4q with an involutory
+automorphism σ that fixes 4 points and has 4n = 2(q − 1) two-cycles. Every such matrix has this form: on the
+σ-invariant vectors (the fixed points and the normalised pair sums) H is Q = [[F, √2 B], [√2 Bᵀ, 2Z]], on the
+anti-invariant vectors it is 2V, where F (4 × 4) and B (4 × 4n) are ±1, and Z, V (4n × 4n) are symmetric (0, ±1) with
+complementary supports. H² = 4qI is equivalent to V² = qI together with
+
+    F² + 2BBᵀ = 4qI,    FB + 2BZ = 0,    BᵀB + 2Z² = 2qI.
+
+Theorem A is V with support [[I, J, J, 0], [J, 0, I, J], [J, I, 0, J], [0, J, J, I]], which needs a Hadamard matrix of
+order n. Miyamoto's theorem (ordinary H(4q) from H(q − 1), q ≡ 1 mod 4; Seberry–Yamada's Theorem 34, Case B) has the
+V-part V = [[E₁, K], [Kᵀ, E₂]] in blocks of order 2n = q − 1 (E₁, E₂ diagonal ±1, K a Hadamard matrix of order q − 1),
+which exists for every q ≡ 1 (mod 4), including q ≡ 5 (mod 8) where Theorem A's does not.
+
+**Lemma.** If q is not a square, no symmetric Hadamard matrix of order 4q has this form with V's support containing
+the diagonal and both off-diagonal blocks of order q − 1, i.e. with Z = diag(Z₁, Z₂), Z₁ and Z₂ of zero diagonal.
+
+*Proof.* Write B = [B₁ | B₂]. The off-diagonal block of BᵀB + 2Z² = 2qI gives B₁ᵀB₂ = 0, so the columns of B₁ and of B₂
+span orthogonal subspaces U, U′ of ℝ⁴. If dim U = 1, B₁ᵀB₁ = 4xxᵀ with x a ±1 vector of length 2n, and Z₁² = qI − 2xxᵀ
+has the eigenvalue q − 4n = 2 − q < 0; so dim U = dim U′ = 2. A 2-dimensional U ⊂ ℝ⁴ such that U⊥ also contains ±1
+vectors contains no two ±1 vectors with inner product ±2 (they differ in one coordinate, so U ∋ e_i and U⊥ has none),
+so B₁ = c₁xᵀ + c₂yᵀ with c₁ ⊥ c₂ ±1 vectors and x, y (0, ±1) vectors of disjoint supports covering the 2n columns.
+Then Z₁² = qI − 2xxᵀ − 2yyᵀ ⪰ 0 forces |x|² = |y|² = n, and Z₁ acts on span(x, y) with eigenvalues ±1. Since x, y have
+disjoint supports, FB₁ = −2B₁Z₁ shows that F preserves U; F² = 4I on U (from F² + 2BBᵀ = 4qI and B₁B₁ᵀ = 4nP_U), so in
+the basis c₁/2, c₂/2 it is ±2I or [[a, b], [b, −a]] with a² + b² = 4, and Z₁x = −(ax + by)/2, Z₁y = −(bx − ay)/2.
+Integrality (disjoint supports) gives (a, b) ∈ {(±2, 0), (0, ±2)}.
+
+- F|_U = ±2I: x and y are eigenvectors of Z₁ for the same eigenvalue ∓1, and the other 2n − 2 eigenvalues are ±√q, so
+  0 = tr Z₁ = ∓2 + √q(m₊ − m₋), impossible for q not a square.
+- (a, b) = (0, ±2): Z₁x = ∓y, so for i ∈ supp x the sum Σ_{j ∈ supp x} (Z₁)ᵢⱼxⱼ of n − 1 terms ±1 vanishes; n − 1 is
+  odd. Impossible.
+- (a, b) = (±2, 0) on both U and U′: F|_U = (a/4)(c₁c₁ᵀ − c₂c₂ᵀ) has diagonal (a/4)((c₁)ᵢ² − (c₂)ᵢ²) = 0, likewise on
+  U′, so F has zero diagonal, but F is ±1. Impossible. ∎
+
+So Miyamoto's V-part never fits the decoupled symmetric form when q is not a square, which covers every q ≡ 5 (mod 8).
+CP-SAT confirms infeasibility at q = 5 (order 20, the structure imposed directly on a 20 × 20 matrix); at q = 9, a
+square, it found neither a solution nor a proof in 25 minutes. With Paley's U-part and one border per W-block the
+other support patterns fail as well: the 4-cycle pattern with I-blocks off the diagonal (whose V-part is a pair of
+complementary symmetric W(n, n/2)) makes both Z-blocks of the (0, ±2) type, and the pattern [[J, J, I, 0], [J, J, 0, I],
+[I, 0, J, J], [0, I, J, J]] (V-part from a symmetric Hadamard matrix of order q − 1) gives F a diagonal of 0 or ±2; so
+Theorem A's pattern is the only one, and for q ≡ 5 (mod 8) a symmetric construction of this kind needs a different
+U-part or more fixed points. (Scripts: session scratchpad `nogo/`.)
