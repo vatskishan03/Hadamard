@@ -3342,15 +3342,17 @@ Paley's skew core K and R: x ↦ −x, with −1 at ∞, give V = KR, which is s
 (F, B, P) is field-free: it depends on q only through its size. The signs of P on the pairs can be absorbed into the
 column signs of B. So only the signs at the fixed points of π matter, and P ↦ −P is absorbed by F ↦ −F.
 - q = 3 (order 12): Q-parts exist exactly when the two fixed points of π carry opposite signs, and they complete.
-- q = 7 (order 28): B is 12 × 8 with orthogonal columns. Every such B extends to the unique H(12) (as in §50; 2964
-  random samples all extend), and M₁₂ is 5-transitive on the columns, so B can be taken as any 8 columns of
-  Paley's H(12). Each row of F then lies in the affine set {x ∈ {±1}¹²: Bᵀx = −2(BP)ᵢ}. Exhaustive over every
+- q = 7 (order 28): B is 12 × 8 with orthogonal columns. Such a B is equivalent to 8 columns of Paley's H(12). An
+  independent check (scratchpad `verify53/extension/`) classified the k × 12 partial Hadamard matrices exhaustively,
+  confirmed by a mass formula against a clique count. The class counts for k = 1, …, 12 are 1, 1, 1, 2, 1, 2, 1, 1,
+  1, 1, 1, 1, and every class with k ≥ 5 completes; this is Verheiden's completion of the last seven rows. The check
+  also enumerated the 190080 automorphisms of H(12), whose 95040 column permutations act sharply 5-transitively. Each row of F then lies in the affine set {x ∈ {±1}¹²: Bᵀx = −2(BP)ᵢ}. Exhaustive over every
   involution π on the 8 columns and every sign pattern:
   - no Q-part when π has 0, 2, 6 or 8 fixed points (105, 840, 896 and 128 labellings), so Paley's V never fits;
   - six labellings when π has 4 fixed points (signs balanced), but no symmetric W(8, 7) has that zero pattern
     (CP-SAT).
-  So, granted that every such B extends, no symmetric Hadamard matrix of order 28 has an involutory permutation
-  automorphism with 12 fixed points, and the reversed decoupling gives no family.
+  So no symmetric Hadamard matrix of order 28 has an involutory permutation automorphism with 12 fixed points, and
+  the reversed decoupling gives no family.
 - The other admissible shapes for q ≡ 3 (mod 4) need t ≡ 0 (mod 4), q + 1 ≤ t ≤ 2q − 2, f = 4q − 2t. A symmetric
   weighing matrix of order t ≡ 2 (mod 4) and weight q needs q to be a sum of two squares. The case f = 0 would be two
   symmetric W(2q, q) with complementary supports, which this rules out for q ≡ 3 (mod 4) prime. Paley gives V only
@@ -3361,8 +3363,13 @@ column signs of B. So only the signs at the fixed points of π matter, and P ↦
 **Bordered propus over the norm-one torus** (`border_torus.py`). §27 builds symmetric H(4v) from a bordered propus
 quadruple over any abelian group of order v − 1. For v = q + 2 the norm-one torus T ⊂ GF(q²)*, cyclic of order q + 1,
 is the natural group. It acts regularly on the projective line and puts Paley's matrices in two-block circulant
-form. Candidate functions: χ(Tr t + c), χ(Tr(zt) + c) and η(t − β), with χ and η the quadratic characters of GF(q)
-and GF(q²), z primitive and both values taken at a zero. Up to shifts and scalings these exhaust their families.
-Every triple (A symmetric, B, D) with |Â|² + 2|B̂|² + |D̂|² = 4v and admissible row sums exists only at q = 3 and 5
-(504 and 64 triples). There are none for q = 7, 11, 13, 17, 19, 23. §27 found the same for character blocks on
-GF(q)* (v = q), so single quadratic characters do not give bordered propus quadruples on either torus.
+form. Candidate functions: χ(Tr(αt) + c) and η(t − β), with χ and η the quadratic characters of GF(q) and GF(q²),
+both values taken at a zero.
+- Reductions: η(t − β) = χ(1 + N(β) − Tr(β̄t)), and every χ(Tr(αt) + c) is ± a shift of one with α ∈ {1, z} (z
+  primitive), because GF(q)*·T has index 2. A must be symmetric, so all its shifts are tried.
+- Triples (A symmetric, B, D up to shift) with |Â|² + 2|B̂|² + |D̂|² = 4v exist only at q = 3 and 5 (80 and 32). There
+  are none for q = 7, 11, 13, 17, 19, 23.
+- An independent check over the full families, all α, c, β and fills, with or without symmetry of A, also finds none
+  for every prime 7 ≤ q ≤ 47. It built the §27 matrices of orders 20 and 28 from all the small triples.
+- §27 found the same for character blocks on GF(q)* (v = q), so single quadratic characters do not give bordered
+  propus quadruples on either torus.

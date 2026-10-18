@@ -2,10 +2,11 @@
 v = q + 2 (q an odd prime; NOTES.md §53). A (symmetric), B, D are ±1 functions on T with
 |Â|² + 2|B̂|² + |D̂|² = 4(q + 2) at every nontrivial character and row sums with a² + 2b² + d² = 4. The candidate
 functions are χ(Tr t + c), χ(Tr(z t) + c) (χ the quadratic character of GF(q), z primitive in GF(q²)) and
-η(t − β) (η the quadratic character of GF(q²), β ∈ λ·{1, z}), with both values at a zero. Shifts and scalings
-reduce every other choice of the parameters to these.
+η(t − β) (η the quadratic character of GF(q²), β ∈ λ·{1, z}), with both values at a zero. Every χ(Tr(αt) + c) is
+± a shift of one of these, and η(t − β) = χ(1 + N(β) − Tr(β̄t)), so B and D need no other parameters (the spectrum is
+shift-invariant); A must be symmetric, so every shift of every listed function is tried for A.
 
-    python3 search/border_torus.py q     # triples only at q = 3, 5; none for 7 ≤ q ≤ 23
+    python3 search/border_torus.py q     # distinct triples only at q = 3, 5; none for primes 7 ≤ q ≤ 47
 """
 import sys, itertools
 import numpy as np
@@ -53,8 +54,14 @@ for c in range(q):
 for lam in range(1, q):
     for bname, beta in (('lam', (lam, 0)), ('lam z', mul((lam, 0), delta))):
         add('eta(t - %s=%d)' % (bname, lam), [eta(((t[0] - beta[0]) % q, (t[1] - beta[1]) % q)) for t in T])
-names = list(seqs)
-X = np.array([seqs[k] for k in names])
+distinct = {}
+for k, w in seqs.items():
+    distinct.setdefault(tuple(w), k)
+for w, k in list(distinct.items()):
+    for j in range(1, m):  # shifts, for A
+        distinct.setdefault(tuple(np.roll(w, j)), k + ' shift %d' % j)
+names = [k for k in distinct.values()]
+X = np.array(list(distinct.keys()))
 sym = np.array([all(x[k] == x[(-k) % m] for k in range(m)) for x in X])
 S = np.abs(np.fft.fft(X, axis=1)) ** 2
 S = np.round(S[:, 1:], 6)
@@ -68,10 +75,12 @@ for j in range(len(names)):
 found = 0
 for i in np.where(sym)[0]:
     for b in range(len(names)):
+        if 'shift' in names[b]: continue
         need = np.round(4 * v - S[i] - 2 * S[b], 6)
         for d in Dh.get(need.tobytes(), []):
+            if 'shift' in names[d]: continue
             if rs[i] ** 2 + 2 * rs[b] ** 2 + rs[d] ** 2 == 4:
                 found += 1
                 if found <= 10:
                     print('A =', names[i], '| B =', names[b], '| D =', names[d], '| row sums', rs[i], rs[b], rs[d])
-print('triples', found)
+print('triples (A symmetric, B and D up to shift)', found)
