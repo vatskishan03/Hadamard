@@ -3221,3 +3221,34 @@ and the composite cases; none found a construction. Their exact findings (script
   remaining census order is of these types beyond Verma's.
 - **Zaitsev's matrices.** None of QH130 … QH1526 of the remaining census orders is equivalent to a symmetric matrix
   (NOTES.md §31).
+
+## 51. Conference matrices for the Seberry–Balonin and Yamada–Kiyasu routes; symmetric structures (October 18)
+
+Brouwer's table (read 17 October 2026) records conference graphs on 117 and 153 vertices (J. Y. Z. Ho, and C. Wang
+for 153, private communications of October 2026), and Verma has a symmetric conference matrix of order 86
+(arXiv:2610.08893: a 12 × 12 array of circulants of order 7 with two border rows, automorphism group C₇ ⋊ C₃ that fixes
+six blocks and permutes the other six in two 3-cycles). A symmetric conference matrix of order 118 would give, by
+Seberry–Balonin's Corollary 1 with q = 233, the symmetric order 940 (v = 235) and, by the Miyamoto blocks of
+hadamard/MIYAMOTO_BLOCKS.md, FRONTIER 2823; with an R-structure (NOTES.md §31) it would also give v = 119 by the
+Yamada–Kiyasu route (skew input of order 60). None of these matrices is public, so we searched for our own (scripts in
+the session scratchpad `conf/`).
+
+- **Block-circulant search** (`bconf2.py`: ℤ_m acting with k regular orbits and F fixed points, every circulant block
+  constant on the orbits of a multiplier group H, row-by-row meet in the middle on the exact correlation conditions,
+  then the fixed rows). Complete, with no solution: order 118 with m = 29, k = 4, F = 2 and |H| = 4, 7, 14; m = 13,
+  k = 9, F = 1 and |H| = 4, 6; m = 39, k = 3, F = 1 and H = ⟨4⟩, ⟨10⟩, ⟨5⟩, ⟨14, 22⟩. Order 154 with m = 17, k = 9,
+  F = 1 and |H| = 8; m = 19, k = 8, F = 2 and |H| = 6, 9; m = 51, k = 3, F = 1 and H = ⟨2⟩. Calibration: the tool finds
+  Paley's matrices (orders 6, 10, 14, 30) at once, but neither order 66 (m = 13, k = 5, F = 1, |H| = 2, 3, 4, 6) nor
+  Mathon's order 46 (m = 15, k = 3, F = 1, |H| = 2, 4; m = 9, k = 5, |H| = 2) has a structure of this kind, so the
+  2026 matrices need either the block-permuting groups of Verma's type or no multipliers at all. Smaller multiplier
+  groups (|H| ≤ 3 on ℤ₁₃ with k = 9 and on ℤ₃₉ with k = 3, |H| ≤ 4 on ℤ₁₇, ℤ₁₉ and ℤ₅₁) exceeded the tool's time or
+  memory.
+- **Block-permuting groups** (`gconf.py`: G = ⟨ℤ_m, (σ, μ)⟩ with σ permuting the blocks, brute force when the free
+  blocks have at most 18 sign bits): order 118, m = 29, k = 4, μ = 2 and σ a 4-cycle (12 bits) or two transpositions
+  (14 bits), and order 66, m = 13, k = 5, μ = 7 and σ a 5-cycle or a 4-cycle: none.
+- **Goldberg's matrices and R.** Theorem A for v = 1225 = 35² (the only census value v ≡ 1 mod 8 with a known
+  conference matrix of order v + 1) needs an R-structure on Goldberg's matrix of order 1226 built from a skew-Hadamard
+  matrix of order 36. On the small members the R-structure fails: the matrix of order 10 (from skew H(4)) has one,
+  the one of order 50 (from Paley's skew H(8)) has anti-automorphisms but no R with R² = −I (its whole signed
+  (anti-)automorphism group, of order 14 112, was scanned), and the one of order 226 (from the doubled skew H(8)) has
+  no anti-automorphism at all (nauty). For 1226 nauty did not finish in 25 minutes.
