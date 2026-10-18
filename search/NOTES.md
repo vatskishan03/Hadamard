@@ -3570,5 +3570,140 @@ No relation between N and V is needed, so prime powers are used only to obtain N
 - At q = 13 a non-commuting symmetric ternary A′ with A′² = 13I − G (G of rank 2) exists, but none of its 64 sign
   patterns gives a frame. Signature (6, 8, 0) is undecided (UNKNOWN at 2400 s). The general q = 13 problem is open.
 
-**q ≡ 3 (mod 4).** The V-part exists for every prime power (§53: V_xy = −χ(1 + xy)). Round 8 searched Q-parts with
-fixed-point-free π at q = 11 and 19 under cyclic symmetry; its result is reported with round 8 below.
+**q ≡ 3 (mod 4).** The V-part exists for every prime power (§53: V_xy = −χ(1 + xy)). The Q-part does not: there is
+none at q = 11 for any π, so the structure gives no family for q ≡ 3 (mod 4) (§56).
+
+## 56. Negative results of rounds 4 to 10 (October 18)
+
+None of these searches settled a census value. Each is recorded with its exact scope, so that it is not repeated.
+"None" means exhaustive within the stated structure. Partial and timed-out runs are marked. The agents' scripts and
+logs are in the session scratchpad (`round4/decq/`, `round5/skew2q2/`, `round8/`, `round10/`).
+
+**Decoupled symmetric H(4q) with a regular group on the blocks (round 4).** This is Theorem A's shape: four fixed
+points and four blocks of n = (q − 1)/2 pair points. A group G of order q − 1 acts regularly on each block, and B is
+constant on blocks. Only two types occur: Type I (G = ℤ₂ × ℤ_n, V circulant) and Type II (G = ℤ_{2n}, V
+negacirculant). A mixed type would give a row of Z of weight ≥ 2n.
+- For non-square q and n ≥ 3:
+  - bbᵀ = 4I and F² = 4I;
+  - every nontrivial character block has trace 0, so up to the stabiliser of b, b is Sylvester's H(4) and F is fixed;
+  - at each real character, Ĥ(χ)/2 is a symmetric integer matrix with square qI.
+- Solutions that are not Paley II exist:
+  - a symmetric H(44) (Type II, |Aut| = 160);
+  - five inequivalent H(52) besides Paley II(25): one of Type I (|Aut| = 576) and four of Type II (384, 192, 96, 96).
+- Paley II with 2q − 1 a prime power is of Type II (checked for q = 5, 7, 13, 19, 37, 61).
+- q = 17: neither type (SAT; Type I with a DRAT certificate).
+- q = 29, Type I: impossible by a finite parity argument, confirmed by CP-SAT and a full SAT model.
+  - The three real-character matrices must be among 16 symmetric integer 4 × 4 matrices with M² = 29I.
+  - These fall into 4 classes mod 2, and no three of them sum to J mod 2 as the cell parities require.
+- q = 29, Type II: undecided. 96 level-1 classes survive, 69 of 74 symmetry templates are UNSAT, and the menu of
+  quadratic-cyclotomic sequences over GF(29) is UNSAT.
+- Not covered: signed actions (negacyclic Z), and invariance of the Q-part alone.
+
+**The structure with 2q − 2 fixed points, q ≡ 3 (mod 4) (round 8).** §53 left q = 7 as the only Q-part with π
+fixed-point-free.
+- q = 11: there is no Q-part for any involution π, any sign pattern of P and any B.
+  - The 20 × 12 matrices B with orthogonal columns were classified into 235 classes. Every level k = 1, …, 20 was
+    checked against a mass formula with nauty group orders.
+  - Two independent programs (Python and C++) find no F for any class (22478 leaves).
+  - So no symmetric H(44) has an involutory permutation automorphism with 20 fixed points.
+- Exhaustive counts of sign patterns of P that admit an F, by the number of fixed points of π (patterns / (P, F)
+  pairs, over the classified B):
+
+  | q | 0 | 2 | 4 | 6 | 8 | 10 |
+  |---:|---|---|---|---|---|---|
+  | 3 | none | 24/24 | 8/8 | | | |
+  | 5 | 32/64 | 24/48 | 24/48 | 8/16 | | |
+  | 7 | 24/96 | none | 24/96 | none | none | |
+  | 9 (30 classes of B) | 108/4576 | 700/5184 | 828/3294 | 434/4534 | 120/1322 | 102/438 |
+  | 11 (235 classes) | none | none | none | none | none | none |
+
+- The q = 7 Q-part is unique up to equivalence, and its automorphism group has order 4 (with −I).
+- *Parity theorem.* For q ≡ 3 (mod 4), no fixed-point-free Q-part is invariant under a group of odd order with as
+  many row orbits as column orbits. This rules out the natural GF(q)-equivariant ansatz (ℤ_{(q−1)/2} with four
+  regular row orbits) for every q ≡ 3 (mod 4).
+- Q-parts with an involutory automorphism of the q = 7 type: none at q = 11, 15 or 19 (exact).
+- So the route gives no family for q ≡ 3 (mod 4). The general problem is undecided for q = 19, 23, ….
+
+**Order-3 automorphisms (round 8).** These are symmetric H(4v) with a permutation automorphism of order 3, f fixed
+points and t three-cycles. In the decoupled form the invariant part is a Q-part and the ω-part is a Hermitian U.
+- Every parity-admissible (v, f) with 7 ≤ v ≤ 13 occurs, with exact matrices (all known orders): (7, 4),
+  (9, 0, 3, 6 or 9), (11, 2), (11, 8), (13, 4), (13, 10).
+- *Lemma R.* If U is gauge-real, then f ≤ v − √v. So t = v + 1 needs a genuinely complex U once v ≥ 10, as at
+  (11, 8) and (13, 10).
+- The f = 2 shape invariant under ℤ_q × ℤ₃ (a symmetric Legendre-type pair of length 3q):
+  - it exists for q = 3, 5, 7 and 11 (orders 20, 32, 44, 68);
+  - none at q = 15 (exhaustive, two exact lifters);
+  - at q = 19 only 28 of 82 orbit representatives were completed, and none of those lifts.
+- Index-6 cyclotomic Hermitian U-parts over ℤ_q: only the real (Paley) type, for all 59 primes q ≡ 1 (mod 6) up to
+  691.
+- A rational (Hasse) test of the Q-part form removes no parity-admissible (v, f) for any of the 499 census v undecided
+  at the time.
+
+**Skew H(2(q + 1)) for q ≡ 1 (mod 8) (round 5).** 106 skew census values have v = (q + 1)/2 with q ≡ 1 (mod 8) a
+prime power. The two-block families of Szekeres, Whiteman and Momihara–Xiang need q = pⁿ with p ≡ 5 (mod 8), and
+none of the 106 has that form.
+- Szekeres-type pairs (a skew, both a and b unions of cosets of an odd-order subgroup of GF(q)* of index e, in the
+  bordered two-block array), e ∈ {8, 16, 24}:
+  - they exist iff q = p^{2k} with p ≡ 5 (mod 8);
+  - exhaustive for every prime power q ≤ 5000, every prime q ≤ 119993 and every composite prime power q ≤ 40000;
+  - this covers the census q with v₂(q − 1) = 3 or 4 (51 and 27 values).
+- e = 32: none for the 22 prime powers q ≡ 33 (mod 64) up to 5000. These include all 15 census values with
+  v₂(q − 1) = 5.
+- e = 64 with b = a ∘ μ (the form of every known solution): none for q = 449, 577, 961.
+- Torus subgroups for the 9 composite census q: none.
+- For q ≡ 1 (mod 8), the Bose-quotient relative difference set behind Spence's construction has symmetric halves.
+  So that route gives no skew first block.
+- Not covered: the other values with v₂(q − 1) ≥ 6, larger e, and non-multiplier groups.
+- Heuristic: a count makes two-block pairs over GF(q) unlikely for q above about 82 unless they are algebraic, while
+  Goethals–Seidel over ℤ_v has a large expected count.
+
+**Twisted-Hermitian quaternary matrices (rounds 6 and 8).** §54's quaternary route was applied to all 27 open skew
+census values that have a published or repository quaternary Hadamard matrix of order 2v:
+- Zaitsev's QH at v = 107, 119, 191, 235, 245, 269, 283, 295, 305, 445, 509, 571, 653, 655, 679, 731, 733, 779, 787,
+  823, 853, 857, 883, 941, 943;
+- our C214, C238 and C382, and C1618 and C1906 (v = 809, 953).
+
+None is monomially equivalent to a twisted-Hermitian M.
+- 24 values were settled by a complete scan of the pairing equation (every c₀ and both parities e₀).
+- v = 245, 305 and 445 were settled by invariants: det K must be a unit times (2v)^v, and rank_𝔭 K = v at every prime
+  𝔭 above each prime dividing v.
+- An independent numpy solver agrees on the eight matrices of order ≤ 590 it was run on.
+- The positive controls QH322 and QH330, scrambled, are found.
+
+**K = [[P, Q], [Q, P]] for the eleven remaining q of §55 (round 10).** Theorem F needs K of order 4w,
+w = (q − 1)/4 ∈ {97, 193, 205, 277, 373, 405, 433, 493, 549, 577, 585}.
+- *Reduction.* Let G be a group of order w. A K whose blocks are 2 × 2 arrays of G-circulants exists iff two ternary
+  rows (A, B) with AA* + BB* = w and complementary supports exist. That holds iff a periodic Golay pair over ℤ₂ × G
+  exists. For prime w, ℤ_w-invariance forces this 2 × 2 shape.
+- *Lemma S.* For a prime p ≡ 1 (mod 4) there are no symmetric ternary A, B over ℤ_p with AA* + BB* = p.
+  - Proof. At a nontrivial character, z = Â + iB̂ lies in L = ℚ(ζ_p)⁺(i) and z z̄ = p. Write p = ππ̄ in ℤ[i]. Both
+    primes of ℚ(i) above p are totally ramified in L.
+  - Modulo them, z reduces to s_A ± ιs_B, where s_A, s_B are the sums with s_A² + s_B² = p. Exactly one of the two
+    vanishes, so (z) = πO_L or π̄O_L.
+  - Hence z/π or z/π̄ is a unit of absolute value 1 in a CM field, so a root of unity, so in μ₄.
+  - So Â is a rational constant c with |c| ∈ {a, b} (p = a² + b²) at every nontrivial character, and
+    A = cδ₀ + κJ. That is not ternary for p > 5. p = 5 was checked directly.
+  - Exhaustive searches for p ≤ 41 agree. We have not checked whether the lemma is in the literature.
+- Consequence of Lemma S: a block constant on the cosets of H ∋ −1 is symmetric. Every subgroup of even order of
+  GF(p)* contains −1, so a class-constant K for prime w needs a multiplier group H of odd order. This explains all
+  of round 9's negatives (§55).
+- *Lemma T2.* A block constant on the cosets of H has sum ≡ A(0) ∈ {0, ±1} (mod |H|). So with w = a² + b², both a
+  and b are in {0, ±1} mod |H|. For w = 97, 193, 277, 373, 433 and 577 only |H| ∈ {1, 3} survives.
+- w = 97 (q = 389), the twisted shape b(x) = (−1)^x a(gx) over ℤ₂ × ℤ₉₇ (a constant on the cosets of H of order 3,
+  g = r⁸):
+  - exhaustive meet-in-the-middle (3.24·10⁷ table entries, 1.04·10⁹ probes): no solution;
+  - the same code finds twisted pairs at w = 5, 13, 17, 29, 37, 41, 61, 101, 113;
+  - the untwisted shape with |H| = 3 (2¹³² candidates) is out of reach, and a heuristic count suggests 10⁰ to 10³
+    solutions.
+- w = 205 (q = 821): none of the 24 multiplier subgroups of ℤ₂₀₅* with at most 25 orbits admits a ternary row, and the
+  central class functions of ℤ₄₁ ⋊ ℤ₅ give none.
+- Kronecker and quaternion products of smaller inputs never give ternary rows of odd composite length.
+- Every known periodic Golay pair of length 2p with multiplier symmetry (Đoković–Kotsireas, lengths 74, 82, 122, 202,
+  226) has |H| odd. Periodic Golay pairs of length 194 are undecided. The agent cites Lumsden–Kotsireas–Bright
+  (arXiv:2408.15611) for 106 as the smallest undecided length; we did not check this.
+
+**Symmetric multipliers of the propus array for t = 25 (§49).**
+- A direct CP-SAT search over the symmetric parts of ℤ[ℤ₂₅] and ℤ[ℤ₅²] is UNKNOWN after 2400 s each.
+- No factorised multiplier M = M₂M₁ through ℤ₅ exists. The trivial character forces det(M₁)² c′₁c′₂c′₃ = 250 for the
+  intermediate form C′, so c′₁c′₂c′₃ ∈ {10, 250}. For none of these C′ is there an M₁ over ℤ[ℤ₅] with
+  M₁ᵀC′M₁ = 5C (scratchpad `bigf/tfactor.py 5 250`).
