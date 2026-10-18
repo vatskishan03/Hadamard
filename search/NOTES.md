@@ -3492,3 +3492,83 @@ results:
 **Lead.** 106 open skew census values are v = (q + 1)/2 with q ≡ 1 (mod 8) a prime power, i.e. skew H(2(q + 1)),
 the classical gap between Szekeres (q ≡ 5 mod 8) and Whiteman (q = p^t, p ≡ 5 mod 8, t ≡ 2 mod 4). Round 5 attacks
 it.
+
+## 55. Symmetric matrices of order 4q from an involution with 2q − 2 fixed points: v = 101 and 149 (October 18)
+
+The structure of §53 (H = [[F, B, B], [Bᵀ, P + V, P − V], [Bᵀ, P − V, P + V]]) was pursued in rounds 7 to 9. For
+q ≡ 5 (mod 8) it settles two census values: [symmetric/404](../symmetric/404) and [symmetric/596](../symmetric/596),
+by the construction of [symmetric/PERIODIC_GOLAY.md](../symmetric/PERIODIC_GOLAY.md) (`sym_involution.py`, verify.py
+construction `symmetric-involution`). Four adversarial checks rebuilt both matrices with their own code, and the
+verify.py builder is a third independent implementation. Agents' scripts are in the session scratchpad (`round7/`,
+`round8/`, `round9/`).
+
+**The construction (Theorem F).** Let q ≡ 1 (mod 4) be a prime power and K = [[P, Q], [Q, P]] a Hadamard matrix of
+order q − 1.
+- V is Paley's matrix twisted by the anti-automorphism x ↦ ν/x: V_xy = χ(xy − ν), with zero set the fixed-point-free
+  involution x ↦ ν/x.
+- F = A ⊗ J₂ + Z ⊗ D₂, with A[x, y] = χ(x + y) and Z the permutation x ↦ −x on GF(q)*.
+- B = [𝟙 ⊗ (1, 1)ᵀ | χ ⊗ (1, 1)ᵀ | k_j ⊗ (1, −1)ᵀ], and P = [[0, 1], [1, 0]] ⊕ (−S).
+
+The proof uses only A² = qI − 𝟙𝟙ᵀ − χχᵀ, A𝟙 = −χ, Aχ = −𝟙 (from Paley's C₀² = qI), ZKp = KpS and V² = qI. A sharper
+form (the round-9 agent's "Theorem F+") needs three objects:
+- N, a symmetric W(q + 1, q) whose zero involution has exactly two fixed points (here N = C₀ composed with x ↦ −x,
+  with A its restriction to the other points);
+- V, any symmetric W(q + 1, q) whose zero set is a fixed-point-free involution;
+- the input K.
+No relation between N and V is needed, so prime powers are used only to obtain N and V.
+
+**The input and its obstruction.**
+- *Lemma H.* Let K be a Hadamard matrix of order 4w, w odd, with RK = KC for a fixed-point-free symmetric signed
+  involution R and any symmetric signed involution C. Then w is a sum of two squares. The rational forms
+  m(⟨1⟩^{g} ⊕ ⟨2⟩^{p}) and ⟨1⟩^{f} ⊕ ⟨2⟩^{p′} must be isometric, and for fixed-point-free R this reduces to
+  ⟨w⟩ⁿ ≅ ⟨1⟩ⁿ, n = 2w. That fails at any prime ≡ 3 (mod 4) dividing w to an odd power, by its Hasse invariant.
+- For K = [[P, Q], [Q, P]] the lemma is the classical condition on W(2w, w), with X = (P + Q)/2 and Y = (P − Q)/2
+  complementary weighing matrices.
+- Of the 57 census prime powers q ≡ 5 (mod 8), 44 fail it.
+- Every Paley-type combination of N and V (from C₀ with k = q + 1 fixed points, V₀ with k = 0, V₂ with k = 2, and,
+  for square q, the field-automorphism matrices with k = √q + 1) was listed. For non-square q they need either this
+  K or a Theorem-A input (a Hadamard matrix of order (q − 1)/2), so for q ≡ 5 (mod 8) there is no way around Lemma H
+  with Paley-type parts.
+- Escaping it would need a symmetric W(q + 1, q) whose zero involution has 4 or 6 fixed points. None exists at q = 13
+  (exact, using the uniqueness of the conference matrix of order 14), and none occurs among Paley-type matrices. Also
+  proved: no symmetric W(q + 1, q) has q − 1 fixed points for q ≡ 1 (mod 4) (Lemma V1).
+- The zero-involution spectra of V = C₀G (G a signed automorphism) are q = 5: {0, 2, 6}; 9: {0, 2, 4, 10};
+  13: {0, 2, 14}; 17: {0, 2, 18}.
+
+**K from periodic Golay pairs.**
+- A periodic Golay pair (a, b) over an abelian group Γ of even order n gives K. In [[A, B], [−Bᵀ, Aᵀ]] the
+  translation by an element of order 2 is a fixed-point-free involutory automorphism.
+- Conversely, every K the agents found whose blocks are group matrices gives a periodic Golay pair over ℤ₂ × G from
+  its top block row, with a = (A + C) + (A − C)t and b = (B + D) + (B − D)t.
+- Found (exact checks):
+  - K for w = 5, 9, 13, 25, 37, 41, 61, 113 by class-constant searches over GF(w), with A, B, C, D ternary and constant
+    on cosets of a subgroup of GF(w)* (for w = 37 with H = ⟨10⟩ of order 3, 35328 pairs);
+  - K for w = 37 also from Đoković–Kotsireas's published pair of length 74.
+- Census lengths: 2w = 50 and 74 settle q = 101, 149. 194 (q = 389) is undecided in Đoković–Kotsireas's list. 386, 410,
+  554, 746, 810, 866, 986, 1098, 1154 and 1170 are beyond published searches, and cyclic pairs of length 810 are
+  excluded by Arasu–Xiang.
+- Exhaustive class-constant negatives, all with no rows:
+  - w = 97, 193, 277, 373, 433 and 577 at the class indices e ∈ {2, 3, 4, 6, 12} that divide w − 1 (and e = 8 for 97);
+  - multiplier-orbit structures with at most 13 orbits for n = 205, 405, 493, 549 and 585, and 14–15 orbits for
+    n = 205 and 405.
+- Paley's matrices give no K. Paley I and II have no fixed-point-free involutory automorphism pair except for orders
+  4 and 8 (nauty, full signed groups). In particular, for the Paley conference matrices of orders 6, 10, 14, 18, 26 and
+  50, no element of PΣL(2, q′) lifts to a signed automorphism R with R² = −I, which would make R ⊗ [[0, 1], [−1, 0]] such
+  an involution of Paley II. The lead's check covers the 15600 and 117600 elements for q′ = 25 and 49.
+- My own quick search found no cyclic pair of length 50 invariant under multiplier subgroups of order 4, 5, 10 or 20.
+
+**Other findings of rounds 7–8 (q = 1 mod 4).**
+- The round-7 τ-reduction (F = [[A + Z, A − Z], [A − Z, A + Z]] with A of order q − 1) built H(20), H(36) and H(68).
+  It cannot reach q ≡ 5 (mod 8), q > 5:
+  - Z = I is impossible for q ≡ 1 (mod 4), by a mod-4 integrality argument on (J − I − S)/2;
+  - a Hadamard matrix whose columns are ±1 eigenvectors of a signed involution Z needs Z = ±I or Z fixed-point-free,
+    and the latter needs a Hadamard matrix of order (q − 1)/2.
+- Parity lemma: every automorphism eigenvalue ζ with √q ∉ ℚ(ζ) has even multiplicity on the Q-part. In particular no
+  abelian group of order q − 1 acts regularly on the fixed rows.
+- At q = 13 there is no Q-part with a compatible V among the F invariant under free two-orbit actions of ℤ₁₂, ℤ₂ × ℤ₆,
+  D₁₂ and A₄ (Dic₃ admits no F), nor under any regular action of the 15 groups of order 24.
+- At q = 13 a non-commuting symmetric ternary A′ with A′² = 13I − G (G of rank 2) exists, but none of its 64 sign
+  patterns gives a frame. Signature (6, 8, 0) is undecided (UNKNOWN at 2400 s). The general q = 13 problem is open.
+
+**q ≡ 3 (mod 4).** The V-part exists for every prime power (§53: V_xy = −χ(1 + xy)). Round 8 searched Q-parts with
+fixed-point-free π at q = 11 and 19 under cyclic symmetry; its result is reported with round 8 below.
