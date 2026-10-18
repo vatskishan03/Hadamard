@@ -3252,3 +3252,50 @@ the session scratchpad `conf/`).
   the one of order 50 (from Paley's skew H(8)) has anti-automorphisms but no R with R² = −I (its whole signed
   (anti-)automorphism group, of order 14 112, was scanned), and the one of order 226 (from the doubled skew H(8)) has
   no anti-automorphism at all (nauty). For 1226 nauty did not finish in 25 minutes.
+
+## 52. Propus-type quaternary pairs, Hermitian types and the chain sweep: round 3 (October 18)
+
+Three exploration agents (search, character sums, Hermitian types) attacked the smallest open symmetric values and the
+q ≡ 5 (mod 8) class through quaternary pairs; nothing was found. Scripts in the session scratchpad `round3/`. A
+*bordered propus quadruple over ℤ_L* below is (p, A, A, q) with p, q symmetric, Σ PAF = −4 off 0 and rows (±2, 0, 0) or
+(0, 0, ±2), equivalently a propus-type quaternary Legendre pair (A real, B symmetric) of length L (NOTES.md §32).
+
+- **Exhaustive census for L ≤ 32** (meet in the middle of balanced A against symmetric (p, q), every candidate
+  rechecked; L = 20 and 12 recounted independently). Normalised counts (p₀ = q₀ = A₀ = 1, unordered {p, q}): L = 4: 4;
+  8: 64; 12: 48; 16: 0; 20: 960; 24: 2688; 28: 0; 32: 18432. A second, independent exhaustive search over all even
+  L ≤ 32 (A up to rotation; checked against a brute force at L = 16, 22, 24) finds A-necklaces with a partner for
+  L = 8, 10, 12, 14, 18, 20, 24, 26, 30, 32 and none for L = 16, 22, 28. So there is no such quadruple over ℤ₁₆ or ℤ₂₈, and
+  hence no uniform algebraic family of length q − 1 for q ≡ 5 (mod 8): q = 17 and 29 already fail, and so does every
+  cyclotomic or Sidelnikov decimation of index e of GF(Q) landing on L = 16 or 28 (e = 1, 3, 4, 5, 6, 7, 10, 12, …).
+  The zeros come from the antipodal compression to ℤ_{L/2}, which is infeasible at L = 16 and 28 only (among L ≤ 148
+  with small divisors). Solutions at L = 20, 24 are mostly unstructured, as is Verma's pair at L = 64.
+- **Jedwab–Pender** (arXiv:2408.08472) Theorem 2(ii) (length (Q − 1)/2) and Theorem 3 (length 2p, Q = 2p − 1) are of
+  propus type (checked through `propus-bordered` for Q ≤ 101 and p = 3, 7); they reach v = (Q + 1)/2 and v = 2p + 1,
+  none of them a remaining census value.
+- **Closed character-sum families** on GF(q)* = ℤ_{q−1} (Möbius-type sums λ(x)ψ(x + 1), class tables of order 2 and 4
+  in (x, x + 1), A-first joins against all symmetric (p, q)): no quaternary Legendre pair at q = 13 (positive control
+  only), 29, 37, 53, 61, 101, 109, 149. Symmetry forces B = const · ψ₄^{±1}(x)χ(x + 1), whose row sum has |Σ B|² of
+  the order of q, incompatible with |Σ A|² + |Σ B|² = 2.
+- **Cyclotomic orbit structures** on ℤ_{kq} (k ≤ 12, q ≤ 199) and on K × GF(Q)⁺ for v = 101, 163, 251, 325, 485, 487,
+  491, 589, 973 (at most 18–22 orbits): nothing beyond v ≤ 21.
+- **Hermitian, skew-Hermitian and α-twisted symmetrizations** (the types of §50). The exact monomials are worked out
+  (twist (α, s): x(−αg) = x(g), y(αg) = s·ȳ(g), Q = diag(P_α, −sP_α); s = −1 is equivalent to s = +1), with a bordered
+  version giving symmetric order 4(l + 1) (checked for Hermitian l = 2, 6, 10, 14 and twisted ℤ₈, ℤ₁₂, ℤ₂₀). Bordered
+  Hermitian pairs over groups of order ≡ 0 (mod 4) do not exist for any abelian group of order 4, 8, 12 or 16
+  (exhaustive); if that holds for all orders ≡ 0 (mod 4) it excludes every v ≡ 1 (mod 4), in particular all 57 values
+  q ≡ 5 (mod 8). At l ≡ 2 (mod 4) the Hermitian counts equal the propus counts. α-twisted bordered pairs exist at
+  l ≡ 0 (mod 4) (ℤ₈, α = 5: 1024; ℤ₁₂: 2304 and 3072; ℤ₂₀, α = 11: 61440). Cyclotomic Hermitian pairs on ℤ_q for the
+  18 census primes q ≡ 5 (mod 8) below 800 (e = 4, 12): none (hits only at q = 5, 13, 61); Paley-product twisted
+  ansätze on ℤ_m × ℤ_p: no family; multiplier-invariant sweeps at census v ∈ [101, 300] (206 structures): none.
+  Lattice-corrected Gaussian estimates leave only v = 101 (bordered ℤ₁₀₀, α = 51: about 2⁴·⁵ expected solutions) and
+  v = 119 (unbordered ℤ₁₁₉, α = 69: 2⁴·²) with E > 1, in spaces of 2²⁰⁰–2²⁵⁰ candidates.
+- **Unstructured search** at the smallest values. A Markov chain over A inside the spectral region, with a cascade of
+  compression tables and an exact lift of the partners (p, q), finds bordered propus quadruples without multiplier
+  symmetry at every L = 34 … 52 tried (orders 140 … 212, all decided; 21 of the 22 found at L = 40 … 48 have trivial
+  automorphism group, so solutions are plentiful and unstructured), and it recovers Verma's (p, q) from his A at L = 64;
+  but its cost grows by about 1.8–1.95 per unit of L (≈ 800 CPU-s per hit at L = 52; Verma's pair was not re-found in
+  1000 CPU-s at L = 64), which puts L = 88, 100, 106 and 118 (v = 89, 101, 107, 119) at 10⁴–10¹⁴ CPU-years.
+  Simulated annealing at L = 100, 106, 118 and on unbordered propus over ℤ₁₀₁, ℤ₁₀₇ stays far from a solution.
+- **Propus chain sweep** (§28, §40) resumed on the composite census values from 445: complete with no solution (every
+  structure with 1–36 orbits) for 445, 473, 485 and 493; 455 and 475 stopped at the 50-minute limit per value; the
+  job was then stopped by the session's time limit before 509.
