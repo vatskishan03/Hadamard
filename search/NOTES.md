@@ -3786,3 +3786,61 @@ Facts about it:
 - A heuristic count predicts 1 to 6 equivalence classes. The decisive route is an exhaustive row enumeration with
   canonical rotations (about 6.5·10¹² nodes, 8–14 core-days, then the support join). The same scheme would settle
   (73, 3) in about a core-hour.
+
+## 58. A symmetric conference matrix as the outer design: v = 153, 325, 435, 1225, 1891; q = 13 without K; chain sweep to 2499 (October 19, rounds 12 and 13)
+
+**Theorem K** ([symmetric/CONFERENCE_PLUG.md](../symmetric/CONFERENCE_PLUG.md), `sym_conference_plug.py`, verify.py
+construction `symmetric-conference-plug`). Let C = [[0, eᵀ], [e, Q]] be a symmetric conference matrix of order n and
+m = n − 1. Put X = [[J, J], [J, −J]] and Y = [[Q + I, Q − I], [Q − I, −Q − I]]. Then H = I ⊗ X + C ⊗ Y is a symmetric
+Hadamard matrix of order 2n(n − 1): X and Y anticommute, and X² + mY² = 2m(m + 1)I.
+- It is Turyn's symmetric image of Kharaghani–Seberry's complex Hadamard matrix I ⊗ J + C ⊗ (Q + iI) (Seberry–Yamada
+  1992, Theorem 11.14, Corollary 11.15), which is complex-symmetric.
+- It settles the census values v = q(q + 1)/2 for q = 17, 25, 29, 49, 61 (orders 612, 1300, 1740, 4900, 7564). They
+  are New, but obtainable classically. q = 37 gives a second matrix of order 2812.
+- In this scheme (commuting design, anticommuting plugs) the plug order 2k must satisfy k ≥ n − 1 unless k = 1 (Paley
+  II). So nothing below v = n(n − 1)/2 is reachable.
+- The dual scheme (anticommuting design, commuting plugs) is the m(m − 1), m(m + 3) plug-in of §31–32.
+- Found by the round-13 recursive-constructions lens (scratchpad `round13/rec/`). The builder in verify.py is
+  independent of the agent's. The prime cases have the agent's SHA-256; the GF(25) and GF(49) cases differ only by the
+  field encoding.
+
+**q = 13 without K** (round 12, scratchpad `round12/q13/`). The structure of §53 with f = 24 and t = 14 exists at
+q = 13, where Lemma H forbids Theorem F's input.
+- Classification of the 24 × k matrices B with orthogonal columns: complete without pruning for k ≤ 9 (1, 1, 1, 4, 5,
+  31, 274, 7990, 165596 classes). From k = 9 on it uses two proved hereditary conditions on the rows of B (agreement
+  ≤ 12, and a triple-type bound ≤ 6), and the mass formula is exact at every level.
+- 2972745 classes at k = 14 pass these conditions, and 2833 pass a clique test on the possible rows of F.
+- Exact Q-part search over them (C++, calibrated on the §56 table for q = 5, 7, 9, 11; a second solver for the k = 14
+  case and a Python solver for k = 2 agree): Q-parts exist for k = 14 (V = Paley's C₀, P diagonal) and k = 2
+  (V = C₀R). There are none with k = 0, the exact shape of Theorem F.
+- That gives 284 Q-part classes and symmetric H(52) with an involutory automorphism with 24 fixed points.
+- They are sporadic: the automorphism groups have order at most 12 (A₄), and there is no field structure. The only
+  recurring symmetry is ℤ₃, acting on PG(1, 13) as ⟨3⟩. The ℤ_m ansatz with m = (q − 1)/4 that it suggests for the 44
+  census values is untested beyond m = 3. The independent refuters had not reported when this section was written.
+
+**Chain sweep over composite v from 495 to 2499** (round 12, scratchpad `round12/chain/`). Scope: freeD propus, −1 ∉ H,
+at most 40 orbits per block; 9262 structures over the 316 composite census values (6231 cyclic, 69 needing three
+generators, 2962 over ℤ_p × ℤ_p × ℤ_m).
+- 4793 structures have an empty row-sum pool (proved), and 1588 were joined completely with no solution.
+- 101 values are excluded in this scope: 97 by pools alone, plus 553, 933, 1363 and 2413.
+- Every one of the 100 best-ranked structures (estimate down to 10⁻⁷·¹) was run: 89 completed, 11 are partial.
+- The controls 532 and 876 were re-found.
+- Deferred, capped or not run: 55 patterns above the work cap (mostly 513 and 763), and 1518 structures with estimates
+  ≤ 10⁻⁸·² (FINAL_LISTS.txt there).
+
+**Round 13, other lenses** (scratchpad `round13/alg/`, `round13/grp/`). No census value was settled.
+- *Skew to symmetric.* A skew H with an involutory signed anti-automorphism T (THᵀT = H) gives the symmetric matrix HT.
+  58 open symmetric v have a known skew matrix of the same order, but none of 29 cyclic Goethals–Seidel skew
+  certificates has a T of the form E ⊗ ρ. The skew 3(q + 1) matrices at q = 7, 11 and 19 have none at all.
+- *Jedwab–Pender half-length completion.* It reduces to amicable ternary pairs on ℤ_m with autocorrelation sum −2.
+  These exist only for prime m ≤ 23; m = 25 is UNKNOWN.
+- *Cyclotomic plug pairs* for P ⊗ X + N ⊗ Y: none for primes r ≤ 850 with e ≤ 12, or r ≤ 500 with e ≤ 16.
+- *Class-constant symmetric propus* over ℤ_m × GF(q), q ≡ 3 (mod 4), is empty at (3, 7), (3, 11), (5, 11) and (5, 19).
+  Two-prime generalised cyclotomy of order 2 gives symmetric propus only at (3, 5), and skew propus nowhere among 491
+  prime pairs.
+- *Twisted Theorem A* (f = 4) needs the same K as Theorem F.
+- *Theorem A for composite v* reduces to a ℤ_n pair (u₁, c) with u₁ symmetric. Such pairs exist exactly for the prime
+  powers tested (n ≤ 28) and for none of the composite v there. For v = 153 there are none with any odd-order
+  multiplier.
+- *A symmetric analogue of the Spence / Whiteman / Leung–Momihara H4* families* would reach 28 to 54 open v. Its
+  existence is UNKNOWN: the published blocks are not of propus form, and Spence's paper was not read.
