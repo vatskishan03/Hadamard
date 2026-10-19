@@ -4090,3 +4090,48 @@ P(29, 10, −2).
   - It needs a complex-symmetric plug as well: a complex-symmetric quaternary Hadamard matrix of order w with an
     imaginary diagonal entry.
   - At w = 58 and 70 (v = 1653, 2415) both inputs are UNKNOWN.
+
+## 62. Conference matrices of order 66: the order is not open; two new regular two-graphs on 66 points (October 19, round 16)
+
+**The premise was out of date.** Round 16 attacked a symmetric conference matrix of order 66 as the smallest open
+case (§51). It has been settled since February 2021:
+- Gritsenko, arXiv:2102.05432, prints an srg(65, 32, 15, 16). Both round-16 agents and both refuters extracted it
+  from the PDF and checked it in exact arithmetic.
+- Brouwer's table lists (65, 32, 15, 16) as "+", and OEIS A000952 contains 66.
+- Goryainov–Haemers–Konstantinova–Li (arXiv:2512.16653) called 85 the smallest open case. Verma (arXiv:2610.08893)
+  settled 86.
+- Wikipedia's "Conference matrix" page is stale.
+- Theorem K with order 66 gives v = 2145, which is not a census value (CONFERENCE_PLUG.md updated).
+
+**What the round produced** (scratchpad `round16/`; all matrices exact-checked, every solution re-verified and
+re-classified by two refuters with their own code):
+- *Gritsenko's group.* Gritsenko's matrix has signed automorphism group Q₃₂ × ⟨−I⟩, with point orbits 1, 1, 32, 32.
+  After switching it is a 4 × 4 array of circulants of order 16 with a 2-point border.
+  - The round-4 block engine (§52) needed a "twisted" block permutation (h² = g⁸) to see this group.
+  - With that twist, the complete enumeration under Q₃₂ gives 4096 matrices in exactly 5 classes up to
+    signed-permutation equivalence and negation. Gritsenko's is one of them.
+- *A second family.* A pure Verma-type group (m = 8, k = 8, F = 2, μ = 7, σ = (0 1 2 3)(4 5 6 7); the group is
+  C₈ ⋊ C₄, not Q₃₂) gives 4608 matrices in exactly 2 further classes.
+- *Comparison with McKay's database.* The 7 classes have 48 pairwise non-isomorphic descendants srg(65, 32, 15, 16).
+  - Brendan McKay's database (`sr65321516some.g6`, 32 graphs, marked "maybe incomplete") is exactly the set of
+    descendants of the 5 Q₃₂ classes.
+  - The 16 descendants of the 2 C₈ ⋊ C₄ classes are not in it.
+  - So 2 regular two-graphs on 66 points and 16 srg(65, 32, 15, 16) are new as far as we found. No later
+    enumeration turned up in searches.
+  - Data: `search/data/conference66_a07eee330cbfe97f.txt`, `conference66_8e2d7e6f507ef47a.txt` and
+    `srg65_32_15_16_new16.g6`; checker `search/check_conf66.py`.
+- *Calibration.* The engine re-found Verma's order 86 from its group alone, and Paley matrices of orders 30–62. It
+  found order-46 matrices in 2 classes with cover automorphism group of order 20; equality with Mathon's matrix was
+  not tested.
+- *Prime-order automorphisms of srg(65, 32, 15, 16)* (proved). √65 lies in no ℚ(ζ_p), so the number of p-cycles is
+  even.
+  - Orbit matrices are infeasible for p ∈ {7, 11, 13, 17, 19, 23, 29, 31}, and for p = 5 except (f, c) = (5, 12),
+    which was not lifted.
+  - p = 2 and p = 3 are undecided.
+  - Among the semiregular groups of order 32 swept, only Q₃₂ and C₈ ⋊ C₄ admit such graphs (44 of 49 groups swept to
+    completion; 2⁵ excluded by a moment argument).
+
+**Order-38 projective-plane guess** (round 18 preparation, `round18/ppsplit.py`). Both known splits (orders 6 and 14)
+have weights (a², (a + 1)²) with n = 2(a² + a + 1). The natural support guess would give conference matrices at
+n = 146 (a = 8, an open order): C₁ on the non-incident point–line pairs of PG(2, a) (degree a²), C₂ on everything else
+(degree (a + 1)²). It is infeasible at a = 2 (n = 14). a = 3 (n = 26) is UNKNOWN after 1200 s. Not pursued.

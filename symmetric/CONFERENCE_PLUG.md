@@ -74,7 +74,8 @@ targets`):
 | 61 | 62 | 1891 = 31 · 61 | [7564](7564) | undecided | New, but obtainable classically |
 
 The next Paley value, q = 73, gives v = 2701, beyond the census. The other known symmetric conference matrices give
-nothing new below 2500: Mathon's order 46 gives v = 1035 (known), and Verma's order 86 gives 3655. Kharaghani and
+nothing new below 2500: Mathon's order 46 gives v = 1035 (known), Gritsenko's order 66 (2021) gives v = 2145 (known), and
+Verma's order 86 gives 3655. Kharaghani and
 Seberry's recursion G_{j+1} = I ⊗ (J ⊗ B_j) + C ⊗ (Q ⊗ B_j + I ⊗ A_j) gives symmetric orders 2n(n − 1)^j as well. For
 v < 2500 these are v = 75, 375, 405, 1183 and 1875, which are known or already here ([4732](4732)).
 
