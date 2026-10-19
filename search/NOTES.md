@@ -4135,3 +4135,73 @@ re-classified by two refuters with their own code):
 have weights (a², (a + 1)²) with n = 2(a² + a + 1). The natural support guess would give conference matrices at
 n = 146 (a = 8, an open order): C₁ on the non-incident point–line pairs of PG(2, a) (degree a²), C₂ on everything else
 (degree (a + 1)²). It is infeasible at a = 2 (n = 14). a = 3 (n = 26) is UNKNOWN after 1200 s. Not pursued.
+
+## 63. Round 18: skew split plug-ins, the order-38 split, non-abelian propus, a skew Theorem K (October 19)
+
+No census value is settled. Four lenses, each with two adversarial judges using their own code (scratchpad
+`round18/`).
+
+**Order 38 (v = 247, 475; `round18/trn19/`).**
+- *247 is dead in the split framework* (proved, for any symmetric X₀). With the matching split (1, 36) and k = 13,
+  the off-diagonal entries of the three squares are even and lie in [−26, 26], with x₀ + x₁ + 36x₂ = 0. So x₂ = 0 and
+  X₂ would be a symmetric Hadamard matrix of order 26.
+- *475 reduces to P(25, 22, −2)* (proved for X₀ = P ⊗ J₂₅), with d = (17, 1).
+  - X₁ is a 2-(25, 4, 1) design with a polarity-like pairing: A² + CCᵀ = 7I + J, CᵀC + B² = 7I + J, AC = CB.
+  - Its existence is UNKNOWN (CaDiCaL, 40 CPU-minutes). The same model finds the k = 13 analogue.
+- *The tournament W(19, 9) has no symmetric support* (exhaustive, two independent re-enumerations).
+  - The 0/1 support S satisfies SSᵀ = I (mod 2), equivalently S³ = I over GF(2). All scores of out- and
+    in-neighbourhoods are then even.
+  - Regular tournaments on 19 vertices with this parity and an automorphism of prime order: none for p = 5, 7, 11,
+    13 and 17; only QR(19) for p = 19; 28 classes for p = 3.
+  - None of the 28 classes (QR(19) and the second doubly regular tournament included) admits a signing (CaDiCaL and
+    CP-SAT).
+  - A mod-4 lifting test (a 171 × 171 GF(2) system) fails for 60 of 60 random even tournaments.
+  - HEURISTIC: about 2⁻¹³⁰ expected solutions with trivial automorphism group.
+
+**Skew split** (`round18/skewsplit/`).
+- The skew analogue of §61 is verified. With S₁, …, S_r anticommuting skew weighing matrices partitioning J − I, H is
+  skew-Hadamard of order nK when:
+  - X₀ is skew-type;
+  - the X_t are symmetric and pairwise commuting;
+  - X₀X_t is symmetric;
+  - X₀X₀ᵀ + Σ w_t X_t² = nK I.
+- It is classical: with X₁ = J it is Seberry's 1978 theorem (skew/1900, 2772, …), and the general case is the amicable
+  OD plug-in.
+- *Built* (known orders, v ≤ 65, exact checks): H(36), H(60), H(84), H(132) and H(260). H(260) uses OD(20; 1, 2, 8, 9)
+  with a plug of order 13 that is not of Seberry type.
+- *n = 12 table.* Skew zero-diagonal OD(12; ·) exist for (1, 10), (2, 9), (3, 8), (5, 6) and for (1, 1, 9), (1, 2, 8),
+  (1, 5, 5), (2, 3, 6); (4, 7) is UNKNOWN. A judge proved the general necessary condition: for n ≡ 4 (mod 8) the
+  quaternion algebra (−w₁, −w₂) must be the Hamilton algebra.
+- *Circulant palindromic plugs.* Over ℤ_K the solutions lie on lines in weight space: (t, 3t − 1) for K = 3, and
+  (t − 1, t, 2t) for K = 5 and 7. The classification claim is exhaustive for n ≡ 4 (mod 8) only, per the judges.
+- *Reach.*
+  - The (t − 1, t, 2t) line reaches the open skew values 1141, 1407, 2023 (K = 7) and 1965, 2255 (K = 5). They would
+    need skew OD(4t; 1, t − 1, t, 2t) with t = 163 to 451; none is in hand.
+  - The Seberry type covers 126 open skew values in principle. It needs large amicable/OD inputs; the smallest cases
+    (473, 1139) die by the agent's divisibility lemma.
+
+**Non-abelian groups** (`round18/nonab/`).
+- *Transplanting the arrays.* The literal transplant of the Goethals–Seidel and propus arrays (R = inversion) works only
+  for class-function blocks. For ℤ_p ⋊ ℤ_r and Heis(p) it never gives a Hadamard matrix (Plancherel count).
+- *The working version* replaces R by an involutory automorphism φ (blocks constant on ψ(g) = φ(g)⁻¹).
+- *Skew:* impossible whenever φ fixes a prime-order quotient. This closes 87 of the 122 open skew values that admit
+  a non-abelian group (201, 305 and 385 included).
+- *Symmetric:* the φ-twisted propus is not vacuous. It gives symmetric H(84) over ℤ₇ ⋊ ℤ₃ (exactly 24 normalised
+  solutions, exhaustive; confirmed by an independent meet in the middle) and H(108) over Heis(3).
+  - Both orders are known (Paley II). The construction type is new to our knowledge.
+  - The solutions are sporadic, and far sparser than the abelian scheme: 24 against 1 068 984 at v = 21.
+  - Searches with Aut(G)-subgroup symmetry at census sizes are infeasible or UNKNOWN.
+- 100 of the 492 open symmetric values admit a non-abelian group.
+
+**Skew Theorem K** (`round18/skewK/`).
+- The real analogue H = I ⊗ X + S ⊗ Y (S skew conference matrix, X skew-type, Y symmetric, odd plug order K) is
+  rigid (proved):
+  - K = 1 + (n − 1)t with t even and 1 + nt a square;
+  - rank(X − I) = K − 1;
+  - t = 2 and t = 4 are impossible, so K ≥ 6n − 5.
+- 15 open skew values pass the necessary conditions (smallest 575, with K = 115), all far beyond search.
+- *Complex route.* No tournament-type complex conference matrix of even order ≥ 4 exists. The Kharaghani–Seberry /
+  Theorem K complex matrix is never monomially tournament-type (proved for n ≥ 10). So Theorem K has no skew twist
+  for 153, 325, 435, 1225 and 1891, which are all open in the skew census.
+- The n = 2 case equals "skew H with a fixed-point-free signed automorphism of square −I". Paley's skew matrices with
+  q ≡ 3 (mod 8) have one (classical).
