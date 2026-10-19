@@ -3997,34 +3997,86 @@ plugs the argument says nothing.
   The split must then satisfy n = (k + 1)(w₁ + 1), with w₂ = k(w₁ + 1).
 - Commuting pairs P(k, β₁, β₂) by CP-SAT: P(5, 2, −2) and P(5, 10, −2) exist; P(7, 2, −2) is impossible (above).
 
-**Reach.** Assume a split exists for every pair (w₁, w₂) of sums of two squares at the Paley orders and Mathon's
-order 46. The census values left after the d-filter are 299, 475, 765, 783, 795, 1677, 2035, 2057, 2125 and 2197.
-Examples:
-- 299: n = 46, (16, 29), k = 13, β = 2.
-- 475: n = 38, (1, 36), k = 25, β = 22.
-- 765: n = 90, (4, 85), k = 17, β = 2k; or n = 170, (16, 153), k = 9, β = 2k. Plugs free; only the split is needed.
-- 783: n = 54, (4, 49), k = 29, β = 10.
-- 795: n = 318, (52, 265), k = 5, β = 10. The plug P(5, 10, −2) exists.
-- 2125: n = 170, (72, 97), k = 25, β = 2.
+**Splits: the Pfaffian lemma** (proved in round 17; it supersedes the first reach list of this section, which assumed
+splits for every pair of sums of two squares).
+- *Lemma.* If n ≡ 2 (mod 4) and C = C₁ + C₂ is a split, then w₁w₂ is a perfect square.
+- *Proof.* T = C₁C₂ is an integer matrix with Tᵀ = C₂C₁ = −T and TTᵀ = w₁w₂ I, so det T = Pf(T)² = (w₁w₂)^{n/2}.
+  Since n/2 is odd, w₁w₂ is a square.
+- *Consequences.*
+  - Order 10 has no split at all, and order 18 has none at (4, 13) or (8, 9).
+  - The routes for 299 (n = 46 with (16, 29) or (8, 37)), 765 (n = 90 with (4, 85), n = 170 with (16, 153)),
+    795 (n = 318), 1677 (n = 258) and 2125 (n = 170 with (72, 97)) are dead for every conference matrix.
+  - So are the routes for the generalised scheme X₀ = P ⊗ W below.
+- *Survivors in the constant-β scheme* (both weights squares): 475 (n = 38, (1, 36), k = 25, β = 22), 783 (n = 54,
+  (4, 49), k = 29, β = 10), 2035 (n = 110, (9, 100), k = 37, β = 14), 2057 (n = 242, (16, 225), k = 17, β = 26) and
+  2197 (n = 338, (81, 256), k = 13, β = 6).
+- *Relaxed list.* Only the necessary conditions dₜ ≡ k (mod 2), 0 ≤ dₜ ≤ k and w₁d₁² + w₂d₂² = k(n − k) on the
+  S-sector, plus the lemma, at Paley orders ≤ 600 and n = 46. 14 open values pass: 247, 475, 575, 783, 851, 969, 1073,
+  1125, 1653, 1845, 2035, 2057, 2125, 2197.
+- An independent check by the refuter: every one of the 72 438 admissible non-square pairs with n ≤ 5001 has an
+  explicit local obstruction at a prime ≡ 3 (mod 4).
 
-**Splits are the bottleneck.** Searches by CP-SAT, all on Paley matrices:
-- *Unrestricted* (`outersplit.py`):
-  - n = 6: (1, 4) exists.
-  - n = 10: (1, 8) and (4, 5) infeasible. Paley 10 is the only conference matrix of order 10, so this settles
-    order 10.
-  - n = 14: (4, 9) exists; (5, 8) infeasible.
-  - n = 18: (1, 16) and (4, 13) infeasible; (8, 9) UNKNOWN after 300 s.
-- *Perfect matchings* (w₁ = 1, the condition PCP = 2P − C, exhaustive backtracking): only q = 5 among
-  q = 5, 9, 13, 17, 25, 29, 37, 41, 53. So 475 is out with Paley's matrix of order 38.
-- *Two-circulant form*: n = 6 exists; n = 14 (4, 9) and n = 18 (8, 9) are infeasible.
-- *Invariant under the index-e subgroup of GF(q)\** (`splitinv.py`), all infeasible:
-  - q = 29, e = 4 and 7, weights (4, 25), (9, 20), (13, 16);
-  - q = 37, e = 4, all five weight pairs;
-  - q = 37, e = 12, (1, 36), (5, 32) and (8, 29).
+**Splits: structure and searches** (round 17 split agent and refuter; `round17/agent_split/`).
+- *Matching splits* (w₁ = 1, proved). They are exactly C₁ = [[0, I], [I, 0]] and C₂ = [[A, B], [−B, −A]] with
+  A = X + Xᵀ and B = X − Xᵀ. Here X is a signed regular tournament weighing matrix: order m = n/2, zero diagonal,
+  XXᵀ = ((m − 1)/2) I, and X + Xᵀ ±1 off the diagonal. So m = 2s² + 1.
+  - m = 3 works, m = 9 does not (this settles order 18 completely).
+  - m = 19 is order 38 (v = 475). There X has no automorphism of prime order 5, 7, 11, 13 or 17, is not circulant,
+    and has no ℤ₉ or ℤ₃ with five 3-cycles. ℤ₃ with six or four 3-cycles and the trivial group are UNKNOWN.
+- *Clifford parity* (proved). For any monomial automorphism group of a split, every irreducible multiplicity of the
+  monomial representation is even. This prunes group actions before any search, and it forces the two-circulant form
+  for abelian two-orbit groups.
+- *The order-14 split is a tetrahedral object.*
+  - All solutions found, from 9 saved files and 7 free CP-SAT runs, fall into one equivalence class. A₄ acts as
+    vertices + faces + edges (4 + 4 + 6), with K₄,₄ joining vertices to faces and the octahedron on the edges.
+  - The sign character on the edge orbit is necessary: brute force over all 4¹⁰ orbit assignments gives 32 splits,
+    all equivalent.
+  - The Platonic analogues do not exist in the scanned group actions: S₄ at n = 26, A₅ at n = 62, and the second A₄
+    family at n = 30.
+- *No anticommuting partner for the octahedron.* No 6 × 6 ±1 matrix anticommutes with W(6, 4), so a weight-4 C₁ has at
+  most one octahedral component.
+- *Exhaustive negatives with prescribed groups* (Paley matrix fixed, subgroup classes of PSL(2, q)):
+  - q = 25 (9, 16) and (5, 20): all 20 classes with |G| ≥ 3;
+  - q = 29 (4, 25): all classes with |G| ≥ 3;
+  - q = 37 (1, 36): all classes with |G| ≥ 3;
+  - q = 53 (4, 49): all classes with |G| ≥ 4;
+  - q = 41 (16, 25): all classes with |G| ≥ 8;
+  - q = 61 (25, 36): all classes with |G| ≥ 10, A₅ included;
+  - q = 109 (9, 100): all classes with |G| ≥ 10.
+  - UNKNOWN: the small groups at these orders, n = 26 and n = 30 in general, and n = 110 with 11 Paley-10 blocks
+    under ℤ₁₁ or ℤ₄.
+  - Logs `pf_batch.log`, `pfo_61.log`.
+- So the splits at 6 and 14 still look sporadic.
 
-So the splits at 6 and 14 may be sporadic. Open: splits of Mathon's matrix of order 46 and of the non-Paley matrix of
-order 38 (§52), large Paley orders with weaker invariance, and a general construction of symmetric zero-diagonal
-OD(n; w₁, w₂).
+**Plug pairs** (round 17 plug agent and refuter; `round17/agent_plugs/`).
+- *Found, k = 13.* A commuting pair (β₁, β₂) = (2, −2) with X₂ = Theorem K's Y for the Paley core of GF(13). X₁ is
+  invariant under x ↦ 3x.
+  - Complete enumeration in that ansatz gives exactly 8 X₁ up to sign (4 classes); all have B = 0.
+  - The refuter re-enumerated: 16 = 8 × 2 signs.
+  - It would serve 299 at n = 46, which the Pfaffian lemma now forbids.
+- *Design form of a β-plug* (proved). X = −M ⊗ J + 2Z with Z = [[A, −C], [−Cᵀ, −B]]. Here A, B, C are a-regular 0/1
+  matrices, a = (k − d)/2, A² + CCᵀ = sI + (2a − s)J and AC = CB, with s = (2k − β)/4.
+  - Since M ⊗ J commutes with every Theorem K plug Y, [X, Y] = 0 iff [Z, Y] = 0.
+  - a = 1 gives permutation plugs with β = 2k − 8 for every k. (13, 2) is a 2-(13, 4, 2) design and (13, 6) an
+    STS(13) split into two classes.
+- *Regular translation groups* (proved, character argument): no pair of the census targets can be invariant under a
+  regular abelian group on both halves. All useful symmetry has fixed points.
+- *Rank of X₀* (proved). The only rank-2 X₀ is the balanced P ⊗ J; unbalanced [[J_a, J], [J, −J_b]] admits no plugs.
+  For odd v, X₀ = R ⊗ J with R Hadamard of order 4 is impossible.
+- *Negatives* (CP-SAT, exhaustive in the stated groups):
+  - (17, 26, −2) with Paley Y: infeasible with no symmetry assumption.
+  - (13, 6, −2): infeasible for every symmetric ansatz tried except trivial symmetry and ℤ₃ with one fixed point.
+    Single β = 6 plugs are plentiful (200 classes found); the commuting partner is the obstruction.
+  - k = 25, 29, 37: all groups of order ≥ 6 infeasible (Paley Y, and both plugs free); lower symmetry UNKNOWN.
+  - Single β = 2 plugs at k = 25 are infeasible for ℤ₁₂ and ℤ₆.
+- *Generalised X₀ = P ⊗ W* (W² = (k − b₀)I + b₀J, e.g. W = J − 2A for a polarity of PG(2, q)).
+  - Plugs again act on span{e ⊗ 𝟙} as −dM with the same d-condition, and the split condition becomes
+    w₁β₁ + w₂β₂ = −2b₀.
+  - The candidates it adds (1677, 1785, 2353) all fail the Pfaffian lemma.
+
+So the split framework reaches no census value yet. The live cases need both a split with square weights and a plug
+pair at low symmetry. 475 needs the tournament W(19, 9) and P(25, 22, −2); 783 needs (4, 49) at n = 54 and
+P(29, 10, −2).
 
 **Round 13, quaternary lens and its judges** (`round13/quat`, `judge_quat_*`). No census value.
 - *f = 0 decoupling.* [[A, B], [B, A]] is symmetric Hadamard iff (A ± B)/2 are complementary symmetric W(2q, q). This
