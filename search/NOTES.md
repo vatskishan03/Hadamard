@@ -3787,6 +3787,20 @@ Facts about it:
   canonical rotations (about 6.5·10¹² nodes, 8–14 core-days, then the support join). The same scheme would settle
   (73, 3) in about a core-hour.
 
+**Composite w for Theorem F (round 11).** Scratchpad `round11/kcomp/`. No K = [[P, Q], [Q, P]] was found for
+q = 821, 1621, 1973, 2197 or 2341 (w = 205, 405, 493, 549, 585).
+- Scope: every abelian G of order w and every conjugacy class of subgroups H ≤ Aut(G) acting with at most N orbits.
+  In that scope no H-invariant ternary row (A, B) has AA* + BB* = w. So no partner rows exist, and no K of the
+  group-circulant X/Y shape.
+- N per group: ℤ₂₀₅ 33; ℤ₄₀₅ 33; ℤ₂₇ × ℤ₃ × ℤ₅ 26 (and most classes with 27 to 32 orbits); ℤ₉ × ℤ₉ × ℤ₅ 25;
+  ℤ₉ × ℤ₃ × ℤ₃ × ℤ₅ 23 (lattice truncated at 36 orbits); ℤ₃⁴ × ℤ₅ 26 (seven overgroup families only); ℤ₄₉₃ 43;
+  ℤ₅₄₉ and ℤ₃ × ℤ₃ × ℤ₆₁ 36; ℤ₅₈₅ 31; ℤ₃ × ℤ₃ × ℤ₅ × ℤ₁₃ 29.
+- Methods, all exact: the trivial-sum test (407 classes), compression onto coprime quotients with an exact join
+  (4386 classes) and full row enumeration with exact spectral pruning (1397 classes). The calibrations at w = 9, 25
+  and 45 have rows and K in many classes.
+- The smallest open classes (ℤ₂₀₅ and ℤ₄₀₅ with 42 orbits, ℤ₅₄₉ with 39, ℤ₄₉₃ with 44) need more than 3·10⁷ rows in
+  their first branch. The non-abelian group ℤ₄₁ ⋊ ℤ₅ and twisted shapes over non-cyclic G were not tried.
+
 ## 58. A symmetric conference matrix as the outer design: v = 153, 325, 435, 1225, 1891; q = 13 without K; chain sweep to 2499 (October 19, rounds 12 and 13)
 
 **Theorem K** ([symmetric/CONFERENCE_PLUG.md](../symmetric/CONFERENCE_PLUG.md), `sym_conference_plug.py`, verify.py
