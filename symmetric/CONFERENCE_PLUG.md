@@ -91,7 +91,18 @@ symmetric Hadamard matrix of these orders and no statement of the construction (
 - Turyn's map, which is symmetric for a complex-symmetric input (Seberry–Yamada 1992, Lemma 11.3).
 
 Only the observation that G is complex-symmetric, with commuting real and imaginary parts, is new to the sources we
-read. Ordinary Hadamard matrices of these orders were known, for instance from Whiteman's Williamson matrices of order
+read.
+
+Two adversarial judges (round 13) re-derived the proof, rebuilt all five matrices with their own code and confirmed the
+reach (exactly these five census values). They also read the following, and none states a symmetric matrix of these
+orders:
+- Farouk and Wang's Scarpis–Đoković matrices of order 2q(q + 1) (Filomat 34 (2020) 815–834), ordinary matrices whose
+  symmetry is not discussed;
+- Đoković's symmetric matrices of order q(q + 1), q ≡ 3 (mod 8) (arXiv:2508.17141). That construction is the dual
+  scheme: anticommuting design, commuting plugs.
+
+The texts of Wallis (Linear and Multilinear Algebra 1 (1973), the complex orders w(w − 1)) and of Kharaghani–Seberry
+(Congr. Numer. 75 (1990)) could not be obtained. A symmetric remark there cannot be excluded. Ordinary Hadamard matrices of these orders were known, for instance from Whiteman's Williamson matrices of order
 q(q + 1)/2 (1976), which Seberry (J. Austral. Math. Soc. A 29 (1980), final remarks) mentions. The symmetry is what is
 new.
 

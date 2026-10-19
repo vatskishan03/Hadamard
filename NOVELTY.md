@@ -168,7 +168,9 @@ For every order we checked:
   and Lemma 11.3, Turyn's map); Seberry, J. Austral. Math. Soc. A 29 (1980) 235–242 (Mukhopadhyay's recursion with
   skew outer designs, ordinary matrices, read from page images); Seberry–Balonin (2017); Balonin–Đoković,
   arXiv:1803.08787; Đoković, arXiv:2101.05429 and 2508.17141; web searches for symmetric Hadamard matrices of these
-  orders and of order 2n(n − 1) or 2q(q + 1). Not read: Kharaghani–Seberry, Congr. Numer. 75 (1990); Seberry–Wallis,
+  orders and of order 2n(n − 1) or 2q(q + 1); read by the round-13 judges: Farouk–Wang, Filomat 34 (2020) 815–834
+  (Scarpis–Đoković matrices of order 2q(q + 1), not symmetric) and Đoković, arXiv:2508.17141 in full (the dual scheme,
+  order q(q + 1)). Not read: Kharaghani–Seberry, Congr. Numer. 75 (1990); Wallis, Linear Multilinear Algebra 1 (1973); Seberry–Wallis,
   LNM 292, pp. 349–353; Seberry–Zhang (1993); the Seberry–Yamada book of 2020. None of the sources read states that
   the complex matrix is complex-symmetric or gives a symmetric matrix of any of the five orders. Every ingredient is
   older than 2026, hence the label New, but obtainable classically;
