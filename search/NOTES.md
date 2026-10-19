@@ -3816,7 +3816,12 @@ q = 13, where Lemma H forbids Theorem F's input.
 - That gives 284 Q-part classes and symmetric H(52) with an involutory automorphism with 24 fixed points.
 - They are sporadic: the automorphism groups have order at most 12 (A₄), and there is no field structure. The only
   recurring symmetry is ℤ₃, acting on PG(1, 13) as ⟨3⟩. The ℤ_m ansatz with m = (q − 1)/4 that it suggests for the 44
-  census values is untested beyond m = 3. The independent refuters had not reported when this section was written.
+  census values is untested beyond m = 3.
+- Two independent refuters confirmed the matrices with their own code. They rebuilt H from the construction data, and
+  all 284 classes assemble with no failure. They also re-derived the pruning conditions and re-solved one B class
+  exactly. They did not re-run the pruned classification, which rests on the claimant's exact mass-formula logs.
+- Q-parts with k = 4, 8, 10 and 12 also exist (chunk 21), but no symmetric W(14, 13) has such a zero involution
+  (exactly k ∈ {0, 2, 14}, assuming the uniqueness of the conference matrix of order 14).
 
 **Chain sweep over composite v from 495 to 2499** (round 12, scratchpad `round12/chain/`). Scope: freeD propus, −1 ∉ H,
 at most 40 orbits per block; 9262 structures over the 316 composite census values (6231 cyclic, 69 needing three
