@@ -1,0 +1,13 @@
+{
+ "order": 4900,
+ "construction": "symmetric-conference-plug",
+ "symmetric": true,
+ "q": {
+  "p": 7,
+  "poly": [
+   3,
+   1
+  ]
+ },
+ "sha256": "f155fa50f4b5024311005c9eeb3f10bc9dac3150cd3b9621a3fea98e26ec1a23"
+}

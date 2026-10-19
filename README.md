@@ -118,7 +118,7 @@ Williamson-type matrices ([NOTES.md](NOTES.md) §7).
   by two older tables without a construction) and five orders 8v and 16v below the smallest power of two in
   Cati–Pasechnik's Table 5. Also independent matrices of the known skew orders 1852, 3676 and 7656 (Wallis–Whiteman,
   which Table 5 missed). See [skew](skew).
-- **Symmetric Hadamard matrices** of 95 orders, all undecided in the Đoković–Seberry census [4]: 260 (v = 65, the
+- **Symmetric Hadamard matrices** of 100 orders, all undecided in the Đoković–Seberry census [4]: 260 (v = 65, the
   census's smallest value), a bordered propus quadruple decoded from Verma's quaternary Legendre pair of length 64
   (2026); 532, 732, 876, 4828 and 5700 from searches and new plug-in constructions (5700 obtainable classically), and 48 orders 4q (q ≡ 1 mod 8 a prime
   power, 356 to 9892) from Seberry–Yamada's Williamson-type matrices with a repeated block in Seberry–Balonin's propus
@@ -133,7 +133,11 @@ Williamson-type matrices ([NOTES.md](NOTES.md) §7).
   orders 225 and 441 but the census omits (Known). A third construction, of October 18, gives a symmetric Hadamard
   matrix of order 4q, q ≡ 5 (mod 8), from a Hadamard matrix [[P, Q], [Q, P]] of order q − 1, for example from a
   periodic Golay pair of length (q − 1)/2 ([symmetric/PERIODIC_GOLAY.md](symmetric/PERIODIC_GOLAY.md)): 404 (v = 101)
-  and 596 (v = 149), New. The census now has 497 undecided values. See [symmetric](symmetric).
+  and 596 (v = 149), New. A fourth, of October 19, gives a symmetric Hadamard matrix of order 2n(n − 1) from a
+  symmetric conference matrix of order n, the symmetric form of a complex Hadamard matrix of Kharaghani and
+  Seberry ([symmetric/CONFERENCE_PLUG.md](symmetric/CONFERENCE_PLUG.md)): 612, 1300, 1740, 4900 and 7564
+  (v = 153, 325, 435, 1225, 1891), New but obtainable classically. The census now has 492 undecided values.
+  See [symmetric](symmetric).
 - **Complex Hadamard matrices** of 11 orders 2N with N odd, blank in Seberry and Yamada's table of known orders [5]
   and in the papers since [10, 11, 12]: 214, 238, 302, 326, 366, 382, 426, 494, 518, 534 and 754, from searches over
   Szöllősi's array [10] and its bordered, character-bordered and twisted forms. They were found concurrently and

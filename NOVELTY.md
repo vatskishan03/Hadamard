@@ -162,6 +162,16 @@ For every order we checked:
   from periodic Golay pairs (Balonin and Đoković's 2015 paper on symmetric two-circulant Hadamard matrices and periodic
   Golay pairs was seen only by title; two-circulant matrices from a pair of length ℓ have order 2ℓ, not 4(2ℓ + 1)).
   None gives a symmetric matrix of either order or the construction;
+- for the symmetric orders 612, 1300, 1740, 4900 and 7564 ([symmetric/CONFERENCE_PLUG.md](symmetric/CONFERENCE_PLUG.md)),
+  checked on 19 October 2026: the census (all five v undecided); Seberry–Yamada (1992), §11 (Kharaghani–Seberry's
+  Theorem 11.14 and Corollaries 11.15 and 11.20, complex Hadamard matrices of order w(w − 1), stated without symmetry,
+  and Lemma 11.3, Turyn's map); Seberry, J. Austral. Math. Soc. A 29 (1980) 235–242 (Mukhopadhyay's recursion with
+  skew outer designs, ordinary matrices, read from page images); Seberry–Balonin (2017); Balonin–Đoković,
+  arXiv:1803.08787; Đoković, arXiv:2101.05429 and 2508.17141; web searches for symmetric Hadamard matrices of these
+  orders and of order 2n(n − 1) or 2q(q + 1). Not read: Kharaghani–Seberry, Congr. Numer. 75 (1990); Seberry–Wallis,
+  LNM 292, pp. 349–353; Seberry–Zhang (1993); the Seberry–Yamada book of 2020. None of the sources read states that
+  the complex matrix is complex-symmetric or gives a symmetric matrix of any of the five orders. Every ingredient is
+  older than 2026, hence the label New, but obtainable classically;
 - for the symmetric order 260 ([symmetric/260](symmetric/260)), checked on 17 October 2026: the census; Đoković,
   arXiv:2101.05429 (65 first among the open v < 200, and the Handbook's Table 1.52 list as he quotes it); Seberry–Balonin
   (2015, 2017); Balonin–Đoković, arXiv:1803.08787; Verma, arXiv:2609.25573 (the pair only); Lebedev, arXiv:2609.04589;
