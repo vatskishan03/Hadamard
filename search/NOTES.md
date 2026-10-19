@@ -4205,3 +4205,55 @@ No census value is settled. Four lenses, each with two adversarial judges using 
   for 153, 325, 435, 1225 and 1891, which are all open in the skew census.
 - The n = 2 case equals "skew H with a fixed-point-free signed automorphism of square −I". Paley's skew matrices with
   q ≡ 3 (mod 8) have one (classical).
+
+## 64. Round 19: Kharaghani–Seberry plug pairs beyond q = p, complex split triples, routes to open complex orders (October 19)
+
+No open complex order is settled (115 open orders 2N, N odd, N < 1000; Zaitsev's page lists the same 115). Three lenses,
+two judges each with their own code (scratchpad `round19/`).
+
+**The setting.** Seberry–Yamada 1992, Theorem 11.14: a skew-type complex Hadamard matrix of order p + 1 and a plug pair
+(A, B) of order q with AB* = BA* and AA* + pBB* = q(p + 1)I give a complex Hadamard matrix of order q(p + 1).
+- 65 open orders factor as (p + 1)q with a known skew-type order p + 1 ≡ 2 (mod 4) and odd q ≥ p.
+- The published tables use only the pair A = J, B = I − iQ (q = p), and its recursion q = p^j.
+- Proved: A = J forces q = p.
+
+**Plug pairs** (`round19/kspairs/`).
+- *Rigidity, p < q < √5p* (proved; computer-assisted classification of μ₄-gain matrices with λ_max ≤ q/p, reproduced
+  by a judge).
+  - After scaling, AA* = (q − p)I + pJ and BB* = (q + 1)I − J.
+  - So pq + q − p must be a square, which is the parameter equation of a symmetric (q, (q − s)/2, ·) design.
+  - This kills the factorizations 42·43, 38·43, 38·51, 26·35, 30·51, 30·53, 26·47, 26·49 and 26·53. 1222, 1378 and
+    1634 lose every Kharaghani–Seberry route.
+- *q = p + 2 is impossible* for every p ≥ 3 (proved twice independently). 1806 = 42·43 is out.
+- *Theorem 2* (proved). For q = p + 4, (A, B) = (J − 2P, −NP) with P an involution is a pair iff [[1, 1], [1, N]] is a
+  Hermitian quaternary Hadamard matrix of order p + 5.
+  - Found at p + 5 = 6, 10 and 14, giving pairs at (5, 9) and (9, 13): orders 54 and 130, both known.
+  - (13, 17), (17, 21) and (25, 29) need Hermitian matrices of orders 18, 22 and 30: UNKNOWN.
+- *Circulant pairs* exist only at q = p (orbit-constant sweeps over all 89 open factorizations).
+- *The regime q ≥ √5p* (80 of 89 factorizations) is unclassified. The normal-form candidates 970, 1242, 1386, 1530 and
+  1854 need design-like objects such as symmetric (97, 33, 11) or (153, 57, 21) designs with a Hermitian coupling.
+
+**Complex split triples** (`round19/cxsplit/`). G = I ⊗ B₀ + C₁ ⊗ B₁ + C₂ ⊗ B₂ with the real splits of orders 6 and 14.
+- *Reduction.* G is unitarily equivalent to I_{n/2} ⊗ M with M = [[B₀ + √w₁B₁, √w₂B₂], [√w₂B₂, B₀ − √w₁B₁]].
+- *Calibration.* K = 1 and 5 work: orders 30 and 70. At n = 14, K = 5 is below the Kharaghani–Seberry bound 13.
+  K = 3 is infeasible for both splits.
+- *Lemmas* (proved, re-derived by the judges):
+  - group-developed (constant row sum) plugs need K ≡ 1 (mod 4);
+  - the Hermitian-circulant class is impossible.
+- *Searches.* Circulant searches up to K = 13 and multiplier scans (K ≤ 257 prime, several composites) found nothing.
+- *The 574 candidate.* The regular-Gram candidate at (n, K) = (14, 41) was refuted by a parity argument. So no
+  complex split triple is known beyond the Paley sizes.
+
+**Literature and routes** (`round19/cxlit/`).
+- *Literature.* No accessible source uses plug pairs with q ≠ p or a 3-variable complex plug-in for orders ≡ 2
+  (mod 4). Kharaghani–Seberry 1990/1993, Wallis 1973 and the 2020 book were inaccessible.
+- *Quaternary conference matrices of orders 22 and 34.* Zero diagonal, units elsewhere, CC* = (n − 1)I, non-Hermitian;
+  no real conference matrix exists at these orders. They are built from the zero-diagonal Szöllősi array
+  K = [[X, Y], [Y*, −X*]] (A, B symmetric circulant with a₀ = b₀ = 0, C, D circulant, AAᵀ + BBᵀ + CCᵀ + DDᵀ = (4m − 2)I).
+  Checked exactly by both judges; novelty not checked.
+- *Complex Yamada–Kiyasu.* Implemented independently; it reproduces Zaitsev's 470, 566 and 1142.
+- *Six open orders, one missing core each.* 1046, 1190, 1286, 1718, 1910 and 1958 need a quaternary conference matrix
+  of order 262, 298, 322, 430, 478 or 490 respectively. The template side (Yamada circulants for q = 521, 593, 641,
+  857, 953, 977) is verified. Cheap structured searches found nothing; this is the best-ranked constructive route.
+- *Route map.* No classical complex route (Cor. 11.15, 11.20, Kronecker, Golay, Miyamoto, Seberry–Zhang) settles any
+  open order.
