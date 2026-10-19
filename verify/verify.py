@@ -2156,6 +2156,67 @@ def _build_paley_blocks_field(cert):
     return _paley_blocks_finish(cert, P, np.array(g))
 
 
+def _paley_conference_field(qs):
+    """Paley's symmetric conference matrix of order q + 1 for a prime power q = 1 (mod 4): "q" is a prime, or
+    {"p", "poly"} for q = p^k with elements of GF(q) encoded as in _paley_sym_od_field (poly primitive, checked).
+    Index 0 is the point at infinity and index 1 + x is x: C[0, 0] = 0, C[0, j] = C[j, 0] = 1, C[1 + x, 1 + y] =
+    chi(y - x)."""
+    if isinstance(qs, int):
+        if not (_is_prime(qs) and qs % 4 == 1):
+            raise ValueError("q must be a prime = 1 (mod 4)")
+        return paley_conference(qs).astype(np.int64)
+    p, poly = qs["p"], qs["poly"]
+    k = len(poly)
+    q = p ** k
+    if not (_is_prime(p) and q % 4 == 1):
+        raise ValueError("q must be a prime power = 1 (mod 4)")
+    digits = np.array([[(e // p ** j) % p for j in range(k)] for e in range(q)], dtype=np.int64)
+    weights = p ** np.arange(k)
+    enc = lambda d: int((np.asarray(d) % p) @ weights)
+    log = -np.ones(q, dtype=np.int64)
+    e = 1
+    for i in range(q - 1):
+        if log[e] >= 0:
+            raise ValueError("poly is not primitive")
+        log[e] = i
+        d = np.zeros(k + 1, dtype=np.int64); d[1:] = digits[e]
+        e = enc(d[:k] - d[k] * np.asarray(poly, dtype=np.int64))
+    if e != 1:
+        raise ValueError("poly is not primitive")
+    chi = np.where(log % 2 == 0, 1, -1).astype(np.int64)
+    chi[0] = 0
+    sub = np.array([[enc(digits[y] - digits[x]) for y in range(q)] for x in range(q)], dtype=np.int64)   # y - x
+    C = np.ones((q + 1, q + 1), dtype=np.int64)
+    C[0, 0] = 0
+    C[1:, 1:] = chi[sub]
+    return C
+
+
+def build_symmetric_conference_plug(cert):
+    """Symmetric Hadamard matrix of order 2n(n - 1) from a symmetric conference matrix C of order n
+    (symmetric/CONFERENCE_PLUG.md). C = [[0, e^T], [e, Q]] is Paley's matrix of order n = q + 1 for the prime power
+    q = 1 (mod 4) under "q" (_paley_conference_field). With m = n - 1 and J = J_m, X = [[J, J], [J, -J]] and
+    Y = [[Q + I, Q - I], [Q - I, -Q - I]] are symmetric and anticommute (Q 1 = 0), and H = I_n (x) X + C (x) Y.
+    Checked here: C = C^T, zero diagonal, C^2 = mI, Q 1 = 0 and XY + YX = 0."""
+    C = _paley_conference_field(cert["q"])
+    n = C.shape[0]
+    m = n - 1
+    if (not np.array_equal(C, C.T) or np.any(np.diag(C) != 0) or np.any(C[0, 1:] != 1)
+            or not np.array_equal(C @ C, m * np.eye(n, dtype=np.int64))):
+        raise ValueError("C is not a normalised symmetric conference matrix")
+    Q = C[1:, 1:]
+    if np.any(Q.sum(axis=1) != 0):
+        raise ValueError("Q 1 != 0")
+    I = np.eye(m, dtype=np.int64)
+    J = np.ones((m, m), dtype=np.int64)
+    X = np.block([[J, J], [J, -J]])
+    Y = np.block([[Q + I, Q - I], [Q - I, -Q - I]])
+    if np.any(X @ Y + Y @ X != 0):
+        raise ValueError("X and Y do not anticommute")
+    H = np.kron(np.eye(n, dtype=np.int8), X.astype(np.int8)) + np.kron(C.astype(np.int8), Y.astype(np.int8))
+    return H, None
+
+
 BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": build_goethals_seidel_group,
             "cooper-wallis": build_cooper_wallis,
             "cooper-wallis-near-williamson": build_cooper_wallis_near_williamson,
@@ -2173,7 +2234,8 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "symmetric-propus-weighing": build_symmetric_propus_weighing,
             "symmetric-yamada-kiyasu": build_symmetric_yamada_kiyasu, "paley-skew": build_paley_skew,
             "two-block": build_two_block, "paley-blocks": build_paley_blocks,
-            "symmetric-involution": build_symmetric_involution}
+            "symmetric-involution": build_symmetric_involution,
+            "symmetric-conference-plug": build_symmetric_conference_plug}
 
 
 def csv_chunks(H, rows=512):
