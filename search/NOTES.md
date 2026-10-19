@@ -3902,3 +3902,40 @@ Scratchpad `round15/plugs/`.
   of order 46), which is not a census value.
 - The regime k ≥ 2m, which holds the other 251 open values with a representation, is not analysed. There E may have
   entries ±4 and the clique lemma fails.
+
+## 60. The ℤ_m ansatz beyond q = 13, and symmetric Spence analogues (October 19, round 14)
+
+No census value is settled here. Scratchpad `round14/zm/`, `round14/spence/`.
+
+**ℤ_m-invariant Q-parts with 2q − 2 fixed points** (§58, the lead from q = 13).
+- *Lemma 1 (proved).* If ℤ_m (m an odd prime) has a regular column orbit, at most 2(q − 1)/(m + 1) rows are fixed.
+  So the ansatz with 2m fixed rows needs m ≤ 3. q = 13 is the equality case.
+- *Lemma 2 (proved).* If √q ∉ ℚ(ζ_m), the row and column multiplicities of every character differ by an even
+  number. For m = (q − 1)/4 prime ≥ 5 this forces the semiregular shape: 8 row orbits, 4 column orbits plus 2 fixed
+  columns.
+- *The semiregular shape* (P diagonal or k = 2, exact orbit-reduced solution of the trivial-character system,
+  cross-checked by CP-SAT): there are solutions for m = 1, 9 and 13 and none for m = 3, 5, 7, 11, 15, 17, 19, 21.
+  HEURISTIC: the pattern suggests that both m and 4m + 1 must be sums of two squares, which excludes the census class.
+- At q = 29, ℤ₇ (two structure cases), ℤ₅ (three cases) and ℤ₁₃ are infeasible. At q = 61, ℤ₃₁ and semiregular ℤ₁₅
+  are infeasible. The ℤ₅ case at q = 61 with 2 fixed columns and 12 column orbits is UNKNOWN.
+- *The ℤ₃ family with (q − 1)/2 fixed rows* is the only live route. At q = 29 it has 480 solutions of the
+  ω-part (inside a BH(7, 6) tensor ansatz). None was completed to a Q-part: about 160 trivial-level completions are
+  infeasible and about 240 hit the 25 s limit.
+- At q = 13 the ω-part is a completion of the Butson matrix BH(6, 6) with the profile of Haagerup's F₆. It has no
+  GF(13) or quartic-character description, and the H(52) has |Aut| = 12 (it is not Paley II).
+
+**Symmetric analogues of Spence, Whiteman and Leung–Momihara type families.**
+- The blocks of these families (regenerated for 12 values of q) are never of propus shape: the four
+  autocorrelations differ.
+- Four distinct commuting symmetric blocks admit no symmetric 4 × 4 array (a Clifford argument, as in §49).
+- *Theorem E (proved).* For a Spence q (m even) there is no symmetric analogue with the extremal pattern. One form
+  needs a negacirculant Hadamard matrix of order m, and none exists for 3 ≤ m ≤ 26. The other needs m prime and
+  2m − 1 a sum of two squares.
+- *Theorem W (proved, built for p = 3, 5, 7, 13, 19, 31, 37, 41, 61, 79, 97).* There is a symmetric analogue of
+  Whiteman's construction of order 8p + 4. It uses Paley's conference matrix of order 2p and the torus of order p in
+  PSL(2, 2p − 1). It reaches no open census value for p ≤ 1249, since those v = 2p + 1 have 2p − 1 not a prime
+  power.
+- The class-constant cyclic scan over ℤ_{v−1} for the Spence-type q = 277, 317, 349, 389, 397, 461, 541, 557, 709,
+  821, 1021 found nothing (2 to 20 orbits, cost cap 3·10⁹, groups up to order 1548).
+- A sporadic symmetric bordered propus over ℤ₂₈ (order 116, a known order) was found.
+- The Spence and Whiteman primary papers were not read.
