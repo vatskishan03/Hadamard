@@ -3939,3 +3939,102 @@ No census value is settled here. Scratchpad `round14/zm/`, `round14/spence/`.
   821, 1021 found nothing (2 to 20 orbits, cost cap 3·10⁹, groups up to order 1548).
 - A sporadic symmetric bordered propus over ℤ₂₈ (order 116, a known order) was found.
 - The Spence and Whiteman primary papers were not read.
+
+## 61. Split outer designs for Theorem K, and plug pairs over ℤ_k (October 19, round 17 and the round-13 judges)
+
+No census value is settled here. The split framework below is new and works at a small order (H(140), a known
+order). Scratchpad `round17/`.
+
+**Plug pairs with a fixed-point-free ℤ_k (k prime).** In the traceless block-circulant form X = [[a, b], [bᵀ, −a]],
+Y = [[e, f], [fᵀ, −e]] (a, e symmetric), X² and Y² are α ⊗ I₂ and β ⊗ I₂ for group-ring elements α, β with
+α + mβ = 2k(m + 1). Off zero both are sums of two periodic autocorrelations, so they are ≡ 2 (mod 4) and nonzero, and
+|α_t| = m|β_t| ≥ 2m. This is the round-15 analysis (§59) in circulant form.
+- At every nontrivial character the 2 × 2 blocks must be traceless. The singular alternative needs
+  √(2k(m + 1)) ∈ ℚ(ζ_k)⁺, which fails for prime k ≡ 1 (mod 4).
+- Exhaustive meet in the middle over all circulants (`plugcirc.py`): k = 9, 11 and 13 with m = 5, and k = 13 with
+  m = 9, give no solutions. k = m = 5 gives 80, which is Theorem K.
+- Cyclotomic version (`plugcyc.py`, blocks constant on the orbits of the index-e subgroup, e ≤ 12, e | k − 1):
+  - covers primes k = 5, 13, 17, 29, 37, 41, 47, 53, 61, 71 and 73 (73 only up to e = 9), with m ∈ {5, 9, …, 61},
+    m ≤ k;
+  - solutions occur only at m = k;
+  - a rerun after fixing a −0.0 hashing bug gives the same counts.
+- So the k ≥ 2m regime of §59 has no solution with this much symmetry for these k.
+
+**Three commuting classes.** Take a commuting design I, C₁, C₂: symmetric weighing matrices with zero diagonal,
+disjoint supports and Cₜ² = wₜ I. The traces of C₁, C₂ and C₁C₂ vanish, so the four joint eigenspaces have equal
+dimension n/4. Hence n ≡ 0 (mod 4) (proved). With even plugs (n ≡ 2 mod 4, the Theorem K setting) the
+commuting-design / anticommuting-plugs scheme therefore has exactly one non-identity class. For n ≡ 4 (mod 8) with odd
+plugs the argument says nothing.
+
+**Split outer designs** (proved; built at n = 14).
+- *Construction.* Let C = C₁ + C₂ be a symmetric conference matrix of order n with C₁C₂ = −C₂C₁ and Cₜ² = wₜ I
+  (w₁ + w₂ = n − 1). Equivalently, x₁C₁ + x₂C₂ is a symmetric orthogonal design OD(n; w₁, w₂) with zero diagonal.
+- Let X₀, X₁, X₂ be symmetric ±1 plugs of order 2k with X₀ anticommuting with X₁ and X₂, X₁X₂ = X₂X₁, and
+  X₀² + w₁X₁² + w₂X₂² = 2nk I.
+- Then H = I ⊗ X₀ + C₁ ⊗ X₁ + C₂ ⊗ X₂ is a symmetric Hadamard matrix of order 2nk. The cross terms are
+  Cₜ ⊗ {X₀, Xₜ} and C₁C₂ ⊗ [X₁, X₂].
+- X₁ = X₂ is Theorem K. The point is that the rigidity k ≥ n − 1 of Theorem K (§58) no longer applies.
+- *Built.* Paley's matrix of order 14 has such a split with (w₁, w₂) = (4, 9), invariant under multiplication by
+  the fourth powers of GF(13). In it C₁ = W(8, 4) ⊕ W(6, 4), a signed K₄,₄ on {∞, 0} ∪ C₀ ∪ C₁ (quartic classes)
+  plus an octahedron on C₂ ∪ C₃.
+- With X₀ = P ⊗ J₅ (P = [[1, 1], [1, −1]]), CP-SAT found X₁, X₂ of order 10 with X₁ ≠ ±X₂. The result is a symmetric
+  H(140) with plug order 10 < 2(n − 1) = 26, checked in integers (`triple_fixed.py`, `tf_5_4_9.npy`). v = 35 is not a
+  census value; this only shows that the framework escapes the rigidity.
+
+**Plug theory for X₀ = P ⊗ J** (proved).
+- Every symmetric X anticommuting with P ⊗ J has the form I ⊗ A + P ⊗ B + M ⊗ D + iσ_y ⊗ δ, with
+  M = [[1, −1], [−1, −1]], A𝟙 = B𝟙 = δ𝟙 = 0 and D𝟙 = d𝟙. On span{e ⊗ 𝟙} it acts as dM with d ∈ ℤ.
+- The solution above has X₁² = I₂ ⊗ (8I + 2J) and X₂² = I₂ ⊗ (12I − 2J). Call a plug with
+  Xₜ² = I₂ ⊗ ((2k − βₜ)I + βₜJ) a β-plug.
+  - Then βₜ ≡ 2 (mod 4) and βₜ ≥ −2, and the split needs w₁β₁ + w₂β₂ = −2k.
+  - With β₂ = −2 and β₁ = 4j + 2 this gives k = w₂ − (2j + 1)w₁.
+  - The action on e ⊗ 𝟙 gives the integrality condition d² = k + (β/2)(k − 1). For β = 2 it needs 2k − 1 to be a
+    square: k = 5, 13, 25, 41, …. This excludes k = 7, 9 and 11, so CP-SAT's UNKNOWN on P(7, 2, −2) is settled
+    negatively.
+- β = −2 plugs: Theorem K's Y = P ⊗ Q + M ⊗ I for any symmetric conference core Q of order k. CP-SAT found one at
+  k = 7 as well, where no symmetric conference matrix of order 8 exists.
+- β = 2k plugs: X₁ = M ⊗ J. It anticommutes with P ⊗ J and commutes with every Y = P ⊗ Q + M ⊗ I, so it is free.
+  The split must then satisfy n = (k + 1)(w₁ + 1), with w₂ = k(w₁ + 1).
+- Commuting pairs P(k, β₁, β₂) by CP-SAT: P(5, 2, −2) and P(5, 10, −2) exist; P(7, 2, −2) is impossible (above).
+
+**Reach.** Assume a split exists for every pair (w₁, w₂) of sums of two squares at the Paley orders and Mathon's
+order 46. The census values left after the d-filter are 299, 475, 765, 783, 795, 1677, 2035, 2057, 2125 and 2197.
+Examples:
+- 299: n = 46, (16, 29), k = 13, β = 2.
+- 475: n = 38, (1, 36), k = 25, β = 22.
+- 765: n = 90, (4, 85), k = 17, β = 2k; or n = 170, (16, 153), k = 9, β = 2k. Plugs free; only the split is needed.
+- 783: n = 54, (4, 49), k = 29, β = 10.
+- 795: n = 318, (52, 265), k = 5, β = 10. The plug P(5, 10, −2) exists.
+- 2125: n = 170, (72, 97), k = 25, β = 2.
+
+**Splits are the bottleneck.** Searches by CP-SAT, all on Paley matrices:
+- *Unrestricted* (`outersplit.py`):
+  - n = 6: (1, 4) exists.
+  - n = 10: (1, 8) and (4, 5) infeasible. Paley 10 is the only conference matrix of order 10, so this settles
+    order 10.
+  - n = 14: (4, 9) exists; (5, 8) infeasible.
+  - n = 18: (1, 16) and (4, 13) infeasible; (8, 9) UNKNOWN after 300 s.
+- *Perfect matchings* (w₁ = 1, the condition PCP = 2P − C, exhaustive backtracking): only q = 5 among
+  q = 5, 9, 13, 17, 25, 29, 37, 41, 53. So 475 is out with Paley's matrix of order 38.
+- *Two-circulant form*: n = 6 exists; n = 14 (4, 9) and n = 18 (8, 9) are infeasible.
+- *Invariant under the index-e subgroup of GF(q)\** (`splitinv.py`), all infeasible:
+  - q = 29, e = 4 and 7, weights (4, 25), (9, 20), (13, 16);
+  - q = 37, e = 4, all five weight pairs;
+  - q = 37, e = 12, (1, 36), (5, 32) and (8, 29).
+
+So the splits at 6 and 14 may be sporadic. Open: splits of Mathon's matrix of order 46 and of the non-Paley matrix of
+order 38 (§52), large Paley orders with weaker invariance, and a general construction of symmetric zero-diagonal
+OD(n; w₁, w₂).
+
+**Round 13, quaternary lens and its judges** (`round13/quat`, `judge_quat_*`). No census value.
+- *f = 0 decoupling.* [[A, B], [B, A]] is symmetric Hadamard iff (A ± B)/2 are complementary symmetric W(2q, q). This
+  is classical in disjoint-weighing form (de Launey 1993).
+  - The symmetric case is infeasible at q = 5, by two independent SAT encodings. The non-symmetric form exists
+    there.
+  - A symmetric H(36) of this form exists (q = 9, unstructured). q = 13 is UNKNOWN.
+  - No census route.
+- *Twisted Hermitian conference matrices.* L = I ⊗ J + C ⊗ (Q + iI) with C Hermitian over μ₄ becomes
+  complex-symmetric after a symmetric monomial twist S with CS = S C̄ (mechanism proved, checked at w = 6).
+  - It needs a complex-symmetric plug as well: a complex-symmetric quaternary Hadamard matrix of order w with an
+    imaginary diagonal entry.
+  - At w = 58 and 70 (v = 1653, 2415) both inputs are UNKNOWN.
