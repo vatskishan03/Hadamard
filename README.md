@@ -7,9 +7,9 @@ rebuilds it and checks it in exact arithmetic.
 A Hadamard matrix of order n is an n × n matrix H with entries ±1 and H Hᵀ = n I. It can exist only for n = 1, 2 or
 n ≡ 0 (mod 4), and the Hadamard conjecture asserts that it exists for every multiple of 4. In August 2026 Alpöge,
 Voinov and Reynolds-Haertle constructed the twelve unresolved orders below 2000 [1], and Schneider constructed 2060 [2].
-This repository constructs the next four, 2092, 2148, 2284 and 2292, and 24 more of the orders that Table 4 of Cati
-and Pasechnik [3] lists as unresolved, up to 11804. The smallest unresolved order is now 2396 = 4 · 599
-([FRONTIER.md](FRONTIER.md)).
+This repository constructs the next three, 2092, 2148 and 2284, and 24 more of the orders that Table 4 of Cati and
+Pasechnik [3] lists as unresolved, up to 11804. Our matrix of order 2292 turned out to have been preceded by an
+independent one [16]. The smallest unresolved order is now 2396 = 4 · 599 ([FRONTIER.md](FRONTIER.md)).
 
 Most of the larger orders come from two block decompositions. Paley's matrix of order q + 1, q ≡ 3 (mod 8), is an
 array of sixteen circulant blocks [14], and Seberry and Yamada multiply such arrays by T-matrices [15]; we found the two
@@ -25,7 +25,7 @@ give a theorem: a skew-Hadamard matrix of order 3(q + 1) exists for every prime 
 
 | Family | Orders | Status |
 |---|---|---|
-| Hadamard, unresolved in Table 4 [3] | [28](#unresolved-orders) | 11 New, 14 New but obtainable classically, 2 First explicit construction, 1 Concurrent |
+| Hadamard, unresolved in Table 4 [3] | [27](#unresolved-orders) | 10 New, 14 New but obtainable classically, 2 First explicit construction, 1 Concurrent |
 | Hadamard, omitted by Table 4 through Seberry–Yamada's Corollary 8.8(i) | [10](hadamard#orders-recorded-only-through-corollary-88i) | First explicit construction |
 | Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 New, 124 New but obtainable classically, 49 First explicit construction |
 | Skew-Hadamard (820 to 14384) | [101](skew) | 37 New, 62 New but obtainable classically, 2 First explicit construction |
@@ -35,7 +35,7 @@ give a theorem: a skew-Hadamard matrix of order 3(q + 1) exists for every prime 
 
 The labels are defined in [NOVELTY.md](NOVELTY.md), which also lists the literature searched. "Obtainable
 classically" means that every ingredient was published before 2026 and only their combination is new. The repository
-also holds independent matrices of known orders (6 Hadamard, 3 skew, 2 symmetric and 76 complex), the first explicit
+also holds independent matrices of known orders (7 Hadamard, 3 skew, 2 symmetric and 76 complex), the first explicit
 amicable Hadamard matrices of orders 52, 76, 100 and 124 and new orthogonal designs
 ([skew](skew#seberrys-theorem-with-new-ingredients)), and Williamson-type matrices of order 111
 ([near-williamson](near-williamson)).
@@ -49,7 +49,6 @@ For each order 4n, n is listed as unresolved in Table 4 of Cati and Pasechnik [3
 | [2092](hadamard/2092) | 523 | Goethals–Seidel array [6] over ℤ₅₂₃, multiplier subgroup of order 9 | New |
 | [2148](hadamard/2148) | 537 = 3 · 179 | bordered Goethals–Seidel array over ℤ₃ × ℤ₁₇₈, border of size 12 | New |
 | [2284](hadamard/2284) | 571 | Goethals–Seidel array over ℤ₅₇₁, three blocks related by a multiplier of order 3 | Concurrent [13] |
-| [2292](hadamard/2292) | 573 = 3 · 191 | Spence's construction over ℤ₂ × ℤ₂ × ℤ₁₄₃, three blocks related by an automorphism of order 15 | New |
 | [2636](hadamard/2636) | 659 | bordered Goethals–Seidel array over ℤ₄ × ℤ₄ × ℤ₄₁, border of size 12 | New |
 | [3156](hadamard/3156) | 789 = 3 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks [14], T-matrices of order 3 [15] | New, but obtainable classically |
 | [3732](hadamard/3732) | 933 = 3 · 311 | Goethals–Seidel array over ℤ₃ × GF(311), multiplier subgroup of order 31; skew | New |
@@ -76,9 +75,12 @@ For each order 4n, n is listed as unresolved in Table 4 of Cati and Pasechnik [3
 | [11804](hadamard/11804) | 2951 = 13 · 227 | Paley's matrix of order 908 in sixteen circulant blocks, T-matrices of order 13 | New, but obtainable classically |
 
 2284 also follows from the quaternary Hadamard matrix of order 1142 that Zaitsev et al. posted concurrently [13], by
-Turyn's doubling. Đoković claimed 1527 and 2545 in 2010 through Seberry–Yamada's Corollary 8.8(i), whose printed proof
-does not give Williamson-type matrices ([NOTES.md](NOTES.md) §7). Doubling 2636, 3732 and 9172 settles the further
-open orders 5272, 7464, 18344, 36688 and 73376.
+Turyn's doubling. Our matrix of order 2292 = 4 · 573 (Spence's construction over ℤ₂ × ℤ₂ × ℤ₁₄₃) is not in the table:
+Middletownbooks/Hadamard had published an independent matrix of that order on 9 October 2026, before ours of 14 October,
+and we learned of it on 19 October [16] ([hadamard/2292](hadamard/2292/README.md#status)). The same repository settled
+2588 = 4 · 647 on 14 October 2026 [16]. Đoković claimed 1527 and 2545 in 2010 through Seberry–Yamada's Corollary 8.8(i),
+whose printed proof does not give Williamson-type matrices ([NOTES.md](NOTES.md) §7). Doubling 2636, 3732 and 9172
+settles the further open orders 5272, 7464, 18344, 36688 and 73376.
 
 ### Other results
 
@@ -185,6 +187,8 @@ each.
     87 (1991) 187–196.
 15. J. Seberry, M. Yamada, On the products of Hadamard matrices, Williamson matrices and other orthogonal matrices
     using M-structures, J. Combin. Math. Combin. Comput. 7 (1990) 97–137, Theorem 4.
+16. Middletownbooks, Hadamard matrices of previously unknown orders, https://github.com/Middletownbooks/Hadamard
+    (order 2292 committed October 9, 2026; order 2588 October 14, 2026).
 
 ## Citation
 

@@ -1,7 +1,7 @@
 # Unresolved orders
 
-Table 4 of Cati and Pasechnik lists 195 odd n ≤ 2999 for which no Hadamard matrix of order 4n was known in 2025. 66
-of them are settled now, and the 129 that remain are listed below with the cheapest search structures known for each.
+Table 4 of Cati and Pasechnik lists 195 odd n ≤ 2999 for which no Hadamard matrix of order 4n was known in 2025. 67
+of them are settled now, and the 128 that remain are listed below with the cheapest search structures known for each.
 The smallest is n = 599, order 2396.
 
 Settled:
@@ -12,11 +12,13 @@ Settled:
   the T-matrices of order 131 that London and Kotsireas's Turyn-type sequences TT(44) give ([NOTES.md](NOTES.md) §28);
 - 6 by Đoković in 2010: n = 823, 883, 1063, 1303, 2143 and 2335 (arXiv:1008.2043, Propositions 3.1 and 3.4);
 - 1 in 1988: n = 1823, from Seberry and Whiteman's symmetric conference matrix of order 3646 ([NOTES.md](NOTES.md) §7);
-- 28 in this repository:
-  - n = 523, 537, 571, 573, 659, 933, 991, 1123, 1255, 1483 and 2293 by searches and recursive theorems (orders
-    [2092](hadamard/2092), [2148](hadamard/2148), [2284](hadamard/2284), [2292](hadamard/2292),
-    [2636](hadamard/2636), [3732](hadamard/3732), [3964](hadamard/3964), [4492](hadamard/4492),
-    [5020](hadamard/5020), [5932](hadamard/5932) and [9172](hadamard/9172)); 571 concurrently with Zaitsev et al.;
+- 2 by the GitHub repository Middletownbooks/Hadamard: n = 573 (order 2292, 9 October 2026; our independent matrix is
+  [hadamard/2292](hadamard/2292)) and n = 647 (order 2588, 14 October 2026);
+- 27 in this repository:
+  - n = 523, 537, 571, 659, 933, 991, 1123, 1255, 1483 and 2293 by searches and recursive theorems (orders
+    [2092](hadamard/2092), [2148](hadamard/2148), [2284](hadamard/2284), [2636](hadamard/2636),
+    [3732](hadamard/3732), [3964](hadamard/3964), [4492](hadamard/4492), [5020](hadamard/5020),
+    [5932](hadamard/5932) and [9172](hadamard/9172)); 571 concurrently with Zaitsev et al.;
   - n = 789, 1315, 1509, 1589, 1689, 1841, 1915, 2155, 2515, 2661, 2733, 2815, 2893 and 2951 by Paley's matrix in
     sixteen circulant blocks times T-matrices, two published theorems that the tables did not combine
     ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md));
@@ -69,7 +71,6 @@ one applies:
 |---:|---:|---:|---:|---:|---:|---:|---|---:|---|
 | 2396 | 599 | – | – | – | – | – | ℤ2 × ℤ13 × ℤ23 | 36.4 |  |
 | 2572 | 643 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 322 (cannot exist) |
-| 2588 | 647 | – | – | – | – | – | ℤ2 × ℤ17 × ℤ19 | 35.7 |  |
 | 2676 | 669 | – | – | – | – | – | – | – |  |
 | 2876 | 719 | – | – | – | – | – | – | – |  |
 | 2956 | 739 | 9 | 83 | 41 | 33.5 | 22.7 | ℤ2 × ℤ3xℤ3 × ℤ41 | 42.4 |  |

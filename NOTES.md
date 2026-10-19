@@ -1320,7 +1320,7 @@ the back-identity, so the matrix differs from the independent one). All four ord
   omits it through Seberry–Yamada's Table A.2 (Williamson-type matrices of order 373 from Corollary 8.8(i)).
 
 This does not give Williamson-type matrices of order q; Corollary 8.8(i) stays unproven in general (§7; for some q a
-repeated block repairs it, §26). FRONTIER.md has 129 entries. Of its entries of the form n = qt with q ≡ 1 (mod 4) a
+repeated block repairs it, §26). FRONTIER.md had 129 entries. Of its entries of the form n = qt with q ≡ 1 (mod 4) a
 prime and T-matrices of order t known, the route still misses 2571 (q = 857, w = 214), 2823 (q = 941, w = 235) and 2677
 (t = 1, which needs H(2676)). Of the database's existence orders (53 to 181), those with q = 4w + 1 prime are 67, 73,
 79, 93, 97 and 127. Among the Handbook entries with t ≥ 3 they reach n = 3497, 4573, 8339, 9953 (q = 269), 9827 (317),
@@ -1539,7 +1539,7 @@ A.1, Turyn's doubling, and our Paley-block and Miyamoto-block routes. The tables
 - **Validation.** It recomputes every entry of Đoković's set Δ, his list of 42 and his three further entries, except
   the 37 that rest only on Corollary 8.8(i). It also recovers 1823 (Seberry–Whiteman) and Đoković's entries 823, 883,
   1063, 1303, 2143 and 2335 of 2010, which Table 4 omits.
-- **FRONTIER.** No theorem reaches any of the 129 entries. The conditional routes are the known ones:
+- **FRONTIER.** No theorem reaches any of the 129 entries of 17 October. The conditional routes are the known ones:
   - 955 needs a symmetric conference matrix of order 478;
   - 1879, 2215 and 2383 need skew-Hadamard matrices of orders 940, 1108 and 1192 (Kiyasu);
   - 2677 needs H(2676);

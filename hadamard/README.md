@@ -13,7 +13,6 @@ Entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard mat
 | [2092](2092) | 523 | Goethals–Seidel over ℤ₅₂₃, multiplier subgroup of order 9 |
 | [2148](2148) | 537 = 3 · 179 | bordered Goethals–Seidel array over ℤ₃ × ℤ₁₇₈ with a border of size 12, multiplier subgroup of order 11 |
 | [2284](2284) | 571 | Goethals–Seidel over ℤ₅₇₁, multiplier subgroup of order 5, three blocks related by a multiplier of order 3 |
-| [2292](2292) | 573 = 3 · 191 | Spence's bordered construction over ℤ₂ × ℤ₂ × ℤ₁₄₃, three blocks related by an automorphism of order 15 |
 | [2636](2636) | 659 | bordered Goethals–Seidel array over ℤ₄ × ℤ₄ × ℤ₄₁ with a border of size 12, symmetry group of order 15 |
 | [3156](3156) | 789 = 3 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks, T-matrices of order 3 |
 | [3732](3732) | 933 = 3 · 311 | Goethals–Seidel over ℤ₃ × GF(311), multiplier subgroup of order 31; the matrix is skew |
@@ -44,7 +43,7 @@ from two published theorems that the tables did not combine ([PALEY_BLOCKS.md](P
 it also follows, by Turyn's doubling, from the quaternary Hadamard matrix of order 1142 on Zaitsev's page
 ([2284](2284/README.md#status)). 6108 and 10180 are First explicit constructions: Đoković claimed n = 1527 and 2545 in
 2010 through Seberry–Yamada's Corollary 8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7). The other
-eleven are New; 6108, 7532 and 10180 use the near-Williamson matrices of 2026.
+ten are New; 6108, 7532 and 10180 use the near-Williamson matrices of 2026.
 
 Doubling the matrices of orders 2636 and 3732 gives orders 5272 and 7464, which were open as well, and doubling 9172
 gives 18344, 36688 and 73376 (the table entry is 2293(6)).
@@ -297,6 +296,7 @@ matrices are not stored (up to 7 GB as CSV); `python3 verify/verify.py <order>` 
 | Order | n | Construction | First construction |
 |------:|---|---|---|
 | [2060](2060) | 515 = 5 · 103 | Cooper–Wallis: T-matrices of order 103, Williamson matrices of order 5 | Schneider, 2026-08-23 |
+| [2292](2292) | 573 = 3 · 191 | Spence's bordered construction over ℤ₂ × ℤ₂ × ℤ₁₄₃, three blocks related by an automorphism of order 15 | Middletownbooks/Hadamard, 2026-10-09 ([2292](2292/README.md#status)) |
 | [3532](3532) | 883 | Goethals–Seidel over ℤ₈₈₃, multiplier subgroup of order 21 | Đoković, arXiv:1008.2043 (2010) |
 | [16892](16892) | 4223 = 41 · 103 | Paley's matrix of order 164 in sixteen circulant blocks, T-matrices of order 103 | SageMath development version (gh-42876, merged 2026-10-03) |
 | [25132](25132) | 6283 = 61 · 103 | Paley's matrix of order 244 in sixteen circulant blocks, T-matrices of order 103 | SageMath development version (gh-42876, merged 2026-10-03) |

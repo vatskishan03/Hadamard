@@ -61,6 +61,7 @@ The searches were made between 12 and 17 October 2026.
 - Zenodo (records matching "hadamard"), GitHub, the e-print sources of Hadamard-related arXiv papers (to 2026-10-08)
   and the math.CO listings (to 2026-10-12), the OEIS, MathOverflow, Balonin's online catalogue and the Palomar
   registry.
+- Found after these searches, on 19 October 2026: the GitHub repository Middletownbooks/Hadamard (see Corrections).
 
 **Complex orders.** Ito's papers on Hadamard groups (1994–2000); B. Schmidt, Des. Codes Cryptogr. 17 (1999) 61–68;
 R. Egan, Des. Codes Cryptogr. 87 (2019) 67–74, Theorem 4.5, which gives every order 2N with 4N − 1 a prime power;
@@ -151,6 +152,8 @@ Labels of the first release (14 October 2026) that have changed:
   Hadamard groups with Egan's Theorem 4.5 give the order ([complex-hadamard/PALEY.md](complex-hadamard/PALEY.md)).
 - Complex orders 238, 302, 326, 382, 494, 518, 534 and 754: **Concurrent**, with Zaitsev et al.
 - 2284: **Concurrent**, through Zaitsev et al.'s quaternary matrix of order 1142 and Turyn's doubling.
+- 2292: **Known**. The GitHub repository Middletownbooks/Hadamard published an independent matrix of this order on
+  9 October 2026, before ours of 14 October; we learned of it on 19 October.
 - 31316: **Known**; SageMath's development version builds it since 3 October 2026.
 - 19028, 21748 and 39260: **New, beyond the tables, but obtainable classically**.
 - Skew 5700 and 9900, symmetric 5700: **New, but obtainable classically**. The amicable Hadamard matrices of orders 52,
