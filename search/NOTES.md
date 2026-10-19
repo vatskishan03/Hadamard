@@ -3844,3 +3844,42 @@ generators, 2962 over ℤ_p × ℤ_p × ℤ_m).
   multiplier.
 - *A symmetric analogue of the Spence / Whiteman / Leung–Momihara H4* families* would reach 28 to 54 open v. Its
   existence is UNKNOWN: the published blocks are not of propus form, and Spence's paper was not read.
+
+## 59. Larger plugs for Theorem K (October 19, round 15)
+
+Theorem K needs symmetric ±1 matrices X and Y of order K = 2k with XY + YX = 0 and X² + mY² = (m + 1)KI. Any such
+pair with m = q (Paley) gives v = (q + 1)k/2. 266 open census values have such a representation with k > m (k odd).
+Scratchpad `round15/plugs/`.
+
+**Structure for m < k < 2m (proved).** Let E = Y² − KI.
+- Then X² = KI − mE, E has zero diagonal, and its entries lie in {0, ±2}.
+- E_ij ≠ 0 exactly when rows i and j have the same parity of weight. So the support of E is two cliques.
+- Each clique block of E/2 is a Seidel matrix with largest eigenvalue below 2, hence of the form D(I − J)D. So
+  E = 2((I − J_k) ⊕ (I − J_k)) after a signed-permutation conjugation.
+- On the span of the two clique indicators, Y acts as ±[[1, −1], [−1, −1]] and X as [[ρ, ρ], [ρ, −ρ]] up to signs,
+  with ρ² = k(m + 1) − m and ρ odd.
+- Hence (k − 1)(m + 1) + 1 must be a square. k = m + 2 is impossible for every m.
+- Of the 43 open (m, k) with m < k < 2m, 37 fail this test. The values 403, 611, 817, 1159, 1273, 1349, 1387, 2263 and
+  2449 lose every representation in this scheme.
+
+**k = m + 4** passes (ρ = m + 2) and is the only survivor among open values: v = 119 (13, 17), 377 (25, 29),
+779 (37, 41), 1325 (49, 53) and 1539 (53, 57). 189 also passes, but it is already settled.
+- Here X = [[J − 2M, J − 2I], [J − 2I, −(J − 2M)]] with M an involution on k points with c two-cycles (proved).
+- The problem P(k, c) for Y does not depend on m otherwise: Y is the core of a symmetric Hadamard matrix of order
+  2k + 2 that anticommutes with Z = [[M, I], [I, −M]].
+- c = 0 is impossible: it forces a Hadamard core of order k + 1 ≡ 2 (mod 4).
+
+**First plug pair with k > m** (exhaustive at k = 9; CaDiCaL and kissat agree).
+- P(9, 3) has exactly 1536 labelled solutions in 6 classes, and P(9, c) has none for c ≠ 3. This gives a symmetric
+  H(108) (m = 5, k = 9, not a census value), checked in plain integers.
+- One class has a ℤ₃ symmetry that is translation by GF(3) when M is the Frobenius map of GF(9).
+
+**Not settled.**
+- At (9, 13): c = 1 has no solution, and there is none with a nontrivial cyclic symmetry for c = 2 to 5.
+- P(17, c) (v = 119) is UNKNOWN; one kissat run on c = 7 was stopped under load. A calibrated heuristic predicts about
+  2⁻²⁶ solutions per c at k = 13 and 2⁻⁹⁹ at k = 17.
+- Paley-core Y with (semi-)affine Z gives nothing for q = 9, 13, 17.
+- A GF(q²)-Frobenius family (k = q², m = q² − 4) would first reach v = 1127 (q = 7, with Mathon's conference matrix
+  of order 46), which is not a census value.
+- The regime k ≥ 2m, which holds the other 251 open values with a representation, is not analysed. There E may have
+  entries ±4 and the clique lemma fails.
