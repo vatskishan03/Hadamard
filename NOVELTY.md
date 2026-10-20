@@ -165,6 +165,23 @@ Seberry–Balonin (2015, 2017); Balonin–Đoković, arXiv:1803.08787; Verma, ar
 arXiv:2609.04589; Kotsireas–Winterhof and Jedwab–Pender as cited by Verma; Zaitsev's page (QH130, not equivalent to a
 symmetric matrix); web searches for a symmetric Hadamard matrix of order 260.
 
+**Order 6796** ([hadamard/6796](hadamard/6796)). Checked on 20 October 2026:
+- *Tables and recursions.* Cati–Pasechnik, arXiv:2411.18897 v1 and v2 (Table 4: 1699(3)); Handbook Table 1.53;
+  Đoković, arXiv:0912.5091 (the set Δ and four further values) and arXiv:1008.2043 (42 values);
+  Đoković–Golubitsky–Kotsireas, arXiv:1301.3671; SageMath development source of 18 October 2026, read branch by
+  branch, not run (Unknown).
+- *Classical families.* Yamada 1989 (Theorem 5) and Seberry–Yamada 1992 (key y3, §11). For conference matrices of
+  order 850: Seberry–Whiteman 1980 (via Egan, arXiv:2309.07522), Handbook §V.6 (BGW and GC families) and Et-Taoui,
+  arXiv:1409.5720. Fallon–Iverson, arXiv:2610.09169: a complex conference matrix of order 850, not quaternary in any
+  equivalent form.
+- *Recent work.* The 2026 sources of "For every order" and Middletownbooks/Hadamard (main and its branch of 18
+  October); Zaitsev's page (unchanged since 15 October; orders below 2000); the October 2026 arXiv listings of
+  math.CO, cs.DM and cs.IT, with the e-print sources of 20 related papers; Zenodo, GitHub (repositories and code)
+  and web searches for 6796, 3398 and 1699.
+- *Finding.* None gives a Hadamard matrix of order 6796, a quaternary Hadamard matrix of order 3398 or a quaternary
+  conference matrix of order 850, or states the complex Yamada–Kiyasu template.
+- *Not read.* The Seberry–Yamada book of 2020 and Seberry–Whiteman 1980 itself.
+
 ## Not checked
 
 - J. Seberry, M. Yamada, *Hadamard Matrices: Constructions using Number Theory and Linear Algebra* (Wiley, 2020):
