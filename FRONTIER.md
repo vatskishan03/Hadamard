@@ -1,106 +1,77 @@
 # Unresolved orders
 
-This page lists the 130 entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard matrix of order 4n
-is known. The other 65 entries are settled:
+Table 4 of Cati and Pasechnik lists 195 odd n ≤ 2999 for which no Hadamard matrix of order 4n was known in 2025. 67
+of them are settled now, and the 128 that remain are listed below with the cheapest search structures known for each.
+The smallest is n = 599, order 2396.
+
+Settled:
 
 - 12 by Alpöge, Voinov and Reynolds-Haertle (2026);
 - 19 by other public constructions of 2026 (Schneider; the JD-Jones-ASES repositories Hadamard-T and Hadamard-M;
-  Schumer). Five of them, n = 131 · 7, 131 · 11, 131 · 13, 131 · 17 and 131 · 19, were already reachable in 2025:
-  Cooper–Wallis with T-matrices of order 131 (from the Turyn-type sequences TT(44) of London and Kotsireas, Cryptogr.
-  Commun. 17 (2025)) and Williamson matrices of those orders ([NOTES.md](NOTES.md) §28);
-- 6 by Đoković in 2010 (n = 823, 883, 1063, 1303, 2143 and 2335, by Yamada's theorems; arXiv:1008.2043,
-  Propositions 3.1 and 3.4);
-- 1 in 1988: n = 1823, from the symmetric conference matrix of order 3646 of Seberry and Whiteman, which the tables
-  missed ([NOTES.md](NOTES.md) §7);
-- 10 in this repository: n = 523, 537, 571, 573, 933, 991, 1123, 1255, 1483 and 2293 (the orders
-  [2092](hadamard/2092), [2148](hadamard/2148), [2284](hadamard/2284), [2292](hadamard/2292),
-  [3732](hadamard/3732), [3964](hadamard/3964), [4492](hadamard/4492), [5020](hadamard/5020),
-  [5932](hadamard/5932) and [9172](hadamard/9172)). For n = 571 a quaternary Hadamard matrix of order 1142 on
-  Zaitsev's page (October 2026) gives H(2284) concurrently, by Turyn's doubling.
-- 14 in this repository from two published theorems that the tables did not combine: Paley's matrix of order q + 1
-  as sixteen circulant blocks (q ≡ 3 mod 8) times T-matrices of order t
-  ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md)): n = 789, 1315, 1509, 1589, 1689, 1841, 1915, 2155, 2515,
-  2661, 2733, 2815, 2893 and 2951.
-- 3 in this repository from near-Williamson matrices (2026) in Miyamoto's matrix of order 4q, q = 4w + 1, as sixteen
-  commuting bordered blocks, times T-matrices: n = 1527 and 2545 (q = 509, w = 127) and 1883 (q = 269, w = 67), the
-  orders [6108](hadamard/6108), [10180](hadamard/10180) and [7532](hadamard/7532)
-  ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#near-williamson-matrices)). Đoković claimed 1527 and 2545
-  in 2010 through Corollary 8.8(i) (below).
+  Schumer). Five of them, n = 131 · t with t = 7, 11, 13, 17, 19, were already reachable in 2025: Cooper–Wallis with
+  the T-matrices of order 131 that London and Kotsireas's Turyn-type sequences TT(44) give ([NOTES.md](NOTES.md) §28);
+- 6 by Đoković in 2010: n = 823, 883, 1063, 1303, 2143 and 2335 (arXiv:1008.2043, Propositions 3.1 and 3.4);
+- 1 in 1988: n = 1823, from Seberry and Whiteman's symmetric conference matrix of order 3646 ([NOTES.md](NOTES.md) §7);
+- 2 by the GitHub repository Middletownbooks/Hadamard: n = 573 (order 2292, 9 October 2026; our independent matrix is
+  [hadamard/2292](hadamard/2292)) and n = 647 (order 2588, 14 October 2026);
+- 27 in this repository:
+  - n = 523, 537, 571, 659, 933, 991, 1123, 1255, 1483 and 2293 by searches and recursive theorems (orders
+    [2092](hadamard/2092), [2148](hadamard/2148), [2284](hadamard/2284), [2636](hadamard/2636),
+    [3732](hadamard/3732), [3964](hadamard/3964), [4492](hadamard/4492), [5020](hadamard/5020),
+    [5932](hadamard/5932) and [9172](hadamard/9172)); 571 concurrently with Zaitsev et al.;
+  - n = 789, 1315, 1509, 1589, 1689, 1841, 1915, 2155, 2515, 2661, 2733, 2815, 2893 and 2951 by Paley's matrix in
+    sixteen circulant blocks times T-matrices, two published theorems that the tables did not combine
+    ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md));
+  - n = 1527, 1883 and 2545 by Miyamoto's matrix in sixteen bordered blocks with near-Williamson matrices of 2026,
+    times T-matrices ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#near-williamson-matrices)).
 
-**Claimed through Seberry–Yamada's Corollary 8.8(i).** Đoković (arXiv:1008.2043, Propositions 3.2–3.4; Int. Math. Forum
-6 (2011) 3061–3067) also settled n = 1527 = 3 · 509, 2545 = 5 · 509 and 2571 = 3 · 857, with Williamson-type matrices of
-orders 509 (from good matrices of order 127) and 857 (from H(428)). He took them from Corollary 8.8(i) of Seberry and
-Yamada (1992), Corollary 29(i) of JCMCC 7 (1990). The printed proof of that corollary does not give Williamson-type
-matrices: its X₁ and X₄ are amicable only when V₄ is symmetric, which never happens for Williamson-type inputs and, for
-an Hadamard input H, only when H is symmetric. That is part (ii), and no symmetric H(428) is known ([NOTES.md](NOTES.md)
-§7, §19). We found no other proof, and Miyamoto's 1991 paper, credited with the Williamson-type case, was not accessible
-(by a secondary transcription, its list (3) may record 1527 as well, through an entry 127 of its list (2) that its
-Corollary 4 does not support; unverified). 1527 and 2545 now have a valid construction that bypasses the corollary:
-near-Williamson matrices of order 127 (good matrices would do as well) in Miyamoto's matrix of order 2036 in bordered
-blocks, times T-matrices of order 3 or 5 ([hadamard/6108](hadamard/6108), [hadamard/10180](hadamard/10180)). 2571
-remains unresolved (row 10284; its Spence columns were not computed). Table 4 also omits, for the same reason, n = 2427
-= 3 · 809 and 2611 = 7 · 373 (m = 2, which by Cati–Pasechnik §6 and their footnote 11 comes from Seberry–Yamada's 2020
-Table A.17, a table we did not read); the 1992 Table A.2 builds them (code o2) from Williamson-type matrices of orders
-809 and 373 that their Table A.1 obtains only from Corollary 8.8(i). Both now have valid constructions in bordered
-blocks: 2427 with a periodic Golay pair of length 404 ([hadamard/9708](hadamard/9708),
-[hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#periodic-golay-pairs)) and 2611 with near-Williamson matrices
-of order 93 ([hadamard/10444](hadamard/10444)). Eight more orders that Table 4 omits for the same reason, n = 519, 865,
-1211, 1557, 1903 and 2249 (Williamson-type matrices of order 173) and 1465 and 2051 (order 293), are no longer open:
-Paley's matrix of order 692 or 1172 in sixteen circulant blocks gives them without the corollary
-([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md#orders-recorded-only-through-corollary-88i)). The Williamson-type
-matrices themselves are now valid too: for 293, Seberry–Yamada's symmetric ones of order 73 have a repeated block, and
-Lemma 26 in the repeated-block form turns them into order 293 ([NOTES.md](NOTES.md) §7, checked); for 173, Verma's
-symmetric conference matrix of order 86 (arXiv:2610.08893, 6 October 2026, checked) gives order 173 by Corollary
-8.8(ii).
+**Corollary 8.8(i).** Đoković (arXiv:1008.2043, Propositions 3.2–3.4) also claimed n = 1527, 2545 and 2571, through
+Williamson-type matrices of orders 509 and 857 that Seberry–Yamada's Corollary 8.8(i) would give. Its printed proof
+does not give Williamson-type matrices ([NOTES.md](NOTES.md) §7, §19), and we found no other proof. 1527 and 2545 are
+constructed here without it; 2571 = 3 · 857 is listed below. For the same reason, ten n that Table 4 omits as known
+had no valid construction: 519, 865, 1211, 1465, 1557, 1903, 2051, 2249, 2427 and 2611. All ten are constructed here
+([hadamard](hadamard/README.md#orders-recorded-only-through-corollary-88i)).
 
-**Columns.** For each order the table lists the cheapest structure of each kind
-found by `search/triage.py` that is expected to contain at least ten solutions:
+**Columns.** For each order the table lists the cheapest structure of each kind found by `search/triage.py` that is
+expected to contain at least ten solutions:
 
 - multiplier subgroups of ℤ_n* for Goethals–Seidel,
 - groups of order n − 1 for Spence's bordered construction.
 
-log₁₀ E is the expected number of solutions in the structure. log₁₀ W is the
-predicted matching work per solution with lists of 10⁹ candidates (see
-[METHOD.md](METHOD.md)). The searches so far needed about a tenth of W. One
-machine performs about 10¹¹ list operations per hour, so orders up to
-log₁₀ W ≈ 13 are within reach.
+log₁₀ E is the expected number of solutions in the structure. log₁₀ W is the predicted matching work per solution with
+lists of 10⁹ candidates (see [METHOD.md](METHOD.md)). The searches so far needed about a tenth of W. One machine
+performs about 10¹¹ list operations per hour, so orders up to log₁₀ W ≈ 13 are within reach.
 
-**Smaller structures.** Smaller structures, which the Gaussian model does not
-describe reliably, were searched exhaustively:
+**Smaller structures.** Structures too small for the Gaussian model to describe reliably were searched exhaustively:
 
-- 1,319 structures in total: Spence structures with pools of at most 4 · 10⁴
-  sequences, and Goethals–Seidel structures with at most 18 cosets.
-- For primes above about 400 there are no Goethals–Seidel structures of the latter
-  kind, by the √p bound in METHOD.md.
-- 1,159 of these were searched completely and contain no solution. 80 were searched
-  partially, and 80 have more than 22 orbits and were not searched.
+- 1,319 structures in total: Spence structures with pools of at most 4 · 10⁴ sequences, and Goethals–Seidel structures
+  with at most 18 cosets.
+- For primes above about 400 there are no Goethals–Seidel structures of the latter kind, by the √p bound in METHOD.md.
+- 1,159 of these were searched completely and contain no solution. 80 were searched partially, and 80 have more than 22
+  orbits and were not searched.
 
-**Route column.** The last column names a recursive theorem that would settle the
-order from a smaller object, where one applies:
+**Route column.** The last column names a recursive theorem that would settle the order from a smaller object, where
+one applies:
 
 - Miyamoto: an Hadamard matrix of order n − 1.
 - Kiyasu: a skew-Hadamard matrix of order (n + 1)/2.
-- Yamada: a symmetric conference matrix of order (n + 1)/2.
-- Cooper–Wallis: Williamson-type matrices of order w, for n = t·w with T-matrices of order t known. Listed for
-  w = 191 (t = 5, 9, 15), where neither T-matrices of order 191 nor near-Williamson matrices of order 191 with a
-  multiplier symmetry exist ([NOTES.md](search/NOTES.md) §6, §37).
-  Also listed for w = 857, whose Williamson-type matrices are claimed only through Seberry–Yamada's Corollary 8.8(i).
-- Miyamoto blocks ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md)): for n = q·t with q = 4w + 1 a prime
-  and T-matrices of order t known, symmetric Williamson-type matrices of order w (near-Williamson matrices give them;
+- Yamada: a symmetric conference matrix of order (n + 1)/2, which cannot exist when (n − 1)/2 is not a sum of two
+  squares.
+- Cooper–Wallis: Williamson-type matrices of order w, for n = t·w with T-matrices of order t known. Listed for w = 191
+  (t = 5, 9, 15), where neither T-matrices of order 191 nor near-Williamson matrices of order 191 with a multiplier
+  symmetry exist ([search/NOTES.md](search/NOTES.md) §6, §37). Also listed for w = 857, whose Williamson-type matrices
+  are claimed only through Seberry–Yamada's Corollary 8.8(i).
+- Miyamoto blocks ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md)): for n = q·t with q = 4w + 1 a prime and
+  T-matrices of order t known, symmetric Williamson-type matrices of order w (near-Williamson matrices give them;
   Kharaghani et al. define those for odd w only) or a negaperiodic Golay pair of length 2w. Not listed in the table;
   the open cases are 2571 (w = 214), 2823 (w = 235) and 2677 (q = 2677, t = 1, which needs a Hadamard matrix of order
   2676 = 4 · 669). 2823 would follow from the symmetric conference matrix of order 118 that Brouwer's table reports
   (J. Y. Z. Ho, October 2026, not public; [hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md)).
 
-A conference matrix of that order cannot exist when (n − 1)/2 is not a sum of two
-squares.
-
 | 4n | n | GS: \|H\| | cosets | classes | log₁₀ E | log₁₀ W | Spence: group | log₁₀ W | Route |
 |---:|---:|---:|---:|---:|---:|---:|---|---:|---|
 | 2396 | 599 | – | – | – | – | – | ℤ2 × ℤ13 × ℤ23 | 36.4 |  |
 | 2572 | 643 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 322 (cannot exist) |
-| 2588 | 647 | – | – | – | – | – | ℤ2 × ℤ17 × ℤ19 | 35.7 |  |
-| 2636 | 659 | 7 | 95 | 47 | 39.8 | 26.0 | ℤ2 × ℤ7 × ℤ47 | 19.4 |  |
 | 2676 | 669 | – | – | – | – | – | – | – |  |
 | 2876 | 719 | – | – | – | – | – | – | – |  |
 | 2956 | 739 | 9 | 83 | 41 | 33.5 | 22.7 | ℤ2 × ℤ3xℤ3 × ℤ41 | 42.4 |  |

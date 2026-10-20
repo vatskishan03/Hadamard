@@ -9,7 +9,6 @@ blocks A(g, h) = a(h - g) with R(g, h) = [g + h = 0] give a Goethals-Seidel arra
   python3 skew_group.py run v NAME b,c,d [CAP]         # exact search (find4b) of one structure
 """
 import itertools, json, math, os, struct, subprocess, sys, tempfile, time
-from math import gcd, log10
 import numpy as np
 from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
 import workdir as W
@@ -219,7 +218,6 @@ def automorphism_matrices(v, name):
 def certify(v, k=0):
     import gzip, hashlib
     sys.path.insert(0, str(W.ROOT / 'search'))
-    from certify import write_certificate
     hits = [json.loads(l) for l in open(W.hits('skew_group_hits.jsonl'))]
     h = [x for x in hits if x['n'] == v and x['hadamard'] and x['skew']][k]
     mods = h['mods']

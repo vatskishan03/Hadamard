@@ -146,7 +146,7 @@ def run(n, gens, maxtau=200, top=6, only=None, sols=4, clampS=None, maxpool=4e6,
             return ok
         pools, vals = {}, {}
         for r in set(q):
-            role = 1 + list(q).index(r)       # equal row sums share a list; their filters coincide only if roles agree
+            # equal row sums share a list; their filters coincide only if roles agree
             roles_r = [1 + k for k in range(3) if q[k] == r]
             if filt and st.pool(r) > maxpool and not gen:
                 got, tries = [], 0

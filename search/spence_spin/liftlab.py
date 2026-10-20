@@ -1,6 +1,6 @@
 """Lift a Q = Z_2^2 x Z_13 level solution (a, b) to sign vectors on G = Z_2^2 x Z_11 x Z_13 (fibre Z_11, H = QR_11).  Q-values {+-1}: 'Legendre' fibre (b0, s, -s), free sign s;
 {+-9, +-11}: 'spike' fibre, determined.  Provides exact lift-lattice test (full 27-class keys over sampled lifts)."""
-import numpy as np, sys, time
+import numpy as np, time
 from struct573 import build
 from levels import make
 from lattice import Lat
@@ -43,7 +43,6 @@ def lattice_test(S, LQ, a, b, nsamp=3000, seed=1):
     def rand_s(): return ({R: int(rng.choice([-1, 1])) for R in LA}, {q: int(rng.choice([-1, 1])) for q in LB})
     sA0, sB0 = rand_s(); XA0, XB0 = lf.lift(a, b, sA0, sB0)
     assert lf.check_compress(a, b, XA0, XB0)
-    KA0 = np.rint(S.valsA(XA0[None])).astype(np.int64)[0]; KB0 = np.rint(S.valsB(XB0[None])).astype(np.int64)[0]
     La, Lb = Lat(S.D), Lat(S.D)
     KAs, KBs = [], []
     for i in range(nsamp):

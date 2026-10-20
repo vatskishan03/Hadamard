@@ -1,4 +1,4 @@
-"""Symmetric Hadamard matrices of order 4q with an involution of 2q - 2 fixed points (NOTES.md §54).
+"""Symmetric Hadamard matrices of order 4q with an involution of 2q - 2 fixed points (NOTES.md §64).
 
 A symmetric H of order 4q with a permutation automorphism σ of order 2, f = 2q - 2 fixed points and t = q + 1
 two-cycles is, in the basis (fixed points, first points of the pairs, second points),

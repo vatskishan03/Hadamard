@@ -3,7 +3,6 @@ X(s) = X0 + D s  (affine, exact);  key_c(sA,sB) = KA_c(sA) + KB_c(sB),
 KA_c(s) = cA_c + linA_c . s + sum_{i<j} QA_c[i,j] s_i s_j  (same for B), all integers.
 Also: exact linear consequences (integer combinations w of classes whose quadratic parts cancel identically)."""
 import numpy as np, sys
-from fractions import Fraction
 from struct573 import build
 from levels import make
 from liftlab import Lifter, triple
@@ -92,7 +91,7 @@ def linear_system(P, T=None):
     K = np.array(K, dtype=object) if K else np.zeros((0, D), dtype=object)
     lin = np.concatenate([P.linA, P.linB], axis=1).astype(object)
     const = (P.cA + P.cB).astype(object)
-    rows = []; res = []
+    rows = []
     for w in K:
         l = w @ lin; rhs = w @ (T.astype(object) - const)
         rows.append((l, rhs))

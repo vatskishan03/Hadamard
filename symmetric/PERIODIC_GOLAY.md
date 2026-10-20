@@ -11,7 +11,7 @@ settles 101 and 149 ([404](404), [596](596)). For eleven more it would need an i
 [Reach](#reach)), and for the other 44 no input exists.
 
 The matrices have an involutory automorphism with 2q − 2 fixed points
-([search/NOTES.md](../search/NOTES.md) §53, §55). The construction was found in round 8 of the exploration of 18 October
+([search/NOTES.md](../search/NOTES.md) §63, §65). The construction was found in round 8 of the exploration of 18 October
 2026 (its own proof and builder), re-derived independently, and verified by four adversarial checks. Its builder in
 [verify/verify.py](../verify/verify.py) (construction `symmetric-involution`) is a third implementation.
 
@@ -93,7 +93,7 @@ the form [[P, Q], [Q, P]].
 matrices W(n, n/2) with complementary supports. Indeed KKᵀ = [[2(XXᵀ + YYᵀ), 2(XXᵀ − YYᵀ)], …]. For q ≡ 5 (mod 8),
 n = (q − 1)/2 ≡ 2 (mod 4), and a weighing matrix of order n ≡ 2 (mod 4) has weight a sum of two squares. So
 (q − 1)/4 must be a sum of two squares. The same holds for every Hadamard matrix of order q − 1 with a fixed-point-free
-involutory automorphism, by a Hasse–Minkowski argument (NOTES.md §55). Periodic Golay pairs of length ℓ need ℓ to be a
+involutory automorphism, by a Hasse–Minkowski argument (NOTES.md §65). Periodic Golay pairs of length ℓ need ℓ to be a
 sum of two squares as well.
 
 **Reach.** Of the 57 census values q ≡ 5 (mod 8) that are prime powers (`python3 search/sym_involution.py targets`),
@@ -107,7 +107,7 @@ sum of two squares as well.
 | 773, 821, 1109, 1493, 1621, 1733, 1973, 2197, 2309, 2341 | | 772 … 2340 | no K known (periodic Golay pairs of lengths 386, 410, 554, 746, 810, 866, 986, 1098, 1154, 1170 are not known; cyclic ones of length 810 do not exist, by Arasu–Xiang) |
 
 Round 9 also built K of orders 36, 52, 164, 244 and 452, and symmetric H(148), H(212) of known orders (q = 37, 53). An
-exhaustive multiplier search found no K for the other census orders in the structures it covered (NOTES.md §55).
+exhaustive multiplier search found no K for the other census orders in the structures it covered (NOTES.md §65).
 
 ## Status
 

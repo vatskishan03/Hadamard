@@ -16,7 +16,6 @@ static uint32_t *V; static long nv;
 static double t0, tlim;
 static double now(void) { struct timespec ts; clock_gettime(CLOCK_MONOTONIC, &ts); return ts.tv_sec + 1e-9 * ts.tv_nsec; }
 static inline int sgn(uint32_t r, int k) { return (r >> k) & 1 ? -1 : 1; }
-static int8_t urow[32];
 static void mcrow(uint32_t r, int8_t *u) { for (int i = 0; i < N; i++) { int s = 0; for (int j = 0; j < N; j++) if (M[i][j]) s += M[i][j] * sgn(r, j); u[i] = (int8_t)s; } }
 static inline int adjq(const int8_t *u, uint32_t a, uint32_t b) {   /* u = Mc a */
     if (__builtin_popcount(a ^ b) * 2 != N) return 0;

@@ -93,13 +93,13 @@ candidate c have u Mc* c / 2q quaternary and another which candidates are orthog
 rows keeps the set of columns compatible with all chosen rows and finally looks for 2t orthogonal ones among them.
 "No solution" proves that a compression tuple has no border. For Q = ℤ₆ there are 400 quaternary vectors per half
 of V_T and 40,000 candidates; building the bit matrices takes about a minute and the search a fraction of a second.
-A randomised search over bases of the form (v_i, ±c w_i) had found no ℤ₆ border at all; the exhaustive search found
-one for every ℤ₆ compression tuple we gave it.
+A randomised search over bases of the form (v_i, ±c w_i) finds no ℤ₆ border at all; the exhaustive search finds one
+for every ℤ₆ compression tuple we gave it.
 
-**Relation to earlier negative results.** [BORDERED.md](BORDERED.md) and NOTES.md §9 record that a 3-point border
-constant on the cosets of an index-4 subgroup is impossible for bordered Williamson-type matrices, and that for the
-complex array a border made of single characters is contradictory. The border here is not a character ansatz: the
-rows of R̂ and the columns of Ĉ are arbitrary quaternary vectors in V_T, and Xb is determined by them.
+**Relation to the negative results for the bordered array.** [BORDERED.md](BORDERED.md) and NOTES.md §9 record that a
+3-point border constant on the cosets of an index-4 subgroup is impossible for bordered Williamson-type matrices, and
+that for the complex array a border made of single characters is contradictory. The border here is not a character
+ansatz: the rows of R̂ and the columns of Ĉ are arbitrary quaternary vectors in V_T, and Xb is determined by them.
 
 ## Verification
 
@@ -150,7 +150,7 @@ complete lists of 864, 432, 8.2 · 10⁶ and 1.3 · 10⁶ sequences and a condit
 values on five merge classes are exact. kt4 found 1024 solutions at the 246th of them, in order of the solution law,
 80 seconds into the join. Every solution checked completes, with a border found by the exhaustive search, to a
 complex Hadamard matrix of order 322. The certificate is [C322.json](C322.json) (`verify/verify_complex.py 322`).
-The scratch driver of this run fixed the structure in code; with `tbsz.py` it is
+In code, with `tbsz.py`, the structure is fixed as
 
     G = [2, 2, 3, 13]; phi(x) = (3 (x0 mod 2) + 4 (x2 mod 3)) mod 6; T = [(0,), (1,), (2,), (4,), (5,)]
     M = [[1, 0, 0, 0], [1, 1, 0, 0], [0, 0, 2, 0], [0, 0, 0, 3]]

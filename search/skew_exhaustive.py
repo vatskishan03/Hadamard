@@ -5,7 +5,7 @@ import os, struct, subprocess, sys, tempfile, time, json, math
 import numpy as np
 from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
 import workdir as W
-import spence_lib as L, count_exact as X
+import spence_lib as L
 import verify
 from skew_ktree import pool_exact
 HERE = str(W.HERE)

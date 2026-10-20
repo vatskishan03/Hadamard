@@ -1123,7 +1123,7 @@ def solve_border2(ts, Mc, nbases=60, seed=1):
     is u(x) = x Ch^* Mc / 2t for a quaternary x (then u Mc^* Ch / 2q = x); keep the x whose u is quaternary and find
     2t orthogonal ones. The column bases are (v_i, c w_i), (v_i, -c w_i) for orthogonal quaternary bases (v_i), (w_i)
     of V_T and a unit c; up to nbases of them are tried."""
-    q, t, n = ts.q, ts.t, 2 * ts.t
+    t, n = ts.t, 2 * ts.t
     rng = np.random.default_rng(seed)
     V1 = vt_vectors(ts)
     if len(V1) < t:
@@ -1212,7 +1212,6 @@ def solve_border_restricted(ts, Mc, threads=3):
     if tuple([0] * len(ts.qmods)) not in ts.T:
         return None
     V1 = vt_vectors(ts)
-    n1 = len(V1)
     ones = np.flatnonzero(np.all(np.abs(V1 - 1) < 1e-9, axis=1))
     if len(ones) == 0:
         return None
@@ -1275,7 +1274,7 @@ def compressions_of(ts, seqs):
 
 def build(ts, seqs, border):
     """K as integer real and imaginary parts from the core sequences and the border (exponent matrices)"""
-    G, m, q, t = ts.G, ts.m, ts.q, ts.t
+    G, m, q = ts.G, ts.m, ts.q
     A, B, C, D = (np.asarray(x, np.int64) for x in seqs)
     diff = devidx(G)
     Rf = np.zeros((m, m), np.int64); Rf[np.arange(m), G.neg()] = 1
@@ -1339,6 +1338,7 @@ def enum_block(ts, tc, kind, r, vals, center, Wm, tau, maxkeep, tag, threads):
         f.write(struct.pack("i", len(vals)))
         f.write(np.asarray(tc.fid[kind], np.int32).tobytes()); f.write(np.asarray(tc.w[kind], np.int32).tobytes())
         f.write(np.asarray(vals, np.int32).tobytes())
+        f.write(struct.pack("i", 0))                                       # no fibre filters
     p = subprocess.run([W.bin("lowe_enum"), str(inp), str(out), str(threads)], capture_output=True, text=True,
                        check=True)
     inp.unlink()
@@ -1640,7 +1640,7 @@ def search(ts, rows, which=(0,), Lmax=3e7, nsig=2e5, nS=5, K=4000, threads=4, lo
         var = sum(np.asarray(lists[k][1][::max(1, len(lists[k][1]) // 200000)], np.float64).var(0) for k in order)
         Sx = [int(c) for c in np.argsort(-var)[:nS]]
         sf = Path(str(inp) + ".sig")
-        n, rad = LZ.sigma_file(lists, Sx, ts.tvec, nsig, sf)
+        n, rad, _ = LZ.sigma_file([lists[k] for k in order], Sx, ts.tvec, nsig, sf)
         print(f"  kt4: merge classes {Sx}, {n} split values by the solution law (radius {rad:.2f})", flush=True)
         if n == 0:
             continue

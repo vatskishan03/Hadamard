@@ -31,7 +31,7 @@ def structures(N, minwork, maxo, mode="ssxx", cyclo=False):
         if cyclo and not cyclotomic_product(v, H):
             continue
         st = Struct(N, gens, plain=not bordered)
-        OA, OL = len(st.sizesA), len(st.sizesL)
+        OA = len(st.sizesA)
         if OA > maxo:
             continue
         pats = []

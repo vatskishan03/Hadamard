@@ -7,7 +7,7 @@ Goethals–Seidel form, `search/od13x.c`).
 Usage: python3 search/thm7_census.py CENSUS.txt   (pdftotext of the census PDF of 2025-05-28)
 """
 import re, sys
-from sympy import factorint, isprime
+from sympy import factorint
 txt = open(sys.argv[1], encoding='utf-8', errors='replace').read()
 hdr = r'CENSUS OF SYMMETRIC AND SKEW HADAMARD MATRICES OF ORDER 4v FOR ODD v < 2500\d*'
 s = txt.index('Finally we list the 737 undecided cases of odd v < 2500:')

@@ -9,7 +9,7 @@ q ≡ 3 mod 8 it is Theorem 1 of Seberry–Yamada 1993: a skew A and B₁ = −B
 Seberry and Yamada's (1990); what we add is that the product keeps a skew-type block, which no source we found states.
 The construction gives skew-Hadamard matrices of 52 orders 4v that the Đoković–Seberry census lists as undecided
 (q ≡ 3 mod 8), and of six orders 8v and 16v (q ≡ 7 mod 8), five of them below the smallest power of two in
-Cati–Pasechnik Table 5; the sixth, 7656 = 8 · 957, was known (Wallis–Whiteman, see the Status). Seven more census
+Cati–Pasechnik Table 5; the sixth, 7656 = 8 · 957, is Known (Wallis–Whiteman, see the Status). Seven more census
 values in the family, 261, 285, 429, 465, 513, 663 and 2475, were already settled in this repository by searches
 ([index](README.md)).
 
@@ -165,10 +165,9 @@ each other. We found no source that combines these into a skew matrix of order 3
 
 - **7656.** Wallis and Whiteman (Bull. Austral. Math. Soc. 7, 1972) give skew-Hadamard matrices of order 4(q + 1) for
   prime powers q ≡ 9 (mod 16) (Momihara–Xiang, arXiv:1801.08776, Propositions 1.3–1.4 and Corollary 1.7), and 7656 =
-  4(1913 + 1). Cati–Pasechnik's 957(4) misses this; the audit built and checked that matrix. 14352 = 16 · 897 was also
-  within reach of this repository (Đoković's skew matrix of order 276 times the amicable pair of order 52 of
-  [2652](2652)), but had not been built. 3060: Table 5's 765(4) misses the family (|t| + 1)(q + 1) with q = 509, which
-  gives 8 · 765; 4 · 765 is still undecided in the census.
+  4(1913 + 1). Cati–Pasechnik's 957(4) misses this; the matrix is built and checked here. 14352 = 16 · 897 also follows
+  from Đoković's skew matrix of order 276 times the amicable pair of order 52 of [2652](2652). 3060: Table 5's 765(4)
+  misses the family (|t| + 1)(q + 1) with q = 509, which gives 8 · 765; 4 · 765 is undecided in the census.
 
 - **The census and the tables.** The Đoković–Seberry census of skew orders 4v (odd v < 2500, May 2025) lists only the
   Paley, Szekeres, Szekeres–Whiteman and Spence series and 41 sporadic values, and all 59 values v = 3(q + 1)/4 of the

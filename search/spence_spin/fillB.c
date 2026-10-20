@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
     for (int rep = 0; rep < 200; rep++) {
       for (int t = 0; t < ncol; t++) {
         int *cv = colv[t]; long xo[4]; for (int k = 0; k < 4; k++) xo[k] = x[cv[k]];
-        long lin[MD], qd[MD], cr[MD][6];
+        long lin[MD];
         for (int c = 0; c < D; c++) { for (int k = 0; k < 4; k++) { lin[c] = 0; } }
         for (int o = 0; o < nopt[t]; o++) {
           long d[4]; for (int k = 0; k < 4; k++) d[k] = opt[t][o][k] - xo[k];

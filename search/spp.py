@@ -157,7 +157,7 @@ class SPP:
 
     def sequences(self, S, zs):
         """Full sequences on Z_m x GF(q), indexed (a, y) -> a * q + y (mixed radix of [m, q])."""
-        m, q = self.m, self.q
+        q = self.q
         chi = -np.ones(q, np.int64); chi[np.arange(1, q) ** 2 % q] = 1; chi[0] = 0
         u, w = self.uwz(S)
         out = []

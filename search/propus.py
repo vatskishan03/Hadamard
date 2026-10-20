@@ -27,7 +27,6 @@ from pathlib import Path as _P
 sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
 import workdir as W
 import spence_lib as L
-import count_exact as X
 import verify
 
 

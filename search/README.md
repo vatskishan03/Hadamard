@@ -140,9 +140,9 @@ start-up, is close to the list size.
 | `sym_qlp.py` | symmetric Hadamard matrices of order 4(l + 1) from a quaternary Legendre pair (A, B) of length l with A real and B symmetric: B decodes into p, q with (p, A, A, q) a bordered propus quadruple; `check`, `certify v` (Verma's pair of length 64 gives [../symmetric/260](../symmetric/260)) |
 | `sym_involution.py` | symmetric Hadamard matrices of order 4q, q ≡ 1 (mod 4) a prime, from a Hadamard matrix [[P, Q], [Q, P]] of order q − 1 built from a periodic Golay pair of length (q − 1)/2 (verify.py construction `symmetric-involution`): `targets` lists the census prime powers q ≡ 5 (mod 8) and their inputs, `certify q` writes `symmetric/<4q>/certificate.json` (404, 596; [../symmetric/PERIODIC_GOLAY.md](../symmetric/PERIODIC_GOLAY.md)) |
 | `sym_conference_plug.py` | symmetric Hadamard matrices of order 2n(n − 1) from a symmetric conference matrix of order n, H = I ⊗ X + C ⊗ Y with Paley's matrix C (verify.py construction `symmetric-conference-plug`): `targets` lists the census values v = q(q + 1)/2, `certify q` writes `symmetric/<2q(q + 1)>/certificate.json` (612, 1300, 1740, 4900, 7564; [../symmetric/CONFERENCE_PLUG.md](../symmetric/CONFERENCE_PLUG.md)) |
-| `check_conf66.py` | checks the two symmetric conference matrices of order 66 and the 16 srg(65, 32, 15, 16) in `data/` (NOTES §62) |
-| `sym_bigf.py` | symmetric Hadamard matrices of order 4q with an involution of 2q − 2 fixed points: the field-free Q-part for every zero pattern and sign pattern of V and P, by row sets and backtracking, and V by CP-SAT (order 28: completions exactly when π has no fixed points, so not with Paley's V; order 12: when π has two; [NOTES.md](NOTES.md) §53) |
-| `border_torus.py` | bordered propus quadruples over the norm-one torus of GF(q²) for v = q + 2 from quadratic characters (only q = 3, 5; [NOTES.md](NOTES.md) §53) |
+| `check_conf66.py` | checks the two symmetric conference matrices of order 66 and the 16 srg(65, 32, 15, 16) in `data/` (NOTES §72) |
+| `sym_bigf.py` | symmetric Hadamard matrices of order 4q with an involution of 2q − 2 fixed points: the field-free Q-part for every zero pattern and sign pattern of V and P, by row sets and backtracking, and V by CP-SAT (order 28: completions exactly when π has no fixed points, so not with Paley's V; order 12: when π has two; [NOTES.md](NOTES.md) §63) |
+| `border_torus.py` | bordered propus quadruples over the norm-one torus of GF(q²) for v = q + 2 from quadratic characters (only q = 3, 5; [NOTES.md](NOTES.md) §63) |
 | `symod_g.py`, `symod_engine.py`, `symod_join.py`, `symod_reach.py`, `symtpl.c` | symmetric ODs in Balonin form over abelian groups for the weighted plug-in |
 
 **Orthogonal designs for Seberry's theorem**
@@ -166,7 +166,15 @@ start-up, is close to the list size.
 | `ssxx_paley.py` | exact search on Paley-product structures ℤ_m × GF(q): skeletons, then joins over ℤ_m |
 | `ssxx_paleyk.py` | the same with an extra multiplier group K on ℤ_m (exhaustive over K-orbit skeletons) |
 | `kstream.py`, `kstream.c` | the streaming k-tree (382) |
-| `lowe_sz.py`, `lowe_enum.c`, `lowe_scan.py`, `sls_sz.c` | low-energy k-tree and annealing for Szöllősi structures |
+| `lowe_sz.py`, `lowe_enum.c`, `lowe_scan.py`, `lowe_dispatch.py`, `sls_sz.c` | low-energy k-tree and annealing for Szöllősi structures; resumable (`--budget`, `--auto`), with fibre filters and live split values |
+| `compress_check.py` | necessary condition before a search: the four blocks' compressions to ℤ_d joined exactly for each prime power d (also run by `lowe_sz.py`); `--joint` also joins pairs of coprime levels together |
+| `runq.py` | queue runner for `lowe_sz.py` tickets: each call stops before its budget and the next runner continues it |
+| `gauss_mc.py`, `gauss_full.py`, `gauss_lat.py` | estimates of the number of solutions of a structure: hybrid Monte Carlo and Gaussian, full covariance, joint lattice of the class values |
+| `value_mult.py` | value multiplicity of a structure's blocks: solutions per distinct value quadruple |
+| `frontier_scan.py`, `hybrid_rank.py` | every multiplier structure of the open orders with pools up to 10¹³, ranked by the per-class and the hybrid estimate |
+| `calib_bsz.py`, `retention_test.py`, `retention_diag.py`, `joint_retention.py` | calibration against exact solution sets: the estimates, and the retention of the low-energy filter |
+| `gs_hybrid.py` | the same estimates for Goethals–Seidel structures |
+| `rrr.py`, `rrr.c` | Elser's RRR (difference map) for four-sequence problems (negative, [NOTES.md](NOTES.md) §53) |
 | `comp_est.py`, `comp_triage.py` | estimates conditioned on the block compressions to ℤ_d (exact feasibility, lattice Gaussian per tuple), and the triage of the open orders with them (plain and bordered) |
 | `lowe_comp.py` | the low-energy k-tree on one compression class at a time (lowe_enum with fibre-class constraints) |
 | `comp_scan.py` | fast conditioned scans of the product families: bordered ℤ₂ × ℤ_q, plain d · q, propus d · q for the symmetric census, and `plainall`/`bordered` over every multiplier group and every listable quotient |
@@ -179,7 +187,7 @@ start-up, is close to the list size.
 | `miyamoto_wt.py` | Williamson-type matrices of order q and complex Hadamard matrices of order 2q from a symmetric commuting pair of order (q − 1)/2 (Seberry–Yamada Lemma 8.6), the pair from a doubly symmetric propus quadruple, and the completion: a complex Hadamard matrix of order 2q from any quaternary Hadamard matrix of order (q − 1)/2 ([../NOTES.md](../NOTES.md) §19), and Cooper–Wallis with the Williamson-type matrices of Corollary 8.8(ii) from a symmetric Hadamard matrix of order (q − 1)/2 (`cw`, order 21036): `selftest`, `vpatterns`, `complete`, `cw` |
 | `quaternion_type.py` | Paley's matrix in the basis of a semiregular Q₈ (quaternion type): block pattern, base-point changes, plugging into Cooper–Wallis arrays ([../NOTES.md](../NOTES.md) §21): `pattern`, `rebase`, `plug` |
 | `quaternary_check.py` | exact check of a quaternary Hadamard matrix in the text format of Zaitsev's page, and of its real double (Turyn): `--double` |
-| `complex_status.py`, `data/` | known, constructed and open complex orders; tables parsed from Seberry–Yamada (1992) |
+| `complex_status.py`, `data/` | known, constructed and open complex orders; tables parsed from Seberry–Yamada (1992), and the orders on Zaitsev's page of October 2026 (`data/complex_zaitsev_2026.txt`) |
 
 **T-matrices, Williamson-type matrices and Legendre pairs**
 

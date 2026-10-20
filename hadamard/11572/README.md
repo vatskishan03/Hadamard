@@ -11,7 +11,8 @@ of length 2893 with Σ PAF = 0 off 0, and the Goethals–Seidel array gives the 
 its proof are in [PALEY_BLOCKS.md](../PALEY_BLOCKS.md).
 
 - Torus element: x ↦ −1/(x + τ) with τ = 4; sign normalisation c = −1.
-- T-matrices of order 11 (first rows, from base sequences BS(6, 5)): `++00+000000`, `00++0-00000`, `000000++-+-`, `00000000000`.
+- T-matrices of order 11 (first rows, from base sequences BS(6, 5)): `++00+000000`, `00++0-00000`, `000000++-+-`,
+  `00000000000`.
 - Row sums of the four sequences: −5, −17, 43, 97 ((−5)² + (−17)² + 43² + 97² = 11572).
 
 ## Search

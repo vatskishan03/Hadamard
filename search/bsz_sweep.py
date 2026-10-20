@@ -5,7 +5,7 @@ Z_2^2 x Z_((N-1)/4), whose four complete lists can be joined within the pair-wor
 
     python3 search/bsz_sweep.py N [N ...] [--maxpairs 2e10] [--budget SECONDS] [--log FILE]
 """
-import argparse, math, sys, time
+import argparse, sys, time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -21,7 +21,6 @@ def plan(N, maxpairs):
             pools = [st.counts(k).get(r, 0) // (2 if r == 0 else 1) for k, r in zip(bsz.KINDS, pat)]
             if min(pools) == 0:
                 continue
-            s = sorted(pools)
             work = min(pools[o[0]] * pools[o[1]] + pools[o[2]] * pools[o[3]]
                        for o in ([0, 1, 2, 3], [0, 2, 1, 3], [0, 3, 1, 2]))
             enum = sum(2.0 ** len(st.sizes(k)) for k in bsz.KINDS)
@@ -38,7 +37,9 @@ def plan(N, maxpairs):
                            for o in ([0, 1, 2, 3], [0, 2, 1, 3], [0, 3, 1, 2]))
                 enum = 2 * 2.0 ** bs.stL.O + 2 * 2.0 ** bs.stA.O
                 if work <= maxpairs and max(pools) <= 3e8 and enum <= 2 ** 31:
-                    jobs.append((work + enum, "spin", (mods, mats, tag), name, None))
+                    # bsz_group.search runs every pattern of the structure: one job per structure
+                    if not any(j[1] == "spin" and j[2][2] == tag for j in jobs):
+                        jobs.append((work + enum, "spin", (mods, mats, tag), name, None))
     jobs.sort(key=lambda j: j[0])
     return jobs
 

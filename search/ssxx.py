@@ -19,14 +19,14 @@ orbits of <H, -1>. The condition sum PAF = 0 off 0 holds on the <H, -1>-classes,
     python3 search/ssxx.py triage N [N ...] [--maxo 40]
     python3 search/ssxx.py search N g [g2] [--log FILE] [--K 20]
 """
-import argparse, itertools, json, math, os, struct, subprocess, sys, time
+import argparse, json, math, os, struct, subprocess, sys, time
 from math import gcd, log10, pi
 from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import workdir as W
-from bnw import Struct, subgroups, paf, mask_to_y, join4
+from bnw import Struct, subgroups, mask_to_y, join4
 
 KINDS = ["L", "L", "A", "A"]          # A, B symmetric; C, D arbitrary H-invariant
 

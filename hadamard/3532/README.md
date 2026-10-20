@@ -10,17 +10,15 @@ A supplementary difference set with parameters
 4-{883; 462, 441, 441, 420; 881}
 ```
 
-in ℤ₈₈₃, each block a union of cosets of the multiplier subgroup H = ⟨86⟩ of
-order 21. The coset representatives are in `certificate.json`. The four ±1
-sequences (`sequences.txt`) have row sums −41, 1, 1, 43, and 41² + 2 + 43² = 3532.
-They are placed in the Goethals–Seidel array as described for
-[order 2092](../2092).
+in ℤ₈₈₃, each block a union of cosets of the multiplier subgroup H = ⟨86⟩ of order 21. The coset representatives are in
+`certificate.json`. The four ±1 sequences (`sequences.txt`) have row sums −41, 1, 1, 43, and 41² + 2 + 43² = 3532. They
+are placed in the Goethals–Seidel array as described for [order 2092](../2092).
 
 ## Status
 
-**Known.** Đoković (arXiv:1008.2043, Proposition 3.1) obtained a Hadamard matrix of order 4 · 883 from Yamada's
-theorem with q = 881, using Mathon's symmetric conference matrix of order 442. Cati–Pasechnik Table 4 still lists
-883(3) as unresolved. The matrix here is an explicit Goethals–Seidel matrix of this order, found by the search of
+**Known.** Đoković (arXiv:1008.2043, Proposition 3.1) obtained a Hadamard matrix of order 4 · 883 from Yamada's theorem
+with q = 881, using Mathon's symmetric conference matrix of order 442. Cati–Pasechnik Table 4 still lists 883(3) as
+unresolved. The matrix here is an explicit Goethals–Seidel matrix of this order, found by the search of
 [METHOD.md](../../METHOD.md) independently of that construction. The sources searched are listed in
 [NOVELTY.md](../../NOVELTY.md).
 

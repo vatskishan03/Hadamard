@@ -29,7 +29,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import workdir as W
-from bnw import Struct, subgroups, closure
+from bnw import Struct, subgroups
 import ssxx
 import bsz
 

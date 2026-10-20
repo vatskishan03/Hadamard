@@ -7,7 +7,7 @@ verified solution.
                                [--stream] [--samples N] [--K N]
       logs in $HADAMARD_WORK/logs/cp_breadth_<v>_<class>.log; skew hits are certified (skew_certify[_group].py).
 """
-import argparse, os, subprocess, sys, time
+import argparse, subprocess, sys, time
 from pathlib import Path as _P
 HERE = _P(__file__).resolve().parent
 sys.path[:0] = [str(HERE)]

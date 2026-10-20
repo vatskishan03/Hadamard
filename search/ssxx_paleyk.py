@@ -14,7 +14,7 @@ the counts below are counts of skeletons and of stage-1 solutions with signs nor
 
     python3 search/ssxx_paleyk.py N q k [k2] [--log FILE] [--all]
 """
-import argparse, itertools, json, math, sys, time
+import argparse, itertools, json, sys, time
 import numpy as np
 from pathlib import Path
 
@@ -173,7 +173,7 @@ class PaleyK:
 
     def stage2(self, ys, K=1, threads=None):
         P = self.P
-        m, h, q, eps = self.m, self.h, self.q, self.eps
+        h, q, eps = self.h, self.q, self.eps
         U, Wv = zip(*[P.uw(y) for y in ys])
         R = np.zeros(h, np.int64)
         for u, w in zip(U, Wv):

@@ -76,11 +76,10 @@ classical (Williamson's theorem, see Construction); the symmetry is what is new.
 
 - Every ingredient was published before 2026. Abuzin, Balonin, Đoković and Kotsireas (Inform. Control Syst. 2019, no. 5,
   2–9, Table 1; doi:10.31799/1684-8853-2019-5-2-9) publish the skew-propus difference family (19; 9, 7, 7, 7; 11),
-  equivalent to our quadruple under a multiplier and a shift of A1 (found by the audit of 17 October 2026). Đoković's
-  proof of his Theorems 1 and 2 (arXiv:2508.17141) builds the design Y from any such family and blows it up with any
-  symmetric D of order q that commutes with J and has D² = (q + 1)I − J, although he states the theorems only for prime
-  powers q ≡ 3 (mod 8) and takes D from the Paley core. Our D, from the symmetric Hadamard matrix P + N, is the only
-  change, hence the label.
+  equivalent to our quadruple under a multiplier and a shift of A1. Đoković's proof of his Theorems 1 and 2
+  (arXiv:2508.17141) builds the design Y from any such family and blows it up with any symmetric D of order q that
+  commutes with J and has D² = (q + 1)I − J, although he states the theorems only for prime powers q ≡ 3 (mod 8) and
+  takes D from the Paley core. Our D, from the symmetric Hadamard matrix P + N, is the only change, hence the label.
 
 - The Đoković–Seberry census lists 1425 among its 595 undecided v for symmetric matrices. 1425 is in none of its eight
   symmetric series nor among its 12 sporadic values.

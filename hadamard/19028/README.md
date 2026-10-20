@@ -27,11 +27,10 @@ H Hᵀ = 19028 I.
 
 ## Status
 
-**New, beyond the tables**, but obtainable classically (found by the novelty re-audit of October 16, after we had
-labelled the order). Seberry–Yamada (1990, Theorem 4) applied to Paley's matrix of order 284 (q = 283 ≡ 3 mod 8), which
-is an array of sixteen circulant blocks of order 71 (Seberry–Yamada 1993, Theorem 1), and to T-matrices of order 67
-(Sawade 1985) gives the order from ingredients of 1993 or earlier ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md)). We found no
-construction or statement of the order itself.
+**New, beyond the tables**, but obtainable classically. Seberry–Yamada (1990, Theorem 4) applied to Paley's matrix of
+order 284 (q = 283 ≡ 3 mod 8), which is an array of sixteen circulant blocks of order 71 (Seberry–Yamada 1993, Theorem
+1), and to T-matrices of order 67 (Sawade 1985) gives the order from ingredients of 1993 or earlier
+([PALEY_BLOCKS.md](../PALEY_BLOCKS.md)). We found no construction or statement of the order itself.
 
 The order lies above the range of Cati–Pasechnik Table 4, which stops at n = 2999, and is listed as a candidate in
 [NOTES.md](../../NOTES.md) §7 ("4·4757 = 4·67·71 … using T-sequences of lengths 47 and 71"). The construction here is

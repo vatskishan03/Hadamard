@@ -70,22 +70,18 @@ The certificate is the first recorded solution (`search/gs_certify.py 1255`).
 (Paley I, 10039 being a prime ≡ 3 (mod 4)), so 5020 was unknown. The matrix is neither symmetric nor skew; the
 Đoković–Seberry census (May 2025) lists 1255 as undecided for both, at order 4 · 1255.
 
-- Seberry–Yamada (1992, Table A.2: "1255 3 a1", Paley I at 10040) and the Handbook of Combinatorial Designs (2007,
-  Table 1.53: 1255 → 3 and 251 → 3) give the same entry, and [FRONTIER.md](../../FRONTIER.md) listed 5020 as
-  unresolved. Seberry–Yamada Table A.1 has no Williamson or Williamson-type matrices of order 1255, and only
-  8-Williamson matrices of order 251 ("251 3 w#q").
-- Đoković–Golubitsky–Kotsireas (arXiv:1301.3671) settled 4 · 251 = 1004, not 4 · 1255.
-- SageMath returns Unknown for 5020, as a Hadamard matrix and as a skew-Hadamard matrix.
-- No recursive construction reaches 5020:
-  - Paley I and II: 5019 = 3 · 7 · 239 and 2509 = 13 · 193 are not prime powers.
-  - Miyamoto: 1255 is neither a prime power nor ≡ 1 (mod 4).
-  - Yamada and Kiyasu (q = 1253 = 7 · 179), Mathon, Turyn, Whiteman and Spence.
-  - Cooper–Wallis with T(5) and Williamson-type matrices of order 251, with T(251) or with T(1255): none is known.
-  - A symmetric conference matrix of order 2510 is not known, though not excluded, since 2509 = 50² + 3².
-  - Product theorems: 5020 ≡ 4 (mod 8).
-- We could not read the lists in §7 of Miyamoto (J. Combin. Theory Ser. A 57, 1991); Cati–Pasechnik could not verify
-  them either. By Corollary 4 of that paper, 1255 would need a W(250, 249) or a W(1254, 1253), and neither can exist,
-  since 249 and 1253 are not sums of two squares.
+- Seberry–Yamada (1992, Table A.2: "1255 3 a1", Paley I at 10040) and the Handbook of Combinatorial Designs (2007, Table
+  1.53: 1255 → 3 and 251 → 3) give the same entry. Seberry–Yamada Table A.1 has no Williamson or Williamson-type
+  matrices of order 1255, and only 8-Williamson matrices of order 251 ("251 3 w#q"). - Đoković–Golubitsky–Kotsireas
+  (arXiv:1301.3671) settled 4 · 251 = 1004, not 4 · 1255. - SageMath returns Unknown for 5020, as a Hadamard matrix and
+  as a skew-Hadamard matrix. - No recursive construction reaches 5020: - Paley I and II: 5019 = 3 · 7 · 239 and 2509 =
+  13 · 193 are not prime powers. - Miyamoto: 1255 is neither a prime power nor ≡ 1 (mod 4). - Yamada and Kiyasu (q =
+  1253 = 7 · 179), Mathon, Turyn, Whiteman and Spence. - Cooper–Wallis with T(5) and Williamson-type matrices of order
+  251, with T(251) or with T(1255): none is known. - A symmetric conference matrix of order 2510 is not known, though
+  not excluded, since 2509 = 50² + 3². - Product theorems: 5020 ≡ 4 (mod 8). - We could not read the lists in §7 of
+  Miyamoto (J. Combin. Theory Ser. A 57, 1991); Cati–Pasechnik could not verify them either. By Corollary 4 of that
+  paper, 1255 would need a W(250, 249) or a W(1254, 1253), and neither can exist, since 249 and 1253 are not sums of two
+  squares.
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md). Doubling gives 10040, which was already known. 5021
 is a prime ≡ 1 (mod 4), so Miyamoto's theorem gives a Hadamard matrix of order 4 · 5021 = 20084; see

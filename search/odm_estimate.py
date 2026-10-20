@@ -11,7 +11,6 @@ Usage: python3 search/odm_estimate.py GROUP HGENS m TEMPLATE_SOURCE [--bsub d] [
        (the templates are taken from `odm_g.py ... --dry` output in the same configuration)
 """
 import argparse
-import itertools
 import math
 import os
 import subprocess

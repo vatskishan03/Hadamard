@@ -1,6 +1,6 @@
 """Rank slice-admissible Spence structures Z_2 x Z_m (n = 3 mod 4) by Gaussian E and exhaustive work."""
 import os
-import re, sys, math
+import re, sys
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import spence_lib as L, spence_slice_check as SC

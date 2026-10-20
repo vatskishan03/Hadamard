@@ -68,6 +68,7 @@ def enum_block_comp(st, cp, kind, r, vals, center, Wm, tau, maxkeep, tag, thread
         f.write(struct.pack("i", len(vals)))
         f.write(np.asarray(cp.fid[kind], np.int32).tobytes()); f.write(np.asarray(cp.w[kind], np.int32).tobytes())
         f.write(np.asarray(vals, np.int32).tobytes())
+        f.write(struct.pack("i", 0))                                       # no fibre filters
     p = subprocess.run([W.bin("lowe_enum"), str(inp), str(out), str(threads)], capture_output=True, text=True,
                        check=True)
     inp.unlink()
@@ -260,7 +261,7 @@ def run_propus(v, gens, rows, d, freeD=True, L=2e7, nsig=2e5, nS=5, K=4000, thre
         var = sum(np.asarray(lists_[k][1][::max(1, len(lists_[k][1]) // 200000)], np.float64).var(0) for k in order)
         Sx = [int(c) for c in np.argsort(-var)[:nS]]
         sf = Path(str(inp) + ".sig")
-        n_, rad = LZ.sigma_file(lists_, Sx, 0, nsig, sf)
+        n_, rad, _ = LZ.sigma_file([lists_[k] for k in order], Sx, 0, nsig, sf)
         print(f"  kt4: merge classes {Sx}, {n_} split values (radius {rad:.2f})", flush=True)
         with open(str(inp) + ".progress", "w") as errf:
             p = subprocess.run([W.bin("kt4"), str(inp), ",".join(map(str, Sx)), "@" + str(sf), str(maxsol)],

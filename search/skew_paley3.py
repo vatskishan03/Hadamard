@@ -12,7 +12,7 @@ squares, of odd order d, with PAF sum +1 off zero (the difference families of Dj
 
 search/NOTES.md, section 48.
 """
-import itertools, math, sys, time
+import math, sys, time
 from math import comb, log10
 from pathlib import Path
 import numpy as np

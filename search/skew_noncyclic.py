@@ -5,8 +5,7 @@ element of odd order never has eigenvalue -1, so every such H admits a skew firs
   python3 skew_noncyclic.py rank p [MINO MAXO]
   python3 skew_noncyclic.py search p NAME [maxpool]      # NAME as printed by rank
 """
-import math, sys, itertools
-from math import gcd, log10
+import sys
 import numpy as np
 from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
 import workdir as W

@@ -12,7 +12,6 @@ rebuilt as the bordered matrix and checked (H = H^T, H H^T = 4(m + 1) I).
 Hits go to $HADAMARD_WORK/sym_hits.jsonl (border: true).
 """
 import argparse, json, math, os, struct, subprocess, sys, tempfile, time
-from collections import defaultdict
 import numpy as np
 from pathlib import Path as _P
 sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
@@ -67,13 +66,11 @@ def search(G, name, mats, gens, st_ad, st_b, a, log):
     neg = G.neg()
     best = None
     for qname, Q, q in quotients(G):
-        ka = len(set(L.closure_partition(Q.v, induced(gens + [neg], q, Q.v))[0].tolist()))
         kb = len(set(L.closure_partition(Q.v, induced(gens, q, Q.v))[0].tolist()))
         if kb <= 10 and (best is None or Q.v > best[1].v): best = (qname, Q, q)
     if best is None:
         log(f"m={m} {name}: no quotient with at most 10 orbits"); return []
     qname, Q, q = best
-    K = m // Q.v
     ca = make_comp(st_ad, q, Q, induced(gens + [neg], q, Q.v)); cb = make_comp(st_b, q, Q, induced(gens, q, Q.v))
     for ra, rb, rd in pats:
         if min(st_ad.pool(ra), st_b.pool(rb), st_b.pool(rd)) == 0: continue

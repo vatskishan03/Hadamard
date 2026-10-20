@@ -24,7 +24,7 @@ while its Z_2 compressions have no solution.
     python3 search/tsz_comp.py sweep [N ...] [--bordered] [--minE -1] [--maxstream 2e10] [--log FILE]
         triage, then search every pattern with conditioned estimate >= minE (or >= minE - 2 and a stream <= 1e9)
 """
-import argparse, itertools, math, subprocess, sys
+import argparse, math, subprocess, sys
 from math import gcd, log10
 from pathlib import Path
 import numpy as np

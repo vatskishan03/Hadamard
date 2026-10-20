@@ -21,7 +21,7 @@ int main(int argc, char **argv){
     int n = 4 * k;
     int *y = malloc(4 * n);                 /* y[i*k + O] */
     int *g = malloc(4L * 4 * C * k);        /* g[(i*C + c)*k + O] = sum_O' M_c[O][O'] y_i[O'] */
-    long *V = malloc(8 * C); long *tabu = malloc(8 * n); long *dV = malloc(8L * C);
+    long *V = malloc(8 * C); long *tabu = malloc(8 * n);
     clock_t t0 = clock(); long step = 0, restarts = 0, bestever = 1L << 62;
     while (step < maxsteps){
         for (int j = 0; j < n; j++) y[j] = (rnd() & 1) ? 1 : -1;

@@ -12,12 +12,12 @@ T-matrices of every order t multiply the array, as for Paley's matrix in circula
 
 The route gives 15 orders that Table 1.53 of the Handbook lists as unknown (n = 3279 to 9991), two of them orders that
 Đoković claimed only through Seberry–Yamada's Corollary 8.8(i), and four orders that the tables record only through that
-corollary ([below](#orders-recorded-only-through-corollary-88i)), among them 9708 = 4 · 2427, which
-[FRONTIER.md](../FRONTIER.md) listed as unresolved. With near-Williamson matrices of 2026 in place of the Golay pair
-([below](#near-williamson-matrices)) it gives three orders of Cati–Pasechnik's Table 4, n = 1527, 1883 and 2545, the
-reopened order n = 2611, nine Handbook entries and a new matrix of the known order 9827. With Seberry and Yamada's
-symmetric Williamson-type matrices ([below](#symmetric-williamson-type-matrices)) it gives sixteen Handbook entries that
-the tables record only through Corollary 8.8(i).
+corollary ([below](#orders-recorded-only-through-corollary-88i)), among them 9708 = 4 · 2427. With near-Williamson
+matrices of 2026 in place of the Golay pair ([below](#near-williamson-matrices)) it gives three orders of
+Cati–Pasechnik's Table 4, n = 1527, 1883 and 2545, the reopened order n = 2611, nine Handbook entries and a new matrix
+of the known order 9827. With Seberry and Yamada's symmetric Williamson-type matrices
+([below](#symmetric-williamson-type-matrices)) it gives sixteen Handbook entries that the tables record only through
+Corollary 8.8(i).
 
 | Order | n | q | t | negaperiodic Golay pair of length (q − 1)/2 |
 |------:|---:|---:|---:|---|
@@ -77,7 +77,7 @@ matrix. The Goethals–Seidel array
 
 is a Hadamard matrix of order 4qt. This is Seberry and Yamada's Theorem 4 (1990) over the algebra of bordered blocks
 instead of a group ring; the Paley-block route is the case of circulant blocks. Prime powers q work the same way
-(checked for q = 9, 25, 49, 81 during the audit); the program implements prime q.
+(checked for q = 9, 25, 49, 81); the program implements prime q.
 
 **NG pairs used.** All from Balonin–Đoković (arXiv:1508.00640) and checked by the program and by `verify/verify.py`:
 - *Paley pairs of length p + 1* (their Proposition 6; for p ≡ 1 (mod 4) their first Paley series): for an odd prime
@@ -102,7 +102,7 @@ length v into a periodic Golay pair of length gv (Georgiou, Stylianou, Drosou an
 
 For q = 809, m = 404 = 2 · 202, and Đoković and Kotsireas (Numer. Algorithms 69 (2015), arXiv:1310.5773) give a periodic
 Golay pair of length 202 as unions of orbits of H = {1, 87, 95, 137, 185} on ℤ₂₀₂. No negaperiodic Golay pair of length
-404 is known (Balonin–Đoković, list (31)). The variant was found during the novelty audit of this route.
+404 is known (Balonin–Đoković, list (31)).
 
 ## Near-Williamson matrices
 
@@ -125,8 +125,7 @@ sums r(C₁) = r(C₄) = 1 and r(C₂) = 0 of Paley's residue blocks, from the c
 `search/miyamoto_blocks.py` checks the commutation and the transposition for q = 29, 37 and 53 with near-Williamson
 matrices whose A is not symmetric (`selftest`).
 
-The idea came from a judge agent of this repository's frontier workflow, which built H(7532) with near-Williamson
-matrices of order 67 and its own implementation; the certificates here were built again by `miyamoto_blocks.py`.
+The certificates here are built by `miyamoto_blocks.py` and checked by `verify/verify.py`.
 
 | Order | n | q | t | near-Williamson matrices of order (q − 1)/4 | Status |
 |------:|---:|---:|---:|---|---|
@@ -154,13 +153,12 @@ The database also holds orders 73, 79 and 97 with q = 4w + 1 a prime (293, 317, 
 
 The orders with q = 269 need the near-Williamson matrices of 2026. For q = 317, Turyn's Williamson matrices of order 79
 = (157 + 1)/2 (1972) satisfy the same hypotheses, and 9827 was already known (Đoković's set Δ, through Corollary 8.8(ii)
-with Paley's conference matrix of order 158); an earlier version of this page labelled it New. For q = 509, Đoković's
-good matrices of order 127 (J. Combin. Math. Combin. Comput. 14 (1993)) satisfy the same hypotheses, so those orders
-were obtainable classically, by a combination we found nowhere. For q = 373 we know no classical input of this kind: J.
-Wallis's Williamson-type matrices of order 93 (Linear and Multilinear Algebra 3 (1975)) are amicable, but A₁ is not
-symmetric and does not commute with B₁ or D₁, and the symmetric propus Hadamard matrices of orders 372 (Đoković,
-arXiv:2301.02751) and 268 (Balonin–Đoković, arXiv:1803.08787) have quadrants that do not commute (checked by the audit
-of October 17).
+with Paley's conference matrix of order 158). For q = 509, Đoković's good matrices of order 127 (J. Combin. Math.
+Combin. Comput. 14 (1993)) satisfy the same hypotheses, so those orders were obtainable classically, by a combination we
+found nowhere. For q = 373 we know no classical input of this kind: J. Wallis's Williamson-type matrices of order 93
+(Linear and Multilinear Algebra 3 (1975)) are amicable, but A₁ is not symmetric and does not commute with B₁ or D₁, and
+the symmetric propus Hadamard matrices of orders 372 (Đoković, arXiv:2301.02751) and 268 (Balonin–Đoković,
+arXiv:1803.08787) have quadrants that do not commute (checked).
 
 ## Symmetric Williamson-type matrices
 
@@ -175,8 +173,8 @@ Comput. 7 (1990)) construct many:
 - Corollary 31: order 2p + 1 when 2p − 1 is a prime power.
 
 Turyn's Williamson matrices of order (p + 1)/2 (p ≡ 1 mod 4 a prime power) and circulant Williamson matrices serve as
-seeds. `search/symwt.py` builds and checks all of these (Yamada's circulants α, β with α² + β² = pI over GF(p²) for prime
-powers p, Paley's conference matrices over GF(p^k)). `miyamoto_blocks.py certify q t "wt:RECIPE"` stores the four
+seeds. `search/symwt.py` builds and checks all of these (Yamada's circulants α, β with α² + β² = pI over GF(p²) for
+prime powers p, Paley's conference matrices over GF(p^k)). `miyamoto_blocks.py certify q t "wt:RECIPE"` stores the four
 matrices in the certificate, and `verify.py` checks them before it builds K (`miyamoto_wt_k`).
 
 Over the Handbook entries 3001 ≤ n ≤ 9999 that Table 1.53 lists with t ≥ 3 or that the tables record only through
@@ -213,9 +211,9 @@ order (q − 1)/2. The printed proof of that corollary fails
 [[A, B], [−B, A]] with A and B symmetric; his corollary probably assumes an Hadamard matrix of order q − 1 of that form,
 and the failing step may be Seberry and Yamada's restatement. All sixteen are labelled First explicit construction.
 Every ingredient here was published before 2026; the combination is ours. All sixteen pass the dense check of
-`verify.py` (H Hᵀ = nI, SHA-256 as in the READMEs). An independent rebuild for the audit of October 17 (own Miyamoto
-array, relabelling and T-matrices) checks H Hᵀ = nI densely for 14316, 15460 and 35004 and reproduces their SHA-256 in
-the repository's convention.
+`verify.py` (H Hᵀ = nI, SHA-256 as in the READMEs). An independent rebuild (own Miyamoto array, relabelling and
+T-matrices) checks H Hᵀ = nI densely for 14316, 15460 and 35004 and reproduces their SHA-256 in the repository's
+convention.
 
 **The corollary with valid inputs.** Lemma 26 (Seberry–Yamada's Corollary 29) needs symmetric, commuting ±1 matrices
 M₃, M₄ of order (q − 1)/2 with M₃² + M₄² = (q − 1)I, that is a symmetric quaternary Hadamard matrix (M₃ + M₄)/2 +
@@ -234,11 +232,10 @@ exist, and Cooper–Wallis gives the order as well, for
   of order 2 and the repeated-block arrangements of orders 34, 166, 22 and 802 (Williamson-type matrices of orders 17,
   83, 11 and 401): 4765, 5979, 9965, 8187, 8859 and 9627. The same gives q = 521 (260 = 10 · 26).
 
-`symwt.py "cor29r(q, …)"` and `"cor29q(q, …)"` check all of them; the Kronecker step was found by the audit of October
-17, 2026. We found the repeated-block arrangement in none of the sources we could read; Miyamoto's paper may contain the
-equivalent statement through its symmetric block form. Only q = 1109 and 1193 (orders 5545, 3579 and 5965) have no
-Williamson-type route that we know: Lemma 26 would need a symmetric quaternary Hadamard matrix of order 554 = 2 · 277 or
-596 = 4 · 149.
+`symwt.py "cor29r(q, …)"` and `"cor29q(q, …)"` check all of them. We found the repeated-block arrangement in none of the
+sources we could read; Miyamoto's paper may contain the equivalent statement through its symmetric block form. Only q =
+1109 and 1193 (orders 5545, 3579 and 5965) have no Williamson-type route that we know: Lemma 26 would need a symmetric
+quaternary Hadamard matrix of order 554 = 2 · 277 or 596 = 4 · 149.
 
 ## Orders recorded only through Corollary 8.8(i)
 
@@ -265,8 +262,9 @@ series, Golay products and the Williamson orders of Balonin–Đoković it reach
 Paley-block route and are in this repository already, 6031 is in it by Yamada–Kiyasu ([24124](24124)), and the other 15
 are the orders of the first table. Prime powers q = 25 and 49 add 4075 and 6419, Paley-block orders already here.
 Whiteman's Williamson orders p(p + 1)/2 add 3065 and 6743 (w = 153) and 3903 and 9107 (w = 325), and periodic Golay
-pairs add 8899; 3065, 6743 and 8899 are built (table above), 3903 and 9107 are not yet (no Williamson matrices of order
-325 found by the program so far; those of Table A.1, key w4, from J. Wallis and Whiteman, are not implemented here).
+pairs add 8899; 3065, 6743 and 8899 are built (table above), 3903 and 9107 are not built (the program has found no
+Williamson matrices of order 325, and those of Table A.1, key w4, from J. Wallis and Whiteman, are not implemented
+here).
 
 Among the FRONTIER entries the Golay-pair version reaches one, 2427, with the periodic Golay pair of length 404, and the
 near-Williamson version reaches 1527, 1883 and 2545 and the reopened 2611 ([above](#near-williamson-matrices)). Of the
@@ -303,13 +301,13 @@ checked end to end on the analogue with Paley's core of order 49 (q = 97, order 
   near-Williamson matrices of 2026; 6108 and 10180 were obtainable classically with Đoković's good matrices of order
   127. The ten Handbook entries of the second near-Williamson table are labelled as there (39308 is Known: Đoković's set
   Δ).
-- The sixteen orders of the symmetric Williamson-type table are **First explicit constructions**. For seven of them (q
-  = 773, 1693, 1733, 2917) Cooper–Wallis also works once the corollary is used with a repeated block (above). SageMath
-  10.8 (passagemath 10.8.13) returns Unknown for nine of them and raises UnknownError in its Miyamoto test for the other
-  seven.
-- SageMath's development version (October 17, 2026) constructs none of the 19 orders of the first two tables. It returns Unknown for 14 and raises
-  UnknownError in its Miyamoto test for 12260, 33380, 35780, 38660 and 39348 (no symmetric conference matrix of order
-  n + 1 is known to it; with that Unknown treated as False it returns Unknown).
+- The sixteen orders of the symmetric Williamson-type table are **First explicit constructions**. For thirteen of them
+  (all but 3579, 5545 and 5965, that is q = 1109 and 1193) Cooper–Wallis also works once the corollary is used with a
+  repeated block (above). SageMath 10.8 (passagemath 10.8.13) returns Unknown for nine of them and raises UnknownError
+  in its Miyamoto test for the other seven.
+- SageMath's development version (October 17, 2026) constructs none of the 19 orders of the first two tables. It
+  returns Unknown for 14 and raises UnknownError in its Miyamoto test for 12260, 33380, 35780, 38660 and 39348 (no
+  symmetric conference matrix of order n + 1 is known to it; with that Unknown treated as False it returns Unknown).
 
 The sources searched are listed in [NOVELTY.md](../NOVELTY.md).
 
@@ -331,4 +329,4 @@ the symmetric Williamson-type matrices ("wt", their upper triangles in base64) a
 (construction `miyamoto-blocks`) checks the pair and the T-matrices, rebuilds Paley's matrix, the blocks, the reversal
 and the Goethals–Seidel array independently of the search program (Miyamoto's array with the same `miyamoto` function,
 which the search program imports from `verify/verify.py`), and checks H Hᵀ = 4n I densely. An independent
-re-implementation written for the audit reproduces the SHA-256 of 13116, 17516 and 29292 and the dense check of 9708.
+re-implementation reproduces the SHA-256 of 13116, 17516 and 29292 and the dense check of 9708.

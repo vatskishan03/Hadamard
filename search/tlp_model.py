@@ -3,7 +3,7 @@
 Condition: P_A(s) + P_A(mu s) = -2 on the classes of <H, mu, -1>.  Gaussian estimate of E (one class
 dropped, per-class lattice), pool N (row sum 1).  usage: tlp_model.py MAXO n [n...]"""
 import os
-import sys, re, math
+import sys, math
 from math import gcd, log10, pi
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

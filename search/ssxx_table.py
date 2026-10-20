@@ -4,7 +4,7 @@ multiplier group, row sums).
 
     python3 search/ssxx_table.py
 """
-import json, math
+import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent / "complex-hadamard"

@@ -5,9 +5,7 @@ order 4v via the Goethals-Seidel array (group-developed blocks, R: g -> -g).  Th
 sum r_i^2 = 4v.  Same Gaussian model as search/triage.py (per-class lattice, one class dropped)."""
 import math
 from math import gcd, log10, pi
-from itertools import combinations_with_replacement
 import numpy as np
-from spence_lib import Structure, AbGroup, closure_partition
 
 
 def patterns(v):

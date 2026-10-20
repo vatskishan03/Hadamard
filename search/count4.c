@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
     FILE *f = fopen(argv[1], "rb");
     int hdr[3]; if (fread(hdr, 4, 3, f) != 3) return 1;
     nA = hdr[0]; nB = hdr[1]; C = hdr[2];
-    long K = argc > 2 ? atol(argv[2]) : 0;
+    (void)argc;
     T = malloc(2 * C); VA = malloc(2L * nA * C); VB = malloc(2L * nB * C);
     if (fread(T, 2, C, f) != (size_t)C || fread(VA, 2, (size_t)nA * C, f) != (size_t)nA * C ||
         fread(VB, 2, (size_t)nB * C, f) != (size_t)nB * C) return 1;
@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
     memcpy(posA, startA, 8L * NBk); memcpy(posB, startB, 8L * NBk);
     for (long i = 0; i < nA; i++) idxA[posA[(VA[i*C]-lo0) * W1 + (VA[i*C+1]-lo1)]++] = i;
     for (long i = 0; i < nB; i++) idxB[posB[(VB[i*C]-lo0) * W1 + (VB[i*C+1]-lo1)]++] = i;
-    long total = 0, printed = 0;
+    long total = 0;
     /* key = (k0, k1) = value of (VA[a]+VB[b]) on classes 0,1, range [2lo, 2hi] */
     #pragma omp parallel for schedule(dynamic, 1) reduction(+:total)
     for (int key = 0; key < (2*W0-1) * (2*W1-1); key++) {

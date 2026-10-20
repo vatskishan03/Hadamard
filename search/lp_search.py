@@ -6,7 +6,7 @@ gives H(4n).  Row sums are forced to be +-1 (r_A^2 + r_B^2 = 2), so WLOG both ar
 
 Symmetry: H <= Z_l^*; sequences constant on H-orbits; condition on classes of <H, -1>.
 Search: enumerate the whole pool (row sum +1), hash class vectors, join A with B. O(pool)."""
-import itertools, math, sys, time
+import sys, time
 from math import gcd
 import numpy as np
 

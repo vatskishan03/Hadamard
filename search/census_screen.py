@@ -9,7 +9,7 @@ For each subgroup H of Z_v^* with -1 not in H and MINO..MAXO orbits, and each ro
 
   python3 search/census_screen.py MINO MAXO CAP v ...     -> $HADAMARD_WORK/census_screen.jsonl
 """
-import json, math, sys, time
+import json, sys, time
 import numpy as np
 from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent)]
 import workdir as W

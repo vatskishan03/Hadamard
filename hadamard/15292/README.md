@@ -51,9 +51,8 @@ lies above the range of Cati–Pasechnik Table 4, which stops at n = 2999.
   (Đoković and Kotsireas, arXiv:1511.08734; the Đoković–Seberry census lists 239 among the decided skew values,
   citing them) and doubling. We found no construction or statement of order 15292.
 - The entry does not appear in Đoković's updates (arXiv:0912.5091, arXiv:1008.2043).
-- Found by the closure audit of October 17 ([NOTES.md](../../NOTES.md) §28): among the Handbook entries with t ≥ 3
-  that Đoković's updates leave, it is the only one that the closure of the published theorems reaches without the
-  T-matrices of order 131.
+- Among the Handbook entries with t ≥ 3 that Đoković's updates leave, it is the only one that the closure of the
+  published theorems reaches without the T-matrices of order 131 ([NOTES.md](../../NOTES.md) §28).
 - Paley I and II need 15291 = 3² · 1699 and 7645 = 5 · 11 · 139 to be prime powers. Miyamoto's theorem needs a
   symmetric conference matrix of order n + 1 = 3824, which cannot exist since 3824 ≡ 0 (mod 4). Since 3823 is a
   prime, no product theorem applies.

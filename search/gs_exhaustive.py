@@ -1,5 +1,5 @@
 """Exhaustive search of a Goethals-Seidel multiplier structure with small pools (all patterns)."""
-import os, struct, subprocess, sys, tempfile, time, itertools
+import os, struct, subprocess, sys, tempfile, time
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "verify"))

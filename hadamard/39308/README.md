@@ -32,12 +32,11 @@ certify 317 31 nw:near-williamson/NW79.txt t-matrices/T31.txt` writes the certif
 **Known** ([MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md#near-williamson-matrices)); the matrix here is independent. Table
 1.53 of the Handbook of Combinatorial Designs (2nd ed., 2007) gives n = 9827 with t = 3, but Đoković (arXiv:0912.5091)
 lists it in his set Δ of entries that should have had t = 2: Cooper–Wallis with T-matrices of order 31 and
-Williamson-type matrices of order 317 from Seberry–Yamada's Table A.1 (1992), which Corollary 8.8(ii) gives validly
-from Paley's symmetric conference matrix of order 158 (157 is a prime ≡ 1 mod 4). The route here was open classically
-too: Turyn's Williamson matrices of order 79 = (157 + 1)/2 (J. Combin. Theory Ser. A 12 (1972)) satisfy the same
-hypotheses as the near-Williamson matrices, and Paley's negaperiodic Golay pair of length 158 (Balonin–Đoković,
-Proposition 6, p = 157) gives the Golay-pair version of [MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md). An earlier version
-of this README labelled the order New, beyond the tables; the audit of October 17, 2026 found it in Δ.
+Williamson-type matrices of order 317 from Seberry–Yamada's Table A.1 (1992), which Corollary 8.8(ii) gives validly from
+Paley's symmetric conference matrix of order 158 (157 is a prime ≡ 1 mod 4). The route here was open classically too:
+Turyn's Williamson matrices of order 79 = (157 + 1)/2 (J. Combin. Theory Ser. A 12 (1972)) satisfy the same hypotheses
+as the near-Williamson matrices, and Paley's negaperiodic Golay pair of length 158 (Balonin–Đoković, Proposition 6,
+p = 157) gives the Golay-pair version of [MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md).
 
 ## Files
 

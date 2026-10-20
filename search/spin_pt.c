@@ -64,8 +64,7 @@ int main(int argc, char **argv) {
         rp[k].R = malloc(C * 8); init_rep(&rp[k]); perm[k] = k;
     }
     long *d = malloc(C * 8);
-    int *plus = malloc(OB * 4), *minus = malloc(OB * 4);
-    clock_t t0 = clock(); long sweeps = 0, best = -1, acc = 0, prop = 0, xacc = 0;
+    clock_t t0 = clock(); long sweeps = 0, best = -1, acc = 0, prop = 0;
     long *xprop = calloc(NR, 8), *xok = calloc(NR, 8);
     while ((double)(clock() - t0) / CLOCKS_PER_SEC < secs) {
         for (int k = 0; k < NR; k++) {
@@ -116,7 +115,7 @@ int main(int argc, char **argv) {
             Rep *a = &rp[perm[k]], *b = &rp[perm[k + 1]];
             double x = (1.0 / T[k] - 1.0 / T[k + 1]) * (double)(a->E - b->E);
             xprop[k]++;
-            if (x >= 0 || urand() < exp(x)) { int t = perm[k]; perm[k] = perm[k + 1]; perm[k + 1] = t; xacc++; xok[k]++; }
+            if (x >= 0 || urand() < exp(x)) { int t = perm[k]; perm[k] = perm[k + 1]; perm[k + 1] = t; xok[k]++; }
         }
         sweeps++;
         if (sweeps % 20000 == 0) {

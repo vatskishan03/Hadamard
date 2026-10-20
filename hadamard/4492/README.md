@@ -10,14 +10,12 @@ A supplementary difference set with parameters
 4-{1123; 561, 561, 561, 528; 1088}
 ```
 
-in ℤ₁₁₂₃, each block a union of cosets of the multiplier subgroup H = ⟨60⟩ of
-order 33. The coset representatives are in `certificate.json`. The four ±1
-sequences (`sequences.txt`) have row sums 1, 1, 1, 67, and 3 + 67² = 4492. They
-are placed in the Goethals–Seidel array exactly as described for
-[order 2092](../2092).
+in ℤ₁₁₂₃, each block a union of cosets of the multiplier subgroup H = ⟨60⟩ of order 33. The coset representatives are in
+`certificate.json`. The four ±1 sequences (`sequences.txt`) have row sums 1, 1, 1, 67, and 3 + 67² = 4492. They are
+placed in the Goethals–Seidel array exactly as described for [order 2092](../2092).
 
-Because 1123 − 1 = 33 · 34, every sequence that is constant on the cosets of H
-has row sum ≡ ±1 (mod 66), and the pattern (1, 1, 1, 67) is admissible.
+Because 1123 − 1 = 33 · 34, every sequence that is constant on the cosets of H has row sum ≡ ±1 (mod 66), and the
+pattern (1, 1, 1, 67) is admissible.
 
 ## Search
 

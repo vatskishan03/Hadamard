@@ -23,7 +23,7 @@ algebraic coincidences in symmetric structures, which is why it is exhaustive an
 
   python3 search/szekeres.py MAXPAIRS w [w ...]      -> hits in $HADAMARD_WORK/szekeres_hits.jsonl
 """
-import json, math, sys, time
+import json, sys, time
 import numpy as np
 from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent)]
 import workdir as W

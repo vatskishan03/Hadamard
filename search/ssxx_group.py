@@ -22,7 +22,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import workdir as W
 import spence_lib as L
-from bnw import join4, subgroups as zsub
+from bnw import join4
 import ssxx
 
 

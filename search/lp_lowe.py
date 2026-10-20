@@ -32,7 +32,7 @@ hash of the keys, and every candidate is rebuilt and checked.
                              [--threads T] [--estimate-only] [--list] [--maxopts 4e6]
       hits -> $HADAMARD_WORK/lp_hits.jsonl
 """
-import argparse, itertools, json, math, os, struct, subprocess, sys, tempfile, time
+import argparse, json, math, os, struct, subprocess, sys, tempfile, time
 import numpy as np
 from math import gcd
 from pathlib import Path as _P

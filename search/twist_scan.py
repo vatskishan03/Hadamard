@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Admissibility scan of twisted multiplier structures over Z_p (p prime).
+r"""Admissibility scan of twisted multiplier structures over Z_p (p prime).
 
 K <= Z_p^* of order d acts on the four Goethals-Seidel blocks through K/H:
   plain : all blocks K-invariant                         sum r_i^2 = 4p

@@ -105,7 +105,7 @@ def scan(ns, tmax, mmax, maxspikes, samples, L, out):
                         for ci, y in enumerate(quads[:4]):
                             try:
                                 est, estL, rank, off, sizes = estimate(Sb, y, samples, L, np.random.default_rng(1))
-                            except Exception as ex:
+                            except Exception:
                                 continue
                             if best is None or est > best[0]:
                                 best = (est, estL, rank, off, sizes, ci, y)

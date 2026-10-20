@@ -4,7 +4,7 @@ Roles with equal row sums share one list (as in skew_lowE.py). One class is impl
 
   python3 search/lowE_plan.py v g b,c,d [--steps S]
 """
-import argparse, math, sys
+import argparse, sys
 import numpy as np
 from pathlib import Path as _P; sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
 import spence_lib as L

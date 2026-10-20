@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Check the two symmetric conference matrices of order 66 in search/data/conference66_*.txt and the 16 strongly
-regular graphs srg(65, 32, 15, 16) in search/data/srg65_32_15_16_new16.g6 (search/NOTES.md §62).
+regular graphs srg(65, 32, 15, 16) in search/data/srg65_32_15_16_new16.g6 (search/NOTES.md §72).
 
     python3 search/check_conf66.py
 

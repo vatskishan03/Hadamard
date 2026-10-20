@@ -19,7 +19,6 @@ finds U-solutions with a four-list k-tree (search/kt4.c) and completes each by a
   python3 search/bgs_uw.py scan N [N ...] [--maxspikes K]                                (structures for the split)
 """
 import argparse, itertools, json, math, os, struct, subprocess, sys, tempfile, time
-from math import comb
 import numpy as np
 from pathlib import Path as _P
 sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]

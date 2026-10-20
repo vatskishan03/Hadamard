@@ -11,7 +11,7 @@ One JSON line per class in $HADAMARD_WORK/lp_hunt.jsonl; verified pairs also go 
 
   python3 search/lp_hunt.py [n1,n2,..] [--exact 2e7] [--L 3e7] [--maxcls 40] [--samples 50000] [--maxopts 2e6]
 """
-import argparse, json, math, os, re, sys, time
+import argparse, json, math, re, sys, time
 import numpy as np
 from math import comb, gcd
 from pathlib import Path as _P

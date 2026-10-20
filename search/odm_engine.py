@@ -13,7 +13,6 @@ order n with 4t = m n; see search/NOTES.md §31).
 Usage: python3 search/odm_engine.py t "h1,h2" m [--odmx PATH] [--maxtpl N] [--maxsol K]
 """
 import argparse
-import itertools
 import subprocess
 import sys
 from collections import defaultdict

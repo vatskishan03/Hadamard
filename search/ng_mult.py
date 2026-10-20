@@ -80,7 +80,6 @@ def search(v, H, log=print, maxlist=1 << 28):
     # NAF(s) = Re(conj(w^s) * sum_j q_j conj(q_{j+s})) via ifft of |F|^2
     R = np.fft.ifft(np.abs(F) ** 2, axis=1)            # R[s] = sum_j q_{j+s} conj(q_j)
     naf = np.rint((R * np.conj(w)[None, :]).real).astype(np.int64)
-    reps = sorted({min(orb) for orb in orbits if min(orb) != 0} | set())
     # NAF values needed: s = 1..v-1 up to the H-action; use all s for safety but compress by unique columns
     cols = list(range(1, v))
     V = naf[:, cols]

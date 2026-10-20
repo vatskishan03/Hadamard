@@ -62,8 +62,6 @@ def normalised(pi, c, n):
     # block translations with sum 0: c_i -> c_i + a_i + a_pi(i). Fixed blocks: c_i can be made 0 (2 invertible),
     # transposition (i j): c_i + a_i + a_j. Keep only centre vectors that are lexicographically minimal in their class
     # under these moves (brute force over a: n^3 choices is too many; use the invariant instead).
-    fixed = [i for i in range(4) if pi[i] == i]
-    pairs = sorted({tuple(sorted((i, pi[i]))) for i in range(4) if pi[i] != i})
     # invariant: the moves shift fixed centres by 2 a_i and pair centres by a_i + a_j, subject to sum a = 0.
     # Sum over all blocks of the shift contributions: sum_fixed 2 a_i + sum_pairs 2 (a_i + a_j) = 2 sum a = 0, so
     # I = sum_fixed c_i + 2 sum_pairs c_i (each pair counted once, doubled) is invariant (mod n), and every
@@ -76,7 +74,6 @@ def normalised(pi, c, n):
 
 
 def check(n, pi, eps, c, S):
-    N = 4 * n
     parent = list(range(4 * n))
     par = [0] * (4 * n)                                   # parity to parent: x = (-1)^par * parent
 

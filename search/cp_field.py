@@ -117,7 +117,6 @@ class FieldStructure:
 
     def sequence(self, slices):
         """+-1 sequence on G (mixed-radix order, Z_m slowest) from the pattern ids at the positions a = 0 .. m-1."""
-        q = self.q
         P = np.array([[self.pattern(pp)[0]] + self.pattern(pp)[1] for pp in slices])     # m x (e + 1)
         col = np.where(self.cls < 0, 0, 1 + self.cls)                                    # per fibre element
         return P[:, col].reshape(-1)

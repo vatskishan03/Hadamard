@@ -16,7 +16,6 @@
 static int C; static int16_t *T, *V[4]; static long nn[4];
 static uint64_t R[512], *h[4], hT;
 typedef struct { uint64_t h; uint32_t i, j; } P;
-static int cmp(const void *x, const void *y) { uint64_t a = ((const P*)x)->h, b = ((const P*)y)->h; return a < b ? -1 : a > b; }
 
 
 static void radix_sort(P *a, P *tmp, long n) {

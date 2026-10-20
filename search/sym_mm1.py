@@ -30,7 +30,7 @@ of order m can supply D. The design exists e.g. for
   python3 search/sym_mm1.py certify -- n A3 A1 A0        (write symmetric/<4n(4n-1)>/: certificate.json
                                                           (construction "skew-propus-plug"), sequences.txt, H.csv.gz)
 """
-import argparse, gzip, hashlib, itertools, json, math, sys, time
+import argparse, gzip, hashlib, itertools, math, sys, time
 import numpy as np
 from pathlib import Path as _P
 ROOT = _P(__file__).resolve().parent.parent

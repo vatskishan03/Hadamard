@@ -10,15 +10,12 @@ A supplementary difference set with parameters
 4-{1483; 741, 741, 741, 780; 1520}
 ```
 
-in ℤ₁₄₈₃, each block a union of cosets of the multiplier subgroup H = ⟨28⟩ of
-order 39. The coset representatives are in `certificate.json`. The four ±1
-sequences (`sequences.txt`) have row sums 1, 1, 1, −77, and 3 + 77² = 5932. They
-are placed in the Goethals–Seidel array exactly as described for
-[order 2092](../2092).
+in ℤ₁₄₈₃, each block a union of cosets of the multiplier subgroup H = ⟨28⟩ of order 39. The coset representatives are in
+`certificate.json`. The four ±1 sequences (`sequences.txt`) have row sums 1, 1, 1, −77, and 3 + 77² = 5932. They are
+placed in the Goethals–Seidel array exactly as described for [order 2092](../2092).
 
-Here 1483 − 1 = 38 · 39, so sequences constant on the cosets of H have row sum
-≡ ±1 (mod 78), which admits (1, 1, 1, −77). This is the same family as
-[order 4492](../4492), with the subgroup of order m + 1 instead of m.
+Here 1483 − 1 = 38 · 39, so sequences constant on the cosets of H have row sum ≡ ±1 (mod 78), which admits (1, 1, 1,
+−77). This is the same family as [order 4492](../4492), with the subgroup of order m + 1 instead of m.
 
 ## Status
 

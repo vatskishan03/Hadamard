@@ -23,9 +23,7 @@ def run(n, maxo=200):
         for tpow in (1, 0):
             T = np.linalg.matrix_power(TAU, tpow) % 2
             A = np.zeros((4, 4), dtype=int); A[:3, :3] = T; A[3, 3] = u
-            key = (tpow, u)
             st = L.Structure(G, [G.perm_from_matrix(A)])
-            sig = (st.O, tuple(sorted(st.sizes.tolist()))[:6], tpow)
             if st.O > maxo or (tpow, frozenset(np.unique(st.orb[:50]).tolist()), st.O) in seen: continue
             seen.add((tpow, frozenset(np.unique(st.orb[:50]).tolist()), st.O))
             est = st.estimate(samples=1500)

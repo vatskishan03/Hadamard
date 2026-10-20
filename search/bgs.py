@@ -33,13 +33,12 @@ met by pairs of spikes of opposite sign at distance b.
 
   python3 search/bgs.py scan N [N ...] [--tmax T] [--maxlist L]     structures with stage-1 solutions for 4N
 """
-import argparse, itertools, json, math, os, struct, subprocess, sys, tempfile, time
+import argparse, itertools, sys
 from math import comb, gcd
 import numpy as np
 from pathlib import Path as _P
 sys.path[:0] = [str(_P(__file__).resolve().parent), str(_P(__file__).resolve().parent.parent / 'verify')]
 import workdir as W
-import verify
 
 
 def primitive_root(p):
