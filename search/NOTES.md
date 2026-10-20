@@ -4257,3 +4257,80 @@ two judges each with their own code (scratchpad `round19/`).
   857, 953, 977) is verified. Cheap structured searches found nothing; this is the best-ranked constructive route.
 - *Route map.* No classical complex route (Cor. 11.15, 11.20, Kronecker, Golay, Miyamoto, Seberry–Zhang) settles any
   open order.
+
+## 65. Round 20: zero-diagonal cores for the complex Yamada–Kiyasu targets (October 20)
+
+No core was found, so 1046, 1190, 1286, 1718, 1910 and 1958 stay open. Each needs a quaternary conference matrix of
+order c = 262, 298, 322, 430, 478 or 490 (§64). Three lenses ran, each with its own code (scratchpad `round20/`); a
+calibration followed (scratchpad `round21/`).
+
+**The array.** The zero-diagonal Szöllősi array of §64 over an abelian group of order m = c/2:
+- A, B are symmetric with A(0) = B(0) = 0; C, D are ±1.
+- Σ PAF = (4m − 2)δ and a² + b² + c² + d² = 4m − 2.
+- Blocks are constant on the orbits of a multiplier group H with −1 ∉ H: A, B on ⟨H, −1⟩-orbits, C, D on H-orbits.
+
+Both lenses rebuilt the pipeline end to end: core 142 (m = 71) gives order 566, and core 286 (m = 143, H = ⟨3⟩) gives
+1142; both exact.
+
+**Compression filters.** For a quotient ℤ_d, the fibre sums of the four blocks must solve Σ PAF = (4m − 2)δ on ℤ_d.
+The feasible tuples are listed exactly, and a lattice-Gaussian estimate is conditioned on each tuple.
+
+**Exhaustive negatives.**
+- *m = 245, cyclic ℤ₂₄₅*, all 19 subgroups with −1 ∉ H, even orders included:
+  - every |H| ≥ 7 is dead on ℤ₅ or ℤ₇, except ⟨18⟩ (|H| = 12);
+  - ⟨18⟩: 9 of 12 row patterns die on ℤ₅, and the other 3 are empty by exact joins over all reduced ℤ₃₅ tuples;
+  - for H = ⟨36⟩ (|H| = 7), an independent second implementation finds no solution of the ℤ₇-compressed equation for
+    any row sums.
+- *m = 245, ℤ₅ × ℤ₇²*:
+  - odd H: |H| = 63, all four classes of order 21, and the unipotent |H| = 7 are dead on line, plane or ℤ₅ quotients;
+  - even H: every sampled class with |H| ≥ 24 has no live pattern, and |H| = 8 (nc:2054) and |H| = 12 (nc:6609) are
+    empty by exact joins;
+  - caveat: the subgroup list comes from random closure sampling (two samples, no new class in the second); it is
+    not a certified class list.
+- *m = 215*:
+  - H = ⟨11⟩ (|H| = 7): the single pattern (14, 18, 13, 13) has no solution of the ℤ₅-compressed equation (two
+    independent computations);
+  - ⟨4⟩ and ⟨51⟩ (|H| = 14): complete lists joined, no solution;
+  - |H| = 21, 28, 42 and 84: no row pattern.
+- *m = 161*: H of order 11, 22, 33 and 66 has no row pattern.
+- *Primes m = 131, 149, 239*: no multiplier structure. Odd-order H admits no row pattern, and every even-order subgroup
+  of the cyclic ℤ_m* contains −1.
+
+**The bordered zero-diagonal array** (bord lens; proved, exact at small orders; novelty not checked).
+- *Setting.* G abelian of even order n = m − 1; A, B symmetric with zero at 0; C, D ±1; Σ PAF = −4 off 0.
+- *Row pattern.* Parity forces the pattern (±1, ±1, 0, 0), so a pattern always exists, unlike the unbordered array.
+- *Construction.* Put α = (1 + i)/2, ρ = α r_A + ᾱ r_B, X′ = αX_A + ᾱX_B and Y′ = αX_C + ᾱX_D R. With the border
+  x = 0, s = ρ²t̄, y = −ρt̄v, u = ρ²t̄²v (t, v units), the matrices X = [[0, s eᵀ], [t e, X′]] and
+  Y = [[y, u eᵀ], [v e, Y′]] give a quaternary conference matrix K = [[X, Y], [Y*, −X*]] of order 2m.
+- *Checks.* Exact at n = 10, 12, ℤ₂ × ℤ₆, 16 and 26.
+- *t-character version.* For t odd it generalizes with a conference matrix of order 2t in the border, checked at
+  t = 3, order 22.
+- *Searches at N = 131* (core 262, order 1046):
+  - H = ⟨101⟩ and ⟨9⟩ (|H| = 6) are empty, exhaustively over all ℤ₂ tuples;
+  - for H = ⟨99⟩ (|H| = 4), low-energy lists of 10⁷ give 0 hits against about 0.9 expected (not conclusive);
+  - H = ⟨21⟩ (|H| = 4, estimate 10^1.5, pools 4 · 10⁹) was not run.
+- *N = 149 and 239*: no live, searchable bordered cyclic structure.
+
+**Live structures** (|H| = 6; none searchable exhaustively):
+- *m = 215, H = ⟨49⟩*, which acts as −1 on ℤ₅ and with order 3 on ℤ₄₃:
+  - 12 row patterns survive ℤ₅;
+  - pattern (14, 18, 13, 13) with ℤ₅ tuple ((−6,5,5), (−6,5,7), (1,13,−7), (1,−1,7)) has conditioned estimate
+    10^4.1, pools 4.3 · 10⁴, 4.3 · 10⁴, 2.1 · 10¹⁰ and 3.5 · 10¹⁰.
+- *m = 245*: ⟨31⟩, ⟨79⟩ and the non-cyclic twins nc:36 and nc:842 (pair work about 2 · 10¹² per tuple).
+- *m = 161*: H of order 3 (log₁₀ E ≈ 10, no listable quotient).
+
+**Which estimate to trust** (round 21).
+- *The discrepancy.* The lenses' two Gaussian estimators disagree by 10^3.6 on m = 215, ⟨49⟩, (14, 18, 13, 13):
+  - per-class independent densities give 10^0.2;
+  - the full covariance with the joint lattice gives 10^3.8.
+- *Test family.* m = 5p with H of order 6 acting as −1 on ℤ₅ and with order 3 on ℤ_p, the shape of the live
+  structure. Exact counts:
+  - m = 35: 0 solutions in all 5 patterns;
+  - m = 65: 352 solutions in (0, 4, 11, 11), 0 in the other 9;
+  - m = 95: 0 solutions in all 14 patterns, although the full estimator predicts about 10³ in total.
+- *Result.* The ℤ₅ compression has no feasible tuple for exactly the empty patterns at m = 65 and 95. On the live
+  pattern, the ℤ₅-conditioned estimate is 10^2.86 against 10^2.55 exact.
+- *Reading.* The unconditioned estimators are meaningless here. The ℤ₅-conditioned one is calibrated to within a
+  factor of 2 on this family, which supports the 10^4.1 at m = 215.
+- *Counterexample to keep in mind.* g245's nc:2054 (m = 245, |H| = 8) had conditioned estimate 36 and an exact count
+  of 0.
