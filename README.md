@@ -7,7 +7,7 @@ rebuilds it and checks it in exact arithmetic.
 A Hadamard matrix of order n is an n × n matrix H with entries ±1 and H Hᵀ = n I. It can exist only for n = 1, 2 or
 n ≡ 0 (mod 4), and the Hadamard conjecture asserts that it exists for every multiple of 4. In August 2026 Alpöge,
 Voinov and Reynolds-Haertle constructed the twelve unresolved orders below 2000 [1], and Schneider constructed 2060 [2].
-This repository constructs the next three, 2092, 2148 and 2284, and 24 more of the orders that Table 4 of Cati and
+This repository constructs the next three, 2092, 2148 and 2284, and 25 more of the orders that Table 4 of Cati and
 Pasechnik [3] lists as unresolved, up to 11804. Our matrix of order 2292 turned out to have been preceded by an
 independent one [16]. The smallest unresolved order is now 2396 = 4 · 599 ([FRONTIER.md](FRONTIER.md)).
 
@@ -25,7 +25,7 @@ give a theorem: a skew-Hadamard matrix of order 3(q + 1) exists for every prime 
 
 | Family | Orders | Status |
 |---|---|---|
-| Hadamard, unresolved in Table 4 [3] | [27](#unresolved-orders) | 10 New, 14 New but obtainable classically, 2 First explicit construction, 1 Concurrent |
+| Hadamard, unresolved in Table 4 [3] | [28](#unresolved-orders) | 11 New, 14 New but obtainable classically, 2 First explicit construction, 1 Concurrent |
 | Hadamard, omitted by Table 4 through Seberry–Yamada's Corollary 8.8(i) | [10](hadamard#orders-recorded-only-through-corollary-88i) | First explicit construction |
 | Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 New, 124 New but obtainable classically, 49 First explicit construction |
 | Skew-Hadamard (820 to 14384) | [101](skew) | 37 New, 62 New but obtainable classically, 2 First explicit construction |
@@ -61,6 +61,7 @@ For each order 4n, n is listed as unresolved in Table 4 of Cati and Pasechnik [3
 | [6108](hadamard/6108) | 1527 = 3 · 509 | Miyamoto's matrix [8] in sixteen bordered blocks with near-Williamson matrices of order 127 [11], T-matrices of order 3 | First explicit construction |
 | [6356](hadamard/6356) | 1589 = 7 · 227 | Paley's matrix of order 908 in sixteen circulant blocks, T-matrices of order 7 | New, but obtainable classically |
 | [6756](hadamard/6756) | 1689 = 3 · 563 | Paley's matrix of order 2252 in sixteen circulant blocks, T-matrices of order 3 | New, but obtainable classically |
+| [6796](hadamard/6796) | 1699 | quaternary conference matrix of order 850 (zero-diagonal Szöllősi array over ℤ₅ × ℤ₅ × ℤ₁₇, symmetry group of order 24), complex Yamada–Kiyasu template (q = 1697), Turyn's doubling | New |
 | [7364](hadamard/7364) | 1841 = 7 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks, T-matrices of order 7 | New, but obtainable classically |
 | [7532](hadamard/7532) | 1883 = 7 · 269 | Miyamoto's matrix in sixteen bordered blocks with near-Williamson matrices of order 67, T-matrices of order 7 | New |
 | [7660](hadamard/7660) | 1915 = 5 · 383 | Paley's matrix of order 1532 in sixteen circulant blocks, T-matrices of order 5 | New, but obtainable classically |
@@ -156,6 +157,7 @@ gzip -dc hadamard/2092/H2092.csv.gz | ./check_matrix
 | Propus quadruples, the symmetric m(m − 1) and m(m + 3) constructions, Miyamoto's lemma in the propus array | symmetric orders | [symmetric](symmetric), [search/NOTES.md](search/NOTES.md) §17, §27–31 |
 | A Hadamard matrix of order (q − 1)/2 in the propus array; Yamada–Kiyasu in symmetric quaternary form; [[P, Q], [Q, P]] with Paley's matrices; a symmetric conference matrix in I ⊗ X + C ⊗ Y | symmetric orders | [symmetric](symmetric), [NOTES.md](NOTES.md) §29–31 |
 | Szöllősi's array and its bordered, character-bordered and twisted forms | complex orders | [complex-hadamard](complex-hadamard) |
+| A quaternary conference matrix from the zero-diagonal Szöllősi array over a non-cyclic group, in the complex Yamada–Kiyasu template, and Turyn's doubling | 6796 | [hadamard/6796](hadamard/6796), [NOTES.md](NOTES.md) §31, [search/NOTES.md](search/NOTES.md) §76 |
 
 [NOTES.md](NOTES.md) and [search/NOTES.md](search/NOTES.md) are the research notebooks: the constructions, the
 structures that turned out to be empty, the obstructions, and calibrations of the solution-count estimates.

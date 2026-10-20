@@ -4956,3 +4956,70 @@ The feasible tuples are listed exactly, and a lattice-Gaussian estimate is condi
 - *Result.* 0 hits, against about 2.5 · 0.88 ≈ 2.2 expected (Poisson P(0) ≈ 0.11). UNKNOWN, but the conditioned
   estimate for these partial lists now looks too high by a factor of several. The first 20,000 values gave 0 against
   0.95; a lens process exhausted memory during the second pass and the unfinished values were rerun.
+
+## 76. Round 21: a quaternary conference matrix of order 850, hence order 6796 (October 20)
+
+**Result.** The unbordered zero-diagonal Szöllősi array (§74–75) has solutions over the non-cyclic group
+G = ℤ₅² × ℤ₁₇ with the symmetry group H = ⟨(M, 8)⟩ of order 24. Here M = [[0, 1], [1, 2]] acts on ℤ₅², M³ = 2I, so M
+is multiplication by an element of order 12 of GF(25)*, and 8 has order 8 modulo 17. −1 ∉ H; there are 21 orbits.
+- *Search.* The exhaustive compression-conditioned join (one row pattern, (0, 40, 7, 7), two feasible ℤ₁₇ tuples)
+  finds 1280 solutions in 77 s; with z ↦ 2z instead, 512.
+- *Chain.* A solution gives a quaternary conference matrix of order 850, the complex Yamada–Kiyasu template (q = 1697)
+  a quaternary Hadamard matrix of order 3398, and Turyn's doubling H(6796).
+- *Settles.* n = 1699 of Table 4 ([hadamard/6796](../hadamard/6796)).
+- *The estimate.* The Gaussian estimate gave 10^0.65 and 10^0.52, against 10^3.1 and 10^2.7 exact: an underestimate
+  by a factor of 300.
+- *Checks.* `verify.py` construction `complex-yamada-kiyasu` rebuilds the core from the four sequences, Yamada's
+  circulants and K. Also chain.py (an independent implementation), a bit-packed integer checker, and a third rebuild
+  from the sequences.
+- *The template.* It needs only q a prime power ≡ 1 (mod 4) and any quaternary conference matrix of order (q + 3)/2:
+  no symmetry, no normal form (proof in the builder's docstring). So it reaches the twelve FRONTIER entries
+  n = 643, 859, 955, 1051, 1291, 1699, 2083, 2659, 2731, 2803, 2899 and 2971 (q = n − 2 ≡ 1 mod 8, core of order
+  (n + 1)/2 ≡ 2 mod 4). With q ≡ 5 (mod 8) it also reaches 1879, 2215 and 2383, from cores of orders 940, 1108 and
+  1192.
+
+**Five lenses** (scratchpad `round21b/`; the judges did not run). Only the lens `big` found a core.
+- *m161* (core 322, n = 643).
+  - *The cpf filter* (PROVED). For a subgroup K ≤ G and a character ψ ≠ 1 of K, Parseval on G/K gives
+    Σ_k Σ_cosets |Σ_{x∈K} X_k(g + x) ψ(x)|² = 4m − 2 (unbordered) or 4n + 2 (bordered). Bounding each coset term by
+    its exact zonotope maximum over the orbit-constant signs gives a necessary condition.
+    - Calibration: 96 small structures with exact counts, 0 false kills, 72 of 85 empty ones killed.
+    - Over ℤ₁₆₁, all 8 subgroups with |H| ≥ 6 and −1 ∉ H are dead by it, among them ⟨24⟩ and ⟨114⟩, whose round-20
+      estimates were unconditioned. The survivors are ⟨93⟩, ⟨22⟩ and ⟨139⟩.
+  - *−1 ∈ H is allowed.* All-symmetric solutions exist (624, 896 and 6624 at m = 9, 15, 21; cores 18, 30, 42 built).
+  - *⟨93⟩* reduces exactly to two stages over ℤ₂₃. Its conditioned estimate is 10^10, but on the m = 21 analogue the
+    same estimator predicts 85 and 17 for two empty patterns. Not searched.
+  - *Bordered, |G| = 160.* Every H with 5 | |H| on ℤ₂⁵ × ℤ₅ is dead (exhaustive compression to G/ℤ₅). The live
+    structures (ℤ₁₆ × ℤ₂ × ℤ₅ with |H| = 8; ℤ₂⁵ × ℤ₅ and ℤ₄² × ℤ₂ × ℤ₅ with |H| = 6) are uncalibrated and unsearched.
+  - *Side results.* m = 215 ⟨4, 39⟩ and m = 323 ⟨8, 18⟩ (all-symmetric) are empty.
+- *tbord.* The character-bordered zero-diagonal construction is PROVED: Xb Xb* = (2t − 1)I holds automatically, and the
+  border exists iff the entries of Xb are 0 or units.
+  - Every target has N ≡ 5 (mod 6), so the ℤ₆ family (t = 5, n = N − 5) applies to all of them.
+  - Exhaustively empty at N = 161: ℤ₂² × ℤ₃ × ℤ₁₃ with |H| = 6 (the structure that gave the complex order 322) and
+    ℤ₁₅₆ with |H| = 6.
+  - ℤ₂ × ℤ₇ × ℤ₁₁ (Q = ℤ₇, t = 7, |H| = 5): 0 solutions in 15 tuple orbits, 6 of them with complete lists.
+  - Over structured H the Q-conditioned estimate overshot every exact count (about 60 predicted in all, 0 found).
+- *direct.*
+  - *No group-developed object.* No group-developed quaternary Hadamard matrix of order 2n exists, since 2n is not a
+    sum of two squares. A quaternary periodic complementary pair is a Goethals–Seidel quadruple with extra conditions.
+    Bordered group-developed cores of order c are impossible for 13 of the 15 core orders, by self-conjugacy of an
+    unramified prime.
+  - *No reduction to smaller objects.* Kronecker, plug-in and doubling constructions cannot give c ≡ 2 (mod 4). Paley
+    and Mathon parameters do not match.
+  - *Relaxed cores* (PROVED, exact at orders 38 and 102). A relaxed core, with D = αI + βR in the template, also works.
+    It comes from a bordered array with the zero moved from B to C, and is rarer than the standard one.
+- *big.* A generic engine over any abelian group, any automorphism group and any invariant quotient (`gtri.py`; exact
+  hash-and-verify joins, validated on brute-force counts) gave the result above.
+  - *Exhaustively empty* (complete joins): bordered ℤ₂₃₈ ⟨81⟩; unbordered ℤ₆₆₅ ⟨4, 9⟩, ⟨62⟩, ⟨8, 11⟩ and ⟨39, 46⟩;
+    ℤ₇₂₅ ⟨54⟩; four structures over ℤ₅² × ℤ₂₉ (|H| = 56 to 140).
+  - *Dead by exact compressions:* most of the remaining structures with at most 72 orbits for m = 215, 323, 425,
+    665, 725 and the bordered N = 215 to 743.
+  - *Live and unsearchable:* bordered N = 263 over ℤ₂₆₂ with H = ⟨53⟩ (estimate 10^8.9, C and D pools about
+    10¹⁴); ℤ₂₁₅ ⟨136⟩ and ℤ₃₂₃ ⟨69⟩, whose estimates are unreliable (−1 on a factor).
+  - *Z₂ lemma* (PROVED). In the bordered array with n = 2p and odd |H| = h, the Z₂-compression gives
+    d_A² + d_B² + d_C² + d_D² = 8p + 2. This kills N = 215 bordered, and N = 263 except h = 5.
+  - *A defect in a round-20 tool.* `zcomp.grouped_tuples` packs PAF vectors into an int64 that wraps for d ≥ 8.
+    Dead verdicts stay sound; live ones may rest on spurious tuples.
+- *chain* (`round21b/chain/chain.py`). It turns a core into a certified directory in under two minutes, even at
+  c = 1486. Validated on 83 cases, including cores 142 → 1132 and 286 → 2284. A sweep confirmed Yamada's lemma for
+  all 232 prime powers q ≡ 1 (mod 4) below 3000.
