@@ -4335,11 +4335,11 @@ The feasible tuples are listed exactly, and a lattice-Gaussian estimate is condi
 - *Counterexample to keep in mind.* g245's nc:2054 (m = 245, |H| = 8) had conditioned estimate 36 and an exact count
   of 0.
 
-**The m = 215, ⟨49⟩ join, first pass** (round 21, `round20/comp/zjoin_par.py`).
+**The m = 215, ⟨49⟩ join** (round 21, `round20/comp/zjoin_par.py`, `zsig_more.py`).
 - *Setup.* Lists A, B complete (42,875 each), C 2 · 10⁷ (kept from 60% of prefixes), D 4.03 · 10⁶ (from 20%). kt4
-  with merge classes 22, 18, 13, 20, 16.
-- *Coverage.* All 20,000 central split values (Mahalanobis radius ≤ 1.88): 10.8% of the A × C pairs and 11.2% of
-  the B × D pairs.
-- *Result.* 0 hits, against roughly 2.5 · P(χ²₅ ≤ 3.5) ≈ 0.95 expected. That is UNKNOWN, mildly against the estimate
-  (Poisson P(0) ≈ 0.4).
-- *To finish these lists:* about 12 more CPU-hours over the outer split values.
+  with merge classes 22, 18, 13, 20, 16; split values in order of the Gaussian law of a solution's split.
+- *Coverage.* The 200,000 most likely split values (Mahalanobis radius ≤ 2.97, P(χ²₅ ≤ 8.82) = 0.88): 47% of the
+  A × C pairs and 49% of the B × D pairs.
+- *Result.* 0 hits, against about 2.5 · 0.88 ≈ 2.2 expected (Poisson P(0) ≈ 0.11). UNKNOWN, but the conditioned
+  estimate for these partial lists now looks too high by a factor of several. The first 20,000 values gave 0 against
+  0.95; a lens process exhausted memory during the second pass and the unfinished values were rerun.
