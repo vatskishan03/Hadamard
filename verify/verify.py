@@ -1295,7 +1295,7 @@ def _yamada_alpha_beta(q, r, xi):
         d += 1
     if m > 1:
         primes.append(m)
-    if any(power((xa, xb), N // p) == (1, 0) for p in primes):
+    if power((xa, xb), N) != (1, 0) or any(power((xa, xb), N // p) == (1, 0) for p in primes):
         raise ValueError("xi is not primitive")
     n0 = (q + 1) // 2
     alpha, beta = np.empty(n0, dtype=np.int64), np.empty(n0, dtype=np.int64)
@@ -1473,14 +1473,45 @@ def build_symmetric_yamada_kiyasu(cert):
     return H, None
 
 
-def _szollosi_zero_diagonal_core(spec, seqs):
+def _szollosi_zero_diagonal_core(spec, seqs, rowsums=None, generators=None, group_order=None):
     """The zero-diagonal Szollosi array over an abelian group G of order m (abelian_group(spec)): A, B symmetric with
     A(0) = B(0) = 0 and +-1 elsewhere, C, D +-1, PAF_A + PAF_B + PAF_C + PAF_D = 0 off 0 (all checked). With
     w = (1 + i)/2 and R[g, h] = [g + h = 0], X = w X_A + conj(w) X_B and Y = w X_C + conj(w) X_D R give the quaternary
     conference matrix [[X, Y], [Y*, -X*]] of order 2m (zero diagonal, entries 1, -1, i, -i elsewhere, checked by the
-    caller). Returns its real and imaginary parts."""
+    caller). If given, the row sums and a symmetry group (generators acting on the coordinates, and its order) are
+    checked too. Returns its real and imaginary parts."""
     m, add, neg = abelian_group(spec)
     A, B, C, D = (np.array([SIGN[ch] for ch in x], dtype=np.int64) for x in seqs)
+    if rowsums is not None and [int(x.sum()) for x in (A, B, C, D)] != list(rowsums):
+        raise ValueError("row sums differ from the certificate")
+    if generators:
+        # each generator is an integer matrix acting on the coordinate vector of g, row i reduced modulo the i-th
+        # cyclic factor (so it must respect the primary decomposition); the blocks must be constant on its orbits
+        mods = []
+        for part in spec.split('x'):
+            q_, k_ = (part.split('^') + ['1'])[:2]
+            mods += [int(q_)] * int(k_)
+        mods_a = np.array(mods, dtype=np.int64)
+        elts = np.array(list(itertools.product(*[range(d) for d in mods])), dtype=np.int64).reshape(-1, len(mods))
+        radix = np.array([int(np.prod(mods[i + 1:])) for i in range(len(mods))], dtype=np.int64)
+        perms = [((elts @ np.array(g_, dtype=np.int64).T) % mods_a) @ radix for g_ in generators]
+        for pm in perms:
+            if sorted(pm.tolist()) != list(range(m)) or not np.array_equal(add[pm[:, None], pm[None, :]], pm[add]):
+                raise ValueError("a symmetry generator is not an automorphism of G")
+            if any(not np.array_equal(x[pm], x) for x in (A, B, C, D)):
+                raise ValueError("the sequences are not invariant under a symmetry generator")
+        group, frontier = {tuple(range(m))}, [np.arange(m)]
+        while frontier:
+            nxt = []
+            for h in frontier:
+                for pm in perms:
+                    k = tuple(pm[h].tolist())
+                    if k not in group:
+                        group.add(k)
+                        nxt.append(np.array(k))
+            frontier = nxt
+        if group_order is not None and len(group) != group_order:
+            raise ValueError(f"the symmetry group has order {len(group)}, not {group_order}")
     if any(len(x) != m for x in (A, B, C, D)):
         raise ValueError("sequence length differs from the group order")
     if A[0] or B[0] or (A[1:] == 0).any() or (B[1:] == 0).any() or (C == 0).any() or (D == 0).any():
@@ -1511,8 +1542,9 @@ def build_complex_yamada_kiyasu(cert):
         A = P (x) M + J2 (x) I,  B = P (x) N,  X' = w A + conj(w) B,  Y' = J2 (x) Z + P (x) I,
         X = [[1, e], [-e^T, X']],  Y = [[1, i e], [-i e^T, Y']],  K = [[X, Y], [Y*, -X*]].
 
-    P J2 = 0 and MN = NM give X'Y' = Y'X' and X'X'* + Y'Y'* = 2vI - 2J; the borders close because A e^T = 2e^T,
-    B e^T = 0 and Z has zero row and column sums; so K K* = 2vI. No symmetry of the core is used. With K = Kr + i Ki,
+    P J2 = J2 P = 0 gives X'Y' = Y'X'; with M, N symmetric and MN = NM also X'X'* = qP (x) I + J2 (x) I, so
+    X'X'* + Y'Y'* = 2vI - 2J; the borders close because A e^T = 2e^T, B e^T = 0 and Z has zero row and column sums;
+    so K K* = 2vI. No symmetry of the core is used. With K = Kr + i Ki,
     H = [[Kr + Ki, Kr - Ki], [-(Kr - Ki), Kr + Ki]] has H H^T = 4vI (checked by the caller)."""
     q = cert["q"]
     if cert["order"] != 4 * (q + 2):
@@ -1529,7 +1561,9 @@ def build_complex_yamada_kiyasu(cert):
     paf = np.array([alpha @ np.roll(alpha, -k) + beta @ np.roll(beta, -k) for k in range(n)])
     if paf[0] != q or np.any(paf[1:] != 0):
         raise ValueError("M^2 + N^2 != qI")
-    Cr, Ci = _szollosi_zero_diagonal_core(cert["core"]["group"], cert["core"]["sequences"])
+    core = cert["core"]
+    Cr, Ci = _szollosi_zero_diagonal_core(core["group"], core["sequences"], core.get("rowsums"),
+                                          core.get("symmetry_generators"), core.get("symmetry_order"))
     c = Cr.shape[0]
     if c != n + 1:
         raise ValueError("the core must have order (q + 3)/2")
