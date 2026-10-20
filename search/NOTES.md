@@ -4334,3 +4334,12 @@ The feasible tuples are listed exactly, and a lattice-Gaussian estimate is condi
   factor of 2 on this family, which supports the 10^4.1 at m = 215.
 - *Counterexample to keep in mind.* g245's nc:2054 (m = 245, |H| = 8) had conditioned estimate 36 and an exact count
   of 0.
+
+**The m = 215, ⟨49⟩ join, first pass** (round 21, `round20/comp/zjoin_par.py`).
+- *Setup.* Lists A, B complete (42,875 each), C 2 · 10⁷ (kept from 60% of prefixes), D 4.03 · 10⁶ (from 20%). kt4
+  with merge classes 22, 18, 13, 20, 16.
+- *Coverage.* All 20,000 central split values (Mahalanobis radius ≤ 1.88): 10.8% of the A × C pairs and 11.2% of
+  the B × D pairs.
+- *Result.* 0 hits, against roughly 2.5 · P(χ²₅ ≤ 3.5) ≈ 0.95 expected. That is UNKNOWN, mildly against the estimate
+  (Poisson P(0) ≈ 0.4).
+- *To finish these lists:* about 12 more CPU-hours over the outer split values.
