@@ -1,7 +1,7 @@
 # Unresolved orders
 
-Table 4 of Cati and Pasechnik lists 195 odd n ≤ 2999 for which no Hadamard matrix of order 4n was known in 2025. 67
-of them are settled now, and the 128 that remain are listed below with the cheapest search structures known for each.
+Table 4 of Cati and Pasechnik lists 195 odd n ≤ 2999 for which no Hadamard matrix of order 4n was known in 2025. 68
+of them are settled now, and the 127 that remain are listed below with the cheapest search structures known for each.
 The smallest is n = 599, order 2396.
 
 Settled:
@@ -14,11 +14,11 @@ Settled:
 - 1 in 1988: n = 1823, from Seberry and Whiteman's symmetric conference matrix of order 3646 ([NOTES.md](NOTES.md) §7);
 - 2 by the GitHub repository Middletownbooks/Hadamard: n = 573 (order 2292, 9 October 2026; our independent matrix is
   [hadamard/2292](hadamard/2292)) and n = 647 (order 2588, 14 October 2026);
-- 27 in this repository:
-  - n = 523, 537, 571, 659, 933, 991, 1123, 1255, 1483 and 2293 by searches and recursive theorems (orders
+- 28 in this repository:
+  - n = 523, 537, 571, 659, 933, 991, 1123, 1255, 1483, 1699 and 2293 by searches and recursive theorems (orders
     [2092](hadamard/2092), [2148](hadamard/2148), [2284](hadamard/2284), [2636](hadamard/2636),
     [3732](hadamard/3732), [3964](hadamard/3964), [4492](hadamard/4492), [5020](hadamard/5020),
-    [5932](hadamard/5932) and [9172](hadamard/9172)); 571 concurrently with Zaitsev et al.;
+    [5932](hadamard/5932), [6796](hadamard/6796) and [9172](hadamard/9172)); 571 concurrently with Zaitsev et al.;
   - n = 789, 1315, 1509, 1589, 1689, 1841, 1915, 2155, 2515, 2661, 2733, 2815, 2893 and 2951 by Paley's matrix in
     sixteen circulant blocks times T-matrices, two published theorems that the tables did not combine
     ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md));
@@ -57,6 +57,9 @@ one applies:
 - Kiyasu: a skew-Hadamard matrix of order (n + 1)/2.
 - Yamada: a symmetric conference matrix of order (n + 1)/2, which cannot exist when (n − 1)/2 is not a sum of two
   squares.
+- complex Yamada–Kiyasu: a quaternary conference matrix of order (n + 1)/2 (zero diagonal, entries ±1, ±i elsewhere),
+  when n − 2 is a prime power. It has no sum-of-two-squares condition; it settled 1699
+  ([hadamard/6796](hadamard/6796), [NOTES.md](NOTES.md) §31).
 - Cooper–Wallis: Williamson-type matrices of order w, for n = t·w with T-matrices of order t known. Listed for w = 191
   (t = 5, 9, 15), where neither T-matrices of order 191 nor near-Williamson matrices of order 191 with a multiplier
   symmetry exist ([search/NOTES.md](search/NOTES.md) §6, §37). Also listed for w = 857, whose Williamson-type matrices
@@ -71,22 +74,22 @@ one applies:
 | 4n | n | GS: \|H\| | cosets | classes | log₁₀ E | log₁₀ W | Spence: group | log₁₀ W | Route |
 |---:|---:|---:|---:|---:|---:|---:|---|---:|---|
 | 2396 | 599 | – | – | – | – | – | ℤ2 × ℤ13 × ℤ23 | 36.4 |  |
-| 2572 | 643 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 322 (cannot exist) |
+| 2572 | 643 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 322 (cannot exist); complex Yamada–Kiyasu from a quaternary one |
 | 2676 | 669 | – | – | – | – | – | – | – |  |
 | 2876 | 719 | – | – | – | – | – | – | – |  |
 | 2956 | 739 | 9 | 83 | 41 | 33.5 | 22.7 | ℤ2 × ℤ3xℤ3 × ℤ41 | 42.4 |  |
 | 3004 | 751 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ5xℤ5xℤ5 | 46.0 |  |
 | 3356 | 839 | – | – | – | – | – | ℤ2 × ℤ419 | 15.0 |  |
-| 3436 | 859 | 13 | 67 | 33 | 25.7 | 17.2 | ℤ2 × ℤ3 × ℤ11 × ℤ13 | 61.8 | Yamada from a symmetric conference matrix of order 430 (cannot exist) |
+| 3436 | 859 | 13 | 67 | 33 | 25.7 | 17.2 | ℤ2 × ℤ3 × ℤ11 × ℤ13 | 61.8 | Yamada from a symmetric conference matrix of order 430 (cannot exist); complex Yamada–Kiyasu from a quaternary one |
 | 3452 | 863 | – | – | – | – | – | – | – |  |
 | 3628 | 907 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ151 | 33.3 |  |
 | 3788 | 947 | – | – | – | – | – | ℤ2 × ℤ11 × ℤ43 | 37.4 |  |
-| 3820 | 955 | 19 | 55 | 27 | 2.9 | 28.8 | ℤ2 × ℤ3xℤ3 × ℤ53 | 52.8 | Yamada from a symmetric conference matrix of order 478; Cooper–Wallis from Williamson-type matrices of order 191 |
+| 3820 | 955 | 19 | 55 | 27 | 2.9 | 28.8 | ℤ2 × ℤ3xℤ3 × ℤ53 | 52.8 | Yamada from a symmetric conference matrix of order 478 (or a quaternary one, complex Yamada–Kiyasu); Cooper–Wallis from Williamson-type matrices of order 191 |
 | 3884 | 971 | – | – | – | – | – | – | – |  |
 | 4076 | 1019 | – | – | – | – | – | – | – |  |
 | 4124 | 1031 | – | – | – | – | – | ℤ2 × ℤ5 × ℤ103 | 40.8 |  |
 | 4156 | 1039 | – | – | – | – | – | – | – |  |
-| 4204 | 1051 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ5xℤ5 × ℤ7 | 50.4 | Yamada from a symmetric conference matrix of order 526 (cannot exist) |
+| 4204 | 1051 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ5xℤ5 × ℤ7 | 50.4 | Yamada from a symmetric conference matrix of order 526 (cannot exist); complex Yamada–Kiyasu from a quaternary one |
 | 4348 | 1087 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ181 | 41.9 |  |
 | 4412 | 1103 | 19 | 59 | 29 | 21.1 | 15.5 | ℤ2 × ℤ19 × ℤ29 | 40.1 |  |
 | 4460 | 1115 | – | – | – | – | – | – | – |  |
@@ -96,7 +99,7 @@ one applies:
 | 5028 | 1257 | 22 | 78 | 39 | 12.7 | 37.8 | ℤ8 × ℤ157 | 58.9 |  |
 | 5036 | 1259 | – | – | – | – | – | – | – |  |
 | 5132 | 1283 | – | – | – | – | – | – | – |  |
-| 5164 | 1291 | 15 | 87 | 43 | 30.2 | 29.3 | ℤ2 × ℤ3 × ℤ5 × ℤ43 | 57.1 | Yamada from a symmetric conference matrix of order 646 (cannot exist) |
+| 5164 | 1291 | 15 | 87 | 43 | 30.2 | 29.3 | ℤ2 × ℤ3 × ℤ5 × ℤ43 | 57.1 | Yamada from a symmetric conference matrix of order 646 (cannot exist); complex Yamada–Kiyasu from a quaternary one |
 | 5276 | 1319 | – | – | – | – | – | – | – |  |
 | 5308 | 1327 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ13 × ℤ17 | 58.6 |  |
 | 5468 | 1367 | – | – | – | – | – | ℤ2 × ℤ683 | 19.6 |  |
@@ -119,7 +122,6 @@ one applies:
 | 6476 | 1619 | – | – | – | – | – | – | – |  |
 | 6652 | 1663 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ277 | 49.7 |  |
 | 6668 | 1667 | 17 | 99 | 49 | 32.0 | 37.5 | ℤ2 × ℤ7xℤ7 × ℤ17 | 59.0 |  |
-| 6796 | 1699 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 850 (cannot exist) |
 | 6852 | 1713 | 38 | 62 | 31 | 5.4 | 32.1 | – | – |  |
 | 6876 | 1719 | – | – | – | – | – | ℤ2 × ℤ859 | 22.1 | Cooper–Wallis from Williamson-type matrices of order 191 |
 | 6988 | 1747 | – | – | – | – | – | – | – |  |
@@ -129,7 +131,7 @@ one applies:
 | 7324 | 1831 | – | – | – | – | – | – | – |  |
 | 7388 | 1847 | – | – | – | – | – | ℤ2 × ℤ13 × ℤ71 | 72.5 |  |
 | 7484 | 1871 | – | – | – | – | – | – | – |  |
-| 7516 | 1879 | – | – | – | – | – | – | – | Kiyasu from a skew Hadamard matrix of order 940 |
+| 7516 | 1879 | – | – | – | – | – | – | – | Kiyasu from a skew Hadamard matrix of order 940, or complex Yamada–Kiyasu from a quaternary conference matrix of that order |
 | 7572 | 1893 | 42 | 62 | 31 | 4.4 | 33.1 | ℤ2xℤ2 × ℤ11 × ℤ43 | 70.7 |  |
 | 7628 | 1907 | – | – | – | – | – | – | – |  |
 | 7716 | 1929 | – | – | – | – | – | – | – |  |
@@ -140,14 +142,14 @@ one applies:
 | 8108 | 2027 | – | – | – | – | – | ℤ2 × ℤ1013 | 44.7 |  |
 | 8156 | 2039 | – | – | – | – | – | – | – |  |
 | 8252 | 2063 | – | – | – | – | – | – | – |  |
-| 8332 | 2083 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 1042 (cannot exist) |
+| 8332 | 2083 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 1042 (cannot exist); complex Yamada–Kiyasu from a quaternary one |
 | 8348 | 2087 | – | – | – | – | – | – | – |  |
 | 8380 | 2095 | – | – | – | – | – | – | – |  |
 | 8396 | 2099 | – | – | – | – | – | – | – |  |
 | 8684 | 2171 | – | – | – | – | – | – | – |  |
 | 8812 | 2203 | – | – | – | – | – | – | – |  |
 | 8828 | 2207 | – | – | – | – | – | ℤ2 × ℤ1103 | 40.2 |  |
-| 8860 | 2215 | 34 | 81 | 41 | 1.9 | 50.1 | – | – | Kiyasu from a skew Hadamard matrix of order 1108 |
+| 8860 | 2215 | 34 | 81 | 41 | 1.9 | 50.1 | – | – | Kiyasu from a skew Hadamard matrix of order 1108, or complex Yamada–Kiyasu from a quaternary conference matrix of that order |
 | 9004 | 2251 | – | – | – | – | – | – | – |  |
 | 9148 | 2287 | – | – | – | – | – | – | – |  |
 | 9260 | 2315 | – | – | – | – | – | – | – |  |
@@ -155,7 +157,7 @@ one applies:
 | 9356 | 2339 | – | – | – | – | – | – | – |  |
 | 9388 | 2347 | – | – | – | – | – | – | – |  |
 | 9484 | 2371 | – | – | – | – | – | – | – |  |
-| 9532 | 2383 | – | – | – | – | – | – | – | Kiyasu from a skew Hadamard matrix of order 1192 |
+| 9532 | 2383 | – | – | – | – | – | – | – | Kiyasu from a skew Hadamard matrix of order 1192, or complex Yamada–Kiyasu from a quaternary conference matrix of that order |
 | 9596 | 2399 | – | – | – | – | – | – | – |  |
 | 9692 | 2423 | – | – | – | – | – | – | – |  |
 | 9716 | 2429 | – | – | – | – | – | – | – |  |
@@ -170,16 +172,16 @@ one applies:
 | 10364 | 2591 | – | – | – | – | – | – | – |  |
 | 10516 | 2629 | – | – | – | – | – | – | – |  |
 | 10588 | 2647 | – | – | – | – | – | – | – |  |
-| 10636 | 2659 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 1330 (cannot exist) |
+| 10636 | 2659 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 1330 (cannot exist); complex Yamada–Kiyasu from a quaternary one |
 | 10684 | 2671 | – | – | – | – | – | – | – |  |
 | 10708 | 2677 | – | – | – | – | – | – | – | Miyamoto from H(2676) |
 | 10732 | 2683 | – | – | – | – | – | – | – |  |
 | 10748 | 2687 | – | – | – | – | – | – | – |  |
 | 10796 | 2699 | – | – | – | – | – | – | – |  |
 | 10844 | 2711 | – | – | – | – | – | – | – |  |
-| 10924 | 2731 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 1366 (cannot exist) |
+| 10924 | 2731 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 1366 (cannot exist); complex Yamada–Kiyasu from a quaternary one |
 | 11068 | 2767 | – | – | – | – | – | – | – |  |
-| 11212 | 2803 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 1402 (cannot exist) |
+| 11212 | 2803 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 1402 (cannot exist); complex Yamada–Kiyasu from a quaternary one |
 | 11276 | 2819 | – | – | – | – | – | – | – |  |
 | 11292 | 2823 | – | – | – | – | – | – | – |  |
 | 11364 | 2841 | – | – | – | – | – | – | – |  |
@@ -188,13 +190,13 @@ one applies:
 | 11460 | 2865 | – | – | – | – | – | – | – | Cooper–Wallis from Williamson-type matrices of order 191 |
 | 11516 | 2879 | – | – | – | – | – | – | – |  |
 | 11548 | 2887 | – | – | – | – | – | – | – |  |
-| 11596 | 2899 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 1450 (cannot exist) |
+| 11596 | 2899 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 1450 (cannot exist); complex Yamada–Kiyasu from a quaternary one |
 | 11612 | 2903 | – | – | – | – | – | ℤ2 × ℤ1451 | 56.7 |  |
 | 11652 | 2913 | – | – | – | – | – | – | – |  |
 | 11708 | 2927 | – | – | – | – | – | – | – |  |
 | 11756 | 2939 | – | – | – | – | – | – | – |  |
 | 11852 | 2963 | – | – | – | – | – | ℤ2 × ℤ1481 | 47.1 |  |
-| 11884 | 2971 | 55 | 55 | 27 | 14.0 | 19.2 | – | – | Yamada from a symmetric conference matrix of order 1486 (cannot exist) |
+| 11884 | 2971 | 55 | 55 | 27 | 14.0 | 19.2 | – | – | Yamada from a symmetric conference matrix of order 1486 (cannot exist); complex Yamada–Kiyasu from a quaternary one |
 | 11892 | 2973 | – | – | – | – | – | – | – |  |
 | 11980 | 2995 | – | – | – | – | – | – | – |  |
 | 11996 | 2999 | – | – | – | – | – | – | – |  |

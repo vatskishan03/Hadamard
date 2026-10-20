@@ -1788,3 +1788,23 @@ to KK* = nI and Π_s K̄ = −K Π_{s′}. With Π = I this makes K a phase-twis
 with the fixed-point-free Π it gives K = [[P, Q], [−DQ̄D′, −DP̄D′]] with PD′Qᵀ skew, whose diagonal entries are sums
 of m = n/2 units ±1, ±i with m odd, never 0. So for q ≡ 5 (mod 8) both choices fail by parity, as the real
 arrangements do.
+
+## 34. Order 6796 from a quaternary conference matrix of order 850 (October 20)
+
+The complex Yamada–Kiyasu template of §31 gives a Hadamard matrix of order 4(q + 2) from any quaternary conference
+matrix of order (q + 3)/2 when q is a prime power ≡ 1 (mod 4). Unlike Yamada's real theorem it needs no symmetric
+conference matrix, so the sum-of-two-squares obstruction does not apply. For n = 1699 the core has order 850, and
+849 = 3 · 283 is not a sum of two squares.
+
+**The core** is a zero-diagonal Szöllősi array ([search/NOTES.md](search/NOTES.md) §74–76) over the non-cyclic group
+ℤ₅² × ℤ₁₇. Its symmetry group is ⟨(M, 8)⟩ of order 24, where M = [[0, 1], [1, 2]] is multiplication by an element of
+order 12 of GF(25)*. All cyclic structures for the twelve targets were dead or out of reach. This one was searched
+exhaustively in 77 s and has 1280 solutions; the Gaussian estimate had given four.
+
+**The matrix:** [hadamard/6796](hadamard/6796). q = 1697; the quaternary Hadamard matrix has order 3398. `verify.py`
+rebuilds everything from the four sequences, construction `complex-yamada-kiyasu`.
+
+**The other eleven targets** (n = 643, 859, 955, 1051, 1291, 2083, 2659, 2731, 2803, 2899 and 2971), and 1879, 2215 and
+2383 (q ≡ 5 mod 8), need quaternary conference matrices of orders 322 to 1486. Most of their m = c/2 are square-free,
+so the unbordered array has only the cyclic group there. Non-cyclic groups enter through the bordered and
+character-bordered arrays, whose group orders are N − t (search/NOTES.md §76).

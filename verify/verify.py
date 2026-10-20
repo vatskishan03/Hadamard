@@ -20,6 +20,8 @@ takes from seconds to 40 minutes (51580, about 3.5 GB of memory); the Cooper-Wal
 assembled in int8 (0.6 to 1.5 GB).
 
 Yamada certificates accept a prime q or a prime power q = p^k (fields "p" and "poly" give GF(q)).
+Complex Yamada-Kiyasu certificates ("complex-yamada-kiyasu") give the core as the four sequences of a zero-diagonal
+Szollosi array over an abelian group, from which the quaternary conference matrix is rebuilt and checked.
 
     python3 verify/verify.py              check every order in the repository
     python3 verify/verify.py 2092 4492    check the named orders (hadamard/2092, hadamard/4492)
@@ -1471,6 +1473,103 @@ def build_symmetric_yamada_kiyasu(cert):
     return H, None
 
 
+def _szollosi_zero_diagonal_core(spec, seqs):
+    """The zero-diagonal Szollosi array over an abelian group G of order m (abelian_group(spec)): A, B symmetric with
+    A(0) = B(0) = 0 and +-1 elsewhere, C, D +-1, PAF_A + PAF_B + PAF_C + PAF_D = 0 off 0 (all checked). With
+    w = (1 + i)/2 and R[g, h] = [g + h = 0], X = w X_A + conj(w) X_B and Y = w X_C + conj(w) X_D R give the quaternary
+    conference matrix [[X, Y], [Y*, -X*]] of order 2m (zero diagonal, entries 1, -1, i, -i elsewhere, checked by the
+    caller). Returns its real and imaginary parts."""
+    m, add, neg = abelian_group(spec)
+    A, B, C, D = (np.array([SIGN[ch] for ch in x], dtype=np.int64) for x in seqs)
+    if any(len(x) != m for x in (A, B, C, D)):
+        raise ValueError("sequence length differs from the group order")
+    if A[0] or B[0] or (A[1:] == 0).any() or (B[1:] == 0).any() or (C == 0).any() or (D == 0).any():
+        raise ValueError("A, B must vanish exactly at 0 and C, D nowhere")
+    if not (np.array_equal(A, A[neg]) and np.array_equal(B, B[neg])):
+        raise ValueError("A or B is not symmetric")
+    XA, XB, XC, XD = (group_matrix(add, neg, x) for x in (A, B, C, D))
+    paf = XA[0] @ XA.T + XB[0] @ XB.T + XC[0] @ XC.T + XD[0] @ XD.T   # (X X^T)[0, h] = sum_k x(k) x(k - h) = PAF(-h)
+    if np.any(np.delete(paf, 0)):
+        raise ValueError("PAF_A + PAF_B + PAF_C + PAF_D != 0 off 0")
+    R = np.zeros((m, m), dtype=np.int64)
+    R[np.arange(m), neg] = 1
+    XDR = XD @ R
+    # 2X = (XA + XB) + i (XA - XB), 2Y = (XC + XD R) + i (XC - XD R); the halves are integers since the entries agree
+    # or are opposite in each position.
+    Xr, Xi, Yr, Yi = (XA + XB) // 2, (XA - XB) // 2, (XC + XDR) // 2, (XC - XDR) // 2
+    return np.block([[Xr, Yr], [Yr.T, -Xr.T]]), np.block([[Xi, Yi], [-Yi.T, Xi.T]])
+
+
+def build_complex_yamada_kiyasu(cert):
+    """Hadamard matrix of order 4v, v = q + 2, for a prime q = 1 (mod 4) and ANY quaternary conference matrix of order
+    (q + 3)/2 (NOTES.md §31): Turyn's double of the quaternary Hadamard matrix K of order 2v below. The core is the
+    zero-diagonal Szollosi array of cert["core"] (_szollosi_zero_diagonal_core). Its columns are permuted to put the
+    zeros on the diagonal and it is dephased to [[0, e], [e^T, Z]] (Z e^T = 0, e Z = 0, Z Z* = nI - J, n = (q + 1)/2).
+    With Yamada's M = circ(beta), N = circ(alpha) (as in build_yamada; M^2 + N^2 = qI is checked through alpha, beta),
+    P = [[1, -1], [-1, 1]], J2 the all-one matrix of order 2, w = (1 + i)/2 and e the all-one row of length 2n:
+
+        A = P (x) M + J2 (x) I,  B = P (x) N,  X' = w A + conj(w) B,  Y' = J2 (x) Z + P (x) I,
+        X = [[1, e], [-e^T, X']],  Y = [[1, i e], [-i e^T, Y']],  K = [[X, Y], [Y*, -X*]].
+
+    P J2 = 0 and MN = NM give X'Y' = Y'X' and X'X'* + Y'Y'* = 2vI - 2J; the borders close because A e^T = 2e^T,
+    B e^T = 0 and Z has zero row and column sums; so K K* = 2vI. No symmetry of the core is used. With K = Kr + i Ki,
+    H = [[Kr + Ki, Kr - Ki], [-(Kr - Ki), Kr + Ki]] has H H^T = 4vI (checked by the caller)."""
+    q = cert["q"]
+    if cert["order"] != 4 * (q + 2):
+        raise ValueError("the order must be 4(q + 2)")
+    if q % 4 != 1 or not _is_prime(q):
+        raise ValueError("q must be a prime = 1 (mod 4)")
+    alpha, beta = _yamada_alpha_beta(q, cert["r"], tuple(cert["xi"]))
+    n = (q + 1) // 2
+    s = np.arange(n)
+    if not (np.array_equal(alpha, alpha[-s % n]) and np.array_equal(beta, beta[-s % n])):
+        raise ValueError("alpha or beta is not symmetric")
+    if beta[0] != 0 or (beta[1:] == 0).any() or (alpha == 0).any():
+        raise ValueError("beta must vanish exactly at 0 and alpha nowhere")
+    paf = np.array([alpha @ np.roll(alpha, -k) + beta @ np.roll(beta, -k) for k in range(n)])
+    if paf[0] != q or np.any(paf[1:] != 0):
+        raise ValueError("M^2 + N^2 != qI")
+    Cr, Ci = _szollosi_zero_diagonal_core(cert["core"]["group"], cert["core"]["sequences"])
+    c = Cr.shape[0]
+    if c != n + 1:
+        raise ValueError("the core must have order (q + 3)/2")
+    zero = (Cr == 0) & (Ci == 0)
+    if (np.abs(Cr) + np.abs(Ci) > 1).any() or zero.sum(axis=0).tolist() != [1] * c or \
+            zero.sum(axis=1).tolist() != [1] * c:
+        raise ValueError("the core is not a matrix over 1, -1, i, -i with one zero in each row and column")
+    Fr, Fi = Cr.astype(np.float64), Ci.astype(np.float64)      # exact: 0/+-1 entries, partial sums of size <= c
+    if np.any(Fr @ Fr.T + Fi @ Fi.T != (c - 1) * np.eye(c)) or np.any(Fi @ Fr.T - Fr @ Fi.T != 0):
+        raise ValueError("C C* != (c - 1) I")
+    E = np.where(Cr == 1, 0, np.where(Ci == 1, 1, np.where(Cr == -1, 2, np.where(Ci == -1, 3, -1))))
+    E = E[:, np.argmax(E < 0, axis=1)]                                                       # zeros on the diagonal
+    nz = E >= 0
+    E = np.where(nz, (E - np.r_[0, E[0, 1:]][None, :]) % 4, -1)                              # dephase row 0
+    E = np.where(nz, (E - np.r_[0, E[1:, 0]][:, None]) % 4, -1)                              # dephase column 0
+    if not (E[0, 0] == -1 and (E[0, 1:] == 0).all() and (E[1:, 0] == 0).all() and (np.diag(E) == -1).all()):
+        raise ValueError("normalisation failed")
+    Z = E[1:, 1:]
+    Zr = np.where(Z == 0, 1, np.where(Z == 2, -1, 0)).astype(np.int64)
+    Zi = np.where(Z == 1, 1, np.where(Z == 3, -1, 0)).astype(np.int64)
+    if Zr.sum(axis=0).any() or Zr.sum(axis=1).any() or Zi.sum(axis=0).any() or Zi.sum(axis=1).any():
+        raise ValueError("Z has nonzero row or column sums")
+    I, J2 = np.eye(n, dtype=np.int64), np.ones((2, 2), dtype=np.int64)
+    P = np.array([[1, -1], [-1, 1]], dtype=np.int64)
+    A = np.kron(P, circulant(beta)) + np.kron(J2, I)
+    B = np.kron(P, circulant(alpha))
+    e, z = np.ones((1, 2 * n), dtype=np.int64), np.zeros((1, 2 * n), dtype=np.int64)
+    one, nil = np.ones((1, 1), dtype=np.int64), np.zeros((1, 1), dtype=np.int64)
+    Xr = np.block([[one, e], [-e.T, (A + B) // 2]])
+    Xi = np.block([[nil, z], [z.T, (A - B) // 2]])
+    Yr = np.block([[one, z], [z.T, np.kron(J2, Zr) + np.kron(P, I)]])
+    Yi = np.block([[nil, e], [-e.T, np.kron(J2, Zi)]])
+    Kr = np.block([[Xr, Yr], [Yr.T, -Xr.T]]).astype(np.int8)
+    Ki = np.block([[Xi, Yi], [-Yi.T, Xi.T]]).astype(np.int8)
+    if not (np.abs(Kr.astype(np.int16)) + np.abs(Ki.astype(np.int16)) == 1).all():
+        raise ValueError("K has an entry outside 1, -1, i, -i")
+    X, Y = Kr + Ki, Kr - Ki
+    return np.block([[X, Y], [-Y, X]]), None
+
+
 def build_paley_skew(cert):
     """Paley's skew-Hadamard matrix I + C of order q + 1, q = 3 (mod 4) a prime ("q") or a prime power ({"p", "poly"}
     under "q", as in _paley_sym_od_field); C[0, x] = 1, C[x, 0] = -1, C[x, y] = chi(y - x)."""
@@ -2233,6 +2332,7 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "symmetric-propus-skewcore": build_symmetric_propus_skewcore,
             "symmetric-propus-weighing": build_symmetric_propus_weighing,
             "symmetric-yamada-kiyasu": build_symmetric_yamada_kiyasu, "paley-skew": build_paley_skew,
+            "complex-yamada-kiyasu": build_complex_yamada_kiyasu,
             "two-block": build_two_block, "paley-blocks": build_paley_blocks,
             "symmetric-involution": build_symmetric_involution,
             "symmetric-conference-plug": build_symmetric_conference_plug}

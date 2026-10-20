@@ -25,6 +25,7 @@ Entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard mat
 | [6108](6108) | 1527 = 3 · 509 | Miyamoto's matrix of order 2036 in sixteen bordered blocks with near-Williamson matrices of order 127, T-matrices of order 3 ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#near-williamson-matrices)) |
 | [6356](6356) | 1589 = 7 · 227 | Paley's matrix of order 908 in sixteen circulant blocks, T-matrices of order 7 |
 | [6756](6756) | 1689 = 3 · 563 | Paley's matrix of order 2252 in sixteen circulant blocks, T-matrices of order 3 |
+| [6796](6796) | 1699 | quaternary conference matrix of order 850 (zero-diagonal Szöllősi array over ℤ₅ × ℤ₅ × ℤ₁₇, symmetry group of order 24) in the complex Yamada–Kiyasu template (q = 1697), then Turyn's doubling |
 | [7364](7364) | 1841 = 7 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks, T-matrices of order 7 |
 | [7532](7532) | 1883 = 7 · 269 | Miyamoto's matrix of order 1076 in sixteen bordered blocks with near-Williamson matrices of order 67, T-matrices of order 7 ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#near-williamson-matrices)) |
 | [7660](7660) | 1915 = 5 · 383 | Paley's matrix of order 1532 in sixteen circulant blocks, T-matrices of order 5 |
@@ -43,7 +44,7 @@ from two published theorems that the tables did not combine ([PALEY_BLOCKS.md](P
 it also follows, by Turyn's doubling, from the quaternary Hadamard matrix of order 1142 on Zaitsev's page
 ([2284](2284/README.md#status)). 6108 and 10180 are First explicit constructions: Đoković claimed n = 1527 and 2545 in
 2010 through Seberry–Yamada's Corollary 8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7). The other
-ten are New; 6108, 7532 and 10180 use the near-Williamson matrices of 2026.
+eleven are New; 6108, 7532 and 10180 use the near-Williamson matrices of 2026.
 
 Doubling the matrices of orders 2636 and 3732 gives orders 5272 and 7464, which were open as well, and doubling 9172
 gives 18344, 36688 and 73376 (the table entry is 2293(6)).
