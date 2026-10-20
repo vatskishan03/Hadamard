@@ -5023,3 +5023,52 @@ is multiplication by an element of order 12 of GF(25)*, and 8 has order 8 modulo
 - *chain* (`round21b/chain/chain.py`). It turns a core into a certified directory in under two minutes, even at
   c = 1486. Validated on 83 cases, including cores 142 → 1132 and 286 → 2284. A sweep confirmed Yamada's lemma for
   all 232 prime powers q ≡ 1 (mod 4) below 3000.
+
+## 77. Round 22: the non-cyclic structures of the other targets (October 20)
+
+Two lenses (scratchpad `round22/ncu`, `round22/ncb`) tried to repeat the order-850 effect (§76) at the other targets.
+Neither found a core. Every verdict below is an exact compression infeasibility, an exact border test or a complete
+join; none rests on the Gaussian estimate.
+
+**Which targets admit a non-cyclic group.** An abelian group of square-free order is cyclic. Among the unbordered
+targets only m = 596 (core 1192), 725 (1450) and 245 (490, complex only) have a non-cyclic group, besides 425.
+
+**Unbordered (ncu).** GAP listed every conjugacy class of subgroups of Aut(G).
+- *m = 596, ℤ₂² × ℤ₁₄₉* (PROVED).
+  - Parity for even m: a and b are odd, c and d even, and exactly one of c, d is 2 (mod 4).
+  - The classes with 37 | |H| have no row pattern: the signed orbit sums are 0 (mod 74).
+  - Every other class has |H| ≤ 6 and at least 150 orbits; out of reach. The cyclic ℤ₅₉₆ fares the same way.
+- *m = 725, ℤ₅² × ℤ₂₉* (complete list: 400 classes without −1).
+  - 248 classes have no solution: no row pattern, cpf-dead, or dead on a quotient.
+  - c138 and c143 (|H| = 28) were searched completely: 0 solutions.
+  - The exact analogue of the 850 group (a Singer element of order 24 times an element of order 4) is dead on a
+    quotient.
+  - 21 live classes remain, the cheapest at 5 · 10¹¹ pair work (c139, c142).
+- *m = 245, ℤ₇² × ℤ₅* (272 classes).
+  - 220 classes have no solution; 9 more were searched completely, with 0 solutions.
+  - 25 live classes remain, the cheapest at 3.8 · 10¹².
+- *Defect.* `gtri.row_patterns` keeps only c > 0, so at even m it drops the patterns with c = 0. Earlier exhaustive
+  verdicts at even m that used it are incomplete; `nce.row_patterns2` is the fixed version.
+
+**Bordered and character-bordered (ncb).** The engine was extended to any target function, with the border tested
+exactly on every tuple before any list is built.
+- *Two new character-bordered families* admit Singer-type symmetry:
+  - Q = ℤ₃² with T = {1} plus two lines (t = 5), for N ≡ 5 (mod 9): 239, 743, 725, 554, 131, 149; order 28 checked
+    exactly;
+  - Q = ℤ₄² with t = 7, for N ≡ 7 (mod 16): 215, 263, 743.
+- *Twisted family.* ℤ₂ × ℤ₃² can never carry a border (only 4 vectors in V_T).
+- *Exhaustively empty.*
+  - Bordered: N = 665 over ℤ₂³ × ℤ₈₃ and ℤ₂ × ℤ₄ × ℤ₈₃; N = 161 over ℤ₁₆ × ℤ₂ × ℤ₅ (the three |H| = 8 structures
+    the m161 lens left live).
+  - The ℤ₃² family: N = 239 [10]; N = 131 [12], [17]; 25 structures for N = 725 with |H| = 48 to 192.
+  - Most structures of the ℤ₄² family at N = 215, 263, 743.
+- *Live, at 4.6 · 10¹⁰ to 10¹² pair work.* N = 725 in the ℤ₃² family ([61], [37], [74], [76], [38], ...;
+  structures 96–286 untriaged); N = 215 ℤ₄² [42] (one tuple exhausted memory), [36]; N = 239 [16], [17].
+- *Observation* (HEURISTIC). In the ℤ₃² family no tuple of the patterns (1, 1, 0, 4) or (1, 3, 2, 2) has had a border.
+- *Out of the exact border solver's reach:* Q = ℤ₂⁴ (t = 7), ℤ₂ × ℤ₃² (t = 17; it admits the full GF(9)* Singer
+  cycle and applies to N ≡ 17 mod 18, among them 161, 215, 323, 521, 665, 683, 701), ℤ₅² (t = 13), ℤ₁₁² (t = 21),
+  ℤ₁₅ (t = 11).
+
+**Reading.** The 850 effect did not repeat. The Singer structures of the other targets die on row sums or on
+quotients, and what survives has small or scalar H. Round 23 (§78) turns to the FLC two-level method on the strongest
+cyclic structures instead.
