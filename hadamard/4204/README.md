@@ -52,19 +52,41 @@ exactly. The first solution came 103 seconds after launch; 19 were found, 17 of 
 
 ## Status
 
-**New.** The entry 1051(3) is unresolved in Cati–Pasechnik Table 4, and no later construction was found. Table 4
-already knows 8 · 1051, so doubling settles nothing further. None of the standard recursive constructions applies:
+**New.** The entry 1051(3) is unresolved in Cati–Pasechnik Table 4 (v1 and v2; Handbook Table 1.53 also gives t = 3),
+and no later construction was found. Table 4 already knows 8 · 1051, so doubling settles nothing further. Đoković's
+set Δ and his conversions of 2010 do not contain 1051, and SageMath's development version (20 October 2026) has no
+branch that reaches 4204. None of the standard recursive constructions applies:
 
-- Paley: 4203 = 3² · 467 and 2101 = 11 · 191 are not prime powers.
+- Paley: 4203 = 3² · 467 and 2101 = 11 · 191 are not prime powers. No symmetric conference matrix of order 2102
+  exists, since 2101 is not a sum of two squares.
 - Miyamoto: 1051 ≡ 3 (mod 4).
 - Yamada: it needs a symmetric conference matrix of order 526, which cannot exist, because 525 = 3 · 5² · 7 is not a
   sum of two squares.
 - Kiyasu: q = 1049 ≡ 1 (mod 8), not 5.
 - Product theorems: 4204 ≡ 4 (mod 8).
+- Cooper–Wallis: 1051 is prime, so it needs T-matrices or Williamson-type matrices of order 1051. Neither is known.
+- The block routes of [PALEY_BLOCKS.md](../PALEY_BLOCKS.md) and [MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md): they need
+  4203 a prime or 1051 ≡ 1 (mod 4). Paley's matrix of order 1052 serves n = 263 · t there, not 1051.
 
-The quaternary Hadamard matrix of order 2102 lies above the range of the 1992 table and of Zaitsev et al.'s page. The
-bordered zero-diagonal array is ours (search/NOTES.md §75); credits for the template are as for
-[6796](../6796/README.md#status). The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
+**Credits.** As for [3436](../3436/README.md#status). The bordered zero-diagonal array is ours
+([search/NOTES.md](../../search/NOTES.md) §75). Miyamoto's Corollary 4 at m = 525 would need a quaternary conference
+matrix of order 526 with Cᵀ = C; the core here has Cᵀ ≠ C as built.
+
+**Ingredients.**
+- The quaternary conference matrix of order 526 is new to our knowledge. No real one exists: 525 is not a sum of two
+  squares, and 526 ≡ 2 (mod 4). The families of complex ones need 525 to be a prime power. Fallon and Iverson's
+  ancillary library (arXiv:2610.09169) has a certified conference signal over ℤ₅₂₅, which gives a complex conference
+  matrix of order 526. Its invariants C_ij C_kl C̄_il C̄_kj reach 0.77 from {±1, ±i}, so it is not equivalent to a
+  quaternary one.
+- The quaternary Hadamard matrix of order 2102 lies above Seberry–Yamada's table (N < 1000) and Zaitsev et al.'s page
+  (orders below 2000). Any such matrix gives H(4204) by Turyn's doubling, so none was known while 4204 was open. Its
+  other routes fail: 4203 and 2101 are not prime powers, no Williamson or Williamson-type matrices of order 1051 are
+  known, and ℓ = 1050 lies in neither of Jedwab and Pender's families of quaternary Legendre pairs.
+
+**Risk.** Zaitsev et al.'s page stops below 2000. Middletownbooks/Hadamard does not reach 1051; its open list stops at
+991, and its last commit is of 18 October. The Seberry–Yamada book of 2020 was not read; by Cati and Pasechnik's
+account its Table A.17 also has m > 2 at 1051. Miyamoto's lists of 1991 were not read. The sources searched are listed
+in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 

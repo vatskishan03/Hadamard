@@ -96,9 +96,11 @@ that reaches 6796. None of the standard recursive constructions applies:
   6795 a prime power or 1699 ≡ 1 (mod 4).
 
 **Credits.** The array [[X, Y], [Y*, −X*]] goes back to Seberry and Whiteman (1980, with symmetric circulants) and,
-with zero-diagonal blocks over a group, to Szöllősi (arXiv:2603.09572). The complex Yamada–Kiyasu template is the
-form of Zaitsev et al.'s quaternary matrices QH470 to QH1526, whose page states no method; we found it stated nowhere
-else ([NOTES.md](../../NOTES.md) §31).
+with zero-diagonal blocks over a group, to Szöllősi (arXiv:2603.09572). The complex Yamada–Kiyasu template is the form
+of Zaitsev et al.'s quaternary matrices QH470 to QH1526, whose page states no method; we found it stated nowhere else
+([NOTES.md](../../NOTES.md) §31). Miyamoto's Corollary 4 (1991, as transcribed in the JD-Jones-ASES Hadamard-M note)
+reaches the same orders from a C₂-matrix, which in his displayed form is a quaternary conference matrix with Cᵀ = C;
+the core here is not symmetric, and the template needs no symmetry.
 
 **Ingredients.**
 - The quaternary conference matrix of order 850 is new to our knowledge. Seberry–Whiteman's, the BGW and GC families
