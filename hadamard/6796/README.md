@@ -80,8 +80,10 @@ factor of about 300. The matrix here comes from the first solution.
 
 ## Status
 
-**New.** The entry 1699(3) is unresolved in Cati–Pasechnik Table 4, and no later construction was found. Table 4
-already knows 8 · 1699, so doubling settles nothing further. None of the standard recursive constructions applies:
+**New.** The entry 1699(3) is unresolved in Cati–Pasechnik Table 4 (v2; Handbook Table 1.53 has the same entry), and
+no later construction was found. Table 4 already knows 8 · 1699, so doubling settles nothing further. Đoković's set Δ
+and his conversions of 2010 do not contain 1699, and SageMath's development version (18 October 2026) has no branch
+that reaches 6796. None of the standard recursive constructions applies:
 
 - Paley: 6795 = 3² · 5 · 151 and 3397 = 43 · 79 are not prime powers.
 - Miyamoto: 1699 ≡ 3 (mod 4).
@@ -89,11 +91,23 @@ already knows 8 · 1699, so doubling settles nothing further. None of the standa
   of two squares.
 - Kiyasu: q = 1697 ≡ 1 (mod 8), not 5.
 - Product theorems: 6796 ≡ 4 (mod 8).
+- The block routes of [PALEY_BLOCKS.md](../PALEY_BLOCKS.md) and [MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md): they need
+  6795 a prime power or 1699 ≡ 1 (mod 4).
 
-The complex Yamada–Kiyasu template is not ours (it is the form of Zaitsev et al.'s QH470 to QH1526; see
-[NOTES.md](../../NOTES.md) §31). The quaternary conference matrix of order 850 is new. The quaternary Hadamard matrix
-of order 3398 lies above the range of Zaitsev et al.'s page (orders below 2000) and of the 1992 tables. The sources
-searched are listed in [NOVELTY.md](../../NOVELTY.md).
+**Credits.** The array [[X, Y], [Y*, −X*]] goes back to Seberry and Whiteman (1980, with symmetric circulants) and,
+with zero-diagonal blocks over a group, to Szöllősi (arXiv:2603.09572). The complex Yamada–Kiyasu template is the
+form of Zaitsev et al.'s quaternary matrices QH470 to QH1526, whose page states no method; we found it stated nowhere
+else ([NOTES.md](../../NOTES.md) §31).
+
+**Ingredients.**
+- The quaternary conference matrix of order 850 is new to our knowledge. Seberry–Whiteman's, the BGW and GC families
+  and Et-Taoui's all need 849 to be a prime power. Fallon and Iverson (arXiv:2610.09169) give a complex conference
+  matrix of order 3p + 1 = 850, but its entries are not fourth roots of unity, in any equivalent form.
+- The quaternary Hadamard matrix of order 3398 lies above Seberry–Yamada's table (N < 1000) and Zaitsev et al.'s page
+  (orders below 2000). Any such matrix gives H(6796) by Turyn's doubling, so none was known while 6796 was open.
+
+**Risk.** Zaitsev et al. use the same template and do not date their matrices; their page stops below 2000. The
+Seberry–Yamada book of 2020 was not read. The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 
