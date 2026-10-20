@@ -182,6 +182,25 @@ symmetric matrix); web searches for a symmetric Hadamard matrix of order 260.
   conference matrix of order 850, or states the complex Yamada–Kiyasu template.
 - *Not read.* The Seberry–Yamada book of 2020 and Seberry–Whiteman 1980 itself.
 
+**Orders 3436 and 4204** ([hadamard/3436](hadamard/3436), [hadamard/4204](hadamard/4204)). Checked on 20 October
+2026:
+- *Tables and recursions.* Cati–Pasechnik v1 and v2 (Table 4: 859(3), 1051(3)); Handbook Table 1.53 (t = 3 for
+  both); Đoković, arXiv:0912.5091 and arXiv:1008.2043; Đoković–Golubitsky–Kotsireas, arXiv:1301.3671; SageMath
+  development source of 20 October 2026, read branch by branch, not run (Unknown for both); Seberry–Yamada 1992,
+  Tables A.1 and 11.2.
+- *Conference matrices of orders 430 and 526.* Belevitch's condition; the generalized Paley, Berman, BGW and GC,
+  Seberry–Whiteman (via Egan, arXiv:2309.07522) and Et-Taoui families. Fallon–Iverson's ancillary library
+  (arXiv:2610.09169) has complex conference matrices of both orders, not quaternary in any equivalent form.
+  Miyamoto's Corollary 4 (through the JD-Jones-ASES Hadamard-M note) needs Cᵀ = C.
+- *Recent work.* Zaitsev's page (unchanged since 15 October; 1718 on its unknown list); Middletownbooks/Hadamard,
+  both branches (last commit 18 October; 859 listed as work in progress); the JD-Jones-ASES repositories
+  (unchanged); Schumer's deposit; Zenodo; the arXiv listings of 20 October and the arXiv API to 19 October; the
+  e-print sources of 20 papers of 2026; GitHub code and repository search; Palomar; Balonin's catalogue; web searches
+  for 3436, 4204, 1718, 2102, 859 and 1051.
+- *Finding.* None gives a Hadamard matrix of order 3436 or 4204, a quaternary Hadamard matrix of order 1718 or 2102,
+  or a quaternary conference matrix of order 430 or 526.
+- *Not read.* As for 6796, and Miyamoto's §7 lists. ProofWatch could not be reached.
+
 ## Not checked
 
 - J. Seberry, M. Yamada, *Hadamard Matrices: Constructions using Number Theory and Linear Algebra* (Wiley, 2020):
