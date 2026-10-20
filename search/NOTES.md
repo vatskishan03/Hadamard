@@ -5125,6 +5125,20 @@ less per solution than any join of full-sequence lists, which is what rounds 20 
 - *Why round 21 failed.* Its kt4 join multiplied Gaussian retention guesses for mass-selected full-sequence lists; a
   uniform prefix sample with exactly known coverage calibrates reliably.
 
+**Core 322, n = 643** (`flc161`): no core; a sampled run, so UNKNOWN.
+- *Structure.* ℤ₁₆₁ = ℤ₇ × ℤ₂₃ with ⟨93⟩.
+  - Level 1: the ℤ₂₃ quadruple of X₀ = c₀ + 6u.
+  - Level 2: the signs of the V columns, with Σ PAF_Z = 642 δ for Z = R + i√7 E.
+  - Exact at m = 21 and 35; cores of orders 154 and 182 built as controls.
+- *Estimates* (HEURISTIC).
+  - The level-1 Gaussian is accurate to about 2×. The level-2 Gaussian overestimates completions 5 to 10×, more as p
+    grows.
+  - At m = 161: N₁ ≈ 10^18.4 and E ≈ 10^11, so cores should be plentiful. Completions per instance ≈ 10⁻⁷: about 56
+    free signs against 22 conditions.
+  - 900 instances completed (1 to 10 s each) gave 0.
+- *Lesson.* The split pays when the fibres stay small (FLC: at most about 2²⁰ per block), as at 1051 and 859. With
+  fibres of 2⁴⁸ to 2⁶⁰ it does not.
+
 **Checks.** For both orders:
 - an independent judge rebuilt the cores with its own code and checked K K* exactly;
 - chain.py and a bit-packed checker confirmed H H^T = nI;
