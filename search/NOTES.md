@@ -1527,7 +1527,9 @@ of m), `propus_bgroup.py` (non-cyclic groups: all automorphisms by enumeration o
 M_ij ∈ (n_i / gcd(n_i, n_j))ℤ, cyclic and 2-generated subgroups up to an invariant of the action), verify.py
 construction `propus-bordered`, `border_certify.py`.
 
-**Order 260 (v = 65, the smallest open symmetric order).**
+**Order 260 (v = 65, the smallest open symmetric order).** Settled on October 17 by a quadruple with no multiplier
+symmetry, decoded from Verma's quaternary Legendre pair of length 64 (NOTES.md §32); the structured searches below
+had no chance to find it.
 - ℤ₆₄, direct joins: every multiplier structure with at most 25 orbits is empty (both row patterns).
 - ℤ₆₄, compressions: ⟨31, 33⟩ (25 orbits) has no compatible ℤ₁₆-compression triple for either pattern (ruled out); ⟨17⟩
   (17/32 orbits): pattern (0, 0, 2) has no compatible ℤ₈ triple, pattern (2, 0, 0) has 640 (pair work 5.2 · 10¹⁰; no
@@ -3189,6 +3191,10 @@ skew 940 and 1108.
 - The cyclotomic form of Lemma 26 with a repeated block (`l26_scheme.py`: U_k, V_k in the cyclotomic scheme of GF(p)
   of index e with −1 in the subgroup, v = 2p + 1) gives only p = 5 (v = 11) and p = 13 (v = 27) for p ≤ 400 and
   e ≤ 8, and nothing for 200 ≤ p ≤ 1250 and e ≤ 4.
+- **Afterwards (NOTES.md §31).** The repeated block, and with it the skew-propus quadruple, turned out to be
+  unnecessary: Yamada's data in quaternary form give a symmetric matrix for any skew core. Of the eight values above,
+  295, 679, 823, 1063 and 1495 are now built that way (skew inputs of orders 148, 340, 412, 532 and 748); 1879, 2215
+  and 2359 wait for skew-Hadamard matrices of orders 940, 1108 and 1180.
 
 ## 50. Complex orders 342, 426 and 1558: the low-energy k-tree and the end of the exact sweep (October 14)
 
@@ -3788,3 +3794,1165 @@ much of the collision mass the earlier joins covered: 341 ⟨2⟩, 14196 split v
   with fibres at d = 31 ten times lower). Nothing else on the open list has an estimate above 10^0.5, so the
   Szöllősi arrays, plain and bordered, have no strong structure left on the 115 open orders. The joins were stopped at
   the split values stated above and can be continued from them (`--resume`).
+
+## 60. The largest remaining symmetric classes: what fails (October 17, exploration round 2)
+
+After NOTES.md §30–32 the census has 499 undecided values; the two largest algebraic classes are v ≡ 5 (mod 8) prime
+powers (57 values) and v = q + 2 with q ≡ 1 (mod 8) a prime power (35 values). Four exploration agents attacked them
+and the composite cases; none found a construction. Their exact findings (scripts kept only in the session scratchpad;
+"proved" means a complete CP-SAT run or enumeration):
+
+- **q ≡ 5 (mod 8), order 4q.** The propus-support V-part of NOTES.md §30 (symmetric V of order 4n, V² = qI, support
+  [[I, J, J, 0], [J, 0, I, J], [J, I, 0, J], [0, J, J, I]]) exists for n = 2, 4 (q = 5, 9) and is infeasible for
+  n = 3, 6 and 10 (q = 7, 13, 21; proved). Cyclotomic propus quadruples (Legendre-type A, D, B constant on quartic
+  classes) exist only for q = 5 and 13 among the primes q ≡ 5 (mod 8) below 400, and the quaternary 2-circulant
+  cyclotomic ansatz of order 2q only for q = 5, 13. A ℤ₂²-refined "skeleton" (two complementary-support symmetric
+  weighing matrices plus a conference matrix of order q + 1, which builds symmetric matrices of orders 20 and 36) has
+  no instance at q = 13 in any of its splits (proved, using that every 12 × 8 and 12 × 10 partial Hadamard matrix
+  extends to H₁₂ and that Aut(H₁₂) is 5-transitive on columns). The known symmetric matrices of orders 4q in this
+  class show no structure to generalise: 52 is Paley II, and the propus matrix of order 116 has an automorphism group
+  of order 2.
+- **v = q + 2, q ≡ 1 (mod 8).** In the quaternary template of NOTES.md §31 the cross-block orthogonality forces the
+  core to be a unit times a real matrix, so a real symmetric conference matrix of order (v + 1)/2 is necessary and
+  sufficient there; this is Seberry–Balonin's condition, and the complex Yamada–Kiyasu matrices with quaternary cores
+  (q = 17, 73, 193 tested) have no anti-automorphism. Only 8 of the 35 values (235, 523, 731, 955, 1011, 1491, 1603,
+  2379) have (v − 1)/2 a sum of two squares, so for the other 27 no real conference matrix of that order exists. A
+  ℤ_{q+1}-circulant two-orbit family finds symmetric quaternary matrices at n = 5, 7, 9 by annealing (at n = 9 one
+  that comes from a non-Paley symmetric conference matrix of order 38) and none for n = 15; orbit-reduced CP-SAT with
+  multiplier groups proved infeasibility in many small structures, including n = 117 (v = 235) with four subgroups of
+  order 12.
+- **Composite q.** Theorem A's U-part, Yamada–Kiyasu's (M, N) and Seberry–Balonin's V-part are all equivalent to a
+  symmetric conference matrix C of order q + 1 with a signed permutation R, R² = −I, RCRᵀ = −C (then C = [[M, N],
+  [N, −M]] in a basis (e_x, Re_x)); Paley's matrices have one (x ↦ g/x, g a non-square). The three constructions go
+  through for any such C (checked for random R at q = 5 to 41), so composite values need a conference matrix with R:
+  40 values of Theorem-A type (65, 153, 305, …), 18 of Yamada–Kiyasu type (119, 223, 247, …) and the Seberry–Balonin
+  values would follow; no non-Paley conference matrix with R is known at those orders.
+- **Symmetrization of quaternary arrays.** The array [[X, Y], [−Y*, X*]] of a complementary pair (x, y) becomes
+  symmetric by a monomial diag(Q₁, Q₂) exactly when XQ₁, X*Q₂ are symmetric and YQ₂ = −Q₁ᵀȲ; this gives the propus
+  type (x symmetric, y real, which settled 260: NOTES.md §32), Hermitian or skew-Hermitian y with arbitrary x, and
+  α-twisted pairs for an involutive automorphism α. All were checked exactly on small groups; no published pair of a
+  remaining census order is of these types beyond Verma's.
+- **Zaitsev's matrices.** None of QH130 … QH1526 of the remaining census orders is equivalent to a symmetric matrix
+  (NOTES.md §31).
+
+## 61. Conference matrices for the Seberry–Balonin and Yamada–Kiyasu routes; symmetric structures (October 18)
+
+Brouwer's table (read 17 October 2026) records conference graphs on 117 and 153 vertices (J. Y. Z. Ho, and C. Wang
+for 153, private communications of October 2026), and Verma has a symmetric conference matrix of order 86
+(arXiv:2610.08893: a 12 × 12 array of circulants of order 7 with two border rows, automorphism group C₇ ⋊ C₃ that fixes
+six blocks and permutes the other six in two 3-cycles). A symmetric conference matrix of order 118 would give, by
+Seberry–Balonin's Corollary 1 with q = 233, the symmetric order 940 (v = 235) and, by the Miyamoto blocks of
+hadamard/MIYAMOTO_BLOCKS.md, FRONTIER 2823; with an R-structure (NOTES.md §31) it would also give v = 119 by the
+Yamada–Kiyasu route (skew input of order 60). None of these matrices is public, so we searched for our own (scripts in
+the session scratchpad `conf/`).
+
+- **Block-circulant search** (`bconf2.py`: ℤ_m acting with k regular orbits and F fixed points, every circulant block
+  constant on the orbits of a multiplier group H, row-by-row meet in the middle on the exact correlation conditions,
+  then the fixed rows). Complete, with no solution: order 118 with m = 29, k = 4, F = 2 and |H| = 4, 7, 14; m = 13,
+  k = 9, F = 1 and |H| = 4, 6; m = 39, k = 3, F = 1 and H = ⟨4⟩, ⟨10⟩, ⟨5⟩, ⟨14, 22⟩. Order 154 with m = 17, k = 9,
+  F = 1 and |H| = 8; m = 19, k = 8, F = 2 and |H| = 6, 9; m = 51, k = 3, F = 1 and H = ⟨2⟩. Calibration: the tool finds
+  Paley's matrices (orders 6, 10, 14, 30) at once, but neither order 66 (m = 13, k = 5, F = 1, |H| = 2, 3, 4, 6) nor
+  Mathon's order 46 (m = 15, k = 3, F = 1, |H| = 2, 4; m = 9, k = 5, |H| = 2) has a structure of this kind, so the
+  2026 matrices need either the block-permuting groups of Verma's type or no multipliers at all. Smaller multiplier
+  groups (|H| ≤ 3 on ℤ₁₃ with k = 9 and on ℤ₃₉ with k = 3, |H| ≤ 4 on ℤ₁₇, ℤ₁₉ and ℤ₅₁) exceeded the tool's time or
+  memory.
+- **Block-permuting groups** (`gconf.py`: G = ⟨ℤ_m, (σ, μ)⟩ with σ permuting the blocks, brute force when the free
+  blocks have at most 18 sign bits): order 118, m = 29, k = 4, μ = 2 and σ a 4-cycle (12 bits) or two transpositions
+  (14 bits), and order 66, m = 13, k = 5, μ = 7 and σ a 5-cycle or a 4-cycle: none.
+- **Goldberg's matrices and R.** Theorem A for v = 1225 = 35² (the only census value v ≡ 1 mod 8 with a known
+  conference matrix of order v + 1) needs an R-structure on Goldberg's matrix of order 1226 built from a skew-Hadamard
+  matrix of order 36. On the small members the R-structure fails: the matrix of order 10 (from skew H(4)) has one,
+  the one of order 50 (from Paley's skew H(8)) has anti-automorphisms but no R with R² = −I (its whole signed
+  (anti-)automorphism group, of order 14 112, was scanned), and the one of order 226 (from the doubled skew H(8)) has
+  no anti-automorphism at all (nauty). For 1226 nauty did not finish in 25 minutes.
+
+## 62. Propus-type quaternary pairs, Hermitian types and the chain sweep: round 3 (October 18)
+
+Three exploration agents (search, character sums, Hermitian types) attacked the smallest open symmetric values and the
+q ≡ 5 (mod 8) class through quaternary pairs; nothing was found. Scripts in the session scratchpad `round3/`. A
+*bordered propus quadruple over ℤ_L* below is (p, A, A, q) with p, q symmetric, Σ PAF = −4 off 0 and rows (±2, 0, 0) or
+(0, 0, ±2), equivalently a propus-type quaternary Legendre pair (A real, B symmetric) of length L (NOTES.md §32).
+
+- **Exhaustive census for L ≤ 32** (meet in the middle of balanced A against symmetric (p, q), every candidate
+  rechecked; L = 20 and 12 recounted independently). Normalised counts (p₀ = q₀ = A₀ = 1, unordered {p, q}): L = 4: 4;
+  8: 64; 12: 48; 16: 0; 20: 960; 24: 2688; 28: 0; 32: 18432. A second, independent exhaustive search over all even
+  L ≤ 32 (A up to rotation; checked against a brute force at L = 16, 22, 24) finds A-necklaces with a partner for
+  L = 8, 10, 12, 14, 18, 20, 24, 26, 30, 32 and none for L = 16, 22, 28. So there is no such quadruple over ℤ₁₆ or ℤ₂₈, and
+  hence no uniform algebraic family of length q − 1 for q ≡ 5 (mod 8): q = 17 and 29 already fail, and so does every
+  cyclotomic or Sidelnikov decimation of index e of GF(Q) landing on L = 16 or 28 (e = 1, 3, 4, 5, 6, 7, 10, 12, …).
+  The zeros come from the antipodal compression to ℤ_{L/2}, which is infeasible at L = 16 and 28 only (among L ≤ 148
+  with small divisors). Solutions at L = 20, 24 are mostly unstructured, as is Verma's pair at L = 64.
+- **Jedwab–Pender** (arXiv:2408.08472) Theorem 2(ii) (length (Q − 1)/2) and Theorem 3 (length 2p, Q = 2p − 1) are of
+  propus type (checked through `propus-bordered` for Q ≤ 101 and p = 3, 7); they reach v = (Q + 1)/2 and v = 2p + 1,
+  none of them a remaining census value.
+- **Closed character-sum families** on GF(q)* = ℤ_{q−1} (Möbius-type sums λ(x)ψ(x + 1), class tables of order 2 and 4
+  in (x, x + 1), A-first joins against all symmetric (p, q)): no quaternary Legendre pair at q = 13 (positive control
+  only), 29, 37, 53, 61, 101, 109, 149. Symmetry forces B = const · ψ₄^{±1}(x)χ(x + 1), whose row sum has |Σ B|² of
+  the order of q, incompatible with |Σ A|² + |Σ B|² = 2.
+- **Cyclotomic orbit structures** on ℤ_{kq} (k ≤ 12, q ≤ 199) and on K × GF(Q)⁺ for v = 101, 163, 251, 325, 485, 487,
+  491, 589, 973 (at most 18–22 orbits): nothing beyond v ≤ 21.
+- **Hermitian, skew-Hermitian and α-twisted symmetrizations** (the types of §60). The exact monomials are worked out
+  (twist (α, s): x(−αg) = x(g), y(αg) = s·ȳ(g), Q = diag(P_α, −sP_α); s = −1 is equivalent to s = +1), with a bordered
+  version giving symmetric order 4(l + 1) (checked for Hermitian l = 2, 6, 10, 14 and twisted ℤ₈, ℤ₁₂, ℤ₂₀). Bordered
+  Hermitian pairs over groups of order ≡ 0 (mod 4) do not exist for any abelian group of order 4, 8, 12 or 16
+  (exhaustive); if that holds for all orders ≡ 0 (mod 4) it excludes every v ≡ 1 (mod 4), in particular all 57 values
+  q ≡ 5 (mod 8). At l ≡ 2 (mod 4) the Hermitian counts equal the propus counts. α-twisted bordered pairs exist at
+  l ≡ 0 (mod 4) (ℤ₈, α = 5: 1024; ℤ₁₂: 2304 and 3072; ℤ₂₀, α = 11: 61440). Cyclotomic Hermitian pairs on ℤ_q for the
+  18 census primes q ≡ 5 (mod 8) below 800 (e = 4, 12): none (hits only at q = 5, 13, 61); Paley-product twisted
+  ansätze on ℤ_m × ℤ_p: no family; multiplier-invariant sweeps at census v ∈ [101, 300] (206 structures): none.
+  Lattice-corrected Gaussian estimates leave only v = 101 (bordered ℤ₁₀₀, α = 51: about 2⁴·⁵ expected solutions) and
+  v = 119 (unbordered ℤ₁₁₉, α = 69: 2⁴·²) with E > 1, in spaces of 2²⁰⁰–2²⁵⁰ candidates.
+- **Unstructured search** at the smallest values. A Markov chain over A inside the spectral region, with a cascade of
+  compression tables and an exact lift of the partners (p, q), finds bordered propus quadruples without multiplier
+  symmetry at every L = 34 … 52 tried (orders 140 … 212, all decided; 21 of the 22 found at L = 40 … 48 have trivial
+  automorphism group, so solutions are plentiful and unstructured), and it recovers Verma's (p, q) from his A at L = 64;
+  but its cost grows by about 1.8–1.95 per unit of L (≈ 800 CPU-s per hit at L = 52; Verma's pair was not re-found in
+  1000 CPU-s at L = 64), which puts L = 88, 100, 106 and 118 (v = 89, 101, 107, 119) at 10⁴–10¹⁴ CPU-years.
+  Simulated annealing at L = 100, 106, 118 and on unbordered propus over ℤ₁₀₁, ℤ₁₀₇ stays far from a solution.
+- **Propus chain sweep** (§28, §40) resumed on the composite census values from 445: complete with no solution (every
+  structure with 1–36 orbits) for 445, 473, 485 and 493; 455 and 475 stopped at the 50-minute limit per value; the
+  job was then stopped by the session's time limit before 509.
+
+**Round 4 (October 18): block-permuting groups and an automorphism lemma.** A dedicated engine (orbit classes of
+(i, j, x) under transposition and h = (σ, μ); exact correlation equations; meet in the middle on the base rows,
+forward-checking CSP on the σ-fixed rows, DFS on the moving cycles; scratchpad `round4/blk/`) was calibrated first:
+from Verma's group alone (m = 7, k = 12, F = 2, μ = 2, σ = (6 7 8)(9 10 11)) it rediscovers his order-86 matrix (equal
+to the negative of the published one up to signed permutation, and a rerun found one equivalent to the published
+one itself; its other border pattern is exhaustively empty), and with σ swapping
+blocks in pairs it finds Paley's matrices of orders 30, 42, 54, 62 and a non-Paley matrix of order 38 (which has an
+R-structure). It agrees with an independent CP-SAT model on 64 small configurations.
+
+- **Lemma** (proved, and checked on about 7000 automorphisms of matrices of orders 6–86). If π is a permutation
+  automorphism of order r of a symmetric conference matrix of order n, then for every d | r the number of cycles of π
+  of length divisible by d is even unless √(n − 1) ∈ ℚ(ζ_d) (the trace of C on the ζ-eigenspace is (a − b)√(n − 1) ∈
+  ℚ(ζ)). For n = 118 and 154 an involution has f ≡ 2 (mod 4) fixed points and an element of order 3 has f ≡ 4
+  (mod 6); for n = 118 order 5 needs f ≡ 8 (mod 10) and order 7 needs f ≡ 6 (mod 14). This excludes every ℤ_m-
+  translation structure with 3 | m and one fixed point ((m, k, F) = (39, 3, 1), (9, 13, 1), (3, 39, 1), (117, 1, 1)
+  for 118; (51, 3, 1), (9, 17, 1), … for 154), Verma-like layouts with σ of cycle type 1⁶3 or 3³ and μ of order 3, and
+  most (σ, μ) pairs (201 of 226 for (118; 13, 9, 1), 23 of 36 for (118; 29, 4, 2)).
+- **Exhaustive, no solution:** for n = 118, 35 of the 37 admissible groups with at most 48 free bits in the first
+  row, among them the Verma-type group (13, 9, 1), μ = 3, σ = (3 4 5)(6 7 8) (none of its 31 380 canonical first rows
+  has a compatible second row; CP-SAT agrees), all groups on (29, 4, 2), (59, 2, 0) and (58, 2, 2); open: (13, 9, 1)
+  with μ = 5, σ of type 1·2·2·4 and with μ = 3, σ = id. For n = 154, 144 of 322 admissible groups are settled (no
+  solution), 178 unresolved (the sweep was cut by machine load, not by a finding). So no conference matrix of order
+  118 or 154 with this much symmetry (about 20 or more bits of reduction) exists in the searched families; Ho's and
+  Wang's matrices, if they are of this kind, use weaker symmetry.
+
+## 63. Large fixed sets for q ≡ 3 (mod 4), and bordered propus over the torus (October 18)
+
+Two constructions aimed at classes that Theorems A and B do not reach. Neither works as first posed; the first one
+survives with a non-Paley V (corrected the same day).
+
+**An involution with 2q − 2 fixed points** (`sym_bigf.py`). In Theorem A the involution has 4 fixed points, the
+field part is the U-part and the weighing matrix V of order 2(q − 1) is field-free. The roles can be reversed for
+q ≡ 3 (mod 4). Let H be symmetric of order 4q with a permutation automorphism σ of order 2 that has f fixed points
+and t two-cycles. In the basis (fixed points, first points of the pairs, second points),
+H = [[F, B, B], [Bᵀ, P + V, P − V], [Bᵀ, P − V, P + V]]. Here V is a symmetric weighing matrix of order t and weight q,
+and P is a symmetric signed matrix on the zero set of V. With t = q + 1 the zero set of V is an involution π, P is a
+signed permutation matrix on it, and H² = 4qI becomes
+
+    V² = qI,   BᵀB = (2q − 2) I,   F B = −2 B P,   F² + 2 B Bᵀ = 4q I.
+
+Paley's skew core K and R: x ↦ −x, with −1 at ∞, give V = KR, which is symmetric with π fixing 0 and ∞. The Q-part
+(F, B, P) is field-free: it depends on q only through its size. Changing the sign of P on a pair is the same as
+changing the sign of one column of B, so up to equivalence only the signs at the fixed points of π matter. A search
+with B fixed must still enumerate all of them.
+- q = 3 (order 12): Q-parts exist for π with 2 fixed points (24 of 48 signed patterns) and with 4 (8 of 16). Only
+  the first complete: a symmetric W(4, 3) cannot have zero diagonal.
+- q = 7 (order 28): B is 12 × 8 with orthogonal columns. Such a B is equivalent to 8 columns of Paley's H(12). An
+  independent check (scratchpad `verify53/extension/`) classified the k × 12 partial Hadamard matrices exhaustively,
+  confirmed by a mass formula against a clique count. The class counts for k = 1, …, 12 are 1, 1, 1, 2, 1, 2, 1, 1,
+  1, 1, 1, 1, and every class with k ≥ 5 completes; this is Verheiden's completion of the last seven rows. The check
+  also enumerated the 190080 automorphisms of H(12), whose 95040 column permutations act sharply 5-transitively.
+  With B fixed, each row of F lies in the affine set {x ∈ {±1}¹²: Bᵀx = −2(BP)ᵢ}. Exhaustive over every involution π
+  on the 8 columns and every sign pattern of P (sign changes of P are column sign changes of B, so with B fixed none
+  can be dropped):
+  - Q-parts exist only for π with 0 fixed points (24 of 1680 signed patterns) or 4 fixed points (24 of 13440). There
+    are none for π with 2, 6 or 8 fixed points, so Paley's V never fits.
+  - A symmetric W(8, 7) with zero set π exists exactly when π has 0 or 2 fixed points (exhaustive DFS and CP-SAT).
+  - Hence the completions are exactly those with π fixed-point-free: symmetric Hadamard matrices of order 28 with an
+    involutory permutation automorphism with 12 fixed points exist. An independent check found them by four routes,
+    including two representatives in Valtonen's classification data (arXiv:2608.06920, Zenodo
+    10.5281/zenodo.22671922), and reached at least 8 of the 91 symmetric classes. It also found order 20 with 8 fixed
+    points (q = 5).
+  - The first version of this section said no such matrix of order 28 exists. That version fixed the pair signs of P
+    to +1, which is invalid when B is fixed, and so searched only 1/16 of the patterns. `sym_bigf.py` now enumerates
+    every sign pattern and reproduces the counts above.
+  - So the reversed decoupling fails with V = KR (π fixing 0 and ∞), but not with every Paley-type V. For every
+    prime power q ≡ 3 (mod 4), V_xy = −χ(1 + xy) (x, y ∈ GF(q)), V_x∞ = χ(x), V_∞∞ = −1 is a symmetric W(q + 1, q)
+    whose zero set is the fixed-point-free involution x ↦ −1/x (0 ↔ ∞). This is Paley's core twisted by an element of
+    PSL(2, q) with the signs χ(x), which turn it into an anti-automorphism. Found by a round-7 agent; checked here for
+    q = 3, 7, 11, 19, 23, 31, 43 (an earlier version of this paragraph wrongly argued from unsigned permutations that
+    Paley's core has no such V). So for q ≡ 3 (mod 4) only the field-free Q-part with π fixed-point-free remains: at
+    q = 7 it exists, F = K(−2P ⊕ 2N)Kᵀ/12 with K = H(12) and N a symmetric integer 4 × 4 matrix with N² = 7I. Later
+    sections report on larger q.
+- The other admissible shapes for q ≡ 3 (mod 4) need t ≡ 0 (mod 4), q + 1 ≤ t ≤ 2q − 2, f = 4q − 2t. A symmetric
+  weighing matrix of order t ≡ 2 (mod 4) and weight q needs q to be a sum of two squares. The case f = 0 would be two
+  symmetric W(2q, q) with complementary supports, which this rules out for q ≡ 3 (mod 4) prime. Paley gives V only
+  for t = q + 1.
+- With an order-3 automorphism in addition (the squares of GF(7)* acting on the pairs and every orbit type on the
+  fixed points, with π = Paley's and free signs on the pair orbits), CP-SAT finds no solution for q = 7, consistent
+  with the above (scratchpad `bigf/qinv2.py`).
+
+**Bordered propus over the norm-one torus** (`border_torus.py`). §27 builds symmetric H(4v) from a bordered propus
+quadruple over any abelian group of order v − 1. For v = q + 2 the norm-one torus T ⊂ GF(q²)*, cyclic of order q + 1,
+is the natural group. It acts regularly on the projective line and puts Paley's matrices in two-block circulant
+form. Candidate functions: χ(Tr(αt) + c) and η(t − β), with χ and η the quadratic characters of GF(q) and GF(q²),
+both values taken at a zero.
+- Reductions: η(t − β) = χ(1 + N(β) − Tr(β̄t)), and every χ(Tr(αt) + c) is ± a shift of one with α ∈ {1, z} (z
+  primitive), because GF(q)*·T has index 2. A must be symmetric, so all its shifts are tried.
+- Triples (A symmetric, B, D up to shift) with |Â|² + 2|B̂|² + |D̂|² = 4v exist only at q = 3 and 5 (80 and 32). There
+  are none for q = 7, 11, 13, 17, 19, 23.
+- An independent check over the full families, all α, c, β and fills, with or without symmetry of A, also finds none
+  for every prime 7 ≤ q ≤ 47. It built the §27 matrices of orders 20 and 28 from all the small triples.
+- §27 found the same for character blocks on GF(q)* (v = q), so single quadratic characters do not give bordered
+  propus quadruples on either torus.
+
+## 64. Skew analogues of the decoupling (October 18, exploration round 4)
+
+Theorems A and B split a symmetric matrix along a pair-swapping involution. Three agents looked for skew analogues:
+amicable pairs, automorphisms of order 3, and a direct skew Yamada–Kiyasu. Each claim was checked by two or three
+independent refuters. No census value is settled. Scripts are in the session scratchpad (`skewwf/`).
+
+**No involutions.** A skew-type Hadamard matrix H = I + S admits no signed permutation P with P² = I and
+PHPᵀ = H other than ±I. A two-cycle (a, b) with sign product +1 would give H_ba = H_ab, and a diagonal P with all
+signs equal is ±I. So Aut(H) contains a unique involution, −I, and its Sylow 2-subgroups are cyclic or generalised
+quaternion. Examples: Q₁₆ for Paley's H(8), Q₈ for the Goethals–Seidel matrices over ℤ₇, and only {±I} for some
+Goethals–Seidel skew H(36) over ℤ₉ (a refuter's counterexample to a claimed Q₈ in every such array). The pair
+decoupling of Theorems A, B and of Miyamoto's matrices can never be skew. An automorphism of odd order d cannot
+decouple supports either: on every cycle of length l > 1 a ±1 row has an odd number of entries, so its cycle sums
+never vanish. For an automorphism of odd prime order p with t cycles of length p, t is even unless p ≡ 3 (mod 4) and
+4v − 1 = pk² (character trace argument; checked by CP-SAT for p = 3, 5, 7 at orders up to 36).
+
+**Amicable pairs.** Skew H(4v) = [[I + S, A], [−A, I + S]] holds iff A is symmetric ±1, S is skew ±1 with zero
+diagonal, AS = −SA and A² + SSᵀ = (4v − 1)I (Wallis–Turyn; classical).
+- *Circulant normal form.* For 2 × 2 blocks of circulants over an abelian group of odd order v, every pair has the
+  form A = [[a, b], [b*, −a]], S = [[s, t], [−t*, −s]] with aa* + bb* + ss* + tt* = 4v − 1 and 2as = bt* − b*t. The
+  traceless form is forced: at each character write the blocks in the Pauli basis. The scalar case would put
+  √(4v − 1) or i√(4v − 1) into ℚ(ζ_e), e | v. That is impossible because the odd primes of the square-free part of
+  4v − 1 ramify there; a refuter supplied this step.
+- *Counts over ℤ_v.* v = 3, 5, 7, 9, 11, 13: 48, 160, 112, 0, 880 and 832 solutions; none over ℤ₃². All counts are
+  divisible by 4v, and every solution (2032 in all) builds a skew H(4v), checked exactly.
+- *Paley plus a diagonal.* A = C + Δ with C the Paley conference matrix of order q + 1 works only for q = 5 and 9
+  among q ≤ 17. The search is exhaustive over the balanced Δ for q = 13 and 17, and Δ must be balanced since tr A = 0.
+  At q = 9 the admissible Δ form one orbit of 72: the index-2 cosets of the non-split tori ℤ₁₀. In torus
+  coordinates the ansatz is empty for q = 13, 17, 25, 29, 37 and 41. The trivial character needs t₀² = q − 2m₀,
+  which fails for q = 73, 89, 97, …
+- *Twisted pairs* H = LHR, L ≠ R signed involutions. They decouple H into two eigenspace blocks with MMᵀ = VVᵀ = NI,
+  with entries 0, ±1, ±√2, ±2 where fixed points occur. Corrected by a refuter:
+  - cycles have even length, holonomy −1, and equal 2-adic valuation within one layout;
+  - quartets of half-length w need 2w − 1 to be a square when w is odd;
+  - a path of c vertices has a forced diagonal block of squared norm 1/sin²(π/2c), so c < (π/2)√N.
+  The layouts with exactly four fixed points on each side are four odd paths of one sign: N = 12, 20, 28 and no
+  larger (w = 9 by exhaustive search, w ≥ 11 by the norm bound). Other twisted layouts do exist beyond 28 (12 paths
+  of 3 vertices at N = 36). None reaches the census.
+- *A two-sector arrangement for v = q + 2.* Coefficient matrices over {I, J, M, N, S}, with Yamada's (M, N) and any
+  skew core S, would need W = λXY with λ² = −7/16. That is impossible in ℚ(i), so this fails for every q ≥ 87.
+- *Symmetric matrices are not skew in disguise.* The symmetric matrices of Theorem A (q = 9, 17, 25) and Theorem B
+  (q = 5, 13, 29), Miyamoto's (q = 5, 13, 17) and Paley II (orders 28, 60) are not monomially equivalent to skew-type
+  matrices. Complete searches: `skeweq.c`, and CP-SAT in independent forms. The control, Paley II of order 12, is
+  equivalent.
+
+**Order 3** (the Z₃-gluing theorem). Let H be skew-Hadamard of order 4v with a permutation automorphism σ of order 3,
+f fixed points and t three-cycles, N = f + 3t. Write Z′_ab for the sum of the circulant block (a, b) and
+V_ab = ½ Σ_c h_ab(c) ω^c. Then:
+- either |Z′_ab| = 3 and V_ab = 0, or Z′_ab = ±1 and V_ab = −Z′_ab ω^{k_ab}, with k_ab the position of the minority
+  entry;
+- Q = [[F, √3B], [−√3Bᵀ, Z′]] has Q + Qᵀ = 2I and QQᵀ = 4vI; V has V + V* = I and VV* = vI, so V² = V − vI;
+- k_ba = −k_ab for a ≠ b, and conversely F, B ±1 with these relations rebuild H.
+- Each row of V has exactly v units, so f ≤ v and f ≡ v (mod 3).
+- If t is odd then 4v − 1 = 3s². This is the centred-hexagonal gate of §35–36, now for every order-3 automorphism.
+  Otherwise t is even and the diagonal of V is balanced.
+- For f = 4, F is a skew H(4) and BBᵀ = tI.
+
+So the invariant part fixes the signs of the ω-part. Unlike Theorem A, no input can sit freely in V. Further
+results:
+- Theorem A's block shape (three full blocks and a diagonal one per block row) forces the constant pairs into four
+  cliques K_m.
+- The borders cannot be constant on blocks, by a column-sum budget.
+- Lemma D: V cannot have the form V_kl = D_kl U_l with diagonal D_kl and one free unitary U_l per block column,
+  once m ≥ 3.
+- If the class counts R vanish, or the three off-diagonal blocks have rank-one sign patterns, then m ≤ 4.
+- Skew matrices of orders 28 and 52 with the four-clique shape exist (CP-SAT plus a SAT lift of the phases; a refuter
+  built its own). The shape is specific to Z₃; it is not the support of Theorem A's V, as first claimed.
+- Translation-invariant Goethals–Seidel matrices with a multiplier of order 3 (f = 4) exist for q = 7, …, 43, and
+  their constant pairs never form cliques.
+- The ω-part of a fixed invariant part is not free in practice. Exact counts of completions (raw / up to gauge),
+  reproduced by an independent DFS and a direct CP-SAT model:
+  - Paley's skew matrix of order p + 1 with its multiplier of order 3: 2/2, 24/8, 774/86 and 3834/142 for
+    p = 7, 19, 31 and 43;
+  - Paley(27) with the Frobenius map: 816/272, which form 15 Hadamard classes (11 if H ~ Hᵀ);
+  - the order-52 clique invariant part: at least 57 up to gauge.
+  None of these is parametrised by a Hadamard-type object.
+
+**Direct skew Yamada–Kiyasu.**
+- *Literature.* Yamada's J. Austral. Math. Soc. 46 (1989), Theorems 3–5 (Theorem 4 is Kiyasu's) give ordinary
+  matrices only. No skew version appears in the sources read: Cati–Pasechnik's implementation of every skew
+  construction to order 1208, Momihara–Xiang (arXiv:1801.08776), Karoui (arXiv:2602.16089) and Đoković
+  (arXiv:2301.02751). The known cyclotomic skew families give the orders 2(q^e + 1) and 4(q^e + 1).
+- *Yamada's trimming.* A skew matrix with a 4 × 4 corner and block-constant borders needs v even.
+- *Z[C₃] array.* The pattern with the core in the constant part of one block has a solution at v = 7 (order 28),
+  none at v = 13 (three independent proofs, among them a mod-2 system UNSAT in 0.1 s), and is open at v = 19, 25,
+  where the mod-2 system is satisfiable.
+- *Quaternary route.* A quaternary Hadamard K of order 2v gives a skew H(4v) by Turyn's map when a monomial W makes
+  M = KW twisted-Hermitian, M* = iM + (1 − i)I, and only then. M then has eigenvalues
+  ((1 + i) ± (1 − i)√(4v − 1))/2, each of multiplicity v, and det M = (2iv)^v. Hence a necessary invariant:
+  arg det K ∈ (π/2)ℤ. Zaitsev's QH322 and QH330 are already in this form up to column phases. Their orders, 644 and
+  660, were already settled; a refuter rebuilt both skew matrices. QH214, QH238 and our C214, C238 have none
+  (complete DFS). The invariant excludes QH490, QH610, QH890, QH1066 and QH1690 (v = 245, 305, 445, 533, 845).
+  QH382 and QH470 timed out, and 18 more at open v were not run: round 6 (below) scans them.
+
+**Lead.** 106 open skew census values are v = (q + 1)/2 with q ≡ 1 (mod 8) a prime power, i.e. skew H(2(q + 1)),
+the classical gap between Szekeres (q ≡ 5 mod 8) and Whiteman (q = p^t, p ≡ 5 mod 8, t ≡ 2 mod 4). Round 5 attacks
+it.
+
+## 65. Symmetric matrices of order 4q from an involution with 2q − 2 fixed points: v = 101 and 149 (October 18)
+
+The structure of §63 (H = [[F, B, B], [Bᵀ, P + V, P − V], [Bᵀ, P − V, P + V]]) was pursued in rounds 7 to 9. For
+q ≡ 5 (mod 8) it settles two census values: [symmetric/404](../symmetric/404) and [symmetric/596](../symmetric/596),
+by the construction of [symmetric/PERIODIC_GOLAY.md](../symmetric/PERIODIC_GOLAY.md) (`sym_involution.py`, verify.py
+construction `symmetric-involution`). Four adversarial checks rebuilt both matrices with their own code, and the
+verify.py builder is a third independent implementation. Agents' scripts are in the session scratchpad (`round7/`,
+`round8/`, `round9/`).
+
+**The construction (Theorem F).** Let q ≡ 1 (mod 4) be a prime power and K = [[P, Q], [Q, P]] a Hadamard matrix of
+order q − 1.
+- V is Paley's matrix twisted by the anti-automorphism x ↦ ν/x: V_xy = χ(xy − ν), with zero set the fixed-point-free
+  involution x ↦ ν/x.
+- F = A ⊗ J₂ + Z ⊗ D₂, with A[x, y] = χ(x + y) and Z the permutation x ↦ −x on GF(q)*.
+- B = [𝟙 ⊗ (1, 1)ᵀ | χ ⊗ (1, 1)ᵀ | k_j ⊗ (1, −1)ᵀ], and P = [[0, 1], [1, 0]] ⊕ (−S).
+
+The proof uses only A² = qI − 𝟙𝟙ᵀ − χχᵀ, A𝟙 = −χ, Aχ = −𝟙 (from Paley's C₀² = qI), ZKp = KpS and V² = qI. A sharper
+form (the round-9 agent's "Theorem F+") needs three objects:
+- N, a symmetric W(q + 1, q) whose zero involution has exactly two fixed points (here N = C₀ composed with x ↦ −x,
+  with A its restriction to the other points);
+- V, any symmetric W(q + 1, q) whose zero set is a fixed-point-free involution;
+- the input K.
+No relation between N and V is needed, so prime powers are used only to obtain N and V.
+
+**The input and its obstruction.**
+- *Lemma H.* Let K be a Hadamard matrix of order 4w, w odd, with RK = KC for a fixed-point-free symmetric signed
+  involution R and any symmetric signed involution C. Then w is a sum of two squares. The rational forms
+  m(⟨1⟩^{g} ⊕ ⟨2⟩^{p}) and ⟨1⟩^{f} ⊕ ⟨2⟩^{p′} must be isometric, and for fixed-point-free R this reduces to
+  ⟨w⟩ⁿ ≅ ⟨1⟩ⁿ, n = 2w. That fails at any prime ≡ 3 (mod 4) dividing w to an odd power, by its Hasse invariant.
+- For K = [[P, Q], [Q, P]] the lemma is the classical condition on W(2w, w), with X = (P + Q)/2 and Y = (P − Q)/2
+  complementary weighing matrices.
+- Of the 57 census prime powers q ≡ 5 (mod 8), 44 fail it.
+- Every Paley-type combination of N and V (from C₀ with k = q + 1 fixed points, V₀ with k = 0, V₂ with k = 2, and,
+  for square q, the field-automorphism matrices with k = √q + 1) was listed. For non-square q they need either this
+  K or a Theorem-A input (a Hadamard matrix of order (q − 1)/2), so for q ≡ 5 (mod 8) there is no way around Lemma H
+  with Paley-type parts.
+- Escaping it would need a symmetric W(q + 1, q) whose zero involution has 4 or 6 fixed points. None exists at q = 13
+  (exact, using the uniqueness of the conference matrix of order 14), and none occurs among Paley-type matrices. Also
+  proved: no symmetric W(q + 1, q) has q − 1 fixed points for q ≡ 1 (mod 4) (Lemma V1).
+- The zero-involution spectra of V = C₀G (G a signed automorphism) are q = 5: {0, 2, 6}; 9: {0, 2, 4, 10};
+  13: {0, 2, 14}; 17: {0, 2, 18}.
+
+**K from periodic Golay pairs.**
+- A periodic Golay pair (a, b) over an abelian group Γ of even order n gives K. In [[A, B], [−Bᵀ, Aᵀ]] the
+  translation by an element of order 2 is a fixed-point-free involutory automorphism.
+- Conversely, every K the agents found whose blocks are group matrices gives a periodic Golay pair over ℤ₂ × G from
+  its top block row, with a = (A + C) + (A − C)t and b = (B + D) + (B − D)t.
+- Found (exact checks):
+  - K for w = 5, 9, 13, 25, 37, 41, 61, 113 by class-constant searches over GF(w), with A, B, C, D ternary and constant
+    on cosets of a subgroup of GF(w)* (for w = 37 with H = ⟨10⟩ of order 3, 35328 pairs);
+  - K for w = 37 also from Đoković–Kotsireas's published pair of length 74.
+- Census lengths: 2w = 50 and 74 settle q = 101, 149. 194 (q = 389) is undecided in Đoković–Kotsireas's list. 386, 410,
+  554, 746, 810, 866, 986, 1098, 1154 and 1170 are beyond published searches, and cyclic pairs of length 810 are
+  excluded by Arasu–Xiang.
+- Exhaustive class-constant negatives, all with no rows:
+  - w = 97, 193, 277, 373, 433 and 577 at the class indices e ∈ {2, 3, 4, 6, 12} that divide w − 1 (and e = 8 for 97);
+  - multiplier-orbit structures with at most 13 orbits for n = 205, 405, 493, 549 and 585, and 14–15 orbits for
+    n = 205 and 405.
+- Paley's matrices give no K. Paley I and II have no fixed-point-free involutory automorphism pair except for orders
+  4 and 8 (nauty, full signed groups). In particular, for the Paley conference matrices of orders 6, 10, 14, 18, 26 and
+  50, no element of PΣL(2, q′) lifts to a signed automorphism R with R² = −I, which would make R ⊗ [[0, 1], [−1, 0]] such
+  an involution of Paley II. The lead's check covers the 15600 and 117600 elements for q′ = 25 and 49.
+- My own quick search found no cyclic pair of length 50 invariant under multiplier subgroups of order 4, 5, 10 or 20.
+
+**Other findings of rounds 7–8 (q = 1 mod 4).**
+- The round-7 τ-reduction (F = [[A + Z, A − Z], [A − Z, A + Z]] with A of order q − 1) built H(20), H(36) and H(68).
+  It cannot reach q ≡ 5 (mod 8), q > 5:
+  - Z = I is impossible for q ≡ 1 (mod 4), by a mod-4 integrality argument on (J − I − S)/2;
+  - a Hadamard matrix whose columns are ±1 eigenvectors of a signed involution Z needs Z = ±I or Z fixed-point-free,
+    and the latter needs a Hadamard matrix of order (q − 1)/2.
+- Parity lemma: every automorphism eigenvalue ζ with √q ∉ ℚ(ζ) has even multiplicity on the Q-part. In particular no
+  abelian group of order q − 1 acts regularly on the fixed rows.
+- At q = 13 there is no Q-part with a compatible V among the F invariant under free two-orbit actions of ℤ₁₂, ℤ₂ × ℤ₆,
+  D₁₂ and A₄ (Dic₃ admits no F), nor under any regular action of the 15 groups of order 24.
+- At q = 13 a non-commuting symmetric ternary A′ with A′² = 13I − G (G of rank 2) exists, but none of its 64 sign
+  patterns gives a frame. Signature (6, 8, 0) is undecided (UNKNOWN at 2400 s). The general q = 13 problem is open.
+
+**q ≡ 3 (mod 4).** The V-part exists for every prime power (§63: V_xy = −χ(1 + xy)). The Q-part does not: there is
+none at q = 11 for any π, so the structure gives no family for q ≡ 3 (mod 4) (§66).
+
+## 66. Negative results of rounds 4 to 10 (October 18)
+
+None of these searches settled a census value. Each is recorded with its exact scope, so that it is not repeated.
+"None" means exhaustive within the stated structure. Partial and timed-out runs are marked. The agents' scripts and
+logs are in the session scratchpad (`round4/decq/`, `round5/skew2q2/`, `round8/`, `round10/`).
+
+**Decoupled symmetric H(4q) with a regular group on the blocks (round 4).** This is Theorem A's shape: four fixed
+points and four blocks of n = (q − 1)/2 pair points. A group G of order q − 1 acts regularly on each block, and B is
+constant on blocks. Only two types occur: Type I (G = ℤ₂ × ℤ_n, V circulant) and Type II (G = ℤ_{2n}, V
+negacirculant). A mixed type would give a row of Z of weight ≥ 2n.
+- For non-square q and n ≥ 3:
+  - bbᵀ = 4I and F² = 4I;
+  - every nontrivial character block has trace 0, so up to the stabiliser of b, b is Sylvester's H(4) and F is fixed;
+  - at each real character, Ĥ(χ)/2 is a symmetric integer matrix with square qI.
+- Solutions that are not Paley II exist:
+  - a symmetric H(44) (Type II, |Aut| = 160);
+  - five inequivalent H(52) besides Paley II(25): one of Type I (|Aut| = 576) and four of Type II (384, 192, 96, 96).
+- Paley II with 2q − 1 a prime power is of Type II (checked for q = 5, 7, 13, 19, 37, 61).
+- q = 17: neither type (SAT; Type I with a DRAT certificate).
+- q = 29, Type I: impossible by a finite parity argument, confirmed by CP-SAT and a full SAT model.
+  - The three real-character matrices must be among 16 symmetric integer 4 × 4 matrices with M² = 29I.
+  - These fall into 4 classes mod 2, and no three of them sum to J mod 2 as the cell parities require.
+- q = 29, Type II: undecided. 96 level-1 classes survive, 69 of 74 symmetry templates are UNSAT, and the menu of
+  quadratic-cyclotomic sequences over GF(29) is UNSAT.
+- Not covered: signed actions (negacyclic Z), and invariance of the Q-part alone.
+
+**The structure with 2q − 2 fixed points, q ≡ 3 (mod 4) (round 8).** §63 left q = 7 as the only Q-part with π
+fixed-point-free.
+- q = 11: there is no Q-part for any involution π, any sign pattern of P and any B.
+  - The 20 × 12 matrices B with orthogonal columns were classified into 235 classes. Every level k = 1, …, 20 was
+    checked against a mass formula with nauty group orders.
+  - Two independent programs (Python and C++) find no F for any class (22478 leaves).
+  - So no symmetric H(44) has an involutory permutation automorphism with 20 fixed points.
+- Exhaustive counts of sign patterns of P that admit an F, by the number of fixed points of π (patterns / (P, F)
+  pairs, over the classified B):
+
+  | q | 0 | 2 | 4 | 6 | 8 | 10 |
+  |---:|---|---|---|---|---|---|
+  | 3 | none | 24/24 | 8/8 | | | |
+  | 5 | 32/64 | 24/48 | 24/48 | 8/16 | | |
+  | 7 | 24/96 | none | 24/96 | none | none | |
+  | 9 (30 classes of B) | 108/4576 | 700/5184 | 828/3294 | 434/4534 | 120/1322 | 102/438 |
+  | 11 (235 classes) | none | none | none | none | none | none |
+
+- The q = 7 Q-part is unique up to equivalence, and its automorphism group has order 4 (with −I).
+- *Parity theorem.* For q ≡ 3 (mod 4), no fixed-point-free Q-part is invariant under a group of odd order with as
+  many row orbits as column orbits. This rules out the natural GF(q)-equivariant ansatz (ℤ_{(q−1)/2} with four
+  regular row orbits) for every q ≡ 3 (mod 4).
+- Q-parts with an involutory automorphism of the q = 7 type: none at q = 11, 15 or 19 (exact).
+- So the route gives no family for q ≡ 3 (mod 4). The general problem is undecided for q = 19, 23, ….
+
+**Order-3 automorphisms (round 8).** These are symmetric H(4v) with a permutation automorphism of order 3, f fixed
+points and t three-cycles. In the decoupled form the invariant part is a Q-part and the ω-part is a Hermitian U.
+- Every parity-admissible (v, f) with 7 ≤ v ≤ 13 occurs, with exact matrices (all known orders): (7, 4),
+  (9, 0, 3, 6 or 9), (11, 2), (11, 8), (13, 4), (13, 10).
+- *Lemma R.* If U is gauge-real, then f ≤ v − √v. So t = v + 1 needs a genuinely complex U once v ≥ 10, as at
+  (11, 8) and (13, 10).
+- The f = 2 shape invariant under ℤ_q × ℤ₃ (a symmetric Legendre-type pair of length 3q):
+  - it exists for q = 3, 5, 7 and 11 (orders 20, 32, 44, 68);
+  - none at q = 15 (exhaustive, two exact lifters);
+  - at q = 19 only 28 of 82 orbit representatives were completed, and none of those lifts.
+- Index-6 cyclotomic Hermitian U-parts over ℤ_q: only the real (Paley) type, for all 59 primes q ≡ 1 (mod 6) up to
+  691.
+- A rational (Hasse) test of the Q-part form removes no parity-admissible (v, f) for any of the 499 census v undecided
+  at the time.
+
+**Skew H(2(q + 1)) for q ≡ 1 (mod 8) (round 5).** 106 skew census values have v = (q + 1)/2 with q ≡ 1 (mod 8) a
+prime power. The two-block families of Szekeres, Whiteman and Momihara–Xiang need q = pⁿ with p ≡ 5 (mod 8), and
+none of the 106 has that form.
+- Szekeres-type pairs (a skew, both a and b unions of cosets of an odd-order subgroup of GF(q)* of index e, in the
+  bordered two-block array), e ∈ {8, 16, 24}:
+  - they exist iff q = p^{2k} with p ≡ 5 (mod 8);
+  - exhaustive for every prime power q ≤ 5000, every prime q ≤ 119993 and every composite prime power q ≤ 40000;
+  - this covers the census q with v₂(q − 1) = 3 or 4 (51 and 27 values).
+- e = 32: none for the 22 prime powers q ≡ 33 (mod 64) up to 5000. These include all 15 census values with
+  v₂(q − 1) = 5.
+- e = 64 with b = a ∘ μ (the form of every known solution): none for q = 449, 577, 961.
+- Torus subgroups for the 9 composite census q: none.
+- For q ≡ 1 (mod 8), the Bose-quotient relative difference set behind Spence's construction has symmetric halves.
+  So that route gives no skew first block.
+- Not covered: the other values with v₂(q − 1) ≥ 6, larger e, and non-multiplier groups.
+- Heuristic: a count makes two-block pairs over GF(q) unlikely for q above about 82 unless they are algebraic, while
+  Goethals–Seidel over ℤ_v has a large expected count.
+
+**Twisted-Hermitian quaternary matrices (rounds 6 and 8).** §64's quaternary route was applied to all 27 open skew
+census values that have a published or repository quaternary Hadamard matrix of order 2v:
+- Zaitsev's QH at v = 107, 119, 191, 235, 245, 269, 283, 295, 305, 445, 509, 571, 653, 655, 679, 731, 733, 779, 787,
+  823, 853, 857, 883, 941, 943;
+- our C214, C238 and C382, and C1618 and C1906 (v = 809, 953).
+
+None is monomially equivalent to a twisted-Hermitian M.
+- 24 values were settled by a complete scan of the pairing equation (every c₀ and both parities e₀).
+- v = 245, 305 and 445 were settled by invariants: det K must be a unit times (2v)^v, and rank_𝔭 K = v at every prime
+  𝔭 above each prime dividing v.
+- An independent numpy solver agrees on the eight matrices of order ≤ 590 it was run on.
+- The positive controls QH322 and QH330, scrambled, are found.
+
+**K = [[P, Q], [Q, P]] for the eleven remaining q of §65 (round 10).** Theorem F needs K of order 4w,
+w = (q − 1)/4 ∈ {97, 193, 205, 277, 373, 405, 433, 493, 549, 577, 585}.
+- *Reduction.* Let G be a group of order w. A K whose blocks are 2 × 2 arrays of G-circulants exists iff two ternary
+  rows (A, B) with AA* + BB* = w and complementary supports exist. That holds iff a periodic Golay pair over ℤ₂ × G
+  exists. For prime w, ℤ_w-invariance forces this 2 × 2 shape.
+- *Lemma S.* For a prime p ≡ 1 (mod 4) there are no symmetric ternary A, B over ℤ_p with AA* + BB* = p.
+  - Proof. At a nontrivial character, z = Â + iB̂ lies in L = ℚ(ζ_p)⁺(i) and z z̄ = p. Write p = ππ̄ in ℤ[i]. Both
+    primes of ℚ(i) above p are totally ramified in L.
+  - Modulo them, z reduces to s_A ± ιs_B, where s_A, s_B are the sums with s_A² + s_B² = p. Exactly one of the two
+    vanishes, so (z) = πO_L or π̄O_L.
+  - Hence z/π or z/π̄ is a unit of absolute value 1 in a CM field, so a root of unity, so in μ₄.
+  - So Â is a rational constant c with |c| ∈ {a, b} (p = a² + b²) at every nontrivial character, and
+    A = cδ₀ + κJ. That is not ternary for p > 5. p = 5 was checked directly.
+  - Exhaustive searches for p ≤ 41 agree. We have not checked whether the lemma is in the literature.
+- Consequence of Lemma S: a block constant on the cosets of H ∋ −1 is symmetric. Every subgroup of even order of
+  GF(p)* contains −1, so a class-constant K for prime w needs a multiplier group H of odd order. This explains all
+  of round 9's negatives (§65).
+- *Lemma T2.* A block constant on the cosets of H has sum ≡ A(0) ∈ {0, ±1} (mod |H|). So with w = a² + b², both a
+  and b are in {0, ±1} mod |H|. For w = 97, 193, 277, 373, 433 and 577 only |H| ∈ {1, 3} survives.
+- w = 97 (q = 389), the twisted shape b(x) = (−1)^x a(gx) over ℤ₂ × ℤ₉₇ (a constant on the cosets of H of order 3,
+  g = r⁸):
+  - exhaustive meet-in-the-middle (3.24·10⁷ table entries, 1.04·10⁹ probes): no solution;
+  - the same code finds twisted pairs at w = 5, 13, 17, 29, 37, 41, 61, 101, 113;
+  - the untwisted shape with |H| = 3 (2¹³² candidates) is out of reach, and a heuristic count suggests 10⁰ to 10³
+    solutions.
+- w = 205 (q = 821): none of the 24 multiplier subgroups of ℤ₂₀₅* with at most 25 orbits admits a ternary row, and the
+  central class functions of ℤ₄₁ ⋊ ℤ₅ give none.
+- Kronecker and quaternion products of smaller inputs never give ternary rows of odd composite length.
+- Every known periodic Golay pair of length 2p with multiplier symmetry (Đoković–Kotsireas, lengths 74, 82, 122, 202,
+  226) has |H| odd. Periodic Golay pairs of length 194 are undecided. The agent cites Lumsden–Kotsireas–Bright
+  (arXiv:2408.15611) for 106 as the smallest undecided length; we did not check this.
+
+**Symmetric multipliers of the propus array for t = 25 (§49).**
+- A direct CP-SAT search over the symmetric parts of ℤ[ℤ₂₅] and ℤ[ℤ₅²] is UNKNOWN after 2400 s each.
+- No factorised multiplier M = M₂M₁ through ℤ₅ exists. The trivial character forces det(M₁)² c′₁c′₂c′₃ = 250 for the
+  intermediate form C′, so c′₁c′₂c′₃ ∈ {10, 250}. For none of these C′ is there an M₁ over ℤ[ℤ₅] with
+  M₁ᵀC′M₁ = 5C (scratchpad `bigf/tfactor.py 5 250`).
+
+**Paley's skew set as the repeated propus block, q ≡ 3 (mod 4).** In the second propus form of §17 (only A
+symmetric), put B = C = I + Q, with Q Paley's skew core over ℤ_q (q ≡ 3 mod 4 prime). The known matrix with v = 43
+has this B.
+- BBᵀ = (q + 1)I − J, so the condition becomes PAF_A + PAF_D = 2 off 0 with A symmetric: a D-optimal pair over ℤ_q
+  with one symmetric member.
+- The row sums satisfy s_A² + s_D² = 4q − 2, so 2q − 1 must be a sum of two squares. That leaves 35 census prime
+  powers q ≡ 3 (mod 4): 163, 167, 223, 239, 283, 343, 491, ….
+- Exact counts with A on the orbits of ⟨H₀, −1⟩ and D on those of H₀ (|H₀| = m odd; scratchpad `paleyprop/ppc.c`):
+  - solutions: q = 7, m = 1: 56; q = 19, m = 1: 912; q = 19, m = 3: 48; q = 31, m = 5: 24; q = 43, m = 7: 24. The
+    matrices of orders 76, 124 and 172 were built and checked.
+  - none for q = 23 (m = 1, exhaustive), 31 (m = 3), 43 (m = 3), 59 (29), 79 (3, 13), 103 (17), 127 (7, 9),
+    131 (13), 139 (23).
+- None in the 64 structures with D on at most 19 orbits for the 35 census values.
+- For q = 163 and 167, D-optimal designs of orders 326 and 334 are themselves open (§25). So there the route is at
+  least as hard as those problems.
+
+**Quadratic characters on the norm-one torus give no periodic Golay pairs.** On the torus T ⊂ GF(p²)* of order p + 1
+(p = 17, 73, 89, 97), the sequences χ(Tr(αt) + c) and χ(N(t − β)), with every fill of their zeros, contain no
+periodic Golay pair (exact matching of autocorrelations). §63 found the same for bordered propus. So the torus gives
+no K for Theorem F through a prime q′ = 2w − 1, although q′ is prime for w = 97, 205, 405, 549 and 577.
+
+## 67. Four fixed points for q ≡ 3 (mod 4), symmetric orthogonal designs, PGP(194) (October 18, rounds 8 and 11)
+
+No census value is settled here. Scripts are in the session scratchpad (`round11/q3/`, `round11/pgp194/`,
+`round8/symod/`).
+
+**Involutions of the symmetric H(28).** Valtonen's 91 classes, expanded over their polarities, give 168 conjugacy
+classes of symmetric matrices (1958 polarities, matching his file).
+- Permutation involutions have f = 4 (24 classes) or f = 12 (24 classes), never both in one class.
+- Elements of order 3 always act as 1⁴3⁸. Orders 7 and 13 occur only in a few classes (Paley II(13) and the symmetric
+  form of Paley I(27)).
+- No element of projective order 4, 5, 9 or 21 occurs, and no signed automorphism squares to −I.
+
+**Theorem G (four fixed points).** Let n be odd, q = 2n + 1, and Q the core of a conference matrix of order n + 1 (Q
+symmetric if n ≡ 1, skew if n ≡ 3 (mod 4)). Let A, B be commuting symmetric matrices of order n, A with entries ±1,
+B with zero diagonal and ±1 elsewhere, and A² + B² = (q − 2)I. Then
+- P = [[0, a₁Q, eI, a₂Q], [a₁Qᵀ, d₁I, a₃Q, 0], [eI, a₃Qᵀ, 0, a₄Q], [a₂Qᵀ, 0, a₄Qᵀ, d₃I]] with fixed signs has
+  P² = qI − 2 I₄ ⊗ J;
+- V = [[A, I, B, I], [I, −B, I, −A], [B, I, −A, −I], [I, −A, −I, B]] has V² = qI and the complementary support;
+- with B₀ a Hadamard matrix of order 4 and F = −½B₀PₐB₀ᵀ, the decoupling of §63 (f = 4, t = 2q − 2) gives a symmetric
+  Hadamard matrix of order 4q.
+Facts about it:
+- Built and checked exactly for q = 7, 11, 15, 19, 27, 31, 39, 63, 75 (the lead re-checked the matrices). The
+  "sporadic" decoupled H(44) of round 4 (§66) is the case q = 11.
+- (A, B) is a symmetric conference matrix of order q − 1 with a skew anti-automorphism (Yamada's circulant pairs when q − 2
+  is a prime ≡ 1 (mod 4)). So for n ≡ 3 (mod 4) the inputs are those of the symmetric Yamada–Kiyasu construction
+  (symmetric/YAMADA_KIYASU.md), and for n ≡ 1 (mod 4) those of Seberry–Balonin's conference-core corollary.
+- It reaches no census value: the 41 open v ≡ 3 (mod 4) with v − 2 a prime power all lack the core of order (v + 1)/2.
+- Necessity within this skeleton: any V completing such a P contains a conference matrix of order q − 1, so q − 2
+  must be a sum of two squares. With Paley II (2q − 1 a sum of two squares), 39 of the 97 open prime powers
+  q ≡ 3 (mod 4) fail both: 107, 179, 251, 311, 347, 359, 419, 599, ….
+- Other proved obstructions:
+  - A bipartite P (for example the Jacobsthal core of GF(q)* doubled) needs a Hadamard matrix of order q − 1, so the
+    GF(q)-natural Q-part cannot be completed.
+  - A 4 × 4 array of blocks in span{I, J, Q_GF(q)} exists only for q = 3.
+  - An array of eight blocks in span{I, J, Q_GF(n)} is impossible for n ≥ 9.
+- At q = 23 the ℤ₂₂-regular structure with any of 32 involutory symmetry templates is UNSAT. The generic structure
+  there is UNKNOWN.
+- Symmetric H(4q) with a fixed-point-free anti-automorphism R (R² = −I, RHRᵀ = −H) are exactly the Turyn images of
+  complex-symmetric quaternary Hadamard matrices of order 2q. 74 of the 168 classes of order 28 have one.
+
+**Symmetric orthogonal designs OD(4t; t, 2t, t)** (round 8). These would serve as symmetric plug-ins of §32 for odd t.
+- t = 3: none (28 CNFs, each with a verified DRAT proof; already the mod-4 relaxation is UNSAT).
+- t = 5: none, by an exhaustive case split over the 256 conjugacy classes of symmetric W(20, 5). 248 cases are
+  DRAT-certified; classes 174, 188, 189, 190, 253 and 255 rest on single kissat runs, and 252 and 254 on cube splits.
+- t = 4: an exact OD(16; 4, 8, 4) was found.
+- No rational obstruction exists for (5, 10, 5), so the obstruction is integral.
+- Among the other symmetric OD(12; a, b, c), only (9, 2, 1), (8, 2, 2) and (5, 5, 2) exist (two encoders agree; no
+  proofs).
+
+**PGP(194), the untwisted |H| = 3 family** (§66). Still UNKNOWN.
+- The symmetries force the sums (13, 5, 13, −5), and the family has 31 independent equations in 132 bits.
+- Kissat (sorting-network encoding) and CP-SAT already fail on the 52-variable analogue (37, 3), which tabu search
+  solves in 0.2 s. Tabu search solves analogues up to (113, 7). At w = 97, a 3600 s kissat run, six cube runs and
+  3.3·10⁸ tabu steps (best energy 224) found nothing; both methods extrapolate to 2⁶³–2⁶⁷ steps.
+- A heuristic count predicts 1 to 6 equivalence classes. The decisive route is an exhaustive row enumeration with
+  canonical rotations (about 6.5·10¹² nodes, 8–14 core-days, then the support join). The same scheme would settle
+  (73, 3) in about a core-hour.
+
+**Composite w for Theorem F (round 11).** Scratchpad `round11/kcomp/`. No K = [[P, Q], [Q, P]] was found for
+q = 821, 1621, 1973, 2197 or 2341 (w = 205, 405, 493, 549, 585).
+- Scope: every abelian G of order w and every conjugacy class of subgroups H ≤ Aut(G) acting with at most N orbits.
+  In that scope no H-invariant ternary row (A, B) has AA* + BB* = w. So no partner rows exist, and no K of the
+  group-circulant X/Y shape.
+- N per group: ℤ₂₀₅ 33; ℤ₄₀₅ 33; ℤ₂₇ × ℤ₃ × ℤ₅ 26 (and most classes with 27 to 32 orbits); ℤ₉ × ℤ₉ × ℤ₅ 25;
+  ℤ₉ × ℤ₃ × ℤ₃ × ℤ₅ 23 (lattice truncated at 36 orbits); ℤ₃⁴ × ℤ₅ 26 (seven overgroup families only); ℤ₄₉₃ 43;
+  ℤ₅₄₉ and ℤ₃ × ℤ₃ × ℤ₆₁ 36; ℤ₅₈₅ 31; ℤ₃ × ℤ₃ × ℤ₅ × ℤ₁₃ 29.
+- Methods, all exact: the trivial-sum test (407 classes), compression onto coprime quotients with an exact join
+  (4386 classes) and full row enumeration with exact spectral pruning (1397 classes). The calibrations at w = 9, 25
+  and 45 have rows and K in many classes.
+- The smallest open classes (ℤ₂₀₅ and ℤ₄₀₅ with 42 orbits, ℤ₅₄₉ with 39, ℤ₄₉₃ with 44) need more than 3·10⁷ rows in
+  their first branch. The non-abelian group ℤ₄₁ ⋊ ℤ₅ and twisted shapes over non-cyclic G were not tried.
+
+## 68. A symmetric conference matrix as the outer design: v = 153, 325, 435, 1225, 1891; q = 13 without K; chain sweep to 2499 (October 19, rounds 12 and 13)
+
+**Theorem K** ([symmetric/CONFERENCE_PLUG.md](../symmetric/CONFERENCE_PLUG.md), `sym_conference_plug.py`, verify.py
+construction `symmetric-conference-plug`). Let C = [[0, eᵀ], [e, Q]] be a symmetric conference matrix of order n and
+m = n − 1. Put X = [[J, J], [J, −J]] and Y = [[Q + I, Q − I], [Q − I, −Q − I]]. Then H = I ⊗ X + C ⊗ Y is a symmetric
+Hadamard matrix of order 2n(n − 1): X and Y anticommute, and X² + mY² = 2m(m + 1)I.
+- It is Turyn's symmetric image of Kharaghani–Seberry's complex Hadamard matrix I ⊗ J + C ⊗ (Q + iI) (Seberry–Yamada
+  1992, Theorem 11.14, Corollary 11.15), which is complex-symmetric.
+- It settles the census values v = q(q + 1)/2 for q = 17, 25, 29, 49, 61 (orders 612, 1300, 1740, 4900, 7564). They
+  are New, but obtainable classically. q = 37 gives a second matrix of order 2812.
+- In this scheme (commuting design, anticommuting plugs) the plug order 2k must satisfy k ≥ n − 1 unless k = 1 (Paley
+  II). So nothing below v = n(n − 1)/2 is reachable.
+- The dual scheme (anticommuting design, commuting plugs) is the m(m − 1), m(m + 3) plug-in of §31–32.
+- Found by the round-13 recursive-constructions lens (scratchpad `round13/rec/`). The builder in verify.py is
+  independent of the agent's. The prime cases have the agent's SHA-256; the GF(25) and GF(49) cases differ only by the
+  field encoding.
+
+**q = 13 without K** (round 12, scratchpad `round12/q13/`). The structure of §63 with f = 24 and t = 14 exists at
+q = 13, where Lemma H forbids Theorem F's input.
+- Classification of the 24 × k matrices B with orthogonal columns: complete without pruning for k ≤ 9 (1, 1, 1, 4, 5,
+  31, 274, 7990, 165596 classes). From k = 9 on it uses two proved hereditary conditions on the rows of B (agreement
+  ≤ 12, and a triple-type bound ≤ 6), and the mass formula is exact at every level.
+- 2972745 classes at k = 14 pass these conditions, and 2833 pass a clique test on the possible rows of F.
+- Exact Q-part search over them (C++, calibrated on the §66 table for q = 5, 7, 9, 11; a second solver for the k = 14
+  case and a Python solver for k = 2 agree): Q-parts exist for k = 14 (V = Paley's C₀, P diagonal) and k = 2
+  (V = C₀R). There are none with k = 0, the exact shape of Theorem F.
+- That gives 284 Q-part classes and symmetric H(52) with an involutory automorphism with 24 fixed points.
+- They are sporadic: the automorphism groups have order at most 12 (A₄), and there is no field structure. The only
+  recurring symmetry is ℤ₃, acting on PG(1, 13) as ⟨3⟩. The ℤ_m ansatz with m = (q − 1)/4 that it suggests for the 44
+  census values is untested beyond m = 3.
+- Two independent refuters confirmed the matrices with their own code. They rebuilt H from the construction data, and
+  all 284 classes assemble with no failure. They also re-derived the pruning conditions and re-solved one B class
+  exactly. They did not re-run the pruned classification, which rests on the claimant's exact mass-formula logs.
+- Q-parts with k = 4, 8, 10 and 12 also exist (chunk 21), but no symmetric W(14, 13) has such a zero involution
+  (exactly k ∈ {0, 2, 14}, assuming the uniqueness of the conference matrix of order 14).
+
+**Chain sweep over composite v from 495 to 2499** (round 12, scratchpad `round12/chain/`). Scope: freeD propus, −1 ∉ H,
+at most 40 orbits per block; 9262 structures over the 316 composite census values (6231 cyclic, 69 needing three
+generators, 2962 over ℤ_p × ℤ_p × ℤ_m).
+- 4793 structures have an empty row-sum pool (proved), and 1588 were joined completely with no solution.
+- 101 values are excluded in this scope: 97 by pools alone, plus 553, 933, 1363 and 2413.
+- Every one of the 100 best-ranked structures (estimate down to 10⁻⁷·¹) was run: 89 completed, 11 are partial.
+- The controls 532 and 876 were re-found.
+- Deferred, capped or not run: 55 patterns above the work cap (mostly 513 and 763), and 1518 structures with estimates
+  ≤ 10⁻⁸·² (FINAL_LISTS.txt there).
+
+**Round 13, other lenses** (scratchpad `round13/alg/`, `round13/grp/`). No census value was settled.
+- *Skew to symmetric.* A skew H with an involutory signed anti-automorphism T (THᵀT = H) gives the symmetric matrix HT.
+  58 open symmetric v have a known skew matrix of the same order, but none of 29 cyclic Goethals–Seidel skew
+  certificates has a T of the form E ⊗ ρ. The skew 3(q + 1) matrices at q = 7, 11 and 19 have none at all.
+- *Jedwab–Pender half-length completion.* It reduces to amicable ternary pairs on ℤ_m with autocorrelation sum −2.
+  These exist only for prime m ≤ 23; m = 25 is UNKNOWN.
+- *Cyclotomic plug pairs* for P ⊗ X + N ⊗ Y: none for primes r ≤ 850 with e ≤ 12, or r ≤ 500 with e ≤ 16.
+- *Class-constant symmetric propus* over ℤ_m × GF(q), q ≡ 3 (mod 4), is empty at (3, 7), (3, 11), (5, 11) and (5, 19).
+  Two-prime generalised cyclotomy of order 2 gives symmetric propus only at (3, 5), and skew propus nowhere among 491
+  prime pairs.
+- *Twisted Theorem A* (f = 4) needs the same K as Theorem F.
+- *Theorem A for composite v* reduces to a ℤ_n pair (u₁, c) with u₁ symmetric. Such pairs exist exactly for the prime
+  powers tested (n ≤ 28) and for none of the composite v there. For v = 153 there are none with any odd-order
+  multiplier.
+- *A symmetric analogue of the Spence / Whiteman / Leung–Momihara H4* families* would reach 28 to 54 open v. Its
+  existence is UNKNOWN: the published blocks are not of propus form, and Spence's paper was not read.
+
+## 69. Larger plugs for Theorem K (October 19, round 15)
+
+Theorem K needs symmetric ±1 matrices X and Y of order K = 2k with XY + YX = 0 and X² + mY² = (m + 1)KI. Any such
+pair with m = q (Paley) gives v = (q + 1)k/2. 266 open census values have such a representation with k > m (k odd).
+Scratchpad `round15/plugs/`.
+
+**Structure for m < k < 2m (proved).** Let E = Y² − KI.
+- Then X² = KI − mE, E has zero diagonal, and its entries lie in {0, ±2}.
+- E_ij ≠ 0 exactly when rows i and j have the same parity of weight. So the support of E is two cliques.
+- Each clique block of E/2 is a Seidel matrix with largest eigenvalue below 2, hence of the form D(I − J)D. So
+  E = 2((I − J_k) ⊕ (I − J_k)) after a signed-permutation conjugation.
+- On the span of the two clique indicators, Y acts as ±[[1, −1], [−1, −1]] and X as [[ρ, ρ], [ρ, −ρ]] up to signs,
+  with ρ² = k(m + 1) − m and ρ odd.
+- Hence (k − 1)(m + 1) + 1 must be a square. k = m + 2 is impossible for every m.
+- Of the 43 open (m, k) with m < k < 2m, 37 fail this test. The values 403, 611, 817, 1159, 1273, 1349, 1387, 2263 and
+  2449 lose every representation in this scheme.
+
+**k = m + 4** passes (ρ = m + 2) and is the only survivor among open values: v = 119 (13, 17), 377 (25, 29),
+779 (37, 41), 1325 (49, 53) and 1539 (53, 57). 189 also passes, but it is already settled.
+- Here X = [[J − 2M, J − 2I], [J − 2I, −(J − 2M)]] with M an involution on k points with c two-cycles (proved).
+- The problem P(k, c) for Y does not depend on m otherwise: Y is the core of a symmetric Hadamard matrix of order
+  2k + 2 that anticommutes with Z = [[M, I], [I, −M]].
+- c = 0 is impossible: it forces a Hadamard core of order k + 1 ≡ 2 (mod 4).
+
+**First plug pair with k > m** (exhaustive at k = 9; CaDiCaL and kissat agree).
+- P(9, 3) has exactly 1536 labelled solutions in 6 classes, and P(9, c) has none for c ≠ 3. This gives a symmetric
+  H(108) (m = 5, k = 9, not a census value), checked in plain integers.
+- One class has a ℤ₃ symmetry that is translation by GF(3) when M is the Frobenius map of GF(9).
+
+**Not settled.**
+- At (9, 13): c = 1 has no solution, and there is none with a nontrivial cyclic symmetry for c = 2 to 5.
+- P(17, c) (v = 119) is UNKNOWN; one kissat run on c = 7 was stopped under load. A calibrated heuristic predicts about
+  2⁻²⁶ solutions per c at k = 13 and 2⁻⁹⁹ at k = 17.
+- Paley-core Y with (semi-)affine Z gives nothing for q = 9, 13, 17.
+- A GF(q²)-Frobenius family (k = q², m = q² − 4) would first reach v = 1127 (q = 7, with Mathon's conference matrix
+  of order 46), which is not a census value.
+- The regime k ≥ 2m, which holds the other 251 open values with a representation, is not analysed. There E may have
+  entries ±4 and the clique lemma fails.
+
+## 70. The ℤ_m ansatz beyond q = 13, and symmetric Spence analogues (October 19, round 14)
+
+No census value is settled here. Scratchpad `round14/zm/`, `round14/spence/`.
+
+**ℤ_m-invariant Q-parts with 2q − 2 fixed points** (§68, the lead from q = 13).
+- *Lemma 1 (proved).* If ℤ_m (m an odd prime) has a regular column orbit, at most 2(q − 1)/(m + 1) rows are fixed.
+  So the ansatz with 2m fixed rows needs m ≤ 3. q = 13 is the equality case.
+- *Lemma 2 (proved).* If √q ∉ ℚ(ζ_m), the row and column multiplicities of every character differ by an even
+  number. For m = (q − 1)/4 prime ≥ 5 this forces the semiregular shape: 8 row orbits, 4 column orbits plus 2 fixed
+  columns.
+- *The semiregular shape* (P diagonal or k = 2, exact orbit-reduced solution of the trivial-character system,
+  cross-checked by CP-SAT): there are solutions for m = 1, 9 and 13 and none for m = 3, 5, 7, 11, 15, 17, 19, 21.
+  HEURISTIC: the pattern suggests that both m and 4m + 1 must be sums of two squares, which excludes the census class.
+- At q = 29, ℤ₇ (two structure cases), ℤ₅ (three cases) and ℤ₁₃ are infeasible. At q = 61, ℤ₃₁ and semiregular ℤ₁₅
+  are infeasible. The ℤ₅ case at q = 61 with 2 fixed columns and 12 column orbits is UNKNOWN.
+- *The ℤ₃ family with (q − 1)/2 fixed rows* is the only live route. At q = 29 it has 480 solutions of the
+  ω-part (inside a BH(7, 6) tensor ansatz). None was completed to a Q-part: about 160 trivial-level completions are
+  infeasible and about 240 hit the 25 s limit.
+- At q = 13 the ω-part is a completion of the Butson matrix BH(6, 6) with the profile of Haagerup's F₆. It has no
+  GF(13) or quartic-character description, and the H(52) has |Aut| = 12 (it is not Paley II).
+
+**Symmetric analogues of Spence, Whiteman and Leung–Momihara type families.**
+- The blocks of these families (regenerated for 12 values of q) are never of propus shape: the four
+  autocorrelations differ.
+- Four distinct commuting symmetric blocks admit no symmetric 4 × 4 array (a Clifford argument, as in §49).
+- *Theorem E (proved).* For a Spence q (m even) there is no symmetric analogue with the extremal pattern. One form
+  needs a negacirculant Hadamard matrix of order m, and none exists for 3 ≤ m ≤ 26. The other needs m prime and
+  2m − 1 a sum of two squares.
+- *Theorem W (proved, built for p = 3, 5, 7, 13, 19, 31, 37, 41, 61, 79, 97).* There is a symmetric analogue of
+  Whiteman's construction of order 8p + 4. It uses Paley's conference matrix of order 2p and the torus of order p in
+  PSL(2, 2p − 1). It reaches no open census value for p ≤ 1249, since those v = 2p + 1 have 2p − 1 not a prime
+  power.
+- The class-constant cyclic scan over ℤ_{v−1} for the Spence-type q = 277, 317, 349, 389, 397, 461, 541, 557, 709,
+  821, 1021 found nothing (2 to 20 orbits, cost cap 3·10⁹, groups up to order 1548).
+- A sporadic symmetric bordered propus over ℤ₂₈ (order 116, a known order) was found.
+- The Spence and Whiteman primary papers were not read.
+
+## 71. Split outer designs for Theorem K, and plug pairs over ℤ_k (October 19, round 17 and the round-13 judges)
+
+No census value is settled here. The split framework below is new and works at a small order (H(140), a known
+order). Scratchpad `round17/`.
+
+**Plug pairs with a fixed-point-free ℤ_k (k prime).** In the traceless block-circulant form X = [[a, b], [bᵀ, −a]],
+Y = [[e, f], [fᵀ, −e]] (a, e symmetric), X² and Y² are α ⊗ I₂ and β ⊗ I₂ for group-ring elements α, β with
+α + mβ = 2k(m + 1). Off zero both are sums of two periodic autocorrelations, so they are ≡ 2 (mod 4) and nonzero, and
+|α_t| = m|β_t| ≥ 2m. This is the round-15 analysis (§69) in circulant form.
+- At every nontrivial character the 2 × 2 blocks must be traceless. The singular alternative needs
+  √(2k(m + 1)) ∈ ℚ(ζ_k)⁺, which fails for prime k ≡ 1 (mod 4).
+- Exhaustive meet in the middle over all circulants (`plugcirc.py`): k = 9, 11 and 13 with m = 5, and k = 13 with
+  m = 9, give no solutions. k = m = 5 gives 80, which is Theorem K.
+- Cyclotomic version (`plugcyc.py`, blocks constant on the orbits of the index-e subgroup, e ≤ 12, e | k − 1):
+  - covers primes k = 5, 13, 17, 29, 37, 41, 47, 53, 61, 71 and 73 (73 only up to e = 9), with m ∈ {5, 9, …, 61},
+    m ≤ k;
+  - solutions occur only at m = k;
+  - a rerun after fixing a −0.0 hashing bug gives the same counts.
+- So the k ≥ 2m regime of §69 has no solution with this much symmetry for these k.
+
+**Three commuting classes.** Take a commuting design I, C₁, C₂: symmetric weighing matrices with zero diagonal,
+disjoint supports and Cₜ² = wₜ I. The traces of C₁, C₂ and C₁C₂ vanish, so the four joint eigenspaces have equal
+dimension n/4. Hence n ≡ 0 (mod 4) (proved). With even plugs (n ≡ 2 mod 4, the Theorem K setting) the
+commuting-design / anticommuting-plugs scheme therefore has exactly one non-identity class. For n ≡ 4 (mod 8) with odd
+plugs the argument says nothing.
+
+**Split outer designs** (proved; built at n = 14).
+- *Construction.* Let C = C₁ + C₂ be a symmetric conference matrix of order n with C₁C₂ = −C₂C₁ and Cₜ² = wₜ I
+  (w₁ + w₂ = n − 1). Equivalently, x₁C₁ + x₂C₂ is a symmetric orthogonal design OD(n; w₁, w₂) with zero diagonal.
+- Let X₀, X₁, X₂ be symmetric ±1 plugs of order 2k with X₀ anticommuting with X₁ and X₂, X₁X₂ = X₂X₁, and
+  X₀² + w₁X₁² + w₂X₂² = 2nk I.
+- Then H = I ⊗ X₀ + C₁ ⊗ X₁ + C₂ ⊗ X₂ is a symmetric Hadamard matrix of order 2nk. The cross terms are
+  Cₜ ⊗ {X₀, Xₜ} and C₁C₂ ⊗ [X₁, X₂].
+- X₁ = X₂ is Theorem K. The point is that the rigidity k ≥ n − 1 of Theorem K (§68) no longer applies.
+- *Built.* Paley's matrix of order 14 has such a split with (w₁, w₂) = (4, 9), invariant under multiplication by
+  the fourth powers of GF(13). In it C₁ = W(8, 4) ⊕ W(6, 4), a signed K₄,₄ on {∞, 0} ∪ C₀ ∪ C₁ (quartic classes)
+  plus an octahedron on C₂ ∪ C₃.
+- With X₀ = P ⊗ J₅ (P = [[1, 1], [1, −1]]), CP-SAT found X₁, X₂ of order 10 with X₁ ≠ ±X₂. The result is a symmetric
+  H(140) with plug order 10 < 2(n − 1) = 26, checked in integers (`triple_fixed.py`, `tf_5_4_9.npy`). v = 35 is not a
+  census value; this only shows that the framework escapes the rigidity.
+
+**Plug theory for X₀ = P ⊗ J** (proved).
+- Every symmetric X anticommuting with P ⊗ J has the form I ⊗ A + P ⊗ B + M ⊗ D + iσ_y ⊗ δ, with
+  M = [[1, −1], [−1, −1]], A𝟙 = B𝟙 = δ𝟙 = 0 and D𝟙 = d𝟙. On span{e ⊗ 𝟙} it acts as dM with d ∈ ℤ.
+- The solution above has X₁² = I₂ ⊗ (8I + 2J) and X₂² = I₂ ⊗ (12I − 2J). Call a plug with
+  Xₜ² = I₂ ⊗ ((2k − βₜ)I + βₜJ) a β-plug.
+  - Then βₜ ≡ 2 (mod 4) and βₜ ≥ −2, and the split needs w₁β₁ + w₂β₂ = −2k.
+  - With β₂ = −2 and β₁ = 4j + 2 this gives k = w₂ − (2j + 1)w₁.
+  - The action on e ⊗ 𝟙 gives the integrality condition d² = k + (β/2)(k − 1). For β = 2 it needs 2k − 1 to be a
+    square: k = 5, 13, 25, 41, …. This excludes k = 7, 9 and 11, so CP-SAT's UNKNOWN on P(7, 2, −2) is settled
+    negatively.
+- β = −2 plugs: Theorem K's Y = P ⊗ Q + M ⊗ I for any symmetric conference core Q of order k. CP-SAT found one at
+  k = 7 as well, where no symmetric conference matrix of order 8 exists.
+- β = 2k plugs: X₁ = M ⊗ J. It anticommutes with P ⊗ J and commutes with every Y = P ⊗ Q + M ⊗ I, so it is free.
+  The split must then satisfy n = (k + 1)(w₁ + 1), with w₂ = k(w₁ + 1).
+- Commuting pairs P(k, β₁, β₂) by CP-SAT: P(5, 2, −2) and P(5, 10, −2) exist; P(7, 2, −2) is impossible (above).
+
+**Splits: the Pfaffian lemma** (proved in round 17; it supersedes the first reach list of this section, which assumed
+splits for every pair of sums of two squares).
+- *Lemma.* If n ≡ 2 (mod 4) and C = C₁ + C₂ is a split, then w₁w₂ is a perfect square.
+- *Proof.* T = C₁C₂ is an integer matrix with Tᵀ = C₂C₁ = −T and TTᵀ = w₁w₂ I, so det T = Pf(T)² = (w₁w₂)^{n/2}.
+  Since n/2 is odd, w₁w₂ is a square.
+- *Consequences.*
+  - Order 10 has no split at all, and order 18 has none at (4, 13) or (8, 9).
+  - The routes for 299 (n = 46 with (16, 29) or (8, 37)), 765 (n = 90 with (4, 85), n = 170 with (16, 153)),
+    795 (n = 318), 1677 (n = 258) and 2125 (n = 170 with (72, 97)) are dead for every conference matrix.
+  - So are the routes for the generalised scheme X₀ = P ⊗ W below.
+- *Survivors in the constant-β scheme* (both weights squares): 475 (n = 38, (1, 36), k = 25, β = 22), 783 (n = 54,
+  (4, 49), k = 29, β = 10), 2035 (n = 110, (9, 100), k = 37, β = 14), 2057 (n = 242, (16, 225), k = 17, β = 26) and
+  2197 (n = 338, (81, 256), k = 13, β = 6).
+- *Relaxed list.* Only the necessary conditions dₜ ≡ k (mod 2), 0 ≤ dₜ ≤ k and w₁d₁² + w₂d₂² = k(n − k) on the
+  S-sector, plus the lemma, at Paley orders ≤ 600 and n = 46. 14 open values pass: 247, 475, 575, 783, 851, 969, 1073,
+  1125, 1653, 1845, 2035, 2057, 2125, 2197.
+- An independent check by the refuter: every one of the 72 438 admissible non-square pairs with n ≤ 5001 has an
+  explicit local obstruction at a prime ≡ 3 (mod 4).
+
+**Splits: structure and searches** (round 17 split agent and refuter; `round17/agent_split/`).
+- *Matching splits* (w₁ = 1, proved). They are exactly C₁ = [[0, I], [I, 0]] and C₂ = [[A, B], [−B, −A]] with
+  A = X + Xᵀ and B = X − Xᵀ. Here X is a signed regular tournament weighing matrix: order m = n/2, zero diagonal,
+  XXᵀ = ((m − 1)/2) I, and X + Xᵀ ±1 off the diagonal. So m = 2s² + 1.
+  - m = 3 works, m = 9 does not (this settles order 18 completely).
+  - m = 19 is order 38 (v = 475). There X has no automorphism of prime order 5, 7, 11, 13 or 17, is not circulant,
+    and has no ℤ₉ or ℤ₃ with five 3-cycles. ℤ₃ with six or four 3-cycles and the trivial group are UNKNOWN.
+- *Clifford parity* (proved). For any monomial automorphism group of a split, every irreducible multiplicity of the
+  monomial representation is even. This prunes group actions before any search, and it forces the two-circulant form
+  for abelian two-orbit groups.
+- *The order-14 split is a tetrahedral object.*
+  - All solutions found, from 9 saved files and 7 free CP-SAT runs, fall into one equivalence class. A₄ acts as
+    vertices + faces + edges (4 + 4 + 6), with K₄,₄ joining vertices to faces and the octahedron on the edges.
+  - The sign character on the edge orbit is necessary: brute force over all 4¹⁰ orbit assignments gives 32 splits,
+    all equivalent.
+  - The Platonic analogues do not exist in the scanned group actions: S₄ at n = 26, A₅ at n = 62, and the second A₄
+    family at n = 30.
+- *No anticommuting partner for the octahedron.* No 6 × 6 ±1 matrix anticommutes with W(6, 4), so a weight-4 C₁ has at
+  most one octahedral component.
+- *Exhaustive negatives with prescribed groups* (Paley matrix fixed, subgroup classes of PSL(2, q)):
+  - q = 25 (9, 16) and (5, 20): all 20 classes with |G| ≥ 3;
+  - q = 29 (4, 25): all classes with |G| ≥ 3;
+  - q = 37 (1, 36): all classes with |G| ≥ 3;
+  - q = 53 (4, 49): all classes with |G| ≥ 4;
+  - q = 41 (16, 25): all classes with |G| ≥ 8;
+  - q = 61 (25, 36): all classes with |G| ≥ 10, A₅ included;
+  - q = 109 (9, 100): all classes with |G| ≥ 10.
+  - UNKNOWN: the small groups at these orders, n = 26 and n = 30 in general, and n = 110 with 11 Paley-10 blocks
+    under ℤ₁₁ or ℤ₄.
+  - Logs `pf_batch.log`, `pfo_61.log`.
+- So the splits at 6 and 14 still look sporadic.
+
+**Plug pairs** (round 17 plug agent and refuter; `round17/agent_plugs/`).
+- *Found, k = 13.* A commuting pair (β₁, β₂) = (2, −2) with X₂ = Theorem K's Y for the Paley core of GF(13). X₁ is
+  invariant under x ↦ 3x.
+  - Complete enumeration in that ansatz gives exactly 8 X₁ up to sign (4 classes); all have B = 0.
+  - The refuter re-enumerated: 16 = 8 × 2 signs.
+  - It would serve 299 at n = 46, which the Pfaffian lemma now forbids.
+- *Design form of a β-plug* (proved). X = −M ⊗ J + 2Z with Z = [[A, −C], [−Cᵀ, −B]]. Here A, B, C are a-regular 0/1
+  matrices, a = (k − d)/2, A² + CCᵀ = sI + (2a − s)J and AC = CB, with s = (2k − β)/4.
+  - Since M ⊗ J commutes with every Theorem K plug Y, [X, Y] = 0 iff [Z, Y] = 0.
+  - a = 1 gives permutation plugs with β = 2k − 8 for every k. (13, 2) is a 2-(13, 4, 2) design and (13, 6) an
+    STS(13) split into two classes.
+- *Regular translation groups* (proved, character argument): no pair of the census targets can be invariant under a
+  regular abelian group on both halves. All useful symmetry has fixed points.
+- *Rank of X₀* (proved). The only rank-2 X₀ is the balanced P ⊗ J; unbalanced [[J_a, J], [J, −J_b]] admits no plugs.
+  For odd v, X₀ = R ⊗ J with R Hadamard of order 4 is impossible.
+- *Negatives* (CP-SAT, exhaustive in the stated groups):
+  - (17, 26, −2) with Paley Y: infeasible with no symmetry assumption.
+  - (13, 6, −2): infeasible for every symmetric ansatz tried except trivial symmetry and ℤ₃ with one fixed point.
+    Single β = 6 plugs are plentiful (200 classes found); the commuting partner is the obstruction.
+  - k = 25, 29, 37: all groups of order ≥ 6 infeasible (Paley Y, and both plugs free); lower symmetry UNKNOWN.
+  - Single β = 2 plugs at k = 25 are infeasible for ℤ₁₂ and ℤ₆.
+- *Generalised X₀ = P ⊗ W* (W² = (k − b₀)I + b₀J, e.g. W = J − 2A for a polarity of PG(2, q)).
+  - Plugs again act on span{e ⊗ 𝟙} as −dM with the same d-condition, and the split condition becomes
+    w₁β₁ + w₂β₂ = −2b₀.
+  - The candidates it adds (1677, 1785, 2353) all fail the Pfaffian lemma.
+
+So the split framework reaches no census value yet. The live cases need both a split with square weights and a plug
+pair at low symmetry. 475 needs the tournament W(19, 9) and P(25, 22, −2); 783 needs (4, 49) at n = 54 and
+P(29, 10, −2).
+
+**Round 13, quaternary lens and its judges** (`round13/quat`, `judge_quat_*`). No census value.
+- *f = 0 decoupling.* [[A, B], [B, A]] is symmetric Hadamard iff (A ± B)/2 are complementary symmetric W(2q, q). This
+  is classical in disjoint-weighing form (de Launey 1993).
+  - The symmetric case is infeasible at q = 5, by two independent SAT encodings. The non-symmetric form exists
+    there.
+  - A symmetric H(36) of this form exists (q = 9, unstructured). q = 13 is UNKNOWN.
+  - No census route.
+- *Twisted Hermitian conference matrices.* L = I ⊗ J + C ⊗ (Q + iI) with C Hermitian over μ₄ becomes
+  complex-symmetric after a symmetric monomial twist S with CS = S C̄ (mechanism proved, checked at w = 6).
+  - It needs a complex-symmetric plug as well: a complex-symmetric quaternary Hadamard matrix of order w with an
+    imaginary diagonal entry.
+  - At w = 58 and 70 (v = 1653, 2415) both inputs are UNKNOWN.
+
+## 72. Conference matrices of order 66: the order is not open; two new regular two-graphs on 66 points (October 19, round 16)
+
+**The premise was out of date.** Round 16 attacked a symmetric conference matrix of order 66 as the smallest open
+case (§61). It has been settled since February 2021:
+- Gritsenko, arXiv:2102.05432, prints an srg(65, 32, 15, 16). Both round-16 agents and both refuters extracted it
+  from the PDF and checked it in exact arithmetic.
+- Brouwer's table lists (65, 32, 15, 16) as "+", and OEIS A000952 contains 66.
+- Goryainov–Haemers–Konstantinova–Li (arXiv:2512.16653) called 85 the smallest open case. Verma (arXiv:2610.08893)
+  settled 86.
+- Wikipedia's "Conference matrix" page is stale.
+- Theorem K with order 66 gives v = 2145, which is not a census value (CONFERENCE_PLUG.md updated).
+
+**What the round produced** (scratchpad `round16/`; all matrices exact-checked, every solution re-verified and
+re-classified by two refuters with their own code):
+- *Gritsenko's group.* Gritsenko's matrix has signed automorphism group Q₃₂ × ⟨−I⟩, with point orbits 1, 1, 32, 32.
+  After switching it is a 4 × 4 array of circulants of order 16 with a 2-point border.
+  - The round-4 block engine (§62) needed a "twisted" block permutation (h² = g⁸) to see this group.
+  - With that twist, the complete enumeration under Q₃₂ gives 4096 matrices in exactly 5 classes up to
+    signed-permutation equivalence and negation. Gritsenko's is one of them.
+- *A second family.* A pure Verma-type group (m = 8, k = 8, F = 2, μ = 7, σ = (0 1 2 3)(4 5 6 7); the group is
+  C₈ ⋊ C₄, not Q₃₂) gives 4608 matrices in exactly 2 further classes.
+- *Comparison with McKay's database.* The 7 classes have 48 pairwise non-isomorphic descendants srg(65, 32, 15, 16).
+  - Brendan McKay's database (`sr65321516some.g6`, 32 graphs, marked "maybe incomplete") is exactly the set of
+    descendants of the 5 Q₃₂ classes.
+  - The 16 descendants of the 2 C₈ ⋊ C₄ classes are not in it.
+  - So 2 regular two-graphs on 66 points and 16 srg(65, 32, 15, 16) are new as far as we found. No later
+    enumeration turned up in searches.
+  - Data: `search/data/conference66_a07eee330cbfe97f.txt`, `conference66_8e2d7e6f507ef47a.txt` and
+    `srg65_32_15_16_new16.g6`; checker `search/check_conf66.py`.
+- *Calibration.* The engine re-found Verma's order 86 from its group alone, and Paley matrices of orders 30–62. It
+  found order-46 matrices in 2 classes with cover automorphism group of order 20; equality with Mathon's matrix was
+  not tested.
+- *Prime-order automorphisms of srg(65, 32, 15, 16)* (proved). √65 lies in no ℚ(ζ_p), so the number of p-cycles is
+  even.
+  - Orbit matrices are infeasible for p ∈ {7, 11, 13, 17, 19, 23, 29, 31}, and for p = 5 except (f, c) = (5, 12),
+    which was not lifted.
+  - p = 2 and p = 3 are undecided.
+  - Among the semiregular groups of order 32 swept, only Q₃₂ and C₈ ⋊ C₄ admit such graphs (44 of 49 groups swept to
+    completion; 2⁵ excluded by a moment argument).
+
+**Order-38 projective-plane guess** (round 18 preparation, `round18/ppsplit.py`). Both known splits (orders 6 and 14)
+have weights (a², (a + 1)²) with n = 2(a² + a + 1). The natural support guess would give conference matrices at
+n = 146 (a = 8, an open order): C₁ on the non-incident point–line pairs of PG(2, a) (degree a²), C₂ on everything else
+(degree (a + 1)²). It is infeasible at a = 2 (n = 14). a = 3 (n = 26) is UNKNOWN after 1200 s. Not pursued.
+
+## 73. Round 18: skew split plug-ins, the order-38 split, non-abelian propus, a skew Theorem K (October 19)
+
+No census value is settled. Four lenses, each with two adversarial judges using their own code (scratchpad
+`round18/`).
+
+**Order 38 (v = 247, 475; `round18/trn19/`).**
+- *247 is dead in the split framework* (proved, for any symmetric X₀). With the matching split (1, 36) and k = 13,
+  the off-diagonal entries of the three squares are even and lie in [−26, 26], with x₀ + x₁ + 36x₂ = 0. So x₂ = 0 and
+  X₂ would be a symmetric Hadamard matrix of order 26.
+- *475 reduces to P(25, 22, −2)* (proved for X₀ = P ⊗ J₂₅), with d = (17, 1).
+  - X₁ is a 2-(25, 4, 1) design with a polarity-like pairing: A² + CCᵀ = 7I + J, CᵀC + B² = 7I + J, AC = CB.
+  - Its existence is UNKNOWN (CaDiCaL, 40 CPU-minutes). The same model finds the k = 13 analogue.
+- *The tournament W(19, 9) has no symmetric support* (exhaustive, two independent re-enumerations).
+  - The 0/1 support S satisfies SSᵀ = I (mod 2), equivalently S³ = I over GF(2). All scores of out- and
+    in-neighbourhoods are then even.
+  - Regular tournaments on 19 vertices with this parity and an automorphism of prime order: none for p = 5, 7, 11,
+    13 and 17; only QR(19) for p = 19; 28 classes for p = 3.
+  - None of the 28 classes (QR(19) and the second doubly regular tournament included) admits a signing (CaDiCaL and
+    CP-SAT).
+  - A mod-4 lifting test (a 171 × 171 GF(2) system) fails for 60 of 60 random even tournaments.
+  - HEURISTIC: about 2⁻¹³⁰ expected solutions with trivial automorphism group.
+
+**Skew split** (`round18/skewsplit/`).
+- The skew analogue of §71 is verified. With S₁, …, S_r anticommuting skew weighing matrices partitioning J − I, H is
+  skew-Hadamard of order nK when:
+  - X₀ is skew-type;
+  - the X_t are symmetric and pairwise commuting;
+  - X₀X_t is symmetric;
+  - X₀X₀ᵀ + Σ w_t X_t² = nK I.
+- It is classical: with X₁ = J it is Seberry's 1978 theorem (skew/1900, 2772, …), and the general case is the amicable
+  OD plug-in.
+- *Built* (known orders, v ≤ 65, exact checks): H(36), H(60), H(84), H(132) and H(260). H(260) uses OD(20; 1, 2, 8, 9)
+  with a plug of order 13 that is not of Seberry type.
+- *n = 12 table.* Skew zero-diagonal OD(12; ·) exist for (1, 10), (2, 9), (3, 8), (5, 6) and for (1, 1, 9), (1, 2, 8),
+  (1, 5, 5), (2, 3, 6); (4, 7) is UNKNOWN. A judge proved the general necessary condition: for n ≡ 4 (mod 8) the
+  quaternion algebra (−w₁, −w₂) must be the Hamilton algebra.
+- *Circulant palindromic plugs.* Over ℤ_K the solutions lie on lines in weight space: (t, 3t − 1) for K = 3, and
+  (t − 1, t, 2t) for K = 5 and 7. The classification claim is exhaustive for n ≡ 4 (mod 8) only, per the judges.
+- *Reach.*
+  - The (t − 1, t, 2t) line reaches the open skew values 1141, 1407, 2023 (K = 7) and 1965, 2255 (K = 5). They would
+    need skew OD(4t; 1, t − 1, t, 2t) with t = 163 to 451; none is in hand.
+  - The Seberry type covers 126 open skew values in principle. It needs large amicable/OD inputs; the smallest cases
+    (473, 1139) die by the agent's divisibility lemma.
+
+**Non-abelian groups** (`round18/nonab/`).
+- *Transplanting the arrays.* The literal transplant of the Goethals–Seidel and propus arrays (R = inversion) works only
+  for class-function blocks. For ℤ_p ⋊ ℤ_r and Heis(p) it never gives a Hadamard matrix (Plancherel count).
+- *The working version* replaces R by an involutory automorphism φ (blocks constant on ψ(g) = φ(g)⁻¹).
+- *Skew:* impossible whenever φ fixes a prime-order quotient. This closes 87 of the 122 open skew values that admit
+  a non-abelian group (201, 305 and 385 included).
+- *Symmetric:* the φ-twisted propus is not vacuous. It gives symmetric H(84) over ℤ₇ ⋊ ℤ₃ (exactly 24 normalised
+  solutions, exhaustive; confirmed by an independent meet in the middle) and H(108) over Heis(3).
+  - Both orders are known (Paley II). The construction type is new to our knowledge.
+  - The solutions are sporadic, and far sparser than the abelian scheme: 24 against 1 068 984 at v = 21.
+  - Searches with Aut(G)-subgroup symmetry at census sizes are infeasible or UNKNOWN.
+- 100 of the 492 open symmetric values admit a non-abelian group.
+
+**Skew Theorem K** (`round18/skewK/`).
+- The real analogue H = I ⊗ X + S ⊗ Y (S skew conference matrix, X skew-type, Y symmetric, odd plug order K) is
+  rigid (proved):
+  - K = 1 + (n − 1)t with t even and 1 + nt a square;
+  - rank(X − I) = K − 1;
+  - t = 2 and t = 4 are impossible, so K ≥ 6n − 5.
+- 15 open skew values pass the necessary conditions (smallest 575, with K = 115), all far beyond search.
+- *Complex route.* No tournament-type complex conference matrix of even order ≥ 4 exists. The Kharaghani–Seberry /
+  Theorem K complex matrix is never monomially tournament-type (proved for n ≥ 10). So Theorem K has no skew twist
+  for 153, 325, 435, 1225 and 1891, which are all open in the skew census.
+- The n = 2 case equals "skew H with a fixed-point-free signed automorphism of square −I". Paley's skew matrices with
+  q ≡ 3 (mod 8) have one (classical).
+
+## 74. Round 19: Kharaghani–Seberry plug pairs beyond q = p, complex split triples, routes to open complex orders (October 19)
+
+No open complex order is settled (115 open orders 2N, N odd, N < 1000; Zaitsev's page lists the same 115). Three lenses,
+two judges each with their own code (scratchpad `round19/`).
+
+**The setting.** Seberry–Yamada 1992, Theorem 11.14: a skew-type complex Hadamard matrix of order p + 1 and a plug pair
+(A, B) of order q with AB* = BA* and AA* + pBB* = q(p + 1)I give a complex Hadamard matrix of order q(p + 1).
+- 65 open orders factor as (p + 1)q with a known skew-type order p + 1 ≡ 2 (mod 4) and odd q ≥ p.
+- The published tables use only the pair A = J, B = I − iQ (q = p), and its recursion q = p^j.
+- Proved: A = J forces q = p.
+
+**Plug pairs** (`round19/kspairs/`).
+- *Rigidity, p < q < √5p* (proved; computer-assisted classification of μ₄-gain matrices with λ_max ≤ q/p, reproduced
+  by a judge).
+  - After scaling, AA* = (q − p)I + pJ and BB* = (q + 1)I − J.
+  - So pq + q − p must be a square, which is the parameter equation of a symmetric (q, (q − s)/2, ·) design.
+  - This kills the factorizations 42·43, 38·43, 38·51, 26·35, 30·51, 30·53, 26·47, 26·49 and 26·53. 1222, 1378 and
+    1634 lose every Kharaghani–Seberry route.
+- *q = p + 2 is impossible* for every p ≥ 3 (proved twice independently). 1806 = 42·43 is out.
+- *Theorem 2* (proved). For q = p + 4, (A, B) = (J − 2P, −NP) with P an involution is a pair iff [[1, 1], [1, N]] is a
+  Hermitian quaternary Hadamard matrix of order p + 5.
+  - Found at p + 5 = 6, 10 and 14, giving pairs at (5, 9) and (9, 13): orders 54 and 130, both known.
+  - (13, 17), (17, 21) and (25, 29) need Hermitian matrices of orders 18, 22 and 30: UNKNOWN.
+- *Circulant pairs* exist only at q = p (orbit-constant sweeps over all 89 open factorizations).
+- *The regime q ≥ √5p* (80 of 89 factorizations) is unclassified. The normal-form candidates 970, 1242, 1386, 1530 and
+  1854 need design-like objects such as symmetric (97, 33, 11) or (153, 57, 21) designs with a Hermitian coupling.
+
+**Complex split triples** (`round19/cxsplit/`). G = I ⊗ B₀ + C₁ ⊗ B₁ + C₂ ⊗ B₂ with the real splits of orders 6 and 14.
+- *Reduction.* G is unitarily equivalent to I_{n/2} ⊗ M with M = [[B₀ + √w₁B₁, √w₂B₂], [√w₂B₂, B₀ − √w₁B₁]].
+- *Calibration.* K = 1 and 5 work: orders 30 and 70. At n = 14, K = 5 is below the Kharaghani–Seberry bound 13.
+  K = 3 is infeasible for both splits.
+- *Lemmas* (proved, re-derived by the judges):
+  - group-developed (constant row sum) plugs need K ≡ 1 (mod 4);
+  - the Hermitian-circulant class is impossible.
+- *Searches.* Circulant searches up to K = 13 and multiplier scans (K ≤ 257 prime, several composites) found nothing.
+- *The 574 candidate.* The regular-Gram candidate at (n, K) = (14, 41) was refuted by a parity argument. So no
+  complex split triple is known beyond the Paley sizes.
+
+**Literature and routes** (`round19/cxlit/`).
+- *Literature.* No accessible source uses plug pairs with q ≠ p or a 3-variable complex plug-in for orders ≡ 2
+  (mod 4). Kharaghani–Seberry 1990/1993, Wallis 1973 and the 2020 book were inaccessible.
+- *Quaternary conference matrices of orders 22 and 34.* Zero diagonal, units elsewhere, CC* = (n − 1)I, non-Hermitian;
+  no real conference matrix exists at these orders. They are built from the zero-diagonal Szöllősi array
+  K = [[X, Y], [Y*, −X*]] (A, B symmetric circulant with a₀ = b₀ = 0, C, D circulant, AAᵀ + BBᵀ + CCᵀ + DDᵀ = (4m − 2)I).
+  Checked exactly by both judges; novelty not checked.
+- *Complex Yamada–Kiyasu.* Implemented independently; it reproduces Zaitsev's 470, 566 and 1142.
+- *Six open orders, one missing core each.* 1046, 1190, 1286, 1718, 1910 and 1958 need a quaternary conference matrix
+  of order 262, 298, 322, 430, 478 or 490 respectively. The template side (Yamada circulants for q = 521, 593, 641,
+  857, 953, 977) is verified. Cheap structured searches found nothing; this is the best-ranked constructive route.
+- *Route map.* No classical complex route (Cor. 11.15, 11.20, Kronecker, Golay, Miyamoto, Seberry–Zhang) settles any
+  open order.
+
+## 75. Round 20: zero-diagonal cores for the complex Yamada–Kiyasu targets (October 20)
+
+No core was found, so 1046, 1190, 1286, 1718, 1910 and 1958 stay open. Each needs a quaternary conference matrix of
+order c = 262, 298, 322, 430, 478 or 490 (§74). Three lenses ran, each with its own code (scratchpad `round20/`); a
+calibration followed (scratchpad `round21/`).
+
+**The array.** The zero-diagonal Szöllősi array of §74 over an abelian group of order m = c/2:
+- A, B are symmetric with A(0) = B(0) = 0; C, D are ±1.
+- Σ PAF = (4m − 2)δ and a² + b² + c² + d² = 4m − 2.
+- Blocks are constant on the orbits of a multiplier group H with −1 ∉ H: A, B on ⟨H, −1⟩-orbits, C, D on H-orbits.
+
+Both lenses rebuilt the pipeline end to end: core 142 (m = 71) gives order 566, and core 286 (m = 143, H = ⟨3⟩) gives
+1142; both exact.
+
+**Compression filters.** For a quotient ℤ_d, the fibre sums of the four blocks must solve Σ PAF = (4m − 2)δ on ℤ_d.
+The feasible tuples are listed exactly, and a lattice-Gaussian estimate is conditioned on each tuple.
+
+**Exhaustive negatives.**
+- *m = 245, cyclic ℤ₂₄₅*, all 19 subgroups with −1 ∉ H, even orders included:
+  - every |H| ≥ 7 is dead on ℤ₅ or ℤ₇, except ⟨18⟩ (|H| = 12);
+  - ⟨18⟩: 9 of 12 row patterns die on ℤ₅, and the other 3 are empty by exact joins over all reduced ℤ₃₅ tuples;
+  - for H = ⟨36⟩ (|H| = 7), an independent second implementation finds no solution of the ℤ₇-compressed equation for
+    any row sums.
+- *m = 245, ℤ₅ × ℤ₇²*:
+  - odd H: |H| = 63, all four classes of order 21, and the unipotent |H| = 7 are dead on line, plane or ℤ₅ quotients;
+  - even H: every sampled class with |H| ≥ 24 has no live pattern, and |H| = 8 (nc:2054) and |H| = 12 (nc:6609) are
+    empty by exact joins;
+  - caveat: the subgroup list comes from random closure sampling (two samples, no new class in the second); it is
+    not a certified class list.
+- *m = 215*:
+  - H = ⟨11⟩ (|H| = 7): the single pattern (14, 18, 13, 13) has no solution of the ℤ₅-compressed equation (two
+    independent computations);
+  - ⟨4⟩ and ⟨51⟩ (|H| = 14): complete lists joined, no solution;
+  - |H| = 21, 28, 42 and 84: no row pattern.
+- *m = 161*: H of order 11, 22, 33 and 66 has no row pattern.
+- *Primes m = 131, 149, 239*: no multiplier structure. Odd-order H admits no row pattern, and every even-order subgroup
+  of the cyclic ℤ_m* contains −1.
+
+**The bordered zero-diagonal array** (bord lens; proved, exact at small orders; novelty not checked).
+- *Setting.* G abelian of even order n = m − 1; A, B symmetric with zero at 0; C, D ±1; Σ PAF = −4 off 0.
+- *Row pattern.* Parity forces the pattern (±1, ±1, 0, 0), so a pattern always exists, unlike the unbordered array.
+- *Construction.* Put α = (1 + i)/2, ρ = α r_A + ᾱ r_B, X′ = αX_A + ᾱX_B and Y′ = αX_C + ᾱX_D R. With the border
+  x = 0, s = ρ²t̄, y = −ρt̄v, u = ρ²t̄²v (t, v units), the matrices X = [[0, s eᵀ], [t e, X′]] and
+  Y = [[y, u eᵀ], [v e, Y′]] give a quaternary conference matrix K = [[X, Y], [Y*, −X*]] of order 2m.
+- *Checks.* Exact at n = 10, 12, ℤ₂ × ℤ₆, 16 and 26.
+- *t-character version.* For t odd it generalizes with a conference matrix of order 2t in the border, checked at
+  t = 3, order 22.
+- *Searches at N = 131* (core 262, order 1046):
+  - H = ⟨101⟩ and ⟨9⟩ (|H| = 6) are empty, exhaustively over all ℤ₂ tuples;
+  - for H = ⟨99⟩ (|H| = 4), low-energy lists of 10⁷ give 0 hits against about 0.9 expected (not conclusive);
+  - H = ⟨21⟩ (|H| = 4, estimate 10^1.5, pools 4 · 10⁹) was not run.
+- *N = 149 and 239*: no live, searchable bordered cyclic structure.
+
+**Live structures** (|H| = 6; none searchable exhaustively):
+- *m = 215, H = ⟨49⟩*, which acts as −1 on ℤ₅ and with order 3 on ℤ₄₃:
+  - 12 row patterns survive ℤ₅;
+  - pattern (14, 18, 13, 13) with ℤ₅ tuple ((−6,5,5), (−6,5,7), (1,13,−7), (1,−1,7)) has conditioned estimate
+    10^4.1, pools 4.3 · 10⁴, 4.3 · 10⁴, 2.1 · 10¹⁰ and 3.5 · 10¹⁰.
+- *m = 245*: ⟨31⟩, ⟨79⟩ and the non-cyclic twins nc:36 and nc:842 (pair work about 2 · 10¹² per tuple).
+- *m = 161*: H of order 3 (log₁₀ E ≈ 10, no listable quotient).
+
+**Which estimate to trust** (round 21).
+- *The discrepancy.* The lenses' two Gaussian estimators disagree by 10^3.6 on m = 215, ⟨49⟩, (14, 18, 13, 13):
+  - per-class independent densities give 10^0.2;
+  - the full covariance with the joint lattice gives 10^3.8.
+- *Test family.* m = 5p with H of order 6 acting as −1 on ℤ₅ and with order 3 on ℤ_p, the shape of the live
+  structure. Exact counts:
+  - m = 35: 0 solutions in all 5 patterns;
+  - m = 65: 352 solutions in (0, 4, 11, 11), 0 in the other 9;
+  - m = 95: 0 solutions in all 14 patterns, although the full estimator predicts about 10³ in total.
+- *Result.* The ℤ₅ compression has no feasible tuple for exactly the empty patterns at m = 65 and 95. On the live
+  pattern, the ℤ₅-conditioned estimate is 10^2.86 against 10^2.55 exact.
+- *Reading.* The unconditioned estimators are meaningless here. The ℤ₅-conditioned one is calibrated to within a
+  factor of 2 on this family, which supports the 10^4.1 at m = 215.
+- *Counterexample to keep in mind.* g245's nc:2054 (m = 245, |H| = 8) had conditioned estimate 36 and an exact count
+  of 0.
+
+**The m = 215, ⟨49⟩ join** (round 21, `round20/comp/zjoin_par.py`, `zsig_more.py`).
+- *Setup.* Lists A, B complete (42,875 each), C 2 · 10⁷ (kept from 60% of prefixes), D 4.03 · 10⁶ (from 20%). kt4
+  with merge classes 22, 18, 13, 20, 16; split values in order of the Gaussian law of a solution's split.
+- *Coverage.* The 200,000 most likely split values (Mahalanobis radius ≤ 2.97, P(χ²₅ ≤ 8.82) = 0.88): 47% of the
+  A × C pairs and 49% of the B × D pairs.
+- *Result.* 0 hits, against about 2.5 · 0.88 ≈ 2.2 expected (Poisson P(0) ≈ 0.11). UNKNOWN, but the conditioned
+  estimate for these partial lists now looks too high by a factor of several. The first 20,000 values gave 0 against
+  0.95; a lens process exhausted memory during the second pass and the unfinished values were rerun.

@@ -120,6 +120,51 @@ Seberry, Australas. J. Combin. 55 (2013); SageMath; Balonin's online catalogue (
 and OpenAlex for Miyamoto 1991 and its citations. None states the family; Miyamoto's claim of 1991 is discussed in
 PROPUS_MIYAMOTO.md.
 
+**Symmetric Hadamard matrices without a symmetric input**
+([symmetric/PROPUS_WEIGHING.md](symmetric/PROPUS_WEIGHING.md),
+[symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md)). Checked on 17 October 2026: Yamada, J. Austral. Math. Soc.
+A 46 (1989), read in full (Theorems 3–5, ordinary matrices only); Seberry–Yamada, JCMCC 7 (1990) and its Kobe version
+(Lemma 26, Corollaries 27, 29 and 31, Remarks 17 and 30, Theorem 34 with its Case B, a V-part coupled across sixteen
+blocks for ordinary M-structure matrices, and Corollary 35), the 1992 survey (Lemma 8.6, Corollaries 8.7, 8.8, 8.11,
+Theorem 8.10, Lemma 11.3) and JCMCC 13 (1993), Corollary 5; Google Books snippets of Seberry–Yamada (2020), §6.5;
+Seberry–Balonin (2015, 2017); Balonin–Đoković, arXiv:1803.08787; the census; Đoković, arXiv:1008.2043, 2101.05429,
+2404.14375 and 2508.17141; Valtonen, arXiv:2608.06920; Goryainov–Haemers–Konstantinova–Li, arXiv:2512.16653; Barrera
+Acevedo–Dietrich, Australas. J. Combin. 73 (2019); Cati–Pasechnik; Balonin's online catalogue; Kiyasu, RIMS Kōkyūroku
+587 (1986); arXiv, Crossref, OpenAlex and CiNii searches for symmetric Hadamard matrices, propus matrices and
+symmetric weighing matrices; and Zaitsev's page, whose quaternary matrices QH590, QH638, QH782, QH926, QH1310, QH1358,
+QH1646 and QH1886 are of the Yamada–Kiyasu kind and monomially equivalent to symmetric ones, so 1180, 1276, 1564,
+1852, 2620, 2716, 3292 and 3772 are labelled Concurrent. None states either construction or a symmetric matrix of any
+of the 37 orders.
+
+**Symmetric orders 404 and 596** ([symmetric/PERIODIC_GOLAY.md](symmetric/PERIODIC_GOLAY.md)). Checked on 18 October
+2026: the census (both v undecided); Miyamoto's claim of 1991 as the census reports it (a symmetric input of order q −
+1, rejected by the census); Seberry–Balonin (2015, 2017); Balonin–Đoković, arXiv:1803.08787; Di Matteo, Đoković and
+Kotsireas, arXiv:1503.04226; Đoković, arXiv:2101.05429 and 2508.17141; Đoković–Kotsireas, arXiv:1310.5773 (the pair of
+length 74); Momihara–Xiang, arXiv:1801.08776; Zaitsev's page (no quaternary matrix of order 202 or 298); web searches
+for symmetric Hadamard matrices of orders 404 and 596 and for symmetric constructions from periodic Golay pairs
+(Balonin and Đoković's 2015 paper on symmetric two-circulant Hadamard matrices and periodic Golay pairs was seen only
+by title; two-circulant matrices from a pair of length ℓ have order 2ℓ, not 4(2ℓ + 1)). None gives a symmetric matrix
+of either order or the construction.
+
+**Symmetric orders 612, 1300, 1740, 4900 and 7564** ([symmetric/CONFERENCE_PLUG.md](symmetric/CONFERENCE_PLUG.md)).
+Checked on 19 October 2026: the census (all five v undecided); Seberry–Yamada (1992), §11 (Kharaghani–Seberry's
+Theorem 11.14 and Corollaries 11.15 and 11.20, complex Hadamard matrices of order w(w − 1), stated without symmetry,
+and Lemma 11.3, Turyn's map); Seberry, J. Austral. Math. Soc. A 29 (1980) 235–242 (Mukhopadhyay's recursion with skew
+outer designs, ordinary matrices, read from page images); Seberry–Balonin (2017); Balonin–Đoković, arXiv:1803.08787;
+Đoković, arXiv:2101.05429 and 2508.17141; web searches for symmetric Hadamard matrices of these orders and of order
+2n(n − 1) or 2q(q + 1); read by the round-13 judges: Farouk–Wang, Filomat 34 (2020) 815–834 (Scarpis–Đoković matrices
+of order 2q(q + 1), not symmetric) and Đoković, arXiv:2508.17141 in full (the dual scheme, order q(q + 1)). Not read:
+Kharaghani–Seberry, Congr. Numer. 75 (1990); Wallis, Linear Multilinear Algebra 1 (1973); Seberry–Wallis, LNM 292, pp.
+349–353; Seberry–Zhang (1993); the Seberry–Yamada book of 2020. None of the sources read states that the complex
+matrix is complex-symmetric or gives a symmetric matrix of any of the five orders. Every ingredient is older than
+2026, hence the label New, but obtainable classically.
+
+**Symmetric order 260** ([symmetric/260](symmetric/260)). Checked on 17 October 2026: the census; Đoković,
+arXiv:2101.05429 (65 first among the open v < 200, and the Handbook's Table 1.52 list as he quotes it);
+Seberry–Balonin (2015, 2017); Balonin–Đoković, arXiv:1803.08787; Verma, arXiv:2609.25573 (the pair only); Lebedev,
+arXiv:2609.04589; Kotsireas–Winterhof and Jedwab–Pender as cited by Verma; Zaitsev's page (QH130, not equivalent to a
+symmetric matrix); web searches for a symmetric Hadamard matrix of order 260.
+
 ## Not checked
 
 - J. Seberry, M. Yamada, *Hadamard Matrices: Constructions using Number Theory and Linear Algebra* (Wiley, 2020):

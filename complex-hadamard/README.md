@@ -341,3 +341,12 @@ solutions. For 418 the best structures have estimates of one to three solutions 
 = 11 · 31): eight multiplier groups of order 10 with estimates of 10^1.7–10^3.0 solutions. The two best joins
 found no solution in 97% and 95% of their collision mass, which the estimate gave a chance of 2–5% each
 ([search/NOTES.md](../search/NOTES.md) §57–59).
+
+**Yamada–Kiyasu in quaternary form (17 October 2026).** The symmetric quaternary matrix L of
+[NOTES.md](../NOTES.md) §31 ([symmetric/YAMADA_KIYASU.md](../symmetric/YAMADA_KIYASU.md)) is a complex Hadamard matrix
+of order 2(q + 2) for every prime power q ≡ 5 (mod 8) with a skew-Hadamard matrix of order (q + 3)/2. It gives 206
+(q = 101), 302 (q = 149) and 366 (q = 181) from Szekeres's good matrices of orders 13, 19 and 23 (checked exactly), and
+Zaitsev's QH590, QH638, QH782, QH926, QH1310, QH1358, QH1646 and QH1886 are of this kind, and their QH470, QH566,
+QH806, QH1142 and QH1526 use the same template with non-real quaternary conference matrices in place of the skew core
+([NOTES.md](../NOTES.md) §31). For no open N is N − 2 a prime power ≡ 5 (mod 8), so it
+settles no open complex order.

@@ -29,7 +29,7 @@ give a theorem: a skew-Hadamard matrix of order 3(q + 1) exists for every prime 
 | Hadamard, omitted by Table 4 through Seberry–Yamada's Corollary 8.8(i) | [10](hadamard#orders-recorded-only-through-corollary-88i) | First explicit construction |
 | Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 New, 124 New but obtainable classically, 49 First explicit construction |
 | Skew-Hadamard (820 to 14384) | [101](skew) | 37 New, 62 New but obtainable classically, 2 First explicit construction |
-| Symmetric Hadamard (356 to 9892) | [53](symmetric) | 5 New, 48 New but obtainable classically |
+| Symmetric Hadamard (260 to 9892) | [98](symmetric) | 37 New, 53 New but obtainable classically, 8 Concurrent |
 | Complex Hadamard (214 to 1906) | [14](complex-hadamard) | 12 Concurrent, 2 First explicit construction |
 | T-matrices | [97, 109, 197](t-matrices) | New |
 
@@ -96,10 +96,19 @@ settles the further open orders 5272, 7464, 18344, 36688 and 73376.
 - **Skew-Hadamard matrices** of 101 orders: Goethals–Seidel difference families with a skew block found by search,
   Seberry's theorem with new amicable pairs and orthogonal designs, Wallis's product, and the 3(q + 1) theorem, which
   settles 52 values v < 2500 that the Đoković–Seberry census [4] lists as undecided ([skew](skew)).
-- **Symmetric Hadamard matrices** of 53 orders that the census lists as undecided: 532, 732, 876, 4828 and 5700 from
-  searches and plug-in constructions, and 48 orders 4q (q ≡ 1 mod 8 a prime power) from Seberry–Yamada's
-  Williamson-type matrices with a repeated block in Seberry and Balonin's propus array, among them 7012 = 4 · 1753 from
-  our matrix of order 876 ([symmetric/PROPUS_MIYAMOTO.md](symmetric/PROPUS_MIYAMOTO.md)).
+- **Symmetric Hadamard matrices** of 98 orders that the census lists as undecided: 260 (v = 65, the census's smallest
+  value) from Verma's quaternary Legendre pair of length 64 (2026); 532, 732, 876, 4828 and 5700 from searches and
+  plug-in constructions; 48 orders 4q (q ≡ 1 mod 8 a prime power) from Seberry–Yamada's Williamson-type matrices with a
+  repeated block in Seberry and Balonin's propus array, among them 7012 = 4 · 1753 from our matrix of order 876
+  ([symmetric/PROPUS_MIYAMOTO.md](symmetric/PROPUS_MIYAMOTO.md)); and 44 from four constructions that need no
+  symmetric input: order 4q from any Hadamard matrix of order (q − 1)/2, q ≡ 1 (mod 8)
+  ([symmetric/PROPUS_WEIGHING.md](symmetric/PROPUS_WEIGHING.md), 10 orders); order 4(q + 2) from any skew-Hadamard
+  matrix of order (q + 3)/2, q ≡ 5 (mod 8), Yamada's matrix in symmetric quaternary form
+  ([symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md), 27 orders, 8 of them Concurrent because quaternary
+  matrices on Zaitsev et al.'s page [13] are equivalent to symmetric ones); order 4q, q ≡ 5 (mod 8), from a Hadamard
+  matrix [[P, Q], [Q, P]] of order q − 1 ([symmetric/PERIODIC_GOLAY.md](symmetric/PERIODIC_GOLAY.md), 404 and 596);
+  and order 2n(n − 1) from a symmetric conference matrix of order n
+  ([symmetric/CONFERENCE_PLUG.md](symmetric/CONFERENCE_PLUG.md), 612, 1300, 1740, 4900 and 7564).
 - **Complex Hadamard matrices** of the 12 orders 214, 238, 302, 326, 366, 382, 426, 494, 518, 534, 754 and 1558,
   blank in Seberry and Yamada's table [5] and in the papers since [10, 11], from searches over Szöllősi's array [10]
   and its bordered, character-bordered and twisted forms. Zaitsev et al. found all twelve concurrently and
@@ -145,6 +154,7 @@ gzip -dc hadamard/2092/H2092.csv.gz | ./check_matrix
 | Skew difference families: compression chains, Paley products, low-energy k-trees | skew orders | [skew](skew), [search/NOTES.md](search/NOTES.md) §10–16, §20 |
 | Paley's matrix in sixteen negacyclic blocks, Frobenius pairing, T-matrices of order 3 | skew orders 3(q + 1) | [skew/PALEY_SKEW.md](skew/PALEY_SKEW.md) |
 | Propus quadruples, the symmetric m(m − 1) and m(m + 3) constructions, Miyamoto's lemma in the propus array | symmetric orders | [symmetric](symmetric), [search/NOTES.md](search/NOTES.md) §17, §27–31 |
+| A Hadamard matrix of order (q − 1)/2 in the propus array; Yamada–Kiyasu in symmetric quaternary form; [[P, Q], [Q, P]] with Paley's matrices; a symmetric conference matrix in I ⊗ X + C ⊗ Y | symmetric orders | [symmetric](symmetric), [NOTES.md](NOTES.md) §29–31 |
 | Szöllősi's array and its bordered, character-bordered and twisted forms | complex orders | [complex-hadamard](complex-hadamard) |
 
 [NOTES.md](NOTES.md) and [search/NOTES.md](search/NOTES.md) are the research notebooks: the constructions, the

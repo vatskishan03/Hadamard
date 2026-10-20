@@ -65,7 +65,8 @@ one applies:
   T-matrices of order t known, symmetric Williamson-type matrices of order w (near-Williamson matrices give them;
   Kharaghani et al. define those for odd w only) or a negaperiodic Golay pair of length 2w. Not listed in the table;
   the open cases are 2571 (w = 214), 2823 (w = 235) and 2677 (q = 2677, t = 1, which needs a Hadamard matrix of order
-  2676 = 4 · 669).
+  2676 = 4 · 669). 2823 would follow from the symmetric conference matrix of order 118 that Brouwer's table reports
+  (J. Y. Z. Ho, October 2026, not public; [hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md)).
 
 | 4n | n | GS: \|H\| | cosets | classes | log₁₀ E | log₁₀ W | Spence: group | log₁₀ W | Route |
 |---:|---:|---:|---:|---:|---:|---:|---|---:|---|
