@@ -51,9 +51,10 @@ A = P ⊗ M + J₂ ⊗ I,   B = P ⊗ N,   X′ = ω A + ω̄ B,   Y′ = J₂ �
 X = [[1, e], [−eᵀ, X′]],   Y = [[1, i e], [−i eᵀ, Y′]],   K = [[X, Y], [Y*, −X*]].
 ```
 
-K has entries ±1, ±i and K K* = 3398 I. This is the complex form of the Yamada–Kiyasu template
-([NOTES.md](../../NOTES.md) §31). It works for any quaternary conference matrix of order (q + 3)/2 and uses no symmetry
-of the core. Zaitsev et al.'s quaternary matrices QH470, QH566, QH806, QH1142 and QH1526 have this form.
+K has entries ±1, ±i and K K* = 3398 I ([complex-hadamard/C3398.json](../../complex-hadamard/C3398.json)). This is the
+complex form of the Yamada–Kiyasu template ([NOTES.md](../../NOTES.md) §31). It works for any quaternary conference
+matrix of order (q + 3)/2 and uses no symmetry of the core. Zaitsev et al.'s quaternary matrices QH470, QH566, QH806,
+QH1142 and QH1526 have this form.
 
 **3. Turyn's doubling.** With K = K_r + i K_i,
 
@@ -121,6 +122,7 @@ The matrix is not stored. `python3 verify/verify.py --write 6796` writes `H6796.
 
 ```
 python3 verify/verify.py 6796
+python3 verify/verify_complex.py 3398
 ```
 
 SHA-256 of `H6796.csv`: `3f25fafaa55c8e47109341696534bb1cdea32dbe9cc3c83e0b35054c724b4446`

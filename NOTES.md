@@ -1789,7 +1789,7 @@ with the fixed-point-free Π it gives K = [[P, Q], [−DQ̄D′, −DP̄D′]] w
 of m = n/2 units ±1, ±i with m odd, never 0. So for q ≡ 5 (mod 8) both choices fail by parity, as the real
 arrangements do.
 
-## 34. Order 6796 from a quaternary conference matrix of order 850 (October 20)
+## 34. Orders 6796, 3436 and 4204 from quaternary conference matrices (October 20)
 
 The complex Yamada–Kiyasu template of §31 gives a Hadamard matrix of order 4(q + 2) from any quaternary conference
 matrix of order (q + 3)/2 when q is a prime power ≡ 1 (mod 4). Unlike Yamada's real theorem it needs no symmetric
@@ -1804,7 +1804,17 @@ exhaustively in 77 s and has 1280 solutions; the Gaussian estimate had given fou
 **The matrix:** [hadamard/6796](hadamard/6796). q = 1697; the quaternary Hadamard matrix has order 3398. `verify.py`
 rebuilds everything from the four sequences, construction `complex-yamada-kiyasu`.
 
-**The other eleven targets** (n = 643, 859, 955, 1051, 1291, 2083, 2659, 2731, 2803, 2899 and 2971), and 1879, 2215 and
-2383 (q ≡ 5 mod 8), need quaternary conference matrices of orders 322 to 1486. Most of their m = c/2 are square-free,
-so the unbordered array has only the cyclic group there. Non-cyclic groups enter through the bordered and
-character-bordered arrays, whose group orders are N − t (search/NOTES.md §76).
+**Orders 3436 and 4204** (round 23, search/NOTES.md §78). Two more cores were found by two-level sampling in the
+manner of FLC (github.com/vatskishan03/FLC): compress, sample the compressed instances, and complete each one
+exactly through the fibres of the compression.
+- *Core 430* (n = 859): over ℤ₂₁₅ with ⟨49⟩, through the compression to ℤ₄₃ ([hadamard/3436](hadamard/3436)).
+- *Core 526* (n = 1051): the bordered array over ℤ₂₆₂ with ⟨53⟩, through the compression over the ℤ₂ factor
+  ([hadamard/4204](hadamard/4204)).
+
+Full-sequence joins had failed on both structures. Their quaternary Hadamard matrices have orders 1718 (open on
+Zaitsev's list), 2102 and 3398 ([complex-hadamard](complex-hadamard)).
+
+**The other targets** (n = 643, 955, 1291, 2083, 2659, 2731, 2803, 2899 and 2971, and 1879, 2215 and 2383 with
+q ≡ 5 mod 8) need quaternary conference matrices of orders 322 to 1486. Most of their m = c/2 are square-free, so the
+unbordered array has only the cyclic group there. Non-cyclic groups enter through the bordered and
+character-bordered arrays, whose group orders are N − t (search/NOTES.md §76–77).

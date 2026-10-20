@@ -1473,13 +1473,20 @@ def build_symmetric_yamada_kiyasu(cert):
     return H, None
 
 
-def _szollosi_zero_diagonal_core(spec, seqs, rowsums=None, generators=None, group_order=None):
+def _szollosi_zero_diagonal_core(spec, seqs, rowsums=None, generators=None, group_order=None, border=None,
+                                 reflection=0):
     """The zero-diagonal Szollosi array over an abelian group G of order m (abelian_group(spec)): A, B symmetric with
     A(0) = B(0) = 0 and +-1 elsewhere, C, D +-1, PAF_A + PAF_B + PAF_C + PAF_D = 0 off 0 (all checked). With
-    w = (1 + i)/2 and R[g, h] = [g + h = 0], X = w X_A + conj(w) X_B and Y = w X_C + conj(w) X_D R give the quaternary
-    conference matrix [[X, Y], [Y*, -X*]] of order 2m (zero diagonal, entries 1, -1, i, -i elsewhere, checked by the
-    caller). If given, the row sums and a symmetry group (generators acting on the coordinates, and its order) are
-    checked too. Returns its real and imaginary parts."""
+    w = (1 + i)/2 and R[g, h] = [g + h = c] (c = 0 unless the certificate names another element), X = w X_A + conj(w) X_B
+    and Y = w X_C + conj(w) X_D R give the quaternary conference matrix [[X, Y], [Y*, -X*]] of order 2m (zero diagonal,
+    entries 1, -1, i, -i elsewhere, checked by the caller). If given, the row sums and a symmetry group (generators acting on the coordinates, and its order) are
+    checked too. Returns its real and imaginary parts.
+
+    Bordered form (border = {"t": [a, b], "v": [c, d]}, Gaussian units t = a + bi, v = c + di): the condition is
+    PAF_A + PAF_B + PAF_C + PAF_D = -4 off 0 on G of even order n, which forces the row sums r_A, r_B = +-1 and
+    r_C = r_D = 0. With rho = w r_A + conj(w) r_B (a unit), s = rho^2 conj(t), y = -rho conj(t) v and
+    u = rho^2 conj(t)^2 v, the blocks X = [[0, s e], [t e^T, X']] and Y = [[y, u e], [v e^T, Y']] (X', Y' as X, Y above)
+    give the quaternary conference matrix [[X, Y], [Y*, -X*]] of order 2(n + 1)."""
     m, add, neg = abelian_group(spec)
     A, B, C, D = (np.array([SIGN[ch] for ch in x], dtype=np.int64) for x in seqs)
     if rowsums is not None and [int(x.sum()) for x in (A, B, C, D)] != list(rowsums):
@@ -1520,15 +1527,47 @@ def _szollosi_zero_diagonal_core(spec, seqs, rowsums=None, generators=None, grou
         raise ValueError("A or B is not symmetric")
     XA, XB, XC, XD = (group_matrix(add, neg, x) for x in (A, B, C, D))
     paf = XA[0] @ XA.T + XB[0] @ XB.T + XC[0] @ XC.T + XD[0] @ XD.T   # (X X^T)[0, h] = sum_k x(k) x(k - h) = PAF(-h)
-    if np.any(np.delete(paf, 0)):
-        raise ValueError("PAF_A + PAF_B + PAF_C + PAF_D != 0 off 0")
-    R = np.zeros((m, m), dtype=np.int64)
-    R[np.arange(m), neg] = 1
+    if np.any(np.delete(paf, 0) != (-4 if border is not None else 0)):
+        raise ValueError("PAF_A + PAF_B + PAF_C + PAF_D != %d off 0" % (-4 if border is not None else 0))
+    R = np.zeros((m, m), dtype=np.int64)          # R[g, h] = [g + h = c], c = the element with index `reflection`
+    R[np.arange(m), add[reflection, neg]] = 1      # any c works: R X_f R = X_f^T
     XDR = XD @ R
     # 2X = (XA + XB) + i (XA - XB), 2Y = (XC + XD R) + i (XC - XD R); the halves are integers since the entries agree
     # or are opposite in each position.
     Xr, Xi, Yr, Yi = (XA + XB) // 2, (XA - XB) // 2, (XC + XDR) // 2, (XC - XDR) // 2
+    if border is not None:
+        gm = lambda a, b: (a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0])
+        t, v = tuple(border["t"]), tuple(border["v"])
+        if t not in ((1, 0), (0, 1), (-1, 0), (0, -1)) or v not in ((1, 0), (0, 1), (-1, 0), (0, -1)):
+            raise ValueError("the border units t, v must be 1, -1, i or -i")
+        rA, rB = int(A.sum()), int(B.sum())
+        if abs(rA) != 1 or abs(rB) != 1:
+            raise ValueError("the bordered array needs row sums +-1 for A and B")
+        rho, tb = ((rA + rB) // 2, (rA - rB) // 2), (t[0], -t[1])
+        sb = gm(gm(rho, rho), tb)
+        yb = gm(gm(rho, tb), v)
+        yb = (-yb[0], -yb[1])
+        ub = gm(gm(gm(rho, rho), gm(tb, tb)), v)
+        N = m + 1
+        P_ = [np.zeros((N, N), dtype=np.int64) for _ in range(4)]      # Re X, Im X, Re Y, Im Y
+        for M_, inner in zip(P_, (Xr, Xi, Yr, Yi)):
+            M_[1:, 1:] = inner
+        P_[0][0, 1:], P_[1][0, 1:] = sb
+        P_[0][1:, 0], P_[1][1:, 0] = t
+        P_[2][0, 0], P_[3][0, 0] = yb
+        P_[2][0, 1:], P_[3][0, 1:] = ub
+        P_[2][1:, 0], P_[3][1:, 0] = v
+        Xr, Xi, Yr, Yi = P_
     return np.block([[Xr, Yr], [Yr.T, -Xr.T]]), np.block([[Xi, Yi], [-Yi.T, Xi.T]])
+
+
+def complex_yamada_kiyasu(cert):
+    """The quaternary Hadamard matrix K = Kr + i Ki of order 2v of build_complex_yamada_kiyasu (int8 parts; K K* = 2vI
+    is checked by the caller, directly or through Turyn's double). cert["order"] may be 2v or 4v."""
+    q = cert["q"]
+    if cert["order"] not in (2 * (q + 2), 4 * (q + 2)):
+        raise ValueError("the order must be 2(q + 2) or 4(q + 2)")
+    return _complex_yamada_kiyasu_K(cert)
 
 
 def build_complex_yamada_kiyasu(cert):
@@ -1546,9 +1585,15 @@ def build_complex_yamada_kiyasu(cert):
     X'X'* + Y'Y'* = 2vI - 2J; the borders close because A e^T = 2e^T, B e^T = 0 and Z has zero row and column sums;
     so K K* = 2vI. No symmetry of the core is used. With K = Kr + i Ki,
     H = [[Kr + Ki, Kr - Ki], [-(Kr - Ki), Kr + Ki]] has H H^T = 4vI (checked by the caller)."""
-    q = cert["q"]
-    if cert["order"] != 4 * (q + 2):
+    if cert["order"] != 4 * (cert["q"] + 2):
         raise ValueError("the order must be 4(q + 2)")
+    Kr, Ki = _complex_yamada_kiyasu_K(cert)
+    X, Y = Kr + Ki, Kr - Ki
+    return np.block([[X, Y], [-Y, X]]), None
+
+
+def _complex_yamada_kiyasu_K(cert):
+    q = cert["q"]
     if q % 4 != 1 or not _is_prime(q):
         raise ValueError("q must be a prime = 1 (mod 4)")
     alpha, beta = _yamada_alpha_beta(q, cert["r"], tuple(cert["xi"]))
@@ -1563,7 +1608,8 @@ def build_complex_yamada_kiyasu(cert):
         raise ValueError("M^2 + N^2 != qI")
     core = cert["core"]
     Cr, Ci = _szollosi_zero_diagonal_core(core["group"], core["sequences"], core.get("rowsums"),
-                                          core.get("symmetry_generators"), core.get("symmetry_order"))
+                                          core.get("symmetry_generators"), core.get("symmetry_order"),
+                                          core.get("border"), core.get("reflection", 0))
     c = Cr.shape[0]
     if c != n + 1:
         raise ValueError("the core must have order (q + 3)/2")
@@ -1600,8 +1646,7 @@ def build_complex_yamada_kiyasu(cert):
     Ki = np.block([[Xi, Yi], [-Yi.T, Xi.T]]).astype(np.int8)
     if not (np.abs(Kr.astype(np.int16)) + np.abs(Ki.astype(np.int16)) == 1).all():
         raise ValueError("K has an entry outside 1, -1, i, -i")
-    X, Y = Kr + Ki, Kr - Ki
-    return np.block([[X, Y], [-Y, X]]), None
+    return Kr, Ki
 
 
 def build_paley_skew(cert):
