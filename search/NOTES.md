@@ -5072,3 +5072,67 @@ exactly on every tuple before any list is built.
 **Reading.** The 850 effect did not repeat. The Singer structures of the other targets die on row sums or on
 quotients, and what survives has small or scalar H. Round 23 (§78) turns to the FLC two-level method on the strongest
 cyclic structures instead.
+
+## 78. Round 23: two-level sampling in the manner of FLC settles 859 and 1051 (October 20)
+
+**The method.** FLC ([github.com/vatskishan03/FLC](https://github.com/vatskishan03/FLC)) classifies circulant
+Williamson, good and best matrices by:
+- compressing each block by a small factor;
+- listing the compressions that pass the PSD bound;
+- joining the four lists on a hash linear in the compressed PAF (class partitions, a one-word Bloom filter, SIMD pair
+  filters against the partner lists' minima);
+- completing every instance (compressed quadruple) through the fibres of its blocks, with an (A, D) × (B, C) hashed
+  join on the full PAF.
+
+Earlier rounds had said that the two-level split is no shortcut because level-1 instances outnumber solutions (§75).
+That holds for exhaustive search only. When solutions are plentiful, random instances completed exactly can cost far
+less per solution than any join of full-sequence lists, which is what rounds 20 to 22 used. Scratchpad `round23/`.
+
+**Core 526, n = 1051** (`flc263`; [hadamard/4204](../hadamard/4204)).
+- *Structure.* The bordered array over ℤ₂₆₂ = ℤ₂ × ℤ₁₃₁ with H = ⟨53⟩ (order 5).
+- *Split* (PROVED). With c = x(0, ·) + x(1, ·) and d = x(0, ·) − x(1, ·) on ℤ₁₃₁, PAF_x(0, s) = (PAF_c + PAF_d)/2 and
+  PAF_x(1, s) = (PAF_c − PAF_d)/2. So the solutions are exactly the pairs (instance, completion):
+  - level 1: Σ PAF_c = (8p − 6) δ − 8;
+  - level 2: Σ PAF_d = (8p + 2) δ, with supp d the complement of supp c.
+- *New necessary condition* (PROVED). For p ≡ 3 (mod 4), 2(4h − 1)² ≤ 8p + 2. It explains every empty small case.
+- *Calibration.*
+  - Exact at p = 13, 41, 31; the last two reproduce B83 = 132096 and B63 = 764880.
+  - p = 43, h = 3, a residue no earlier calibration covered: E = 10^7.91 against the Gaussian 10^7.87.
+- *Population at p = 131.* N₁ = 1.3 · 10¹³ instances (Monte Carlo); about 6 · 10⁻⁵ completions per instance at the
+  Gaussian E.
+- *Zero-count stratification* (the gain).
+  - The zero-orbit count of a solution's C or D is close to Binomial(26, 1/2). Exactly, 2z_A + 2z_B + z_C + z_D = 52,
+    which pins z_A + z_B to (52 − z_C − z_D)/2.
+  - The uniform C/D population peaks at z = 8 to 10.
+  - Sampling only the stratum z_C = z_D = 18 raised the yield per pair test by about 10^3.6.
+  - First solution after 103 s; 19 verified (17 distinct) in about 8 CPU-minutes.
+  - Measured E ≈ 10^8.0–8.3, a factor 4 to 8 below the Gaussian 10^8.9.
+
+**Core 430, n = 859** (`flc215`; [hadamard/3436](../hadamard/3436)).
+- *Structure.* ℤ₂₁₅ with ⟨49⟩, the model of §75 written in C.
+  - Level 1: the compression to ℤ₄₃, g₀ = f₀ + 2f₁ + 2f₂, conditioned on the ℤ₅ tuple.
+  - Level 2: the signs of v on the columns with |g₀| = 1, with Σ PAF_u + 5 PAF_v = 858 δ and Σ CCF(u, v) + CCF(v, u) = 0.
+- *Key-group completion* (new). All level-1 pairs with the same PAF sum are completed at once: the A × C fibre pairs
+  are hashed and the B × D fibre pairs probe them. Per instance this would cost n_AC · n_BD completions per group.
+- *Calibration* (exact).
+  - m = 65: 1408 solutions (round 21's 352 was another normalisation; an independent brute force agrees).
+  - m = 155 class 0: 1320 per ordered tuple from 7.7 · 10⁷ instances.
+  - m = 35, 95: empty.
+- *Trend.* Completions per instance: 0.92, 1.7 · 10⁻⁵, 4.2 · 10⁻⁷ and 3 · 10⁻⁸ at p = 13, 31, 37, 43.
+- *Hits.* At p = 43, class 6 (rows (14, 18, 13, 13)): 3 hits with 1/64 of C, 1/64 of D and a quarter of the hash
+  classes, the first after about 2 CPU-minutes. Class 15 (rows (6, 10, 19, 19)): 1 hit.
+- *Estimate.* About 5 · 10⁴ solutions per ordered class-6 tuple (90% interval [1.4 · 10⁴, 1.3 · 10⁵]).
+- *Why round 21 failed.* Its kt4 join multiplied Gaussian retention guesses for mass-selected full-sequence lists; a
+  uniform prefix sample with exactly known coverage calibrates reliably.
+
+**Checks.** For both orders:
+- an independent judge rebuilt the cores with its own code and checked K K* exactly;
+- chain.py and a bit-packed checker confirmed H H^T = nI;
+- `verify.py` rebuilds both from the four sequences. The bordered form and the reflection R[g, c − g] were added to
+  construction `complex-yamada-kiyasu`; any c works, since R X R = Xᵀ.
+
+The quaternary matrices of orders 1718, 2102 and 3398 have certificates in `complex-hadamard/`; `verify_complex.py`
+calls the same builder.
+
+**Leftovers of round 22** (run alone): the ℤ₃² family at N = 725, structures [61], [37], [74], [76] and [38] complete,
+0 cores; [68] has no tuple with a border.

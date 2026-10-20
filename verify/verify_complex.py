@@ -23,6 +23,11 @@ Ch[i q + phi(g), b].
 Certificates with construction "miyamoto-completion" give q, a primitive root g and an input file: the completion
 of Seberry-Yamada's Corollary 8.8(i) (completion_build, NOTES.md section 19).
 
+Certificates with construction "complex-yamada-kiyasu" give a prime q = 1 (mod 4), Yamada's parameters r, xi and a
+quaternary conference matrix of order (q + 3)/2 as the four sequences of a zero-diagonal Szollosi array, plain or
+bordered; K of order 2(q + 2) is built by verify/verify.py (complex_yamada_kiyasu, NOTES.md section 31), which also
+builds the Hadamard matrices of order 4(q + 2) in hadamard/ from the same data.
+
 This script rebuilds K from the sequences alone, checks every entry and K K* = n I exactly in integer arithmetic
 (real and imaginary parts separately), and compares the SHA-256 of the canonical text of K: n lines of n digits,
 digit e for the entry i^e.
@@ -224,6 +229,11 @@ def completion_build(cert):
 
 
 def build(cert):
+    if cert["construction"] == "complex-yamada-kiyasu":
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import verify as real
+        Kr, Ki = real.complex_yamada_kiyasu(cert)
+        return Kr.astype(np.int64), Ki.astype(np.int64)
     if cert["construction"] == "miyamoto-completion":
         return completion_build(cert)
     if cert["construction"] == "paley":
@@ -274,8 +284,12 @@ def check(Kr, Ki):
     if not np.all(np.abs(Kr) + np.abs(Ki) == 1):
         raise ValueError("an entry is not in {1, -1, i, -i}")
     I = np.eye(n, dtype=np.int64)
-    re = Kr @ Kr.T + Ki @ Ki.T                 # K K* = (Kr + i Ki)(Kr^T - i Ki^T)
-    im = Ki @ Kr.T - Kr @ Ki.T
+    if n > 1000:     # float64 BLAS is exact here: entries 0, +-1 and every partial sum an integer of size <= n < 2^53
+        Fr, Fi = Kr.astype(np.float64), Ki.astype(np.float64)
+        re, im = (Fr @ Fr.T + Fi @ Fi.T).astype(np.int64), (Fi @ Fr.T - Fr @ Fi.T).astype(np.int64)
+    else:
+        re = Kr @ Kr.T + Ki @ Ki.T             # K K* = (Kr + i Ki)(Kr^T - i Ki^T)
+        im = Ki @ Kr.T - Kr @ Ki.T
     if not (np.array_equal(re, n * I) and not im.any()):
         raise ValueError("K K* != n I")
 
