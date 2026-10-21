@@ -5243,3 +5243,59 @@ row patterns of each, about 7.4 · 10¹¹ pair tests per class, 0 solutions. The
 **n = 955, character-bordered ℤ₃² family** (§77). The leftovers [16] and [17] are not "unusable": the `--forceq` flag
 of `sweep.py` admits only quotients that refine Q. Without it both run on the quotient ℤ₃₉, but `lowe_enum` then dies
 (SIGSEGV at the 3.5 GB cap) while listing one block. UNKNOWN.
+
+## 81. Round 26: Paley plug-in cores (October 21)
+
+No core was found. Two lenses (scratchpad `r26/` of the new session directory), each with an adversarial judge.
+
+**The plug-in class.** G = K × F_q with H = {1} × S, S the squares of F_q* (H acts trivially on K). Each block is three
+functions on K: x₀ on K × {0}, x₁ on K × S, x₂ on K × N. The class came from round 25's census, where the order-153
+class ℤ₃² × ℤ₁₇ has tens of thousands of solutions against 5 predicted. In all of them x₂ = −x₁ at all but two of the
+36 block positions: the blocks are x₀ ⊗ δ + x₁ ⊗ (Legendre symbol) plus a few *defects* (x₁ = x₂).
+
+**The K-level system** (PROVED; both judges re-derived it and checked it against their own brute force).
+- With s = x₀ − e, t = (x₁ − x₂)/2, e = (x₁ + x₂)/2, each block is X = sI + tQ + eJ, Q the Paley matrix of F_q.
+  The unbordered condition Σ PAF = (4m − 2)δ_G is equivalent to
+  - (I) Σ(s s̃ + q t t̃) = (4m − 2)δ_K,
+  - (J) Σ(q e ẽ + s ẽ + e s̃ − t t̃) = 0,
+  - (Q) Σ(t s̃ + ε s t̃) = 0, with ε = 1 for q ≡ 1 and −1 for q ≡ 3 (mod 4).
+  The bordered array has the same form with its own right-hand sides.
+- *Defect identity.* The identity coefficients give e₊(q + 1) + e₋(q − 3) + e₀(q − 1) = 4|K| (unbordered), or
+  4(|K| − 1) (bordered). Here e₊ and e₋ count defects with x₀x₁ = ±1, and e₀ ≤ 2 counts those at A(0), B(0).
+- *q ≡ 3 (mod 4).* Symmetry of A and B forces x₁(0) = x₂(0), so e₀ = 2, plus a defect of A and of B at every
+  2-torsion point of K.
+- *Bordered row lemma.* q ≥ |K| + 3 forces an even number of defects in every block.
+- *Further exact filters.* The PE bound (defect differences must cancel between blocks when (q − 1)² is large), a
+  row-sum lemma, and a quotient test that includes the identity coefficients.
+
+**Results.**
+- *n = 1291, both plug-in classes EXHAUSTIVELY empty.* ℤ₁₉ × F₁₇ (H of order 8, 57 orbits): only (e₊, e₋, e₀) =
+  (1, 3, 1) is possible, giving three canonical defect configurations. Two die on a mod-8 row-sum lemma; the third has
+  no solution of (I) + q(J) (the judge's own search over all 2⁵³ sign choices agrees). ℤ₁₇ × F₁₉ (order 9): only
+  (0, 2, 2); one configuration, 128 × 21632 pairs, 0 hits (reproduced by the judge, 346112 t-quadruples).
+- *Bordered, PROVED empty by the identity and the lemmas, and for 955, 2971 and 1046 also by exhaustive runs:*
+  n = 955 (ℤ₁₄ × F₁₇), n = 2971 (ℤ₁₄ × F₅₃), n = 2731 (ℤ₂₂ × F₃₁, the 66-orbit class no earlier sweep reached; e₀ = 2
+  leaves 24 = 32a + 28b), and the complex-only order 1046 (ℤ₁₀ × F₁₃). The engine kills the same classes for 955, 2971
+  and 2731 on exact compressions.
+- *Impossible by the identity:* unbordered ℤ₅² × F₂₉ (2899), ℤ₇ × F₂₃ (643) and every even-m shape (1879, 2215, 2383);
+  bordered N = 323, 701, 725, 665, 149, 215, 245.
+- *n = 2899, ℤ₂₉ × GF(25).* Two of three configurations die on row sums. The third has no solution of (I) + q(J) with
+  at most one exceptional coordinate (4 · 10⁷ candidates); the Gaussian expectation of a full solution is 10⁻¹¹
+  (HEURISTIC).
+- *n = 2083, |K| = 40, q = 13:* 12 to 14 defects; the estimate is 10^−3.3 (ℤ₄₀) or lower; UNKNOWN.
+- *n = 2659, ℤ₃₅ × F₁₉:* only (2, 4, 2) is possible; estimates 10⁻³⁷ and below; UNKNOWN.
+
+**Existence trend.**
+- *The plain plug-in runs out of freedom.* At q = 17 the plug-in has solutions for |K| = 9, 11, 13 (43392, 80 and
+  1344 canonical) and none for |K| = 15, 17, 19.
+- *The one plentiful target shape.* n = 643 (ℤ₂₃ × F₇, H = ⟨93⟩) has K-level estimate 10^11.9, but needs 12 to 22
+  defects.
+- *Ties.* Only 2.65% of the ℤ₃² × F₁₇ class is tied, so the plug-in class contains, but is not, the tied family of §80.
+  A tie D = C ∘ n⁻¹ needs e₊ and e₋ even, so the (1, 3, 1) shapes admit none.
+
+**Positive controls.** A core of order 442 over ℤ₁₃ × F₁₇ (plug-in, defects (2, 0, 1)) was taken through `chain.py`
+to H(3532). A bordered core of order 42 over ℤ₄ × F₅ was taken to H(332). Neither order is new.
+
+**Refuted by a judge.** A parity lemma claiming that one configuration type has no defect-free solution of
+(I) + q(J). It is false when (|K| − 1)/2 is odd (an explicit clean assignment exists at |K| = 19, and clean solutions
+exist at |K| = 11 and 15). The ℤ₁₉ verdict stands on the exhaustive searches alone.
