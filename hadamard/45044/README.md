@@ -20,7 +20,7 @@ certificate of the order-11260 matrix and the SHA-256 of the result.
 
 ## Status
 
-**New, beyond the tables**, but obtainable classically. The order lies above the range of every table we know: the
+**New, beyond the tables, but obtainable classically**. The order lies above the range of every table we know: the
 Handbook's Table 1.53 stops at n = 9999.
 
 The input of order 11260 = 4 · 2815 is one of the fourteen orders of [PALEY_BLOCKS.md](../PALEY_BLOCKS.md): Paley's

@@ -1,22 +1,25 @@
-# Notes on structured searches (October 2026)
+# Notes on structured searches
 
 What we learned while searching for the unresolved orders in [FRONTIER.md](FRONTIER.md), including the searches that
-found nothing. Section 1 is a mechanism, sections 2–4 and 6 are negative results, and section 5 is the literature as of
-October 2026. Section 7 treats table entries that are wrong or unproved and the Williamson-type routes, sections 8–12
-the complex Hadamard matrices, section 13 the Spence spin structures behind order 2292, section 14 the complex orders
-330 and 426, section 15 the compressions that decide which row patterns live, with the complex orders 342, 366, 430 and
-454, section 16 the character-bordered array and the complex order 214, section 17 its ℤ₆ form and the complex order
-322, section 18 Paley's matrix halves, section 19 Miyamoto's lemma with symmetric inputs, section 20 the page of Zaitsev
-et al. and section 21 the quaternion type of Paley's matrix. Sections 22–26 treat Paley's and Miyamoto's matrices in
-sixteen blocks times T-matrices, section 27 the skew-Hadamard matrices of order 3(q + 1), section 28 the closure of the
-published constructions, and section 29 the symmetric Hadamard matrices of order 4q. The notes on the individual search
-programs are in [search/NOTES.md](search/NOTES.md).
+found nothing. Section 1 is a mechanism, sections 2–4 and 6 are negative results, and section 5 is the literature as
+of October 2026. Section 7 treats table entries that are wrong or unproved and the Williamson-type routes, sections
+8–12 the complex Hadamard matrices, section 13 the Spence spin structures behind order 2292, section 14 the complex
+orders 330 and 426, section 15 the compressions that decide which row patterns live, with the complex orders 342, 366,
+430 and 454, section 16 the character-bordered array and the complex order 214, section 17 its ℤ₆ form and the complex
+order 322, section 18 Paley's matrix halves, section 19 Miyamoto's lemma with symmetric inputs, section 20 the page of
+Zaitsev et al. and section 21 the quaternion type of Paley's matrix. Sections 22–26 treat Paley's and Miyamoto's
+matrices in sixteen blocks times T-matrices, section 27 the skew-Hadamard matrices of order 3(q + 1), section 28 the
+closure of the published constructions, sections 29–32 the symmetric Hadamard matrices (order 4q from Miyamoto's
+lemma, from any Hadamard matrix of order (q − 1)/2, order 4(q + 2) from any skew-Hadamard matrix of order (q + 3)/2,
+and order 260), section 33 why Miyamoto's V-part admits no symmetric decoupling, and section 34 the orders 6796, 3436
+and 4204 from quaternary conference matrices. The notes on the individual search programs are in
+[search/NOTES.md](search/NOTES.md).
 
 **Status of the complex orders.** The orders 142, 154, 222, 262, 286, 310, 322, 330, 342, 370, 430, 454 and 742,
 constructed here by search, are Known: 4N − 1 is a prime power for each, and Ito's Hadamard groups with Egan 2019,
 Theorem 4.5, give them (§18). The other 12 orders constructed here, 214, 238, 302, 326, 366, 382, 426, 494, 518, 534,
-754 and 1558, are Concurrent: Zaitsev et al. have matrices of all of them (§20). 1618 and 1906 (§19) are First explicit
-constructions.
+754 and 1558, are Concurrent: Zaitsev et al. have matrices of all of them (§20). 1618 and 1906 (§19) are First
+explicit constructions. The quaternary orders 1718 (New), 2102 and 3398 (New, beyond the tables) are in §34.
 
 ## 1. Why some structures have many solutions
 
@@ -63,10 +66,10 @@ The shape is necessary but not sufficient. 9,677 of the structures in section 3 
 
 ## 3. Twisted structures: what was searched
 
-**Census.** The family of 1916 and 3964 is G = ℤ₂² × ℤ_κ (family U, q = 4) with
-S = ⟨(α, u₁), (1, u₂)⟩, where u₁ runs over all units. We also used ℤ₂³ × ℤ_κ (q = 8), with
-automorphisms of order 7 (Singer) and 3. Built by `twinbuild.py` with 30–64 orbits, this gives 36,444
-structures for 174 unresolved orders: 114 with n ≡ 3 (mod 4) and 60 with n ≡ 7 (mod 8).
+**Census.** The family of 1916 and 3964 is G = ℤ₂² × ℤ_κ (family U, q = 4) with S = ⟨(α, u₁), (1, u₂)⟩, where u₁ runs
+over all units. We also used ℤ₂³ × ℤ_κ (q = 8), with automorphisms of order 7 (Singer) and 3. Enumerated with 30–64
+orbits (program not included), this gives 36,444 structures for 174 unresolved orders: 114 with n ≡ 3 (mod 4) and 60
+with n ≡ 7 (mod 8).
 
 **Results.** About 5,300 were run:
 
@@ -101,7 +104,7 @@ Other hosts of this type are larger and untested: 1823 (35 · 13), 1879 (7 · 67
 - **Threads.** Pin OPENBLAS_NUM_THREADS per process, or every run starts one BLAS thread per visible
   core.
 
-## 5. Literature (search of October 2026)
+## 5. Literature
 
 - **Alpöge et al., 12 orders.** They were posted with a decoder and no paper. Speyer's analysis of 668
   on MathOverflow shows a bordered Goethals–Seidel array with a border of size 4 over ℤ₁₆₆.
@@ -116,7 +119,7 @@ Other hosts of this type are larger and untested: 1823 (35 · 13), 1879 (7 · 67
 - **Cocyclic matrices.** For order 4p with p ≡ 3 (mod 4), every cocyclic Hadamard matrix is of
   Williamson type or a transposed Ito matrix (Barrera Acevedo, Ó Catháin, Dietrich 2019).
 
-## 6. The two-spike shape and T-matrix obstructions (October 13)
+## 6. The two-spike shape and T-matrix obstructions
 
 **Two-spike bordered shape** (the structure of order [2148](hadamard/2148)). It is a bordered
 Goethals–Seidel array over ℤ₂q × GF(r) with Q = ℤ_q, T = all characters, index e and F = (r − 1)/e odd.
@@ -149,7 +152,7 @@ points, so the row sums satisfy (±1 + |H|a)² + |H|²(b² + c² + d²) = t. For
 - 263 admits none (|H| = 131 fails);
 - 223 admits only |H| = 3 (rows −5, 9, 9, 6; 74 cosets, 37 classes).
 
-## 7. Table entries and Williamson-type routes (October 14)
+## 7. Table entries and Williamson-type routes
 
 **1823 is not open.** Seberry and Whiteman (Graphs Combin. 4 (1988) 355–377) construct symmetric conference matrices
 of order 5·9^(2t+1) + 1. For t = 1 the order is 3646 = 2·1823, and [[C+I, C−I], [C−I, −C−I]] is a Hadamard matrix of
@@ -286,7 +289,7 @@ not yet been found, namely n ∈ {53, 59, 65, 67}").
   [williamson-type](williamson-type), [34196](hadamard/34196) with the bordered WT(83), and [19028](hadamard/19028)
   with T-sequences of length 71 (from Turyn-type TT(24)) and the near-Williamson WT(67).
 
-## 8. Complex Hadamard matrices, the order-3 twist and quaternary Legendre pairs (October 14)
+## 8. Complex Hadamard matrices, the order-3 twist and quaternary Legendre pairs
 
 **Szöllősi's two-symmetric array.** If A, B, C, D are circulant ±1 matrices of odd order N with ΣXXᵀ = 4N I and only A
 and B symmetric, Theorem 4 of arXiv:2603.09572 gives a quaternary Hadamard matrix of order 2N. Williamson-type
@@ -366,7 +369,7 @@ H-orbits and r, s on the ⟨H, −1⟩-orbits; it finds pairs at lengths 14 and 
 lengths every multiplier structure has a Gaussian estimate of 10^−2.2 or less: 70: 10^−4.4 (⟨11⟩); 76: 10^−2.3 (⟨45⟩);
 94: 10^−2.2 (⟨3⟩).
 
-## 9. Bordered Szöllősi arrays and routes to the open orders (October 14)
+## 9. Bordered Szöllősi arrays and routes to the open orders
 
 **Which new objects would settle FRONTIER orders.** Factoring the open n ≤ 2999 of FRONTIER.md (145 entries on 14
 October) as n = t·w against the known T-matrix orders and Williamson-type orders (Table A.1 of 1992, the 2026
@@ -438,7 +441,7 @@ prime:
 - ℤ₁₀₇* and ℤ₁₀₆* have no useful multiplier groups.
 - The only bordered structure the row sums admit, H = {±1}, rates 10^1.0 but has pools of 5 · 10¹⁴.
 
-## 10. Exact compression chains and streaming joins for complex Hadamard orders (October 14)
+## 10. Exact compression chains and streaming joins for complex Hadamard orders
 
 **Compression chain (`search/cchain4.py`, `search/cchain_sweep.py`).** The method of order 3964 (and of
 `search/chain.py` for skew families), generalised to four blocks with per-block symmetry. Blocks are of kind L
@@ -490,7 +493,7 @@ fingerprints in 36 minutes on 4 cores. Pass 2 found a verified solution 6.5 minu
 pool was scheduled). This gives the complex Hadamard matrix of order 382 (`complex-hadamard/C382.json`). The order is
 blank in Table 11.2, and 191 is prime, so no compression or product reaches it.
 
-## 11. Twisted Szöllősi quadruples (October 14)
+## 11. Twisted Szöllősi quadruples
 
 **Construction** (`search/tsz.py`, `search/tsz.c`). Let H ≤ ℤ_N^* with −1 ∉ H, L = ⟨H, −1⟩, and μ a unit with μ ∉ L
 and μ² ∈ L. Every quadruple below satisfies Szöllősi's hypotheses (A, B symmetric, ΣPAF = 0 off 0), so it gives a
@@ -539,7 +542,7 @@ YY* equals (ΣXXᵀ)/2 for *any* four circulants. Then K = [[X, Y], [−Ȳ, X̄]
 CDᵀ is symmetric. This needs neither A nor B symmetric, but it replaces 2 · (N − 1)/2 symmetry bits by (N − 1)/2
 integer constraints of about 4 bits each. Its estimate is lower than Szöllősi's by about 2^−N, so it was not searched.
 
-## 12. Low-energy k-tree for Szöllősi structures (October 14)
+## 12. Low-energy k-tree for Szöllősi structures
 
 `search/lowe_sz.py` (with `search/lowe_enum.c` and the four-list join `search/kt4.c` of the low-energy skew searches,
 [search/NOTES.md](search/NOTES.md) §20) for structures whose blocks C, D have 10⁹–10¹¹ members.
@@ -578,13 +581,13 @@ Two lessons:
 - Exact compression checks remove impossible structures before any search (111 of the 143 best-ranked).
 - Fibre filters restrict each block to members whose compressions occur in a level-1 solution. Here they kept 2.1%
   of C and 3.6% of D, so C's list was complete.
-- kt4 runs single-threaded, which on the shared machine is 30 times faster, and also takes split values from the
-  lattice near the solution law.
+- kt4 runs single-threaded, which is 30 times faster with other jobs running on the machine, and also takes split
+  values from the lattice near the solution law.
 
 The run found 1536 solutions at its 146th split value, where earlier runs of the same structure without filters had
 found none in about 4700.
 
-## 13. Spence spin structures: orders 2292 and 9172 (October 14)
+## 13. Spence spin structures: orders 2292 and 9172
 
 **Structure.** Spence's bordered construction over a group G of order n − 1 (ΣPAF = −4 off zero, row sums 2, 0, 0, 0),
 with blocks (A, B, B∘μ, B∘μ²). Here H is a group of automorphisms, μ normalises H and μ³ ∈ H. A is invariant under K =
@@ -621,7 +624,7 @@ with blocks (A, B, B∘μ, B∘μ²). Here H is a group of automorphisms, μ nor
 Every other open n tested is excluded by the arithmetic gate, by row sums, or at a coarse quotient. Coverage is
 incomplete for some non-cyclic groups (ℤ₂⁴ beyond ΓL(2,4), ℤ₃³, ℤ₅³).
 
-## 14. The complex orders 330 and 426 (October 15)
+## 14. The complex orders 330 and 426
 
 For N = m q and H the squares of GF(q) acting trivially on ℤ_m, every block of Szöllősi's array is u ⊗ δ + w ⊗ J +
 z ⊗ χ, with at each a ∈ ℤ_m either a z-position (w = 0, u, z = ±1) or a w-position (z = 0, w = ±1, u ∈ {0, −2w}).
@@ -638,7 +641,7 @@ symmetry and joins the remaining ±1 values exactly in two stages; it reproduces
   (kept from pools of 4.4 · 10⁸), 10^0.95 solutions predicted inside them, 72 found in six minutes: the complex Hadamard
   matrix of order 426 ([C426.json](complex-hadamard/C426.json)).
 
-## 15. Compressions decide which row patterns live: the complex orders 342, 366, 430 and 454 (October 15)
+## 15. Compressions decide which row patterns live: the complex orders 342, 366, 430 and 454
 
 The Gaussian estimate of §12 treats the class sums of a structure as independent continuous variables. For d | N
 the fibre sums x(a) = Σ_{g ≡ a (mod d)} X(g) obey Σ_X PAF_{x_X} = 4N δ on ℤ_d exactly, and when H fixes ℤ_d
@@ -693,7 +696,7 @@ estimate was 10^0.8 ([search/NOTES.md](search/NOTES.md) §42).
   family. (The pattern 15, 15; 3, 15 of the same N is empty under ⟨11⟩ by the two-square argument above; the row pattern
   matters.)
 
-## 16. The character-bordered Szöllősi array: the complex order 214 (October 15)
+## 16. The character-bordered Szöllősi array: the complex order 214
 
 **The construction** ([complex-hadamard/TBORDERED.md](complex-hadamard/TBORDERED.md), `search/tbsz.py`). The bordered
 Goethals–Seidel arrays with a character set T ([search/NOTES.md](search/NOTES.md) §18) carry over to Szöllősi's array.
@@ -732,7 +735,7 @@ on ℤ_(2^k) × ℤ_o, or an element of GL(2, 2) times a unit on ℤ₂² × ℤ
 - N = 239: 59 is a safe prime, so ℤ₄ × ℤ₅₉ has only H of order 29 in range (12 orbits, empty on ℤ₄), and ℤ₂² × ℤ₅₉
   none.
 
-## 17. The ℤ₆ character-bordered array: the complex order 322 (October 15)
+## 17. The ℤ₆ character-bordered array: the complex order 322
 
 **Two reductions** ([complex-hadamard/TBORDERED.md](complex-hadamard/TBORDERED.md)). Multiplying the four sequences by
 λ ∘ φ, λ a real character of Q, turns a core for T into one for λT, and the border carries over (K becomes D K D with
@@ -774,7 +777,7 @@ Its single feasible tuple has complete lists of 192, 192, 1.2 · 10⁴ and 7.3 �
 sumsets of the two sides of the join do not meet: no solution.
 
 
-## 18. Paley's matrix halves: 76 known complex orders (October 16)
+## 18. Paley's matrix halves: 76 known complex orders
 
 **How it came up.** The searches for 406, 414 and 418 had stalled: their best structures lose almost all their
 estimated mass at finer conditioning levels. So we looked for product and plug-in constructions instead, and started
@@ -874,7 +877,7 @@ as they stand.
   give 334 and 438) did not finish: the Hadamard graphs of these orders ran for two hours without a group.
 
 
-## 19. Miyamoto's lemma with a symmetric complex input (October 16)
+## 19. Miyamoto's lemma with a symmetric complex input
 
 **The reduction.** Let q ≡ 1 (mod 4) be a prime, n = (q − 1)/2, g a primitive root, χ the quadratic character. Take,
 in Seberry and Yamada's Lemma 8.6 (after Miyamoto),
@@ -1000,25 +1003,27 @@ every ordered pair of seeds, every unit μ, translation and sign. Each seed is i
 of its search: orders 3, 3, 5, 15, 12, 9 and 7 for the last seven, none for 668 and 716. No seed is ±μ-related to a
 different seed, and no seed goes to its negative. So these matrices carry no complex structure of this kind.
 
-## 20. The page of Zaitsev et al.: the complex orders are concurrent (October 16)
+## 20. The page of Zaitsev et al.: the complex orders are concurrent
 
 V. Zaitsev's page [Quaternary Hadamard matrices](https://www.cs.uleth.ca/~zaitsevv/quaternary.html), with Kharaghani,
 Mohammadian and Tayfeh-Rezaie, says "Last updated: 14 October 2026" (HTTP Last-Modified 15 October 2026, 02:50 UTC).
-We found it on 16 October. It has matrices of 122 orders 2N; we downloaded every one and checked it exactly
-(entries in {±1, ±i}, K K* = 2N I; [search/data/complex_zaitsev_2026.txt](search/data/complex_zaitsev_2026.txt)). It
-attributes 23 orders to Szöllősi's array with two symmetric blocks, the construction of §8–14 (142, 154, 222, 238,
-262, 286, 302, 310, 326, 342, 366, 370, 382, 426, 430, 494, 518, 534, 686, 742, 754, 814 and 1558), 27 to unpublished
-approaches (among them 214, 406, 454, 470, 490, 1066, 1306, 1466, 1706 and 1882), 62 to "a construction utilizing
-Paley-type matrices" (our 63 halves of §18 without 406, 814 and 1066, plus 322 and 330), and five, for which it
-claims nothing, to Mathon's conference matrices and to Đoković's Williamson-type matrices of orders 509, 857 and 883.
+We first read it on 15 October (fetched at 17:00 UTC). It has matrices of 122 orders 2N; we downloaded every one and
+checked it exactly (entries in {±1, ±i}, K K* = 2N I;
+[search/data/complex_zaitsev_2026.txt](search/data/complex_zaitsev_2026.txt)). It attributes 23 orders to Szöllősi's
+array with two symmetric blocks, the construction of §8–14 (142, 154, 222, 238, 262, 286, 302, 310, 326, 342, 366,
+370, 382, 426, 430, 494, 518, 534, 686, 742, 754, 814 and 1558), 27 to unpublished approaches (among them 214, 406,
+454, 470, 490, 1066, 1306, 1466, 1706 and 1882), 62 to "a construction utilizing Paley-type matrices" (our 63 halves
+of §18 without 406, 814 and 1066, plus 322 and 330), and five, for which it claims nothing, to Mathon's conference
+matrices and to Đoković's Williamson-type matrices of orders 509, 857 and 883.
 
-So the 11 orders 214, 238, 302, 326, 366, 382, 426, 494, 518, 534 and 754 are on the page, which was last modified
-before we committed 214 and 366, and they are Concurrent; so is 1558 ([C1558.json](complex-hadamard/C1558.json)), which
-the page lists too. At ten of the 11 the matrices differ as well: for each pair (a, b) of rows let n_k be the number of
-columns c with K[a,c] K̄[b,c] = iᵏ; the multiset of the tuples (n_0, …, n_3), each taken up to rotation and reversal, is
-unchanged by row and column permutations, unit scalings and conjugation, and we computed it for K and Kᵀ. It differs
-between our matrix and theirs at 214, 302, 326, 366, 382, 426, 494, 518, 534 and 754. At 238 it agrees, and so does the
-finer invariant that keeps, for each row, the multiset of its tuples; the two matrices of order 238 may be equivalent.
+So the 11 orders 214, 238, 302, 326, 366, 382, 426, 494, 518, 534 and 754 are on the page, which is dated 14 October,
+the day we found 366 (as a bordered array) and the day before we found 214, and which we read only after both; they
+are Concurrent; so is 1558 ([C1558.json](complex-hadamard/C1558.json)), which the page lists too. At ten of the 11 the
+matrices differ as well: for each pair (a, b) of rows let n_k be the number of columns c with K[a,c] K̄[b,c] = iᵏ; the
+multiset of the tuples (n_0, …, n_3), each taken up to rotation and reversal, is unchanged by row and column
+permutations, unit scalings and conjugation, and we computed it for K and Kᵀ. It differs between our matrix and theirs
+at 214, 302, 326, 366, 382, 426, 494, 518, 534 and 754. At 238 it agrees, and so does the finer invariant that keeps,
+for each row, the multiset of its tuples; the two matrices of order 238 may be equivalent.
 
 **A real order as well.** Turyn's doubling turns a quaternary Hadamard matrix of order 2N into a real one of order 4N.
 The page's matrix of order 1142 = 2 · 571 doubles to H(2284), which we committed on 11 October
@@ -1032,7 +1037,7 @@ The page also covers 24 of the 143 open orders of §18, 470, 490, 686 and 1306 a
 quaternary Hadamard matrix known; it is the same set of 115. The searches of §8–17 that found nothing at 334, 358, 418,
 438 and 446 stand as negative results for those structures.
 
-## 21. Paley's matrix is of quaternion type, not of Williamson type (October 16)
+## 21. Paley's matrix is of quaternion type, not of Williamson type
 
 Williamson-type matrices of order 263 would settle four FRONTIER orders (789, 1315, 1841, 2893; §9), and 4 · 263 − 1 =
 1051 is a prime. Ito's dicyclic Hadamard group of order 2(q + 1) contains Q₈ = ⟨x ↦ ix, x ↦ c x̄⟩ (N(c) = −1) when
@@ -1071,7 +1076,7 @@ usual 8n-vertex graph) have orders 32 at 238, as for ours (the multiplier group 
 and 24 at 490, with two fixed rows in both. So the orders the page attributes to unpublished approaches come with
 very little symmetry: an involution at 470, a group of order 6 at 490.
 
-## 22. Paley's matrix in sixteen circulant blocks: 14 FRONTIER orders (October 16)
+## 22. Paley's matrix in sixteen circulant blocks: 14 FRONTIER orders
 
 §21 left 263 out of reach because the quaternion-type blocks of Paley's matrix are not amicable. A different block
 structure and a product that never asks for amicability settle the four orders of 263 and ten more
@@ -1161,7 +1166,7 @@ nothing, because those s are Turyn's Williamson orders and Cooper–Wallis alrea
 reversal of a Paley-block quadruple satisfies the form-(9) condition ((q, t) = (11, 5), (19, 3), (43, 3), (43, 5) and
 (67, 3)), as the parity argument above predicts, so the route gives no complex orders.
 
-## 23. Miyamoto's matrix in bordered blocks, times T-matrices: 15 orders beyond Table 4 (October 17)
+## 23. Miyamoto's matrix in bordered blocks, times T-matrices: 15 orders beyond Table 4
 
 The Paley-block route of §22 needs a Hadamard matrix of order 4s made of sixteen blocks in a commutative algebra with a
 reversal. Miyamoto's matrix of order 4q (q ≡ 1 mod 4 prime) is one, provided its Hadamard matrix K of order q − 1 is of
@@ -1243,7 +1248,7 @@ Seberry–Yamada's 2020 book (§6.4, §6.5) was not accessible to us.
   of order 16 exist and were found at once (12260, 26972); `williamson.py` with up to 24 orbits finds none of order 325
   (for 3903, 9107) so far.
 
-## 24. Which Hadamard matrices T-matrices multiply; NG pairs and Yamada's bordered blocks (October 17)
+## 24. Which Hadamard matrices T-matrices multiply; NG pairs and Yamada's bordered blocks
 
 Theorem 4 of Seberry–Yamada (1990) uses only the orthogonality of the block rows of H = (N_kj), plus the fact that A_j =
 Σ_k T_k ⊗ N_kj can go into the Goethals–Seidel array. So it applies to any Hadamard matrix of order 4s on whose rows and
@@ -1293,7 +1298,7 @@ matrix below. Three more cases were examined; none reaches FRONTIER.md.
 - *The other M-structures of JCMCC 7* (Corollaries 36–45, eight and sixty-four blocks) give orders 8m only, outside
   FRONTIER.md.
 
-## 25. Miyamoto blocks with near-Williamson matrices: 1527, 1883, 2545 and 2611 (October 17)
+## 25. Miyamoto blocks with near-Williamson matrices: 1527, 1883, 2545 and 2611
 
 §23 needed the four quadrants of the Hadamard matrix K of order q − 1 in Miyamoto's array to lie in a commutative
 algebra transposed by one signed reversal, and looked for K among negaperiodic or periodic Golay pairs (two-block
@@ -1335,7 +1340,7 @@ for q = 269 and 373 the inputs are the 2026 near-Williamson matrices (J. Wallis'
 are not symmetric, and the propus symmetric Hadamard matrices of orders 268 and 372 do not have commuting quadrants, as
 checked).
 
-## 26. Miyamoto blocks with symmetric Williamson-type matrices, and the corollary with a repeated block (October 17)
+## 26. Miyamoto blocks with symmetric Williamson-type matrices, and the corollary with a repeated block
 
 §25 used only that X₁, …, X₄ are symmetric, commute pairwise and have Σ Xᵢ² = 4wI. Seberry and Yamada's corollaries of
 1990 make many such matrices: Corollary 25 (order 2uv from orders u and v), 27 (order p + 2), 29(ii) (order q from a
@@ -1372,7 +1377,7 @@ Negative: no circulant Williamson matrices (A, B, C, C) of orders 43, 93, 153, 1
 structures with at most 18 orbits (some row-sum classes skipped), so the repair does not reach 173, 373, 613, 757, 1109,
 1301 or 1493 this way.
 
-## 27. Skew-Hadamard matrices of order 3(q + 1) from Paley's blocks (October 17)
+## 27. Skew-Hadamard matrices of order 3(q + 1) from Paley's blocks
 
 The T-matrix multiplication of §22 gives Hadamard matrices; we asked when its first block A_c = Σ_k T_k ⊗ N_kc can be
 skew-type. Scanning the sixteen blocks of Paley's matrix for q = 11 to 331 showed the same pattern in every case: in
@@ -1460,7 +1465,7 @@ element to SL(2, q) has order 2s), and the construction runs over ℤ₃ × N_s 
   (from C₀ ∪ C₂, when they exist) have anti-automorphisms but automorphism groups of order q(q − 1) only, with no
   element of order (q + 1)/2.
 
-## 28. Closure of the published constructions (October 17)
+## 28. Closure of the published constructions
 
 For each family we computed the closure of the published constructions over the range of its reference tables. Each
 closure was iterated to a fixpoint, seeded with the tables, and then extended by this repository's objects and those
@@ -1566,7 +1571,7 @@ A.1, Turyn's doubling, and our Paley-block and Miyamoto-block routes. The tables
   so they are known and not added. 3903 and 9107 might follow from Miyamoto blocks with Whiteman's Williamson matrices
   of order 325, which we have not checked.
 
-## 29. Symmetric Hadamard matrices of order 4q from Miyamoto's lemma and the propus array (October 17)
+## 29. Symmetric Hadamard matrices of order 4q from Miyamoto's lemma and the propus array
 
 The closure of §28, run on the symmetric census, compared the census's series with the published theorems. Seberry and
 Balonin's propus variation of Miyamoto's lemma (Australas. J. Combin. 69 (2017), Theorem 3; Lemma 3 of arXiv:1512.01732)
@@ -1615,14 +1620,15 @@ conference matrix. Of the other core orders below 1250 that are not prime powers
 we know, 45 gives v = 91 and 85 (Verma's matrix of order 86) gives v = 171, both decided, and 1225 = 35² (from a
 skew-Hadamard matrix of order 36) gives q = 2449 = 31 · 79, not a prime power.
 
-**Skew cores.** The proof of Corollary 27(i) (Lemma 26 with U = (I, 0, BR, BR), V = (M, N, R, R)) uses of the Paley core
-B only that it is a skew core with an involutive anti-automorphism R, so any skew-Hadamard matrix of order (q + 3)/2
-with an involutive anti-automorphism fixing two points gives symmetric Williamson-type matrices of order q + 2 with a
-repeated block (checked for the skew-propus quadruple of length 19, order 151). Our skew matrices of this kind (orders
-52, 76, 100, 124) give v = 103, 151, 199 (all decided) and nothing for 124; 732 = 4 · 183 would follow from such a skew
-matrix of order 92, which is not known. The census values a skew-propus quadruple of length ℓ could reach are v = 8ℓ − 1
-for ℓ = 37, 85, 103, 133, 187, 235, 277 and 295 (q = 8ℓ − 3 prime); an exhaustive search shows that there is no
-skew-propus quadruple of length 37, and the longer lengths are far beyond the random-model range (search/NOTES.md §49). §31 removes the need for the anti-automorphism altogether.
+**Skew cores.** The proof of Corollary 27(i) (Lemma 26 with U = (I, 0, BR, BR), V = (M, N, R, R)) uses of the Paley
+core B only that it is a skew core with an involutive anti-automorphism R, so any skew-Hadamard matrix of order
+(q + 3)/2 with an involutive anti-automorphism fixing two points gives symmetric Williamson-type matrices of order
+q + 2 with a repeated block (checked for the skew-propus quadruple of length 19, order 151). Our skew matrices of this
+kind (orders 52, 76, 100, 124) give v = 103, 151, 199 (all decided) and nothing for 124; 732 = 4 · 183 would follow
+from such a skew matrix of order 92, which is not known. The census values a skew-propus quadruple of length ℓ could
+reach are v = 8ℓ − 1 for ℓ = 37, 85, 103, 133, 187, 235, 277 and 295 (q = 8ℓ − 3 prime); an exhaustive search shows
+that there is no skew-propus quadruple of length 37, and the longer lengths are far beyond the random-model range
+(search/NOTES.md §49). §31 removes the need for the anti-automorphism altogether.
 
 **Symmetric multiplication by odd t.** The propus array has no analogue of Cooper–Wallis's T-matrices in the natural
 form X_k = Σ_j M_kj ⊗ Y_j with symmetric commuting M_kj of disjoint supports: at the trivial character the row sums form
@@ -1634,7 +1640,7 @@ The symmetric census then had 537 undecided values: 595, less Đoković's three 
 of [symmetric](symmetric) at the time; after §30 and §31 it has 500, and after §32 499.
 
 
-## 30. Symmetric Hadamard matrices of order 4q from any Hadamard matrix of order (q − 1)/2 (October 17)
+## 30. Symmetric Hadamard matrices of order 4q from any Hadamard matrix of order (q − 1)/2
 
 **For every prime power q ≡ 1 (mod 8) with a Hadamard matrix of order (q − 1)/2, there is a symmetric Hadamard matrix
 of order 4q.** §29 needed a symmetric input. The proof ([symmetric/PROPUS_WEIGHING.md](symmetric/PROPUS_WEIGHING.md)):
@@ -1662,7 +1668,7 @@ hypothesis cannot be weakened. Ordinary matrices under the same hypothesis are Y
   137; the C checker on 3236 and 5732.
 - **Labels.** New (the construction is new to us; [symmetric/PROPUS_WEIGHING.md](symmetric/PROPUS_WEIGHING.md#status)).
 
-## 31. Symmetric Hadamard matrices of order 4(q + 2) from any skew-Hadamard matrix of order (q + 3)/2 (October 17)
+## 31. Symmetric Hadamard matrices of order 4(q + 2) from any skew-Hadamard matrix of order (q + 3)/2
 
 **For every prime power q ≡ 5 (mod 8) with a skew-Hadamard matrix of order (q + 3)/2, there is a symmetric Hadamard
 matrix of order 4(q + 2).** Yamada's Lemma 26 data for his (Kiyasu's) ordinary matrices, U = (I, 0, S, −S) and
@@ -1685,33 +1691,34 @@ anti-automorphism of the skew matrix is used, which is what §29 needed.
   Kharaghani, Mohammadian and Tayfeh-Rezaie (page of 14 October 2026, "unpublished approaches") are of this kind; for
   each, a monomial matrix found with nauty makes it symmetric (checked: same rows, columns up to units, symmetric,
   Hadamard), so they too give symmetric matrices of orders 1180, 1276, 1564, 1852, 2620, 2716, 3292 and 3772. The page
-  does not mention symmetry; we label those eight orders Concurrent. (The first audit found only the first four.)
+  does not mention symmetry; we label those eight orders Concurrent.
 - **Checks.** `verify.py` construction `symmetric-yamada-kiyasu` (nested skew certificate; 2X and 2Y built in integers;
   X, Y symmetric with complementary supports; H = Hᵀ, H Hᵀ = 4vI); q = 5, 13, 29 (Paley's skew matrix of order 8,
   doubled), 37, 53, 61, 125 (over GF(125)) and 317; the C checker on 1180 and 2716.
 - **Labels.** 19 New, 8 Concurrent ([symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md#status)).
 - **Zaitsev's other quaternary matrices.** A monomial matrix making a quaternary Hadamard matrix of order 2N symmetric
   would give a symmetric Hadamard matrix of order 4N by Turyn's map. Of the 27 matrices on the page with N among the
-  500 remaining census values, nauty (scratchpad qpol.py: side-swapping automorphisms of the phase graph, then the
-  column phases) finds no symmetric form for 130, 214, 238, 326, 426, 470, 490, 494, 518, 534, 538, 566, 610, 686, 754,
+  500 remaining census values, nauty (side-swapping automorphisms of the phase graph, then the column phases; program
+  not included) finds no symmetric form for 130, 214, 238, 326, 426, 470, 490, 494, 518, 534, 538, 566, 610, 686, 754,
   806, 890, 1142, 1462 and 1526; 538 and 1018 (Miyamoto completions, §19) have 16 side-swaps but none gives a
   symmetric matrix (1018 checked without conjugation only); 1306 and 1466 timed out at 25 minutes, and 1558, 1690,
   1706 and 1882 were not run.
 - **Complex Yamada–Kiyasu.** With any quaternary conference matrix Ĉ = [[0, eᵀ], [e, Z]] of order (q + 3)/2 (zero
-  diagonal, units elsewhere, ĈĈ* = ((q + 1)/2)I) in place of the skew core, q ≡ 1 (mod 4) a prime power, ω = (1 + i)/2,
-  A = P ⊗ M + J₂ ⊗ I and B = P ⊗ N (Yamada's circulants), the matrices X′ = ωA + ω̄B, Y′ = J₂ ⊗ Z + P ⊗ I,
-  X = [[1, eᵀ], [−e, X′]], Y = [[1, ieᵀ], [−ie, Y′]] give a quaternary Hadamard matrix K = [[X, Y], [Y*, −X*]] of order
-  2(q + 2) (checked exactly in the audit of 17 October 2026 for 17 prime powers q and non-real Ĉ of orders 14 to 286).
-  It is not ours: Zaitsev et al.'s QH470, QH566, QH806, QH1142 and QH1526 (q = 233, 281, 401, 569, 761) have exactly
-  this form, with non-real cores of orders 118, 142, 202, 286 and 382 (no real conference matrix exists at 142, 202,
-  286 or 382), although the page states no method. It would give the open complex orders 1046, 1190, 1286, 1718, 1910
-  and 1958 and the FRONTIER orders 643, 859, 955, 1051, 1291, 1699, 2083, 2659, 2731, 2803, 2899, 2971, 1879, 2215 and
-  2383 from quaternary conference matrices of order (N + 1)/2; zero-diagonal Szöllősi searches with multiplier groups
-  found none of orders 262, 298, 322, 430, 478 or 490. The symmetric template above does not take a non-real core:
-  the (core_L, core_R) block of L L̄ is 2(1 + i)(S − S̄).
+  diagonal, units elsewhere, ĈĈ* = ((q + 1)/2)I) in place of the skew core, q ≡ 1 (mod 4) a prime, and Yamada's
+  circulants M, N, the matrices X′ = ωA + ω̄B and Y′ = J₂ ⊗ Z + P ⊗ I (A = P ⊗ M + J₂ ⊗ I, B = P ⊗ N, ω = (1 + i)/2)
+  with a border give a quaternary Hadamard matrix K = [[X, Y], [Y*, −X*]] of order 2(q + 2); the statement and proof
+  are in [complex-hadamard/CONFERENCE.md](complex-hadamard/CONFERENCE.md) (checked exactly for 17 prime powers q and
+  non-real Ĉ of orders 14 to 286). It is not ours: Zaitsev et al.'s QH470, QH566, QH806, QH1142 and QH1526 (q = 233,
+  281, 401, 569, 761) have exactly this form, with non-real cores of orders 118, 142, 202, 286 and 382 (no real
+  conference matrix exists at 142, 202, 286 or 382), although the page states no method. It gives the quaternary
+  orders 1718, 2102 and 3398 (§34). It would give the open complex orders 1046, 1190, 1286, 1910 and 1958 and the
+  FRONTIER orders 643, 955, 1291, 2083, 2659, 2731, 2803, 2899, 2971, 1879, 2215 and 2383 from quaternary conference
+  matrices of order (N + 1)/2; zero-diagonal Szöllősi searches with multiplier groups found none of orders 262, 298,
+  322, 478 or 490 (430 is §34). The symmetric template above does not take a non-real core: the (core_L, core_R) block
+  of L L̄ is 2(1 + i)(S − S̄).
 
 
-## 32. Order 260 from a quaternary Legendre pair (October 17)
+## 32. Order 260 from a quaternary Legendre pair
 
 **A symmetric Hadamard matrix of order 260 = 4 · 65**, the smallest undecided value of the symmetric census
 ([symmetric/260](symmetric/260)). Verma's quaternary Legendre pair (A, B) of length 64 (arXiv:2609.25573, September
@@ -1725,17 +1732,16 @@ up to 25–30 orbits on the groups of order 64) found nothing.
   real gives, through the Turyn-type array and the monomial diag(I, −I), a symmetric quaternary Hadamard matrix and
   hence a symmetric real one (order 4m unbordered, 4m + 4 bordered); with the decoding above this is exactly the
   propus condition, so it adds no new cases, but it makes quaternary Legendre pairs a source of propus quadruples.
-  The exploration of October 17 also classified the monomial symmetrizations of the array [[X, Y], [−Y*, X*]]
-  (Hermitian or skew-Hermitian y with arbitrary x, and α-twisted pairs with x(−αg) = x(g), y(αg) = ±ȳ(g) for an
-  involutive automorphism α), checked exactly on small groups; no published pair of a remaining census order is of
-  any of these types.
+  The monomial symmetrizations of the array [[X, Y], [−Y*, X*]] were also classified (Hermitian or skew-Hermitian y
+  with arbitrary x, and α-twisted pairs with x(−αg) = x(g), y(αg) = ±ȳ(g) for an involutive automorphism α), checked
+  exactly on small groups; no published pair of a remaining census order is of any of these types.
 - **Other published pairs.** Lengths up to 34 (Kotsireas–Winterhof, Kotsireas–Koutschan–Winterhof), Jedwab–Pender's
   families (lengths (q − 1)/2 and 2p) and Lebedev's lengths 42–80 (arXiv:2609.04589) give v ≤ 81 or v covered by
   Paley's series, none of the remaining census values.
 - **Label.** New: the input is from 2026, and no source we found notes the symmetric matrix. Zaitsev et al.'s QH130
   has no anti-automorphism, so it does not give it.
 
-## 33. Miyamoto's V-part cannot be decoupled symmetrically (October 18)
+## 33. Miyamoto's V-part cannot be decoupled symmetrically
 
 Theorem A (§30) is the decoupled form H = H₀ + Λ(V) of a symmetric Hadamard matrix of order 4q with an involutory
 automorphism σ that fixes 4 points and has 4n = 2(q − 1) two-cycles. Every such matrix has this form: on the
@@ -1777,7 +1783,7 @@ other support patterns fail as well: the 4-cycle pattern with I-blocks off the d
 complementary symmetric W(n, n/2)) makes both Z-blocks of the (0, ±2) type, and the pattern [[J, J, I, 0], [J, J, 0, I],
 [I, 0, J, J], [0, I, J, J]] (V-part from a symmetric Hadamard matrix of order q − 1) gives F a diagonal of 0 or ±2; so
 Theorem A's pattern is the only one, and for q ≡ 5 (mod 8) a symmetric construction of this kind needs a different
-U-part or more fixed points. (Scripts: session scratchpad `nogo/`.)
+U-part or more fixed points.
 
 **The quaternary form does not help either.** In the quaternary template of §31 (symmetric L of order 2q with two
 borders and two cores of n pairs, L|𝒰 and L|𝒱 decoupled, Turyn's map giving the real matrix), Paley's U-part enters as
@@ -1789,7 +1795,7 @@ with the fixed-point-free Π it gives K = [[P, Q], [−DQ̄D′, −DP̄D′]] w
 of m = n/2 units ±1, ±i with m odd, never 0. So for q ≡ 5 (mod 8) both choices fail by parity, as the real
 arrangements do.
 
-## 34. Orders 6796, 3436 and 4204 from quaternary conference matrices (October 20)
+## 34. Orders 6796, 3436 and 4204 from quaternary conference matrices
 
 The complex Yamada–Kiyasu template of §31 gives a Hadamard matrix of order 4(q + 2) from any quaternary conference
 matrix of order (q + 3)/2 when q is a prime power ≡ 1 (mod 4). Unlike Yamada's real theorem it needs no symmetric
@@ -1804,9 +1810,9 @@ exhaustively in 77 s and has 1280 solutions; the Gaussian estimate had given fou
 **The matrix:** [hadamard/6796](hadamard/6796). q = 1697; the quaternary Hadamard matrix has order 3398. `verify.py`
 rebuilds everything from the four sequences, construction `complex-yamada-kiyasu`.
 
-**Orders 3436 and 4204** (round 23, search/NOTES.md §78). Two more cores were found by two-level sampling in the
-manner of FLC (github.com/vatskishan03/FLC): compress, sample the compressed instances, and complete each one
-exactly through the fibres of the compression.
+**Orders 3436 and 4204** ([search/NOTES.md](search/NOTES.md) §78). Two more cores were found by two-level sampling:
+compress, sample the compressed instances, and complete each one exactly through the fibres of the compression, as in
+the FLC classification method ([17] in the [README](README.md#references)).
 - *Core 430* (n = 859): over ℤ₂₁₅ with ⟨49⟩, through the compression to ℤ₄₃ ([hadamard/3436](hadamard/3436)).
 - *Core 526* (n = 1051): the bordered array over ℤ₂₆₂ with ⟨53⟩, through the compression over the ℤ₂ factor
   ([hadamard/4204](hadamard/4204)).

@@ -65,6 +65,12 @@ H = [  K_r + K_i    K_r − K_i ]
 
 is a Hadamard matrix of order 6796.
 
+**Notation.** e is an all-one row, of length 849 in the core and 1698 in X and Y. M and N are Yamada's circulants of
+order n = (q + 1)/2 = 849, with first rows ψ(Tr ξ^(4m + n)) for M (zero diagonal) and ψ(Tr ξ^(4m)) for N, 0 ≤ m < n.
+Here ψ is the quadratic character of GF(q), Tr(a + bw) = 2a, and ξ is a primitive element of GF(q)[w]/(w² − r) with r
+a non-square modulo q. In the certificate, q, r and xi (ξ = a + bw as [a, b]) are these data. The array, the template
+and the doubling are stated and proved in [complex-hadamard/CONFERENCE.md](../../complex-hadamard/CONFERENCE.md).
+
 ## Search
 
 The structure came from a triage of the twelve Table 4 entries that the complex Yamada–Kiyasu template reaches from a
@@ -74,17 +80,20 @@ quaternary conference matrix of order (n + 1)/2. These are n = 643, 859, 955, 10
 The triage covered abelian groups of order (n + 1)/4 and their automorphism groups, plain and bordered. Exact
 compressions to the invariant quotients were checked before any estimate.
 
-For G = ℤ₅² × ℤ₁₇ and H as above, the compression to ℤ₁₇ leaves one row pattern and two feasible tuples. The exhaustive
-compression-conditioned join found 1280 solutions in 77 seconds (640 up to A ↦ −A). With z ↦ 2z in place of z ↦ 8z
-the search found another 512. The Gaussian estimate had predicted about 4 solutions (10^0.65), an underestimate by a
-factor of about 300. The matrix here comes from the first solution.
+For G = ℤ₅² × ℤ₁₇ and H as above, the compression to ℤ₁₇ leaves one row pattern and two feasible tuples. The
+exhaustive compression-conditioned join found 1280 solutions in 77 seconds (640 up to A ↦ −A). With z ↦ 2z in place of
+z ↦ 8z the search found another 512. The Gaussian estimate had predicted about 4 solutions (10^0.65), an underestimate
+by a factor of about 300. The matrix here comes from the first solution.
+
+The certificate alone proves the result; the search programs for this order are not included in this repository.
 
 ## Status
 
-**New.** The entry 1699(3) is unresolved in Cati–Pasechnik Table 4 (v2; Handbook Table 1.53 has the same entry), and
-no later construction was found. Table 4 already knows 8 · 1699, so doubling settles nothing further. Đoković's set Δ
-and his conversions of 2010 do not contain 1699, and SageMath's development version (18 October 2026) has no branch
-that reaches 6796. None of the standard recursive constructions applies:
+**New.** The entry 1699(3) is unresolved in Cati–Pasechnik Table 4 (v1 and v2; Handbook Table 1.53 also gives t = 3),
+and Table 5 of Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175, 19 October 2026) lists 1699 as open. No later
+construction was found. Table 4 already knows 8 · 1699, so doubling settles nothing further. Đoković's set Δ and his
+conversions of 2010 do not contain 1699, and SageMath's development version (18 October 2026) has no branch that
+reaches 6796. None of the standard recursive constructions applies:
 
 - Paley: 6795 = 3² · 5 · 151 and 3397 = 43 · 79 are not prime powers.
 - Miyamoto: 1699 ≡ 3 (mod 4).
@@ -92,15 +101,18 @@ that reaches 6796. None of the standard recursive constructions applies:
   of two squares.
 - Kiyasu: q = 1697 ≡ 1 (mod 8), not 5.
 - Product theorems: 6796 ≡ 4 (mod 8).
+- Cooper–Wallis: 1699 is prime, so it needs T-matrices or Williamson-type matrices of order 1699. Neither is known.
 - The block routes of [PALEY_BLOCKS.md](../PALEY_BLOCKS.md) and [MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md): they need
   6795 a prime power or 1699 ≡ 1 (mod 4).
 
-**Credits.** The array [[X, Y], [Y*, −X*]] goes back to Seberry and Whiteman (1980, with symmetric circulants) and,
-with zero-diagonal blocks over a group, to Szöllősi (arXiv:2603.09572). The complex Yamada–Kiyasu template is the form
-of Zaitsev et al.'s quaternary matrices QH470 to QH1526, whose page states no method; we found it stated nowhere else
-([NOTES.md](../../NOTES.md) §31). Miyamoto's Corollary 4 (1991, as transcribed in the JD-Jones-ASES Hadamard-M note)
-reaches the same orders from a C₂-matrix, which in his displayed form is a quaternary conference matrix with Cᵀ = C;
-the core here is not symmetric, and the template needs no symmetry.
+**Credits.** The array [[X, Y], [Y*, −X*]] with A, B symmetric circulants is Szöllősi's (arXiv:2603.09572, Theorem 4,
+a modification of Kharaghani and Seberry's block construction). Its zero-diagonal form over an abelian group, with
+A(0) = B(0) = 0 and conference matrices as output, and the bordered form are ours
+([search/NOTES.md](../../search/NOTES.md) §74–75). The complex Yamada–Kiyasu template is the form of Zaitsev et al.'s
+quaternary matrices QH470, QH566, QH806, QH1142 and QH1526, whose page states no method; we found it stated nowhere
+else ([NOTES.md](../../NOTES.md) §31). Miyamoto's Corollary 4 (1991, as transcribed in the JD-Jones-ASES Hadamard-M
+note) reaches the same orders from a C₂-matrix, which in his displayed form is a quaternary conference matrix with
+Cᵀ = C; the core here is not symmetric, and the template needs no symmetry.
 
 **Ingredients.**
 - The quaternary conference matrix of order 850 is new to our knowledge. Seberry–Whiteman's, the BGW and GC families
@@ -109,8 +121,10 @@ the core here is not symmetric, and the template needs no symmetry.
 - The quaternary Hadamard matrix of order 3398 lies above Seberry–Yamada's table (N < 1000) and Zaitsev et al.'s page
   (orders below 2000). Any such matrix gives H(6796) by Turyn's doubling, so none was known while 6796 was open.
 
-**Risk.** Zaitsev et al. use the same template and do not date their matrices; their page stops below 2000. The
-Seberry–Yamada book of 2020 was not read. The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
+**Risk.** Zaitsev et al. use the same template and do not date their matrices; their page stops below 2000.
+Middletownbooks/Hadamard does not reach 1699. The Seberry–Yamada book of 2020 and Miyamoto's lists of 1991 were not
+read; his Corollary 4 at m = 849 would need a symmetric quaternary conference matrix of order 850. The sources
+searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 

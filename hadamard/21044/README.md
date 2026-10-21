@@ -20,7 +20,7 @@ certificate of the order-5260 matrix and the SHA-256 of the result.
 
 ## Status
 
-**New, beyond the tables**, but obtainable classically. In Table 1.53 of the Handbook of Combinatorial Designs (2nd
+**New, beyond the tables, but obtainable classically**. In Table 1.53 of the Handbook of Combinatorial Designs (2nd
 ed., 2007), n = 5261 has t = 6: the smallest known Hadamard matrix with odd part 5261 had order 2⁶ · 5261. The order
 lies above the range of Cati–Pasechnik Table 4, which stops at n = 2999. Doubling gives the orders 2³ · 5261, 2⁴ ·
 5261 and 2⁵ · 5261, which the Handbook also lists as unknown.

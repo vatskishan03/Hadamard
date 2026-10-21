@@ -85,11 +85,11 @@ reach and its limits.
 Above Cati–Pasechnik Table 4 the reference is Table 1.53 of the Handbook of Combinatorial Designs (2nd ed., 2007), which
 covers odd n < 10000. After Đoković's updates (arXiv:0912.5091, arXiv:1008.2043), 691 of its entries with 3001 ≤ n ≤
 9999 had no valid construction: 637 still have t ≥ 3, and 54 are recorded as known only through Seberry–Yamada's
-Corollary 8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7) — 13 that Đoković settled in 2010, 33 of his
-set Δ of 2009 and 8 that the Handbook lists with t = 2 ([below](#orders-recorded-only-through-corollary-88i)). The route
-reaches 138 of the 691, with q ≡ 3 (mod 8) a prime or a prime power and T-matrices of an order we know. Among the 120
-entries with t ≥ 3 or settled by Đoković in 2010 it reaches, we built 117, of orders 12052 to 39916. They are in the
-[index](README.md#orders-beyond-the-tables), each with its README.
+Corollary 8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7): 13 that Đoković settled in 2010, 33 of his
+set Δ of 2009 and 8 that the Handbook lists with t = 2 ([below](#orders-recorded-only-through-corollary-88i)). The
+route reaches 138 of the 691, with q ≡ 3 (mod 8) a prime or a prime power and T-matrices of an order we know. Among
+the 120 entries with t ≥ 3 or settled by Đoković in 2010 it reaches, we built 117, of orders 12052 to 39916. They are
+in the [index](README.md#orders-beyond-the-tables), each with its README.
 
 - 109 are new beyond the tables but obtainable classically: their T-matrices (orders 3 to 73) were known before 2026,
   those of order 73 from the near-normal sequences NN(36) of Đoković (2009). One of them, 32316 = 4 · 3 · 2693, is an

@@ -93,7 +93,10 @@ the multiplier 49 has order 7 (trivial on ℤ₂, order 7 on ℤ₁₁₃) and 3
 - `kt4` found 1536 solutions at the 146th split value. Without the filters, with lists kept to 2.3% and 1.2% of C and
   D, it processed about 4700 split values without a solution.
 - The per-class Gaussian estimate of the structure was 10^−0.1; the hybrid estimate was 10^3.2.
-- Border: x = s = t = y = 1, u = v = −i. Certificate [C366.json](C366.json).
+- Border: x = s = t = y = 1, u = v = −i.
+- **Certificate.** [C366.json](C366.json) is the cyclic quadruple over ℤ₁₈₃ (⟨34⟩, row sums 1, 23; 9, 11) of
+  [search/NOTES.md](../search/NOTES.md) §42, checked by `verify/verify_complex.py`. The bordered solutions found here
+  are not stored.
 
 ## Context
 

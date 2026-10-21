@@ -55,11 +55,11 @@ with A constant on the 54 orbits of K and B constant on the 156 orbits of H. The
 
 **Known.** The entry 573(3) is unresolved in Cati–Pasechnik Table 4, and the sources we searched between 12 and 17
 October 2026 ([NOVELTY.md](../../NOVELTY.md)) showed no construction when this matrix was published on 14 October. We
-learned on 19 October that the GitHub repository [Middletownbooks/Hadamard](https://github.com/Middletownbooks/Hadamard)
-had pushed a Hadamard matrix of order 2292 to a public branch on 9 October 2026 (directory `pub/H2292` of that
-repository, merged into its main branch on 18 October): a bordered Goethals–Seidel array over the cyclic group
-ℤ₅₂ × ℤ₁₁ ≅ ℤ₅₇₂. We rebuilt it from the published sequences and border and checked H Hᵀ = 2292 I. The construction
-here was obtained independently, over the non-cyclic group ℤ₂ × ℤ₂ × ℤ₁₄₃.
+learned on 19 October that the GitHub repository
+[Middletownbooks/Hadamard](https://github.com/Middletownbooks/Hadamard) had published a Hadamard matrix of order 2292
+on 9 October 2026 (directory `pub/H2292`; the repository's main branch contains it since 18 October): a bordered
+Goethals–Seidel array over the cyclic group ℤ₅₂ × ℤ₁₁ ≅ ℤ₅₇₂. We rebuilt it from the published sequences and border
+and checked H Hᵀ = 2292 I. The construction here was obtained independently, over the non-cyclic group ℤ₂ × ℤ₂ × ℤ₁₄₃.
 
 - Paley's constructions do not apply: 4 · 573 − 1 = 2291 = 29 · 79 and 2 · 573 − 1 = 1145 = 5 · 229.
 - Miyamoto's theorem does not apply: a symmetric conference matrix of order 574 cannot exist (573 = 3 · 191 is not a sum
@@ -69,6 +69,8 @@ here was obtained independently, over the non-cyclic group ℤ₂ × ℤ₂ × �
 - After 2060, 2092, 2148 and 2284 were settled, 2292 was the smallest order we knew to be unresolved.
 
 The matrix also gives 9172 = 4 · 2293 by Miyamoto's theorem ([9172](../9172)).
+
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 

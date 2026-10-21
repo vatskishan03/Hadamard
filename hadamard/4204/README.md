@@ -4,8 +4,8 @@
 
 ## Construction
 
-The same three steps as [6796](../6796), with the bordered form of the core. Each step is checked exactly by
-`verify/verify.py`.
+The same three steps as [6796](../6796), with the notation defined there and the bordered form of the core. Each step
+is checked exactly by `verify/verify.py`.
 
 **1. A quaternary conference matrix of order 526.** The bordered zero-diagonal Szöllősi array
 ([search/NOTES.md](../../search/NOTES.md) §75) over ℤ₂₆₂ = ℤ₂ × ℤ₁₃₁:
@@ -34,28 +34,31 @@ Yamada–Kiyasu template ([NOTES.md](../../NOTES.md) §31, §34) gives K of orde
 
 ## Search
 
-Round 21 rated this structure the strongest live one for any of the targets (estimate 10^8.9 solutions, calibrated on
-analogues of order 2p), but it could not be searched with lists of full sequences: the pools for C and D hold
-about 10¹⁴ sequences.
+This structure had the highest estimate among those examined for the open orders of this family (10^8.9 solutions,
+calibrated on analogues of order 2p), but it could not be searched with lists of full sequences: the pools for C and D
+hold about 10¹⁴ sequences.
 
-The matrix was found by a two-level sampler in the manner of FLC
-([github.com/vatskishan03/FLC](https://github.com/vatskishan03/FLC)). The sums c = x(0, ·) + x(1, ·) and differences
-d = x(0, ·) − x(1, ·) over the ℤ₂ factor split the condition exactly:
+The matrix was found by a two-level sampler (compress, sample the compressed instances, complete each one exactly
+through its fibres), as in the FLC classification method ([17] in the [README](../../README.md#references)). The sums
+c = x(0, ·) + x(1, ·) and differences d = x(0, ·) − x(1, ·) over the ℤ₂ factor split the condition exactly:
 
-- **Level 1:** Σ PAF_c = 1042 δ − 8 on ℤ₁₃₁. The values of c lie in {−2, 0, 2}.
-- **Level 2:** Σ PAF_d = 1050 δ. Here d is 0 exactly where c is ±2, so d only fixes signs on the zeros of c.
+- **Level 1:** Σ PAF_c = 1050 δ − 8 on ℤ₁₃₁ (1042 at 0, −8 elsewhere). Away from 0, c takes values in {−2, 0, 2}.
+- **Level 2:** Σ PAF_d = 1050 δ. Away from 0, d is 0 exactly where c is ±2, so d only fixes signs on the zeros of c.
 
-The level-1 instances were sampled in the stratum z_C = z_D = 18, the number of zero orbits of C and D. The
-binomial law of the full solutions favours that stratum over the uniform population. Each instance was completed
-exactly. The first solution came 103 seconds after launch; 19 were found, 17 of them distinct
-(search/NOTES.md §78).
+The level-1 instances were sampled in the stratum z_C = z_D = 18, the number of zero orbits of C and D. The binomial
+law of the full solutions favours that stratum over the uniform population. Each instance was completed exactly. The
+first solution came 103 seconds after launch; 19 were found, 17 of them distinct
+([search/NOTES.md](../../search/NOTES.md) §78).
+
+The certificate alone proves the result; the search programs for this order are not included in this repository.
 
 ## Status
 
 **New.** The entry 1051(3) is unresolved in Cati–Pasechnik Table 4 (v1 and v2; Handbook Table 1.53 also gives t = 3),
-and no later construction was found. Table 4 already knows 8 · 1051, so doubling settles nothing further. Đoković's
-set Δ and his conversions of 2010 do not contain 1051, and SageMath's development version (20 October 2026) has no
-branch that reaches 4204. None of the standard recursive constructions applies:
+and Table 5 of Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175, 19 October 2026) lists 1051 as open. No later
+construction was found. Table 4 already knows 8 · 1051, so doubling settles nothing further. Đoković's set Δ and his
+conversions of 2010 do not contain 1051, and SageMath's development version (20 October 2026) has no branch that
+reaches 4204. None of the standard recursive constructions applies:
 
 - Paley: 4203 = 3² · 467 and 2101 = 11 · 191 are not prime powers. No symmetric conference matrix of order 2102
   exists, since 2101 is not a sum of two squares.
@@ -66,11 +69,11 @@ branch that reaches 4204. None of the standard recursive constructions applies:
 - Product theorems: 4204 ≡ 4 (mod 8).
 - Cooper–Wallis: 1051 is prime, so it needs T-matrices or Williamson-type matrices of order 1051. Neither is known.
 - The block routes of [PALEY_BLOCKS.md](../PALEY_BLOCKS.md) and [MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md): they need
-  4203 a prime or 1051 ≡ 1 (mod 4). Paley's matrix of order 1052 serves n = 263 · t there, not 1051.
+  4203 a prime power or 1051 ≡ 1 (mod 4). Paley's matrix of order 1052 serves n = 263 · t there, not 1051.
 
-**Credits.** As for [3436](../3436/README.md#status). The bordered zero-diagonal array is ours
-([search/NOTES.md](../../search/NOTES.md) §75). Miyamoto's Corollary 4 at m = 525 would need a quaternary conference
-matrix of order 526 with Cᵀ = C; the core here has Cᵀ ≠ C as built.
+**Credits.** As for [3436](../3436/README.md#status). The zero-diagonal arrays, plain and bordered, are ours
+([search/NOTES.md](../../search/NOTES.md) §74–75). Miyamoto's Corollary 4 at m = 525 would need a quaternary
+conference matrix of order 526 with Cᵀ = C; the core here has Cᵀ ≠ C as built.
 
 **Ingredients.**
 - The quaternary conference matrix of order 526 is new to our knowledge. No real one exists: 525 is not a sum of two
@@ -84,9 +87,9 @@ matrix of order 526 with Cᵀ = C; the core here has Cᵀ ≠ C as built.
   known, and ℓ = 1050 lies in neither of Jedwab and Pender's families of quaternary Legendre pairs.
 
 **Risk.** Zaitsev et al.'s page stops below 2000. Middletownbooks/Hadamard does not reach 1051; its open list stops at
-991, and its last commit is of 18 October. The Seberry–Yamada book of 2020 was not read; by Cati and Pasechnik's
-account its Table A.17 also has m > 2 at 1051. Miyamoto's lists of 1991 were not read. The sources searched are listed
-in [NOVELTY.md](../../NOVELTY.md).
+971, and its last commit (20 October) changed only the README. The Seberry–Yamada book of 2020 was not read; by Cati
+and Pasechnik's account its Table A.17 also has m > 2 at 1051. Miyamoto's lists of 1991 were not read. The sources
+searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 

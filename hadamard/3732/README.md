@@ -31,7 +31,7 @@ H = [ -BR    A     DᵀR   -CᵀR ]
 
 is a Hadamard matrix of order 3732, and H + Hᵀ = 2I because A + Aᵀ = 2I.
 
-## The structure: a cyclotomic product of index 10
+### The structure: a cyclotomic product of index 10
 
 ℤ₉₃₃ ≅ ℤ₃ × GF(311), and H = {h : h ≡ 1 (mod 3), h mod 311 a 10th power}. Let C₀, …, C₉ be the cyclotomic classes
 of index 10 in GF(311)* (each of size 31; −1 lies in C₅). An H-invariant sequence is given, at each a ∈ ℤ₃, by its
@@ -90,26 +90,32 @@ same code).
 
 - Seberry–Yamada (1992, Table A.2: "933 4 d1", Agayan multiplication) and the Handbook of Combinatorial Designs (2007,
   Table 1.53: 933 → 4 and 311 → 3) give the same entry. Seberry–Yamada Table A.1 has no Williamson or Williamson-type
-  matrices of order 311 or 933. - Cati–Pasechnik mark no update at this entry, and 933 is not among the entries dropped
-  from Seberry–Yamada (2020), Table A.17. - For skew matrices, Cati–Pasechnik Table 5 lists 933(10). They fill this
-  entry in via Paley's construction, where Seberry–Yamada (2020) lists m as unknown: 955391 is prime, and 2ᵐ · 933 − 1
-  is composite for m = 2, …, 9. The smallest known skew order of the form 2ᵐ · 933 was 955392. The Đoković–Seberry
-  census (May 2025) lists 933 among its 737 undecided values, and Seberry–Yamada (1992, Table 7.1) has 933 as unknown. -
-  SageMath returns Unknown for 3732, as a Hadamard matrix and as a skew-Hadamard matrix. - The 2026 matrix of order 1244
-  over ℤ₃₁₁ is a plain Goethals–Seidel matrix, not Williamson-type, so no Cooper–Wallis or tripling route takes it to
-  3732. - No recursive construction reaches 3732: - Paley I and II: 3731 = 7 · 13 · 41 and 1865 = 5 · 373 are not prime
-  powers. - Miyamoto: 933 is not a prime power, and a symmetric conference matrix of order 934 cannot exist, since 933
-  is not a sum of two squares. - Yamada and Kiyasu (q = 931 = 7² · 19), Mathon, Turyn, Whiteman and Spence. - T-matrices
-  and Williamson-type matrices of order 311 or 933 are unknown. - The Wallis–Whiteman and Spence skew families. -
-  Product theorems: 3732 ≡ 4 (mod 8).
-
-The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
+  matrices of order 311 or 933.
+- Cati–Pasechnik mark no update at this entry, and 933 is not among the entries dropped from Seberry–Yamada (2020),
+  Table A.17.
+- For skew matrices, Cati–Pasechnik Table 5 lists 933(10). They fill this entry in via Paley's construction, where
+  Seberry–Yamada (2020) lists m as unknown: 955391 is prime, and 2ᵐ · 933 − 1 is composite for m = 2, …, 9. The
+  smallest known skew order of the form 2ᵐ · 933 was 955392. The Đoković–Seberry census (May 2025) lists 933 among its
+  737 undecided values, and Seberry–Yamada (1992, Table 7.1) has 933 as unknown.
+- SageMath returns Unknown for 3732, as a Hadamard matrix and as a skew-Hadamard matrix.
+- The 2026 matrix of order 1244 over ℤ₃₁₁ is a plain Goethals–Seidel matrix, not Williamson-type, so no Cooper–Wallis
+  or tripling route takes it to 3732.
+- No recursive construction reaches 3732:
+  - Paley I and II: 3731 = 7 · 13 · 41 and 1865 = 5 · 373 are not prime powers.
+  - Miyamoto: 933 is not a prime power, and a symmetric conference matrix of order 934 cannot exist, since 933 is not
+    a sum of two squares.
+  - Yamada and Kiyasu (q = 931 = 7² · 19), Mathon, Turyn, Whiteman and Spence.
+  - T-matrices and Williamson-type matrices of order 311 or 933 are unknown.
+  - The Wallis–Whiteman and Spence skew families.
+  - Product theorems: 3732 ≡ 4 (mod 8).
 
 **Consequences.**
 
 - Doubling gives skew-Hadamard matrices of all orders 2ᵐ · 933 with m ≥ 2, of which m = 2, …, 9 were unknown.
 - 3733 is a prime ≡ 1 (mod 4), so Miyamoto's theorem gives a Hadamard matrix of order 4 · 3733 = 14932; see
   [14932](../14932).
+
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 

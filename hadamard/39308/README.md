@@ -38,6 +38,8 @@ Turyn's Williamson matrices of order 79 = (157 + 1)/2 (J. Combin. Theory Ser. A 
 as the near-Williamson matrices, and Paley's negaperiodic Golay pair of length 158 (Balonin–Đoković, Proposition 6,
 p = 157) gives the Golay-pair version of [MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md).
 
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
+
 ## Files
 
 | File | Contents |

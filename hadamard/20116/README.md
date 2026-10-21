@@ -47,13 +47,14 @@ No construction we know of reaches it with inputs published before 2026:
   returns Unknown.
 
 The route therefore uses an object from 2026: the Williamson-type matrices of order 47. We found no construction or
-statement of order 20116. The ingredients are not new, only their combination. The sources searched are listed in
-[NOVELTY.md](../../NOVELTY.md).
+statement of order 20116. The ingredients are not new, only their combination.
 
 The order has followed from published objects since May 9, 2026 (the near-Williamson matrices of order 47 in the first
 version of arXiv:2605.08661, with the T-sequences of length 107 of 2005), but we found it stated nowhere: that paper
 applies its matrices to quaternary Hadamard matrices only, and SageMath's database has no Williamson-type matrices of
 order 47.
+
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 

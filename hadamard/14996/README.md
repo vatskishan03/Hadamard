@@ -49,8 +49,7 @@ No construction we know of reaches it with inputs published before 2026:
 The route therefore uses an object from 2026: T-matrices of order 163 were posted by JD-Jones-ASES/Hadamard-T on August
 29, 2026. Lou, Xia and Xia's paper on T-matrices of order 6m + 1 (163 = 6 · 27 + 1), which we could not read, might
 contain order 163; if it does, this order was obtainable classically. We found no construction or statement of order
-14996. The ingredients are not new, only their combination. The sources searched are listed in
-[NOVELTY.md](../../NOVELTY.md).
+14996. The ingredients are not new, only their combination.
 
 The order has followed from published objects since August 29, 2026, but we found it stated nowhere.
 JD-Jones-ASES/Hadamard-T pairs its T-matrices of order 163 only with Williamson matrices of orders 11 and 13 (orders
@@ -58,6 +57,8 @@ JD-Jones-ASES/Hadamard-T pairs its T-matrices of order 163 only with Williamson 
 matrices of orders 19 and 23 and a generic Cooper–Wallis theorem, so 14996 is one instantiation away there, but its
 results state only eight orders, from 2884 to 11948. Schumer's deposit (September 17, 2026) contains an independent
 T(163) as a control, with no product.
+
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 

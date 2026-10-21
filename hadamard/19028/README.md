@@ -27,7 +27,7 @@ H Hᵀ = 19028 I.
 
 ## Status
 
-**New, beyond the tables**, but obtainable classically. Seberry–Yamada (1990, Theorem 4) applied to Paley's matrix of
+**New, beyond the tables, but obtainable classically**. Seberry–Yamada (1990, Theorem 4) applied to Paley's matrix of
 order 284 (q = 283 ≡ 3 mod 8), which is an array of sixteen circulant blocks of order 71 (Seberry–Yamada 1993, Theorem
 1), and to T-matrices of order 67 (Sawade 1985) gives the order from ingredients of 1993 or earlier
 ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md)). We found no construction or statement of the order itself.

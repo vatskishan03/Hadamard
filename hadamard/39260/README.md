@@ -25,7 +25,7 @@ works in int8, block by block, because a Kronecker product in int64 would not fi
 
 ## Status
 
-**New, beyond the tables**, but obtainable classically: Paley's matrix of order 3020 (q = 3019 ≡ 3 mod 8) is an array of
+**New, beyond the tables, but obtainable classically**: Paley's matrix of order 3020 (q = 3019 ≡ 3 mod 8) is an array of
 sixteen circulant blocks of order 755, and Seberry–Yamada (1990, Theorem 4) with T-matrices of order 13 gives order
 4 · 755 · 13 = 39260 ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md)). We found no construction or statement of the order itself.
 

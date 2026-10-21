@@ -25,7 +25,7 @@ matrices and the SHA-256 of K) and the SHA-256 of the result.
 
 ## Status
 
-**New, beyond the tables**, but obtainable classically (below). In Table 1.53 of the Handbook of Combinatorial Designs
+**New, beyond the tables, but obtainable classically** (below). In Table 1.53 of the Handbook of Combinatorial Designs
 (2nd ed., 2007), n = 5437 has t = 8: the smallest known Hadamard matrix with odd part 5437 had order 2⁸ · 5437. The
 order lies above the range of Cati–Pasechnik Table 4, which stops at n = 2999.
 

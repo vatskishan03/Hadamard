@@ -21,7 +21,7 @@ certificate.
 
 ## Status
 
-**New**, but obtainable classically ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md#status)). Cati–Pasechnik Table 4 lists
+**New, but obtainable classically** ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md#status)). Cati–Pasechnik Table 4 lists
 2515(3): the smallest known order 2ᵐ · 2515 was 8 · 2515. We found no construction of order 10060 before this one. It
 follows from two published theorems that we found combined nowhere: Paley's matrix of order 2012 is equivalent to an
 array of sixteen circulant blocks of order 503 (Schmidt 1999, after Ito; Yamada 1991), and Seberry and Yamada (1990,
