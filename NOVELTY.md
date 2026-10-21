@@ -245,6 +245,8 @@ order 111, which is therefore New.
   table); Đoković, arXiv:0912.5091 and arXiv:1008.2043; Đoković–Golubitsky–Kotsireas, arXiv:1301.3671; SageMath
   development source of 21 October 2026, read case by case, not run (Unknown); Seberry–Yamada 1992, Tables A.1 and
   11.2; Brouwer's table (srg(321, 160, 79, 80) does not exist, srg(1285, 642, 320, 321) undecided).
+- *Conference matrices of order 322.* As for orders 430 and 526. Fallon–Iverson's ancillary library has a complex
+  one, not quaternary in any equivalent form.
 - *Recent work.* Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (19 October 2026), Table 5, which lists 643
   as open; Zaitsev's page (last updated 14 October, unchanged on 21 October; 1286 on its unknown list);
   Middletownbooks/Hadamard (its open list of 20 October has 643; its screen of 6 October covers Goethals–Seidel and

@@ -99,7 +99,10 @@ classifier, to sampling.
 **Ingredients.**
 - The quaternary conference matrix of order 322 is new to our knowledge. No real one exists: a symmetric one would
   need 321 to be a sum of two squares, and a skew one needs order ≡ 0 (mod 4). The families of complex ones
-  (Paley-type, Berman, BGW and GC, Seberry–Whiteman, Et-Taoui) need 321 to be a prime power.
+  (Paley-type, Berman, BGW and GC, Seberry–Whiteman, Et-Taoui) need 321 to be a prime power. Fallon and Iverson's
+  ancillary library (arXiv:2610.09169) has a conference signal over ℤ₃₂₁, which gives a complex conference matrix of
+  order 322. That matrix is not equivalent to a quaternary one: some of its invariants Q_ij Q_kl Q̄_il Q̄_kj lie 0.77
+  from {±1, ±i}, the largest distance possible.
 - The quaternary Hadamard matrix of order 1286 settles an order that is blank in Seberry–Yamada's Table 11.2 (1992)
   and on the unknown list of Zaitsev et al.'s page (last updated 14 October 2026, unchanged on 21 October). Its other
   routes fail: 1285 and 2571 are not prime powers (Turyn, Ito–Egan), and no Williamson or Williamson-type matrices of
@@ -109,9 +112,8 @@ classifier, to sampling.
 Middletownbooks/Hadamard lists 643 as open (last commit 20 October, README only) and records a screen of
 Goethals–Seidel and Legendre-quadruple structures over ℤ₆₄₃ (6 October 2026) without a hit. The Seberry–Yamada book
 of 2020, the Handbook's Table 1.53 row for 643 and Miyamoto's lists of 1991 were not read; his Corollary 4 at m = 321
-would need a symmetric quaternary conference matrix of order 322. Fallon and Iverson's conference signals
-(arXiv:2610.09169) were not tested at ℤ₃₂₁; at the orders 430 and 850 their matrices are not quaternary. The sources
-searched are listed in [NOVELTY.md](../../NOVELTY.md).
+would need a symmetric quaternary conference matrix of order 322. The sources searched are listed in
+[NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 
@@ -129,3 +131,6 @@ python3 verify/verify_complex.py 1286
 ```
 
 SHA-256 of `H2572.csv`: `ebf232c3f7a8b99e47c25c004cd3a6fd759710c7ce88b856ee4931ac5ed6f8b6`
+
+An independent rebuild from the certificate alone (its own code for the core, Yamada's circulants, K and H; program
+not included) writes a byte-identical `H2572.csv` and checks H Hᵀ = 2572 I exactly.
