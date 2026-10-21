@@ -10,7 +10,7 @@ corrections are welcome.
 |---|---|
 | **New** | The order is open in the reference table for its family (below), and no later construction was found. |
 | **New, but obtainable classically** | As New, but every ingredient (theorems and objects) was published before 2026; only their combination is new. |
-| **New, beyond the tables** | The order lies above the range of the reference tables. Where Table 1.53 of the Handbook covers it, the table gives t ≥ 3 (no Hadamard matrix of order 4n known), and no later construction was found. |
+| **New, beyond the tables** | The order lies above the range of Table 4 (for complex orders, Table 11.2). Where Table 1.53 of the Handbook covers it, the table gives t ≥ 3 (no Hadamard matrix of order 4n known), and no later construction was found. |
 | **New, beyond the tables, but obtainable classically** | As New, beyond the tables, but every ingredient (theorems and objects) was published before 2026; only their combination is new. |
 | **First explicit construction** | A table records the order as known, but we could not trace any construction behind the entry. |
 | **Concurrent** | No published construction was found, but another group constructed the order independently at about the same time. We claim no priority. Also used when published or posted objects of another group give the order by a short, explicit step (a monomial equivalence and a classical map); the order's README says which. |
@@ -45,7 +45,7 @@ The Handbook tables were read from a copy available online and not checked again
 
 ## Sources searched
 
-The searches were made between 12 and 20 October 2026; each section below gives its own dates.
+The searches were made between 12 and 22 October 2026; each section below gives its own dates.
 
 **For every order.**
 
@@ -144,11 +144,15 @@ Acevedo–Dietrich, Australas. J. Combin. 73 (2019); Cati–Pasechnik; Balonin's
 symmetric weighing matrices; and Zaitsev's page, whose quaternary matrices QH590, QH638, QH782, QH926, QH1310, QH1358,
 QH1646 and QH1886 are of the Yamada–Kiyasu kind and monomially equivalent to symmetric ones, so 1180, 1276, 1564,
 1852, 2620, 2716, 3292 and 3772 are labelled Concurrent. None states either construction or a symmetric matrix of any
-of the 37 orders except two: Spence (1977), Corollary 3, gives symmetric Hadamard matrices of orders 2812 and
-4732 by another construction, so they are labelled Known. The eight equivalences were found with nauty and checked
-exactly; no script for them is included in this repository. Of the page's other quaternary matrices of order 2v with v
-a remaining census value, 20 have no symmetric form (nauty); QH1306 and QH1466 timed out, and QH1558, QH1690, QH1706,
-QH1882, QH266, QH366 and QH1714 were not tested.
+of the 37 orders of PROPUS_WEIGHING.md and YAMADA_KIYASU.md, except that Spence (1977), Corollary 3, gives symmetric
+Hadamard matrices of orders 2812 and 4732 by another construction, so those two are labelled Known. The eight
+equivalences were found with nauty and checked exactly; no script for them is included in this repository. Of the 27
+matrices on the page whose order 2v has v among the census values still undecided when the check was made, nauty finds
+no symmetric form for 20: QH130, QH214, QH238, QH326, QH426, QH470, QH490, QH494, QH518, QH534, QH538, QH566, QH610,
+QH686, QH754, QH806, QH890, QH1142, QH1462 and QH1526 (QH538 has 16 side-swaps, none of which gives a symmetric
+matrix). QH1018 has 16 side-swaps, none of which gives one either, checked without conjugation only. QH1306 and QH1466
+timed out, and QH1558, QH1690, QH1706 and QH1882 were not tested. QH266, QH366 and QH1714 (v = 133, 183 and 857, which
+this repository settles by the orders 532, 732 and 3428) were not tested.
 
 **Symmetric orders 404 and 596** ([symmetric/PERIODIC_GOLAY.md](symmetric/PERIODIC_GOLAY.md)). Checked on 18 October
 2026: the census (both v undecided); Miyamoto's claim of 1991 as the census reports it (a symmetric input of order q −
@@ -192,7 +196,7 @@ Mohammadian, Tayfeh-Rezaie and Zaitsev, arXiv:2605.08661v2, whose orders are eve
 only Williamson-type matrices of order 222 for 111 (t = 3). None gives near-Williamson or Williamson-type matrices of
 order 111, which is therefore New.
 
-**Order 6796** ([hadamard/6796](hadamard/6796)). Checked on 20 October 2026:
+**Order 6796** ([hadamard/6796](hadamard/6796)). Checked on 20 October 2026, Zaitsev's page again on 22 October:
 - *Tables and recursions.* Cati–Pasechnik, arXiv:2411.18897 v1 and v2 (Table 4: 1699(3)); Handbook Table 1.53;
   Đoković, arXiv:0912.5091 (the set Δ and four further values) and arXiv:1008.2043 (42 values);
   Đoković–Golubitsky–Kotsireas, arXiv:1301.3671; SageMath development source of 18 October 2026, read case by case,
@@ -214,7 +218,7 @@ order 111, which is therefore New.
   New, beyond the tables.
 
 **Orders 3436 and 4204** ([hadamard/3436](hadamard/3436), [hadamard/4204](hadamard/4204)). Checked on 20 October
-2026:
+2026, Zaitsev's page again on 22 October:
 - *Tables and recursions.* Cati–Pasechnik v1 and v2 (Table 4: 859(3), 1051(3)); Handbook Table 1.53 (t = 3 for
   both); Đoković, arXiv:0912.5091 and arXiv:1008.2043; Đoković–Golubitsky–Kotsireas, arXiv:1301.3671; SageMath
   development source of 20 October 2026, read case by case, not run (Unknown for both); Seberry–Yamada 1992,

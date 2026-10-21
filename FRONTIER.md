@@ -57,7 +57,7 @@ structure of that kind is expected to contain ten solutions; n.c. means not comp
 **Route column.** The last column names a recursive theorem that would settle the order from a smaller object, where
 one applies:
 
-- Miyamoto: an Hadamard matrix of order n − 1.
+- Miyamoto: a Hadamard matrix of order n − 1.
 - Kiyasu: a skew-Hadamard matrix of order (n + 1)/2.
 - Yamada: a symmetric conference matrix of order (n + 1)/2, which cannot exist when (n − 1)/2 is not a sum of two
   squares.
@@ -135,7 +135,7 @@ one applies:
 | 7324 | 1831 | – | – | – | – | – | – | – |  |
 | 7388 | 1847 | – | – | – | – | – | ℤ₂ × ℤ₁₃ × ℤ₇₁ | 72.5 |  |
 | 7484 | 1871 | – | – | – | – | – | – | – |  |
-| 7516 | 1879 | – | – | – | – | – | – | – | Kiyasu from a skew Hadamard matrix of order 940, or complex Yamada–Kiyasu from a quaternary conference matrix of that order |
+| 7516 | 1879 | – | – | – | – | – | – | – | Kiyasu from a skew-Hadamard matrix of order 940, or complex Yamada–Kiyasu from a quaternary conference matrix of that order |
 | 7572 | 1893 | 42 | 62 | 31 | 4.4 | 33.1 | ℤ₂ × ℤ₂ × ℤ₁₁ × ℤ₄₃ | 70.7 |  |
 | 7628 | 1907 | – | – | – | – | – | – | – |  |
 | 7716 | 1929 | – | – | – | – | – | – | – |  |
@@ -153,7 +153,7 @@ one applies:
 | 8684 | 2171 | – | – | – | – | – | – | – |  |
 | 8812 | 2203 | – | – | – | – | – | – | – |  |
 | 8828 | 2207 | – | – | – | – | – | ℤ₂ × ℤ₁₁₀₃ | 40.2 |  |
-| 8860 | 2215 | 34 | 81 | 41 | 1.9 | 50.1 | – | – | Kiyasu from a skew Hadamard matrix of order 1108, or complex Yamada–Kiyasu from a quaternary conference matrix of that order |
+| 8860 | 2215 | 34 | 81 | 41 | 1.9 | 50.1 | – | – | Kiyasu from a skew-Hadamard matrix of order 1108, or complex Yamada–Kiyasu from a quaternary conference matrix of that order |
 | 9004 | 2251 | – | – | – | – | – | – | – |  |
 | 9148 | 2287 | – | – | – | – | – | – | – |  |
 | 9260 | 2315 | – | – | – | – | – | – | – |  |
@@ -161,7 +161,7 @@ one applies:
 | 9356 | 2339 | – | – | – | – | – | – | – |  |
 | 9388 | 2347 | – | – | – | – | – | – | – |  |
 | 9484 | 2371 | – | – | – | – | – | – | – |  |
-| 9532 | 2383 | – | – | – | – | – | – | – | Kiyasu from a skew Hadamard matrix of order 1192, or complex Yamada–Kiyasu from a quaternary conference matrix of that order |
+| 9532 | 2383 | – | – | – | – | – | – | – | Kiyasu from a skew-Hadamard matrix of order 1192, or complex Yamada–Kiyasu from a quaternary conference matrix of that order |
 | 9596 | 2399 | – | – | – | – | – | – | – |  |
 | 9692 | 2423 | – | – | – | – | – | – | – |  |
 | 9716 | 2429 | – | – | – | – | – | – | – |  |

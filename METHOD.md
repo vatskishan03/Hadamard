@@ -43,7 +43,8 @@ on every class. We use the extended k-tree (generalised birthday) algorithm of W
 3. Join the two pair lists on a hash of the remaining classes.
 
 The values τ are processed in decreasing order of probability, and every match is checked exactly. With lists of 10⁸
-elements, one value of τ takes a few seconds on 44 cores.
+elements, one value of τ takes a few seconds on 44 cores. Đoković, Golubitsky and Kotsireas [3] used hashing for the
+same matching problem on cyclic groups, up to order 4 · 631.
 
 **Multiplier images.** If x is constant on the cosets of H, then so is x_u(t) = x(ut) for any unit u, and its class
 values are a permutation of those of x. Every candidate therefore yields up to C candidates of the same quality at no
