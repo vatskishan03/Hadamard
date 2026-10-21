@@ -39,7 +39,7 @@ gives this order; we found no statement of this.
   (mod 4); Yamada–Kiyasu does not apply: n − 2 = 9513 = 3² · 7 · 151 is not a prime power.
 - Cooper–Wallis does not apply otherwise: the other splits of n need Williamson-type matrices or T-matrices that are not
   known to us.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(38060, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(38060, existence=True)`
   returns Unknown.
 
 We found no valid construction of order 38060 before this one. The sources searched are listed in

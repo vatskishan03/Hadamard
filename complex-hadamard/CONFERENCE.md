@@ -19,6 +19,7 @@ template needs no symmetry.
 
 ## Notation
 
+- A **unit** is one of 1, −1, i, −i.
 - A **quaternary conference matrix** of order c is a c × c matrix Q with zero diagonal, entries 1, −1, i, −i off the
   diagonal and Q Q* = (c − 1) I. Then also Q* Q = (c − 1) I, since Q is a multiple of a unitary matrix. Real symmetric
   and skew conference matrices are examples. Scaling rows and columns by units keeps these properties, so Q can be
@@ -31,8 +32,6 @@ template needs no symmetry.
   R = Rᵀ, R² = I and R X_f R = X_fᵀ for every f, hence R X_fᵀ = X_f R.
 - ω = (1 + i)/2, so ω ω̄ = 1/2, ω² = i/2, ω̄² = −i/2. For x, y = ±1, ωx + ω̄y is one of 1, i, −i, −1.
 - P = [[1, −1], [−1, 1]] and J₂ is the all-one matrix of order 2: P J₂ = J₂ P = 0, P² = 2P, J₂² = 2J₂, P + J₂ = 2I.
-
-(The READMEs of 3436, 4204 and 6796 call the conference matrix C, which here would clash with the sequence C.)
 
 ## 1. The zero-diagonal array
 
@@ -63,8 +62,8 @@ way
     Y Y* = ½(X_C X_Cᵀ + X_D X_Dᵀ).
 
 Therefore X X* + Y Y* = ½ Σ_f X_f X_fᵀ, whose (g, h) entry is ½ Σ_f PAF_f(g − h). This is ½(4m − 2) = 2m − 1 for g = h
-and 0 otherwise. X*X and Y*Y expand to the same expressions, because all group matrices (transposes included) commute
-and R X_fᵀ R = X_f, so X*X + Y*Y = (2m − 1) I as well. Then
+and 0 otherwise. X\*X and Y\*Y expand to the same expressions, because all group matrices (transposes included)
+commute and R X_fᵀ R = X_f, so X\*X + Y\*Y = (2m − 1) I as well. Then
 
     Q Q* = [ X X* + Y Y*     X Y − Y X     ] = (2m − 1) I.   ∎
            [ (X Y − Y X)*    X*X + Y*Y     ]
@@ -77,7 +76,8 @@ The certificates of 3436 and 6796 hold such quadruples over ℤ₂₁₅ and ove
 
     PAF_A(g) + PAF_B(g) + PAF_C(g) + PAF_D(g) = −4   for g ≠ 0.
 
-Then the row sums are r_A, r_B = ±1 and r_C = r_D = 0. Put ρ = ω r_A + ω̄ r_B, a unit. Let t and v be units and
+Then the row sums are r_A, r_B = ±1 and r_C = r_D = 0. Put ρ = ω r_A + ω̄ r_B, a unit. Let t and v be units
+(elements of {1, −1, i, −i}) and
 
     s = ρ² t̄,   y = −ρ t̄ v,   u = ρ² t̄² v,
     X′ = ω X_A + ω̄ X_B,   Y′ = ω X_C + ω̄ X_D R,
@@ -160,12 +160,12 @@ e₂ Y′ = 0. Hence X′ e₂ᵀ = (1 + i) e₂ᵀ and e₂ X′ = (1 + i) e₂
     A B = B A = 2 P ⊗ M N,   A² = 2 P ⊗ M² + 2 J₂ ⊗ I,   B² = 2 P ⊗ N².
 
 A and B are real, symmetric and commute, so X′ is normal and
-X′X′* = ½(A² + B²) = P ⊗ (M² + N²) + J₂ ⊗ I = q P ⊗ I + J₂ ⊗ I. Next Y′Y′* = Y′*Y′ = 2 J₂ ⊗ Z Z* + 2 P ⊗ I = 2 J₂ ⊗
+X′X′* = ½(A² + B²) = P ⊗ (M² + N²) + J₂ ⊗ I = q P ⊗ I + J₂ ⊗ I. Next Y′Y′* = Y′\*Y′ = 2 J₂ ⊗ Z Z* + 2 P ⊗ I = 2 J₂ ⊗
 (nI − J_n) + 2 P ⊗ I. With q + 2 = v, J = J₂ ⊗ J_n and P + J₂ = 2I,
 
     X′X′* + Y′Y′* = v (P + J₂) ⊗ I − 2 J₂ ⊗ J_n = 2v I − 2J,
 
-and the same for X′*X′ + Y′*Y′.
+and the same for X′\*X′ + Y′\*Y′.
 
 **The borders.** With e₂ e₂ᵀ = 2n, e₂ᵀe₂ = J and the row sums above, the blocks of X X* + Y Y* are
 
@@ -173,11 +173,11 @@ and the same for X′*X′ + Y′*Y′.
     (1, 2): −e₂ + e₂ X′* + i e₂ + i e₂ Y′* = −e₂ + (1 − i) e₂ + i e₂ + 0 = 0;
     (2, 2): J + X′X′* + J + Y′Y′* = 2J + 2v I − 2J = 2v I,
 
-and (2, 1) is the adjoint of (1, 2). For X*X + Y*Y the (1, 1) block is again 2v, the (1, 2) block is
+and (2, 1) is the adjoint of (1, 2). For X\*X + Y\*Y the (1, 1) block is again 2v, the (1, 2) block is
 (e₂ − e₂ X′) + (i e₂ + i e₂ Y′) = e₂ − (1 + i) e₂ + i e₂ = 0, and the (2, 2) block is 2J + 2v I − 2J. For X Y and Y X
 the (1, 1) blocks are both 1 − 2ni, the (1, 2) blocks are both i e₂ (e₂ Y′ = 0 and e₂ + i e₂ X′ = i e₂), the (2, 1)
 blocks are both −i e₂ᵀ, and the (2, 2) blocks are −iJ + X′Y′ and −iJ + Y′X′, which agree. So
-X X* + Y Y* = X*X + Y*Y = 2v I and X Y = Y X, and K K* = 2v I. ∎
+X X* + Y Y* = X\*X + Y\*Y = 2v I and X Y = Y X, and K K* = 2v I. ∎
 
 The certificates build Q from the sequences of Theorem 1 or 2 (permuting columns to put the zeros on the diagonal if
 necessary, then scaling to normal form), check Q Q* = (c − 1) I and M² + N² = qI, and assemble K as above.
@@ -234,9 +234,10 @@ al."), which states no method; we found it stated nowhere else. With a skew-Hada
 from the data of Yamada's theorem ([symmetric/YAMADA_KIYASU.md](../symmetric/YAMADA_KIYASU.md)), and Zaitsev et al.'s
 QH590, QH638, QH782, QH926, QH1310, QH1358, QH1646 and QH1886 are of that kind ([NOTES.md](../NOTES.md) §31).
 Miyamoto's Corollary 4 (1991, as transcribed in the JD-Jones-ASES Hadamard-M note) reaches the same orders from a
-symmetric quaternary conference matrix. The cores here are not symmetric.
+symmetric quaternary conference matrix. The cores here have Qᵀ ≠ Q as built.
 
-The template reaches further orders once a core is found: the FRONTIER orders 4n for n = 643, 955, 1291, 2083, 2659,
-2731, 2803, 2899 and 2971 (cores of order (n + 1)/2 = 322 to 1486; n = 643 and 955 also give the open complex orders
-1286 and 1910) and the open complex orders 1046, 1190 and 1958 (cores of order 262, 298 and 490). None of these cores
-has been found ([NOTES.md](../NOTES.md) §34, [search/NOTES.md](../search/NOTES.md) §75–82).
+The template reaches further orders once a core is found: the FRONTIER orders 4n for n = 643, 955, 1291, 1879, 2083,
+2215, 2383, 2659, 2731, 2803, 2899 and 2971 (cores of order (n + 1)/2 = 322 to 1486; for n = 1879, 2215 and 2383
+(q ≡ 5 (mod 8)) a skew-Hadamard core of order 940, 1108 or 1192 would also serve; n = 643 and 955 also give the open
+complex orders 1286 and 1910) and the open complex orders 1046, 1190 and 1958 (cores of order 262, 298 and 490). None
+of these cores has been found ([NOTES.md](../NOTES.md) §34, [search/NOTES.md](../search/NOTES.md) §75–82).

@@ -36,7 +36,7 @@ odd part 7545 had order 2³ · 7545. The order lies above the range of Cati–Pa
   of two squares); Yamada–Kiyasu does not apply: n − 2 = 7543 = 19 · 397 is not a prime power.
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(30180, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(30180, existence=True)`
   returns Unknown.
 
 We found no construction or statement of order 30180. The sources searched are listed in

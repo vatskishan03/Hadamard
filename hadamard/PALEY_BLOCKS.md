@@ -1,7 +1,7 @@
 # Paley's matrix in circulant blocks, times T-matrices
 
 Fourteen orders 4n of [FRONTIER.md](../FRONTIER.md) follow from two published results that the tables never combined.
-For each we give an explicit Goethals–Seidel quadruple and the Hadamard matrix of order 4n. The same route gives 116
+For each we give an explicit Goethals–Seidel quadruple and the Hadamard matrix of order 4n. The same route gives 117
 orders beyond Table 4 ([below](#beyond-table-4)).
 
 | Order | n | q | s = (q + 1)/4 | t |
@@ -57,7 +57,7 @@ gives the quadruple for 917.)
 
 ## Status
 
-**New**, but obtainable classically. Cati–Pasechnik Table 4 lists each of the fourteen n as n(3): the smallest known
+**New, but obtainable classically.** Cati–Pasechnik Table 4 lists each of the fourteen n as n(3): the smallest known
 order 2ᵐ · n was 8n. We found no construction of these orders before ours. Both steps are published, but we found no
 source that combines them:
 
@@ -96,7 +96,7 @@ in the [index](README.md#orders-beyond-the-tables), each with its README.
   order that Đoković claimed through Corollary 8.8(i), and is labelled First explicit construction.
 - 6 need T-matrices of order 103, 151 or 163, known only since 2026, and are new beyond the tables: 16308, 21836,
   32012, 34556, 36844 and 39772.
-- 16892 and 25132 are Known: SageMath's development version builds them by Cooper–Wallis since October 3, 2026, from
+- 16892 and 25132 are Known: SageMath's development version builds them by Cooper–Wallis since 3 October 2026, from
   the T-matrices of order 103 decoded from Schneider's matrix of order 2060.
 - For seven of them gcd(s, t) > 1 (16300, 17532, 18036, 23724, 26604, 27036 and 37436), and the sequences live on ℤ_t
   × ℤ_s. For 25132, 36844 and 39772, q = 243 = 3⁵.
@@ -113,7 +113,7 @@ in the [index](README.md#orders-beyond-the-tables), each with its README.
   2; [`t-matrices/T55.txt`](../t-matrices/T55.txt)), so 28820 is among the 109. The same T-matrices give 38060
   ([below](#orders-recorded-only-through-corollary-88i)).
 
-SageMath's development version (`hadamard_matrix(4n, existence=True)`, October 17, 2026) returns Unknown for all the
+SageMath's development version (`hadamard_matrix(4n, existence=True)`, 17 October 2026) returns Unknown for all the
 others. Each certificate is checked exactly when it is written (entries ±1, Σ PAF = 0 off 0, sequences rebuilt from
 Paley's matrix by `verify/verify.py`). `verify/verify.py` also rebuilds every certificate and checks H Hᵀ = 4n I
 densely; every certificate passes.
@@ -134,7 +134,7 @@ Williamson-type matrices themselves exist for s = 293 and 173 ([NOTES.md](../NOT
 symmetric Williamson-type matrices of order 73 have a repeated block, and Lemma 26 in the repeated-block form turns them
 into order 293 (checked); for 173, Verma's symmetric conference matrix of order 86 (arXiv:2610.08893, 6 October 2026,
 checked) gives them by Corollary 8.8(ii). So the orders with s = 293 were obtainable classically, and those with s = 173
-have a published route since October 6, 2026; the labels stay, as no one stated these constructions.
+have a published route since 6 October 2026; the labels stay, as no one stated these constructions.
 
 | Order | n | s | q | t | Recorded by |
 |------:|---:|---:|---:|---:|---|

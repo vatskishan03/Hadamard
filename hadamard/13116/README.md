@@ -42,7 +42,7 @@ with odd part 3279 had order 2³ · 3279. The order lies above the range of Cati
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
 - The Paley-block route ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md)) does not reach it.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(13116, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(13116, existence=True)`
   returns Unknown.
 
 We found no construction or statement of order 13116. The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).

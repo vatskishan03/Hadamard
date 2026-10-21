@@ -34,10 +34,10 @@ Cati–Pasechnik Table 4, which stops at n = 2999.
   powers.
 - Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
   (mod 4); Yamada–Kiyasu does not apply: n − 2 = 8637 = 3 · 2879 is not a prime power.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(34556, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(34556, existence=True)`
   returns Unknown.
 
-Since August 29, 2026 the order also follows by Cooper–Wallis from T-matrices of order 163 (JD-Jones-ASES/Hadamard-T)
+Since 29 August 2026 the order also follows by Cooper–Wallis from T-matrices of order 163 (JD-Jones-ASES/Hadamard-T)
 and Williamson-type matrices of order 53 (Seberry–Yamada 1992, Table A.1), but we found no construction or statement
 of it.
 

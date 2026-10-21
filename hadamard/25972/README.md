@@ -43,15 +43,15 @@ No construction we know of reaches it with inputs published before 2026:
     arXiv:2506.20296), and 3l − 1 = 151 has no integer solution. They appeared in 2026.
 - The closure of the published theorems (Cooper–Wallis with Yang's and Golay products of base sequences, Miyamoto,
   Yamada, Kiyasu, conference matrices, Turyn's doubling) does not reach 4 · 6493 ([NOTES.md](../../NOTES.md) §28).
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(25972, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(25972, existence=True)`
   returns Unknown.
 
-The route therefore uses an object from 2026: T-matrices of order 151 were posted by Schumer (Zenodo, September 17,
-2026, doi:10.5281/zenodo.22820997). Lou, Xia and Xia's paper on T-matrices of order 6m + 1 (151 = 6 · 25 + 1), which we
-could not read, might contain order 151; if it does, this order was obtainable classically. We found no construction or
-statement of order 25972. The ingredients are not new, only their combination.
+The route therefore uses an object from 2026: T-matrices of order 151 were posted by Schumer (Zenodo, 17 September
+2026, doi:10.5281/zenodo.22820997). Lou, Xia and Xia's paper on T-matrices of order 6m + 1 (151 = 6 · 25 + 1), which
+we could not read, might contain order 151; if it does, this order was obtainable classically. We found no
+construction or statement of order 25972. The ingredients are not new, only their combination.
 
-The order has followed from published objects since September 17, 2026, but we found it stated nowhere. Schumer's
+The order has followed from published objects since 17 September 2026, but we found it stated nowhere. Schumer's
 deposit, which posted the T-matrices of order 151, says that Cooper–Wallis gives a Hadamard matrix of order 604w
 whenever Williamson-type matrices of order w are available, but it builds only w = 9, 11 and 13 and names only values
 with 151w ≤ 2999; w = 43 is not among them.

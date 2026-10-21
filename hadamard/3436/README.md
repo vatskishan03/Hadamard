@@ -15,8 +15,8 @@ PAF_A(g) + PAF_B(g) + PAF_C(g) + PAF_D(g) = 0   for g ≠ 0.
 ```
 
 With ω = (1 + i)/2, X_f[g, h] = f(h − g) and the reversal R[g, 214 − g] = 1, the matrices X = ω X_A + ω̄ X_B and
-Y = ω X_C + ω̄ X_D R give C = [[X, Y], [Y*, −X*]] of order 430 with zero diagonal, entries ±1, ±i elsewhere, and
-C C* = 429 I.
+Y = ω X_C + ω̄ X_D R give Q = [[X, Y], [Y*, −X*]] of order 430 with zero diagonal, entries ±1, ±i elsewhere, and
+Q Q* = 429 I.
 
 The sequences are constant on the orbits of H = ⟨49⟩, of order 6: 49 ≡ −1 (mod 5) and 49 ≡ 6 (mod 43), where 6 has
 order 3. Every block is therefore symmetric in the ℤ₅ coordinate. The row sums are 14, 18, 13 and 13:
@@ -68,8 +68,8 @@ which lies above Brouwer's table. None of the standard recursive constructions a
 
 **Credits.** As for [6796](../6796/README.md#status). Miyamoto's Corollary 4 (1991, as transcribed in the
 JD-Jones-ASES Hadamard-M note) reaches the same orders 4(q + 2) from a C₂-matrix of order q + 3. In his displayed
-form, such a matrix is the same thing as a quaternary conference matrix C of order (q + 3)/2 with Cᵀ = C. The template
-needs no such symmetry, and the core here has Cᵀ ≠ C as built. The sampler adapts the FLC classification method
+form, such a matrix is the same thing as a quaternary conference matrix Q of order (q + 3)/2 with Qᵀ = Q. The template
+needs no such symmetry, and the core here has Qᵀ ≠ Q as built. The sampler adapts the FLC classification method
 (fibre-lattice completion, [17] in the [README](../../README.md#references)), an exhaustive classifier, to sampling.
 
 **Ingredients.**
@@ -77,7 +77,7 @@ needs no such symmetry, and the core here has Cᵀ ≠ C as built. The sampler a
   need 429 to be a sum of two squares, and a skew one needs order ≡ 0 (mod 4). The families of complex ones
   (Paley-type, Berman, BGW and GC, Seberry–Whiteman, Et-Taoui) need 429 to be a prime power. Fallon and Iverson's
   ancillary library (arXiv:2610.09169) has a certified conference signal over ℤ₄₂₉, which gives a complex conference
-  matrix of order 430. That matrix is not equivalent to a quaternary one: some of its invariants C_ij C_kl C̄_il C̄_kj
+  matrix of order 430. That matrix is not equivalent to a quaternary one: some of its invariants Q_ij Q_kl Q̄_il Q̄_kj
   lie 0.77 from {±1, ±i}, the largest distance possible.
 - The quaternary Hadamard matrix of order 1718 settles an order that is blank in Seberry–Yamada's Table 11.2 (1992)
   and on the unknown list of Zaitsev et al.'s page (last updated 14 October 2026, unchanged on 22 October). Its other

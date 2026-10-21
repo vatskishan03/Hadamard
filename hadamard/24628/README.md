@@ -36,7 +36,7 @@ odd part 6157 had order 2⁵ · 6157. The order lies above the range of Cati–P
 - Cooper–Wallis applies only with an object of 2026: T-matrices of order 131 (from London and Kotsireas's TT(44), 2025)
   and Williamson-type matrices of order 47, first known as near-Williamson matrices in 2026
   ([williamson-type](../../williamson-type); [NOTES.md](../../NOTES.md) §28).
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(24628, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(24628, existence=True)`
   returns Unknown.
 
 We found no construction or statement of order 24628. The sources searched are listed in

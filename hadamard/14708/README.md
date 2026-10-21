@@ -34,11 +34,11 @@ Cati–Pasechnik Table 4, which stops at n = 2999.
 - Paley's constructions do not apply: 4 · 3677 − 1 = 7 · 11 · 191 and 2 · 3677 − 1 = 3² · 19 · 43 are not prime
   powers.
 - The order has followed from Miyamoto's theorem since Schumer published a skew-Hadamard matrix of order 3676 on
-  September 17, 2026, but we found no construction or statement of it. That record lists only the orders 3676, 5436,
+  17 September 2026, but we found no construction or statement of it. That record lists only the orders 3676, 5436,
   6644 and 7852.
 
 The input order is not new. 3676 was unresolved in Cati–Pasechnik Table 4 until Schumer's construction (Zenodo,
-September 17, 2026, doi:10.5281/zenodo.22820997), which has the same spin structure. Ours was found independently.
+17 September 2026, doi:10.5281/zenodo.22820997), which has the same spin structure. Ours was found independently.
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 

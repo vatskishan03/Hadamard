@@ -33,10 +33,10 @@ odd part 8305 had order 2³ · 8305. The order lies above the range of Cati–Pa
 - Paley's constructions do not apply: 4n − 1 = 33219 = 3² · 3691 and 2n − 1 = 16609 = 17 · 977 are not prime powers.
 - Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 8306 cannot exist (8305 is not a sum
   of two squares); Yamada–Kiyasu does not apply: n − 2 = 8303 = 19² · 23 is not a prime power.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(33220, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(33220, existence=True)`
   returns Unknown.
 
-Since September 17, 2026 the order also follows by Cooper–Wallis from T-matrices of order 151 (Schumer, Zenodo,
+Since 17 September 2026 the order also follows by Cooper–Wallis from T-matrices of order 151 (Schumer, Zenodo,
 doi:10.5281/zenodo.22820997) and Williamson-type matrices of order 55 (Seberry–Yamada 1992, Table A.1), but we found
 no construction or statement of it.
 

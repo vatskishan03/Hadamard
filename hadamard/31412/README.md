@@ -20,10 +20,10 @@ matrix with odd part 7853 had order 2⁶ · 7853. The order lies above Cati–Pa
 
 - The input order 4 · 1963 has t = 3 in the Handbook and in Cati–Pasechnik Table 4.
 - No classical family gives order 4 · 7853.
-- The order has followed from Miyamoto's theorem since Schumer published a matrix of order 7852 on September 17, 2026,
+- The order has followed from Miyamoto's theorem since Schumer published a matrix of order 7852 on 17 September 2026,
   but we found no construction or statement of it.
 - The input K is not new. Schumer built a Hadamard matrix of order 7852 the same way, from T-matrices of order 151 and
-  Williamson matrices of order 13 (Zenodo, September 17, 2026, doi:10.5281/zenodo.22820997).
+  Williamson matrices of order 13 (Zenodo, 17 September 2026, doi:10.5281/zenodo.22820997).
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 

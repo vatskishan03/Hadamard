@@ -33,10 +33,10 @@ Cati–Pasechnik Table 4, which stops at n = 2999.
 - Paley's constructions do not apply: 4n − 1 = 16307 = 23 · 709 and 2n − 1 = 8153 = 31 · 263 are not prime powers.
 - Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 4078 cannot exist (4077 is not a sum
   of two squares); Yamada–Kiyasu does not apply: n − 2 = 4075 = 5² · 163 is not a prime power.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(16308, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(16308, existence=True)`
   returns Unknown.
 
-Since September 17, 2026 the order also follows by Cooper–Wallis from T-matrices of order 151 (Schumer, Zenodo,
+Since 17 September 2026 the order also follows by Cooper–Wallis from T-matrices of order 151 (Schumer, Zenodo,
 doi:10.5281/zenodo.22820997) and Williamson-type matrices of order 27 (Seberry–Yamada 1992, Table A.1), but we found
 no construction or statement of it.
 

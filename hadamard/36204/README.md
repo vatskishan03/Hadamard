@@ -36,7 +36,7 @@ odd part 9051 had order 2³ · 9051. The order lies above the range of Cati–Pa
   not a prime power and we know no such matrix.
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(36204, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(36204, existence=True)`
   returns Unknown.
 
 We found no construction or statement of order 36204. The sources searched are listed in

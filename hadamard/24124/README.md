@@ -38,7 +38,7 @@ t = 3: the smallest known Hadamard matrix with odd part 6031 had order 8 · 6031
 Cati–Pasechnik Table 4, which stops at n = 2999.
 
 - The entry does not appear in Đoković's updates (arXiv:0912.5091, arXiv:1008.2043).
-- The order has followed from published objects since August 29, 2026 (the second route below), but we found no
+- The order has followed from published objects since 29 August 2026 (the second route below), but we found no
   construction or statement of it.
 
 The skew input, the double of [skew 1508](../../skew/1508), is new as far as we know. Cati–Pasechnik Table 5 lists
@@ -48,7 +48,7 @@ implemented and checked up to order 1208, so this is less certain than the main 
 A second route reaches the same order: Cooper–Wallis with T-matrices of order 163 (ours are in
 [`t-matrices/T163.txt`](../../t-matrices/T163.txt)) and Williamson matrices of order 37, which exist (Holzmann,
 Kharaghani, Tayfeh-Rezaie, Des. Codes Cryptogr. 46 (2008) 343–352). JD-Jones-ASES/Hadamard-T published T-matrices of
-order 163 on August 29, 2026, together with their products for Williamson orders 11 and 13 (orders 7172 and 8476).
+order 163 on 29 August 2026, together with their products for Williamson orders 11 and 13 (orders 7172 and 8476).
 T-matrices of order 163 may appear earlier in Lou, Xia, Xia, *On T-matrices of order 6m + 1* (2019/2022), which we
 could not read.
 

@@ -16,7 +16,7 @@ result.
 
 ## Status
 
-**Known.** SageMath's development version constructs this order since October 3, 2026 (merge of gh-42876, which added
+**Known.** SageMath's development version constructs this order since 3 October 2026 (merge of gh-42876, which added
 the T-matrices of order 103 decoded from Schneider's matrix of order 2060; 11.0.beta1): `hadamard_matrix(31316)` reaches
 Miyamoto's theorem with q = 7829 and a Cooper–Wallis matrix of order 7828 from those T-matrices and the Williamson
 matrices of order 19. The matrix here is independent of it: our T-matrices of order 103 were found separately and differ
@@ -28,8 +28,8 @@ matrix with odd part 7829 had order 2⁸ · 7829. The order lies above Cati–Pa
 - The input order 4 · 1957 has t = 3 in the Handbook and in Cati–Pasechnik Table 4.
 - No classical family gives order 4 · 7829.
 - The order has followed from Miyamoto's theorem since JD-Jones-ASES/Hadamard-T published a matrix of order 7828 on
-  August 29, 2026, but we found no construction or statement of it.
-- T-matrices of order 103 first became public in 2026: JD-Jones-ASES/Hadamard-T decoded them on August 29, 2026, from
+  29 August 2026, but we found no construction or statement of it.
+- T-matrices of order 103 first became public in 2026: JD-Jones-ASES/Hadamard-T decoded them on 29 August 2026, from
   the Hadamard matrix of order 2060 that Schneider posted. Ours were found independently (see [order 2060](../2060)).
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).

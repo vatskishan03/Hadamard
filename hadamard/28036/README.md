@@ -42,19 +42,19 @@ No construction we know of reaches it with inputs published before 2026:
     arXiv:2506.20296), and 3l − 1 = 163 has no integer solution. They appeared in 2026.
 - The closure of the published theorems (Cooper–Wallis with Yang's and Golay products of base sequences, Miyamoto,
   Yamada, Kiyasu, conference matrices, Turyn's doubling) does not reach 4 · 7009 ([NOTES.md](../../NOTES.md) §28).
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(28036, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(28036, existence=True)`
   returns Unknown.
 
-The route therefore uses an object from 2026: T-matrices of order 163 were posted by JD-Jones-ASES/Hadamard-T on August
-29, 2026. Lou, Xia and Xia's paper on T-matrices of order 6m + 1 (163 = 6 · 27 + 1), which we could not read, might
+The route therefore uses an object from 2026: T-matrices of order 163 were posted by JD-Jones-ASES/Hadamard-T on 29
+August 2026. Lou, Xia and Xia's paper on T-matrices of order 6m + 1 (163 = 6 · 27 + 1), which we could not read, might
 contain order 163; if it does, this order was obtainable classically. We found no construction or statement of order
 28036. The ingredients are not new, only their combination.
 
-The order has followed from published objects since August 29, 2026, but we found it stated nowhere.
+The order has followed from published objects since 29 August 2026, but we found it stated nowhere.
 JD-Jones-ASES/Hadamard-T pairs its T-matrices of order 163 only with Williamson matrices of orders 11 and 13 (orders
-7172 and 8476). JD-Jones-ASES/Hadamard-formal (August 30, 2026) has a generic Cooper–Wallis theorem and T-matrices of
+7172 and 8476). JD-Jones-ASES/Hadamard-formal (30 August 2026) has a generic Cooper–Wallis theorem and T-matrices of
 order 163, but no Williamson matrices of order 43, and states only eight orders, from 2884 to 11948. Schumer's deposit
-(September 17, 2026) contains an independent T(163) as a control, with no product.
+(17 September 2026) contains an independent T(163) as a control, with no product.
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 

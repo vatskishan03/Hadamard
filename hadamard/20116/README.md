@@ -43,13 +43,13 @@ No construction we know of reaches it with inputs published before 2026:
     (near-Williamson matrices of Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev, arXiv:2605.08661).
 - The closure of the published theorems (Cooper–Wallis with Yang's and Golay products of base sequences, Miyamoto,
   Yamada, Kiyasu, conference matrices, Turyn's doubling) does not reach 4 · 5029 ([NOTES.md](../../NOTES.md) §28).
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(20116, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(20116, existence=True)`
   returns Unknown.
 
 The route therefore uses an object from 2026: the Williamson-type matrices of order 47. We found no construction or
 statement of order 20116. The ingredients are not new, only their combination.
 
-The order has followed from published objects since May 9, 2026 (the near-Williamson matrices of order 47 in the first
+The order has followed from published objects since 9 May 2026 (the near-Williamson matrices of order 47 in the first
 version of arXiv:2605.08661, with the T-sequences of length 107 of 2005), but we found it stated nowhere: that paper
 applies its matrices to quaternary Hadamard matrices only, and SageMath's database has no Williamson-type matrices of
 order 47.

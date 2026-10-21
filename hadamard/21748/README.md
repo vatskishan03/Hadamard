@@ -35,11 +35,11 @@ order lies above the range of Cati–Pasechnik Table 4, which stops at n = 2999.
   follows from Paley's matrix of order 1812 (q = 1811 ≡ 3 mod 8) in sixteen circulant blocks of order 453 and T-matrices
   of order 3 (Seberry–Yamada 1990, Theorem 4; [PALEY_BLOCKS.md](../PALEY_BLOCKS.md)), and Miyamoto's theorem then gives
   21748.
-- The order has followed from Miyamoto's theorem since Schumer published a matrix of order 5436 on September 17, 2026,
+- The order has followed from Miyamoto's theorem since Schumer published a matrix of order 5436 on 17 September 2026,
   but we found no construction or statement of it.
 
 The input K is not new. Schumer built a Hadamard matrix of order 5436 the same way, from T-matrices of order 151 and
-Williamson matrices of order 9 (Zenodo, September 17, 2026, doi:10.5281/zenodo.22820997).
+Williamson matrices of order 9 (Zenodo, 17 September 2026, doi:10.5281/zenodo.22820997).
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 

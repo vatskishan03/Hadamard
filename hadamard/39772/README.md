@@ -36,10 +36,10 @@ Cati–Pasechnik Table 4, which stops at n = 2999.
 - Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
   (mod 4). Kiyasu's theorem with q = n − 2 = 9941 needs a skew-Hadamard matrix of order 4972 = 4 · 1243, and v = 1243 is
   undecided in the Đoković–Seberry census.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(39772, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(39772, existence=True)`
   returns Unknown.
 
-Since August 29, 2026 the order also follows by Cooper–Wallis from T-matrices of order 163 (JD-Jones-ASES/Hadamard-T)
+Since 29 August 2026 the order also follows by Cooper–Wallis from T-matrices of order 163 (JD-Jones-ASES/Hadamard-T)
 and Williamson-type matrices of order 61 (Seberry–Yamada 1992, Table A.1), but we found no construction or statement
 of it.
 

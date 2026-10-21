@@ -35,7 +35,7 @@ odd part 7205 had order 2³ · 7205. The order lies above the range of Cati–Pa
   powers.
 - Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 7206 cannot exist (7205 is not a sum
   of two squares); Yamada–Kiyasu does not apply: n − 2 = 7203 = 3 · 7⁴ is not a prime power.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(28820, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(28820, existence=True)`
   returns Unknown.
 
 A second route reaches the same order: Cooper–Wallis with T-matrices of order 131 and Williamson-type matrices of

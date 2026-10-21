@@ -46,16 +46,16 @@ quaternary.
 - Y′Y′* = (X_C X_Cᵀ + X_D X_Dᵀ)/2 + (α² X_C X_D R + ᾱ² X_D R X_Cᵀ). The bracket vanishes, since
   X_D R X_Cᵀ = X_D X_C R = X_C X_D R.
 - So X′X′* + Y′Y′* = (Σ_k X_k X_kᵀ)/2 = 2N I − 2J by condition 2, where J is the all-ones matrix.
-- All of these matrices are normal, so the same identities hold for X′*X′ and Y′*Y′.
+- All of these matrices are normal, so the same identities hold for X′\*X′ and Y′\*Y′.
 
 **The border.** e is an eigenvector of X′, Y′ and of their adjoints, with eigenvalues ρ_X, ρ_Y (and their conjugates):
 - e is fixed by R;
 - the row and column sums of X_Z are r_Z.
 
-Multiplying out the blocks of K K* = [[XX* + YY*, XY − YX], [Y*X* − X*Y*, Y*Y + X*X]]:
+Multiplying out the blocks of K K* = [[XX* + YY*, XY − YX], [Y\*X* − X\*Y*, Y\*Y + X\*X]]:
 - The corner entries are 2(1 + m) = 2N.
 - The core blocks are J + J + X′X′* + Y′Y′* = 2N I.
-- The border rows and columns give the five scalar equations above: two from XX* + YY* and X*X + Y*Y, and three
+- The border rows and columns give the five scalar equations above: two from XX* + YY* and X\*X + Y\*Y, and three
   from XY = YX (the J-coefficient tu = vs of XY − YX repeats the first equation).
 
 ∎

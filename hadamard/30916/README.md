@@ -39,7 +39,7 @@ odd part 7729 had order 2³ · 7729. The order lies above the range of Cati–Pa
   (Cryptogr. Commun. 17 (2025)) give, by the Yang number 59 (normal sequences NS(29), used by Đoković in 2009) gives
   T-sequences of length 59 · 131 = 7729, hence an OD(4 · 7729; 7729, 7729, 7729, 7729); see [NOTES.md](../../NOTES.md)
   §28.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(30916, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(30916, existence=True)`
   returns Unknown.
 
 We found no construction or statement of order 30916. The sources searched are listed in

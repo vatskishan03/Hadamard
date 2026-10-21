@@ -35,7 +35,7 @@ odd part 5065 had order 2³ · 5065. The order lies above the range of Cati–Pa
   us (5065 is not a prime power); Yamada–Kiyasu does not apply: n − 2 = 5063 = 61 · 83 is not a prime power.
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(20260, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(20260, existence=True)`
   raises UnknownError in its Miyamoto test (no symmetric conference matrix of order 5066 is known to it), and returns
   Unknown when that Unknown is treated as False.
 

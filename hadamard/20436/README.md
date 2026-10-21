@@ -34,7 +34,7 @@ odd part 5109 had order 2³ · 5109. The order lies above the range of Cati–Pa
   powers.
 - Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 5110 cannot exist (5109 is not a sum
   of two squares); Yamada–Kiyasu does not apply: n − 2 = 5107 is ≡ 3 (mod 8).
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(20436, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(20436, existence=True)`
   returns Unknown.
 
 A second route reaches the same order: Cooper–Wallis with T-matrices of order 131 and Williamson-type matrices of

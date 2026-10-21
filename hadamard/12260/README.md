@@ -41,7 +41,7 @@ order 613.
 - The Paley-block route does not reach it: 4s − 1 = 2451 and 12259 are not prime powers ≡ 3 (mod 8) for the other
   divisors s of 3065, and the remaining ones need T-matrices of order 3065 (s = 1) or 613 (s = 5), which are not known
   to us.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(12260, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(12260, existence=True)`
   raises UnknownError in its Miyamoto test (no symmetric conference matrix of order 3066 is known to it), and returns
   Unknown when that Unknown is treated as False.
 

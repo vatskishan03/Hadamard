@@ -35,10 +35,10 @@ Cati–Pasechnik Table 4, which stops at n = 2999.
 - Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
   (mod 4). Yamada's theorem with q = n − 2 = 9209 needs a symmetric conference matrix of order 4606; 4605 = 3 · 5 · 307
   is not a sum of two squares, so no conference matrix of order 4606 exists.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(36844, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(36844, existence=True)`
   returns Unknown.
 
-Since September 17, 2026 the order also follows by Cooper–Wallis from T-matrices of order 151 (Schumer, Zenodo,
+Since 17 September 2026 the order also follows by Cooper–Wallis from T-matrices of order 151 (Schumer, Zenodo,
 doi:10.5281/zenodo.22820997) and Williamson-type matrices of order 61 (Seberry–Yamada 1992, Table A.1), but we found
 no construction or statement of it.
 

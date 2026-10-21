@@ -200,7 +200,7 @@ H((q−1)/2) exists, then WT(q) exists.
   4285, 5999 and 9427 (q = 857) are unresolved as far as we know. His other uses of the corollary have valid
   alternatives, checked for every q: Corollary 29(ii) with a symmetric H((q − 1)/2) or a symmetric conference matrix, or
   Turyn (e.g. 7167 through Paley's conference matrix of order 1194, 9111 through Turyn with 6073 prime).
-- **Through Table A.1 (October 17).** The failure also reaches orders built by Cooper–Wallis (or Yang's products) from
+- **Through Table A.1.** The failure also reaches orders built by Cooper–Wallis (or Yang's products) from
   the Williamson-type matrices of Table A.1 that rest on the corollary alone: the 19 primes q = 173, 293, 373, 521, 613,
   757, 773, 809, 953, 1109, 1193, 1301, 1453, 1493, 1637, 1693, 1733, 1753 and 1993 (all of key wl, credited to
   Miyamoto's paper, which we could not read), for which Turyn, Corollary 8.8(ii) with a symmetric input known before
@@ -281,13 +281,10 @@ Tayfeh-Rezaie 2008) and have not been found for w = 65 and 67 (the paper's §2.3
 not yet been found, namely n ∈ {53, 59, 65, 67}").
 - **Five new orders.** Combined with the T-matrices of orders 103, 151 and 163 by Cooper–Wallis, they give 24308,
   27604, 35636, 38468 and 39260. See their READMEs.
-- **Further candidates:**
-  - 4·3149 = 4·47·67, 4·4757 = 4·67·71, 4·4841 = 4·47·103, using T-sequences of lengths 47 and 71;
-  - 4·8549 = 4·83·103, which needs only T103 and the classical WT(83).
-- None of these products lands on an unresolved n ≤ 2999.
-- All four candidates are now built: [12596](hadamard/12596) and [19364](hadamard/19364) with the bordered WT(47) of
-  [williamson-type](williamson-type), [34196](hadamard/34196) with the bordered WT(83), and [19028](hadamard/19028)
-  with T-sequences of length 71 (from Turyn-type TT(24)) and the near-Williamson WT(67).
+- **Four further orders** are built, and none lands on an unresolved n ≤ 2999: [12596](hadamard/12596) = 4·47·67 and
+  [19364](hadamard/19364) = 4·47·103 with the bordered WT(47) of [williamson-type](williamson-type),
+  [34196](hadamard/34196) = 4·83·103 with the bordered WT(83) and T103, and [19028](hadamard/19028) = 4·67·71 with
+  T-sequences of length 71 (from Turyn-type TT(24)) and the near-Williamson WT(67).
 
 ## 8. Complex Hadamard matrices, the order-3 twist and quaternary Legendre pairs
 
@@ -926,7 +923,7 @@ but instances of the completion below, and Williamson-type matrices of orders 26
   the other m rate 10^−1.3 (163, H = ⟨38⟩ of order 9, which we exhausted: no solution), 10^−2.4 (127), 10^−3.8 (213)
   and 10^−3.9 (183). The Szöllősi solutions we certified for 326, 366 and 426 do not have C = D, not even up to
   shift, sign and reversal.
-- *m = 93 (October 17).* With Yamada's U₁, U₂, Lemma 26 needs exactly a symmetric commuting pair (M₃, M₄) of order
+- *m = 93.* With Yamada's U₁, U₂, Lemma 26 needs exactly a symmetric commuting pair (M₃, M₄) of order
   (q − 1)/2 with M₃² + M₄² = (q − 1)I, i.e. a symmetric quaternary Hadamard matrix; a doubly symmetric propus
   quadruple of order m gives one of order 2m. For real orders this is the open input of four FRONTIER entries:
   2611 = 7 · 373 needs one of order 186 (m = 93), 1527 and 2545 one of order 254 (m = 127), 2427 and 2571 one of
@@ -967,7 +964,7 @@ for orders 3, 7 and 9). If W₁ = W₂ for symmetric commuting Williamson matric
 [[W₃, W₁], [W₁, W₄]] and V₄ = [[W₄, −W₁], [−W₁, W₃]] satisfy every hypothesis (checked for q = 13, 29, 37, 53, 61); this
 is the repeated-block case of §7.
 
-**A completion that the printed matrices do give (October 17).** Let q ≡ 1 (mod 4) be a prime power, n = (q − 1)/2, and
+**A completion that the printed matrices do give.** Let q ≡ 1 (mod 4) be a prime power, n = (q − 1)/2, and
 C any quaternary Hadamard matrix of order n, symmetric or not (a real Hadamard matrix of order n will do). Write (1 +
 i)C = M₃ + iM₄ and take U = (A, BR, 0, 0) and V = (I, 0, M₃, M₄) in Lemma 8.6, with A, BR Yamada's matrices as in the
 printed proof. The X_i are then ±1 matrices with ΣX_iX_iᵀ = 4qI. They are pairwise amicable only when C is symmetric
@@ -977,9 +974,9 @@ printed proof. The X_i are then ±1 matrices with ΣX_iX_iᵀ = 4qI. They are pa
   0) of the U's, AC = CA, U₃ = U₄ = 0, V₁ = I and V₂ = 0. Hence XY = YX, so the off-diagonal blocks of KK* vanish.
   XX* + YY* = ½ΣX_iX_iᵀ + (i/2)(N₁₂ + N₃₄) with N_ab = X_aX_bᵀ − X_bX_aᵀ. N₁₂ = 0, and N₃₄ = diag(0, 2(M₃M₄ᵀ − M₄M₃ᵀ)
   ⊗ [[1, −1], [−1, 1]]), which is 0 because CC* = nI gives M₃M₄ᵀ = M₄M₃ᵀ. The other diagonal block is
-  Y*Y + X*X = ½ΣX_iᵀX_i − (i/2)(N'₁₂ + N'₃₄) with N'_ab = X_aᵀX_b − X_bᵀX_a. ΣX_iᵀX_i = 4qI because A and BR are
+  Y\*Y + X\*X = ½ΣX_iᵀX_i − (i/2)(N'₁₂ + N'₃₄) with N'_ab = X_aᵀX_b − X_bᵀX_a. ΣX_iᵀX_i = 4qI because A and BR are
   symmetric with column sums 1 and 0 and M₃ᵀM₃ + M₄ᵀM₄ = 2nI, and N'₃₄ = 0 because M₃ᵀM₄ = M₄ᵀM₃; both identities
-  come from C*C = nI.
+  come from C\*C = nI.
 - Checked exactly for q = 13 (a scrambled non-real BH(6, 4)), 17, 41 and 89 (column-scrambled real Hadamard matrices),
   and also for q = 29, 37, 61 and 269. We found it stated in none of the papers we read: JCMCC 7 Corollary 36 gives only
   the real order 4q from a complex Hadamard matrix of order (q − 1)/2. Zaitsev's QH538, QH1018 and QH1714 have exactly
@@ -1011,10 +1008,11 @@ We first read it on 15 October (fetched at 17:00 UTC). It has matrices of 122 or
 checked it exactly (entries in {±1, ±i}, K K* = 2N I;
 [search/data/complex_zaitsev_2026.txt](search/data/complex_zaitsev_2026.txt)). It attributes 23 orders to Szöllősi's
 array with two symmetric blocks, the construction of §8–14 (142, 154, 222, 238, 262, 286, 302, 310, 326, 342, 366,
-370, 382, 426, 430, 494, 518, 534, 686, 742, 754, 814 and 1558), 27 to unpublished approaches (among them 214, 406,
-454, 470, 490, 1066, 1306, 1466, 1706 and 1882), 62 to "a construction utilizing Paley-type matrices" (our 63 halves
-of §18 without 406, 814 and 1066, plus 322 and 330), and five, for which it claims nothing, to Mathon's conference
-matrices and to Đoković's Williamson-type matrices of orders 509, 857 and 883.
+370, 382, 426, 430, 494, 518, 534, 686, 742, 754, 814 and 1558), five (118, 130, 134, 206, 266) to near-Williamson
+matrices, 27 to unpublished approaches (among them 214, 406, 454, 470, 490, 1066, 1306, 1466, 1706 and 1882), 62 to "a
+construction utilizing Paley-type matrices" (our 63 halves of §18 without 406, 814 and 1066, plus 322 and 330), and
+five, for which it claims nothing, to Mathon's conference matrices and to Đoković's Williamson-type matrices of orders
+509, 857 and 883.
 
 So the 11 orders 214, 238, 302, 326, 366, 382, 426, 494, 518, 534 and 754 are on the page, which is dated 14 October,
 the day we found 366 (as a bordered array) and the day before we found 214, and which we read only after both; they
@@ -1139,7 +1137,7 @@ structure and a product that never asks for amicability settle the four orders o
 The Cooper–Wallis products tabulated in §9 do not include this product, and their entries WT(263) and WT(227) are not
 needed. The same route also reaches three of our orders beyond the tables, so they are obtainable classically: 19028 =
 4 · 71 · 67 (q = 283, Sawade's T-matrices of order 67), 39260 = 4 · 755 · 13 (q = 3019) and, through Miyamoto's theorem,
-21748 = 4 · 5437 from 5436 = 4 · 453 · 3 (q = 1811). SageMath's development version builds 31316 since October 3, 2026
+21748 = 4 · 5437 from 5436 = 4 · 453 · 3 (q = 1811). SageMath's development version builds 31316 since 3 October 2026
 (Miyamoto from a Cooper–Wallis matrix of order 7828 with the T-matrices of order 103 decoded from Schneider's matrix of
 order 2060), nine days before our commit, so 31316 is Known.
 
@@ -1149,7 +1147,7 @@ Three more orders follow by Miyamoto's theorem. q = 4n + 1 is a prime for four o
 11260), the last two beyond every table. Paley I and II, Yamada–Kiyasu and the product theorems do not reach them,
 and they are certified and verified like the others. For the other ten, 4n + 1 is composite.
 
-**Beyond Table 4 (October 17).** The route also reaches 138 of the 691 entries 3001 ≤ n ≤ 9999 of Handbook Table 1.53
+**Beyond Table 4.** The route also reaches 138 of the 691 entries 3001 ≤ n ≤ 9999 of Handbook Table 1.53
 that had no valid construction: 637 that it still lists with t ≥ 3 after Đoković's updates, and 54 recorded as known
 only through Corollary 8.8(i) (§7: 13 settled by Đoković in 2010, 33 of his set Δ and 8 with t = 2). Of the 120 it
 reaches with t ≥ 3 or from 2010 we built 117, of orders 12052 to 39916
@@ -1231,7 +1229,7 @@ Seberry–Yamada's 2020 book (§6.4, §6.5) was not accessible to us.
   multiplication off Yang's Lagrange identity with block-concatenated or interleaved supports gave no layout at all:
   with T-sequence outer factors, three of the four outer supports must be symmetric about a common centre, which no
   TS(5) satisfies.
-- *Searches for the missing pairs (October 17).* (i) Near-Williamson quadruples (A, B, B, D) with A, B symmetric and D
+- *Searches for the missing pairs.* (i) Near-Williamson quadruples (A, B, B, D) with A, B symmetric and D
   free (`propus.py --nwrep`, the repeated-block input that repairs Corollary 8.8) over ℤ_v for v = 93, 67, 127, 43 and
   73, every multiplier structure whose pools fit (52 exact joins): none. (ii) Quasi-Williamson matrices of orders 67,
   93, 107, 127, 235 and the other orders of Balonin–Đoković's list (31), constant on the orbits of a multiplier group of
@@ -1695,7 +1693,8 @@ anti-automorphism of the skew matrix is used, which is what §29 needed.
 - **Checks.** `verify.py` construction `symmetric-yamada-kiyasu` (nested skew certificate; 2X and 2Y built in integers;
   X, Y symmetric with complementary supports; H = Hᵀ, H Hᵀ = 4vI); q = 5, 13, 29 (Paley's skew matrix of order 8,
   doubled), 37, 53, 61, 125 (over GF(125)) and 317; the C checker on 1180 and 2716.
-- **Labels.** 19 New, 8 Concurrent ([symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md#status)).
+- **Labels.** 17 New, 8 Concurrent, 2 Known (2812 and 4732, Spence 1977)
+  ([symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md#status)).
 - **Zaitsev's other quaternary matrices.** A monomial matrix making a quaternary Hadamard matrix of order 2N symmetric
   would give a symmetric Hadamard matrix of order 4N by Turyn's map. Of the 27 matrices on the page with N among the
   500 remaining census values, nauty (side-swapping automorphisms of the phase graph, then the column phases; program

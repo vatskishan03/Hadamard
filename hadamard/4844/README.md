@@ -37,7 +37,7 @@ no statement of this.
   (mod 4); Yamada–Kiyasu does not apply: n − 2 = 1209 = 3 · 13 · 31 is not a prime power.
 - Cooper–Wallis does not apply otherwise: the other splits of n need Williamson-type matrices or T-matrices that are not
   known to us.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(4844, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(4844, existence=True)`
   returns Unknown.
 
 We found no valid construction of order 4844 before this one. The sources searched are listed in

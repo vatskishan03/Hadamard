@@ -32,7 +32,7 @@ sixteen circulant blocks of order 755, and Seberry–Yamada (1990, Theorem 4) wi
 The Handbook (2007, Table 1.53) gives n = 9815 as t = 3: the smallest known Hadamard
 matrix with odd part 9815 had order 2³ · 9815. The order lies above Cati–Pasechnik Table 4, which stops at n = 2999.
 
-No other construction we know of reaches 39260:
+Apart from the Paley-block route above, no other construction we know of reaches 39260:
 
 - Paley I and II need 39259 = 11 · 43 · 83 and 19629 = 3³ · 727 to be prime powers.
 - Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
@@ -46,9 +46,9 @@ No other construction we know of reaches 39260:
     Williamson-type matrices of order 65 appeared only in 2026.
   - The other divisors would need T-sequences of length 1963 or 755, which are not known.
 
-Every Cooper–Wallis route therefore uses an object from 2026:
+Every Cooper–Wallis route therefore uses an object from 2026, and the matrix above is built by one of them:
 
-- T-matrices of order 151 were first made public by Schumer (Zenodo, September 17, 2026, doi:10.5281/zenodo.22820997).
+- T-matrices of order 151 were first made public by Schumer (Zenodo, 17 September 2026, doi:10.5281/zenodo.22820997).
 - Near-Williamson matrices of order 65 are from Table 6 of arXiv:2605.08661v2 (Kharaghani, Mohammadian,
   Tayfeh-Rezaie, Zaitsev). That paper lists only quaternary Hadamard matrices (of orders 94, 118, 130, 134, 206 and
   266) as applications.

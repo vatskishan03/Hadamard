@@ -56,7 +56,7 @@ lies above the range of Cati–Pasechnik Table 4, which stops at n = 2999.
 - Paley I and II need 15291 = 3² · 1699 and 7645 = 5 · 11 · 139 to be prime powers. Miyamoto's theorem needs a
   symmetric conference matrix of order n + 1 = 3824, which cannot exist since 3824 ≡ 0 (mod 4). Since 3823 is a
   prime, no product theorem applies.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(15292, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(15292, existence=True)`
   returns Unknown.
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).

@@ -37,7 +37,7 @@ odd part 8551 had order 2³ · 8551. The order lies above the range of Cati–Pa
   (mod 4); Yamada–Kiyasu does not apply: n − 2 = 8549 = 83 · 103 is not a prime power.
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(34204, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(34204, existence=True)`
   returns Unknown.
 
 We found no construction or statement of order 34204. The sources searched are listed in

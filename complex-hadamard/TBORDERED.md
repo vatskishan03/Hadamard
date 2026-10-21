@@ -44,7 +44,7 @@ gives Σ_k |ŷ_k(χ)|² = 4t for χ ∈ T.
   group-developed with eigenvalue 2N off the lifts of T and 2t on them, so 2N I − M = 2m P, P the orthogonal
   projection onto the lifts of T: P[g, h] = (1/m) Σ_{χ∈T} χ(φ(g) − φ(h)).
 - **Border columns.** The columns of Ĉ are an orthogonal basis of V_T, each of norm 2q, so Ĉ Ĉ* = 2q P_T with P_T
-  the projection onto V_T, and R′ R′*[(i, g), (j, h)] = (Ĉ Ĉ*)[(i, φg), (j, φh)] = 2 δ_ij Σ_{χ∈T} χ(φ(g) − φ(h)).
+  the projection onto V_T, and R′ R′\*[(i, g), (j, h)] = (Ĉ Ĉ*)[(i, φg), (j, φh)] = 2 δ_ij Σ_{χ∈T} χ(φ(g) − φ(h)).
   Hence R′ R′* = I₂ ⊗ 2m P and Kc Kc* + R′ R′* = 2N I.
 - **Border rows.** R R* = |K| R̂ R̂* = (m/q) · 2q I = 2m I. Mc commutes with P_T (P_T is I₂ ⊗ a symmetric
   Q-developed matrix) and Mc* Mc = I₂ ⊗ (Σ_k Y_k Y_kᵀ)/2, which is 2t on V_T. So Xb Xb* = R̂ Mc* Ĉ Ĉ* Mc R̂*/(4q²) =

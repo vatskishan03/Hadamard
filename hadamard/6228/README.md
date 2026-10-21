@@ -37,7 +37,7 @@ no statement of this.
   us (1557 is not a prime power); Yamada–Kiyasu does not apply: n − 2 = 1555 = 5 · 311 is not a prime power.
 - Cooper–Wallis does not apply otherwise: the other splits of n need Williamson-type matrices or T-matrices that are not
   known to us.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(6228, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(6228, existence=True)`
   raises UnknownError in its Miyamoto test (no symmetric conference matrix of order 1558 is known to it), and returns
   Unknown when that Unknown is treated as False.
 

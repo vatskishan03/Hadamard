@@ -35,7 +35,7 @@ No other construction we know of reaches 45044:
 - Yamada and Yamada–Kiyasu at q + 2 = 11261 need 11259 = 3⁴ · 139 to be a prime power.
 - 11261 is prime, so a product theorem needs T-matrices or Williamson-type matrices of order 11261, which are not
   known to us; 11261 is not of Spence's form q² + q + 1.
-- The arXiv sources of Hadamard-related papers that we collected (to October 8, 2026) do not mention 11261 or 45044.
+- The arXiv sources of Hadamard-related papers that we collected (to 8 October 2026) do not mention 11261 or 45044.
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 

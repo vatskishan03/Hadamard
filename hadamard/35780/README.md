@@ -43,7 +43,7 @@ with odd part 8945 had order 2³ · 8945. The order lies above the range of Cati
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
 - The Paley-block route ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md)) does not reach it.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(35780, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(35780, existence=True)`
   raises UnknownError in its Miyamoto test (no symmetric conference matrix of order 8946 is known to it), and returns
   Unknown when that Unknown is treated as False.
 

@@ -44,7 +44,7 @@ valid proof of it and no other construction of Williamson-type matrices of order
   divisors s of 8899, and the remaining ones need T-matrices of order 8899 (s = 1) or 809 (s = 11), which are not known
   to us. Nor does the Miyamoto-block route with a negaperiodic Golay pair: none of length 404 is known (Balonin–Đoković,
   list (31)).
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(35596, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(35596, existence=True)`
   returns Unknown.
 
 We found no valid construction of order 35596 before this one. The sources searched are listed in

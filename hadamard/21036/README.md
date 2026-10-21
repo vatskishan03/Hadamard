@@ -61,7 +61,7 @@ range of Cati–Pasechnik Table 4, which stops at n = 2999.
   Cooper–Wallis with the other factorization would need T-matrices of order 1753, and Yang's products would need
   base sequences of total length 1753 or 5259; none is known to us. The Paley-block route does not reach 5259
   ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md)).
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(21036, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(21036, existence=True)`
   returns Unknown.
 
 We found no valid construction of order 21036 before this one. The sources searched are listed in

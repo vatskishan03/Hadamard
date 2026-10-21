@@ -21,7 +21,7 @@ certificate.
 
 ## Status
 
-**First explicit construction** ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md#orders-recorded-only-through-corollary-88i)).
+**First explicit construction** ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md#beyond-table-4)).
 In Table 1.53 of the Handbook of Combinatorial Designs (2nd ed., 2007), n = 8079 has t = 3, and Đoković's update
 arXiv:1008.2043 lists it as settled, through Seberry–Yamada's Corollary 8.8(i) only (below). The order lies above the
 range of Cati–Pasechnik Table 4, which stops at n = 2999. Its ingredients were all known before 2026.
@@ -37,7 +37,7 @@ range of Cati–Pasechnik Table 4, which stops at n = 2999. Its ingredients were
   (mod 4); Yamada–Kiyasu does not apply: n − 2 = 8077 = 41 · 197 is not a prime power.
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(32316, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(32316, existence=True)`
   returns Unknown.
 
 Đoković (arXiv:1008.2043, Proposition 3.3) obtained 8079 = 3 · 2693 from Williamson-type matrices of order 2693, which

@@ -7,7 +7,7 @@ WₖWₗᵀ = WₗWₖᵀ and Σ WₖWₖᵀ = 4w I. Williamson-type matrices of
 matrix of order 4tw by the Cooper–Wallis construction.
 
 Each file `NW<w>.txt` lists the first rows of A, B, C, D, one per line, written over `+` and `-`. The files were
-converted from the database of the authors (cs.uleth.ca/~zaitsevv/nw/NW<w>.txt, retrieved October 2026, where `1`
+converted from the database of the authors (`cs.uleth.ca/~zaitsevv/nw/NW<w>.txt`, retrieved October 2026, where `1`
 stands for `+`). The quadruples of orders 59, 65 and 67 are those printed in Tables 5, 6 and 7 of the paper; orders
 73, 79, 93, 97, 103 and 127 are from the database only. Order 111 is new (see the table).
 

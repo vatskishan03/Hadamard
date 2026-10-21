@@ -305,9 +305,10 @@ The chain was checked end to end on the analogue with Paley's core of order 49 (
   (all but 3579, 5545 and 5965, that is q = 1109 and 1193) Cooper–Wallis also works once the corollary is used with a
   repeated block (above). SageMath 10.8 (passagemath 10.8.13) returns Unknown for nine of them and raises UnknownError
   in its Miyamoto test for the other seven.
-- SageMath's development version (October 17, 2026) constructs none of the 19 orders of the first two tables. It
-  returns Unknown for 14 and raises UnknownError in its Miyamoto test for 12260, 33380, 35780, 38660 and 39348 (no
-  symmetric conference matrix of order n + 1 is known to it; with that Unknown treated as False it returns Unknown).
+- SageMath's development version (17 October 2026) constructs none of the 19 orders of the first and last tables.
+  It returns Unknown for 14 and raises UnknownError in its Miyamoto test for 12260, 33380, 35780, 38660 and 39348
+  (no symmetric conference matrix of order n + 1 is known to it; with that Unknown treated as False it returns
+  Unknown).
 
 The sources searched are listed in [NOVELTY.md](../NOVELTY.md).
 

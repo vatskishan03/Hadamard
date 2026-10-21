@@ -164,7 +164,7 @@ row-wise version; the two may be equivalent ([NOTES.md](../NOTES.md) §20). 1558
 | 1558 | 779 = 19 · 41 | ⟨49⟩, order 60 | 5, 7; 39, 39 | [C1558.json](C1558.json) |
 
 **Orders from quaternary conference matrices** (New: 1718; New, beyond the tables: 2102, 3398). A quaternary
-conference matrix of order c has zero diagonal, entries 1, −1, i, −i elsewhere and C C* = (c − 1) I. For a prime q ≡ 1
+conference matrix of order c has zero diagonal, entries 1, −1, i, −i elsewhere and Q Q* = (c − 1) I. For a prime q ≡ 1
 (mod 4), one of order (q + 3)/2 gives a quaternary Hadamard matrix of order 2(q + 2) by the Yamada–Kiyasu template
 ([CONFERENCE.md](CONFERENCE.md); [NOTES.md](../NOTES.md) §31, §34). The template has the form of Zaitsev et al.'s
 QH470, QH566, QH806, QH1142 and QH1526, whose page states no method. The real Hadamard matrices of twice these orders

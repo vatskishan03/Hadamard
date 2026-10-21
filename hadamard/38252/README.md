@@ -34,7 +34,7 @@ odd part 9563 had order 2³ · 9563. The order lies above the range of Cati–Pa
   powers.
 - Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
   (mod 4); Yamada–Kiyasu does not apply: n − 2 = 9561 = 3 · 3187 is not a prime power.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(38252, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(38252, existence=True)`
   returns Unknown.
 
 A second route reaches the same order: Cooper–Wallis with T-matrices of order 131 and Williamson-type matrices of

@@ -46,7 +46,7 @@ stops at n = 2999. Its ingredients were all known before 2026.
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
 - The Paley-block route ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md)) does not reach it.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(29292, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(29292, existence=True)`
   returns Unknown.
 
 Đoković (arXiv:1008.2043, Proposition 3.2) obtained 7323 = 3 · 2441 from Williamson-type matrices of order 2441, which

@@ -35,7 +35,7 @@ odd part 5371 had order 2³ · 5371. The order lies above the range of Cati–Pa
   powers.
 - Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
   (mod 4); Yamada–Kiyasu does not apply: n − 2 = 5369 = 7 · 13 · 59 is not a prime power.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(21484, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(21484, existence=True)`
   returns Unknown.
 
 A second route reaches the same order: Cooper–Wallis with T-matrices of order 131 and Williamson-type matrices of

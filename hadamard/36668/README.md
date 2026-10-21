@@ -43,7 +43,7 @@ Cati–Pasechnik Table 4, which stops at n = 2999.
   (Seberry–Yamada 1992, Table A.1; Table A.1 obtains them through Corollary 8.8(i), but Corollary 8.8(ii) with a
   symmetric Hadamard matrix of order 44 gives them validly).
 - The Paley-block route ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md)) does not reach it.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(36668, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(36668, existence=True)`
   returns Unknown.
 
 We found no construction or statement of order 36668. The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).

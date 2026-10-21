@@ -38,7 +38,7 @@ odd part 6583 had order 2⁴ · 6583. The order lies above the range of Cati–P
   undecided in the Đoković–Seberry census.
 - Cooper–Wallis does not apply: for each factorization n = a · b it needs T-matrices of order a and Williamson-type
   matrices of order b, and no such pair is known to us.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(26332, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(26332, existence=True)`
   returns Unknown.
 
 We found no construction or statement of order 26332. The sources searched are listed in

@@ -42,7 +42,7 @@ Cati–Pasechnik Table 4, which stops at n = 2999.
 - Cooper–Wallis also gives it, from T-matrices of order 163 posted in 2026 and Williamson-type matrices of order 29
   (Seberry–Yamada 1992, Table A.1).
 - The Paley-block route ([PALEY_BLOCKS.md](../PALEY_BLOCKS.md)) does not reach it.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(18908, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(18908, existence=True)`
   returns Unknown.
 
 We found no construction or statement of order 18908. The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).

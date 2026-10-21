@@ -37,10 +37,10 @@ odd part 4075 had order 2³ · 4075. The order lies above the range of Cati–Pa
 - Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
   (mod 4). Yamada's theorem with q = n − 2 = 4073 needs a symmetric conference matrix of order 2038; 2037 = 3 · 7 · 97
   is not a sum of two squares, so no conference matrix of order 2038 exists.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(16300, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(16300, existence=True)`
   returns Unknown.
 
-Since August 29, 2026 the order also follows by Cooper–Wallis from T-matrices of order 163 (JD-Jones-ASES/Hadamard-T)
+Since 29 August 2026 the order also follows by Cooper–Wallis from T-matrices of order 163 (JD-Jones-ASES/Hadamard-T)
 and Williamson-type matrices of order 25 (Seberry–Yamada 1992, Table A.1), but we found no construction or statement
 of it.
 

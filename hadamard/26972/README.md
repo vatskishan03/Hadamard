@@ -43,7 +43,7 @@ proof of it and no other construction of Williamson-type matrices of order 613.
 - The Paley-block route does not reach it: 4s − 1 = 2451 and 26971 are not prime powers ≡ 3 (mod 8) for the other
   divisors s of 6743, and the remaining ones need T-matrices of order 6743 (s = 1) or 613 (s = 11), which are not known
   to us.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(26972, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(26972, existence=True)`
   returns Unknown.
 
 We found no valid construction of order 26972 before this one. The sources searched are listed in

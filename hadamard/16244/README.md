@@ -34,7 +34,7 @@ odd part 4061 had order 2³ · 4061. The order lies above the range of Cati–Pa
 - Paley's constructions do not apply: 4n − 1 = 16243 = 37 · 439 and 2n − 1 = 8121 = 3 · 2707 are not prime powers.
 - Miyamoto's theorem does not apply: a symmetric conference matrix of order n + 1 = 4062 cannot exist (4061 is not a sum
   of two squares); Yamada–Kiyasu does not apply: n − 2 = 4059 = 3² · 11 · 41 is not a prime power.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(16244, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(16244, existence=True)`
   returns Unknown.
 
 A second route reaches the same order: Cooper–Wallis with T-matrices of order 131 and Williamson-type matrices of

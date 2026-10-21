@@ -33,7 +33,7 @@ odd part 3799 had order 2³ · 3799. The order lies above the range of Cati–Pa
   (1990, Theorem 4) multiply such an array by T-matrices of order 29.
 - Paley's constructions do not apply: 4n − 1 = 15195 = 3 · 5 · 1013 and 2n − 1 = 7597 = 71 · 107 are not prime
   powers.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(15196, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(15196, existence=True)`
   returns Unknown.
 
 A second route reaches the same order: Cooper–Wallis with T-matrices of order 131 and Williamson-type matrices of

@@ -33,10 +33,10 @@ odd part 4983 had order 2³ · 4983. The order lies above the range of Cati–Pa
 - Paley's constructions do not apply: 4n − 1 = 19931 = 19 · 1049 and 2n − 1 = 9965 = 5 · 1993 are not prime powers.
 - Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
   (mod 4); Yamada–Kiyasu does not apply: n − 2 = 4981 = 17 · 293 is not a prime power.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(19932, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(19932, existence=True)`
   returns Unknown.
 
-Since September 17, 2026 the order also follows by Cooper–Wallis from T-matrices of order 151 (Schumer, Zenodo,
+Since 17 September 2026 the order also follows by Cooper–Wallis from T-matrices of order 151 (Schumer, Zenodo,
 doi:10.5281/zenodo.22820997) and Williamson-type matrices of order 33 (Seberry–Yamada 1992, Table A.1), but we found
 no construction or statement of it.
 

@@ -39,7 +39,7 @@ odd part 4585 had order 2³ · 4585. The order lies above the range of Cati–Pa
   T-sequences of length 131 from the base sequences BS(87, 44) that the Turyn-type sequences TT(44) of London and
   Kotsireas (Cryptogr. Commun. 17 (2025)) give, and Williamson-type matrices of order 35 (Đoković's good matrices, JCMCC
   14 (1993); Handbook Table V.1.50); see [NOTES.md](../../NOTES.md) §28.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(18340, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(18340, existence=True)`
   returns Unknown.
 
 We found no construction or statement of order 18340. The sources searched are listed in

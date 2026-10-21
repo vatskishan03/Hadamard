@@ -33,7 +33,7 @@ odd part 6943 had order 2⁸ · 6943. The order lies above the range of Cati–P
 - Paley's constructions do not apply: 4n − 1 = 27771 = 3 · 9257 and 2n − 1 = 13885 = 5 · 2777 are not prime powers.
 - Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
   (mod 4); Yamada–Kiyasu does not apply: n − 2 = 6941 = 11 · 631 is not a prime power.
-- SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(27772, existence=True)`
+- SageMath's development version (17 October 2026) does not construct it: `hadamard_matrix(27772, existence=True)`
   returns Unknown.
 
 A second route reaches the same order: Cooper–Wallis with T-matrices of order 131 and Williamson-type matrices of

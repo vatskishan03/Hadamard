@@ -43,7 +43,7 @@ No construction we know of reaches 35636:
 
 Every route therefore uses an object from 2026:
 
-- T-matrices of order 151 were first made public by Schumer (Zenodo, September 17, 2026, doi:10.5281/zenodo.22820997).
+- T-matrices of order 151 were first made public by Schumer (Zenodo, 17 September 2026, doi:10.5281/zenodo.22820997).
 - Near-Williamson matrices of order 59 are from Table 5 of Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev,
   arXiv:2605.08661v2 (September 2026). That paper lists only quaternary Hadamard matrices (of orders 94, 118, 130,
   134, 206 and 266) as applications.

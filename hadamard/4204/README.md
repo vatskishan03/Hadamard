@@ -17,11 +17,12 @@ With ω = (1 + i)/2, the interior blocks are X′ = ω X_A + ω̄ X_B and Y′ =
 ρ = ω r_A + ω̄ r_B = 1, and the border units are t = v = 1. The blocks are
 
 ```
-X = [ 0  eᵀ ]      Y = [ −1  eᵀ ]
-    [ e  X′ ]          [  e  Y′ ]
+X = [ 0   e  ]      Y = [ −1  e  ]
+    [ eᵀ  X′ ]          [ eᵀ  Y′ ]
 ```
 
-and C = [[X, Y], [Y*, −X*]] has order 526, zero diagonal, entries ±1, ±i elsewhere, and C C* = 525 I.
+where e is the all-one row of length 262. Then Q = [[X, Y], [Y*, −X*]] has order 526, zero diagonal, entries ±1, ±i
+elsewhere, and Q Q* = 525 I.
 
 The sequences are constant on the orbits of H = ⟨53⟩, of order 5: 53 is odd and has order 5 modulo 131. C and D take
 one value on each of the 54 orbits of H, and A and B on each of the 28 orbits of ⟨H, −1⟩.
@@ -73,13 +74,13 @@ reaches 4204. None of the standard recursive constructions applies:
 
 **Credits.** As for [3436](../3436/README.md#status). The zero-diagonal arrays, plain and bordered, are ours
 ([search/NOTES.md](../../search/NOTES.md) §74–75). Miyamoto's Corollary 4 at m = 525 would need a quaternary
-conference matrix of order 526 with Cᵀ = C; the core here has Cᵀ ≠ C as built.
+conference matrix of order 526 with Qᵀ = Q; the core here has Qᵀ ≠ Q as built.
 
 **Ingredients.**
 - The quaternary conference matrix of order 526 is new to our knowledge. No real one exists: 525 is not a sum of two
   squares, and 526 ≡ 2 (mod 4). The families of complex ones need 525 to be a prime power. Fallon and Iverson's
   ancillary library (arXiv:2610.09169) has a certified conference signal over ℤ₅₂₅, which gives a complex conference
-  matrix of order 526. Its invariants C_ij C_kl C̄_il C̄_kj reach 0.77 from {±1, ±i}, so it is not equivalent to a
+  matrix of order 526. Its invariants Q_ij Q_kl Q̄_il Q̄_kj reach 0.77 from {±1, ±i}, so it is not equivalent to a
   quaternary one.
 - The quaternary Hadamard matrix of order 2102 lies above Seberry–Yamada's table (N < 1000) and Zaitsev et al.'s page
   (orders below 2000). Any such matrix gives H(4204) by Turyn's doubling, so none was known while 4204 was open. Its

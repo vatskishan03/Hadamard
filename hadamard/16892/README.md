@@ -22,7 +22,7 @@ t-matrices/T103.txt` writes the certificate.
 
 ## Status
 
-**Known.** SageMath's development branch constructs this order since October 3, 2026 (merge of gh-42876, which added
+**Known.** SageMath's development branch constructs this order since 3 October 2026 (merge of gh-42876, which added
 the T-matrices of order 103 decoded from Schneider's matrix of order 2060; 11.0.beta1): `hadamard_matrix(16892)` uses
 Cooper–Wallis with those T-matrices and the Williamson matrices of order 41. The matrix here is independent of it: it
 comes from Paley's matrix of order 164 and our T-matrices of order 103, which were found separately and differ from

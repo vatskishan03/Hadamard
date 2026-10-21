@@ -44,7 +44,7 @@ No construction we know of reaches 24308:
 Every route therefore uses an object from 2026:
 
 - T-matrices of order 103 were decoded from the Hadamard matrix of order 2060 that Schneider posted publicly on
-  August 23, 2026 (JD-Jones-ASES/Hadamard-T, August 29, 2026). Ours were found independently, see
+  23 August 2026 (JD-Jones-ASES/Hadamard-T, 29 August 2026). Ours were found independently, see
   [order 2060](../2060).
 - Near-Williamson matrices of order 59 are from Table 5 of Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev,
   arXiv:2605.08661v2 (September 2026). That paper lists only quaternary Hadamard matrices (of orders 94, 118, 130,
