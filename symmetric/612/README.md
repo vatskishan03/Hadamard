@@ -22,14 +22,13 @@ None: the matrix is determined by q. `python3 search/sym_conference_plug.py cert
 
 ## Status
 
-**New, but obtainable classically** as a symmetric Hadamard matrix.
+**Known** as a symmetric Hadamard matrix.
 
-- The Đoković–Seberry census (2025-05-28) lists v = 153 among its undecided values for symmetric matrices.
-- The ingredients are classical: Paley's conference matrix, Kharaghani and Seberry's complex Hadamard matrix of order
-  n(n − 1) (Seberry–Yamada 1992, Theorem 11.14, Corollary 11.15) and Turyn's map, which is symmetric for a
-  complex-symmetric input (Lemma 11.3 there). That the complex matrix is complex-symmetric, and so gives a symmetric
-  real matrix, is stated in none of the sources we read ([CONFERENCE_PLUG.md](../CONFERENCE_PLUG.md#status)).
-- Ordinary Hadamard matrices of order 612 are classical. The symmetry is what is new.
+- Spence (An infinite family of Williamson matrices, J. Austral. Math. Soc. Ser. A 24 (1977) 252–256),
+  Corollary 3 with q = 17 and r = 1, gives a symmetric Hadamard matrix of order 2qʳ(q + 1) = 612. The matrix here
+  comes from the construction of [CONFERENCE_PLUG.md](../CONFERENCE_PLUG.md), found independently; whether it is
+  equivalent to Spence's was not checked.
+- The Đoković–Seberry census (2025-05-28) lists v = 153 as undecided; its series omit Spence's corollary.
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 

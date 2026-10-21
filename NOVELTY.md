@@ -134,7 +134,8 @@ Acevedo–Dietrich, Australas. J. Combin. 73 (2019); Cati–Pasechnik; Balonin's
 symmetric weighing matrices; and Zaitsev's page, whose quaternary matrices QH590, QH638, QH782, QH926, QH1310, QH1358,
 QH1646 and QH1886 are of the Yamada–Kiyasu kind and monomially equivalent to symmetric ones, so 1180, 1276, 1564,
 1852, 2620, 2716, 3292 and 3772 are labelled Concurrent. None states either construction or a symmetric matrix of any
-of the 37 orders.
+of the 37 orders except two: Spence (1977), Corollary 3, gives symmetric Hadamard matrices of orders 2812 and
+4732 by another construction, so they are labelled Known.
 
 **Symmetric orders 404 and 596** ([symmetric/PERIODIC_GOLAY.md](symmetric/PERIODIC_GOLAY.md)). Checked on 18 October
 2026: the census (both v undecided); Miyamoto's claim of 1991 as the census reports it (a symmetric input of order q −
@@ -147,17 +148,14 @@ by title; two-circulant matrices from a pair of length ℓ have order 2ℓ, not 
 of either order or the construction.
 
 **Symmetric orders 612, 1300, 1740, 4900 and 7564** ([symmetric/CONFERENCE_PLUG.md](symmetric/CONFERENCE_PLUG.md)).
-Checked on 19 October 2026: the census (all five v undecided); Seberry–Yamada (1992), §11 (Kharaghani–Seberry's
-Theorem 11.14 and Corollaries 11.15 and 11.20, complex Hadamard matrices of order w(w − 1), stated without symmetry,
-and Lemma 11.3, Turyn's map); Seberry, J. Austral. Math. Soc. A 29 (1980) 235–242 (Mukhopadhyay's recursion with skew
-outer designs, ordinary matrices, read from page images); Seberry–Balonin (2017); Balonin–Đoković, arXiv:1803.08787;
-Đoković, arXiv:2101.05429 and 2508.17141; web searches for symmetric Hadamard matrices of these orders and of order
-2n(n − 1) or 2q(q + 1); read by the round-13 judges: Farouk–Wang, Filomat 34 (2020) 815–834 (Scarpis–Đoković matrices
-of order 2q(q + 1), not symmetric) and Đoković, arXiv:2508.17141 in full (the dual scheme, order q(q + 1)). Not read:
-Kharaghani–Seberry, Congr. Numer. 75 (1990); Wallis, Linear Multilinear Algebra 1 (1973); Seberry–Wallis, LNM 292, pp.
-349–353; Seberry–Zhang (1993); the Seberry–Yamada book of 2020. None of the sources read states that the complex
-matrix is complex-symmetric or gives a symmetric matrix of any of the five orders. Every ingredient is older than
-2026, hence the label New, but obtainable classically.
+**Known**: Spence, An infinite family of Williamson matrices, J. Austral. Math. Soc. Ser. A 24 (1977) 252–256,
+Corollary 3, gives symmetric Hadamard matrices of order 2qʳ(q + 1) for every prime power q ≡ 1 (mod 4) and r ≥ 0;
+these five orders are r = 1 with q = 17, 25, 29, 49 and 61, and it also gives 2812 (q = 37) and 4732 (q = 13, r = 2).
+The census lists all seven v as undecided; its series omit the corollary. Also read: Seberry–Yamada (1992), §11
+(Kharaghani–Seberry's Theorem 11.14 and Corollaries 11.15 and 11.20, and Lemma 11.3, Turyn's map); Seberry,
+J. Austral. Math. Soc. A 29 (1980) 235–242; Seberry–Balonin (2017); Balonin–Đoković, arXiv:1803.08787; Đoković,
+arXiv:2101.05429 and 2508.17141; Farouk–Wang, Filomat 34 (2020) 815–834 (Scarpis–Đoković matrices of order
+2q(q + 1), not symmetric).
 
 **Symmetric order 260** ([symmetric/260](symmetric/260)). Checked on 17 October 2026: the census; Đoković,
 arXiv:2101.05429 (65 first among the open v < 200, and the Handbook's Table 1.52 list as he quotes it);

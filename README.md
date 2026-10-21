@@ -29,13 +29,13 @@ give a theorem: a skew-Hadamard matrix of order 3(q + 1) exists for every prime 
 | Hadamard, omitted by Table 4 through Seberry–Yamada's Corollary 8.8(i) | [10](hadamard#orders-recorded-only-through-corollary-88i) | First explicit construction |
 | Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 New, 124 New but obtainable classically, 49 First explicit construction |
 | Skew-Hadamard (820 to 14384) | [101](skew) | 37 New, 62 New but obtainable classically, 2 First explicit construction |
-| Symmetric Hadamard (260 to 9892) | [98](symmetric) | 37 New, 53 New but obtainable classically, 8 Concurrent |
+| Symmetric Hadamard (260 to 9892) | [91](symmetric) | 35 New, 48 New but obtainable classically, 8 Concurrent |
 | Complex Hadamard (214 to 3398) | [17](complex-hadamard) | 3 New, 12 Concurrent, 2 First explicit construction |
 | T-matrices | [97, 109, 197](t-matrices) | New |
 
 The labels are defined in [NOVELTY.md](NOVELTY.md), which also lists the literature searched. "Obtainable
 classically" means that every ingredient was published before 2026 and only their combination is new. The repository
-also holds independent matrices of known orders (7 Hadamard, 3 skew, 2 symmetric and 76 complex), the first explicit
+also holds independent matrices of known orders (7 Hadamard, 3 skew, 9 symmetric and 76 complex), the first explicit
 amicable Hadamard matrices of orders 52, 76, 100 and 124 and new orthogonal designs
 ([skew](skew#seberrys-theorem-with-new-ingredients)), and Williamson-type matrices of order 111
 ([near-williamson](near-williamson)).
@@ -98,19 +98,20 @@ whose printed proof does not give Williamson-type matrices ([NOTES.md](NOTES.md)
 - **Skew-Hadamard matrices** of 101 orders: Goethals–Seidel difference families with a skew block found by search,
   Seberry's theorem with new amicable pairs and orthogonal designs, Wallis's product, and the 3(q + 1) theorem, which
   settles 52 values v < 2500 that the Đoković–Seberry census [4] lists as undecided ([skew](skew)).
-- **Symmetric Hadamard matrices** of 98 orders that the census lists as undecided: 260 (v = 65, the census's smallest
+- **Symmetric Hadamard matrices** of 91 orders that the census lists as undecided: 260 (v = 65, the census's smallest
   value) from Verma's quaternary Legendre pair of length 64 (2026); 532, 732, 876, 4828 and 5700 from searches and
   plug-in constructions; 48 orders 4q (q ≡ 1 mod 8 a prime power) from Seberry–Yamada's Williamson-type matrices with a
   repeated block in Seberry and Balonin's propus array, among them 7012 = 4 · 1753 from our matrix of order 876
-  ([symmetric/PROPUS_MIYAMOTO.md](symmetric/PROPUS_MIYAMOTO.md)); and 44 from four constructions that need no
+  ([symmetric/PROPUS_MIYAMOTO.md](symmetric/PROPUS_MIYAMOTO.md)); and 37 from three constructions that need no
   symmetric input: order 4q from any Hadamard matrix of order (q − 1)/2, q ≡ 1 (mod 8)
   ([symmetric/PROPUS_WEIGHING.md](symmetric/PROPUS_WEIGHING.md), 10 orders); order 4(q + 2) from any skew-Hadamard
   matrix of order (q + 3)/2, q ≡ 5 (mod 8), Yamada's matrix in symmetric quaternary form
-  ([symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md), 27 orders, 8 of them Concurrent because quaternary
-  matrices on Zaitsev et al.'s page [13] are equivalent to symmetric ones); order 4q, q ≡ 5 (mod 8), from a Hadamard
-  matrix [[P, Q], [Q, P]] of order q − 1 ([symmetric/PERIODIC_GOLAY.md](symmetric/PERIODIC_GOLAY.md), 404 and 596);
-  and order 2n(n − 1) from a symmetric conference matrix of order n
-  ([symmetric/CONFERENCE_PLUG.md](symmetric/CONFERENCE_PLUG.md), 612, 1300, 1740, 4900 and 7564).
+  ([symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md), 25 orders, 8 of them Concurrent because quaternary
+  matrices on Zaitsev et al.'s page [13] are equivalent to symmetric ones); and order 4q, q ≡ 5 (mod 8), from a
+  Hadamard matrix [[P, Q], [Q, P]] of order q − 1 ([symmetric/PERIODIC_GOLAY.md](symmetric/PERIODIC_GOLAY.md), 404 and
+  596). Nine further census values follow from published theorems that the census omits: 1804 and 3532 from
+  Seberry–Balonin's Corollary 1, and 612, 1300, 1740, 2812, 4732, 4900 and 7564 from Spence's Corollary 3 (1977),
+  rebuilt here by other constructions ([symmetric/CONFERENCE_PLUG.md](symmetric/CONFERENCE_PLUG.md)).
 - **Complex Hadamard matrices** of the 12 orders 214, 238, 302, 326, 366, 382, 426, 494, 518, 534, 754 and 1558,
   blank in Seberry and Yamada's table [5] and in the papers since [10, 11], from searches over Szöllősi's array [10]
   and its bordered, character-bordered and twisted forms. Zaitsev et al. found all twelve concurrently and

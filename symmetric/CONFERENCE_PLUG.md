@@ -1,17 +1,19 @@
 # Symmetric Hadamard matrices of order 2n(n − 1) from a symmetric conference matrix of order n
 
-**Theorem.** If a symmetric conference matrix of order n exists, then a symmetric Hadamard matrix of order 2n(n − 1)
-exists.
+**Theorem** (Spence 1977, Corollary 2 with r = 1). If a symmetric conference matrix of order n exists, then a
+symmetric Hadamard matrix of order 2n(n − 1) exists.
 
-With Paley's conference matrices (n = q + 1, q ≡ 1 mod 4 a prime power) this gives symmetric Hadamard matrices of order
-2q(q + 1) = 4v, v = q(q + 1)/2. Five of these v are undecided in the Đoković–Seberry census (2025-05-28): 153, 325, 435,
-1225 and 1891 (q = 17, 25, 29, 49, 61), the orders [612](612), [1300](1300), [1740](1740), [4900](4900) and
-[7564](7564). The construction is the symmetric form of a complex Hadamard matrix of Kharaghani and Seberry, so its
-ingredients are classical ([Status](#status)).
+Spence (An infinite family of Williamson matrices, J. Austral. Math. Soc. Ser. A 24 (1977) 252–256) proved more: a
+conference matrix of order n + 1 with n ≡ 1 (mod 4) gives a symmetric Hadamard matrix of order 2nʳ(n + 1) for every
+r ≥ 0 (Corollary 2), in particular for every prime power n = q ≡ 1 (mod 4) (Corollary 3). The construction below,
+H = I ⊗ X + C ⊗ Y, was found independently; it gives the case r = 1 in another form, and whether its matrices are
+equivalent to Spence's was not checked.
 
-The construction was found in round 13 of the exploration of 18–19 October 2026 (the recursive-constructions lens), and
-the proof below was checked by hand. Its builder in [verify/verify.py](../verify/verify.py) (construction
-`symmetric-conference-plug`) is an implementation independent of the agent's.
+With Paley's conference matrices (n = q + 1, q ≡ 1 mod 4 a prime power) it gives symmetric Hadamard matrices of order
+2q(q + 1) = 4v, v = q(q + 1)/2. Five of these v are undecided in the Đoković–Seberry census (2025-05-28), whose series
+omit Spence's corollary: 153, 325, 435, 1225 and 1891 (q = 17, 25, 29, 49, 61), the orders [612](612), [1300](1300),
+[1740](1740), [4900](4900) and [7564](7564). They are Known ([Status](#status)). The builder in
+[verify/verify.py](../verify/verify.py) (construction `symmetric-conference-plug`) rebuilds and checks them.
 
 ## Proof
 
@@ -47,7 +49,7 @@ a = b = 1).
 
 **The plug pair.** In the plug-ins of [README](README.md) (4828 and the m(m − 1), m(m + 3) constructions), the design
 (P, N) anticommutes and the plugs commute. Here the design (I, C) commutes and the plugs X, Y anticommute. Within this
-scheme the plugs cannot be smaller (the round-13 agent's bound, re-derived here). Take an outer conference matrix of
+scheme the plugs cannot be smaller: Take an outer conference matrix of
 order n and symmetric ±1 plugs of order 2k with XY + YX = 0 and X² + (n − 1)Y² = n · 2k · I, and let the order 2nk
 be 4v with v odd, so that k is odd.
 - The off-diagonal entries of X² and Y² are even, of modulus at most 2k, and (X²)ᵢⱼ = −(n − 1)(Y²)ᵢⱼ.
@@ -64,14 +66,14 @@ targets`):
 | q | n | v | order | census | here |
 |---:|---:|---:|---:|---|---|
 | 5, 9, 13 | 6, 10, 14 | 15, 45, 91 | 60, 180, 364 | known | |
-| 17 | 18 | 153 = 3² · 17 | [612](612) | undecided | New, but obtainable classically |
-| 25 | 26 | 325 = 5² · 13 | [1300](1300) | undecided | New, but obtainable classically |
-| 29 | 30 | 435 = 3 · 5 · 29 | [1740](1740) | undecided | New, but obtainable classically |
-| 37 | 38 | 703 = 19 · 37 | 2812 | undecided | already [2812](2812) (Yamada–Kiyasu) |
+| 17 | 18 | 153 = 3² · 17 | [612](612) | undecided | Known (Spence 1977) |
+| 25 | 26 | 325 = 5² · 13 | [1300](1300) | undecided | Known (Spence 1977) |
+| 29 | 30 | 435 = 3 · 5 · 29 | [1740](1740) | undecided | Known (Spence 1977) |
+| 37 | 38 | 703 = 19 · 37 | [2812](2812) | undecided | Known (Spence 1977); here from Yamada–Kiyasu |
 | 41 | 42 | 861 | 3444 | known | |
-| 49 | 50 | 1225 = 5² · 7² | [4900](4900) | undecided | New, but obtainable classically |
+| 49 | 50 | 1225 = 5² · 7² | [4900](4900) | undecided | Known (Spence 1977) |
 | 53 | 54 | 1431 | 5724 | known | |
-| 61 | 62 | 1891 = 31 · 61 | [7564](7564) | undecided | New, but obtainable classically |
+| 61 | 62 | 1891 = 31 · 61 | [7564](7564) | undecided | Known (Spence 1977) |
 
 The next Paley value, q = 73, gives v = 2701, beyond the census. The other known symmetric conference matrices give
 nothing new below 2500: Mathon's order 46 gives v = 1035 (known), Gritsenko's order 66 (2021) gives v = 2145 (known), and
@@ -81,31 +83,18 @@ v < 2500 these are v = 75, 375, 405, 1183 and 1875, which are known or already h
 
 ## Status
 
-The five orders are **New, but obtainable classically**. All five v are undecided in the census, and we found no
-symmetric Hadamard matrix of these orders and no statement of the construction (audit of 19 October 2026,
-[NOVELTY.md](../NOVELTY.md)). Every ingredient was published before 2026:
-- Paley's conference matrices;
-- the complex Hadamard matrix G of order n(n − 1). It is Kharaghani and Seberry's Theorem 11.14 with the skew-type
-  complex Hadamard matrix I + iC, A = J and B = I − iQ, which satisfy AB* = BA* and AA* + mBB* = m(m + 1)I
-  (Seberry–Yamada 1992, Theorem 11.14 and Corollary 11.15). Corollary 11.20 and Table 11.1 there list the orders
-  w(w − 1) for w = 18, 26, 30, 38, 50, 62;
-- Turyn's map, which is symmetric for a complex-symmetric input (Seberry–Yamada 1992, Lemma 11.3).
+The five orders are **Known**: Spence's Corollary 3 with r = 1 and q = 17, 25, 29, 49 and 61 gives symmetric Hadamard
+matrices of these orders. The census lists the five v as undecided because its series omit the corollary. The
+matrices here were built with the construction above, found independently. The corollary also covers v = 703
+(q = 37, r = 1) and v = 1183 (q = 13, r = 2), the orders [2812](2812) and [4732](4732), which are here from
+Yamada–Kiyasu.
 
-Only the observation that G is complex-symmetric, with commuting real and imaginary parts, is new to the sources we
-read.
+The construction is also the symmetric form of a complex Hadamard matrix of Kharaghani and Seberry (Seberry–Yamada
+1992, Theorem 11.14 and Corollary 11.15) under Turyn's map (Lemma 11.3 there). Ordinary Hadamard matrices of these
+orders were known before Spence's paper, from the Williamson matrices of order q(q + 1)/2 of Wallis (1973) and
+Whiteman (1976).
 
-Two adversarial judges (round 13) re-derived the proof, rebuilt all five matrices with their own code and confirmed the
-reach (exactly these five census values). They also read the following, and none states a symmetric matrix of these
-orders:
-- Farouk and Wang's Scarpis–Đoković matrices of order 2q(q + 1) (Filomat 34 (2020) 815–834), ordinary matrices whose
-  symmetry is not discussed;
-- Đoković's symmetric matrices of order q(q + 1), q ≡ 3 (mod 8) (arXiv:2508.17141). That construction is the dual
-  scheme: anticommuting design, commuting plugs.
-
-The texts of Wallis (Linear and Multilinear Algebra 1 (1973), the complex orders w(w − 1)) and of Kharaghani–Seberry
-(Congr. Numer. 75 (1990)) could not be obtained. A symmetric remark there cannot be excluded. Ordinary Hadamard matrices of these orders were known, for instance from Whiteman's Williamson matrices of order
-q(q + 1)/2 (1976), which Seberry (J. Austral. Math. Soc. A 29 (1980), final remarks) mentions. The symmetry is what is
-new.
+The sources searched are listed in [NOVELTY.md](../NOVELTY.md).
 
 ## Reproduction and verification
 

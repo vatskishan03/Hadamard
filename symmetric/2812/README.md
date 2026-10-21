@@ -26,15 +26,13 @@ certificate.
 
 ## Status
 
-**New** as a symmetric Hadamard matrix.
+**Known** as a symmetric Hadamard matrix.
 
-- The Đoković–Seberry census (2025-05-28) lists 703 among its 595 undecided v for symmetric matrices. Seberry–Yamada's
-  Corollary 27(i) in the propus array would need a symmetric conference matrix of order 352 or a skew-Hadamard
-  matrix of order 352 with an involutive anti-automorphism ([NOTES.md](../../NOTES.md) §29).
-- The symmetric quaternary form of Yamada's matrix is the new step ([YAMADA_KIYASU.md](../YAMADA_KIYASU.md#status)); we
-  found it in none of the sources listed there. The skew input is classical.
-- Ordinary Hadamard matrices of order 2812 are classical (Yamada 1989, Theorem 4, from the same skew input); the
-  symmetry is what is new.
+- Spence (An infinite family of Williamson matrices, J. Austral. Math. Soc. Ser. A 24 (1977) 252–256),
+  Corollary 3 with q = 37 and r = 1, gives a symmetric Hadamard matrix of order 2qʳ(q + 1) = 2812. The matrix
+  here is a different construction, Yamada's matrix in symmetric quaternary form
+  ([YAMADA_KIYASU.md](../YAMADA_KIYASU.md)).
+- The Đoković–Seberry census (2025-05-28) lists v = 703 as undecided; its series omit Spence's corollary.
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
