@@ -25,24 +25,49 @@ give a theorem: a skew-Hadamard matrix of order 3(q + 1) exists for every prime 
 
 ## Results
 
-| Family | Orders | Status |
-|---|---|---|
-| Hadamard, unresolved in Table 4 [3] | [30](#unresolved-orders) | 13 New, 14 New, but obtainable classically, 2 First explicit construction, 1 Concurrent |
-| Hadamard, omitted by Table 4 through Seberry–Yamada's Corollary 8.8(i) | [10](hadamard#orders-recorded-only-through-corollary-88i) | First explicit construction |
-| Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 New, beyond the tables, 124 New, beyond the tables, but obtainable classically, 49 First explicit construction |
-| Skew-Hadamard (820 to 14384) | [101](skew) | 37 New, 62 New, but obtainable classically, 2 First explicit construction |
-| Symmetric Hadamard (260 to 9892) | [91](symmetric) | 35 New, 48 New, but obtainable classically, 8 Concurrent |
-| Complex Hadamard (214 to 3398) | [17](complex-hadamard) | 1 New, 2 New, beyond the tables, 12 Concurrent, 2 First explicit construction |
-| T-matrices | [97, 109, 197](t-matrices) | New |
+| Family | Orders | New | New, but obtainable classically | First explicit construction | Concurrent |
+|---|---:|---:|---:|---:|---:|
+| Hadamard, unresolved in Table 4 [3] | [30](#unresolved-orders) | 13 | 14 | 2 | 1 |
+| Hadamard, omitted by Table 4 through Seberry–Yamada's Corollary 8.8(i) | [10](hadamard#orders-recorded-only-through-corollary-88i) | | | 10 | |
+| Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 | 124 | 49 | |
+| Skew-Hadamard (820 to 14384) | [101](skew) | 37 | 62 | 2 | |
+| Symmetric Hadamard (260 to 9892) | [91](symmetric) | 35 | 48 | | 8 |
+| Complex Hadamard (214 to 3398) | [17](complex-hadamard) | 3 | | 2 | 12 |
+| T-matrices (97, 109, 197) | [3](t-matrices) | 3 | | | |
 
 The labels are defined in [NOVELTY.md](NOVELTY.md), which also lists the literature searched. "Obtainable
-classically" means that every ingredient was published before 2026 and only their combination is new. The repository
-also holds independent matrices of known orders (7 Hadamard, 3 skew, 9 symmetric and 76 complex), the first explicit
+classically" means that every ingredient, theorem or object, was published before 2026 and only their combination is
+new; a construction that needs a proof found in none of the sources read is New even when its inputs are classical.
+The orders beyond Table 4 and the complex orders 2102 and 3398 lie above the range of the reference tables and carry
+the labels "New, beyond the tables" and "New, beyond the tables, but obtainable classically". The repository also
+holds independent matrices of known orders (7 Hadamard, 3 skew, 9 symmetric and 76 complex), the first explicit
 amicable Hadamard matrices of orders 52, 76, 100 and 124 and new orthogonal designs
 ([skew](skew#seberrys-theorem-with-new-ingredients)), and Williamson-type matrices of order 111
 ([near-williamson](near-williamson)).
 
-### Unresolved orders
+## Verification
+
+```
+python3 verify/verify.py                  # every real matrix and auxiliary object
+python3 verify/verify.py 2092 skew/820    # selected orders
+python3 verify/verify_complex.py          # the complex Hadamard matrices
+```
+
+`verify.py` rebuilds each matrix from its `certificate.json`, checks the defining identities of the ingredients
+(complementary sequences, T-matrices, Williamson-type matrices, conference matrices, skew or symmetric inputs), checks
+H Hᵀ = n I exactly, checks H + Hᵀ = 2I or H = Hᵀ where claimed, and compares the SHA-256 digest of the canonical CSV
+encoding with the recorded one. It needs Python 3 and NumPy. The orders below 12000 take a few minutes; the large
+orders dominate the running time, and 51580 takes about 40 minutes and 3.5 GB of memory. `verify_complex.py` rebuilds
+each quaternary matrix and checks every entry and K K* = n I exactly.
+
+An independent checker in C reads a stored matrix and compares every pair of rows:
+
+```
+cc -O2 verify/check_matrix.c -o check_matrix      # add -fopenmp where the compiler supports it
+gzip -dc hadamard/2092/H2092.csv.gz | ./check_matrix
+```
+
+## Unresolved orders
 
 For each order 4n, n is listed as unresolved in Table 4 of Cati and Pasechnik [3].
 
@@ -87,7 +112,7 @@ repository settled 2588 = 4 · 647 on 14 October 2026 [16]. Đoković claimed 15
 Seberry–Yamada's Corollary 8.8(i), whose printed proof does not give Williamson-type matrices
 ([NOTES.md](NOTES.md) §7).
 
-### Other results
+## Other results
 
 - **Hadamard matrices beyond Table 4**: 207 orders from 12052 to 51580. 158 of them are listed as unknown in Table
   1.53 of the Handbook or lie above its range, and 49 are recorded as known without a valid or traceable construction.
@@ -127,27 +152,6 @@ Seberry–Yamada's Corollary 8.8(i), whose printed proof does not give Williamso
 - **T-matrices** of orders 97, 109 and 197 ([t-matrices](t-matrices)). 97 and 109 have the form 6m + 1 and may appear
   in Lou, Xia and Xia's work on T-matrices of that order, which we could not read.
 
-## Verification
-
-```
-python3 verify/verify.py                  # every real matrix and auxiliary object
-python3 verify/verify.py 2092 skew/820    # selected orders
-python3 verify/verify_complex.py          # the complex Hadamard matrices
-```
-
-`verify.py` rebuilds each matrix from its `certificate.json`, checks the defining identities of the ingredients
-(complementary sequences, T-matrices, Williamson-type matrices, conference matrices, skew or symmetric inputs), checks
-H Hᵀ = n I exactly, checks H + Hᵀ = 2I or H = Hᵀ where claimed, and compares the SHA-256 digest of the canonical CSV
-encoding with the recorded one. It needs Python 3 and NumPy. The large orders dominate the running time: 51580 takes
-about 40 minutes and 3.5 GB of memory. `verify_complex.py` works in exact integer arithmetic on the four sequences.
-
-An independent checker in C reads a stored matrix and compares every pair of rows:
-
-```
-cc -O2 -fopenmp verify/check_matrix.c -o check_matrix
-gzip -dc hadamard/2092/H2092.csv.gz | ./check_matrix
-```
-
 ## Methods
 
 | Construction | Orders | Details |
@@ -182,6 +186,11 @@ each.
 | `t-matrices/`, `near-williamson/`, `williamson-type/` | auxiliary objects |
 | `verify/` | the verifiers |
 | `search/` | the search programs, with [search/README.md](search/README.md) as an index |
+| [NOVELTY.md](NOVELTY.md) | status labels, reference tables, the literature searched for each order, corrections |
+| [FRONTIER.md](FRONTIER.md) | the unresolved orders up to 4 · 2999 and the cheapest search structures for each |
+| [METHOD.md](METHOD.md) | the Goethals–Seidel search: search space, algorithm, cost model, block symmetries, bordered structures |
+| [NOTES.md](NOTES.md), [search/NOTES.md](search/NOTES.md) | the structural and the search notebooks |
+| [CITATION.cff](CITATION.cff), [LICENSE](LICENSE) | citation metadata, Apache License 2.0 |
 
 ## References
 
