@@ -5299,3 +5299,70 @@ to H(3532). A bordered core of order 42 over ℤ₄ × F₅ was taken to H(332).
 **Refuted by a judge.** A parity lemma claiming that one configuration type has no defect-free solution of
 (I) + q(J). It is false when (|K| − 1)/2 is odd (an explicit clean assignment exists at |K| = 19, and clean solutions
 exist at |K| = 11 and 15). The ℤ₁₉ verdict stands on the exhaustive searches alone.
+
+## 82. Round 27: a sampler for n = 643, index-r plug-ins, the n = 955 leftovers (October 21)
+
+No core was found. Three lenses (scratchpad `r27/`), each with an adversarial judge; no claim was refuted except the
+sub-statements noted below.
+
+**n = 643: the plug-in class ℤ₂₃ × F₇** (H = ⟨93⟩ on ℤ₁₆₁, the only target plug-in class with a large expected count;
+`r27/p643/`).
+- *Defect structure* (PROVED; the judge re-derived it). For q = 7 the defect types are p (s = 0), m and z (the two
+  forced zero positions). They satisfy 2n_p + n_m = p − 3 = 20 with n_z = 2, so E = n_p + n_m + 2 lies in [12, 22].
+  There are 909 feasible allocations of defects to the four blocks. The K-level estimate is 10^12.2 ordered solutions
+  (10^11.95 with the low-E correction).
+- *New exact filters* on level-1 instances: Σ PAF_{x₀} ≡ 0 (mod 3), and two row-sum identities (R0, R1). R1 forces
+  Q = τ_C² + τ_D² ≡ 2 (mod 8) for the chosen allocation.
+- *Tools.*
+  - `gen9.c` (level 1: x₀ quadruples sampled from mod-3 buckets, defect-pattern lists, class-restricted 4-list hash
+    join) costs 0.3 s per instance.
+  - `l2n2.c` (level 2: Gray-code fibres, AVX2 PSD pair filter, bucketed (A, D) × (B, C) hash join) costs 0.45 s per
+    instance.
+  - These are 5–10× and 8–14× faster than round 23. Both equal brute force on complete sets at p = 3 and 5 and per
+    instance at p = 11 to 23 (judge).
+  - Certification was exercised end to end at p = 13 (core 182 → H(1452)) and on 24 p = 17 solutions (cores of
+    order 238).
+- *Calibration* (exact). p = 13: 1.2 · 10⁶ instances, 21914 completions over 87 allocations. p = 17, allocation
+  (3, 3, 4, 4): 275421 instances, 48 completions (24 cores). By row-sum class Q: Q = 10 6/3713, Q = 18 0/11028,
+  Q = 26 10/23503, Q = 50 22/104337.
+- *Rate at p = 23* (HEURISTIC, three independent estimators). A partial-key collision profile of the level-2 join
+  (count of 4-tuples matching the first j key coordinates, linear in j on a log scale, calibrated at p = 13 and 17)
+  gives about 10⁻⁵ cores per instance for allocation (3, 3, 4, 4), i.e. about 23 CPU-hours per core. The class Q = 10
+  is about twice as efficient: about 12 CPU-hours per core (range 4 to 30).
+- *Run.* 2.0 CPU-hours over a mix of classes: 8790 instances, 0 completions (0.09 expected).
+- *Production* with Q = 10 only on four cores started after the round (§83).
+
+**Index-r plug-ins** (`r27/indexr/`). H = {1} × S_r with S_r of index r in F_q*, |H| = L = (q − 1)/r.
+- *The system* (PROVED, validated on 27 shapes by the judge). Each block is r + 1 functions on K (one per cyclotomic
+  class), with cyclotomic structure constants. The balance identity is
+  Σ σ(Lσ + 2x₀) = 4r(|K| − ε) (ε = 0 unbordered, 1 bordered), where σ is the sum of the r class values at a position.
+- *Corollaries.* Odd r needs L ≤ r + 1 (bordered also |K| ≥ r + 1). An exact profile/row-sum DP filter (F13, two
+  independent re-implementations, 0 false kills) proves empty, among others, r = 3 at n = 1291 (ℤ₁₇ × F₁₉), 2659 and
+  2899, every r ≤ 12 of the bordered n = 2899 shapes over ℤ₄ and ℤ₂², and r = 2, 3 of bordered n = 2803 and 2731.
+- *The judge refuted three sub-statements.* The claim that the r + 1 conditions are Galois conjugates fails for prime
+  powers q = p^e with gcd(r, (q − 1)/(p − 1)) > 1 (counterexample q = 9, r = 4). The bordered y = 0 equation has
+  right-hand side −4, not 0. And "F real iff L even" fails for q = 2^e.
+- *Existence trend.* r = 2 dies at target sizes, but r = 4 at q = 17 has solutions where r = 2 has none (exact
+  742400 at K = ℤ₅). The tilted-Gaussian estimator (within about 1 decade on non-rigid exact counts; unreliable in
+  rigid shapes, in both directions) predicts 10^8.8 for n = 1291 (K = ℤ₁₉, r = 4) and 10^14.8 for bordered n = 2083
+  (K = ℤ₄₀, q = 13, r = 4). It also predicts 10^16.7 for bordered n = 2803 (ℤ₂₈ × GF(25), r = 8) and 10^6.6 for
+  complex 1958 (ℤ₅ × GF(49), r = 8).
+- *The obstruction is search, not existence.* Blocks have (r + 1)|K| bits (95 for r = 4, K = ℤ₁₉). The s/t
+  decoupling of r = 2 has no analogue. Simulated annealing stalls at density 10⁻¹⁵, and exact joins reach only
+  |K| ≤ 5 (r ≥ 3).
+
+**n = 955 leftovers** (`r27/n955/`).
+- *The `lowe_enum` crash.* The block list on ℤ₃₉ has 20⁶ = 6.4 · 10⁷ members, and an unchecked realloc of 3.1 GB
+  returned NULL. A fixed copy (checked realloc, streamed output, chunks) was validated.
+- *What decided the case* is the quotient Q = ℤ₃² itself, which every earlier sweep had dropped for its compression
+  space (1.1 · 10⁷ > 3 · 10⁶). [16] has no Q-tuple in any row pattern. [17] is EXHAUSTIVELY empty: about
+  1.1 · 10¹¹ pair tests over 45 orbit representatives; the judge's own pipeline agrees.
+- *The whole ℤ₃² family for N = 239* (34 classes, census confirmed by the judge): 19 classes die at the Q level;
+  [10], [16] and [17] are closed; 12 remain, the cheapest [19] at 2.6–5.8 · 10¹¹ pair tests per orbit representative,
+  with lists above the memory cap.
+- *Observation* (HEURISTIC, 327 Q-tuples in 8 structures): rows (1, 1, 0, 4) and (1, 3, 2, 2) never carry a border,
+  (3, 3, 0, 0) always does.
+- *Other families at the Q level.* T743: 24 of 27 die. T725b: 58 of 287 die. T725a: none of its 46 dies.
+- *The bordered index-4 sub-plug-in over ℤ₁₄ × F₁₇* (|H| = 4, 70 orbits). The K-level system and the identity
+  832 = 4(q − 1)(|K| − 1) were derived and checked by the judge, as was the new lemma |Σ ε| ≤ 1 per block (so some
+  position has |e| = 2). Existence is UNKNOWN; the small bordered analogues K = ℤ₄, ℤ₆ are exactly empty.
