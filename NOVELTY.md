@@ -201,6 +201,20 @@ symmetric matrix); web searches for a symmetric Hadamard matrix of order 260.
   or a quaternary conference matrix of order 430 or 526.
 - *Not read.* As for 6796, and Miyamoto's §7 lists. ProofWatch could not be reached.
 
+**Order 2572** ([hadamard/2572](hadamard/2572)). Checked on 21 October 2026, before the core was found, by an audit
+and an adversarial re-search:
+- *Tables and recursions.* Cati–Pasechnik v1 and v2 (Table 4: 643(3); its §6 sentence naming 643 concerns the skew
+  table); Đoković, arXiv:0912.5091 and arXiv:1008.2043; Đoković–Golubitsky–Kotsireas, arXiv:1301.3671; SageMath
+  development source of 21 October 2026, read branch by branch, not run (Unknown); Seberry–Yamada 1992, Tables A.1 and
+  11.2; Brouwer's table (srg(321, 160, 79, 80) does not exist, srg(1285, 642, 320, 321) undecided).
+- *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (19 October; 4 · 643 among its
+  95 open orders, which it lists before our results of 20 October); the math74 explorer v51; Zaitsev's page (last
+  modified 15 October; 1286 on its unknown list); Middletownbooks/Hadamard (643 open, screened on 6 October); the
+  arXiv listings to 21 October; GitHub and web searches for 2572, 1286 and 643.
+- *Finding.* None gives a Hadamard matrix of order 2572, a quaternary Hadamard matrix of order 1286 or a quaternary
+  conference matrix of order 322.
+- *Not read.* As for 6796; the Handbook's Table 1.53 row for 643 was not read directly; Miyamoto's §7 lists.
+
 ## Not checked
 
 - J. Seberry, M. Yamada, *Hadamard Matrices: Constructions using Number Theory and Linear Algebra* (Wiley, 2020):

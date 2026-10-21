@@ -158,12 +158,13 @@ row-wise version; the two may be equivalent ([NOTES.md](../NOTES.md) §20). 1558
 A quaternary conference matrix of order (q + 3)/2, q ≡ 1 (mod 4) a prime, gives a quaternary Hadamard matrix of order
 2(q + 2). The real Hadamard matrices of twice these orders in [hadamard](../hadamard) are their Turyn doubles, and
 `verify/verify.py` builds them from the same certificate data.
-- 1718 is one of the open orders below 2000.
+- 1286 and 1718 are open orders below 2000.
 - 2102 and 3398 lie above the range of the 1992 table and of Zaitsev's page. Since any such matrix gives a real
   Hadamard matrix of twice its order, and those real orders were open, these are new too.
 
 | order 2N | N | conference matrix | file |
 |---:|---|---|---|
+| 1286 | 643 | order 322: zero-diagonal Szöllősi array over ℤ₁₆₁ = F₇ × ℤ₂₃, the squares of F₇* (order 3), a Paley plug-in; q = 641 ([hadamard/2572](../hadamard/2572)) | [C1286.json](C1286.json) |
 | 1718 | 859 | order 430: zero-diagonal Szöllősi array over ℤ₂₁₅, ⟨49⟩ of order 6; q = 857 ([hadamard/3436](../hadamard/3436)) | [C1718.json](C1718.json) |
 | 2102 | 1051 | order 526: bordered zero-diagonal Szöllősi array over ℤ₂₆₂, ⟨53⟩ of order 5; q = 1049 ([hadamard/4204](../hadamard/4204)) | [C2102.json](C2102.json) |
 | 3398 | 1699 | order 850: zero-diagonal Szöllősi array over ℤ₅² × ℤ₁₇, a group of order 24; q = 1697 ([hadamard/6796](../hadamard/6796)) | [C3398.json](C3398.json) |
@@ -345,8 +346,8 @@ sequences has the PAF spectrum of any of ours, a spectrum unchanged by shifts, m
 the matrices differ. The orders are Concurrent; this directory gives a second, independent construction of each, with
 a certificate that `verify/verify_complex.py` checks from the four sequences alone.
 
-**What remains open** (`python3 search/complex_status.py`): 114 orders 2N below 2000 with N odd have no quaternary
-Hadamard matrix known to us: the list of unknown orders on Zaitsev's page, minus 1718. The smallest are 334, 358,
+**What remains open** (`python3 search/complex_status.py`): 113 orders 2N below 2000 with N odd have no quaternary
+Hadamard matrix known to us: the list of unknown orders on Zaitsev's page, minus 1286 and 1718. The smallest are 334, 358,
 418, 438, 446, 478 and 498. Order 334 (N = 167) is out of reach of every structure we have: ℤ₁₆₇ has no usable
 multiplier group, and on ℤ₁₆₆ = ℤ₂ × ℤ₈₃ the only one has order 41 and six orbits. Order 358 (N = 179) is similar: the
 cyclic array has no structure in our range of orbit counts, and the bordered array's best has an estimate of 10⁻⁵

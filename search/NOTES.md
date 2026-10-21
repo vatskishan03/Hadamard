@@ -5366,3 +5366,24 @@ sub-statements noted below.
 - *The bordered index-4 sub-plug-in over ℤ₁₄ × F₁₇* (|H| = 4, 70 orbits). The K-level system and the identity
   832 = 4(q − 1)(|K| − 1) were derived and checked by the judge, as was the new lemma |Σ ε| ≤ 1 per block (so some
   position has |e| = 2). Existence is UNKNOWN; the small bordered analogues K = ℤ₄, ℤ₆ are exactly empty.
+
+## 83. A core of order 322: n = 643 settled (October 21)
+
+The sampler of §82 (scratchpad `r27/p643/`, now `search/plug7_gen.c`, `plug7_l2.c`, `plug7_sol.py`) ran on four
+cores in the row-sum class τ_C² + τ_D² = 10 of the allocation (3, 3, 4, 4), from 18:15 UTC.
+- *Hit.* At 21:36 UTC, after 42451 instances of that class (about 13.5 CPU-hours, plus the 2 CPU-hours of §82), one
+  instance gave 2 completions, i.e. one core up to the sign of t. The calibrated estimate was about 12 CPU-hours per
+  core.
+- *The core.* ℤ₁₆₁ = F₇ × ℤ₂₃, H = ⟨93⟩. Row sums (−20, −4, 15, −1). 14 defects: A at k = 0, 10, 13; B at 0, 4, 19; C
+  at 9, 10, 15, 19; D at 0, 12, 19, 20 (k the ℤ₂₃ coordinate). The core is neither symmetric nor Hermitian.
+- *Checks.* `verify.py` rebuilds the core from the four sequences (reflection 0) and the chain (q = 641, r = 3,
+  ξ = 3 + w) to H(2572), SHA-256 ebf232c3…; `verify_complex.py` gives the quaternary matrix of order 1286, SHA-256
+  5e2c874c…. `chain.py`, an independent implementation, produces the same hash. A bit-packed check of all 3306306 row
+  pairs of the CSV finds every pair orthogonal.
+- *Novelty* (NOVELTY.md). Checked before the hit: no construction of H(2572), of a quaternary H(1286), or of a
+  quaternary conference matrix of order 322 is known.
+
+**Reading.** The Paley plug-in turned a class that round 23 had sampled without success (completions per instance
+about 10⁻⁷ at 1–10 s per instance) into one that yields a core in half a CPU-day. The gain came from four sources:
+the defect identity fixes the defect counts; R0, R1 and the mod-3 filter cut the level-1 population exactly; the
+row-sum class is chosen by calibration at p = 13 and 17; and both levels are 5–14× faster.
