@@ -1,11 +1,13 @@
 cff-version: 1.2.0
 message: "If you use these matrices or programs, please cite them as below."
 title: "New Hadamard matrices"
+abstract: "Explicit Hadamard, skew-Hadamard, symmetric Hadamard and complex Hadamard matrices of previously open orders, with exact verifiers."
 authors:
   - given-names: Kishan
+version: 2.0.0
 repository-code: "https://github.com/vatskishan03/Hadamard"
 license: Apache-2.0
-date-released: 2026-10-14
+date-released: 2026-10-22
 keywords:
   - Hadamard matrices
   - skew-Hadamard matrices

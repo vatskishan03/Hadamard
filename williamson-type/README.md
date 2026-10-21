@@ -40,15 +40,16 @@ construction `cooper-wallis-bordered`.
 
 ## Matrices
 
-| w | group | H | row sums | file | used for |
-|---:|---|---|---|---|---|
-| 47 | ℤ₄₆ | ⟨45⟩ = {±1}, all four symmetric | 2, 0, 0, 0 | [WT47.json](WT47.json) | [12596](../hadamard/12596) = 4 · 67 · 47, [19364](../hadamard/19364) = 4 · 103 · 47 |
-| 83 | ℤ₈₂ | ⟨37⟩, order 5 | 0, 2, 0, 0 | [WT83.json](WT83.json) | [34196](../hadamard/34196) = 4 · 103 · 83 |
+| w | group | H | row sums | file | used for | Status |
+|---:|---|---|---|---|---|---|
+| 47 | ℤ₄₆ | ⟨45⟩ = {±1}, all four symmetric | 2, 0, 0, 0 | [WT47.json](WT47.json) | [12596](../hadamard/12596) = 4 · 67 · 47, [19364](../hadamard/19364) = 4 · 103 · 47 | Known |
+| 83 | ℤ₈₂ | ⟨37⟩, order 5 | 0, 2, 0, 0 | [WT83.json](WT83.json) | [34196](../hadamard/34196) = 4 · 103 · 83 | Known |
 
 Williamson-type matrices of orders 47 and 83 were known before (near-Williamson matrices of 2026 for 47;
-Seberry–Yamada 1992, Table A.1 for 83); these are new only as instances of the bordered form. Order 47 came from
-uniform samples of 4 · 10⁵ of the 1.35–1.41 · 10⁶ members of each block, matched by the k-tree (4 solutions in 288 s).
-The structure holds 320 solutions (exact join), while the Gaussian model of `bnw.py triage` predicts 10^−2.1.
+Seberry–Yamada 1992, Table A.1 for 83), so both are Known; the matrices here are instances of the bordered form. Order
+47 came from uniform samples of 4 · 10⁵ of the 1.35–1.41 · 10⁶ members of each block, matched by the k-tree (4
+solutions in 288 s). The structure holds 320 solutions (exact join), while the Gaussian model of `bnw.py triage`
+predicts 10^−2.1.
 
 ## Calibration and limits
 
