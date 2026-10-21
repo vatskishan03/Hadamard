@@ -1,3 +1,12 @@
+"""Rank the twisted Legendre pair structures of tlp_model.py for the open orders of FRONTIER.md.
+
+    python3 search/tlp_rank.py MAXO
+
+For every n in the second column of the table in FRONTIER.md put l = 2n - 1 (a Legendre pair of length l gives a
+Hadamard matrix of order 2(l + 1) = 4n). Every structure (H, mu) of tlp_model.twisted_structures(l, MAXO) with 6 to
+MAXO orbits of H on Z_l is scored by tlp_model.model (Gaussian estimate lE = log10 of the expected number of
+solutions, with the pool size); one line is printed for each structure with lE >= -6.
+"""
 import os
 import sys, re, math
 import numpy as np

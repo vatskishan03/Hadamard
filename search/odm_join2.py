@@ -12,6 +12,8 @@ import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+import workdir as W  # noqa: E402
 
 
 def main():
@@ -24,9 +26,11 @@ def main():
     ap.add_argument('--k', type=int, default=2)
     ap.add_argument('--first', action='store_true')
     ap.add_argument('--maxtpl', type=int, default=10 ** 7)
-    ap.add_argument('--work', default=os.path.join(os.environ.get('HADAMARD_WORK', '/tmp/hadamard-work'), 'tmp'))
-    ap.add_argument('--odmc', default='/tmp/hadamard-work/bin/odmc')
-    ap.add_argument('--join4x', default='/tmp/hadamard-work/bin/join4x')
+    ap.add_argument('--work', default=W.tmpdir())
+    ap.add_argument('--odmc', default=None,
+                    help='binary built from odmc.c (default: compiled into $HADAMARD_WORK/bin on first use)')
+    ap.add_argument('--join4x', default=None,
+                    help='binary built from join4x.c (default: compiled into $HADAMARD_WORK/bin on first use)')
     a = ap.parse_args()
     os.makedirs(a.work, exist_ok=True)
     cmd = [sys.executable, os.path.join(HERE, 'odm_engine.py'), str(a.t), a.gens, str(a.m), '--dry']
@@ -56,7 +60,7 @@ def main():
             return cache[key]
         fn = os.path.join(a.work, f'odmc_{tag}_{len(cache)}.lst')
         relab = ','.join(f'{i}:' + e.split(':', 1)[1] for e in ents) or f'{i}:0:0'
-        subprocess.run([a.odmc, str(a.t), a.gens, str(i), relab, str(rs), fn], check=True, capture_output=True)
+        subprocess.run([(a.odmc or W.bin('odmc')), str(a.t), a.gens, str(i), relab, str(rs), fn], check=True, capture_output=True)
         with open(fn, 'rb') as f:
             n, D = struct.unpack('2i', f.read(8))
             vec = f.read(2 * n * D)
@@ -79,7 +83,7 @@ def main():
                 f.write(b'\0' * (2 * D))
                 for x in L:
                     f.write(x[2])
-            j = subprocess.run([a.join4x, fn, str(a.k)], capture_output=True, text=True)
+            j = subprocess.run([(a.join4x or W.bin('join4x')), fn, str(a.k)], capture_output=True, text=True)
             os.remove(fn)
             sols = [list(map(int, ln.split()[1:5])) for ln in j.stdout.splitlines() if ln.startswith('SOL')]
             tot = [ln for ln in j.stdout.splitlines() if ln.startswith('TOTAL')]
@@ -90,7 +94,7 @@ def main():
                 for i in range(4):
                     ents = block_entries(tstr, i + 1)
                     relab = ','.join(ents) or f'{i + 1}:0:0'
-                    out = subprocess.run([a.odmc, str(a.t), a.gens, str(i + 1), relab, '0', '--decode',
+                    out = subprocess.run([(a.odmc or W.bin('odmc')), str(a.t), a.gens, str(i + 1), relab, '0', '--decode',
                                           str(L[i][3][s[i]])], capture_output=True, text=True).stdout.strip()
                     rows.append(out)
                 print(f'# template {tstr}')

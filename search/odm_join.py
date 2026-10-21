@@ -15,6 +15,8 @@ import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+import workdir as W  # noqa: E402
 
 
 def main():
@@ -23,9 +25,11 @@ def main():
     ap.add_argument('gens')
     ap.add_argument('m', type=int)
     ap.add_argument('--bsub', type=int, default=0)
-    ap.add_argument('--work', default=os.path.join(os.environ.get('HADAMARD_WORK', '/tmp/hadamard-work'), 'tmp'))
-    ap.add_argument('--odmx', default='/tmp/hadamard-work/bin/odmx')
-    ap.add_argument('--join4x', default='/tmp/hadamard-work/bin/join4x')
+    ap.add_argument('--work', default=W.tmpdir())
+    ap.add_argument('--odmx', default=None,
+                    help='binary built from odmx.c (default: compiled into $HADAMARD_WORK/bin on first use)')
+    ap.add_argument('--join4x', default=None,
+                    help='binary built from join4x.c (default: compiled into $HADAMARD_WORK/bin on first use)')
     ap.add_argument('--k', type=int, default=2, help='solutions per join')
     ap.add_argument('--maxtpl', type=int, default=10 ** 6)
     ap.add_argument('--first', action='store_true', help='stop at the first solution')
@@ -44,11 +48,11 @@ def main():
     total = 0
     for k, tpl in enumerate(tpls[:a.maxtpl]):
         prefix = os.path.join(a.work, f'odmj_{a.t}_{a.m}_{os.getpid()}_{k}')
-        d = subprocess.run([a.odmx, str(a.t), a.gens, tpl, '1', prefix], capture_output=True, text=True)
+        d = subprocess.run([(a.odmx or W.bin('odmx')), str(a.t), a.gens, tpl, '1', prefix], capture_output=True, text=True)
         dumps = [ln.split()[1] for ln in d.stdout.splitlines() if ln.startswith('DUMP')]
         nsol = 0
         for base in dumps:
-            j = subprocess.run([a.join4x, base + '.bin', str(a.k)], capture_output=True, text=True)
+            j = subprocess.run([(a.join4x or W.bin('join4x')), base + '.bin', str(a.k)], capture_output=True, text=True)
             sols = [list(map(int, ln.split()[1:5])) for ln in j.stdout.splitlines() if ln.startswith('SOL')]
             tot = [ln for ln in j.stdout.splitlines() if ln.startswith('TOTAL')]
             if sols:
@@ -57,7 +61,7 @@ def main():
                     masks = [struct.unpack(f'{c}i', f.read(4 * c)) for c in n]
                 for s in sols:
                     ms = [str(masks[i][s[i]]) for i in range(4)]
-                    out = subprocess.run([a.odmx, str(a.t), a.gens, tpl, '1', '--decode'] + ms,
+                    out = subprocess.run([(a.odmx or W.bin('odmx')), str(a.t), a.gens, tpl, '1', '--decode'] + ms,
                                          capture_output=True, text=True).stdout
                     print(f'# template {tpl}')
                     print(out, end='')

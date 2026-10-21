@@ -13,9 +13,13 @@ order n with 4t = m n; see search/NOTES.md §31).
 Usage: python3 search/odm_engine.py t "h1,h2" m [--odmx PATH] [--maxtpl N] [--maxsol K]
 """
 import argparse
+import os
 import subprocess
 import sys
 from collections import defaultdict
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import workdir as W  # noqa: E402
 
 
 def closure(gens, t):
@@ -36,13 +40,15 @@ def main():
     ap.add_argument('t', type=int)
     ap.add_argument('gens')
     ap.add_argument('m', type=int)
-    ap.add_argument('--odmx', default='/tmp/hadamard-work/bin/odmx')
+    ap.add_argument('--odmx', default=None,
+                    help='binary built from odmx.c (default: compiled into $HADAMARD_WORK/bin on first use)')
     ap.add_argument('--maxtpl', type=int, default=10 ** 6)
     ap.add_argument('--maxsol', type=int, default=3)
     ap.add_argument('--dry', action='store_true')
     ap.add_argument('--bsub', type=int, default=0, help='restrict the b part to the subgroup of this order')
     ap.add_argument('--bjoin', action='store_true', help='find b templates with join4x instead of a Python dict')
-    ap.add_argument('--join4x', default='/tmp/hadamard-work/bin/join4x')
+    ap.add_argument('--join4x', default=None,
+                    help='binary built from join4x.c (default: compiled into $HADAMARD_WORK/bin on first use)')
     ap.add_argument('--bk', type=int, default=200000, help='max b-part quadruples taken from join4x')
     a = ap.parse_args()
     t, m = a.t, a.m
@@ -198,14 +204,14 @@ def main():
         D = len(reps) + 1
         M1 = np.concatenate([P1, W1[:, None]], axis=1).astype(np.int16)
         Mk = np.concatenate([Pk, Wk[:, None]], axis=1).astype(np.int16)
-        fd, path = tempfile.mkstemp(suffix='.bin', dir=os.environ.get('HADAMARD_WORK', '/tmp/hadamard-work') + '/tmp')
+        fd, path = tempfile.mkstemp(suffix='.bin', dir=W.tmpdir())
         with os.fdopen(fd, 'wb') as f:
             f.write(struct.pack('5i', len(M1), len(Mk), len(Mk), len(Mk), D))
             f.write(np.array([0] * len(reps) + [m], dtype=np.int16).tobytes())
             f.write(M1.tobytes())
             for _ in range(3):
                 f.write(Mk.tobytes())
-        r = subprocess.run([a.join4x, path, str(a.bk), '8000000', '1'], capture_output=True, text=True)
+        r = subprocess.run([(a.join4x or W.bin('join4x')), path, str(a.bk), '8000000', '1'], capture_output=True, text=True)
         os.remove(path)
         sols = [list(map(int, ln.split()[1:5])) for ln in r.stdout.splitlines() if ln.startswith('SOL')]
         tot = [ln for ln in r.stdout.splitlines() if ln.startswith('TOTAL')]
@@ -277,7 +283,7 @@ def main():
         if a.dry:
             print(tstr, feas)
             continue
-        r = subprocess.run([a.odmx, str(t), ','.join(map(str, H[1:2] or [1])) if False else a.gens, tstr,
+        r = subprocess.run([(a.odmx or W.bin('odmx')), str(t), ','.join(map(str, H[1:2] or [1])) if False else a.gens, tstr,
                             str(a.maxsol)], capture_output=True, text=True)
         nsol = r.stdout.count('SOL')
         last = [ln for ln in r.stderr.splitlines() if ln.startswith('rows')]

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Symmetric Hadamard matrices of order 4q, q = 1 (mod 8) a prime power, from a symmetric Hadamard matrix of order
 (q - 1)/2: Seberry and Yamada's Corollary 29(ii) Williamson-type matrices (W_3 = W_4) in Seberry and Balonin's propus
-array (verify.py construction `symmetric-propus-miyamoto`; NOTES.md section 29).
+array (verify.py construction `symmetric-propus-miyamoto`; NOTES.md (top level) section 29).
 
     python3 search/sym_propus_miyamoto.py targets          census-undecided v = q with an input we can build
     python3 search/sym_propus_miyamoto.py certify v [...]  writes symmetric/<4v>/certificate.json

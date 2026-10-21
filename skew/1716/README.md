@@ -57,7 +57,7 @@ a ×3-invariant CW(13, 9) is impossible here, for a row-sum reason given in [sea
 | | |
 |---|---|
 | Code | `search/odm_engine.py`, `search/odmx.c` (search); `verify/verify.py` (`build_skew_amicable_plug`, "paley" and "od" forms) |
-| Command | `gcc -O2 -o /tmp/hadamard-work/bin/odmx search/odmx.c && python3 search/odm_engine.py 39 16 13 --bsub 13` (the first `SOL` block is the "od" of the certificate) |
+| Command | `python3 search/odm_engine.py 39 16 13 --bsub 13` (the first `SOL` block is the "od" of the certificate; `search/odmx.c` is compiled into `$HADAMARD_WORK/bin` on first use, see [search/README.md](../../search/README.md)) |
 | Randomness and caps | none; the search is exhaustive over its structure (`--maxsol 2` per template) |
 
 ## Status

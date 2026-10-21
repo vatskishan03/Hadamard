@@ -54,7 +54,7 @@ The run found 4 solutions; the certificate uses the first.
 | | |
 |---|---|
 | Code | `search/odm_join.py`, `search/odm_engine.py`, `search/odmx.c`, `search/join4x.c` (search); `verify/verify.py` (`build_skew_amicable_plug`, "paley" and "od" forms) |
-| Command | `gcc -O2 -o /tmp/hadamard-work/bin/odmx search/odmx.c; cc -O3 -march=native -fopenmp search/join4x.c -o /tmp/hadamard-work/bin/join4x; python3 search/odm_join.py 63 4 21 --bsub 21 --bjoin --k 2 --first` |
+| Command | `python3 search/odm_join.py 63 4 21 --bsub 21 --bjoin --k 2 --first` (`search/odmx.c` and `search/join4x.c` are compiled into `$HADAMARD_WORK/bin` on first use, see [search/README.md](../../search/README.md)) |
 | Randomness and caps | none; the template sweep was capped at 200 000 b quadruples (`--bk`, default) |
 
 ## Status

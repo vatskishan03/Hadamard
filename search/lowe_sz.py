@@ -28,7 +28,7 @@ the statistics, the energy quantile and the retention are those of the allowed s
 
 With --budget the call stops by itself (exit code 75) and the same command with --auto continues: big blocks are
 listed in chunks kept under WORK/lowe/chunks, and the join continues after the split values it finished. The search
-can thus run on a machine that is reclaimed, in steps shorter than any time limit.
+can thus run in steps shorter than any time limit and resume after an interruption.
 """
 import argparse, hashlib, json, math, os, shutil, struct, subprocess, sys, time
 from pathlib import Path
@@ -766,9 +766,9 @@ def join(st, N, gens, rows, bordered, lists, inp, nsig, nS, log, maxsol, t0, ord
     stopped = False
     try:
         with open(prog, "a" if cont else "w") as errf:            # one line per split value
-            # one thread by default: each split value opens several parallel regions over ~1e5 pairs, and on a shared
-            # machine their barriers cost more than the work (128 split values per second with one thread against 4
-            # with four, N = 453, load 11 on 4 cores)
+            # one thread by default: each split value opens several parallel regions over ~1e5 pairs, and on an
+            # oversubscribed machine their barriers cost more than the work (N = 453, 4 cores, load 11: 128 split
+            # values per second with one thread against 4 with four)
             env = dict(os.environ, OMP_NUM_THREADS=str(kt4_threads))
             p = subprocess.run([W.bin("kt4"), str(inp), ",".join(map(str, Sx)), sigarg, str(maxsol)],
                                stdout=subprocess.PIPE, stderr=errf, text=True, timeout=limit, env=env)

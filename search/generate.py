@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate candidate sequences for the Goethals-Seidel search (JAX; TPU, GPU or CPU).
+"""Generate candidate sequences for the Goethals-Seidel search (JAX; accelerator or CPU).
 
 A candidate is a +-1 sequence on Z_p that is constant on the cosets of H = <g> and
 takes the value +1 at 0, with a prescribed row sum. Starting from random sequences,

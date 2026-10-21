@@ -488,8 +488,9 @@ def parse(s):
 
 def test_szekeres():
     import subprocess
+    import workdir as W
     for v in (5, 9, 13, 21, 29, 33, 41):
-        out = subprocess.run([str(_P('/tmp/hadamard-work/bin/szek_pair')), str(v), '1'], capture_output=True, text=True).stdout
+        out = subprocess.run([W.bin('szek_pair'), str(v), '1'], capture_output=True, text=True).stdout
         line = [l for l in out.splitlines() if l.startswith('SOL')][0].split()
         a, b = parse(line[1]), parse(line[2])
         P, N = szekeres(a, b)

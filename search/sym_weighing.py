@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Symmetric Hadamard matrices of order 4q, q = 1 (mod 8) a prime power, from ANY Hadamard matrix K of order
-n = (q - 1)/2 (verify.py construction `symmetric-propus-weighing`; NOTES.md section 30): the U-part of Seberry and
-Yamada's Corollary 29(ii) in the propus array, with the V-part replaced by a symmetric weighing matrix of order 4n and
-weight q built from K.
+n = (q - 1)/2 (verify.py construction `symmetric-propus-weighing`; NOTES.md (top level) section 30): the U-part of
+Seberry and Yamada's Corollary 29(ii) in the propus array, with the V-part replaced by a symmetric weighing matrix of
+order 4n and weight q built from K.
 
     python3 search/sym_weighing.py targets          census-undecided v = q not reached with a symmetric input
     python3 search/sym_weighing.py certify v [...]  writes symmetric/<4v>/certificate.json
@@ -26,8 +26,9 @@ T5 = ["++000", "00+-0", "0000+", "00000"]        # T-matrices of order 5 (classi
 
 # n = (q - 1)/2: ("cw", t, w) | ("miyamoto", p, recipe of order p - 1) | ("file", path)
 RECIPES = {404: ("cw", 101, 1), 428: ("cw", 107, 1), 476: ("cw", 17, 7), 596: ("miyamoto", 149, ("cw", 37, 1)),
-           716: ("file", "search/data/h716_alpoge.json"), 956: ("file", "search/data/skew956_dk.json"), 996: ("file", "skew/996/certificate.json"),
-           1076: ("miyamoto", 269, ("cw", 67, 1)), 1196: ("cw", 23, 13), 1220: ("cw", 5, 61)}
+           716: ("file", "search/data/h716_alpoge.json"), 956: ("file", "search/data/skew956_dk.json"),
+           996: ("file", "skew/996/certificate.json"), 1076: ("miyamoto", 269, ("cw", 67, 1)),
+           1196: ("cw", 23, 13), 1220: ("cw", 5, 61)}
 
 
 def _signs(row):
@@ -83,7 +84,8 @@ def certify(v):
             "K": k_cert(RECIPES[n])}
     H, _ = verify.BUILDERS[cert["construction"]](cert)
     m = H.shape[0]
-    assert m == 4 * v and verify.is_pm1(H) and verify.gram_is_scalar(H, m) and (H == H.T).all(), "not symmetric Hadamard"
+    assert (m == 4 * v and verify.is_pm1(H) and verify.gram_is_scalar(H, m) and (H == H.T).all()), \
+        "not symmetric Hadamard"
     cert["sha256"] = _digest(H)
     d = ROOT / "symmetric" / str(4 * v)
     if (d / "certificate.json").exists():
@@ -97,7 +99,7 @@ def certify(v):
 if __name__ == "__main__":
     if sys.argv[1:2] == ["targets"]:
         for v, r in targets():
-            print(v, 4 * v, (v - 1) // 2, r if r else "no Hadamard matrix of this order known to us")
+            print(v, 4 * v, (v - 1) // 2, r if r else "no Hadamard matrix of this order in hand")
     elif sys.argv[1:2] == ["certify"]:
         for v in sys.argv[2:]:
             certify(int(v))

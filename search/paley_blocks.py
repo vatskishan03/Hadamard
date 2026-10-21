@@ -34,7 +34,7 @@ is GF(p)[x]/(f) with the first primitive f (certificate field "field"); points a
    for every prime power q = 3 (mod 4).
 
     python3 search/paley_blocks.py skew 331                # skew/996/certificate.json and sequences.txt
-    python3 search/paley_blocks.py skew 27 /tmp/x          # the same in another directory (here q = 3^3, order 84)
+    python3 search/paley_blocks.py skew 27 OUTDIR          # the same in the directory OUTDIR (here q = 3^3, order 84)
     python3 search/paley_blocks.py skew 599                # q = 7 (mod 8): skew/1800, negacyclic blocks
 """
 import json

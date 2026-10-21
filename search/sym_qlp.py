@@ -18,7 +18,8 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "verify"))
 import verify  # noqa: E402
 
-PAIRS = {64: {"source": "H. Verma, A quaternary Legendre pair of length 64, arXiv:2609.25573 (22 September 2026), Table 1",
+PAIRS = {64: {"source": ("H. Verma, A quaternary Legendre pair of length 64, arXiv:2609.25573 (22 September 2026), "
+                         "Table 1"),
               "A": "02022220 02022222 02200020 00202220 20220002 02002000 00220022 00022022",
               "B": "02332221 10130032 10300312 13202110 30112023 12130030 12300310 11222332"}}
 
@@ -66,7 +67,8 @@ if __name__ == "__main__":
     if sys.argv[1:2] == ["check"]:
         for l in PAIRS:
             p, a, q = decode(l)
-            print(f"length {l}: row sums {int(p.sum())}, {int(a.sum())}, {int(q.sum())}; PAF_p + 2 PAF_a + PAF_q = -4 off 0")
+            print(f"length {l}: row sums {int(p.sum())}, {int(a.sum())}, {int(q.sum())}; "
+                  "PAF_p + 2 PAF_a + PAF_q = -4 off 0")
     elif sys.argv[1:2] == ["certify"]:
         for v in sys.argv[2:]:
             certify(int(v))

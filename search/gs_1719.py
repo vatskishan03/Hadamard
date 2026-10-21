@@ -1,6 +1,18 @@
-import itertools, sys, time
+"""Goethals-Seidel structures for n = 1719 = 3^2 * 191, the one open order with a non-cyclic group of order n
+(search/NOTES.md section 3.3).
+
+    python3 search/gs_1719.py
+
+The group is Z_3^2 x Z_191. A structure is a subgroup of GL(2, 3) acting on Z_3^2 (the matrices in `two_part`) times
+the multiplier subgroup of Z_191^* of order d, d | 190; those with 8 to 64 orbits are kept. For each,
+gs_lib.gs_estimate gives the best row-sum pattern and the logarithms (base 10) of the estimated number of solutions
+(logE), of the smallest pool (logN) and of the matching work for lists of 10^8 candidates (logW); the table is sorted
+by logW. Structures whose class values on the Z_3^2 shifts move in steps of the orbit size that the row sums cannot
+match have no admissible pattern.
+"""
+import itertools, os, sys, time
 import numpy as np
-sys.path.insert(0, '.')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import spence_lib as L, gs_lib as GS
 
 def bd(*b):

@@ -21,8 +21,9 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gsgroup import Group, Orbits, read_list, group_matrix, reflection  # noqa: E402
+import workdir  # noqa: E402
 
-WORK = os.path.join(os.environ.get('HADAMARD_WORK', '/tmp/hadamard-work'), 'tmp')
+WORK = workdir.tmpdir()
 
 
 def gs_od(G, codes):
@@ -64,10 +65,13 @@ def main():
     ap.add_argument('--first', action='store_true')
     ap.add_argument('--dry', action='store_true')
     ap.add_argument('--maxtpl', type=int, default=10 ** 7)
-    ap.add_argument('--gdfs', default='/tmp/hadamard-work/bin/gdfs')
+    ap.add_argument('--gdfs', default=None,
+                    help='binary built from gdfs.c (default: compiled into $HADAMARD_WORK/bin on first use)')
     ap.add_argument('--anneal', default='', help='R,STEPS,T0,T1: anneal the c parts with osa.c instead of lists')
-    ap.add_argument('--osa', default='/tmp/hadamard-work/bin/osa')
-    ap.add_argument('--join4x', default='/tmp/hadamard-work/bin/join4x')
+    ap.add_argument('--osa', default=None,
+                    help='binary built from osa.c (default: compiled into $HADAMARD_WORK/bin on first use)')
+    ap.add_argument('--join4x', default=None,
+                    help='binary built from join4x.c (default: compiled into $HADAMARD_WORK/bin on first use)')
     a = ap.parse_args()
     os.makedirs(WORK, exist_ok=True)
     G = Group(a.group)
@@ -111,7 +115,7 @@ def main():
         var = Ob.variables(btype, None, within)
         tp, lp = os.path.join(WORK, f'{tag}_{blk}.tab'), os.path.join(WORK, f'{tag}_{blk}.lst')
         Ob.write_tables(tp, var, 1, wb, 1)
-        r = subprocess.run([a.gdfs, tp, lp], capture_output=True, text=True)
+        r = subprocess.run([(a.gdfs or workdir.bin('gdfs')), tp, lp], capture_output=True, text=True)
         if r.returncode:
             sys.exit(r.stderr)
         n, D, vec, masks = read_list(lp)
@@ -127,7 +131,7 @@ def main():
         f.write(np.array([0] * Ob.npr + [m], dtype=np.int16).tobytes())
         for c in (cands[0], cands[3], cands[1], cands[2]):
             f.write(np.ascontiguousarray(c[1]).tobytes())
-    j = subprocess.run([a.join4x, fb, str(a.bk), '8000000', '1'], capture_output=True, text=True)
+    j = subprocess.run([(a.join4x or workdir.bin('join4x')), fb, str(a.bk), '8000000', '1'], capture_output=True, text=True)
     os.remove(fb)
     sols = np.array([list(map(int, ln.split()[1:5])) for ln in j.stdout.splitlines() if ln.startswith('SOL')],
                     dtype=np.int64).reshape(-1, 4)
@@ -252,7 +256,7 @@ def main():
         var = O.variables(btype, U)
         tp, lp = os.path.join(WORK, f'{tag}_y.tab'), os.path.join(WORK, f'{tag}_y.lst')
         O.write_tables(tp, var, 0, rs, 1, U)
-        r = subprocess.run([a.gdfs, tp, lp], capture_output=True, text=True)
+        r = subprocess.run([(a.gdfs or workdir.bin('gdfs')), tp, lp], capture_output=True, text=True)
         if r.returncode:
             sys.exit(r.stderr)
         n, D, vec, masks = read_list(lp)
@@ -271,7 +275,7 @@ def main():
                 pf, of = os.path.join(WORK, f'{tag}_osa.bin'), os.path.join(WORK, f'{tag}_osa.out')
                 O.write_osa(pf, blocks)
                 seed += 1
-                r = subprocess.run([a.osa, pf, str(seed), R, STEPS, T0, T1, of], capture_output=True, text=True)
+                r = subprocess.run([(a.osa or workdir.bin('osa')), pf, str(seed), R, STEPS, T0, T1, of], capture_output=True, text=True)
                 best = [ln for ln in r.stdout.splitlines()]
                 print(f'template {ti} rows {rows}: {best[-1] if best else r.stderr[-200:]}', file=sys.stderr)
                 if r.stdout.startswith('SOL'):
@@ -307,7 +311,7 @@ def main():
                 f.write(b'\0' * (2 * D))
                 for x in L:
                     f.write(np.ascontiguousarray(x[2]).tobytes())
-            jj = subprocess.run([a.join4x, fn, str(a.k)], capture_output=True, text=True)
+            jj = subprocess.run([(a.join4x or workdir.bin('join4x')), fn, str(a.k)], capture_output=True, text=True)
             os.remove(fn)
             ss = [list(map(int, ln.split()[1:5])) for ln in jj.stdout.splitlines() if ln.startswith('SOL')]
             tt = [ln for ln in jj.stdout.splitlines() if ln.startswith('TOTAL')]

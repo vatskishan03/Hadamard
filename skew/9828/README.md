@@ -53,7 +53,7 @@ total); the certificate uses the first. The whole run took about 12 seconds.
 | | |
 |---|---|
 | Code | `search/odm_engine.py`, `search/odmx.c` (search); `verify/verify.py` (`build_skew_amicable_plug`, "paley" over GF(pᵏ) and "od" forms) |
-| Command | `gcc -O2 -o /tmp/hadamard-work/bin/odmx search/odmx.c && python3 search/odm_engine.py 91 79,29 13` (the first `SOL` block is the "od" of the certificate) |
+| Command | `python3 search/odm_engine.py 91 79,29 13` (the first `SOL` block is the "od" of the certificate; `search/odmx.c` is compiled into `$HADAMARD_WORK/bin` on first use, see [search/README.md](../../search/README.md)) |
 | Randomness and caps | none; the search is exhaustive over its structure |
 
 ## Status

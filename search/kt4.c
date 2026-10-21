@@ -382,7 +382,7 @@ int main(int argc, char **argv) {
             memset(hk, 0xff, 8 * cap);
             uint64_t mask = cap - 1;
             /* threads only when there is work: with many split values of a few pairs each, the fork/join of the
-             * parallel regions (and spinning threads on a loaded machine) cost far more than the pairs */
+             * parallel regions (and spinning threads while other jobs are running) cost far more than the pairs */
             #pragma omp parallel for schedule(dynamic, 64) if(cnt > 65536)
             for (long u = 0; u < nm[0]; u++) {
                 long ga = mp[2 * u], gb = mp[2 * u + 1];

@@ -21,8 +21,9 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gsgroup import Group, Orbits, read_list, group_matrix, reflection  # noqa: E402
+import workdir  # noqa: E402
 
-WORK = os.path.join(os.environ.get('HADAMARD_WORK', '/tmp/hadamard-work'), 'tmp')
+WORK = workdir.tmpdir()
 
 
 def balonin_pair(G, codes):
@@ -56,8 +57,10 @@ def main():
     ap.add_argument('--first', action='store_true')
     ap.add_argument('--dry', action='store_true')
     ap.add_argument('--maxtpl', type=int, default=10 ** 7)
-    ap.add_argument('--gdfs', default='/tmp/hadamard-work/bin/gdfs')
-    ap.add_argument('--join4x', default='/tmp/hadamard-work/bin/join4x')
+    ap.add_argument('--gdfs', default=None,
+                    help='binary built from gdfs.c (default: compiled into $HADAMARD_WORK/bin on first use)')
+    ap.add_argument('--join4x', default=None,
+                    help='binary built from join4x.c (default: compiled into $HADAMARD_WORK/bin on first use)')
     a = ap.parse_args()
     os.makedirs(WORK, exist_ok=True)
     G = Group(a.group)
@@ -103,7 +106,7 @@ def main():
         var = Ob.variables(btype, None, within)
         tp, lp = os.path.join(WORK, f'{tag}_{blk}.tab'), os.path.join(WORK, f'{tag}_{blk}.lst')
         Ob.write_tables(tp, var, 1, wmax, scale)
-        r = subprocess.run([a.gdfs, tp, lp], capture_output=True, text=True)
+        r = subprocess.run([(a.gdfs or workdir.bin('gdfs')), tp, lp], capture_output=True, text=True)
         if r.returncode:
             sys.exit(r.stderr)
         n, D, vec, masks = read_list(lp)
@@ -118,7 +121,7 @@ def main():
         for c in cands:
             f.write(np.ascontiguousarray(c[1]).tobytes())
         f.write(b'\0' * (2 * D))
-    j = subprocess.run([a.join4x, fb, str(a.bk), '8000000', '1'], capture_output=True, text=True)
+    j = subprocess.run([(a.join4x or workdir.bin('join4x')), fb, str(a.bk), '8000000', '1'], capture_output=True, text=True)
     os.remove(fb)
     sols = np.array([list(map(int, ln.split()[1:5])) for ln in j.stdout.splitlines() if ln.startswith('SOL')],
                     dtype=np.int64).reshape(-1, 4)
@@ -238,7 +241,7 @@ def main():
         var = O.variables(btype, U)
         tp, lp = os.path.join(WORK, f'{tag}_y.tab'), os.path.join(WORK, f'{tag}_y.lst')
         O.write_tables(tp, var, 0, rs, 1, U)
-        r = subprocess.run([a.gdfs, tp, lp], capture_output=True, text=True)
+        r = subprocess.run([(a.gdfs or workdir.bin('gdfs')), tp, lp], capture_output=True, text=True)
         if r.returncode:
             sys.exit(r.stderr)
         n, D, vec, masks = read_list(lp)
@@ -262,7 +265,7 @@ def main():
                 f.write((2 * L[1][2].astype(np.int32)).astype(np.int16).tobytes())
                 f.write(np.ascontiguousarray(L[2][2]).tobytes())
                 f.write(b'\0' * (2 * D))
-            jj = subprocess.run([a.join4x, fn, str(a.k)], capture_output=True, text=True)
+            jj = subprocess.run([(a.join4x or workdir.bin('join4x')), fn, str(a.k)], capture_output=True, text=True)
             os.remove(fn)
             ss = [list(map(int, ln.split()[1:5])) for ln in jj.stdout.splitlines() if ln.startswith('SOL')]
             tt = [ln for ln in jj.stdout.splitlines() if ln.startswith('TOTAL')]

@@ -1,13 +1,15 @@
 # Search programs
 
-The programs that found the matrices in this repository, and the experiments recorded in [NOTES.md](NOTES.md) and
-[../NOTES.md](../NOTES.md). This is research code: each program was written for one family of searches and is
-documented by its docstring and by the notes. No certificate depends on it; `verify/` checks every matrix on its own.
+The programs for most of the matrices in this repository, and for the experiments recorded in
+[NOTES.md](NOTES.md) and [../NOTES.md](../NOTES.md). This is research code: each program was written for one family
+of searches and is documented by its docstring and by the notes. Some programs cited in the notes are not included.
+No certificate depends on any program; `verify/` checks every matrix on its own.
 
-**Requirements.** Python 3 with NumPy; JAX for `generate.py`; a C compiler with OpenMP. A few experiments use
-OR-Tools or PySAT. The C helpers are compiled on first use by `workdir.py`. Hit logs, temporary list files and
-binaries go to `$HADAMARD_WORK` (default `<tmp>/hadamard-work`); only the `*_certify.py` scripts write into the
-repository.
+**Requirements.** Python 3 with NumPy; SymPy for `symwt.py` and several sweeps; pynauty for `check_conf66.py`; JAX for
+`generate.py`; a C compiler with OpenMP. A few experiments use OR-Tools or PySAT. The C helpers are compiled on first
+use by `workdir.py`. Hit logs, temporary list files and binaries go to `$HADAMARD_WORK` (default
+`<tmp>/hadamard-work`). The `*_certify.py` scripts and the `certify` subcommands (see Certificates) write
+certificates into the repository.
 
 **Commit hashes.** The order READMEs give the commit at which each search was run. Until commit `b7bfde3` this
 directory was named `attack/`, so in a checkout of an earlier commit read `attack/` for `search/`.
@@ -19,7 +21,7 @@ The pipeline of [METHOD.md](../METHOD.md), which found the orders 2092, 3532, 44
 | Program | Role |
 |---|---|
 | `triage.py` | ranks the multiplier structures of a target n by predicted matching work |
-| `generate.py` | generates candidate sequences by batched local search (JAX on TPU, GPU or CPU) |
+| `generate.py` | generates candidate sequences by batched local search (JAX; accelerator or CPU) |
 | `dedupe.c` | removes duplicate candidates |
 | `expand.c` | adds the multiplier images of each candidate |
 | `match.c` | extended k-tree matcher; prints complementary quadruples |
@@ -48,8 +50,8 @@ python3 search/certify.py 1123 60 "$(head -1 solutions.txt)" 4492
 
 Small structures (pools up to about 10¹⁰ sequences) need only light descent, as here. For orders like 2092 use the
 default settings of `generate.py`, which add iterated local search; they run at about 1.3·10⁵ candidates per second on
-one TPU v6e chip for p = 523. `match` holds about 20 bytes per list element plus the pair lists of one value of τ, so
-lists of 10⁹ elements fit in 172 GB. Choose the clamp `-s` so that the expected number of pairs per τ, printed at
+one accelerator chip for p = 523. `match` holds about 20 bytes per list element plus the pair lists of one value of τ,
+so lists of 10⁹ elements fit in 172 GB. Choose the clamp `-s` so that the expected number of pairs per τ, printed at
 start-up, is close to the list size.
 
 ## Index
@@ -63,8 +65,11 @@ start-up, is close to the list size.
 | `kt4.c`, `match4.c` | four-list k-tree on sampled lists |
 | `join3.c` | three-level exact join for cyclotomic-product structures |
 | `lattice.py` | integer lattices: Hermite normal form and membership |
-| `orbit_ls.py`, `orbit_ls.c`, `gs_ls.c`, `ls/` | tabu search, simulated annealing and parallel tempering for sequence families |
-| `dm/` | relaxed-reflect-reflect (Elser) searches for Goethals–Seidel quadruples |
+| `orbit_ls.py`, `orbit_ls.c`, `gs_ls.c` | tabu search, simulated annealing and parallel tempering for sequence families |
+| `ls/gs_tabu.c`, `ls/gs_tabu_l1.c`, `ls/gs_sa.c`, `ls/gs_rsa.c` | Goethals–Seidel quadruples of length v without symmetry: tabu search with the energy Σ S(s)² and with the sum of the absolute values of S(s), Metropolis annealing with single flips, and replicated annealing (local entropy) |
+| `ls/orb_tabu.c`, `ls/mkstruct.py` | tabu search for Goethals–Seidel quadruples constant on the orbits of a multiplier group; `mkstruct.py v g1,g2 OUT` writes its input file |
+| `ls/bs_tabu.c` | tabu search for base sequences BS(m + 1, m) |
+| `dm/rrr_gs.py`, `dm/rrr_sym.py`, `dm/rrr_orb.py` | relaxed-reflect-reflect (Elser) searches for Goethals–Seidel quadruples over ℤ_v: without symmetry; constant on the orbits of a multiplier group, in full coordinates with the iterate re-averaged over the orbits at each step (`rrr_sym.py`); and in orbit coordinates |
 | `psd_pool.c` | orbit vectors whose power spectrum stays below a bound |
 | `workdir.py` | the work directory and the compilation of the C helpers |
 | `gsgroup.py`, `gdfs.c`, `osa.c` | orbit tables of H-invariant blocks over any abelian group, their exhaustive lists (PAF and cross vectors), and orbit annealing |
@@ -79,7 +84,7 @@ start-up, is close to the list size.
 | `had_chain_sweep.py` | the compression chain of `chain.py` for plain Goethals–Seidel structures |
 | `cyclo_product.py`, `cp_lowe.py`, `cp_enum.c`, `cp_field.py`, `cp_sweep.py`, `cp_hunt.py`, `cp_breadth.py` | cyclotomic products ℤ_m × GF(q) and the low-energy k-tree (3732, 5020, skew orders) |
 | `spin_walk.c` | the walk with neighbour lookups of [METHOD.md](../METHOD.md) (2284) |
-| `d3_model.py`, `d3/` | the d = 3 structure (X₀, X₁, μX₁, μ²X₁): Gaussian model, and the walk for n = 1893 |
+| `d3_model.py`, `d3/prep1893.py`, `d3/walk.c` | the d = 3 structure (X₀, X₁, μX₁, μ²X₁): Gaussian model; for n = 1893, the tables and the tabu walk with lookups |
 | `gs_1719.py`, `gs_anti.py`, `gs_array_gf2.py` | individual structures and array tests |
 
 **Bordered arrays** (2148, 3964)
@@ -138,12 +143,17 @@ start-up, is close to the list size.
 | `sym_weighing.py` | symmetric Hadamard matrices of order 4q, q ≡ 1 (mod 8) a prime power, from any Hadamard matrix of order (q − 1)/2: the U-part of `sym_propus_miyamoto.py` and a symmetric weighing matrix built from the input as the V-part; `targets` lists the census values left by `sym_propus_miyamoto.py` and their inputs (Cooper–Wallis with Turyn's Williamson matrices, Miyamoto, `data/skew956_dk.json`, skew/996, and Alpöge–Voinov–Reynolds-Haertle's order 716 in `data/h716_alpoge.json`), `certify v` writes `symmetric/<4v>/certificate.json` ([../symmetric/PROPUS_WEIGHING.md](../symmetric/PROPUS_WEIGHING.md)) |
 | `sym_yk.py` | symmetric Hadamard matrices of order 4(q + 2), q ≡ 5 (mod 8) a prime power, from any skew-Hadamard matrix of order (q + 3)/2: Yamada's (Kiyasu's) matrix in symmetric quaternary form and Turyn's map; skew inputs from Paley, Szekeres's and Whiteman's difference sets, the Goethals–Seidel data of `data/yk_skew_inputs.json` (published data as stored in SageMath, and `skew_exhaustive.py` hits), skew/ and doubling; `targets`, `certify v` ([../symmetric/YAMADA_KIYASU.md](../symmetric/YAMADA_KIYASU.md)) |
 | `sym_qlp.py` | symmetric Hadamard matrices of order 4(l + 1) from a quaternary Legendre pair (A, B) of length l with A real and B symmetric: B decodes into p, q with (p, A, A, q) a bordered propus quadruple; `check`, `certify v` (Verma's pair of length 64 gives [../symmetric/260](../symmetric/260)) |
-| `sym_involution.py` | symmetric Hadamard matrices of order 4q, q ≡ 1 (mod 4) a prime, from a Hadamard matrix [[P, Q], [Q, P]] of order q − 1 built from a periodic Golay pair of length (q − 1)/2 (verify.py construction `symmetric-involution`): `targets` lists the census prime powers q ≡ 5 (mod 8) and their inputs, `certify q` writes `symmetric/<4q>/certificate.json` (404, 596; [../symmetric/PERIODIC_GOLAY.md](../symmetric/PERIODIC_GOLAY.md)) |
-| `sym_conference_plug.py` | symmetric Hadamard matrices of order 2n(n − 1) from a symmetric conference matrix of order n, H = I ⊗ X + C ⊗ Y with Paley's matrix C (verify.py construction `symmetric-conference-plug`): `targets` lists the census values v = q(q + 1)/2, `certify q` writes `symmetric/<2q(q + 1)>/certificate.json` (612, 1300, 1740, 4900, 7564; [../symmetric/CONFERENCE_PLUG.md](../symmetric/CONFERENCE_PLUG.md)) |
-| `check_conf66.py` | checks the two symmetric conference matrices of order 66 and the 16 srg(65, 32, 15, 16) in `data/` (NOTES §72) |
-| `sym_bigf.py` | symmetric Hadamard matrices of order 4q with an involution of 2q − 2 fixed points: the field-free Q-part for every zero pattern and sign pattern of V and P, by row sets and backtracking, and V by CP-SAT (order 28: completions exactly when π has no fixed points, so not with Paley's V; order 12: when π has two; [NOTES.md](NOTES.md) §63) |
+| `sym_involution.py` | symmetric Hadamard matrices of order 4q, q ≡ 1 (mod 4) a prime, from a Hadamard matrix [[P, Q], [Q, P]] of order q − 1 built from a periodic Golay pair of length (q − 1)/2 (verify.py construction `symmetric-involution`): `targets` lists the census primes q ≡ 5 (mod 8) and their inputs, `certify q` writes `symmetric/<4q>/certificate.json` and refuses an existing directory (404, 596; the length-50 pair of 404 comes from an enumeration whose program is not included; [../symmetric/PERIODIC_GOLAY.md](../symmetric/PERIODIC_GOLAY.md)) |
+| `sym_conference_plug.py` | symmetric Hadamard matrices of order 2n(n − 1) from a symmetric conference matrix of order n, H = I ⊗ X + C ⊗ Y with Paley's matrix C: the case r = 1 of Spence's Corollary 2 (verify.py construction `symmetric-conference-plug`): `targets` lists the census values v = q(q + 1)/2, `certify q` writes `symmetric/<2q(q + 1)>/certificate.json` and refuses an existing directory (612, 1300, 1740, 4900, 7564, all Known; [../symmetric/CONFERENCE_PLUG.md](../symmetric/CONFERENCE_PLUG.md)) |
+| `sym_bigf.py` | symmetric Hadamard matrices of order 4q with an involution of 2q − 2 fixed points: the field-free Q-part for every zero pattern and sign pattern of V and P, by row sets and backtracking, and V by CP-SAT (q = 3 and 7 only; order 28: completions exactly when π has no fixed points, so not with Paley's V; order 12: when π has two; the completions need OR-Tools; [NOTES.md](NOTES.md) §63) |
 | `border_torus.py` | bordered propus quadruples over the norm-one torus of GF(q²) for v = q + 2 from quadratic characters (only q = 3, 5; [NOTES.md](NOTES.md) §63) |
 | `symod_g.py`, `symod_engine.py`, `symod_join.py`, `symod_reach.py`, `symtpl.c` | symmetric ODs in Balonin form over abelian groups for the weighted plug-in |
+
+**Conference matrices**
+
+| Program | Role |
+|---|---|
+| `check_conf66.py` | checks one representative of each of the two symmetric conference matrices of order 66 found with a semiregular group C₈ ⋊ C₄ (their descendants are not in McKay's database) and the 16 descendants srg(65, 32, 15, 16), in `data/` (needs pynauty; [NOTES.md](NOTES.md) §72) |
 
 **Orthogonal designs for Seberry's theorem**
 
@@ -196,7 +206,7 @@ start-up, is close to the list size.
 | `tmatrix.py`, `tmat_mult.py`, `tmat_scan.py`, `tmat_composite.py`, `tmat_t3_model.py` | T-matrices by support splits and multiplier structures |
 | `ng_mult.py`, `qw_mult.py` | negaperiodic Golay pairs over ℤ[y]/(y^v + 1) constant up to sign on multiplier orbits (spectral filter, exact NAF join), and quasi-Williamson matrices constant on the orbits of an odd-order multiplier group: the pairs that Miyamoto blocks need ([../hadamard/MIYAMOTO_BLOCKS.md](../hadamard/MIYAMOTO_BLOCKS.md)) |
 | `yang5.py` | T-sequences of length 5t from base sequences BS(m + 1, m), t = 2m + 1, by Yang's multiplication by 5 (Seberry–Yamada 1992, Theorem 5.23); `5 --turyn` writes [../t-matrices/T55.txt](../t-matrices/T55.txt) |
-| `bt/` | bordered T-matrices |
+| `bt/find_bt.py`, `bt/bordered_od.py` | bordered T-matrices of order t over an abelian group of order t − 1 (supports partitioning the group, row sums ±1, 0, 0, 0, autocorrelations summing to −1 off 0): vectorised exhaustive search (`find_bt.py`), and the orthogonal design OD(4t; t, t, t, t) built from them with a border, checked for random real arguments (`bordered_od.py`, small groups) |
 | `williamson.py` | Williamson matrices with multiplier symmetry (`--mino`, `--maxo`: the range of orbit counts) |
 | `bnw.py`, `bnw_enum.c` | bordered Williamson-type matrices ([williamson-type](../williamson-type)) |
 | `wt_twist.py`, `twist_join.c`, `twist_scan.py` | the order-3 twist of near-Williamson matrices (111) |
@@ -226,6 +236,7 @@ start-up, is close to the list size.
 | `certify.py`, `gs_certify.py` | Goethals–Seidel orders in `hadamard/` |
 | `skew_certify.py`, `skew_certify_group.py`, `skew_readme.py` | skew orders in `skew/` |
 | `sym_certify.py`, `border_certify.py` | symmetric orders in `symmetric/` |
+| `sym_propus_miyamoto.py`, `sym_propus_sb.py`, `sym_weighing.py`, `sym_yk.py`, `sym_qlp.py`, `sym_involution.py`, `sym_conference_plug.py`, `sym_skewcore.py`, `sym_mm1.py` (`certify`) | symmetric orders in `symmetric/` |
 | `bnw_certify.py` | Cooper–Wallis orders with bordered Williamson-type matrices |
 | `cw_certify.py` | Cooper–Wallis certificates from a T-matrix file and Williamson matrices of SageMath's database (`data/williamson_sage.json`, orders 19, 23, 31, 43) or a bordered Williamson-type quadruple (12388, 13892, 14996, 18724, 20116, 20212, 25972, 28036) |
 | `ssxx_certify.py` | complex orders in `complex-hadamard/` |

@@ -2,7 +2,7 @@
 """Queue runner for lowe_sz.py: NSLOTS slots, each claims the first pending ticket of the queue and runs
 `lowe_sz.py TICKET --auto --budget LEFT` until the runner's budget is spent or the queue is empty. Every call stops
 by itself (exit code 75) before LEFT runs out, and a later runner continues the same ticket from its saved lists and
-join state, so a run never outlives its runner and survives a restart of the machine.
+join state, so a run never outlives its runner and resumes after an interruption.
 
     python3 search/runq.py BUDGET_SECONDS [NSLOTS] [--queue FILE]
 

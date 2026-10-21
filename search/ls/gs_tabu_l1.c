@@ -1,7 +1,8 @@
-/* Tabu search for Goethals-Seidel quadruples of odd length v.  F = sum_{s=1}^{v-1} S[s]^2.
+/* Tabu search for Goethals-Seidel quadruples of odd length v, as gs_tabu.c but with the L1 energy
+ * F = sum_{s=1}^{v-1} |S[s]| in place of the sum of squares.
  * Each step evaluates all 4v single flips (O(v^2)), takes the best non-tabu one (aspiration if it
  * improves the best F), tabu tenure uniform in [tmin, tmax]. Restart after maxstall steps without
- * improving the walk's best.  usage: ./gs_tabu v maxsteps seed [tmin tmax maxstall] */
+ * improving the walk's best.  usage: ./gs_tabu_l1 v maxsteps seed [tmin tmax maxstall] */
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>

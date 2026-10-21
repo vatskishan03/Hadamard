@@ -15,6 +15,7 @@ WORK = Path(os.environ.get('HADAMARD_WORK') or Path(tempfile.gettempdir()) / 'ha
 WORK.mkdir(parents=True, exist_ok=True)
 
 _FLAGS = {'border_exh': ['-O3', '-march=native', '-fopenmp'],
+          'osa': ['-O3', '-march=native', '-lm'],
           'cp_enum': ['-O3', '-march=native', '-fopenmp'],
           'find4b': ['-O3', '-march=native', '-fopenmp'],
           'join3': ['-O3', '-march=native', '-fopenmp'],

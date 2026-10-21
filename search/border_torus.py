@@ -1,5 +1,5 @@
-"""Bordered propus quadruples (NOTES.md §27) over the norm-one torus T of GF(q²), a cyclic group of order q + 1, for
-v = q + 2 (q an odd prime; NOTES.md §63). A (symmetric), B, D are ±1 functions on T with
+"""Bordered propus quadruples (search/NOTES.md §27) over the norm-one torus T of GF(q²), a cyclic group of order
+q + 1, for v = q + 2 (q an odd prime; search/NOTES.md §63). A (symmetric), B, D are ±1 functions on T with
 |Â|² + 2|B̂|² + |D̂|² = 4(q + 2) at every nontrivial character and row sums with a² + 2b² + d² = 4. The candidate
 functions are χ(Tr t + c), χ(Tr(z t) + c) (χ the quadratic character of GF(q), z primitive in GF(q²)) and
 η(t − β) (η the quadratic character of GF(q²), β ∈ λ·{1, z}), with both values at a zero. Every χ(Tr(αt) + c) is

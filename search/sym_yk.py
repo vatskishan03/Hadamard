@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Symmetric Hadamard matrices of order 4(q + 2), q = 5 (mod 8) a prime power, from ANY skew-Hadamard matrix of order
 (q + 3)/2: Yamada's (Kiyasu's) matrix in quaternary form, made symmetric (verify.py construction
-`symmetric-yamada-kiyasu`; NOTES.md section 31).
+`symmetric-yamada-kiyasu`; NOTES.md (top level) section 31).
 
-    python3 search/sym_yk.py targets          census-undecided v = q + 2 and the skew input we use
+    python3 search/sym_yk.py targets          census-undecided v = q + 2 and the skew input used
     python3 search/sym_yk.py certify v [...]  writes symmetric/<4v>/certificate.json
 
 Skew inputs, all checked by verify.py inside the certificate: Paley's I + C of order p + 1 (p = 3 mod 4), the
@@ -58,8 +58,8 @@ def gs_cert(w):
 
 def cds_cert(q):
     """Two-block skew certificate of order 2(q + 1) from complementary difference sets in GF(q): Szekeres (q = p = 5
-    mod 8, A = C_0 + C_1, B = C_0 + C_3 over the fourth powers) or Whiteman (q = p^2, p = 5 mod 8, A = C_0 + ... + C_3,
-    B = C_0 + C_1 + C_6 + C_7 over the eighth powers); C_i = rho^i C_0."""
+    mod 8, A = C_0 + C_1, B = C_0 + C_3 over the fourth powers) or Whiteman (q = p^2, p = 5 mod 8,
+    A = C_0 + ... + C_3, B = C_0 + C_1 + C_6 + C_7 over the eighth powers); C_i = rho^i C_0."""
     p, k = MY.prime_power(q)
     assert p % 8 == 5 and k in (1, 2)
     poly = MY.primitive_poly(p, k)                            # x^k = -(c_0 + ... + c_{k-1} x^{k-1}), x primitive
@@ -126,7 +126,8 @@ def certify(v):
     cert["Q"] = Q
     H, _ = verify.BUILDERS[cert["construction"]](cert)
     m = H.shape[0]
-    assert m == 4 * v and verify.is_pm1(H) and verify.gram_is_scalar(H, m) and (H == H.T).all(), "not symmetric Hadamard"
+    assert (m == 4 * v and verify.is_pm1(H) and verify.gram_is_scalar(H, m) and (H == H.T).all()), \
+        "not symmetric Hadamard"
     cert["sha256"] = _digest(H)
     d = ROOT / "symmetric" / str(4 * v)
     if (d / "certificate.json").exists():

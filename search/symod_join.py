@@ -21,7 +21,10 @@ import sys
 
 import numpy as np
 
-WORK = os.path.join(os.environ.get('HADAMARD_WORK', '/tmp/hadamard-work'), 'tmp')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import workdir  # noqa: E402
+
+WORK = workdir.tmpdir()
 
 
 def closure(gens, t):
@@ -70,9 +73,12 @@ def main():
     ap.add_argument('--first', action='store_true')
     ap.add_argument('--maxtpl', type=int, default=10 ** 7)
     ap.add_argument('--dry', action='store_true')
-    ap.add_argument('--symtpl', default='/tmp/hadamard-work/bin/symtpl')
-    ap.add_argument('--odmc', default='/tmp/hadamard-work/bin/odmc')
-    ap.add_argument('--join4x', default='/tmp/hadamard-work/bin/join4x')
+    ap.add_argument('--symtpl', default=None,
+                    help='binary built from symtpl.c (default: compiled into $HADAMARD_WORK/bin on first use)')
+    ap.add_argument('--odmc', default=None,
+                    help='binary built from odmc.c (default: compiled into $HADAMARD_WORK/bin on first use)')
+    ap.add_argument('--join4x', default=None,
+                    help='binary built from join4x.c (default: compiled into $HADAMARD_WORK/bin on first use)')
     a = ap.parse_args()
     t, mu = a.t, a.mu
     os.makedirs(WORK, exist_ok=True)
@@ -83,7 +89,7 @@ def main():
         orbit[g] = sorted({h * g % t for h in H})
     tag = f'sym_{t}_{mu}_{a.gens.replace(",", "_")}_{os.getpid()}'
     fb, fm = os.path.join(WORK, tag + '_tpl.bin'), os.path.join(WORK, tag + '_masks.bin')
-    r = subprocess.run([a.symtpl, str(t), a.gens, str(mu), str(a.xsub), fb, fm], capture_output=True, text=True)
+    r = subprocess.run([(a.symtpl or workdir.bin('symtpl')), str(t), a.gens, str(mu), str(a.xsub), fb, fm], capture_output=True, text=True)
     print(r.stderr.strip(), file=sys.stderr)
     if r.returncode:
         sys.exit('symtpl failed')
@@ -96,7 +102,7 @@ def main():
             var = [struct.unpack('2i', f.read(8)) for _ in range(nv)]
             lists.append((masks, var))
     os.remove(fm)
-    j = subprocess.run([a.join4x, fb, str(a.bk), '8000000', '1'], capture_output=True, text=True)
+    j = subprocess.run([(a.join4x or workdir.bin('join4x')), fb, str(a.bk), '8000000', '1'], capture_output=True, text=True)
     os.remove(fb)
     sols = [list(map(int, ln.split()[1:5])) for ln in j.stdout.splitlines() if ln.startswith('SOL')]
     tot = [ln for ln in j.stdout.splitlines() if ln.startswith('TOTAL')]
@@ -260,7 +266,7 @@ def main():
         if key in cache:
             return cache[key]
         fn = os.path.join(WORK, f'{tag}_{len(cache)}.lst')
-        subprocess.run([a.odmc, str(t), a.gens, str(blk), entries(seq, blk), str(rs), fn], check=True,
+        subprocess.run([(a.odmc or workdir.bin('odmc')), str(t), a.gens, str(blk), entries(seq, blk), str(rs), fn], check=True,
                        capture_output=True)
         with open(fn, 'rb') as f:
             n, D = struct.unpack('2i', f.read(8))
@@ -286,7 +292,7 @@ def main():
                 f.write((2 * L[1][2].astype(np.int32)).astype(np.int16).tobytes())
                 f.write(L[2][2].tobytes())
                 f.write(b'\0' * (2 * D))
-            jj = subprocess.run([a.join4x, fn, str(a.k)], capture_output=True, text=True)
+            jj = subprocess.run([(a.join4x or workdir.bin('join4x')), fn, str(a.k)], capture_output=True, text=True)
             os.remove(fn)
             ss = [list(map(int, ln.split()[1:5])) for ln in jj.stdout.splitlines() if ln.startswith('SOL')]
             tt = [ln for ln in jj.stdout.splitlines() if ln.startswith('TOTAL')]
@@ -294,7 +300,7 @@ def main():
             for s in ss:
                 codes = []
                 for (seq, blk), lst, idx in zip(((tpl[0], 5), (tpl[1], 2), (tpl[2], 3)), L, s[:3]):
-                    out = subprocess.run([a.odmc, str(t), a.gens, str(blk), entries(seq, blk), '0', '--decode',
+                    out = subprocess.run([(a.odmc or workdir.bin('odmc')), str(t), a.gens, str(blk), entries(seq, blk), '0', '--decode',
                                           str(int(lst[3][idx]))], capture_output=True, text=True).stdout.split()
                     # odmc codes: +-2 = x part, +-3 = y part -> +-1 = x, +-2 = y
                     codes.append([int(c) // 2 if abs(int(c)) == 2 else 2 * (int(c) // 3) for c in out])

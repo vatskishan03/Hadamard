@@ -1,4 +1,4 @@
-"""Symmetric Hadamard matrices of order 4q with an involution of 2q - 2 fixed points (NOTES.md §64).
+"""Symmetric Hadamard matrices of order 4q with an involution of 2q - 2 fixed points (search/NOTES.md §63).
 
 A symmetric H of order 4q with a permutation automorphism σ of order 2, f = 2q - 2 fixed points and t = q + 1
 two-cycles is, in the basis (fixed points, first points of the pairs, second points),
@@ -19,6 +19,10 @@ sign pattern of P, and backtracks on symmetry and the Gram condition.
     python3 search/sym_bigf.py 3      # order 12: Q-parts and completions
     python3 search/sym_bigf.py 7      # order 28: Q-parts for π with 0 or 4 fixed points; V only for 0 or 2, so
                                       # the completions have π fixed-point-free (Paley's V, 2 fixed points, fails)
+
+Only q = 3 and 7 are accepted: B is the first q + 1 columns of Paley's matrix of order 2q - 2, which is the only B
+up to equivalence for these q (for q = 11 there are 235 classes of B, search/NOTES.md §66). The completions (V by
+CP-SAT) need OR-Tools; the Q-parts need only NumPy.
 """
 import itertools
 import sys
@@ -125,6 +129,8 @@ def weighing_on_pattern(zero, q):
 
 
 def main(q):
+    if q not in (3, 7):
+        raise SystemExit('B is unique only for q = 3, 7; see search/NOTES.md §66 for q = 11')
     f, n = 2 * q - 2, q + 1
     B = paley1(f - 1)[:, :n]
     for k in range(n % 2, n + 1, 2):
@@ -156,4 +162,6 @@ def main(q):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        raise SystemExit(__doc__)
     main(int(sys.argv[1]))

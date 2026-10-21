@@ -1,20 +1,25 @@
 #!/usr/bin/env python3
 """Symmetric Hadamard matrices of order 4q, q = 1 (mod 4) a prime, from a periodic Golay pair of length (q - 1)/2
-(verify.py construction `symmetric-involution`; symmetric/PERIODIC_GOLAY.md, NOTES.md section 55).
+(verify.py construction `symmetric-involution`; symmetric/PERIODIC_GOLAY.md, search/NOTES.md section 65).
 
-    python3 search/sym_involution.py targets          census-undecided prime powers q = 5 (mod 8) and the input K they need
+    python3 search/sym_involution.py targets          census-undecided primes q = 5 (mod 8) and the input K each needs
     python3 search/sym_involution.py certify q [...]  writes symmetric/<4q>/certificate.json
 
-The pairs: length 50 over Z_2 x Z_5^2, from our cyclotomic search over GF(25) (classes of index 8, round 9 of
-October 18); length 74 over Z_74, Dokovic and Kotsireas (Numer. Algorithms 69 (2015) 827-845, arXiv:1310.5773),
-parameter set (74; 36, 31; 30), the sets as unions of orbits of H = {1, 47, 63}.
+A directory that already holds a certificate is never overwritten.
+
+The pairs: length 50 over Z_2 x Z_5^2, from an exhaustive enumeration over GF(25) of ternary quadruples constant
+on the cosets of the subgroup of index 8 (program not included); length 74 over Z_74, Dokovic and Kotsireas (Numer.
+Algorithms 69 (2015) 523-530, arXiv:1310.5773), parameter set (74; 36, 31; 30), the sets as unions of orbits of
+H = {1, 47, 63}.
 """
 import hashlib, json, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "verify"))
+sys.path.insert(0, str(ROOT / "search"))
 import verify  # noqa: E402
+import sym_propus_miyamoto as SPM  # noqa: E402
 
 
 def _signs(row):
@@ -33,7 +38,7 @@ PAIRS = {
     101: dict(group="2x5^2", t=25,
               a="++-+-+-+++--++++++-+--+-++++-+++---++------+-++-++",
               b="+--++-++++-+++++---+++-+-----+-++++-+-++----+++-+-",
-              source="our cyclotomic search over GF(25) (October 18, 2026)"),
+              source="enumeration over GF(25), index 8 (search/NOTES.md section 65; program not included)"),
     149: dict(group="74", t=37,
               a=_signs(_orbit_seq(74, [1, 47, 63], [1, 4, 6, 7, 9, 12, 22, 23, 28, 29, 34, 42])),
               b=_signs(_orbit_seq(74, [1, 47, 63], [1, 2, 4, 6, 9, 12, 17, 21, 22, 37, 55])),
@@ -57,38 +62,38 @@ def cert(q):
 
 
 def targets():
-    census = {int(x) for x in (ROOT / "search/data/symmetric_census_undecided.txt").read_text().split()
-              if x.isdigit()}
     done = {int(d.name) // 4 for d in (ROOT / "symmetric").iterdir() if d.name.isdigit()}
-
-    def prime_power(n):
-        p = next(d for d in range(2, n + 1) if n % d == 0)
-        while n % p == 0:
-            n //= p
-        return n == 1
 
     def two_squares(n):
         return any(int((n - a * a) ** 0.5) ** 2 == n - a * a for a in range(int(n ** 0.5) + 1))
 
-    for q in sorted(census - done - {189, 473, 1139}):
-        if q % 8 == 5 and prime_power(q):
+    for q in sorted(set(SPM.undecided()) - done):
+        if q % 8 == 5 and SPM.is_prime(q):
             w = (q - 1) // 4
             need = (f"K = [[P, Q], [Q, P]] of order {q - 1}, e.g. a periodic Golay pair of length {(q - 1) // 2}"
                     if two_squares(w) else "no input K exists: (q - 1)/4 is not a sum of two squares")
             print(q, 4 * q, need, "(available)" if q in PAIRS else "")
 
 
-def main():
-    if sys.argv[1] == "targets":
-        targets()
-    elif sys.argv[1] == "certify":
-        for q in map(int, sys.argv[2:]):
-            c = cert(q)
-            d = ROOT / "symmetric" / str(4 * q)
-            d.mkdir(exist_ok=True)
-            (d / "certificate.json").write_text(json.dumps(c, indent=1) + "\n")
-            print(f"symmetric/{4 * q}: {c['sha256']}")
+def certify(qs):
+    for q in qs:
+        if q not in PAIRS:
+            raise SystemExit(f"no periodic Golay pair for q = {q} (available: {', '.join(map(str, PAIRS))})")
+    dirs = {q: ROOT / "symmetric" / str(4 * q) for q in qs}
+    for d in dirs.values():
+        if (d / "certificate.json").exists():
+            raise SystemExit(f"{d} exists")
+    for q, d in dirs.items():
+        c = cert(q)
+        d.mkdir(exist_ok=True)
+        (d / "certificate.json").write_text(json.dumps(c, indent=1) + "\n")
+        print(f"symmetric/{4 * q}: {c['sha256']}")
 
 
 if __name__ == "__main__":
-    main()
+    if sys.argv[1:2] == ["targets"]:
+        targets()
+    elif sys.argv[1:2] == ["certify"]:
+        certify([int(x) for x in sys.argv[2:]])
+    else:
+        raise SystemExit(__doc__)

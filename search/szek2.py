@@ -34,8 +34,9 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gsgroup import Group, Orbits, read_list, group_matrix  # noqa: E402
+import workdir as W  # noqa: E402
 
-WORK = os.path.join(os.environ.get('HADAMARD_WORK', '/tmp/hadamard-work'), 'tmp')
+WORK = W.tmpdir()
 
 
 def build(G, a, b):
@@ -78,8 +79,10 @@ def main():
     ap.add_argument('--norm', default='')
     ap.add_argument('--maxlist', type=float, default=3e7)
     ap.add_argument('--k', type=int, default=2)
-    ap.add_argument('--gdfs', default='/tmp/hadamard-work/bin/gdfs')
-    ap.add_argument('--join4x', default='/tmp/hadamard-work/bin/join4x')
+    ap.add_argument('--gdfs', default=None,
+                    help='binary built from gdfs.c (default: compiled into $HADAMARD_WORK/bin on first use)')
+    ap.add_argument('--join4x', default=None,
+                    help='binary built from join4x.c (default: compiled into $HADAMARD_WORK/bin on first use)')
     ap.add_argument('--dry', action='store_true')
     ap.add_argument('--sym', action='store_true')
     a = ap.parse_args()
@@ -129,7 +132,7 @@ def main():
     for nm, var, target in (('A', varA, -1 if a.sym else 0), ('B', varB, rsb)):
         tp, lp = os.path.join(WORK, f'{tag}_{nm}.tab'), os.path.join(WORK, f'{tag}_{nm}.lst')
         O.write_tables(tp, var, 0, target, 1)
-        r = subprocess.run([a.gdfs, tp, lp], capture_output=True, text=True)
+        r = subprocess.run([(a.gdfs or W.bin('gdfs')), tp, lp], capture_output=True, text=True)
         if r.returncode:
             sys.exit(r.stderr)
         n, D, vec, masks = read_list(lp)
@@ -144,7 +147,7 @@ def main():
         f.write(np.ascontiguousarray(lists[1][1]).tobytes())
         f.write(b'\0' * (2 * D))
         f.write(b'\0' * (2 * D))
-    j = subprocess.run([a.join4x, fn, str(a.k)], capture_output=True, text=True)
+    j = subprocess.run([(a.join4x or W.bin('join4x')), fn, str(a.k)], capture_output=True, text=True)
     os.remove(fn)
     sols = [list(map(int, ln.split()[1:5])) for ln in j.stdout.splitlines() if ln.startswith('SOL')]
     tot = [ln for ln in j.stdout.splitlines() if ln.startswith('TOTAL')]

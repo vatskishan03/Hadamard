@@ -15,7 +15,7 @@ that Lebedev searched exhaustively at lengths 64, 70 and 76.
 
 Search: A constant on the orbits of a multiplier group H <= Z_l^*, r and s on the orbits of <H, -1>; the condition
 holds on the <H, -1>-classes. The (r, s) pairs are tabulated (all of them) and the A-list is probed against the
-table (exact; search/qlp_bin_join.c is not needed at these sizes: numpy sort join).
+table (exact, by a numpy sort join).
 
     python3 search/qlp_bin.py triage l [--maxa 3e8]
     python3 search/qlp_bin.py search l g [g2] [--log FILE]
