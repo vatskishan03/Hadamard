@@ -5150,3 +5150,48 @@ calls the same builder.
 
 **Leftovers of round 22** (run alone): the ℤ₃² family at N = 725, structures [61], [37], [74], [76] and [38] complete,
 0 cores; [68] has no tuple with a border.
+
+## 79. Round 24: the two-level sampler over ℤ₂ × ℤ_p for composite p (October 20)
+
+No core was found, so 955, 1291, 2731 and 2971 stay open. The lens generalised `flc263` (§78) to the bordered array
+over ℤ₂ × ℤ_p for any odd p and any H ≤ ℤ_p*, and triaged every subgroup with −1 ∉ H for N = 239, 323, 683 and 743
+(p = 119, 161, 341, 371). Scratchpad `round24/z2b-odd/`.
+
+**The sampler** (`flc24`). Orbits may have unequal sizes (fixed points included), so row sums and zero counts are
+weighted. Each weighted zero-count stratum is sampled exactly uniformly by a dynamic program.
+- Validated against `flc10` on primes (p = 13: 1792; p = 31: 764880 for h = 3, 0 for h = 5), against an independent
+  brute force without the split (p = 15 ⟨4⟩: 34560, ⟨11⟩: 19200; p = 13 with −1 ∈ H: 576) and against `gtri` on 15
+  empty structures at p = 21 to 39.
+- Positive control: at p = 21, H = ⟨8⟩, it found 104, 38417 and 16570 verified solutions; one went through `chain.py`
+  to H(684).
+
+**Proved.**
+- *Split for any odd p.* The identities of §78 hold with fixed points; c_A(0) = c_B(0) = 1 always, while c(0) = 0 is
+  forced for C and D only when the nonzero H-orbit sizes have a common factor.
+- *Weighted zeros.* Z_A + Z_B + Z_C + Z_D = 2p, with Z_k the number of zeros of c_k on ℤ_p.
+- *New: Z_C ≡ Z_D (mod 4)* in every solution. From the ℤ₂ lemma Σ D_k(1)² = 8p + 2 with D_A ≡ −1 + 2Z_A (mod 8) and
+  D_C = 2(Z_C mod 2), reduced mod 16 and combined with the zero count. Checked on 121643 solutions at p = 15, 21, 31,
+  37 and 131: no violation. At p = 21 the joint stratum matters: (13, 13) gave 0 completions in 16858 instances,
+  (13, 9) gave 7169.
+- *The bound 2(4h − 1)² ≤ 8p + 2 of §78 needs equal orbit sizes.* It fails for composite p: N = 743, H = ⟨15⟩
+  (h = 13 > 9) has 16 feasible ℤ₂ tuples.
+
+**Triage** (exact ℤ₂ and ℤ_d compressions, then the ℤ₂-conditioned Gaussian, log₁₀ E).
+- *N = 239.* ⟨4⟩ (round 21's ⟨81⟩, exhaustively empty) −16.4; ⟨13⟩ +0.85; ⟨64⟩ (round 21's ⟨183⟩) +3.22; ⟨18⟩ +8.3;
+  ⟨50⟩ +14.3. Most larger H die on ℤ₂, ℤ₇ or ℤ₁₇.
+- *N = 323.* Everything with |H| ≥ 6 is dead on ℤ₂ or has E < 10⁻⁴⁰, except ⟨93⟩ (+7.9, 69 orbits).
+- *N = 683, 743.* Every live structure has E ≤ 10^−4.8.
+
+**Calibration** (HEURISTIC). The Gaussian is accurate to 0.9 in log₁₀ on composite p where H acts as −1 on a factor
+(p = 15, 21). On the shape of N = 239 ⟨64⟩ (trivial on one prime factor, cyclic of order 4 containing −1 on the
+other) it overestimates by at least 10²: p = 39 and 51 are exactly empty against 10^0.7 and 10^1.4 predicted, and
+p = 65 gave 0 completions over 88.6% of the hash classes against 10^2.4. A cost model checked on `flc263` (optimistic
+by about 10×) puts N = 239 ⟨64⟩ at about 4 · 10⁵ CPU-years to a first core, ⟨13⟩ at 3 · 10⁶.
+
+**Runs** (6 to 12 minutes each, 0 level-1 instances, as the model predicts): N = 239 ⟨64⟩ in the stratum
+Z_C = Z_D = 79 and uniformly; N = 743 ⟨15⟩; N = 683 ⟨5⟩. Exhaustive quotient joins cost 10²³ to 10⁴³ pair tests.
+
+**Reading.** The bordered cyclic ℤ₂ × ℤ_p route is closed for these four targets: each structure is below one expected
+solution or about 10⁵ CPU-years away. The round-22 leftovers T239 [16], [17] (§77) could not be run: the sweep finds
+no usable quotient for them. T725b [71] and [72] have no bordered tuple in the patterns (1, 1, 0, 4) and (1, 3, 2, 2);
+(3, 3, 0, 0) (about 3 · 10¹¹ pair work) timed out after an hour.
