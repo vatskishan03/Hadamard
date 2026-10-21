@@ -8,10 +8,10 @@ arithmetic.
 A Hadamard matrix of order n is an n × n matrix H with entries ±1 and H Hᵀ = n I. It can exist only for n = 1, 2 or
 n ≡ 0 (mod 4), and the Hadamard conjecture asserts that it exists for every multiple of 4. In August 2026 Alpöge,
 Voinov and Reynolds-Haertle constructed the twelve unresolved orders below 2000 [1], and Schneider constructed
-2060 [2]. This repository constructs the next three, 2092, 2148 and 2284, and 27 more of the orders that Table 4 of
+2060 [2]. This repository constructs the next three, 2092, 2148 and 2284, and 28 more of the orders that Table 4 of
 Cati and Pasechnik [3] lists as unresolved, up to 11804. Our matrix of order 2292 turned out to have been preceded by
-an independent one [16]. The smallest unresolved order is now 2396 = 4 · 599. On the basis of Table 4, 87 orders below
-10000 (125 up to 4 · 2999) remain open, counting 2292 and 2588 (Middletownbooks/Hadamard [16]) as settled; 89 and 127
+an independent one [16]. The smallest unresolved order is now 2396 = 4 · 599. On the basis of Table 4, 86 orders below
+10000 (124 up to 4 · 2999) remain open, counting 2292 and 2588 (Middletownbooks/Hadamard [16]) as settled; 88 and 126
 if they are not counted ([FRONTIER.md](FRONTIER.md)).
 
 Most of the larger orders come from two block decompositions. Paley's matrix of order q + 1, q ≡ 3 (mod 8), is an
@@ -26,24 +26,26 @@ give a theorem: a skew-Hadamard matrix of order 3(q + 1) exists for every prime 
 
 ## Results
 
-| Family | Orders | New | New, but obtainable classically | First explicit construction | Concurrent |
-|---|---:|---:|---:|---:|---:|
-| Hadamard, unresolved in Table 4 [3] | [30](#unresolved-orders) | 13 | 14 | 2 | 1 |
-| Hadamard, omitted by Table 4 through Seberry–Yamada's Corollary 8.8(i) | [10](hadamard#orders-recorded-only-through-corollary-88i) | | | 10 | |
-| Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 | 124 | 49 | |
-| Skew-Hadamard (820 to 14384) | [101](skew) | 37 | 62 | 2 | |
-| Symmetric Hadamard (260 to 9892) | [91](symmetric) | 35 | 48 | | 8 |
-| Complex Hadamard (214 to 3398) | [17](complex-hadamard) | 3 | | 2 | 12 |
-| T-matrices (97, 109, 197) | [3](t-matrices) | 3 | | | |
+| Family | Orders | New | New, but obtainable classically | First explicit construction | Concurrent | Known |
+|---|---:|---:|---:|---:|---:|---:|
+| Hadamard, unresolved in Table 4 [3] | [31](#unresolved-orders) | 14 | 14 | 2 | 1 | |
+| Hadamard, omitted by Table 4 through Seberry–Yamada's Corollary 8.8(i) | [10](hadamard#orders-recorded-only-through-corollary-88i) | | | 10 | | |
+| Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 | 124 | 49 | | |
+| Hadamard, independent matrices of known orders | [7](hadamard) | | | | | 7 |
+| Skew-Hadamard (820 to 14384) | [104](skew) | 37 | 62 | 2 | | 3 |
+| Symmetric Hadamard (260 to 9892) | [100](symmetric) | 35 | 48 | | 8 | 9 |
+| Complex Hadamard (142 to 3398) | [94](complex-hadamard) | 4 | | 2 | 12 | 76 |
+| T-matrices (97, 109, 197) | [3](t-matrices) | 3 | | | | |
 
 The labels are defined in [NOVELTY.md](NOVELTY.md), which also lists the literature searched. "Obtainable
 classically" means that every ingredient, theorem or object, was published before 2026 and only their combination is
 new; a construction that needs a proof found in none of the sources read is New even when its inputs are classical.
-The orders beyond Table 4 and the complex orders 2102 and 3398 lie above the range of the reference tables and carry
-the labels "New, beyond the tables" and "New, beyond the tables, but obtainable classically". The repository also
-holds independent matrices of known orders (7 Hadamard, 3 skew, 9 symmetric and 76 complex), the first explicit
-amicable Hadamard matrices of orders 52, 76, 100 and 124 and new orthogonal designs
-([skew](skew#seberrys-theorem-with-new-ingredients)), and Williamson-type matrices of order 111
+Known marks independent matrices of orders constructed before. The Hadamard orders beyond Table 4 (n > 2999) lie above
+the range of Cati–Pasechnik's table, and 40244, 45044 and 51580 also above the Handbook's Table 1.53; the complex
+orders 2102 and 3398 lie above Table 11.2 of the 1992 survey. These carry the labels "New, beyond the tables" and "New,
+beyond the tables, but obtainable classically", counted above under New and New, but obtainable classically. The
+repository also holds the first explicit amicable Hadamard matrices of orders 52, 76, 100 and 124 and new orthogonal
+designs ([skew](skew#seberrys-theorem-with-new-ingredients)), and Williamson-type matrices of order 111
 ([near-williamson](near-williamson)).
 
 ## Verification
@@ -77,6 +79,7 @@ For each order 4n, n is listed as unresolved in Table 4 of Cati and Pasechnik [3
 | [2092](hadamard/2092) | 523 | Goethals–Seidel array [6] over ℤ₅₂₃, multiplier subgroup of order 9 | New |
 | [2148](hadamard/2148) | 537 = 3 · 179 | bordered Goethals–Seidel array over ℤ₃ × ℤ₁₇₈, border of size 12 | New |
 | [2284](hadamard/2284) | 571 | Goethals–Seidel array over ℤ₅₇₁, three blocks related by a multiplier of order 3 | Concurrent [13] |
+| [2572](hadamard/2572) | 643 | quaternary conference matrix of order 322 (zero-diagonal Szöllősi array over ℤ₁₆₁ = F₇ × ℤ₂₃, a Paley plug-in, multiplier subgroup of order 3), complex Yamada–Kiyasu template (q = 641), Turyn's doubling | New |
 | [2636](hadamard/2636) | 659 | bordered Goethals–Seidel array over ℤ₄ × ℤ₄ × ℤ₄₁, border of size 12 | New |
 | [3156](hadamard/3156) | 789 = 3 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks [14], T-matrices of order 3 [15] | New, but obtainable classically |
 | [3436](hadamard/3436) | 859 | quaternary conference matrix of order 430 (zero-diagonal Szöllősi array over ℤ₂₁₅, multiplier subgroup of order 6), complex Yamada–Kiyasu template (q = 857), Turyn's doubling | New |
@@ -152,9 +155,9 @@ Seberry–Yamada's Corollary 8.8(i), whose printed proof does not give Williamso
   and its bordered, character-bordered and twisted forms. Zaitsev et al. found all twelve concurrently and
   independently [13]; we claim no priority. The smallest open order is 334. Also the first explicit matrices of 1618
   and 1906, and explicit matrices of 76 orders 2N with 4N − 1 a prime power, which Ito's dicyclic Hadamard groups and
-  Egan's Theorem 4.5 [12] give ([complex-hadamard](complex-hadamard)). Quaternary conference matrices of orders 430,
-  526 and 850 give quaternary Hadamard matrices of orders 1718 (open on Zaitsev et al.'s list), 2102 and 3398 and, by
-  Turyn's doubling, 3436, 4204 and 6796.
+  Egan's Theorem 4.5 [12] give ([complex-hadamard](complex-hadamard)). Quaternary conference matrices of orders 322,
+  430, 526 and 850 give quaternary Hadamard matrices of orders 1286 and 1718 (open on Zaitsev et al.'s list), 2102
+  and 3398 and, by Turyn's doubling, 2572, 3436, 4204 and 6796.
 - **T-matrices** of orders 97, 109 and 197 ([t-matrices](t-matrices)). 97 and 109 have the form 6m + 1 and may appear
   in Lou, Xia and Xia's work on T-matrices of that order, which we could not read.
 
@@ -176,7 +179,7 @@ Seberry–Yamada's Corollary 8.8(i), whose printed proof does not give Williamso
 | A Hadamard matrix of order (q − 1)/2 in the propus array; Yamada–Kiyasu in symmetric quaternary form | symmetric orders | [symmetric](symmetric), [NOTES.md](NOTES.md) §30–31 |
 | [[P, Q], [Q, P]] with Paley's matrices from a periodic Golay pair; a symmetric conference matrix in I ⊗ X + C ⊗ Y (the case r = 1 of Spence's theorem) | symmetric 404, 596; 612, 1300, 1740, 4900, 7564 (Known) | [symmetric/PERIODIC_GOLAY.md](symmetric/PERIODIC_GOLAY.md), [symmetric/CONFERENCE_PLUG.md](symmetric/CONFERENCE_PLUG.md), [search/NOTES.md](search/NOTES.md) §65, §68 |
 | Szöllősi's array and its bordered, character-bordered and twisted forms | complex orders | [complex-hadamard](complex-hadamard) |
-| Quaternary conference matrices from the zero-diagonal Szöllősi array, plain or bordered (for 3436 and 4204 found by two-level sampling: compress, sample compressed instances, complete each exactly through its fibres, as in FLC [17]), in the complex Yamada–Kiyasu template (as in Zaitsev et al.'s QH470 to QH1526 [13]), and Turyn's doubling | 3436, 4204, 6796 | [hadamard/6796](hadamard/6796), [NOTES.md](NOTES.md) §31, §34, [search/NOTES.md](search/NOTES.md) §74–78 |
+| Quaternary conference matrices from the zero-diagonal Szöllősi array, plain or bordered (for 2572, 3436 and 4204 found by two-level sampling: compress, sample compressed instances, complete each exactly through its fibres, as in FLC [17]; for 2572 on a Paley plug-in structure), in the complex Yamada–Kiyasu template (as in Zaitsev et al.'s QH470 to QH1526 [13]), and Turyn's doubling | 2572, 3436, 4204, 6796 | [hadamard/6796](hadamard/6796), [NOTES.md](NOTES.md) §31, §34, [search/NOTES.md](search/NOTES.md) §74–83 |
 
 [NOTES.md](NOTES.md) and [search/NOTES.md](search/NOTES.md) are the research notebooks: the constructions, the
 structures that turned out to be empty, the obstructions, and calibrations of the solution-count estimates.

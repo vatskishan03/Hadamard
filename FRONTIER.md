@@ -1,9 +1,9 @@
 # Unresolved orders
 
-Table 4 of Cati and Pasechnik lists 195 odd n ≤ 2999 for which no Hadamard matrix of order 4n was known in 2025. 70
-of them are settled now, and the 125 that remain are listed below with the cheapest search structures known for each.
-The smallest is n = 599, order 2396. Of the 125, 87 have 4n < 10000. Both counts treat n = 573 and 647 (orders 2292
-and 2588, Middletownbooks/Hadamard) as settled; if they are not, 127 remain and 89 have 4n < 10000.
+Table 4 of Cati and Pasechnik lists 195 odd n ≤ 2999 for which no Hadamard matrix of order 4n was known in 2025. 71
+of them are settled now, and the 124 that remain are listed below with the cheapest search structures known for each.
+The smallest is n = 599, order 2396. Of the 124, 86 have 4n < 10000. Both counts treat n = 573 and 647 (orders 2292
+and 2588, Middletownbooks/Hadamard) as settled; if they are not, 126 remain and 88 have 4n < 10000.
 
 Settled:
 
@@ -16,12 +16,12 @@ Settled:
   ([NOTES.md](NOTES.md) §7);
 - 2 by the GitHub repository Middletownbooks/Hadamard: n = 573 (order 2292, 9 October 2026; our independent matrix is
   [hadamard/2292](hadamard/2292)) and n = 647 (order 2588, 14 October 2026);
-- 30 in this repository:
-  - n = 523, 537, 571, 659, 859, 933, 991, 1051, 1123, 1255, 1483, 1699 and 2293 by searches and recursive theorems
-    (orders [2092](hadamard/2092), [2148](hadamard/2148), [2284](hadamard/2284), [2636](hadamard/2636),
-    [3436](hadamard/3436), [3732](hadamard/3732), [3964](hadamard/3964), [4204](hadamard/4204),
-    [4492](hadamard/4492), [5020](hadamard/5020), [5932](hadamard/5932), [6796](hadamard/6796) and
-    [9172](hadamard/9172)); 571 concurrently with Zaitsev et al.;
+- 31 in this repository:
+  - n = 523, 537, 571, 643, 659, 859, 933, 991, 1051, 1123, 1255, 1483, 1699 and 2293 by searches and recursive
+    theorems (orders [2092](hadamard/2092), [2148](hadamard/2148), [2284](hadamard/2284), [2572](hadamard/2572),
+    [2636](hadamard/2636), [3436](hadamard/3436), [3732](hadamard/3732), [3964](hadamard/3964),
+    [4204](hadamard/4204), [4492](hadamard/4492), [5020](hadamard/5020), [5932](hadamard/5932),
+    [6796](hadamard/6796) and [9172](hadamard/9172)); 571 concurrently with Zaitsev et al.;
   - n = 789, 1315, 1509, 1589, 1689, 1841, 1915, 2155, 2515, 2661, 2733, 2815, 2893 and 2951 by Paley's matrix in
     sixteen circulant blocks times T-matrices, two published theorems that the tables did not combine
     ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md));
@@ -63,8 +63,8 @@ one applies:
   squares.
 - complex Yamada–Kiyasu: a quaternary conference matrix of order (n + 1)/2 (zero diagonal, entries ±1, ±i elsewhere),
   when n − 2 is a prime power ≡ 1 (mod 4) (the builder takes primes). It has no sum-of-two-squares condition; it
-  settled 859, 1051 and 1699 ([hadamard/3436](hadamard/3436), [hadamard/4204](hadamard/4204),
-  [hadamard/6796](hadamard/6796), [NOTES.md](NOTES.md) §31, §34).
+  settled 643, 859, 1051 and 1699 ([hadamard/2572](hadamard/2572), [hadamard/3436](hadamard/3436),
+  [hadamard/4204](hadamard/4204), [hadamard/6796](hadamard/6796), [NOTES.md](NOTES.md) §31, §34).
 - Cooper–Wallis: Williamson-type matrices of order w, for n = t·w with T-matrices of order t known. Listed for w = 191
   (t = 5, 9, 15), where neither T-matrices of order 191 nor near-Williamson matrices of order 191 with a multiplier
   symmetry exist ([search/NOTES.md](search/NOTES.md) §6, §37). Also listed for w = 857, whose Williamson-type matrices
@@ -80,7 +80,6 @@ one applies:
 | 4n | n | GS: \|H\| | cosets | classes | log₁₀ E | log₁₀ W | Spence: group | log₁₀ W | Route |
 |---:|---:|---:|---:|---:|---:|---:|---|---:|---|
 | 2396 | 599 | – | – | – | – | – | ℤ₂ × ℤ₁₃ × ℤ₂₃ | 36.4 |  |
-| 2572 | 643 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 322 (cannot exist); complex Yamada–Kiyasu from a quaternary one |
 | 2676 | 669 | – | – | – | – | – | – | – |  |
 | 2876 | 719 | – | – | – | – | – | – | – |  |
 | 2956 | 739 | 9 | 83 | 41 | 33.5 | 22.7 | ℤ₂ × ℤ₃ × ℤ₃ × ℤ₄₁ | 42.4 |  |

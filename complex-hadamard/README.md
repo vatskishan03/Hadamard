@@ -22,17 +22,17 @@ Recent progress at the bottom of that range:
   22 October), gives explicit matrices of 122 orders 2N: 62 by a Paley-type construction, 28 from Szöllősi-type arrays
   (five of them near-Williamson), 27 by unpublished methods and five that were known before.
 
-This directory constructs 15 orders that had no construction in the published work we checked. Twelve of them, 214,
+This directory constructs 16 orders that had no construction in the published work we checked. Twelve of them, 214,
 238, 302, 326, 366, 382, 426, 494, 518, 534, 754 and 1558, are on Zaitsev's page, found concurrently and
-independently; we claim no priority. Three come from quaternary conference matrices of orders 430, 526 and 850 and the
-Yamada–Kiyasu template ([CONFERENCE.md](CONFERENCE.md)): 1718, which is on Zaitsev's list of unknown orders, is New,
-and 2102 and 3398, above the 1992 table and Zaitsev's range, are New, beyond the tables. The directory also gives
-explicit matrices of 76 orders that are blank in the 1992 table but known: for q ≡ 3 (mod 4) a prime power, Paley's
-matrix of order q + 1 makes the dicyclic group of order 2(q + 1) a Hadamard group (Ito), and Egan (Des. Codes
-Cryptogr. 87 (2019) 67–74, Theorem 4.5) turns this into a complex Hadamard matrix of order (q + 1)/2. So every order
-2N with N odd and 4N − 1 a prime power is known; [PALEY.md](PALEY.md) gives an independent, direct proof. Two more
-orders, 1618 and 1906, which the 1992 table records only through Seberry–Yamada's Corollary 8.8(i) (whose printed
-proof fails), get their first explicit matrices here, from a completion of that proof (table below;
+independently; we claim no priority. Four come from quaternary conference matrices of orders 322, 430, 526 and 850 and
+the Yamada–Kiyasu template ([CONFERENCE.md](CONFERENCE.md)): 1286 and 1718, which are on Zaitsev's list of unknown
+orders, are New, and 2102 and 3398, above the 1992 table and Zaitsev's range, are New, beyond the tables. The
+directory also gives explicit matrices of 76 orders that are blank in the 1992 table but known: for q ≡ 3 (mod 4) a
+prime power, Paley's matrix of order q + 1 makes the dicyclic group of order 2(q + 1) a Hadamard group (Ito), and Egan
+(Des. Codes Cryptogr. 87 (2019) 67–74, Theorem 4.5) turns this into a complex Hadamard matrix of order (q + 1)/2. So
+every order 2N with N odd and 4N − 1 a prime power is known; [PALEY.md](PALEY.md) gives an independent, direct proof.
+Two more orders, 1618 and 1906, which the 1992 table records only through Seberry–Yamada's Corollary 8.8(i) (whose
+printed proof fails), get their first explicit matrices here, from a completion of that proof (table below;
 [NOTES.md](../NOTES.md) §19).
 
 ## Construction
@@ -137,7 +137,7 @@ into a two-list search, are in [TWISTED.md](TWISTED.md).
 
 The zero-diagonal form of the array and its bordered form output quaternary conference matrices, and the Yamada–Kiyasu
 template turns one of order (q + 3)/2 into a quaternary Hadamard matrix of order 2(q + 2). All are stated and proved
-in [CONFERENCE.md](CONFERENCE.md). Orders 1718, 2102 and 3398 come from them.
+in [CONFERENCE.md](CONFERENCE.md). Orders 1286, 1718, 2102 and 3398 come from them.
 
 ## Matrices
 
@@ -163,18 +163,19 @@ row-wise version; the two may be equivalent ([NOTES.md](../NOTES.md) §20). 1558
 | 754 | 377 = 13 · 29 | ⟨9⟩, order 42 | 27, 27; 5, 5 | [C754.json](C754.json) |
 | 1558 | 779 = 19 · 41 | ⟨49⟩, order 60 | 5, 7; 39, 39 | [C1558.json](C1558.json) |
 
-**Orders from quaternary conference matrices** (New: 1718; New, beyond the tables: 2102, 3398). A quaternary
+**Orders from quaternary conference matrices** (New: 1286, 1718; New, beyond the tables: 2102, 3398). A quaternary
 conference matrix of order c has zero diagonal, entries 1, −1, i, −i elsewhere and Q Q* = (c − 1) I. For a prime q ≡ 1
 (mod 4), one of order (q + 3)/2 gives a quaternary Hadamard matrix of order 2(q + 2) by the Yamada–Kiyasu template
 ([CONFERENCE.md](CONFERENCE.md); [NOTES.md](../NOTES.md) §31, §34). The template has the form of Zaitsev et al.'s
 QH470, QH566, QH806, QH1142 and QH1526, whose page states no method. The real Hadamard matrices of twice these orders
 in [hadamard](../hadamard) are their Turyn doubles, and `verify/verify.py` builds them from the same certificate data.
-- 1718 is one of the open orders below 2000.
+- 1286 and 1718 are open orders below 2000.
 - 2102 and 3398 lie above the range of the 1992 table and of Zaitsev's page. Since any such matrix gives a real
   Hadamard matrix of twice its order, and those real orders were open, none was known.
 
 | order 2N | N | conference matrix | file |
 |---:|---|---|---|
+| 1286 | 643 | order 322: zero-diagonal Szöllősi array over ℤ₁₆₁ = F₇ × ℤ₂₃, the squares of F₇* (order 3), a Paley plug-in; q = 641 ([hadamard/2572](../hadamard/2572)) | [C1286.json](C1286.json) |
 | 1718 | 859 | order 430: zero-diagonal Szöllősi array over ℤ₂₁₅, ⟨49⟩ of order 6; q = 857 ([hadamard/3436](../hadamard/3436)) | [C1718.json](C1718.json) |
 | 2102 | 1051 | order 526: bordered zero-diagonal Szöllősi array over ℤ₂₆₂, ⟨53⟩ of order 5; q = 1049 ([hadamard/4204](../hadamard/4204)) | [C2102.json](C2102.json) |
 | 3398 | 1699 | order 850: zero-diagonal Szöllősi array over ℤ₅² × ℤ₁₇, symmetry group of order 24; q = 1697 ([hadamard/6796](../hadamard/6796)) | [C3398.json](C3398.json) |
@@ -286,9 +287,9 @@ of order 773, which Lemma 26 gives from Seberry–Yamada's symmetric ones of ord
 Each certificate gives N, the multiplier group, the row sums, the first rows of A, B, C, D (`+`, `-`) (for the
 bordered array also the group of order N − 1 and the border; for the character-bordered array the group, the fibre
 labels of φ and the three border matrices; for Paley's matrix only q, and the modulus of GF(q) when q is not prime;
-for the orders 1718, 2102 and 3398 the prime q, the non-square r and ξ for Yamada's circulants and the core, described
-in [CONFERENCE.md](CONFERENCE.md#certificates-and-verification)) and the SHA-256 of the canonical text of K: 2N lines
-of 2N digits, digit e standing for the entry iᵉ.
+for the orders 1286, 1718, 2102 and 3398 the prime q, the non-square r and ξ for Yamada's circulants and the core,
+described in [CONFERENCE.md](CONFERENCE.md#certificates-and-verification)) and the SHA-256 of the canonical text of K:
+2N lines of 2N digits, digit e standing for the entry iᵉ.
 
 ```
 python3 verify/verify_complex.py            # all certificates
@@ -296,9 +297,9 @@ python3 verify/verify_complex.py --write 142 # also writes complex-hadamard/C142
 ```
 
 This rebuilds K from the four sequences alone (from q, with its own arithmetic in GF(q), for Paley's matrix; the
-orders 1718, 2102 and 3398 also use q, r and ξ and the builder of `verify/verify.py`) and checks every entry and K
-K* = 2N I exactly. The products are float64 matrix products of the real and imaginary parts, which are exact: every
-entry is 0 or ±1 and every partial sum is an integer of absolute value at most 2N, far below 2⁵³. All 93 certificates
+orders 1286, 1718, 2102 and 3398 also use q, r and ξ and the builder of `verify/verify.py`) and checks every entry and
+K K* = 2N I exactly. The products are float64 matrix products of the real and imaginary parts, which are exact: every
+entry is 0 or ±1 and every partial sum is an integer of absolute value at most 2N, far below 2⁵³. All 94 certificates
 take about three minutes.
 
 ## Status
@@ -346,10 +347,10 @@ concurrent ones:
   matrix has a quaternary form of order 2(q + 2) ([NOTES.md](../NOTES.md) §31,
   [symmetric/YAMADA_KIYASU.md](../symmetric/YAMADA_KIYASU.md)); it gives 206, 302 and 366 (q = 101, 149, 181;
   skew-Hadamard matrices of orders 52, 76, 92). With a quaternary conference matrix of order (q + 3)/2, q ≡ 1 (mod 4)
-  prime, it gives 1718, 2102 and 3398 (table above, [CONFERENCE.md](CONFERENCE.md)). Zaitsev's QH590, QH638, QH782,
-  QH926, QH1310, QH1358, QH1646 and QH1886 have the first form and QH470, QH566, QH806, QH1142 and QH1526 the second;
-  the page states no method. For no open N is N − 2 a prime power ≡ 5 (mod 8), so the skew-core form settles no open
-  order.
+  prime, it gives 1286, 1718, 2102 and 3398 (table above, [CONFERENCE.md](CONFERENCE.md)). Zaitsev's QH590, QH638,
+  QH782, QH926, QH1310, QH1358, QH1646 and QH1886 have the first form and QH470, QH566, QH806, QH1142 and QH1526 the
+  second; the page states no method. For no open N is N − 2 a prime power ≡ 5 (mod 8), so the skew-core form settles
+  no open order.
 - Zaitsev's page (above). Its 122 matrices were downloaded and checked exactly
   ([`search/data/complex_zaitsev_2026.txt`](../search/data/complex_zaitsev_2026.txt)). Besides the 12 orders of the
   first table it covers 23 more that are blank in the 1992 table, among them 470, 490, 686, 1306, 1466, 1706 and
@@ -371,13 +372,13 @@ none of its four sequences has the PAF spectrum of any of ours, a spectrum uncha
 and reversal, so the matrices differ. The orders are Concurrent; this directory gives a second, independent
 construction of each, with a certificate that `verify/verify_complex.py` checks from the four sequences alone.
 
-**What remains open** (`python3 search/complex_status.py`): 114 orders 2N below 2000 with N odd have no quaternary
-Hadamard matrix known to us: the list of unknown orders on Zaitsev's page, minus 1718. The smallest are 334, 358,
-418, 438, 446, 478 and 498. Order 334 (N = 167) is out of reach of every structure we have: ℤ₁₆₇ has no usable
+**What remains open** (`python3 search/complex_status.py`): 113 orders 2N below 2000 with N odd have no quaternary
+Hadamard matrix known to us: the list of unknown orders on Zaitsev's page, minus 1286 and 1718. The smallest are 334,
+358, 418, 438, 446, 478 and 498. Order 334 (N = 167) is out of reach of every structure we have: ℤ₁₆₇ has no usable
 multiplier group, and on ℤ₁₆₆ = ℤ₂ × ℤ₈₃ the only one has order 41 and six orbits. Order 358 (N = 179) is similar: the
 cyclic array has no structure in our range of orbit counts, and the bordered array's best has an estimate of 10⁻⁵
-solutions. For 418 the best structures have estimates of one to three solutions in pools of 10¹¹–10¹⁵ members; for 438,
-446, 478 and 498 every estimate is below one. The one open order where the array has strong structures is 682 (N = 341
-= 11 · 31): eight multiplier groups of order 10 with estimates of 10^1.7–10^3.0 solutions. The two best joins
+solutions. For 418 the best structures have estimates of one to three solutions in pools of 10¹¹–10¹⁵ members; for
+438, 446, 478 and 498 every estimate is below one. The one open order where the array has strong structures is 682
+(N = 341 = 11 · 31): eight multiplier groups of order 10 with estimates of 10^1.7–10^3.0 solutions. The two best joins
 found no solution in 97% and 95% of their collision mass, which the estimate gave a chance of 2–5% each
 ([search/NOTES.md](../search/NOTES.md) §57–59).

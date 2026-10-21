@@ -13,6 +13,7 @@ Entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard mat
 | [2092](2092) | 523 | Goethals–Seidel over ℤ₅₂₃, multiplier subgroup of order 9 |
 | [2148](2148) | 537 = 3 · 179 | bordered Goethals–Seidel array over ℤ₃ × ℤ₁₇₈ with a border of size 12, multiplier subgroup of order 11 |
 | [2284](2284) | 571 | Goethals–Seidel over ℤ₅₇₁, multiplier subgroup of order 5, three blocks related by a multiplier of order 3 |
+| [2572](2572) | 643 | quaternary conference matrix of order 322 (zero-diagonal Szöllősi array over ℤ₁₆₁ = F₇ × ℤ₂₃, a Paley plug-in: multiplier subgroup of order 3) in the complex Yamada–Kiyasu template (q = 641), then Turyn's doubling |
 | [2636](2636) | 659 | bordered Goethals–Seidel array over ℤ₄ × ℤ₄ × ℤ₄₁ with a border of size 12, symmetry group of order 15 |
 | [3156](3156) | 789 = 3 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks, T-matrices of order 3 |
 | [3436](3436) | 859 | quaternary conference matrix of order 430 (zero-diagonal Szöllősi array over ℤ₂₁₅, multiplier subgroup of order 6) in the complex Yamada–Kiyasu template (q = 857), then Turyn's doubling |
@@ -46,7 +47,7 @@ from two published theorems that the tables did not combine ([PALEY_BLOCKS.md](P
 it also follows, by Turyn's doubling, from the quaternary Hadamard matrix of order 1142 on Zaitsev's page
 ([2284](2284/README.md#status)). 6108 and 10180 are First explicit constructions: Đoković claimed n = 1527 and 2545 in
 2010 through Seberry–Yamada's Corollary 8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7). The other
-thirteen are New. 7532 uses the near-Williamson matrices of 2026, as do the First explicit constructions 6108 and
+fourteen are New. 7532 uses the near-Williamson matrices of 2026, as do the First explicit constructions 6108 and
 10180.
 
 ## Orders recorded only through Corollary 8.8(i)

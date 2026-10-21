@@ -3,10 +3,10 @@
 Notes on the searches for the unresolved orders of [FRONTIER.md](../FRONTIER.md) and for the skew, symmetric and
 complex orders: structures, obstructions, estimates and negative results. §1–§36, §38–§40, §48–§49 and §53:
 Goethals–Seidel, Spence, skew and symmetric structures; §37 (in part), §41–§47, §50–§52 and §54–§59: complex orders
-(Szöllősi arrays); §60–§82: decoupling constructions, conference-matrix cores and their obstructions (§74–§82 for the
+(Szöllősi arrays); §60–§83: decoupling constructions, conference-matrix cores and their obstructions (§74–§83 for the
 complex Yamada–Kiyasu targets). Statements are proved here or measured with a program named in the text or listed in
 [README.md](README.md). Results marked (program not included), and computations with no program named, which include
-most of §60–§82, rest on code that is not in this repository. §k alone refers to this file; [NOTES.md](../NOTES.md) §k
+most of §60–§83, rest on code that is not in this repository. §k alone refers to this file; [NOTES.md](../NOTES.md) §k
 to the structural notebook.
 
 Theorems named by a letter: A is [symmetric/PROPUS_WEIGHING.md](../symmetric/PROPUS_WEIGHING.md), B is
@@ -3772,9 +3772,10 @@ matrices of all 12 orders of the first table of [complex-hadamard/README.md](../
 independently, and of 105 more blank orders of the 1992 table (62 of them by a Paley-type construction). Its matrices
 of the 12 orders were checked (K K* = nI). It also counts 1018, 1714 and 1766 as known: Đoković's Williamson-type
 matrices of orders 509, 857 and 883 (arXiv:1008.2043, from theorems of Miyamoto and Yamada). With these three and the
-page's matrices, `complex_status.py` leaves exactly the page's list of unknown orders below 2000 (115 orders, 114
-after order 1718 was constructed here; details in [complex-hadamard](../complex-hadamard/README.md#status)): 334, 358,
-418, 438, 446, 478, 498, 502, … (`data/complex_zaitsev_2026.txt`).
+page's matrices, `complex_status.py` leaves exactly the page's list of unknown orders below 2000 (115 orders, 113
+after orders 1286 and 1718 were constructed here; details in
+[complex-hadamard](../complex-hadamard/README.md#status)): 334, 358, 418, 438, 446, 478, 498, 502, …
+(`data/complex_zaitsev_2026.txt`).
 
 **The open frontier.** Of the frontier records (§57) on the open orders, every one with a hybrid estimate of at least
 1 is at N = 341 = 11 · 31 (order 682): 24 records over eight multiplier groups of order 10, with estimates of
@@ -4846,7 +4847,7 @@ No census value is settled.
 ## 74. Kharaghani–Seberry plug pairs for q > p, complex split triples, routes to open complex orders
 
 No open complex order is settled in this section (115 open orders 2N, N odd, N < 1000; Zaitsev's page lists the same
-115; §78 settles 1718).
+115; §78 settles 1718 and §83 settles 1286).
 
 **The setting.** Seberry–Yamada 1992, Theorem 11.14: a skew-type complex Hadamard matrix of order p + 1 and a plug
 pair (A, B) of order q with AB* = BA* and AA* + pBB* = q(p + 1)I give a complex Hadamard matrix of order q(p + 1).
@@ -4892,15 +4893,16 @@ pair (A, B) of order q with AB* = BA* and AA* + pBB* = q(p + 1)I give a complex 
 - *Six open orders, one missing core each.* 1046, 1190, 1286, 1718, 1910 and 1958 need a quaternary conference matrix
   of order 262, 298, 322, 430, 478 or 490 respectively. The template side (Yamada circulants for q = 521, 593, 641,
   857, 953, 977) is verified. Cheap structured searches found nothing; this is the best-ranked constructive route. The
-  core of order 430 (order 1718) is found in §78.
+  core of order 430 (order 1718) is found in §78, and that of order 322 (order 1286) in §83.
 - *Route map.* No classical complex route (Cor. 11.15, 11.20, Kronecker, Golay, Miyamoto, Seberry–Zhang) settles any
   open order.
 
 ## 75. Zero-diagonal cores for the complex Yamada–Kiyasu targets
 
 No core was found, so 1046, 1190, 1286, 1718, 1910 and 1958 stay open in this section (§78 finds the core of order
-430, hence 1718). Each needs a quaternary conference matrix of order c = 262, 298, 322, 430, 478 or 490 (§74). Three
-independent implementations were run, and a calibration of the estimators followed.
+430, hence 1718, and §83 that of order 322, hence 1286). Each needs a quaternary conference matrix of order c = 262,
+298, 322, 430, 478 or 490 (§74). Three independent implementations were run, and a calibration of the estimators
+followed.
 
 **The array.** The zero-diagonal Szöllősi array of §74 over an abelian group of order m = c/2:
 - A, B are symmetric with A(0) = B(0) = 0; C, D are ±1.
@@ -5157,7 +5159,7 @@ full-sequence lists, which is what §75 to §77 used.
 - *Why the join of §75 failed.* Its kt4 join multiplied Gaussian retention guesses for mass-selected full-sequence
   lists; a uniform prefix sample with exactly known coverage calibrates reliably.
 
-**Core 322, n = 643** (program not included): no core; a sampled run, so unknown.
+**Core 322, n = 643** (program not included): no core; a sampled run, so unknown (§83 finds one).
 - *Structure.* ℤ₁₆₁ = ℤ₇ × ℤ₂₃ with ⟨93⟩.
   - Level 1: the ℤ₂₃ quadruple of X₀ = c₀ + 6u.
   - Level 2: the signs of the V columns, with Σ PAF_Z = 642 δ for Z = R + i√7 E.
@@ -5347,7 +5349,8 @@ No core was found. The only corrections are the three sub-statements noted below
   (10^11.95 with the low-E correction).
 - *Exact filters* on level-1 instances (not found in the literature searched): Σ PAF_{x₀} ≡ 0 (mod 3), and two row-sum
   identities (R0, R1). R1 forces Q = τ_C² + τ_D² ≡ 2 (mod 8) for the chosen allocation.
-- *Tools* (programs not included).
+- *Tools* (levels 1 and 2 are `plug7_gen.c` and `plug7_l2.c`, see §83; the checks and the certification pipeline are
+  not included).
   - Level 1 (x₀ quadruples sampled from mod-3 buckets, defect-pattern lists, class-restricted 4-list hash join) costs
     0.3 s per instance.
   - Level 2 (Gray-code fibres, AVX2 PSD pair filter, bucketed (A, D) × (B, C) hash join) costs 0.45 s per instance.
@@ -5400,3 +5403,23 @@ No core was found. The only corrections are the three sub-statements noted below
   4(q − 1)(|K| − 1) were derived and checked independently, as was the lemma |Σ ε| ≤ 1 per block (so some position
   has |e| = 2; not found in the literature searched). Existence is unknown; the small bordered analogues K = ℤ₄, ℤ₆
   are exactly empty.
+
+## 83. A core of order 322: n = 643 settled
+
+The sampler of §82 (`plug7_gen.c`, `plug7_l2.c` and `plug7_sol.py`, in this directory) ran on four cores in the
+row-sum class τ_C² + τ_D² = 10 of the allocation (3, 3, 4, 4).
+- *Hit.* After 42451 instances of that class (about 13.5 CPU-hours, plus the 2 CPU-hours of §82), one instance gave 2
+  completions, i.e. one core up to the sign of t. The calibrated estimate was about 12 CPU-hours per core.
+- *The core.* ℤ₁₆₁ = F₇ × ℤ₂₃, H = ⟨93⟩. Row sums (−20, −4, 15, −1). 14 defects: A at k = 0, 10, 13; B at 0, 4, 19; C
+  at 9, 10, 15, 19; D at 0, 12, 19, 20 (k the ℤ₂₃ coordinate). The core is neither symmetric nor Hermitian.
+- *Checks.* `verify.py` rebuilds the core from the four sequences (reflection 0), then the template and the doubling
+  (q = 641, r = 3, ξ = 3 + w), to H(2572), SHA-256 ebf232c3…; `verify_complex.py` gives the quaternary matrix of order
+  1286, SHA-256 5e2c874c…. A second implementation (not included) produces the same hash. A bit-packed check of all
+  3306306 row pairs of the CSV finds every pair orthogonal.
+- *Novelty* ([NOVELTY.md](../NOVELTY.md)). No construction of H(2572), of a quaternary H(1286) or of a quaternary
+  conference matrix of order 322 was found.
+
+**Reading.** The Paley plug-in turned a class that §78 had sampled without success (completions per instance about
+10⁻⁷ at 1–10 s per instance) into one that yields a core in about 15 CPU-hours. The gain came from four sources: the
+defect identity fixes the defect counts; R0, R1 and the mod-3 filter cut the level-1 population exactly; the row-sum
+class is chosen by calibration at p = 13 and 17; and both levels are 5–14× faster.

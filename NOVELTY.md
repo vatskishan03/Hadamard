@@ -240,6 +240,21 @@ order 111, which is therefore New.
 - *Labels.* Hadamard orders 3436 and 4204: New. Complex order 1718 (N = 859): New; complex order 2102 (N = 1051, above
   the range N < 1000 of the reference table): New, beyond the tables.
 
+**Order 2572** ([hadamard/2572](hadamard/2572)). Checked on 21 October 2026:
+- *Tables and recursions.* Cati–Pasechnik v1 and v2 (Table 4: 643(3); its §6 sentence naming 643 concerns the skew
+  table); Đoković, arXiv:0912.5091 and arXiv:1008.2043; Đoković–Golubitsky–Kotsireas, arXiv:1301.3671; SageMath
+  development source of 21 October 2026, read case by case, not run (Unknown); Seberry–Yamada 1992, Tables A.1 and
+  11.2; Brouwer's table (srg(321, 160, 79, 80) does not exist, srg(1285, 642, 320, 321) undecided).
+- *Recent work.* Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (19 October 2026), Table 5, which lists 643
+  as open; Zaitsev's page (last updated 14 October, unchanged on 21 October; 1286 on its unknown list);
+  Middletownbooks/Hadamard (its open list of 20 October has 643; its screen of 6 October covers Goethals–Seidel and
+  Legendre-quadruple structures over ℤ₆₄₃); the arXiv listings to 21 October; GitHub and web searches for 2572, 1286
+  and 643.
+- *Finding.* None gives a Hadamard matrix of order 2572, a quaternary Hadamard matrix of order 1286 or a quaternary
+  conference matrix of order 322.
+- *Not read.* As for 6796; the Handbook's Table 1.53 row for 643, which was not read directly.
+- *Labels.* Hadamard order 2572: New. Complex order 1286 (N = 643): New.
+
 ## Not checked
 
 - J. Seberry, M. Yamada, *Hadamard Matrices: Constructions using Number Theory and Linear Algebra* (Wiley, 2020):

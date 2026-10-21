@@ -73,8 +73,8 @@ and the doubling are stated and proved in [complex-hadamard/CONFERENCE.md](../..
 
 ## Search
 
-The structure came from a triage of twelve Table 4 entries that the complex Yamada–Kiyasu template reaches from a
-quaternary conference matrix of order (n + 1)/2 and that no other construction known to us settles: n = 643, 859, 955,
+The structure came from a triage of eleven Table 4 entries that the complex Yamada–Kiyasu template reaches from a
+quaternary conference matrix of order (n + 1)/2 and that no other construction known to us settles: n = 859, 955,
 1051, 1291, 1699, 2083, 2659, 2731, 2803, 2899 and 2971, each with n − 2 a prime ≡ 1 (mod 8)
 ([search/NOTES.md](../../search/NOTES.md) §76). With n − 2 ≡ 5 (mod 8) the template also reaches n = 1879, 2215 and
 2383, from cores of order 940, 1108 and 1192.

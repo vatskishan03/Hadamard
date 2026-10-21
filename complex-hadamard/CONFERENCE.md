@@ -1,21 +1,22 @@
 # Quaternary conference matrices and the Yamada–Kiyasu template
 
-The quaternary Hadamard matrices of orders 1718, 2102 and 3398, and by Turyn's doubling the Hadamard matrices of
-orders 3436, 4204 and 6796, come from quaternary conference matrices of orders 430, 526 and 850 by one template. This
-file states and proves its three parts: an array that turns four sequences on an abelian group into a quaternary
-conference matrix (plain and bordered), the template that turns a quaternary conference matrix of order (q + 3)/2 into
-a quaternary Hadamard matrix of order 2(q + 2), and the doubling. `verify/verify.py` rebuilds every step from the
-certificate (construction `complex-yamada-kiyasu`).
+The quaternary Hadamard matrices of orders 1286, 1718, 2102 and 3398, and by Turyn's doubling the Hadamard matrices of
+orders 2572, 3436, 4204 and 6796, come from quaternary conference matrices of orders 322, 430, 526 and 850 by one
+template. This file states and proves its three parts: an array that turns four sequences on an abelian group into a
+quaternary conference matrix (plain and bordered), the template that turns a quaternary conference matrix of order
+(q + 3)/2 into a quaternary Hadamard matrix of order 2(q + 2), and the doubling. `verify/verify.py` rebuilds every
+step from the certificate (construction `complex-yamada-kiyasu`).
 
 | order 2N | N | q | core order (q + 3)/2 | core | symmetry group of the sequences | Hadamard matrix |
 |---:|---|---:|---:|---|---|---|
+| 1286 | 643 | 641 | 322 | zero-diagonal array over ℤ₁₆₁ = F₇ × ℤ₂₃ | ⟨93⟩, order 3 | [2572](../hadamard/2572) |
 | 1718 | 859 | 857 | 430 | zero-diagonal array over ℤ₂₁₅ | ⟨49⟩, order 6 | [3436](../hadamard/3436) |
 | 2102 | 1051 | 1049 | 526 | bordered zero-diagonal array over ℤ₂₆₂ | ⟨53⟩, order 5 | [4204](../hadamard/4204) |
 | 3398 | 1699 | 1697 | 850 | zero-diagonal array over ℤ₅² × ℤ₁₇ | order 24 | [6796](../hadamard/6796) |
 
-Labels: 1718 is New; 2102 and 3398 are New, beyond the tables ([NOVELTY.md](../NOVELTY.md)). Yamada's theorem needs a
-symmetric conference matrix, which cannot exist for these cores (429, 525 and 849 are not sums of two squares); the
-template needs no symmetry.
+Labels: 1286 and 1718 are New; 2102 and 3398 are New, beyond the tables ([NOVELTY.md](../NOVELTY.md)). Yamada's
+theorem needs a symmetric conference matrix, which cannot exist for these cores (321, 429, 525 and 849 are not sums of
+two squares); the template needs no symmetry.
 
 ## Notation
 
@@ -196,13 +197,13 @@ K K* = 2v I gives K_r K_rᵀ + K_i K_iᵀ = 2v I and K_i K_rᵀ = K_r K_iᵀ. Th
 and Y Xᵀ − X Yᵀ = 2(K_r K_iᵀ − K_i K_rᵀ) = 0, so H Hᵀ = [[X Xᵀ + Y Yᵀ, Y Xᵀ − X Yᵀ], [X Yᵀ − Y Xᵀ, Y Yᵀ + X Xᵀ]] = 4v
 I. ∎
 
-With v = q + 2 this gives the orders 4(q + 2) = 3436, 4204 and 6796.
+With v = q + 2 this gives the orders 4(q + 2) = 2572, 3436, 4204 and 6796.
 
 ## Certificates and verification
 
-The certificates of 1718, 2102 and 3398 ([C1718.json](C1718.json), [C2102.json](C2102.json), [C3398.json](C3398.json))
-and of 3436, 4204 and 6796 (`certificate.json` in [hadamard](../hadamard)) have construction `complex-yamada-kiyasu`
-and these fields:
+The certificates of 1286, 1718, 2102 and 3398 ([C1286.json](C1286.json), [C1718.json](C1718.json),
+[C2102.json](C2102.json), [C3398.json](C3398.json)) and of 2572, 3436, 4204 and 6796 (`certificate.json` in
+[hadamard](../hadamard)) have construction `complex-yamada-kiyasu` and these fields:
 
 - `order`: 2(q + 2) in `C<n>.json` (which also has `N` = order/2), 4(q + 2) in the real certificates;
 - `q`, `r`, `xi`: the prime q, the non-square r, and ξ = a + bw as `[a, b]`;
@@ -216,8 +217,8 @@ and these fields:
 - `sha256`: of the canonical text of K (complex certificates) or of H (real ones).
 
 ```
-python3 verify/verify_complex.py 1718 2102 3398
-python3 verify/verify.py 3436 4204 6796
+python3 verify/verify_complex.py 1286 1718 2102 3398
+python3 verify/verify.py 2572 3436 4204 6796
 ```
 
 `verify_complex.py` computes K K* from the real and imaginary parts with float64 matrix products, which are exact:
@@ -236,8 +237,8 @@ QH590, QH638, QH782, QH926, QH1310, QH1358, QH1646 and QH1886 are of that kind (
 Miyamoto's Corollary 4 (1991, as transcribed in the JD-Jones-ASES Hadamard-M note) reaches the same orders from a
 symmetric quaternary conference matrix. The cores here have Qᵀ ≠ Q as built.
 
-The template reaches further orders once a core is found: the FRONTIER orders 4n for n = 643, 955, 1291, 1879, 2083,
-2215, 2383, 2659, 2731, 2803, 2899 and 2971 (cores of order (n + 1)/2 = 322 to 1486; for n = 1879, 2215 and 2383
-(q ≡ 5 (mod 8)) a skew-Hadamard core of order 940, 1108 or 1192 would also serve; n = 643 and 955 also give the open
-complex orders 1286 and 1910) and the open complex orders 1046, 1190 and 1958 (cores of order 262, 298 and 490). None
-of these cores has been found ([NOTES.md](../NOTES.md) §34, [search/NOTES.md](../search/NOTES.md) §75–82).
+The template reaches further orders once a core is found: the FRONTIER orders 4n for n = 955, 1291, 1879, 2083, 2215,
+2383, 2659, 2731, 2803, 2899 and 2971 (cores of order (n + 1)/2 = 478 to 1486; for n = 1879, 2215 and 2383 (q ≡ 5
+(mod 8)) a skew-Hadamard core of order 940, 1108 or 1192 would also serve; n = 955 also gives the open complex
+order 1910) and the open complex orders 1046, 1190 and 1958 (cores of order 262, 298 and 490). None of these cores
+has been found ([NOTES.md](../NOTES.md) §34, [search/NOTES.md](../search/NOTES.md) §75–83).

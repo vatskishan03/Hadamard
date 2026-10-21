@@ -165,6 +165,7 @@ start-up, is close to the list size.
 | Program | Role |
 |---|---|
 | `check_conf66.py` | checks one representative of each of the two symmetric conference matrices of order 66 found with a semiregular group C₈ ⋊ C₄ (their descendants are not in McKay's database) and the 16 descendants srg(65, 32, 15, 16), in `data/` (needs pynauty; [NOTES.md](NOTES.md) §72) |
+| `plug7_gen.c`, `plug7_l2.c`, `plug7_sol.py` | the two-level sampler for the quaternary conference matrix of order 322 of [../hadamard/2572](../hadamard/2572), a Paley plug-in over ℤ_p × F₇ with H the squares of F₇* ([NOTES.md](NOTES.md) §81–83; p = 23 for 322). `plug7_gen` samples level 1 (x₀ quadruples and defect patterns, joined on the trivial-character equation: `plug7_gen p a b c d nquads seed logWthr out.g`, tuned by `GEN_QMIN`, `GEN_QMAX`, `GEN_EFFMIN`, `GEN_TLIMIT`); `plug7_l2` completes each instance (the signs off the defects, by a meet in the middle: `plug7_l2 file [maxsol] [tlimit]`; needs x86-64 with AVX2); `plug7_sol.py` turns a SOL line into the four sequences over ℤ₇ₚ (`plug7_sol.py solfile p [line] [out.npy]`). Cost and verification: [../hadamard/2572](../hadamard/2572#search) |
 
 **Orthogonal designs for Seberry's theorem**
 

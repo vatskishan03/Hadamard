@@ -11,15 +11,15 @@ Zaitsev et al. and section 21 the quaternion type of Paley's matrix. Sections 22
 matrices in sixteen blocks times T-matrices, section 27 the skew-Hadamard matrices of order 3(q + 1), section 28 the
 closure of the published constructions, sections 29–32 the symmetric Hadamard matrices (order 4q from Miyamoto's
 lemma, from any Hadamard matrix of order (q − 1)/2, order 4(q + 2) from any skew-Hadamard matrix of order (q + 3)/2,
-and order 260), section 33 why Miyamoto's V-part admits no symmetric decoupling, and section 34 the orders 6796, 3436
-and 4204 from quaternary conference matrices. The notes on the individual search programs are in
+and order 260), section 33 why Miyamoto's V-part admits no symmetric decoupling, and section 34 the orders 6796, 3436,
+4204 and 2572 from quaternary conference matrices. The notes on the individual search programs are in
 [search/NOTES.md](search/NOTES.md).
 
 **Status of the complex orders.** The orders 142, 154, 222, 262, 286, 310, 322, 330, 342, 370, 430, 454 and 742,
 constructed here by search, are Known: 4N − 1 is a prime power for each, and Ito's Hadamard groups with Egan 2019,
 Theorem 4.5, give them (§18). The other 12 orders constructed here, 214, 238, 302, 326, 366, 382, 426, 494, 518, 534,
 754 and 1558, are Concurrent: Zaitsev et al. have matrices of all of them (§20). 1618 and 1906 (§19) are First
-explicit constructions. The quaternary orders 1718 (New), 2102 and 3398 (New, beyond the tables) are in §34.
+explicit constructions. The quaternary orders 1286 and 1718 (New), 2102 and 3398 (New, beyond the tables) are in §34.
 
 ## 1. Why some structures have many solutions
 
@@ -1710,11 +1710,11 @@ anti-automorphism of the skew matrix is used, which is what §29 needed.
   non-real Ĉ of orders 14 to 286). It is not ours: Zaitsev et al.'s QH470, QH566, QH806, QH1142 and QH1526 (q = 233,
   281, 401, 569, 761) have exactly this form, with non-real cores of orders 118, 142, 202, 286 and 382 (no real
   conference matrix exists at 142, 202, 286 or 382), although the page states no method. It gives the quaternary
-  orders 1718, 2102 and 3398 (§34). It would give the open complex orders 1046, 1190, 1286, 1910 and 1958 and the
-  FRONTIER orders 643, 955, 1291, 2083, 2659, 2731, 2803, 2899, 2971, 1879, 2215 and 2383 from quaternary conference
+  orders 1286, 1718, 2102 and 3398 (§34). It would give the open complex orders 1046, 1190, 1910 and 1958 and the
+  FRONTIER orders 955, 1291, 2083, 2659, 2731, 2803, 2899, 2971, 1879, 2215 and 2383 from quaternary conference
   matrices of order (N + 1)/2; zero-diagonal Szöllősi searches with multiplier groups found none of orders 262, 298,
-  322, 478 or 490 (430 is §34). The symmetric template above does not take a non-real core: the (core_L, core_R) block
-  of L L̄ is 2(1 + i)(S − S̄).
+  478 or 490 (322 and 430 are §34). The symmetric template above does not take a non-real core: the (core_L, core_R)
+  block of L L̄ is 2(1 + i)(S − S̄).
 
 
 ## 32. Order 260 from a quaternary Legendre pair
@@ -1794,7 +1794,7 @@ with the fixed-point-free Π it gives K = [[P, Q], [−DQ̄D′, −DP̄D′]] w
 of m = n/2 units ±1, ±i with m odd, never 0. So for q ≡ 5 (mod 8) both choices fail by parity, as the real
 arrangements do.
 
-## 34. Orders 6796, 3436 and 4204 from quaternary conference matrices
+## 34. Orders 6796, 3436, 4204 and 2572 from quaternary conference matrices
 
 The complex Yamada–Kiyasu template of §31 gives a Hadamard matrix of order 4(q + 2) from any quaternary conference
 matrix of order (q + 3)/2 when q is a prime power ≡ 1 (mod 4). Unlike Yamada's real theorem it needs no symmetric
@@ -1819,7 +1819,15 @@ the FLC classification method ([17] in the [README](README.md#references)).
 Full-sequence joins had failed on both structures. Their quaternary Hadamard matrices have orders 1718 (open on
 Zaitsev's list), 2102 and 3398 ([complex-hadamard](complex-hadamard)).
 
-**The other targets** (n = 643, 955, 1291, 2083, 2659, 2731, 2803, 2899 and 2971, and 1879, 2215 and 2383 with
-q ≡ 5 mod 8) need quaternary conference matrices of orders 322 to 1486. Most of their m = c/2 are square-free, so the
+**Order 2572** ([search/NOTES.md](search/NOTES.md) §81–83). The core of order 322 (n = 643) is a *Paley plug-in*: the
+zero-diagonal Szöllősi array over ℤ₁₆₁ = F₇ × ℤ₂₃, with the squares of F₇* (H = ⟨93⟩, of order 3) acting trivially on
+ℤ₂₃. Each block is x₀ on ℤ₂₃ × {0}, x₁ on the squares and x₂ on the non-squares. Off 14 *defects*, x₂ = −x₁, so the
+blocks are x₀ ⊗ δ + x₁ ⊗ χ, with χ the Legendre symbol of F₇. The defects obey an identity, and the equations reduce
+to a system over ℤ₂₃. A two-level sampler (level 1: x₀ and the defects; level 2: the signs off the defects) found the
+core in about 15 CPU-hours, against a calibrated 12 ([hadamard/2572](hadamard/2572)). q = 641; the quaternary
+Hadamard matrix has order 1286.
+
+**The other targets** (n = 955, 1291, 2083, 2659, 2731, 2803, 2899 and 2971, and 1879, 2215 and 2383 with q ≡ 5 mod 8)
+need quaternary conference matrices of orders 478 to 1486. Most of their m = c/2 are square-free, so the
 unbordered array has only the cyclic group there. Non-cyclic groups enter through the bordered and
 character-bordered arrays, whose group orders are N − t (search/NOTES.md §76–77).
