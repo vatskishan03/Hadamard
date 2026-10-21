@@ -24,7 +24,7 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 | [1036](1036) | 259 = 7 · 37 | ⟨9⟩, order 9 | 1, 7, 31, 5 | 259(4) | New |
 | [1044](1044) | 261 = 3² · 29 | ⟨190⟩, order 7 (cyclotomic product of index 4) | 1, 9, −1, 31 | 261(3) | New |
 | [1100](1100) | 275 = 5² · 11, group ℤ₅ × ℤ₅ × ℤ₁₁ | order 15: an element of order 3 of the Singer cycle of ℤ₅², and ⟨3⟩ on ℤ₁₁ | 1, 3, 33, 1 | 275(4) | New |
-| [1140](1140) | 285 = 3 · 5 · 19 | ⟨61⟩, order 9 (Paley product) | 1, 17, 15, 25 | 285(3) | New; see its README |
+| [1140](1140) | 285 = 3 · 5 · 19 | ⟨61⟩, order 9 (Paley product) | 1, 17, 15, 25 | 285(3) | New |
 | [1148](1148) | 287 = 7 · 41 | ⟨16⟩, order 15 | 1, 3, 33, 7 | 287(4) | New |
 | [1204](1204) | 301 = 7 · 43 | ⟨127⟩, order 7 (cyclotomic product of index 6) | 1, −11, −11, −31 | 301(3) | New |
 | [1236](1236) | 309 = 3 · 103 | ⟨13⟩, order 17 | 1, 3, 35, 1 | 309(3) | New |
@@ -69,12 +69,12 @@ here.
 |------:|---|---|---|---|---|
 | [1716](1716) | 429 = 13 · 3 · 11 | order 12, Paley (q = 11) | OD(156; 1, 13, 142) over ℤ₃₉, new | undecided; Table 5: 429(3) | New |
 | [1900](1900) | 475 = 5 · 5 · 19 | order 20, Paley (q = 19) | OD(100; 1, 5, 94) over ℤ₂₅, new | undecided; Table 5: 475(4) | New |
-| [2652](2652) | 663 = 13 · 51 | order 52, first explicit (skew-propus family of length 13) | G-matrices of order 13 | undecided; Table 5 implies known | First explicit; see its README |
+| [2652](2652) | 663 = 13 · 51 | order 52, first explicit (skew-propus family of length 13) | G-matrices of order 13 | undecided; Table 5 implies known | First explicit construction |
 | [2772](2772) | 693 = 21 · 3 · 11 | order 12, Paley (q = 11) | OD(252; 1, 21, 230) over ℤ₆₃, new | undecided; Table 5: 693(4) | New |
-| [5700](5700) | 1425 = 19 · 75 | order 76, first explicit (the design of [symmetric/5700](../symmetric/5700)) | G-matrices of order 19 | undecided | New, obtainable classically |
+| [5700](5700) | 1425 = 19 · 75 | order 76, first explicit (the design of [symmetric/5700](../symmetric/5700)) | G-matrices of order 19 | undecided | New, but obtainable classically |
 | [7956](7956) | 1989 = 3 · 13 · 51 | order 52, as for 2652 | OD(156; 1, 3, 152) over ℤ₃₉, new | undecided | New |
 | [9828](9828) | 2457 = 13 · 7 · 27 | order 28, Paley (q = 27) | OD(364; 1, 13, 350) over ℤ₉₁, new | undecided | New |
-| [9900](9900) | 2475 = 25 · 99 | order 100, first explicit (skew-propus family of length 25) | G-matrices of order 25 | undecided | New, obtainable classically |
+| [9900](9900) | 2475 = 25 · 99 | order 100, first explicit (skew-propus family of length 25) | G-matrices of order 25 | undecided | New, but obtainable classically |
 
 The matrix of order 9900 is not stored; `verify/verify.py skew/9900` rebuilds it.
 
@@ -86,14 +86,14 @@ m give the skew-Hadamard matrix I ⊗ A + S ⊗ M of order hm. With the pairs of
 amicable order with odd part 31 is 248), four orders 16v fall below Cati–Pasechnik's Table 5 ([NOTES.md](../NOTES.md)
 §28). The skew factors are classical or published, and so are the skew-propus families of lengths 13, 19 and 31 behind
 the amicable pairs (Abuzin–Balonin–Đoković–Kotsireas 2019); the one step we found nowhere in print is the passage from
-such a family to the amicable pair, so the orders are labelled New, obtainable classically.
+such a family to the amicable pair, so the orders are labelled New, but obtainable classically.
 
 | Order | v | Skew factor | Amicable pair | Before | Status |
 |------:|---|---|---|---|---|
-| [9424](9424) | 589 = 19 · 31 | 124 = 4 · 31: Paley plus three blocks under ⟨2⟩ (Szekeres 1969 has this order) | 76 | 589(5) | New, obtainable classically |
-| [9776](9776) | 611 = 13 · 47 | 188 = 4 · 47: Đoković (2008) | 52 | 611(5) | New, obtainable classically |
-| [13072](13072) | 817 = 19 · 43 | 172 = 4 · 43: Paley plus three blocks under ⟨4⟩ (Đoković 1992 has this order) | 76 | 817(5) | New, obtainable classically |
-| [14384](14384) | 899 = 29 · 31 | 116 = 4 · 29: good matrices of order 29 (Szekeres 1988) | 124 | 899(6) | New, obtainable classically |
+| [9424](9424) | 589 = 19 · 31 | 124 = 4 · 31: Paley plus three blocks under ⟨2⟩ (Szekeres 1969 has this order) | 76 | 589(5) | New, but obtainable classically |
+| [9776](9776) | 611 = 13 · 47 | 188 = 4 · 47: Đoković (2008) | 52 | 611(5) | New, but obtainable classically |
+| [13072](13072) | 817 = 19 · 43 | 172 = 4 · 43: Paley plus three blocks under ⟨4⟩ (Đoković 1992 has this order) | 76 | 817(5) | New, but obtainable classically |
+| [14384](14384) | 899 = 29 · 31 | 116 = 4 · 29: good matrices of order 29 (Szekeres 1988) | 124 | 899(6) | New, but obtainable classically |
 
 The matrices are not stored; `verify/verify.py` rebuilds them.
 
@@ -111,64 +111,64 @@ stored; `verify/verify.py skew/<order>` rebuilds them.
 
 | Order | v | q | s | Census; Table 5 | Status |
 |------:|---|---:|---:|---|---|
-| [996](996) | 249 = 3 · 83 | 331 | 83 | undecided; Table 5: 249(4) | New, obtainable classically |
-| [1476](1476) | 369 = 3² · 41 | 491 | 123 | undecided; Table 5: 369(4) | New, obtainable classically |
-| [1692](1692) | 423 = 3² · 47 | 563 | 141 | undecided; Table 5: 423(4) | New, obtainable classically |
-| [1764](1764) | 441 = 3² · 7² | 587 | 147 | undecided; Table 5: 441(3) | New, obtainable classically |
-| [1800](1800) | 225 = 3² · 5² (order 8 · v) | 599 | 150 | Table 5: 225(4) | New, obtainable classically |
-| [2076](2076) | 519 = 3 · 173 | 691 | 173 | undecided; Table 5: 519(4) | New, obtainable classically |
-| [2436](2436) | 609 = 3 · 7 · 29 | 811 | 203 | undecided; Table 5: 609(3) | New, obtainable classically |
-| [2484](2484) | 621 = 3³ · 23 | 827 | 207 | undecided; Table 5: 621(3) | New, obtainable classically |
-| [2724](2724) | 681 = 3 · 227 | 907 | 227 | undecided; Table 5: 681(4) | New, obtainable classically |
-| [2916](2916) | 729 = 3⁶ | 971 | 243 | undecided; Table 5: 729(4) | New, obtainable classically |
-| [3060](3060) | 765 = 3² · 5 · 17 | 1019 | 255 | undecided; Table 5: 765(4) | New, obtainable classically |
-| [3156](3156) | 789 = 3 · 263 | 1051 | 263 | undecided; Table 5: 789(3) | New, obtainable classically |
-| [3516](3516) | 879 = 3 · 293 | 1171 | 293 | undecided; not in Table 5 | First explicit; see its README |
-| [3564](3564) | 891 = 3⁴ · 11 | 1187 | 297 | undecided; Table 5: 891(3) | New, obtainable classically |
-| [3876](3876) | 969 = 3 · 17 · 19 | 1291 | 323 | undecided; Table 5: 969(4) | New, obtainable classically |
-| [4344](4344) | 543 = 3 · 181 (order 8 · v) | 1447 | 362 | Table 5: 543(4) | New, obtainable classically |
-| [4356](4356) | 1089 = 3² · 11² | 1451 | 363 | undecided | New, obtainable classically |
-| [4380](4380) | 1095 = 3 · 5 · 73 | 1459 | 365 | undecided | New, obtainable classically |
-| [4500](4500) | 1125 = 3² · 5³ | 1499 | 375 | undecided | New, obtainable classically |
-| [4572](4572) | 1143 = 3² · 127 | 1523 | 381 | undecided | New, obtainable classically |
-| [4596](4596) | 1149 = 3 · 383 | 1531 | 383 | undecided | New, obtainable classically |
-| [4632](4632) | 579 = 3 · 193 (order 8 · v) | 1543 | 386 | Table 5: 579(5) | New, obtainable classically |
-| [4740](4740) | 1185 = 3 · 5 · 79 | 1579 | 395 | undecided | New, obtainable classically |
-| [4860](4860) | 1215 = 3⁵ · 5 | 1619 | 405 | undecided | New, obtainable classically |
-| [4884](4884) | 1221 = 3 · 11 · 37 | 1627 | 407 | undecided | New, obtainable classically |
-| [5364](5364) | 1341 = 3² · 149 | 1787 | 447 | undecided | New, obtainable classically |
-| [5436](5436) | 1359 = 3² · 151 | 1811 | 453 | undecided | New, obtainable classically |
-| [5604](5604) | 1401 = 3 · 467 | 1867 | 467 | undecided | New, obtainable classically |
-| [5796](5796) | 1449 = 3² · 7 · 23 | 1931 | 483 | undecided | New, obtainable classically |
-| [5964](5964) | 1491 = 3 · 7 · 71 | 1987 | 497 | undecided | New, obtainable classically |
-| [6036](6036) | 1509 = 3 · 503 | 2011 | 503 | undecided | New, obtainable classically |
-| [6084](6084) | 1521 = 3² · 13² | 2027 | 507 | undecided | New, obtainable classically |
-| [6396](6396) | 1599 = 3 · 13 · 41 | 2131 | 533 | undecided | New, obtainable classically |
-| [6540](6540) | 1635 = 3 · 5 · 109 | 2179 | 545 | undecided | New, obtainable classically |
-| [6612](6612) | 1653 = 3 · 19 · 29 | 2203 | 551 | undecided | New, obtainable classically |
-| [6732](6732) | 1683 = 3² · 11 · 17 | 2243 | 561 | undecided | New, obtainable classically |
-| [6756](6756) | 1689 = 3 · 563 | 2251 | 563 | undecided | New, obtainable classically |
-| [7236](7236) | 1809 = 3³ · 67 | 2411 | 603 | undecided | New, obtainable classically |
-| [7272](7272) | 909 = 3² · 101 (order 8 · v) | 2423 | 606 | Table 5: 909(4) | New, obtainable classically |
-| [7380](7380) | 1845 = 3² · 5 · 41 | 2459 | 615 | undecided | New, obtainable classically |
-| [7620](7620) | 1905 = 3 · 5 · 127 | 2539 | 635 | undecided | New, obtainable classically |
+| [996](996) | 249 = 3 · 83 | 331 | 83 | undecided; Table 5: 249(4) | New, but obtainable classically |
+| [1476](1476) | 369 = 3² · 41 | 491 | 123 | undecided; Table 5: 369(4) | New, but obtainable classically |
+| [1692](1692) | 423 = 3² · 47 | 563 | 141 | undecided; Table 5: 423(4) | New, but obtainable classically |
+| [1764](1764) | 441 = 3² · 7² | 587 | 147 | undecided; Table 5: 441(3) | New, but obtainable classically |
+| [1800](1800) | 225 = 3² · 5² (order 8 · v) | 599 | 150 | Table 5: 225(4) | New, but obtainable classically |
+| [2076](2076) | 519 = 3 · 173 | 691 | 173 | undecided; Table 5: 519(4) | New, but obtainable classically |
+| [2436](2436) | 609 = 3 · 7 · 29 | 811 | 203 | undecided; Table 5: 609(3) | New, but obtainable classically |
+| [2484](2484) | 621 = 3³ · 23 | 827 | 207 | undecided; Table 5: 621(3) | New, but obtainable classically |
+| [2724](2724) | 681 = 3 · 227 | 907 | 227 | undecided; Table 5: 681(4) | New, but obtainable classically |
+| [2916](2916) | 729 = 3⁶ | 971 | 243 | undecided; Table 5: 729(4) | New, but obtainable classically |
+| [3060](3060) | 765 = 3² · 5 · 17 | 1019 | 255 | undecided; Table 5: 765(4) | New, but obtainable classically |
+| [3156](3156) | 789 = 3 · 263 | 1051 | 263 | undecided; Table 5: 789(3) | New, but obtainable classically |
+| [3516](3516) | 879 = 3 · 293 | 1171 | 293 | undecided; not in Table 5 | First explicit construction |
+| [3564](3564) | 891 = 3⁴ · 11 | 1187 | 297 | undecided; Table 5: 891(3) | New, but obtainable classically |
+| [3876](3876) | 969 = 3 · 17 · 19 | 1291 | 323 | undecided; Table 5: 969(4) | New, but obtainable classically |
+| [4344](4344) | 543 = 3 · 181 (order 8 · v) | 1447 | 362 | Table 5: 543(4) | New, but obtainable classically |
+| [4356](4356) | 1089 = 3² · 11² | 1451 | 363 | undecided | New, but obtainable classically |
+| [4380](4380) | 1095 = 3 · 5 · 73 | 1459 | 365 | undecided | New, but obtainable classically |
+| [4500](4500) | 1125 = 3² · 5³ | 1499 | 375 | undecided | New, but obtainable classically |
+| [4572](4572) | 1143 = 3² · 127 | 1523 | 381 | undecided | New, but obtainable classically |
+| [4596](4596) | 1149 = 3 · 383 | 1531 | 383 | undecided | New, but obtainable classically |
+| [4632](4632) | 579 = 3 · 193 (order 8 · v) | 1543 | 386 | Table 5: 579(5) | New, but obtainable classically |
+| [4740](4740) | 1185 = 3 · 5 · 79 | 1579 | 395 | undecided | New, but obtainable classically |
+| [4860](4860) | 1215 = 3⁵ · 5 | 1619 | 405 | undecided | New, but obtainable classically |
+| [4884](4884) | 1221 = 3 · 11 · 37 | 1627 | 407 | undecided | New, but obtainable classically |
+| [5364](5364) | 1341 = 3² · 149 | 1787 | 447 | undecided | New, but obtainable classically |
+| [5436](5436) | 1359 = 3² · 151 | 1811 | 453 | undecided | New, but obtainable classically |
+| [5604](5604) | 1401 = 3 · 467 | 1867 | 467 | undecided | New, but obtainable classically |
+| [5796](5796) | 1449 = 3² · 7 · 23 | 1931 | 483 | undecided | New, but obtainable classically |
+| [5964](5964) | 1491 = 3 · 7 · 71 | 1987 | 497 | undecided | New, but obtainable classically |
+| [6036](6036) | 1509 = 3 · 503 | 2011 | 503 | undecided | New, but obtainable classically |
+| [6084](6084) | 1521 = 3² · 13² | 2027 | 507 | undecided | New, but obtainable classically |
+| [6396](6396) | 1599 = 3 · 13 · 41 | 2131 | 533 | undecided | New, but obtainable classically |
+| [6540](6540) | 1635 = 3 · 5 · 109 | 2179 | 545 | undecided | New, but obtainable classically |
+| [6612](6612) | 1653 = 3 · 19 · 29 | 2203 | 551 | undecided | New, but obtainable classically |
+| [6732](6732) | 1683 = 3² · 11 · 17 | 2243 | 561 | undecided | New, but obtainable classically |
+| [6756](6756) | 1689 = 3 · 563 | 2251 | 563 | undecided | New, but obtainable classically |
+| [7236](7236) | 1809 = 3³ · 67 | 2411 | 603 | undecided | New, but obtainable classically |
+| [7272](7272) | 909 = 3² · 101 (order 8 · v) | 2423 | 606 | Table 5: 909(4) | New, but obtainable classically |
+| [7380](7380) | 1845 = 3² · 5 · 41 | 2459 | 615 | undecided | New, but obtainable classically |
+| [7620](7620) | 1905 = 3 · 5 · 127 | 2539 | 635 | undecided | New, but obtainable classically |
 | [7656](7656) | 957 = 3 · 11 · 29 (order 8 · v) | 2551 | 638 | Table 5: 957(4) | Known (Wallis–Whiteman) |
-| [7740](7740) | 1935 = 3² · 5 · 43 | 2579 | 645 | undecided | New, obtainable classically |
-| [8052](8052) | 2013 = 3 · 11 · 61 | 2683 | 671 | undecided | New, obtainable classically |
-| [8100](8100) | 2025 = 3⁴ · 5² | 2699 | 675 | undecided | New, obtainable classically |
-| [8196](8196) | 2049 = 3 · 683 | 2731 | 683 | undecided | New, obtainable classically |
-| [8412](8412) | 2103 = 3 · 701 | 2803 | 701 | undecided | New, obtainable classically |
-| [8532](8532) | 2133 = 3³ · 79 | 2843 | 711 | undecided | New, obtainable classically |
-| [8556](8556) | 2139 = 3 · 23 · 31 | 2851 | 713 | undecided | New, obtainable classically |
-| [8892](8892) | 2223 = 3² · 13 · 19 | 2963 | 741 | undecided | New, obtainable classically |
-| [8916](8916) | 2229 = 3 · 743 | 2971 | 743 | undecided | New, obtainable classically |
-| [9252](9252) | 2313 = 3² · 257 | 3083 | 771 | undecided | New, obtainable classically |
-| [9564](9564) | 2391 = 3 · 797 | 3187 | 797 | undecided | New, obtainable classically |
-| [9612](9612) | 2403 = 3³ · 89 | 3203 | 801 | undecided | New, obtainable classically |
-| [9780](9780) | 2445 = 3 · 5 · 163 | 3259 | 815 | undecided | New, obtainable classically |
-| [9972](9972) | 2493 = 3² · 277 | 3323 | 831 | undecided | New, obtainable classically |
-| [9996](9996) | 2499 = 3 · 7² · 17 | 3331 | 833 | undecided | New, obtainable classically |
-| [14352](14352) | 897 = 3 · 13 · 23 (order 16 · v) | 4783 | 1196 | Table 5: 897(5) | New, obtainable classically |
+| [7740](7740) | 1935 = 3² · 5 · 43 | 2579 | 645 | undecided | New, but obtainable classically |
+| [8052](8052) | 2013 = 3 · 11 · 61 | 2683 | 671 | undecided | New, but obtainable classically |
+| [8100](8100) | 2025 = 3⁴ · 5² | 2699 | 675 | undecided | New, but obtainable classically |
+| [8196](8196) | 2049 = 3 · 683 | 2731 | 683 | undecided | New, but obtainable classically |
+| [8412](8412) | 2103 = 3 · 701 | 2803 | 701 | undecided | New, but obtainable classically |
+| [8532](8532) | 2133 = 3³ · 79 | 2843 | 711 | undecided | New, but obtainable classically |
+| [8556](8556) | 2139 = 3 · 23 · 31 | 2851 | 713 | undecided | New, but obtainable classically |
+| [8892](8892) | 2223 = 3² · 13 · 19 | 2963 | 741 | undecided | New, but obtainable classically |
+| [8916](8916) | 2229 = 3 · 743 | 2971 | 743 | undecided | New, but obtainable classically |
+| [9252](9252) | 2313 = 3² · 257 | 3083 | 771 | undecided | New, but obtainable classically |
+| [9564](9564) | 2391 = 3 · 797 | 3187 | 797 | undecided | New, but obtainable classically |
+| [9612](9612) | 2403 = 3³ · 89 | 3203 | 801 | undecided | New, but obtainable classically |
+| [9780](9780) | 2445 = 3 · 5 · 163 | 3259 | 815 | undecided | New, but obtainable classically |
+| [9972](9972) | 2493 = 3² · 277 | 3323 | 831 | undecided | New, but obtainable classically |
+| [9996](9996) | 2499 = 3 · 7² · 17 | 3331 | 833 | undecided | New, but obtainable classically |
+| [14352](14352) | 897 = 3 · 13 · 23 (order 16 · v) | 4783 | 1196 | Table 5: 897(5) | New, but obtainable classically |
 
 ## How they were found
 

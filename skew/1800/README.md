@@ -29,7 +29,7 @@ and checks it.
 
 ## Status
 
-**New** as a skew-Hadamard matrix, but obtainable classically ([PALEY_SKEW.md](../PALEY_SKEW.md#status)): Yamada's
+**New, but obtainable classically** as a skew-Hadamard matrix ([PALEY_SKEW.md](../PALEY_SKEW.md#status)): Yamada's
 sixteen-block form of Paley's matrix with its transposed pair (1991) and Seberry and Yamada's multiplication by
 T-matrices (1990) were published, and we found them combined nowhere.
 
