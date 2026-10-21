@@ -4,9 +4,13 @@
 Every order directory holds a certificate.json. For each certificate this script
   1. expands the construction data,
   2. checks the defining identities of the ingredients (complementary sequences,
-     T-matrices, Williamson matrices, conference matrices, skew inputs),
+     T-matrices, Williamson matrices, conference matrices, quaternary conference
+     matrices, periodic Golay pairs, weighing matrices, skew inputs),
   3. assembles the matrix H and checks H H^T = nI, and
   4. compares the SHA-256 of the canonical CSV encoding with the recorded value.
+
+A certificate in symmetric/ or skew/ must set the flag "symmetric" or "skew"; H = H^T, respectively
+H + H^T = 2I, is then checked as well.
 
 The canonical encoding is one row per line, entries 1 / -1 separated by commas, each
 line terminated by "\\n" (numpy.savetxt with fmt="%d", delimiter=",").
@@ -21,7 +25,8 @@ assembled in int8 (0.6 to 1.5 GB).
 
 Yamada certificates accept a prime q or a prime power q = p^k (fields "p" and "poly" give GF(q)).
 Complex Yamada-Kiyasu certificates ("complex-yamada-kiyasu") give the core as the four sequences of a zero-diagonal
-Szollosi array over an abelian group, from which the quaternary conference matrix is rebuilt and checked.
+Szöllősi array over an abelian group, plain or bordered, from which the quaternary conference matrix is rebuilt and
+checked.
 
     python3 verify/verify.py              check every order in the repository
     python3 verify/verify.py 2092 4492    check the named orders (hadamard/2092, hadamard/4492)
@@ -610,8 +615,8 @@ def build_symmetric_propus_miyamoto(cert):
 
 
 def _miyamoto_upart(cert):
-    """n = (q - 1)/2, U_1 = -[chi(s_i - s_j)] and U_2 = [chi(s_i - t_j)] (s_i = g^(2i), t_j = g^(1 - 2j), i, j < n) over
-    GF(q), q = 1 (mod 8), from cert["q"] (and cert["g"]) as in build_symmetric_propus_miyamoto."""
+    """n = (q - 1)/2, U_1 = -[chi(s_i - s_j)] and U_2 = [chi(s_i - t_j)] (s_i = g^(2i), t_j = g^(1 - 2j), i, j < n)
+    over GF(q), q = 1 (mod 8), from cert["q"] (and cert["g"]) as in build_symmetric_propus_miyamoto."""
     qs = cert["q"]
     if isinstance(qs, int):
         q = qs
@@ -640,7 +645,7 @@ def _miyamoto_upart(cert):
             d[1:] = digits[e]
             e = int(((d[:k] - d[k] * np.asarray(poly, dtype=np.int64)) % p) @ weights)
         sub = lambda a, b: ((digits[a] - digits[b]) % p) @ weights
-    if len(set(exp.tolist())) != q - 1 or 0 in set(exp.tolist()):
+    if len(set(exp.tolist())) != q - 1 or 0 in set(exp.tolist()) or e != 1:        # e = g^(q - 1) after the loop
         raise ValueError("the generator is not primitive")
     log = np.full(q, -1, dtype=np.int64)
     log[exp] = np.arange(q - 1)
@@ -653,7 +658,7 @@ def _miyamoto_upart(cert):
 
 
 def build_symmetric_propus_weighing(cert):
-    """Symmetric Hadamard matrix of order 4q, q = 1 (mod 8) a prime power, from ANY Hadamard matrix K of order
+    """Symmetric Hadamard matrix of order 4q, q = 1 (mod 8) a prime power, from any Hadamard matrix K of order
     n = (q - 1)/2 (NOTES.md §30). The U-part is that of build_symmetric_propus_miyamoto: H_0 is the propus array of
     W_1 = [[1, -e], [-e^T, U_1 (x) J_2]], W_2 = [[1, e], [e^T, U_2 (x) J_2]] and W_3 = W_4 = [[1, e], [e^T, 0]]
     (_miyamoto_upart). Its zeros are, in the cores of the four block rows and columns (m = q, core index
@@ -1324,6 +1329,8 @@ def _yamada_field_alpha_beta(cert):
     p, k = cert["p"], len(poly)
     if p ** k != q or q % 8 != 5 or any(p % d == 0 for d in range(2, math.isqrt(p) + 1)):
         raise ValueError("q must be a prime power p^k = 5 (mod 8)")
+    if not all(0 <= c < q for c in (r, xa, xb)):
+        raise ValueError("r and xi must consist of elements 0 .. q - 1 of GF(q)")
     digits = np.array([[(e // p ** j) % p for j in range(k)] for e in range(q)], dtype=np.int64)
     weights = p ** np.arange(k)
     enc = lambda d: int((np.asarray(d) % p) @ weights)
@@ -1363,7 +1370,7 @@ def _yamada_field_alpha_beta(cert):
         d += 1
     if m > 1:
         primes.append(m)
-    if any(power((xa, xb), N // f) == (1, 0) for f in primes):
+    if power((xa, xb), N) != (1, 0) or any(power((xa, xb), N // f) == (1, 0) for f in primes):    # xi = 0 fails
         raise ValueError("xi is not primitive")
     n0 = (q + 1) // 2
     alpha, beta = np.empty(n0, dtype=np.int64), np.empty(n0, dtype=np.int64)
@@ -1376,8 +1383,9 @@ def _yamada_field_alpha_beta(cert):
 
 
 def _yamada_inputs(cert, q, alpha, beta):
-    """Checks alpha, beta (symmetric, alpha alpha^T + beta beta^T = qI) and returns the skew core S of the skew-Hadamard
-    matrix of cert["Q"], normalised to [[1, e^T], [-e, S + I]] (S^T = -S, S J = 0, S S^T = nI - J, n = (q + 1)/2)."""
+    """Checks alpha, beta (symmetric, alpha alpha^T + beta beta^T = qI) and returns the skew core S of the
+    skew-Hadamard matrix of cert["Q"], normalised to [[1, e^T], [-e, S + I]] (S^T = -S, S J = 0, S S^T = nI - J,
+    n = (q + 1)/2)."""
     n0 = (q + 1) // 2
     s = np.arange(n0)
     if not (np.array_equal(alpha, alpha[-s % n0]) and np.array_equal(beta, beta[-s % n0])):
@@ -1419,11 +1427,12 @@ def _yamada_matrix(cert, q, alpha, beta):
 
 
 def build_symmetric_yamada_kiyasu(cert):
-    """Symmetric Hadamard matrix of order 4v, v = q + 2, for a prime power q = 5 (mod 8) and ANY skew-Hadamard matrix of
-    order (q + 3)/2 (NOTES.md §31). n = (q + 1)/2; S is the normalised skew core and alpha, beta are Yamada's circulants,
-    as in build_yamada (same fields "q", "r", "xi", "Q", and "p", "poly" for a prime power); M = circ(beta) (zero
-    diagonal), N = circ(alpha), M^2 + N^2 = qI, G = ((M + N) + i(M - N))/2, P = [[1, -1], [-1, 1]], J_2 the all-one
-    matrix of order 2, e the all-one row of length 2n. The quaternary matrix of order 2v (blocks of orders 1, 2n, 1, 2n)
+    """Symmetric Hadamard matrix of order 4v, v = q + 2, for a prime power q = 5 (mod 8) and any skew-Hadamard matrix
+    of order (q + 3)/2 (NOTES.md §31). n = (q + 1)/2; S is the normalised skew core and alpha, beta are Yamada's
+    circulants, as in build_yamada (same fields "q", "r", "xi", "Q", and "p", "poly" for a prime power);
+    M = circ(beta) (zero diagonal), N = circ(alpha), M^2 + N^2 = qI, G = ((M + N) + i(M - N))/2,
+    P = [[1, -1], [-1, 1]], J_2 the all-one matrix of order 2, e the all-one row of length 2n. The quaternary matrix
+    of order 2v (blocks of orders 1, 2n, 1, 2n)
 
         L = [[-1,    -e,                           -1,     i e                          ],
              [-e^T,  (1 + i)/2 I (x) J_2 + G (x) P,  -i e^T, -i I (x) P - S (x) J_2         ],
@@ -1431,8 +1440,9 @@ def build_symmetric_yamada_kiyasu(cert):
              [i e^T, -i I (x) P + S (x) J_2,         e^T,   (i - 1)/2 I (x) J_2 + G* (x) P]]
 
     is symmetric with entries +-1, +-i, and L L* = 2vI: on the vectors x (x) (1, -1) it acts as
-    2 [[G, -iI], [-iI, G*]] (G G* = qI/2 since MN = NM), on the borders and the x (x) (1, 1) as a matrix of order 2n + 2
-    whose square norm needs only S^T = -S, S J = 0, S^2 = J - nI, and the two parts do not meet (J_2 P = 0, e P = 0).
+    2 [[G, -iI], [-iI, G*]] (G G* = qI/2 since MN = NM), on the borders and the x (x) (1, 1) as a matrix of order
+    2n + 2 whose square norm needs only S^T = -S, S J = 0, S^2 = J - nI, and the two parts do not meet
+    (J_2 P = 0, e P = 0).
     It is Yamada's Lemma 26 data U = (I, 0, S, -S), V = (M, N, I, I) (Theorem 4, after Kiyasu) put in quaternary form.
     With L = X + iY (X, Y symmetric, of disjoint supports, X^2 + Y^2 = 2vI, XY = YX),
     H = [[X + Y, X - Y], [X - Y, -X - Y]] is a symmetric Hadamard matrix. Everything is checked here."""
@@ -1475,20 +1485,31 @@ def build_symmetric_yamada_kiyasu(cert):
 
 def _szollosi_zero_diagonal_core(spec, seqs, rowsums=None, generators=None, group_order=None, border=None,
                                  reflection=0):
-    """The zero-diagonal Szollosi array over an abelian group G of order m (abelian_group(spec)): A, B symmetric with
+    """The zero-diagonal Szöllősi array over an abelian group G of order m (abelian_group(spec)): A, B symmetric with
     A(0) = B(0) = 0 and +-1 elsewhere, C, D +-1, PAF_A + PAF_B + PAF_C + PAF_D = 0 off 0 (all checked). With
-    w = (1 + i)/2 and R[g, h] = [g + h = c] (c = 0 unless the certificate names another element), X = w X_A + conj(w) X_B
-    and Y = w X_C + conj(w) X_D R give the quaternary conference matrix [[X, Y], [Y*, -X*]] of order 2m (zero diagonal,
-    entries 1, -1, i, -i elsewhere, checked by the caller). If given, the row sums and a symmetry group (generators acting on the coordinates, and its order) are
-    checked too. Returns its real and imaginary parts.
+    w = (1 + i)/2 and R[g, h] = [g + h = c] (c = 0 unless the certificate names another element),
+    X = w X_A + conj(w) X_B and Y = w X_C + conj(w) X_D R give the quaternary conference matrix [[X, Y], [Y*, -X*]] of
+    order 2m (zero diagonal, entries 1, -1, i, -i elsewhere, checked by the caller). If given, the row sums and a
+    symmetry group (generators acting on the coordinates, and its order) are checked too. Returns its real and
+    imaginary parts.
 
     Bordered form (border = {"t": [a, b], "v": [c, d]}, Gaussian units t = a + bi, v = c + di): the condition is
     PAF_A + PAF_B + PAF_C + PAF_D = -4 off 0 on G of even order n, which forces the row sums r_A, r_B = +-1 and
     r_C = r_D = 0. With rho = w r_A + conj(w) r_B (a unit), s = rho^2 conj(t), y = -rho conj(t) v and
-    u = rho^2 conj(t)^2 v, the blocks X = [[0, s e], [t e^T, X']] and Y = [[y, u e], [v e^T, Y']] (X', Y' as X, Y above)
-    give the quaternary conference matrix [[X, Y], [Y*, -X*]] of order 2(n + 1)."""
+    u = rho^2 conj(t)^2 v, the blocks X = [[0, s e], [t e^T, X']] and Y = [[y, u e], [v e^T, Y']] (X', Y' as X, Y
+    above) give the quaternary conference matrix [[X, Y], [Y*, -X*]] of order 2(n + 1)."""
     m, add, neg = abelian_group(spec)
     A, B, C, D = (np.array([SIGN[ch] for ch in x], dtype=np.int64) for x in seqs)
+    if any(len(x) != m for x in (A, B, C, D)):
+        raise ValueError("sequence length differs from the group order")
+    if A[0] or B[0] or (A[1:] == 0).any() or (B[1:] == 0).any() or (C == 0).any() or (D == 0).any():
+        raise ValueError("A, B must vanish exactly at 0 and C, D nowhere")
+    if not (np.array_equal(A, A[neg]) and np.array_equal(B, B[neg])):
+        raise ValueError("A or B is not symmetric")
+    XA, XB, XC, XD = (group_matrix(add, neg, x) for x in (A, B, C, D))
+    paf = XA[0] @ XA.T + XB[0] @ XB.T + XC[0] @ XC.T + XD[0] @ XD.T   # (X X^T)[0, h] = sum_k x(k) x(k - h) = PAF(-h)
+    if np.any(np.delete(paf, 0) != (-4 if border is not None else 0)):
+        raise ValueError("PAF_A + PAF_B + PAF_C + PAF_D != %d off 0" % (-4 if border is not None else 0))
     if rowsums is not None and [int(x.sum()) for x in (A, B, C, D)] != list(rowsums):
         raise ValueError("row sums differ from the certificate")
     if generators:
@@ -1501,6 +1522,8 @@ def _szollosi_zero_diagonal_core(spec, seqs, rowsums=None, generators=None, grou
         mods_a = np.array(mods, dtype=np.int64)
         elts = np.array(list(itertools.product(*[range(d) for d in mods])), dtype=np.int64).reshape(-1, len(mods))
         radix = np.array([int(np.prod(mods[i + 1:])) for i in range(len(mods))], dtype=np.int64)
+        if any(np.shape(g_) != (len(mods), len(mods)) for g_ in generators):
+            raise ValueError("a symmetry generator must be an r x r integer matrix, r the number of cyclic factors")
         perms = [((elts @ np.array(g_, dtype=np.int64).T) % mods_a) @ radix for g_ in generators]
         for pm in perms:
             if sorted(pm.tolist()) != list(range(m)) or not np.array_equal(add[pm[:, None], pm[None, :]], pm[add]):
@@ -1519,16 +1542,8 @@ def _szollosi_zero_diagonal_core(spec, seqs, rowsums=None, generators=None, grou
             frontier = nxt
         if group_order is not None and len(group) != group_order:
             raise ValueError(f"the symmetry group has order {len(group)}, not {group_order}")
-    if any(len(x) != m for x in (A, B, C, D)):
-        raise ValueError("sequence length differs from the group order")
-    if A[0] or B[0] or (A[1:] == 0).any() or (B[1:] == 0).any() or (C == 0).any() or (D == 0).any():
-        raise ValueError("A, B must vanish exactly at 0 and C, D nowhere")
-    if not (np.array_equal(A, A[neg]) and np.array_equal(B, B[neg])):
-        raise ValueError("A or B is not symmetric")
-    XA, XB, XC, XD = (group_matrix(add, neg, x) for x in (A, B, C, D))
-    paf = XA[0] @ XA.T + XB[0] @ XB.T + XC[0] @ XC.T + XD[0] @ XD.T   # (X X^T)[0, h] = sum_k x(k) x(k - h) = PAF(-h)
-    if np.any(np.delete(paf, 0) != (-4 if border is not None else 0)):
-        raise ValueError("PAF_A + PAF_B + PAF_C + PAF_D != %d off 0" % (-4 if border is not None else 0))
+    if not (isinstance(reflection, int) and 0 <= reflection < m):
+        raise ValueError("reflection must be the index of an element of G (0 <= reflection < the group order)")
     R = np.zeros((m, m), dtype=np.int64)          # R[g, h] = [g + h = c], c = the element with index `reflection`
     R[np.arange(m), add[reflection, neg]] = 1      # any c works: R X_f R = X_f^T
     XDR = XD @ R
@@ -1563,20 +1578,21 @@ def _szollosi_zero_diagonal_core(spec, seqs, rowsums=None, generators=None, grou
 
 def complex_yamada_kiyasu(cert):
     """The quaternary Hadamard matrix K = Kr + i Ki of order 2v of build_complex_yamada_kiyasu (int8 parts; K K* = 2vI
-    is checked by the caller, directly or through Turyn's double). cert["order"] may be 2v or 4v."""
+    is checked by the caller, verify/verify_complex.py). cert["order"] must be 2v = 2(q + 2)."""
     q = cert["q"]
-    if cert["order"] not in (2 * (q + 2), 4 * (q + 2)):
-        raise ValueError("the order must be 2(q + 2) or 4(q + 2)")
+    if cert["order"] != 2 * (q + 2):
+        raise ValueError("the order must be 2(q + 2)")
     return _complex_yamada_kiyasu_K(cert)
 
 
 def build_complex_yamada_kiyasu(cert):
-    """Hadamard matrix of order 4v, v = q + 2, for a prime q = 1 (mod 4) and ANY quaternary conference matrix of order
-    (q + 3)/2 (NOTES.md §31): Turyn's double of the quaternary Hadamard matrix K of order 2v below. The core is the
-    zero-diagonal Szollosi array of cert["core"] (_szollosi_zero_diagonal_core). Its columns are permuted to put the
-    zeros on the diagonal and it is dephased to [[0, e], [e^T, Z]] (Z e^T = 0, e Z = 0, Z Z* = nI - J, n = (q + 1)/2).
-    With Yamada's M = circ(beta), N = circ(alpha) (as in build_yamada; M^2 + N^2 = qI is checked through alpha, beta),
-    P = [[1, -1], [-1, 1]], J2 the all-one matrix of order 2, w = (1 + i)/2 and e the all-one row of length 2n:
+    """Hadamard matrix of order 4v, v = q + 2, for a prime q = 1 (mod 4) and any quaternary conference matrix of order
+    (q + 3)/2 (NOTES.md §31, §34): Turyn's double of the quaternary Hadamard matrix K of order 2v below. The core is
+    the zero-diagonal Szöllősi array of cert["core"] (_szollosi_zero_diagonal_core). Its columns are permuted to put
+    the zeros on the diagonal and it is dephased to [[0, e], [e^T, Z]] (Z e^T = 0, e Z = 0, Z Z* = nI - J,
+    n = (q + 1)/2). With Yamada's M = circ(beta), N = circ(alpha) (as in build_yamada; M^2 + N^2 = qI is checked
+    through alpha, beta), P = [[1, -1], [-1, 1]], J2 the all-one matrix of order 2, w = (1 + i)/2 and e the all-one
+    row of length 2n:
 
         A = P (x) M + J2 (x) I,  B = P (x) N,  X' = w A + conj(w) B,  Y' = J2 (x) Z + P (x) I,
         X = [[1, e], [-e^T, X']],  Y = [[1, i e], [-i e^T, Y']],  K = [[X, Y], [Y*, -X*]].
@@ -1607,6 +1623,12 @@ def _complex_yamada_kiyasu_K(cert):
     if paf[0] != q or np.any(paf[1:] != 0):
         raise ValueError("M^2 + N^2 != qI")
     core = cert["core"]
+    label = core.get("array")
+    if label is not None:                  # descriptive field: "[bordered ]zero-diagonal ..." must match "border"
+        bordered = core.get("border") is not None
+        if "zero-diagonal" not in str(label) or str(label).startswith("bordered") != bordered:
+            raise ValueError(f'core "array" is "{label}", which does not describe a '
+                             f'{"bordered" if bordered else "plain"} zero-diagonal array')
     Cr, Ci = _szollosi_zero_diagonal_core(core["group"], core["sequences"], core.get("rowsums"),
                                           core.get("symmetry_generators"), core.get("symmetry_order"),
                                           core.get("border"), core.get("reflection", 0))
@@ -2063,7 +2085,7 @@ def _pgp_s_form(cert, n):
     b = np.array(cert["b"], dtype=np.int64)
     tg, add, neg = abelian_group(cert.get("group", str(len(a))))
     t = int(cert["t"])
-    if tg != n or len(a) != n or len(b) != n or t == 0 or add[t, t] != 0:
+    if tg != n or len(a) != n or len(b) != n or not 0 < t < n or add[t, t] != 0:
         raise ValueError("periodic Golay pair: wrong length or t is not of order 2")
     if not (np.abs(a) == 1).all() or not (np.abs(b) == 1).all():
         raise ValueError("periodic Golay pair: entries must be +-1")
@@ -2084,14 +2106,15 @@ def _pgp_s_form(cert, n):
 
 def build_symmetric_involution(cert):
     """Symmetric Hadamard matrix of order 4q, q = 1 (mod 4) a prime, from a Hadamard matrix K = [[P, Q], [Q, P]] of
-    order q - 1 (symmetric/THEOREM_F.md), here from a periodic Golay pair of length (q - 1)/2 (_pgp_s_form).
+    order q - 1 (symmetric/PERIODIC_GOLAY.md), here from a periodic Golay pair of length (q - 1)/2 (_pgp_s_form).
 
     Points of the projective line: x = 0 .. q - 1 and infinity; chi is the quadratic character. On the q - 1 points
     x != 0 put A[x, y] = chi(x + y) (zero exactly at y = -x) and Z[x, y] = [x + y = 0]. Row r < (q - 1)/2 of K is the
     point r + 1 and row (q - 1)/2 + r the point -(r + 1), so that x -> -x acts on the rows of K as the block swap; Kp
     is K with its rows so relabelled. Then
 
-        F = [[A + Z, A - Z], [A - Z, A + Z]],   B = [ (1; 1) | (chi; chi) | (k_j; -k_j) ],   P = -B^T F B / (4(q - 1)),
+        F = [[A + Z, A - Z], [A - Z, A + Z]],   B = [ (1; 1) | (chi; chi) | (k_j; -k_j) ],
+        P = -B^T F B / (4(q - 1)),
 
     where k_j are the columns of Kp, satisfy B^T B = 2(q - 1) I, F B = -2 B P and F^2 + 2 B B^T = 4q I, and P is a
     symmetric signed permutation matrix without fixed points. For a non-square nu, V0[x, y] = chi(xy - nu),
@@ -2441,7 +2464,15 @@ def canonical_csv(H):
 def build_checked(cert):
     """Build the matrix of a certificate and check its order, its entries, H H^T = nI and
     the SHA-256 of its canonical CSV. Returns H, the sequences (or None) and the digest."""
-    H, seqs = BUILDERS[cert["construction"]](cert)
+    for key in ("construction", "order", "sha256"):
+        if key not in cert:
+            raise ValueError(f'certificate field "{key}" is missing')
+    if cert["construction"] not in BUILDERS:
+        raise ValueError(f'unknown construction "{cert["construction"]}"')
+    try:
+        H, seqs = BUILDERS[cert["construction"]](cert)
+    except KeyError as exc:
+        raise ValueError(f"missing certificate field or unrecognised key {exc}") from None
     n = H.shape[0]
     if n != cert["order"]:
         raise ValueError(f"built order {n}, certificate says {cert['order']}")
@@ -2464,6 +2495,9 @@ def build_checked(cert):
 
 def check(directory, write=False):
     cert = json.loads((directory / "certificate.json").read_text())
+    family = directory.resolve().parent.name
+    if family in ("symmetric", "skew") and not cert.get(family):
+        raise ValueError(f'certificates in {family}/ must set "{family}": true')
     H, seqs, digest = build_checked(cert)
     seq_file = directory / "sequences.txt"
     if seqs is not None and seq_file.exists():

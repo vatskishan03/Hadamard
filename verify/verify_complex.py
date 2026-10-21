@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Check the complex (quaternary) Hadamard matrices in complex-hadamard/.
 
-A quaternary Hadamard matrix of order n has entries 1, -1, i, -i and K K* = n I. Each certificate
-complex-hadamard/C<n>.json gives four +-1 sequences A, B, C, D of length N = n/2 (first rows of circulant matrices)
-with A and B symmetric and A A^T + B B^T + C C^T + D D^T = 4N I, and the matrix is Szöllősi's array
-(arXiv:2603.09572, Theorem 4), R the back-diagonal identity:
+A quaternary Hadamard matrix of order n has entries 1, -1, i, -i and K K* = n I. Each certificate is the file
+complex-hadamard/C<n>.json. Certificates with construction "szollosi-ssxx" give four +-1 sequences A, B, C, D of
+length N = n/2 (first rows of circulant matrices) with A and B symmetric and A A^T + B B^T + C C^T + D D^T = 4N I,
+and the matrix is Szöllősi's array (arXiv:2603.09572, Theorem 4), R the back-diagonal identity:
 
     K = [[ (A+B)/2 + i(A-B)/2,          (C+DR)/2 + i(C-DR)/2 ],
          [ (C^T+DR)/2 - i(C^T-DR)/2,   -(A+B)/2 + i(A-B)/2  ]].
@@ -23,23 +23,43 @@ Ch[i q + phi(g), b].
 Certificates with construction "miyamoto-completion" give q, a primitive root g and an input file: the completion
 of Seberry-Yamada's Corollary 8.8(i) (completion_build, NOTES.md section 19).
 
-Certificates with construction "complex-yamada-kiyasu" give a prime q = 1 (mod 4), Yamada's parameters r, xi and a
-quaternary conference matrix of order (q + 3)/2 as the four sequences of a zero-diagonal Szollosi array, plain or
-bordered; K of order 2(q + 2) is built by verify/verify.py (complex_yamada_kiyasu, NOTES.md section 31), which also
-builds the Hadamard matrices of order 4(q + 2) in hadamard/ from the same data.
+Certificates with construction "paley" give a prime power q = p^k = 3 (mod 4) (fields "q", "p", "k", and "poly" for
+k > 1) and the order (q + 1)/2: the quaternary matrix obtained from Paley's skew Hadamard matrix of order q + 1 and
+the signed permutation u -> -1/u that commutes with it (paley_build, complex-hadamard/PALEY.md).
 
-This script rebuilds K from the sequences alone, checks every entry and K K* = n I exactly in integer arithmetic
-(real and imaginary parts separately), and compares the SHA-256 of the canonical text of K: n lines of n digits,
-digit e for the entry i^e.
+Certificates with construction "complex-yamada-kiyasu" give a prime q = 1 (mod 4), Yamada's parameters r and xi and,
+under "core", a quaternary conference matrix of order (q + 3)/2 as the four sequences of a zero-diagonal Szöllősi
+array over the group "group", plain or bordered (optional fields "border" {t, v}, "reflection", "rowsums",
+"symmetry_generators", "symmetry_order"). K of order 2(q + 2) is built by verify/verify.py (complex_yamada_kiyasu,
+NOTES.md §31, §34), which also builds the Hadamard matrices of order 4(q + 2) in hadamard/ from the same data; for
+these certificates only the final check below is independent of verify.py. All other constructions are built here.
+
+The script checks that the built matrix has the order stated in the certificate and in the file name (and that the
+field "N" is n/2), that every entry is 1, -1, i or -i, and that K K* = n I, and compares the SHA-256 of the canonical
+text of K: n lines of n digits, digit e for the entry i^e. K K* is formed from the real and imaginary parts as float64
+matrix products, which are exact: every entry is 0 or +-1 and every partial sum is an integer of absolute value at
+most n, far below 2^53.
 
     python3 verify/verify_complex.py [n ...]          all certificates when no order is given
     python3 verify/verify_complex.py --write n         also write complex-hadamard/C<n>.txt
 """
-import hashlib, json, sys
+import hashlib, importlib.util, json, sys
 from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent.parent / "complex-hadamard"
+_VERIFY = None
+
+
+def _real():
+    """verify/verify.py, loaded once by path: it holds the builder of the complex-yamada-kiyasu certificates."""
+    global _VERIFY
+    if _VERIFY is None:
+        path = Path(__file__).resolve().with_name("verify.py")
+        spec = importlib.util.spec_from_file_location("hadamard_verify", path)
+        _VERIFY = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(_VERIFY)
+    return _VERIFY
 
 
 def circ(s):
@@ -230,9 +250,7 @@ def completion_build(cert):
 
 def build(cert):
     if cert["construction"] == "complex-yamada-kiyasu":
-        sys.path.insert(0, str(Path(__file__).resolve().parent))
-        import verify as real
-        Kr, Ki = real.complex_yamada_kiyasu(cert)
+        Kr, Ki = _real().complex_yamada_kiyasu(cert)
         return Kr.astype(np.int64), Ki.astype(np.int64)
     if cert["construction"] == "miyamoto-completion":
         return completion_build(cert)
@@ -284,12 +302,10 @@ def check(Kr, Ki):
     if not np.all(np.abs(Kr) + np.abs(Ki) == 1):
         raise ValueError("an entry is not in {1, -1, i, -i}")
     I = np.eye(n, dtype=np.int64)
-    if n > 1000:     # float64 BLAS is exact here: entries 0, +-1 and every partial sum an integer of size <= n < 2^53
-        Fr, Fi = Kr.astype(np.float64), Ki.astype(np.float64)
-        re, im = (Fr @ Fr.T + Fi @ Fi.T).astype(np.int64), (Fi @ Fr.T - Fr @ Fi.T).astype(np.int64)
-    else:
-        re = Kr @ Kr.T + Ki @ Ki.T             # K K* = (Kr + i Ki)(Kr^T - i Ki^T)
-        im = Ki @ Kr.T - Kr @ Ki.T
+    # K K* = (Kr + i Ki)(Kr^T - i Ki^T); float64 products are exact: entries 0, +-1 and every partial sum an integer
+    # of absolute value <= n < 2^53
+    Fr, Fi = Kr.astype(np.float64), Ki.astype(np.float64)
+    re, im = (Fr @ Fr.T + Fi @ Fi.T).astype(np.int64), (Fi @ Fr.T - Fr @ Fi.T).astype(np.int64)
     if not (np.array_equal(re, n * I) and not im.any()):
         raise ValueError("K K* != n I")
 
@@ -307,10 +323,15 @@ def main():
                                                                         key=lambda p: int(p.stem[1:]))
     bad = 0
     for f in files:
-        cert = json.loads(f.read_text())
-        n = cert["order"]
+        stem = int(f.stem[1:])
         try:
+            cert = json.loads(f.read_text())
+            n = cert["order"]
+            if "N" in cert and 2 * cert["N"] != n:
+                raise ValueError(f'"N" is {cert["N"]}, the order is {n}')
             Kr, Ki = build(cert)
+            if Kr.shape[0] != n or n != stem:
+                raise ValueError(f"built order {Kr.shape[0]}, certificate {n}, file {f.name}")
             check(Kr, Ki)
             txt = text(Kr, Ki)
             sha = hashlib.sha256(txt.encode()).hexdigest()
@@ -319,8 +340,10 @@ def main():
             bad += not ok
             if write:
                 (ROOT / f"C{n}.txt").write_text(txt)
-        except ValueError as ex:
-            print(f"{n:6d}  FAIL  {ex}"); bad += 1
+        except Exception as ex:      # report and continue with the remaining orders
+            why = (f"missing certificate field or unrecognised key {ex}" if isinstance(ex, KeyError)
+                   else str(ex) if isinstance(ex, ValueError) else f"{type(ex).__name__}: {ex}")
+            print(f"{stem:6d}  FAIL  {why}"); bad += 1
     sys.exit(1 if bad else 0)
 
 
