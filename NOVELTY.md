@@ -211,6 +211,8 @@ and an adversarial re-search:
   95 open orders, which it lists before our results of 20 October); the math74 explorer v51; Zaitsev's page (last
   modified 15 October; 1286 on its unknown list); Middletownbooks/Hadamard (643 open, screened on 6 October); the
   arXiv listings to 21 October; GitHub and web searches for 2572, 1286 and 643.
+- *Conference matrices of order 322.* As for 430 and 526; Fallon–Iverson's library has a complex one, not
+  quaternary in any equivalent form (invariants up to 0.765 from {±1, ±i}).
 - *Finding.* None gives a Hadamard matrix of order 2572, a quaternary Hadamard matrix of order 1286 or a quaternary
   conference matrix of order 322.
 - *Not read.* As for 6796; the Handbook's Table 1.53 row for 643 was not read directly; Miyamoto's §7 lists.

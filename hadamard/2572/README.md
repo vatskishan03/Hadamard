@@ -87,7 +87,10 @@ sampling.
 **Ingredients.**
 - The quaternary conference matrix of order 322 is new to our knowledge. No real one exists: a symmetric one would
   need 321 to be a sum of two squares, and a skew one needs order ≡ 0 (mod 4). The families of complex ones
-  (Paley-type, Berman, BGW and GC, Seberry–Whiteman, Et-Taoui) need 321 to be a prime power.
+  (Paley-type, Berman, BGW and GC, Seberry–Whiteman, Et-Taoui) need 321 to be a prime power. Fallon and Iverson's
+  ancillary library (arXiv:2610.09169) has a conference signal over ℤ₃₂₁, which gives a complex conference matrix of
+  order 322. That matrix is not equivalent to a quaternary one: its invariants C_ij C_kl C̄_il C̄_kj reach 0.765
+  from {±1, ±i}, the largest distance possible (over all 3.3 · 10⁷ invariants of its circulant core).
 - The quaternary Hadamard matrix of order 1286 settles an order that is blank in Seberry–Yamada's Table 11.2 (1992)
   and on the unknown list of Zaitsev et al.'s page (last modified 15 October 2026, unchanged on 21 October). Its other
   routes fail: 1285 and 2571 are not prime powers (Turyn, Ito–Egan), and no Williamson or Williamson-type matrices of
@@ -97,6 +100,10 @@ sampling.
 whose page lists 1286 as unknown and whose method includes the same template). The Seberry–Yamada book of 2020, the
 Handbook's Table 1.53 row for 643, and Miyamoto's lists of 1991 were not read. The sources searched are listed in
 [NOVELTY.md](../../NOVELTY.md).
+
+**Checks.** An independent judge rebuilt the core, Yamada's circulants, K and H with its own code from the
+certificate alone. Its CSV is byte-identical to the one `verify.py` writes, and it checked H Hᵀ = 2572 I exactly in
+two ways.
 
 ## Files
 
