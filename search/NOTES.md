@@ -5195,3 +5195,51 @@ Z_C = Z_D = 79 and uniformly; N = 743 ⟨15⟩; N = 683 ⟨5⟩. Exhaustive quot
 solution or about 10⁵ CPU-years away. The round-22 leftovers T239 [16], [17] (§77) could not be run: the sweep finds
 no usable quotient for them. T725b [71] and [72] have no bordered tuple in the patterns (1, 1, 0, 4) and (1, 3, 2, 2);
 (3, 3, 0, 0) (about 3 · 10¹¹ pair work) timed out after an hour.
+
+## 80. Round 25: why the order-850 solutions were plentiful; the bordered split for even |G′| (October 21)
+
+No core was found. Two lenses ran (scratchpad `round25/`, each with an adversarial judge), and the main session ran
+exact joins of the cheapest live m = 725 classes (scratchpad `round22/ncu/`).
+
+**Anatomy of the order-850 solutions** (`round25/anatomy850/`).
+- *Tied solutions.* All 1280 (H = ⟨(M, 8)⟩) and 512 (⟨(M, 2)⟩) solutions satisfy D = C ∘ n⁻¹ for an element n of the
+  normaliser of H of odd–odd type: a non-square on GF(25) and a non-residue on ℤ₁₇. Also A ∘ n⁻¹ = −A and B ∘ n⁻¹ = B.
+  The untied count is 0. Under N(H)/H (order 32), the reflections and swap of C and D, and A ↦ −A, they form 10 and 4
+  free orbits of size 128; one core per orbit (14 in all) was built and checked.
+- *A and B are explicit.* They are index functions: A(x, 0) = ±η₂₅(x), A(0, z) = ±η₁₇(z), and inside
+  A(x, z) = f(ind₂₅ x ± ind₁₇ z mod 4) with f of type (+, +, −, −). B is 1 on both axes. The values |χ(X)|² on the
+  axis character orbits are the same integers in every solution.
+- *Tied join* (PROVED). With D = C ∘ n⁻¹, V_D = P V_C for a class permutation P, and the equation reads
+  V_A + V_B + (I + P)V_C = T. Stage 1 joins A and B on the annihilator of Im(I + P), stage 2 scans C. It recovers all
+  1280 solutions in 0.8 s (generic join 71 s). The judge's own brute force agrees on 850, on ℤ₈₅ (CD ties 4032, AB ties
+  9152) and on 510 small structures.
+- *Why the estimate failed.* For the generic stratum the old estimate (4.6 solutions) is right; the whole count lives on
+  the tied stratum, where (I + P)V_C has rank 4 instead of 9. A rank-reduced lattice Gaussian gives 187, and 456 with
+  the measured mod-8 residue bias, against 1280 (HEURISTIC; 2.8× low instead of 285×).
+- *Census.* Tied and symmetric-sum searches over every class with at most 60 orbits of the open groups (unbordered and
+  bordered) found nothing; the plug-in shapes were the classes the engine could not handle.
+- *Defects found by the judge.* `tiedjoin.tied_search` silently drops every n that does not preserve the kernel of the
+  chosen compression (83% of the (n, tuple) pairs for m725 c139), and caches fibre permutations by object id, which
+  goes stale in long sweeps. So its negative verdicts are not exhaustive for classes with reducible H, and the
+  conjecture that the quartic-twist family is absent from the open groups is not established.
+
+**The bordered split for even or non-cyclic G′** (`round25/z2b-even/`, continuation of the lens killed in round 24).
+- *Estimator.* Round 24's estimate table returned "null" on float64 underflow, not for a missing estimate. With
+  log-sum-exp, N = 701 has E = 10^−1908 (|H| = 60) and 10^−943 (|H| = 30). Its Singer-type |H| = 24 structures have no
+  feasible ℤ₂ tuple (exact).
+- *Closed in this setting.* N = 701, 521, 665 and 725: E ≤ 10^−40 or exactly dead, except N = 725 with |H| = 9
+  (E = 10^2.3 but about 10¹² CPU-years). N = 665: all seven structures with at most 11 A-orbits are exhaustively empty.
+- *N = 161.* The two structures with E above 10 have |H| = 3 acting trivially on ℤ₅. That shape is unreliable for the
+  estimator: its small analogues are exactly empty against E = 10^2.3 to 10^6.3. The judge found that the next two
+  candidates ([16, 5] with H = ⟨(5, 2)⟩, ⟨(3, 2)⟩) are dead on the ℤ₄ compression, which the lens's 1.7 hours of
+  exhaustive stratum runs (0 level-1 instances) are consistent with.
+- *The judge's calibration.* On 181 small structures with exact counts, the estimate was never None or negative where
+  solutions exist, but it gave false alarms up to 10^4.5 on empty structures.
+
+**m = 725 exact joins** (n = 2899). Classes c139 and c142 (|H| = 28, 35 orbits) are exhaustively empty: all six live
+row patterns of each, about 7.4 · 10¹¹ pair tests per class, 0 solutions. Their tied strata are empty too, so c141
+(untied only, 1.3 · 10¹² pair tests) was not run.
+
+**n = 955, character-bordered ℤ₃² family** (§77). The leftovers [16] and [17] are not "unusable": the `--forceq` flag
+of `sweep.py` admits only quotients that refine Q. Without it both run on the quotient ℤ₃₉, but `lowe_enum` then dies
+(SIGSEGV at the 3.5 GB cap) while listing one block. UNKNOWN.
