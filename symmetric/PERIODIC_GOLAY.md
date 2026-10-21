@@ -4,16 +4,15 @@
 then a symmetric Hadamard matrix of order 4q exists. Such a K exists whenever there is a periodic Golay pair of length
 (q − 1)/2 over an abelian group.
 
-For q ≡ 1 (mod 8) the theorem adds nothing to [PROPUS_WEIGHING.md](PROPUS_WEIGHING.md), which needs only some Hadamard
-matrix of order (q − 1)/2. For q ≡ 5 (mod 8) it is the first construction we know of symmetric Hadamard matrices of
-order 4q. Of the 57 prime powers q ≡ 5 (mod 8) that the Đoković–Seberry census (2025-05-28) leaves undecided, it
-settles 101 and 149 ([404](404), [596](596)). For eleven more it would need an input of order 388, 772, …, 2340 (see
-[Reach](#reach)), and for the other 44 no input exists.
+For q ≡ 1 (mod 8) and q < 4000 the theorem adds nothing to [PROPUS_WEIGHING.md](PROPUS_WEIGHING.md), since Hadamard
+matrices of order (q − 1)/2 are known there. For q ≡ 5 (mod 8) it is the first construction we know of symmetric
+Hadamard matrices of order 4q. Of the 57 prime powers q ≡ 5 (mod 8) that the Đoković–Seberry census (2025-05-28)
+leaves undecided, it settles 101 and 149 ([404](404), [596](596)). For eleven more it would need an input of order
+388, 772, …, 2340 (see [Which q](#which-q)), and for the other 44 no input exists.
 
-The matrices have an involutory automorphism with 2q − 2 fixed points
-([search/NOTES.md](../search/NOTES.md) §63, §65). The construction was found in round 8 of the exploration of 18 October
-2026 (its own proof and builder), re-derived independently, and verified by four adversarial checks. Its builder in
-[verify/verify.py](../verify/verify.py) (construction `symmetric-involution`) is a third implementation.
+The matrices have an involutory automorphism with 2q − 2 fixed points ([search/NOTES.md](../search/NOTES.md) §63,
+§65). The proof below was re-derived independently, and the builder in [verify/verify.py](../verify/verify.py)
+(construction `symmetric-involution`) rebuilds and checks the matrices.
 
 ## Proof
 
@@ -40,15 +39,15 @@ FB + 2BP = 0 and F² + 2BBᵀ = 4qI. In the coordinates (fixed points, first poi
 the shape of every symmetric H(4q) with an involution of 2m fixed points and q + 1 two-cycles. V carries all the field
 structure. F, B and P form the Q-part.
 
-**2. The Q-part from K.** On the m points x ≠ 0 let A[x, y] = χ(x + y) and Z[x, y] = [x + y = 0]. Then A = XZ, where X is
-Paley's core restricted to GF(q)* and Z is the permutation x ↦ −x, which commutes with X. Paley's conference matrix
+**2. The Q-part from K.** On the m points x ≠ 0 let A[x, y] = χ(x + y) and Z[x, y] = [x + y = 0]. Then A = XZ, where X
+is Paley's core restricted to GF(q)* and Z is the permutation x ↦ −x, which commutes with X. Paley's conference matrix
 C₀ is [[0, 1, 1ᵀ], [1, 0, χᵀ], [1, χ, X]] in the order (∞, 0, GF(q)*), and C₀² = qI gives
 
     A² = X² = qI − 𝟙𝟙ᵀ − χχᵀ,   A𝟙 = X𝟙 = −χ,   Aχ = Xχ = −𝟙,
 
-the last by the Jacobi sum Σ_y χ(y) χ(y − x) = −1. Relabel the rows of K by the points of GF(q)*: row r < n is the
-point r + 1, and row n + r is −(r + 1). Then x ↦ −x acts on the rows as the block swap S, and Z Kp = Kp S, because
-S K = K S. Write J₂ = [[1, 1], [1, 1]] and D₂ = [[1, −1], [−1, 1]]. Put
+the last by the Jacobi sum Σ_y χ(y) χ(y − x) = −1. Let Kp be K with its rows relabelled by a transversal
+x₀, …, x_{n−1} of {±1} in GF(q)*, row r by x_r and row n + r by −x_r. Then x ↦ −x acts on the rows as the block swap
+S, and Z Kp = Kp S, because S K = K S. Write J₂ = [[1, 1], [1, 1]] and D₂ = [[1, −1], [−1, 1]]. Put
 
     F = A ⊗ J₂ + Z ⊗ D₂ = [[A + Z, A − Z], [A − Z, A + Z]]   (in the order (first copy, second copy)),
     B = [ 𝟙 ⊗ (1, 1)ᵀ | χ ⊗ (1, 1)ᵀ | k_j ⊗ (1, −1)ᵀ  (j < m) ],
@@ -84,35 +83,38 @@ since only V² = qI and the support enter step 1. Step 1 then gives the theorem.
 **4. K from a periodic Golay pair.** If (a, b) is a periodic Golay pair over an abelian group Γ of order n, i.e.
 PAF_a + PAF_b = 2n δ, then K′ = [[A, B], [−Bᵀ, Aᵀ]] (A, B group-developed) is a Hadamard matrix of order 2n. Every
 translation of Γ, acting on both halves, is an automorphism. If n is even, Γ has an element t of order 2, and the
-translation by t is a fixed-point-free involution. Ordering the indices by (coset of ⟨t⟩, half, transversal) puts K′ in
-the form [[P, Q], [Q, P]].
+translation by t is a fixed-point-free involution. Fix one element u in each orbit {u, u + t} of this translation, and
+order the indices first by position in the orbit (u before u + t) and then by orbit. This puts K′ in the form
+[[P, Q], [Q, P]].
 
 ## Which q
 
 **A necessary condition.** K = [[P, Q], [Q, P]] is Hadamard exactly when X = (P + Q)/2 and Y = (P − Q)/2 are weighing
 matrices W(n, n/2) with complementary supports. Indeed KKᵀ = [[2(XXᵀ + YYᵀ), 2(XXᵀ − YYᵀ)], …]. For q ≡ 5 (mod 8),
-n = (q − 1)/2 ≡ 2 (mod 4), and a weighing matrix of order n ≡ 2 (mod 4) has weight a sum of two squares. So
-(q − 1)/4 must be a sum of two squares. The same holds for every Hadamard matrix of order q − 1 with a fixed-point-free
-involutory automorphism, by a Hasse–Minkowski argument (NOTES.md §65). Periodic Golay pairs of length ℓ need ℓ to be a
-sum of two squares as well.
+n = (q − 1)/2 ≡ 2 (mod 4), and a weighing matrix of order n ≡ 2 (mod 4) has weight a sum of two squares. So (q − 1)/4
+must be a sum of two squares. The same holds for every Hadamard matrix of order q − 1 with a fixed-point-free
+involutory automorphism, by a Hasse–Minkowski argument ([search/NOTES.md](../search/NOTES.md) §65). Periodic Golay
+pairs of length ℓ need ℓ to be a sum of two squares as well.
 
-**Reach.** Of the 57 census values q ≡ 5 (mod 8) that are prime powers (`python3 search/sym_involution.py targets`),
-44 have (q − 1)/4 not a sum of two squares. The other 13 need K of order q − 1:
+**Reach.** Of the 57 census values q ≡ 5 (mod 8) that are prime powers, 56 are primes (listed by
+`python3 search/sym_involution.py targets`; the builder takes primes) and one is 2197 = 13³. 44 of the 57 have
+(q − 1)/4 not a sum of two squares. The other 13 need K of order q − 1:
 
 | q | 4q | K of order | status |
 |---:|---:|---:|---|
-| 101 | [404](404) | 100 | periodic Golay pair of length 50 over ℤ₂ × ℤ₅² (ours, from classes of index 8 in GF(25)) |
+| 101 | [404](404) | 100 | periodic Golay pair of length 50 (published; ours over ℤ₂ × ℤ₅², from classes of index 8 in GF(25)) |
 | 149 | [596](596) | 148 | periodic Golay pair of length 74 (Đoković–Kotsireas, arXiv:1310.5773) |
 | 389 | 1556 | 388 | needs a K of order 388; periodic Golay pairs of length 194 are undecided (Đoković–Kotsireas' list) |
 | 773, 821, 1109, 1493, 1621, 1733, 1973, 2197, 2309, 2341 | | 772 … 2340 | no K known (periodic Golay pairs of lengths 386, 410, 554, 746, 810, 866, 986, 1098, 1154, 1170 are not known; cyclic ones of length 810 do not exist, by Arasu–Xiang) |
 
-Round 9 also built K of orders 36, 52, 164, 244 and 452, and symmetric H(148), H(212) of known orders (q = 37, 53). An
-exhaustive multiplier search found no K for the other census orders in the structures it covered (NOTES.md §65).
+K was also built for orders 36, 52, 164, 244 and 452, and symmetric H(148), H(212) of known orders (q = 37, 53). An
+exhaustive multiplier search found no K for the other census orders in the structures it covered
+([search/NOTES.md](../search/NOTES.md) §65).
 
 ## Status
 
 Both orders are **New**: v = 101 and v = 149 are undecided in the census, and we found no symmetric Hadamard matrix of
-order 404 or 596 and no statement of this construction in the sources we read (audit of 18 October 2026, NOVELTY.md).
+order 404 or 596 and no statement of this construction in the sources we read.
 
 - Miyamoto (1991, Theorem 5) claimed a Hadamard matrix of order 4q "of symmetric block form" from a conference matrix
   of order q + 1 and a symmetric Hadamard matrix of order q − 1, which would cover both orders. The census says his
@@ -120,19 +122,27 @@ order 404 or 596 and no statement of this construction in the sources we read (a
   be symmetric, but must have the form [[P, Q], [Q, P]].
 - Ordinary Hadamard matrices of orders 404 and 596 are classical (Miyamoto's theorem with any H(q − 1)). The symmetry
   is what is new.
-- The periodic Golay pair of length 74 is Đoković and Kotsireas'. For length 50 the round-9 agent cites earlier pairs
-  (Kotsireas–Koukouvinos 2008; Đoković 2011), which we did not check; the one used here is from our own search. None
-  of ours is cyclic: our search found no cyclic pair of length 50 invariant under a multiplier subgroup of order 4,
-  5, 10 or 20 (exhaustive within those subgroups).
+- The periodic Golay pair of length 74 is Đoković and Kotsireas'. Periodic Golay pairs of length 50 were published
+  earlier (Đoković, Ann. Comb. 15 (2011) 233–254; Kotsireas and Koukouvinos, Int. J. Appl. Math. 21 (2008) 509–514;
+  both as listed in arXiv:1310.5773); the one used here is from our own search. A published cyclic pair of length 50
+  gives K as well.
 - Symmetric matrices of orders 148 (q = 37) and 212 (q = 53) were also built this way; those orders were known.
+
+The sources searched are listed in [NOVELTY.md](../NOVELTY.md).
 
 ## Reproduction and verification
 
 ```
-python3 search/sym_involution.py targets          # the census prime powers q = 5 (mod 8) and their inputs
+python3 search/sym_involution.py targets          # the census primes q = 5 (mod 8) and the input K each needs
 python3 search/sym_involution.py certify 101 149  # writes symmetric/404 and symmetric/596
 python3 verify/verify.py symmetric/404            # rebuilds H and checks it
 ```
+
+`certify` writes a certificate only into a directory that has none: if `symmetric/<4q>/certificate.json` exists it
+stops with `<directory> exists`. The two certificates are committed, so to regenerate one, move its `certificate.json`
+away first and compare the new file with the old. The two pairs are stored in `search/sym_involution.py` (`PAIRS`):
+q = 101 as two ±1 strings of length 50 over ℤ₂ × ℤ₅², q = 149 as unions of orbits of {1, 47, 63} on ℤ₇₄ (Đoković and
+Kotsireas).
 
 `verify/verify.py` (construction `symmetric-involution`) does the following.
 - From the pair: it checks that (a, b) is a periodic Golay pair over the stated group and that t has order 2, and

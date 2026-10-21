@@ -6,10 +6,10 @@
 
 A symmetric Hadamard matrix is a Hadamard matrix H with H = Hᵀ. This one comes from the symmetric form of a classical
 plug-in: a symmetric orthogonal design of type (1, m − 1) and a symmetric Hadamard matrix of order m + 4 give a
-symmetric Hadamard matrix of order m(m + 3). Here m = 68. The non-symmetric version — a skew-Hadamard matrix of order
-m and the symmetric core of a Hadamard matrix of order m + 4, plugged in with J − 2I — is Wallis's (J. Austral. Math.
-Soc. 11 (1970), Corollary 10 (iv); Linear and Multilinear Algebra 3 (1975), Corollary 4, which lists 1207 among new
-orders of Williamson-type matrices). Our matrix is a signed row permutation of that one:
+symmetric Hadamard matrix of order m(m + 3). Here m = 68. The non-symmetric version, a skew-Hadamard matrix of order m
+and the symmetric core of a Hadamard matrix of order m + 4 plugged in with J − 2I, is Wallis's (J. Austral. Math. Soc.
+11 (1970), Corollary 10 (iv); Linear and Multilinear Algebra 3 (1975), Corollary 4, which lists 1207 among new orders
+of Williamson-type matrices). Our matrix is a signed row permutation of that one:
 P ⊗ X + N ⊗ D = (P ⊗ I)(I ⊗ X + C ⊗ D) with C = PN Paley's skew core. What is new is that the symmetric design makes
 it symmetric.
 
@@ -88,6 +88,7 @@ The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ```
 python3 verify/verify.py symmetric/4828
+cc -O2 verify/check_matrix.c -o check_matrix
 gzip -dc symmetric/4828/H4828.csv.gz | ./check_matrix
 ```
 

@@ -78,8 +78,9 @@ D, beyond the cap of 24 of the first symmetric sweep (§17).
   - Miyamoto would need a conference matrix of order 134, and 133 is not a sum of two squares.
   - Two-circulant constructions need 532 = a² + b², which is impossible.
 
-The sources searched are listed in [NOVELTY.md](../../NOVELTY.md). Doubling ([[H, H], [H, −H]]) gives symmetric
-Hadamard matrices of orders 1064, 2128, …
+Doubling ([[H, H], [H, −H]]) gives symmetric Hadamard matrices of orders 1064, 2128, …
+
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 
@@ -93,6 +94,7 @@ Hadamard matrices of orders 1064, 2128, …
 
 ```
 python3 verify/verify.py symmetric/532
+cc -O2 verify/check_matrix.c -o check_matrix
 gzip -dc symmetric/532/H532.csv.gz | ./check_matrix
 ```
 

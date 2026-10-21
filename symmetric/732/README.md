@@ -68,10 +68,9 @@ Table 2: "183 CW(3)"; Table 3: "183 Spence(13)"); the symmetry is what is new.
 
 - The Đoković–Seberry census lists 183 among its 595 undecided v for symmetric matrices. 183 is in none of its eight
   symmetric series nor among its 12 sporadic values.
-- Later (October 17) we found a construction that also gives this order: 183 = 181 + 2 with 181 ≡ 5 (mod 8) prime,
-  and Yamada's matrix in symmetric quaternary form ([YAMADA_KIYASU.md](../YAMADA_KIYASU.md)) with a skew-Hadamard
-  matrix of order 92 (Szekeres's good matrices of order 23) gives a symmetric Hadamard matrix of order 732 (checked
-  exactly, not stored). The matrix here, from the search, is independent of it.
+- The construction of [YAMADA_KIYASU.md](../YAMADA_KIYASU.md) also gives this order: 183 = 181 + 2 with 181 ≡ 5
+  (mod 8) prime and a skew-Hadamard matrix of order 92 (J. Wallis, A skew-Hadamard matrix of order 92, Bull. Austral.
+  Math. Soc. 5 (1971) 203–204). The matrix here, from the search, is independent of it.
 - The propus literature lists 183 as open: Seberry–Balonin (arXiv:1512.01732; Australas. J. Combin. 69 (2017)),
   Balonin–Đoković (arXiv:1803.08787), Balonin–Seberry (Math. Scientist 43 (2018) 137–143, Table 2: "183 —", where a
   long dash denotes that no symmetric Hadamard matrix is known) and Đoković (arXiv:2101.05429v2). The Handbook
@@ -94,8 +93,9 @@ Table 2: "183 CW(3)"; Table 3: "183 Spence(13)"); the symmetry is what is new.
     anti-automorphism fixing two points. With q = 181 it would need such a skew matrix of order 92. None is known: no
     Goethals–Seidel skew matrix of order 92 has a block-monomial one ([search/NOTES.md](../../search/NOTES.md) §31).
 
-The sources searched are listed in [NOVELTY.md](../../NOVELTY.md). Doubling ([[H, H], [H, −H]]) gives symmetric
-Hadamard matrices of orders 1464, 2928, …
+Doubling ([[H, H], [H, −H]]) gives symmetric Hadamard matrices of orders 1464, 2928, …
+
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 
@@ -109,6 +109,7 @@ Hadamard matrices of orders 1464, 2928, …
 
 ```
 python3 verify/verify.py symmetric/732
+cc -O2 verify/check_matrix.c -o check_matrix
 gzip -dc symmetric/732/H732.csv.gz | ./check_matrix
 ```
 

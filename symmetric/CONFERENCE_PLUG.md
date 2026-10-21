@@ -49,9 +49,8 @@ a = b = 1).
 
 **The plug pair.** In the plug-ins of [README](README.md) (4828 and the m(m − 1), m(m + 3) constructions), the design
 (P, N) anticommutes and the plugs commute. Here the design (I, C) commutes and the plugs X, Y anticommute. Within this
-scheme the plugs cannot be smaller: Take an outer conference matrix of
-order n and symmetric ±1 plugs of order 2k with XY + YX = 0 and X² + (n − 1)Y² = n · 2k · I, and let the order 2nk
-be 4v with v odd, so that k is odd.
+scheme the plugs cannot be smaller. Take an outer conference matrix of order n and symmetric ±1 plugs of order 2k with
+XY + YX = 0 and X² + (n − 1)Y² = n · 2k · I, and let the order 2nk be 4v with v odd, so that k is odd.
 - The off-diagonal entries of X² and Y² are even, of modulus at most 2k, and (X²)ᵢⱼ = −(n − 1)(Y²)ᵢⱼ.
 - If they all vanish, X and Y are symmetric Hadamard matrices of order 2k ≡ 2 (mod 4). Then k = 1, which is Paley II
   (v = n/2).
@@ -60,8 +59,8 @@ So apart from Paley II the scheme reaches only v ≥ n(n − 1)/2, and k = n −
 
 ## Reach
 
-Paley's conference matrices give v = q(q + 1)/2 for prime powers q ≡ 1 (mod 4) (`python3 search/sym_conference_plug.py
-targets`):
+Paley's conference matrices give v = q(q + 1)/2 for prime powers q ≡ 1 (mod 4)
+(`python3 search/sym_conference_plug.py targets`):
 
 | q | n | v | order | census | here |
 |---:|---:|---:|---:|---|---|
@@ -76,10 +75,10 @@ targets`):
 | 61 | 62 | 1891 = 31 · 61 | [7564](7564) | undecided | Known (Spence 1977) |
 
 The next Paley value, q = 73, gives v = 2701, beyond the census. The other known symmetric conference matrices give
-nothing new below 2500: Mathon's order 46 gives v = 1035 (known), Gritsenko's order 66 (2021) gives v = 2145 (known), and
-Verma's order 86 gives 3655. Kharaghani and
-Seberry's recursion G_{j+1} = I ⊗ (J ⊗ B_j) + C ⊗ (Q ⊗ B_j + I ⊗ A_j) gives symmetric orders 2n(n − 1)^j as well. For
-v < 2500 these are v = 75, 375, 405, 1183 and 1875, which are known or already here ([4732](4732)).
+nothing new below 2500: Mathon's order 46 gives v = 1035 (known), Gritsenko's order 66 (2021) gives v = 2145 (known),
+and Verma's order 86 gives 3655. Spence's recursion (Corollary 2) gives orders 2n(n − 1)^j, and the builder implements
+only the case j = 1. For v < 2500 the cases with j ≥ 2 are v = 75, 375, 405, 1183 and 1875, which are known or already
+here (v = 1183 is [4732](4732), j = 2, built by Yamada–Kiyasu).
 
 ## Status
 
@@ -104,7 +103,11 @@ python3 search/sym_conference_plug.py certify 17 25 29 49 61  # writes the five 
 python3 verify/verify.py symmetric/612                        # rebuilds H and checks it
 ```
 
+`certify` writes a certificate only into a directory that has none: if `symmetric/<order>/certificate.json` exists it
+stops with `<directory> exists`. The five certificates are committed, so to regenerate one, move its
+`certificate.json` away first and compare the new file with the old.
+
 `verify/verify.py` (construction `symmetric-conference-plug`) builds Paley's conference matrix over GF(q). For q = 25
-and 49 the field is GF(p)[x]/(poly), with the primitive polynomial given in the certificate. The builder checks that
-C is a normalised symmetric conference matrix, that Q𝟙 = 0 and XY + YX = 0. It then assembles H and checks H = Hᵀ,
-HHᵀ = nI and the SHA-256 of the canonical CSV.
+and 49 the field is GF(p)[x]/(poly), with the primitive polynomial given in the certificate. The builder checks that C
+is a normalised symmetric conference matrix, that Q𝟙 = 0 and XY + YX = 0. It then assembles H and checks H = Hᵀ,
+H Hᵀ = 2n(n − 1)I and the SHA-256 of the canonical CSV.

@@ -10,8 +10,8 @@ A Hadamard matrix H is symmetric if H = Hᵀ. This one is the case q = 361 of th
 
 - **The input.** A symmetric Hadamard matrix M of order 180: the symmetric member P + N of Paley's amicable pair of
   order 180 (q′ = 179 ≡ 3 mod 4).
-- **The field.** GF(361) = GF(19)[x]/(x² + x + 2), with g = x primitive; χ is the quadratic character, s_i = g²ⁱ and t_j
-  = g¹⁻²ʲ (i, j < 180).
+- **The field.** GF(361) = GF(19)[x]/(x² + x + 2), with g = x primitive; χ is the quadratic character, s_i = g²ⁱ and
+  t_j = g¹⁻²ʲ (i, j < 180).
 - **Williamson-type matrices.** U₁ = −[χ(s_i − s_j)], U₂ = [χ(s_i − t_j)], U₃ = U₄ = 0 and V = (I, 0, M, M) give W₁ =
   [[1, −e], [−eᵀ, S₁]] and W_k = [[1, e], [eᵀ, S_k]] (k > 1), with S_k = U_k ⊗ J₂ + V_k ⊗ [[1, −1], [−1, 1]]. They are
   symmetric and pairwise amicable, Σ W_k W_kᵀ = 1444 I, and W₃ = W₄.
@@ -19,22 +19,29 @@ A Hadamard matrix H is symmetric if H = Hᵀ. This one is the case q = 361 of th
 
 ## Search
 
-None: the matrix is determined by q, g and M. `python3 search/sym_propus_miyamoto.py certify 361` writes the
-certificate.
+None: the matrix is determined by q, g and M.
+
+**Reproduction.**
+
+| Command | Output |
+|---|---|
+| `python3 search/sym_propus_miyamoto.py certify 361` | `symmetric/1444/certificate.json`, identical to the stored file |
+| `python3 verify/verify.py symmetric/1444` | `ok`, SHA-256 `91e5b1c57836cb3160eaeabdcfc84292a77ac9133d6ec3833369481b53887e8d` |
 
 ## Status
 
-**New** as a symmetric Hadamard matrix, but obtainable classically ([PROPUS_MIYAMOTO.md](../PROPUS_MIYAMOTO.md#status)):
-Seberry and Yamada's Williamson-type matrices with a repeated block (1990), the propus array (Seberry and Balonin,
-arXiv:1512.01732) and the input were all published, and we found them combined nowhere.
+**New, but obtainable classically** as a symmetric Hadamard matrix
+([PROPUS_MIYAMOTO.md](../PROPUS_MIYAMOTO.md#status)): Seberry and Yamada's Williamson-type matrices with a repeated
+block (1990), the propus array (Seberry and Balonin, arXiv:1512.01732) and the input were all published, and we found
+them combined nowhere.
 
 - The Đoković–Seberry census (2025-05-28) lists 361 among its 595 undecided v for symmetric matrices; its
   Seberry–Balonin series uses the propus variation only for v = q + 2.
 - Seberry and Yamada list 361 among the orders of symmetric Williamson-type matrices that Corollary 29(ii) gives (J.
   Combin. Math. Combin. Comput. 7 (1990), Remark 30). A symmetric Hadamard matrix also needs the propus array (2015).
 - Miyamoto (J. Combin. Theory Ser. A 57 (1991), Theorem 5) claimed Hadamard matrices of order 4q "of symmetric block
-  form" for every q ≡ 1 (mod 4) with a conference matrix of order q + 1 and a symmetric Hadamard matrix of order q − 1,
-  which would include this order; the census says his proof does not give it
+  form" for every q ≡ 1 (mod 4) with a conference matrix of order q + 1 and a symmetric Hadamard matrix of order
+  q − 1, which would include this order; the census says his proof does not give it
   ([PROPUS_MIYAMOTO.md](../PROPUS_MIYAMOTO.md#status)).
 - Ordinary Hadamard matrices of order 1444 are classical (Miyamoto's theorem, from a Hadamard matrix of order q − 1 =
   360); the symmetry is what is new.
@@ -56,7 +63,7 @@ python3 verify/verify.py symmetric/1444
 ```
 
 `verify/verify.py` (construction `symmetric-propus-miyamoto`) rebuilds M and checks that it is a symmetric Hadamard
-matrix, builds U and V, checks that the W_k are ±1, symmetric, pairwise amicable, with Σ W_k W_kᵀ = 1444 I and W₃ = W₄,
-assembles H and checks H = Hᵀ, H Hᵀ = 1444 I and the SHA-256 of the canonical CSV.
+matrix, builds U and V, checks that the W_k are ±1, symmetric, pairwise amicable, with Σ W_k W_kᵀ = 1444 I and
+W₃ = W₄, assembles H and checks H = Hᵀ, H Hᵀ = 1444 I and the SHA-256 of the canonical CSV.
 
 SHA-256 of `H1444.csv`: `91e5b1c57836cb3160eaeabdcfc84292a77ac9133d6ec3833369481b53887e8d`

@@ -9,8 +9,8 @@ A Hadamard matrix H is symmetric if H = Hᵀ. This one is the case q = 233 of th
 (their Corollary 29(ii), 1990), placed in the propus array.
 
 - **The input.** A symmetric Hadamard matrix M of order 116: the symmetric Hadamard matrix of order 116 of Di
-  Matteo–Đoković–Kotsireas (Spec. Matrices 3 (2015), arXiv:1503.04226, §4, the first SDS): a propus quadruple (A, B, B,
-  D) over ℤ_29, whose blocks the certificate lists.
+  Matteo–Đoković–Kotsireas (Spec. Matrices 3 (2015), arXiv:1503.04226, §4, the first SDS): a propus quadruple (A, B,
+  B, D) over ℤ_29, whose blocks the certificate lists.
 - **The field.** GF(233) = ℤ_233, g = 3; χ is the quadratic character, s_i = g²ⁱ and t_j = g¹⁻²ʲ (i, j < 116).
 - **Williamson-type matrices.** U₁ = −[χ(s_i − s_j)], U₂ = [χ(s_i − t_j)], U₃ = U₄ = 0 and V = (I, 0, M, M) give W₁ =
   [[1, −e], [−eᵀ, S₁]] and W_k = [[1, e], [eᵀ, S_k]] (k > 1), with S_k = U_k ⊗ J₂ + V_k ⊗ [[1, −1], [−1, 1]]. They are
@@ -19,23 +19,30 @@ A Hadamard matrix H is symmetric if H = Hᵀ. This one is the case q = 233 of th
 
 ## Search
 
-None: the matrix is determined by q, g and M. `python3 search/sym_propus_miyamoto.py certify 233` writes the
-certificate.
+None: the matrix is determined by q, g and M.
+
+**Reproduction.**
+
+| Command | Output |
+|---|---|
+| `python3 search/sym_propus_miyamoto.py certify 233` | `symmetric/932/certificate.json`, identical to the stored file |
+| `python3 verify/verify.py symmetric/932` | `ok`, SHA-256 `daae83443cfeeaee420ea4a9dc55dcee1019ba8db391e460763d2b7f00b24422` |
 
 ## Status
 
-**New** as a symmetric Hadamard matrix, but obtainable classically ([PROPUS_MIYAMOTO.md](../PROPUS_MIYAMOTO.md#status)):
-Seberry and Yamada's Williamson-type matrices with a repeated block (1990), the propus array (Seberry and Balonin,
-arXiv:1512.01732) and the input were all published, and we found them combined nowhere.
+**New, but obtainable classically** as a symmetric Hadamard matrix
+([PROPUS_MIYAMOTO.md](../PROPUS_MIYAMOTO.md#status)): Seberry and Yamada's Williamson-type matrices with a repeated
+block (1990), the propus array (Seberry and Balonin, arXiv:1512.01732) and the input were all published, and we found
+them combined nowhere.
 
 - The Đoković–Seberry census (2025-05-28) lists 233 among its 595 undecided v for symmetric matrices; its
   Seberry–Balonin series uses the propus variation only for v = q + 2.
-- Seberry and Yamada list 233 among the orders for which Corollary 29(ii) would give symmetric Williamson-type matrices
-  "when symmetric Hadamard matrices of orders … 4.29 … are discovered" (J. Combin. Math. Combin. Comput. 7 (1990),
-  Remark 30). A symmetric Hadamard matrix also needs the propus array (2015).
+- Seberry and Yamada list 233 among the orders for which Corollary 29(ii) would give symmetric Williamson-type
+  matrices "when symmetric Hadamard matrices of orders … 4.29 … are discovered" (J. Combin. Math. Combin. Comput. 7
+  (1990), Remark 30). A symmetric Hadamard matrix also needs the propus array (2015).
 - Miyamoto (J. Combin. Theory Ser. A 57 (1991), Theorem 5) claimed Hadamard matrices of order 4q "of symmetric block
-  form" for every q ≡ 1 (mod 4) with a conference matrix of order q + 1 and a symmetric Hadamard matrix of order q − 1,
-  which would include this order; the census says his proof does not give it
+  form" for every q ≡ 1 (mod 4) with a conference matrix of order q + 1 and a symmetric Hadamard matrix of order
+  q − 1, which would include this order; the census says his proof does not give it
   ([PROPUS_MIYAMOTO.md](../PROPUS_MIYAMOTO.md#status)).
 - Ordinary Hadamard matrices of order 932 are classical (Miyamoto's theorem, from a Hadamard matrix of order q − 1 =
   232); the symmetry is what is new.

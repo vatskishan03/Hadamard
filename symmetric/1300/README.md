@@ -4,11 +4,13 @@
 
 ## Construction
 
-A Hadamard matrix H is symmetric if H = Hᵀ. This one is the case n = 26 of [CONFERENCE_PLUG.md](../CONFERENCE_PLUG.md):
-a symmetric Hadamard matrix of order 2n(n − 1) from a symmetric conference matrix of order n.
+A Hadamard matrix H is symmetric if H = Hᵀ. This one is the case n = 26 of
+[CONFERENCE_PLUG.md](../CONFERENCE_PLUG.md): a symmetric Hadamard matrix of order 2n(n − 1) from a symmetric
+conference matrix of order n.
 
-- **The conference matrix.** Paley's matrix C of order 26 over GF(25) = GF(5)[x]/(x² + x + 2): index 0 is ∞, C[∞, x] = C[x, ∞] = 1,
-  C[x, y] = χ(y − x) with χ the quadratic character, so C = [[0, eᵀ], [e, Q]] with Q the Paley core of order 25.
+- **The conference matrix.** Paley's matrix C of order 26 over GF(25) = GF(5)[x]/(x² + x + 2): index 0 is ∞,
+  C[∞, x] = C[x, ∞] = 1, C[x, y] = χ(y − x) with χ the quadratic character, so C = [[0, eᵀ], [e, Q]] with Q the
+  Paley core of order 25.
 - **The plugs.** With J = J₂₅, X = [[J, J], [J, −J]] and Y = [[Q + I, Q − I], [Q − I, −Q − I]], of order 50. Both are
   symmetric, XY + YX = 0, and X² + 25Y² = 1300 I.
 - **The matrix.** H = I₂₆ ⊗ X + C ⊗ Y.

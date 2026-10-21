@@ -5,14 +5,14 @@ symmetric Hadamard matrix of order 4q exists.
 
 Both halves of the proof are published: Seberry and Yamada's form of Miyamoto's lemma, which gives Williamson-type
 matrices W₁, W₂, W₃, W₄ of order q with W₃ = W₄ (J. Combin. Math. Combin. Comput. 7 (1990), Lemma 26 and Corollary
-29(ii)), and Seberry and Balonin's propus array, into which such matrices fit (Australas. J. Combin. 69 (2017), Theorem
-3; Lemma 3 of arXiv:1512.01732). Seberry and Balonin apply it in their Corollary 1 (v = q + 2) only, and write that
-"appropriate Williamson type matrices may also be used to give propus-Hadamard matrices but do not pursue this avenue in
-this paper". We found the theorem stated nowhere; Miyamoto claimed a stronger statement in 1991, without a valid proof
-according to the census ([Status](#status)). It settles 48 of the 595 values v that the Đoković–Seberry census
-(2025-05-28) lists as undecided for symmetric Hadamard matrices of order 4v: 44 with inputs of Paley and Sylvester,
-three with published propus matrices of orders 116, 236 and 604, and v = 1753 with our symmetric matrix of order 876
-([876](876)).
+29(ii)), and Seberry and Balonin's propus array, into which such matrices fit (Australas. J. Combin. 69 (2017),
+Theorem 3; Lemma 3 of arXiv:1512.01732). Seberry and Balonin apply it in their Corollary 1 (v = q + 2) only, and write
+that "appropriate Williamson type matrices may also be used to give propus-Hadamard matrices but do not pursue this
+avenue in this paper". We found the theorem stated nowhere; Miyamoto claimed a stronger statement in 1991, without a
+valid proof according to the census ([Status](#status)). It settles 48 of the 595 values v that the Đoković–Seberry
+census (2025-05-28) lists as undecided for symmetric Hadamard matrices of order 4v: 44 with inputs of Paley and
+Sylvester, three with published propus matrices of orders 116, 236 and 604, and v = 1753 with our symmetric matrix of
+order 876 ([876](876)).
 
 H₂ = [[1, 1], [1, −1]]. Paley I is the symmetric member P + N of Paley's amicable pair of order q′ + 1 (q′ ≡ 3 mod 4),
 Paley II is Paley's symmetric matrix of order 2(q′ + 1) (q′ ≡ 1 mod 4). The propus matrices are those of Di Matteo,
@@ -158,8 +158,8 @@ are not prime powers, and 16 · 133 + 1 = 2129 already has a Paley input.
   (mod 4), disjoint from the values here.
 - **The Williamson-type matrices were classical.** The proof of Seberry and Yamada's Corollary 29 prints "V3 = V4 = H"
   (1990, p. 120; Corollary 16(ii) of the Kobe version of 1989), and their Remark 30 (Remark 17 in the Kobe version)
-  lists every q ≤ 1873 of the table among the orders of symmetric Williamson-type matrices that it gives, and 233, 1753
-  and 1889 among those that would follow "when symmetric Hadamard matrices of orders 4.29, … 4.219, 16.59 … are
+  lists every q ≤ 1873 of the table among the orders of symmetric Williamson-type matrices that it gives, and 233,
+  1753 and 1889 among those that would follow "when symmetric Hadamard matrices of orders 4.29, … 4.219, 16.59 … are
   discovered". They conclude only an ordinary Hadamard matrix of order 4q; the symmetric one needs the propus array.
   Seberry and Balonin's propus paper applies its Theorem 3 only to the inputs of their Corollary 1.
 - **Not read.** Seberry and Yamada's book (Wiley, 2020) indexes "symmetric propus-type" on p. 154, in its section on

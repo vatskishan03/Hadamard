@@ -6,8 +6,8 @@
 
 A Hadamard matrix H is symmetric if H = Hᵀ. This one is the case q = 1993 of the construction in
 [PROPUS_WEIGHING.md](../PROPUS_WEIGHING.md): the U-part of Seberry and Yamada's Corollary 29(ii) in Seberry and
-Balonin's propus array, with its V-part replaced by a symmetric weighing matrix of order 3984 and weight 1993 built from a
-Hadamard matrix K of order 996 that need not be symmetric.
+Balonin's propus array, with its V-part replaced by a symmetric weighing matrix of order 3984 and weight 1993 built
+from a Hadamard matrix K of order 996 that need not be symmetric.
 
 - **The input.** K: our skew-Hadamard matrix of order 996 ([skew/996](../../skew/996)).
 - **The field.** GF(1993) = ℤ_1993, g = 5; χ is the quadratic character, s_i = g²ⁱ and t_j = g¹⁻²ʲ (i, j < 996).
@@ -23,19 +23,28 @@ Hadamard matrix K of order 996 that need not be symmetric.
 
 ## Search
 
-None: the matrix is determined by q, g and K. `python3 search/sym_weighing.py certify 1993` writes the certificate.
+None: the matrix is determined by q, g and K.
+
+**Reproduction.**
+
+| Command | Output |
+|---|---|
+| `python3 search/sym_weighing.py certify 1993` | `symmetric/7972/certificate.json`, identical to the stored file (the program refuses to overwrite it: run it in a copy of the repository without that file) |
+| `python3 verify/verify.py symmetric/7972` | `ok`, SHA-256 `fe5f7d133f02a35fac25a32296496f59adfb0f2d1555bdeb6f664e2e18cae80d` |
 
 ## Status
 
 **New** as a symmetric Hadamard matrix.
 
 - The Đoković–Seberry census (2025-05-28) lists 1993 among its 595 undecided v for symmetric matrices. The route of
-  [PROPUS_MIYAMOTO.md](../PROPUS_MIYAMOTO.md) would need a symmetric Hadamard matrix of order 996 = 4 · 249, and 249 is
-  undecided in the census too.
-- The V-part from a Hadamard matrix that is not symmetric is the new step ([PROPUS_WEIGHING.md](../PROPUS_WEIGHING.md#status));
-  we found it in none of the sources listed there. The input is ours (2026) and obtainable classically ([skew/996](../../skew/996)); any Hadamard matrix of order 996 would do.
-- Ordinary Hadamard matrices of order 7972 are classical (Yamada's Theorem 3, 1989, from a Hadamard matrix of order 996;
-  or Miyamoto's theorem); the symmetry is what is new.
+  [PROPUS_MIYAMOTO.md](../PROPUS_MIYAMOTO.md) would need a symmetric Hadamard matrix of order 996 = 4 · 249, and 249
+  is undecided in the census too.
+- The V-part from a Hadamard matrix that is not symmetric is the new step
+  ([PROPUS_WEIGHING.md](../PROPUS_WEIGHING.md#status)); we found it in none of the sources listed there. The input is
+  our skew-Hadamard matrix of order 996 ([skew/996](../../skew/996), 2026); any Hadamard matrix of order 996 would do,
+  and those are classical.
+- Ordinary Hadamard matrices of order 7972 are classical (Yamada's Theorem 3, 1989, from a Hadamard matrix of order
+  996; or Miyamoto's theorem); the symmetry is what is new.
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 

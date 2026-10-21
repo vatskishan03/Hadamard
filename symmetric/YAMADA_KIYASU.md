@@ -4,16 +4,15 @@
 Hadamard matrix of order 4(q + 2) exists.
 
 Yamada (J. Austral. Math. Soc. Ser. A 46 (1989), Theorem 4, credited to Kiyasu) built ordinary Hadamard matrices of
-order 4(q + 2) from the same input ([search/NOTES.md](../search/NOTES.md) §13, [hadamard/15292](../hadamard/15292)). The
-symmetric route of the literature, Seberry–Yamada's Corollary 27(i) in Seberry–Balonin's propus array, needs a
-symmetric conference core, or (NOTES.md §29) a skew core with an involutive anti-automorphism, so that the
-Williamson-type matrices have a repeated block. Here the repeated block is not needed: Yamada's Lemma 26 data are put in
-quaternary form, as a symmetric matrix L with entries ±1, ±i and L L̄ = 2(q + 2)I, and Turyn's map
+order 4(q + 2) from the same input ([search/NOTES.md](../search/NOTES.md) §13, [hadamard/15292](../hadamard/15292)).
+The symmetric route of the literature, Seberry–Yamada's Corollary 27(i) in Seberry–Balonin's propus array, needs
+Paley's skew core or, more generally ([NOTES.md](../NOTES.md) §29), a skew core with an involutive anti-automorphism,
+so that the Williamson-type matrices have a repeated block. Here the repeated block is not needed: Yamada's Lemma 26
+data are put in quaternary form, as a symmetric matrix L with entries ±1, ±i and L L̄ = 2(q + 2)I, and Turyn's map
 [[X + Y, X − Y], [X − Y, −X − Y]] of L = X + iY is a symmetric Hadamard matrix (the map is classical: Seberry–Yamada
 1992, Lemma 11.3 with a = b = 1, symmetric whenever L is).
 
-The theorem settles 27 values of the Đoković–Seberry census (2025-05-28), from v = 295 to 2335. For 295 the skew-propus
-route of NOTES.md §29 had failed (no skew-propus quadruple of length 37, search/NOTES.md §49).
+The theorem settles 27 values of the Đoković–Seberry census (2025-05-28), from v = 295 to 2335.
 
 | Order | v = q + 2 | (q + 3)/2 | Skew-Hadamard input | Status |
 |------:|---:|---:|---|---|
@@ -74,9 +73,9 @@ on it, G_jj = ½(1 − i)N_jj because M_jj = 0, and ½(1 + i)J₂ + ½(1 − i)N
 (likewise for the last diagonal block). The other core blocks have entries −iP_aa′ (j = k, as S_jj = 0) or ∓S_jk.
 L is symmetric: G is, and (−iI ⊗ P − S ⊗ J₂)ᵀ = −iI ⊗ P + S ⊗ J₂ because Sᵀ = −S.
 
-**L L̄ = 2vI.** J₂P = PJ₂ = 0 and e(Y ⊗ P) = 0, so L and L̄ preserve the subspace 𝒱 spanned by the vectors x ⊗ (1, −1) on
-either core and the subspace 𝒰 spanned by the borders and the vectors x ⊗ (1, 1); the two are orthogonal and fill the
-space. In the basis x ⊗ (1, −1)/√2 of 𝒱 (left core, right core),
+**L L̄ = 2vI.** J₂P = PJ₂ = 0 and e(Y ⊗ P) = 0, so L and L̄ preserve the subspace 𝒱 spanned by the vectors x ⊗ (1, −1)
+on either core and the subspace 𝒰 spanned by the borders and the vectors x ⊗ (1, 1); the two are orthogonal and fill
+the space. In the basis x ⊗ (1, −1)/√2 of 𝒱 (left core, right core),
 
 ```
 L|𝒱 = 2 [[G, −iI], [−iI, Ḡ]],    L|𝒱 · L̄|𝒱 = 4 [[GḠ + I, 0], [0, ḠG + I]] = 4(q/2 + 1) I = 2v I,
@@ -93,13 +92,13 @@ L|𝒰 =   [ −√2 1   (1 + i)I   −√2 i 1   −2S     ]
 ```
 
 and a block computation with Sᵀ = −S, 1ᵀS = 0 and S² = J − nI gives L|𝒰 · L̄|𝒰 = (4n + 2)I = 2vI. For example the
-(core, core) blocks are 2J + (1 + i)(1 − i)I + 2J − 4S² = (4n + 2)I on the left and 2J − 4S² + 2J + (i − 1)(−i − 1)I =
-(4n + 2)I on the right, the (left core, right core) block is 2iJ − 2(1 + i)S − 2iJ + 2(1 + i)S = 0, and the border rows
-give 1 + 2n + 1 + 2n = 4n + 2 and, against the cores, √2 1ᵀ(1 − (1 − i) − i) = 0. L L̄ is Hermitian (L is symmetric), so
-the remaining blocks follow.
+(core, core) blocks are 2J + (1 + i)(1 − i)I + 2J − 4S² = (4n + 2)I on the left and
+2J − 4S² + 2J + (i − 1)(−i − 1)I = (4n + 2)I on the right, the (left core, right core) block is
+2iJ − 2(1 + i)S − 2iJ + 2(1 + i)S = 0, and the border rows give 1 + 2n + 1 + 2n = 4n + 2 and, against the cores,
+√2 1ᵀ(1 − (1 − i) − i) = 0. L L̄ is Hermitian (L is symmetric), so the remaining blocks follow.
 
-**The real matrix.** Write L = X + iY with X, Y real. They are symmetric with disjoint supports covering every position,
-and L L̄ = X² + Y² + i(YX − XY) = 2vI gives X² + Y² = 2vI and XY = YX. So
+**The real matrix.** Write L = X + iY with X, Y real. They are symmetric with disjoint supports covering every
+position, and L L̄ = X² + Y² + i(YX − XY) = 2vI gives X² + Y² = 2vI and XY = YX. So
 
 ```
 H = [[X + Y,  X − Y],
@@ -116,22 +115,23 @@ Remarks.
   Hadamard matrix [[X′, Y′], [−iY′, iX̄′]] times a monomial matrix is L: swap the two border columns and the two
   columns of each right-core pair, then multiply the columns by −1, 1, i, i on the four blocks (checked for q = 13
   and 37).
-- Only Sᵀ = −S, S² = J − nI and the pair M, N are used: no anti-automorphism of S, and any symmetric commuting M
-  (zero diagonal, ±1 elsewhere) and N (±1) with M² + N² = qI would do; these conditions are also necessary for L to be
-  quaternary with L L̄ = 2vI (checked independently in the audit of 17 October 2026). q ≡ 5 (mod 8) is forced by the existence of a
-  skew-Hadamard matrix of order n + 1 = (q + 3)/2.
+- Only Sᵀ = −S, S² = J − nI and the pair M, N are used: no anti-automorphism of S, and any symmetric commuting M (zero
+  diagonal, ±1 elsewhere) and N (±1) with M² + N² = qI would do; these conditions are also necessary for L to be
+  quaternary with L L̄ = 2vI (checked independently). q ≡ 5 (mod 8) is forced by the existence of a skew-Hadamard
+  matrix of order n + 1 = (q + 3)/2.
 
 ## Reach
 
 Of the census's undecided v, 35 are q + 2 with q ≡ 5 (mod 8) a prime power (189, 473 and 1139, settled by Đoković, are
-not of this form). One of them, 183, was settled here earlier by a search ([732](732)); the theorem reaches it too,
-with a skew-Hadamard matrix of order 92. Of the other 34, a skew-Hadamard matrix of order (v + 1)/2 is known for 27:
+not of this form). One of them, 183, is settled by a search ([732](732)); the theorem reaches it too, with the
+skew-Hadamard matrix of order 92 of Wallis (1971). Of the other 34, a skew-Hadamard matrix of order (v + 1)/2 is known
+for 27:
 
 - Paley's matrices (p ≡ 3 mod 4), doubled: v = 319, 655, 703, 1231, 1599, 1951, 1999, 2239, 2271;
 - Szekeres's (1969) and Whiteman's (1971) complementary difference sets: v = 679, 1495, 2223;
 - Goethals–Seidel matrices from published data: Szekeres's good matrices of order 29 (1988), Fletcher, Koukouvinos and
-  Seberry's matrix of order 236 (2004) and Đoković's supplementary difference sets for 67, 103, 163 and 247 (1992–2008),
-  all as stored in SageMath and checked here: v = 463, 943, 2143, 823, 1303, 1975;
+  Seberry's matrix of order 236 (2004) and Đoković's supplementary difference sets for 67, 103, 163 and 247
+  (1992–2008), all as stored in SageMath and checked here: v = 463, 943, 2143, 823, 1303, 1975;
 - Goethals–Seidel matrices found by `search/skew_exhaustive.py` in at most a few minutes (orders 148, 196, 292 and
   532, all classical: Đoković's supplementary difference sets of 1992 and 2023 give them too): v = 295, 1183, 391,
   2335, 1063;
@@ -139,16 +139,18 @@ with a skew-Hadamard matrix of order 92. Of the other 34, a skew-Hadamard matrix
 
 The other seven, v = 1711, 1879, 1903, 2215, 2359, 2383 and 2391, need skew-Hadamard matrices of orders 856 = 8 · 107,
 940 = 4 · 235, 952 = 8 · 119, 1108 = 4 · 277, 1180 = 4 · 295, 1192 = 8 · 149 and 1196 = 4 · 299, all undecided in the
-skew census (as are the skew orders 428, 476 and 596 whose doublings would serve). A skew matrix of any of these orders
-would decide one more symmetric value.
+skew census (as are the skew orders 428, 476 and 596 whose doublings would serve). A skew matrix of any of these
+orders would decide one more symmetric value.
 
 ## Status
 
-- 17 orders are **New**, 8 are **Concurrent** (below) and 2 are **Known**: Spence's Corollary 3 (J. Austral. Math. Soc.
-  Ser. A 24 (1977) 252–256) gives symmetric Hadamard matrices of orders 2812 (q = 37, r = 1) and 4732 (q = 13, r = 2)
-  by another construction. All 27 census values are undecided, and we found the symmetric form of Yamada's matrix
-  nowhere. Ordinary Hadamard matrices of all these orders are classical (Yamada 1989, Theorem 4, announced in Proc. Japan Acad. 63 (1987); Đoković, arXiv:1008.2043, applies it to 823, 1063, 1303, 2143
-  and 2335); the symmetry is what is new.
+- 17 orders are **New**, 8 are **Concurrent** (below) and 2 are **Known**: Spence's Corollary 3 (J. Austral. Math.
+  Soc. Ser. A 24 (1977) 252–256) gives symmetric Hadamard matrices of orders 2812 (q = 37, r = 1) and 4732 (q = 13,
+  r = 2) by another construction. All 27 census values are undecided, and we found the symmetric form of Yamada's
+  matrix nowhere. Hadamard matrices of all these orders were known. For 23 of them Yamada's Theorem 4 (announced in
+  Proc. Japan Acad. 63 (1987)) gives one from the same skew input, and Đoković (arXiv:1008.2043) applies it to 823,
+  1063, 1303, 2143 and 2335. For 6556, 6684, 8284 and 9180 the skew input is ours (2026), but n = 1639, 1671, 2071 and
+  2295 are not among the open n of Cati–Pasechnik's Table 4. The symmetry is what is new.
   - The symmetric case published so far is Paley's skew core: Seberry–Yamada's Corollary 27(i) (JCMCC 7 (1990); 1992
     survey, Corollary 8.7; book of 2020, Corollary 6.3) gives Williamson-type matrices with a repeated block when
     (q + 1)/2 is a prime power, and Seberry–Balonin's propus array (2017; the order corrected by Balonin–Đoković,
@@ -156,16 +158,17 @@ would decide one more symmetric value.
   - Not read: Kiyasu's book (1980, in Japanese) and his 1974 series, which state the ordinary result; the full text
     of Seberry–Yamada (2020), chapters 3 and 6 and pp. 211–214; Miyamoto (1991). The census of 2025, co-authored by
     Seberry, lists all 27 values as undecided.
-- **Zaitsev et al. (Concurrent).** The page [Quaternary Hadamard matrices](https://www.cs.uleth.ca/~zaitsevv/quaternary.html)
-  of Zaitsev, Kharaghani, Mohammadian and Tayfeh-Rezaie (last updated 14 October 2026) lists quaternary Hadamard
-  matrices QH590, QH638, QH782, QH926, QH1310, QH1358, QH1646 and QH1886, of orders 2v for v = 295, 319, 391, 463, 655,
-  679, 823 and 943, under "unpublished approaches". They are of this Yamada–Kiyasu kind (we recovered U = (I, 0, S, −S)
-  and V = (M, N, I, I) from QH590; the others share its 2 × 2 block structure), and nauty finds monomial matrices taking
-  each of them to a symmetric quaternary matrix (all eight checked, twice more with separate code), so Turyn's
-  map gives symmetric Hadamard matrices of orders 1180, 1276, 1564, 1852, 2620, 2716, 3292 and 3772 from published data.
-  The page says nothing about symmetry and lists no real orders 4v, but the matrices are public, so these eight orders
-  are labelled Concurrent and we claim no priority for them. The general construction for an arbitrary skew input is
-  ours.
+- **Zaitsev et al. (Concurrent).** The page
+  [Quaternary Hadamard matrices](https://www.cs.uleth.ca/~zaitsevv/quaternary.html) of Zaitsev, Kharaghani,
+  Mohammadian and Tayfeh-Rezaie, last updated 14 October 2026 (unchanged on 22 October), lists quaternary Hadamard
+  matrices QH590, QH638, QH782, QH926, QH1310, QH1358, QH1646 and QH1886, of orders 2v for v = 295, 319, 391, 463,
+  655, 679, 823 and 943, under "unpublished approaches". They are of this Yamada–Kiyasu kind (we recovered
+  U = (I, 0, S, −S) and V = (M, N, I, I) from QH590; the others share its 2 × 2 block structure), and nauty finds
+  monomial matrices taking each of them to a symmetric quaternary matrix (all eight checked, twice more with separate
+  code), so Turyn's map gives symmetric Hadamard matrices of orders 1180, 1276, 1564, 1852, 2620, 2716, 3292 and 3772
+  from published data. The page says nothing about symmetry and lists no real orders 4v, but the matrices are public,
+  so these eight orders are labelled Concurrent and we claim no priority for them. The general construction for an
+  arbitrary skew input is ours.
 - The skew inputs are classical except our skew matrices of orders 820, 836, 1036 and 1148 (2026).
 
 The sources searched are listed in [NOVELTY.md](../NOVELTY.md).
@@ -180,6 +183,6 @@ python3 verify/verify.py symmetric/1180    # rebuilds H and checks it
 
 `verify/verify.py` (construction `symmetric-yamada-kiyasu`) rebuilds the skew-Hadamard input from its nested
 certificate with its own builder (Paley's matrix `paley-skew`, Goethals–Seidel, two-block, doubling, or a certificate
-of [skew](../skew)) and checks it, including Q + Qᵀ = 2I; computes Yamada's circulants over GF(q²) and checks that they
-are symmetric with M² + N² = qI; builds 2X and 2Y in integers and checks that X and Y are symmetric with disjoint
+of [skew](../skew)) and checks it, including Q + Qᵀ = 2I; computes Yamada's circulants over GF(q²) and checks that
+they are symmetric with M² + N² = qI; builds 2X and 2Y in integers and checks that X and Y are symmetric with disjoint
 supports covering every position; and checks H = Hᵀ, H Hᵀ = 4vI and the SHA-256 of the canonical CSV.

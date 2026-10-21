@@ -5,16 +5,16 @@ Hadamard matrix of order 4q exists.
 
 [PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md) proves this with a *symmetric* Hadamard matrix of order (q − 1)/2, from
 Seberry and Yamada's Corollary 29(ii) in Seberry and Balonin's propus array. Here the input need not be symmetric. The
-conditions of Seberry and Yamada's Lemma 26 split into a U-part and a V-part, and in the propus array the V-part enters
-only through its square and its support. So the V-part of Corollary 29(ii), the lift of the propus array of
-(I, 0, M, M), may be replaced by any symmetric weighing matrix of order 2(q − 1) and weight q with the same support, and
-such a weighing matrix is built from any Hadamard matrix of order (q − 1)/2. Ordinary Hadamard matrices of order 4q
-under the same hypothesis are Yamada's Theorem 3 (J. Austral. Math. Soc. Ser. A 46 (1989) 371–383).
+conditions of Seberry and Yamada's Lemma 26 split into a U-part and a V-part, and in the propus array the V-part
+enters only through its square and its support. So the V-part of Corollary 29(ii), the lift of the propus array of
+(I, 0, M, M), may be replaced by any symmetric weighing matrix of order 2(q − 1) and weight q with the same support,
+and such a weighing matrix is built from any Hadamard matrix of order (q − 1)/2. Ordinary Hadamard matrices of order
+4q under the same hypothesis are Yamada's Theorem 3 (J. Austral. Math. Soc. Ser. A 46 (1989) 371–383).
 
-The theorem settles the ten values of the Đoković–Seberry census (2025-05-28) that [PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md#reach)
-left open, the prime powers q ≡ 1 (mod 8) for which no symmetric Hadamard matrix of order (q − 1)/2 = 4m is known
-(m = 101, 107, 119, 149, 179, 239, 249, 269, 299, 305). With the 48 orders there, every census value q ≡ 1 (mod 8) that
-is a prime power is now decided.
+The theorem settles the ten values of the Đoković–Seberry census (2025-05-28) that
+[PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md#reach) left open, the prime powers q ≡ 1 (mod 8) for which no symmetric
+Hadamard matrix of order (q − 1)/2 = 4m is known (m = 101, 107, 119, 149, 179, 239, 249, 269, 299, 305). With the 48
+orders there, every census value q ≡ 1 (mod 8) that is a prime power is now decided.
 
 | Order | q | (q − 1)/2 | K (a Hadamard matrix of order (q − 1)/2) | Status |
 |------:|---:|---:|---|---|
@@ -79,7 +79,8 @@ H = H₀ + Λ(V) is symmetric, its entries are ±1, and
 H² = H₀² + H₀Λ(V) + Λ(V)H₀ + Λ(V)² = 4qI − 2qΛ(I) + 0 + 0 + 2Λ(V²) = 4qI.
 ```
 
-Seberry–Yamada's V-part is the case V = [[I, M, M, 0], [M, 0, −I, −M], [M, −I, 0, M], [0, −M, M, −I]] with M symmetric.
+Seberry–Yamada's V-part is the case V = [[I, M, M, 0], [M, 0, −I, −M], [M, −I, 0, M], [0, −M, M, −I]] with
+M symmetric.
 
 **4. A V from any Hadamard matrix.** Let K be a Hadamard matrix of order n, h = n/2, K = [A | B] with A the first h
 columns, E = diag(1, …, 1, −1, …, −1) (h of each), X = [Aᵀ; Aᵀ] and Y = [B, B] (both of order n), and
@@ -125,8 +126,8 @@ Remarks.
 ## Reach
 
 The census leaves undecided 58 prime powers q ≡ 1 (mod 8) below 2500. [PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md) decided
-48 with a symmetric input. The other ten need a Hadamard matrix of order 4m, m = 101, 107, 119, 149, 179, 239, 249, 269,
-299 and 305; all are known:
+48 with a symmetric input. The other ten need a Hadamard matrix of order 4m, m = 101, 107, 119, 149, 179, 239, 249,
+269, 299 and 305; all are known:
 
 - 404 = 4 · 101, 428 = 4 · 107: Cooper–Wallis with the T-matrices of [t-matrices](../t-matrices) (T-sequences of
   length 101 are Turyn's, 1974; those of length 107 come from Kharaghani and Tayfeh-Rezaie's TT(36), 2005);
@@ -148,7 +149,7 @@ of 4 below 668 is the order of a Hadamard matrix.
 ## Status
 
 - All ten orders are **New**: their census values are undecided, and we found the symmetric construction from a
-  non-symmetric input in none of the sources we read (audit of 17 October 2026).
+  non-symmetric input in none of the sources we read.
   - Yamada's Theorem 3 (J. Austral. Math. Soc. A 46 (1989), read in full) has the same hypothesis and gives ordinary
     Hadamard matrices through a quaternion-type array, which kills the cross terms with J₂ and [[1, −1], [−1, 1]] as
     here; it lists 809, 953, 1193, 2393 and 2441 among its new ordinary orders.
@@ -165,8 +166,9 @@ of 4 below 668 is the order of a Hadamard matrix.
   - Not read in full: Miyamoto (1991), and Seberry–Yamada's book (2020), §6.5 and §9.10; Google Books snippets of
     p. 154 show Corollary 6.6 (Seberry–Balonin's Corollary 1, the "symmetric propus-type" matrices of the index) and
     Miyamoto's claim, and the census of 2025, co-authored by Seberry, lists all ten values as undecided.
-- Ordinary Hadamard matrices of all ten orders are classical (Yamada's Theorem 3, or Miyamoto's theorem with
-  H₂ ⊗ K). The symmetry is what is new. Doubling gives symmetric matrices of orders 8q, 16q, ….
+- Ordinary Hadamard matrices of all ten orders were known (Yamada's Theorem 3, or Miyamoto's theorem with H₂ ⊗ K). For
+  5732, whose input of order 716 dates from 2026, this holds because n = 1433 is not among the open n of
+  Cati–Pasechnik's Table 4. The symmetry is what is new. Doubling gives symmetric matrices of orders 8q, 16q, ….
 - 5732 uses a Hadamard matrix of order 716 that was first constructed in 2026; the other nine inputs were published
   before 2026 except 996 (ours, 2026), for which classical Hadamard matrices of order 996 would serve as well.
 
@@ -180,7 +182,11 @@ python3 search/sym_weighing.py certify 809      # writes symmetric/3236/certific
 python3 verify/verify.py symmetric/3236         # rebuilds H and checks it
 ```
 
+`certify` writes a certificate only into a directory that has none: if `symmetric/<order>/certificate.json` exists it
+stops with `<directory> exists`. The ten certificates are committed, so to regenerate one, move its `certificate.json`
+away first and compare the new file with the old.
+
 `verify/verify.py` (construction `symmetric-propus-weighing`) rebuilds K from its nested certificate with K's own
 builder and checks it (H Hᵀ = nI and its SHA-256), builds U₁ and U₂ over GF(q), builds V and checks that it is
-symmetric with support P and V² = qI, checks that H₀ vanishes on the support of Λ(V), and checks H = Hᵀ, H Hᵀ = 4qI and
-the SHA-256 of the canonical CSV.
+symmetric with support P and V² = qI, checks that H₀ vanishes on the support of Λ(V), and checks H = Hᵀ, H Hᵀ = 4qI
+and the SHA-256 of the canonical CSV.

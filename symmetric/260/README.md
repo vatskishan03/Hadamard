@@ -1,6 +1,7 @@
 # Symmetric Hadamard matrix of order 260
 
-260 = 4 · 65, with 65 = 5 · 13: the smallest v of the Đoković–Seberry census that was undecided for symmetric matrices.
+260 = 4 · 65, with 65 = 5 · 13: the smallest v of the Đoković–Seberry census that was undecided for
+symmetric matrices.
 
 ## Construction
 
@@ -16,8 +17,9 @@ p = 1, q = −1; 3: p = −1, q = 1). Since A is real, PAF_A + PAF_B = −2 beco
 
     PAF_p + 2 PAF_A + PAF_q = −4   for every nonzero shift,
 
-and p, q are symmetric because B is. So (p, A, A, q) is a bordered propus quadruple over ℤ₆₄ ([search/NOTES.md](../../search/NOTES.md)
-§27), with row sums 2, 0, 0 (2² + 2 · 0² + 0² = 4). `sequences.txt` lists p, A and q.
+and p, q are symmetric because B is. So (p, A, A, q) is a bordered propus quadruple over ℤ₆₄
+([search/NOTES.md](../../search/NOTES.md) §27), with row sums 2, 0, 0 (2² + 2 · 0² + 0² = 4). `sequences.txt` lists p,
+A and q.
 
 **The matrix.** With the circulant matrices of p, A, q, the back-diagonal identity R, the propus array
 P = [[p, A, A, q], [Aᵀ, qR, −p, −AR], [Aᵀ, −p, −qR, AR], [qᵀ, −AR, AR, −p]], K = H₂ ⊗ H₂ (Sylvester's Hadamard
@@ -33,9 +35,9 @@ every structure with at most 25–30 orbits on ℤ₆₄ and on the non-cyclic g
 
 ## Search
 
-None here: the sequences are a decoding of Verma's published pair (`python3 search/sym_qlp.py certify 65`). The
-observation that the pair is of propus type was made by the exploration workflow of 17 October 2026; it was checked
-from Verma's digit strings with three independent codes.
+None here: the sequences are a decoding of Verma's published pair, stored in `search/sym_qlp.py` as digit strings
+(`python3 search/sym_qlp.py certify 65`). That the pair is of propus type (A real, B symmetric) was checked from these
+digit strings (`python3 search/sym_qlp.py check`); see [NOTES.md](../../NOTES.md) §32.
 
 ## Status
 
@@ -68,11 +70,12 @@ The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ```
 python3 verify/verify.py symmetric/260
+cc -O2 verify/check_matrix.c -o check_matrix
 gzip -dc symmetric/260/H260.csv.gz | ./check_matrix
 ```
 
-`verify/verify.py` rebuilds the matrix from `certificate.json` (construction `propus-bordered`) and checks the symmetry
-of p, the autocorrelation identity, H Hᵀ = 260 I and H = Hᵀ; `search/sym_qlp.py check` decodes Verma's pair and checks
-PAF_A + PAF_B = −2, A real, B symmetric and the propus identity.
+`verify/verify.py` rebuilds the matrix from `certificate.json` (construction `propus-bordered`) and checks the
+symmetry of p, the autocorrelation identity, H Hᵀ = 260 I and H = Hᵀ; `search/sym_qlp.py check` decodes Verma's pair
+and checks PAF_A + PAF_B = −2, A real, B symmetric and the propus identity.
 
 SHA-256 of `H260.csv`: `948586d6b68bc9a3c52ce2259903ad13f46ec54a800ee5cb8511b5a69d83eabe`
