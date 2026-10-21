@@ -562,6 +562,8 @@ def main():
         m = 4 * n
         order = m * (m - 1)
         out = ROOT / 'symmetric' / str(order)
+        if (out / 'certificate.json').exists():
+            sys.exit(f'{out}/certificate.json exists; not overwritten')
         out.mkdir(parents=True, exist_ok=True)
         cert = {"order": order, "construction": "skew-propus-plug", "symmetric": True, "n": n, "m": m,
                 "rowsums": [int(x.sum()) for x in seqs],

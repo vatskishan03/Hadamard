@@ -175,7 +175,7 @@ def build(q, write=False):
             cert["poly"] = F.poly
         path = ROOT / "complex-hadamard" / f"C{m}.json"
         if path.exists():
-            raise SystemExit(f"{path} exists")
+            raise SystemExit(f"{path} exists; not overwritten")
         path.write_text(json.dumps(cert, indent=1) + "\n")
         print(f"  wrote {path}", flush=True)
     return sha

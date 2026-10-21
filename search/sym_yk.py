@@ -131,7 +131,7 @@ def certify(v):
     cert["sha256"] = _digest(H)
     d = ROOT / "symmetric" / str(4 * v)
     if (d / "certificate.json").exists():
-        raise SystemExit(f"{d} exists")
+        raise SystemExit(f"{d}/certificate.json exists; not overwritten")
     d.mkdir(exist_ok=True)
     (d / "certificate.json").write_text(json.dumps(cert, indent=1) + "\n")
     print(f"symmetric {4 * v} = 4 * {v}: H = H^T, H H^T = {m} I verified; skew input {RECIPES[v]}; "

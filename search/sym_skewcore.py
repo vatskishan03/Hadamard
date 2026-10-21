@@ -45,6 +45,8 @@ def certify(a3, a1, a0, write):
           flush=True)
     if write:
         d = ROOT / "symmetric" / str(m)
+        if (d / "certificate.json").exists():
+            raise SystemExit(f"{d}/certificate.json exists; not overwritten")
         d.mkdir(exist_ok=True)
         (d / "certificate.json").write_text(json.dumps(cert, indent=1) + "\n")
 

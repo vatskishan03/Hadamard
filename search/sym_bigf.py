@@ -22,7 +22,7 @@ sign pattern of P, and backtracks on symmetry and the Gram condition.
 
 Only q = 3 and 7 are accepted: B is the first q + 1 columns of Paley's matrix of order 2q - 2, which is the only B
 up to equivalence for these q (for q = 11 there are 235 classes of B, search/NOTES.md §66). The completions (V by
-CP-SAT) need OR-Tools; the Q-parts need only NumPy.
+CP-SAT) need OR-Tools; without it they are skipped and only the Q-parts, which need NumPy alone, are counted.
 """
 import itertools
 import sys
@@ -131,6 +131,11 @@ def weighing_on_pattern(zero, q):
 def main(q):
     if q not in (3, 7):
         raise SystemExit('B is unique only for q = 3, 7; see search/NOTES.md §66 for q = 11')
+    try:
+        import ortools  # noqa: F401
+        have_ortools = True
+    except ImportError:
+        have_ortools = False
     f, n = 2 * q - 2, q + 1
     B = paley1(f - 1)[:, :n]
     for k in range(n % 2, n + 1, 2):
@@ -150,15 +155,16 @@ def main(q):
                     if not sols:
                         continue
                     found += 1
-                    V = weighing_on_pattern(P != 0, q) if k < n else None
+                    V = weighing_on_pattern(P != 0, q) if k < n and have_ortools else None
                     if V is None:
                         continue
                     F = sols[0]
                     H = np.block([[F, B, B], [B.T, P + V, P - V], [B.T, P - V, P + V]])
                     assert (H == H.T).all() and (abs(H) == 1).all() and (H @ H == 4 * q * np.eye(4 * q)).all()
                     complete += 1
-        print(f'q = {q}, π with {k} fixed points: {tried} labellings, {found} with a Q-part, '
-              f'{complete} completed to a symmetric H({4 * q})', flush=True)
+        done = (f'{complete} completed to a symmetric H({4 * q})' if have_ortools
+                else 'completion skipped (OR-Tools missing)')
+        print(f'q = {q}, π with {k} fixed points: {tried} labellings, {found} with a Q-part, {done}', flush=True)
 
 
 if __name__ == '__main__':

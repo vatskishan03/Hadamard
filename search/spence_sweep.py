@@ -7,6 +7,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'verify'))
 import spence_lib as L, count_exact as X, spence_slice_check as SC
 import verify
+import workdir as W
 
 H4 = [[1,1,1,1],[1,-1,1,-1],[1,1,-1,-1],[1,-1,-1,1]]
 P = (np.ones((4,4), int) - 2*np.eye(4, dtype=int)).tolist()
@@ -23,13 +24,13 @@ def search(n, H, cap=3e10, K=3):
     A, B = X.pool_vectors(st, 2), X.pool_vectors(st, 0)
     VA = np.rint((st.class_values(A) - pm) / 4).astype(np.int16)
     VB = np.rint((st.class_values(B) - pm) / 4).astype(np.int16)
-    fd, path = tempfile.mkstemp(suffix=".bin", dir=HERE); os.close(fd)
+    fd, path = tempfile.mkstemp(suffix=".bin", dir=W.tmpdir()); os.close(fd)
     try:
         with open(path, "wb") as f:
             f.write(struct.pack("iiiii", len(VA), len(VB), len(VB), len(VB), st.C))
             f.write(np.full(st.C, target, dtype=np.int16).tobytes())
             for V in (VA, VB, VB, VB): f.write(np.ascontiguousarray(V).tobytes())
-        out = subprocess.run([os.path.join(HERE, "find4b"), path, str(K)], capture_output=True, text=True, check=True).stdout
+        out = subprocess.run([W.bin("find4b"), path, str(K)], capture_output=True, text=True, check=True).stdout
     finally:
         os.remove(path)
     found = []
@@ -47,7 +48,7 @@ if __name__ == "__main__":
     fr = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'FRONTIER.md')).read()
     ns = [int(n) for _, n in re.findall(r'^\|\s*(\d+)\s*\|\s*(\d+)\s*\|', fr, re.M)]
     MAXO, CAP = int(sys.argv[1]), float(sys.argv[2])
-    log = open(os.path.join(HERE, 'spence_sweep_hits.json'), 'a')
+    log = open(W.hits('spence_sweep_hits.json'), 'a')
     for n in ns:
         if n % 4 != 3: continue
         m = (n - 1) // 2; t0 = time.time(); tried = 0

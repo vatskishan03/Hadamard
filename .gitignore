@@ -4,7 +4,10 @@ __pycache__/
 *.csv
 check_matrix
 
-# search programs: compiled helpers, list files, logs and hit logs written next to the sources
+# verify_complex.py --write
+complex-hadamard/C*.txt
+
+# search programs: C programs compiled by hand next to the sources, list files, logs and hit logs
 search/**/*.bin
 search/**/*.log
 search/**/*_hits.json

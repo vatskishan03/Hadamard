@@ -6,10 +6,15 @@ of searches and is documented by its docstring and by the notes. Some programs c
 No certificate depends on any program; `verify/` checks every matrix on its own.
 
 **Requirements.** Python 3 with NumPy; SymPy for `symwt.py` and several sweeps; pynauty for `check_conf66.py`; JAX for
-`generate.py`; a C compiler with OpenMP. A few experiments use OR-Tools or PySAT. The C helpers are compiled on first
-use by `workdir.py`. Hit logs, temporary list files and binaries go to `$HADAMARD_WORK` (default
-`<tmp>/hadamard-work`). The `*_certify.py` scripts and the `certify` subcommands (see Certificates) write
-certificates into the repository.
+`generate.py`; SageMath (`passagemath-graphs`) for `sym_propus_sb.py mathon`; a C compiler with OpenMP. A few
+experiments use OR-Tools (PySAT is cited in the notes; that program is not included). The C helpers that Python
+programs call are compiled on first use by `workdir.py`. The other C programs, such as `dedupe.c` and `match.c` below,
+are compiled by hand with `cc -O3 -march=native`, adding `-fopenmp` or `-lm` where the source needs them.
+
+**Output.** Hit logs, temporary list files and binaries go to `$HADAMARD_WORK` (default `<tmp>/hadamard-work`). Apart
+from the certificate writers (see Certificates), programs write only there or to paths given on the command line; the
+scripts in `d3/`, `dm/` and `spence_spin/` write into the working directory. A certificate writer refuses to
+overwrite an existing certificate.
 
 **Commit hashes.** The order READMEs give the commit at which each search was run. Until commit `b7bfde3` this
 directory was named `attack/`, so in a checkout of an earlier commit read `attack/` for `search/`.
@@ -30,8 +35,9 @@ The pipeline of [METHOD.md](../METHOD.md), which found the orders 2092, 3532, 44
 **Example: order 4492.**
 
 ```
-cc -O2 search/dedupe.c -o dedupe
-cc -O3 -march=native -fopenmp search/match.c -o match -lm
+export HADAMARD_WORK=/tmp/hadamard-work; mkdir -p $HADAMARD_WORK
+cc -O2 search/dedupe.c -o $HADAMARD_WORK/dedupe
+cc -O3 -march=native -fopenmp search/match.c -o $HADAMARD_WORK/match -lm
 python3 search/triage.py 1123
 ```
 
@@ -40,13 +46,18 @@ row sum, remove duplicates, and match. Roles A and D form the left pairs; B supp
 repeated row sum goes in the second file. The target is −(p mod 4).
 
 ```
-python3 search/generate.py 1123 60 --rowsum 1  --count 160000000 --out r1.bin  --greedy 3 --polish 1 --width 4 --rounds 0
-python3 search/generate.py 1123 60 --rowsum 67 --count 160000000 --out r67.bin --greedy 3 --polish 1 --width 4 --rounds 0
-./dedupe 17 r1.bin u1.bin
-./dedupe 17 r67.bin u67.bin
-./match -s 6 -t -3 u1.bin u1.bin u67.bin 17 > solutions.txt
-python3 search/certify.py 1123 60 "$(head -1 solutions.txt)" 4492
+D=$HADAMARD_WORK
+python3 search/generate.py 1123 60 --rowsum 1  --count 160000000 --out $D/r1.bin  --greedy 3 --polish 1 --width 4 --rounds 0
+python3 search/generate.py 1123 60 --rowsum 67 --count 160000000 --out $D/r67.bin --greedy 3 --polish 1 --width 4 --rounds 0
+$D/dedupe 17 $D/r1.bin $D/u1.bin
+$D/dedupe 17 $D/r67.bin $D/u67.bin
+$D/match -s 6 -t -3 $D/u1.bin $D/u1.bin $D/u67.bin 17 > $D/solutions.txt
+python3 search/certify.py 1123 60 "$(head -1 $D/solutions.txt)" $D/H4492
 ```
+
+The last command writes the certificate, `sequences.txt` and the matrix to `$D/H4492` and checks them (as does
+`python3 verify/verify.py $D/H4492`). The directory is outside the repository because `hadamard/4492` already holds
+the published certificate, which `certify.py` does not overwrite.
 
 Small structures (pools up to about 10¹⁰ sequences) need only light descent, as here. For orders like 2092 use the
 default settings of `generate.py`, which add iterated local search; they run at about 1.3·10⁵ candidates per second on
@@ -136,7 +147,7 @@ start-up, is close to the list size.
 | `sym_tmult.py` | exhaustive search for a symmetric multiplication of the propus array by an odd order t (group rings of ℤ_t or ℤ₃²): none for t = 3, 5, 9 ([NOTES.md](NOTES.md) §49) |
 | `sym_propus_sb.py` | Seberry–Balonin's Corollary 1 with the core of any symmetric conference matrix of order (q + 1)/2 + 1 (q ≡ 1 mod 4 prime): `mathon t OUT.npy` (Mathon's matrix from SageMath), `skewsq m OUT.npy` (order (m − 1)² + 1 from a skew-Hadamard matrix of order m), `certify v CONF.npy` writes `symmetric/<4v>/certificate.json` (1804, 3532) |
 | `sym_skewcore.py` | Seberry–Yamada's Corollary 27(i) with a skew core in place of Paley's: a skew-propus quadruple of length ℓ (q = 8ℓ − 3 a prime) gives symmetric Williamson-type matrices of order q + 2 with a repeated block and a symmetric Hadamard matrix of order 4(q + 2) (`check` or `certify A3 A1 A0`; controls ℓ = 13, 19 give 412 and 604; [../NOTES.md](../NOTES.md) §29) |
-| `sp_mitm.c` | exhaustive search for skew-propus quadruples of odd length n (A3 symmetric up to multipliers, every A0 of skew type, filtered by the power spectrum and tabled by the autocorrelation A1 needs; every A1 with A1(0) = −1 streamed and looked up): `sp_mitm n a3 a1 [threads]` ([NOTES.md](NOTES.md) §31) |
+| `sp_mitm.c` | exhaustive search for skew-propus quadruples of odd length n (A3 symmetric up to multipliers, every A0 of skew type, filtered by the power spectrum and tabled by the autocorrelation A1 needs; every A1 with A1(0) = −1 streamed and looked up): `sp_mitm n a3 a1 [threads]` ([NOTES.md](NOTES.md) §31, §49) |
 | `l26_scheme.py` | Seberry–Yamada's Lemma 26 with a repeated block in the cyclotomic scheme of GF(p): only v = 11 and 27 for p ≤ 400, e ≤ 8, none for 200 ≤ p ≤ 1250, e ≤ 4 ([NOTES.md](NOTES.md) §49) |
 | `sym_arrays.py` | exact symbolic search for symmetric 4 × 4 arrays of circulants twisted by the reversal: none with four distinct variables, so a repeated block is needed ([NOTES.md](NOTES.md) §49) |
 | `sym_propus_miyamoto.py` | symmetric Hadamard matrices of order 4q, q ≡ 1 (mod 8) a prime power, from a symmetric Hadamard matrix of order (q − 1)/2: Seberry–Yamada's Corollary 29(ii) matrices (W₃ = W₄) in the propus array; `targets` lists the census values (`data/symmetric_census_undecided.txt`) and their inputs, `certify v` writes `symmetric/<4v>/certificate.json` ([../symmetric/PROPUS_MIYAMOTO.md](../symmetric/PROPUS_MIYAMOTO.md)) |
@@ -145,7 +156,7 @@ start-up, is close to the list size.
 | `sym_qlp.py` | symmetric Hadamard matrices of order 4(l + 1) from a quaternary Legendre pair (A, B) of length l with A real and B symmetric: B decodes into p, q with (p, A, A, q) a bordered propus quadruple; `check`, `certify v` (Verma's pair of length 64 gives [../symmetric/260](../symmetric/260)) |
 | `sym_involution.py` | symmetric Hadamard matrices of order 4q, q ≡ 1 (mod 4) a prime, from a Hadamard matrix [[P, Q], [Q, P]] of order q − 1 built from a periodic Golay pair of length (q − 1)/2 (verify.py construction `symmetric-involution`): `targets` lists the census primes q ≡ 5 (mod 8) and their inputs, `certify q` writes `symmetric/<4q>/certificate.json` and refuses an existing directory (404, 596; the length-50 pair of 404 comes from an enumeration whose program is not included; [../symmetric/PERIODIC_GOLAY.md](../symmetric/PERIODIC_GOLAY.md)) |
 | `sym_conference_plug.py` | symmetric Hadamard matrices of order 2n(n − 1) from a symmetric conference matrix of order n, H = I ⊗ X + C ⊗ Y with Paley's matrix C: the case r = 1 of Spence's Corollary 2 (verify.py construction `symmetric-conference-plug`): `targets` lists the census values v = q(q + 1)/2, `certify q` writes `symmetric/<2q(q + 1)>/certificate.json` and refuses an existing directory (612, 1300, 1740, 4900, 7564, all Known; [../symmetric/CONFERENCE_PLUG.md](../symmetric/CONFERENCE_PLUG.md)) |
-| `sym_bigf.py` | symmetric Hadamard matrices of order 4q with an involution of 2q − 2 fixed points: the field-free Q-part for every zero pattern and sign pattern of V and P, by row sets and backtracking, and V by CP-SAT (q = 3 and 7 only; order 28: completions exactly when π has no fixed points, so not with Paley's V; order 12: when π has two; the completions need OR-Tools; [NOTES.md](NOTES.md) §63) |
+| `sym_bigf.py` | symmetric Hadamard matrices of order 4q with an involution of 2q − 2 fixed points: the field-free Q-part for every zero pattern and sign pattern of V and P, by row sets and backtracking, and V by CP-SAT (q = 3 and 7 only; order 28: completions exactly when π has no fixed points, so not with Paley's V; order 12: when π has two; the completions need OR-Tools and are skipped without it; [NOTES.md](NOTES.md) §63) |
 | `border_torus.py` | bordered propus quadruples over the norm-one torus of GF(q²) for v = q + 2 from quadratic characters (only q = 3, 5; [NOTES.md](NOTES.md) §63) |
 | `symod_g.py`, `symod_engine.py`, `symod_join.py`, `symod_reach.py`, `symtpl.c` | symmetric ODs in Balonin form over abelian groups for the weighted plug-in |
 
@@ -231,12 +242,15 @@ start-up, is close to the list size.
 
 **Certificates**
 
+Each of these refuses to overwrite an existing `certificate.json` (an existing `C<n>.json` for the complex orders).
+
 | Program | Writes |
 |---|---|
-| `certify.py`, `gs_certify.py` | Goethals–Seidel orders in `hadamard/` |
-| `skew_certify.py`, `skew_certify_group.py`, `skew_readme.py` | skew orders in `skew/` |
+| `certify.py`, `gs_certify.py`, `make_yamada.py`, `paley_blocks.py` (`certify`), `miyamoto_blocks.py` (`certify`), `miyamoto_wt.py` (`cw`) | orders in `hadamard/`: Goethals–Seidel, Yamada–Kiyasu, Paley blocks, Miyamoto blocks, Cooper–Wallis with Williamson-type matrices |
+| `skew_certify.py`, `skew_certify_group.py`, `skew_group.py` (`certify`), `skew_wallis.py` (`certify`), `paley_blocks.py` (`skew`), `skew_readme.py` | skew orders in `skew/` (`skew_readme.py`: the order's README) |
 | `sym_certify.py`, `border_certify.py` | symmetric orders in `symmetric/` |
 | `sym_propus_miyamoto.py`, `sym_propus_sb.py`, `sym_weighing.py`, `sym_yk.py`, `sym_qlp.py`, `sym_involution.py`, `sym_conference_plug.py`, `sym_skewcore.py`, `sym_mm1.py` (`certify`) | symmetric orders in `symmetric/` |
 | `bnw_certify.py` | Cooper–Wallis orders with bordered Williamson-type matrices |
+| `nw_certify.py` | Cooper–Wallis certificates from a near-Williamson quadruple, below the directory given by `--out` |
 | `cw_certify.py` | Cooper–Wallis certificates from a T-matrix file and Williamson matrices of SageMath's database (`data/williamson_sage.json`, orders 19, 23, 31, 43) or a bordered Williamson-type quadruple (12388, 13892, 14996, 18724, 20116, 20212, 25972, 28036) |
-| `ssxx_certify.py` | complex orders in `complex-hadamard/` |
+| `ssxx_certify.py`, `tbsz.py` (`certify`), `paley_complex.py` (`certify`), `miyamoto_wt.py` (`complete`) | complex orders in `complex-hadamard/`; `complete` writes to the path given |

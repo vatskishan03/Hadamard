@@ -4,9 +4,13 @@
 Expands the four masks of a "SOL" line printed by match (coset numbering as in
 generate.py), checks that the sequences are complementary, and writes
 certificate.json, sequences.txt and H<n>.csv.gz into the order directory. The
-result is then checked with verify/verify.py.
+result is then checked with verify/verify.py. An existing certificate.json is
+never overwritten.
 
-    python3 search/certify.py 1123 60 "SOL 2c76b2b30 21a71af94 a95af712 4dcf4c15" 4492
+    python3 search/certify.py 1123 60 "SOL 2c76b2b30 21a71af94 a95af712 4dcf4c15" /path/to/H4492
+
+The directory is an absolute path, or a path relative to the repository root; a bare number such as 4492 means
+hadamard/4492.
 """
 import argparse
 import gzip
@@ -36,6 +40,8 @@ def coset_numbering(p, g):
 
 
 def write_certificate(cert, path):
+    if path.exists():
+        raise SystemExit(f"{path} exists; not overwritten")
     lines = ["{"]
     keys = list(cert)
     for i, k in enumerate(keys):
@@ -53,7 +59,8 @@ def main():
     ap.add_argument("p", type=int)
     ap.add_argument("g", type=int, help="generator of the multiplier subgroup")
     ap.add_argument("sol", help='"SOL maskA maskB maskC maskD" as printed by match')
-    ap.add_argument("directory", help="order directory to write into (4492 means hadamard/4492)")
+    ap.add_argument("directory", help="order directory to write into (a bare number such as 4492 means "
+                                      "hadamard/4492; other paths are absolute or relative to the repository root)")
     a = ap.parse_args()
 
     p, g = a.p, a.g

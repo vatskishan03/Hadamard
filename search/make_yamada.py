@@ -5,6 +5,8 @@ integers whose base-p digits are polynomial coefficients (see verify.build_yamad
 
   python3 search/make_yamada.py SKEW_ORDER K [OUTDIR]      (SKEW_ORDER: an order in skew/, or a certificate .json)
 
+OUTDIR defaults to hadamard/<order>; an existing certificate.json there is not overwritten.
+
 The certificate nests the skew certificate (and k skew-doubling steps). verify/verify.py rebuilds everything:
 skew matrix -> doublings -> Yamada's construction -> H H^T = nI -> SHA-256. The matrix itself is not stored."""
 import hashlib, json, math, sys
@@ -95,6 +97,13 @@ def main():
     s0, k = sys.argv[1], int(sys.argv[2])
     base = json.loads((Path(s0) if s0.endswith(".json") else ROOT / "skew" / s0 / "certificate.json").read_text())
     s0 = base["order"]
+    s = s0 << k; q = 2 * s - 3
+    pk = prime_power(q)
+    if not (pk and q % 8 == 5): sys.exit(f"q = {q} is not a prime power = 5 (mod 8)")
+    order = 4 * (q + 2)
+    out = Path(sys.argv[3]) if len(sys.argv) > 3 else ROOT / "hadamard" / str(order)
+    if (out / "certificate.json").exists():
+        sys.exit(f"{out}/certificate.json exists; not overwritten")
     Q = base
     for _ in range(k):
         Q = {"order": 2 * Q["order"], "construction": "skew-doubling", "S": Q}
@@ -103,10 +112,6 @@ def main():
         for ch in verify.csv_chunks(H): sha.update(ch)
         Q["sha256"] = sha.hexdigest(); Q["skew"] = True
         del H
-    s = Q["order"]; q = 2 * s - 3
-    pk = prime_power(q)
-    if not (pk and q % 8 == 5): sys.exit(f"q = {q} is not a prime power = 5 (mod 8)")
-    order = 4 * (q + 2)
     if pk[1] == 1:
         r = next(x for x in range(2, q) if pow(x, (q - 1) // 2, q) == q - 1)
         xi = primitive(q, r)
@@ -120,7 +125,6 @@ def main():
     sha = hashlib.sha256()
     for ch in verify.csv_chunks(H): sha.update(ch)
     cert["sha256"] = sha.hexdigest()
-    out = Path(sys.argv[3]) if len(sys.argv) > 3 else ROOT / str(order)
     out.mkdir(parents=True, exist_ok=True)
     (out / "certificate.json").write_text(json.dumps(cert, indent=1) + "\n")
     print(f"order {order} = 4*{q + 2}: q = {q}, r = {r}, xi = {xi}, skew order {s} = 2^{k} * {s0}, sha256 {cert['sha256']}")

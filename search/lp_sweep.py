@@ -4,6 +4,7 @@ import os
 import re, sys, time, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import lp_search as LP
+import workdir as W
 
 fr = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'FRONTIER.md')).read()
 ns = [int(n) for _, n in re.findall(r'^\|\s*(\d+)\s*\|\s*(\d+)\s*\|', fr, re.M)]
@@ -30,6 +31,6 @@ for n in ns:
             print(f"*** n={n} l={l} |H|={len(H)} gens={gens} orbits={O}: Legendre pair found, verified={ok}", flush=True)
             hits.append(dict(n=n, l=l, gens=list(gens), a=''.join('+' if x > 0 else '-' for x in a),
                              b=''.join('+' if x > 0 else '-' for x in b), verified=bool(ok)))
-            json.dump(hits, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lp_hits.json'), 'w'))
+            json.dump(hits, open(W.hits('lp_hits.json'), 'w'))
     print(f"n={n} l={l}: {tried} structures searched ({time.time()-t0:.0f}s)", flush=True)
 print("HITS:", len(hits))

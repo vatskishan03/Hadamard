@@ -15,6 +15,8 @@ SMALL_T = {"1": ["+", "0", "0", "0"], "3": ["+00", "0+0", "00+", "000"]}
 
 def main():
     hits, line, tfile, outdir = sys.argv[1], int(sys.argv[2]), sys.argv[3], Path(sys.argv[4])
+    if (outdir / "certificate.json").exists():
+        sys.exit(f"{outdir}/certificate.json exists; not overwritten")
     rec = json.loads(Path(hits).read_text().splitlines()[line])
     T = SMALL_T[tfile] if tfile in SMALL_T else [ln.strip() for ln in Path(tfile).read_text().splitlines() if ln.strip()]
     t, w = len(T[0]), rec["N"]

@@ -70,7 +70,7 @@ def certify(qs):
     dirs = {q: ROOT / "symmetric" / str(2 * q * (q + 1)) for q in qs}
     for d in dirs.values():
         if (d / "certificate.json").exists():
-            raise SystemExit(f"{d} exists")
+            raise SystemExit(f"{d}/certificate.json exists; not overwritten")
     for q, d in dirs.items():
         c = cert(q)
         d.mkdir(exist_ok=True)

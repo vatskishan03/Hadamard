@@ -3,6 +3,7 @@ import re, sys, time, json, os
 from math import gcd
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import gs_exhaustive as E
+import workdir as W
 
 def subgroups(n):
     units = [u for u in range(1, n) if gcd(u, n) == 1]
@@ -27,7 +28,7 @@ fr = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'FRONTI
 ns = [int(n) for _, n in re.findall(r'^\|\s*(\d+)\s*\|\s*(\d+)\s*\|', fr, re.M)]
 MIN_O, MAX_O, CAP = int(sys.argv[1]), int(sys.argv[2]), float(sys.argv[3])
 only = set(map(int, sys.argv[4:]))
-log = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'gs_sweep_hits.json'), 'a')
+log = open(W.hits('gs_sweep_hits.json'), 'a')
 for n in ns:
     if only and n not in only: continue
     t0 = time.time(); tried = 0

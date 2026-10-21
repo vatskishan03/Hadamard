@@ -257,6 +257,8 @@ if __name__ == "__main__":
         import hashlib, json
         from pathlib import Path
         q, inp, out = int(sys.argv[2]), sys.argv[3], sys.argv[4]
+        if Path(out).exists():
+            raise SystemExit(f"{out} exists; not overwritten")
         C = read_exponents(inp)
         E, ok = completion(q, C)
         assert ok, "not a complex Hadamard matrix"
@@ -276,6 +278,11 @@ if __name__ == "__main__":
         sys.path.insert(0, str(root / "verify"))
         import verify as V
         q, inp, tfile = int(sys.argv[2]), Path(sys.argv[3]).resolve(), Path(sys.argv[4])
+        rows = [l.strip() for l in tfile.read_text().splitlines() if l.strip()]
+        t = len(rows[0])
+        d = root / "hadamard" / str(4 * t * q)
+        if (d / "certificate.json").exists():
+            raise SystemExit(f"{d}/certificate.json exists; not overwritten")
         M, _, digest = V.build_checked(json.loads(inp.read_text()))
         if q % 8 != 1 or any(q % d == 0 for d in range(2, int(q ** 0.5) + 1)) or M.shape[0] != (q - 1) // 2 \
                 or not np.array_equal(M, M.T):
@@ -286,9 +293,7 @@ if __name__ == "__main__":
         if not np.array_equal(sum(x @ x.T for x in F), 4.0 * q * np.eye(q)) or \
                 not all(np.array_equal(F[i] @ F[j].T, F[j] @ F[i].T) for i in range(4) for j in range(i + 1, 4)):
             raise SystemExit("not Williamson type")
-        rows = [l.strip() for l in tfile.read_text().splitlines() if l.strip()]
         T = [np.array([V.SIGN[c] for c in r], np.int64) for r in rows]
-        t = len(rows[0])
         H = V.assemble_cooper_wallis(T, X)
         sha = hashlib.sha256()
         for chunk in V.csv_chunks(H):
@@ -296,7 +301,6 @@ if __name__ == "__main__":
         cert = {"order": 4 * t * q, "construction": "cooper-wallis-miyamoto", "t": t, "q": q, "g": prim_root(q),
                 "input": inp.relative_to(root).as_posix(), "input_sha256": digest, "t_matrices": rows,
                 "sha256": sha.hexdigest()}
-        d = root / "hadamard" / str(4 * t * q)
         d.mkdir(exist_ok=True)
         (d / "certificate.json").write_text(json.dumps(cert, indent=1) + "\n")
         print(f"wrote {d}/certificate.json (order {4 * t * q}, sha256 {cert['sha256']})")

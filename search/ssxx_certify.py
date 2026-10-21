@@ -21,6 +21,9 @@ def main():
         N = h["N"]
         if N in done or (want and N not in want):
             continue
+        out = ROOT / "complex-hadamard" / f"C{2 * N}.json"
+        if out.exists():
+            sys.exit(f"{out.relative_to(ROOT)} exists; not overwritten")
         if "border" in h:
             cert = {"order": 2 * N, "construction": "szollosi-bordered-group" if "automorphisms" in h else
                     "szollosi-bordered", "N": N, "group": h.get("group", [N - 1]),
@@ -36,7 +39,6 @@ def main():
         Kr, Ki = vc.build(cert)
         vc.check(Kr, Ki)
         cert["sha256"] = hashlib.sha256(vc.text(Kr, Ki).encode()).hexdigest()
-        out = ROOT / "complex-hadamard" / f"C{2 * N}.json"
         out.write_text(json.dumps(cert, indent=1) + "\n")
         done.add(N)
         print(f"order {2 * N}: K K* = {2 * N} I verified; written {out.relative_to(ROOT)}")

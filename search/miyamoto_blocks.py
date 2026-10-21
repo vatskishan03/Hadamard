@@ -482,6 +482,9 @@ def selftest():
 
 
 def certify(q, t, spec, tfile=None):
+    d = ROOT / "hadamard" / str(4 * q * t)
+    if (d / "certificate.json").exists():
+        sys.exit(f"{d}/certificate.json exists; not overwritten")
     g = prim_root(q)
     T = load_t(t, tfile)
     assert T.shape[1] == t
@@ -509,7 +512,6 @@ def certify(q, t, spec, tfile=None):
     else:
         cert["pg" if periodic else "ng"] = [sgn(a), sgn(b)]
     cert.update({"T": [tsg(r) for r in T], "sha256": sha.hexdigest()})
-    d = ROOT / "hadamard" / str(4 * q * t)
     d.mkdir(exist_ok=True)
     (d / "certificate.json").write_text(json.dumps(cert, indent=1) + "\n")
     print(f"wrote {d}/certificate.json (order {4 * q * t}, sha256 {cert['sha256']})")

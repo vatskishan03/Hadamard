@@ -9,7 +9,7 @@ A, A o mu, A o mu^2, D have periodic autocorrelations summing to
 and both terms are K-invariant (and even in s).  So the quadruple is complementary iff T_A = -P_D on the
 <K, -1>-classes: an exact join of two lists, the 2^(pairs) skew blocks A and the K-invariant blocks D with row sum d.
 The row sums are (1, 1, 1, d), so d^2 = 4v - 3, i.e. v = k^2 + k + 1 and d = 2k + 1.  The first block is of skew type,
-so the Goethals-Seidel array is a skew-Hadamard matrix of order 4v.  (Spin structures, attack/spin_skew.py, permute
+so the Goethals-Seidel array is a skew-Hadamard matrix of order 4v.  (Spin structures, search/spin_skew.py, permute
 the three non-skew blocks instead and need 1 + 3b^2 = 4v.)
 
 Usage: python3 search/tri_skew.py GROUP "HGENS" "MU" [--maxlist N] [--k K] [--dry]

@@ -2,6 +2,7 @@
 import subprocess, struct, os, tempfile
 import numpy as np
 import count_exact as X
+import workdir as W
 
 def dump(st, path):
     v = st.G.v; pm = v % 4; target = (-4 - 4 * pm) // 4
@@ -15,11 +16,11 @@ def dump(st, path):
     return len(A), len(B)
 
 def count(st):
-    fd, path = tempfile.mkstemp(suffix=".bin", dir=os.path.dirname(os.path.abspath(__file__)))
+    fd, path = tempfile.mkstemp(suffix=".bin", dir=W.tmpdir())
     os.close(fd)
     try:
         nA, nB = dump(st, path)
-        out = subprocess.run([os.path.join(os.path.dirname(os.path.abspath(__file__)), "count4"), path],
+        out = subprocess.run([W.bin("count4"), path],
                              capture_output=True, text=True, check=True).stdout
         return int(out.strip()), nA, nB
     finally:

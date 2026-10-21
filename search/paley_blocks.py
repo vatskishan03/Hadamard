@@ -380,6 +380,8 @@ if __name__ == "__main__":
             sha.update(chunk)
         cert["sha256"] = sha.hexdigest()
         d = root / "hadamard" / str(4 * n)
+        if (d / "certificate.json").exists():
+            sys.exit(f"{d}/certificate.json exists; not overwritten")
         d.mkdir(exist_ok=True)
         (d / "certificate.json").write_text(json.dumps(cert, indent=1) + "\n")
         (d / "sequences.txt").write_text("\n".join(cert["sequences"]) + "\n")

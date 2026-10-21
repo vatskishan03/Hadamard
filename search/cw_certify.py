@@ -19,6 +19,8 @@ import verify
 
 def main():
     tfile, wspec, outdir = sys.argv[1], sys.argv[2], Path(sys.argv[3])
+    if (outdir / "certificate.json").exists():
+        sys.exit(f"{outdir}/certificate.json exists; not overwritten")
     T = [ln.strip() for ln in Path(tfile).read_text().splitlines() if ln.strip()]
     t = len(T[0])
     if wspec.isdigit():

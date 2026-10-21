@@ -5,8 +5,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "verify"))
 import spence_lib as L, gs_lib as GS, count_exact as X
 import verify
-
-HERE = os.path.dirname(os.path.abspath(__file__))
+import workdir as W
 
 def run(n, gens_ints, max_pairs=4e10, K=5, verbose=True):
     G = L.AbGroup([n])
@@ -31,14 +30,14 @@ def run(n, gens_ints, max_pairs=4e10, K=5, verbose=True):
             if verbose: print(f"  pattern {q}: pools {[int(s) for s in sizes]} work {work:.2e} > cap, skipped", flush=True)
             continue
         lists = [vecs(q[i]) for i in pairing]
-        fd, path = tempfile.mkstemp(suffix=".bin", dir=HERE); os.close(fd)
+        fd, path = tempfile.mkstemp(suffix=".bin", dir=W.tmpdir()); os.close(fd)
         try:
             with open(path, "wb") as f:
                 f.write(struct.pack("iiiii", *[len(l[1]) for l in lists], st.C))
                 f.write(np.full(st.C, target, dtype=np.int16).tobytes())
                 for l in lists: f.write(np.ascontiguousarray(l[1]).tobytes())
             t = time.time()
-            out = subprocess.run([os.path.join(HERE, "find4b" if os.path.exists(os.path.join(HERE, "find4b")) else "find4"), path, str(K)], capture_output=True, text=True, check=True).stdout
+            out = subprocess.run([W.bin("find4b"), path, str(K)], capture_output=True, text=True, check=True).stdout
         finally:
             os.remove(path)
         total = int(out.strip().split("TOTAL")[-1])

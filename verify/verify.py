@@ -2554,13 +2554,17 @@ def main():
     failed = 0
     for d in dirs:
         try:
+            label = d.relative_to(ROOT).as_posix()
+        except ValueError:                      # a directory outside the repository
+            label = str(d)
+        try:
             n, digest = check(d, args.write)
             c = json.loads((d / "certificate.json").read_text())
             kind = "  (skew: H + H^T = 2I)" if c.get("skew") else "  (symmetric: H = H^T)" if c.get("symmetric") else ""
-            print(f"{d.relative_to(ROOT).as_posix():<16}  ok    H H^T = {n} I   sha256 {digest}{kind}")
+            print(f"{label:<16}  ok    H H^T = {n} I   sha256 {digest}{kind}")
         except Exception as exc:  # report and continue with the remaining orders
             failed += 1
-            print(f"{d.relative_to(ROOT).as_posix():<16}  FAIL  {exc}")
+            print(f"{label:<16}  FAIL  {exc}")
     if not args.orders:
         for f in sorted((ROOT / "t-matrices").glob("T*.txt"), key=lambda p: int(p.stem[1:])):
             try:

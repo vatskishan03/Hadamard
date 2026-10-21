@@ -235,7 +235,10 @@ def certify(v, k=0):
     Hm = gs_group(seqs, G)
     import io
     buf = io.BytesIO(); np.savetxt(buf, Hm, fmt="%d", delimiter=","); data = buf.getvalue()
-    order = 4 * v; out = os.path.join(str(W.ROOT / 'skew'), str(order)); os.makedirs(out, exist_ok=True)
+    order = 4 * v; out = os.path.join(str(W.ROOT / 'skew'), str(order))
+    if os.path.exists(os.path.join(out, 'certificate.json')):
+        sys.exit(f"{out}/certificate.json exists; not overwritten")
+    os.makedirs(out, exist_ok=True)
     cert = {"order": order, "construction": "goethals-seidel-group", "skew": True, "group": [int(x) for x in mods],
             "structure": h['structure'], "automorphisms": [M.tolist() for M in mats], "subgroup_order": len(seen),
             "rowsums": [int(x.sum()) for x in seqs], "sequences": h['seqs'], "sha256": hashlib.sha256(data).hexdigest()}

@@ -56,7 +56,7 @@ def certify(v):
     cert["sha256"] = hashlib.sha256(verify.canonical_csv(H)).hexdigest()
     d = ROOT / "symmetric" / str(4 * v)
     if (d / "certificate.json").exists():
-        raise SystemExit(f"{d} exists")
+        raise SystemExit(f"{d}/certificate.json exists; not overwritten")
     d.mkdir(exist_ok=True)
     (d / "certificate.json").write_text(json.dumps(cert, indent=1) + "\n")
     (d / "sequences.txt").write_text("".join(x + "\n" for x in cert["sequences"]))

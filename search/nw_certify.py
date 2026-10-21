@@ -70,6 +70,10 @@ def main():
     a = ap.parse_args()
     nw = read_hit(a.hits, a.line)
     w = len(nw[0])
+    for t in a.t:
+        d = Path(a.out) / str(4 * t * w)
+        if (d / "certificate.json").exists():
+            sys.exit(f"{d}/certificate.json exists; not overwritten")
     seq = [np.array([1 if ch == "+" else -1 for ch in s], np.int64) for s in nw]
     paf = verify.paf_sum(seq)
     assert paf[0] == 4 * w and not paf[1:].any(), "not a near-Williamson quadruple"
@@ -85,7 +89,10 @@ def main():
         for chunk in verify.csv_chunks(H):
             sha.update(chunk)
         cert["sha256"] = sha.hexdigest()
-        d = Path(a.out) / str(n); d.mkdir(parents=True, exist_ok=True)
+        d = Path(a.out) / str(n)
+        if (d / "certificate.json").exists():
+            sys.exit(f"{d}/certificate.json exists; not overwritten")
+        d.mkdir(parents=True, exist_ok=True)
         (d / "certificate.json").write_text(json.dumps(cert, indent=1) + "\n")
         if a.write_csv:
             with gzip.open(d / f"H{n}.csv.gz", "wb", compresslevel=9) as f:

@@ -41,9 +41,9 @@ matrix products, which are exact: every entry is 0 or +-1 and every partial sum 
 most n, far below 2^53.
 
     python3 verify/verify_complex.py [n ...]          all certificates when no order is given
-    python3 verify/verify_complex.py --write n         also write complex-hadamard/C<n>.txt
+    python3 verify/verify_complex.py --write n         also write complex-hadamard/C<n>.txt, once the checks pass
 """
-import hashlib, importlib.util, json, sys
+import argparse, hashlib, importlib.util, json, sys
 from pathlib import Path
 import numpy as np
 
@@ -316,11 +316,15 @@ def text(Kr, Ki):
 
 
 def main():
-    args = sys.argv[1:]
-    write = "--write" in args
-    orders = [int(a) for a in args if a.isdigit()]
-    files = [ROOT / f"C{n}.json" for n in orders] if orders else sorted(ROOT.glob("C*.json"),
-                                                                        key=lambda p: int(p.stem[1:]))
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("orders", nargs="*", type=int,
+                    help="orders (142 is complex-hadamard/C142.json) to check (default: all)")
+    ap.add_argument("--write", action="store_true",
+                    help="write C<n>.txt next to each certificate whose checks pass")
+    args = ap.parse_args()
+    write = args.write
+    files = [ROOT / f"C{n}.json" for n in args.orders] if args.orders else sorted(ROOT.glob("C*.json"),
+                                                                                key=lambda p: int(p.stem[1:]))
     bad = 0
     for f in files:
         stem = int(f.stem[1:])
@@ -338,7 +342,7 @@ def main():
             ok = sha == cert.get("sha256")
             print(f"{n:6d}  {'ok' if ok else 'HASH MISMATCH'}  K K* = {n} I   sha256 {sha}")
             bad += not ok
-            if write:
+            if write and ok:
                 (ROOT / f"C{n}.txt").write_text(txt)
         except Exception as ex:      # report and continue with the remaining orders
             why = (f"missing certificate field or unrecognised key {ex}" if isinstance(ex, KeyError)

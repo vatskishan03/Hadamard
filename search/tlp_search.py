@@ -9,6 +9,7 @@ import sys, re, json, time
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import tlp_model as TM
+import workdir as W
 
 def class_matrix(l, lab, k, reps, mu):
     S = np.zeros((len(reps), k, k))
@@ -63,7 +64,7 @@ if __name__ == '__main__':
                 b2 = a[(np.arange(l) * mu) % l]
                 ok = verify_pair(l, a, b2) or verify_pair(l, a, b)
                 print(f"*** n={n} l={l} |H|={len(H)} gens={gens} mu={mu} orbits={k}: twisted LP found, verified={ok}", flush=True)
-                with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tlp_hits.json'), 'a') as f:
+                with open(W.hits('tlp_hits.json'), 'a') as f:
                     f.write(json.dumps(dict(n=n, l=l, H=sorted(H), gens=list(gens), mu=mu,
                                             a=''.join('+' if v > 0 else '-' for v in a), verified=bool(ok))) + "\n")
         print(f"n={n} l={l}: {tried} twisted structures searched, {covered:.3g} sequences ({time.time()-t0:.0f}s)", flush=True)

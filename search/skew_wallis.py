@@ -141,6 +141,8 @@ def certify(order):
         sha.update(chunk)
     cert["sha256"] = sha.hexdigest()
     d = ROOT / "skew" / str(order)
+    if (d / "certificate.json").exists():
+        sys.exit(f"{d}/certificate.json exists; not overwritten")
     d.mkdir(exist_ok=True)
     (d / "certificate.json").write_text(json.dumps(cert) + "\n")
     (d / "sequences.txt").write_text("".join("".join("+" if t > 0 else "-" for t in x) + "\n" for x in seqs))

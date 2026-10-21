@@ -1725,6 +1725,8 @@ def certify(hits, out_dir=None, k=0):
             "border": {key: [list(map(int, r)) for r in b] for key, b in zip(("Xb", "Rh", "Ch"), border)},
             "sha256": hashlib.sha256(txt.encode()).hexdigest()}
     out = Path(out_dir or Path(__file__).resolve().parent.parent / "complex-hadamard") / f"C{2 * ts.N}.json"
+    if out.exists():
+        raise SystemExit(f"{out} exists; not overwritten")
     out.write_text(json.dumps(cert, indent=1) + "\n")
     print(f"wrote {out}: order {2 * ts.N}, sha256 {cert['sha256']}")
     return out

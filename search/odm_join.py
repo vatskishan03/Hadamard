@@ -41,7 +41,11 @@ def main():
         cmd += ['--bsub', str(a.bsub)]
     if a.bjoin:
         cmd += ['--bjoin']
+        if a.join4x:
+            cmd += ['--join4x', a.join4x]
     r = subprocess.run(cmd, capture_output=True, text=True)
+    if r.returncode:
+        sys.exit(r.stderr.strip() or f'odm_engine.py failed ({r.returncode})')
     print(r.stderr.strip(), file=sys.stderr)
     tpls = [ln.split(' ', 1)[0] for ln in r.stdout.splitlines() if ln.strip()]
     print(f'{len(tpls)} templates', file=sys.stderr)
