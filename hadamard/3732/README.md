@@ -86,7 +86,7 @@ same code).
 ## Status
 
 **New.** Cati–Pasechnik Table 4 lists 933(4): the smallest known Hadamard order of the form 2ᵐ · 933 was 14928, so
-3732 and 7464 were unknown. The matrix is skew, and no skew-Hadamard matrix of order 3732 was known either.
+3732 was unknown. The matrix is skew, and no skew-Hadamard matrix of order 3732 was known either.
 
 - Seberry–Yamada (1992, Table A.2: "933 4 d1", Agayan multiplication) and the Handbook of Combinatorial Designs (2007,
   Table 1.53: 933 → 4 and 311 → 3) give the same entry. Seberry–Yamada Table A.1 has no Williamson or Williamson-type
@@ -107,8 +107,7 @@ The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 **Consequences.**
 
-- Doubling gives Hadamard matrices of order 2ᵗ · 3732 for every t ≥ 0, so 7464 = 8 · 933 is new as well, and
-  skew-Hadamard matrices of all orders 2ᵐ · 933 with m ≥ 2, of which m = 2, …, 9 were unknown.
+- Doubling gives skew-Hadamard matrices of all orders 2ᵐ · 933 with m ≥ 2, of which m = 2, …, 9 were unknown.
 - 3733 is a prime ≡ 1 (mod 4), so Miyamoto's theorem gives a Hadamard matrix of order 4 · 3733 = 14932; see
   [14932](../14932).
 

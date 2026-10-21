@@ -241,3 +241,10 @@ Labels of the first release (14 October 2026) that have changed:
   76 and 100 behind them are first explicit, not new: they come from the skew-propus families of Abuzin, Balonin,
   Đoković and Kotsireas (2019).
 - T-matrices of order 131: **Known**, from London and Kotsireas's TT(44) (2025).
+- 5272, 7464, 18344, 36688 and 73376: earlier versions called these orders open and settled by doubling the matrices
+  of orders 2636, 3732 and 9172. They were not open. Complex Golay pairs of lengths x and y give a Hadamard matrix of
+  order 8(x + y) (Craigen, Holzmann and Kharaghani, Discrete Math. 252 (2002) 73–89); 659 = 11 + 648 and
+  2293 = 5 + 2288 give 5272 and 18344, and doubling gives 36688 and 73376. Agaian's product (Lecture Notes in Math.
+  1168, 1985) of Hadamard matrices of orders 12 and 1244, the latter by Alpöge, Voinov and Reynolds-Haertle (2026),
+  gives 7464 = 8 · 933. Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175) list none of them as open. The
+  matrices of orders 2636, 3732 and 9172 are unaffected.

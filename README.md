@@ -82,8 +82,7 @@ Turyn's doubling. Our matrix of order 2292 = 4 · 573 (Spence's construction ove
 Middletownbooks/Hadamard had published an independent matrix of that order on 9 October 2026, before ours of 14 October,
 and we learned of it on 19 October [16] ([hadamard/2292](hadamard/2292/README.md#status)). The same repository settled
 2588 = 4 · 647 on 14 October 2026 [16]. Đoković claimed 1527 and 2545 in 2010 through Seberry–Yamada's Corollary 8.8(i),
-whose printed proof does not give Williamson-type matrices ([NOTES.md](NOTES.md) §7). Doubling 2636, 3732 and 9172
-settles the further open orders 5272, 7464, 18344, 36688 and 73376.
+whose printed proof does not give Williamson-type matrices ([NOTES.md](NOTES.md) §7).
 
 ### Other results
 

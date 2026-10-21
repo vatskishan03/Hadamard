@@ -89,8 +89,7 @@ the standard recursive constructions applies:
   is not a sum of two squares.
 - Product theorems: 2636 ≡ 4 (mod 8).
 
-Doubling gives a Hadamard matrix of order 5272 = 8 · 659, which was open as well: by Table 4 the smallest known
-order of the form 2ᵐ · 659 was 16 · 659. The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
+The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 
