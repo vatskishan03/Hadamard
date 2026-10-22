@@ -217,6 +217,17 @@ and an adversarial re-search:
   conference matrix of order 322.
 - *Not read.* As for 6796; the Handbook's Table 1.53 row for 643 was not read directly; Miyamoto's §7 lists.
 
+**Complex order 418** ([complex-hadamard](complex-hadamard/README.md)). Checked on 22 October 2026:
+- *Tables and recursions.* Seberry–Yamada 1992, Table 11.2 (N = 209 blank). Turyn's route needs 417 = 3 · 139, and
+  Ito's dicyclic groups with Egan's Theorem 4.5 need 835 = 5 · 167, to be a prime power. A Kronecker product would
+  need a quaternary factor of odd order 11, 19 or 209.
+- *Recent work.* Zaitsev's page (last modified 15 October, read on 22 October: 418 on its unknown list, no QH418);
+  Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev, arXiv:2605.08661; Szöllősi's talk at IWDMA 2026 (17 March
+  2026: complex Hadamard matrices up to order 94, next open case 118); Munim's status report of 14 October
+  2026 on dev.to (real orders only); web searches for a quaternary Hadamard matrix of order 418.
+- *Finding.* None gives a quaternary Hadamard matrix of order 418.
+- *Not read.* As for 6796. Zaitsev et al. search these orders at present; their page lists 418 as unknown.
+
 ## Not checked
 
 - J. Seberry, M. Yamada, *Hadamard Matrices: Constructions using Number Theory and Linear Algebra* (Wiley, 2020):

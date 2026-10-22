@@ -30,7 +30,7 @@ give a theorem: a skew-Hadamard matrix of order 3(q + 1) exists for every prime 
 | Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 New, 124 New but obtainable classically, 49 First explicit construction |
 | Skew-Hadamard (820 to 14384) | [101](skew) | 37 New, 62 New but obtainable classically, 2 First explicit construction |
 | Symmetric Hadamard (260 to 9892) | [98](symmetric) | 37 New, 53 New but obtainable classically, 8 Concurrent |
-| Complex Hadamard (214 to 3398) | [18](complex-hadamard) | 4 New, 12 Concurrent, 2 First explicit construction |
+| Complex Hadamard (214 to 3398) | [19](complex-hadamard) | 5 New, 12 Concurrent, 2 First explicit construction |
 | T-matrices | [97, 109, 197](t-matrices) | New |
 
 The labels are defined in [NOVELTY.md](NOVELTY.md), which also lists the literature searched. "Obtainable
@@ -116,8 +116,9 @@ settles the further open orders 5272, 7464, 18344, 36688 and 73376.
 - **Complex Hadamard matrices** of the 12 orders 214, 238, 302, 326, 366, 382, 426, 494, 518, 534, 754 and 1558,
   blank in Seberry and Yamada's table [5] and in the papers since [10, 11], from searches over Szöllősi's array [10]
   and its bordered, character-bordered and twisted forms. Zaitsev et al. found all twelve concurrently and
-  independently [13]; we claim no priority. The smallest open order is 334. The quaternary matrices of orders 1286
-  and 1718 (open on Zaitsev et al.'s list), 2102 and 3398 are the intermediate steps of 2572, 3436, 4204 and 6796.
+  independently [13]; we claim no priority. The smallest open order is 334. The quaternary matrix of order 418, open
+  on Zaitsev et al.'s list, comes from a Paley plug-in in Szöllősi's array over ℤ₁₉ × F₁₁. The quaternary matrices of
+  orders 1286 and 1718 (also open on that list), 2102 and 3398 are the intermediate steps of 2572, 3436, 4204 and 6796.
   Also the first explicit matrices of 1618 and 1906, and explicit matrices of 76 orders 2N with 4N − 1 a prime
   power, which Ito's dicyclic Hadamard groups and Egan's Theorem 4.5 [12] give ([complex-hadamard](complex-hadamard)).
 - **T-matrices** of orders 97, 109 and 197 ([t-matrices](t-matrices)). 97 and 109 have the form 6m + 1 and may appear
