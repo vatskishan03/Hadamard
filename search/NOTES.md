@@ -5494,7 +5494,7 @@ bordered GS over n − t). The K-level system is that of §81 with no symmetric 
   on exactly empty small shapes and over-predicted the 947 level-1 count by 3 to 5 decades.
 
 **A structured level 1** (`r31/sl1`): the background is fixed by an exact congruence (Σ PAF of the backgrounds ≡ 0
-mod (q − 1)/gcd(q − 1, 4) on every class), then every defect pattern of the four blocks is joined exactly. It is 44
+mod q − 1 at every nonzero shift), then every defect pattern of the four blocks is joined exactly. It is 44
 times faster than round 30's level 1 at ℤ₁₉ and about 2400 times at ℤ₂₃. A symmetry-reduced exhaustive mode
 (translations and reflections of C and D, units, A ↔ B) settles whole allocations.
 - *Checked.* Equal to the exact level-1 counts of six shapes; sampling rate × recall reproduces exact solution counts
