@@ -26,16 +26,15 @@ give a theorem: a skew-Hadamard matrix of order 3(q + 1) exists for every prime 
 
 ## Results
 
-| Family | Orders | New | New, but obtainable classically | First explicit construction | Concurrent | Known |
-|---|---:|---:|---:|---:|---:|---:|
-| Hadamard, unresolved in Table 4 [3] | [31](#unresolved-orders) | 14 | 14 | 2 | 1 | |
-| Hadamard, omitted by Table 4 through Seberry–Yamada's Corollary 8.8(i) | [10](hadamard#orders-recorded-only-through-corollary-88i) | | | 10 | | |
-| Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 | 124 | 49 | | |
-| Hadamard, independent matrices of known orders | [7](hadamard) | | | | | 7 |
-| Skew-Hadamard (820 to 14384) | [104](skew) | 37 | 62 | 2 | | 3 |
-| Symmetric Hadamard (260 to 9892) | [100](symmetric) | 35 | 48 | | 8 | 9 |
-| Complex Hadamard (142 to 3398) | [94](complex-hadamard) | 4 | | 2 | 12 | 76 |
-| T-matrices (97, 109, 197) | [3](t-matrices) | 3 | | | | |
+| Family | Orders | Status |
+|---|---|---|
+| Hadamard, unresolved in Table 4 [3] | [31](#unresolved-orders) | 14 New, 14 New but obtainable classically, 2 First explicit construction, 1 Concurrent |
+| Hadamard, omitted by Table 4 through Seberry–Yamada's Corollary 8.8(i) | [10](hadamard#orders-recorded-only-through-corollary-88i) | First explicit construction |
+| Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 New, 124 New but obtainable classically, 49 First explicit construction |
+| Skew-Hadamard (820 to 14384) | [101](skew) | 37 New, 62 New but obtainable classically, 2 First explicit construction |
+| Symmetric Hadamard (260 to 9892) | [98](symmetric) | 37 New, 53 New but obtainable classically, 8 Concurrent |
+| Complex Hadamard (214 to 3398) | [19](complex-hadamard) | 5 New, 12 Concurrent, 2 First explicit construction |
+| T-matrices | [97, 109, 197](t-matrices) | New |
 
 The labels are defined in [NOVELTY.md](NOVELTY.md), which also lists the literature searched. "Obtainable
 classically" means that every ingredient, theorem or object, was published before 2026 and only their combination is
@@ -153,11 +152,11 @@ Seberry–Yamada's Corollary 8.8(i), whose printed proof does not give Williamso
 - **Complex Hadamard matrices** of the 12 orders 214, 238, 302, 326, 366, 382, 426, 494, 518, 534, 754 and 1558,
   blank in Seberry and Yamada's table [5] and in the papers since [10, 11], from searches over Szöllősi's array [10]
   and its bordered, character-bordered and twisted forms. Zaitsev et al. found all twelve concurrently and
-  independently [13]; we claim no priority. The smallest open order is 334. Also the first explicit matrices of 1618
-  and 1906, and explicit matrices of 76 orders 2N with 4N − 1 a prime power, which Ito's dicyclic Hadamard groups and
-  Egan's Theorem 4.5 [12] give ([complex-hadamard](complex-hadamard)). Quaternary conference matrices of orders 322,
-  430, 526 and 850 give quaternary Hadamard matrices of orders 1286 and 1718 (open on Zaitsev et al.'s list), 2102
-  and 3398 and, by Turyn's doubling, 2572, 3436, 4204 and 6796.
+  independently [13]; we claim no priority. The smallest open order is 334. The quaternary matrix of order 418, open
+  on Zaitsev et al.'s list, comes from a Paley plug-in in Szöllősi's array over ℤ₁₉ × F₁₁. The quaternary matrices of
+  orders 1286 and 1718 (also open on that list), 2102 and 3398 are the intermediate steps of 2572, 3436, 4204 and 6796.
+  Also the first explicit matrices of 1618 and 1906, and explicit matrices of 76 orders 2N with 4N − 1 a prime
+  power, which Ito's dicyclic Hadamard groups and Egan's Theorem 4.5 [12] give ([complex-hadamard](complex-hadamard)).
 - **T-matrices** of orders 97, 109 and 197 ([t-matrices](t-matrices)). 97 and 109 have the form 6m + 1 and may appear
   in Lou, Xia and Xia's work on T-matrices of that order, which we could not read.
 

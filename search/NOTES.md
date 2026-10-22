@@ -5471,3 +5471,42 @@ Scratchpad `r28/`, `r29/`.
   |K| = 41 while ρ falls by about 10^−0.6 per unit of |K|.
 - *One lead.* The complex order 1958 (core 490) via K = ℤ₃₅, q = 7, H_K = ⟨11⟩: E ≈ 10^3.7, n_t = 33, ρ ≈ 10⁻⁷,
   about 30 to 100 CPU-hours with a naive sampler.
+
+## 85. Round 30: Paley plug-ins in the plain Szöllősi array; the complex order 418 (October 22)
+
+The quaternary Hadamard matrix of order 418 was found. Scratchpad `r30/` (census and order-1958 lenses).
+
+**The plain-array plug-in** (`search/plugh`). As §81, but in the plain array (all entries ±1, A and B symmetric, Σ PAF
+= 4|G|δ), which gives quaternary Hadamard matrices of order 2|G|.
+- *System.* The K-level equations (I), (J), (Q) of §81 hold with 4|G|δ_K on the right of (I). The defect identity is
+  e₊(q + 1) + e₋(q − 3) = 4|K|; for q ≡ 3 (mod 4) A and B have a defect at 0.
+- *Checked.* Against G-level brute force on 289 small shapes (26 nonzero, e.g. ℤ₁₃ × F₃ with H = ⟨5, −1⟩: 14592 both
+  ways). The C solvers `l1.c` (level 1: exact A, B lists against random C, D configurations, class-sorted hash join)
+  and `pl2.c` (level 2: row-sum filter, PSD channels, meet-in-the-middle on the signs t) reproduce the exact counts of
+  five shapes (ℤ₁₉ × F₁₉, H = ⟨7⟩: 3072; ℤ₁₉ × F₇, ⟨7⟩: 159744; ℤ₁₃ × F₇, ⟨3⟩: 27648; ℤ₁₃ × GF(9), ⟨3⟩: 0).
+
+**Census of the open orders** (Gaussian/lattice estimator, then exact or sampled runs; 38 orders ranked by cost).
+- *Estimator.* Normal regime (q < |K|, H = 1): estimate/measured completion rate per level-1 instance 0.6 (ℤ₁₃, q =
+  7), 0.15 and 0.23 (ℤ₁₃, q = 9), 0.2 (ℤ₁₅, q = 7), > 4.4 (ℤ₁₇, q = 11: 0 of 21586) and 0.025 (ℤ₁₉, q = 11). So it is
+  good to about 1.5 decades either way, with no systematic correction. Rigid regime (q > |K|, or few orbits): six of
+  six shapes with estimates 10^2.3 to 10^4 are EXHAUSTIVELY empty: ℤ₁₁ × F₂₃ (506), ℤ₁₁ × GF(25) (550), ℤ₁₅ × F₂₃
+  (690), ℤ₄₁ × F₇ with ⟨10⟩ (574), ℤ₁₉ × F₁₁ with ⟨7⟩ (418), ℤ₃₁ × F₁₁ with ⟨2⟩ (682). There the level-1 count is
+  underestimated 20 to 30 times and full solutions do not exist.
+- *Small K-symmetric shapes.* 470 more (4 to 13 orbits per block, |K| ≤ 120, over the 85 orders that pass the
+  identity) are EXHAUSTIVELY empty; almost all die at level 1.
+- *Order 418* (ℤ₁₉ × F₁₁, H = 1, n_t = 51, estimate 10^5.7 solutions): the only order within reach. Two workers found
+  solutions in their first rounds (0.6 CPU-hours, 7641 level-1 instances, 40 completions, five certified distinct).
+  The certificate has defects (e₊, e₋) = (5, 2) in the allocation (1, 1, 2, 3), row sums 1, 21, −15, 13 (1 + 441 + 225
+  + 169 = 836). `verify_complex.py`, the sampler's own check and a separate numpy check (with the Turyn double H(836))
+  give K K* = 418 I exactly.
+- *Out of reach of this level 1:* 506 (ℤ₂₃ × F₁₁), 598 (ℤ₂₃ × F₁₃), 550 (ℤ₂₅ × F₁₁), about 10² to 10⁶ CPU-hours by the
+  estimates. For |K| ≥ 23 the exact A, B lists and the random C, D lists are both too large; a structured level 1
+  (random background, exact join on the defects, as `plug7_gen.c` for n = 643) is needed. 1026 (ℤ₁₉ × GF(27), ⟨7⟩) and
+  1258 (ℤ₁₇ × F₃₇) were stopped without a result (UNKNOWN).
+
+**Complex order 1958** (conference core of order 490 over ℤ₃₅ × F₇, H_K = ⟨11⟩, §84). Exact engine validated
+exhaustively at K = ℤ_m, m ≤ 3, and on m = 4 (counts 40, 64, 198, ≥ 128 canonical). A bug in its canonical test (the
+block-sign gauge) made the first production run incomplete; it was fixed and the run repeated. Production: 7.3 · 10⁶
+canonical level-1 instances by 07:08 UTC, 0 solutions; the probe-based expectation of the unprocessed part is about
+0.4 (HEURISTIC). The small-m solutions all lie in one or two structured allocations that the generic estimator does
+not see.
