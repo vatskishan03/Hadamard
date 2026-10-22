@@ -5419,7 +5419,55 @@ row-sum class τ_C² + τ_D² = 10 of the allocation (3, 3, 4, 4).
 - *Novelty* ([NOVELTY.md](../NOVELTY.md)). No construction of H(2572), of a quaternary H(1286) or of a quaternary
   conference matrix of order 322 was found.
 
-**Reading.** The Paley plug-in turned a class that §78 had sampled without success (completions per instance about
-10⁻⁷ at 1–10 s per instance) into one that yields a core in about 15 CPU-hours. The gain came from four sources: the
-defect identity fixes the defect counts; R0, R1 and the mod-3 filter cut the level-1 population exactly; the row-sum
-class is chosen by calibration at p = 13 and 17; and both levels are 5–14× faster.
+**Reading.** The Paley plug-in turned a class that round 23 had sampled without success (completions per instance
+about 10⁻⁷ at 1–10 s per instance) into one that yields a core in half a CPU-day. The gain came from four sources:
+the defect identity fixes the defect counts; R0, R1 and the mod-3 filter cut the level-1 population exactly; the
+row-sum class is chosen by calibration at p = 13 and 17; and both levels are 5–14× faster.
+
+## 84. Rounds 28–29: bordered plug-ins, the limits of Yamada–Kiyasu-type templates, the transfer theorem (October 21–22)
+
+No core was found. A container restart cut off two lenses (closed forms, sampler speed-up) and the judges of the
+template and transfer lenses, so the claims below marked PROVED are the lenses' own, not yet independently checked.
+Scratchpad `r28/`, `r29/`.
+
+**Bordered plug-ins over ℤ₂ × ℤ_p × F₇** (n = 1291, p = 23; n = 955, p = 17; `r28/bplug/`).
+- *Checked parts.* The exact bordered K-level system, its row-sum identities, the defect identity, the forced defects
+  and the ℤ₂ (c/d) split were checked against G-level PAF. A new exact sampler `bp9.c` was validated against brute
+  force on 32 planted cases.
+- *Positive controls.* The first bordered q = 7 plug-in cores, of orders 198 (K = ℤ₁₄) and 254 (K = ℤ₁₈), were
+  certified; the judge verified both. p = 3 and 5 are exhaustively empty.
+- *Infeasible.* The classes have Gaussian expectations of 10^11.7 (p = 17) and 10^12.3 (p = 23), but only one
+  level-1 instance in 10^11 to 10^12.6 (p = 17), or 10^18.5 to 10^21 (p = 23), completes. The ℤ₂ split, ties,
+  strata and extra symmetry give no gain of the 10⁶ to 10⁸ needed. Every solution found at p = 7, 9 lies in a
+  degenerate class (one block nearly constant) that cannot persist at p ≥ 17. HEURISTIC; existence UNKNOWN.
+
+**Yamada–Kiyasu-type templates** (`r29/I2/`; not yet judged).
+- *The skeleton.* Complex Yamada–Kiyasu is a ℤ₂-split Goethals–Seidel/Szöllősi array. Its W-channel is a "G-object"
+  of order m = (n − 1)/2, i.e. a weighing matrix W(2m, 2m − 1) of the form [[M, N], [−N, M]]; the S-channel is the
+  core. The template works for any G-object, circulant or not (PROVED, verified numerically).
+- *The obstruction.* By Bruck–Ryser/Raghavarao, n − 2 must be a sum of two squares when n ≡ 3 (mod 4). When
+  n ≡ 1 (mod 4) the core would have odd order, which is impossible. So 79 of the 124 open n have no template of this
+  type, among them 599, 719, 739, 751, 839 and 863. 34 more would need a non-Paley symmetric conference matrix of
+  order n − 1 with this structure.
+- *Complex Miyamoto* (Lemma 8.6) is the same skeleton with the two channels swapped. For q ≡ 3 (mod 4) it fails
+  only because its V-part would need a quaternary Hadamard matrix of odd order (PROVED).
+- *Further results.* A generalisation n = q + 2w was derived but not tested beyond w = 1. T-matrix multiplication of
+  the complex-YK matrices fails, because the core blocks do not commute (REFUTED on the core of order 322).
+
+**Transfer theorem and K-symmetric plug-ins** (`r29/I1/`; the judge did not finish).
+- *The theorem* (PROVED, verified numerically). The plug-in system and its defect identity depend only on
+  (K, q, sign). Any symmetric conference core of order q can replace Paley's. A skew core works iff it has an
+  involution P with PQP = Qᵀ, which has exactly one fixed point; none exists for q = 15.
+- *Verified with a non-Paley core.* A quaternary conference matrix of order 950 = 2 · 19 · 25 was built from a
+  Latin-square conference graph not isomorphic to Paley(25).
+- *No new target.* The identity forces q ≤ 4|K| + 3, and every non-prime-power core order up to 55 (45; skew 15, 35,
+  39, 51, 55) fails it at every target.
+- *K-symmetry does not rescue the large-K targets* (2659, 2899, 2803, 2083, 2971): E < 1 below 35 orbits, and
+  ρ ≤ 10⁻¹⁷ where E ≥ 1 (HEURISTIC).
+- *Unification.* The core of n = 859 (§78) is itself a K-symmetric plug-in: ℤ₂₁₅ = ℤ₄₃ × F₅ with ⟨49⟩ = (order 3
+  on ℤ₄₃) × (the squares of F₅). Both 859 and 643 sit where the level-2 sign count n_t is 32 to 56 and the completion
+  probability ρ ≥ 10⁻⁷.
+- *Scaling law* (HEURISTIC). At fixed |G| a larger q makes the sampler much cheaper. At q = 7, E peaks near
+  |K| = 41 while ρ falls by about 10^−0.6 per unit of |K|.
+- *One lead.* The complex order 1958 (core 490) via K = ℤ₃₅, q = 7, H_K = ⟨11⟩: E ≈ 10^3.7, n_t = 33, ρ ≈ 10⁻⁷,
+  about 30 to 100 CPU-hours with a naive sampler.
