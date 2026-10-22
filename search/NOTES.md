@@ -5474,3 +5474,47 @@ block-sign gauge) made the first production run incomplete; it was fixed and the
 canonical level-1 instances by 07:08 UTC, 0 solutions; the probe-based expectation of the unprocessed part is about
 0.4 (HEURISTIC). The small-m solutions all lie in one or two structured allocations that the generic estimator does
 not see.
+
+## 86. Rounds 31–32: real Goethals–Seidel plug-ins, a structured level 1, the order-506 campaign (October 22)
+
+No new order. Scratchpad `r31/`, `r32/`.
+
+**Real plug-ins** (four free blocks: unbordered GS over K × F_r for composite n, Spence over a group of order n − 1,
+bordered GS over n − t). The K-level system is that of §81 with no symmetric block; the defect identity is
+(r + 1)e₊ + (r − 3)e₋ = 4|K| + φ(0) with φ(0) = 0 (GS), −4 (Spence), −4t (bordered).
+- *Checked.* Against independent G-level brute force on about 550 small shapes (r = 3 to 13, cyclic and non-cyclic K,
+  H_K trivial, nontrivial and twisted, Q = ℤ₂ to ℤ₅ and ℤ₂²), 0 mismatches; certificates of known orders (36 to 836)
+  pass `verify.py`.
+- *Census of the 124 open n.* 6695 shapes (4 to 28 orbits per block); the exact filters leave 2729 and the estimator
+  gives at least one solution for 14 shapes on 12 n. All of them are now decided and empty: Spence 599, 947 (two
+  shapes), 1427 and GS 1981 by exhaustive search; Spence 1031 and 2711 by a character-sum test; GS 955 (ℤ₁₉₁ × F₅,
+  ⟨5⟩) because no allocation satisfies the trivial-character identities; Spence 947 (ℤ₂ × ℤ₄₃ × F₁₁, ⟨(1, 4)⟩) by an
+  exhaustive search of all 466 allocations; 739, 2315 and ten further survivor shapes likewise. An independent
+  judge re-derived the identities and re-ran 947 and 955 with its own code. The estimator gave up to 10^6.9 solutions
+  on exactly empty small shapes and over-predicted the 947 level-1 count by 3 to 5 decades.
+
+**A structured level 1** (`r31/sl1`): the background is fixed by an exact congruence (Σ PAF of the backgrounds ≡ 0
+mod (q − 1)/gcd(q − 1, 4) on every class), then every defect pattern of the four blocks is joined exactly. It is 44
+times faster than round 30's level 1 at ℤ₁₉ and about 2400 times at ℤ₂₃. A symmetry-reduced exhaustive mode
+(translations and reflections of C and D, units, A ↔ B) settles whole allocations.
+- *Checked.* Equal to the exact level-1 counts of six shapes; sampling rate × recall reproduces exact solution counts
+  (27136 ± 735 against 27648, 159252 ± 1128 against 159744). An adversarial audit proved each symmetry and compared
+  the reduced search with its own complete enumeration on 188 (N, q, allocation) cases: 0 missing solutions.
+- *Results.* At ℤ₁₉ × F₁₁ the allocation (1, 1, 2, 3) holds exactly one solution orbit (the order-418 core of §85) and
+  (1, 1, 2, 4) a second, different one; at ℤ₁₇ × F₁₁ one orbit gives an order-374 matrix (not open). Round 30's empty
+  ℤ₁₇ calibration row was a sampler failure; the exact completion rate there is 2 · 10⁻³.
+- *Calibration.* In orbit units the round-30 estimator over-predicts by a factor κ ≈ 6 (2 to 16) for prime |K|, and
+  under-predicts for composite |K| (ℤ₁₅).
+- *A faster level 2.* `pl2f` is 4 to 5 times faster than `pl2` with identical output on 181,000 instances (two
+  independent comparisons, including every known core and brute-forced small shapes); the production build avoids
+  AVX-512.
+
+**Complex order 506** (ℤ₂₃ × F₁₁, H = 1, 70 feasible allocations). Exhaustively empty (symmetry-reduced):
+(1, 1, 3, 4), (1, 3, 2, 3), (1, 1, 2, 5), (1, 1, 2, 4), which carried about half of the estimator's mass. Running:
+(1, 3, 3, 3), (1, 3, 2, 4), (1, 1, 3, 5). The remaining expectation is about 0.4 solution orbits (HEURISTIC).
+
+**The other open complex orders** (re-ranked with the new costs). For eight of them (334, 358, 694, 718, 958, 1438,
+1678, 1726) the defect identity rules out every plug-in shape. Newly EXHAUSTIVELY empty: 1258 (ℤ₁₇ × F₃₇), 1026
+(ℤ₁₉ × GF(27)), 1806 (ℤ₂₁ × F₄₃), 690 (ℤ₁₅ × F₂₃), 682 (ℤ₃₁ × F₁₁ with H of order 2 or 5) and 574 in the bordered
+array. Only 550 (ℤ₂₅ × F₁₁, about 40 to 60 CPU-hours per allocation, a few per cent each) is within reach after 506;
+it is running.
