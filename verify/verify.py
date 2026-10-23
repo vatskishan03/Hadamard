@@ -22,6 +22,8 @@ assembled in int8 (0.6 to 1.5 GB).
 Yamada certificates accept a prime q or a prime power q = p^k (fields "p" and "poly" give GF(q)).
 Complex Yamada-Kiyasu certificates ("complex-yamada-kiyasu") give the core as the four sequences of a zero-diagonal
 Szollosi array over an abelian group, from which the quaternary conference matrix is rebuilt and checked.
+Negacyclic Goethals-Seidel certificates ("goethals-seidel-negacyclic") give four +-1 sequences of even length n
+whose negaperiodic autocorrelations sum to 4n delta; the matrix has order 4n.
 
     python3 verify/verify.py              check every order in the repository
     python3 verify/verify.py 2092 4492    check the named orders (hadamard/2092, hadamard/4492)
@@ -167,6 +169,34 @@ def build_goethals_seidel(cert):
     if paf[0] != 4 * v or np.any(paf[1:] != 0):
         raise ValueError("sequences are not complementary")
     return goethals_seidel(*map(circulant, seqs)), seqs
+
+
+def build_goethals_seidel_negacyclic(cert):
+    """Goethals-Seidel array with negacyclic blocks (Z[x]/(x^n + 1), n even): four +-1 sequences of length n whose
+    negaperiodic autocorrelations sum to 4n at shift 0 and to 0 elsewhere. The block of x is the negacyclic matrix
+    N[i, j] = x[j - i] for j >= i and -x[n + j - i] for j < i, and R is the reversal. If the first sequence has x_0 = 1
+    and x_j = x_(n - j) (skew type), then N + N^T = 2I and the matrix is skew-Hadamard (Finlayson-Seberry)."""
+    seqs = [np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["sequences"]]
+    n = len(seqs[0])
+    if n % 2 or len(seqs) != 4 or any(len(x) != n or 0 in x for x in seqs):
+        raise ValueError("expected four +-1 sequences of equal even length")
+    if "rowsums" in cert and [int(x.sum()) for x in seqs] != cert["rowsums"]:
+        raise ValueError("row sums differ from the certificate")
+
+    def nega_paf(x):
+        return np.array([int(x[:n - s] @ x[s:]) - int(x[n - s:] @ x[:s]) for s in range(n)], dtype=np.int64)
+
+    total = sum(nega_paf(x) for x in seqs)
+    if total[0] != 4 * n or np.any(total[1:] != 0):
+        raise ValueError("negaperiodic autocorrelations do not sum to 4n delta")
+    d = np.arange(n)[None, :] - np.arange(n)[:, None]
+    A, B, C, D = (np.where(d >= 0, x[d % n], -x[d % n]) for x in seqs)
+    rev = lambda X: X[:, ::-1]
+    H = np.block([[A, rev(B), rev(C), rev(D)],
+                  [-rev(B), A, rev(D.T), -rev(C.T)],
+                  [-rev(C), -rev(D.T), A, rev(B.T)],
+                  [-rev(D), rev(C.T), -rev(B.T), A]])
+    return H, seqs
 
 
 def build_propus(cert):
@@ -2396,6 +2426,7 @@ def build_symmetric_conference_plug(cert):
 
 
 BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": build_goethals_seidel_group,
+            "goethals-seidel-negacyclic": build_goethals_seidel_negacyclic,
             "cooper-wallis": build_cooper_wallis,
             "cooper-wallis-near-williamson": build_cooper_wallis_near_williamson,
             "cooper-wallis-bordered": build_cooper_wallis_bordered,

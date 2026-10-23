@@ -17,7 +17,8 @@ handles many (nine to seventeen for 476).
 | `sk_cert.py` | a K-level solution to four sequences over Z_m × Z_q, checked with the builders of `verify/verify.py`, written to `out/` |
 | `cyclic.py` | the same certificate over the cyclic group Z_mq (the format of [../../skew/820](../../skew/820)) |
 | `bf.py`, `sk_exh.py`, `validate_skew.py` | G-level and K-level brute force, the exhaustive two-level pipeline, the validation battery |
-| `indep_check.py` | an independent numpy check of a certificate over Z₁₇ × Z₇ |
+| `indep_check.py` | an independent numpy check of a group-form certificate over ℤ_m × ℤ_q |
+| `prod_ks.py`, `skf_io.py`, `pl2f2.c` | the production loop for shapes with a multiplier on K (slots weighted by `data/slots473.jsonl`-style estimates, every level-1 instance to level 2, certification on a hit), and a faster exact level 2 |
 | `gsk.py`, `pk.py`, `est.py`, `idx.py`, `sk_filter.py` | shared shape code (from the real Goethals–Seidel and Szöllősi plug-in searches), an estimator, a level-1 prefilter |
 
 Build (in this directory):
@@ -25,6 +26,7 @@ Build (in this directory):
 ```
 gcc -O3 -march=haswell -shared -fPIC -o libgl1.so gl1.c -lm
 for ps in 32 64 128; do gcc -O3 -march=haswell -DPS=$ps -o sl2_$ps gl2.c -lm; done
+for ps in 32 64; do gcc -O3 -march=haswell -DPS=$ps -o skf2_$ps pl2f2.c -lm; done
 mkdir -p runs tmp
 ```
 
@@ -43,3 +45,16 @@ Z₁₇ × Z₇); the second gives the certificate of [../../skew/476](../../ske
 `python3 validate_skew.py` re-runs the validation battery (resumable, results in `val.jsonl`): 31 shapes, on which G-level
 and K-level brute force agree, and the two-level pipeline agrees with them on all but those whose counts are too large
 for it (ℤ₅ × F₃, ℤ₁₃/⟨3⟩ × F₃) or that hit its time limit.
+
+The loop that found order 1892 ([../../skew/1892](../../skew/1892); K = ℤ₄₃ with the multiplier 6 of order 3, q = 11):
+
+```
+python3 -u prod_ks.py k473a 1 9000 "[43]" 11 "[6]" data/slots473.jsonl 40 10000 60000 60000 sl2
+python3 cyclic.py out/skew_1892_k473a.json out/skew_1892_cyclic.json
+```
+
+The arguments are the worker name, the seed base, a time limit in seconds, K, q, the multipliers on K, the slot file
+(allocations with estimated weights), the number of slots kept, the list sizes of B, C, D and the level-2 engine
+(`sl2` or `skf`). The original run read an earlier version of the slot file, so this command is not bit-identical to it;
+in the same class hits came about once per 2 · 10⁴ to 3 · 10⁴ level-2 runs.
+

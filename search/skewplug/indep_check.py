@@ -1,4 +1,4 @@
-"""independent exact check (own numpy code, no repo code) of a 'goethals-seidel-group' skew certificate over Z17 x Z7 (mixed radix k*7+f)"""
+"""independent exact check (own numpy code, no repo code) of a 'goethals-seidel-group' skew certificate over Z_m x Z_q (mixed radix k*q + f)"""
 import json, sys, numpy as np
 c = json.load(open(sys.argv[1]))
 mods = c['group']; n = int(np.prod(mods)); assert len(mods) == 2
@@ -20,7 +20,7 @@ H = np.block([[A, B @ R, C @ R, D @ R], [-B @ R, A, D.T @ R, -C.T @ R], [-C @ R,
 N = 4 * n; I = np.eye(N, dtype=np.int64)
 a = seqs[0]
 sq = sorted({x * x % q for x in range(1, q)})
-res = dict(order=N, pm1=bool((np.abs(H) == 1).all()), HHT_nI=bool((H @ H.T == N * I).all()), skew_H_plus_HT_2I=bool((H + H.T == 2 * I).all()),
+res = dict(order=N, pm1=bool((np.abs(H) == 1).all()), HHT_nI=bool(((H.astype(np.float64) @ H.T.astype(np.float64) == N * I)).all()), skew_H_plus_HT_2I=bool((H + H.T == 2 * I).all()),
            A0=int(a[0]), A_skew=all(a[idx(-divmod(g, q)[0], -divmod(g, q)[1])] == -a[g] for g in range(1, n)),
            H_invariant=all(all(x[idx(k, s * f)] == x[idx(k, f)] for k in range(mods[0]) for f in range(q) for s in sq) for x in seqs), rowsums=[int(x.sum()) for x in seqs])
 print(json.dumps(res))
