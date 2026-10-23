@@ -1,7 +1,7 @@
 # Unresolved orders
 
-Table 4 of Cati and Pasechnik lists 195 odd n ≤ 2999 for which no Hadamard matrix of order 4n was known in 2025. 71
-of them are settled now, and the 124 that remain are listed below with the cheapest search structures known for each.
+Table 4 of Cati and Pasechnik lists 195 odd n ≤ 2999 for which no Hadamard matrix of order 4n was known in 2025. 72
+of them are settled now, and the 123 that remain are listed below with the cheapest search structures known for each.
 The smallest is n = 599, order 2396.
 
 Settled:
@@ -12,6 +12,8 @@ Settled:
   the T-matrices of order 131 that London and Kotsireas's Turyn-type sequences TT(44) give ([NOTES.md](NOTES.md) §28);
 - 6 by Đoković in 2010: n = 823, 883, 1063, 1303, 2143 and 2335 (arXiv:1008.2043, Propositions 3.1 and 3.4);
 - 1 in 1988: n = 1823, from Seberry and Whiteman's symmetric conference matrix of order 3646 ([NOTES.md](NOTES.md) §7);
+- 1 by Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175, 19 October 2026): n = 1447 (order 5788 = 4(4 · 19² + 3),
+  their Theorem 7 over ℤ₂² × F₁₉², with a border);
 - 2 by the GitHub repository Middletownbooks/Hadamard: n = 573 (order 2292, 9 October 2026; our independent matrix is
   [hadamard/2292](hadamard/2292)) and n = 647 (order 2588, 14 October 2026);
 - 31 in this repository:
@@ -19,12 +21,19 @@ Settled:
     theorems (orders [2092](hadamard/2092), [2148](hadamard/2148), [2284](hadamard/2284), [2572](hadamard/2572),
     [2636](hadamard/2636), [3436](hadamard/3436), [3732](hadamard/3732), [3964](hadamard/3964),
     [4204](hadamard/4204), [4492](hadamard/4492), [5020](hadamard/5020), [5932](hadamard/5932),
-    [6796](hadamard/6796) and [9172](hadamard/9172)); 571 concurrently with Zaitsev et al.;
+    [6796](hadamard/6796) and [9172](hadamard/9172)); concurrently with others: 571 (Zaitsev et al.), 523 (Cooley,
+    Middletownbooks/Hadamard), 933 (Cooley, and Egan et al.), 1123, 1255 and 1483 (Egan et al.);
   - n = 789, 1315, 1509, 1589, 1689, 1841, 1915, 2155, 2515, 2661, 2733, 2815, 2893 and 2951 by Paley's matrix in
     sixteen circulant blocks times T-matrices, two published theorems that the tables did not combine
     ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md));
   - n = 1527, 1883 and 2545 by Miyamoto's matrix in sixteen bordered blocks with near-Williamson matrices of 2026,
     times T-matrices ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#near-williamson-matrices)).
+
+**Orders 8p.** Table 4 records n(m), the least m with a known Hadamard matrix of order 2ᵐn; an entry with m ≥ 4 is
+also an open order 8n. Egan, Kotsireas, London and Ó Catháin (Table 5) list six open orders 8p up to 10 000: 4792,
+5752, 5912, 6712, 8248 and 8696 (p = 599, 719, 739, 839, 1031, 1087). Their list differs from Table 4 at four entries: Table 4 has 1087(3), and
+971(6), 1169(4) and 1223(6), whose orders 8n their list does not include. A Hadamard matrix of order 4p settles 8p by doubling; this repository has not
+searched the orders 8p directly.
 
 **Corollary 8.8(i).** Đoković (arXiv:1008.2043, Propositions 3.2–3.4) also claimed n = 1527, 2545 and 2571, through
 Williamson-type matrices of orders 509 and 857 that Seberry–Yamada's Corollary 8.8(i) would give. Its printed proof
@@ -106,7 +115,6 @@ one applies:
 | 5708 | 1427 | – | – | – | – | – | – | – |  |
 | 5748 | 1437 | – | – | – | – | – | – | – |  |
 | 5756 | 1439 | – | – | – | – | – | – | – |  |
-| 5788 | 1447 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ241 | 58.3 |  |
 | 5804 | 1451 | – | – | – | – | – | ℤ2 × ℤ5xℤ5 × ℤ29 | 55.2 |  |
 | 5884 | 1471 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ5 × ℤ7xℤ7 | 61.1 |  |
 | 5892 | 1473 | – | – | – | – | – | ℤ8xℤ8 × ℤ23 | 35.4 |  |

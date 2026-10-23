@@ -46,8 +46,11 @@ The fourteen orders from Paley's matrix in sixteen circulant blocks are New, but
 from two published theorems that the tables did not combine ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)). 2284 is Concurrent:
 it also follows, by Turyn's doubling, from the quaternary Hadamard matrix of order 1142 on Zaitsev's page
 ([2284](2284/README.md#status)). 6108 and 10180 are First explicit constructions: Đoković claimed n = 1527 and 2545 in
-2010 through Seberry–Yamada's Corollary 8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7). The other
-thirteen are New; 6108, 7532 and 10180 use the near-Williamson matrices of 2026.
+2010 through Seberry–Yamada's Corollary 8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7). 2092, 3732,
+4492, 5020 and 5932 are Concurrent, with Cooley's Middletownbooks/Hadamard (2092, 3732) and with Egan, Kotsireas, London
+and Ó Catháin, arXiv:2610.27175 (3732, 4492, 5020, 5932); our 3732 is also skew, which neither of the others is stated
+to be ([NOVELTY.md](../NOVELTY.md)). The other eight are New; 6108, 7532 and 10180 use the near-Williamson matrices of
+2026.
 
 Doubling the matrices of orders 2636 and 3732 gives orders 5272 and 7464, which were open as well, and doubling 9172
 gives 18344, 36688 and 73376 (the table entry is 2293(6)).

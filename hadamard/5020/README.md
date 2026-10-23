@@ -66,8 +66,10 @@ The certificate is the first recorded solution (`search/gs_certify.py 1255`).
 
 ## Status
 
-**New.** Cati–Pasechnik Table 4 lists 1255(3): the smallest known Hadamard order of the form 2ᵐ · 1255 was 10040
-(Paley I, 10039 being a prime ≡ 3 (mod 4)), so 5020 was unknown. The matrix is neither symmetric nor skew; the
+**Concurrent.** Cati–Pasechnik Table 4 lists 1255(3): the smallest known Hadamard order of the form 2ᵐ · 1255 was 10040
+(Paley I, 10039 being a prime ≡ 3 (mod 4)), so 5020 was unknown. Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175, 19 October 2026) constructed a Hadamard matrix of order 5020
+independently, by a Goethals–Seidel array with a multiplier group of order 50 as here; ours was committed on
+13 October 2026. We claim no priority. The matrix is neither symmetric nor skew; the
 Đoković–Seberry census (May 2025) lists 1255 as undecided for both, at order 4 · 1255.
 
 - Seberry–Yamada (1992, Table A.2: "1255 3 a1", Paley I at 10040) and the Handbook of Combinatorial Designs (2007, Table
