@@ -41,6 +41,7 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 | [1852](1852) | 463, prime | ⟨33⟩, order 21 | 1, 1, 43, 1 | 463(7), out of date | Known (Đoković 1994) |
 | [1860](1860) | 465 = 3 · 5 · 31 | ⟨226⟩, order 15 (Paley product) | 1, 25, 35, −3 | 465(3) | New |
 | [1876](1876) | 469 = 7 · 67 | ⟨9⟩, order 33 | 1, 1, 5, 43 | 469(3) | New |
+| [1892](1892) | 473 = 11 · 43 | ⟨345, 221⟩, order 15 (Paley product with a multiplier of order 3 on ℤ₄₃) | 1, −9, 17, −39 | 473(4) | New |
 | [2052](2052) | 513 = 3³ · 19, group ℤ₁₉ × GF(27) | the squares of GF(27)*, order 13 (Paley product) | 1, 27, 19, 31 | 513(4) | New |
 | [2404](2404) | 601, prime | ⟨2⟩, order 25 | 1, 1, 49, 1 | 601(5) | New |
 | [2452](2452) | 613, prime | ⟨37⟩, order 17 | 1, 1, 35, 35 | 613(3) | New |
@@ -53,6 +54,18 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 | [3732](../hadamard/3732) | 933 = 3 · 311 | ⟨7⟩, order 31 (cyclotomic product of index 10) | 1, 61, 3, 1 | 933(10) | New |
 | [5668](5668) | 1417 = 13 · 109 | ⟨1405, 328⟩, order 81 (cyclotomic product of index 4 with ⟨3⟩ on ℤ₁₃) | 1, 7, −53, −53 | beyond Table 5; 45344 = 32 · 1417 | New |
 | [6004](6004) | 1501 = 19 · 79 | ⟨799⟩, order 39 (Paley product) | 1, 77, 7, −5 | beyond Table 5; 12008 = 8 · 1501 | New |
+
+## Negacyclic Goethals–Seidel arrays
+
+Four ±1 sequences of length 2v (v odd) whose negaperiodic autocorrelations sum to 8v δ, the first of skew type, in
+the Goethals–Seidel array with negacyclic blocks; searched as quaternary sequences on ℤᵥ constant on the orbits of a
+multiplier group H of odd order. The array gives a skew-Hadamard matrix of order 8v; see
+[NEGACYCLIC.md](NEGACYCLIC.md).
+
+| Order | v | Symmetry H | Sums of the sequences | Before | Status |
+|------:|---|---|---|---|---|
+| [1528](1528) | 191, prime | ⟨180⟩, order 19 | 6, −6, −22, 18 | 191(226) | New |
+| [2216](2216) | 277, prime | ⟨273⟩, order 23 | −28, −34, −14, 32 | 277(5) | New |
 
 ## Seberry's theorem with new ingredients
 
@@ -177,10 +190,11 @@ The orders 3(q + 1) need no search (`search/paley_blocks.py skew q`). The Goetha
 over multiplier structures: exact joins of complete block lists for small structures, exact compression chains
 (`search/chain.py`, run over the census by `search/census_screen.py` and `search/screen_chain.py`), Paley-product and
 cyclotomic-product configurations (`search/paley_config.py`, `search/cyclo_product.py`), the two-level sampler for
-Paley products with many w-positions (`search/skewplug`, for 476), low-energy k-trees on lists too large to store
+Paley products with many w-positions (`search/skewplug`, for 476 and 1892), the quaternary search over negacyclic
+arrays (`search/negaskew`, for 1528 and 2216), low-energy k-trees on lists too large to store
 (`search/cp_lowe.py`, `search/skew_lowE.py`) and, for 3676, a spin structure (`search/spin_skew.py`). The orthogonal
 designs come from `search/odm_engine.py` and `search/odm_join.py`. [search/NOTES.md](../search/NOTES.md) §10–§16, §20,
-§23, §31 and §87 describe the methods, and each README records the command, code commit, seed and caps of its
+§23, §31, §87 and §88 describe the methods, and each README records the command, code commit, seed and caps of its
 search.
 
 `python3 verify/verify.py skew/<order>` rebuilds a matrix from its certificate and checks H Hᵀ = nI and H + Hᵀ = 2I.

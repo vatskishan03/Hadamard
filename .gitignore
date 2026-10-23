@@ -34,3 +34,10 @@ search/skewplug/tmp/
 search/skewplug/*.so
 search/skewplug/sl2_*
 search/skewplug/val.jsonl
+search/negaskew/qskew
+search/negaskew/qskew2
+search/negaskew/shapes/
+search/negaskew/out/
+search/negaskew/runs/
+search/negaskew/enum_n*.json
+search/skewplug/skf2_*

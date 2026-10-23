@@ -31,7 +31,7 @@ give a theorem: a skew-Hadamard matrix of order 3(q + 1) exists for every prime 
 | Hadamard, unresolved in Table 4 [3] | [31](#unresolved-orders) | 14 New, 14 New but obtainable classically, 2 First explicit construction, 1 Concurrent |
 | Hadamard, omitted by Table 4 through Seberry–Yamada's Corollary 8.8(i) | [10](hadamard#orders-recorded-only-through-corollary-88i) | First explicit construction |
 | Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 New, 124 New but obtainable classically, 49 First explicit construction |
-| Skew-Hadamard (476 to 14384) | [102](skew) | 38 New, 62 New but obtainable classically, 2 First explicit construction |
+| Skew-Hadamard (476 to 14384) | [105](skew) | 41 New, 62 New but obtainable classically, 2 First explicit construction |
 | Symmetric Hadamard (260 to 9892) | [99](symmetric) | 38 New, 53 New but obtainable classically, 8 Concurrent |
 | Complex Hadamard (214 to 3398) | [19](complex-hadamard) | 5 New, 12 Concurrent, 2 First explicit construction |
 | T-matrices | [97, 109, 197](t-matrices) | New |
