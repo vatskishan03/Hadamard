@@ -279,25 +279,32 @@ order 111, which is therefore New.
 - *Finding.* None gives a skew-Hadamard matrix of order 476 or 952 or a symmetric Hadamard matrix of order 7612.
 - *Not read.* As for 6796; work after the census was found only through the survey and web searches.
 
-**Skew orders 1528, 1892 and 2216** ([skew/1528](skew/1528), [skew/1892](skew/1892), [skew/2216](skew/2216)).
-Checked on 23 October 2026:
-- *Tables.* Cati–Pasechnik Table 5, v1 and v2 (191(226), 277(5), 473(4)); the Đoković–Seberry census (191, 277 and
-  473 undecided, which concerns orders 4v and is not settled here for 191 and 277); SageMath's development source of
-  21 October 2026, `skew_hadamard_matrix` read branch by branch, not run (Paley, Spence, complementary difference sets,
-  Spence 1975, the orthogonal-design branch, doubling, Williamson's product and the stored skew difference families
-  give none of the three orders, so they are Unknown).
-- *Classical routes.* Paley I needs 1527 = 3 · 509, 1891 = 31 · 61 or 2215 = 5 · 443, Szekeres 2(q + 1) needs 763,
-  945 or 1107, Wallis–Whiteman 4(q + 1) needs 381, 472 or 553, and Wallis–Whiteman 8(4f + 1) needs 8f + 1 = 553 for
-  2216; none is a prime power. Doubling needs skew orders 764 or 1108 (191, 277 undecided). Skew × amicable products
-  fail because one factor is not a Hadamard order.
-- *Negacyclic arrays.* Finlayson and Seberry, Australas. J. Combin. 30 (2004) 319–330 (the negacyclic Goethals–Seidel
-  array, used at orders 12, 20 and 28); Balonin and Đoković, arXiv:1508.00640 (negaperiodic Golay pairs, two blocks,
-  not skew); Kotsireas and Koukouvinos, Australas. J. Combin. 41 (2008) 235–248 (no odd part 191, 277 or 473).
+**Skew orders 1528, 1892, 2216, 2392 and 4712** ([skew/1528](skew/1528), [skew/1892](skew/1892),
+[skew/2216](skew/2216), [skew/2392](skew/2392), [skew/4712](skew/4712)). Checked on 23 October 2026:
+- *Tables.* Cati–Pasechnik Table 5, v1 and v2 (191(226), 277(5), 299(4), 473(4), 589(5)); the Đoković–Seberry census
+  (191, 277, 299, 473 and 589 undecided, which concerns orders 4v and is not settled here except for 473); SageMath's
+  development source of 21 October 2026, `skew_hadamard_matrix` read branch by branch, not run (Paley, Spence,
+  complementary difference sets, Spence 1975, the orthogonal-design branch, doubling, Williamson's product and the
+  stored skew difference families give none of the five orders, so they are Unknown).
+- *Classical routes* (each README lists them): Paley I needs 1527 = 3 · 509, 1891 = 31 · 61, 2215 = 5 · 443,
+  2391 = 3 · 797 or 4711 = 7 · 673 to be a prime power; Szekeres and Momihara–Xiang 2(qᵉ + 1) need 763, 945, 1107, 1195
+  or 2355; Wallis–Whiteman and Momihara–Xiang 2ᵘ(qᵉ + 1) need 381 or 190, 472, 553 or 276, 597, 1177; Spence
+  4(q² + q + 1) and Turyn (p − 1)ᵘ + 1 do not apply; Seberry's mn(n − 1) needs a skew-type OD(44; 1, 1, 42) for 1892
+  (there are no G-matrices of order 11) and an OD(mn; 1, m, mn − m − 1) with n = 2 otherwise; doubling needs skew orders 764,
+  946 (not a multiple of 4), 1108, 1196 or 2356; skew × amicable products have a factor that is not a Hadamard order,
+  apart from the doubling case 2 · (n/2).
+- *Negacyclic arrays.* Finlayson and Seberry, Orthogonal designs from negacyclic matrices, Australas. J. Combin. 30
+  (2004) 319–330 (the negacyclic Goethals–Seidel array, Theorem 4, with blocks of odd order 3, 5, 7: orders 12, 20,
+  28); Balonin and Đoković, arXiv:1508.00640 (negaperiodic Golay pairs, two blocks, not skew); Kotsireas and
+  Koukouvinos, New skew-Hadamard matrices via computational algebra, Australas. J. Combin. 41 (2008) 235–248 (orders
+  60 to 416).
 - *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (no skew construction at
   these orders; 191 appears only in its table of open ordinary orders 4 · 5p and 4 · 9p); Đoković, arXiv:2301.02751
-  (191 among the undecided skew v); web searches for the three orders and for negacyclic skew Goethals–Seidel arrays.
-- *Finding.* None gives a skew-Hadamard matrix of order 1528, 1892 or 2216, or a multiplier search over negacyclic
+  (191 among the undecided skew v); the GitHub repositories of the 2026 Hadamard announcements (munimtechnologies,
+  Middletownbooks: no skew orders); web searches for the five orders and for negacyclic or quaternary skew
   Goethals–Seidel arrays.
+- *Finding.* None gives a skew-Hadamard matrix of order 1528, 1892, 2216, 2392 or 4712, or a multiplier search over
+  negacyclic Goethals–Seidel arrays.
 - *Not read.* As for 6796.
 
 ## Not checked

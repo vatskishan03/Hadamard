@@ -5608,19 +5608,19 @@ difference set); their analogues at N = 17 gave nothing.
 *Twisted generators are impossible* (EXACT): if H contains (h_K, ν) with ν a non-square of F_q, then by Euler's criterion
 it contains (h_K^{(q−1)/2}, −1), which maps (0, f) to (0, −f), so an H-invariant block has A(−g) = A(g) there,
 against the skew condition. The same holds with field automorphisms for q = pᵉ, e odd (the norm of a non-square is a
-non-square). A brute-force check over 2262 generators of nine small K agrees: a generator admits an invariant skew
-block exactly when it has odd order. `search/skewplug` gained the production loop `prod_ks.py` (all level-1 instances
+non-square). A brute-force check agrees: none of 2262 generators with a non-square ν (nine small K) admits an
+invariant skew block, and over 1512 generators of seven small K those that do are exactly those of odd order. `search/skewplug` gained the production loop `prod_ks.py` (all level-1 instances
 of a round go to level 2; certification on a hit) and the level 2 `pl2f2.c` (`skf2`), equal to `gl2.c` in completions
 and printed solutions on 7500 level-1 instances of seven shapes, 1.8 to 6.7 times faster.
 
 **v = 473 = 43 · 11, H_K = ⟨6⟩ of order 3** (§87: undecided). 15 orbits of ℤ₄₃, 45 per block; (q + 1)N_w − 4N₋ = 172.
 The tenth round of the loop gave [skew/1892](../skew/1892), allocation (0, 4, 7, 10), N_w = 21, N₋ = 20. Four workers
-found five inequivalent solutions (row sums (1, −9, 17, −39), (1, 21, −19, −33), (1, −19, −3, −39), (1, 17, −9, −39),
+found five solutions with different row sums or allocations (inequivalence not tested; row sums (1, −9, 17, −39), (1, 21, −19, −33), (1, −19, −3, −39), (1, 17, −9, −39),
 (1, 35, 15, 21)) in 133,196 level-2 runs. The completing level-1 instances of a round form one cluster (2 · 2 · 2
 combinations of two A, two B and two C with one D, each with one t-solution up to t ↦ −t). The Gaussian estimate of
 N1 at the hit slot is within a factor 1.5 of the measured one, but every level-2 estimate (Gaussian, and an
 instance-level local limit over the exact fibres) is 3 to 4 decades too low, here and at 119: no estimator available
-can discard a K-symmetric shape (HEURISTIC). For H_K = 1 and |K| ≥ 25 the exact level 2 needs 2⁴⁴ (ℤ₂₅) to 2⁸⁰ (ℤ₄₃)
+can discard a K-symmetric shape (HEURISTIC). For H_K = 1 and |K| ≥ 25 the exact level 2 needs 2⁴⁴ (ℤ₂₅) to 2⁷⁷ (ℤ₄₃)
 pair evaluations per level-1 instance after the single-block filters (measured fibres); nothing was run there.
 
 **Other K-symmetric and rigid shapes** (`search/skewplug` plus a pattern pipeline: a big–big filter, an exact
@@ -5630,10 +5630,11 @@ pipeline on three nonzero shapes and recovering [skew/1100](../skew/1100) from i
 - *EXHAUSTIVELY empty:* 589 (ℤ₃₁ × F₁₉, ⟨5⟩), 627 (ℤ₅₇ × F₁₁, ⟨4⟩), 759 (ℤ₆₉ × F₁₁, ⟨4⟩), 979 (ℤ₈₉ × F₁₁, ⟨2⟩),
   1539 (ℤ₈₁ × F₁₉, ⟨4⟩), 623 (ℤ₈₉ × F₇, ⟨2⟩: 374 allocations, 1.6 · 10⁸ level-1 instances, none completes), 989
   (ℤ₄₃ × F₂₃, ⟨6⟩), 1209 (ℤ₃₉ × F₃₁, ⟨16⟩), 817 (ℤ₄₃ × F₁₉, ⟨6⟩: 457 pattern classes), 805 (ℤ₃₅ × F₂₃, ⟨11⟩); with
-  non-cyclic K or matrix H_K: 539 (ℤ₇² × F₁₁, order 21), 1323 (ℤ₇² × GF(27), orders 21, 7 and 3), 1029 and 2401
-  (ℤ₇³ × F₃, F₇, Singer subgroup of order 171), 1953 (ℤ₃² × ℤ₇ × F₃₁, order 9), 575 (ℤ₂₅ × F₂₃, ⟨21⟩).
+  non-cyclic K or matrix H_K: 539 (ℤ₇² × F₁₁, order 21), 1323 (ℤ₇² × GF(27), order 21), 1029 and 2401 (ℤ₇³ × F₃,
+  F₇, Singer subgroup of order 171), 1953 (ℤ₃² × ℤ₇ × F₃₁, order 9); and 575 (ℤ₂₅ × F₂₃, ⟨21⟩).
 - *EXACTLY empty:* 851 (ℤ₃₇ × F₂₃, ⟨10⟩: the orbit weights cannot realise the identity), 897 (ℤ₃₉ × F₂₃, ⟨16⟩: all
-  7332 patterns fail the big–big bound) and 1333 (ℤ₄₃ × F₃₁, ⟨6⟩); 1859 and 2375 with their Singer groups (weights);
+  7332 patterns fail the big–big bound) and 1333 (ℤ₄₃ × F₃₁, ⟨6⟩); 1323 (ℤ₇² × GF(27), H_K of order 7 or 3: the
+  row-sum filter kills every pattern that passes the big–big bound); 1859 and 2375 with their Singer groups (weights);
   for H_K = 1 every pattern dies at 361, 529, 899, 961, 1763 and 1269 (ℤ₄₇ × GF(27)).
 - *The N_w = 2 lemma* (EXACT). For q = 2m + 1 the identity allows two w-positions only as allocation (0, 0, 1, 1), one
   of each type. Translating both to 0, the level-1 equation at a lag k ≠ 0 reads q ε_C a_k + (q − 2) ε_D b_k + SS(k) = 0
@@ -5642,19 +5643,20 @@ pipeline on three nonzero shapes and recovering [skew/1100](../skew/1100) from i
   (exactly those with level-1 instances), 0 of 4 at m = 23 and 0 of 6 at m = 29: **1081 = 23 · 47 and 1711 = 29 · 59
   have no solution in this product for any H_K**. 1081 was re-checked by exhaustive class lists and an independent join.
 - *Sampled without a hit* (UNKNOWN): 245 (ℤ₃₅ × F₇, ⟨11⟩: 5.3 · 10⁵ level-1 instances), 385 (ℤ₃₅ × F₁₁, ⟨11⟩ and
-  ℤ₅₅ × F₇, ⟨16⟩), 627 (ℤ₅₇ × F₁₁, ⟨7⟩), 777, 781, 957, 1749; 1045, 1141, 1243, 1267, 1393, 1397, 1617 and 2189 gave
-  almost no level-1 instances.
+  ℤ₅₅ × F₇, ⟨16⟩), 777, 781, 957, 1749; 627 (ℤ₅₇ × F₁₁, ⟨7⟩), 1045, 1141, 1243, 1267, 1393, 1397, 1617 and 2189 gave
+  no or almost no level-1 instances.
 
 **Negacyclic Goethals–Seidel arrays** ([skew/NEGACYCLIC.md](../skew/NEGACYCLIC.md); `search/negaskew`). For v odd,
 ℤ[x]/(x^{2v} + 1) ≅ ℤ[i][ℤᵥ] (x ↦ i · g), a ±1 negacyclic block is (1 + i)U with U quaternary on ℤᵥ, and the array with
 negacyclic blocks is Hadamard of order 8v exactly when Σ U_X U_X* = 4v δ. A palindromic first block (skew type) is
-u(−g) = i · conj(u(g)), u(0) ∈ {1, −i}. Under a multiplier group H of odd order a skew block has 2^{n_H} choices and a
+u(−g) = i · conj(u(g)) for g ≠ 0, u(0) ∈ {1, −i}. Under a multiplier group H of odd order a skew block has 2^{n_H} choices and a
 free block 4^{n_H}; the real skew class with the same H has 2^{(n_H − 1)/2} and 2^{n_H}, with half the equations.
 - *Validation.* In real mode `qskew` reproduces the exact counts 176,256 (ℤ₃ × F₇), 110,592 (ℤ₃ × F₁₁) and 74,880,000
   (ℤ₅ × F₇) of §87; quaternary solutions over ℤ₃ and ℤ₅ give skew-Hadamard matrices of orders 24 and 40.
 - *Sweep.* All multiplier groups of odd order with n_H ≤ 13 orbits at the v ≤ 999 with Table 5 entries v(m), m ≥ 4,
-  and the v ≤ 2499 undecided in the census: 373 shapes, 2 hits, 370 EXHAUSTIVELY empty, ℤ₂₁₉₇ unfinished; GF(pᵏ)
-  shapes at 361, 841, 1369, 1849 and 2197 empty. The real class is empty on all 510 shapes with n_H ≤ 17.
+  and the v ≤ 2499 undecided in the census: 373 shapes (371 on the present repository, which settles 473 and 933),
+  2 hits, 370 EXHAUSTIVELY empty, ℤ₂₁₉₇ unfinished; GF(pᵏ)
+  shapes at 361, 841, 1369, 1849 and 2197 empty. The real class is empty on all 510 shapes with n_H ≤ 17 (508 now).
 - *Hits.* v = 191, H = ⟨180⟩ of order 19, 11 orbits, 4 s: [skew/1528](../skew/1528); v = 277, H = ⟨273⟩ of order 23,
   13 orbits, 3 minutes: [skew/2216](../skew/2216). Table 5: 191(226) and 277(5) become 191(3) and 277(3).
 - *Row sums.* With k = |H|, the sum of a block is u(0) + kS with S a Gaussian integer, and for the skew block
@@ -5667,6 +5669,82 @@ free block 4^{n_H}; the real skew class with the same H has 2^{(n_H − 1)/2} an
   block locks onto it, so single-defect shapes are empty (413) and the rigid candidates are 473, 517, 1139 and 1207
   (UNKNOWN). Spin shapes (C = B ∘ μ, D = B ∘ μ², μ³ ∈ H) with at most 19 orbits fail the row-sum condition or are
   EXHAUSTIVELY empty (817), as is 589 with ⟨574⟩ and μ = 5 at 21 orbits.
-- *Coverage of Table 5.* Of the other 140 entries with m ≥ 4, 77 have a multiplier shape with at most 13 orbits (all
-  empty), 18 only shapes with 15 to 21 orbits, beyond the four-list join (4^{n_H − 1} per list; simulated annealing and
+- *Coverage of Table 5.* Of its 172 entries with m ≥ 4, 463 is not census-undecided and 29 had a repository matrix of
+  order 4v. Of the other 142, 191 and 277 are the hits; of the remaining 140 (473 and 933 are settled by now), 77 have
+  a multiplier shape with at most 13 orbits (all empty), 18 only shapes with 15 to 21 orbits, beyond the four-list join (4^{n_H − 1} per list; simulated annealing and
   CP-SAT do not even recover the 191 solution), and 45 none with at most 21.
+
+## 89. Rounds 35–36: Paley plug-ins in the negacyclic ring; skew 2392 and 4712; the octic ring (October 23)
+
+**The plug-in.** §88's quaternary family with H = H_K × S over G = K × F_q (q ≡ 3 mod 4, S the squares, H_K ≤ ℤ_|K|*
+of odd order). The algebra of §15 holds with Gaussian-integer coefficients: a block is s ⊗ δ + t ⊗ Q + e ⊗ J, with
+x₀ at (k, 0), x₁ = e + t on the squares and x₂ = e − t on the non-squares, s = x₀ − e; Q* = −Q and Q² = J − qδ give
+U U* = (ss* + q tt*) δ + (ts* − st*) Q + (q ee* + se* + es* − tt*) J. The compressions w = x₀ + (q − 1)e satisfy
+Σ w w* = 4|K| q δ (level 1), and t solves Σ(ss* + q tt*) = 4|K| q δ and Σ(ts* − st*) = 0 (level 2). Positions are of
+three kinds: x₂ = −x₁ (e = 0, t = x₁ a free unit), full defects x₂ = x₁ (t = 0, cost (q − 1) + 2 Re(x₀ ē) ∈ {q + 1,
+q − 1, q − 3}) and half defects x₂ = ±i x₁ (|e|² = 1/2, t = ±i e, cost (q − 1)/2 ± 1); the costs add up to 4|K|, and
+the skew relation x₂(0) = i · conj x₁(0) forces a half defect in A at k = 0.
+- *Engine* (`search/negaskew/qp.c`, `qshape.py`, `plugcert.py`). Level 1 joins the complete list of skew blocks and
+  the list of all other blocks with total cost ≤ 4|K| and |ŵ(χ)|² ≤ 4|K|q at every character (a class-bucketed hash
+  join on the exact compressed autocorrelations); level 2 is an exact meet in the middle over the t parts. All filters
+  are necessary conditions. `real=1` restricts the alphabet to ±1: the real skew class of §87.
+- *Validation* [EXACT]. `qp` equals `qskew` (§88, the plain orbit join over ℤ_v) on ℤ₃ × F₇ (79,164,864 normalised
+  quadruples), ℤ₃ × F₁₁ (3,753,216), ℤ₇ with ⟨2⟩ × F₁₁ (3840) and on three empty shapes; in real mode it gives the
+  exact counts of §87 (22,032, 13,824 and 9,360,000 normalised). An independent reimplementation of both levels
+  returns at ℤ₁₃ with ⟨3⟩ × F₂₃ exactly the same 13,056 solutions as a set, and of level 1 the same 261,984 instances
+  at ℤ₁₉ with ⟨7⟩ × F₃₁. A separate pattern-class pipeline found another solution of the 299 class.
+
+**Hits.** v = 299 = 13 · 23, H_K = ⟨3⟩ (5 orbits on ℤ₁₃, 15 per block): 64 skew blocks, 2303 others, 36,000 level-1
+instances, 13,056 solutions (exhaustive, 11 s) — [skew/2392](../skew/2392). v = 589 = 19 · 31, H_K = ⟨7⟩ (7 orbits on
+ℤ₁₉, 21 per block): 261,984 level-1 instances, and on a 1% sample 84 completed (168 solutions) —
+[skew/4712](../skew/4712). Table 5: 299(4) → 299(3), 589(5) → 589(3) (589(4) through [skew/9424](../skew/9424)). In both
+certified solutions every defect is at k = 0: 299 has A's half defect (cost 10) and full defects of cost 20 and 22 in C
+and D; 589 has 16 in A and 32 and 28 in B and D. The Gaussian estimate put 299 at 2^−1.3 ≈ 0.4 expected solutions:
+estimates must not be used to discard plug-in shapes (HEURISTIC, as in §88).
+
+**Other plug-in shapes** (quaternary, Table 5 targets with m ≥ 4).
+- *EXHAUSTIVELY empty:* 539 (ℤ₄₉, q = 11, ⟨2⟩ of order 21: 10,856,160 level-1 instances, none completes), 667
+  (ℤ₂₉, 23, ⟨7⟩), 707 (ℤ₁₀₁, 7, ⟨5⟩: 290,880 instances), 851 (ℤ₃₇, 23, ⟨7⟩), 899 (ℤ₂₉, 31, ⟨7⟩), 589 (ℤ₃₁, 19, ⟨2⟩),
+  817 (ℤ₄₃, 19, ⟨4⟩ and ℤ₁₉, 43, ⟨7⟩), 989 (ℤ₄₃, 23, ⟨4⟩) and 413 (ℤ₇, 59, H_K = 1 and ⟨2⟩): all but 539 and 707 have
+  no level-1 instance. 667 and 851 also die by the row sums in every defect pattern.
+- *EXACTLY empty:* no defect pattern has cost 4|K| at 295, 335, 515, 655, 695, 995 (K = ℤ₅), 927 (ℤ₉), 611 (ℤ₁₃,
+  q = 47); in the census beyond Table 5, 1363 and 2291 are EXHAUSTIVELY empty and 1403 dies by the
+  row sums.
+- *Sampled without a hit* (UNKNOWN): 737 and 869 (q = 11: every sampled level-1 instance fails the row-sum test of level
+  2), 721 and 973 (q = 7), and with 9 orbits on K 943, 779, 759 (ℤ₃₃, 23) and 627 (ℤ₃₃, 19). Not run (lists of 10⁶ to
+  10⁹): 575, 597, 623, 959, 627 (ℤ₅₇ and ℤ₂₀₉), 759 (ℤ₆₉ and ℤ₂₅₃), 803 and 979.
+- *Origin-defect shapes.* The Table 5 targets where 4|K| is a sum of A's half-defect cost and at most three other
+  origin costs are 299, 413, 517 and 589 (the others, 209, 253, 341, 345, 391, 473, 903, are settled in the
+  repository).
+
+**The real class** (`qp real=1`, skew order 4v). Exhaustive within the time limits: Table 5 targets with 3 to 10 orbits
+on K, 85 shapes: 81 empty, 4 timeouts (623, 627, 759, 959 with 9 orbits); with 11 to 15 orbits: 517, 649, 737, 869
+and 913 (K = ℤ₁₁, H_K = 1), 299 and 611 (ℤ₁₃, H_K = 1), 589 (ℤ₃₁, ⟨5⟩) and 851 (ℤ₃₇, ⟨10⟩) empty, the rest timeouts; census-undecided v
+with 7 or 9 orbits on K, 139 shapes: 128 empty, 11 timeouts; with 11 to 15 orbits, 151 shapes: 65 empty, 86 timeouts.
+No hit. (The plain real shapes with at most 5 orbits were swept in §88.)
+
+**Census shapes of the 473 type** (real, a multiplier on K; `search/skewplug`). EXHAUSTIVELY empty: 627 (ℤ₃₃ × F₁₉,
+⟨4⟩), 759 (ℤ₃₃ × F₂₃, ⟨4⟩), 1539 (ℤ₅₇ × GF(27), ⟨4⟩), 1953 (ℤ₆₃ × F₃₁, ⟨4, 22⟩), 2001 (ℤ₈₇ × F₂₃, ⟨7⟩), 2349 (ℤ₈₇ × GF(27),
+⟨7⟩), 781 (ℤ₇₁ × F₁₁, ⟨20⟩) and 803 (ℤ₇₃ × F₁₁, ⟨2⟩); every pattern fails the big–big bound at 1083 (ℤ₅₇ × F₁₉, ⟨4⟩)
+and 1705 (ℤ₅₅ × F₃₁, ⟨16⟩), and no slot has a row-sum pattern at 1199, 1397 and 2071. The raw level-1 counts of §88's sampled
+shapes are mostly symmetric copies: each block may be reflected, and B, C, D negated and translated by the points fixed
+by H_K, a group of order 2⁷ |Fix|³ that overstates distinct instances up to a thousandfold when |Fix| > 1, so those
+zero results are weaker than they look. The best remaining real shapes are the three of 539 with Fix = {0}
+(ℤ₄₉ × F₁₁ with ⟨18⟩, ℤ₇² × F₁₁ with ⟨(2, 2)⟩ and ⟨(2, 4)⟩), each run for under an hour. A rerun of the 473 shape with
+symmetry-reduced instances gave a sixth solution of order 1892 (row sums 1, −21, −9, 37).
+
+**Spin shapes** (C = B ∘ μ, D = B ∘ μ², 21 orbits). EXHAUSTIVELY empty: 737, 817 (two groups), 589 (two), 869, and
+the census values 1273 (two), 1397, 1661. The spin estimate overstated every one of them by at least 9 bits.
+
+**The octic ring** (order 16v). ℤ[x]/(x^{4v} + 1) ≅ ℤ[ζ₈][ℤ_v] for v odd; a ±1 sequence of length 4v becomes a
+sequence on ℤ_v over 16 letters c₀ + c₁ζ + c₂ζ² + c₃ζ³, of squared moduli 4 ± 2√2, and Σ U U* = 16v δ has a peak
+equation (the coefficient of √2 at shift 0) with no analogue in the order-8v family. Exhaustive counts of ordered skew
+quadruples: 6144 (v = 1), 2,057,674,752 (v = 3), 75,652,141,056,000 (v = 5), with real matrices of orders 16, 48 and 80
+verified. Quadruples made of two pairs (X, m · θX), with θ: x ↦ −x and m a monomial, are exactly the images of
+order-8v quadruples (a, b, c, d) with b centre-palindromic (b_k = b_{2v−1−k}); they are 7.0% of the solutions at v = 3
+and 0.044% at v = 5, and at ℤ₆₁ with |H| = 15 the
+octic class has 15,360 normalised solutions where the order-8v family has none. For the Table 5 entries with m ≥ 5
+the class is out of reach: a block constant on the orbits of H with |H| = h has row sum U(0) + hS with S of even
+coordinates, so Σ|R_X|² = 16v needs (2h − 1)² + 15 ≤ 16v. Every multiplier shape with at most 14 orbits of the 61
+targets is therefore infeasible, and the feasible ones (17 orbits at 337, 21 at 101 and 821, 23 at 947, …) need lists
+of at least 2^57 blocks. No order 16v was found.

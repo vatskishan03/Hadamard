@@ -1499,8 +1499,8 @@ odd v ≤ 2499. Its theorems:
   - 16 · 879 and 16 · 921 (skew 1172 or 1228 times amicable 12).
 
   This supports reading the blanks as errors ([skew/2652](skew/2652), [skew/3516](skew/3516)).
-- **Four orders below Table 5.** With the 2026 objects, the only further improvements of Table 5 are 16v for v = 589,
-  611 and 817, from Wallis's product of a skew order 4p with our amicable pairs of orders 52 and 76:
+- **Four orders below Table 5.** With the 2026 objects known on 17 October, the only further improvements of Table 5
+  are 16v for v = 589, 611 and 817, from Wallis's product of a skew order 4p with our amicable pairs of orders 52 and 76:
   - 9424 = 124 · 76;
   - 9776 = 188 · 52, with Đoković's skew 188 (arXiv:0704.0640);
   - 13072 = 172 · 76.
@@ -1522,7 +1522,8 @@ odd v ≤ 2499. Its theorems:
 
   Every split into a skew order and a classical amicable order fails for these orders. For instance, 9424 = h m with m
   = 2 or 4 needs the open skew orders 4712 or 2356, and every larger classical amicable divisor (8, 16, 152, 248, 304,
-  496) leaves h ≢ 0 (mod 4). The orders are built in [skew/9424](skew/9424), [skew/9776](skew/9776) and
+  496) leaves h ≢ 0 (mod 4). (Since 23 October 4712 is in [skew/4712](skew/4712), so 9424 is also its doubling, and
+  the searches of search/NOTES.md §87–89 improve 119, 191, 277, 299, 473 and 589 further.) The orders are built in [skew/9424](skew/9424), [skew/9776](skew/9776) and
   [skew/13072](skew/13072) (`search/skew_wallis.py`, `verify.py` construction `skew-amicable-product`).
 - **Paley plus three blocks.** The skew factors of orders 124 and 172 were found in about a second as Goethals–Seidel
   quadruples. The first block is Paley's (−1 on the nonzero squares, PAF −1 off zero), and the other three are unions
