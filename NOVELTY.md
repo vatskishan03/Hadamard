@@ -321,6 +321,16 @@ order 111, which is therefore New.
 - *Finding.* None gives a skew-Hadamard matrix of order 2156.
 - *Not read.* As for 6796.
 
+**Orders 2092, 3732, 4492, 5020 and 5932** (rechecked on 23 October 2026). The survey of Egan, Kotsireas, London and
+Ó Catháin (arXiv:2610.27175, 19 October 2026) states that 3732, 4492, 5020 and 5932 "were found by the present
+authors", by the Goethals–Seidel array with multiplier groups of orders 31, 33, 50 and 39, the groups our matrices use,
+and lists 2092 under Cooley (Middletownbooks/Hadamard). That repository committed matrices of orders 2092 and 3732 on
+14 October 2026 and calls ours independent. Ours were committed on 11 October (2092, 4492, 5932) and 13 October (3732,
+5020). The survey cites this repository at commit 2d45dbb (18 October), which already held all five, for 2148, 2284,
+2636 and 3964. With three groups working within days of each other, the five orders are **Concurrent**; neither other
+matrix of order 3732 is stated to be skew, so the skew-Hadamard matrix of order 3732 stays **New**. The same survey
+settles 4 · 1447 = 5788 (its Theorem 7) and lists six open orders 8p ([FRONTIER.md](FRONTIER.md)).
+
 ## Not checked
 
 - J. Seberry, M. Yamada, *Hadamard Matrices: Constructions using Number Theory and Linear Algebra* (Wiley, 2020):
@@ -359,6 +369,8 @@ Statements and labels of the first release (14 October 2026) that have changed:
   Hadamard groups with Egan's Theorem 4.5 give the order ([complex-hadamard/PALEY.md](complex-hadamard/PALEY.md)).
 - Complex orders 238, 302, 326, 382, 494, 518, 534 and 754: **Concurrent**, with Zaitsev et al.
 - 2284: **Concurrent**, through Zaitsev et al.'s quaternary matrix of order 1142 and Turyn's doubling.
+- 2092, 3732, 4492, 5020 and 5932: **Concurrent** (23 October), with Cooley (2092, 3732) and with Egan, Kotsireas,
+  London and Ó Catháin (3732, 4492, 5020, 5932); the skew-Hadamard matrix of order 3732 stays New.
 - 2292: **Known**. The GitHub repository Middletownbooks/Hadamard published an independent matrix of this order on
   9 October 2026, before ours of 14 October; we learned of it on 19 October.
 - 31316: **Known**; SageMath's development version builds it since 3 October 2026.

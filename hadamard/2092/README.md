@@ -32,8 +32,10 @@ is a Hadamard matrix of order 2092.
 
 ## Status
 
-**New.** The entry 523(3) is unresolved in Cati–Pasechnik Table 4. When this matrix was constructed (2026-10-11), 2092
-was the smallest order without a published Hadamard matrix.
+**Concurrent.** The entry 523(3) is unresolved in Cati–Pasechnik Table 4, and we found no construction published
+before ours, which was committed on 11 October 2026. Cooley's repository [Middletownbooks/Hadamard](https://github.com/Middletownbooks/Hadamard) committed an independent matrix of order 2092 on
+14 October 2026 (a bordered Goethals–Seidel array: a Legendre quadruple of length 522 with the multiplier 181), and the
+survey of Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175, 19 October 2026) credits it with the first construction. We claim no priority.
 
 - 523 does not satisfy the hypotheses of the Paley, Miyamoto, Yamada, Mathon or Spence constructions.
 - The closest of these, Yamada's theorem with q = 521 ≡ 1 (mod 8), would require a symmetric conference matrix of order
