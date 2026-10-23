@@ -5756,9 +5756,15 @@ Singer subgroups for ℤ_pᵏ (k ≥ 3), diagonal units otherwise, at most 25 or
 verdicts of rounds 34–37; 9 die by exact arguments (the lemmas for N_w = 1 and 2 at 1139, 1207 and 1081, the big-big
 filter of §87 at 361 and 529 with H_K = 1, the row sums over all energies at 1539, 1603, 1919 and 2401); 241 were
 scanned with `est_extend.py` (44 over every slot of the window, 197 sampled). None meets the criterion of §90 with a
-payable level 2. The best margins are 575 = ℤ₂₅ × F₂₃ with H_K = 1 (logE +0.37, logρ −7.31, but 2²⁴ sign fibres per
-block at level 2), then 245 = ℤ₃₅ × F₇ and 385 = ℤ₃₅ × F₁₁ with H_K = ⟨11⟩, and 781. The q = 3 shape with the strongest
-signal, 201 = ℤ₆₇ × F₃ with H_K of order 11 (logE +2.01), has no solution (the round-37 exhaustive run, resumed), so
+payable level 2. The best margins are those of 575 = 25 · 23 with H_K = 1 (over ℤ₂₅: logE +0.37, logρ −7.31; over ℤ₅²:
++0.17, −7.46; both with 2²⁴ sign fibres per block at level 2), then 245 = ℤ₃₅ × F₇ and 385 = ℤ₃₅ × F₁₁ with H_K = ⟨11⟩,
+and 781. The judge found that the scan's row-sum cache was keyed by object identity, so a worker that ran several
+shapes marked some feasible slots infeasible (575, 627, 957, 385 over ℤ₅₅ × F₇); refilling them moves no margin above
+these. Its estimate files cover only the top energy window E ≥ E_max − 5 for most shapes (for 245, E = 30 to 35 of
+18 to 35); only 385, 575, 1083, 1159, 1645 and 2485 were estimated over the whole range. 1793 and 2189 have no slot at
+any energy (the orbit weights cannot meet the identity); 917 has 161 feasible slots outside the window. The q = 3 shape
+with the strongest signal, 201 = ℤ₆₇ × F₃ with H_K of order 11 (logE +2.01), has no solution in the round-37 run
+resumed in round 38 (2.3 · 10⁹ level-1 and 2.5 · 10⁸ level-2 instances, the same engine; not rerun independently), so
 the estimate overstates q = 3 shapes by at least two decades. Not enumerated: subgroups of Aut(ℤ_pᵏ) with unipotent
 elements and non-diagonal automorphisms of non-elementary p-groups (33 shapes flagged).
 
@@ -5774,13 +5780,17 @@ among them every class of the two sampler runs, and the unit-reduced run gives 1
 (6, 1, 1, 4) with m-split (0, 0, 0, 1) (N_w = 12, N₋ = 1, so 12 · 12 − 4 = 140 = 4 · 35), holds 100 classes, and 2
 complete, 45 s after the launch: two skew-Hadamard matrices of order 1540, row sums 1, −7, 31, 23
 ([skew/1540](../skew/1540)). 385 = 5 · 7 · 11 is undecided in the Đoković–Seberry census; Table 5 had 385(3). The
-slot's estimates (logE −1.54, logρ −7.49) are 1.6 decades below those of the 539 hit, outside the criterion of §90:
-for an enumerating level 1 the relevant quantity is the number of distinct classes of a slot, 10² to 10⁴ for the leading
-slots of these shapes, and level 2 (3 ms per class) is not the bottleneck. The sweep of the hit slot replays in 14 s
+slot is the lowest energy of the shape (E = 12 of 12 to 17), and its completion rate, 2 in 100 classes, is five
+decades above its estimate (logρ −7.49; logE −1.54, 1.6 decades below the 539 hit and outside the criterion of §90).
+For an enumerating level 1 the relevant quantity is the number of distinct classes of a slot, 10² to 10⁴ for the leading
+slots of these shapes, and level 2 (3 ms per class) is not the bottleneck. The second matrix has the same row sums but
+a different level-1 class (C's defect at 7 instead of 21, D's at 1, 11, 16, 21); its equivalence to the first was
+not tested. An independent judge rebuilt both from their certificates and replayed the slot. The sweep of the hit slot replays in 14 s
 (`search/skewplug/data/repro385`).
 
 **The other shapes** (HEURISTIC; a finished slot covers 60 to 90% of each raw block list, so no verdict is exhaustive).
 About 22,700 classes reached level 2 in total: 245 (11,447 classes, 154 of 2247 slots), 1477 = ℤ₂₁₁ × F₇ with ⟨101⟩ and
 ⟨100⟩ (4036 and 1251), 1267 = ℤ₁₈₁ × F₇ (2277), 1057 = ℤ₁₅₁ × F₇ (885), 781 = ℤ₇₁ × F₁₁ (762), 1645, 2485, 605 and
-385 = ℤ₅₅ × F₇ (a few each), and no completion outside the hit slot. By the summed Gaussian estimates 245 holds the
-most solutions (about 10⁴, HEURISTIC) and is the natural continuation.
+385 = ℤ₅₅ × F₇ (a few each), and no completion outside the hit slot; the 29 lowest-energy slots of 245 gave 5331 classes and none. By the summed
+Gaussian estimates 245 holds the most solutions (about 10⁴, HEURISTIC), and the lowest-energy slots of every shape,
+which the estimates did not cover, are the natural continuation.
