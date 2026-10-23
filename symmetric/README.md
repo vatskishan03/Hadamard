@@ -1,28 +1,21 @@
 # Symmetric Hadamard matrices
 
 A Hadamard matrix H is symmetric if H = Hᵀ. The Đoković–Seberry census (2025-05-28) lists 595 odd v < 2500 for which
-no symmetric Hadamard matrix of order 4v was known; Đoković settled three of them, 189, 473 and 1139, in August 2025
-(arXiv:2508.17141). The 100 orders here decide 100 more, leaving 492. For 83 of them no published construction gives a
-symmetric matrix; 8 also follow from quaternary matrices published on Zaitsev et al.'s page of 14 October 2026
-(Concurrent); 9 follow from published theorems that the census omits: 1804 and 3532 from Seberry–Balonin's
-Corollary 1, and 612, 1300, 1740, 2812, 4732, 4900 and 7564 from Spence's Corollary 3 (1977). Among them is 260, the
-census's smallest value v = 65.
-
-Each directory holds one order with its certificate, its README and, for the orders found by search, the matrix.
-Status labels are defined in [NOVELTY.md](../NOVELTY.md). The orders by construction:
-
-| Family | Document or program | Orders | Count | Status |
-|---|---|---|---:|---|
-| Propus quadruples found by search | `search/propus.py`, `search/prow.c` | [532](532), [732](732), [876](876) | 3 | 3 New |
-| Quaternary Legendre pair | `search/sym_qlp.py` | [260](260) | 1 | 1 New |
-| Miyamoto's lemma in the propus array | [PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md) | 48 orders from [356](356) to [9892](9892) | 48 | 1 New; 47 New, but obtainable classically |
-| Any Hadamard matrix in the propus array | [PROPUS_WEIGHING.md](PROPUS_WEIGHING.md) | 10 orders from [3236](3236) to [9764](9764) | 10 | 10 New |
-| Yamada–Kiyasu in quaternary form | [YAMADA_KIYASU.md](YAMADA_KIYASU.md) | 27 orders from [1180](1180) to [9340](9340) | 27 | 17 New; 8 Concurrent; 2 Known |
-| [[P, Q], [Q, P]] with Paley's matrices | [PERIODIC_GOLAY.md](PERIODIC_GOLAY.md) | [404](404), [596](596) | 2 | 2 New |
-| Spence's recursion | [CONFERENCE_PLUG.md](CONFERENCE_PLUG.md) | [612](612), [1300](1300), [1740](1740), [4900](4900), [7564](7564) | 5 | 5 Known |
-| Seberry and Balonin's Corollary 1 | `search/sym_propus_sb.py` | [1804](1804), [3532](3532) | 2 | 2 Known |
-| Orders m(m − 1) and m(m + 3) | `search/sym_mm1.py` | [4828](4828), [5700](5700) | 2 | 1 New; 1 New, but obtainable classically |
-| Total | | | 100 | 35 New; 48 New, but obtainable classically; 8 Concurrent; 9 Known |
+no symmetric Hadamard matrix of order 4v was known; three of them, 189, 473 and 1139, were settled by Đoković in
+August 2025 (arXiv:2508.17141). The 101 orders here remove 101 more, leaving 491: 91 that no published construction
+gave, 8 that also follow from quaternary matrices published on Zaitsev et al.'s page of 14 October 2026 (Concurrent),
+and two (1804, 3532) that a published corollary gives but the census omits. Among them is 260, the census's smallest
+value v = 65. 38 of them come from two
+constructions of October 17 that need no symmetric input: [PROPUS_WEIGHING.md](PROPUS_WEIGHING.md) (order 4q from any
+Hadamard matrix of order (q − 1)/2, q ≡ 1 mod 8) and [YAMADA_KIYASU.md](YAMADA_KIYASU.md) (order 4(q + 2) from any
+skew-Hadamard matrix of order (q + 3)/2, q ≡ 5 mod 8). Two, 404 and 596 (v = 101, 149), come from a construction of
+October 18 for q ≡ 5 mod 8: [PERIODIC_GOLAY.md](PERIODIC_GOLAY.md) (order 4q from a Hadamard matrix [[P, Q], [Q, P]] of
+order q − 1, for example from a periodic Golay pair of length (q − 1)/2). Five, 612, 1300, 1740, 4900 and 7564
+(v = 153, 325, 435, 1225, 1891), come from a construction of October 19: [CONFERENCE_PLUG.md](CONFERENCE_PLUG.md)
+(order 2n(n − 1) from a symmetric conference matrix of order n, the symmetric form of a complex Hadamard matrix of
+Kharaghani and Seberry). Each directory holds one order with
+its certificate, its README and, for the orders found by search, the matrix. Status labels are defined in
+[NOVELTY.md](../NOVELTY.md).
 
 | Order | v | Construction | Census | Status |
 |------:|---|---|---|---|
@@ -101,7 +94,8 @@ Status labels are defined in [NOVELTY.md](../NOVELTY.md). The orders by construc
 | [7204](7204) | 1801 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley II, order 900 (q′ = 449) | undecided | New, but obtainable classically |
 | [7492](7492) | 1873 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = H₂ ⊗ Paley I, order 468 (q′ = 467) | undecided | New, but obtainable classically |
 | [7556](7556) | 1889 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = H₂^⊗2 ⊗ propus, order 236 (Đoković) | undecided | New, but obtainable classically |
-| [7564](7564) | 1891 = 31 · 61 | symmetric conference matrix of order n in I ⊗ X + C ⊗ Y ([CONFERENCE_PLUG.md](CONFERENCE_PLUG.md)), Paley's matrix of order n = 62 (q = 61) | undecided (omitted) | Known |
+| [7564](7564) | 1891 = 31 · 61 | symmetric conference matrix of order n in I ⊗ X + C ⊗ Y ([CONFERENCE_PLUG.md](CONFERENCE_PLUG.md)), Paley's matrix of order n = 62 (q = 61) | undecided | New, but obtainable classically |
+| [7612](7612) | 1903 = 11 · 173 | Yamada–Kiyasu in symmetric quaternary form ([YAMADA_KIYASU.md](YAMADA_KIYASU.md)), skew input of order 952: our skew matrix of order 476, doubled once | undecided | New |
 | [7652](7652) | 1913 | any Hadamard matrix of order (q − 1)/2 in the propus array ([PROPUS_WEIGHING.md](PROPUS_WEIGHING.md)), K = Đoković–Kotsireas's skew matrix of order 956, order 956 | undecided | New |
 | [7804](7804) | 1951 | Yamada–Kiyasu in symmetric quaternary form ([YAMADA_KIYASU.md](YAMADA_KIYASU.md)), skew input of order 976: Paley (p = 487), doubled once | undecided | New |
 | [7900](7900) | 1975 = 5² · 79 | Yamada–Kiyasu in symmetric quaternary form ([YAMADA_KIYASU.md](YAMADA_KIYASU.md)), skew input of order 988: Goethals–Seidel over ℤ₂₄₇ (Đoković 2008) | undecided | New |
@@ -158,8 +152,7 @@ order 716 (2026).
 (q ≡ 5 mod 8 a prime power, a skew-Hadamard matrix of order (q + 3)/2) form a symmetric quaternary Hadamard matrix of
 order 2(q + 2) for every skew input, and Turyn's map [[X + Y, X − Y], [X − Y, −X − Y]] makes it a symmetric Hadamard
 matrix of order 4(q + 2) ([YAMADA_KIYASU.md](YAMADA_KIYASU.md), `search/sym_yk.py`, `verify.py` construction
-`symmetric-yamada-kiyasu`). This settles 27 census values, two of them (2812, 4732) also covered by Spence's
-corollary; seven more need a skew order that is undecided.
+`symmetric-yamada-kiyasu`). This settles 28 census values; six more need a skew order that is undecided.
 
 **[[P, Q], [Q, P]] with Paley's matrices.** For a prime power q ≡ 1 (mod 4) and a Hadamard matrix K = [[P, Q], [Q, P]]
 of order q − 1, for example one built from a periodic Golay pair of length (q − 1)/2, Paley's conference matrix of

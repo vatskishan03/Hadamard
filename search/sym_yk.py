@@ -26,7 +26,8 @@ RECIPES = {295: ("gs", 37, 0), 319: ("paley", 19, 3), 391: ("gs", 49, 0), 463: (
            679: ("cds", 169, 0), 703: ("paley", 43, 3), 823: ("gs", 103, 0), 943: ("gs", 59, 1),
            1063: ("gs", 133, 0), 1183: ("gs", 37, 2), 1231: ("paley", 307, 1), 1303: ("gs", 163, 0),
            1495: ("cds", 373, 0), 1599: ("paley", 199, 2), 1639: ("file", "skew/820/certificate.json", 0),
-           1671: ("file", "skew/836/certificate.json", 0), 1951: ("paley", 487, 1), 1975: ("gs", 247, 0),
+           1671: ("file", "skew/836/certificate.json", 0), 1903: ("file", "skew/476/certificate.json", 1),
+           1951: ("paley", 487, 1), 1975: ("gs", 247, 0),
            1999: ("paley", 499, 1), 2071: ("file", "skew/1036/certificate.json", 0), 2143: ("gs", 67, 2),
            2223: ("cds", 277, 1), 2239: ("paley", 139, 3), 2271: ("paley", 283, 2),
            2295: ("file", "skew/1148/certificate.json", 0), 2335: ("gs", 73, 2)}
