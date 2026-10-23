@@ -133,6 +133,8 @@ typedef struct { uint64_t key; uint32_t a, c; } ent;
 typedef struct { uint64_t ch; uint32_t j; } cj_t;
 static int cj_cmp(const void *a, const void *bb) { const cj_t *x = a, *y = bb; if (x->ch != y->ch) return x->ch < y->ch ? -1 : 1; return x->j < y->j ? -1 : (x->j > y->j); }
 
+static const uint64_t *g_hin[4] = { 0, 0, 0, 0 };
+void gl1_set_hin(int b, const uint64_t *p) { g_hin[b] = p; }
 // stats[0] = pairs enumerated on side 0, stats[1] = candidates probed, stats[2] = hash-matching candidates
 long gl1_run(int n, int r, int nrep, const int32_t *shift, const int32_t *target,
              int nu, const int *w, const int *forced, const int *poff, const int *plist, const double *dpw, int nfree, const int *freeidx, int fw,
@@ -150,7 +152,8 @@ long gl1_run(int n, int r, int nrep, const int32_t *shift, const int32_t *target
     for (int b = 0; b < 4; b++) {
         h[b] = malloc(8L * (L[b] + 1)); map_[b] = NULL; Lw[b] = L[b];
         if (B[b].S) {
-            for (long j = 0; j < L[b]; j++) { gen_cfg(&cx, &B[b], j, s_, e_); feats(&cx, s_, e_, f); h[b][j] = hsh(&cx, f); }
+            if (g_hin[b]) memcpy(h[b], g_hin[b], 8L * L[b]);      // precomputed hashes of an explicit list (gl1_hashlist with the same hseed)
+            else for (long j = 0; j < L[b]; j++) { gen_cfg(&cx, &B[b], j, s_, e_); feats(&cx, s_, e_, f); h[b][j] = hsh(&cx, f); }
         } else {
             // generated list: drop duplicate configs (identical (s,e)); keep the first occurrence of each
             cj_t *cj = malloc(sizeof(cj_t) * (L[b] + 1)); uint64_t *hh = malloc(8L * (L[b] + 1));
@@ -243,4 +246,30 @@ void gl1_gen(int n, int r, int nu, const int *w, const int *forced, const int *p
     Ctx cx = { n, r, 0, NULL, nu, w, forced, poff, plist, dpw, nfree, freeidx, fw, {0} };
     Blk b = { nw, 0, seed, NULL, NULL, rok, RM, cansign, mw, sok, eok, SM, EM, fs, fe };
     gen_cfg(&cx, &b, j, s, e);
+}
+
+// exh38.py: generate cnt blocks j = j0 .. j0+cnt-1 of one block spec (same generator as gen_cfg); returns the number of VALID blocks written (rows with a failed
+// generation are dropped); S, E are (cnt, n) int8 outputs.
+long gl1_genlist(int n, int r, int nu, const int *w, const int *forced, const int *poff, const int *plist, const double *dpw, int nfree, const int *freeidx, int fw,
+                 int nw, int mw, uint64_t seed, uint64_t j0, long cnt, int fs, int fe, int8_t *S, int8_t *E)
+{
+    Ctx cx = { n, r, 0, NULL, nu, w, forced, poff, plist, dpw, nfree, freeidx, fw, {0} };
+    long m = 0;
+    for (long i = 0; i < cnt; i++) {
+        uint64_t j = j0 + (uint64_t)i;
+        uint64_t st = seed ^ (j * 0xD1B54A32D192ED03ULL); uint64_t r0 = sm64(&st); uint64_t rs = r0 | 1;
+        int ok = 0;
+        for (int tries = 0; tries < 200; tries++) { if (gen_one(&cx, nw, &rs, S + (size_t)m * n, E + (size_t)m * n, 0, mw, fs, fe)) { ok = 1; break; } }
+        if (ok) m++;
+    }
+    return m;
+}
+
+// exh38.py: hashes (as gl1_run computes them for an explicit list, same hseed) of L explicit blocks
+void gl1_hashlist(int n, int r, int nrep, const int32_t *shift, uint64_t hseed, const int8_t *S, const int8_t *E, long L, uint64_t *out)
+{
+    Ctx cx = { n, r, nrep, shift, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, {0} };
+    uint64_t st = hseed * 6364136223846793005ULL + 1; for (int i = 0; i < 96; i++) cx.coef[i] = sm64(&st) | 1;
+    int32_t f[96];
+    for (long j = 0; j < L; j++) { feats(&cx, S + (size_t)j * n, E + (size_t)j * n, f); out[j] = hsh(&cx, f); }
 }

@@ -27,6 +27,8 @@ handles many (nine to seventeen for 476). The same code, with a multiplier group
 | `patterns/` | the pattern pipeline and the verdicts on K-symmetric and rigid shapes: see [Pattern pipeline](#the-pattern-pipeline-and-the-verdicts-on-k-symmetric-and-rigid-shapes) |
 | `estimates/` | estimates and measurements around the K-symmetric loops: fibre sizes of the exact level 2, slot costs, anatomy of the hit, symmetry checks, run summaries |
 | `data/est473.jsonl`, `data/ctl473d_rounds.jsonl` | the 58 slots of the 473 shape with a finite Gaussian estimate (slot file of `prod_dedup.py`); the logged first 20 rounds of the `prod_dedup.py` run that found the sixth matrix of order 1892 |
+| `exh38.py` | a symmetry-reduced explicit-list sweep of the slots of a K-symmetric shape: per block, defect weight and row sum the list is generated until it covers the block space, one block per orbit of the exact block symmetries, the skew block reduced by the units of K, every row-sum pattern of a slot joined with `gl1.c` (its functions `gl1_genlist`, `gl1_hashlist`, `gl1_set_hin`), new classes to the exact level 2; about 100 classes per second against 2 to 3 for `prod_dedup.py`; found [../../skew/1540](../../skew/1540) |
+| `data/repro385/` | the slot of the run that found [../../skew/1540](../../skew/1540) |
 | `data/repro539/` | the state before the hit of the run that found [../../skew/2156](../../skew/2156): the log of rounds 0–6, the set of classes already run, the slot file |
 
 Build (in this directory):
@@ -86,6 +88,22 @@ It resumes at round 7 and writes `out/skew_2156_c539_q11_K7x7_h2-2_s5.json`, the
 [../../skew/2156](../../skew/2156) without the fields `structure` and `subgroup_order`. The slot file itself comes from
 `python3 est_extend.py NAME "[7,7]" 11 "[[2,2]]" 60 SECS 5` and `python3 est_merge.py NAME` (in `est/`). A fresh run of
 `prod_dedup.py` in this mode is not bit-reproducible, since the slot weights use measured times.
+
+The run that found order 1540 ([../../skew/1540](../../skew/1540); K = ℤ₃₅ with ⟨11⟩, q = 11) swept the slots of
+the shape with `exh38.py` in the order of the estimated completions per class. Its seventh slot, allocation
+(6, 1, 1, 4) with m-split (0, 0, 0, 1), holds the matrix; the sweep of that slot alone is deterministic and takes
+about 14 s:
+
+```
+mkdir -p runs est out tmp
+cp data/repro385/est_hit_slot.jsonl .
+PROD_CONTINUE=1 python3 -u exh38.py hit385 600 "[35]" 11 "[[11]]" est_hit_slot.jsonl 1 file skf
+python3 cyclic.py out/skew_1540_hit385_s0_<time>_<i>.json OUT.json      # the first HIT line
+```
+
+It prints two `HIT` lines (group-form SHA-256 `9ea5b315…` and `1b4d57ec…`, 100 classes of level-1 instances, 2
+complete); `cyclic.py` turns the first into the certificate of [../../skew/1540](../../skew/1540) without its `sha256`
+field.
 
 ## The pattern pipeline and the verdicts on K-symmetric and rigid shapes
 

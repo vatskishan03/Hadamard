@@ -5744,3 +5744,43 @@ logE ≳ 0 (expected solution classes) and logρ = logE − logN1 ≳ −8.5 (ex
 loop runs 10⁴ to 10⁵ classes per core-hour. Best slots (logE / logρ): 473: +0.67 / −7.0; 539: +0.94 / −7.9; 781
 (ℤ₇₁ × F₁₁, ⟨5⟩): −1.9 / −7.6; 707 (ℤ₁₀₁ × F₇, ⟨36⟩): +0.14 / −16.5; 1243, 1267, 1397 and 637: logE ≤ −4.6. No other
 census shape of round 35's list is in the reachable regime.
+
+## 91. Round 38: the full-slot re-scan of the census shapes; skew 1540, the census value 385 (October 23)
+
+Scratchpad `r38/`.
+
+**The re-scan** (HEURISTIC, the exact-dead claims pending a judge). 641 undecided census values give 339 pairs (v, q)
+with q ≡ 3 (mod 4) a prime power and a solution of the coarse identity, and 554 K-symmetric real skew shapes: K every
+abelian group of order |K|, H_K the odd-order subgroups of Aut(K) up to conjugacy for cyclic K and ℤ_p², torus and
+Singer subgroups for ℤ_pᵏ (k ≥ 3), diagonal units otherwise, at most 25 orbits on K. 249 are decided by the exhaustive
+verdicts of rounds 34–37; 9 die by exact arguments (the lemmas for N_w = 1 and 2 at 1139, 1207 and 1081, the big-big
+filter of §87 at 361 and 529 with H_K = 1, the row sums over all energies at 1539, 1603, 1919 and 2401); 241 were
+scanned with `est_extend.py` (44 over every slot of the window, 197 sampled). None meets the criterion of §90 with a
+payable level 2. The best margins are 575 = ℤ₂₅ × F₂₃ with H_K = 1 (logE +0.37, logρ −7.31, but 2²⁴ sign fibres per
+block at level 2), then 245 = ℤ₃₅ × F₇ and 385 = ℤ₃₅ × F₁₁ with H_K = ⟨11⟩, and 781. The q = 3 shape with the strongest
+signal, 201 = ℤ₆₇ × F₃ with H_K of order 11 (logE +2.01), has no solution (the round-37 exhaustive run, resumed), so
+the estimate overstates q = 3 shapes by at least two decades. Not enumerated: subgroups of Aut(ℤ_pᵏ) with unipotent
+elements and non-diagonal automorphisms of non-elementary p-groups (33 shapes flagged).
+
+**An enumerating level 1.** On 385 and 245, `prod_dedup.py` ran about 1650 classes in 8 minutes without a completion:
+each class of level-1 instances recurred about 2300 times, and 46% of the rounds drew a pattern with no instance.
+`exh38.py` generates, per block, defect weight, m-weight and row sum, the block list until it covers that space, keeps
+one block per orbit of the exact block symmetries (those of `prod_dedup.py`'s keys), reduces the skew block by the
+units of K, and joins every row-sum pattern of a slot with `gl1.c`; the new classes go to the exact level 2. It runs
+about 100 classes per second per core. Checked: on the slot (2, 2, 4, 7) / (2, 1, 3, 4) of 385 it finds 6184 classes,
+among them every class of the two sampler runs, and the unit-reduced run gives 1546 classes with the same unit orbits.
+
+**The hit.** Swept in the order of the estimated completions per class, the seventh slot of 385, allocation
+(6, 1, 1, 4) with m-split (0, 0, 0, 1) (N_w = 12, N₋ = 1, so 12 · 12 − 4 = 140 = 4 · 35), holds 100 classes, and 2
+complete, 45 s after the launch: two skew-Hadamard matrices of order 1540, row sums 1, −7, 31, 23
+([skew/1540](../skew/1540)). 385 = 5 · 7 · 11 is undecided in the Đoković–Seberry census; Table 5 had 385(3). The
+slot's estimates (logE −1.54, logρ −7.49) are 1.6 decades below those of the 539 hit, outside the criterion of §90:
+for an enumerating level 1 the relevant quantity is the number of distinct classes of a slot, 10² to 10⁴ for the leading
+slots of these shapes, and level 2 (3 ms per class) is not the bottleneck. The sweep of the hit slot replays in 14 s
+(`search/skewplug/data/repro385`).
+
+**The other shapes** (HEURISTIC; a finished slot covers 60 to 90% of each raw block list, so no verdict is exhaustive).
+About 22,700 classes reached level 2 in total: 245 (11,447 classes, 154 of 2247 slots), 1477 = ℤ₂₁₁ × F₇ with ⟨101⟩ and
+⟨100⟩ (4036 and 1251), 1267 = ℤ₁₈₁ × F₇ (2277), 1057 = ℤ₁₅₁ × F₇ (885), 781 = ℤ₇₁ × F₁₁ (762), 1645, 2485, 605 and
+385 = ℤ₅₅ × F₇ (a few each), and no completion outside the hit slot. By the summed Gaussian estimates 245 holds the
+most solutions (about 10⁴, HEURISTIC) and is the natural continuation.
