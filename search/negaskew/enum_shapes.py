@@ -1,9 +1,8 @@
 import json,os,sys
 from math import gcd
-from sympy import totient
 T5={int(k):v for k,v in json.load(open('t5.json')).items()}
 cen=[int(l) for l in open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','data','skew_census_undecided.txt')) if l.strip() and not l.startswith('#')]
-found=set(int(d)//4 for d in os.listdir(os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','..','skew')) if d.isdigit()); found.add(919)
+found=set(int(d)//4 for d in os.listdir(os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','..','skew')) if d.isdigit()); found.add(933)   # skew 3732 = 4 * 933 is in hadamard/3732
 und=[v for v in cen if v not in found]
 def order(h,v):
     k=1;x=h

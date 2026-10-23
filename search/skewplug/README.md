@@ -57,7 +57,8 @@ The arguments are the worker name, the seed base, a time limit in seconds, K, q,
 the number of slots kept, the list sizes of B, C, D and the level-2 engine (`sl2` or `skf`). A slot file whose name
 contains `cost` is read as a cost file: only its records with measured times count, weighted by estimated completions
 per second. Files `engine.txt` and `lists.txt` in the working directory, if present, override the engine and the list
-sizes. The command is deterministic: the tenth round hits, and the second command gives the certificate of
+sizes, and `PROD_CONTINUE=1` makes the loop go on after a hit (writing `runs/NAME.HIT_*` and
+`out/skew_<order>_NAME_r<round>.json`). The command is deterministic: the tenth round hits, and the second command gives the certificate of
 [../../skew/1892](../../skew/1892) without its `sha256` field. In the same class hits came about once per 2 · 10⁴ to
 3 · 10⁴ level-2 runs.
 

@@ -59,13 +59,15 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 
 Four ±1 sequences of length 2v (v odd) whose negaperiodic autocorrelations sum to 8v δ, the first of skew type, in
 the Goethals–Seidel array with negacyclic blocks; searched as quaternary sequences on ℤᵥ constant on the orbits of a
-multiplier group H of odd order. The array gives a skew-Hadamard matrix of order 8v; see
-[NEGACYCLIC.md](NEGACYCLIC.md).
+multiplier group H of odd order (for 2392 and 4712 as Paley plug-ins over ℤ_m × F_q). The array gives a
+skew-Hadamard matrix of order 8v; see [NEGACYCLIC.md](NEGACYCLIC.md).
 
 | Order | v | Symmetry H | Sums of the sequences | Before | Status |
 |------:|---|---|---|---|---|
 | [1528](1528) | 191, prime | ⟨180⟩, order 19 | 6, −6, −22, 18 | 191(226) | New |
 | [2216](2216) | 277, prime | ⟨273⟩, order 23 | −28, −34, −14, 32 | 277(5) | New |
+| [2392](2392) | 299 = 13 · 23 | ⟨185, 209⟩, order 33 (Paley plug-in over ℤ₁₃ × F₂₃) | −60, −8, 12, 68 | 299(4) | New |
+| [4712](4712) | 589 = 19 · 31 | ⟨311, 381⟩, order 45 (Paley plug-in over ℤ₁₉ × F₃₁) | −10, 34, −46, 12 | 589(5) | New |
 
 ## Seberry's theorem with new ingredients
 
@@ -191,10 +193,10 @@ over multiplier structures: exact joins of complete block lists for small struct
 (`search/chain.py`, run over the census by `search/census_screen.py` and `search/screen_chain.py`), Paley-product and
 cyclotomic-product configurations (`search/paley_config.py`, `search/cyclo_product.py`), the two-level sampler for
 Paley products with many w-positions (`search/skewplug`, for 476 and 1892), the quaternary search over negacyclic
-arrays (`search/negaskew`, for 1528 and 2216), low-energy k-trees on lists too large to store
+arrays and its Paley plug-ins (`search/negaskew`, for 1528, 2216, 2392 and 4712), low-energy k-trees on lists too large to store
 (`search/cp_lowe.py`, `search/skew_lowE.py`) and, for 3676, a spin structure (`search/spin_skew.py`). The orthogonal
 designs come from `search/odm_engine.py` and `search/odm_join.py`. [search/NOTES.md](../search/NOTES.md) §10–§16, §20,
-§23, §31, §87 and §88 describe the methods, and each README records the command, code commit, seed and caps of its
+§23, §31 and §87–89 describe the methods, and each README records the command, code commit, seed and caps of its
 search.
 
 `python3 verify/verify.py skew/<order>` rebuilds a matrix from its certificate and checks H Hᵀ = nI and H + Hᵀ = 2I.
