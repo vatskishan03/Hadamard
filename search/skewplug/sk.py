@@ -1,7 +1,7 @@
-"""Skew Paley plug-in over G = K x F_q (q = 3 mod 4 prime), Goethals-Seidel: block A of skew type, B, C, D free.   (round 33, skew lens)
+"""Skew Paley plug-in over G = K x F_q (q = 3 mod 4, a prime or the prime power 27), Goethals-Seidel: block A of skew type, B, C, D free.
 
 Block X = s (x) I + t (x) Q + e (x) J on K (x0 = s + e on K x {0}, x1 = e + t on K x S, x2 = e - t on K x N; S = squares of F_q*).
-K-level system (same as r31/gs, mode 'gs'):  (I) sum (s s~ + q t t~) = 4|G| delta,  (J) sum (q e e~ + s e~ + e s~ - t t~) = 0,  (Q) sum (t s~ - s t~) = 0   (q = 3 mod 4).
+K-level system (as for the real Goethals-Seidel plug-ins, gsk.py mode 'gs'):  (I) sum (s s~ + q t t~) = 4|G| delta,  (J) sum (q e e~ + s e~ + e s~ - t t~) = 0,  (Q) sum (t s~ - s t~) = 0   (q = 3 mod 4).
 SKEW A:  A(-g) = -A(g) (g != 0), A(0) = 1.   -1 = non-square, so (k,f) -> (-k,-f) swaps the classes x1 <-> x2:
      x0(-k) = -x0(k) (k != 0), x0(0) = 1;   x2(-k) = -x1(k) (all k)
   =>  s(-k) = -s(k) (k != 0), s(0) = 1;  e(-k) = -e(k) (so e(0) = 0: NO defect at 0);  t(-k) = +t(k).

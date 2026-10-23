@@ -41,3 +41,14 @@ search/negaskew/out/
 search/negaskew/runs/
 search/negaskew/enum_n*.json
 search/skewplug/skf2_*
+search/skewplug/est/
+search/negaskew/qp
+search/negaskew/qjoin
+search/negaskew/qsa
+search/negaskew/*/shapes/
+search/negaskew/*/runs/
+search/negaskew/*/out/
+search/negaskew/spin/qspin
+search/negaskew/spin/qspin_fast
+search/negaskew/octic/oskew
+search/negaskew/octic/exsmall

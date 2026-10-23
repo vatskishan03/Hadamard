@@ -934,7 +934,8 @@ def build_goethals_seidel_group(cert):
     """Goethals-Seidel array over a non-cyclic abelian group G = Z_m1 x ... x Z_mk.
 
     The four sequences are listed over G in mixed-radix order. Block X is the group-developed matrix
-    X[g, h] = x(h - g), and R[g, h] = 1 when g + h = 0. Each sequence must be invariant under the stated
+    X[g, h] = x(g - h) (the index map below transposes; either convention gives a valid array), and
+    R[g, h] = 1 when g + h = 0. Each sequence must be invariant under the stated
     automorphisms (integer matrices acting on coordinates).
     """
     mods = np.array(cert["group"], dtype=np.int64)
@@ -970,7 +971,7 @@ def build_propus_bordered(cert):
 
     A, B, D are +-1 sequences over G (mixed-radix order) with A(-g) = A(g) and
     PAF_A + 2 PAF_B + PAF_D = -4 at every g != 0 (4m at 0); their row sums satisfy a^2 + 2b^2 + d^2 = 4.
-    With group-developed blocks X[g, h] = x(h - g), R[g, h] = [g + h = 0] and the propus array
+    With group-developed blocks X[g, h] = x(g - h), R[g, h] = [g + h = 0] and the propus array
         P = [[A, B, B, D], [B^T, DR, -A, -BR], [B^T, -A, -DR, BR], [D^T, -BR, BR, -A]],
     the matrix H = [[L, K (x) e^T], [K^T (x) e, P]] with K a Hadamard matrix of order 4 (certificate field "K") and
     L = -K S K^T / 4 (S the same array on the row sums) is symmetric with H H^T = 4(m + 1) I: P P^T = 4(m + 1) I - 4 J
@@ -1028,7 +1029,7 @@ def build_propus_qbordered(cert):
 
     A, B, D are +-1 sequences over G (mixed-radix order) with A(-g) = A(g) and
     PAF_A + 2 PAF_B + PAF_D = 4m at 0, -4q on K \\ {0} and 0 off K; their row sums satisfy a^2 + 2b^2 + d^2 = 4q.
-    With group-developed blocks X[g, h] = x(h - g), R[g, h] = [g + h = 0] and the propus array
+    With group-developed blocks X[g, h] = x(g - h), R[g, h] = [g + h = 0] and the propus array
         P = [[A, B, B, D], [B^T, DR, -A, -BR], [B^T, -A, -DR, BR], [D^T, -BR, BR, -A]],
     let Mc be the same array over Z_q on the compressions y(c) = sum_{phi(g) = c} x(g), Rh a Hadamard matrix of
     order 4q (field "R") with Rh Mc Rh^T = -4q X for a +-1 matrix X, and R the 4q x 4m matrix with

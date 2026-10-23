@@ -21,7 +21,7 @@ block.
 shift. The first is of skew type: x₁(0) = 1 and x₁(−g) = −x₁(g). The row sums are 1, 43, −3, −39, and
 1² + 43² + 3² + 39² = 3380.
 
-**The matrix.** With group-developed blocks X[g, h] = x(h − g) and R[g, h] = 1 when g + h = 0, the Goethals–Seidel
+**The matrix.** With group-developed blocks X[g, h] = x(g − h) and R[g, h] = 1 when g + h = 0, the Goethals–Seidel
 array
 
 ```

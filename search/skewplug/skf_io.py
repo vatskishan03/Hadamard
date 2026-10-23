@@ -1,4 +1,4 @@
-"""fast level 2 for the skew plug-in (cyclic K = Z_n): pl2f (r32) with block 0 = skew block (kind 0), blocks 1..3 free (kind 1).  Input format of pl2.c (lags instead of shift tables)."""
+"""fast level 2 for the skew plug-in (cyclic K = Z_n): pl2f with block 0 = skew block (kind 0), blocks 1..3 free (kind 1).  Input format of pl2.c (lags instead of shift tables)."""
 import numpy as np, subprocess, os, sys, tempfile, re
 HERE = os.path.dirname(os.path.abspath(__file__))
 TMP = os.environ.get('GL2TMP', os.path.join(HERE, 'tmp')); os.makedirs(TMP, exist_ok=True)

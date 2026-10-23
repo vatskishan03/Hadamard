@@ -23,7 +23,7 @@ and u, w, z are sequences on ℤ₁₉ (see [search/NOTES.md](../../search/NOTES
 shift. The first is of skew type: x₁(0) = 1 and x₁(−g) = −x₁(g). The row sums are 1, 27, 19, 31, and
 1² + 27² + 19² + 31² = 2052.
 
-**The matrix.** With group-developed blocks X[g, h] = x(h − g) and R[g, h] = 1 when g + h = 0, the Goethals–Seidel
+**The matrix.** With group-developed blocks X[g, h] = x(g − h) and R[g, h] = 1 when g + h = 0, the Goethals–Seidel
 array
 
 ```

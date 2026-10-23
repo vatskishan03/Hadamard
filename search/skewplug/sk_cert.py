@@ -22,7 +22,11 @@ def automorphisms(sh):
         M = np.eye(k + 1, dtype=int); M[k, k] = pow(primitive_root(q), 2, q); mats.append(M.tolist())
     for u in sh.hunits:
         M = np.eye(k + 1, dtype=int)
-        for i in range(k): M[i, i] = u[i]
+        if len(u) and not np.isscalar(u[0]):
+            for i in range(k):
+                for j in range(k): M[i, j] = u[i][j]
+        else:
+            for i in range(k): M[i, i] = u[i]
         mats.append(M.tolist())
     return mats
 

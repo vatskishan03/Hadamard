@@ -23,7 +23,7 @@ and 9 autocorrelation classes.
 at every nonzero shift. The first is of skew type: x₁(0) = 1 and x₁(−g) = −x₁(g). The row sums are
 1, 37, 1, 1, and 1² + 37² + 1² + 1² = 1372.
 
-**The matrix.** With group-developed blocks X[g, h] = x(h − g) and R[g, h] = 1 when g + h = 0, the
+**The matrix.** With group-developed blocks X[g, h] = x(g − h) and R[g, h] = 1 when g + h = 0, the
 Goethals–Seidel array
 
 ```

@@ -5625,11 +5625,12 @@ pair evaluations per level-1 instance after the single-block filters (measured f
 
 **Other K-symmetric and rigid shapes** (`search/skewplug` plus a pattern pipeline: a big–big filter, an exact
 necessary condition on the positions of the w-positions from the products of large compression entries, sound on
-2400 known solutions; symmetry reduction; an exhaustive per-pattern level 1 and level 2, equal to the allocation
+the known solutions of seven shapes; symmetry reduction; an exhaustive per-pattern level 1 and level 2, equal to the allocation
 pipeline on three nonzero shapes and recovering [skew/1100](../skew/1100) from its pattern).
 - *EXHAUSTIVELY empty:* 589 (ℤ₃₁ × F₁₉, ⟨5⟩), 627 (ℤ₅₇ × F₁₁, ⟨4⟩), 759 (ℤ₆₉ × F₁₁, ⟨4⟩), 979 (ℤ₈₉ × F₁₁, ⟨2⟩),
   1539 (ℤ₈₁ × F₁₉, ⟨4⟩), 623 (ℤ₈₉ × F₇, ⟨2⟩: 374 allocations, 1.6 · 10⁸ level-1 instances, none completes), 989
-  (ℤ₄₃ × F₂₃, ⟨6⟩), 1209 (ℤ₃₉ × F₃₁, ⟨16⟩), 817 (ℤ₄₃ × F₁₉, ⟨6⟩: 457 pattern classes), 805 (ℤ₃₅ × F₂₃, ⟨11⟩); with
+  (ℤ₄₃ × F₂₃, ⟨6⟩), 1209 (ℤ₃₉ × F₃₁, ⟨16⟩), 817 (ℤ₄₃ × F₁₉, ⟨6⟩: 457 pattern classes after the big–big filter, 317 after the
+  row-sum filter), 805 (ℤ₃₅ × F₂₃, ⟨11⟩); with
   non-cyclic K or matrix H_K: 539 (ℤ₇² × F₁₁, order 21), 1323 (ℤ₇² × GF(27), order 21), 1029 and 2401 (ℤ₇³ × F₃,
   F₇, Singer subgroup of order 171), 1953 (ℤ₃² × ℤ₇ × F₃₁, order 9); and 575 (ℤ₂₅ × F₂₃, ⟨21⟩).
 - *EXACTLY empty:* 851 (ℤ₃₇ × F₂₃, ⟨10⟩: the orbit weights cannot realise the identity), 897 (ℤ₃₉ × F₂₃, ⟨16⟩: all
@@ -5675,6 +5676,10 @@ free block 4^{n_H}; the real skew class with the same H has 2^{(n_H − 1)/2} an
   CP-SAT do not even recover the 191 solution), and 45 none with at most 21.
 
 ## 89. Rounds 35–36: Paley plug-ins in the negacyclic ring; skew 2392 and 4712; the octic ring (October 23)
+
+The commands that reproduce the results of §88 and §89, with their expected output, are in the sections
+"Reproduction of search/NOTES.md §88–89" of [skewplug/README.md](skewplug/README.md) and
+[negaskew/README.md](negaskew/README.md) (`patterns/`, `estimates/`, `spin/` and `octic/` hold the programs).
 
 **The plug-in.** §88's quaternary family with H = H_K × S over G = K × F_q (q ≡ 3 mod 4, S the squares, H_K ≤ ℤ_|K|*
 of odd order). The algebra of §15 holds with Gaussian-integer coefficients: a block is s ⊗ δ + t ⊗ Q + e ⊗ J, with
@@ -5730,11 +5735,13 @@ and 1705 (ℤ₅₅ × F₃₁, ⟨16⟩), and no slot has a row-sum pattern at 
 shapes are mostly symmetric copies: each block may be reflected, and B, C, D negated and translated by the points fixed
 by H_K, a group of order 2⁷ |Fix|³ that overstates distinct instances up to a thousandfold when |Fix| > 1, so those
 zero results are weaker than they look. The best remaining real shapes are the three of 539 with Fix = {0}
-(ℤ₄₉ × F₁₁ with ⟨18⟩, ℤ₇² × F₁₁ with ⟨(2, 2)⟩ and ⟨(2, 4)⟩), each run for under an hour. A rerun of the 473 shape with
+(ℤ₄₉ × F₁₁ with ⟨18⟩, ℤ₇² × F₁₁ with ⟨(2, 2)⟩ and ⟨(2, 4)⟩), each run for under an hour; the second gave skew 2156 in
+round 37 (§90). A rerun of the 473 shape with
 symmetry-reduced instances gave a sixth solution of order 1892 (row sums 1, −21, −9, 37).
 
 **Spin shapes** (C = B ∘ μ, D = B ∘ μ², 21 orbits). EXHAUSTIVELY empty: 737, 817 (two groups), 589 (two), 869, and
-the census values 1273 (two), 1397, 1661. The spin estimate overstated every one of them by at least 9 bits.
+the census values 1273 (two), 1397, 1661, although the spin estimate gave each of them several bits of surplus
+(`search/negaskew/spin/spin_est.py`).
 
 **The octic ring** (order 16v). ℤ[x]/(x^{4v} + 1) ≅ ℤ[ζ₈][ℤ_v] for v odd; a ±1 sequence of length 4v becomes a
 sequence on ℤ_v over 16 letters c₀ + c₁ζ + c₂ζ² + c₃ζ³, of squared moduli 4 ± 2√2, and Σ U U* = 16v δ has a peak
@@ -5757,16 +5764,16 @@ H_K = ⟨(2, 2)⟩ the scalars of order 3: 17 orbits on K, 51 per block, H of or
 15, 33 — [skew/2156](../skew/2156). 539 = 7² · 11 is undecided in the Đoković–Seberry census, so this settles a census
 value; Table 5 had 539(4).
 
-**How it was found.** Round 35 had ranked three K-symmetric shapes of 539 close to the 473 shape of §88 (ℤ₄₉ × F₁₁
-with ⟨18⟩, ℤ₇² × F₁₁ with ⟨(2, 2)⟩ and ⟨(2, 4)⟩), but its slot weights came from Gaussian estimates of 16 sampled
-slots per shape, and the ℤ₇² shapes ran for 25 minutes. `est_extend.py` estimates every one of the 2265 slots of the top
-energy window in minutes; the best slots then scored logE = +0.94 (ℤ₇² with ⟨(2, 2)⟩), +0.81 (ℤ₇², ⟨(2, 4)⟩) and +0.66
-(ℤ₄₉), against +0.67 for the 473 shape with the same tool (whose two hit slots rank 5th and 27th of 128). With these
-weights five seeded jobs of `prod_dedup.py` (level-1 instances reduced modulo the exact symmetries of the K-level
-system) found the matrix after about 49,000 distinct level-2 classes of the three shapes, in round 7 of the job with
-seed base 5, slot (0, 6, 7, 7) split (0, 3, 4, 4) (logE +0.79). Per class the completion rate is about five times
-lower than at 473, whose level-1 spaces are five times smaller (HEURISTIC). The logged state before the hit replays
-the certificate exactly (`search/skewplug/data/repro539`, 11 s).
+**How it was found.** Round 35 had ranked three K-symmetric shapes of 539 close to the 473 shape of §88 (ℤ₄₉ × F₁₁ with
+⟨18⟩, ℤ₇² × F₁₁ with ⟨(2, 2)⟩ and ⟨(2, 4)⟩), but its slot weights came from Gaussian estimates of 16 sampled slots per
+shape, and the ℤ₇² shapes ran for 25 minutes. `est_extend.py` estimates every one of the 2265 slots of the top energy
+window in minutes; the best slots then scored logE = +0.94 (ℤ₇² with ⟨(2, 2)⟩), +0.81 (ℤ₇², ⟨(2, 4)⟩) and +0.66 (ℤ₄₉),
+against +0.67 for the 473 shape with the same tool (whose two hit slots rank 6th and 40th of 161). With these weights
+five seeded jobs of `prod_dedup.py` (level-1 instances reduced modulo the exact symmetries of the K-level system) found
+the matrix after 35,188 distinct level-2 classes of the three shapes (13,334 from round 35), in round 7 of the job with
+seed base 5, slot (0, 6, 7, 7) split (0, 3, 4, 4) (logE +0.79, third of 266). Per class the completion rate is about
+five times lower than at 473, whose level-1 spaces are five times smaller (HEURISTIC). The logged state before the hit
+replays the certificate exactly (`search/skewplug/data/repro539`, 11 s).
 
 **Which shapes the sampler can reach** (HEURISTIC, calibrated on the hits at 473 and 539). A slot needs both
 logE ≳ 0 (expected solution classes) and logρ = logE − logN1 ≳ −8.5 (expected completions per level-1 class); the

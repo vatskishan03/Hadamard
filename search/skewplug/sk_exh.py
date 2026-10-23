@@ -25,7 +25,7 @@ def l1_all(l1, specs, maxout=200000, per_class=30000.0):
         yield from l1_all(l1, sp, maxout, per_class)
 
 
-def exhaust(sh, tmax=900.0, want_sols=8, chunk=2000, maxfib=2000000, tl2=60.0, verbose=False, max_inst=4_000_000):
+def exhaust(sh, tmax=900.0, want_sols=8, chunk=2000, maxfib=2000000, tl2=60.0, verbose=False, max_inst=4_000_000, pairs_lo=0.0, pairs_hi=3e9):
     t0 = time.time(); l1 = L1(sh)
     ds = set(sh.feasible_totals()); W = sh.kCD.weights()
     listsF = {}; toolargeF = set(); toolargeA = set()
@@ -56,7 +56,8 @@ def exhaust(sh, tmax=900.0, want_sols=8, chunk=2000, maxfib=2000000, tl2=60.0, v
             order = sorted(range(4), key=lambda i: len(lists[i][0]))
             specs = [BlockSpec(al[i], S=lists[i][0], E=lists[i][1], cansign=False) for i in order]
             pairs = max(float(specs[0].L) * specs[2].L, float(specs[1].L) * specs[3].L)
-            if pairs > 3e9: tot['skipped'].append((al, f'join too big {pairs:.2g}')); continue
+            if pairs > pairs_hi: tot['skipped'].append((al, f'join too big {pairs:.2g}')); continue
+            if pairs <= pairs_lo: continue          # (already done in an earlier run with pairs_hi = pairs_lo)
             cnt0, _, _, _ = l1.run(specs, maxout=1)
             if cnt0 > max_inst: tot['skipped'].append((al, f'{cnt0} level-1 instances')); continue
             inv = [order.index(b) for b in range(4)]
