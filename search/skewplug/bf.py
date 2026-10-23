@@ -63,17 +63,26 @@ def count4(FA, FF, target, maxpairs=2.5e7):
 # ------------------------------------------------------------------------------------------- G level
 def build_G(Kmods, q, hunits=()):
     from pk import KGrp
+    from idx import GF, factor_prime_power
     Kg = KGrp(Kmods); N = Kg.n; n = N * q
-    sq = sorted({x * x % q for x in range(1, q)})
+    p_, e_ = factor_prime_power(q)
+    if e_ == 1:
+        sq = sorted({x * x % q for x in range(1, q)})
+        mulf = lambda c, a: (c * a) % q
+        negf = lambda a: (-a) % q
+    else:
+        F = GF(p_, e_)
+        sq = sorted({int(F.mul[x, x]) for x in range(1, q)})
+        mulf = lambda c, a: int(F.mul[c, a])
+        def negf(a): return F.idx([(-d) % p_ for d in F.dig(a)])
     maps = []
     for c in sq:
-        maps.append(np.array([k * q + (c * a) % q for k in range(N) for a in range(q)]))
+        maps.append(np.array([k * q + mulf(c, a) for k in range(N) for a in range(q)]))
     for u in hunits:
         kp = Kg.mulperm(tuple(u) if not np.isscalar(u) else u)
         maps.append(np.array([int(kp[k]) * q + a for k in range(N) for a in range(q)]))
-    neg = np.array([int(Kg.neg[k]) * q + (-a) % q for k in range(N) for a in range(q)])
-    # shift tables: add[g, h] via mixed radix
-    mods = list(Kmods) + [q]
+    neg = np.array([int(Kg.neg[k]) * q + negf(a) for k in range(N) for a in range(q)])
+    mods = list(Kmods) + [p_] * e_
     coords = np.array(np.unravel_index(np.arange(n), mods)).T
     m = np.array(mods); w = np.ones(len(mods), dtype=np.int64)
     for i in range(len(mods) - 2, -1, -1): w[i] = w[i + 1] * mods[i + 1]

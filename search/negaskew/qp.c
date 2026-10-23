@@ -1,9 +1,9 @@
-// qp.c : two-level exact engine for the QUATERNARY skew Paley plug-in (round 36, plug lens).
+// qp.c : two-level exact engine for the QUATERNARY skew Paley plug-in (real=1: the real skew class).
 // G = K x F_q, blocks U: G -> {1,i,-1,-i}, H_K-invariant, U = s(x)delta + t(x)Q + e(x)J, values x0 (f=0), x1 (squares), x2 (non-squares) per K-orbit.
 // level 1: w = x0 + (q-1)e  (Gaussian integers):  sum_X PAF(w_X) = 4|K|q delta_K            (class (W,R) restricted hash join, A x B | C x D)
 // level 2: t given s,e:     sum_X (s s* + q t t*) = 4|K|q delta, sum_X (t s* - s t*) = 0   (scaled by 2: exact Gaussian integers; 2x2 meet in the middle)
 // block A skew: A(-g) = i conj A(g), A(0) in {1,-i}; blocks B,C,D normalised x0(0)=1.  Every filter is a necessary condition.
-// usage: qp shape.txt key=value ...   keys: maxprint first l2 psd wcap sample seed part nparts
+// usage: qp shape.txt key=value ...   keys: maxprint first l2 l2c l2p psd wcap pA pL sym bE real seed part nparts resume (see README.md; shape files from qshape.py)
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

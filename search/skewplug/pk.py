@@ -92,9 +92,13 @@ class KGrp:
         if isinstance(units, np.ndarray) and units.ndim == 1: units = list(units)
         if isinstance(units, (list, tuple)) and len(units) and isinstance(units[0], (list, tuple, np.ndarray)):
             M = np.array(units, dtype=np.int64)
-            assert len(set(self.mods)) == 1
             img = (self.el @ M.T) % self.m
-            return (img * self.w).sum(1)
+            perm = (img * self.w).sum(1)
+            # must be a group automorphism (well defined on mixed moduli): bijective and additive
+            assert len(set(perm.tolist())) == self.n, 'matrix is not a bijection of K'
+            rng = np.random.default_rng(5); a = rng.integers(0, self.n, 200); b = rng.integers(0, self.n, 200)
+            assert (perm[self.add[a, b]] == self.add[perm[a], perm[b]]).all(), 'matrix is not an automorphism of K'
+            return perm
         if np.isscalar(units): units = [int(units)] * len(self.mods)
         u = np.array([int(x) for x in units], dtype=np.int64)
         return (((self.el * u[None, :]) % self.m) * self.w).sum(1)
