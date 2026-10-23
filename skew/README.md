@@ -43,6 +43,7 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 | [1876](1876) | 469 = 7 · 67 | ⟨9⟩, order 33 | 1, 1, 5, 43 | 469(3) | New |
 | [1892](1892) | 473 = 11 · 43 | ⟨345, 221⟩, order 15 (Paley product with a multiplier of order 3 on ℤ₄₃) | 1, −9, 17, −39 | 473(4) | New |
 | [2052](2052) | 513 = 3³ · 19, group ℤ₁₉ × GF(27) | the squares of GF(27)*, order 13 (Paley product) | 1, 27, 19, 31 | 513(4) | New |
+| [2156](2156) | 539 = 7² · 11, group ℤ₇ × ℤ₇ × ℤ₁₁ | order 15: the scalar 2 (order 3) on ℤ₇², and the squares ⟨4⟩ (order 5) on ℤ₁₁ (Paley product with a multiplier on ℤ₇²) | 1, −29, 15, 33 | 539(4) | New |
 | [2404](2404) | 601, prime | ⟨2⟩, order 25 | 1, 1, 49, 1 | 601(5) | New |
 | [2452](2452) | 613, prime | ⟨37⟩, order 17 | 1, 1, 35, 35 | 613(3) | New |
 | [2812](2812) | 703 = 19 · 37 | ⟨16, 26⟩, order 27 | 1, 1, 1, 53 | 703(3) | New |
@@ -192,11 +193,11 @@ The orders 3(q + 1) need no search (`search/paley_blocks.py skew q`). The Goetha
 over multiplier structures: exact joins of complete block lists for small structures, exact compression chains
 (`search/chain.py`, run over the census by `search/census_screen.py` and `search/screen_chain.py`), Paley-product and
 cyclotomic-product configurations (`search/paley_config.py`, `search/cyclo_product.py`), the two-level sampler for
-Paley products with many w-positions (`search/skewplug`, for 476 and 1892), the quaternary search over negacyclic
+Paley products with many w-positions (`search/skewplug`, for 476, 1892 and 2156), the quaternary search over negacyclic
 arrays and its Paley plug-ins (`search/negaskew`, for 1528, 2216, 2392 and 4712), low-energy k-trees on lists too large to store
 (`search/cp_lowe.py`, `search/skew_lowE.py`) and, for 3676, a spin structure (`search/spin_skew.py`). The orthogonal
 designs come from `search/odm_engine.py` and `search/odm_join.py`. [search/NOTES.md](../search/NOTES.md) §10–§16, §20,
-§23, §31 and §87–89 describe the methods, and each README records the command, code commit, seed and caps of its
+§23, §31 and §87–90 describe the methods, and each README records the command, code commit, seed and caps of its
 search.
 
 `python3 verify/verify.py skew/<order>` rebuilds a matrix from its certificate and checks H Hᵀ = nI and H + Hᵀ = 2I.
