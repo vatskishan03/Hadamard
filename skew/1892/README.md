@@ -53,9 +53,9 @@ is then a Hadamard matrix of order 1892. Because A + Aᵀ = 2I, it satisfies H +
 | | |
 |---|---|
 | Code | `search/skewplug` (build commands in its README) |
-| Command | `python3 -u prod_ks.py k473a 1 9000 "[43]" 11 "[6]" data/slots473.jsonl 40 10000 60000 60000 sl2`, then `python3 cyclic.py out/skew_1892_k473a.json out/skew_1892_cyclic.json` |
-| Randomness and caps | rounds are seeded by the seed base and the round index; slots are drawn with the weights of the slot file; lists of 10000, 60000 and 60000 sampled members; every level-1 instance goes to level 2 |
-| Result | the run that found this matrix read an earlier version of the slot-weights file, which was later overwritten, so the command is not bit-identical to it; it samples the same class, where hits came at the rate above |
+| Command | `python3 -u prod_ks.py k473a 1 9000 "[43]" 11 "[6]" data/cost473.jsonl 40 10000 60000 60000 sl2`, then `python3 cyclic.py out/skew_1892_k473a.json out/skew_1892_cyclic.json` |
+| Randomness and caps | rounds are seeded by the seed base and the round index; slots (19 allocations) are drawn with the efficiency weights of `data/cost473.jsonl`; lists of 10000, 60000 and 60000 sampled members; every level-1 instance goes to level 2 |
+| Result | the tenth round hits (6390 level-1 instances, 6058 level-2 runs in all, about 5 minutes on one core), and `cyclic.py` gives this certificate without its `sha256` field |
 
 ## Status
 
