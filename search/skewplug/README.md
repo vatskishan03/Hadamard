@@ -28,7 +28,7 @@ for ps in 32 64 128; do gcc -O3 -march=haswell -DPS=$ps -o sl2_$ps gl2.c -lm; do
 mkdir -p runs tmp
 ```
 
-The run that found order 476 (one core, about 40 s; the rounds are seeded, so it is deterministic):
+The run that found order 476 (one core, about 20 s; the rounds are seeded, so it is deterministic):
 
 ```
 python3 -u sk_worker.py w119a 1 900 "[17]" 7 "[[2,2,2,3]]" 2000 20000 20000 30 1.0
@@ -40,5 +40,6 @@ for every allocation of those total weights), the list sizes of B, C, D, the num
 level 2 per round, and the fraction of them kept. The first command writes `out/skew_476_w119a.json` (group form over
 Z₁₇ × Z₇); the second gives the certificate of [../../skew/476](../../skew/476) without its `sha256` field.
 
-`python3 validate_skew.py` re-runs the validation battery (31 shapes; G-level brute force, K-level brute force and the
-two-level pipeline agree).
+`python3 validate_skew.py` re-runs the validation battery (resumable, results in `val.jsonl`): 31 shapes, on which G-level
+and K-level brute force agree, and the two-level pipeline agrees with them on all but those whose counts are too large
+for it (ℤ₅ × F₃, ℤ₁₃/⟨3⟩ × F₃) or that hit its time limit.

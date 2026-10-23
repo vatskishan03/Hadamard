@@ -29,7 +29,7 @@ certificate.
 **New** as a symmetric Hadamard matrix.
 
 - The Đoković–Seberry census (2025-05-28) lists 1903 among its 595 undecided v for symmetric matrices. Seberry–Yamada's
-  Corollary 27(i) in the propus array would need a symmetric conference matrix of order 952 or a skew-Hadamard
+  Corollary 27(i) in the propus array would need (q + 1)/2 = 951 = 3 · 317 to be a prime power, or a skew-Hadamard
   matrix of order 952 with an involutive anti-automorphism ([NOTES.md](../../NOTES.md) §29).
 - The symmetric quaternary form of Yamada's matrix is the new step ([YAMADA_KIYASU.md](../YAMADA_KIYASU.md#status)); we
   found it in none of the sources listed there. The skew input is ours (2026): before it, no skew-Hadamard matrix of

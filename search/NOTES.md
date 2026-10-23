@@ -5528,19 +5528,22 @@ symmetric Hadamard matrix of order 7612 (v = 1903, census-undecided).
 4), H = {1} × S, blocks sI + tQ + eJ. B, C and D are free; the skew block A has s and e odd under k ↦ −k off 0, s(0) =
 1, e(0) = 0 (no w-position at 0, the others in pairs ±k of the same type) and t even. The defect identity is (q + 1)e₊
 + (q − 3)e₋ = 4|K|, §15's (q + 1)N_w − 4N₋ = 4m. The solution set is invariant under translations of B, C and D, their
-negations, the reflection of each block (A ↦ 2δ − A), the units of K and permutations of B, C, D: a group of order
-2⁷|K|³φ(|K|).
+negations, the reflection of each block (A ↦ 2δ − A), and the units of K: a group of order 2⁷|K|³φ(|K|) (1.0 · 10⁷ for
+K = ℤ₁₇), times 6 for the permutations of B, C, D.
 - *Checked.* G-level brute force equals K-level brute force on 31 shapes (12 nonzero, e.g. ℤ₅ × F₇: 74,880,000
   quadruples), and the two-level pipeline equals both on 28 (10 nonzero). A judge's own brute force reproduced all 31
-  counts, each symmetry was tested on complete solution sets, and negations or translations of A fail as predicted.
+  counts. Each symmetry was tested on 2000 random solutions per map from the complete solution sets of ℤ₃ × F₇
+  (176,256) and ℤ₃ × F₁₁ (110,592); negating A or swapping it with another block fails, and translating A mostly
+  fails.
 
 **v = 119 = 17 · 7.** 2e₊ + e₋ = 17, so 9 to 17 w-positions: the regime §15 could not search. The first round of the
 sampler (allocation (2, 2, 2, 3), the exact list of skew blocks against sampled lists of the others) gave the matrix
 ([skew/476](../skew/476)). Three more solutions came from the allocations (2, 2, 3, 4), (0, 2, 3, 5) and (4, 1, 3, 4),
 and the judge found a fifth with its own sampler and level 2. One allocation slot alone has about 5 · 10¹³ level-1
 instances, and 15 of 20 sampled ones complete at level 2; the class holds an estimated 10¹⁹ to 10²⁰ ordered quadruples
-(HEURISTIC). A skew block halves only A, while the plain Szöllősi array of §85 constrains A and B; that is why this
-class is rich where the complex ones at the same K and q were sparse.
+(HEURISTIC). For q = 7 the compression entries are ±1, ±5, ±7, and (q − 2)² = 25 is within the noise of the
+autocorrelation sums, so no cancellation between big entries is forced and level 1 is huge; for large q the regime is
+rigid (below).
 
 **The cascade.** Doubling gives skew 952 = 8 · 119, below Cati–Pasechnik's 119(4), and with q = 1901 ≡ 5 (mod 8) the
 symmetric Yamada–Kiyasu theorem gives the symmetric Hadamard matrix of order 7612
@@ -5549,15 +5552,16 @@ need skew orders 856, 940, 1108, 1180, 1192, 1196, none of which has a usable Pa
 
 **The other skew census values with a many-w-position shape** (|K| > q). 783 = 29 · 27 and 1271 = 41 · 31 fail the
 identity for every q ≥ 7. Every K-symmetric shape that could be run to the end is EXHAUSTIVELY empty: 589, 779, 575
-(also over ℤ₅ × ℤ₅), 627, 759, 943, 473, 817 and 989, and about thirty further undecided values with at most 13
-orbits. A bound on the products of big compression entries proves 361 = 19 · 19 and 529 = 23 · 23 empty (the estimator
-had ranked an empty slot of 361 first, at 10^8.6). Shapes with H_K = 1 and |K| ≥ 25 have more than 21 free t-orbits
-per block, beyond the present level 2; 575 = 25 · 23 is the best of them. Sampling 245, 385, 473, 623 and 805 found
-nothing (HEURISTIC).
+(also over ℤ₅ × ℤ₅), 627, 759, 943, 473, 817 and 989 (for the last three only H_K of order 7 and 21; order 3 is
+undecided), and about thirty further undecided values with at most 13 orbits. A bound on the products of big
+compression entries proves 361 = 19 · 19 and 529 = 23 · 23 empty for H_K = 1 (the estimator had ranked an empty slot
+of 361 first, at 10^8.6); 361 with H_K = ⟨7⟩ is empty by an exhaustive run. Shapes with H_K = 1 and |K| ≥ 25 have more
+than 21 free t-orbits per block, beyond the present level 2; 575 = 25 · 23 is the best of them (HEURISTIC). Sampling
+245, 385, 473, 623 and 805 found nothing (HEURISTIC).
 
 **Symmetric matrices.** For group-developed blocks the propus array (A, B, B, D) is the only symmetric array
 (`search/sym_arrays.py`). Its Paley plug-in was checked against G-level brute force on 230 shapes (27 nonzero); the
-positive controls ℤ₁₁ × F₇ and ℤ₁₃ × F₇ have one and three solution orbits (orders 308 and 364, known). At v = 119,
-223 of the 245 allocations are EXHAUSTIVELY empty, and constant-PAF and Legendre ansätze over all 245 found nothing;
-the estimate for the whole class was 10⁻² orbits. The small-N solutions use special blocks (a Legendre first block, at
-N = 13 the Singer (13, 4, 1) difference set); their analogues at N = 17 gave nothing.
+positive controls ℤ₁₁ × F₇ and ℤ₁₃ × F₇ have one and three solution orbits (orders 308 and 364, known). At v = 119 all
+245 allocations are EXHAUSTIVELY empty (symmetry-reduced, 0 solutions), as the prior estimate of 10⁻² orbits suggested
+(HEURISTIC). The small-N solutions use special blocks (a Legendre first block, at N = 13 the Singer (13, 4, 1)
+difference set); their analogues at N = 17 gave nothing.

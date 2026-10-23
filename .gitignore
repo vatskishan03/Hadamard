@@ -25,3 +25,9 @@ search/ls/gs_sa
 search/ls/gs_tabu
 search/ls/gs_tabu_l1
 search/ls/orb_tabu
+search/skewplug/runs/
+search/skewplug/out/
+search/skewplug/tmp/
+search/skewplug/*.so
+search/skewplug/sl2_*
+search/skewplug/val.jsonl

@@ -47,7 +47,8 @@ is then a Hadamard matrix of order 476. Because A + Aᵀ = 2I, it satisfies H + 
    list of skew first blocks against sampled lists of the other three blocks (one allocation of w-positions and one
    exact row-sum pattern per round) on the compressed equation over ℤ₁₇. Level 2 fixes the signs of z off the
    w-positions by a meet in the middle. The first round gave the matrix. Solutions are plentiful in this structure:
-   three more were found in other allocations of w-positions and a fourth by an independent judge with its own code,
+   three more were found in other allocations of w-positions and a fifth (counting the first) by an independent judge
+   with its own code,
    and the estimated total is 10¹⁹ to 10²⁰ ordered quadruples (HEURISTIC).
 
 **Reproduction.**
@@ -57,7 +58,7 @@ is then a Hadamard matrix of order 476. Because A + Aᵀ = 2I, it satisfies H + 
 | Code | `search/skewplug` (build commands in its README) |
 | Command | `python3 -u sk_worker.py w119a 1 900 "[17]" 7 "[[2,2,2,3]]" 2000 20000 20000 30 1.0`, then `python3 cyclic.py out/skew_476_w119a.json out/skew_476_cyclic.json` |
 | Randomness and caps | rounds are seeded by the seed base 1 and the round index; lists of 2000, 20000 and 20000 sampled members for the second, third and fourth blocks; 30 level-1 instances per round go to level 2 |
-| Result | the first round hits, in 19 s on one core; the output over ℤ₁₇ × ℤ₇ (SHA-256 of its matrix `1f4f883c…`) becomes this certificate under x ↦ (x mod 17, x mod 7) |
+| Result | the first round hits, in about 20 s on an idle core (35–40 s on a loaded machine); the output over ℤ₁₇ × ℤ₇ (SHA-256 of its matrix `1f4f883c…`) becomes this certificate under x ↦ (x mod 17, x mod 7) |
 
 ## Status
 
@@ -68,13 +69,17 @@ T-matrices of order 7); the skew property is what is new.
 - Cati–Pasechnik Table 5 gives 119(4): the smallest known skew order with odd part 119 was 16 · 119 = 1904. So the
   doubling of this matrix, a skew-Hadamard matrix of order 952, is new as well.
 - SageMath lists 476 in `unknown_skew_hadamard`. The survey of Egan, Kotsireas, London and Ó Catháin
-  (arXiv:2610.27175, 19 October 2026) gives 356 as the smallest open skew order and no construction of 476.
-- No classical construction gives a skew matrix of order 476:
+  (arXiv:2610.27175, 19 October 2026) gives 356 as the smallest open skew order and names no construction of order
+  476 (its entry “4n for odd n < 250” under known skew orders contradicts that 356 and the census).
+- We found no classical construction of a skew matrix of order 476:
   - Paley I and the products 2ᵗ ∏(qᵢ + 1) (qᵢ ≡ 3 mod 4): every factor qᵢ + 1 is divisible by 4 and 476 = 4 · 119,
     so the only candidate is q = 475 = 5² · 19, which is not a prime power.
   - Szekeres 2(q + 1) needs q = 237 = 3 · 79, and Wallis–Whiteman 4(q + 1) needs q = 118; neither is a prime power.
-  - Skew × amicable products: 476 is not a product of two Hadamard orders greater than 1 (2 · 238, 4 · 119 and 28 · 17
-    each have a factor that is not one).
+  - Skew × amicable products: 476 is not a product of two Hadamard orders greater than 1 (in 2 · 238, 4 · 119, 7 · 68,
+    14 · 34 and 17 · 28 one factor is not a Hadamard order).
+  - Spence's family needs 119 = q² + q + 1, which has no integer solution, and Seberry's mn(n − 1) construction would
+    need an OD(476; 1, 238, 237).
+  - Good matrices and skew Williamson-type matrices of order 119 are not recorded.
   - A cyclic low-energy search over ℤ₁₁₉ ([search/NOTES.md](../../search/NOTES.md) §10) found nothing.
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md). Doubling (Seberry) gives skew-Hadamard matrices of

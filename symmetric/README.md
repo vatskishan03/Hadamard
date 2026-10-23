@@ -147,7 +147,7 @@ order 716 (2026).
 (q ≡ 5 mod 8 a prime power, a skew-Hadamard matrix of order (q + 3)/2) form a symmetric quaternary Hadamard matrix of
 order 2(q + 2) for every skew input, and Turyn's map [[X + Y, X − Y], [X − Y, −X − Y]] makes it a symmetric Hadamard
 matrix of order 4(q + 2) ([YAMADA_KIYASU.md](YAMADA_KIYASU.md), `search/sym_yk.py`, `verify.py` construction
-`symmetric-yamada-kiyasu`). This settles 27 census values; seven more need a skew order that is undecided.
+`symmetric-yamada-kiyasu`). This settles 28 census values; six more need a skew order that is undecided.
 
 **Seberry and Balonin's Corollary 1.** For a prime power q ≡ 1 (mod 4) such that (q + 1)/2 is a prime power or the order
 of the core of a symmetric conference matrix, Lemma 26 with Paley's or that core and Yamada's circulants gives

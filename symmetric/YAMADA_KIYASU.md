@@ -147,9 +147,11 @@ would decide one more symmetric value.
 ## Status
 
 - 20 orders are **New** and 8 are **Concurrent** (below): all 28 census values are undecided, and we found the symmetric
-  form of Yamada's matrix nowhere (audit of 17 October 2026). Ordinary Hadamard matrices of all these orders are classical (Yamada 1989,
-  Theorem 4, announced in Proc. Japan Acad. 63 (1987); Đoković, arXiv:1008.2043, applies it to 823, 1063, 1303, 2143
-  and 2335); the symmetry is what is new.
+  form of Yamada's matrix nowhere (audit of 17 October 2026). Ordinary Hadamard matrices of all these orders except 7612
+  are classical (Yamada 1989, Theorem 4, announced in Proc. Japan Acad. 63 (1987); Đoković, arXiv:1008.2043, applies it
+  to 823, 1063, 1303, 2143 and 2335); the ordinary matrix of order 7612 is a first explicit construction
+  ([hadamard/7612](../hadamard/7612)), and Theorem 4 reaches it only through our skew matrix of order 476. The
+  symmetry is what is new.
   - The symmetric case published so far is Paley's skew core: Seberry–Yamada's Corollary 27(i) (JCMCC 7 (1990); 1992
     survey, Corollary 8.7; book of 2020, Corollary 6.3) gives Williamson-type matrices with a repeated block when
     (q + 1)/2 is a prime power, and Seberry–Balonin's propus array (2017; the order corrected by Balonin–Đoković,
@@ -176,7 +178,7 @@ The sources searched are listed in [NOVELTY.md](../NOVELTY.md).
 ## Reproduction and verification
 
 ```
-python3 search/sym_yk.py targets           # the 34 remaining census values v = q + 2, q = 5 (mod 8), and their skew inputs
+python3 search/sym_yk.py targets           # the census values v = q + 2, q = 5 (mod 8) not yet in symmetric/, and the skew orders they need
 python3 search/sym_yk.py certify 295       # writes symmetric/1180/certificate.json
 python3 verify/verify.py symmetric/1180    # rebuilds H and checks it
 ```

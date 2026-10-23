@@ -1,5 +1,5 @@
 """production sampler for the skew plug-in (one core): rounds of [random allocation / m-split / exact row-sum pattern -> level 1 (exact A list x sampled B, C, D) -> exact prefilter + score ranking -> level 2 (sl2, stop at first completion)].
-usage: python3 sk_worker.py NAME SEEDBASE SECS 'K' q ALLOCS_JSON [LB LC LD n2 topfrac]      (K = '[17]', ALLOCS_JSON = '[[nA,nB,nC,nD],...]' or 'E9' for all allocations of total weight 9, 'auto:E1,E2')
+usage: python3 sk_worker.py NAME SEEDBASE SECS 'K' q ALLOCS_JSON [LB LC LD n2 topfrac]      (K = '[17]', ALLOCS_JSON = '[[nA,nB,nC,nD],...]' or 'E9,10' for all allocations of total weight 9 or 10)
 Writes runs/NAME.jsonl (one record per round), on a hit runs/NAME.HIT_<time>.json and a certificate (out/skew_<order>_NAME.json); stops on runs/NAME.STOP or after a hit."""
 import sys, os, time, json, random, warnings
 warnings.filterwarnings('ignore')

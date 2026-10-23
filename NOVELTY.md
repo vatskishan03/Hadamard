@@ -234,8 +234,8 @@ and an adversarial re-search:
   Table 5 (119(4), so the smallest skew order known with odd part 119 was 1904) and Table 3 (no skew construction at
   119); SageMath's `unknown_skew_hadamard` (it contains 476) and the development thread of SageMath issue 34848.
 - *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (smallest open skew order 356,
-  no skew or symmetric construction at 476 or 7612); the 2026 sources of "For every order"; web searches for skew
-  476, 952 and symmetric 7612.
+  no construction named at 476 or 7612; its entry “4n for odd n < 250” under known skew orders contradicts its own
+  356 and the census); the 2026 sources of "For every order"; web searches for skew 476 and symmetric 7612.
 - *Finding.* None gives a skew-Hadamard matrix of order 476 or 952 or a symmetric Hadamard matrix of order 7612.
 - *Not read.* As for 6796; work after the census was found only through the survey and web searches.
 
