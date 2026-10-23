@@ -228,6 +228,17 @@ and an adversarial re-search:
 - *Finding.* None gives a quaternary Hadamard matrix of order 418.
 - *Not read.* As for 6796. Zaitsev et al. search these orders at present; their page lists 418 as unknown.
 
+**Skew order 476 and symmetric order 7612** ([skew/476](skew/476), [symmetric/7612](symmetric/7612)). Checked on
+22–23 October 2026:
+- *Tables.* The Đoković–Seberry census (119 and 1903 undecided, for skew and symmetric matrices); Cati–Pasechnik
+  Table 5 (119(4), so the smallest skew order known with odd part 119 was 1904) and Table 3 (no skew construction at
+  119); SageMath's `unknown_skew_hadamard` (it contains 476) and the development thread of SageMath issue 34848.
+- *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (smallest open skew order 356,
+  no skew or symmetric construction at 476 or 7612); the 2026 sources of "For every order"; web searches for skew
+  476, 952 and symmetric 7612.
+- *Finding.* None gives a skew-Hadamard matrix of order 476 or 952 or a symmetric Hadamard matrix of order 7612.
+- *Not read.* As for 6796; work after the census was found only through the survey and web searches.
+
 ## Not checked
 
 - J. Seberry, M. Yamada, *Hadamard Matrices: Constructions using Number Theory and Linear Algebra* (Wiley, 2020):

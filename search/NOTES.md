@@ -5518,3 +5518,46 @@ times faster than round 30's level 1 at ℤ₁₉ and about 2400 times at ℤ₂
 (ℤ₁₉ × GF(27)), 1806 (ℤ₂₁ × F₄₃), 690 (ℤ₁₅ × F₂₃), 682 (ℤ₃₁ × F₁₁ with H of order 2 or 5) and 574 in the bordered
 array. Only 550 (ℤ₂₅ × F₁₁, about 40 to 60 CPU-hours per allocation, a few per cent each) is within reach after 506;
 it is running.
+
+## 87. Round 33: skew Paley products with many w-positions; skew 476 and symmetric 7612 (October 22–23)
+
+Scratchpad `r33/`. The skew-Hadamard matrix of order 476 (v = 119, census-undecided) was found, and from it the
+symmetric Hadamard matrix of order 7612 (v = 1903, census-undecided).
+
+**The skew plug-in** (`search/skewplug`). §15's Paley products in the K-level form of §81: G = K × F_q with q ≡ 3 (mod
+4), H = {1} × S, blocks sI + tQ + eJ. B, C and D are free; the skew block A has s and e odd under k ↦ −k off 0, s(0) =
+1, e(0) = 0 (no w-position at 0, the others in pairs ±k of the same type) and t even. The defect identity is (q + 1)e₊
++ (q − 3)e₋ = 4|K|, §15's (q + 1)N_w − 4N₋ = 4m. The solution set is invariant under translations of B, C and D, their
+negations, the reflection of each block (A ↦ 2δ − A), the units of K and permutations of B, C, D: a group of order
+2⁷|K|³φ(|K|).
+- *Checked.* G-level brute force equals K-level brute force on 31 shapes (12 nonzero, e.g. ℤ₅ × F₇: 74,880,000
+  quadruples), and the two-level pipeline equals both on 28 (10 nonzero). A judge's own brute force reproduced all 31
+  counts, each symmetry was tested on complete solution sets, and negations or translations of A fail as predicted.
+
+**v = 119 = 17 · 7.** 2e₊ + e₋ = 17, so 9 to 17 w-positions: the regime §15 could not search. The first round of the
+sampler (allocation (2, 2, 2, 3), the exact list of skew blocks against sampled lists of the others) gave the matrix
+([skew/476](../skew/476)). Three more solutions came from the allocations (2, 2, 3, 4), (0, 2, 3, 5) and (4, 1, 3, 4),
+and the judge found a fifth with its own sampler and level 2. One allocation slot alone has about 5 · 10¹³ level-1
+instances, and 15 of 20 sampled ones complete at level 2; the class holds an estimated 10¹⁹ to 10²⁰ ordered quadruples
+(HEURISTIC). A skew block halves only A, while the plain Szöllősi array of §85 constrains A and B; that is why this
+class is rich where the complex ones at the same K and q were sparse.
+
+**The cascade.** Doubling gives skew 952 = 8 · 119, below Cati–Pasechnik's 119(4), and with q = 1901 ≡ 5 (mod 8) the
+symmetric Yamada–Kiyasu theorem gives the symmetric Hadamard matrix of order 7612
+([symmetric/7612](../symmetric/7612)). The other six Yamada–Kiyasu targets (v = 1711, 1879, 2215, 2359, 2383, 2391)
+need skew orders 856, 940, 1108, 1180, 1192, 1196, none of which has a usable Paley-product shape.
+
+**The other skew census values with a many-w-position shape** (|K| > q). 783 = 29 · 27 and 1271 = 41 · 31 fail the
+identity for every q ≥ 7. Every K-symmetric shape that could be run to the end is EXHAUSTIVELY empty: 589, 779, 575
+(also over ℤ₅ × ℤ₅), 627, 759, 943, 473, 817 and 989, and about thirty further undecided values with at most 13
+orbits. A bound on the products of big compression entries proves 361 = 19 · 19 and 529 = 23 · 23 empty (the estimator
+had ranked an empty slot of 361 first, at 10^8.6). Shapes with H_K = 1 and |K| ≥ 25 have more than 21 free t-orbits
+per block, beyond the present level 2; 575 = 25 · 23 is the best of them. Sampling 245, 385, 473, 623 and 805 found
+nothing (HEURISTIC).
+
+**Symmetric matrices.** For group-developed blocks the propus array (A, B, B, D) is the only symmetric array
+(`search/sym_arrays.py`). Its Paley plug-in was checked against G-level brute force on 230 shapes (27 nonzero); the
+positive controls ℤ₁₁ × F₇ and ℤ₁₃ × F₇ have one and three solution orbits (orders 308 and 364, known). At v = 119,
+223 of the 245 allocations are EXHAUSTIVELY empty, and constant-PAF and Legendre ansätze over all 245 found nothing;
+the estimate for the whole class was 10⁻² orbits. The small-N solutions use special blocks (a Legendre first block, at
+N = 13 the Singer (13, 4, 1) difference set); their analogues at N = 17 gave nothing.

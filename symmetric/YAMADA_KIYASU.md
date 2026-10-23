@@ -12,7 +12,7 @@ quaternary form, as a symmetric matrix L with entries ±1, ±i and L L̄ = 2(q +
 [[X + Y, X − Y], [X − Y, −X − Y]] of L = X + iY is a symmetric Hadamard matrix (the map is classical: Seberry–Yamada
 1992, Lemma 11.3 with a = b = 1, symmetric whenever L is).
 
-The theorem settles 27 values of the Đoković–Seberry census (2025-05-28), from v = 295 to 2335. For 295 the skew-propus
+The theorem settles 28 values of the Đoković–Seberry census (2025-05-28), from v = 295 to 2335. For 295 the skew-propus
 route of NOTES.md §29 had failed (no skew-propus quadruple of length 37, search/NOTES.md §49).
 
 | Order | v = q + 2 | (q + 3)/2 | Skew-Hadamard input | Status |
@@ -34,6 +34,7 @@ route of NOTES.md §29 had failed (no skew-propus quadruple of length 37, search
 | [6396](6396) | 1599 = 3 · 13 · 41 | 800 | Paley (p = 199), doubled twice | New |
 | [6556](6556) | 1639 = 11 · 149 | 820 | our skew matrix [skew/820](../skew/820) | New |
 | [6684](6684) | 1671 = 3 · 557 | 836 | our skew matrix [skew/836](../skew/836) | New |
+| [7612](7612) | 1903 = 11 · 173 | 952 | our skew matrix [skew/476](../skew/476), doubled | New |
 | [7804](7804) | 1951 | 976 | Paley (p = 487), doubled | New |
 | [7900](7900) | 1975 = 5² · 79 | 988 | Goethals–Seidel over ℤ₂₄₇ (Đoković 2008) | New |
 | [7996](7996) | 1999 | 1000 | Paley (p = 499), doubled | New |
@@ -125,7 +126,7 @@ Remarks.
 
 Of the census's undecided v, 35 are q + 2 with q ≡ 5 (mod 8) a prime power (189, 473 and 1139, settled by Đoković, are
 not of this form). One of them, 183, was settled here earlier by a search ([732](732)); the theorem reaches it too,
-with a skew-Hadamard matrix of order 92. Of the other 34, a skew-Hadamard matrix of order (v + 1)/2 is known for 27:
+with a skew-Hadamard matrix of order 92. Of the other 34, a skew-Hadamard matrix of order (v + 1)/2 is known for 28:
 
 - Paley's matrices (p ≡ 3 mod 4), doubled: v = 319, 655, 703, 1231, 1599, 1951, 1999, 2239, 2271;
 - Szekeres's (1969) and Whiteman's (1971) complementary difference sets: v = 679, 1495, 2223;
@@ -135,26 +136,27 @@ with a skew-Hadamard matrix of order 92. Of the other 34, a skew-Hadamard matrix
 - Goethals–Seidel matrices found by `search/skew_exhaustive.py` in at most a few minutes (orders 148, 196, 292 and
   532, all classical: Đoković's supplementary difference sets of 1992 and 2023 give them too): v = 295, 1183, 391,
   2335, 1063;
-- our skew matrices of orders 820, 836, 1036 and 1148: v = 1639, 1671, 2071, 2295.
+- our skew matrices of orders 820, 836, 1036 and 1148: v = 1639, 1671, 2071, 2295; and our skew matrix of order 476,
+  doubled: v = 1903.
 
-The other seven, v = 1711, 1879, 1903, 2215, 2359, 2383 and 2391, need skew-Hadamard matrices of orders 856 = 8 · 107,
-940 = 4 · 235, 952 = 8 · 119, 1108 = 4 · 277, 1180 = 4 · 295, 1192 = 8 · 149 and 1196 = 4 · 299, all undecided in the
-skew census (as are the skew orders 428, 476 and 596 whose doublings would serve). A skew matrix of any of these orders
+The other six, v = 1711, 1879, 2215, 2359, 2383 and 2391, need skew-Hadamard matrices of orders 856 = 8 · 107,
+940 = 4 · 235, 1108 = 4 · 277, 1180 = 4 · 295, 1192 = 8 · 149 and 1196 = 4 · 299, all undecided in the skew census
+(as are the skew orders 428 and 596 whose doublings would serve). A skew matrix of any of these orders
 would decide one more symmetric value.
 
 ## Status
 
-- 19 orders are **New** and 8 are **Concurrent** (below): all 27 census values are undecided, and we found the symmetric
+- 20 orders are **New** and 8 are **Concurrent** (below): all 28 census values are undecided, and we found the symmetric
   form of Yamada's matrix nowhere (audit of 17 October 2026). Ordinary Hadamard matrices of all these orders are classical (Yamada 1989,
   Theorem 4, announced in Proc. Japan Acad. 63 (1987); Đoković, arXiv:1008.2043, applies it to 823, 1063, 1303, 2143
   and 2335); the symmetry is what is new.
   - The symmetric case published so far is Paley's skew core: Seberry–Yamada's Corollary 27(i) (JCMCC 7 (1990); 1992
     survey, Corollary 8.7; book of 2020, Corollary 6.3) gives Williamson-type matrices with a repeated block when
     (q + 1)/2 is a prime power, and Seberry–Balonin's propus array (2017; the order corrected by Balonin–Đoković,
-    arXiv:1803.08787) makes them symmetric. For none of the 27 values is (q + 1)/2 a prime power.
+    arXiv:1803.08787) makes them symmetric. For none of the 28 values is (q + 1)/2 a prime power.
   - Not read: Kiyasu's book (1980, in Japanese) and his 1974 series, which state the ordinary result; the full text
     of Seberry–Yamada (2020), chapters 3 and 6 and pp. 211–214; Miyamoto (1991). The census of 2025, co-authored by
-    Seberry, lists all 27 values as undecided.
+    Seberry, lists all 28 values as undecided.
 - **Zaitsev et al. (Concurrent).** The page [Quaternary Hadamard matrices](https://www.cs.uleth.ca/~zaitsevv/quaternary.html)
   of Zaitsev, Kharaghani, Mohammadian and Tayfeh-Rezaie (last updated 14 October 2026) lists quaternary Hadamard
   matrices QH590, QH638, QH782, QH926, QH1310, QH1358, QH1646 and QH1886, of orders 2v for v = 295, 319, 391, 463, 655,
@@ -167,7 +169,7 @@ would decide one more symmetric value.
   are labelled Concurrent and we claim no priority for them. The general construction for an arbitrary skew input is
   ours. (The 1992 Table 11.2 had no complex matrix for these eight v; for 703 it records one from Williamson-type
   matrices, which gives no symmetric matrix.)
-- The skew inputs are classical except our skew matrices of orders 820, 836, 1036 and 1148 (2026).
+- The skew inputs are classical except our skew matrices of orders 476, 820, 836, 1036 and 1148 (2026).
 
 The sources searched are listed in [NOVELTY.md](../NOVELTY.md).
 

@@ -35,9 +35,10 @@ no statement of this.
 
 - Paley's constructions do not apply: 4n − 1 = 7611 = 3 · 43 · 59 and 2n − 1 = 3805 = 5 · 761 are not prime powers.
 - Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
-  (mod 4). Yamada–Kiyasu (n − 2 = 1901 a prime ≡ 5 mod 8) would need a skew-Hadamard matrix of order 952 = 8 · 119; none
-  is known to us (119 is undecided in the Đoković–Seberry census of skew-Hadamard matrices of order 4v, so doubling does
-  not give one either).
+  (mod 4). Yamada–Kiyasu (n − 2 = 1901 a prime ≡ 5 mod 8) needs a skew-Hadamard matrix of order 952 = 8 · 119. None was
+  known (119 is undecided in the Đoković–Seberry census of skew-Hadamard matrices of order 4v) until our skew matrix of
+  order 476 ([skew/476](../../skew/476), 22 October 2026), whose doubling gives one; its symmetric form is
+  [symmetric/7612](../../symmetric/7612).
 - Cooper–Wallis does not apply otherwise: the other splits of n need Williamson-type matrices or T-matrices that are not
   known to us.
 - SageMath's development version (October 17, 2026) does not construct it: `hadamard_matrix(7612, existence=True)`

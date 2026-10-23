@@ -18,6 +18,7 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 
 | Order | v | Symmetry H | Row sums | Before | Status |
 |------:|---|---|---|---|---|
+| [476](476) | 119 = 7 · 17 | ⟨86⟩, order 3 (Paley product with nine w-positions) | 1, −5, 15, −15 | 119(4) | New |
 | [820](820) | 205 = 5 · 41 | ⟨51⟩, order 5 (cyclotomic product of index 8) | 1, 1, −17, −23 | 205(3) | New |
 | [836](836) | 209 = 11 · 19 | ⟨26⟩, order 15 | 1, 9, 15, 23 | 209(4) | New |
 | [1012](1012) | 253 = 11 · 23 | ⟨12⟩, order 11 (Paley product) | 1, 5, 19, 25 | 253(4) | New |
@@ -175,10 +176,11 @@ stored; `verify/verify.py skew/<order>` rebuilds them.
 The orders 3(q + 1) need no search (`search/paley_blocks.py skew q`). The Goethals–Seidel families come from searches
 over multiplier structures: exact joins of complete block lists for small structures, exact compression chains
 (`search/chain.py`, run over the census by `search/census_screen.py` and `search/screen_chain.py`), Paley-product and
-cyclotomic-product configurations (`search/paley_config.py`, `search/cyclo_product.py`), low-energy k-trees on lists too
-large to store (`search/cp_lowe.py`, `search/skew_lowE.py`) and, for 3676, a spin structure (`search/spin_skew.py`). The
-orthogonal designs come from `search/odm_engine.py` and `search/odm_join.py`. [search/NOTES.md](../search/NOTES.md)
-§10–§16, §20, §23 and §31 describe the methods, and each README records the command, code commit, seed and caps of its
+cyclotomic-product configurations (`search/paley_config.py`, `search/cyclo_product.py`), the two-level sampler for
+Paley products with many w-positions (`search/skewplug`, for 476), low-energy k-trees on lists too large to store
+(`search/cp_lowe.py`, `search/skew_lowE.py`) and, for 3676, a spin structure (`search/spin_skew.py`). The orthogonal
+designs come from `search/odm_engine.py` and `search/odm_join.py`. [search/NOTES.md](../search/NOTES.md) §10–§16, §20,
+§23, §31 and §87 describe the methods, and each README records the command, code commit, seed and caps of its
 search.
 
 `python3 verify/verify.py skew/<order>` rebuilds a matrix from its certificate and checks H Hᵀ = nI and H + Hᵀ = 2I.

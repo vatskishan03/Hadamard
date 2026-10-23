@@ -2,10 +2,10 @@
 
 A Hadamard matrix H is symmetric if H = Hᵀ. The Đoković–Seberry census (2025-05-28) lists 595 odd v < 2500 for which
 no symmetric Hadamard matrix of order 4v was known; three of them, 189, 473 and 1139, were settled by Đoković in
-August 2025 (arXiv:2508.17141). The 100 orders here remove 100 more, leaving 492: 90 that no published construction
+August 2025 (arXiv:2508.17141). The 101 orders here remove 101 more, leaving 491: 91 that no published construction
 gave, 8 that also follow from quaternary matrices published on Zaitsev et al.'s page of 14 October 2026 (Concurrent),
 and two (1804, 3532) that a published corollary gives but the census omits. Among them is 260, the census's smallest
-value v = 65. 37 of them come from two
+value v = 65. 38 of them come from two
 constructions of October 17 that need no symmetric input: [PROPUS_WEIGHING.md](PROPUS_WEIGHING.md) (order 4q from any
 Hadamard matrix of order (q − 1)/2, q ≡ 1 mod 8) and [YAMADA_KIYASU.md](YAMADA_KIYASU.md) (order 4(q + 2) from any
 skew-Hadamard matrix of order (q + 3)/2, q ≡ 5 mod 8). Two, 404 and 596 (v = 101, 149), come from a construction of
@@ -95,6 +95,7 @@ its certificate, its README and, for the orders found by search, the matrix. Sta
 | [7492](7492) | 1873 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = H₂ ⊗ Paley I, order 468 (q′ = 467) | undecided | New, but obtainable classically |
 | [7556](7556) | 1889 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = H₂^⊗2 ⊗ propus, order 236 (Đoković) | undecided | New, but obtainable classically |
 | [7564](7564) | 1891 = 31 · 61 | symmetric conference matrix of order n in I ⊗ X + C ⊗ Y ([CONFERENCE_PLUG.md](CONFERENCE_PLUG.md)), Paley's matrix of order n = 62 (q = 61) | undecided | New, but obtainable classically |
+| [7612](7612) | 1903 = 11 · 173 | Yamada–Kiyasu in symmetric quaternary form ([YAMADA_KIYASU.md](YAMADA_KIYASU.md)), skew input of order 952: our skew matrix of order 476, doubled once | undecided | New |
 | [7652](7652) | 1913 | any Hadamard matrix of order (q − 1)/2 in the propus array ([PROPUS_WEIGHING.md](PROPUS_WEIGHING.md)), K = Đoković–Kotsireas's skew matrix of order 956, order 956 | undecided | New |
 | [7804](7804) | 1951 | Yamada–Kiyasu in symmetric quaternary form ([YAMADA_KIYASU.md](YAMADA_KIYASU.md)), skew input of order 976: Paley (p = 487), doubled once | undecided | New |
 | [7900](7900) | 1975 = 5² · 79 | Yamada–Kiyasu in symmetric quaternary form ([YAMADA_KIYASU.md](YAMADA_KIYASU.md)), skew input of order 988: Goethals–Seidel over ℤ₂₄₇ (Đoković 2008) | undecided | New |
