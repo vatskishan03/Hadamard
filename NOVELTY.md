@@ -267,6 +267,20 @@ and an adversarial re-search:
   negacyclic Goethals–Seidel arrays.
 - *Not read.* As for 6796.
 
+**Skew order 2156** ([skew/2156](skew/2156)). Checked on 23 October 2026:
+- *Tables.* The Đoković–Seberry census (539 undecided); Cati–Pasechnik Table 5, v1 and v2 (539(4)) and Table 4 (539 not
+  listed, so an ordinary Hadamard matrix of order 2156 is known); SageMath's development source of 21 October 2026,
+  `skew_hadamard_matrix` read branch by branch, not run (none of its branches gives 2156).
+- *Classical routes.* Paley I needs 2155 = 5 · 431, Szekeres and Momihara–Xiang 2(qᵉ + 1) need 1077 = 3 · 359,
+  Wallis–Whiteman 4(q + 1) needs 538; Spence 4(q² + q + 1), Turyn (p − 1)ᵘ + 1 and Seberry's mn(n − 1) (only n = 2)
+  do not apply; 2156 ≡ 4 (mod 8) rules out doubling, and every product of a skew and an amicable order has a factor
+  that is not a Hadamard order. Momihara and Xiang's skew Hadamard difference families (arXiv:1801.08776) live on
+  F_{qᵉ}, and 539 is not a prime power.
+- *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175; Đoković, arXiv:2301.02751 and
+  arXiv:1511.08734; web searches for the order.
+- *Finding.* None gives a skew-Hadamard matrix of order 2156.
+- *Not read.* As for 6796.
+
 ## Not checked
 
 - J. Seberry, M. Yamada, *Hadamard Matrices: Constructions using Number Theory and Linear Algebra* (Wiley, 2020):

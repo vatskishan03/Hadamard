@@ -5712,3 +5712,28 @@ the class is out of reach: a block constant on the orbits of H with |H| = h has 
 coordinates, so Σ|R_X|² = 16v needs (2h − 1)² + 15 ≤ 16v. Every multiplier shape with at most 14 orbits of the 61
 targets is therefore infeasible, and the feasible ones (17 orbits at 337, 21 at 101 and 821, 23 at 947, …) need lists
 of at least 2^57 blocks. No order 16v was found.
+
+## 90. Round 37: skew 2156, the census value 539 (October 23)
+
+**The hit.** §88's real skew Paley product with a multiplier on K, over K = ℤ₇ × ℤ₇ (non-cyclic) and q = 11, with
+H_K = ⟨(2, 2)⟩ the scalars of order 3: 17 orbits on K, 51 per block, H of order 15. The identity of §15 reads
+12 N_w − 4 N₋ = 196. The solution has no w-position in A and 6, 7, 7 in B, C, D (N_w = 20, N₋ = 11), row sums 1, −29,
+15, 33 — [skew/2156](../skew/2156). 539 = 7² · 11 is undecided in the Đoković–Seberry census, so this settles a census
+value; Table 5 had 539(4).
+
+**How it was found.** Round 35 had ranked three K-symmetric shapes of 539 close to the 473 shape of §88 (ℤ₄₉ × F₁₁
+with ⟨18⟩, ℤ₇² × F₁₁ with ⟨(2, 2)⟩ and ⟨(2, 4)⟩), but its slot weights came from Gaussian estimates of 16 sampled
+slots per shape, and the ℤ₇² shapes ran for 25 minutes. `est_extend.py` estimates every one of the 2265 slots of the top
+energy window in minutes; the best slots then scored logE = +0.94 (ℤ₇² with ⟨(2, 2)⟩), +0.81 (ℤ₇², ⟨(2, 4)⟩) and +0.66
+(ℤ₄₉), against +0.67 for the 473 shape with the same tool (whose two hit slots rank 5th and 27th of 128). With these
+weights five seeded jobs of `prod_dedup.py` (level-1 instances reduced modulo the exact symmetries of the K-level
+system) found the matrix after about 49,000 distinct level-2 classes of the three shapes, in round 7 of the job with
+seed base 5, slot (0, 6, 7, 7) split (0, 3, 4, 4) (logE +0.79). Per class the completion rate is about five times
+lower than at 473, whose level-1 spaces are five times smaller (HEURISTIC). The logged state before the hit replays
+the certificate exactly (`search/skewplug/data/repro539`, 11 s).
+
+**Which shapes the sampler can reach** (HEURISTIC, calibrated on the hits at 473 and 539). A slot needs both
+logE ≳ 0 (expected solution classes) and logρ = logE − logN1 ≳ −8.5 (expected completions per level-1 class); the
+loop runs 10⁴ to 10⁵ classes per core-hour. Best slots (logE / logρ): 473: +0.67 / −7.0; 539: +0.94 / −7.9; 781
+(ℤ₇₁ × F₁₁, ⟨5⟩): −1.9 / −7.6; 707 (ℤ₁₀₁ × F₇, ⟨36⟩): +0.14 / −16.5; 1243, 1267, 1397 and 637: logE ≤ −4.6. No other
+census shape of round 35's list is in the reachable regime.

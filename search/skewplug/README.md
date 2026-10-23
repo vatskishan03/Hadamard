@@ -19,6 +19,8 @@ handles many (nine to seventeen for 476).
 | `bf.py`, `sk_exh.py`, `validate_skew.py` | G-level and K-level brute force, the exhaustive two-level pipeline, the validation battery |
 | `indep_check.py` | an independent numpy check of a group-form certificate over ℤ_m × ℤ_q |
 | `prod_ks.py`, `skf_io.py`, `pl2f2.c` | the production loop for shapes with a multiplier on K (slots weighted by estimates or by a cost file such as `data/cost473.jsonl`, every level-1 instance to level 2, certification on a hit), and a faster exact level 2 |
+| `prod_dedup.py` | the production loop with the level-1 instances reduced modulo the exact symmetries of the K-level system (each block reflected; B, C, D negated and translated by H_K-fixed points), a row-sum-pattern bandit and slot weights from estimates and measured yields; replays a logged state exactly |
+| `est_skew.py`, `est_extend.py`, `est_merge.py` | the Gaussian estimate of a slot (HEURISTIC; it ranks slots, its absolute value is 3 to 4 decades low at 473), its scan over every slot of the top energy window, and the merge into a slot file |
 | `gsk.py`, `pk.py`, `est.py`, `idx.py`, `sk_filter.py` | shared shape code (from the real Goethals–Seidel and Szöllősi plug-in searches), an estimator, a level-1 prefilter |
 
 Build (in this directory):
@@ -61,4 +63,21 @@ sizes, and `PROD_CONTINUE=1` makes the loop go on after a hit (writing `runs/NAM
 `out/skew_<order>_NAME_r<round>.json`). The command is deterministic: the tenth round hits, and the second command gives the certificate of
 [../../skew/1892](../../skew/1892) without its `sha256` field. In the same class hits came about once per 2 · 10⁴ to
 3 · 10⁴ level-2 runs.
+
+The run that found order 2156 ([../../skew/2156](../../skew/2156); K = ℤ₇ × ℤ₇ with the scalar 2 of order 3, q = 11)
+used `prod_dedup.py` with slot weights from `est_extend.py` over all 2265 slots of the energy window. Its state before
+the hit (the log of rounds 0–6 of the job with seed base 5, the set of classes already run, the slot file) is in
+`data/repro539`, and the replay takes about 11 s:
+
+```
+mkdir -p runs est out tmp
+cp data/repro539/c539_q11_K7x7_h2-2_s5.jsonl data/repro539/c539_q11_K7x7_h2-2_s5.seen runs/
+cp data/repro539/est_c539_q11_K7x7_h2-2_s5.jsonl est/c539_q11_K7x7_h2-2_s5.jsonl
+PROD_EREL=5 PROD_NEST=60 PROD_MAXOUT=30000 PROD_L2CAP=3000 python3 -u prod_dedup.py c539_q11_K7x7_h2-2_s5 5 420 "[7,7]" 11 "[[2,2]]" EST 40 10000 60000 60000 sl2
+```
+
+It resumes at round 7 and writes `out/skew_2156_c539_q11_K7x7_h2-2_s5.json`, the certificate of
+[../../skew/2156](../../skew/2156) without the fields `structure` and `subgroup_order`. The slot file itself comes from
+`python3 est_extend.py NAME "[7,7]" 11 "[[2,2]]" 60 SECS 5` and `python3 est_merge.py NAME` (in `est/`). A fresh run of
+`prod_dedup.py` in this mode is not bit-reproducible, since the slot weights use measured times.
 
