@@ -23,7 +23,7 @@ first is of skew type: x₁(0) = 1 and x₁(−g) = −x₁(g) for g ≠ 0. The 
 1² + 29² + 15² + 33² = 2156. `certificate.json` lists the four sequences in full, together with the generating
 automorphisms as integer matrices.
 
-**The matrix.** Let X be the group-developed matrix X[g, h] = x(h − g), and R[g, h] = 1 when g + h = 0. The
+**The matrix.** Let X be the group-developed matrix X[g, h] = x(g − h), and R[g, h] = 1 when g + h = 0. The
 Goethals–Seidel array
 
 ```
@@ -48,7 +48,8 @@ gives a Hadamard matrix of order 2156, and H + Hᵀ = 2I because A + Aᵀ = 2I.
    classes go on), and completes them by the exact level 2 `sl2`. The slot weights come from the Gaussian estimate on
    all 2265 slots of the top energy window (`est_extend.py`, minutes); an earlier run had estimated only 16 of them
    and spent 25 minutes on this shape. The hit came in round 7 of the job with seed base 5 (slot (0, 6, 7, 7) /
-   (0, 3, 4, 4)), after about 49,000 distinct level-2 classes over all jobs of the three K-symmetric shapes of 539.
+   (0, 3, 4, 4), the third-best of 266 by the estimate), after 35,188 distinct level-2 classes over all jobs of the three
+   K-symmetric shapes of 539 (13,334 of them from the earlier run).
 
 **Reproduction.**
 

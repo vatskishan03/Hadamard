@@ -23,7 +23,7 @@ zero at every s ≠ 0. The first is of skew type: x₁(0) = 1 and x₁(−g) = �
 and 1² + 3² + 33² + 1² = 1100. `certificate.json` lists the four sequences in full, together with the generating
 automorphisms as integer matrices.
 
-**The matrix.** Let X be the group-developed matrix X[g, h] = x(h − g), and R[g, h] = 1 when g + h = 0. The
+**The matrix.** Let X be the group-developed matrix X[g, h] = x(g − h), and R[g, h] = 1 when g + h = 0. The
 Goethals–Seidel array
 
 ```

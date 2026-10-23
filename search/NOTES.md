@@ -5728,16 +5728,16 @@ H_K = ⟨(2, 2)⟩ the scalars of order 3: 17 orbits on K, 51 per block, H of or
 15, 33 — [skew/2156](../skew/2156). 539 = 7² · 11 is undecided in the Đoković–Seberry census, so this settles a census
 value; Table 5 had 539(4).
 
-**How it was found.** Round 35 had ranked three K-symmetric shapes of 539 close to the 473 shape of §88 (ℤ₄₉ × F₁₁
-with ⟨18⟩, ℤ₇² × F₁₁ with ⟨(2, 2)⟩ and ⟨(2, 4)⟩), but its slot weights came from Gaussian estimates of 16 sampled
-slots per shape, and the ℤ₇² shapes ran for 25 minutes. `est_extend.py` estimates every one of the 2265 slots of the top
-energy window in minutes; the best slots then scored logE = +0.94 (ℤ₇² with ⟨(2, 2)⟩), +0.81 (ℤ₇², ⟨(2, 4)⟩) and +0.66
-(ℤ₄₉), against +0.67 for the 473 shape with the same tool (whose two hit slots rank 5th and 27th of 128). With these
-weights five seeded jobs of `prod_dedup.py` (level-1 instances reduced modulo the exact symmetries of the K-level
-system) found the matrix after about 49,000 distinct level-2 classes of the three shapes, in round 7 of the job with
-seed base 5, slot (0, 6, 7, 7) split (0, 3, 4, 4) (logE +0.79). Per class the completion rate is about five times
-lower than at 473, whose level-1 spaces are five times smaller (HEURISTIC). The logged state before the hit replays
-the certificate exactly (`search/skewplug/data/repro539`, 11 s).
+**How it was found.** Round 35 had ranked three K-symmetric shapes of 539 close to the 473 shape of §88 (ℤ₄₉ × F₁₁ with
+⟨18⟩, ℤ₇² × F₁₁ with ⟨(2, 2)⟩ and ⟨(2, 4)⟩), but its slot weights came from Gaussian estimates of 16 sampled slots per
+shape, and the ℤ₇² shapes ran for 25 minutes. `est_extend.py` estimates every one of the 2265 slots of the top energy
+window in minutes; the best slots then scored logE = +0.94 (ℤ₇² with ⟨(2, 2)⟩), +0.81 (ℤ₇², ⟨(2, 4)⟩) and +0.66 (ℤ₄₉),
+against +0.67 for the 473 shape with the same tool (whose two hit slots rank 6th and 40th of 161). With these weights
+five seeded jobs of `prod_dedup.py` (level-1 instances reduced modulo the exact symmetries of the K-level system) found
+the matrix after 35,188 distinct level-2 classes of the three shapes (13,334 from round 35), in round 7 of the job with
+seed base 5, slot (0, 6, 7, 7) split (0, 3, 4, 4) (logE +0.79, third of 266). Per class the completion rate is about
+five times lower than at 473, whose level-1 spaces are five times smaller (HEURISTIC). The logged state before the hit
+replays the certificate exactly (`search/skewplug/data/repro539`, 11 s).
 
 **Which shapes the sampler can reach** (HEURISTIC, calibrated on the hits at 473 and 539). A slot needs both
 logE ≳ 0 (expected solution classes) and logρ = logE − logN1 ≳ −8.5 (expected completions per level-1 class); the
