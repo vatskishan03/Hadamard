@@ -21,6 +21,7 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 | [476](476) | 119 = 7 · 17 | ⟨86⟩, order 3 (Paley product with nine w-positions) | 1, −5, 15, −15 | 119(4) | New |
 | [820](820) | 205 = 5 · 41 | ⟨51⟩, order 5 (cyclotomic product of index 8) | 1, 1, −17, −23 | 205(3) | New |
 | [836](836) | 209 = 11 · 19 | ⟨26⟩, order 15 | 1, 9, 15, 23 | 209(4) | New |
+| [980](980) | 245 = 5 · 7², group ℤ₃₅ × ℤ₇ | order 9: ⟨11⟩ (order 3) on ℤ₃₅ and the squares ⟨2⟩ of F₇* (Paley product with a multiplier on ℤ₃₅) | 1, −9, −27, 13 | 245(4) | New |
 | [1012](1012) | 253 = 11 · 23 | ⟨12⟩, order 11 (Paley product) | 1, 5, 19, 25 | 253(4) | New |
 | [1036](1036) | 259 = 7 · 37 | ⟨9⟩, order 9 | 1, 7, 31, 5 | 259(4) | New |
 | [1044](1044) | 261 = 3² · 29 | ⟨190⟩, order 7 (cyclotomic product of index 4) | 1, 9, −1, 31 | 261(3) | New |
@@ -49,6 +50,7 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 | [2452](2452) | 613, prime | ⟨37⟩, order 17 | 1, 1, 35, 35 | 613(3) | New |
 | [2812](2812) | 703 = 19 · 37 | ⟨16, 26⟩, order 27 | 1, 1, 1, 53 | 703(3) | New |
 | [3052](3052) | 763 = 7 · 109 | ⟨9⟩, order 27 | 1, 1, 5, 55 | 763(4) | New |
+| [3124](3124) | 781 = 11 · 71 | ⟨356, 309⟩, order 25 (Paley product with a multiplier on ℤ₇₁) | 1, −51, 9, 21 | 781(3) | New |
 | [3380](3380) | 845 = 5 · 13², group ℤ₅ × GF(169) | ⟨w⁸⟩ on GF(169), order 21 (cyclotomic product of index 8) | 1, 43, −3, −39 | 845(4) | New |
 | [3556](3556) | 889 = 7 · 127 | ⟨2, 25⟩, order 63 | 1, 5, 41, 43 | 889(4) | New |
 | [3612](3612) | 903 = 3 · 7 · 43 | ⟨568⟩, order 21 (Paley product) | 1, 43, 41, −9 | 903(4) | New |
@@ -194,7 +196,7 @@ The orders 3(q + 1) need no search (`search/paley_blocks.py skew q`). The Goetha
 over multiplier structures: exact joins of complete block lists for small structures, exact compression chains
 (`search/chain.py`, run over the census by `search/census_screen.py` and `search/screen_chain.py`), Paley-product and
 cyclotomic-product configurations (`search/paley_config.py`, `search/cyclo_product.py`), the two-level sampler for
-Paley products with many w-positions (`search/skewplug`, for 476, 1540, 1892 and 2156), the quaternary search over negacyclic
+Paley products with many w-positions (`search/skewplug`, for 476, 980, 1540, 1892, 2156 and 3124), the quaternary search over negacyclic
 arrays and its Paley plug-ins (`search/negaskew`, for 1528, 2216, 2392 and 4712), low-energy k-trees on lists too large to store
 (`search/cp_lowe.py`, `search/skew_lowE.py`) and, for 3676, a spin structure (`search/spin_skew.py`). The orthogonal
 designs come from `search/odm_engine.py` and `search/odm_join.py`. [search/NOTES.md](../search/NOTES.md) §10–§16, §20,

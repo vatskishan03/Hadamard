@@ -30,7 +30,7 @@ give a theorem: a skew-Hadamard matrix of order 3(q + 1) exists for every prime 
 | Hadamard, unresolved in Table 4 [3] | [31](#unresolved-orders) | 9 New, 14 New but obtainable classically, 2 First explicit construction, 6 Concurrent |
 | Hadamard, omitted by Table 4 through Seberry–Yamada's Corollary 8.8(i) | [10](hadamard#orders-recorded-only-through-corollary-88i) | First explicit construction |
 | Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 New, 124 New but obtainable classically, 49 First explicit construction |
-| Skew-Hadamard (476 to 14384) | [109](skew) | 45 New, 62 New but obtainable classically, 2 First explicit construction |
+| Skew-Hadamard (476 to 14384) | [111](skew) | 47 New, 62 New but obtainable classically, 2 First explicit construction |
 | Symmetric Hadamard (260 to 9892) | [99](symmetric) | 38 New, 53 New but obtainable classically, 8 Concurrent |
 | Complex Hadamard (214 to 3398) | [19](complex-hadamard) | 5 New, 12 Concurrent, 2 First explicit construction |
 | T-matrices | [97, 109, 197](t-matrices) | New |
@@ -129,12 +129,12 @@ settles the further open orders 5272, 7464, 18344, 36688 and 73376.
   ten that Table 4 omits (2076 to 10444), 6108 and 10180, and 46 beyond Table 4. We give the first valid constructions of all 58
   ([hadamard](hadamard#orders-recorded-only-through-corollary-88i)). The corollary's matrices still give a complex
   Hadamard matrix of order 2q from any quaternary Hadamard matrix of order (q − 1)/2 ([NOTES.md](NOTES.md) §19).
-- **Skew-Hadamard matrices** of 109 orders: Goethals–Seidel difference families with a skew block found by search,
+- **Skew-Hadamard matrices** of 111 orders: Goethals–Seidel difference families with a skew block found by search,
   Goethals–Seidel arrays with negacyclic blocks searched over ℤ[i] (orders 8v: 1528, 2216, 2392, 4712), Seberry's
   theorem with new amicable pairs and orthogonal designs, Wallis's product, and the 3(q + 1) theorem, which settles 52
   values v < 2500 that the Đoković–Seberry census [4] lists as undecided ([skew](skew)). The smallest of these orders
-  is 476 (v = 119, the census's fourth smallest undecided value), from a Paley product with many w-positions; 1540
-  (v = 385) and 2156 (v = 539) come from the same structure with a multiplier on K.
+  is 476 (v = 119, the census's fourth smallest undecided value), from a Paley product with many w-positions; 980
+  (v = 245), 1540 (v = 385), 2156 (v = 539) and 3124 (v = 781) come from the same structure with a multiplier on K.
 - **Symmetric Hadamard matrices** of 99 orders that the census lists as undecided: 260 (v = 65, the census's smallest
   value) from Verma's quaternary Legendre pair of length 64 (2026); 532, 732, 876, 4828 and 5700 from searches and
   plug-in constructions; 48 orders 4q (q ≡ 1 mod 8 a prime power) from Seberry–Yamada's Williamson-type matrices with a

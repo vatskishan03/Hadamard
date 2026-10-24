@@ -334,6 +334,19 @@ order 111, which is therefore New.
 - *Finding.* None gives a skew-Hadamard matrix of order 1540.
 - *Not read.* As for 6796.
 
+**Skew orders 980 and 3124** ([skew/980](skew/980), [skew/3124](skew/3124)). Checked on 24 October 2026:
+- *Tables.* The Đoković–Seberry census (245 and 781 undecided; 245 also on Đoković's list of 2007, arXiv:0706.1973);
+  Cati–Pasechnik Table 5 (245(4), 781(3)) and Table 4 (neither listed, so ordinary Hadamard matrices of orders 980 and
+  3124 are known); SageMath's development source of 21 October 2026 lists 980 among its unknown skew orders.
+- *Classical routes.* Paley I needs 979 = 11 · 89 and 3123 = 3² · 347; the orders 2(q + 1) need q = 489 = 3 · 163 and
+  1561 = 7 · 223; Momihara–Xiang's 2ᵘ⁻¹(qᵉ + 1) would need qᵉ = 489 or 244, and 1561 or 780; Wallis–Whiteman 4(q + 1),
+  Spence 4(q² + q + 1), Turyn and the family 3(q + 1) do not apply; every product of a skew and an amicable order has a
+  factor that is not a Hadamard order.
+- *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (neither order); Middletownbooks/
+  Hadamard; web searches for both orders.
+- *Finding.* None gives a skew-Hadamard matrix of order 980 or 3124.
+- *Not read.* As for 6796.
+
 **Orders 2092, 3732, 4492, 5020 and 5932** (rechecked on 23 October 2026). The survey of Egan, Kotsireas, London and
 Ó Catháin (arXiv:2610.27175, 19 October 2026) states that 3732, 4492, 5020 and 5932 "were found by the present
 authors", by the Goethals–Seidel array with multiplier groups of orders 31, 33, 50 and 39, the groups our matrices use,
