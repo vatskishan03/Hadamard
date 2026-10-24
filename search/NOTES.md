@@ -6126,11 +6126,12 @@ energies with `exh38.py`, in increasing order of their number of level-1 classes
 **The sweep** (HEURISTIC coverage: lists of 60 to 99% of each raw block space, EX_COV). Of the 241 shapes scanned in
 round 38, 35 were inventoried through E_min + 3, 23 through level 0 or 1 or partly at level 0, 76 had no feasible slot
 within a 15 to 40 s cap, and 107 (63 of them q = 3 shapes with 17 or more orbits) were not inventoried. "Level" is the
-energy above the lowest row-sum-feasible one, which for 781, 1057, 1477 and 2317 lies above the lowest energy allowed
-by the identity. 2833 slots were swept (961 enumerable and 395 heavy ones at level 0, 1299 at level 1, 178 at level 2),
-317,775 classes of level-1 instances went to the exact level 2, and 11 completed: the 2 of the control 385, 8 at 245
-and 1 at 781. The control re-found 1540 in the 19th of the 34 enumerable lowest-energy slots of 385, after 474 classes.
-A positive control for non-cyclic K with a matrix H_K (the slot of [skew/1100](../skew/1100)) gave the known matrices.
+energy above the lowest row-sum-feasible one, which for 781, 1057, 1477 and 2317 lies above the lowest energy allowed by
+the identity. 2833 slots were swept (961 enumerable and 395 heavy ones at level 0, 1299 at level 1, 178 at level 2),
+317,775 classes of level-1 instances went to the exact level 2, and 11 completed (133 of them, at 627 and 1539, only
+after a re-run: §94): the 2 of the control 385, 8 at 245 and 1 at 781. The control re-found 1540 in the 19th of the 34
+enumerable lowest-energy slots of 385, after 474 classes. A positive control for non-cyclic K with a matrix H_K (the
+slot of [skew/1100](../skew/1100)) gave the known matrices.
 
 **The hits.**
 - 245 = ℤ₃₅ × F₇ with ⟨11⟩ (group ℤ₃₅ × ℤ₇, not cyclic): the slot (6, 3, 4, 6) / (0, 3, 0, 0) at E = 19, one above
@@ -6181,11 +6182,11 @@ slot count of the sweep is 2833 (a draft said 2755). The Gaussian estimate again
 slots with an estimate: 1228 slots had no class; measured/estimated 0.92 for estimates of 10 to 100 classes, 0.36 for
 100 to 1000, 0.34 for 1000 to 10⁴; 39 of the 950 slots estimated below 0.1 classes had a class (HEURISTIC).
 
-## 94. Rounds 41–42: the remaining skew slots, symmetric propus and complex plug-ins at the lowest energies (October 24)
+## 94. Rounds 41–43: the remaining skew slots, symmetric propus and complex plug-ins at the lowest energies (October 24)
 
-Scratchpad `r41/`, `r42/`. No new matrix. The judges of both rounds did not run (a usage limit stopped them), so the
-verdicts below are those of the searches, with the validations each search ran on its own engine; the code is not yet in
-the repository.
+Scratchpad `r41/`, `r42/`, `r43/`. No new matrix. The judges of rounds 41 and 42 did not run (a usage limit stopped
+them), so their verdicts below are those of the searches, with the validations each search ran on its own engine; the
+code is not yet in the repository.
 
 **Round 41: the rest of the skew census shapes.**
 
@@ -6238,6 +6239,32 @@ B twice, D free, weights (1, 2, 1) in the defect identity; §87 had run H_K = 1 
   slots, 137 are UNKNOWN (identity energy beyond the orbit DP, or the inventory timed out). 32,380 slots of 160 shapes
   swept (32,371 EXHAUSTIVE), 7903 level-1 classes, 0 completions. Not run: about 900 slots of 10 to 100 s each and the
   heavier ones.
+
+**Round 43: a streamed join for the heavy slots.** The best unswept skew slots of rounds 40–41 failed only because one
+block's list (up to 1.2 · 10¹⁰ raw configurations) could not be stored. Round 43 (scratchpad `r43/`) keeps the three
+small blocks in a hash table and streams the heavy block's configurations through an exact spectral filter (Σ_X
+|û_X(ψ)|² = 4|G| at every character ψ of K, so each block has |û(ψ)|² ≤ 4|G| minus the least value of the other blocks),
+at 2.3 · 10⁸ configurations per second, then joins and deduplicates the survivors as before. It needed a new level-2
+solver, `skf4`, that fits under the memory limit.
+
+- *Validation* (VALIDATED; the round's judge re-ran the parts marked). The three hit slots replay class for class with
+  the same matrices (245: 11,812 classes, 3 completions; 385: 100 and 2; 781: 1841 and 1, sha256 of
+  [skew/3124](../skew/3124)) (judge); the class sets equal the stored join's on 15 slots of 10 shapes; the judge's own
+  enumerator gives the same filtered lists for 15 block specifications of up to 1.2 · 10¹⁰ raw configurations and the
+  same 14 and 68 classes on two slots of 707; `skf4` agrees with `skf2` on 3009 instances and with `sl2` on the Z₅₇ and
+  707 shapes.
+- *Results* (EXHAUSTIVE within the engine class, 0 completions). 707 = ℤ₁₀₁ × F₇: the four slots of the lowest energy E
+  = 51 (14, 68, 5731 and 6577 classes; the Gaussian estimate was 10 to 99 times too high) and two slots of E = 53 (1805
+  and 615 classes); 1083 = ℤ₅₇ × F₁₉ and 1159 = ℤ₆₁ × F₁₉: 33 slots, 6 of them with 1 to 21 classes, the others with
+  none. Unfinished: one slot of 707 at E = 56 (2 of 6 patterns, 2851 classes, 0 completions), 1235 [4, 3, 3, 3] (1 of
+  133 patterns) and about 720 queued slots; one slot of 707 at E = 58 exceeds the memory of the cell table (UNKNOWN).
+- *A silent failure, and its correction.* The level-2 solver `skf2` needs about 2.9 GB for one class of the Z₅₇ shapes;
+  in a batch it ran out of memory under `ulimit -v` (exit 3, no output), and `exh38.py` counted the batch as run without
+  completion. In round 40 this hit 627 = ℤ₅₇ × F₁₁ (112 of the 115 classes of the slot [18, 0, 0, 1] / [0, 0, 0, 0]) and
+  1539 = ℤ₅₇ × GF(27) (18 classes in two slots); every other level-2 verdict of rounds 38 and 40 has a result for each
+  class, and round 41 had level-1 classes only at 957. The 133 classes of the three slots were re-run with `skf4` (14 of
+  them also with `sl2`): all decided, 0 completions, so the statements of §93 stand. `skf_io.py` and `sl2io.py` now mark
+  every instance without a result line as L2FAIL.
 
 **Reading** (HEURISTIC). In the skew array the lowest energies gave completions at rates far above the estimates (§93);
 in the propus and plain complex arrays five million classes at the lowest energies gave none. The excess of the skew
