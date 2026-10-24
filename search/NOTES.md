@@ -6037,7 +6037,8 @@ A positive control for non-cyclic K with a matrix H_K (the slot of [skew/1100](.
 **The hits.**
 - 245 = ℤ₃₅ × F₇ with ⟨11⟩ (group ℤ₃₅ × ℤ₇, not cyclic): the slot (6, 3, 4, 6) / (0, 3, 0, 0) at E = 19, one above
   the lowest feasible energy (N_w = 19, N₋ = 3, 8 · 19 − 4 · 3 = 140), holds 11,812 classes, 3 of which complete; other
-  slots of the shape gave six more. Nine skew-Hadamard matrices of order 980 = 4 · 245, pairwise inequivalent as
+  slots of the shape gave six more, and the judge's re-run a seventh (slot (6, 4, 4, 5) / (0, 0, 1, 2), row sums
+  1, 3, 21, 23). Ten skew-Hadamard matrices of order 980 = 4 · 245 (a lower bound), pairwise inequivalent as
   Goethals–Seidel quadruples under Aut(G) and the block symmetries (row sums such as 1, −9, −27, 13 and 1, 3, 31, 3)
   ([skew/980](../skew/980)). 245 is undecided in the census; Table 5 had 245(4).
 - 781 = ℤ₇₁ × F₁₁ with ⟨25⟩ (ℤ₇₈₁ cyclic): the slot (0, 6, 10, 11) / (0, 0, 5, 5) at the lowest feasible energy E = 27
@@ -6045,10 +6046,39 @@ A positive control for non-cyclic K with a matrix H_K (the slot of [skew/1100](.
   1841 classes, 1 completion: a skew-Hadamard matrix of order 3124 = 4 · 781, row sums 1, −51, 9, 21
   ([skew/3124](../skew/3124)). 781 is undecided in the census; Table 5 had 781(3).
 Both slots replay alone in 1 to 3 minutes (`search/skewplug/data/repro245`, `repro781`). An independent judge rebuilt
-all nine matrices of order 980 and both forms of 3124 with its own code (H Hᵀ = nI, H + Hᵀ = 2I, exact), ran
+the nine matrices of order 980 then known and both forms of 3124 with its own code (H Hᵀ = nI, H + Hᵀ = 2I, exact), ran
 `verify.py` on a fresh copy, replayed both slots and redid the novelty checks.
 
 **What the hits say** (HEURISTIC). The three census values settled by the enumerating engine (385, 245, 781) all came
 from the lowest one or two energies of shapes that the Gaussian criterion of §90 rated unreachable (logE −1.5 to −2 at
 their best slots), and at 781 from a slot that the round-38 production had skipped as too heavy. At the lowest energies
 the block pools are small and a class completes with probability 10⁻⁴ to 10⁻², far above the estimates.
+
+**The F1 family at low defect** (second lens of round 40, scratchpad `r40/f1low/`). The quaternary negacyclic plug-in of
+§88 (skew 8v) has no defect pattern in `qp.c`; it was sliced by E, the number of positions of K carrying a defect of
+positive cost (costs F₊ q + 1, Fᵢ q − 1, F₋ q − 3, M₊ (q + 1)/2, M₋ (q − 3)/2, Σ ℓ c = 4|K|). The sliced engine `qpe10`
+reproduces the unsliced counts exactly (299: 13,056; ℤ₃ × F₇: 79,164,864; ℤ₇⟨2⟩ × F₁₁: 3840; ℤ₁₀₁⟨5⟩ × F₇: the level-1
+weight 145,440), and both known hits, 299 and 589, lie at the lowest energy E = 3 (589 is found there in 0.5 s). Over
+1000 (shape, E) slots, lowest first, gave no solution:
+
+- EXACT within the engine class (q prime ≥ 7, K cyclic or ℤ_p², H = H_K × squares, ν ≤ 9): of the 128 census values with
+  shapes, 94 have every shape empty at every feasible energy (among them 943, 1133, 1679, 2189 and 2303), 22 are Paley-I
+  orders, 34 are partial.
+- Partial: 779 = ℤ₄₁⟨10⟩ × F₁₉ (Table 5's 779(10)) is empty at E = 9, 12, 13, 14 (lists up to 4 · 10⁶, 6.5 · 10¹⁰
+  probes) and E = 17 to 19 were not run; 759, 627, 623, 575, 2107, 1387 and 1539 are empty at their lowest slots, while
+  their heavier slots (lists of 10⁶ to 10⁷, 10¹¹ to 10¹² probes) are UNKNOWN. 627 = ℤ₅₇⟨4⟩ × F₁₁ at E = 21 and 1075 at E
+  = 3 were sampled at level 2 only (HEURISTIC).
+- q = 3: the skew list is empty for all 24 shapes with ν = 3, for 1083 and 1587 (ν = 5) and for thirteen shapes with ν =
+  7. For an odd number of orbit pairs there is a parity reason: R_A = w₀ + (1 + i)S with S odd, and |R_A|² ≤ 4|K|q fails
+  for large ℓ; ν = 5 rests on the computation. The other q = 3 shapes (1047, 1527, 1671, 1983, 2271, 597 and nine with ν
+  = 9) need a list builder that treats the zero-cost defects F₋, M₋ as free.
+
+The judge rebuilt `qpe10` against the repository's `qp`, reproduced the validation counts, more than 25 exhaustive-empty
+slots with identical list sizes and probe counts (all slots of 943, those of 779 up to E = 14, 1679, 1133, 2189, 1539 at
+E = 17, the low slots of 759, 627, 623, 575, 1387) and the ν = 3 verdicts with the independent `qskew`. Not rederived:
+the per-value tally, the ν = 5 verdicts beyond the earlier runs (no independent engine) and the level-2 samples.
+
+**Corrections of the round-40 judge.** A re-run of the other slots of 245 gave a tenth matrix of order 980 (above). The
+slot count of the sweep is 2833 (a draft said 2755). The Gaussian estimate against the measurement, over all 1535 swept
+slots with an estimate: 1228 slots had no class; measured/estimated 0.92 for estimates of 10 to 100 classes, 0.36 for
+100 to 1000, 0.34 for 1000 to 10⁴; 39 of the 950 slots estimated below 0.1 classes had a class (HEURISTIC).

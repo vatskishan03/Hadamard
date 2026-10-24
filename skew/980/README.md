@@ -45,10 +45,11 @@ gives a Hadamard matrix of order 980, and H + Hᵀ = 2I because A + Aᵀ = 2I.
    above the lowest row-sum-feasible energy of the shape.
 3. **Engine** (`search/skewplug`, `exh38.py`, NOTES §91). The sweep of round 40 enumerated the lowest-energy slots of
    every open real skew census shape in increasing order of their number of classes. This slot holds 11,812 classes of
-   level-1 instances, and 3 of them complete. Other slots of the shape gave six more matrices, with different row
-   sums or level-1 classes (certificates in `search/skewplug/data/repro245`); the nine quadruples are pairwise
-   inequivalent under the automorphisms of G, translation, reflection and negation of B, C, D and their permutations
-   (matrix-level equivalence not tested).
+   level-1 instances, and 3 of them complete. Other slots of the shape gave seven more matrices, with different row
+   sums or level-1 classes (certificates in `search/skewplug/data/repro245`; the seventh, from the slot
+   (6, 4, 4, 5) / (0, 0, 1, 2) with row sums 1, 3, 21, 23, was found by the judge's re-run). The ten quadruples are
+   pairwise inequivalent under the automorphisms of G, translation, reflection and negation of B, C, D and their
+   permutations (matrix-level equivalence not tested), so ten is a lower bound.
 
 **Reproduction.**
 
