@@ -29,11 +29,22 @@ Settled:
   - n = 1527, 1883 and 2545 by Miyamoto's matrix in sixteen bordered blocks with near-Williamson matrices of 2026,
     times T-matrices ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#near-williamson-matrices)).
 
-**Orders 8p.** Table 4 records n(m), the least m with a known Hadamard matrix of order 2ᵐn; an entry with m ≥ 4 is
-also an open order 8n. Egan, Kotsireas, London and Ó Catháin (Table 5) list six open orders 8p up to 10 000: 4792,
-5752, 5912, 6712, 8248 and 8696 (p = 599, 719, 739, 839, 1031, 1087). Their list differs from Table 4 at four entries: Table 4 has 1087(3), and
-971(6), 1169(4) and 1223(6), whose orders 8n their list does not include. A Hadamard matrix of order 4p settles 8p by doubling; this repository has not
-searched the orders 8p directly.
+**Orders 8p.** Table 4 records n(m), the least m with a known Hadamard matrix of order 2ᵐn; an entry with m ≥ 4 is also
+an open order 8n. Egan, Kotsireas, London and Ó Catháin (Table 5) list six open orders 8p up to 10 000: 4792, 5752,
+5912, 6712, 8248 and 8696 (p = 599, 719, 739, 839, 1031, 1087). Their list differs from Table 4 at four entries: Table 4
+has 1087(3), and 971(6), 1169(4) and 1223(6), whose orders 8n their list does not include. A Hadamard matrix of order 4p
+settles 8p by doubling. [search/NOTES.md](search/NOTES.md) §92 searches the orders 8p directly
+([search/eightp](search/eightp/README.md)), and no matrix was found:
+- the plain Goethals–Seidel and negacyclic structures over ℤ₂ₚ and ℤ_p are dead, except for multiplier groups with at
+  least 2⁹⁴ sign vectors per block;
+- none of the recursive theorems listed in the survey applies;
+- Spence's construction also works over a group of odd order 2p − 1. There the Paley plug-in shapes with at most 20
+  orbits are all dead at p = 719, 1031 and 1087, and 14 shapes at p = 599, 719, 739 and 1031 are exhaustively empty;
+- the plain cyclic structures with at most 22 orbits (24 for v = 1197, 1477, 1677) and the block-symmetric ones with at
+  most 30 orbits are empty.
+
+What remains are the plug-in shapes with 8 to 21 orbits at p = 599, 739 and 839 (about 10⁶ CPU-seconds each by the
+model) and larger structures.
 
 **Corollary 8.8(i).** Đoković (arXiv:1008.2043, Propositions 3.2–3.4) also claimed n = 1527, 2545 and 2571, through
 Williamson-type matrices of orders 509 and 857 that Seberry–Yamada's Corollary 8.8(i) would give. Its printed proof

@@ -49,3 +49,19 @@ search/negaskew/spin/qspin
 search/negaskew/spin/qspin_fast
 search/negaskew/octic/oskew
 search/negaskew/octic/exsmall
+# recorded verdict logs are data, not run output
+!search/eightp/data/**/*.log
+!search/negaskew/tri/data/*.log
+search/eightp/gs/libgl1.so
+search/eightp/gs/gl2_*
+search/eightp/gs/runs/
+search/eightp/gs/tmp/
+search/eightp/gs/out/
+search/eightp/gs/work/
+search/eightp/gs/repo_copy/
+search/eightp/spin/spin3
+search/eightp/spin/spinD
+search/eightp/*/runs/
+search/negaskew/tri/tri_join
+search/negaskew/tri/tri2
+search/negaskew/tri/runs/

@@ -1,0 +1,6 @@
+v = 1437: 10 subgroups of Z_v^*, 5 with 2 <= orbits <= 22
+{'v': 1437, 'O': 4, 'h': 956, 'gens': [1, 2, 4], 'classes': 3, 'L': 0, 'status': 'noL'}
+{'v': 1437, 'O': 5, 'h': 478, 'gens': [1, 4, 7], 'classes': 4, 'L': 0, 'status': 'noL'}
+{'v': 1437, 'O': 6, 'h': 478, 'gens': [1, 2, 4], 'classes': 3, 'L': 4, 'Lu': 2, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 1437, 'O': 6, 'h': 478, 'gens': [1, 4, 7], 'classes': 3, 'L': 0, 'status': 'noL'}
+{'v': 1437, 'O': 9, 'h': 239, 'gens': [1, 4, 7], 'classes': 4, 'L': 60, 'Lu': 9, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}

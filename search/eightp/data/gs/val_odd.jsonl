@@ -1,0 +1,166 @@
+{"K": [3], "r": 3, "hg": [], "Gsz": 9, "nu": 3, "G_count": 100147104, "K_count": 100147104, "exhaustive": true, "status": "MATCH"}
+{"K": [3], "r": 3, "hg": [[[2], 1]], "Gsz": 9, "nu": 2, "G_count": 7776, "K_count": 7776, "exhaustive": true, "status": "MATCH"}
+{"K": [3], "r": 3, "hg": [[[2], -1]], "Gsz": 9, "nu": 2, "G_count": 1440, "K_count": 1440, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 3, "hg": [], "Gsz": 15, "nu": 5, "G_count": 3214397520000, "K_count": 10087680000, "exhaustive": false, "status": "partial"}
+{"K": [3], "r": 5, "hg": [], "Gsz": 15, "nu": 3, "G_count": 518400, "K_count": 518400, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 3, "hg": [[[2], 1]], "Gsz": 15, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 3, "hg": [[[2], -1]], "Gsz": 15, "nu": 2, "G_count": 256, "K_count": 256, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 3, "hg": [[[4], 1]], "Gsz": 15, "nu": 3, "G_count": 518400, "K_count": 518400, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 3, "hg": [[[4], -1]], "Gsz": 15, "nu": 3, "G_count": 384, "K_count": 384, "exhaustive": true, "status": "MATCH"}
+{"K": [3], "r": 5, "hg": [[[2], 1]], "Gsz": 15, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3], "r": 5, "hg": [[[2], -1]], "Gsz": 15, "nu": 2, "G_count": 256, "K_count": 256, "exhaustive": true, "status": "MATCH"}
+{"K": [3], "r": 7, "hg": [], "Gsz": 21, "nu": 3, "G_count": 995328, "K_count": 995328, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 3, "hg": [[[2], 1]], "Gsz": 21, "nu": 3, "G_count": 995328, "K_count": 995328, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 3, "hg": [[[3], 1]], "Gsz": 21, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 3, "hg": [[[3], -1]], "Gsz": 21, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 3, "hg": [[[6], 1]], "Gsz": 21, "nu": 4, "G_count": 30233088, "K_count": 30233088, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 3, "hg": [[[6], -1]], "Gsz": 21, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3], "r": 7, "hg": [[[2], 1]], "Gsz": 21, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3], "r": 7, "hg": [[[2], -1]], "Gsz": 21, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 5, "hg": [], "Gsz": 25, "nu": 5, "G_count": 6117960000, "K_count": 2077920000, "exhaustive": false, "status": "partial"}
+{"K": [5], "r": 5, "hg": [[[2], 1]], "Gsz": 25, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 5, "hg": [[[2], -1]], "Gsz": 25, "nu": 2, "G_count": 576, "K_count": 576, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 5, "hg": [[[4], 1]], "Gsz": 25, "nu": 3, "G_count": 1344, "K_count": 1344, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 5, "hg": [[[4], -1]], "Gsz": 25, "nu": 3, "G_count": 15360, "K_count": 15360, "exhaustive": true, "status": "MATCH"}
+{"K": [3], "r": 9, "hg": [], "Gsz": 27, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [9], "r": 3, "hg": [[[2], 1]], "Gsz": 27, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [9], "r": 3, "hg": [[[2], -1]], "Gsz": 27, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [9], "r": 3, "hg": [[[4], 1]], "Gsz": 27, "nu": 5, "G_count": 0, "K_count": 0, "exhaustive": false, "status": "partial"}
+{"K": [9], "r": 3, "hg": [[[8], 1]], "Gsz": 27, "nu": 5, "G_count": 139097088, "K_count": 139097088, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 3, "hg": [[[1, 2], -1]], "Gsz": 27, "nu": 6, "G_count": 642235392, "K_count": 59719680, "exhaustive": false, "status": "partial"}
+{"K": [3, 3], "r": 3, "hg": [[[2, 1], -1]], "Gsz": 27, "nu": 6, "G_count": 642235392, "K_count": 59719680, "exhaustive": false, "status": "partial"}
+{"K": [3, 3], "r": 3, "hg": [[[2, 2], 1]], "Gsz": 27, "nu": 5, "G_count": 642235392, "K_count": 553850880, "exhaustive": false, "status": "partial"}
+{"K": [3], "r": 9, "hg": [[[2], 1]], "Gsz": 27, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3], "r": 9, "hg": [[[2], -1]], "Gsz": 27, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 3, "hg": [[[1, 2], 1], [[2, 1], 1]], "Gsz": 27, "nu": 4, "G_count": 373248, "K_count": 373248, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 3, "hg": [[[1, 2], 1], [[2, 1], -1]], "Gsz": 27, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 3, "hg": [[[1, 2], -1], [[2, 1], 1]], "Gsz": 27, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 3, "hg": [[[1, 2], -1], [[2, 1], -1]], "Gsz": 27, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [11], "r": 3, "hg": [[[2], 1]], "Gsz": 33, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [11], "r": 3, "hg": [[[2], -1]], "Gsz": 33, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [11], "r": 3, "hg": [[[3], 1]], "Gsz": 33, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 7, "hg": [], "Gsz": 35, "nu": 5, "G_count": 741520000, "K_count": 741520000, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 5, "hg": [[[2], 1]], "Gsz": 35, "nu": 3, "G_count": 256, "K_count": 256, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 5, "hg": [[[3], 1]], "Gsz": 35, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 5, "hg": [[[3], -1]], "Gsz": 35, "nu": 2, "G_count": 256, "K_count": 256, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 5, "hg": [[[6], 1]], "Gsz": 35, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 5, "hg": [[[6], -1]], "Gsz": 35, "nu": 4, "G_count": 37120, "K_count": 37120, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 7, "hg": [[[2], 1]], "Gsz": 35, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 7, "hg": [[[2], -1]], "Gsz": 35, "nu": 2, "G_count": 256, "K_count": 256, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 7, "hg": [[[4], 1]], "Gsz": 35, "nu": 3, "G_count": 256, "K_count": 256, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 7, "hg": [[[4], -1]], "Gsz": 35, "nu": 3, "G_count": 384, "K_count": 384, "exhaustive": true, "status": "MATCH"}
+{"K": [13], "r": 3, "hg": [[[2], 1]], "Gsz": 39, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [13], "r": 3, "hg": [[[2], -1]], "Gsz": 39, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [13], "r": 3, "hg": [[[3], 1]], "Gsz": 39, "nu": 5, "G_count": 4533719040, "K_count": 455768064, "exhaustive": false, "status": "partial"}
+{"K": [13], "r": 3, "hg": [[[4], 1]], "Gsz": 39, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [13], "r": 3, "hg": [[[4], -1]], "Gsz": 39, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [13], "r": 3, "hg": [[[5], 1]], "Gsz": 39, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [13], "r": 3, "hg": [[[5], -1]], "Gsz": 39, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 9, "hg": [], "Gsz": 45, "nu": 5, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 3, "hg": [[[2], 1]], "Gsz": 45, "nu": 5, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 3, "hg": [[[2], -1]], "Gsz": 45, "nu": 5, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 3, "hg": [[[7], -1]], "Gsz": 45, "nu": 6, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 3, "hg": [[[2, 1], -1]], "Gsz": 45, "nu": 6, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 3, "hg": [[[2, 2], 1]], "Gsz": 45, "nu": 5, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 3, "hg": [[[2, 2], -1]], "Gsz": 45, "nu": 5, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [9], "r": 5, "hg": [[[2], 1]], "Gsz": 45, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [9], "r": 5, "hg": [[[2], -1]], "Gsz": 45, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [9], "r": 5, "hg": [[[4], 1]], "Gsz": 45, "nu": 5, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [9], "r": 5, "hg": [[[8], -1]], "Gsz": 45, "nu": 5, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 5, "hg": [[[1, 2], -1]], "Gsz": 45, "nu": 6, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 5, "hg": [[[2, 1], -1]], "Gsz": 45, "nu": 6, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 5, "hg": [[[2, 2], -1]], "Gsz": 45, "nu": 5, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 9, "hg": [[[2], 1]], "Gsz": 45, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 9, "hg": [[[2], -1]], "Gsz": 45, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 9, "hg": [[[4], 1]], "Gsz": 45, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5], "r": 9, "hg": [[[4], -1]], "Gsz": 45, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 3, "hg": [[[2], 1], [[7], 1]], "Gsz": 45, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 3, "hg": [[[2], 1], [[7], -1]], "Gsz": 45, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 3, "hg": [[[2], -1], [[7], 1]], "Gsz": 45, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 3, "hg": [[[2], -1], [[7], -1]], "Gsz": 45, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 3, "hg": [[[4], -1], [[11], -1]], "Gsz": 45, "nu": 6, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 3, "hg": [[[1, 2], 1], [[2, 1], 1]], "Gsz": 45, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 3, "hg": [[[1, 2], 1], [[2, 1], -1]], "Gsz": 45, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 3, "hg": [[[1, 2], -1], [[2, 1], 1]], "Gsz": 45, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 3, "hg": [[[1, 2], -1], [[2, 1], -1]], "Gsz": 45, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 3, "hg": [[[1, 2], -1], [[4, 1], -1]], "Gsz": 45, "nu": 6, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 5, "hg": [[[1, 2], 1], [[2, 1], 1]], "Gsz": 45, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 5, "hg": [[[1, 2], 1], [[2, 1], -1]], "Gsz": 45, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 5, "hg": [[[1, 2], -1], [[2, 1], 1]], "Gsz": 45, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 5, "hg": [[[1, 2], -1], [[2, 1], -1]], "Gsz": 45, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 7, "hg": [[[2], 1]], "Gsz": 49, "nu": 3, "G_count": 43584, "K_count": 43584, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 7, "hg": [[[3], 1]], "Gsz": 49, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 7, "hg": [[[3], -1]], "Gsz": 49, "nu": 2, "G_count": 576, "K_count": 576, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 7, "hg": [[[6], 1]], "Gsz": 49, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 7, "hg": [[[6], -1]], "Gsz": 49, "nu": 4, "G_count": 5184, "K_count": 5184, "exhaustive": true, "status": "MATCH"}
+{"K": [11], "r": 5, "hg": [[[2], 1]], "Gsz": 55, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [11], "r": 5, "hg": [[[2], -1]], "Gsz": 55, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [11], "r": 5, "hg": [[[3], 1]], "Gsz": 55, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [9], "r": 7, "hg": [[[2], 1]], "Gsz": 63, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [9], "r": 7, "hg": [[[2], -1]], "Gsz": 63, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [9], "r": 7, "hg": [[[4], 1]], "Gsz": 63, "nu": 5, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 7, "hg": [[[1, 2], -1]], "Gsz": 63, "nu": 6, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 7, "hg": [[[2, 1], -1]], "Gsz": 63, "nu": 6, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 9, "hg": [[[2], 1]], "Gsz": 63, "nu": 3, "G_count": 256, "K_count": 256, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 9, "hg": [[[3], 1]], "Gsz": 63, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 9, "hg": [[[3], -1]], "Gsz": 63, "nu": 2, "G_count": 256, "K_count": 256, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 9, "hg": [[[6], 1]], "Gsz": 63, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [7], "r": 9, "hg": [[[6], -1]], "Gsz": 63, "nu": 4, "G_count": 6400, "K_count": 6400, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 7, "hg": [[[1, 2], 1], [[2, 1], 1]], "Gsz": 63, "nu": 4, "G_count": 256, "K_count": 256, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 7, "hg": [[[1, 2], 1], [[2, 1], -1]], "Gsz": 63, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 7, "hg": [[[1, 2], -1], [[2, 1], 1]], "Gsz": 63, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 7, "hg": [[[1, 2], -1], [[2, 1], -1]], "Gsz": 63, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [13], "r": 5, "hg": [[[2], 1]], "Gsz": 65, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [13], "r": 5, "hg": [[[2], -1]], "Gsz": 65, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [13], "r": 5, "hg": [[[4], 1]], "Gsz": 65, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [13], "r": 5, "hg": [[[4], -1]], "Gsz": 65, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [13], "r": 5, "hg": [[[5], 1]], "Gsz": 65, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [13], "r": 5, "hg": [[[5], -1]], "Gsz": 65, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 5, "hg": [[[2], -1]], "Gsz": 75, "nu": 5, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 5, "hg": [[[7], -1]], "Gsz": 75, "nu": 6, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 5, "hg": [[[2, 1], -1]], "Gsz": 75, "nu": 6, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 5, "hg": [[[2, 2], -1]], "Gsz": 75, "nu": 5, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 5, "hg": [[[2], 1], [[7], 1]], "Gsz": 75, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 5, "hg": [[[2], 1], [[7], -1]], "Gsz": 75, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 5, "hg": [[[2], -1], [[7], 1]], "Gsz": 75, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 5, "hg": [[[2], -1], [[7], -1]], "Gsz": 75, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 5, "hg": [[[1, 2], 1], [[2, 1], 1]], "Gsz": 75, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 5, "hg": [[[1, 2], 1], [[2, 1], -1]], "Gsz": 75, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 5, "hg": [[[1, 2], -1], [[2, 1], 1]], "Gsz": 75, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 5, "hg": [[[1, 2], -1], [[2, 1], -1]], "Gsz": 75, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [11], "r": 7, "hg": [[[2], 1]], "Gsz": 77, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [11], "r": 7, "hg": [[[2], -1]], "Gsz": 77, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [11], "r": 7, "hg": [[[3], 1]], "Gsz": 77, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [9], "r": 9, "hg": [[[2], 1]], "Gsz": 81, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [9], "r": 9, "hg": [[[2], -1]], "Gsz": 81, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [9], "r": 9, "hg": [[[4], 1]], "Gsz": 81, "nu": 5, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [9], "r": 9, "hg": [[[8], -1]], "Gsz": 81, "nu": 5, "G_count": 147456, "K_count": 147456, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 9, "hg": [[[1, 2], -1]], "Gsz": 81, "nu": 6, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 9, "hg": [[[2, 1], -1]], "Gsz": 81, "nu": 6, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 9, "hg": [[[2, 2], -1]], "Gsz": 81, "nu": 5, "G_count": 589824, "K_count": 589824, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 9, "hg": [[[1, 2], 1], [[2, 1], 1]], "Gsz": 81, "nu": 4, "G_count": 576, "K_count": 576, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 9, "hg": [[[1, 2], 1], [[2, 1], -1]], "Gsz": 81, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 9, "hg": [[[1, 2], -1], [[2, 1], 1]], "Gsz": 81, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [3, 3], "r": 9, "hg": [[[1, 2], -1], [[2, 1], -1]], "Gsz": 81, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [13], "r": 7, "hg": [[[2], 1]], "Gsz": 91, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [13], "r": 7, "hg": [[[2], -1]], "Gsz": 91, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [13], "r": 7, "hg": [[[4], 1]], "Gsz": 91, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [13], "r": 7, "hg": [[[4], -1]], "Gsz": 91, "nu": 3, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [13], "r": 7, "hg": [[[5], 1]], "Gsz": 91, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [13], "r": 7, "hg": [[[5], -1]], "Gsz": 91, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [11], "r": 9, "hg": [[[2], 1]], "Gsz": 99, "nu": 2, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [11], "r": 9, "hg": [[[2], -1]], "Gsz": 99, "nu": 2, "G_count": 256, "K_count": 256, "exhaustive": true, "status": "MATCH"}
+{"K": [11], "r": 9, "hg": [[[3], 1]], "Gsz": 99, "nu": 3, "G_count": 256, "K_count": 256, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 7, "hg": [[[2], -1]], "Gsz": 105, "nu": 5, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 7, "hg": [[[7], -1]], "Gsz": 105, "nu": 6, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 7, "hg": [[[2, 1], -1]], "Gsz": 105, "nu": 6, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 7, "hg": [[[2, 2], -1]], "Gsz": 105, "nu": 5, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 7, "hg": [[[2], 1], [[7], 1]], "Gsz": 105, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 7, "hg": [[[2], 1], [[7], -1]], "Gsz": 105, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 7, "hg": [[[2], -1], [[7], 1]], "Gsz": 105, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 7, "hg": [[[2], -1], [[7], -1]], "Gsz": 105, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [15], "r": 7, "hg": [[[4], -1], [[11], -1]], "Gsz": 105, "nu": 6, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 7, "hg": [[[1, 2], 1], [[2, 1], 1]], "Gsz": 105, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 7, "hg": [[[1, 2], 1], [[2, 1], -1]], "Gsz": 105, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 7, "hg": [[[1, 2], -1], [[2, 1], 1]], "Gsz": 105, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}
+{"K": [5, 3], "r": 7, "hg": [[[1, 2], -1], [[2, 1], -1]], "Gsz": 105, "nu": 4, "G_count": 0, "K_count": 0, "exhaustive": true, "status": "MATCH"}

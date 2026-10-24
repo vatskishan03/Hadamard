@@ -1,0 +1,716 @@
+tau-feasible allocation tokens: 557
+row patterns for (0, 0, 0, 13) (0, 0, 0, 3): 1 (1s)
+[1s] alloc (0, 0, 0, 13) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 1, 12) (0, 0, 1, 2): 1 (1s)
+[2s] alloc (0, 0, 1, 12) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 2, 11) (0, 0, 0, 3): 2 (1s)
+[3s] alloc (0, 0, 2, 11) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 2, 11) (0, 0, 2, 1): 2 (0s)
+[4s] alloc (0, 0, 2, 11) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 3, 10) (0, 0, 1, 2): 1 (1s)
+[4s] alloc (0, 0, 3, 10) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 4, 9) (0, 0, 0, 3): 1 (1s)
+[5s] alloc (0, 0, 4, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 4, 9) (0, 0, 2, 1): 1 (1s)
+[6s] alloc (0, 0, 4, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 5, 8) (0, 0, 1, 2): 2 (1s)
+[7s] alloc (0, 0, 5, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 6, 7) (0, 0, 0, 3): 1 (1s)
+[8s] alloc (0, 0, 6, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 6, 7) (0, 0, 2, 1): 3 (1s)
+[8s] alloc (0, 0, 6, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 1, 11) (0, 0, 0, 3): 1 (1s)
+[9s] alloc (0, 1, 1, 11) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 1, 11) (0, 0, 1, 2): 1 (1s)
+[10s] alloc (0, 1, 1, 11) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 3, 9) (0, 0, 0, 3): 1 (1s)
+[11s] alloc (0, 1, 3, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 3, 9) (0, 0, 1, 2): 1 (0s)
+[11s] alloc (0, 1, 3, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 3, 9) (0, 0, 2, 1): 2 (0s)
+[11s] alloc (0, 1, 3, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 3, 9) (0, 0, 3, 0): 2 (0s)
+[12s] alloc (0, 1, 3, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 5, 7) (0, 0, 0, 3): 3 (0s)
+[12s] alloc (0, 1, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 5, 7) (0, 0, 1, 2): 3 (1s)
+[13s] alloc (0, 1, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 5, 7) (0, 0, 2, 1): 3 (1s)
+[14s] alloc (0, 1, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 5, 7) (0, 0, 3, 0): 3 (0s)
+[14s] alloc (0, 1, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 1, 11) (0, 1, 1, 1): 1 (0s)
+[15s] alloc (0, 1, 1, 11) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 2, 10) (0, 1, 0, 2): 2 (1s)
+[15s] alloc (0, 1, 2, 10) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 3, 9) (0, 1, 1, 1): 2 (0s)
+[16s] alloc (0, 1, 3, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 3, 9) (0, 1, 2, 0): 2 (0s)
+[16s] alloc (0, 1, 3, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 4, 8) (0, 1, 0, 2): 1 (0s)
+[17s] alloc (0, 1, 4, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 5, 7) (0, 1, 0, 2): 3 (1s)
+[17s] alloc (0, 1, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 5, 7) (0, 1, 1, 1): 3 (1s)
+[18s] alloc (0, 1, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 5, 7) (0, 1, 2, 0): 3 (1s)
+[18s] alloc (0, 1, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 6, 6) (0, 1, 0, 2): 2 (1s)
+[19s] alloc (0, 1, 6, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 2, 9) (0, 0, 2, 1): 4 (0s)
+[19s] alloc (0, 2, 2, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 3, 8) (0, 0, 1, 2): 3 (1s)
+[20s] alloc (0, 2, 3, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 4, 7) (0, 0, 0, 3): 3 (1s)
+[21s] alloc (0, 2, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 4, 7) (0, 0, 2, 1): 3 (0s)
+[21s] alloc (0, 2, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 5, 6) (0, 0, 1, 2): 4 (1s)
+[22s] alloc (0, 2, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 5, 6) (0, 0, 3, 0): 2 (0s)
+[22s] alloc (0, 2, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 4, 7) (0, 2, 0, 1): 3 (0s)
+[23s] alloc (0, 2, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 5, 6) (0, 2, 1, 0): 2 (0s)
+[23s] alloc (0, 2, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 3, 7) (0, 0, 0, 3): 3 (0s)
+[23s] alloc (0, 3, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 3, 7) (0, 0, 1, 2): 4 (1s)
+[24s] alloc (0, 3, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 3, 7) (0, 0, 2, 1): 4 (1s)
+[25s] alloc (0, 3, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 3, 7) (0, 0, 3, 0): 4 (0s)
+[25s] alloc (0, 3, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 5, 5) (0, 0, 0, 3): 4 (1s)
+[26s] alloc (0, 3, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 5, 5) (0, 0, 1, 2): 4 (1s)
+[26s] alloc (0, 3, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 3, 7) (0, 1, 1, 1): 3 (0s)
+[27s] alloc (0, 3, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 3, 7) (0, 1, 2, 0): 4 (0s)
+[27s] alloc (0, 3, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 4, 6) (0, 1, 0, 2): 3 (1s)
+[28s] alloc (0, 3, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 4, 6) (0, 1, 2, 0): 1 (1s)
+[28s] alloc (0, 3, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 5, 5) (0, 1, 0, 2): 4 (1s)
+[29s] alloc (0, 3, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 5, 5) (0, 1, 1, 1): 3 (0s)
+[30s] alloc (0, 3, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 5, 5) (0, 2, 0, 1): 4 (0s)
+[30s] alloc (0, 3, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 4, 6) (0, 3, 0, 0): 1 (0s)
+[30s] alloc (0, 3, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 5, 5) (0, 3, 0, 0): 3 (0s)
+[31s] alloc (0, 3, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 4, 4, 5) (0, 0, 0, 3): 2 (1s)
+[31s] alloc (0, 4, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 4, 4, 5) (0, 0, 2, 1): 2 (1s)
+[32s] alloc (0, 4, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 1, 10) (0, 0, 1, 2): 1 (1s)
+[33s] alloc (1, 1, 1, 10) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 2, 9) (0, 0, 2, 1): 2 (1s)
+[34s] alloc (1, 1, 2, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 3, 8) (0, 0, 1, 2): 2 (1s)
+[35s] alloc (1, 1, 3, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 4, 7) (0, 0, 0, 3): 2 (1s)
+[36s] alloc (1, 1, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 4, 7) (0, 0, 2, 1): 2 (0s)
+[36s] alloc (1, 1, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 5, 6) (0, 0, 1, 2): 2 (1s)
+[37s] alloc (1, 1, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 5, 6) (0, 0, 3, 0): 1 (1s)
+[37s] alloc (1, 1, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 2, 9) (0, 1, 2, 0): 2 (0s)
+[38s] alloc (1, 1, 2, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 3, 8) (0, 1, 0, 2): 2 (1s)
+[38s] alloc (1, 1, 3, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 4, 7) (0, 1, 0, 2): 2 (1s)
+[39s] alloc (1, 1, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 4, 7) (0, 1, 2, 0): 2 (0s)
+[39s] alloc (1, 1, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 5, 6) (0, 1, 0, 2): 2 (1s)
+[40s] alloc (1, 1, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 5, 6) (0, 1, 2, 0): 1 (0s)
+[40s] alloc (1, 1, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 3, 7) (0, 0, 0, 3): 2 (1s)
+[41s] alloc (1, 2, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 3, 7) (0, 0, 1, 2): 2 (1s)
+[42s] alloc (1, 2, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 3, 7) (0, 0, 2, 1): 2 (0s)
+[42s] alloc (1, 2, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 3, 7) (0, 0, 3, 0): 2 (0s)
+[42s] alloc (1, 2, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 5, 5) (0, 0, 0, 3): 2 (0s)
+[43s] alloc (1, 2, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 5, 5) (0, 0, 1, 2): 2 (1s)
+[43s] alloc (1, 2, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 3, 7) (0, 2, 0, 1): 2 (0s)
+[44s] alloc (1, 2, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 3, 7) (0, 2, 1, 0): 2 (0s)
+[44s] alloc (1, 2, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 5, 5) (0, 2, 0, 1): 2 (0s)
+[45s] alloc (1, 2, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 3, 6) (0, 0, 1, 2): 2 (0s)
+[45s] alloc (1, 3, 3, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 3, 6) (0, 0, 3, 0): 1 (0s)
+[46s] alloc (1, 3, 3, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 5) (0, 0, 0, 3): 3 (1s)
+[46s] alloc (1, 3, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 5) (0, 0, 2, 1): 3 (1s)
+[47s] alloc (1, 3, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 3, 6) (0, 1, 2, 0): 1 (0s)
+[47s] alloc (1, 3, 3, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 5) (0, 1, 0, 2): 3 (1s)
+[48s] alloc (1, 3, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 5) (0, 1, 2, 0): 3 (0s)
+[48s] alloc (1, 3, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 5) (0, 2, 0, 1): 3 (1s)
+[49s] alloc (1, 3, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 5) (0, 3, 0, 0): 3 (0s)
+[49s] alloc (1, 3, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 2, 9) (1, 1, 0, 1): 2 (1s)
+[50s] alloc (1, 1, 2, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 4, 7) (1, 1, 0, 1): 2 (0s)
+[50s] alloc (1, 1, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 2, 8) (1, 0, 0, 2): 3 (1s)
+[51s] alloc (1, 2, 2, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 3, 7) (1, 0, 0, 2): 2 (1s)
+[52s] alloc (1, 2, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 3, 7) (1, 0, 1, 1): 2 (0s)
+[52s] alloc (1, 2, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 3, 7) (1, 0, 2, 0): 2 (0s)
+[52s] alloc (1, 2, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 4, 6) (1, 0, 0, 2): 4 (1s)
+[53s] alloc (1, 2, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 4, 6) (1, 0, 2, 0): 2 (0s)
+[53s] alloc (1, 2, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 5, 5) (1, 0, 0, 2): 2 (0s)
+[54s] alloc (1, 2, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 5, 5) (1, 0, 1, 1): 2 (0s)
+[54s] alloc (1, 2, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 3, 7) (1, 2, 0, 0): 2 (0s)
+[54s] alloc (1, 2, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 4, 6) (1, 2, 0, 0): 2 (0s)
+[55s] alloc (1, 2, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 5, 5) (1, 2, 0, 0): 2 (0s)
+[55s] alloc (1, 2, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 3, 6) (1, 0, 0, 2): 2 (0s)
+[55s] alloc (1, 3, 3, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 3, 6) (1, 0, 2, 0): 1 (0s)
+[56s] alloc (1, 3, 3, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 5) (1, 0, 0, 2): 3 (0s)
+[56s] alloc (1, 3, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 5) (1, 0, 2, 0): 3 (0s)
+[56s] alloc (1, 3, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 3, 6) (1, 1, 1, 0): 1 (0s)
+[57s] alloc (1, 3, 3, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 5) (1, 1, 0, 1): 3 (0s)
+[57s] alloc (1, 3, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 5) (1, 2, 0, 0): 3 (0s)
+[57s] alloc (1, 3, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 4, 4, 4) (1, 0, 0, 2): 1 (0s)
+[58s] alloc (1, 4, 4, 4) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 2, 7) (0, 0, 0, 3): 3 (1s)
+[58s] alloc (2, 2, 2, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 2, 7) (0, 0, 2, 1): 5 (1s)
+[59s] alloc (2, 2, 2, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 3, 6) (0, 0, 1, 2): 5 (0s)
+[59s] alloc (2, 2, 3, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 3, 6) (0, 0, 3, 0): 2 (1s)
+[60s] alloc (2, 2, 3, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 4, 5) (0, 0, 0, 3): 3 (0s)
+[60s] alloc (2, 2, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 4, 5) (0, 0, 2, 1): 3 (0s)
+[61s] alloc (2, 2, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 3, 6) (0, 2, 1, 0): 3 (0s)
+[61s] alloc (2, 2, 3, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 4, 5) (0, 2, 0, 1): 4 (1s)
+[62s] alloc (2, 2, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 3, 3, 5) (0, 0, 0, 3): 2 (0s)
+[62s] alloc (2, 3, 3, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 3, 3, 5) (0, 0, 1, 2): 2 (0s)
+[62s] alloc (2, 3, 3, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 3, 3, 5) (0, 0, 2, 1): 2 (0s)
+[63s] alloc (2, 3, 3, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 3, 3, 5) (0, 0, 3, 0): 2 (0s)
+[63s] alloc (2, 3, 3, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 3, 3, 5) (0, 1, 1, 1): 2 (0s)
+[63s] alloc (2, 3, 3, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 3, 3, 5) (0, 1, 2, 0): 2 (0s)
+[63s] alloc (2, 3, 3, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 3, 4, 4) (0, 1, 0, 2): 3 (1s)
+[64s] alloc (2, 3, 4, 4) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 3, 4, 4) (0, 3, 0, 0): 3 (0s)
+[64s] alloc (2, 3, 4, 4) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 3, 3, 5) (2, 0, 0, 1): 2 (0s)
+[65s] alloc (2, 3, 3, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 3, 3, 5) (2, 0, 1, 0): 2 (0s)
+[65s] alloc (2, 3, 3, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 3, 4, 4) (2, 1, 0, 0): 3 (0s)
+[65s] alloc (2, 3, 4, 4) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (3, 3, 3, 4) (0, 0, 1, 2): 3 (0s)
+[66s] alloc (3, 3, 3, 4) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (3, 3, 3, 4) (0, 0, 3, 0): 3 (0s)
+[66s] alloc (3, 3, 3, 4) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (3, 3, 3, 4) (0, 1, 2, 0): 4 (0s)
+[67s] alloc (3, 3, 3, 4) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (3, 3, 3, 4) (1, 1, 1, 0): 2 (1s)
+[67s] alloc (3, 3, 3, 4) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 0, 14) (0, 0, 0, 8): 1 (2s)
+[69s] alloc (0, 0, 0, 14) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 1, 13) (0, 0, 0, 8): 2 (2s)
+[71s] alloc (0, 0, 1, 13) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 1, 13) (0, 0, 1, 7): 1 (2s)
+[73s] alloc (0, 0, 1, 13) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 3, 11) (0, 0, 0, 8): 1 (1s)
+[74s] alloc (0, 0, 3, 11) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 3, 11) (0, 0, 1, 7): 1 (1s)
+[76s] alloc (0, 0, 3, 11) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 3, 11) (0, 0, 2, 6): 1 (1s)
+[77s] alloc (0, 0, 3, 11) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 3, 11) (0, 0, 3, 5): 2 (1s)
+[78s] alloc (0, 0, 3, 11) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 4, 10) (0, 0, 0, 8): 1 (1s)
+[79s] alloc (0, 0, 4, 10) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 4, 10) (0, 0, 2, 6): 2 (1s)
+[81s] alloc (0, 0, 4, 10) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 4, 10) (0, 0, 4, 4): 2 (1s)
+[82s] alloc (0, 0, 4, 10) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 5, 9) (0, 0, 0, 8): 3 (1s)
+[83s] alloc (0, 0, 5, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 5, 9) (0, 0, 1, 7): 1 (1s)
+[84s] alloc (0, 0, 5, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 5, 9) (0, 0, 2, 6): 1 (1s)
+[85s] alloc (0, 0, 5, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 5, 9) (0, 0, 3, 5): 2 (1s)
+[86s] alloc (0, 0, 5, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 5, 9) (0, 0, 4, 4): 2 (1s)
+[87s] alloc (0, 0, 5, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 5, 9) (0, 0, 5, 3): 1 (1s)
+[88s] alloc (0, 0, 5, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 6, 8) (0, 0, 2, 6): 2 (1s)
+[90s] alloc (0, 0, 6, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 6, 8) (0, 0, 4, 4): 2 (1s)
+[91s] alloc (0, 0, 6, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 6, 8) (0, 0, 6, 2): 1 (1s)
+[93s] alloc (0, 0, 6, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 7, 7) (0, 0, 1, 7): 3 (1s)
+[93s] alloc (0, 0, 7, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 7, 7) (0, 0, 2, 6): 3 (1s)
+[95s] alloc (0, 0, 7, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 7, 7) (0, 0, 3, 5): 3 (1s)
+[96s] alloc (0, 0, 7, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 0, 7, 7) (0, 0, 4, 4): 2 (1s)
+[97s] alloc (0, 0, 7, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 3, 10) (0, 0, 0, 8): 1 (1s)
+[98s] alloc (0, 1, 3, 10) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 3, 10) (0, 0, 2, 6): 2 (1s)
+[100s] alloc (0, 1, 3, 10) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 4, 9) (0, 0, 0, 8): 2 (1s)
+[101s] alloc (0, 1, 4, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 4, 9) (0, 0, 2, 6): 1 (1s)
+[103s] alloc (0, 1, 4, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 4, 9) (0, 0, 4, 4): 1 (1s)
+[104s] alloc (0, 1, 4, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 5, 8) (0, 0, 2, 6): 2 (1s)
+[105s] alloc (0, 1, 5, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 5, 8) (0, 0, 4, 4): 2 (1s)
+[106s] alloc (0, 1, 5, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 6, 7) (0, 0, 2, 6): 2 (1s)
+[107s] alloc (0, 1, 6, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 6, 7) (0, 0, 4, 4): 2 (1s)
+[108s] alloc (0, 1, 6, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 6, 7) (0, 0, 6, 2): 1 (1s)
+[109s] alloc (0, 1, 6, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 2, 11) (0, 1, 2, 5): 2 (1s)
+[111s] alloc (0, 1, 2, 11) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 3, 10) (0, 1, 1, 6): 2 (1s)
+[112s] alloc (0, 1, 3, 10) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 3, 10) (0, 1, 3, 4): 2 (1s)
+[113s] alloc (0, 1, 3, 10) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 4, 9) (0, 1, 0, 7): 1 (1s)
+[114s] alloc (0, 1, 4, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 4, 9) (0, 1, 2, 5): 1 (1s)
+[115s] alloc (0, 1, 4, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 4, 9) (0, 1, 4, 3): 1 (1s)
+[116s] alloc (0, 1, 4, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 5, 8) (0, 1, 1, 6): 2 (1s)
+[118s] alloc (0, 1, 5, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 5, 8) (0, 1, 3, 4): 2 (1s)
+[119s] alloc (0, 1, 5, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 5, 8) (0, 1, 5, 2): 2 (1s)
+[120s] alloc (0, 1, 5, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 6, 7) (0, 1, 0, 7): 1 (1s)
+[122s] alloc (0, 1, 6, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 6, 7) (0, 1, 2, 5): 2 (1s)
+[123s] alloc (0, 1, 6, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 6, 7) (0, 1, 4, 3): 2 (1s)
+[125s] alloc (0, 1, 6, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 1, 6, 7) (0, 1, 6, 1): 1 (1s)
+[125s] alloc (0, 1, 6, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 2, 10) (0, 0, 0, 8): 3 (2s)
+[127s] alloc (0, 2, 2, 10) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 2, 10) (0, 0, 2, 6): 8 (1s)
+[129s] alloc (0, 2, 2, 10) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 3, 9) (0, 0, 0, 8): 2 (1s)
+[130s] alloc (0, 2, 3, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 3, 9) (0, 0, 3, 5): 2 (1s)
+[132s] alloc (0, 2, 3, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 4, 8) (0, 0, 2, 6): 2 (1s)
+[133s] alloc (0, 2, 4, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 4, 8) (0, 0, 4, 4): 2 (1s)
+[134s] alloc (0, 2, 4, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 5, 7) (0, 0, 1, 7): 2 (1s)
+[136s] alloc (0, 2, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 5, 7) (0, 0, 2, 6): 2 (1s)
+[137s] alloc (0, 2, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 5, 7) (0, 0, 3, 5): 2 (1s)
+[138s] alloc (0, 2, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 5, 7) (0, 0, 4, 4): 2 (1s)
+[139s] alloc (0, 2, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 5, 7) (0, 0, 5, 3): 2 (1s)
+[140s] alloc (0, 2, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 6, 6) (0, 0, 2, 6): 4 (1s)
+[142s] alloc (0, 2, 6, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 6, 6) (0, 0, 4, 4): 6 (1s)
+[143s] alloc (0, 2, 6, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 2, 10) (0, 2, 2, 4): 6 (1s)
+[144s] alloc (0, 2, 2, 10) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 3, 9) (0, 2, 1, 5): 2 (1s)
+[146s] alloc (0, 2, 3, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 3, 9) (0, 2, 2, 4): 2 (1s)
+[147s] alloc (0, 2, 3, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 4, 8) (0, 2, 0, 6): 2 (1s)
+[148s] alloc (0, 2, 4, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 4, 8) (0, 2, 2, 4): 2 (1s)
+[150s] alloc (0, 2, 4, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 4, 8) (0, 2, 4, 2): 2 (1s)
+[151s] alloc (0, 2, 4, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 5, 7) (0, 2, 0, 6): 2 (1s)
+[152s] alloc (0, 2, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 5, 7) (0, 2, 1, 5): 2 (1s)
+[153s] alloc (0, 2, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 5, 7) (0, 2, 2, 4): 2 (1s)
+[154s] alloc (0, 2, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 5, 7) (0, 2, 3, 3): 2 (1s)
+[155s] alloc (0, 2, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 5, 7) (0, 2, 4, 2): 2 (1s)
+[156s] alloc (0, 2, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 5, 7) (0, 2, 5, 1): 2 (1s)
+[157s] alloc (0, 2, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 6, 6) (0, 2, 0, 6): 2 (1s)
+[158s] alloc (0, 2, 6, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 2, 6, 6) (0, 2, 2, 4): 8 (1s)
+[159s] alloc (0, 2, 6, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 3, 8) (0, 0, 2, 6): 3 (1s)
+[160s] alloc (0, 3, 3, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 4, 7) (0, 0, 2, 6): 3 (1s)
+[162s] alloc (0, 3, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 4, 7) (0, 0, 4, 4): 3 (1s)
+[163s] alloc (0, 3, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 5, 6) (0, 0, 2, 6): 1 (1s)
+[164s] alloc (0, 3, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 5, 6) (0, 0, 4, 4): 2 (1s)
+[165s] alloc (0, 3, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 3, 8) (0, 1, 1, 6): 2 (1s)
+[166s] alloc (0, 3, 3, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 3, 8) (0, 1, 3, 4): 3 (1s)
+[167s] alloc (0, 3, 3, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 4, 7) (0, 1, 0, 7): 3 (1s)
+[168s] alloc (0, 3, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 4, 7) (0, 1, 2, 5): 3 (1s)
+[169s] alloc (0, 3, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 4, 7) (0, 1, 4, 3): 3 (1s)
+[169s] alloc (0, 3, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 5, 6) (0, 1, 1, 6): 1 (1s)
+[170s] alloc (0, 3, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 5, 6) (0, 1, 3, 4): 2 (1s)
+[171s] alloc (0, 3, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 5, 6) (0, 1, 5, 2): 2 (1s)
+[172s] alloc (0, 3, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 3, 8) (0, 2, 2, 4): 2 (1s)
+[173s] alloc (0, 3, 3, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 4, 7) (0, 2, 0, 6): 3 (1s)
+[174s] alloc (0, 3, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 4, 7) (0, 2, 2, 4): 3 (1s)
+[175s] alloc (0, 3, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 4, 7) (0, 2, 4, 2): 3 (1s)
+[176s] alloc (0, 3, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 5, 6) (0, 2, 0, 6): 1 (1s)
+[177s] alloc (0, 3, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 5, 6) (0, 2, 2, 4): 2 (1s)
+[178s] alloc (0, 3, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 5, 6) (0, 2, 4, 2): 2 (1s)
+[179s] alloc (0, 3, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 3, 8) (0, 3, 3, 2): 2 (1s)
+[180s] alloc (0, 3, 3, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 4, 7) (0, 3, 0, 5): 3 (1s)
+[181s] alloc (0, 3, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 4, 7) (0, 3, 2, 3): 3 (1s)
+[182s] alloc (0, 3, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 4, 7) (0, 3, 4, 1): 3 (1s)
+[183s] alloc (0, 3, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 5, 6) (0, 3, 1, 4): 2 (1s)
+[184s] alloc (0, 3, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 5, 6) (0, 3, 3, 2): 2 (1s)
+[185s] alloc (0, 3, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 3, 5, 6) (0, 3, 5, 0): 1 (1s)
+[186s] alloc (0, 3, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 4, 4, 6) (0, 0, 2, 6): 1 (1s)
+[188s] alloc (0, 4, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 4, 4, 6) (0, 0, 4, 4): 2 (1s)
+[189s] alloc (0, 4, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 4, 5, 5) (0, 0, 3, 5): 3 (1s)
+[190s] alloc (0, 4, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 4, 5, 5) (0, 0, 4, 4): 2 (1s)
+[191s] alloc (0, 4, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 4, 4, 6) (0, 2, 2, 4): 2 (1s)
+[193s] alloc (0, 4, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 4, 4, 6) (0, 2, 4, 2): 2 (1s)
+[194s] alloc (0, 4, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 4, 5, 5) (0, 2, 1, 5): 3 (1s)
+[195s] alloc (0, 4, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 4, 5, 5) (0, 2, 2, 4): 3 (1s)
+[196s] alloc (0, 4, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 4, 5, 5) (0, 2, 3, 3): 2 (1s)
+[198s] alloc (0, 4, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 4, 4, 6) (0, 4, 4, 0): 1 (1s)
+[199s] alloc (0, 4, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 4, 5, 5) (0, 4, 0, 4): 3 (1s)
+[200s] alloc (0, 4, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 4, 5, 5) (0, 4, 1, 3): 3 (1s)
+[202s] alloc (0, 4, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (0, 4, 5, 5) (0, 4, 2, 2): 2 (1s)
+[203s] alloc (0, 4, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 2, 10) (0, 0, 0, 8): 2 (2s)
+[206s] alloc (1, 1, 2, 10) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 2, 10) (0, 0, 2, 6): 4 (2s)
+[208s] alloc (1, 1, 2, 10) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 4, 8) (0, 0, 2, 6): 1 (2s)
+[209s] alloc (1, 1, 4, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 4, 8) (0, 0, 4, 4): 1 (1s)
+[210s] alloc (1, 1, 4, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 6, 6) (0, 0, 2, 6): 2 (1s)
+[212s] alloc (1, 1, 6, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 6, 6) (0, 0, 4, 4): 3 (1s)
+[213s] alloc (1, 1, 6, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 1, 11) (0, 1, 1, 6): 1 (8s)
+[221s] alloc (1, 1, 1, 11) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 3, 9) (0, 1, 0, 7): 1 (2s)
+[223s] alloc (1, 1, 3, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 3, 9) (0, 1, 2, 5): 2 (2s)
+[225s] alloc (1, 1, 3, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 5, 7) (0, 1, 1, 6): 3 (1s)
+[226s] alloc (1, 1, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 5, 7) (0, 1, 3, 4): 3 (2s)
+[228s] alloc (1, 1, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 5, 7) (0, 1, 5, 2): 3 (2s)
+[230s] alloc (1, 1, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 2, 9) (0, 0, 0, 8): 3 (2s)
+[231s] alloc (1, 2, 2, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 3, 8) (0, 0, 2, 6): 2 (2s)
+[233s] alloc (1, 2, 3, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 4, 7) (0, 0, 2, 6): 2 (2s)
+[235s] alloc (1, 2, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 4, 7) (0, 0, 4, 4): 2 (1s)
+[236s] alloc (1, 2, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 5, 6) (0, 0, 2, 6): 2 (1s)
+[237s] alloc (1, 2, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 5, 6) (0, 0, 4, 4): 4 (1s)
+[239s] alloc (1, 2, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 2, 9) (0, 2, 2, 4): 3 (1s)
+[240s] alloc (1, 2, 2, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 3, 8) (0, 2, 0, 6): 2 (1s)
+[242s] alloc (1, 2, 3, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 3, 8) (0, 2, 2, 4): 2 (1s)
+[243s] alloc (1, 2, 3, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 4, 7) (0, 2, 0, 6): 2 (1s)
+[244s] alloc (1, 2, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 4, 7) (0, 2, 2, 4): 2 (1s)
+[246s] alloc (1, 2, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 4, 7) (0, 2, 4, 2): 2 (1s)
+[247s] alloc (1, 2, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 5, 6) (0, 2, 0, 6): 2 (1s)
+[248s] alloc (1, 2, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 5, 6) (0, 2, 2, 4): 4 (1s)
+[249s] alloc (1, 2, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 5, 6) (0, 2, 4, 2): 4 (1s)
+[251s] alloc (1, 2, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 3, 7) (0, 0, 1, 7): 4 (1s)
+[252s] alloc (1, 3, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 3, 7) (0, 0, 3, 5): 4 (1s)
+[253s] alloc (1, 3, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 6) (0, 0, 2, 6): 1 (1s)
+[254s] alloc (1, 3, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 6) (0, 0, 4, 4): 2 (1s)
+[256s] alloc (1, 3, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 5, 5) (0, 0, 3, 5): 4 (1s)
+[257s] alloc (1, 3, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 3, 7) (0, 1, 1, 6): 3 (1s)
+[258s] alloc (1, 3, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 3, 7) (0, 1, 2, 5): 4 (1s)
+[259s] alloc (1, 3, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 3, 7) (0, 1, 3, 4): 4 (1s)
+[261s] alloc (1, 3, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 3, 7) (0, 2, 3, 3): 4 (1s)
+[262s] alloc (1, 3, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 6) (0, 2, 0, 6): 1 (1s)
+[263s] alloc (1, 3, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 6) (0, 2, 2, 4): 2 (1s)
+[264s] alloc (1, 3, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 6) (0, 2, 4, 2): 2 (1s)
+[265s] alloc (1, 3, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 5, 5) (0, 2, 1, 5): 4 (1s)
+[267s] alloc (1, 3, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 5, 5) (0, 2, 3, 3): 3 (1s)
+[268s] alloc (1, 3, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 3, 7) (0, 3, 3, 2): 3 (1s)
+[269s] alloc (1, 3, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 4, 4, 5) (0, 0, 4, 4): 2 (1s)
+[270s] alloc (1, 4, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 4, 4, 5) (0, 2, 2, 4): 2 (1s)
+[271s] alloc (1, 4, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 4, 4, 5) (0, 2, 4, 2): 2 (1s)
+[272s] alloc (1, 4, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 4, 4, 5) (0, 4, 4, 0): 2 (1s)
+[272s] alloc (1, 4, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 1, 11) (1, 1, 1, 5): 1 (7s)
+[280s] alloc (1, 1, 1, 11) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 2, 10) (1, 1, 0, 6): 4 (2s)
+[281s] alloc (1, 1, 2, 10) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 2, 10) (1, 1, 2, 4): 4 (2s)
+[283s] alloc (1, 1, 2, 10) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 3, 9) (1, 1, 0, 6): 1 (2s)
+[285s] alloc (1, 1, 3, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 3, 9) (1, 1, 1, 5): 2 (2s)
+[286s] alloc (1, 1, 3, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 3, 9) (1, 1, 2, 4): 2 (2s)
+[288s] alloc (1, 1, 3, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 4, 8) (1, 1, 0, 6): 1 (2s)
+[290s] alloc (1, 1, 4, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 4, 8) (1, 1, 2, 4): 1 (1s)
+[291s] alloc (1, 1, 4, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 4, 8) (1, 1, 4, 2): 1 (1s)
+[292s] alloc (1, 1, 4, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 5, 7) (1, 1, 0, 6): 3 (1s)
+[293s] alloc (1, 1, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 5, 7) (1, 1, 1, 5): 3 (1s)
+[294s] alloc (1, 1, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 5, 7) (1, 1, 2, 4): 3 (2s)
+[296s] alloc (1, 1, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 5, 7) (1, 1, 3, 3): 3 (2s)
+[298s] alloc (1, 1, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 5, 7) (1, 1, 4, 2): 3 (1s)
+[299s] alloc (1, 1, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 5, 7) (1, 1, 5, 1): 3 (1s)
+[300s] alloc (1, 1, 5, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 6, 6) (1, 1, 0, 6): 1 (1s)
+[301s] alloc (1, 1, 6, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 1, 6, 6) (1, 1, 2, 4): 4 (1s)
+[303s] alloc (1, 1, 6, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 2, 9) (1, 0, 2, 5): 4 (2s)
+[305s] alloc (1, 2, 2, 9) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 3, 8) (1, 0, 1, 6): 2 (1s)
+[306s] alloc (1, 2, 3, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 3, 8) (1, 0, 3, 4): 2 (1s)
+[307s] alloc (1, 2, 3, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 4, 7) (1, 0, 0, 7): 2 (1s)
+[308s] alloc (1, 2, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 4, 7) (1, 0, 2, 5): 2 (1s)
+[309s] alloc (1, 2, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 4, 7) (1, 0, 4, 3): 2 (1s)
+[311s] alloc (1, 2, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 5, 6) (1, 0, 1, 6): 2 (1s)
+[312s] alloc (1, 2, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 5, 6) (1, 0, 3, 4): 4 (1s)
+[312s] alloc (1, 2, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 5, 6) (1, 0, 5, 2): 4 (1s)
+[313s] alloc (1, 2, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 3, 8) (1, 2, 1, 4): 2 (1s)
+[314s] alloc (1, 2, 3, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 3, 8) (1, 2, 3, 2): 2 (1s)
+[315s] alloc (1, 2, 3, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 4, 7) (1, 2, 0, 5): 2 (1s)
+[316s] alloc (1, 2, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 4, 7) (1, 2, 2, 3): 2 (1s)
+[317s] alloc (1, 2, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 4, 7) (1, 2, 4, 1): 2 (1s)
+[318s] alloc (1, 2, 4, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 5, 6) (1, 2, 1, 4): 4 (1s)
+[319s] alloc (1, 2, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 5, 6) (1, 2, 3, 2): 4 (1s)
+[320s] alloc (1, 2, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 2, 5, 6) (1, 2, 5, 0): 2 (1s)
+[321s] alloc (1, 2, 5, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 5, 5) (1, 0, 2, 5): 4 (1s)
+[322s] alloc (1, 3, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 5, 5) (1, 0, 3, 4): 4 (1s)
+[323s] alloc (1, 3, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 3, 7) (1, 1, 1, 5): 3 (1s)
+[325s] alloc (1, 3, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 3, 7) (1, 1, 3, 3): 4 (1s)
+[326s] alloc (1, 3, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 6) (1, 1, 0, 6): 1 (1s)
+[327s] alloc (1, 3, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 6) (1, 1, 2, 4): 2 (1s)
+[328s] alloc (1, 3, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 6) (1, 1, 4, 2): 2 (1s)
+[329s] alloc (1, 3, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 5, 5) (1, 1, 1, 5): 4 (1s)
+[330s] alloc (1, 3, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 5, 5) (1, 1, 3, 3): 3 (1s)
+[331s] alloc (1, 3, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 5, 5) (1, 2, 0, 5): 4 (1s)
+[332s] alloc (1, 3, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 5, 5) (1, 2, 1, 4): 4 (1s)
+[333s] alloc (1, 3, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 5, 5) (1, 2, 2, 3): 4 (1s)
+[334s] alloc (1, 3, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 3, 7) (1, 3, 3, 1): 3 (1s)
+[335s] alloc (1, 3, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 6) (1, 3, 0, 4): 2 (1s)
+[336s] alloc (1, 3, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 6) (1, 3, 2, 2): 2 (1s)
+[338s] alloc (1, 3, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 4, 6) (1, 3, 4, 0): 1 (1s)
+[338s] alloc (1, 3, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 3, 5, 5) (1, 3, 1, 3): 4 (1s)
+[339s] alloc (1, 3, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 4, 4, 5) (1, 0, 2, 5): 2 (1s)
+[340s] alloc (1, 4, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 4, 4, 5) (1, 0, 4, 3): 2 (1s)
+[341s] alloc (1, 4, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 4, 4, 5) (1, 2, 2, 3): 2 (1s)
+[342s] alloc (1, 4, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (1, 4, 4, 5) (1, 2, 4, 1): 2 (1s)
+[343s] alloc (1, 4, 4, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 2, 8) (0, 0, 2, 6): 6 (1s)
+[345s] alloc (2, 2, 2, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 3, 7) (0, 0, 1, 7): 3 (1s)
+[346s] alloc (2, 2, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 3, 7) (0, 0, 2, 6): 3 (1s)
+[347s] alloc (2, 2, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 3, 7) (0, 0, 3, 5): 3 (1s)
+[348s] alloc (2, 2, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 4, 6) (0, 0, 2, 6): 3 (1s)
+[349s] alloc (2, 2, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 4, 6) (0, 0, 4, 4): 6 (1s)
+[351s] alloc (2, 2, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 5, 5) (0, 0, 3, 5): 3 (1s)
+[352s] alloc (2, 2, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 5, 5) (0, 0, 4, 4): 3 (1s)
+[353s] alloc (2, 2, 5, 5) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 2, 8) (0, 2, 2, 4): 6 (1s)
+[354s] alloc (2, 2, 2, 8) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 3, 7) (0, 2, 0, 6): 4 (1s)
+[356s] alloc (2, 2, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 3, 7) (0, 2, 1, 5): 4 (1s)
+[357s] alloc (2, 2, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 3, 7) (0, 2, 2, 4): 4 (1s)
+[358s] alloc (2, 2, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 3, 7) (0, 2, 3, 3): 4 (1s)
+[359s] alloc (2, 2, 3, 7) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+row patterns for (2, 2, 4, 6) (0, 2, 0, 6): 4 (1s)
+[360s] alloc (2, 2, 4, 6) R (-1, -1, -1, -1) n1 0 compl 0 verified 0 (join 0.0s l2 0.0s) {} totals inst 0 compl 0
+(None, {'rounds': 357, 'inst': 0, 'compl': 0, 'verified': 0})

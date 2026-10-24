@@ -1,0 +1,17 @@
+v = 231: 64 subgroups of Z_v^*, 16 with 2 <= orbits <= 18
+{'v': 231, 'O': 8, 'h': 120, 'gens': [1, 2, 4], 'classes': 7, 'L': 0, 'status': 'noL'}
+{'v': 231, 'O': 9, 'h': 60, 'gens': [1, 2, 4], 'classes': 7, 'L': 0, 'status': 'noL'}
+{'v': 231, 'O': 10, 'h': 60, 'gens': [1, 2, 4], 'classes': 9, 'L': 0, 'status': 'noL'}
+{'v': 231, 'O': 10, 'h': 60, 'gens': [1, 4, 5], 'classes': 9, 'L': 0, 'status': 'noL'}
+{'v': 231, 'O': 10, 'h': 60, 'gens': [1, 4, 10], 'classes': 9, 'L': 4, 'Lu': 4, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 231, 'O': 12, 'h': 60, 'gens': [1, 4, 5], 'classes': 7, 'L': 28, 'Lu': 14, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 231, 'O': 12, 'h': 60, 'gens': [1, 4, 10], 'classes': 7, 'L': 0, 'status': 'noL'}
+{'v': 231, 'O': 12, 'h': 60, 'gens': [1, 2, 4], 'classes': 7, 'L': 28, 'Lu': 14, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 231, 'O': 14, 'h': 30, 'gens': [1, 4, 16], 'classes': 13, 'L': 180, 'Lu': 180, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 231, 'O': 15, 'h': 30, 'gens': [1, 2, 4], 'classes': 9, 'L': 420, 'Lu': 201, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 231, 'O': 15, 'h': 30, 'gens': [1, 4, 5], 'classes': 9, 'L': 260, 'Lu': 125, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 231, 'O': 15, 'h': 30, 'gens': [1, 4, 10], 'classes': 9, 'L': 180, 'Lu': 30, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 231, 'O': 16, 'h': 40, 'gens': [1, 8, 13], 'classes': 15, 'L': 600, 'Lu': 600, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.1}
+{'v': 231, 'O': 18, 'h': 30, 'gens': [1, 4, 16], 'classes': 9, 'L': 1380, 'Lu': 215, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.1}
+{'v': 231, 'O': 18, 'h': 30, 'gens': [1, 4, 16], 'classes': 9, 'L': 2924, 'Lu': 1379, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.3}
+{'v': 231, 'O': 18, 'h': 30, 'gens': [1, 4, 16], 'classes': 9, 'L': 2340, 'Lu': 372, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.1}

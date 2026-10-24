@@ -1,0 +1,21 @@
+v = 1197: 800 subgroups of Z_v^*, 20 with 23 <= orbits <= 24
+{'v': 1197, 'O': 23, 'h': 162, 'gens': [1, 4, 16], 'classes': 22, 'L': 0, 'status': 'noL'}
+{'v': 1197, 'O': 24, 'h': 216, 'gens': [1, 8, 13], 'classes': 23, 'L': 30186, 'Lu': 30186, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 71.1}
+{'v': 1197, 'O': 24, 'h': 216, 'gens': [1, 8, 11], 'classes': 23, 'L': 0, 'status': 'noL'}
+{'v': 1197, 'O': 24, 'h': 162, 'gens': [1, 2, 4], 'classes': 15, 'L': 21168, 'Lu': 10052, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 7.1}
+{'v': 1197, 'O': 24, 'h': 162, 'gens': [1, 4, 5], 'classes': 15, 'L': 34848, 'Lu': 16696, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 25.6}
+{'v': 1197, 'O': 24, 'h': 108, 'gens': [1, 4, 16], 'classes': 23, 'L': 0, 'status': 'noL'}
+{'v': 1197, 'O': 24, 'h': 108, 'gens': [1, 5, 25], 'classes': 23, 'L': 0, 'status': 'noL'}
+{'v': 1197, 'O': 24, 'h': 108, 'gens': [1, 2, 4], 'classes': 15, 'L': 22848, 'Lu': 11004, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 8.8}
+{'v': 1197, 'O': 24, 'h': 108, 'gens': [1, 8, 22], 'classes': 15, 'L': 22848, 'Lu': 11004, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 8.5}
+{'v': 1197, 'O': 24, 'h': 108, 'gens': [1, 8, 17], 'classes': 17, 'L': 0, 'status': 'noL'}
+{'v': 1197, 'O': 24, 'h': 108, 'gens': [1, 8, 10], 'classes': 19, 'L': 37800, 'Lu': 19500, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 30.2}
+{'v': 1197, 'O': 24, 'h': 108, 'gens': [1, 2, 4], 'classes': 17, 'L': 0, 'status': 'noL'}
+{'v': 1197, 'O': 24, 'h': 108, 'gens': [1, 4, 16], 'classes': 15, 'L': 36176, 'Lu': 17740, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 22.2}
+{'v': 1197, 'O': 24, 'h': 108, 'gens': [1, 5, 11], 'classes': 15, 'L': 36176, 'Lu': 17740, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 23.9}
+{'v': 1197, 'O': 24, 'h': 108, 'gens': [1, 2, 4], 'classes': 23, 'L': 0, 'status': 'noL'}
+{'v': 1197, 'O': 24, 'h': 108, 'gens': [1, 8, 25], 'classes': 23, 'L': 0, 'status': 'noL'}
+{'v': 1197, 'O': 24, 'h': 108, 'gens': [1, 10, 22], 'classes': 13, 'L': 33264, 'Lu': 3331, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 5.0}
+{'v': 1197, 'O': 24, 'h': 108, 'gens': [1, 13, 25], 'classes': 13, 'L': 33264, 'Lu': 3331, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 5.3}
+{'v': 1197, 'O': 24, 'h': 108, 'gens': [1, 4, 16], 'classes': 13, 'L': 33264, 'Lu': 3331, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 5.8}
+{'v': 1197, 'O': 24, 'h': 108, 'gens': [1, 10, 13], 'classes': 13, 'L': 33264, 'Lu': 3331, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 4.5}

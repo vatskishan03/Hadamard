@@ -1,0 +1,46 @@
+v = 1677: 324 subgroups of Z_v^*, 45 with 2 <= orbits <= 22
+{'v': 1677, 'O': 8, 'h': 1008, 'gens': [1, 2, 4], 'classes': 7, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 9, 'h': 504, 'gens': [1, 4, 7], 'classes': 8, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 10, 'h': 504, 'gens': [1, 2, 4], 'classes': 7, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 10, 'h': 504, 'gens': [1, 2, 4], 'classes': 7, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 10, 'h': 504, 'gens': [1, 2, 4], 'classes': 9, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 12, 'h': 504, 'gens': [1, 4, 10], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 12, 'h': 504, 'gens': [1, 4, 7], 'classes': 7, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 12, 'h': 504, 'gens': [1, 4, 10], 'classes': 7, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 12, 'h': 336, 'gens': [1, 8, 19], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 12, 'h': 336, 'gens': [1, 7, 8], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 14, 'h': 252, 'gens': [1, 2, 4], 'classes': 9, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 14, 'h': 252, 'gens': [1, 16, 17], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 15, 'h': 252, 'gens': [1, 4, 7], 'classes': 8, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 15, 'h': 252, 'gens': [1, 4, 10], 'classes': 14, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 15, 'h': 252, 'gens': [1, 4, 10], 'classes': 8, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 15, 'h': 168, 'gens': [1, 19, 28], 'classes': 14, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 15, 'h': 168, 'gens': [1, 7, 10], 'classes': 14, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 16, 'h': 336, 'gens': [1, 2, 4], 'classes': 15, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 16, 'h': 336, 'gens': [1, 5, 8], 'classes': 15, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 16, 'h': 252, 'gens': [1, 16, 17], 'classes': 15, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 16, 'h': 252, 'gens': [1, 14, 16], 'classes': 15, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 16, 'h': 168, 'gens': [1, 8, 20], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 16, 'h': 168, 'gens': [1, 8, 10], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 16, 'h': 168, 'gens': [1, 8, 20], 'classes': 15, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 16, 'h': 168, 'gens': [1, 8, 10], 'classes': 15, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 18, 'h': 252, 'gens': [1, 4, 10], 'classes': 11, 'L': 704, 'Lu': 352, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.1}
+{'v': 1677, 'O': 18, 'h': 252, 'gens': [1, 4, 10], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 18, 'h': 252, 'gens': [1, 4, 10], 'classes': 9, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 18, 'h': 168, 'gens': [1, 8, 19], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 18, 'h': 168, 'gens': [1, 7, 8], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 18, 'h': 168, 'gens': [1, 19, 28], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 18, 'h': 168, 'gens': [1, 7, 10], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 19, 'h': 168, 'gens': [1, 4, 11], 'classes': 18, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 19, 'h': 168, 'gens': [1, 25, 34], 'classes': 18, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 20, 'h': 252, 'gens': [1, 14, 16], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 20, 'h': 168, 'gens': [1, 29, 64], 'classes': 19, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 20, 'h': 168, 'gens': [1, 10, 17], 'classes': 19, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 20, 'h': 168, 'gens': [1, 2, 4], 'classes': 15, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 20, 'h': 168, 'gens': [1, 5, 8], 'classes': 19, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 20, 'h': 168, 'gens': [1, 44, 47], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 20, 'h': 168, 'gens': [1, 10, 17], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 22, 'h': 168, 'gens': [1, 2, 4], 'classes': 15, 'L': 13920, 'Lu': 6960, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 4.1}
+{'v': 1677, 'O': 22, 'h': 168, 'gens': [1, 5, 8], 'classes': 15, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 22, 'h': 168, 'gens': [1, 5, 8], 'classes': 15, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 22, 'h': 168, 'gens': [1, 2, 4], 'classes': 21, 'L': 0, 'status': 'noL'}

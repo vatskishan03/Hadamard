@@ -1,0 +1,27 @@
+v = 2061: 96 subgroups of Z_v^*, 26 with 2 <= orbits <= 22
+{'v': 2061, 'O': 6, 'h': 1368, 'gens': [1, 2, 4], 'classes': 5, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 8, 'h': 684, 'gens': [1, 2, 4], 'classes': 5, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 8, 'h': 456, 'gens': [1, 7, 8], 'classes': 7, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 8, 'h': 456, 'gens': [1, 5, 8], 'classes': 7, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 9, 'h': 684, 'gens': [1, 4, 5], 'classes': 8, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 10, 'h': 684, 'gens': [1, 4, 7], 'classes': 5, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 10, 'h': 456, 'gens': [1, 8, 10], 'classes': 9, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 12, 'h': 456, 'gens': [1, 2, 4], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 12, 'h': 228, 'gens': [1, 8, 23], 'classes': 7, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 12, 'h': 228, 'gens': [1, 8, 25], 'classes': 7, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 13, 'h': 342, 'gens': [1, 5, 11], 'classes': 12, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 13, 'h': 228, 'gens': [1, 17, 20], 'classes': 12, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 13, 'h': 228, 'gens': [1, 5, 14], 'classes': 12, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 14, 'h': 228, 'gens': [1, 8, 19], 'classes': 9, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 14, 'h': 228, 'gens': [1, 7, 49], 'classes': 7, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 14, 'h': 228, 'gens': [1, 25, 31], 'classes': 7, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 15, 'h': 342, 'gens': [1, 14, 16], 'classes': 8, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 15, 'h': 342, 'gens': [1, 4, 16], 'classes': 8, 'L': 768, 'Lu': 80, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 2061, 'O': 15, 'h': 228, 'gens': [1, 17, 19], 'classes': 14, 'L': 840, 'Lu': 840, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 2061, 'O': 18, 'h': 228, 'gens': [1, 2, 4], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 18, 'h': 228, 'gens': [1, 10, 19], 'classes': 9, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 20, 'h': 228, 'gens': [1, 4, 13], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 20, 'h': 152, 'gens': [1, 8, 17], 'classes': 19, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 21, 'h': 228, 'gens': [1, 4, 11], 'classes': 20, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 21, 'h': 114, 'gens': [1, 26, 56], 'classes': 20, 'L': 0, 'status': 'noL'}
+{'v': 2061, 'O': 21, 'h': 114, 'gens': [1, 5, 25], 'classes': 20, 'L': 0, 'status': 'noL'}

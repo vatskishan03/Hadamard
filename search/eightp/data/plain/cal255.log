@@ -1,0 +1,27 @@
+v = 255: 108 subgroups of Z_v^*, 25 with 2 <= orbits <= 18
+{'v': 255, 'O': 8, 'h': 128, 'gens': [1, 2, 4], 'classes': 7, 'L': 1, 'Lu': 1, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 9, 'h': 64, 'gens': [1, 2, 4], 'classes': 7, 'L': 3, 'Lu': 2, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 10, 'h': 64, 'gens': [1, 4, 11], 'classes': 7, 'L': 3, 'Lu': 2, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 10, 'h': 64, 'gens': [1, 4, 7], 'classes': 9, 'L': 7, 'Lu': 7, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 10, 'h': 64, 'gens': [1, 2, 4], 'classes': 7, 'L': 3, 'Lu': 2, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 12, 'h': 64, 'gens': [1, 4, 7], 'classes': 7, 'L': 3, 'Lu': 1, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 12, 'h': 64, 'gens': [1, 4, 11], 'classes': 11, 'L': 7, 'Lu': 7, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 12, 'h': 64, 'gens': [1, 2, 4], 'classes': 11, 'L': 31, 'Lu': 31, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 12, 'h': 32, 'gens': [1, 7, 16], 'classes': 11, 'L': 35, 'Lu': 35, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 12, 'h': 32, 'gens': [1, 16, 19], 'classes': 11, 'L': 35, 'Lu': 35, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 14, 'h': 32, 'gens': [1, 4, 16], 'classes': 11, 'L': 155, 'Lu': 93, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 14, 'h': 32, 'gens': [1, 16, 19], 'classes': 9, 'L': 155, 'Lu': 77, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 14, 'h': 32, 'gens': [1, 7, 16], 'classes': 9, 'L': 155, 'Lu': 76, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 14, 'h': 32, 'gens': [1, 4, 16], 'classes': 9, 'L': 75, 'Lu': 40, 'status': 'SOLUTION', 'count_rho_plus': 384, 'secs': 0.0, 'orbit_sizes': [1, 32, 32, 32, 16, 32, 32, 16, 32, 16, 4, 4, 2, 4]}
+FOUND {'v': 255, 'O': 14, 'h': 32, 'gens': [1, 4, 16], 'classes': 9, 'L': 75, 'Lu': 40, 'status': 'SOLUTION', 'count_rho_plus': 384, 'secs': 0.0, 'found': [[[-1, 1, -1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, -1], [-1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, -1, -1, -1], [-1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, -1, -1, -1], [-1, -1, 1, -1, -1, 1, -1, 1, 1, 1, -1, -1, -1, -1]]], 'orbit_sizes': [1, 32, 32, 32, 16, 32, 32, 16, 32, 16, 4, 4, 2, 4]}
+{'v': 255, 'O': 14, 'h': 32, 'gens': [1, 11, 16], 'classes': 13, 'L': 35, 'Lu': 35, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 15, 'h': 32, 'gens': [1, 4, 11], 'classes': 11, 'L': 75, 'Lu': 41, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 15, 'h': 32, 'gens': [1, 4, 7], 'classes': 9, 'L': 75, 'Lu': 16, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 15, 'h': 32, 'gens': [1, 2, 4], 'classes': 11, 'L': 315, 'Lu': 173, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 16, 'h': 32, 'gens': [1, 14, 16], 'classes': 15, 'L': 35, 'Lu': 35, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 16, 'h': 32, 'gens': [1, 2, 4], 'classes': 11, 'L': 715, 'Lu': 358, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 16, 'h': 32, 'gens': [1, 14, 16], 'classes': 11, 'L': 155, 'Lu': 81, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 16, 'h': 32, 'gens': [1, 2, 4], 'classes': 15, 'L': 659, 'Lu': 659, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.1}
+{'v': 255, 'O': 18, 'h': 32, 'gens': [1, 4, 16], 'classes': 11, 'L': 75, 'Lu': 16, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 255, 'O': 18, 'h': 32, 'gens': [1, 4, 13], 'classes': 11, 'L': 1515, 'Lu': 264, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.1}
+{'v': 255, 'O': 18, 'h': 32, 'gens': [1, 4, 16], 'classes': 17, 'L': 2675, 'Lu': 2675, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 1.3}

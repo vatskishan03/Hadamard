@@ -1,0 +1,11 @@
+sampled 30000000 30000000 in 713 s
+r= 1 coll=30751623577072 P_emp=3.4168e-02 P_gauss=3.4442e-02 rho=0.9921 (+-0.000 rel) covol=2.0 lat_ok=True
+r= 2 coll=820525025900 P_emp=9.1169e-04 P_gauss=8.9562e-04 rho=1.0179 (+-0.000 rel) covol=4.0 lat_ok=True
+r= 3 coll= 28448588214 P_emp=3.1610e-05 P_gauss=3.1426e-05 rho=1.0058 (+-0.000 rel) covol=8.0 lat_ok=True
+r= 4 coll=   738207129 P_emp=8.2023e-07 P_gauss=8.1746e-07 rho=1.0034 (+-0.000 rel) covol=16.0 lat_ok=True
+r= 5 coll=    24615720 P_emp=2.7351e-08 P_gauss=2.9177e-08 rho=0.9374 (+-0.000 rel) covol=32.0 lat_ok=True
+r= 6 coll=      615432 P_emp=6.8381e-10 P_gauss=7.5826e-10 rho=0.9018 (+-0.001 rel) covol=64.0 lat_ok=True
+r= 7 coll=       21548 P_emp=2.3942e-11 P_gauss=2.7991e-11 rho=0.8554 (+-0.007 rel) covol=128.0 lat_ok=True
+r= 8 coll=         478 P_emp=5.3111e-13 P_gauss=7.2850e-13 rho=0.7290 (+-0.046 rel) covol=256.0 lat_ok=True
+r= 9 coll=          16 P_emp=1.7778e-14 P_gauss=2.8592e-14 rho=0.6218 (+-0.250 rel) covol=512.0 lat_ok=True
+r=10 coll=           0 P_emp=0.0000e+00 P_gauss=7.4441e-16 rho=0.0000 (+-nan rel) covol=1024.0 lat_ok=True

@@ -1,0 +1,33 @@
+--- a/verify/verify.py	2026-10-24 01:58:35.407556366 +0000
++++ b/verify/verify.py	2026-10-24 01:58:35.427587232 +0000
+@@ -904,8 +904,10 @@
+     coords = np.array(np.unravel_index(np.arange(v), mods)).T
+     index = lambda c: np.ravel_multi_index(tuple(np.moveaxis(c % mods, -1, 0)), mods)
+     seqs = [np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["sequences"]]
+-    if [int(x.sum()) for x in seqs] != [2, 0, 0, 0]:
+-        raise ValueError("row sums must be (2, 0, 0, 0)")
++    rs = [int(x.sum()) for x in seqs]
++    odd_case = all(abs(r) == 1 for r in rs)          # ODD |G|: row sums (+-1, +-1, +-1, +-1); P = Q = S (the 4x4 Hadamard matrix of row sums), K = -S   (search/NOTES.md section 92; the certificate's P, Q are ignored in this case)
++    if rs != [2, 0, 0, 0] and not odd_case:
++        raise ValueError("row sums must be (2, 0, 0, 0) or (+-1, +-1, +-1, +-1)")
+     total = np.zeros(v, dtype=np.int64)
+     for s in range(v):
+         shift = index(coords + coords[s])
+@@ -920,9 +922,15 @@
+                   [-B @ R, A, D.T @ R, -C.T @ R],
+                   [-C @ R, -D.T @ R, A, B.T @ R],
+                   [-D @ R, C.T @ R, -B.T @ R, A]])
+-    P, Q = np.array(cert["P"], dtype=np.int64), np.array(cert["Q"], dtype=np.int64)
+     one = np.ones((1, v), dtype=np.int64)
+-    K = -(Q @ P) // 2
++    if odd_case:
++        a_, b_, c_, d_ = rs
++        S = np.array([[a_, b_, c_, d_], [-b_, a_, d_, -c_], [-c_, -d_, a_, b_], [-d_, c_, -b_, a_]], dtype=np.int64)
++        if not np.array_equal(S @ S.T, 4 * np.eye(4, dtype=np.int64)): raise ValueError("row-sum array is not Hadamard")
++        P, Q, K = S, S, -S
++    else:
++        P, Q = np.array(cert["P"], dtype=np.int64), np.array(cert["Q"], dtype=np.int64)
++        K = -(Q @ P) // 2
+     return np.vstack([np.hstack([K, np.kron(Q, one)]), np.hstack([np.kron(P, one.T), M])]), None
+ 
+ 
