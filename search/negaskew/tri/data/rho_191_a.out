@@ -1,0 +1,10 @@
+sampled 20000000 20000000 in 165 s
+r= 1 coll=22186789734214 P_emp=5.5467e-02 P_gauss=5.6582e-02 rho=0.9803 (+-0.000 rel) covol=2.0 lat_ok=True
+r= 2 coll=803961608812 P_emp=2.0099e-03 P_gauss=2.0833e-03 rho=0.9648 (+-0.000 rel) covol=4.0 lat_ok=True
+r= 3 coll= 43635441538 P_emp=1.0909e-04 P_gauss=1.1803e-04 rho=0.9242 (+-0.000 rel) covol=8.0 lat_ok=True
+r= 4 coll=  1558317326 P_emp=3.8958e-06 P_gauss=4.3478e-06 rho=0.8960 (+-0.000 rel) covol=16.0 lat_ok=True
+r= 5 coll=    93575368 P_emp=2.3394e-07 P_gauss=2.8353e-07 rho=0.8251 (+-0.000 rel) covol=32.0 lat_ok=True
+r= 6 coll=     3131874 P_emp=7.8297e-09 P_gauss=1.0429e-08 rho=0.7507 (+-0.001 rel) covol=64.0 lat_ok=True
+r= 7 coll=      255439 P_emp=6.3860e-10 P_gauss=9.1246e-10 rho=0.6999 (+-0.002 rel) covol=128.0 lat_ok=True
+r= 8 coll=        8130 P_emp=2.0325e-11 P_gauss=3.3558e-11 rho=0.6057 (+-0.011 rel) covol=256.0 lat_ok=True
+r= 9 coll=         289 P_emp=7.2250e-13 P_gauss=1.2324e-12 rho=0.5863 (+-0.059 rel) covol=512.0 lat_ok=True

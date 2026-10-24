@@ -1,0 +1,115 @@
+# VALIDATION RECORD: K-level exhaustive engine (gs_exh.py: gl1.c + gl2.c) vs INDEPENDENT G-level brute force (gbf.py), ordered counts of quadruples of +-1 sequences on G
+# status MATCH = both exhaustive and equal.  partial = K-level engine hit its 60 s / instance cap (not compared).  Columns: mode K r H(generators [units, phi]) T  G-count  K-count
+
+## mode gs: 30 MATCH shapes (20 with nonzero count), 0 MISMATCH, 12 partial, 2 skipped (G-level too large / invalid)
+  gs      K=[2] r=3 H=[] T=None  G=622080  K=622080
+  gs      K=[3] r=3 H=[[[2], 1]] T=None  G=76032  K=76032
+  gs      K=[3] r=3 H=[[[2], -1]] T=None  G=384  K=384
+  gs      K=[2] r=5 H=[] T=None  G=7680  K=7680
+  gs      K=[4] r=3 H=[[[3], 1]] T=None  G=2985984  K=2985984
+  gs      K=[4] r=3 H=[[[3], -1]] T=None  G=16384  K=16384
+  gs      K=[2] r=7 H=[] T=None  G=49152  K=49152
+  gs      K=[3] r=5 H=[] T=None  G=6594048  K=6594048
+  gs      K=[5] r=3 H=[[[2], 1]] T=None  G=0  K=0
+  gs      K=[5] r=3 H=[[[2], -1]] T=None  G=0  K=0
+  gs      K=[5] r=3 H=[[[4], 1]] T=None  G=6594048  K=6594048
+  gs      K=[5] r=3 H=[[[4], -1]] T=None  G=4608  K=4608
+  gs      K=[3] r=5 H=[[[2], 1]] T=None  G=768  K=768
+  gs      K=[3] r=5 H=[[[2], -1]] T=None  G=0  K=0
+  gs      K=[6] r=3 H=[[[5], -1]] T=None  G=2866176  K=2866176
+  gs      K=[4] r=5 H=[] T=None  G=82182144  K=82182144
+  gs      K=[2, 2] r=5 H=[] T=None  G=6389760  K=6389760
+  gs      K=[4] r=5 H=[[[3], 1]] T=None  G=36864  K=36864
+  gs      K=[4] r=5 H=[[[3], -1]] T=None  G=0  K=0
+  gs      K=[3] r=7 H=[] T=None  G=6469632  K=6469632
+  gs      K=[7] r=3 H=[[[2], 1]] T=None  G=6469632  K=6469632
+  gs      K=[7] r=3 H=[[[3], 1]] T=None  G=0  K=0
+  gs      K=[7] r=3 H=[[[3], -1]] T=None  G=0  K=0
+  gs      K=[7] r=3 H=[[[6], 1]] T=None  G=254492928  K=254492928
+  gs      K=[7] r=3 H=[[[6], -1]] T=None  G=11904  K=11904
+  gs      K=[3] r=7 H=[[[2], 1]] T=None  G=6144  K=6144
+  gs      K=[3] r=7 H=[[[2], -1]] T=None  G=0  K=0
+  gs      K=[8] r=3 H=[[[3], 1], [[5], 1]] T=None  G=0  K=0
+  gs      K=[8] r=3 H=[[[3], 1], [[5], -1]] T=None  G=0  K=0
+  gs      K=[8] r=3 H=[[[3], -1], [[5], 1]] T=None  G=0  K=0
+
+## mode spence: 47 MATCH shapes (9 with nonzero count), 0 MISMATCH, 8 partial, 17 skipped (G-level too large / invalid)
+  spence  K=[2] r=3 H=[] T=None  G=124416  K=124416
+  spence  K=[2] r=5 H=[] T=None  G=1536  K=1536
+  spence  K=[4] r=3 H=[[[3], 1]] T=None  G=0  K=0
+  spence  K=[4] r=3 H=[[[3], -1]] T=None  G=6144  K=6144
+  spence  K=[2] r=7 H=[] T=None  G=0  K=0
+  spence  K=[6] r=3 H=[[[5], 1]] T=None  G=1990656  K=1990656
+  spence  K=[6] r=3 H=[[[5], -1]] T=None  G=165888  K=165888
+  spence  K=[4] r=5 H=[] T=None  G=1572864  K=1572864
+  spence  K=[2, 2] r=5 H=[] T=None  G=0  K=0
+  spence  K=[4] r=5 H=[[[3], 1]] T=None  G=0  K=0
+  spence  K=[4] r=5 H=[[[3], -1]] T=None  G=0  K=0
+  spence  K=[8] r=3 H=[[[7], -1]] T=None  G=24576  K=24576
+  spence  K=[8] r=3 H=[[[3], 1], [[5], 1]] T=None  G=0  K=0
+  spence  K=[8] r=3 H=[[[3], 1], [[5], -1]] T=None  G=0  K=0
+  spence  K=[8] r=3 H=[[[3], -1], [[5], 1]] T=None  G=0  K=0
+  spence  K=[8] r=3 H=[[[3], -1], [[5], -1]] T=None  G=0  K=0
+  spence  K=[4] r=7 H=[] T=None  G=5505024  K=5505024
+  spence  K=[2, 2] r=7 H=[] T=None  G=0  K=0
+  spence  K=[4] r=7 H=[[[3], 1]] T=None  G=0  K=0
+  spence  K=[4] r=7 H=[[[3], -1]] T=None  G=0  K=0
+  spence  K=[10] r=3 H=[[[3], 1]] T=None  G=0  K=0
+  spence  K=[10] r=3 H=[[[3], -1]] T=None  G=0  K=0
+  spence  K=[6] r=5 H=[[[5], 1]] T=None  G=0  K=0
+  spence  K=[6] r=5 H=[[[5], -1]] T=None  G=0  K=0
+  spence  K=[8] r=5 H=[[[3], 1]] T=None  G=0  K=0
+  spence  K=[8] r=5 H=[[[3], -1]] T=None  G=0  K=0
+  spence  K=[8] r=5 H=[[[5], -1]] T=None  G=0  K=0
+  spence  K=[8] r=5 H=[[[7], -1]] T=None  G=0  K=0
+  spence  K=[8] r=5 H=[[[3], 1], [[5], 1]] T=None  G=0  K=0
+  spence  K=[8] r=5 H=[[[3], 1], [[5], -1]] T=None  G=0  K=0
+  spence  K=[8] r=5 H=[[[3], -1], [[5], 1]] T=None  G=0  K=0
+  spence  K=[8] r=5 H=[[[3], -1], [[5], -1]] T=None  G=0  K=0
+  spence  K=[6] r=7 H=[[[5], 1]] T=None  G=24576  K=24576
+  spence  K=[6] r=7 H=[[[5], -1]] T=None  G=0  K=0
+  spence  K=[10] r=5 H=[[[3], 1]] T=None  G=0  K=0
+  spence  K=[10] r=5 H=[[[3], -1]] T=None  G=0  K=0
+  spence  K=[8] r=7 H=[[[3], 1]] T=None  G=0  K=0
+  spence  K=[8] r=7 H=[[[3], -1]] T=None  G=0  K=0
+  spence  K=[8] r=7 H=[[[5], -1]] T=None  G=0  K=0
+  spence  K=[8] r=7 H=[[[7], 1]] T=None  G=0  K=0
+  spence  K=[8] r=7 H=[[[7], -1]] T=None  G=0  K=0
+  spence  K=[8] r=7 H=[[[3], 1], [[5], 1]] T=None  G=0  K=0
+  spence  K=[8] r=7 H=[[[3], 1], [[5], -1]] T=None  G=0  K=0
+  spence  K=[8] r=7 H=[[[3], -1], [[5], 1]] T=None  G=0  K=0
+  spence  K=[8] r=7 H=[[[3], -1], [[5], -1]] T=None  G=0  K=0
+  spence  K=[10] r=7 H=[[[3], 1]] T=None  G=0  K=0
+  spence  K=[10] r=7 H=[[[3], -1]] T=None  G=0  K=0
+
+## mode bord: 30 MATCH shapes (23 with nonzero count), 0 MISMATCH, 7 partial, 0 skipped (G-level too large / invalid)
+  bord    K=[2] r=3 H=[] T=[[1]]  G=124416  K=124416
+  bord    K=[2] r=3 H=[] T=[[0], [1]]  G=256608  K=256608
+  bord    K=[3] r=3 H=[] T=[[0], [1], [2]]  G=70963776  K=70963776
+  bord    K=[3] r=3 H=[] T=[[1], [2]]  G=16796160  K=16796160
+  bord    K=[3] r=3 H=[[[2], 1]] T=[[0], [1], [2]]  G=67392  K=67392
+  bord    K=[3] r=3 H=[[[2], 1]] T=[[1], [2]]  G=62208  K=62208
+  bord    K=[3] r=3 H=[[[2], -1]] T=[[0], [1], [2]]  G=192  K=192
+  bord    K=[3] r=3 H=[[[2], -1]] T=[[1], [2]]  G=0  K=0
+  bord    K=[2] r=5 H=[] T=[[1]]  G=1536  K=1536
+  bord    K=[2] r=5 H=[] T=[[0], [1]]  G=1920  K=1920
+  bord    K=[4] r=3 H=[[[3], 1]] T=[[0], [2]]  G=0  K=0
+  bord    K=[4] r=3 H=[[[3], 1]] T=[[1], [3]]  G=7464960  K=7464960
+  bord    K=[4] r=3 H=[[[3], 1]] T=[[0], [1], [2], [3]]  G=1679616  K=1679616
+  bord    K=[4] r=3 H=[[[3], -1]] T=[[0], [2]]  G=0  K=0
+  bord    K=[4] r=3 H=[[[3], -1]] T=[[1], [3]]  G=18432  K=18432
+  bord    K=[4] r=3 H=[[[3], -1]] T=[[0], [1], [2], [3]]  G=256  K=256
+  bord    K=[2] r=7 H=[] T=[[1]]  G=0  K=0
+  bord    K=[2] r=7 H=[] T=[[0], [1]]  G=9216  K=9216
+  bord    K=[3] r=5 H=[] T=[[0], [1], [2]]  G=311040  K=311040
+  bord    K=[3] r=5 H=[] T=[[1], [2]]  G=31104  K=31104
+  bord    K=[5] r=3 H=[[[2], 1]] T=[[0], [1], [2], [3], [4]]  G=0  K=0
+  bord    K=[5] r=3 H=[[[2], 1]] T=[[1], [2], [3], [4]]  G=0  K=0
+  bord    K=[5] r=3 H=[[[2], -1]] T=[[0], [1], [2], [3], [4]]  G=0  K=0
+  bord    K=[5] r=3 H=[[[2], -1]] T=[[1], [2], [3], [4]]  G=512  K=512
+  bord    K=[5] r=3 H=[[[4], 1]] T=[[0], [1], [2], [3], [4]]  G=4681152  K=4681152
+  bord    K=[5] r=3 H=[[[4], 1]] T=[[1], [2], [3], [4]]  G=5453568  K=5453568
+  bord    K=[5] r=3 H=[[[4], -1]] T=[[0], [1], [2], [3], [4]]  G=1728  K=1728
+  bord    K=[5] r=3 H=[[[4], -1]] T=[[1], [2], [3], [4]]  G=1536  K=1536
+  bord    K=[3] r=5 H=[[[2], 1]] T=[[0], [1], [2]]  G=768  K=768
+  bord    K=[3] r=5 H=[[[2], 1]] T=[[1], [2]]  G=384  K=384

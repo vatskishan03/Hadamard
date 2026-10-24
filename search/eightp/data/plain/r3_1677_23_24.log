@@ -1,0 +1,8 @@
+v = 1677: 324 subgroups of Z_v^*, 7 with 23 <= orbits <= 24
+{'v': 1677, 'O': 23, 'h': 126, 'gens': [1, 16, 40], 'classes': 22, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 24, 'h': 168, 'gens': [1, 4, 16], 'classes': 23, 'L': 41760, 'Lu': 41760, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 240.0}
+{'v': 1677, 'O': 24, 'h': 168, 'gens': [1, 4, 16], 'classes': 15, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 24, 'h': 168, 'gens': [1, 25, 31], 'classes': 15, 'L': 0, 'status': 'noL'}
+{'v': 1677, 'O': 24, 'h': 168, 'gens': [1, 14, 25], 'classes': 15, 'L': 27840, 'Lu': 13920, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 18.4}
+{'v': 1677, 'O': 24, 'h': 126, 'gens': [1, 16, 17], 'classes': 15, 'L': 73920, 'Lu': 35520, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 153.5}
+{'v': 1677, 'O': 24, 'h': 126, 'gens': [1, 16, 40], 'classes': 15, 'L': 0, 'status': 'noL'}

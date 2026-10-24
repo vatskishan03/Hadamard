@@ -1,0 +1,23 @@
+v = 2173: 88 subgroups of Z_v^*, 22 with 2 <= orbits <= 22
+{'v': 2173, 'O': 4, 'h': 2080, 'gens': [1, 2, 3], 'classes': 3, 'L': 0, 'status': 'noL'}
+{'v': 2173, 'O': 5, 'h': 1040, 'gens': [1, 3, 4], 'classes': 4, 'L': 0, 'status': 'noL'}
+{'v': 2173, 'O': 6, 'h': 1040, 'gens': [1, 4, 6], 'classes': 5, 'L': 0, 'status': 'noL'}
+{'v': 2173, 'O': 6, 'h': 1040, 'gens': [1, 2, 4], 'classes': 5, 'L': 0, 'status': 'noL'}
+{'v': 2173, 'O': 7, 'h': 520, 'gens': [1, 9, 10], 'classes': 4, 'L': 0, 'status': 'noL'}
+{'v': 2173, 'O': 7, 'h': 520, 'gens': [1, 3, 9], 'classes': 4, 'L': 0, 'status': 'noL'}
+{'v': 2173, 'O': 8, 'h': 520, 'gens': [1, 2, 4], 'classes': 7, 'L': 0, 'status': 'noL'}
+{'v': 2173, 'O': 8, 'h': 520, 'gens': [1, 6, 7], 'classes': 5, 'L': 0, 'status': 'noL'}
+{'v': 2173, 'O': 9, 'h': 520, 'gens': [1, 4, 9], 'classes': 8, 'L': 24, 'Lu': 24, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 2173, 'O': 10, 'h': 520, 'gens': [1, 4, 10], 'classes': 9, 'L': 0, 'status': 'noL'}
+{'v': 2173, 'O': 10, 'h': 520, 'gens': [1, 10, 13], 'classes': 5, 'L': 0, 'status': 'noL'}
+{'v': 2173, 'O': 12, 'h': 416, 'gens': [1, 3, 9], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 2173, 'O': 12, 'h': 260, 'gens': [1, 2, 4], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 2173, 'O': 12, 'h': 260, 'gens': [1, 4, 10], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 2173, 'O': 13, 'h': 260, 'gens': [1, 9, 10], 'classes': 8, 'L': 280, 'Lu': 152, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 2173, 'O': 14, 'h': 260, 'gens': [1, 10, 16], 'classes': 9, 'L': 0, 'status': 'noL'}
+{'v': 2173, 'O': 15, 'h': 260, 'gens': [1, 4, 10], 'classes': 14, 'L': 840, 'Lu': 840, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.1}
+{'v': 2173, 'O': 15, 'h': 260, 'gens': [1, 10, 16], 'classes': 8, 'L': 840, 'Lu': 400, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 2173, 'O': 17, 'h': 208, 'gens': [1, 3, 9], 'classes': 16, 'L': 0, 'status': 'noL'}
+{'v': 2173, 'O': 18, 'h': 260, 'gens': [1, 10, 16], 'classes': 9, 'L': 0, 'status': 'noL'}
+{'v': 2173, 'O': 18, 'h': 208, 'gens': [1, 9, 38], 'classes': 17, 'L': 0, 'status': 'noL'}
+{'v': 2173, 'O': 22, 'h': 208, 'gens': [1, 9, 32], 'classes': 21, 'L': 0, 'status': 'noL'}

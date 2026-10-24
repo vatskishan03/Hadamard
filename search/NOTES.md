@@ -6031,30 +6031,128 @@ to Σ PAF_u, which must be −92, while all other terms there are bounded by 8 �
 against small): |−92 ∓ 441| ≥ 349 > 263.
 
 **The triangular family** (§88: v = 1 + k(k + 1)/2 prime, k ≡ 3 (mod 4), H ≤ ℤ_v* of order k, e = (k + 1)/2 cosets;
-tools and commands in [negaskew/tri/README.md](negaskew/tri/README.md)).
+tools and commands in [negaskew/tri/README.md](negaskew/tri/README.md), proofs P1 to P7 in
+[negaskew/tri/PROOFS.md](negaskew/tri/PROOFS.md)).
 - *Row sums* (PROVED). Each pair of cosets ±C_j contributes ±(1 + i) to the skew block's coset sum, so S_A = m(1 + i)
   with m ≡ e/2 (mod 2); the identity 4v − 3 = k² + (k + 1)² is met by one block with S = ±1 ± i and three with S = 0,
   and for k ≥ 7 this is the only pattern. So A is the big block iff k ≡ 3 (mod 8) (67, 191, 379, 631, 947, 1327), a free
   block iff k ≡ 7 (mod 8) (29, 277, 1129, 2017).
-- *The skew spectrum* (PROVED). Off the origin the transform of the twisted-skew block satisfies conj U = (1 + i) − iU,
-  so U = u(0) + (1 + i)r with r real and |U|² = 2r² + 2r + 1: 2|U|² − 1 is a square. Hence no skew block has a flat
-  spectrum: flat free blocks (|U|² = v + 1, PAF −1, e.g. three Legendre sequences when v ≡ 3 mod 4) would need
-  |U_A|² = v − 3, i.e. (2r + 1)² = 2v − 7 = k² + k − 5 at every point, which has no solution in ℚ(ζ_v) for k ≥ 7.
+- *The skew spectrum* (PROVED, [negaskew/tri/PROOFS.md](negaskew/tri/PROOFS.md) P4). At every t, t = 0 included, the
+  transform U of the twisted-skew block satisfies conj U = (1 + i) − iU, so U = 1 + (1 + i)r with r real (for u(0) = 1
+  and for u(0) = −i) and |U|² = 2r² + 2r + 1: 2|U|² − 1 = (2r + 1)² is the square of a real element of ℚ(i, ζ_v) =
+  ℚ(ζ_{4v}), whose only real quadratic subfield is ℚ(√v). Three flat free blocks (|U|² = v + 1 at every t ≠ 0, PAF −1
+  off the origin, e.g. three Legendre sequences when v ≡ 3 mod 4) would give, for k ≡ 3 (mod 8), |U_A(t)|² = 4v − 3(v +
+  1) = v − 3, that is (2r + 1)² = 2v − 7 = k² + k − 5, which is neither a square ((2k + 1)² − 4n² = 21 only for k = 2,
+  5) nor v times a square (v | 7) for k ≥ 7; for k ≡ 7 (mod 8) the big free block is flat at v − 3, |U_A|² = v + 1 and
+  (2r + 1)² = 2v + 1, excluded below; so no solution has three flat free blocks. No skew block of a solution is flat
+  either: its flat value would be v − 3 (|R_A|² = 4v − 3) or v + 1 (|R_A|² = 1), and 2v + 1 is neither a square nor v
+  times a square. The exception is v = 7 (2v − 7 = v). A single flat free block does occur, at v = 29 and 67 (960 of
+  5952 and 576 of 6192 solutions), and not among the solutions found at 191 (all 99,360), 277 (all 646 reduced) and 379
+  (the sample of 448).
 - *Exact counts* (normalised: B, C, D with u(0) = 1). v = 29: 5952; 67: 6192; 191: 99,360 (105 classes under the
-  symmetry group ℤ_e × tilde³ × S₃ × (A ↦ −A) of order 96e; `qskew` and `tri_join` agree); 277: 359,424 (EXHAUSTIVE in
-  three runs of the theory analysis's join `tri2b` and in the judge's own unreduced join; 313 classes).
+  symmetry group ℤ_e × tilde³ × S₃ × (A ↦ −A) of order 96e; `qskew`, `tri_join` and `tri2` agree; `tri2` needs 7
+  CPU-seconds at 191, 1.8 ns per probe against about 70 ns for `tri_join`); 277: 359,424 (EXHAUSTIVE in three complete
+  runs of `tri2` ([negaskew/tri/tri2.c](negaskew/tri/tri2.c)): two shift-reduced with different moduli and seeds, one
+  unreduced (7.29 · 10¹¹ probes), logs in `negaskew/tri/data`; the reduced run was repeated (4.6 CPU-minutes) and is
+  byte-identical to its log; and in the judge's own unreduced join; 313 classes: 311 of 1152 solutions and 2 of 576).
 - *v = 379 has solutions* (EXACT): `tri_join 379 27 2 262144 170258 170259 1000` finds 32 in 2 minutes, the images of
-  one solution under the tilde of B, C, D, the swap of C and D and A ↦ −A; `tri_cert.py` gives a skew-Hadamard matrix
-  of order 3032 = 8 · 379 (verify.py and an independent numpy check; not a new order, since 1516 = 4 · 379 is known).
-  My partial run of 14 even residues of M = 2¹⁸ found nothing because each solution brings 31 others into its residue:
-  0.4 to 1.1 independent clusters were expected there. HEURISTIC: about 1.25 · 10⁵ normalised solutions at 379 against
-  the Gaussian 3.3 · 10⁵ (ratio 0.38; 0.97 at 67, 0.49 at 191, 0.41 at 277).
+  one solution under the tilde of B, C, D, the swap of C and D and A ↦ −A; `tri_cert.py` gives a skew-Hadamard matrix of
+  order 3032 = 8 · 379 (verify.py and an independent numpy check; not a new order, since 1516 = 4 · 379 is known). My
+  partial run of 14 even residues of M = 2¹⁸ found nothing because a solution without a stabiliser brings 31 others into
+  its residue (the tilde of B, C, D, the swap of C and D and A ↦ −A keep both pair sums of the join: a group of order
+  32, PROOFS.md P5; each of the 14 hit partitions of a random sample of 1484 holds exactly 32): E/(32 · 2¹⁷) · 14 = 0.3
+  to 0.5 independent clusters were expected there (E = 9.5 · 10⁴ to 1.6 · 10⁵), 1.1 with the Gaussian estimate. At v =
+  277 (B the big free block, S = 1 + i) the group has order 16 and the hits per partition are multiples of 8, 16 for
+  2322 of the 2996 hit partitions. HEURISTIC: about 10⁵ normalised solutions at 379 (9.5 · 10⁴ ± 35% from the sample of
+  partitions; about 70 inequivalent solutions) against the Gaussian 3.3 · 10⁵ (ratio 0.28; 0.77 at 29, 0.97 at 67, 0.49
+  at 191, 0.41 at 277). An earlier pooled value, 1.25 · 10⁵ (ratio 0.38), is inside the error of the logs but none of
+  the three ways of pooling them (plain, inverse-variance, unreduced plus reduced) reproduces it.
 - *No explicit structure* (EXACT on the solution sets of 29, 67, 191, and 277, 379 where possible): no two small blocks
   equal up to unit and tilde beyond v = 29, no spin or shift relation beyond e = 6, no sparse coset DFT, no flat or
-  Legendre-type free block beyond 67, no character-type blocks.
-- *Open members* (UNKNOWN). With the measured ratio the expected numbers of inequivalent solutions are 25 (631), 9.5
-  (947, Table 5's 947(6)), 21 (1129), 1.3 (1327), 0.17 (2017) (HEURISTIC): the family is probably finite, and the
-  four-list join needs about 5 · 10¹⁵ probes at 631 and 10²² at 947. No construction for the larger members is known.
+  Legendre-type free block beyond 67, no character-type block (c_j = i^(aj+b), `charblk.py`) beyond 67 (at 29 a = 1 and
+  a = 2 occur, at 67 a = 2; none at 191, 277, 379).
+- *Open members* (UNKNOWN). With the measured ratio 0.28 the expected numbers of inequivalent solutions are 17 (631),
+  6.6 (947, Table 5's 947(6)), 14 (1129), 0.9 (1327), 0.12 (2017) (HEURISTIC; `est_fast.py`, E ρ/(96e)): the family is
+  probably finite. With random sub-lists of each free list (fraction f, E ρ f³ = 1), the four-list join needs about 6 ·
+  10¹⁵ probes at 631 and between 4 · 10²⁰ and 10²² at 947, depending on the memory for the sub-lists (the plain scan
+  costs |L|² = 2.5 · 10²³ there). No construction for the larger members is known.
+
+**The orders 8p** (p = 599, 719, 739, 839, 1031, 1087: the survey's six open orders 4792, 5752, 5912, 6712, 8248, 8696,
+n = 2p, so Goethals–Seidel arrays over groups of order 2p and Spence's bordered array over groups of order 2p − 1 =
+1197, 1437, 1477, 1677, 2061, 2173; programs, data and every command in [eightp/README.md](eightp/README.md)). No matrix
+was found and none is claimed.
+- *Plain structures* (EXACT kills, HEURISTIC unreachability). Real Goethals–Seidel over ℤ₂ₚ and the negacyclic array
+  over ℤ_p (quaternary blocks) with a multiplier group H ≤ ℤ_p* must meet the ℤ₂-compression identities Σ(s₀² + s₁²) =
+  8p, Σ s₀s₁ = 0 with s_a ≡ ±1 (mod 2|H|), and Σ|u₀ + |H|S|² = 4p. Every group is dead except |H| = 2 (every p), 13 at p
+  = 599 (quaternary only: 47 orbits), 3, 6 and 9 at 739, 5 and 10 at 1031 (10: quaternary only), 3 and 6 at 1087: every
+  live pool has at least 2⁹⁴ sign vectors per block (2¹⁶⁶ in the real array). (The first census listed the odd orders
+  only; the judge's census of all orders agrees on the rest.)
+- *The theorems* (EXACT from the survey's hypotheses). Paley I and II (8p − 1 is never a prime power), Paley blocks (4p
+  − 1 = 5 · 479, 5³ · 23, 3 · 5 · 197, 5 · 11 · 61, 7 · 19 · 31, 3³ · 7 · 23; (s, t) = (2, p) needs T-matrices of order
+  ≥ 599), Miyamoto III (2p − 3 = 1195, 1435, 1475, 1675, 2059, 2171 are composite), Seberry–Yamada 8q (WT(299), WT(359),
+  WT(369), WT(419), WT(515), WT(543) are in no table; the survey excludes 543 = 3 · 181 explicitly), Cooper–Wallis,
+  T-sequences, Spence, Mathon, Yamada and Agaian: none applies. The Craigen–Holzmann–Kharaghani decomposition 8(x + y),
+  x + y = p, would exist at five of the six p if the complex Golay lengths were closed under products; they are not:
+  there is no complex Golay pair of length 9 = 3 · 3 (EXHAUSTIVE over 4⁹ sequences, by the judge).
+- *Spence's construction over an odd group* (VALIDATED). It does not need an even group: four ±1 sequences on an abelian
+  G of order v with Σ PAF = −4 off 0 have row sums (±1, ±1, ±1, ±1) (Σ r² = 4, r ≡ v mod 2); with S the 4 × 4 Hadamard
+  matrix of the row sums, P = Q = S, K = −S and M the group-developed Goethals–Seidel array, [[K, Q ⊗ 1ᵀ], [P ⊗ 1, M]]
+  is a Hadamard matrix of order 4(v + 1) (H Hᵀ = nI checked for ℤ_v, v = 3 to 13, orders 16 to 56, and by the judge for
+  v ≤ 11). `verify.py` accepts only the row sums (2, 0, 0, 0), so a hit needs the patch in `eightp/oddspence/`; sampler
+  hits at |G| = 21, 27, 35 (orders 88, 112, 144) pass the patched builder. Consequence (EXACT): the row sums allow
+  balanced blocks, so for odd |G| the multiplier group is not bounded by a row-sum condition as in the plain structures.
+- *The plug-in census* (EXACT filters). G = K × F_r of order 2p − 1, blocks sI + tQ + eJ constant on the orbits of H_K ×
+  squares(F_r*) (cyclic and product H_K, twists, 2 to 40 orbits), the defect identity (r + 1)e₊ + (r − 3)e₋ = 4(|K| − 1)
+  and the row-sum identity Σρ² = 4 in orbit units: of 464, 3, 25, 169, 69, 22 shapes at p = 599, 719, 739, 839, 1031,
+  1087 the live ones are 337, 1, 7, 49, 26, 0; at p = 1087 (2p − 1 = 2173 = 41 · 53) no allocation of orbit-unit defects
+  exists. The exact τ filter (the same identities with the exact t-sums of one block, joined over four blocks; 0 false
+  kills on the 35 odd-|G| shapes with a nonzero count, 91 of the 124 empty ones killed) was applied to the 213 live
+  shapes with at most 20 orbits (212) or 21 orbits (one): p = 599: 87 alive (8 to 21 orbits), 75 dead, 3 undecided (DP
+  memory); 719: dead; 739: one alive (ℤ₂₁₁ × F₇, |H_K| = 15, 15 orbits); 839: 11 alive (9 to 20 orbits); 1031: all 20
+  dead. So p = 719, 1031 and 1087 have no plug-in shape with at most 20 orbits. 207 of the 208 live shapes with 21 or
+  more orbits are not swept (UNKNOWN).
+- *The exhaustive engine* (VALIDATED, EXHAUSTIVE on 14 shapes). The K-level solver of §86 against an independent G-level
+  brute force on 166 Spence shapes of odd |G| (K up to ℤ₁₅, ℤ₃², ℤ₅ × ℤ₃; r = 3 to 9; twisted and untwisted H_K): 159
+  MATCH (35 nonzero, the largest 741,520,000 ordered quadruples), 0 MISMATCH, 7 time-limited; the judge re-counted 75 at
+  G level with its own code and re-ran eight with the engine. All allocations, exact lists and exact level 2 give no
+  solution on 14 distinct shapes: p = 599: ℤ₇ × ℤ₁₉ with r = 9 (six shapes, 6 or 8 orbits), ℤ₉ × ℤ₁₉ with r = 7 (6
+  orbits), ℤ₃² × ℤ₇ with r = 19 and ℤ₃² × ℤ₁₉ with r = 7 and a sign twist (8 orbits); p = 719: ℤ₄₇₉ × F₃, H_K = ⟨2⟩ (3
+  orbits; the judge's G-level count agrees); p = 739: ℤ₂₁₁ × F₇ with ⟨4⟩ and ⟨5⟩ (3 and 7 orbits); p = 1031: ℤ₂₂₉ × F₉
+  with ⟨3⟩ and ⟨4⟩ (5 and 7). Thirteen of the fourteen are also τ-dead. Not finished (UNKNOWN): three shapes at p = 599
+  (8 and 9 orbits, 300 s limit, no solution so far), three at p = 839 (ℤ₁₃ × ℤ₄₃, r = 3: memory of the list generator),
+  six at p = 1031 (ℤ₃ × ℤ₂₂₉, 687 points, over the 640 of the engine).
+- *Plain cyclic Spence* (EXHAUSTIVE per shape, VALIDATED). Four ±1 sequences on ℤ_v, v = 1197, 1437, 1477, 1677, 2061,
+  2173, constant on the orbits of every subgroup H ≤ ℤ_v*, all row sums +1, Σ PAF = −4 off 0, the count by a bucketed
+  hash join: with at most 22 orbits there are 55, 5, 33, 45, 26, 22 shapes, of which 12, 2, 6, 2, 2, 4 have a sign
+  vector with row sum +1 (the others are empty for that reason), and all have count 0; the same for the shapes with 23
+  and 24 orbits at v = 1197 (20 shapes), 1677 (7) and 1477 (3). The judge re-counted every shape with a +1 vector at 22
+  orbits or fewer, and those of 1197 and 1677 at 23 to 24, with its own joins and subgroup census. The first solver lost
+  matches when it split a bucket of more than 4 · 10⁷ pairs (a hash residue modulo a number that is not a power of two;
+  found by a test with a tiny bucket limit); the shapes it could have affected (1197 and 1677 at 24 orbits, 1477 at 21,
+  the non-cyclic sample below) were re-solved with the corrected solver, EMPTY again. Non-cyclic ℤ₃² × ℤ₁₃₃: 40,000
+  random 2-generator subgroups of GL(2, 3) × ℤ₁₃₃*, 583 distinct partitions, 283 with a +1 vector, all empty (a sample:
+  HEURISTIC coverage). v = 1437 is complete (no subgroup of ℤ₁₄₃₇* has 10 to 479 orbits). UNKNOWN: v = 2061 at 23 orbits
+  (three shapes with a +1 list of 291,720 vectors; the exact join was stopped after 3 h 13 min of CPU with no shape
+  finished; days per shape by extrapolation, HEURISTIC) and v = 2173 at 23 orbits (154,000 vectors), and every shape
+  with 25 or more orbits (1477: 28 orbits, 4.5 · 10⁶ vectors; 1677: 27 to 30 orbits).
+- *Block-symmetric structures* (EXHAUSTIVE, VALIDATED). Blocks (A, B, μB, μ²B), (X, μX, μ²X, μ³X) and (X, μX, Y, μY)
+  over ℤ_v with A (or X) invariant under K = ⟨H, μ⟩ and B under H of index 3, 4 or 2, all (H, μ) with at most 30 orbits
+  of H: 655 pairs (238, 61, 356 for d = 3, 4, 2; 208 with a +1 list), count 0 for all six v (d = 3 exists only for v =
+  1197, 1477, 1677, 2061: 3 does not divide |ℤ_v*| for 1437 and 2173). Validated against a brute force on 126 pairs (d =
+  2, 4: 46 nonzero) and, by the judge, on 50 cases of d = 3 (7 nonzero; the engine counts pairs (B, distinct A vector)).
+- *Bordered arrays* over |G| = n − t (t = 2, 4, 5, 6, 7): the exact filters leave 54 shapes, all with t = 2 (ℤ₄ or ℤ₂² ×
+  ℤ_m × F_r; 21, 21, 12 at p = 599, 739, 1031). 52 have Gaussian estimates, all below 10⁻²⁵ except one (10⁷·⁵, p = 1031,
+  ℤ₄ × ℤ₁₀₃ × F₅, 28 orbits, 76 t-sign bits); two 8-orbit shapes at p = 1031 (ℤ₄ × ℤ₁₀₃ and ℤ₂² × ℤ₁₀₃, r = 5) have none
+  (singular covariance). None was searched (UNKNOWN).
+- *Sampling and cost* (HEURISTIC). The two-level sampler with exact row patterns ran 360 s on each of the eight smallest
+  alive shapes (seven completed; 372 of the 374 allocation tokens of ℤ₃² × ℤ₇ × F₁₉ exhausted, no instance); no round of
+  any sampler gave a complete level-1 instance at p = 599, 739, 839, so the sampled coverage of the alive space is about
+  0 (not evidence of absence). The modelled cost of the cheapest alive shapes is 10⁵·⁸ s (p = 599, ℤ₉ × ℤ₁₉ × F₇, |H_K|
+  = 18, 13 orbits) and 10⁶·¹ s (p = 739, ℤ₂₁₁ × F₇, |H_K| = 15, 15 orbits) on one core; the Gaussian estimator is off by
+  up to +2.8 decades (over) and, on six of 35 nonzero shapes, by 3.7 to 315 decades (under); it gives up to 10⁷ on
+  exactly empty small shapes. Open (UNKNOWN): every alive shape (8 to 21 orbits at p = 599, 9 to 20 at 839, 15 at 739)
+  and the unswept ones, plain cyclic Spence beyond the orbit counts above, non-cyclic groups beyond the sample, the
+  bordered shapes.
 
 ## 93. Round 40: the lowest energies of the census shapes; skew 980 and 3124, the census values 245 and 781 (October 24)
 

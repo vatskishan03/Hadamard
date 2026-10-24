@@ -1,0 +1,9 @@
+v = 189: 50 subgroups of Z_v^*, 8 with 2 <= orbits <= 18
+{'v': 189, 'O': 8, 'h': 108, 'gens': [1, 2, 4], 'classes': 7, 'L': 0, 'status': 'noL'}
+{'v': 189, 'O': 11, 'h': 54, 'gens': [1, 4, 5], 'classes': 10, 'L': 0, 'status': 'noL'}
+{'v': 189, 'O': 12, 'h': 54, 'gens': [1, 2, 4], 'classes': 7, 'L': 24, 'Lu': 12, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 189, 'O': 12, 'h': 36, 'gens': [1, 5, 8], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 189, 'O': 12, 'h': 36, 'gens': [1, 2, 4], 'classes': 11, 'L': 0, 'status': 'noL'}
+{'v': 189, 'O': 14, 'h': 54, 'gens': [1, 4, 10], 'classes': 7, 'L': 216, 'Lu': 14, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.0}
+{'v': 189, 'O': 16, 'h': 36, 'gens': [1, 8, 10], 'classes': 15, 'L': 720, 'Lu': 720, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.1}
+{'v': 189, 'O': 16, 'h': 36, 'gens': [1, 8, 13], 'classes': 15, 'L': 702, 'Lu': 702, 'status': 'EMPTY', 'count_rho_plus': 0, 'secs': 0.1}

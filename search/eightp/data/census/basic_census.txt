@@ -1,0 +1,36 @@
+p = 599  p mod 8 = 7  p-1 = {2: 1, 13: 1, 23: 1}  (p-1)/2 = 299 = {13: 1, 23: 1}
+   2p-1 = 1197 = {3: 2, 7: 1, 19: 1};  2p-2 = {2: 2, 13: 1, 23: 1};  2p-3 = {5: 1, 239: 1};  2p+1 = {11: 1, 109: 1}
+   h =    1: real Z_2p orbits  1198 (2^1198 per block) DC live;  quaternary Z_p orbits  599 (4^599 = 2^1198) DC live
+   h =   13: real Z_2p orbits    94 (2^94 per block) DC DEAD;  quaternary Z_p orbits   47 (4^47 = 2^94) DC live  e.g. |R|^2 (1, 1, (625, 1769))
+   h =   23: real Z_2p orbits    54 (2^54 per block) DC DEAD;  quaternary Z_p orbits   27 (4^27 = 2^54) DC DEAD
+   h =  299: real Z_2p orbits     6 (2^6 per block) DC DEAD;  quaternary Z_p orbits    3 (4^3 = 2^6) DC DEAD
+p = 719  p mod 8 = 7  p-1 = {2: 1, 359: 1}  (p-1)/2 = 359 = {359: 1}
+   2p-1 = 1437 = {3: 1, 479: 1};  2p-2 = {2: 2, 359: 1};  2p-3 = {5: 1, 7: 1, 41: 1};  2p+1 = {1439: 1}
+   h =    1: real Z_2p orbits  1438 (2^1438 per block) DC live;  quaternary Z_p orbits  719 (4^719 = 2^1438) DC live
+   h =  359: real Z_2p orbits     6 (2^6 per block) DC DEAD;  quaternary Z_p orbits    3 (4^3 = 2^6) DC DEAD
+p = 739  p mod 8 = 3  p-1 = {2: 1, 3: 2, 41: 1}  (p-1)/2 = 369 = {3: 2, 41: 1}
+   2p-1 = 1477 = {7: 1, 211: 1};  2p-2 = {2: 2, 3: 2, 41: 1};  2p-3 = {5: 2, 59: 1};  2p+1 = {3: 1, 17: 1, 29: 1}
+   h =    1: real Z_2p orbits  1478 (2^1478 per block) DC live;  quaternary Z_p orbits  739 (4^739 = 2^1478) DC live
+   h =    3: real Z_2p orbits   494 (2^494 per block) DC live;  quaternary Z_p orbits  247 (4^247 = 2^494) DC live  e.g. |R|^2 (1, 1, (1, 2953))
+   h =    9: real Z_2p orbits   166 (2^166 per block) DC live;  quaternary Z_p orbits   83 (4^83 = 2^166) DC live  e.g. |R|^2 (1, 1, (145, 2809))
+   h =   41: real Z_2p orbits    38 (2^38 per block) DC DEAD;  quaternary Z_p orbits   19 (4^19 = 2^38) DC DEAD
+   h =  123: real Z_2p orbits    14 (2^14 per block) DC DEAD;  quaternary Z_p orbits    7 (4^7 = 2^14) DC DEAD
+   h =  369: real Z_2p orbits     6 (2^6 per block) DC DEAD;  quaternary Z_p orbits    3 (4^3 = 2^6) DC DEAD
+p = 839  p mod 8 = 7  p-1 = {2: 1, 419: 1}  (p-1)/2 = 419 = {419: 1}
+   2p-1 = 1677 = {3: 1, 13: 1, 43: 1};  2p-2 = {2: 2, 419: 1};  2p-3 = {5: 2, 67: 1};  2p+1 = {23: 1, 73: 1}
+   h =    1: real Z_2p orbits  1678 (2^1678 per block) DC live;  quaternary Z_p orbits  839 (4^839 = 2^1678) DC live
+   h =  419: real Z_2p orbits     6 (2^6 per block) DC DEAD;  quaternary Z_p orbits    3 (4^3 = 2^6) DC DEAD
+p = 1031  p mod 8 = 7  p-1 = {2: 1, 5: 1, 103: 1}  (p-1)/2 = 515 = {5: 1, 103: 1}
+   2p-1 = 2061 = {3: 2, 229: 1};  2p-2 = {2: 2, 5: 1, 103: 1};  2p-3 = {29: 1, 71: 1};  2p+1 = {2063: 1}
+   h =    1: real Z_2p orbits  2062 (2^2062 per block) DC live;  quaternary Z_p orbits 1031 (4^1031 = 2^2062) DC live
+   h =    5: real Z_2p orbits   414 (2^414 per block) DC live;  quaternary Z_p orbits  207 (4^207 = 2^414) DC live  e.g. |R|^2 (1, 1, (1, 4121))
+   h =  103: real Z_2p orbits    22 (2^22 per block) DC DEAD;  quaternary Z_p orbits   11 (4^11 = 2^22) DC DEAD
+   h =  515: real Z_2p orbits     6 (2^6 per block) DC DEAD;  quaternary Z_p orbits    3 (4^3 = 2^6) DC DEAD
+p = 1087  p mod 8 = 7  p-1 = {2: 1, 3: 1, 181: 1}  (p-1)/2 = 543 = {3: 1, 181: 1}
+   2p-1 = 2173 = {41: 1, 53: 1};  2p-2 = {2: 2, 3: 1, 181: 1};  2p-3 = {13: 1, 167: 1};  2p+1 = {3: 1, 5: 2, 29: 1}
+   h =    1: real Z_2p orbits  2174 (2^2174 per block) DC live;  quaternary Z_p orbits 1087 (4^1087 = 2^2174) DC live
+   h =    3: real Z_2p orbits   726 (2^726 per block) DC live;  quaternary Z_p orbits  363 (4^363 = 2^726) DC live  e.g. |R|^2 (1, 1, (25, 4321))
+   h =  181: real Z_2p orbits    14 (2^14 per block) DC DEAD;  quaternary Z_p orbits    7 (4^7 = 2^14) DC DEAD
+   h =  543: real Z_2p orbits     6 (2^6 per block) DC DEAD;  quaternary Z_p orbits    3 (4^3 = 2^6) DC DEAD
+
+(h = 1 is the trivial group: 2^{2p} per block, never searchable.)

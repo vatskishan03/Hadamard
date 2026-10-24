@@ -1,0 +1,14 @@
+v = 2173: 88 subgroups of Z_v^*, 1 with 23 <= orbits <= 24
+Traceback (most recent call last):
+  File "plain_spence3.py", line 244, in <module>
+    run(v, Omax, Omin, maxL=maxL)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "plain_spence3.py", line 230, in run
+    tot, found = solve(Vu, cnt, target)
+                 ~~~~~^^^^^^^^^^^^^^^^^
+  File "plain_spence3.py", line 186, in solve
+    A = pairs_for(s, part, nparts)
+  File "plain_spence3.py", line 164, in pairs_for
+    return np.concatenate(outH), np.concatenate(outI), np.concatenate(outJ), np.concatenate(outW)
+                                                                             ~~~~~~~~~~~~~~^^^^^^
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 236. MiB for an array with shape (30917310,) and data type int64

@@ -1,0 +1,284 @@
+z3z3 m=133 v=1197: 583 distinct partitions with 3..24 orbits from 40000 samples (58s)
+{'kind': 'z3z3', 'm': 133, 'O': 12, 'classes': 7, 'L': 4.0, 'gens': [((0, 1, 1, 1), 131), ((1, 2, 0, 1), 68), ((2, 1, 1, 0), 121)], 'Lu': 2, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 12, 'classes': 7, 'L': 4.0, 'gens': [((2, 2, 2, 0), 127), ((1, 0, 1, 1), 93)], 'Lu': 2, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 12, 'classes': 11, 'L': 8.0, 'gens': [((2, 0, 2, 1), 86), ((1, 1, 1, 2), 106), ((2, 2, 0, 1), 40)], 'Lu': 8, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 12, 'classes': 11, 'L': 8.0, 'gens': [((0, 1, 2, 0), 11), ((0, 1, 2, 0), 104), ((0, 2, 2, 0), 132)], 'Lu': 8, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 12, 'classes': 11, 'L': 8.0, 'gens': [((1, 2, 2, 2), 4), ((1, 2, 0, 2), 27), ((2, 1, 1, 1), 109)], 'Lu': 8, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 13, 'classes': 12, 'L': 8.0, 'gens': [((1, 2, 0, 2), 12), ((2, 0, 1, 1), 32), ((2, 0, 1, 1), 73)], 'Lu': 8, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 13, 'classes': 12, 'L': 8.0, 'gens': [((1, 0, 1, 2), 71), ((2, 0, 2, 1), 20), ((1, 1, 0, 2), 129)], 'Lu': 8, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 13, 'classes': 12, 'L': 8.0, 'gens': [((2, 0, 0, 2), 34), ((2, 0, 0, 1), 10), ((0, 2, 2, 0), 61)], 'Lu': 8, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 13, 'classes': 12, 'L': 8.0, 'gens': [((2, 1, 0, 1), 26), ((1, 2, 2, 2), 82), ((2, 1, 1, 1), 127)], 'Lu': 8, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 14, 'classes': 11, 'L': 24.0, 'gens': [((2, 1, 0, 1), 74), ((1, 0, 2, 2), 108), ((2, 1, 1, 1), 66)], 'Lu': 16, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 14, 'classes': 11, 'L': 24.0, 'gens': [((0, 2, 2, 0), 97), ((1, 0, 0, 2), 66), ((1, 0, 0, 2), 16)], 'Lu': 16, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 14, 'classes': 13, 'L': 24.0, 'gens': [((2, 0, 0, 2), 90), ((0, 2, 1, 0), 88)], 'Lu': 24, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 14, 'classes': 13, 'L': 24.0, 'gens': [((2, 2, 2, 1), 118), ((2, 0, 0, 2), 59)], 'Lu': 24, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 14, 'classes': 13, 'L': 24.0, 'gens': [((2, 1, 1, 1), 55), ((1, 0, 0, 1), 64), ((2, 1, 1, 1), 107)], 'Lu': 24, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 14, 'classes': 11, 'L': 24.0, 'gens': [((0, 2, 1, 0), 17), ((0, 1, 1, 0), 43), ((1, 0, 0, 1), 2)], 'Lu': 16, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 14, 'classes': 11, 'L': 24.0, 'gens': [((2, 0, 1, 1), 109), ((2, 0, 0, 2), 128), ((2, 1, 0, 1), 118)], 'Lu': 16, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 14, 'classes': 11, 'L': 24.0, 'gens': [((1, 1, 1, 2), 34), ((1, 0, 1, 2), 123), ((1, 1, 1, 2), 72)], 'Lu': 16, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 14, 'classes': 11, 'L': 24.0, 'gens': [((2, 0, 0, 2), 73), ((2, 0, 2, 1), 132), ((1, 1, 0, 2), 115)], 'Lu': 16, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 14, 'classes': 11, 'L': 24.0, 'gens': [((1, 1, 0, 2), 125), ((1, 1, 1, 2), 24), ((2, 0, 0, 2), 67)], 'Lu': 16, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 14, 'classes': 11, 'L': 24.0, 'gens': [((2, 0, 0, 2), 24), ((1, 2, 0, 2), 48), ((1, 2, 2, 2), 12)], 'Lu': 16, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 8, 'L': 12.0, 'gens': [((1, 1, 1, 2), 67), ((1, 0, 0, 2), 43)], 'Lu': 5, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 8, 'L': 108.0, 'gens': [((1, 1, 1, 0), 118), ((2, 2, 2, 1), 82)], 'Lu': 44, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 12, 'L': 72.0, 'gens': [((1, 2, 2, 2), 54), ((2, 0, 1, 1), 13)], 'Lu': 40, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 8, 'L': 12.0, 'gens': [((2, 1, 0, 1), 74), ((2, 2, 2, 0), 46)], 'Lu': 5, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 8, 'L': 12.0, 'gens': [((2, 1, 1, 1), 127), ((0, 2, 2, 2), 8), ((2, 2, 2, 1), 123)], 'Lu': 5, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 12, 'L': 72.0, 'gens': [((0, 1, 2, 0), 62), ((1, 0, 0, 2), 86)], 'Lu': 40, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 8, 'L': 108.0, 'gens': [((1, 1, 1, 2), 118), ((0, 1, 1, 0), 123), ((2, 2, 2, 1), 115)], 'Lu': 44, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 14, 'L': 24.0, 'gens': [((0, 1, 2, 0), 25), ((1, 0, 0, 1), 110)], 'Lu': 24, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 14, 'L': 24.0, 'gens': [((1, 1, 1, 2), 44), ((2, 2, 0, 1), 117)], 'Lu': 24, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 8, 'L': 108.0, 'gens': [((0, 2, 1, 0), 73), ((1, 1, 0, 2), 58)], 'Lu': 44, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 12, 'L': 72.0, 'gens': [((1, 0, 1, 2), 33), ((2, 2, 2, 1), 55)], 'Lu': 40, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 12, 'L': 72.0, 'gens': [((0, 1, 1, 0), 12), ((2, 0, 0, 1), 5)], 'Lu': 40, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 12, 'L': 72.0, 'gens': [((2, 0, 1, 1), 59), ((2, 1, 0, 1), 104)], 'Lu': 40, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 12, 'L': 72.0, 'gens': [((1, 0, 2, 2), 127), ((1, 2, 2, 2), 61)], 'Lu': 40, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 12, 'L': 72.0, 'gens': [((2, 2, 2, 1), 128), ((1, 1, 0, 2), 122)], 'Lu': 40, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 12, 'L': 72.0, 'gens': [((1, 1, 0, 2), 3), ((1, 1, 1, 2), 55)], 'Lu': 40, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 12, 'L': 72.0, 'gens': [((1, 2, 2, 2), 78), ((2, 0, 1, 1), 26)], 'Lu': 40, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 12, 'L': 72.0, 'gens': [((1, 1, 0, 2), 26), ((1, 0, 1, 2), 52)], 'Lu': 40, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 14, 'L': 24.0, 'gens': [((1, 2, 2, 2), 81), ((1, 2, 2, 2), 34)], 'Lu': 24, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 12, 'L': 72.0, 'gens': [((0, 2, 1, 0), 79), ((1, 0, 0, 2), 34)], 'Lu': 40, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 15, 'classes': 12, 'L': 72.0, 'gens': [((0, 2, 2, 0), 86), ((2, 0, 0, 1), 13)], 'Lu': 40, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 16, 'classes': 15, 'L': 36.0, 'gens': [((2, 1, 0, 2), 20), ((0, 2, 1, 2), 41)], 'Lu': 36, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 16, 'classes': 11, 'L': 216.0, 'gens': [((2, 0, 1, 1), 32), ((1, 2, 0, 2), 73)], 'Lu': 68, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 16, 'classes': 11, 'L': 120.0, 'gens': [((0, 2, 1, 0), 110), ((0, 2, 1, 0), 67)], 'Lu': 44, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 16, 'classes': 11, 'L': 216.0, 'gens': [((1, 1, 0, 2), 131), ((2, 0, 2, 1), 51)], 'Lu': 68, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 16, 'classes': 11, 'L': 80.0, 'gens': [((1, 0, 1, 2), 124), ((1, 0, 1, 2), 6), ((1, 0, 1, 1), 12)], 'Lu': 40, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 16, 'classes': 11, 'L': 120.0, 'gens': [((2, 0, 0, 2), 88), ((1, 2, 2, 2), 124)], 'Lu': 44, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 16, 'classes': 11, 'L': 120.0, 'gens': [((1, 2, 2, 2), 22), ((1, 0, 0, 1), 131)], 'Lu': 44, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 16, 'classes': 11, 'L': 216.0, 'gens': [((1, 1, 0, 2), 116), ((2, 0, 2, 1), 66)], 'Lu': 68, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 16, 'classes': 11, 'L': 80.0, 'gens': [((1, 2, 0, 2), 111), ((1, 0, 0, 1), 132), ((2, 1, 2, 0), 54)], 'Lu': 40, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 16, 'classes': 11, 'L': 80.0, 'gens': [((2, 0, 1, 1), 64), ((2, 2, 1, 0), 111), ((1, 0, 0, 1), 89)], 'Lu': 40, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 16, 'classes': 11, 'L': 216.0, 'gens': [((1, 0, 0, 2), 88), ((0, 1, 1, 0), 118)], 'Lu': 68, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 16, 'classes': 11, 'L': 120.0, 'gens': [((2, 2, 2, 1), 87), ((2, 2, 2, 1), 10)], 'Lu': 44, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 16, 'classes': 11, 'L': 216.0, 'gens': [((1, 2, 2, 2), 117), ((1, 2, 0, 2), 46)], 'Lu': 68, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 16, 'classes': 11, 'L': 120.0, 'gens': [((0, 2, 1, 0), 104), ((0, 2, 1, 0), 89)], 'Lu': 44, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 16, 'classes': 11, 'L': 80.0, 'gens': [((1, 1, 0, 1), 97), ((2, 2, 0, 1), 16), ((1, 2, 0, 1), 37)], 'Lu': 40, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 16, 'classes': 11, 'L': 120.0, 'gens': [((2, 2, 2, 1), 53), ((2, 2, 2, 1), 89)], 'Lu': 44, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 16, 'classes': 11, 'L': 216.0, 'gens': [((0, 1, 2, 0), 103), ((0, 2, 2, 0), 2)], 'Lu': 68, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 17, 'classes': 11, 'L': 240.0, 'gens': [((2, 2, 0, 1), 71), ((1, 2, 0, 1), 52)], 'Lu': 80, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 17, 'classes': 11, 'L': 240.0, 'gens': [((1, 0, 0, 2), 15), ((1, 0, 2, 2), 115)], 'Lu': 80, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 17, 'classes': 16, 'L': 216.0, 'gens': [((1, 0, 0, 1), 110), ((2, 0, 1, 1), 127), ((2, 0, 0, 2), 132)], 'Lu': 216, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 17, 'classes': 11, 'L': 240.0, 'gens': [((2, 0, 1, 1), 111), ((0, 2, 2, 0), 32)], 'Lu': 80, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 17, 'classes': 11, 'L': 240.0, 'gens': [((1, 2, 0, 2), 131), ((0, 2, 1, 2), 33), ((1, 0, 0, 1), 3)], 'Lu': 80, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 17, 'classes': 16, 'L': 216.0, 'gens': [((2, 2, 0, 1), 72), ((1, 0, 0, 1), 31), ((2, 0, 0, 2), 108)], 'Lu': 216, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 17, 'classes': 16, 'L': 216.0, 'gens': [((2, 0, 0, 2), 75), ((1, 0, 0, 1), 129), ((0, 2, 2, 0), 68)], 'Lu': 216, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 9, 'L': 552.0, 'gens': [((2, 2, 0, 1), 100), ((1, 2, 1, 1), 9)], 'Lu': 253, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 11, 'L': 224.0, 'gens': [((2, 1, 0, 2), 30), ((2, 0, 0, 2), 16), ((2, 2, 0, 1), 61)], 'Lu': 112, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 11, 'L': 660.0, 'gens': [((2, 0, 0, 2), 26), ((1, 2, 2, 2), 81)], 'Lu': 334, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 13, 'L': 528.0, 'gens': [((2, 1, 0, 1), 60), ((2, 2, 0, 1), 75)], 'Lu': 264, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 11, 'L': 660.0, 'gens': [((2, 0, 2, 1), 82), ((2, 2, 2, 1), 85)], 'Lu': 334, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 13, 'L': 240.0, 'gens': [((0, 1, 1, 0), 124), ((2, 1, 2, 0), 39), ((0, 2, 1, 2), 113)], 'Lu': 120, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 13, 'L': 528.0, 'gens': [((1, 0, 0, 2), 122), ((1, 0, 2, 2), 32)], 'Lu': 264, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 11, 'L': 756.0, 'gens': [((2, 1, 0, 1), 29), ((1, 2, 2, 2), 130)], 'Lu': 382, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 13, 'L': 528.0, 'gens': [((0, 1, 2, 2), 73), ((2, 0, 1, 1), 127)], 'Lu': 264, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 11, 'L': 240.0, 'gens': [((1, 0, 0, 2), 67), ((2, 0, 2, 2), 92)], 'Lu': 120, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 13, 'L': 240.0, 'gens': [((2, 1, 0, 1), 90), ((1, 2, 0, 1), 2)], 'Lu': 120, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 13, 'L': 528.0, 'gens': [((2, 0, 2, 1), 124), ((0, 1, 1, 0), 79)], 'Lu': 264, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 11, 'L': 224.0, 'gens': [((2, 2, 0, 1), 45), ((2, 0, 0, 2), 120), ((1, 0, 2, 2), 125)], 'Lu': 112, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 11, 'L': 756.0, 'gens': [((2, 0, 0, 1), 88), ((0, 2, 2, 0), 71)], 'Lu': 382, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 11, 'L': 756.0, 'gens': [((2, 0, 2, 1), 109), ((1, 1, 1, 2), 100)], 'Lu': 382, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 11, 'L': 224.0, 'gens': [((2, 1, 0, 1), 61), ((0, 1, 2, 1), 120)], 'Lu': 112, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 11, 'L': 240.0, 'gens': [((1, 2, 0, 2), 65), ((1, 2, 1, 0), 74)], 'Lu': 120, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 11, 'L': 240.0, 'gens': [((2, 0, 0, 1), 107), ((1, 2, 0, 2), 18), ((2, 0, 0, 2), 16)], 'Lu': 120, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 13, 'L': 240.0, 'gens': [((1, 0, 2, 1), 51), ((1, 0, 2, 2), 104)], 'Lu': 120, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 15, 'L': 360.0, 'gens': [((0, 2, 2, 0), 41), ((0, 1, 1, 0), 108), ((2, 0, 0, 2), 118)], 'Lu': 216, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 11, 'L': 240.0, 'gens': [((1, 1, 0, 2), 37), ((0, 1, 1, 0), 109)], 'Lu': 120, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 13, 'L': 240.0, 'gens': [((1, 1, 0, 2), 117), ((2, 2, 1, 0), 71)], 'Lu': 120, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 11, 'L': 224.0, 'gens': [((2, 0, 0, 2), 16), ((1, 0, 1, 2), 6), ((2, 0, 0, 1), 92)], 'Lu': 112, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 11, 'L': 660.0, 'gens': [((1, 0, 0, 1), 47), ((0, 2, 2, 0), 96), ((2, 0, 0, 1), 80)], 'Lu': 334, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 15, 'L': 360.0, 'gens': [((2, 0, 0, 1), 89), ((2, 0, 0, 1), 62), ((2, 0, 0, 2), 11)], 'Lu': 216, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 15, 'L': 432.0, 'gens': [((2, 2, 0, 1), 6), ((2, 2, 0, 1), 128), ((2, 0, 0, 2), 88)], 'Lu': 252, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 18, 'classes': 15, 'L': 360.0, 'gens': [((1, 0, 0, 1), 45), ((1, 2, 0, 2), 108), ((2, 0, 0, 2), 16)], 'Lu': 216, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 19, 'classes': 14, 'L': 1704.0, 'gens': [((2, 0, 1, 1), 124), ((1, 2, 0, 2), 92)], 'Lu': 847, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 19, 'classes': 18, 'L': 420.0, 'gens': [((2, 1, 1, 0), 22), ((0, 1, 1, 1), 55)], 'Lu': 420, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 19, 'classes': 14, 'L': 1704.0, 'gens': [((1, 1, 0, 2), 13), ((2, 0, 2, 1), 74)], 'Lu': 847, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 19, 'classes': 14, 'L': 1704.0, 'gens': [((2, 0, 0, 1), 81), ((0, 2, 2, 0), 122)], 'Lu': 847, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 19, 'classes': 18, 'L': 420.0, 'gens': [((1, 1, 2, 1), 104), ((0, 1, 1, 0), 90), ((1, 1, 1, 2), 62)], 'Lu': 420, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 19, 'classes': 14, 'L': 1704.0, 'gens': [((1, 2, 0, 2), 13), ((2, 1, 1, 1), 33)], 'Lu': 847, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 19, 'classes': 18, 'L': 420.0, 'gens': [((2, 2, 2, 0), 83), ((1, 1, 1, 2), 29)], 'Lu': 420, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 19, 'classes': 14, 'L': 1704.0, 'gens': [((1, 0, 1, 2), 10), ((1, 1, 0, 2), 92)], 'Lu': 847, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 19, 'classes': 14, 'L': 1704.0, 'gens': [((0, 1, 1, 0), 4), ((0, 1, 2, 0), 59)], 'Lu': 847, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 11, 'L': 490.0, 'gens': [((2, 1, 0, 1), 72), ((0, 2, 2, 1), 130)], 'Lu': 242, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 11, 'L': 490.0, 'gens': [((0, 2, 1, 0), 32), ((2, 1, 2, 2), 50)], 'Lu': 237, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 11, 'L': 1270.0, 'gens': [((2, 1, 1, 0), 47), ((1, 0, 0, 2), 83)], 'Lu': 635, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 11, 'L': 1270.0, 'gens': [((2, 0, 2, 1), 101), ((1, 2, 2, 0), 80)], 'Lu': 635, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 14, 'L': 2288.0, 'gens': [((1, 0, 1, 1), 13), ((1, 0, 0, 2), 75)], 'Lu': 1101, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 15, 'L': 1860.0, 'gens': [((2, 1, 0, 1), 111), ((0, 2, 1, 0), 50)], 'Lu': 948, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.2}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 15, 'L': 1860.0, 'gens': [((2, 1, 2, 2), 27), ((1, 2, 2, 2), 29)], 'Lu': 948, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.2}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 14, 'L': 2288.0, 'gens': [((0, 2, 2, 0), 36), ((2, 2, 1, 0), 108)], 'Lu': 1101, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 14, 'L': 2288.0, 'gens': [((2, 0, 0, 1), 81), ((2, 1, 0, 1), 41)], 'Lu': 1101, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 15, 'L': 1860.0, 'gens': [((1, 2, 2, 0), 15), ((2, 0, 2, 1), 104)], 'Lu': 948, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 14, 'L': 2288.0, 'gens': [((0, 2, 1, 2), 97), ((0, 1, 1, 0), 9)], 'Lu': 1101, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 19, 'L': 1584.0, 'gens': [((1, 0, 2, 2), 132), ((2, 0, 0, 2), 24), ((1, 0, 2, 2), 101)], 'Lu': 1584, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 19, 'L': 1584.0, 'gens': [((1, 2, 0, 2), 89), ((1, 2, 0, 2), 87), ((2, 1, 0, 1), 15)], 'Lu': 1584, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 11, 'L': 1584.0, 'gens': [((2, 1, 2, 0), 118), ((2, 1, 2, 0), 81), ((2, 1, 2, 0), 2)], 'Lu': 152, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 11, 'L': 1584.0, 'gens': [((1, 2, 0, 1), 59), ((1, 0, 0, 1), 85), ((1, 0, 0, 1), 82)], 'Lu': 152, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 19, 'L': 1584.0, 'gens': [((1, 0, 0, 1), 127), ((2, 0, 0, 1), 34), ((1, 0, 0, 2), 93)], 'Lu': 1584, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 11, 'L': 1584.0, 'gens': [((1, 0, 2, 1), 94), ((1, 0, 1, 1), 51), ((1, 0, 0, 1), 31)], 'Lu': 152, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 19, 'L': 1392.0, 'gens': [((1, 0, 2, 2), 131), ((2, 0, 1, 1), 79), ((2, 0, 0, 2), 18)], 'Lu': 1392, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 19, 'L': 1392.0, 'gens': [((2, 0, 1, 1), 55), ((2, 0, 1, 1), 99), ((2, 0, 0, 2), 40)], 'Lu': 1392, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 19, 'L': 1704.0, 'gens': [((2, 0, 0, 1), 124), ((1, 0, 0, 2), 36), ((2, 0, 0, 2), 93)], 'Lu': 1704, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 11, 'L': 1584.0, 'gens': [((2, 2, 1, 0), 59), ((1, 0, 0, 1), 116), ((1, 0, 0, 1), 55)], 'Lu': 152, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 20, 'classes': 19, 'L': 1584.0, 'gens': [((2, 0, 0, 2), 129), ((1, 2, 0, 2), 92), ((2, 1, 0, 1), 26)], 'Lu': 1584, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 13, 'L': 3360.0, 'gens': [((2, 0, 1, 1), 131), ((2, 2, 0, 1), 30), ((1, 1, 0, 2), 45)], 'Lu': 1628, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 12, 'L': 4164.0, 'gens': [((1, 0, 1, 2), 60), ((2, 2, 2, 1), 88)], 'Lu': 1928, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.2}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 12, 'L': 4900.0, 'gens': [((2, 0, 1, 1), 118), ((2, 1, 0, 1), 102)], 'Lu': 2212, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 12, 'L': 4164.0, 'gens': [((0, 1, 1, 0), 107), ((0, 1, 2, 0), 67)], 'Lu': 1928, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.2}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 13, 'L': 3360.0, 'gens': [((2, 1, 0, 2), 6), ((1, 0, 0, 2), 30)], 'Lu': 1628, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 12, 'L': 4900.0, 'gens': [((0, 1, 1, 0), 45), ((1, 0, 0, 2), 92)], 'Lu': 2212, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 12, 'L': 4164.0, 'gens': [((1, 2, 0, 2), 22), ((2, 1, 1, 1), 109)], 'Lu': 1928, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.3}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 13, 'L': 2784.0, 'gens': [((1, 2, 1, 0), 104), ((2, 0, 2, 1), 39)], 'Lu': 1389, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 13, 'L': 2288.0, 'gens': [((2, 2, 0, 2), 15), ((2, 2, 0, 1), 100)], 'Lu': 1127, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.2}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 12, 'L': 4900.0, 'gens': [((1, 0, 1, 2), 16), ((2, 2, 2, 1), 61)], 'Lu': 2212, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 13, 'L': 2784.0, 'gens': [((2, 0, 0, 1), 45), ((1, 0, 2, 2), 92)], 'Lu': 1389, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 12, 'L': 4164.0, 'gens': [((1, 2, 0, 2), 102), ((1, 2, 2, 2), 32)], 'Lu': 1928, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.2}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 12, 'L': 4900.0, 'gens': [((1, 2, 2, 2), 111), ((2, 1, 0, 1), 61)], 'Lu': 2212, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.2}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 13, 'L': 2608.0, 'gens': [((2, 2, 0, 2), 67), ((2, 2, 0, 1), 116)], 'Lu': 1282, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 13, 'L': 3360.0, 'gens': [((2, 0, 0, 1), 36), ((2, 0, 2, 2), 80)], 'Lu': 1628, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.2}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 13, 'L': 2608.0, 'gens': [((1, 1, 2, 0), 22), ((1, 1, 0, 2), 51)], 'Lu': 1282, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.2}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 13, 'L': 2288.0, 'gens': [((1, 2, 1, 0), 88), ((1, 2, 0, 2), 36)], 'Lu': 1127, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.2}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 13, 'L': 2288.0, 'gens': [((1, 0, 2, 2), 120), ((2, 0, 2, 1), 46)], 'Lu': 1127, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 13, 'L': 2608.0, 'gens': [((2, 0, 1, 1), 99), ((1, 0, 0, 2), 67)], 'Lu': 1282, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 12, 'L': 4900.0, 'gens': [((1, 0, 1, 2), 82), ((1, 1, 1, 2), 87)], 'Lu': 2212, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 13, 'L': 3360.0, 'gens': [((2, 0, 2, 1), 61), ((2, 1, 0, 1), 100)], 'Lu': 1628, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.2}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 13, 'L': 2288.0, 'gens': [((0, 2, 1, 1), 22), ((0, 1, 1, 0), 88)], 'Lu': 1127, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 13, 'L': 2608.0, 'gens': [((2, 0, 2, 1), 128), ((2, 1, 0, 1), 92)], 'Lu': 1282, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 12, 'L': 4164.0, 'gens': [((2, 0, 2, 1), 102), ((2, 2, 2, 1), 72)], 'Lu': 1928, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.2}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 13, 'L': 2784.0, 'gens': [((1, 1, 0, 2), 16), ((0, 2, 1, 1), 118)], 'Lu': 1389, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.2}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 12, 'L': 4164.0, 'gens': [((2, 0, 0, 1), 29), ((0, 2, 1, 0), 37)], 'Lu': 1928, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.2}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 12, 'L': 4900.0, 'gens': [((0, 1, 2, 0), 54), ((2, 0, 0, 1), 73)], 'Lu': 2212, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.3}
+{'kind': 'z3z3', 'm': 133, 'O': 21, 'classes': 13, 'L': 2784.0, 'gens': [((2, 0, 0, 1), 16), ((1, 1, 0, 2), 17)], 'Lu': 1389, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 21, 'L': 1680.0, 'gens': [((2, 2, 1, 2), 97), ((2, 1, 0, 2), 92)], 'Lu': 1680, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.6}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 15, 'L': 1680.0, 'gens': [((2, 1, 1, 0), 41), ((1, 2, 2, 2), 83)], 'Lu': 858, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 4256.0, 'gens': [((2, 1, 0, 2), 11), ((2, 0, 0, 2), 101)], 'Lu': 2029, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 5040.0, 'gens': [((2, 0, 0, 2), 109), ((2, 1, 0, 2), 102)], 'Lu': 2385, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.2}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 15, 'L': 1680.0, 'gens': [((0, 2, 1, 0), 6), ((1, 0, 2, 2), 8)], 'Lu': 858, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 4256.0, 'gens': [((1, 0, 2, 1), 80), ((2, 0, 0, 2), 82)], 'Lu': 2024, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 15, 'L': 1680.0, 'gens': [((0, 1, 2, 0), 22), ((2, 2, 1, 2), 34)], 'Lu': 858, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 17, 'L': 11148.0, 'gens': [((2, 0, 0, 1), 74), ((0, 1, 1, 0), 86), ((1, 0, 0, 1), 17)], 'Lu': 5884, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 1.3}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 4256.0, 'gens': [((2, 0, 0, 2), 80), ((2, 1, 0, 2), 58)], 'Lu': 2029, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 5040.0, 'gens': [((2, 2, 1, 0), 109), ((2, 0, 0, 2), 16)], 'Lu': 2384, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.4}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 4256.0, 'gens': [((0, 2, 1, 2), 17), ((2, 0, 0, 2), 93)], 'Lu': 2029, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 4256.0, 'gens': [((0, 1, 2, 1), 92), ((2, 1, 2, 0), 115)], 'Lu': 2024, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 4256.0, 'gens': [((0, 2, 1, 2), 47), ((1, 2, 1, 0), 96)], 'Lu': 2029, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 4256.0, 'gens': [((2, 1, 0, 2), 66), ((2, 2, 0, 2), 120)], 'Lu': 2024, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 5040.0, 'gens': [((2, 0, 1, 2), 11), ((2, 0, 2, 2), 116)], 'Lu': 2384, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.3}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 4256.0, 'gens': [((2, 0, 1, 2), 6), ((1, 0, 2, 1), 96)], 'Lu': 2029, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 5040.0, 'gens': [((1, 0, 0, 1), 116), ((2, 0, 2, 2), 43)], 'Lu': 2385, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.3}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 5040.0, 'gens': [((2, 0, 1, 2), 37), ((1, 0, 1, 1), 2)], 'Lu': 2385, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.2}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 4256.0, 'gens': [((2, 0, 1, 2), 100), ((2, 0, 1, 2), 45)], 'Lu': 2024, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 4256.0, 'gens': [((1, 2, 0, 1), 45), ((2, 2, 0, 2), 80)], 'Lu': 2024, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 4256.0, 'gens': [((2, 0, 1, 2), 61), ((2, 0, 2, 2), 30)], 'Lu': 2029, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 4256.0, 'gens': [((0, 2, 1, 1), 58), ((2, 0, 0, 2), 131)], 'Lu': 2029, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 17, 'L': 16548.0, 'gens': [((2, 2, 2, 1), 17), ((1, 0, 1, 2), 8), ((2, 2, 2, 1), 52)], 'Lu': 8584, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 5.2}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 4256.0, 'gens': [((2, 2, 1, 0), 101), ((0, 2, 1, 1), 99)], 'Lu': 2024, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 5040.0, 'gens': [((2, 2, 0, 2), 11), ((2, 1, 0, 2), 32)], 'Lu': 2385, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.3}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 4256.0, 'gens': [((0, 1, 2, 2), 111), ((1, 1, 2, 0), 24)], 'Lu': 2029, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.1}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 17, 'L': 11148.0, 'gens': [((2, 1, 0, 1), 125), ((1, 2, 0, 2), 1), ((2, 1, 1, 1), 10)], 'Lu': 5884, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 2.3}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 5040.0, 'gens': [((2, 2, 1, 0), 88), ((0, 2, 1, 1), 116)], 'Lu': 2384, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.3}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 5040.0, 'gens': [((0, 2, 1, 1), 4), ((2, 2, 1, 0), 18)], 'Lu': 2385, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.3}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 5040.0, 'gens': [((1, 1, 2, 0), 43), ((0, 2, 1, 1), 79)], 'Lu': 2385, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.2}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 17, 'L': 16548.0, 'gens': [((0, 2, 2, 0), 27), ((1, 0, 0, 2), 53), ((0, 1, 1, 0), 5)], 'Lu': 8584, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 5.9}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 5040.0, 'gens': [((0, 2, 1, 2), 72), ((1, 2, 1, 0), 65)], 'Lu': 2384, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.3}
+{'kind': 'z3z3', 'm': 133, 'O': 22, 'classes': 13, 'L': 5040.0, 'gens': [((2, 0, 0, 2), 44), ((1, 2, 1, 0), 22)], 'Lu': 2385, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.3}
+{'kind': 'z3z3', 'm': 133, 'O': 23, 'classes': 14, 'L': 28728.0, 'gens': [((2, 2, 2, 1), 52), ((1, 1, 1, 2), 33)], 'Lu': 7734, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 4.6}
+{'kind': 'z3z3', 'm': 133, 'O': 23, 'classes': 14, 'L': 28728.0, 'gens': [((0, 1, 2, 0), 90), ((2, 0, 0, 2), 4)], 'Lu': 7734, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 3.9}
+{'kind': 'z3z3', 'm': 133, 'O': 23, 'classes': 14, 'L': 28728.0, 'gens': [((2, 1, 1, 1), 103), ((1, 0, 0, 1), 120)], 'Lu': 7734, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 4.8}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 23472.0, 'gens': [((0, 2, 1, 2), 32), ((0, 2, 2, 0), 86)], 'Lu': 3760, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.7}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 18, 'L': 21168.0, 'gens': [((2, 1, 2, 0), 123), ((1, 2, 0, 2), 124)], 'Lu': 10181, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 2.2}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 18, 'L': 21168.0, 'gens': [((1, 0, 1, 2), 52), ((1, 0, 2, 2), 10)], 'Lu': 10181, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 1.8}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 30384.0, 'gens': [((0, 1, 1, 0), 5), ((2, 0, 2, 1), 9)], 'Lu': 14896, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 3.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 15, 'L': 36176.0, 'gens': [((2, 2, 0, 2), 81), ((2, 0, 0, 2), 62)], 'Lu': 17740, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 22.7}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 15, 'L': 32140.0, 'gens': [((2, 1, 2, 2), 121), ((1, 0, 0, 2), 50)], 'Lu': 16070, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 23.2}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 33264.0, 'gens': [((2, 2, 1, 0), 80), ((2, 2, 1, 0), 97)], 'Lu': 3331, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 33264.0, 'gens': [((1, 2, 0, 1), 22), ((1, 1, 0, 1), 31)], 'Lu': 3331, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 15, 'L': 22848.0, 'gens': [((0, 2, 1, 2), 78), ((0, 1, 2, 1), 81)], 'Lu': 11004, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 10.8}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 33264.0, 'gens': [((1, 0, 2, 1), 131), ((1, 0, 2, 1), 48)], 'Lu': 3331, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 15, 'L': 25000.0, 'gens': [((1, 1, 2, 0), 111), ((1, 2, 2, 2), 62)], 'Lu': 12482, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 11.1}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 18, 'L': 21168.0, 'gens': [((1, 2, 0, 1), 100), ((2, 0, 0, 1), 89)], 'Lu': 10181, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 1.6}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 15, 'L': 36176.0, 'gens': [((2, 0, 2, 2), 102), ((2, 0, 2, 2), 24)], 'Lu': 17740, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 21.6}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 23472.0, 'gens': [((1, 1, 0, 2), 65), ((1, 2, 0, 2), 74)], 'Lu': 3760, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.6}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 30240.0, 'gens': [((0, 2, 2, 0), 43), ((2, 1, 2, 0), 66)], 'Lu': 4892, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.9}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 23472.0, 'gens': [((2, 2, 0, 1), 29), ((0, 1, 1, 0), 121), ((1, 0, 0, 1), 8)], 'Lu': 3760, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.9}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 21280.0, 'gens': [((0, 1, 1, 0), 120), ((2, 1, 2, 0), 109)], 'Lu': 10475, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 4.6}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 21280.0, 'gens': [((1, 0, 0, 2), 121), ((1, 0, 1, 2), 86)], 'Lu': 10475, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 4.8}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 33264.0, 'gens': [((0, 2, 1, 2), 86), ((0, 2, 1, 2), 62)], 'Lu': 3331, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 15, 'L': 22848.0, 'gens': [((1, 0, 2, 1), 60), ((2, 0, 0, 2), 46)], 'Lu': 11004, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 10.5}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 30240.0, 'gens': [((1, 0, 0, 2), 47), ((1, 2, 0, 1), 5)], 'Lu': 4892, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.8}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 30240.0, 'gens': [((1, 0, 2, 1), 17), ((2, 0, 0, 1), 66)], 'Lu': 4892, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.7}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 15, 'L': 22848.0, 'gens': [((2, 0, 0, 2), 121), ((2, 1, 0, 2), 29)], 'Lu': 11004, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 10.1}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 21280.0, 'gens': [((2, 2, 1, 0), 78), ((2, 0, 1, 1), 46)], 'Lu': 10475, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 4.6}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 27720.0, 'gens': [((2, 0, 0, 2), 73), ((0, 2, 2, 0), 78)], 'Lu': 14388, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 1.6}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 45108.0, 'gens': [((2, 1, 1, 1), 66), ((2, 0, 0, 2), 30)], 'Lu': 18864, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 37.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 15, 'L': 22848.0, 'gens': [((1, 1, 2, 0), 53), ((0, 1, 2, 2), 22)], 'Lu': 11004, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 8.9}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 37800.0, 'gens': [((2, 0, 0, 2), 72), ((1, 0, 0, 1), 103)], 'Lu': 18600, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 43092.0, 'gens': [((0, 2, 1, 0), 29), ((0, 1, 2, 0), 65)], 'Lu': 17877, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 30.7}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 15, 'L': 31340.0, 'gens': [((1, 0, 1, 2), 130), ((1, 0, 1, 2), 87), ((2, 0, 2, 1), 87)], 'Lu': 15694, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 5.4}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 33264.0, 'gens': [((1, 0, 0, 1), 10), ((0, 1, 2, 2), 37)], 'Lu': 3331, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 23688.0, 'gens': [((2, 1, 0, 1), 52), ((1, 2, 0, 2), 62)], 'Lu': 12324, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.4}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 30384.0, 'gens': [((1, 1, 0, 2), 23), ((0, 2, 2, 0), 80)], 'Lu': 14896, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 3.8}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 30384.0, 'gens': [((2, 0, 0, 1), 9), ((1, 1, 0, 1), 26)], 'Lu': 14896, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 3.3}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 18, 'L': 21168.0, 'gens': [((0, 1, 2, 2), 85), ((0, 2, 2, 0), 117)], 'Lu': 10181, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 1.6}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 30240.0, 'gens': [((1, 0, 2, 2), 93), ((2, 2, 1, 0), 111)], 'Lu': 4892, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.7}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 23688.0, 'gens': [((2, 0, 0, 2), 29), ((1, 0, 0, 2), 26)], 'Lu': 12324, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.3}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 27720.0, 'gens': [((2, 1, 0, 1), 15), ((1, 2, 0, 2), 52)], 'Lu': 14388, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 1.7}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 15, 'L': 22848.0, 'gens': [((2, 1, 0, 2), 81), ((2, 2, 0, 2), 15)], 'Lu': 11004, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 8.8}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 33264.0, 'gens': [((1, 0, 0, 1), 128), ((1, 1, 0, 1), 59)], 'Lu': 3331, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 23472.0, 'gens': [((1, 0, 1, 1), 116), ((2, 0, 1, 1), 22)], 'Lu': 3760, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.8}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 23, 'L': 53196.0, 'gens': [((2, 1, 1, 1), 5), ((1, 2, 2, 2), 50)], 'Lu': 53196, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 457.4}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 43092.0, 'gens': [((2, 0, 0, 2), 92), ((2, 2, 2, 1), 72)], 'Lu': 17877, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 25.3}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 30384.0, 'gens': [((1, 0, 2, 2), 30), ((1, 0, 0, 2), 4), ((1, 0, 0, 1), 115)], 'Lu': 14896, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 2.4}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 23688.0, 'gens': [((1, 0, 2, 2), 17), ((2, 0, 0, 2), 32)], 'Lu': 12324, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.4}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 45108.0, 'gens': [((0, 2, 1, 0), 55), ((2, 0, 0, 2), 44)], 'Lu': 18864, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 29.9}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 45108.0, 'gens': [((1, 0, 0, 1), 4), ((2, 2, 2, 1), 118)], 'Lu': 18864, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 30.4}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 28728.0, 'gens': [((1, 0, 1, 2), 129), ((2, 0, 2, 1), 48)], 'Lu': 14941, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 4.1}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 33264.0, 'gens': [((2, 1, 2, 0), 65), ((2, 1, 2, 0), 129)], 'Lu': 3331, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 21280.0, 'gens': [((2, 0, 0, 1), 127), ((2, 1, 0, 1), 123)], 'Lu': 10475, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 4.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 15, 'L': 29088.0, 'gens': [((0, 2, 2, 0), 117), ((0, 2, 2, 0), 54), ((0, 2, 2, 0), 86)], 'Lu': 4880, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 28728.0, 'gens': [((0, 1, 1, 0), 31), ((0, 2, 2, 0), 129)], 'Lu': 14941, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 4.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 15, 'L': 22848.0, 'gens': [((2, 0, 1, 2), 72), ((2, 0, 1, 2), 4)], 'Lu': 11004, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 7.8}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 33264.0, 'gens': [((1, 2, 0, 1), 12), ((1, 1, 0, 1), 71)], 'Lu': 3331, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 43092.0, 'gens': [((1, 2, 2, 2), 71), ((1, 2, 2, 2), 37)], 'Lu': 17877, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 27.2}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 23, 'L': 30186.0, 'gens': [((0, 1, 2, 2), 27), ((1, 1, 2, 0), 120), ((1, 0, 2, 2), 6)], 'Lu': 30186, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 83.1}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 23688.0, 'gens': [((1, 0, 0, 2), 90), ((2, 0, 0, 2), 37)], 'Lu': 12324, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.6}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 33264.0, 'gens': [((1, 2, 0, 1), 79), ((1, 0, 0, 1), 52)], 'Lu': 3331, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 23688.0, 'gens': [((1, 0, 2, 2), 59), ((2, 0, 0, 2), 18)], 'Lu': 12324, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.4}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 33264.0, 'gens': [((1, 0, 0, 1), 66), ((2, 2, 1, 0), 48)], 'Lu': 3331, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 28728.0, 'gens': [((2, 2, 0, 1), 10), ((2, 0, 0, 2), 58)], 'Lu': 14941, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 3.7}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 27720.0, 'gens': [((2, 2, 0, 1), 78), ((2, 0, 0, 2), 68)], 'Lu': 14388, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 1.8}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 27720.0, 'gens': [((1, 0, 0, 2), 65), ((2, 0, 0, 2), 24)], 'Lu': 14388, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 2.1}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 23688.0, 'gens': [((2, 1, 0, 1), 26), ((2, 0, 0, 2), 15)], 'Lu': 12324, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.4}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 15, 'L': 31340.0, 'gens': [((1, 0, 0, 1), 104), ((0, 2, 2, 0), 39), ((2, 0, 0, 2), 16)], 'Lu': 15694, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 5.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 27720.0, 'gens': [((2, 1, 0, 1), 108), ((2, 0, 0, 2), 62)], 'Lu': 14388, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 2.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 23, 'L': 53196.0, 'gens': [((2, 0, 0, 2), 124), ((1, 1, 1, 2), 73)], 'Lu': 53196, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 413.4}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 23688.0, 'gens': [((2, 0, 2, 1), 6), ((2, 0, 0, 2), 46)], 'Lu': 12324, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.5}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 23688.0, 'gens': [((2, 0, 0, 2), 22), ((0, 1, 1, 0), 80)], 'Lu': 12324, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.6}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 23, 'L': 30186.0, 'gens': [((1, 0, 2, 1), 125), ((1, 0, 0, 2), 29), ((2, 0, 0, 2), 6)], 'Lu': 30186, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 92.6}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 33264.0, 'gens': [((1, 0, 2, 1), 68), ((1, 0, 2, 1), 97)], 'Lu': 3331, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 17, 'L': 46928.0, 'gens': [((0, 2, 1, 2), 40), ((0, 1, 1, 0), 53), ((0, 1, 1, 0), 123)], 'Lu': 22924, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 23.9}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 23688.0, 'gens': [((2, 0, 0, 2), 65), ((1, 1, 0, 2), 34)], 'Lu': 12324, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.5}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 27720.0, 'gens': [((2, 0, 1, 1), 129), ((1, 0, 2, 2), 127)], 'Lu': 14388, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 2.3}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 28728.0, 'gens': [((2, 0, 1, 1), 12), ((2, 0, 0, 2), 4)], 'Lu': 14941, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 4.3}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 23, 'L': 53196.0, 'gens': [((0, 2, 1, 0), 113), ((0, 1, 2, 0), 17)], 'Lu': 53196, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 556.1}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 33264.0, 'gens': [((1, 0, 0, 1), 5), ((2, 1, 2, 0), 89)], 'Lu': 3331, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 27720.0, 'gens': [((2, 0, 0, 2), 104), ((0, 1, 1, 0), 18)], 'Lu': 14388, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 2.3}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 27720.0, 'gens': [((2, 0, 1, 1), 127), ((1, 0, 2, 2), 33)], 'Lu': 14388, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 2.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 28728.0, 'gens': [((2, 0, 0, 2), 39), ((1, 0, 0, 2), 48)], 'Lu': 14941, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 4.1}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 27720.0, 'gens': [((2, 0, 0, 2), 47), ((2, 0, 2, 1), 12)], 'Lu': 14388, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 2.1}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 23, 'L': 30186.0, 'gens': [((2, 2, 0, 2), 104), ((2, 1, 0, 1), 50), ((1, 0, 0, 1), 62)], 'Lu': 30186, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 93.9}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 15, 'L': 29088.0, 'gens': [((2, 1, 0, 1), 68), ((2, 1, 0, 1), 128), ((2, 1, 0, 1), 130)], 'Lu': 4880, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 15, 'L': 22848.0, 'gens': [((1, 1, 2, 0), 22), ((1, 1, 2, 0), 130)], 'Lu': 11004, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 12.3}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 23688.0, 'gens': [((0, 1, 1, 0), 59), ((2, 0, 0, 2), 107)], 'Lu': 12324, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.6}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 33264.0, 'gens': [((0, 2, 1, 2), 53), ((1, 0, 0, 1), 52)], 'Lu': 3331, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 27720.0, 'gens': [((1, 0, 1, 2), 129), ((2, 0, 0, 2), 82)], 'Lu': 14388, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 2.8}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 23688.0, 'gens': [((1, 1, 0, 2), 118), ((2, 0, 0, 2), 107)], 'Lu': 12324, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.6}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 23, 'L': 53196.0, 'gens': [((0, 2, 1, 0), 54), ((1, 0, 0, 1), 33)], 'Lu': 53196, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 796.9}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 15, 'L': 36176.0, 'gens': [((2, 1, 0, 2), 73), ((1, 0, 0, 1), 55)], 'Lu': 17740, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 28.2}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 15, 'L': 36176.0, 'gens': [((2, 0, 2, 2), 58), ((1, 0, 0, 1), 111)], 'Lu': 17740, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 31.4}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 33264.0, 'gens': [((0, 1, 2, 2), 78), ((2, 2, 1, 0), 45)], 'Lu': 3331, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 33264.0, 'gens': [((1, 0, 0, 1), 5), ((1, 0, 1, 1), 41)], 'Lu': 3331, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 13, 'L': 33264.0, 'gens': [((1, 0, 0, 1), 10), ((1, 0, 2, 1), 71)], 'Lu': 3331, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 0.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 19, 'L': 27720.0, 'gens': [((1, 0, 0, 2), 41), ((2, 0, 0, 2), 47)], 'Lu': 14388, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 3.0}
+{'kind': 'z3z3', 'm': 133, 'O': 24, 'classes': 15, 'L': 36176.0, 'gens': [((0, 2, 1, 1), 23), ((0, 2, 1, 1), 96)], 'Lu': 17740, 'count_rho_plus': 0, 'status': 'EMPTY', 'secs': 28.4}

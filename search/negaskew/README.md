@@ -33,7 +33,7 @@ quadruple of length 2v with a palindromic first sequence, so a skew-Hadamard mat
 | `real37/` | the exhaustive real plug-in engine `qp37r.c`: `qp.c` with `real=1` plus exact symmetry reductions of the K-level system (units of K, translations by the H_K-fixed points, reflection, sign, C ↔ D), dry run, matrix-H_K shape writers (ℤ_p²), the queues behind the 66 verdicts of §90, validations by orbit coverage; its [README](real37/README.md) |
 | `quat37/` | the quaternary engine `qp37q.c` (`usym`, `tsym`, exact weights, `est`), the shape enumerations beyond Table 5, the sweeps of 3 to 9 orbits and the 943 run (§90); its [README](quat37/README.md) |
 | `origin/` | the K-level analysis of the origin-defect shapes: identities, the Lock, the row-sum identity, the family scan, the exact enumeration of the rigid shape of 517 (§90); its [README](origin/README.md) |
-| `tri/` | the triangular family v = 1 + k(k + 1)/2: Gaussian estimate, the partitioned four-list join `tri_join.c`, `tri_cert.py`, structure tests; the matrix of order 3032 (§92); its [README](tri/README.md) |
+| `tri/` | the triangular family v = 1 + k(k + 1)/2: the proofs P1 to P7 ([PROOFS.md](tri/PROOFS.md)), the Gaussian estimates, the partitioned four-list joins `tri_join.c` and `tri2.c`, `tri_cert.py`, the structure and symmetry tests and the logs of the 277 and 379 runs; the matrix of order 3032 (§92); its [README](tri/README.md) |
 
 Build (in this directory):
 
