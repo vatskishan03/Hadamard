@@ -1,0 +1,5 @@
+{"v": 1271, "K": 41, "q": 31, "gens": [10], "nu": 9, "A": 1024, "L": 589824, "status": "EMPTY", "sec": 8.5, "l1": 0, "l2sol": 0, "toobig": 0, "sols": []}
+{"v": 1763, "K": 41, "q": 43, "gens": [10], "nu": 9, "A": 1024, "L": 589824, "status": "EMPTY", "sec": 1.9, "l1": 0, "l2sol": 0, "toobig": 0, "sols": []}
+{"v": 1397, "K": 127, "q": 11, "gens": [25], "nu": 7, "A": 456, "L": 2368036, "status": "EMPTY", "sec": 509.8, "l1": 9072, "l2sol": 0, "toobig": 0, "sols": []}
+{"v": 1133, "K": 103, "q": 11, "gens": [8], "nu": 7, "A": 692, "L": 2029144, "status": "ERROR rc=-15 k 0 ic 512/1911 l1=1672 l2inst=576 l2sol=0 probes=3107798364 t=135s\nPROGRESS chunk 0 ic 768/1911 l1=2084 l2inst=640 l2sol=0 probes=12240868290 t=412s\n", "sec": 1494.5, "l1": null, "l2sol": null, "toobig": null, "sols": []}
+{"v": 2189, "K": 199, "q": 11, "gens": [5], "nu": 7, "A": 888, "L": 1586404, "status": "ERROR rc=-15 ", "sec": 6.3, "l1": null, "l2sol": null, "toobig": null, "sols": []}

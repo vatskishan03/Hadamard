@@ -30,6 +30,10 @@ quadruple of length 2v with a palindromic first sequence, so a skew-Hadamard mat
 | `plug_verdicts.sh`, `plug_sampled.sh`, `anat.py` | the exhaustive verdicts of the plug-in shapes of §89, the sampled runs (UNKNOWN verdicts), the anatomy (defect types and costs) of a solution |
 | `ncenum.py`, `gshape.py` | shapes over non-cyclic abelian groups G (homocyclic parts, k ≤ 3) with odd-order automorphism groups |
 | `octic/` | the octic ring ℤ[x]/(x^{4v}+1) = ℤ[ζ₈][ℤ_v] (order 16v): arithmetic, checks, exhaustive counts, the orbit-level engine `oskew.c`, row-sum feasibility; its [README](octic/README.md) |
+| `real37/` | the exhaustive real plug-in engine `qp37r.c`: `qp.c` with `real=1` plus exact symmetry reductions of the K-level system (units of K, translations by the H_K-fixed points, reflection, sign, C ↔ D), dry run, matrix-H_K shape writers (ℤ_p²), the queues behind the 66 verdicts of §90, validations by orbit coverage; its [README](real37/README.md) |
+| `quat37/` | the quaternary engine `qp37q.c` (`usym`, `tsym`, exact weights, `est`), the shape enumerations beyond Table 5, the sweeps of 3 to 9 orbits and the 943 run (§90); its [README](quat37/README.md) |
+| `origin/` | the K-level analysis of the origin-defect shapes: identities, the Lock, the row-sum identity, the family scan, the exact enumeration of the rigid shape of 517 (§90); its [README](origin/README.md) |
+| `tri/` | the triangular family v = 1 + k(k + 1)/2: Gaussian estimate, the partitioned four-list join `tri_join.c`, `tri_cert.py`, structure tests; the matrix of order 3032 (§92); its [README](tri/README.md) |
 
 Build (in this directory):
 

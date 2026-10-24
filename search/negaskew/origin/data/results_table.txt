@@ -1,0 +1,59 @@
+nu  v   m   q  H_K-gens  verdict  level1_instances  seconds  run
+5 35 5 7 [1] HIT (first=1 stop) 2 0 small
+5 55 5 11 [1] HIT (first=1 stop) 7 0 small
+5 247 13 19 [3] HIT (first=1 stop) 7681 4 oo5
+5 299 13 23 [3] HIT (first=1 stop) 9 0 oo5
+5 1339 13 103 [3] EMPTY (exhaustive in class) 0 0 oo5
+5 1363 29 47 [7] EMPTY (exhaustive in class) 11136 6 oo5
+5 1391 13 107 [3] EMPTY (exhaustive in class) 0 0 oo5
+5 1591 37 43 [7] EMPTY (exhaustive in class) 0 0 oo5
+5 1711 29 59 [7] EMPTY (exhaustive in class) 8640 7 oo5
+5 2183 37 59 [7] EMPTY (exhaustive in class) 384 0 oo5
+5 2291 29 79 [7] EMPTY (exhaustive in class) 576 0 oo5
+5 2891 49 59 [2] EMPTY (exhaustive in class) 0 0 oo5
+5 3283 49 67 [2] EMPTY (exhaustive in class) 0 0 oo5
+5 3763 53 71 [10] EMPTY (exhaustive in class) 1920 1 oo5
+5 3871 49 79 [2] EMPTY (exhaustive in class) 0 0 oo5
+5 4331 61 71 [12] EMPTY (exhaustive in class) 0 0 oo5
+5 5063 61 83 [12] EMPTY (exhaustive in class) 768 0 oo5
+5 5587 37 151 [7] EMPTY (exhaustive in class) 0 0 oo5
+5 5671 53 107 [10] EMPTY (exhaustive in class) 1536 1 oo5
+5 6419 49 131 [2] EMPTY (exhaustive in class) 0 0 oo5
+5 9751 49 199 [2] EMPTY (exhaustive in class) 0 0 oo5
+5 9943 61 163 [12] EMPTY (exhaustive in class) 0 0 oo5
+5 11183 53 211 [10] EMPTY (exhaustive in class) 0 0 oo5
+5 13843 109 127 [3] EMPTY (exhaustive in class) 0 0 oo5
+5 16463 101 163 [5] EMPTY (exhaustive in class) 0 0 oo5
+5 16819 121 139 [4] EMPTY (exhaustive in class) 0 0 oo5
+5 19723 121 163 [4] EMPTY (exhaustive in class) 0 0 oo5
+5 27371 101 271 [5] EMPTY (exhaustive in class) 0 0 oo5
+5 28103 157 179 [9] EMPTY (exhaustive in class) 0 0 oo5
+5 29651 149 199 [5] EMPTY (exhaustive in class) 0 0 oo5
+5 29707 61 487 [12] EMPTY (exhaustive in class) 0 0 oo5
+5 29951 61 491 [12] EMPTY (exhaustive in class) 0 0 oo5
+5 33127 157 211 [9] EMPTY (exhaustive in class) 1536 1 oo5
+5 35611 149 239 [5] EMPTY (exhaustive in class) 0 0 oo5
+5 39407 157 251 [9] EMPTY (exhaustive in class) 0 0 oo5
+5 47851 109 439 [3] EMPTY (exhaustive in class) 0 0 oo5
+5 58927 121 487 [4] EMPTY (exhaustive in class) 0 0 oo5
+5 65783 157 419 [9] EMPTY (exhaustive in class) 0 0 oo5
+5 81911 101 811 [5] EMPTY (exhaustive in class) 0 0 oo5
+5 89251 149 599 [5] EMPTY (exhaustive in class) 0 0 oo5
+5 99067 157 631 [9] EMPTY (exhaustive in class) 0 0 oo5
+5 117007 121 967 [4] EMPTY (exhaustive in class) 0 0 oo5
+5 117491 121 971 [4] EMPTY (exhaustive in class) 0 0 oo5
+5 197663 157 1259 [9] EMPTY (exhaustive in class) 0 0 oo5
+7 77 7 11 [1] HIT (first=1 stop) 6 7 small
+7 133 7 19 [1] HIT (first=1 stop) 2 6 small
+7 189 7 27 [1] HIT (first=1 stop) 9 20 small
+7 217 7 31 [1] HIT (first=1 stop) 50 90 small
+7 437 19 23 [7] killed_after_13min_unknown None 780 oo7
+7 837 27 31 [4] UNKNOWN (timeout) None 420 oo7
+7 1161 27 43 [4] UNKNOWN (timeout) None 420 oo7
+7 1333 31 43 [2] UNKNOWN (timeout) None 480 oo7
+7 1501 19 79 [7] EMPTY (exhaustive in class) 0 1 oo7
+7 1917 27 71 [4] EMPTY (exhaustive in class) 0 14 oo7
+7 2537 43 59 [4] EMPTY (exhaustive in class) 15264 675 oo7long
+7 2537 43 59 [4] UNKNOWN (timeout) None 420 oo7
+7 2573 31 83 [2] UNKNOWN (timeout) None 420 oo7
+7 3053 43 71 [4] EMPTY (exhaustive in class) 3456 234 oo7

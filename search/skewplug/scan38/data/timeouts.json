@@ -1,0 +1,1490 @@
+[
+{
+"v": 201,
+"K": 67,
+"q": 3,
+"gens": [
+9
+],
+"nu": 7,
+"Hsize": 11,
+"logs": [
+"real_census"
+],
+"census": true,
+"t5": 3
+},
+{
+"v": 623,
+"K": 89,
+"q": 7,
+"gens": [
+2
+],
+"nu": 9,
+"Hsize": 11,
+"logs": [
+"real_census",
+"real_sweep"
+],
+"census": true,
+"t5": 4
+},
+{
+"v": 627,
+"K": 57,
+"q": 11,
+"gens": [
+4
+],
+"nu": 9,
+"Hsize": 9,
+"logs": [
+"real_census"
+],
+"census": true,
+"t5": 4
+},
+{
+"v": 627,
+"K": 209,
+"q": 3,
+"gens": [
+4
+],
+"nu": 9,
+"Hsize": 45,
+"logs": [
+"real_census",
+"real_sweep"
+],
+"census": true,
+"t5": 4
+},
+{
+"v": 759,
+"K": 69,
+"q": 11,
+"gens": [
+4
+],
+"nu": 9,
+"Hsize": 11,
+"logs": [
+"real_census"
+],
+"census": true,
+"t5": 4
+},
+{
+"v": 759,
+"K": 253,
+"q": 3,
+"gens": [
+3
+],
+"nu": 9,
+"Hsize": 55,
+"logs": [
+"real_census",
+"real_sweep"
+],
+"census": true,
+"t5": 4
+},
+{
+"v": 959,
+"K": 137,
+"q": 7,
+"gens": [
+16
+],
+"nu": 9,
+"Hsize": 17,
+"logs": [
+"real_census",
+"real_sweep"
+],
+"census": true,
+"t5": 4
+},
+{
+"v": 1407,
+"K": 469,
+"q": 3,
+"gens": [
+4,
+9
+],
+"nu": 9,
+"Hsize": 99,
+"logs": [
+"real_census"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1631,
+"K": 233,
+"q": 7,
+"gens": [
+2
+],
+"nu": 9,
+"Hsize": 29,
+"logs": [
+"real_census"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1659,
+"K": 553,
+"q": 3,
+"gens": [
+2,
+9
+],
+"nu": 9,
+"Hsize": 117,
+"logs": [
+"real_census"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1947,
+"K": 649,
+"q": 3,
+"gens": [
+3
+],
+"nu": 9,
+"Hsize": 145,
+"logs": [
+"real_census"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 573,
+"K": 191,
+"q": 3,
+"gens": [
+5
+],
+"nu": 11,
+"Hsize": 19,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": 3
+},
+{
+"v": 781,
+"K": 71,
+"q": 11,
+"gens": [
+20
+],
+"nu": 11,
+"Hsize": 7,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": 3
+},
+{
+"v": 917,
+"K": 131,
+"q": 7,
+"gens": [
+39
+],
+"nu": 11,
+"Hsize": 13,
+"logs": [
+"real_census_hi",
+"real_hi"
+],
+"census": true,
+"t5": 4
+},
+{
+"v": 933,
+"K": 311,
+"q": 3,
+"gens": [
+7
+],
+"nu": 11,
+"Hsize": 31,
+"logs": [
+"real_census_hi",
+"real_hi"
+],
+"census": false,
+"t5": 10
+},
+{
+"v": 1057,
+"K": 151,
+"q": 7,
+"gens": [
+2
+],
+"nu": 11,
+"Hsize": 15,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1473,
+"K": 491,
+"q": 3,
+"gens": [
+3
+],
+"nu": 11,
+"Hsize": 49,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1477,
+"K": 211,
+"q": 7,
+"gens": [
+34
+],
+"nu": 11,
+"Hsize": 21,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1713,
+"K": 571,
+"q": 3,
+"gens": [
+4
+],
+"nu": 11,
+"Hsize": 57,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1893,
+"K": 631,
+"q": 3,
+"gens": [
+18
+],
+"nu": 11,
+"Hsize": 63,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2317,
+"K": 331,
+"q": 7,
+"gens": [
+79
+],
+"nu": 11,
+"Hsize": 33,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2433,
+"K": 811,
+"q": 3,
+"gens": [
+39
+],
+"nu": 11,
+"Hsize": 81,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 539,
+"K": 49,
+"q": 11,
+"gens": [
+8
+],
+"nu": 13,
+"Hsize": 7,
+"logs": [
+"real_census_hi",
+"real_hi"
+],
+"census": true,
+"t5": 4
+},
+{
+"v": 543,
+"K": 181,
+"q": 3,
+"gens": [
+5
+],
+"nu": 13,
+"Hsize": 15,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": 4
+},
+{
+"v": 1047,
+"K": 349,
+"q": 3,
+"gens": [
+31
+],
+"nu": 13,
+"Hsize": 29,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1083,
+"K": 361,
+"q": 3,
+"gens": [
+7
+],
+"nu": 13,
+"Hsize": 57,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1267,
+"K": 181,
+"q": 7,
+"gens": [
+5
+],
+"nu": 13,
+"Hsize": 15,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1603,
+"K": 229,
+"q": 7,
+"gens": [
+16
+],
+"nu": 13,
+"Hsize": 19,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1983,
+"K": 661,
+"q": 3,
+"gens": [
+56
+],
+"nu": 13,
+"Hsize": 55,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2271,
+"K": 757,
+"q": 3,
+"gens": [
+70
+],
+"nu": 13,
+"Hsize": 63,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2443,
+"K": 349,
+"q": 7,
+"gens": [
+31
+],
+"nu": 13,
+"Hsize": 29,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 385,
+"K": 35,
+"q": 11,
+"gens": [
+11
+],
+"nu": 15,
+"Hsize": 3,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": 3
+},
+{
+"v": 385,
+"K": 55,
+"q": 7,
+"gens": [
+16
+],
+"nu": 15,
+"Hsize": 5,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": 3
+},
+{
+"v": 717,
+"K": 239,
+"q": 3,
+"gens": [
+6
+],
+"nu": 15,
+"Hsize": 17,
+"logs": [
+"real_census_hi",
+"real_hi"
+],
+"census": true,
+"t5": 4
+},
+{
+"v": 777,
+"K": 111,
+"q": 7,
+"gens": [
+7
+],
+"nu": 15,
+"Hsize": 9,
+"logs": [
+"real_census_hi",
+"real_hi"
+],
+"census": true,
+"t5": 4
+},
+{
+"v": 777,
+"K": 259,
+"q": 3,
+"gens": [
+9,
+44
+],
+"nu": 15,
+"Hsize": 27,
+"logs": [
+"real_census_hi",
+"real_hi"
+],
+"census": true,
+"t5": 4
+},
+{
+"v": 781,
+"K": 71,
+"q": 11,
+"gens": [
+5
+],
+"nu": 15,
+"Hsize": 5,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": 3
+},
+{
+"v": 805,
+"K": 35,
+"q": 23,
+"gens": [
+11
+],
+"nu": 15,
+"Hsize": 3,
+"logs": [
+"real_census_hi",
+"real_hi"
+],
+"census": true,
+"t5": 4
+},
+{
+"v": 805,
+"K": 115,
+"q": 7,
+"gens": [
+6
+],
+"nu": 15,
+"Hsize": 11,
+"logs": [
+"real_census_hi",
+"real_hi"
+],
+"census": true,
+"t5": 4
+},
+{
+"v": 817,
+"K": 43,
+"q": 19,
+"gens": [
+6
+],
+"nu": 15,
+"Hsize": 3,
+"logs": [
+"real_census_hi",
+"real_hi"
+],
+"census": true,
+"t5": 5
+},
+{
+"v": 897,
+"K": 39,
+"q": 23,
+"gens": [
+16
+],
+"nu": 15,
+"Hsize": 3,
+"logs": [
+"real_census_hi",
+"real_hi"
+],
+"census": true,
+"t5": 5
+},
+{
+"v": 897,
+"K": 299,
+"q": 3,
+"gens": [
+3
+],
+"nu": 15,
+"Hsize": 33,
+"logs": [
+"real_census_hi",
+"real_hi"
+],
+"census": true,
+"t5": 5
+},
+{
+"v": 957,
+"K": 87,
+"q": 11,
+"gens": [
+7
+],
+"nu": 15,
+"Hsize": 7,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": 4
+},
+{
+"v": 957,
+"K": 319,
+"q": 3,
+"gens": [
+16
+],
+"nu": 15,
+"Hsize": 35,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": 4
+},
+{
+"v": 1045,
+"K": 55,
+"q": 19,
+"gens": [
+16
+],
+"nu": 15,
+"Hsize": 5,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1045,
+"K": 95,
+"q": 11,
+"gens": [
+6
+],
+"nu": 15,
+"Hsize": 9,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1209,
+"K": 39,
+"q": 31,
+"gens": [
+16
+],
+"nu": 15,
+"Hsize": 3,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1209,
+"K": 403,
+"q": 3,
+"gens": [
+9,
+14
+],
+"nu": 15,
+"Hsize": 45,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1245,
+"K": 415,
+"q": 3,
+"gens": [
+11
+],
+"nu": 15,
+"Hsize": 41,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1281,
+"K": 183,
+"q": 7,
+"gens": [
+16
+],
+"nu": 15,
+"Hsize": 15,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1281,
+"K": 427,
+"q": 3,
+"gens": [
+9,
+15
+],
+"nu": 15,
+"Hsize": 45,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1389,
+"K": 463,
+"q": 3,
+"gens": [
+36
+],
+"nu": 15,
+"Hsize": 33,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1397,
+"K": 127,
+"q": 11,
+"gens": [
+22
+],
+"nu": 15,
+"Hsize": 9,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1473,
+"K": 491,
+"q": 3,
+"gens": [
+12
+],
+"nu": 15,
+"Hsize": 35,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1477,
+"K": 211,
+"q": 7,
+"gens": [
+19
+],
+"nu": 15,
+"Hsize": 15,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1505,
+"K": 215,
+"q": 7,
+"gens": [
+31
+],
+"nu": 15,
+"Hsize": 21,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1545,
+"K": 515,
+"q": 3,
+"gens": [
+16
+],
+"nu": 15,
+"Hsize": 51,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1605,
+"K": 535,
+"q": 3,
+"gens": [
+11
+],
+"nu": 15,
+"Hsize": 53,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1617,
+"K": 147,
+"q": 11,
+"gens": [
+4
+],
+"nu": 15,
+"Hsize": 21,
+"logs": [
+"real_census_hi"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1617,
+"K": 539,
+"q": 3,
+"gens": [
+4
+],
+"nu": 15,
+"Hsize": 105,
+"logs": [
+"real_census_hi",
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1645,
+"K": 35,
+"q": 47,
+"gens": [
+11
+],
+"nu": 15,
+"Hsize": 3,
+"logs": [
+"real_census_hi",
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1645,
+"K": 235,
+"q": 7,
+"gens": [
+6
+],
+"nu": 15,
+"Hsize": 23,
+"logs": [
+"real_census_hi",
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1677,
+"K": 559,
+"q": 3,
+"gens": [
+9,
+14
+],
+"nu": 15,
+"Hsize": 63,
+"logs": [
+"real_census_hi",
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1705,
+"K": 55,
+"q": 31,
+"gens": [
+16
+],
+"nu": 15,
+"Hsize": 5,
+"logs": [
+"real_census_hi",
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1705,
+"K": 155,
+"q": 11,
+"gens": [
+41
+],
+"nu": 15,
+"Hsize": 15,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1729,
+"K": 247,
+"q": 7,
+"gens": [
+9,
+35
+],
+"nu": 15,
+"Hsize": 27,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1729,
+"K": 91,
+"q": 19,
+"gens": [
+9,
+16
+],
+"nu": 15,
+"Hsize": 9,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1749,
+"K": 583,
+"q": 3,
+"gens": [
+15
+],
+"nu": 15,
+"Hsize": 65,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1749,
+"K": 159,
+"q": 11,
+"gens": [
+10
+],
+"nu": 15,
+"Hsize": 13,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1893,
+"K": 631,
+"q": 3,
+"gens": [
+2
+],
+"nu": 15,
+"Hsize": 45,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1953,
+"K": 279,
+"q": 7,
+"gens": [
+4,
+7
+],
+"nu": 15,
+"Hsize": 45,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1953,
+"K": 63,
+"q": 31,
+"gens": [
+4,
+22
+],
+"nu": 15,
+"Hsize": 9,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 1965,
+"K": 655,
+"q": 3,
+"gens": [
+11
+],
+"nu": 15,
+"Hsize": 65,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2001,
+"K": 667,
+"q": 3,
+"gens": [
+16
+],
+"nu": 15,
+"Hsize": 77,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2001,
+"K": 87,
+"q": 23,
+"gens": [
+7
+],
+"nu": 15,
+"Hsize": 7,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2065,
+"K": 295,
+"q": 7,
+"gens": [
+16
+],
+"nu": 15,
+"Hsize": 29,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2085,
+"K": 695,
+"q": 3,
+"gens": [
+11
+],
+"nu": 15,
+"Hsize": 69,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2093,
+"K": 299,
+"q": 7,
+"gens": [
+3
+],
+"nu": 15,
+"Hsize": 33,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2093,
+"K": 91,
+"q": 23,
+"gens": [
+9,
+16
+],
+"nu": 15,
+"Hsize": 9,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2109,
+"K": 703,
+"q": 3,
+"gens": [
+7,
+9
+],
+"nu": 15,
+"Hsize": 81,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2109,
+"K": 111,
+"q": 19,
+"gens": [
+7
+],
+"nu": 15,
+"Hsize": 9,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2121,
+"K": 707,
+"q": 3,
+"gens": [
+16
+],
+"nu": 15,
+"Hsize": 75,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2121,
+"K": 303,
+"q": 7,
+"gens": [
+16
+],
+"nu": 15,
+"Hsize": 25,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2185,
+"K": 115,
+"q": 19,
+"gens": [
+6
+],
+"nu": 15,
+"Hsize": 11,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2185,
+"K": 95,
+"q": 23,
+"gens": [
+6
+],
+"nu": 15,
+"Hsize": 9,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2233,
+"K": 319,
+"q": 7,
+"gens": [
+16
+],
+"nu": 15,
+"Hsize": 35,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2233,
+"K": 203,
+"q": 11,
+"gens": [
+16
+],
+"nu": 15,
+"Hsize": 21,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2277,
+"K": 207,
+"q": 11,
+"gens": [
+4
+],
+"nu": 15,
+"Hsize": 33,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2277,
+"K": 99,
+"q": 23,
+"gens": [
+4
+],
+"nu": 15,
+"Hsize": 15,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2289,
+"K": 763,
+"q": 3,
+"gens": [
+9,
+15
+],
+"nu": 15,
+"Hsize": 81,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2289,
+"K": 327,
+"q": 7,
+"gens": [
+7
+],
+"nu": 15,
+"Hsize": 27,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2345,
+"K": 335,
+"q": 7,
+"gens": [
+6
+],
+"nu": 15,
+"Hsize": 33,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2365,
+"K": 215,
+"q": 11,
+"gens": [
+31
+],
+"nu": 15,
+"Hsize": 21,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2365,
+"K": 55,
+"q": 43,
+"gens": [
+16
+],
+"nu": 15,
+"Hsize": 5,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2413,
+"K": 127,
+"q": 19,
+"gens": [
+22
+],
+"nu": 15,
+"Hsize": 9,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2485,
+"K": 355,
+"q": 7,
+"gens": [
+6
+],
+"nu": 15,
+"Hsize": 35,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+},
+{
+"v": 2485,
+"K": 35,
+"q": 71,
+"gens": [
+11
+],
+"nu": 15,
+"Hsize": 3,
+"logs": [
+"real_census_hi_rev"
+],
+"census": true,
+"t5": null
+}
+]

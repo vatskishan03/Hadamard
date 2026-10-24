@@ -1,0 +1,67 @@
+v     77  m   7 q   11 h  1 nu  7  E_pred 9.41e+05  ((6, 0, 10, 12), 0, 96, 1)
+v     77  m   7 q   11 h  3 nu  3  E_pred 98  ((6, 0, 10, 12), 0, 96, 1)
+v    133  m   7 q   19 h  1 nu  7  E_pred 2.23e+06  ((10, 0, 0, 18), 0, 8, 2)
+v    133  m   7 q   19 h  3 nu  3  E_pred 131  ((10, 0, 0, 18), 0, 8, 2)
+v    209  m  11 q   19 h  5 nu  3  E_pred 0  None
+v    217  m   7 q   31 h  1 nu  7  E_pred 2.79e+05  ((14, 0, 0, 14), 0, 4, 2)
+v    217  m   7 q   31 h  3 nu  3  E_pred 0  None
+v    247  m  13 q   19 h  3 nu  5  E_pred 45.9  ((10, 8, 16, 18), 0, 680, 0)
+v    253  m  11 q   23 h  5 nu  3  E_pred 0  None
+v    299  m  13 q   23 h  3 nu  5  E_pred 234  ((12, 0, 20, 20), 0, 96, 1)
+v    341  m  11 q   31 h  5 nu  3  E_pred 0  None
+v    413  m   7 q   59 h  1 nu  7  E_pred 0  None
+v    413  m   7 q   59 h  3 nu  3  E_pred 0  None
+v    437  m  19 q   23 h  9 nu  3  E_pred 0  None
+v    437  m  19 q   23 h  3 nu  7  E_pred 0  None
+v    473  m  11 q   43 h  5 nu  3  E_pred 0  None
+v    517  m  11 q   47 h  5 nu  3  E_pred 0  None
+v    589  m  19 q   31 h  9 nu  3  E_pred 0  None
+v    589  m  19 q   31 h  3 nu  7  E_pred 118  ((16, 0, 28, 32), 0, 96, 1)
+v    713  m  23 q   31 h 11 nu  3  E_pred 0  None
+v   1081  m  23 q   47 h 11 nu  3  E_pred 0  None
+v   1333  m  31 q   43 h  5 nu  7  E_pred 0.125  ((22, 20, 40, 42), 0, 680, 0)
+v   1333  m  31 q   43 h 15 nu  3  E_pred 0  None
+v   1339  m  13 q  103 h  3 nu  5  E_pred 0  None
+v   1363  m  29 q   47 h  7 nu  5  E_pred 1.9  ((24, 0, 44, 48), 0, 96, 1)
+v   1391  m  13 q  107 h  3 nu  5  E_pred 0  None
+v   1501  m  19 q   79 h  9 nu  3  E_pred 0  None
+v   1501  m  19 q   79 h  3 nu  7  E_pred 34.9  ((38, 0, 0, 38), 0, 4, 2)
+v   1591  m  37 q   43 h  9 nu  5  E_pred 0  None
+v   1711  m  29 q   59 h  7 nu  5  E_pred 0.652  ((30, 28, 28, 30), 0, 900, 0)
+v   1927  m  41 q   47 h  5 nu  9  E_pred 0  None
+v   2183  m  37 q   59 h  9 nu  5  E_pred 0.44  ((30, 0, 58, 60), 0, 96, 1)
+v   2291  m  29 q   79 h  7 nu  5  E_pred 3.38  ((40, 0, 0, 76), 0, 8, 2)
+v   2537  m  43 q   59 h  7 nu  7  E_pred 0.00655  ((30, 28, 56, 58), 0, 680, 0)
+v   2537  m  43 q   59 h 21 nu  3  E_pred 0  None
+v   2573  m  31 q   83 h  5 nu  7  E_pred 3.4  ((42, 0, 0, 82), 0, 8, 2)
+v   2573  m  31 q   83 h 15 nu  3  E_pred 0  None
+v   2747  m  41 q   67 h  5 nu  9  E_pred 0.0565  ((34, 0, 64, 66), 0, 96, 1)
+v   2869  m  19 q  151 h  9 nu  3  E_pred 0  None
+v   2869  m  19 q  151 h  3 nu  7  E_pred 0  None
+v   3053  m  43 q   71 h  7 nu  7  E_pred 0.0755  ((36, 0, 68, 68), 0, 96, 1)
+v   3053  m  43 q   71 h 21 nu  3  E_pred 0  None
+v   3403  m  41 q   83 h  5 nu  9  E_pred 0.00666  ((42, 40, 40, 42), 0, 900, 0)
+v   3763  m  53 q   71 h 13 nu  5  E_pred 0  None
+v   3937  m  31 q  127 h  5 nu  7  E_pred 0  None
+v   3937  m  31 q  127 h 15 nu  3  E_pred 0  None
+v   3953  m  59 q   67 h 29 nu  3  E_pred 0  None
+v   4331  m  61 q   71 h 15 nu  5  E_pred 0  None
+v   4661  m  59 q   79 h 29 nu  3  E_pred 0  None
+v   5063  m  61 q   83 h 15 nu  5  E_pred 0  None
+v   5587  m  37 q  151 h  9 nu  5  E_pred 0.196  ((74, 0, 0, 74), 0, 4, 2)
+v   5671  m  53 q  107 h 13 nu  5  E_pred 0  None
+v   5969  m  47 q  127 h 23 nu  3  E_pred 0  None
+v   6683  m  41 q  163 h  5 nu  9  E_pred 0.0112  ((82, 0, 0, 82), 0, 4, 2)
+v   6847  m  41 q  167 h  5 nu  9  E_pred 0.0112  ((82, 0, 0, 82), 0, 4, 2)
+v   7781  m  31 q  251 h  5 nu  7  E_pred 0  None
+v   7781  m  31 q  251 h 15 nu  3  E_pred 0  None
+v   8977  m  47 q  191 h 23 nu  3  E_pred 0  None
+v   9943  m  61 q  163 h 15 nu  5  E_pred 0  None
+v  11183  m  53 q  211 h 13 nu  5  E_pred 0  None
+v  13571  m  41 q  331 h  5 nu  9  E_pred 0  None
+v  14101  m  59 q  239 h 29 nu  3  E_pred 0  None
+v  14921  m  43 q  347 h  7 nu  7  E_pred 0  None
+v  14921  m  43 q  347 h 21 nu  3  E_pred 0  None
+v  17813  m  47 q  379 h 23 nu  3  E_pred 0  None
+v  29707  m  61 q  487 h 15 nu  5  E_pred 0  None
+v  29951  m  61 q  491 h 15 nu  5  E_pred 0  None

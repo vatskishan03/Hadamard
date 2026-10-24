@@ -30,6 +30,7 @@ handles many (nine to seventeen for 476). The same code, with a multiplier group
 | `exh38.py` | a symmetry-reduced explicit-list sweep of the slots of a K-symmetric shape: per block, defect weight and row sum the list is generated until it covers the block space, one block per orbit of the exact block symmetries, the skew block reduced by the units of K, every row-sum pattern of a slot joined with `gl1.c` (its functions `gl1_genlist`, `gl1_hashlist`, `gl1_set_hin`), new classes to the exact level 2; about 100 classes per second against 2 to 3 for `prod_dedup.py`; found [../../skew/1540](../../skew/1540) |
 | `data/repro385/` | the slot of the run that found [../../skew/1540](../../skew/1540) |
 | `data/repro539/` | the state before the hit of the run that found [../../skew/2156](../../skew/2156): the log of rounds 0–6, the set of classes already run, the slot file |
+| `scan38/` | the re-scan of the K-symmetric real census shapes (enumeration of 554 shapes, the all-slot estimate scan with controls and tables, the exact all-energy row-sum scan, the corrected row-sum count) and the production loops of `exh38.py` (rotation over shapes, supervisor, summaries); its commands run in this directory; see [scan38/README.md](scan38/README.md) (search/NOTES.md §91) |
 
 Build (in this directory):
 

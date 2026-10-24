@@ -1,0 +1,76 @@
+nu 7 N 103 E range 103 411 allocs 2076
+103 83 47 best (np.float64(-0.7094821610426472), np.float64(-4.076540918596048))
+104 93 47 best (np.float64(-1.000884834700182), np.float64(-4.367860321251678))
+105 49 20 best (np.float64(0.05565872424220686), np.float64(-5.248352608302619))
+119 87 0 best None
+120 188 2 best (np.float64(0.4305743261944599), np.float64(-4.74770969111125))
+121 176 7 best (np.float64(0.3666346485789518), np.float64(-5.333661199900882))
+122 83 7 best (np.float64(-0.18187794404455637), np.float64(-5.376653981618838))
+136 103 0 best None
+137 250 7 best (np.float64(0.2570175326433102), np.float64(-5.201524626966177))
+138 248 6 best (np.float64(-0.7678901152201121), np.float64(-4.917863464785239))
+139 127 2 best (np.float64(-1.7336984881434052), np.float64(-5.354337571167732))
+153 105 0 best None
+154 282 2 best (np.float64(-0.40300914587620085), np.float64(-5.761857717050568))
+155 273 3 best (np.float64(-0.6414300031964508), np.float64(-6.030612645583072))
+156 107 2 best (np.float64(-0.02383985794251764), np.float64(-5.500640529433049))
+170 148 0 best None
+171 312 1 best (np.float64(-3.5372117589452703), np.float64(-6.121271889594609))
+172 342 2 best (np.float64(-1.6163701233744536), np.float64(-4.997794360682646))
+173 136 1 best (np.float64(-1.7930924363659635), np.float64(-6.610246245929008))
+187 153 0 best None
+188 359 0 best None
+189 347 3 best (np.float64(-1.5461006543127258), np.float64(-5.655015009385336))
+190 134 0 best None
+204 145 0 best None
+205 375 0 best None
+206 375 4 best (np.float64(-0.7152829419070219), np.float64(-6.749511020493084))
+207 136 0 best None
+221 126 0 best None
+222 378 0 best None
+223 320 0 best None
+224 134 0 best None
+238 125 0 best None
+239 351 0 best None
+240 331 0 best None
+241 137 0 best None
+255 112 0 best None
+256 304 0 best None
+257 289 1 best (np.float64(-1.8784352652041765), np.float64(-6.533247884038694))
+258 103 0 best None
+272 90 0 best None
+273 249 0 best None
+274 250 1 best (np.float64(-2.523817388464577), np.float64(-7.274021476627112))
+275 109 0 best None
+289 98 0 best None
+290 183 0 best None
+291 191 0 best None
+292 83 0 best None
+306 78 0 best None
+307 154 0 best None
+308 159 0 best None
+309 80 0 best None
+323 53 0 best None
+324 102 0 best None
+325 106 0 best None
+326 37 0 best None
+340 32 0 best None
+341 57 0 best None
+342 82 1 best (np.float64(-2.274901323294948), np.float64(-7.990422174344732))
+343 35 0 best None
+357 20 0 best None
+358 39 0 best None
+359 37 0 best None
+360 17 0 best None
+374 15 0 best None
+375 30 0 best None
+376 18 0 best None
+377 9 0 best None
+391 10 0 best None
+392 12 0 best None
+393 11 0 best None
+394 3 0 best None
+408 7 0 best None
+409 1 0 best None
+410 4 0 best None
+411 2 0 best None

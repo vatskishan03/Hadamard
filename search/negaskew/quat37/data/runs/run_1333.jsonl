@@ -1,0 +1,2 @@
+{"v": 1333, "K": 43, "q": 31, "gens": [4], "nu": 7, "A": 256, "L": 36864, "status": "EMPTY", "sec": 0.3, "l1": 0, "l2sol": 0, "toobig": 0, "sols": []}
+{"v": 1333, "K": 31, "q": 43, "gens": [2], "nu": 7, "A": 256, "L": 36864, "status": "TIMEOUT", "sec": 120.1, "err": "A|=24 |L|=36864  0.0s\nlists: |A|=24 (8 classes) |L|=36864 (441 classes) |LB|=36864 (441 classes)\nright class pairs: 2994 distinct required left sums\nchunk A[0,24): left table 626102 entries (compat-filtered), 577 distinct left class sums\nPROGRESS chunk 0 ic 0/441 l1=0 l2inst=0 l2sol=0 probes=0 t=0s\n"}
