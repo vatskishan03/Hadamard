@@ -169,7 +169,7 @@ The τ sweep (`../data/gs/tau_sweep2.jsonl`): every live shape with at most 20 o
 ```
 cd plain
 python3 test_plain.py                                   # 4 s   104 shapes (v = 9..75, <= 11 orbits), 52 with a nonzero count, 103 with the independent dictionary join: 0 mismatches between the solver, the forced-splitting solver, the forced-chunking solver and the join
-for v in 105 143 189 205 231 255; do python3 plain_spence3.py $v 18 2 1e5 > runs/cal$v.log; done; python3 cmp_logs.py ../data/plain runs/cal*.log    # 6 of 6 identical: the positive controls (v = 143: counts 16, 24, 16, 400, 40)
+mkdir -p runs; for v in 105 143 189 205 231 255; do python3 plain_spence3.py $v 18 2 1e5 > runs/cal$v.log; done; python3 cmp_logs.py ../data/plain runs/cal*.log    # 6 of 6 identical: the positive controls (v = 143: counts 16, 24, 16, 400, 40)
 mkdir -p runs && OMAX=22 bash run_plain.sh              # 140 s  all subgroups with 2 to 22 orbits for the six v
 python3 cmp_logs.py ../data/plain runs/v1197.O22.log runs/v1437.O22.log runs/v1477.O22.log runs/v1677.O22.log runs/v2061.O22.log runs/v2173.O22.log    # 6 of 6 identical (statuses, counts; time field ignored)
 python3 plain_spence3.py 1197 24 23 1e5 > runs/r3_1197_23_24.log    # 362 s wall (218 s of solver time in the recorded run): 20 shapes, 12 EMPTY, 8 noL
@@ -182,7 +182,7 @@ python3 plain_census_L.py 2061 23 30                    # 1 s  the shapes with a
 
 Shapes with at most 22 orbits: 55, 5, 33, 45, 26, 22 for v = 1197, 1437, 1477, 1677, 2061, 2173, of which 12, 2, 6, 2, 2, 4 have a +1 row-sum vector (the others are `noL`, EMPTY exactly); every one has count 0 (the judge re-counted all of them with a different join and its own census of the subgroups: `check/plain_shapes.py`).
 O = 23 and 24: v = 1197: 20 shapes (12 EMPTY, 8 noL; 218 s of solver time), v = 1677: 7 shapes (3 EMPTY, 4 noL; 412 s), v = 1477: 3 shapes (all noL). v = 1437 is complete: no subgroup of ℤ₁₄₃₇\* has 10 to 479 orbits (the orbit counts are 4, 5, 6, 9, 480, 719, 720, 958, 1437).
-Open (UNKNOWN): v = 2061 has 5 shapes with 23 or 24 orbits: two are `noL`, the three with |H| = 114 and 23 orbits have a +1 list of 291,720 vectors each, and their exact join (the job of the lens: 1 h 40 min of CPU and 2.2 GB, growing, when this was written (the first attempts at these v ended in MemoryError at the 3.5 GB limit), no shape finished) was still running; `solve` regenerates the pair list for every residue part, so its time grows like the square of the number of pairs, and the 240 s of the 41,760-vector shape of v = 1677 extrapolate to days here (HEURISTIC); v = 2173 has one (23 orbits, 154,000 vectors; MemoryError of the first solver, not run with the final one).
+Open (UNKNOWN): v = 2061 has 5 shapes with 23 or 24 orbits: two are `noL`, the three with |H| = 114 and 23 orbits have a +1 list of 291,720 vectors each, and their exact join (stopped after 3 h 13 min of CPU and more than 2.2 GB with no shape finished; the first attempts at these v ended in MemoryError at the 3.5 GB limit) did not finish; `solve` regenerates the pair list for every residue part, so its time grows like the square of the number of pairs, and the 240 s of the 41,760-vector shape of v = 1677 extrapolate to days here (HEURISTIC); v = 2173 has one (23 orbits, 154,000 vectors; MemoryError of the first solver, not run with the final one).
 Beyond those, `python3 plain_census_L.py v 23 30` lists the shapes with a +1 vector that nobody has solved: v = 1197: 26 shapes with 25 to 30 orbits; 1477: one with 28 orbits (4.5 · 10⁶ vectors); 1677: four with 27 to 30 orbits (up to 3.5 · 10⁶); 2061: two with 25 and one with 27 orbits (up to 6.1 · 10⁶); 2173: shapes with 25, 27 and 30 orbits (up to 3.7 · 10⁶).
 Non-cyclic ℤ₃² × ℤ₁₃₃ (v = 1197): 40,000 random 2-generator subgroups of GL(2, 3) × ℤ₁₃₃\*, 583 distinct partitions with 3 to 24 orbits, 283 with a +1 row-sum vector, all EMPTY (3076 s of solver time): HEURISTIC coverage (a sample), EXHAUSTIVE per shape. ℤ₃² × ℤ₂₂₉ (v = 2061) was not run.
 
@@ -235,7 +235,7 @@ python3 plain_shapes.py 22 1197 1437 1477 1677 2061 2173    # 33 s  the shape ce
 
 ```
 cd census
-python3 run_est.py ../data/census/cand8p.jsonl runs/est8p.jsonl 700 150 6          # the Gaussian/lattice estimates of the 229 live shapes (the same for cand3only, cand3Ponly, candC8p; resumable by key)
+mkdir -p runs; python3 run_est.py ../data/census/cand8p.jsonl runs/est8p.jsonl 700 150 6          # the Gaussian/lattice estimates of the 229 live shapes (the same for cand3only, cand3Ponly, candC8p; resumable by key)
 cd ../gs
 python3 tau_sweep.py runs/tau_sweep2.jsonl ../data/census/cand8p.jsonl ../data/census/cand3only.jsonl ../data/census/cand3Ponly.jsonl     # the exact tau filter, ascending orbit counts, 150 s per shape (588 CPU s up to 20 orbits); kill the recorded PID beyond 21 orbits
 (CAND=../data/gs/cand_alive.jsonl EST=../data/census/est_all8p.jsonl setsid nohup python3 exh_sweep.py runs/exh_alive.jsonl 2 13 300 > runs/exh_alive.log 2>&1 & echo $! > runs/exh_alive.pid)   # exhaustive verdicts of the shapes with 2 to 13 orbits, 300 s each
@@ -254,6 +254,6 @@ Hit handling: the independent numpy check H Hᵀ = nI of the final matrix (G-lev
 
 ## Deviations from the sources
 
-The code of the EIGHTP lens of round 39 is carried over unchanged except: docstrings and headers (NOTES sections instead of rounds and lenses), paths relative to the directory (`census/` and `plain/` scripts import the shared modules from `../gs` and `plain_spence3`; the census data in `../data/census`), the spin drivers import `plain_spence3` instead of
+The code of the original searches is carried over unchanged except: docstrings and headers (NOTES sections instead of rounds and lenses), paths relative to the directory (`census/` and `plain/` scripts import the shared modules from `../gs` and `plain_spence3`; the census data in `../data/census`), the spin drivers import `plain_spence3` instead of
 `plain_spence2` (they use only the subgroup and orbit helpers, which are identical), the run scripts write to `runs/`. New: `gs/{exh_table,tau_check}.py`, `census/{merge_cand,check_est}.py`, `census/run_census.sh`, `plain/{test_plain,cmp_logs}.py`, `oddspence/verify_odd_spence.patch`, this README. Not carried over: the buggy `plain_spence2.py` and `plain_nc.py`, the scratch variants, `gs_exh2.py`
-(`gs_exh.py` with an unused argument), the r31 benchmarks and throughput scripts, `rank4.py`, `charfilter.py`, `exhaust4.py` (the round-30 level 2), the 700-point build of the engine (used for no verdict). See `DEVIATIONS.md` of the port for every file.
+(`gs_exh.py` with an unused argument), the r31 benchmarks and throughput scripts, `rank4.py`, `charfilter.py`, `exhaust4.py` (the round-30 level 2), the 700-point build of the engine (used for no verdict).

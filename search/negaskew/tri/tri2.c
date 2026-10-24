@@ -11,7 +11,7 @@
 //   (mode 7, red=0: counts B big with S = 1+i only; total = 3 * 2 * count).
 // The join is partitioned by a linear residue pi(PAF) mod M (M prime): left pairs with pi = r, right pairs with pi = T - r.   Every solution lies in exactly one partition,
 //   and a solution without a stabiliser comes with 31 others in the same partition (PROOFS.md, P5: tilde of B, C, D, swap of C and D, A -> -A), so independent hits are clusters of 32 (16 in mode 7, where the tilde of the big block B leaves the list).
-// Limits: the digits of a block are packed 2 bits each into 32 bits, so n = e + 1 <= 16 (e <= 15: v = 7, 29, 67, 191, 277, 379); the program refuses larger e (a guard added in the port, no computation changed).
+// Limits: the digits of a block are packed 2 bits each into 32 bits, so n = e + 1 <= 16 (e <= 15: v = 7, 29, 67, 191, 277, 379); the program refuses larger e (a guard added when the code entered the repository, no computation changed).
 // usage: tri2 v k g mode red M r0 step cnt idx0 maxsol seed      (g a primitive root mod v)
 //   partitions i = idx0..cnt-1 with r_i = (r0 + i*step) mod M   (resumable by idx0; with step = 1, r0 = 0, cnt = M all partitions are processed)
 //   output: SOL lines "SOL i=I r=R w=W A B C D" (digit strings u0, c_0..c_{e-1} in coset order; w = the weight of a reduced hit), one STAT line per partition, a TOTAL line.

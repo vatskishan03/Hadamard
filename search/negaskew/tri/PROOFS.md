@@ -114,7 +114,7 @@ The existence of solutions for a given v (EXACT for 7, 29, 67, 191, 277, 379 by 
 | P6 | `tricore.py` (spectra from the periods), `gauss_dom.py`, `est_fast.py` (the PAF coordinates) |
 | P7 | `coset.py`, `est_all.py`, `est_fast.py`, `tri_est.py` |
 
-## Output of `python3 proofs_check.py` (15 s wall; run in the staging tree after the builds of README.md)
+## Output of `python3 proofs_check.py` (15 s wall; run in a fresh copy of the repository after the builds of README.md)
 
 ```
 P1  parity of the PAF

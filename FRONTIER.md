@@ -43,8 +43,8 @@ settles 8p by doubling. [search/NOTES.md](search/NOTES.md) §92 searches the ord
 - the plain cyclic structures with at most 22 orbits (24 for v = 1197, 1477, 1677) and the block-symmetric ones with at
   most 30 orbits are empty.
 
-What remains are the plug-in shapes with 8 to 21 orbits at p = 599, 739 and 839 (about 10⁶ CPU-seconds each by the
-model) and larger structures.
+What remains are the plug-in shapes with 8 to 21 orbits at p = 599, 739 and 839 (the cheapest three cost about 10⁶
+CPU-seconds each by the model, the others 10⁹ or more) and larger structures.
 
 **Corollary 8.8(i).** Đoković (arXiv:1008.2043, Propositions 3.2–3.4) also claimed n = 1527, 2545 and 2571, through
 Williamson-type matrices of orders 509 and 857 that Seberry–Yamada's Corollary 8.8(i) would give. Its printed proof

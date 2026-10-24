@@ -65,3 +65,5 @@ search/eightp/*/runs/
 search/negaskew/tri/tri_join
 search/negaskew/tri/tri2
 search/negaskew/tri/runs/
+search/eightp/spin/tmp*.txt
+search/eightp/gs/calib_odd.json
