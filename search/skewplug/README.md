@@ -29,6 +29,7 @@ handles many (nine to seventeen for 476). The same code, with a multiplier group
 | `data/est473.jsonl`, `data/ctl473d_rounds.jsonl` | the 58 slots of the 473 shape with a finite Gaussian estimate (slot file of `prod_dedup.py`); the logged first 20 rounds of the `prod_dedup.py` run that found the sixth matrix of order 1892 |
 | `exh38.py` | a symmetry-reduced explicit-list sweep of the slots of a K-symmetric shape: per block, defect weight and row sum the list is generated until it covers the block space, one block per orbit of the exact block symmetries, the skew block reduced by the units of K, every row-sum pattern of a slot joined with `gl1.c` (its functions `gl1_genlist`, `gl1_hashlist`, `gl1_set_hin`), new classes to the exact level 2; about 100 classes per second against 2 to 3 for `prod_dedup.py`; found [../../skew/1540](../../skew/1540) |
 | `data/repro385/` | the slot of the run that found [../../skew/1540](../../skew/1540) |
+| `data/repro245/`, `data/repro781/` | the slots of the lowest-energy sweep that found [../../skew/980](../../skew/980) and [../../skew/3124](../../skew/3124), and the certificates of the eight other matrices of order 980 |
 | `data/repro539/` | the state before the hit of the run that found [../../skew/2156](../../skew/2156): the log of rounds 0–6, the set of classes already run, the slot file |
 | `scan38/` | the re-scan of the K-symmetric real census shapes (enumeration of 554 shapes, the all-slot estimate scan with controls and tables, the exact all-energy row-sum scan, the corrected row-sum count) and the production loops of `exh38.py` (rotation over shapes, supervisor, summaries); its commands run in this directory; see [scan38/README.md](scan38/README.md) (search/NOTES.md §91) |
 
@@ -105,6 +106,21 @@ python3 cyclic.py out/skew_1540_hit385_s0_<time>_<i>.json OUT.json      # the fi
 It prints two `HIT` lines (group-form SHA-256 `9ea5b315…` and `1b4d57ec…`, 100 classes of level-1 instances, 2
 complete); `cyclic.py` turns the first into the certificate of [../../skew/1540](../../skew/1540) without its `sha256`
 field.
+
+The lowest-energy sweep of search/NOTES.md §93 found orders 980 (K = ℤ₃₅, q = 7, ⟨11⟩; group ℤ₃₅ × ℤ₇, not cyclic)
+and 3124 (K = ℤ₇₁, q = 11, ⟨25⟩; ℤ₇₈₁). Each hit slot replays alone (1 to 3 minutes each; the list caps are part of
+the command):
+
+```
+cp data/repro245/est_hit245.jsonl data/repro781/est_hit781.jsonl .
+EX_COV=0.99 EX_PERSIST_MB=0 PROD_CONTINUE=1 python3 -u exh38.py hit245 1200 "[35]" 7 "[[11]]" est_hit245.jsonl 1 file skf
+EX_COV=0.99 EX_PERSIST_MB=0 EX_MAXDRAW=6000000 EX_JOINCAP=2e9 EX_SLOT_SECS=600 PROD_CONTINUE=1 python3 -u exh38.py hit781 1500 "[71]" 11 "[[25]]" est_hit781.jsonl 1 file sl2
+python3 cyclic.py out/skew_3124_hit781_s0_<time>_<i>.json OUT.json
+```
+
+The first prints three `HIT` lines (SHA-256 `74f3a8f1…`, the certificate of [../../skew/980](../../skew/980), `53465d13…`
+and `ed5594ef…`; 11,812 classes), the second one (group form `0e0e2e2f…`, 1841 classes), which `cyclic.py` turns into
+the certificate of [../../skew/3124](../../skew/3124) without its `sha256` field.
 
 ## The pattern pipeline and the verdicts on K-symmetric and rigid shapes
 

@@ -6019,3 +6019,36 @@ tools and commands in [negaskew/tri/README.md](negaskew/tri/README.md)).
 - *Open members* (UNKNOWN). With the measured ratio the expected numbers of inequivalent solutions are 25 (631), 9.5
   (947, Table 5's 947(6)), 21 (1129), 1.3 (1327), 0.17 (2017) (HEURISTIC): the family is probably finite, and the
   four-list join needs about 5 · 10¹⁵ probes at 631 and 10²² at 947. No construction for the larger members is known.
+
+## 93. Round 40: the lowest energies of the census shapes; skew 980 and 3124, the census values 245 and 781 (October 24)
+
+Scratchpad `r40/`. The lesson of §91, applied to every open real skew census shape: sweep the slots of the lowest
+energies with `exh38.py`, in increasing order of their number of level-1 classes.
+
+**The sweep** (HEURISTIC coverage: lists of 60 to 99% of each raw block space, EX_COV). Of the 241 shapes scanned in
+round 38, 35 were inventoried through E_min + 3, 23 through level 0 or 1 or partly at level 0, 76 had no feasible slot
+within a 15 to 40 s cap, and 107 (63 of them q = 3 shapes with 17 or more orbits) were not inventoried. "Level" is the
+energy above the lowest row-sum-feasible one, which for 781, 1057, 1477 and 2317 lies above the lowest energy allowed
+by the identity. 2833 slots were swept (961 enumerable and 395 heavy ones at level 0, 1299 at level 1, 178 at level 2),
+317,775 classes of level-1 instances went to the exact level 2, and 11 completed: the 2 of the control 385, 8 at 245
+and 1 at 781. The control re-found 1540 in the 19th of the 34 enumerable lowest-energy slots of 385, after 474 classes.
+A positive control for non-cyclic K with a matrix H_K (the slot of [skew/1100](../skew/1100)) gave the known matrices.
+
+**The hits.**
+- 245 = ℤ₃₅ × F₇ with ⟨11⟩ (group ℤ₃₅ × ℤ₇, not cyclic): the slot (6, 3, 4, 6) / (0, 3, 0, 0) at E = 19, one above
+  the lowest feasible energy (N_w = 19, N₋ = 3, 8 · 19 − 4 · 3 = 140), holds 11,812 classes, 3 of which complete; other
+  slots of the shape gave six more. Nine skew-Hadamard matrices of order 980 = 4 · 245, pairwise inequivalent as
+  Goethals–Seidel quadruples under Aut(G) and the block symmetries (row sums such as 1, −9, −27, 13 and 1, 3, 31, 3)
+  ([skew/980](../skew/980)). 245 is undecided in the census; Table 5 had 245(4).
+- 781 = ℤ₇₁ × F₁₁ with ⟨25⟩ (ℤ₇₈₁ cyclic): the slot (0, 6, 10, 11) / (0, 0, 5, 5) at the lowest feasible energy E = 27
+  (N_w = 27, N₋ = 10, 12 · 27 − 40 = 284), a heavy slot (up to 6 · 10⁶ raw configurations per block specification),
+  1841 classes, 1 completion: a skew-Hadamard matrix of order 3124 = 4 · 781, row sums 1, −51, 9, 21
+  ([skew/3124](../skew/3124)). 781 is undecided in the census; Table 5 had 781(3).
+Both slots replay alone in 1 to 3 minutes (`search/skewplug/data/repro245`, `repro781`). An independent judge rebuilt
+all nine matrices of order 980 and both forms of 3124 with its own code (H Hᵀ = nI, H + Hᵀ = 2I, exact), ran
+`verify.py` on a fresh copy, replayed both slots and redid the novelty checks.
+
+**What the hits say** (HEURISTIC). The three census values settled by the enumerating engine (385, 245, 781) all came
+from the lowest one or two energies of shapes that the Gaussian criterion of §90 rated unreachable (logE −1.5 to −2 at
+their best slots), and at 781 from a slot that the round-38 production had skipped as too heavy. At the lowest energies
+the block pools are small and a class completes with probability 10⁻⁴ to 10⁻², far above the estimates.
