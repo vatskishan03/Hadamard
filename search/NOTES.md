@@ -6180,3 +6180,66 @@ the per-value tally, the ν = 5 verdicts beyond the earlier runs (no independent
 slot count of the sweep is 2833 (a draft said 2755). The Gaussian estimate against the measurement, over all 1535 swept
 slots with an estimate: 1228 slots had no class; measured/estimated 0.92 for estimates of 10 to 100 classes, 0.36 for
 100 to 1000, 0.34 for 1000 to 10⁴; 39 of the 950 slots estimated below 0.1 classes had a class (HEURISTIC).
+
+## 94. Rounds 41–42: the remaining skew slots, symmetric propus and complex plug-ins at the lowest energies (October 24)
+
+Scratchpad `r41/`, `r42/`. No new matrix. The judges of both rounds did not run (a usage limit stopped them), so the
+verdicts below are those of the searches, with the validations each search ran on its own engine; the code is not yet in
+the repository.
+
+**Round 41: the rest of the skew census shapes.**
+
+- *An exhaustive list engine* (`exh42.py`, `gl1e.c`; VALIDATED). It enumerates every configuration of a block
+  specification once instead of sampling: the enumerated sets equal round 40's covering sets byte for byte on 32
+  specifications of 8 shapes, the class counts equal round 40's on 16 slots of 245 and 385, and the hit slots replay
+  (385 and 781: the same matrices; 245: the same 11,812 classes and 3 completions). Lists are built 3 to 50 times
+  faster.
+- *Heavy slots* (one share of the shapes). 113 slots swept, 96 EXHAUSTIVE for the engine's reductions and 17 with
+  sampled lists; 2 level-1 classes (957 = ℤ₈₇ × F₁₁), 0 completions. Out of reach of the engine: 1235, 1679 and most of
+  2323 (block specifications of 10⁸ to 10¹⁰ configurations), and the four best slots of 707 = ℤ₁₀₁ × F₇ (estimates up to
+  6.8 · 10⁴ classes, blocks of 3.5 · 10⁹ to 1.2 · 10¹⁰ raw configurations: they need a streamed join).
+- *The whole energy range* (the other share). An inventory over the full identity range takes seconds per shape. Of the
+  76 shapes without a feasible slot in round 40, 57 have one, 13 have none (EXACT) and 6 were not reached. Feasible
+  energies are sparse sums of orbit weights (917 = ℤ₁₃₁ × F₇ has only E = 66, 92 and 118; round 40 stopped at E_min +
+  3). Swept: 1424 enumerable lowest-energy slots (17,834 classes) and 329 heavy or higher-energy slots (574,359 classes:
+  917 at E = 92 and 118, 1057 at E = 121 and 151, 1267, 1477); 0 completions, and the level-2 row filter rejected every
+  class of the higher energies. A heavy slot of 627, 737 or 803 costs 2 to 3 CPU-hours.
+- *The estimator* (HEURISTIC, 2200 slots of round 40). The Gaussian slot estimate is right to a factor of about 3
+  between 1 and 100 classes, too low by 5 to 60 times below 0.1 class and too high by 2 to 3 times above 100; all ten
+  completions of round 40 lie in slots with logE ≥ −2, and the slot of [skew/3124](../skew/3124) ranks first of the 51
+  lowest-energy slots of 781. Almost all slots left unswept have logE ≤ −6.
+
+**Round 42: symmetric propus plug-ins** (the propus array of §17 over K × F_r with a multiplier group on K: A symmetric,
+B twice, D free, weights (1, 2, 1) in the defect identity; §87 had run H_K = 1 only).
+
+- *Engine* (VALIDATED). Raw counts equal round 33's K-level and G-level counts on 176 shapes; at ℤ₁₃ × F₇ with H = 1,
+  slot E = 13, allocation (1, 3, 6), round 33's independent engine and the new one both give 843,648 level-1 instances
+  and 86,528 solutions; the controls 308 (ℤ₁₁ × F₇) and 364 (ℤ₁₃ × F₇, ⟨3⟩) are found; the certificate path passes
+  verify.py.
+- *Results* (EXHAUSTIVE within the engine class for every finished shape; 0 completions everywhere). (a) The 654
+  K-symmetric shapes of round 33's list (ν ≤ 22), every energy: 120 have row-sum-feasible slots, 14,888 slots, 4151
+  level-1 classes; this includes 209 (ℤ₁₉ × F₁₁, ⟨7⟩), 259 (ℤ₃₇ × F₇, ⟨10⟩), 287, 341 and 247, the best-ranked shapes
+  that round 33 never counted. (b) 630 more shapes with ν ≤ 13 and r ≥ 5, every energy: 368,404 slots, 1373 classes. (c)
+  2143 shapes with ν = 7 to 22 and |K| ≤ 900, the lowest four energies: 148,234 slots, 163,416 classes. (d) 24 shapes
+  with r = 3, every energy (for example 267 = ℤ₈₉ × F₃ with ⟨2⟩: 741,080 classes): 95,203 slots, 4,842,692 classes.
+- *Why the shapes die* (EXACT, the 534 shapes of (a) without a feasible slot). 234 force the symmetric block to be a
+  defect at every position, 225 have no allocation of orbit weights that meets the defect identity, 73 have no integral
+  energy, 2 have allocations but no row-sum pattern.
+
+**Round 42: complex plug-ins with 14 to 24 orbits per block** (the plain Szöllősi array of §85 for the 112 open orders
+2N; round 30 had exhausted 4 to 13 orbits for cyclic K with |K| ≤ 120).
+
+- *A spectral filter* (PROVED, VALIDATED). The level-1 equation Σ_X PAF_{u_X} = 4N δ gives Σ_X |û_X(ψ)|² = 4N for every
+  character ψ of K, so every block of a solution has |û(ψ)|² ≤ 4N; applied to each list before the join it removes 28 to
+  99% of the large lists. With orderly generation of the defect sets (one per orbit of the block symmetries) the cost
+  moved from the join to the enumeration. Validated against round 30's counts (3072, 159,744, 27,648, 0), ten of its
+  empty verdicts, the Γ-class sets of `exhaust_c` on nine shapes and the order-418 control.
+- *Results.* 892 shapes inventoried: 564 have no row-sum-feasible slot in the examined energy window (EXACT), 191 have
+  slots, 137 are UNKNOWN (identity energy beyond the orbit DP, or the inventory timed out). 32,380 slots of 160 shapes
+  swept (32,371 EXHAUSTIVE), 7903 level-1 classes, 0 completions. Not run: about 900 slots of 10 to 100 s each and the
+  heavier ones.
+
+**Reading** (HEURISTIC). In the skew array the lowest energies gave completions at rates far above the estimates (§93);
+in the propus and plain complex arrays five million classes at the lowest energies gave none. The excess of the skew
+family does not carry over to these arrays at these sizes; what is left there is either heavy (streamed joins) or has
+estimates far below one.
