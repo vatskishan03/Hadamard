@@ -49,7 +49,8 @@ def run_sl2(sh, insts, maxsol=5, tlimit=1e9, seed=1, maxfib=1500000, timeout=Non
         f.write(hdr); f.write(f'{len(insts)}\n')
         for blocks in insts: f.write(instance_text(sh, blocks))
     try:
-        out = subprocess.run([exe, path, str(maxsol), str(tlimit), str(seed), str(maxfib), str(int(stop_first))], capture_output=True, text=True, timeout=timeout).stdout
+        proc = subprocess.run([exe, path, str(maxsol), str(tlimit), str(seed), str(maxfib), str(int(stop_first))], capture_output=True, text=True, timeout=timeout)
+        out = proc.stdout
     finally:
         os.unlink(path)
     res = {}; sols = []
@@ -65,4 +66,7 @@ def run_sl2(sh, insts, maxsol=5, tlimit=1e9, seed=1, maxfib=1500000, timeout=Non
         elif line.startswith('SOL'):
             segs = line.split('|'); i = int(segs[0].split()[1])
             sols.append((i, [np.array([int(x) for x in sg.split()], dtype=np.int16) for sg in segs[1:5]]))
+    for i in range(len(insts)):
+        if i not in res:     # no INST line: the solver died (e.g. 'oom cb' under ulimit -v); the instance is NOT decided
+            res[i] = dict(raw=(proc.stderr or '')[-200:], compl=0, status='L2FAIL', rc=proc.returncode)
     return res, sols
