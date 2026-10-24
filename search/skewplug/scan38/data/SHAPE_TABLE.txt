@@ -1,0 +1,90 @@
+v=  245 q= 7 K=35     H_K=[[11]]       ord= 3 nu=15 Fix= 5 E=18..35  SAMPLED: 9 rounds, 99 s, raw level-1 607144, distinct level-2 0 (+80000 raw old-style), instances with completions 0
+v=  361 q=19 K=19     H_K=[[7]]        ord= 3 nu= 7 Fix= 1 E=4..4  r34: EXACTLY EMPTY
+v=  385 q= 7 K=55     H_K=[[16]]       ord= 5 nu=15 Fix= 5 E=28..55  SAMPLED: 10 rounds, 102 s, raw level-1 4824, distinct level-2 0 (+4824 raw old-style), instances with completions 0
+v=  385 q=11 K=35     H_K=[[11]]       ord= 3 nu=15 Fix= 5 E=12..17  SAMPLED: 127 rounds, 182 s, raw level-1 31504, distinct level-2 27 (+0 raw old-style), instances with completions 0
+v=  539 q= 7 K=77     H_K=[[15]]       ord= 5 nu=21 Fix= 7 E=39..77  not run
+v=  539 q=11 K=7x7    H_K=[[1,2],[2,1]] ord= 9 nu= 9 Fix= 1 E=17..24  not run
+v=  539 q=11 K=49     H_K=[[8]]        ord= 7 nu=13 Fix= 7 E=17..24  SAMPLED: 59 rounds, 181 s, raw level-1 0, distinct level-2 0 (+0 raw old-style), instances with completions 0
+v=  539 q=11 K=49     H_K=[[18]]       ord= 3 nu=17 Fix= 1 E=17..24  SAMPLED: 52 rounds, 2193 s, raw level-1 32910, distinct level-2 10706 (+0 raw old-style), instances with completions 0
+v=  539 q=11 K=7x7    H_K=[[2,2]]      ord= 3 nu=17 Fix= 1 E=17..24  SAMPLED: 11 rounds, 842 s, raw level-1 5558, distinct level-2 1030 (+0 raw old-style), instances with completions 0
+v=  539 q=11 K=7x7    H_K=[[2,4]]      ord= 3 nu=17 Fix= 1 E=17..24  SAMPLED: 11 rounds, 1101 s, raw level-1 5994, distinct level-2 1598 (+0 raw old-style), instances with completions 0
+v=  539 q=11 K=7x7    H_K=[[1,2]]      ord= 3 nu=21 Fix= 7 E=17..24  not run
+v=  539 q=11 K=7x7    H_K=[[2,1]]      ord= 3 nu=21 Fix= 7 E=17..24  not run
+v=  575 q=23 K=25     H_K=[[6]]        ord= 5 nu= 9 Fix= 5 E=5..5  r34: EXHAUSTIVELY EMPTY
+v=  589 q=19 K=31     H_K=[[2]]        ord= 5 nu= 7 Fix= 1 E=7..7  r34: EXACTLY EMPTY
+v=  589 q=19 K=31     H_K=[[5]]        ord= 3 nu=11 Fix= 1 E=7..7  r34: EXHAUSTIVELY EMPTY
+v=  605 q=11 K=55     H_K=[[16]]       ord= 5 nu=15 Fix= 5 E=19..27  SAMPLED: 22 rounds, 186 s, raw level-1 3760, distinct level-2 4 (+0 raw old-style), instances with completions 0
+v=  627 q=11 K=57     H_K=[[4]]        ord= 9 nu= 9 Fix= 3 E=19..28  r34 RANKING A: EXHAUSTIVELY EMPTY (209 allocations, 12.0M level-1 instances, 0 completions)
+v=  627 q=11 K=57     H_K=[[7]]        ord= 3 nu=21 Fix= 3 E=19..28  not run
+v=  627 q=19 K=33     H_K=[[4]]        ord= 5 nu= 9 Fix= 3 E=7..8  EXHAUSTIVE per pattern (5 classes, 0 level-1 instances, 0 completions); SAMPLED: 681 rounds, 89 s, raw level-1 0, distinct level-2 0 (+0 raw old-style), instances with completions 0
+v=  637 q= 7 K=91     H_K=[[9],[16]]   ord= 9 nu=15 Fix= 1 E=46..91  SAMPLED: 126 rounds, 1390 s, raw level-1 90758, distinct level-2 11854 (+0 raw old-style), instances with completions 0
+v=  707 q= 7 K=101    H_K=[[36]]       ord= 5 nu=21 Fix= 1 E=51..101  not run
+v=  759 q=23 K=33     H_K=[[4]]        ord= 5 nu= 9 Fix= 3 E=6..6  EXHAUSTIVE per pattern (9 classes, 64 level-1 instances, 0 completions)
+v=  777 q= 7 K=111    H_K=[[7]]        ord= 9 nu=15 Fix= 3 E=56..111  SAMPLED: 34 rounds, 187 s, raw level-1 9996, distinct level-2 523 (+4022 raw old-style), instances with completions 0
+v=  779 q=19 K=41     H_K=[[10]]       ord= 5 nu= 9 Fix= 1 E=10..10  r34: EXACTLY EMPTY
+v=  781 q=11 K=71     H_K=[[20]]       ord= 7 nu=11 Fix= 1 E=24..35  EXHAUSTIVE per pattern (2047 classes, 426 level-1 instances, 0 completions); PARTIAL (allocation pipeline, 19 skipped) alloc pipeline: 55 allocations, N1_G 174720, E_G 0; SAMPLED: 389 rounds, 180 s, raw level-1 51336, distinct level-2 90 (+3088 raw old-style), instances with completions 0
+v=  781 q=11 K=71     H_K=[[5]]        ord= 5 nu=15 Fix= 1 E=25..35  SAMPLED: 584 rounds, 1765 s, raw level-1 302396, distinct level-2 24090 (+0 raw old-style), instances with completions 0
+v=  803 q=11 K=73     H_K=[[2]]        ord= 9 nu= 9 Fix= 1 E=27..36  EXACTLY EMPTY also by the exact row-sum filter (0 of 317 slots); EXHAUSTIVE alloc pipeline: 31 allocations, N1_G 0, E_G 0; SAMPLED: 8 rounds, 0 s, raw level-1 0, distinct level-2 0 (+0 raw old-style), instances with completions 0
+v=  805 q=23 K=35     H_K=[[11]]       ord= 3 nu=15 Fix= 5 E=6..7  r34 RANKING A: EXHAUSTIVELY EMPTY (8 classes, 2,384 level-1 instances, no completion)
+v=  817 q=19 K=43     H_K=[[4]]        ord= 7 nu= 7 Fix= 1 E=9..10  r34: EXACTLY EMPTY
+v=  817 q=19 K=43     H_K=[[6]]        ord= 3 nu=15 Fix= 1 E=9..10  r34: EXHAUSTIVELY EMPTY; r34 RANKING A: EXHAUSTIVELY EMPTY (457 classes)
+v=  851 q=23 K=37     H_K=[[10]]       ord= 3 nu=13 Fix= 1 E=7..7  r34: EXACTLY EMPTY
+v=  897 q=23 K=39     H_K=[[16]]       ord= 3 nu=15 Fix= 3 E=7..7  r34 RANKING A: EXACTLY EMPTY (BB filter, all 7,332 patterns)
+v=  943 q=23 K=41     H_K=[[10]]       ord= 5 nu= 9 Fix= 1 E=7..8  r34: EXHAUSTIVELY EMPTY
+v=  957 q=11 K=87     H_K=[[7]]        ord= 7 nu=15 Fix= 3 E=29..43  SAMPLED: 78 rounds, 181 s, raw level-1 26770, distinct level-2 56 (+15376 raw old-style), instances with completions 0
+v=  961 q=31 K=31     H_K=[[5]]        ord= 3 nu=11 Fix= 1 E=4..4  r34: EXACTLY EMPTY
+v=  989 q=23 K=43     H_K=[[4]]        ord= 7 nu= 7 Fix= 1 E=8..8  r34: EXACTLY EMPTY
+v=  989 q=23 K=43     H_K=[[6]]        ord= 3 nu=15 Fix= 1 E=8..8  r34: EXHAUSTIVELY EMPTY; r34 RANKING A: EXHAUSTIVELY EMPTY
+v= 1045 q=11 K=95     H_K=[[6]]        ord= 9 nu=15 Fix= 5 E=32..47  SAMPLED: 40 rounds, 185 s, raw level-1 142820, distinct level-2 4 (+104820 raw old-style), instances with completions 0
+v= 1045 q=19 K=55     H_K=[[16]]       ord= 5 nu=15 Fix= 5 E=11..13  SAMPLED: 28 rounds, 131 s, raw level-1 49800, distinct level-2 0 (+20000 raw old-style), instances with completions 0
+v= 1083 q=19 K=57     H_K=[[4]]        ord= 9 nu= 9 Fix= 3 E=12..14  EXACTLY EMPTY (BB filter, r34 tools)
+v= 1083 q=19 K=57     H_K=[[7]]        ord= 3 nu=21 Fix= 3 E=12..14  not run
+v= 1141 q= 7 K=163    H_K=[[38]]       ord= 9 nu=19 Fix= 1 E=82..163  SAMPLED: 4 rounds, 92 s, raw level-1 24, distinct level-2 12 (+0 raw old-style), instances with completions 0
+v= 1159 q=19 K=61     H_K=[[9]]        ord= 5 nu=13 Fix= 1 E=13..15  r34: EXACTLY EMPTY
+v= 1159 q=19 K=61     H_K=[[13]]       ord= 3 nu=21 Fix= 1 E=13..15  r34: UNKNOWN (pattern
+v= 1199 q=11 K=109    H_K=[[16]]       ord= 9 nu=13 Fix= 1 E=37..54  EXACTLY EMPTY (exact row-sum filter: 0 of 3056 slots have a row-sum pattern, rowscan.py); SAMPLED: 20 rounds, 0 s, raw level-1 0, distinct level-2 0 (+0 raw old-style), instances with completions 0
+v= 1209 q=31 K=39     H_K=[[16]]       ord= 3 nu=15 Fix= 3 E=5..5  r34 RANKING A: EXHAUSTIVELY EMPTY (6 classes)
+v= 1243 q=11 K=113    H_K=[[16]]       ord= 7 nu=17 Fix= 1 E=38..56  row-sum scan: 1 of 300 random slots (of 11120) has a pattern; SAMPLED: 8 rounds, 100 s, raw level-1 184, distinct level-2 62 (+0 raw old-style), instances with completions 0
+v= 1267 q= 7 K=181    H_K=[[39]]       ord= 9 nu=21 Fix= 1 E=91..181  not run
+v= 1323 q=27 K=7x7    H_K=[[1,2],[2,1]] ord= 9 nu= 9 Fix= 1 E=7..8  EXACTLY EMPTY (BB filter, r34 tools)
+v= 1323 q=27 K=49     H_K=[[8]]        ord= 7 nu=13 Fix= 7 E=7..8  r34: UNKNOWN (pattern
+v= 1323 q=27 K=49     H_K=[[18]]       ord= 3 nu=17 Fix= 1 E=7..8  r34: EXACTLY EMPTY
+v= 1323 q=27 K=7x7    H_K=[[2,2]]      ord= 3 nu=17 Fix= 1 E=7..8  EXACTLY EMPTY (BB filter, r34 tools)
+v= 1323 q=27 K=7x7    H_K=[[2,4]]      ord= 3 nu=17 Fix= 1 E=7..8  EXACTLY EMPTY (BB filter, r34 tools)
+v= 1323 q=27 K=7x7    H_K=[[1,2]]      ord= 3 nu=21 Fix= 7 E=7..8  not run
+v= 1323 q=27 K=7x7    H_K=[[2,1]]      ord= 3 nu=21 Fix= 7 E=7..8  not run
+v= 1333 q=31 K=43     H_K=[[6]]        ord= 3 nu=15 Fix= 1 E=6..6  r34: EXACTLY EMPTY
+v= 1349 q=19 K=71     H_K=[[20]]       ord= 7 nu=11 Fix= 1 E=15..17  r34: EXHAUSTIVELY EMPTY
+v= 1349 q=19 K=71     H_K=[[5]]        ord= 5 nu=15 Fix= 1 E=15..17  r34: EXACTLY EMPTY
+v= 1387 q=19 K=73     H_K=[[2]]        ord= 9 nu= 9 Fix= 1 E=18..18  r34: EXACTLY EMPTY
+v= 1397 q=11 K=127    H_K=[[22]]       ord= 9 nu=15 Fix= 1 E=45..63  EXACTLY EMPTY (exact row-sum filter: 0 of 7870 slots have a row-sum pattern, rowscan.py); SAMPLED: 30 rounds, 1 s, raw level-1 0, distinct level-2 0 (+0 raw old-style), instances with completions 0
+v= 1397 q=11 K=127    H_K=[[2]]        ord= 7 nu=19 Fix= 1 E=43..63  SAMPLED: 7 rounds, 97 s, raw level-1 0, distinct level-2 0 (+0 raw old-style), instances with completions 0
+v= 1403 q=23 K=61     H_K=[[9]]        ord= 5 nu=13 Fix= 1 E=11..12  r34: EXHAUSTIVELY EMPTY
+v= 1403 q=23 K=61     H_K=[[13]]       ord= 3 nu=21 Fix= 1 E=11..12  r34: UNKNOWN (1320
+v= 1539 q=19 K=81     H_K=[[10]]       ord= 9 nu=21 Fix= 9 E=17..20  not run
+v= 1539 q=19 K=27x3   H_K=[[4,1]]      ord= 9 nu=21 Fix= 9 E=17..20  not run
+v= 1539 q=27 K=57     H_K=[[4]]        ord= 9 nu= 9 Fix= 3 E=9..9  EXHAUSTIVE per pattern (5 classes, 16 level-1 instances, 0 completions)
+v= 1539 q=27 K=57     H_K=[[7]]        ord= 3 nu=21 Fix= 3 E=9..9  not run
+v= 1633 q=23 K=71     H_K=[[20]]       ord= 7 nu=11 Fix= 1 E=14..14  r34: EXACTLY EMPTY
+v= 1633 q=23 K=71     H_K=[[5]]        ord= 5 nu=15 Fix= 1 E=12..13  r34: EXHAUSTIVELY EMPTY
+v= 1647 q=27 K=61     H_K=[[9]]        ord= 5 nu=13 Fix= 1 E=10..10  r34: EXACTLY EMPTY
+v= 1647 q=27 K=61     H_K=[[13]]       ord= 3 nu=21 Fix= 1 E=9..10  r34: UNKNOWN (187
+v= 1705 q=31 K=55     H_K=[[16]]       ord= 5 nu=15 Fix= 5 E=7..7  EXACTLY EMPTY (BB filter, r34 tools)
+v= 1729 q=19 K=91     H_K=[[9],[16]]   ord= 9 nu=15 Fix= 1 E=19..22  not run
+v= 1793 q=11 K=163    H_K=[[38]]       ord= 9 nu=19 Fix= 1 E=55..81  SAMPLED: 40 rounds, 11 s, raw level-1 0, distinct level-2 0 (+0 raw old-style), instances with completions 0
+v= 1891 q=31 K=61     H_K=[[9]]        ord= 5 nu=13 Fix= 1 E=8..8  r34: EXACTLY EMPTY
+v= 1891 q=31 K=61     H_K=[[13]]       ord= 3 nu=21 Fix= 1 E=8..8  r34: EXACTLY EMPTY
+v= 1917 q=27 K=71     H_K=[[5]]        ord= 5 nu=15 Fix= 1 E=11..11  r34: EXHAUSTIVELY EMPTY
+v= 1919 q=19 K=101    H_K=[[36]]       ord= 5 nu=21 Fix= 1 E=21..25  not run
+v= 1953 q=31 K=63     H_K=[[4],[22]]   ord= 9 nu=15 Fix= 3 E=8..9  EXHAUSTIVE per pattern (9 classes, 0 level-1 instances, 0 completions)
+v= 2001 q=23 K=87     H_K=[[7]]        ord= 7 nu=15 Fix= 3 E=15..17  EXHAUSTIVE per pattern (114 classes, 0 level-1 instances, 0 completions)
+v= 2071 q=19 K=109    H_K=[[16]]       ord= 9 nu=13 Fix= 1 E=27..27  EXACTLY EMPTY (exact row-sum filter: 0 of 5 slots have a row-sum pattern); PARTIAL (allocation pipeline, 3 skipped) alloc pipeline: 4 allocations, N1_G 0, E_G 0
+v= 2093 q=23 K=91     H_K=[[9],[16]]   ord= 9 nu=15 Fix= 1 E=16..18  not run
+v= 2109 q=19 K=111    H_K=[[7]]        ord= 9 nu=15 Fix= 3 E=23..27  not run
+v= 2147 q=19 K=113    H_K=[[16]]       ord= 7 nu=17 Fix= 1 E=23..28  not run
+v= 2185 q=23 K=95     H_K=[[6]]        ord= 9 nu=15 Fix= 5 E=16..19  not run
+v= 2263 q=31 K=73     H_K=[[2]]        ord= 9 nu= 9 Fix= 1 E=10..10  r34: EXACTLY EMPTY
+v= 2323 q=23 K=101    H_K=[[36]]       ord= 5 nu=21 Fix= 1 E=17..20  not run
+v= 2349 q=27 K=87     H_K=[[7]]        ord= 7 nu=15 Fix= 3 E=13..14  EXHAUSTIVE per pattern (52 classes, 0 level-1 instances, 0 completions)
+v= 2413 q=19 K=127    H_K=[[22]]       ord= 9 nu=15 Fix= 1 E=27..30  not run
+v= 2413 q=19 K=127    H_K=[[2]]        ord= 7 nu=19 Fix= 1 E=28..31  not run

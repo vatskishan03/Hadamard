@@ -1,0 +1,12 @@
+lists built: |A|=64 |L|=1724685  35.5s
+lists: |A|=64 (10 classes) |L|=1724685 (1731 classes) |LB|=1724685 (1731 classes)
+right class pairs: 7662 distinct required left sums
+chunk A[0,64): left table 44469572 entries (compat-filtered), 1716 distinct left class sums
+PROGRESS chunk 0 ic 0/1731 l1=0 l2inst=0 l2sol=0 probes=0 t=49s
+PROGRESS chunk 0 ic 256/1731 l1=0 l2inst=0 l2sol=0 probes=11384801414 t=723s
+PROGRESS chunk 0 ic 512/1731 l1=0 l2inst=0 l2sol=0 probes=37493294481 t=2351s
+PROGRESS chunk 0 ic 768/1731 l1=0 l2inst=0 l2sol=0 probes=59747322190 t=3561s
+PROGRESS chunk 0 ic 1024/1731 l1=0 l2inst=0 l2sol=0 probes=60026193614 t=3576s
+PROGRESS chunk 0 ic 1280/1731 l1=0 l2inst=0 l2sol=0 probes=60046758902 t=3577s
+PROGRESS chunk 0 ic 1536/1731 l1=0 l2inst=0 l2sol=0 probes=60046760078 t=3577s
+PROGRESS chunk 0 ic 1730/1731 l1=0 l2inst=0 l2sol=0 probes=60046760078 t=3577s

@@ -1,0 +1,12 @@
+{"idx": 101, "v": 917, "q": 7, "kmods": [131], "order": 13, "nu": 11, "nalloc": 736, "Emin": 66, "Emax": 131, "status": "FEASIBLE", "slots_checked": 7894, "found": [[0, 0, 1, 117], [0, 0, 1, 104]], "secs": 5.6}
+{"idx": 184, "v": 1183, "q": 7, "kmods": [13, 13], "order": 21, "nu": 9, "nalloc": 374, "Emin": 85, "Emax": 169, "status": "ALL_INFEASIBLE", "slots_checked": 79895, "found": null, "secs": 6.6}
+{"idx": 297, "v": 1539, "q": 19, "kmods": [3, 3, 3, 3], "order": 5, "nu": 17, "nalloc": 19, "Emin": 17, "Emax": 20, "status": "ALL_INFEASIBLE", "slots_checked": 92, "found": null, "secs": 0.2}
+{"idx": 321, "v": 1603, "q": 7, "kmods": [229], "order": 19, "nu": 13, "nalloc": 1313, "Emin": 115, "Emax": 229, "status": "ALL_INFEASIBLE", "slots_checked": 1114897, "found": null, "secs": 87.0}
+{"idx": 369, "v": 1793, "q": 11, "kmods": [163], "order": 9, "nu": 19, "nalloc": 375, "Emin": 55, "Emax": 81, "status": "FEASIBLE", "slots_checked": 509, "found": [[18, 1, 1, 55], [6, 0, 1, 55]], "secs": 7.4}
+{"idx": 391, "v": 1859, "q": 11, "kmods": [13, 13], "order": 21, "nu": 9, "nalloc": 31, "Emin": 63, "Emax": 84, "status": "ALL_INFEASIBLE", "slots_checked": 865, "found": null, "secs": 0.2}
+{"idx": 416, "v": 1919, "q": 19, "kmods": [101], "order": 5, "nu": 21, "nalloc": 44, "Emin": 21, "Emax": 25, "status": "ALL_INFEASIBLE", "slots_checked": 388, "found": null, "secs": 1.0}
+{"idx": 482, "v": 2189, "q": 11, "kmods": [199], "order": 11, "nu": 19, "nalloc": 375, "Emin": 67, "Emax": 99, "status": "FEASIBLE", "slots_checked": 6090, "found": [[22, 1, 23, 44], [14, 1, 12, 44]], "secs": 17.2}
+{"idx": 523, "v": 2375, "q": 19, "kmods": [5, 5, 5], "order": 31, "nu": 5, "nalloc": 1, "Emin": 31, "Emax": 31, "status": "ALL_INFEASIBLE", "slots_checked": 1, "found": null, "secs": 0.0}
+{"idx": 529, "v": 2401, "q": 7, "kmods": [7, 7, 7], "order": 57, "nu": 7, "nalloc": 164, "Emin": 172, "Emax": 343, "status": "ALL_INFEASIBLE", "slots_checked": 75747, "found": null, "secs": 4.0}
+{"idx": 530, "v": 2401, "q": 7, "kmods": [7, 7, 7], "order": 171, "nu": 3, "nalloc": 13, "Emin": 172, "Emax": 343, "status": "ALL_INFEASIBLE", "slots_checked": 18, "found": null, "secs": 0.2}
+{"idx": 542, "v": 2443, "q": 7, "kmods": [349], "order": 29, "nu": 13, "nalloc": 1313, "Emin": 175, "Emax": 349, "status": "PARTIAL", "slots_checked": 2456242, "found": null, "secs": 150.0}

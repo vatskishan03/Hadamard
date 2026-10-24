@@ -1,0 +1,20 @@
+--- qp.c	2026-10-23 13:19:07.312743617 +0000
++++ qp_oo.c	2026-10-23 13:49:53.271642617 +0000
+@@ -101,7 +101,7 @@
+     if (o == nu) { leaf(L, 1, cfg, W, wr, wi, 1.0); return; }
+     for (int s = 0; s < nsy; s++) {
+         if (o == 0 && sy[s].x0 != 0) continue;
+-        if (opt_d1 && ell[o] > 1 && sy[s].type != 0) continue;
++        if (opt_d1 && (ell[o] > 1 || (opt_d1 == 2 && o > 0)) && sy[s].type != 0) continue;
+         if (o > 0 && thin_skip(rthin_free)) continue;
+         int W2 = W + ell[o] * sy[s].c; if (W2 > gwcap) continue;
+         wr[o] = sy[s].wr; wi[o] = sy[s].wi;
+@@ -112,7 +112,7 @@
+     while (o < nu && o > 0 && !(o < neg_[o])) o++;
+     if (o == nu) { leaf(L, 0, cfg, W, wr, wi, 1.0); return; }
+     for (int s = 0; s < nsy; s++) {
+-        if (o > 0 && opt_d1 && ell[o] > 1 && sy[s].type != 0) continue;
++        if (o > 0 && opt_d1 && (ell[o] > 1 || opt_d1 == 2) && sy[s].type != 0) continue;
+         if (o > 0 && thin_skip(rthin_skew)) continue;
+         if (o == 0 && opt_real) { if (!(sy[s].type == 0 && sy[s].x0 == 0)) continue; }
+         else if (o == 0) { if (sy[s].type != 2) continue; if (!((sy[s].e2r == 1 && sy[s].e2i == 1) || (sy[s].e2r == -1 && sy[s].e2i == -1))) continue; if (!(sy[s].x0 == 0 || sy[s].x0 == 3)) continue; }

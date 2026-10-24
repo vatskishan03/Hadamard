@@ -1,0 +1,1 @@
+[{"v": 309, "q": 3, "m": 103, "ktype": "103^(1)", "blocks": [["cyc", 103]], "kmods": [103], "order": 17, "nu": 7, "partial": false, "gens": [[13]], "sizes": [1, 29, 29], "sig": [], "idx": 0, "decided": null, "nwin_alloc": 4, "Emin": 59, "Emax": 235, "nalloc": 4, "pool5_ub": 77494}]

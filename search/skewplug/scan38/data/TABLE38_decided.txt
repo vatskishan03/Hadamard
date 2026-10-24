@@ -1,0 +1,314 @@
+DECIDED / EXACT-DEAD shapes of the enumeration (not scanned; verdicts of rounds 34-37 or exact filters of this round)
+0     v=177   q=3   K=59         ord=29    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+2     v=201   q=3   K=67         ord=11    nu=7   DECIDED(prose)  r38: Z67 x F3 <9> EXHAUSTIVELY EMPTY (r37 ic 0-19 + r38 resume ic 19-53, identical lists; 2.28e9 level-1, 2.5e8 level-2 instances, 0 solutions)
+3     v=201   q=3   K=67         ord=33    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+6     v=303   q=3   K=101        ord=25    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+7     v=329   q=7   K=47         ord=23    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+8     v=361   q=19  K=19         ord=1     nu=19  EXACT_DEAD(r34 big-big filter, H_K = 1, NOTES 88)  
+9     v=361   q=19  K=19         ord=3     nu=7   DECIDED  r34 sweep: EXACTLY EMPTY (BB filter: 12 patterns, all killed)
+10    v=361   q=19  K=19         ord=9     nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+13    v=413   q=7   K=59         ord=29    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+17    v=489   q=3   K=163        ord=27    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+18    v=489   q=3   K=163        ord=81    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+19    v=517   q=11  K=47         ord=23    nu=3   DECIDED  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+20    v=517   q=47  K=11         ord=1     nu=11  DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+21    v=517   q=47  K=11         ord=5     nu=3   DECIDED  r34 sweep: EXACTLY EMPTY (BB filter: 1 patterns, all killed)
+22    v=529   q=23  K=23         ord=1     nu=23  EXACT_DEAD(r34 big-big filter, H_K = 1, NOTES 88)  
+23    v=529   q=23  K=23         ord=11    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+24    v=537   q=3   K=179        ord=89    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+27    v=543   q=3   K=181        ord=45    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+29    v=553   q=7   K=79         ord=13    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+30    v=553   q=7   K=79         ord=39    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+31    v=573   q=3   K=191        ord=19    nu=11  DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+32    v=573   q=3   K=191        ord=95    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+36    v=575   q=23  K=5x5        ord=3     nu=9   DECIDED(prose)  r34 sec.C / r37: Z5^2 x F23 Singer-3 EXHAUSTIVELY EMPTY
+34    v=575   q=23  K=25         ord=5     nu=9   DECIDED  r34 sweep: EXHAUSTIVELY EMPTY (BB+rowfilter -> 3 pattern classes, pipe
+37    v=575   q=23  K=5x5        ord=5     nu=9   DECIDED  probable: r36 real sweep (exhaustive within time limits, not a timeout
+38    v=581   q=7   K=83         ord=41    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+39    v=583   q=11  K=53         ord=13    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+40    v=589   q=19  K=31         ord=3     nu=11  DECIDED  r34 sweep: EXHAUSTIVELY EMPTY (BB+rowfilter -> 7 pattern classes, pipe
+41    v=589   q=19  K=31         ord=5     nu=7   DECIDED  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+42    v=589   q=19  K=31         ord=15    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+45    v=597   q=3   K=199        ord=33    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+46    v=597   q=3   K=199        ord=99    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+48    v=623   q=7   K=89         ord=11    nu=9   DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+50    v=627   q=3   K=209        ord=45    nu=9   DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+52    v=627   q=11  K=57         ord=9     nu=9   DECIDED  r35 SHAPE_TABLE: Fix= 3 E=19..28  r34 RANKING A: EXHAUSTIVELY EMPTY (2
+53    v=627   q=19  K=33         ord=5     nu=9   DECIDED  r35 SHAPE_TABLE: Fix= 3 E=7..8  EXHAUSTIVE per pattern (5 classes, 0 l
+55    v=649   q=11  K=59         ord=29    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+56    v=667   q=23  K=29         ord=7     nu=5   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+57    v=669   q=3   K=223        ord=37    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+58    v=669   q=3   K=223        ord=111   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+59    v=699   q=3   K=233        ord=29    nu=9   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+61    v=707   q=7   K=101        ord=25    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+63    v=717   q=3   K=239        ord=119   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+64    v=721   q=7   K=103        ord=17    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+65    v=721   q=7   K=103        ord=51    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+68    v=737   q=11  K=67         ord=11    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+69    v=737   q=11  K=67         ord=33    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+70    v=749   q=7   K=107        ord=53    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+71    v=759   q=3   K=253        ord=55    nu=9   DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+72    v=759   q=11  K=69         ord=11    nu=9   DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+73    v=759   q=23  K=33         ord=5     nu=9   DECIDED  r35 SHAPE_TABLE: Fix= 3 E=6..6  EXHAUSTIVE per pattern (9 classes, 64 
+76    v=779   q=19  K=41         ord=5     nu=9   DECIDED  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+78    v=781   q=11  K=71         ord=7     nu=11  DECIDED  r35 SHAPE_TABLE: Fix= 1 E=24..35  EXHAUSTIVE per pattern (2047 classes
+79    v=781   q=11  K=71         ord=35    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+84    v=803   q=11  K=73         ord=9     nu=9   DECIDED  r35 SHAPE_TABLE: Fix= 1 E=27..36  EXACTLY EMPTY also by the exact row-
+86    v=805   q=23  K=35         ord=3     nu=15  DECIDED  r35 SHAPE_TABLE: Fix= 5 E=6..7  r34 RANKING A: EXHAUSTIVELY EMPTY (8 c
+87    v=817   q=19  K=43         ord=3     nu=15  DECIDED  r34 sweep: EXHAUSTIVELY EMPTY (BB+rowfilter -> 317 pattern classes, pi
+88    v=817   q=19  K=43         ord=7     nu=7   DECIDED  r34 sweep: EXACTLY EMPTY (BB filter: 18 patterns, all killed)
+89    v=817   q=19  K=43         ord=21    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+90    v=849   q=3   K=283        ord=47    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+91    v=849   q=3   K=283        ord=141   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+92    v=851   q=23  K=37         ord=3     nu=13  DECIDED  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+93    v=851   q=23  K=37         ord=9     nu=5   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+94    v=869   q=11  K=79         ord=13    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+95    v=869   q=11  K=79         ord=39    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+97    v=897   q=23  K=39         ord=3     nu=15  DECIDED  r35 SHAPE_TABLE: Fix= 3 E=7..7  r34 RANKING A: EXACTLY EMPTY (BB filte
+98    v=899   q=31  K=29         ord=7     nu=5   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+100   v=913   q=11  K=83         ord=41    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+102   v=917   q=7   K=131        ord=65    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+104   v=921   q=3   K=307        ord=51    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+105   v=921   q=3   K=307        ord=153   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+107   v=927   q=3   K=309        ord=51    nu=9   DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+108   v=943   q=23  K=41         ord=5     nu=9   DECIDED  r34 sweep: EXHAUSTIVELY EMPTY (BB+rowfilter -> 1 pattern classes, pipe
+111   v=959   q=7   K=137        ord=17    nu=9   DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+112   v=961   q=31  K=31         ord=3     nu=11  DECIDED  r34 sweep: EXACTLY EMPTY (BB filter: 20 patterns, all killed)
+113   v=961   q=31  K=31         ord=5     nu=7   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+114   v=961   q=31  K=31         ord=15    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+115   v=973   q=7   K=139        ord=23    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+116   v=973   q=7   K=139        ord=69    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+117   v=979   q=11  K=89         ord=11    nu=9   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+118   v=989   q=23  K=43         ord=3     nu=15  DECIDED  r34 sweep: EXHAUSTIVELY EMPTY (BB+rowfilter -> 1 pattern classes, pipe
+119   v=989   q=23  K=43         ord=7     nu=7   DECIDED  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+120   v=989   q=23  K=43         ord=21    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+123   v=1029  q=3   K=343        ord=147   nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+127   v=1029  q=3   K=7x7x7      ord=171   nu=3   DECIDED(prose)  r34: Z7^3 x F3 Singer-171 EXHAUSTIVELY EMPTY (brute force)
+131   v=1041  q=3   K=347        ord=173   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+132   v=1043  q=7   K=149        ord=37    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+134   v=1045  q=19  K=55         ord=5     nu=15  DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+136   v=1047  q=3   K=349        ord=87    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+138   v=1057  q=7   K=151        ord=25    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+139   v=1057  q=7   K=151        ord=75    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+140   v=1077  q=3   K=359        ord=179   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+141   v=1081  q=23  K=47         ord=23    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+142   v=1081  q=47  K=23         ord=1     nu=23  EXACT_DEAD(N_w=2 lemma, NOTES 88)  
+143   v=1081  q=47  K=23         ord=11    nu=3   DECIDED  r34 sweep: EXACTLY EMPTY (BB filter: 1 patterns, all killed)
+149   v=1083  q=3   K=19x19      ord=45    nu=9   DECIDED(prose)  r37: Z19^2 x F3 Singer-45 EXHAUSTIVELY EMPTY (no A list)
+145   v=1083  q=3   K=361        ord=171   nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+159   v=1083  q=3   K=19x19      ord=171   nu=5   DECIDED  probable: r36 real sweep (exhaustive within time limits, not a timeout
+165   v=1083  q=19  K=57         ord=9     nu=9   DECIDED  r35 SHAPE_TABLE: Fix= 3 E=12..14  EXACTLY EMPTY (BB filter, r34 tools)
+166   v=1101  q=3   K=367        ord=61    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+167   v=1101  q=3   K=367        ord=183   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+168   v=1133  q=11  K=103        ord=17    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+169   v=1133  q=11  K=103        ord=51    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+170   v=1139  q=67  K=17         ord=1     nu=17  EXACT_DEAD(N_w=1 lemma, 2m-1 not a sum of two squares)  
+172   v=1141  q=7   K=163        ord=27    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+173   v=1141  q=7   K=163        ord=81    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+175   v=1159  q=19  K=61         ord=5     nu=13  DECIDED  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+176   v=1159  q=19  K=61         ord=15    nu=5   DECIDED  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+177   v=1169  q=7   K=167        ord=83    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+178   v=1177  q=11  K=107        ord=53    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+184   v=1183  q=7   K=13x13      ord=21    nu=9   DECIDED(prose)  r37: Z13^2 x F7 Singer-21 EXHAUSTIVELY EMPTY (4905 level-1 instances)
+180   v=1183  q=7   K=169        ord=39    nu=9   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+187   v=1183  q=7   K=13x13      ord=39    nu=9   DECIDED  probable: r36 real sweep (exhaustive within time limits, not a timeout
+189   v=1199  q=11  K=109        ord=9     nu=13  DECIDED  r35 SHAPE_TABLE: Fix= 1 E=37..54  EXACTLY EMPTY (exact row-sum filter:
+190   v=1199  q=11  K=109        ord=27    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+192   v=1207  q=71  K=17         ord=1     nu=17  EXACT_DEAD(N_w=1 lemma, 2m-1 not a sum of two squares)  
+194   v=1209  q=31  K=39         ord=3     nu=15  DECIDED  r35 SHAPE_TABLE: Fix= 3 E=5..5  r34 RANKING A: EXHAUSTIVELY EMPTY (6 c
+195   v=1211  q=7   K=173        ord=43    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+197   v=1227  q=3   K=409        ord=51    nu=9   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+202   v=1257  q=3   K=419        ord=209   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+205   v=1267  q=7   K=181        ord=45    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+208   v=1269  q=27  K=47         ord=23    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+210   v=1273  q=19  K=67         ord=11    nu=7   DECIDED  r34 sweep: EXACTLY EMPTY (BB filter: 6 patterns, all killed)
+211   v=1273  q=19  K=67         ord=33    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+215   v=1317  q=3   K=439        ord=73    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+216   v=1317  q=3   K=439        ord=219   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+226   v=1323  q=27  K=49         ord=3     nu=17  DECIDED  r34 sweep: EXACTLY EMPTY (BB filter: 1776 patterns, all killed)
+230   v=1323  q=27  K=7x7        ord=3     nu=17  DECIDED  probable: r35 SHAPE_TABLE: Fix= 1 E=7..8  r34: EXACTLY EMPTY
+227   v=1323  q=27  K=49         ord=7     nu=13  DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+231   v=1323  q=27  K=7x7        ord=7     nu=13  DECIDED  probable: r37 real exhaustive (qp37 with symmetry reductions)
+232   v=1323  q=27  K=7x7        ord=9     nu=9   DECIDED  probable: r35 SHAPE_TABLE: Fix= 1 E=7..8  EXACTLY EMPTY (BB filter, r3
+228   v=1323  q=27  K=49         ord=21    nu=5   DECIDED  r34 sweep: EXACTLY EMPTY (BB filter: 26 patterns, all killed)
+235   v=1323  q=27  K=7x7        ord=21    nu=5   DECIDED  probable: r37 real exhaustive (qp37 with symmetry reductions)
+237   v=1329  q=3   K=443        ord=221   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+238   v=1333  q=31  K=43         ord=3     nu=15  DECIDED  r34 sweep: EXACTLY EMPTY (BB filter: 28 patterns, all killed)
+239   v=1333  q=31  K=43         ord=7     nu=7   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+240   v=1333  q=31  K=43         ord=21    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+241   v=1333  q=43  K=31         ord=3     nu=11  DECIDED  r34 sweep: EXHAUSTIVELY EMPTY (BB+rowfilter -> 1 pattern classes, pipe
+242   v=1333  q=43  K=31         ord=5     nu=7   DECIDED  r34 sweep: EXHAUSTIVELY EMPTY (BB+rowfilter -> 1 pattern classes, pipe
+243   v=1333  q=43  K=31         ord=15    nu=3   DECIDED  r34 sweep: EXHAUSTIVELY EMPTY (BB+rowfilter -> 1 pattern classes, pipe
+244   v=1349  q=19  K=71         ord=5     nu=15  DECIDED  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+245   v=1349  q=19  K=71         ord=7     nu=11  DECIDED  r34 sweep: EXHAUSTIVELY EMPTY (BB+rowfilter -> 16 pattern classes, pip
+246   v=1349  q=19  K=71         ord=35    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+247   v=1357  q=23  K=59         ord=29    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+248   v=1379  q=7   K=197        ord=49    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+250   v=1387  q=19  K=73         ord=9     nu=9   DECIDED  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+253   v=1389  q=3   K=463        ord=77    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+254   v=1389  q=3   K=463        ord=231   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+257   v=1393  q=7   K=199        ord=33    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+258   v=1393  q=7   K=199        ord=99    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+260   v=1397  q=11  K=127        ord=9     nu=15  DECIDED  r35 SHAPE_TABLE: Fix= 1 E=45..63  EXACTLY EMPTY (exact row-sum filter:
+261   v=1397  q=11  K=127        ord=21    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+262   v=1397  q=11  K=127        ord=63    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+264   v=1403  q=23  K=61         ord=5     nu=13  DECIDED  r34 sweep: EXHAUSTIVELY EMPTY (BB+rowfilter -> 25 pattern classes, pip
+265   v=1403  q=23  K=61         ord=15    nu=5   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+269   v=1407  q=3   K=469        ord=99    nu=9   DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+271   v=1407  q=7   K=201        ord=33    nu=9   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+272   v=1437  q=3   K=479        ord=239   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+273   v=1441  q=11  K=131        ord=13    nu=11  DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+274   v=1441  q=11  K=131        ord=65    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+277   v=1473  q=3   K=491        ord=49    nu=11  DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+278   v=1473  q=3   K=491        ord=245   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+281   v=1477  q=7   K=211        ord=35    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+282   v=1477  q=7   K=211        ord=105   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+285   v=1507  q=11  K=137        ord=17    nu=9   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+287   v=1527  q=3   K=509        ord=127   nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+288   v=1529  q=11  K=139        ord=23    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+289   v=1529  q=11  K=139        ord=69    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+297   v=1539  q=19  K=3x3x3x3    ord=5     nu=17  EXACT_DEAD(no row-sum pattern in any slot)  
+294   v=1539  q=19  K=81         ord=27    nu=9   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+299   v=1539  q=27  K=57         ord=9     nu=9   DECIDED  r35 SHAPE_TABLE: Fix= 3 E=9..9  EXHAUSTIVE per pattern (5 classes, 16 
+302   v=1561  q=7   K=223        ord=37    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+303   v=1561  q=7   K=223        ord=111   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+305   v=1569  q=3   K=523        ord=87    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+306   v=1569  q=3   K=523        ord=261   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+308   v=1577  q=19  K=83         ord=41    nu=3   DECIDED+identity-dead  r36 real sweep (exhaustive within time limits, not a timeout)
+309   v=1587  q=3   K=529        ord=253   nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+314   v=1587  q=3   K=23x23      ord=253   nu=5   DECIDED  probable: r36 real sweep (exhaustive within time limits, not a timeout
+316   v=1587  q=23  K=69         ord=11    nu=9   DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+317   v=1589  q=7   K=227        ord=113   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+320   v=1593  q=27  K=59         ord=29    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+321   v=1603  q=7   K=229        ord=19    nu=13  EXACT_DEAD(no row-sum pattern in any slot)  
+322   v=1603  q=7   K=229        ord=57    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+331   v=1631  q=7   K=233        ord=29    nu=9   DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+332   v=1633  q=23  K=71         ord=5     nu=15  DECIDED  r34 sweep: EXHAUSTIVELY EMPTY (BB+rowfilter -> 39 pattern classes, pip
+333   v=1633  q=23  K=71         ord=7     nu=11  DECIDED  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+334   v=1633  q=23  K=71         ord=35    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+335   v=1639  q=11  K=149        ord=37    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+341   v=1647  q=27  K=61         ord=5     nu=13  DECIDED  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+342   v=1647  q=27  K=61         ord=15    nu=5   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+346   v=1659  q=3   K=553        ord=117   nu=9   DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+348   v=1659  q=7   K=237        ord=39    nu=9   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+349   v=1661  q=11  K=151        ord=15    nu=11  DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+350   v=1661  q=11  K=151        ord=25    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+351   v=1661  q=11  K=151        ord=75    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+352   v=1671  q=3   K=557        ord=139   nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+355   v=1679  q=23  K=73         ord=9     nu=9   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+357   v=1705  q=31  K=55         ord=5     nu=15  DECIDED  r35 SHAPE_TABLE: Fix= 5 E=7..7  EXACTLY EMPTY (BB filter, r34 tools)
+358   v=1711  q=59  K=29         ord=7     nu=5   DECIDED  r34 sweep: EXHAUSTIVELY EMPTY (BB+rowfilter -> 1 pattern classes, pipe
+359   v=1713  q=3   K=571        ord=57    nu=11  DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+360   v=1713  q=3   K=571        ord=95    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+361   v=1713  q=3   K=571        ord=285   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+362   v=1719  q=3   K=573        ord=95    nu=9   DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+367   v=1763  q=43  K=41         ord=5     nu=9   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+370   v=1793  q=11  K=163        ord=27    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+371   v=1793  q=11  K=163        ord=81    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+376   v=1817  q=23  K=79         ord=13    nu=7   DECIDED  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+377   v=1817  q=23  K=79         ord=39    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+378   v=1829  q=31  K=59         ord=29    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+379   v=1837  q=11  K=167        ord=83    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+380   v=1841  q=7   K=263        ord=131   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+381   v=1849  q=43  K=43         ord=3     nu=15  DECIDED  r34 sweep: EXACTLY EMPTY (BB filter: 28 patterns, all killed)
+382   v=1849  q=43  K=43         ord=7     nu=7   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+383   v=1849  q=43  K=43         ord=21    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+384   v=1857  q=3   K=619        ord=103   nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+385   v=1857  q=3   K=619        ord=309   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+391   v=1859  q=11  K=13x13      ord=21    nu=9   DECIDED(prose)  r34: Z13^2 x F11 Singer-21 EXACTLY EMPTY (weights)
+387   v=1859  q=11  K=169        ord=39    nu=9   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+394   v=1859  q=11  K=13x13      ord=39    nu=9   DECIDED  probable: r36 real sweep (exhaustive within time limits, not a timeout
+396   v=1883  q=7   K=269        ord=67    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+397   v=1891  q=31  K=61         ord=3     nu=21  DECIDED  r34 sweep: EXACTLY EMPTY (BB filter: 1960 patterns, all killed)
+398   v=1891  q=31  K=61         ord=5     nu=13  DECIDED  r34 sweep: EXACTLY EMPTY (BB filter: 12 patterns, all killed)
+399   v=1891  q=31  K=61         ord=15    nu=5   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+402   v=1893  q=3   K=631        ord=63    nu=11  DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+403   v=1893  q=3   K=631        ord=105   nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+404   v=1893  q=3   K=631        ord=315   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+406   v=1897  q=7   K=271        ord=27    nu=11  DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+407   v=1897  q=7   K=271        ord=45    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+408   v=1897  q=7   K=271        ord=135   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+409   v=1903  q=11  K=173        ord=43    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+410   v=1909  q=23  K=83         ord=41    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+413   v=1917  q=27  K=71         ord=5     nu=15  DECIDED  r34 sweep: EXHAUSTIVELY EMPTY (BB+rowfilter -> 9 pattern classes, pipe
+414   v=1917  q=27  K=71         ord=7     nu=11  DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+415   v=1917  q=27  K=71         ord=35    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+416   v=1919  q=19  K=101        ord=5     nu=21  EXACT_DEAD(no row-sum pattern in any slot)  
+417   v=1919  q=19  K=101        ord=25    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+418   v=1929  q=3   K=643        ord=107   nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+419   v=1929  q=3   K=643        ord=321   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+420   v=1941  q=3   K=647        ord=323   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+421   v=1947  q=3   K=649        ord=145   nu=9   DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+422   v=1947  q=11  K=177        ord=29    nu=9   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+428   v=1953  q=31  K=63         ord=9     nu=15  DECIDED  r35 SHAPE_TABLE: Fix= 3 E=8..9  EXHAUSTIVE per pattern (9 classes, 0 l
+430   v=1953  q=31  K=7x3x3      ord=9     nu=15  DECIDED  probable: r37 real exhaustive (qp37 with symmetry reductions)
+431   v=1957  q=19  K=103        ord=17    nu=7   DECIDED+identity-dead  r36 real sweep (exhaustive within time limits, not a timeout)
+432   v=1957  q=19  K=103        ord=51    nu=3   DECIDED+identity-dead  r36 real sweep (exhaustive within time limits, not a timeout)
+434   v=1969  q=11  K=179        ord=89    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+435   v=1981  q=7   K=283        ord=47    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+436   v=1981  q=7   K=283        ord=141   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+439   v=1983  q=3   K=661        ord=165   nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+441   v=2001  q=23  K=87         ord=7     nu=15  DECIDED  r35 SHAPE_TABLE: Fix= 3 E=15..17  EXHAUSTIVE per pattern (114 classes,
+442   v=2033  q=19  K=107        ord=53    nu=3   DECIDED+identity-dead  r36 real sweep (exhaustive within time limits, not a timeout)
+444   v=2051  q=7   K=293        ord=73    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+446   v=2071  q=19  K=109        ord=9     nu=13  DECIDED  r35 SHAPE_TABLE: Fix= 1 E=27..27  EXACTLY EMPTY (exact row-sum filter:
+447   v=2071  q=19  K=109        ord=27    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+448   v=2077  q=31  K=67         ord=3     nu=23  DECIDED  r34 sweep: EXACTLY EMPTY (BB filter: 2376 patterns, all killed)
+449   v=2077  q=31  K=67         ord=11    nu=7   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+450   v=2077  q=31  K=67         ord=33    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+454   v=2101  q=11  K=191        ord=19    nu=11  DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+455   v=2101  q=11  K=191        ord=95    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+459   v=2107  q=7   K=301        ord=63    nu=9   DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+466   v=2149  q=7   K=307        ord=51    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+467   v=2149  q=7   K=307        ord=153   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+468   v=2151  q=3   K=717        ord=119   nu=9   DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+472   v=2163  q=3   K=721        ord=153   nu=9   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+474   v=2163  q=7   K=309        ord=51    nu=9   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+475   v=2167  q=11  K=197        ord=49    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+477   v=2181  q=3   K=727        ord=121   nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+478   v=2181  q=3   K=727        ord=363   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+479   v=2185  q=19  K=115        ord=11    nu=15  DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+483   v=2189  q=11  K=199        ord=33    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+484   v=2189  q=11  K=199        ord=99    nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+486   v=2191  q=7   K=313        ord=39    nu=9   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+487   v=2209  q=47  K=47         ord=23    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+488   v=2219  q=7   K=317        ord=79    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+492   v=2263  q=31  K=73         ord=3     nu=25  DECIDED  r34 sweep: EXACTLY EMPTY (BB filter: 93360 patterns, all killed)
+493   v=2263  q=31  K=73         ord=9     nu=9   DECIDED  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+495   v=2271  q=3   K=757        ord=189   nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+498   v=2277  q=23  K=99         ord=15    nu=15  DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+499   v=2277  q=23  K=11x3x3     ord=15    nu=15  DECIDED  probable: r37 real exhaustive (qp37 with symmetry reductions)
+500   v=2279  q=43  K=53         ord=13    nu=5   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+501   v=2283  q=3   K=761        ord=95    nu=9   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+505   v=2303  q=7   K=329        ord=69    nu=9   DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+508   v=2317  q=7   K=331        ord=55    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+509   v=2317  q=7   K=331        ord=165   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+511   v=2323  q=23  K=101        ord=25    nu=5   DECIDED+identity-dead  r36 real sweep (exhaustive within time limits, not a timeout)
+514   v=2349  q=27  K=87         ord=7     nu=15  DECIDED  r35 SHAPE_TABLE: Fix= 3 E=13..14  EXHAUSTIVE per pattern (52 classes, 
+516   v=2361  q=3   K=787        ord=131   nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+517   v=2361  q=3   K=787        ord=393   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+519   v=2365  q=43  K=55         ord=5     nu=15  DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+520   v=2369  q=23  K=103        ord=17    nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+521   v=2369  q=23  K=103        ord=51    nu=3   DECIDED+identity-dead  r36 real sweep (exhaustive within time limits, not a timeout)
+522   v=2375  q=19  K=125        ord=25    nu=13  DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+523   v=2375  q=19  K=5x5x5      ord=31    nu=5   DECIDED(prose)  r34: Z5^3 x F19 Singer-31 EXACTLY EMPTY (weights)
+529   v=2401  q=7   K=7x7x7      ord=57    nu=7   EXACT_DEAD(no row-sum pattern in any slot)  
+526   v=2401  q=7   K=343        ord=147   nu=7   DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+530   v=2401  q=7   K=7x7x7      ord=171   nu=3   DECIDED(prose)  r34: Z7^3 x F7 Singer-171 EXHAUSTIVELY EMPTY (brute force)
+532   v=2413  q=19  K=127        ord=9     nu=15  DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+533   v=2413  q=19  K=127        ord=21    nu=7   DECIDED+identity-dead  r36 real sweep (exhaustive within time limits, not a timeout)
+534   v=2413  q=19  K=127        ord=63    nu=3   DECIDED+identity-dead  r36 real sweep (exhaustive within time limits, not a timeout)
+536   v=2427  q=3   K=809        ord=101   nu=9   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+537   v=2429  q=7   K=347        ord=173   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+539   v=2433  q=3   K=811        ord=81    nu=11  DECIDED  r37 real exhaustive (qp37 with symmetry reductions)
+540   v=2433  q=3   K=811        ord=135   nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+541   v=2433  q=3   K=811        ord=405   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+543   v=2443  q=7   K=349        ord=87    nu=5   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+544   v=2449  q=31  K=79         ord=13    nu=7   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+545   v=2449  q=31  K=79         ord=39    nu=3   DECIDED+identity-dead  r34 sweep: EXACTLY EMPTY (orbit weights cannot realise the defect iden
+546   v=2461  q=23  K=107        ord=53    nu=3   DECIDED+identity-dead  r36 real sweep (exhaustive within time limits, not a timeout)
+547   v=2469  q=3   K=823        ord=137   nu=7   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+548   v=2469  q=3   K=823        ord=411   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+551   v=2489  q=19  K=131        ord=13    nu=11  DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)
+552   v=2489  q=19  K=131        ord=65    nu=3   DECIDED+identity-dead  r36 real sweep (exhaustive within time limits, not a timeout)
+553   v=2497  q=11  K=227        ord=113   nu=3   DECIDED  r36 real sweep (exhaustive within time limits, not a timeout)

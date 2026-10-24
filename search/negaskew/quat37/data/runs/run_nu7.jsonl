@@ -1,0 +1,9 @@
+{"v": 2369, "K": 103, "q": 23, "gens": [8], "nu": 7, "A": 256, "L": 36744, "status": "EMPTY", "sec": 1.0, "l1": 0, "l2sol": 0, "toobig": 0, "sols": []}
+{"v": 2077, "K": 67, "q": 31, "gens": [9], "nu": 7, "A": 256, "L": 36860, "status": "EMPTY", "sec": 0.2, "l1": 0, "l2sol": 0, "toobig": 0, "sols": []}
+{"v": 2449, "K": 79, "q": 31, "gens": [8], "nu": 7, "A": 256, "L": 36860, "status": "EMPTY", "sec": 0.3, "l1": 0, "l2sol": 0, "toobig": 0, "sols": []}
+{"v": 1817, "K": 79, "q": 23, "gens": [8], "nu": 7, "A": 256, "L": 47088, "status": "EMPTY", "sec": 43.0, "l1": 0, "l2sol": 0, "toobig": 0, "sols": []}
+{"v": 1273, "K": 67, "q": 19, "gens": [9], "nu": 7, "A": 256, "L": 58680, "status": "EMPTY", "sec": 1.0, "l1": 0, "l2sol": 0, "toobig": 0, "sols": []}
+{"v": 1917, "K": 27, "q": 71, "gens": [4], "nu": 7, "A": 256, "L": 137245, "status": "EMPTY", "sec": 17.3, "l1": 0, "l2sol": 0, "toobig": 0, "sols": []}
+{"v": 1793, "K": 163, "q": 11, "gens": [6], "nu": 7, "A": 384, "L": 1805308, "status": "EMPTY", "sec": 38.3, "l1": 0, "l2sol": 0, "toobig": 0, "sols": []}
+{"v": 1529, "K": 139, "q": 11, "gens": [6], "nu": 7, "A": 420, "L": 1743886, "status": "EMPTY", "sec": 112.3, "l1": 13248, "l2sol": 0, "toobig": 0, "sols": []}
+{"v": 1661, "K": 151, "q": 11, "gens": [9], "nu": 7, "A": 480, "L": 2034808, "status": "EMPTY", "sec": 545.4, "l1": 12384, "l2sol": 0, "toobig": 0, "sols": []}
