@@ -5853,7 +5853,7 @@ empty for every K and H_K (413, 2363).
 
 **What the judge checked** (the rebuild of 2156 and the corrections of the production statistics and of the hit slot's
 rank are already in §90 and skew/2156/README.md). Not re-run in full by the judge: the verdicts with 13 to 15 orbits
-(his own builds later reproduced most: 627/ℤ₂₀₉, 759/ℤ₂₅₃, 1045, 1407, 1659, 1947, 2185/ℤ₁₁₅, 2277, then 817, 897, 1323,
+(its own builds later reproduced most: 627/ℤ₂₀₉, 759/ℤ₂₅₃, 1045, 1407, 1659, 1947, 2185/ℤ₁₁₅, 2277, then 817, 897, 1323,
 1705, 1953, 2001, 2365, 2413 and the q = 3 ones). The judge's `unitcheck.py` (169 shape files) and `dc_check.py` are in
 `real37`; his `rigid_j.py` is in `origin`.
 
