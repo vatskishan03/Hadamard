@@ -6128,8 +6128,8 @@ round 38, 35 were inventoried through E_min + 3, 23 through level 0 or 1 or part
 within a 15 to 40 s cap, and 107 (63 of them q = 3 shapes with 17 or more orbits) were not inventoried. "Level" is the
 energy above the lowest row-sum-feasible one, which for 781, 1057, 1477 and 2317 lies above the lowest energy allowed by
 the identity. 2833 slots were swept (961 enumerable and 395 heavy ones at level 0, 1299 at level 1, 178 at level 2),
-317,775 classes of level-1 instances went to the exact level 2, and 11 completed (133 of them, at 627 and 1539, only
-after a re-run: §94): the 2 of the control 385, 8 at 245 and 1 at 781. The control re-found 1540 in the 19th of the 34
+317,775 classes of level-1 instances went to the exact level 2 (133 of them, at 627 and 1539, only in a re-run: §94),
+and 11 completed: the 2 of the control 385, 8 at 245 and 1 at 781. The control re-found 1540 in the 19th of the 34
 enumerable lowest-energy slots of 385, after 474 classes. A positive control for non-cyclic K with a matrix H_K (the
 slot of [skew/1100](../skew/1100)) gave the known matrices.
 
