@@ -6678,9 +6678,10 @@ these classes).
 
 **Tied Goethals–Seidel census of the composite FRONTIER orders** (`gs_tied.py`, at most 20 C-orbits): no solution in 361
 structures over F_a × F_b for 32 groups. These cover 955, 669, 1115, 1169, 1257, 2171, 2327, 1795, 2095, 1437, 1473,
-2215, 2315, 1713, 2855, 1893, 1929, 1969, 1981, 2429, 2513, 2571, 2589, 2629, 2841, 2913, 2973, 2899, 2995, 1719 (F₉ and
+2215, 2315, 1713, 2855, 1893, 1929, 1969, 1981, 2429, 2513, 2571, 2589, 2629, 2841, 2913, 2973, 2899, 2995, 1719 (F₉ × F₁₉₁ and
 ℤ₉ × F₁₉₁) and 2865. For primes of this size only multiplier groups of order ≥ 74 fit under 20 orbits, so this closes
-the trivial end only. The doubly tied version (at most 24 orbits) is running.
+the trivial end only. The doubly tied version (X, X ∘ n⁻¹, Y, Y ∘ n⁻¹) (`gs_dtied.py`, at most 24 orbits) has no
+solution in 404 structures over the same groups.
 
 **Symmetric conference matrices of order 2n** (EXACT bookkeeping). Belevitch's doubling turns a symmetric conference
 matrix C(2n) into H(4n). This needs 2n − 1 to be a sum of two squares, which holds for 39 of the 122 FRONTIER n.
@@ -6722,3 +6723,50 @@ matrix C(2n) into H(4n). This needs 2n − 1 to be a sum of two squares, which h
   primes (sketch).
 - *Regular s-sets.* No regular s-set Y_a = J − 2D_a, s ≥ 2, is group-developed over ℤ_g with g prime (PROVED).
 - *EKLO's Theorem 7 with k = 6, 8* (HEURISTIC, partial). No cyclic structure has both E ≥ 1 and pools under 2⁴⁰.
+
+## 101. Williamson and good matrices of order 65; the flat-pool k-tree (October 25)
+
+Scratchpad `r45/flc/`; the engines are FLC's (github.com/vatskishan03/FLC, branches `w65-engine` and `good-engine`,
+§96), run unchanged in chunks of 1500 instances (`scripts/run_chunks.sh`, restart-safe, at most four workers).
+
+- *Good matrices of order 65* (A skew-type, B, C, D symmetric circulants with Σ XXᵀ = 260I): **none** (w5g, q = 5,
+  grouped by the 13-compression). All 67,437 compressed instances (fingerprint d2617b1ba87e7899, as published) were
+  completed in 45 chunks: 2.8 · 10¹³ pair visits, 2.9 · 10¹¹ and 5.5 · 10¹¹ fibre survivors, 0 key matches, 31,325
+  CPU-s in step 5. `--merge` and `verify_w5g.py` pass on the empty classification; an independent check of the chunk
+  files confirms that their ranges tile [0, 67437) with 0 hits.
+- *Williamson matrices of order 65* (symmetric circulants, Σ X² = 260I): **none** (w5, q = 5). All 70,699 instances
+  (fingerprint c7000a01e7b84192, as published) in 48 chunks: 1.9 · 10¹³ pair visits, 2.9 · 10¹¹ survivors on each side,
+  0 key matches, 28,171 CPU-s in step 5; `--merge`, `verify_w5.py` and the coverage check pass in the same way.
+
+**What the verdicts rest on** (EXHAUSTIVE within the engines). Each engine enumerates every compressed quadruple
+(mod 13) that passes the power-spectrum bounds and completes each one exactly through its fibres. Its correctness at
+other orders: the step-4 instance counts equal FLC's published numbers at every order where they exist (good: n = 9 to
+69 with q = 3 and n = 75; Williamson: n ≤ 51 with q = 3, 45 with q = 5, 57, 63 with q = 7), the published SOL lines of
+n = 57 and 75 are reproduced byte for byte, independent q = 1 solvers agree at n = 25 and 35, every multiplier image of
+67 known good sets is lifted (7,368 runs, 0 failures), and the float error stays below 1.3 · 10⁻⁴ at n = 65 against a
+0.02 margin. Good matrices of order 55 (one class, §96) are the nearest positive control on the same q = 5 code path.
+No positive control exists at n = 65 itself.
+
+**Status.** Both orders were listed as open: Williamson matrices of order 65 by Kharaghani et al. (arXiv:2605.08661,
+"not found") and the vxvware challenge board; good matrices of order 65 by the board, whose emptiness claim was not
+verified. These are independent exhaustive classifications. They change no Hadamard order (4 · 65 = 260 and the
+skew order 260 are known).
+
+**The flat-pool k-tree** ([flatpool](flatpool/README.md); an agent, re-checked here). The generators of Alpöge et al.'s
+Goethals–Seidel matrices are abnormally flat (Φ ≈ 0.1, §92), which suggests four-list joins over pools of near-flat
+orbit-sign vectors. A round-44 judge had modelled this at 10^12.9 list operations for n = 1103 (U of order 19, 58
+cosets, 29 classes).
+- *Positive control* (CHECKED): from pools of 10⁶ necklaces per row sum at Φ ≤ 0.14 (simulated annealing,
+  10³–10⁴ distinct flat necklaces per CPU-second) the join found a Goethals–Seidel quadruple of order 1948 = 4 · 487
+  (U = ⟨41⟩, rows (1, 17, 17, 37)) in about 3500 CPU-s (`sol487.json`). Re-checked here with independent code: the
+  sequences are ⟨41⟩-invariant, Σ PAF = 0 off 0, and the Goethals–Seidel array satisfies H Hᵀ = 1948 I. A known order
+  (Alpöge et al.), so a re-derivation.
+- *Calibration* (CHECKED). The flat fraction p(Φ) is 12–30 times smaller than the judge's Chernoff model; the
+  Gaussian-lattice count overstates the solutions in annealed lists by about 0.9 per constrained class (10–15 at 26–28
+  classes); and the k-tree gains about √2 per merged class. At equal list size the flat-pool join costs what the plain
+  formula of `triage.py` gives.
+- *Prediction* (HEURISTIC). n = 1103 needs at least 1.5 · 10¹⁰ CPU-s under the 3.5 GB cap (10¹² with the chunking
+  implemented), and 1.6 · 10⁷ CPU-s even with 2 TB of memory. The other prime FRONTIER structures (739, 1223, 1291,
+  1667, 1787, 2971) are worse or at best one order cheaper than the plain estimate. Not run.
+- *So:* flatness explains how Alpöge et al.'s solutions look, not a large saving; generation is cheap and memory and the
+  join are the bottleneck. `search/lowe_enum.c` cannot generate these pools (it visits all C(58, 29) leaves).
