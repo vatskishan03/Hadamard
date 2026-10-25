@@ -6351,3 +6351,61 @@ structure non-circulant and solved it as an exact cover ([search/conference118](
 look for an R-structure in the solutions of the exact cover (it would give v = 119 by Yamada–Kiyasu, §61); run the same
 ansatz for p = 29, 53 and 89 (orders 262, 478 and 802, the symmetric conference matrices that would give the census
 values 523, 955 and 1603, and with 478 also FRONTIER 955).
+
+## 96. Round 45: the flag equation for conference matrices of order 9p + 1; FLC's engines at order 65 (October 25)
+
+Scratchpad `r45/`. Two lines: the ansatz of §95 for every prime p ≡ 1 (mod 4), aimed at the conference graphs on 9p
+vertices that Brouwer's table (read 25 October 2026) lists as open: 261, 333, 369, 477, 549, 657 and 801 (p = 29, 37,
+41, 53, 61, 73, 89; 117 and 153 exist, by J. Y. Z. Ho and Chen Wang). Their consequences: C(262) gives the census value
+523 (Seberry–Balonin, q = 521) and, through Yamada–Kiyasu with q = 521, the complex order 1046; C(334) gives the
+complex order 334 (C + iI), the smallest open one; C(478) gives FRONTIER n = 955 and 2865 (Corollary 27 with q = 953,
+then Cooper–Wallis with T-matrices of order 3), the census value 955 and the complex orders 478 and 1910; C(550)
+gives the complex order 550 and the census value 1099; C(658) the complex order 658; C(802) the census value 1603.
+And FLC (github.com/vatskishan03/FLC), whose branches `w65-engine` and `good-engine` add classifiers with a five-fold
+compression.
+
+**The flag equation** ([search/flag9p](flag9p/README.md)). On the nontrivial characters of ℤ₃², C² = 9p I becomes
+Ψ² = p I for Ψ = D + 2Φ on the 4p flags (point, direction), D = +1 on two directions and −1 on the other two, Φ with one
+entry χ(j − i)ω^c in each 4 × 4 block (i, j), i ≠ j (EXACT; §95 is the case p = 13). Each component of the flag graph
+satisfies it separately; its trace forces an even number of flags, half with D = +1. Bipartite components are X X* =
+d I (d = (p − 1)/4); a complete bipartite K_{a,a} needs D constant on each side and a Butson matrix BH(a, 6) with the
+Paley sign pattern. Quaternary non-Hermitian variants (for the complex Yamada–Kiyasu core of order 478) add nothing: the
+D-terms of ΨΨ* force every flag edge to have its reverse with Φ_vu = ±conj Φ_uv, and with single-class edges the
+supports must be symmetric, so d is even (p ≡ 1 mod 8) (EXACT).
+
+- *Cyclic, bipartite* (`bipcyc.c`; EXHAUSTIVE for the ansatz, both sign conventions): p = 13 none (as the general cyclic
+  search of round 44); p = 17: 55,296 structures (27,648 with the first row canonical); every one built and checked
+  is a conference matrix of order 154 (like the cyclic ones of §95; concurrent with Chen Wang's graph on 153 vertices).
+  The decoupled ones (one orientation per row, 1728 with the first row canonical) place a complementary pair of length
+  2 on translates of {1, 2} by 2, 8 and 10. p = 29: none. p = 37 and p = 41 (decoupled rows):
+  running (`r45/alam`).
+- *Alamouti sub-family* [[P₁, P₂], [−λP₂*tᵏ, λP₁*tᵏ]] (`alam.py`; supports forced into 2k·{1, …, (p − 1)/2}): p = 13
+  none, p = 17 twelve, p = 29, 37, 41 none.
+- *Odd multiplier groups* (`mulcyc.c`; all edge types, bipartite or not, phase twist when 3 | k; EXHAUSTIVE): p = 5,
+  k = 1 gives 576 (Mathon's order 46, the control); none for (p, k) = (13, 3), (29, 7), (37, 9), (53, 13), (61, 15),
+  (109, 27) and (73, 9) with the first sign convention (the second is running). Without a twist, X(1) ∈ kℤ[ω] needs
+  k² | d.
+- *Non-cyclic, clique and biclique components.* Four K_{d+1} and six K_{d,d} account for exactly the p(p − 1)/2 pairs and
+  4p flags for every p, and D-balance needs d odd (p ≡ 5 mod 8, the class where the cyclic ansatz fails). Templates
+  (`kn.c`, `kg.c`): K₄ 2 normalised solutions, K₆ 12, K₈ (p = 29) 1056, all K₈ in one switching class with D-labels
+  (Seidel spectrum ±√13, (±√5)³); on ℤ₂₉ there are 4466 placements (12 affine orbits, one D-labelling each). BH(7, 6):
+  in the 804,033 normalised matrices enumerated before the time cap (not complete), the 5040 distinct sign patterns form
+  one class, J − 2P; no pair of 7-sets of ℤ₂₉ has a Paley sign matrix in it, so the clique and biclique covers of ℤ₂₉
+  need other component types (UNKNOWN). With K₈'s through one point and bicliques between their other points, D-balance
+  fails for every p (EXACT).
+
+**FLC's engines** (digest of the branches, a Sonnet agent; the trees in `flcwt/`). w5 classifies circulant symmetric
+Williamson matrices and w5g good matrices of odd order n = q·m (q = 3, 5, 7, m ≤ 33): compression mod m, lists by the
+power spectrum, a 2 × 2 hash join of the compressed quadruples (step 4), then the fibres of each instance joined on the
+full autocorrelation (step 5). Both test suites pass on x86 (AVX-512), and the published instance fingerprints are
+reproduced. They reach no open Hadamard or skew order (4n ≤ 372), but they settle open cells of the classifications:
+
+- *Good matrices of order 55:* exactly one inequivalent class (w5g, q = 5, 10,773 instances, 297 CPU-s; the same class
+  without grouping). Row sums 1, 7, −13, −1; checked independently (own decoding and Goethals–Seidel array: A + Aᵀ =
+  2I, B, C, D symmetric, Σ X Xᵀ = 220 I, a skew-Hadamard matrix of order 220). Good matrices of order 55 were not in
+  the literature we read (Đoković–Kotsireas, arXiv:1802.00556: orders ≤ 39, 43, 45, 127; Bright et al.,
+  arXiv:1811.05094: multiples of 3 to 69), but the vxvware Goethals–Seidel challenge board (GitHub, 2026) lists one
+  class at 53, 55 and 61 from participants; the census (exactly one class) is new.
+- *Williamson matrices of order 65* (open: Kharaghani et al., arXiv:2605.08661, and the board) and *good matrices of
+  order 65* (the board has an unverified emptiness claim): running (`r45/flc`, PRODUCTION.md; 70,699 and 67,437
+  instances, fingerprints c7000a01e7b84192 and d2617b1ba87e7899 as published; chunks of 1500 instances, 0 hits so far).
