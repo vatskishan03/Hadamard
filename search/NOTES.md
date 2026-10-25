@@ -6536,3 +6536,51 @@ spectral filter.
 **Multipliers.** (73, 9) with the second sign convention has no solution either (0 of 254,803,968), so the odd
 multiplier groups of §96 are empty for every (p, k) listed there. `bipcyc3d 41` (decoupled bipartite, p = 41) is still
 running.
+
+## 99. Round 46c: the interval family behind p = 17, and symmetric quaternary matrices for n = 2571 (October 25)
+
+**The p = 17 solutions are one family.** The 1728 decoupled bipartite solutions of §96 (first row canonical) have
+exactly four support partitions:
+
+{1, 2, 3, 4} | {5, 6, 7, 8},  {1, 2, 4, 7} | {3, 5, 6, 8},  {2, 3, 5, 7} | {1, 4, 6, 8},  {3, 4, 5, 6} | {1, 2, 7, 8}.
+
+They are the images under the multipliers 1, 3, 5 and 9 of one interval structure, with 432 solutions each. Row A1 has
+atoms at the offsets 1, …, d and row A2 at −(d + 1), …, −2d. Each row is then a sixth-root complementary pair whose two
+supports split an interval, with the Legendre signs prescribed.
+
+- *Reduction* (EXACT). Every condition depends only on index differences (or sums) and on products χ(i)χ(j). So the
+  multiplier and the sign convention drop out, and one run per prime decides the family.
+- *Search* (`flag9p/intcyc.c`). The atoms are assigned alternately from both ends, so the long shifts close first.
+  - p = 17: 27 gauge-fixed solutions, rebuilt by `build_bip.py` into a conference matrix of order 154.
+  - p = 41 and 73: no row satisfies the row condition (0 s and 179 s).
+  - p = 89 and 97: not decided within the 900 s cap.
+
+So p = 17 looks like a small case: the Legendre pattern on [1, d] has no sixth-root complementary split at p = 41 or
+73.
+
+**Symmetric quaternary Hadamard matrices and n = 2571.** The literature agent's leading near miss, checked here
+against [hadamard/MIYAMOTO_BLOCKS.md](../hadamard/MIYAMOTO_BLOCKS.md#symmetric-williamson-type-matrices):
+- *The route.* Lemma 26 (Corollary 29) turns a symmetric quaternary Hadamard matrix of order (q − 1)/2 into symmetric
+  Williamson-type matrices of order q. For q = 857 that order is 428, and Cooper–Wallis with T-matrices of order 3
+  then gives n = 2571.
+- *Known sources do not apply.*
+  - Turyn's C ± I needs a symmetric conference matrix of order 428, impossible since 428 ≡ 0 (mod 4).
+  - A real symmetric H(428) is the open census value v = 107.
+  - A Kronecker product would need order 214, and Turyn's C + iI does not exist there: 213 is not a sum of two
+    squares.
+  - The repeated-block source would need symmetric Williamson-type matrices of order 107. A quadruple (Y, Z, X, X) of
+    odd order m gives a symmetric quaternary matrix of order 2m through M₃ = [[Y, X], [X, −Z]] and
+    M₄ = [[Z, X], [X, −Y]].
+- *A searched structure* (`flag9p/symq_mitm.py`, exhaustive): L = [[X, WR], [WR, −X̄]], with X a symmetric quaternary
+  circulant of order m and W real. L is symmetric, and L L̄ = 2mI reduces to PAF_X + PAF_W = 2mδ.
+  - Solutions exist for m = 3, 5, 7, 9, 13, 15 and 19 (24 to 5016 of them, checked exactly). There are none for m = 11
+    and 17, exactly the m where 2m − 1 is not a sum of two squares.
+  - Every solution has an imaginary part of weight 1 or m − 1. So the structure is Turyn's C + iE, and Belevitch's
+    condition explains the pattern. It is not a general obstruction: the repeated-block source above is not of this
+    form.
+  - Calibrated on m = 19 (predicted 2^12 solutions, found 5016), the same count gives about 2^−74 for the order-428
+    version of this structure, so it was not run.
+
+Agent reports of this round (literature, combinations): no new verified route. The near misses match §95. The
+leading one is the order-107 object above, which settles n = 2571 and the census value 107. A further reference to
+check is Seberry–Finlayson (JCMCC 43, 2002, skew orders 4q < 4000), which was not reachable.
