@@ -243,7 +243,10 @@ class Engine:
 
 def all_signs(b):
     idx = np.arange(2 ** b, dtype=np.int64)
-    return (1 - 2 * ((idx[:, None] >> np.arange(b)) & 1)).astype(np.int8)
+    X = np.empty((2 ** b, b), dtype=np.int8)
+    for j in range(b):                      # column by column: peak memory 2^b * (b + 16) bytes
+        X[:, j] = 1 - 2 * ((idx >> j) & 1)
+    return X
 
 def signs_with_sum(O, X, rowsum):
     """filter sign vectors X (over orbits O) to those with total sum rowsum (None = no filter)."""
