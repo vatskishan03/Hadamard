@@ -38,6 +38,8 @@ onto each other. Every connected component of the flag graph must satisfy Ψ_C²
 | `rank1bic.py`, `k99place.py` | rank-one K_{d,d} in a Paley two-graph; K₉,₉ placements in Paley(37) with the class H′ ⊗ J₃ (none) |
 | `kkcover.py` | D-balanced decompositions of K_p into four K_{d+1} and six K_{d,d} (CP-SAT) |
 | `srg_k77.py` | a conference graph on 4d + 1 vertices with a K_{d,d} in the class J − 2P (CP-SAT) |
+| `intcyc.c` | the interval family of the decoupled bipartite structures (§99): rows on μ·[1, d] and −μ·[d + 1, 2d], independent of μ and of the sign convention; `intcyc p 1 0` |
+| `symq_mitm.py` | symmetric quaternary Hadamard matrices [[X, WR], [WR, −X̄]] of order 2m (exhaustive; Turyn type, §99) |
 
 ## Validation
 
