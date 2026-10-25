@@ -347,6 +347,21 @@ order 111, which is therefore New.
 - *Finding.* None gives a skew-Hadamard matrix of order 980 or 3124.
 - *Not read.* As for 6796.
 
+**Orders 8696 and 12952** (checked on 24 October 2026). Seberry–Yamada (1992), Tables A.1 (keys wi and wl), A.2,
+Lemma 8.12 and Corollaries 8.8, 8.14 and 8.18; Cati–Pasechnik's Table 4 (1087(3), 1619(3)); the survey of Egan,
+Kotsireas, London and Ó Catháin, arXiv:2610.27175 (its Table 5 lists 8696 as open, after excluding Williamson-type
+matrices of order 543); Đoković, arXiv:0912.5091 and arXiv:1008.2043; SageMath. 8696 is **Known** (A.1's key wi is a
+valid route and A.2 records the order); 12952 is a **First explicit construction** (key wl is Corollary 8.8(i)).
+
+**The conference matrix of order 118, symmetric 940 and order 11292** (checked on 24–25 October 2026). Brouwer's table
+of strongly regular graphs (read on 17 October 2026: SRG(117, 58, 28, 29) exists, J. Y. Z. Ho, email, October 2026,
+not public); Mathon, Canad. J. Math. 30 (1978) (order pq² + 1 for p = q + 2, which excludes 117 = 13 · 3²);
+Seberry–Whiteman (1988); the census (235 undecided) and Seberry–Balonin (2017); Cati–Pasechnik's Table 4 (2823 open);
+the survey of Egan et al. (2026); SageMath; the 2026 sources listed above. No published conference matrix of order 118,
+symmetric Hadamard matrix of order 940 or Hadamard matrix of order 11292 was found. Ho's graph gives 940 through
+Seberry–Balonin's Corollary 1, so 940 is **Concurrent**, like the conference matrix itself; 11292 needs the Miyamoto
+blocks (or the repeated-block arrangement of [NOTES.md](NOTES.md) §7) on top of it and is **New**.
+
 **Orders 2092, 3732, 4492, 5020 and 5932** (rechecked on 23 October 2026). The survey of Egan, Kotsireas, London and
 Ó Catháin (arXiv:2610.27175, 19 October 2026) states that 3732, 4492, 5020 and 5932 "were found by the present
 authors", by the Goethals–Seidel array with multiplier groups of orders 31, 33, 50 and 39, the groups our matrices use,

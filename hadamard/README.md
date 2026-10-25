@@ -39,6 +39,7 @@ Entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard mat
 | [10644](10644) | 2661 = 3 · 887 | Paley's matrix of order 3548 in sixteen circulant blocks, T-matrices of order 3 |
 | [10932](10932) | 2733 = 3 · 911 | Paley's matrix of order 3644 in sixteen circulant blocks, T-matrices of order 3 |
 | [11260](11260) | 2815 = 5 · 563 | Paley's matrix of order 2252 in sixteen circulant blocks, T-matrices of order 5 |
+| [11292](11292) | 2823 = 3 · 941 | Miyamoto's matrix of order 3764 in sixteen bordered blocks with symmetric Williamson-type matrices of order 235 from a symmetric conference matrix of order 118 found here, T-matrices of order 3 ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#symmetric-williamson-type-matrices)) |
 | [11572](11572) | 2893 = 11 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks, T-matrices of order 11 |
 | [11804](11804) | 2951 = 13 · 227 | Paley's matrix of order 908 in sixteen circulant blocks, T-matrices of order 13 |
 
@@ -49,8 +50,9 @@ it also follows, by Turyn's doubling, from the quaternary Hadamard matrix of ord
 2010 through Seberry–Yamada's Corollary 8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7). 2092, 3732,
 4492, 5020 and 5932 are Concurrent, with Cooley's Middletownbooks/Hadamard (2092, 3732) and with Egan, Kotsireas, London
 and Ó Catháin, arXiv:2610.27175 (3732, 4492, 5020, 5932); our 3732 is also skew, which neither of the others is stated
-to be ([NOVELTY.md](../NOVELTY.md)). The other eight are New; 6108, 7532 and 10180 use the near-Williamson matrices of
-2026.
+to be ([NOVELTY.md](../NOVELTY.md)). The other nine are New; 6108, 7532 and 10180 use the near-Williamson matrices of
+2026, and 11292 a symmetric conference matrix of order 118 found here, Concurrent with J. Y. Z. Ho's
+([symmetric/940](../symmetric/940)).
 
 Doubling the matrices of orders 2636 and 3732 gives orders 5272 and 7464, which were open as well, and doubling 9172
 gives 18344, 36688 and 73376 (the table entry is 2293(6)).
@@ -66,6 +68,9 @@ matrix in sixteen bordered blocks with a periodic Golay pair
 ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#near-williamson-matrices)). All are First explicit constructions. For 293 and
 173 the Williamson-type matrices themselves now have valid constructions: Lemma 26 with a repeated block for 293, and
 Verma's symmetric conference matrix of order 86 (arXiv:2610.08893, October 2026) for 173 ([NOTES.md](../NOTES.md) §7).
+Table 4's entry 1619(3), order 8 · 1619 = 12952, rests on the Williamson-type matrices of order 809 as well; 12952 is
+built from them, and they from the symmetric Hadamard matrix of order 404 of this repository by Corollary 8.8(ii)
+([12952](12952/README.md)).
 
 | Order | n | Construction |
 |------:|---|---|
@@ -79,6 +84,7 @@ Verma's symmetric conference matrix of order 86 (arXiv:2610.08893, October 2026)
 | [8996](8996) | 2249 = 13 · 173 | Paley's matrix of order 692 in sixteen circulant blocks, T-matrices of order 13 |
 | [9708](9708) | 2427 = 3 · 809 | Miyamoto's matrix of order 3236 in sixteen bordered blocks with a periodic Golay pair of length 404, T-matrices of order 3 ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#periodic-golay-pairs)) |
 | [10444](10444) | 2611 = 7 · 373 | Miyamoto's matrix of order 1492 in sixteen bordered blocks with near-Williamson matrices of order 93, T-matrices of order 7 ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#near-williamson-matrices)) |
+| [12952](12952) | 3238 = 2 · 1619 | Seberry–Yamada's order 8q (q = 1619) with symmetric Williamson-type matrices of order 809 from the symmetric Hadamard matrix of order 404 (Corollary 8.8(ii)) |
 
 ## Orders beyond the tables
 
@@ -305,6 +311,7 @@ matrices are not stored (up to 7 GB as CSV); `python3 verify/verify.py <order>` 
 | [2060](2060) | 515 = 5 · 103 | Cooper–Wallis: T-matrices of order 103, Williamson matrices of order 5 | Schneider, 2026-08-23 |
 | [2292](2292) | 573 = 3 · 191 | Spence's bordered construction over ℤ₂ × ℤ₂ × ℤ₁₄₃, three blocks related by an automorphism of order 15 | Middletownbooks/Hadamard, 2026-10-09 ([2292](2292/README.md#status)) |
 | [3532](3532) | 883 | Goethals–Seidel over ℤ₈₈₃, multiplier subgroup of order 21 | Đoković, arXiv:1008.2043 (2010) |
+| [8696](8696) | 2174 = 2 · 1087 | Seberry–Yamada's order 8q (q = 1087) with symmetric Williamson-type matrices of order 543 (Corollary 27(i), p = 541) | Seberry–Yamada (1992), Tables A.1 (key wi) and A.2; open in the 2026 survey's Table 5 ([8696](8696/README.md#status)) |
 | [16892](16892) | 4223 = 41 · 103 | Paley's matrix of order 164 in sixteen circulant blocks, T-matrices of order 103 | SageMath development version (gh-42876, merged 2026-10-03) |
 | [25132](25132) | 6283 = 61 · 103 | Paley's matrix of order 244 in sixteen circulant blocks, T-matrices of order 103 | SageMath development version (gh-42876, merged 2026-10-03) |
 | [31316](31316) | 7829 | Miyamoto (q = 7829) from a Cooper–Wallis matrix of order 7828 (T-matrices of order 103, Williamson matrices of order 19) | SageMath development version (gh-42876, merged 2026-10-03) |

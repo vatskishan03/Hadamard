@@ -540,16 +540,31 @@ def build_cooper_wallis_miyamoto(cert):
 
     Checked here: the W_k are +-1, symmetric, pairwise amicable and sum W_k W_k^T = 4q I (exact float64 products).
     They are substituted into the OD(4t; t, t, t, t) of the T-matrices as in `assemble_cooper_wallis`."""
-    q, g = cert["q"], cert["g"]
+    q = cert["q"]
+    W = williamson_type_corollary29(q, cert["g"], cert["input"], cert["input_sha256"])
+    T = [np.array([SIGN[c] for c in r], dtype=np.int64) for r in cert["t_matrices"]]
+    if len(T[0]) != cert["t"] or 4 * cert["t"] * q != cert["order"]:
+        raise ValueError("order is not 4tq")
+    return assemble_cooper_wallis(T, W), None
+
+
+def is_primitive_root(g, q):
+    """g is a primitive root modulo the prime q"""
+    return g % q != 0 and all(pow(g, (q - 1) // p, q) != 1 for p in range(2, q) if (q - 1) % p == 0 and
+                              all(p % d for d in range(2, math.isqrt(p) + 1)))
+
+
+def williamson_type_corollary29(q, g, input_path, input_sha256):
+    """the symmetric Williamson-type matrices W_1..W_4 of order q of `build_cooper_wallis_miyamoto` (Seberry-Yamada
+    Corollary 29(ii)) from the symmetric Hadamard matrix of order (q - 1)/2 of the certificate `input_path`"""
     if q % 8 != 1 or any(q % d == 0 for d in range(2, math.isqrt(q) + 1)):
         raise ValueError("q must be a prime = 1 (mod 8)")
-    if g % q == 0 or any(pow(g, (q - 1) // p, q) == 1 for p in range(2, q) if (q - 1) % p == 0 and
-                         all(p % d for d in range(2, math.isqrt(p) + 1))):
+    if not is_primitive_root(g, q):
         raise ValueError("g is not a primitive root mod q")
-    inp = json.loads((ROOT / cert["input"]).read_text())
+    inp = json.loads((ROOT / input_path).read_text())
     M, _, digest = build_checked(inp)
     n = (q - 1) // 2
-    if digest != cert["input_sha256"] or M.shape[0] != n or not np.array_equal(M, M.T):
+    if digest != input_sha256 or M.shape[0] != n or not np.array_equal(M, M.T):
         raise ValueError("the input is not the stated symmetric Hadamard matrix of order (q - 1)/2")
     M = M.astype(np.int64)
     chi = -np.ones(q, dtype=np.int64)
@@ -573,10 +588,84 @@ def build_cooper_wallis_miyamoto(cert):
             not all(np.array_equal(F[k] @ F[l].T, F[l] @ F[k].T) for k in range(4) for l in range(k + 1, 4)) or \
             not np.array_equal(sum(x @ x.T for x in F), 4.0 * q * np.eye(q)):
         raise ValueError("Williamson-type condition fails")
-    T = [np.array([SIGN[c] for c in r], dtype=np.int64) for r in cert["t_matrices"]]
-    if len(T[0]) != cert["t"] or 4 * cert["t"] * q != cert["order"]:
-        raise ValueError("order is not 4tq")
-    return assemble_cooper_wallis(T, W), None
+    return W
+
+
+# OD(8; 1^8): row i, column j holds (sign, variable); Seberry-Yamada's 8q construction plugs X_1..X_8 into it
+OD8 = [[(1, 0), (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7)],
+       [(-1, 1), (1, 0), (1, 3), (-1, 2), (1, 5), (-1, 4), (-1, 7), (1, 6)],
+       [(-1, 2), (-1, 3), (1, 0), (1, 1), (1, 6), (1, 7), (-1, 4), (-1, 5)],
+       [(-1, 3), (1, 2), (-1, 1), (1, 0), (1, 7), (-1, 6), (1, 5), (-1, 4)],
+       [(-1, 4), (-1, 5), (-1, 6), (-1, 7), (1, 0), (1, 1), (1, 2), (1, 3)],
+       [(-1, 5), (1, 4), (-1, 7), (1, 6), (-1, 1), (1, 0), (-1, 3), (1, 2)],
+       [(-1, 6), (1, 7), (1, 4), (-1, 5), (-1, 2), (1, 3), (1, 0), (-1, 1)],
+       [(-1, 7), (-1, 6), (1, 5), (1, 4), (-1, 3), (-1, 2), (1, 1), (1, 0)]]
+
+
+def build_seberry_yamada_8q(cert):
+    """A Hadamard matrix of order 8q, q = 3 (mod 4) a prime, from symmetric Williamson-type matrices W_1..W_4 of order
+    n = (q - 1)/2 (Seberry-Yamada 1992, Lemma 8.12 and Corollaries 8.14, 8.18). With g a primitive root mod q,
+    s_a = g^(2a), chi the Legendre symbol, A = [chi(s_a - s_b)] (skew, row sums 0), B = [chi(s_a + s_b)] (symmetric, row
+    sums -1), B^2 - A^2 = qI - 2J, R the permutation a -> -a (mod n), U = (-BR, -BR, A, A, 0, 0, 0, 0) and
+    V = (0, 0, I, I, W_1, W_2, W_3, W_4):
+
+        X_j = [[1, s_j e^T], [s_j e, U_j (x) J_2 + V_j (x) [[1, -1], [-1, 1]]]],   s_j = -1 (j < 2), +1 (j >= 2),
+
+    eight +-1 matrices of order q that are pairwise amicable with sum X_j X_j^T = 8q I, plugged into the OD(8; 1^8)
+    `OD8`. The W_k come from "wt" (four packed symmetric matrices, `unpack_symmetric`) or from "wt_corollary29"
+    ({"q", "g", "input", "input_sha256"}: `williamson_type_corollary29`); they are checked here (+-1, symmetric,
+    pairwise commuting, sum W_k^2 = 4n I), and so are the X_j (exact float64 products)."""
+    q, g = cert["q"], cert["g"]
+    if q % 4 != 3 or any(q % d == 0 for d in range(2, math.isqrt(q) + 1)):
+        raise ValueError("q must be a prime = 3 (mod 4)")
+    if not is_primitive_root(g, q):
+        raise ValueError("g is not a primitive root mod q")
+    if cert["order"] != 8 * q:
+        raise ValueError("order is not 8q")
+    n = (q - 1) // 2
+    if "wt" in cert:
+        W = [unpack_symmetric(x, n) for x in cert["wt"]]
+    else:
+        c = cert["wt_corollary29"]
+        if c["q"] != n:
+            raise ValueError("the Williamson-type matrices must have order (q - 1)/2")
+        W = williamson_type_corollary29(c["q"], c["g"], c["input"], c["input_sha256"])
+    F = [w.astype(np.float64) for w in W]
+    if len(W) != 4 or any(w.shape != (n, n) for w in W) or \
+            not all(np.all(np.abs(w) == 1) and np.array_equal(w, w.T) for w in W) or \
+            not all(np.array_equal(F[k] @ F[l], F[l] @ F[k]) for k in range(4) for l in range(k + 1, 4)) or \
+            not np.array_equal(sum(f @ f for f in F), 4.0 * n * np.eye(n)):
+        raise ValueError("Williamson-type condition fails")
+    chi = -np.ones(q, dtype=np.int64)
+    chi[0] = 0
+    chi[(np.arange(1, q, dtype=np.int64) ** 2) % q] = 1
+    s = np.array([pow(g, 2 * a, q) for a in range(n)], dtype=np.int64)
+    A = chi[(s[:, None] - s[None, :]) % q]
+    B = chi[(s[:, None] + s[None, :]) % q]
+    R = np.zeros((n, n), dtype=np.int64)
+    R[np.arange(n), (-np.arange(n)) % n] = 1
+    Z, I = np.zeros((n, n), dtype=np.int64), np.eye(n, dtype=np.int64)
+    U = [-(B @ R), -(B @ R), A, A, Z, Z, Z, Z]
+    V = [Z, Z, I, I] + W
+    J2, D2 = np.ones((2, 2), dtype=np.int64), np.array([[1, -1], [-1, 1]], dtype=np.int64)
+    X = []
+    for j in range(8):
+        Xj = np.empty((q, q), dtype=np.int64)
+        sj = -1 if j < 2 else 1
+        Xj[0, 0], Xj[0, 1:], Xj[1:, 0] = 1, sj, sj
+        Xj[1:, 1:] = np.kron(U[j], J2) + np.kron(V[j], D2)
+        X.append(Xj)
+    F = [x.astype(np.float64) for x in X]
+    if not all(np.all(np.abs(x) == 1) for x in X) or \
+            not all(np.array_equal(F[i] @ F[j].T, F[j] @ F[i].T) for i in range(8) for j in range(i + 1, 8)) or \
+            not np.array_equal(sum(f @ f.T for f in F), 8.0 * q * np.eye(q)):
+        raise ValueError("the eight blocks are not amicable with sum X_j X_j^T = 8q I")
+    H = np.empty((8 * q, 8 * q), dtype=np.int8)
+    for i in range(8):
+        for j in range(8):
+            sgn, v = OD8[i][j]
+            H[i * q:(i + 1) * q, j * q:(j + 1) * q] = sgn * X[v]
+    return H, None
 
 
 def _symmetric_input(spec):
@@ -2454,6 +2543,7 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "cooper-wallis-near-williamson": build_cooper_wallis_near_williamson,
             "cooper-wallis-bordered": build_cooper_wallis_bordered,
             "cooper-wallis-miyamoto": build_cooper_wallis_miyamoto, "miyamoto-blocks": build_miyamoto_blocks,
+            "seberry-yamada-8q": build_seberry_yamada_8q,
             "spence": build_spence, "miyamoto": build_miyamoto,
             "bordered-goethals-seidel": build_bordered_gs, "skew-doubling": build_skew_doubling,
             "yamada": build_yamada, "propus": build_propus, "propus-bordered": build_propus_bordered,
