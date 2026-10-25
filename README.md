@@ -134,6 +134,9 @@ settles the further open orders 5272, 7464, 18344, 36688 and 73376.
   power, which Ito's dicyclic Hadamard groups and Egan's Theorem 4.5 [12] give ([complex-hadamard](complex-hadamard)).
 - **T-matrices** of orders 97, 109 and 197 ([t-matrices](t-matrices)). 97 and 109 have the form 6m + 1 and may appear
   in Lou, Xia and Xia's work on T-matrices of that order, which we could not read.
+- **Classifications** with the fibre-completion engines of FLC [17]: good matrices of order 55 form exactly one class,
+  and there are no Williamson matrices and no good matrices of order 65, exhaustively within the engines
+  ([search/NOTES.md](search/NOTES.md) §96, §101). Both orders 65 had been listed as open.
 
 ## Verification
 
