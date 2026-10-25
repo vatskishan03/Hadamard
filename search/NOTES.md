@@ -6570,16 +6570,23 @@ against [hadamard/MIYAMOTO_BLOCKS.md](../hadamard/MIYAMOTO_BLOCKS.md#symmetric-w
     squares.
   - The repeated-block source would need symmetric Williamson-type matrices of order 107. A quadruple (Y, Z, X, X) of
     odd order m gives a symmetric quaternary matrix of order 2m through M₃ = [[Y, X], [X, −Z]] and
-    M₄ = [[Z, X], [X, −Y]].
+    M₄ = [[Z, X], [X, −Y]], but that order is again 2 (mod 4) (see below).
 - *A searched structure* (`flag9p/symq_mitm.py`, exhaustive): L = [[X, WR], [WR, −X̄]], with X a symmetric quaternary
   circulant of order m and W real. L is symmetric, and L L̄ = 2mI reduces to PAF_X + PAF_W = 2mδ.
   - Solutions exist for m = 3, 5, 7, 9, 13, 15 and 19 (24 to 5016 of them, checked exactly). There are none for m = 11
     and 17, exactly the m where 2m − 1 is not a sum of two squares.
   - Every solution has an imaginary part of weight 1 or m − 1. So the structure is Turyn's C + iE, and Belevitch's
-    condition explains the pattern. It is not a general obstruction: the repeated-block source above is not of this
-    form.
+    condition explains the pattern.
+  - Circulant repeated-block quadruples are a special case. If (Y, Z, X, X) is such a quadruple, then
+    A = (Y + Z)/2, B = (Y − Z)/2 and W = X satisfy PAF_A + PAF_B + PAF_W = 2mδ. A direct search finds none for
+    m = 11 and 17.
+  - So every structured source of symmetric quaternary Hadamard matrices of order n ≡ 2 (mod 4) that we know needs
+    n − 1 to be a sum of two squares. Whether this holds in general is open here (CONJECTURE; an unrestricted CP-SAT
+    run at order 22 was stopped undecided).
   - Calibrated on m = 19 (predicted 2^12 solutions, found 5016), the same count gives about 2^−74 for the order-428
     version of this structure, so it was not run.
+- *What remains.* The route to 2571 needs a symmetric quaternary Hadamard matrix of order 428 directly; a real one is
+  the census value v = 107.
 
 Agent reports of this round (literature, combinations): no new verified route. The near misses match §95. The
 leading one is the order-107 object above, which settles n = 2571 and the census value 107. A further reference to
