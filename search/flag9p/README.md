@@ -47,4 +47,4 @@ onto each other. Every connected component of the flag graph must satisfy Ψ_C²
 
 See [../NOTES.md](../NOTES.md) §96. Bipartite cyclic: p = 29 none; Alamouti: p = 29, 37, 41 none; odd multiplier groups:
 none for (p, k) = (13, 3), (29, 7), (37, 9), (53, 13), (61, 15), (109, 27), (73, 9). K₈ templates: one class, 4466
-placements on ℤ₂₉; BH(7, 6) sign patterns found: one class, J − 2P, with no placement on ℤ₂₉.
+placements on ℤ₂₉, at most 4 of them pairwise compatible (exact maximum clique, §97); BH(7, 6) sign patterns found: one class, J − 2P, with no placement on ℤ₂₉.

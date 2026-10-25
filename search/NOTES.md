@@ -6409,3 +6409,71 @@ reproduced. They reach no open Hadamard or skew order (4n ≤ 372), but they set
 - *Williamson matrices of order 65* (open: Kharaghani et al., arXiv:2605.08661, and the board) and *good matrices of
   order 65* (the board has an unverified emptiness claim): running (`r45/flc`, PRODUCTION.md; 70,699 and 67,437
   instances, fingerprints c7000a01e7b84192 and d2617b1ba87e7899 as published; chunks of 1500 instances, 0 hits so far).
+
+## 97. Round 46: the AG(2, 3) lift for Hadamard matrices, which reduces to a known plug-in; the order 4 · 1719 (October 25)
+
+Scratchpad `r46/`. The idea was to turn the ansatz of §95 and §96 from conference matrices to Hadamard matrices: for an
+Hadamard matrix K of order N, put H_ij = K_ij(J − 2M_ij) with M_ij a hyperplane {⟨a, x⟩ + ⟨b, y⟩ = c} of AG(2, 3)². If
+the construction worked in general, it would give H(36w) from H(4w). That would settle FRONTIER n = 1719 = 9 · 191 from
+Đoković's H(764), and the 29 census values v = 9w whose 4w is a known symmetric order: 369, 513, 621, 657, 693, 765,
+783, 891, 909, 927, 1017, 1089, 1125, 1143, 1269, 1341, 1359, 1539, 1557, 1593, 1647, 1719, 1773, 1845, 1953, 1989,
+2133, 2313 and 2349. It does not work in general. Its usable case is a known plug-in, and that plug-in needs an
+input we do not have ([search/x9split](x9split/README.md)).
+
+**The lift** (EXACT).
+- *Trivial character.* The block J − 2M has row sum 3, so the trivial character gives 3K, and (3K)(3K)ᵀ = 9N I holds
+  for every K.
+- *Nontrivial characters.* Each block maps one character class at j to one at i with modulus 6, as in §96. Every point
+  has N blocks over 4 directions.
+- *The condition.* With real phases and one orientation, H Hᵀ = 9N I is equivalent to the following. The matrix W of
+  order 4N, with W[(i, f_ij), (j, g_ij)] = K_ij and one entry in each 4 × 4 block, satisfies W Wᵀ = (N/4) I. With
+  cube-root phases, W becomes a unit weighing matrix over the sixth roots.
+- *The ℤ₃²-invariant case.* Take M_ij = {⟨a, x − y⟩ = 0}, so f = g. Then W is block diagonal and the condition reads:
+  K = K₀ + K₁ + K₂ + K₃ with disjoint weighing matrices W(N, N/4), and H = Σ K_a ⊗ Y_a.
+- *The blocks Y_a = J − 2L_a.* They satisfy Y_a Y_bᵀ = J for a ≠ b and Σ Y_a Y_aᵀ = 36I (checked). So the cross
+  terms collapse to (K Kᵀ − Σ K_a K_aᵀ) ⊗ J = 0.
+- *Status: Known.* The Y_a are a regular 4-set of order 9 (Seberry–Whiteman, Graphs Combin. 4 (1988), from Mathon's
+  construction; Seberry–Zhang, Graphs Combin. 9 (1993)). The plug-in of a regular s-set into an Hadamard matrix that is
+  a sum of s disjoint weighing matrices is theirs. A Baumert–Hall array, for example from T-matrices of order w,
+  supplies such a split. In that case the order 36w is also Cooper–Wallis with Williamson matrices of order 9.
+- *Symmetry.* H is symmetric if every K_a is (c = 0). A skew H is impossible: every diagonal block is ±Y_a, whose
+  diagonal is −1.
+
+**Splits found and not found.**
+- *Goethals–Seidel quadruples, circulant splits* (`csplit.py`, CP-SAT, one label per position of each sequence; each
+  layer needs Σ PAF = wδ).
+  - Found: Williamson order 3, and three random quadruples of order 11, in under 21 s each. The resulting H(108) and
+    H(396) were checked exactly.
+  - With SA (`sa_split.c`: 4 restarts of 3 · 10⁷ swaps, 120 s) on quadruples from `gsgen.c`: all three of order 13
+    split, and none of the three at each of orders 17, 19, 23 and 29.
+  - Hall's Williamson quadruples of orders 19 and 23: CP-SAT UNKNOWN after 600 s, and SA stops at energies 5 and 9.
+  - So neither method finds splits beyond order about 15, although the count below predicts many at order 19.
+- *Propus quadruples, symmetric circulant splits:* none for w = 5, 7, 9, 11 (three quadruples each; CP-SAT proves
+  infeasibility in at most 13 s).
+- *Explicit symmetric matrices of order 12:* no split of Paley II (q = 5), and no symmetric 4-split of any symmetric
+  H(12) (labels and signs free). Both UNKNOWN after 1200 s and 900 s. Symmetric W(4, 3), W(8, 3), W(12, 3), W(8, 5)
+  and W(20, 5) exist (CP-SAT), so there is no obstruction at the level of the parts.
+
+**n = 1719.** It needs a split of an Hadamard matrix of order 764. The only ones known are Đoković's two
+Goethals–Seidel quadruples (arXiv:math/0703312): ℤ₁₉₁, H = ⟨39⟩ of order 5, supports of sizes 85, 90, 90 and 100.
+Both were reconstructed (`dk764.py`) and checked: Σ PAF = 764δ.
+- *H-invariant splits.* Each layer holds exactly one of the four zero positions (weight 191 ≡ 1 mod 5) and 38 cosets.
+  CP-SAT ran 600 s with no answer. The best SA energy was 153 over the 76 shift classes.
+- *Free circulant splits* (764 labels, 380 equations): the best SA energy was 985.
+- *Count* (HEURISTIC). A layer's PAF at a shift has about 48 terms. Parity costs one bit per equation (the support
+  autocorrelation over GF(2)), and the size of a nonzero even sum costs about 3.1 bits.
+  - H-invariant: 2^292 balanced labellings against 76 · 4.1 bits gives about 2^−20 splits per quadruple.
+  - Free: about 2^−40 per quadruple.
+  - The same count gives about 2^60 splits at w = 19, where none were found.
+  - A joint search (the quadruple and its split, H-invariant) has about 2^49 solutions at a density of 2^−419.
+- *Not pursued.*
+
+**Other results since §96.**
+- The exact maximum packing of K₈ placements on ℤ₂₉ (`k8clique.py`, max clique on 4466 vertices and 2,492,028
+  compatibility edges) is 4. That is what the four K₈ of a clique-and-biclique cover need, but the bicliques have no
+  placement (§96).
+- The paused searches were not completed:
+  - `bipcyc3 37` (full bipartite, p = 37) and `mulcyc 73 9 1` are stopped; `bipcyc3d 41` (decoupled, p = 41) is
+    running again.
+  - The FLC Williamson-81 probe hit its time cap while stopped and was not resumed.
+- FLC at order 65: 16 of 47 Williamson chunks and 12 of 45 good chunks done, 0 hits (running).
