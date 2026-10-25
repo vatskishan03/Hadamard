@@ -6488,3 +6488,51 @@ Both were reconstructed (`dk764.py`) and checked: Σ PAF = 764δ.
     running again.
   - The FLC Williamson-81 probe hit its time cap while stopped and was not resumed.
 - FLC at order 65: 16 of 47 Williamson chunks and 12 of 45 good chunks done, 0 hits (running).
+
+## 98. Round 46b: the sign classes of the bicliques and Lindsey's bound (October 25)
+
+Scratchpad `r46/cover`, programs in [search/flag9p](flag9p/README.md). §96 left the clique-and-biclique covers of
+ℤ₂₉ with one unchecked assumption, that the BH(7, 6) enumeration (stopped at a time cap) had found every sign class.
+This round removes it, does the same for p = 37 (C(334), whose C + iI is the smallest open complex order), and adds a
+spectral filter.
+
+**Sign classes** (EXACT).
+- *Why the inner products are ±3.* Seven sixth roots that sum to 0 form one triangle and two antipodal pairs. So every
+  row and column inner product of a BH(7, 6) sign pattern is ±3.
+- *BH(7, 6)* (`bh7signs.py`). The patterns with all inner products ±3 are 7 normalised matrices, all with Gram
+  4I + 3J. They form one class, J − 2P, and it admits cube-root phases.
+- *BH(9, 6)* (`bh9signs.py`). Nine sixth roots summing to 0 are three triangles, or one triangle and three pairs, so the
+  inner products are ±3 or ±9. The 1009 normalised patterns fall into exactly three classes, each admitting phases:
+  - rank one (cut norm 81);
+  - one class with row inner products 3 and 9 (cut norm 63);
+  - H′ ⊗ J₃ with H′ = [[1, 1, 1], [1, 1, −1], [1, −1, 1]] (cut norm 45).
+
+**Lindsey's bound** (PROVED).
+- *The bound.* For a conference core S of order p (eigenvalues ±√p and 0) and ±1 vectors x, y on disjoint d-sets,
+  |xᵀSy| ≤ d√p. So a K_{d,d} component whose sign class is M needs ‖M‖_{∞→1} ≤ d√p.
+- *J − 2P* (cut norm d(d − 2)) survives at p = 29 (35 ≤ 37.7) and fails for every d ≥ 9.
+- *p = 37:* only H′ ⊗ J₃ survives (45 ≤ 54.7).
+- *Rank one* needs d² ≤ p. Direct search (`rank1bic.py`) finds 144 such bicliques in the Paley two-graph of ℤ₁₃ (0 on
+  one side) and none at p = 29 or 37.
+
+**Paley cores** (EXACT within the clique-and-biclique family).
+- *Possible counts.* With components K_{d+1} and K_{d,d} only, the flag count (d + 1)a + 2db = 4p and the pair count
+  reduce to the same equation:
+  - p = 29: (a, b) = (4, 6) or (11, 2);
+  - p = 37: (4, 6) or (13, 1).
+  Every option contains a biclique.
+- *Placements* (`k99place.py`). Paley(37) has no K₉,₉ in the class H′ ⊗ J₃, and Paley(29) has none in J − 2P (§96).
+- *Conclusion.* Neither Paley core has a cover by cliques and bicliques.
+- *The combinatorics is not the obstruction* (`kkcover.py`, CP-SAT). D-balanced decompositions of K_p into four
+  K_{d+1} and six K_{d,d} exist for p = 13, 29 and 37 (1, 27 and 58 s); none is of the one-point type of §96. The
+  obstruction is in the signs.
+
+**Other cores.**
+- `srg_k77.py` asks whether any SRG(29, 14, 6, 7) contains a K₇,₇ in the class J − 2P. CP-SAT gave UNKNOWN after
+  1800 s; the p = 13 control is found at once.
+- The 41 conference graphs on 29 vertices and the 6760 on 37 could not be fetched (Spence's and Brouwer's pages
+  returned 503 on 25 October), so the non-Paley cores are untested.
+
+**Multipliers.** (73, 9) with the second sign convention has no solution either (0 of 254,803,968), so the odd
+multiplier groups of §96 are empty for every (p, k) listed there. `bipcyc3d 41` (decoupled bipartite, p = 41) is still
+running.

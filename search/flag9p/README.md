@@ -34,6 +34,10 @@ onto each other. Every connected component of the flag graph must satisfy Ψ_C²
 | `bh.c`, `bhclass.py` | normalised Butson matrices BH(n, 6) and their sign classes (switching and permutations; pynauty) |
 | `k8classes.py`, `k8place.py`, `k8full.py` | the switching classes of the K₈ templates; the 8-subsets of ℤ₂₉ with the template's Seidel spectrum; those whose Paley two-graph and D-labelling match the class (`./kn 8 4 100000 > k8_all.txt; python3 k8classes.py k8_all.txt; python3 k8place.py 29; python3 k8full.py`) |
 | `kddplace.py` | biclique placements (X₊, X₋) whose Paley sign matrix is in the sign class J − 2P (BH(7, 6)) or rank one (`--rank1`, BH(3, 6)) |
+| `bh7signs.py`, `bh9signs.py` | the sign classes of BH(7, 6) (one, J − 2P) and BH(9, 6) (three), exhaustive, with a phase test (§98) |
+| `rank1bic.py`, `k99place.py` | rank-one K_{d,d} in a Paley two-graph; K₉,₉ placements in Paley(37) with the class H′ ⊗ J₃ (none) |
+| `kkcover.py` | D-balanced decompositions of K_p into four K_{d+1} and six K_{d,d} (CP-SAT) |
+| `srg_k77.py` | a conference graph on 4d + 1 vertices with a K_{d,d} in the class J − 2P (CP-SAT) |
 
 ## Validation
 
@@ -46,5 +50,5 @@ onto each other. Every connected component of the flag graph must satisfy Ψ_C²
 ## Results
 
 See [../NOTES.md](../NOTES.md) §96. Bipartite cyclic: p = 29 none; Alamouti: p = 29, 37, 41 none; odd multiplier groups:
-none for (p, k) = (13, 3), (29, 7), (37, 9), (53, 13), (61, 15), (109, 27), (73, 9). K₈ templates: one class, 4466
-placements on ℤ₂₉, at most 4 of them pairwise compatible (exact maximum clique, §97); BH(7, 6) sign patterns found: one class, J − 2P, with no placement on ℤ₂₉.
+none for (p, k) = (13, 3), (29, 7), (37, 9), (53, 13), (61, 15), (109, 27), (73, 9) (both sign conventions). K₈ templates: one class, 4466
+placements on ℤ₂₉, at most 4 of them pairwise compatible (exact maximum clique, §97); BH(7, 6): one sign class, J − 2P (exhaustive, §98), with no placement on ℤ₂₉; Paley(37) has no K₉,₉ component (§98), so neither core has a clique-and-biclique cover.
