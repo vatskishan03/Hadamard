@@ -35,9 +35,50 @@ class GF:
             self.add = lambda u, v: ((u[0] + v[0]) % p, (u[1] + v[1]) % p)
             self.tr = lambda u: (2 * u[0] + c1 * u[1]) % p
         else:
-            raise NotImplementedError
+            # generic GF(p^k): coefficient tuples of 1, t, ..., t^(k-1), t^k = sum c_i t^i (monic irreducible)
+            k = self.k
+            def polymulmod(u, v, cs, k=k, p=p):
+                prod = [0] * (2 * k - 1)
+                for i, a in enumerate(u):
+                    if a:
+                        for j, b in enumerate(v):
+                            prod[i + j] = (prod[i + j] + a * b) % p
+                for d in range(2 * k - 2, k - 1, -1):
+                    c = prod[d]
+                    if c:
+                        prod[d] = 0
+                        for i in range(k):
+                            prod[d - k + i] = (prod[d - k + i] + c * cs[i]) % p
+                return tuple(prod[:k])
+            for cs in itertools.product(range(p), repeat=k):
+                if cs[0] == 0: continue
+                # irreducible iff t has multiplicative order dividing p^k - 1 and the field has no zero divisors:
+                # test that x^(p^k) = x for x = t and that no element of a proper subfield polynomial divides
+                ok = True
+                elts = list(itertools.product(range(p), repeat=k))
+                one_ = tuple([1] + [0] * (k - 1))
+                for u in elts[1:]:
+                    for v in elts[1:]:
+                        if polymulmod(u, v, cs) == tuple([0] * k):
+                            ok = False; break
+                    if not ok: break
+                if ok: break
+            self.cs = cs
+            self.elts = list(itertools.product(range(p), repeat=k))
+            self.mul = lambda u, v: polymulmod(u, v, cs)
+            self.add = lambda u, v: tuple((a + b) % p for a, b in zip(u, v))
+            def tr(u, k=k, p=p):
+                x = u; s_ = list(u)
+                for _ in range(k - 1):
+                    y = tuple([1] + [0] * (k - 1))
+                    for _ in range(p): y = polymulmod(y, x, cs)
+                    x = y
+                    s_ = [(a + b) % p for a, b in zip(s_, x)]
+                assert all(c == 0 for c in s_[1:])
+                return s_[0] % p
+            self.tr = tr
         self.zero = self.elts[0]
-        one = (1,) if self.k == 1 else (1, 0)
+        one = tuple([1] + [0] * (self.k - 1))
         self.one = one
         # primitive element
         for g in self.elts[1:]:
