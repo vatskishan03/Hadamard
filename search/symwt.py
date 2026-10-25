@@ -23,6 +23,11 @@ Builders, all from Seberry and Yamada (J. Combin. Math. Combin. Comput. 7 (1990)
     cor31(q)             order 2q + 1 for a prime q = 1 (mod 4) with 2q - 1 = r a prime power (Corollary 31): Lemma 26
                          with U = (I, 0, Q, Q), V = (M, N, I, I), Q Paley's symmetric core of order q and M, N symmetric
                          circulants of order q with M^2 + N^2 = r I, M of zero diagonal: Yamada's pair (yamada_pair)
+    cor27c(p, NAME)      order p + 2 for a prime p = 1 (mod 4) from a symmetric conference matrix of order (p + 3)/2 in
+                         search/data/NAME (rows of 0, +, -, first row and column +; Corollary 27): Lemma 26 with
+                         U = (I, 0, Q, Q), V = (M, N, I, I), Q its core and M, N Yamada's symmetric circulants of order
+                         (p + 1)/2 with M^2 + N^2 = p I (yamada_pair), e.g.
+                         cor27c(233, "conference118_5fe566972f21790b.txt")
     cor29c(q)            order q for a prime power q = 1 (mod 4) with (q - 1)/2 - 1 = p a prime power = 1 (mod 4) (Corollary
                          29(ii) = 8.8(ii) with Paley's symmetric conference matrix C of order (q - 1)/2: M3, M4 = C +- I)
     cor29r(q, W)         the same with M3 = [[Y, X], [X, -Z]], M4 = [[Z, X], [X, -Y]] from symmetric Williamson-type
@@ -178,6 +183,19 @@ def cor31(q):
     al, be = yamada_pair(r)
     M, N = V.circulant(be), V.circulant(al)
     I, Z = np.eye(q, dtype=np.int64), np.zeros((q, q), np.int64)
+    return lemma26([I, Z, Q, Q], [M, N, I, I])
+
+
+def cor27c(p, name):
+    rows = (ROOT / "search" / "data" / name).read_text().split()
+    C = np.array([[{"0": 0, "+": 1, "-": -1}[c] for c in r] for r in rows], np.int64)
+    n = C.shape[0] - 1
+    assert 2 * n == p + 1 and (C[0, 1:] == 1).all() and (C[1:, 0] == 1).all()
+    Q = C[1:, 1:]                                # symmetric core, Q^2 = nI - J
+    assert np.array_equal(Q, Q.T) and np.array_equal(Q @ Q, n * np.eye(n, dtype=np.int64) - 1)
+    al, be = yamada_pair(p)
+    M, N = V.circulant(be), V.circulant(al)
+    I, Z = np.eye(n, dtype=np.int64), np.zeros((n, n), np.int64)
     return lemma26([I, Z, Q, Q], [M, N, I, I])
 
 
@@ -370,8 +388,8 @@ def cor29q(q, *factors):
 
 
 def build(recipe):
-    env = {f: globals()[f] for f in ("circ", "circm", "nw", "turyn", "one", "cor25", "cor27i", "cor31", "cor29c",
-                                     "cor29h", "cor29r", "cor29q", "qconf", "qh", "qwt", "paley2", "h2", "kron")}
+    env = {f: globals()[f] for f in ("circ", "circm", "nw", "turyn", "one", "cor25", "cor27i", "cor27c", "cor31",
+                                     "cor29c", "cor29h", "cor29r", "cor29q", "qconf", "qh", "qwt", "paley2", "h2", "kron")}
     return check(eval(recipe, {"__builtins__": {}}, env))
 
 

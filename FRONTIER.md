@@ -1,7 +1,7 @@
 # Unresolved orders
 
-Table 4 of Cati and Pasechnik lists 195 odd n ≤ 2999 for which no Hadamard matrix of order 4n was known in 2025. 72
-of them are settled now, and the 123 that remain are listed below with the cheapest search structures known for each.
+Table 4 of Cati and Pasechnik lists 195 odd n ≤ 2999 for which no Hadamard matrix of order 4n was known in 2025. 73
+of them are settled now, and the 122 that remain are listed below with the cheapest search structures known for each.
 The smallest is n = 599, order 2396.
 
 Settled:
@@ -16,7 +16,7 @@ Settled:
   their Theorem 7 over ℤ₂² × F₁₉², with a border);
 - 2 by the GitHub repository Middletownbooks/Hadamard: n = 573 (order 2292, 9 October 2026; our independent matrix is
   [hadamard/2292](hadamard/2292)) and n = 647 (order 2588, 14 October 2026);
-- 31 in this repository:
+- 32 in this repository:
   - n = 523, 537, 571, 643, 659, 859, 933, 991, 1051, 1123, 1255, 1483, 1699 and 2293 by searches and recursive
     theorems (orders [2092](hadamard/2092), [2148](hadamard/2148), [2284](hadamard/2284), [2572](hadamard/2572),
     [2636](hadamard/2636), [3436](hadamard/3436), [3732](hadamard/3732), [3964](hadamard/3964),
@@ -27,13 +27,19 @@ Settled:
     sixteen circulant blocks times T-matrices, two published theorems that the tables did not combine
     ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md));
   - n = 1527, 1883 and 2545 by Miyamoto's matrix in sixteen bordered blocks with near-Williamson matrices of 2026,
-    times T-matrices ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#near-williamson-matrices)).
+    times T-matrices ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#near-williamson-matrices));
+  - n = 2823 by the same blocks with symmetric Williamson-type matrices of order 235 from a symmetric conference matrix
+    of order 118 found here ([hadamard/11292](hadamard/11292); the conference matrix is Concurrent with J. Y. Z. Ho's,
+    reported in October 2026 and not public).
 
 **Orders 8p.** Table 4 records n(m), the least m with a known Hadamard matrix of order 2ᵐn; an entry with m ≥ 4 is also
 an open order 8n. Egan, Kotsireas, London and Ó Catháin (Table 5) list six open orders 8p up to 10 000: 4792, 5752,
 5912, 6712, 8248 and 8696 (p = 599, 719, 739, 839, 1031, 1087). Their list differs from Table 4 at four entries: Table 4
-has 1087(3), and 971(6), 1169(4) and 1223(6), whose orders 8n their list does not include. A Hadamard matrix of order 4p
-settles 8p by doubling. [search/NOTES.md](search/NOTES.md) §92 searches the orders 8p directly
+has 1087(3), and 971(6), 1169(4) and 1223(6), whose orders 8n their list does not include. Table 4 is right about 1087:
+the survey takes Williamson-type matrices from Seberry–Yamada's Table A.1 "except 543", but A.1's matrices of order 543
+(key wi, their Corollary 27(i)) are valid, and with them the order-8q construction gives [hadamard/8696](hadamard/8696)
+(Known, first explicit matrix). So five orders 8p remain open: 4792, 5752, 5912, 6712 and 8248. A Hadamard matrix of
+order 4p settles 8p by doubling. [search/NOTES.md](search/NOTES.md) §92 searches the orders 8p directly
 ([search/eightp](search/eightp/README.md)), and no matrix was found:
 - the plain Goethals–Seidel and negacyclic structures over ℤ₂ₚ and ℤ_p are dead, except for multiplier groups with at
   least 2⁹⁴ sign vectors per block;
@@ -89,9 +95,8 @@ one applies:
 - Miyamoto blocks ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md)): for n = q·t with q = 4w + 1 a prime and
   T-matrices of order t known, symmetric Williamson-type matrices of order w (near-Williamson matrices give them;
   Kharaghani et al. define those for odd w only) or a negaperiodic Golay pair of length 2w. Not listed in the table;
-  the open cases are 2571 (w = 214), 2823 (w = 235) and 2677 (q = 2677, t = 1, which needs a Hadamard matrix of order
-  2676 = 4 · 669). 2823 would follow from the symmetric conference matrix of order 118 that Brouwer's table reports
-  (J. Y. Z. Ho, October 2026, not public; [hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md)).
+  the open cases are 2571 (w = 214) and 2677 (q = 2677, t = 1, which needs a Hadamard matrix of order 2676 = 4 · 669);
+  2823 (w = 235) is settled ([hadamard/11292](hadamard/11292)).
 
 | 4n | n | GS: \|H\| | cosets | classes | log₁₀ E | log₁₀ W | Spence: group | log₁₀ W | Route |
 |---:|---:|---:|---:|---:|---:|---:|---|---:|---|
@@ -201,7 +206,6 @@ one applies:
 | 11068 | 2767 | – | – | – | – | – | – | – |  |
 | 11212 | 2803 | – | – | – | – | – | – | – | Yamada from a symmetric conference matrix of order 1402 (cannot exist); complex Yamada–Kiyasu from a quaternary one |
 | 11276 | 2819 | – | – | – | – | – | – | – |  |
-| 11292 | 2823 | – | – | – | – | – | – | – |  |
 | 11364 | 2841 | – | – | – | – | – | – | – |  |
 | 11372 | 2843 | – | – | – | – | – | – | – |  |
 | 11420 | 2855 | – | – | – | – | – | ℤ2 × ℤ1427 | 52.1 |  |

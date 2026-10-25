@@ -17,7 +17,8 @@ matrices of 2026 in place of the Golay pair ([below](#near-williamson-matrices))
 Cati–Pasechnik's Table 4, n = 1527, 1883 and 2545, the reopened order n = 2611, nine Handbook entries and a new matrix
 of the known order 9827. With Seberry and Yamada's symmetric Williamson-type matrices
 ([below](#symmetric-williamson-type-matrices)) it gives sixteen Handbook entries that the tables record only through
-Corollary 8.8(i).
+Corollary 8.8(i), and, with a symmetric conference matrix of order 118 found here, n = 2823 of Table 4
+([11292](11292), [below](#reach)).
 
 | Order | n | q | t | negaperiodic Golay pair of length (q − 1)/2 |
 |------:|---:|---:|---:|---|
@@ -234,8 +235,9 @@ exist, and Cooper–Wallis gives the order as well, for
 
 `symwt.py "cor29r(q, …)"` and `"cor29q(q, …)"` check all of them. We found the repeated-block arrangement in none of the
 sources we could read; Miyamoto's paper may contain the equivalent statement through its symmetric block form. Only q =
-1109 and 1193 (orders 5545, 3579 and 5965) have no Williamson-type route that we know: Lemma 26 would need a symmetric
-quaternary Hadamard matrix of order 554 = 2 · 277 or 596 = 4 · 149.
+1109 (order 5545) has no Williamson-type route that we know: Lemma 26 would need a symmetric quaternary Hadamard matrix
+of order 554 = 2 · 277. For q = 1193 (orders 3579 and 5965) the symmetric Hadamard matrix of order 596
+([symmetric/596](../symmetric/596)) gives one through Corollary 8.8(ii) (`symwt.py "cor29h(1193, …)"`, checked exactly).
 
 ## Orders recorded only through Corollary 8.8(i)
 
@@ -270,19 +272,21 @@ Among the FRONTIER entries the Golay-pair version reaches one, 2427, with the pe
 near-Williamson version reaches 1527, 1883 and 2545 and the reopened 2611 ([above](#near-williamson-matrices)). Of the
 reopened orders of Corollary 8.8(i), 2571 = 3 · 857 remains: it would need near-Williamson matrices of order 214 (in the
 sense used here, B, C, D symmetric; Kharaghani et al. define them for odd orders only) or a negaperiodic Golay pair of
-length 428. 2823 = 3 · 941 would need either of order 235 or length 470. Periodic Golay pairs of length 134, 186, 254,
-428 or 470 cannot exist, since 2m is not a sum of two squares. Symmetric Williamson-type matrices of order 214 or 235
-would do as well; the constructions of [the section above](#symmetric-williamson-type-matrices) give neither. 214 = 2 ·
-107 needs order 107, a prime ≡ 3 (mod 4) that is not p + 2 or (p + 1)/2 for a prime power p ≡ 1 (mod 4) (105 and 213 are
-not), nor 2p + 1 with 2p − 1 a prime power (2 · 53 − 1 = 105); and 235 = 233 + 2 would need, by Corollary 27, (233 +
-1)/2 = 117 to be a prime power or a symmetric conference matrix of order 118, which is not known to us. Brouwer's table
-of strongly regular graphs (read on 17 October 2026) now marks the conference graph SRG(117, 58, 28, 29) as existing,
-citing "Jose Yip Zheng Ho, Existence of conference graphs on 117 vertices and 153 vertices, email, Oct. 2026". With
-that graph's conference matrix of order 118, Corollary 27 (U = (I, 0, Q, Q), V = (M, N, I, I), Yamada's circulants
-for q = 233) gives symmetric Williamson-type matrices of order 235 with a repeated block, the Miyamoto blocks with
-T-matrices of order 3 give 2823 (q = 941), and Seberry–Balonin's Corollary 1 gives a symmetric Hadamard matrix of
-order 940 (v = 235, undecided in the census). The matrix is not public, and we have not seen it; the chain was
-checked end to end on the analogue with Paley's core of order 49 (q = 97, order 4764).
+length 428. Periodic Golay pairs of length 134, 186, 254, 428 or 470 cannot exist, since 2m is not a sum of two
+squares. Symmetric Williamson-type matrices of order 214 would do as well; the constructions of
+[the section above](#symmetric-williamson-type-matrices) do not give them: 214 = 2 · 107 needs order 107, a prime ≡ 3
+(mod 4) that is not p + 2 or (p + 1)/2 for a prime power p ≡ 1 (mod 4) (105 and 213 are not), nor 2p + 1 with 2p − 1 a
+prime power (2 · 53 − 1 = 105). 2823 = 3 · 941 needed symmetric Williamson-type matrices of order 235 or a negaperiodic
+Golay pair of length 470; 235 = 233 + 2 needs, by Corollary 27, (233 + 1)/2 = 117 to be a prime power or a symmetric
+conference matrix of order 118. Brouwer's table of strongly regular graphs (read on 17 October 2026) marks the
+conference graph SRG(117, 58, 28, 29) as existing, citing "Jose Yip Zheng Ho, Existence of conference graphs on 117
+vertices and 153 vertices, email, Oct. 2026"; that matrix is not public. We found one independently by an exact cover
+([search/conference118](../search/conference118/README.md), [search/NOTES.md](../search/NOTES.md) §95). With it
+Corollary 27 (U = (I, 0, Q, Q), V = (M, N, I, I), Yamada's circulants for q = 233) gives symmetric Williamson-type
+matrices of order 235 with a repeated block (`symwt.py 'cor27c(233, …)'`), the Miyamoto blocks with T-matrices of
+order 3 give [11292](11292) (n = 2823), and Seberry–Balonin's Corollary 1 gives the symmetric Hadamard matrix of order
+940 ([symmetric/940](../symmetric/940)). The repeated block also gives symmetric Williamson-type matrices of order
+941 = 4 · 235 + 1 (`cor29r`), hence Cooper–Wallis orders 941 · t.
 
 ## Status
 

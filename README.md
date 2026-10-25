@@ -7,7 +7,7 @@ rebuilds it and checks it in exact arithmetic.
 A Hadamard matrix of order n is an n × n matrix H with entries ±1 and H Hᵀ = n I. It can exist only for n = 1, 2 or
 n ≡ 0 (mod 4), and the Hadamard conjecture asserts that it exists for every multiple of 4. In August 2026 Alpöge,
 Voinov and Reynolds-Haertle constructed the twelve unresolved orders below 2000 [1], and Schneider constructed 2060 [2].
-This repository constructs 31 of the orders that Table 4 of Cati and Pasechnik [3] lists as unresolved, from 2092 to
+This repository constructs 32 of the orders that Table 4 of Cati and Pasechnik [3] lists as unresolved, from 2092 to
 11804. Six of them were found concurrently by other groups: 2092 by Cooley [16], 2284 by Zaitsev et al. [13], and 3732,
 4492, 5020 and 5932 by Egan, Kotsireas, London and Ó Catháin [18] (3732 also by Cooley). Our matrix of order 2292
 turned out to have been preceded by an independent one [16]. The smallest unresolved order is now 2396 = 4 · 599 ([FRONTIER.md](FRONTIER.md)).
@@ -26,17 +26,17 @@ give a theorem: a skew-Hadamard matrix of order 3(q + 1) exists for every prime 
 
 | Family | Orders | Status |
 |---|---|---|
-| Hadamard, unresolved in Table 4 [3] | [31](#unresolved-orders) | 9 New, 14 New but obtainable classically, 2 First explicit construction, 6 Concurrent |
-| Hadamard, omitted by Table 4 through Seberry–Yamada's Corollary 8.8(i) | [10](hadamard#orders-recorded-only-through-corollary-88i) | First explicit construction |
+| Hadamard, unresolved in Table 4 [3] | [32](#unresolved-orders) | 10 New, 14 New but obtainable classically, 2 First explicit construction, 6 Concurrent |
+| Hadamard, omitted by Table 4 through Seberry–Yamada's Corollary 8.8(i) | [11](hadamard#orders-recorded-only-through-corollary-88i) | First explicit construction |
 | Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 New, 124 New but obtainable classically, 49 First explicit construction |
 | Skew-Hadamard (476 to 14384) | [111](skew) | 47 New, 62 New but obtainable classically, 2 First explicit construction |
-| Symmetric Hadamard (260 to 9892) | [99](symmetric) | 38 New, 53 New but obtainable classically, 8 Concurrent |
+| Symmetric Hadamard (260 to 9892) | [100](symmetric) | 38 New, 53 New but obtainable classically, 9 Concurrent |
 | Complex Hadamard (214 to 3398) | [19](complex-hadamard) | 5 New, 12 Concurrent, 2 First explicit construction |
 | T-matrices | [97, 109, 197](t-matrices) | New |
 
 The labels are defined in [NOVELTY.md](NOVELTY.md), which also lists the literature searched. "Obtainable
 classically" means that every ingredient was published before 2026 and only their combination is new. The repository
-also holds independent matrices of known orders (7 Hadamard, 3 skew, 2 symmetric and 76 complex), the first explicit
+also holds independent matrices of known orders (8 Hadamard, 3 skew, 2 symmetric and 76 complex), the first explicit
 amicable Hadamard matrices of orders 52, 76, 100 and 124 and new orthogonal designs
 ([skew](skew#seberrys-theorem-with-new-ingredients)), and Williamson-type matrices of order 111
 ([near-williamson](near-williamson)).
@@ -76,6 +76,7 @@ For each order 4n, n is listed as unresolved in Table 4 of Cati and Pasechnik [3
 | [10644](hadamard/10644) | 2661 = 3 · 887 | Paley's matrix of order 3548 in sixteen circulant blocks, T-matrices of order 3 | New, but obtainable classically |
 | [10932](hadamard/10932) | 2733 = 3 · 911 | Paley's matrix of order 3644 in sixteen circulant blocks, T-matrices of order 3 | New, but obtainable classically |
 | [11260](hadamard/11260) | 2815 = 5 · 563 | Paley's matrix of order 2252 in sixteen circulant blocks, T-matrices of order 5 | New, but obtainable classically |
+| [11292](hadamard/11292) | 2823 = 3 · 941 | Miyamoto's matrix in sixteen bordered blocks with symmetric Williamson-type matrices of order 235 from a symmetric conference matrix of order 118 found here, T-matrices of order 3 | New |
 | [11572](hadamard/11572) | 2893 = 11 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks, T-matrices of order 11 | New, but obtainable classically |
 | [11804](hadamard/11804) | 2951 = 13 · 227 | Paley's matrix of order 908 in sixteen circulant blocks, T-matrices of order 13 | New, but obtainable classically |
 
@@ -108,9 +109,11 @@ settles the further open orders 5272, 7464, 18344, 36688 and 73376.
   values v < 2500 that the Đoković–Seberry census [4] lists as undecided ([skew](skew)). The smallest of these orders
   is 476 (v = 119, the census's fourth smallest undecided value), from a Paley product with many w-positions; 980
   (v = 245), 1540 (v = 385), 2156 (v = 539) and 3124 (v = 781) come from the same structure with a multiplier on K.
-- **Symmetric Hadamard matrices** of 99 orders that the census lists as undecided: 260 (v = 65, the census's smallest
+- **Symmetric Hadamard matrices** of 100 orders that the census lists as undecided: 260 (v = 65, the census's smallest
   value) from Verma's quaternary Legendre pair of length 64 (2026); 532, 732, 876, 4828 and 5700 from searches and
-  plug-in constructions; 48 orders 4q (q ≡ 1 mod 8 a prime power) from Seberry–Yamada's Williamson-type matrices with a
+  plug-in constructions; 940 (v = 235) from a symmetric conference matrix of order 118 found by an exact cover
+  (Concurrent: J. Y. Z. Ho reported a conference graph on 117 vertices in October 2026; [symmetric/940](symmetric/940)),
+  which also gives 11292 = 4 · 2823 above; 48 orders 4q (q ≡ 1 mod 8 a prime power) from Seberry–Yamada's Williamson-type matrices with a
   repeated block in Seberry and Balonin's propus array, among them 7012 = 4 · 1753 from our matrix of order 876
   ([symmetric/PROPUS_MIYAMOTO.md](symmetric/PROPUS_MIYAMOTO.md)); and 45 from four constructions that need no
   symmetric input: order 4q from any Hadamard matrix of order (q − 1)/2, q ≡ 1 (mod 8)

@@ -6054,10 +6054,11 @@ was found and none is claimed.
 - *The theorems* (EXACT from the survey's hypotheses). Paley I and II (8p − 1 is never a prime power), Paley blocks (4p
   − 1 = 5 · 479, 5³ · 23, 3 · 5 · 197, 5 · 11 · 61, 7 · 19 · 31, 3³ · 7 · 23; (s, t) = (2, p) needs T-matrices of order
   ≥ 599), Miyamoto III (2p − 3 = 1195, 1435, 1475, 1675, 2059, 2171 are composite), Seberry–Yamada 8q (WT(299), WT(359),
-  WT(369), WT(419), WT(515), WT(543) are in no table; the survey excludes 543 = 3 · 181 explicitly), Cooper–Wallis,
-  T-sequences, Spence, Mathon, Yamada and Agaian: none applies. The Craigen–Holzmann–Kharaghani decomposition 8(x + y),
-  x + y = p, would exist at five of the six p if the complex Golay lengths were closed under products; they are not:
-  there is no complex Golay pair of length 9 = 3 · 3 (EXHAUSTIVE over 4⁹ sequences, by the judge).
+  WT(369), WT(419) and WT(515) are in no table; WT(543) is, with key wi, and the survey excludes 543 = 3 · 181
+  explicitly, but that route is valid and gives 8696: §95), Cooper–Wallis, T-sequences, Spence, Mathon, Yamada and
+  Agaian: none applies. The Craigen–Holzmann–Kharaghani decomposition 8(x + y), x + y = p, would exist at five of the
+  six p if the complex Golay lengths were closed under products; they are not: there is no complex Golay pair of length
+  9 = 3 · 3 (EXHAUSTIVE over 4⁹ sequences, by the judge).
 - *Spence's construction over an odd group* (VALIDATED). It does not need an even group: four ±1 sequences on an abelian
   G of order v with Σ PAF = −4 off 0 have row sums (±1, ±1, ±1, ±1) (Σ r² = 4, r ≡ v mod 2); with S the 4 × 4 Hadamard
   matrix of the row sums, P = Q = S, K = −S and M the group-developed Goethals–Seidel array, [[K, Q ⊗ 1ᵀ], [P ⊗ 1, M]]
@@ -6270,3 +6271,83 @@ solver, `skf4`, that fits under the memory limit.
 in the propus and plain complex arrays five million classes at the lowest energies gave none. The excess of the skew
 family does not carry over to these arrays at these sizes; what is left there is either heavy (streamed joins) or has
 estimates far below one.
+
+## 95. Round 44: a conference matrix of order 118 (symmetric 940, n = 2823); the orders 8 · 1087 and 8 · 1619 (October 24–25)
+
+Scratchpad `r44/`. Five lenses (algebra, literature, routes, closure, algorithm), each proposal with adversarial judges.
+The disk filled during the round: the workflow journal was truncated, and the synthesis and some judge verdicts were
+lost. What follows was rebuilt from the surviving journal lines and the judges' files, and every positive result was
+re-run.
+
+**Closure.** A catalogue of the objects known in three tiers (published by 2025, published in 2026 by others, this
+repository) and of the recursive rules of the tables (Paley, Miyamoto, Yamada–Kiyasu, Cooper–Wallis, Seberry–Yamada's
+8q, the Corollary 25/27/29/31 family for Williamson-type matrices, doubling), closed under the rules, against the
+FRONTIER list, the six open orders 8p and the skew and symmetric census values.
+
+- *Reached:* one target, 8696 = 8 · 1087. Seberry–Yamada's Lemma 8.12 with Corollaries 8.14 and 8.18 gives a Hadamard
+  matrix of order 8q (q ≡ 3 mod 4 prime) from symmetric Williamson-type matrices of order (q − 1)/2. Those of order
+  543 come from Corollary 27(i) (p = 541, (p + 1)/2 = 271 prime), which `symwt.py` built since §26. §92 had set the
+  theorem aside because the 2026 survey excludes order 543; Table A.1 records it with key wi, a valid route. Built
+  ([hadamard/8696](../hadamard/8696), `sy8q.py`, verify.py construction `seberry-yamada-8q`); two judges rebuilt it,
+  one byte for byte, one with another primitive root, and checked H Hᵀ = 8696I exactly. **Known** (Table A.2 and
+  Cati–Pasechnik's 1087(3)); the survey's list of open orders 8p should drop it. Five remain: 4792, 5752, 5912, 6712
+  and 8248.
+- *Beyond the 8p list:* 12952 = 8 · 1619 from Williamson-type matrices of order 809, which Corollary 8.8(ii) gives from
+  [symmetric/404](../symmetric/404) (`sy8q.py c29`). Table 4's 1619(3) rests on Table A.1's key wl (Corollary 8.8(i)),
+  so **First explicit construction** ([hadamard/12952](../hadamard/12952)). In the same way
+  [symmetric/596](../symmetric/596) gives Williamson-type matrices of order 1193, which repairs the routes of 3579 and
+  5965 (Corollary 8.8(i) list of NOTES.md §7: 373, 613, 757, 1109, 1301 and 1493 keep no route).
+- *Near misses* (a single missing object unlocks the most targets): Williamson-type matrices of orders 599, 223, 419
+  and 359 and a symmetric conference matrix of order 478 (four targets each), then T-matrices of order 223 and
+  Williamson-type matrices of orders 719, 739, 839, 863, 947, 955, 191, 971, 167, 573 and 179 (three each). WT(223),
+  for example, gives n = 669, 1115 and 2899 by Cooper–Wallis with T-matrices of orders 3, 5 and 13. The skew census
+  part found no direct family hit and no improvement of Wallis's products.
+
+**A conference matrix of order 118.** A symmetric conference matrix of order 118 (a conference graph SRG(117, 58, 28,
+29)) gives, by Corollary 27, symmetric Williamson-type matrices of order 235 with a repeated block, hence the census
+value v = 235 (Seberry–Balonin) and FRONTIER n = 2823 (Miyamoto blocks, §61). The literature lens proposed Mathon's
+block structure (Canad. J. Math. 30 (1978): order pq² + 1 with blocks indexed by a field of order p and hyperplanes of
+AG(2, q), for p = q + 2). Here 117 = 13 · 3², p = 13 ≠ q + 2, so Mathon's theorem does not apply; the judge made the
+structure non-circulant and solved it as an exact cover ([search/conference118](conference118/README.md)).
+
+- *Ansatz.* Points ℤ₁₃ × AG(2, 3) and ∞; diagonal blocks J − I − 2R (R the graph of two of the four directions), the
+  block (i, j) equal to −χ(i − j)(J − 2M) with M a hyperplane of AG(2, 3)². On the characters of ℤ₃², C² = 117I splits
+  into Paley's core of order 13 (trivial character) and, for the nontrivial ones, a cubic "flag graph" on the 52 pairs
+  (point, direction) whose components must satisfy W² = 13I for W = D + 2Φ over ℤ[ω] (D = ±1 by direction class, Φ
+  the signed cube-root phases of the edges).
+- *Search.* Solvable template classes (`tmpl.c`): K₄ 48, prism 64, K₃,₃ 64, cube 256. Their placements on ℤ₁₃ with
+  Paley signs (`inst.cpp`): 585, 17160, 624 and 196560. An exact cover of the 78 pairs by K₄ components alone
+  (`xc.cpp`) succeeds after 13,589 nodes; 13 K₄ covering the pairs of ℤ₁₃ are the lines of PG(2, 3). `build.py`
+  assembles C and checks C = Cᵀ, zero diagonal and C² = 117I exactly. `run.sh` reproduces the stored matrix
+  (`data/conference118_5fe566972f21790b.txt`) byte for byte in about 10 s; no randomness.
+- *The matrix.* Its signed automorphism group (pynauty, on the signed graph) is {±I}: the matrix has no symmetry
+  beyond negation. The same ansatz over ℤ₁₇ gives conference matrices of order 154 (two
+  solutions checked, C² = 153I); they give no new order in range (154 = (q + 3)/2 for q = 305 and (q − 1)/2 for
+  q = 309, neither a prime power; 2 · 154 · 153 = 4 · 11781 lies beyond the census), and Ho and Wang reported graphs
+  on 153 vertices as well (§61).
+- *Consequences.* (a) `symwt.py 'cor27c(233, …)'`: symmetric Williamson-type matrices of order 235 with W₃ = W₄,
+  checked (one judge's concern that they might not commute was settled by the exact check). (b) The Miyamoto blocks
+  with q = 941 = 4 · 235 + 1 and T-matrices of order 3: [hadamard/11292](../hadamard/11292), n = 2823, **New**; one
+  judge rebuilt it independently. (c) Seberry–Balonin's Corollary 1: [symmetric/940](../symmetric/940), v = 235,
+  **Concurrent**: Brouwer's table cites J. Y. Z. Ho (email, October 2026) for a conference graph on 117 vertices, not
+  public, and that graph gives 940 through the published corollary (as for 2284 and Zaitsev's matrix). The conference
+  matrix itself is Concurrent with Ho's. (d) `cor29r(941, …)`: symmetric Williamson-type matrices of order 941, hence
+  Cooper–Wallis orders 941 · t (not yet harvested).
+- *Labels.* 2823 is New and not Concurrent: Ho's graph alone does not give it through published theorems (the
+  Miyamoto blocks and the repeated-block arrangement are ours, §7, §26).
+
+**Refuted or not pursued** (judge verdicts that survived).
+
+- Singer–Paley difference families at q = 25: none of 1.1 · 10¹² triples passes at index 4 (EXACT within the family).
+- A quaternary Paley-II doubling: trivial, no new order.
+- Egan et al.'s Theorem 7 over q = 25 (n = 2503): estimated about 2% chance per complete run; not run.
+- Spence's construction at 839 and 1187: dead by the slice equation (§3.1); the proposed flat filter is not new.
+- Decoding Zaitsev's quaternary matrices into real routes: decodable, but no cheap sweep.
+- Tied-stratum cores: about 1%, a repeat of §80. Decoupling of PGP(194): a repeat of §66.
+- Non-circulant Williamson-type matrices of order 369 for 5912: expected count far below 1.
+- A flat-pool k-tree for n = 1103: refuted by the one judge whose verdict survived.
+
+**Next.** Harvest 941 · t and the orders beyond the tables that Williamson-type matrices of orders 235 and 941 give;
+look for an R-structure in the solutions of the exact cover (it would give v = 119 by Yamada–Kiyasu, §61); run the same
+ansatz for p = 29, 53 and 89 (orders 262, 478 and 802, the symmetric conference matrices that would give the census
+values 523, 955 and 1603, and with 478 also FRONTIER 955).

@@ -1,0 +1,13 @@
+{
+ "order": 12952,
+ "construction": "seberry-yamada-8q",
+ "q": 1619,
+ "g": 2,
+ "wt_corollary29": {
+  "q": 809,
+  "g": 3,
+  "input": "symmetric/404/certificate.json",
+  "input_sha256": "291df30dc0701aed01e3ab82e9ee78c1145a3bb7e8286595c151eb39d4422dcf"
+ },
+ "sha256": "47d5f9c72b35a271a39e455e3bb971b32618541f20a15c7600a3957392067f05"
+}
