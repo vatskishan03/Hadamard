@@ -6439,15 +6439,16 @@ input we do not have ([search/x9split](x9split/README.md)).
 - *Symmetry.* H is symmetric if every K_a is (c = 0). A skew H is impossible: every diagonal block is ±Y_a, whose
   diagonal is −1.
 
-**Other orders for the plug-in** (PROVED). The plug-in has an odd order m only for s = 4 and m an odd square. A split
-of an Hadamard matrix of order 4w (w odd) into s disjoint W(4w, 4w/s) needs s | 4 (s = 1, 2 or 4). Write W = Σ Y_a for a
-regular s-set of odd order m. Then W Wᵀ = smI + s(s − 1)cJ, with c odd.
-- *s = 2:* W has entries 0 and ±2, so W Wᵀ ≡ 0 (mod 4), but its off-diagonal entries 2c are ≡ 2. No set exists, and
-  in particular there is no order-12w plug-in from a 2-split.
-- *s = 4:* det(W)² = (4m)^m (1 + 3c), so m(1 + 3c) must be a square. For odd m ≤ 51 this holds only for m = 9, 25
-  and 49. So there is no ×3, ×5 or ×7 analogue: 1713 = 3 · 571, 2855 = 5 · 571 and 1981 = 7 · 283 are out of reach
-  this way. Brute force agrees for m = 3 with s = 2, 3, 4 and 6.
-- *FRONTIER:* no open n there is a multiple of 25 or 49, so 1719 is the only open order the plug-in could reach.
+**Other orders for the plug-in** (PROVED). Use a regular s-set of odd order m on a split of an Hadamard matrix of
+order 4w (w odd) into s disjoint W(4w, 4w/s). Then s | 4w, and W = Σ Y_a satisfies W Wᵀ = smI + s(s − 1)cJ with c odd.
+- *mod 4:* if s is even, W ≡ 0 (mod 2), so s(s − 1)c ≡ 0 (mod 4) and 4 | s. In particular there is no 2-split plug-in
+  of odd order (no order 12w from a 2-split).
+- *Determinant:* det(W)² = (sm)^m (1 + (s − 1)c), so sm(1 + (s − 1)c) must be a square.
+- *s = 4:* this leaves only the odd squares among m ≤ 51 (9, 25, 49). So there is no ×3, ×5 or ×7 analogue; for
+  example 1713 = 3 · 571, 2855 = 5 · 571 and 1981 = 7 · 283 are not reachable.
+- *Search over s ≤ 15, m ≤ 51:* checked against the 122 FRONTIER orders, every (s, m) that passes both tests reaches
+  only n = 1719 (s = 4, m = 9).
+- Brute force finds no regular s-set of order 3 for s = 2, 3, 4 and 6.
 
 **Splits found and not found.**
 - *Goethals–Seidel quadruples, circulant splits* (`csplit.py`, CP-SAT, one label per position of each sequence; each
