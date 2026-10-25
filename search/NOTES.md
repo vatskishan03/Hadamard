@@ -6628,12 +6628,15 @@ Scratchpad `r47/`; programs in [tiedcore](tiedcore/README.md).
   25), (9, 17), (9, 25), (5, 29), (9, 29), (13, 25), (13, 29), (17, 25), (17, 29). The order-850 structure itself needs
   21 C-orbits, so it lies outside that bound.
 
-**Tied census of the complex Yamada–Kiyasu targets** (`census.py`, at most 22 C-orbits, A and B general or quadratic or
-quartic). No core so far, after 19 of 29 groups: 1813 cases solved, 398 too large.
-- Plain groups: F25 × F29 and ℤ₂₅ × F₂₉ (2899); F₁₇ × F₁₉ (1291); F₅ × F₇ × F₁₉ (2659); F₇₀₁, F₅₂₁, F₂₃₉, F₆₈₃ and F₇₄₃;
-  ℤ₂ × F₅ × F₄₇, ℤ₂ × F₂₇₇, ℤ₄ × F₁₄₉ and F₄ × F₁₄₉ (cores ≡ 0 mod 4: 1879, 2215, 2383).
-- Bordered groups: F₄ × F₁₈₁ and ℤ₄ × F₁₈₁ (2899); {F₄, ℤ₄} × {F₂₅, ℤ₂₅} × F₇ (2803).
-- Still running: the bordered groups of orders 520, 664, 238, 322, 682 and 742.
+**Tied census of the complex Yamada–Kiyasu targets** (`census.py`, at most 22 C-orbits, A and B general or constant on
+quadratic or quartic classes): no core in any of the 29 groups, 2173 cases solved and 491 too large (EXHAUSTIVE within
+these classes).
+- Plain groups (order N = (n + 1)/4): F₂₅ × F₂₉ and ℤ₂₅ × F₂₉ (2899); F₁₇ × F₁₉ (1291); F₅ × F₇ × F₁₉ (2659); F₇₀₁,
+  F₅₂₁, F₂₃₉, F₆₈₃, F₇₄₃ (2803, 2083, 955, 2731, 2971); ℤ₂ × F₅ × F₄₇, ℤ₂ × F₂₇₇, ℤ₄ × F₁₄₉ and F₄ × F₁₄₉ (cores ≡ 0
+  mod 4: 1879, 2215, 2383).
+- Bordered groups (order N − 1): {F₄, ℤ₄} × F₁₈₁ (2899); {F₄, ℤ₄} × {F₂₅, ℤ₂₅} × F₇ (2803); {F₈, ℤ₈, ℤ₂ × ℤ₄} × F₅ ×
+  F₁₃ (2083); {F₈, ℤ₈, ℤ₂ × ℤ₄} × F₈₃ (2659); ℤ₂ × F₇ × F₁₇ (955), ℤ₂ × F₇ × F₂₃ (1291), ℤ₂ × F₁₁ × F₃₁ (2731),
+  ℤ₂ × F₇ × F₅₃ (2971).
 - Round 25's tied search dropped the classes n that do not preserve its compression kernel (83% at m = 725, §80), so
   most of these cases had not been covered.
 
