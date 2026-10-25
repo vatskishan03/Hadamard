@@ -6387,3 +6387,243 @@ structure non-circulant and solved it as an exact cover ([search/conference118](
 look for an R-structure in the solutions of the exact cover (it would give v = 119 by Yamada–Kiyasu, §61); run the same
 ansatz for p = 29, 53 and 89 (orders 262, 478 and 802, the symmetric conference matrices that would give the census
 values 523, 955 and 1603, and with 478 also FRONTIER 955).
+
+## 96. Round 45: the flag equation for conference matrices of order 9p + 1; FLC's engines at order 65 (October 25)
+
+Scratchpad `r45/`. Two lines: the ansatz of §95 for every prime p ≡ 1 (mod 4), aimed at the conference graphs on 9p
+vertices that Brouwer's table (read 25 October 2026) lists as open: 261, 333, 369, 477, 549, 657 and 801 (p = 29, 37,
+41, 53, 61, 73, 89; 117 and 153 exist, by J. Y. Z. Ho and Chen Wang). Their consequences: C(262) gives the census value
+523 (Seberry–Balonin, q = 521) and, through Yamada–Kiyasu with q = 521, the complex order 1046; C(334) gives the
+complex order 334 (C + iI), the smallest open one; C(478) gives FRONTIER n = 955 and 2865 (Corollary 27 with q = 953,
+then Cooper–Wallis with T-matrices of order 3), the census value 955 and the complex orders 478 and 1910; C(550)
+gives the complex order 550 and the census value 1099; C(658) the complex order 658; C(802) the census value 1603.
+And FLC (github.com/vatskishan03/FLC), whose branches `w65-engine` and `good-engine` add classifiers with a five-fold
+compression.
+
+**The flag equation** ([search/flag9p](flag9p/README.md)). On the nontrivial characters of ℤ₃², C² = 9p I becomes
+Ψ² = p I for Ψ = D + 2Φ on the 4p flags (point, direction), D = +1 on two directions and −1 on the other two, Φ with one
+entry χ(j − i)ω^c in each 4 × 4 block (i, j), i ≠ j (EXACT; §95 is the case p = 13). Each component of the flag graph
+satisfies it separately; its trace forces an even number of flags, half with D = +1. Bipartite components are X X* =
+d I (d = (p − 1)/4); a complete bipartite K_{a,a} needs D constant on each side and a Butson matrix BH(a, 6) with the
+Paley sign pattern. Quaternary non-Hermitian variants (for the complex Yamada–Kiyasu core of order 478) add nothing: the
+D-terms of ΨΨ* force every flag edge to have its reverse with Φ_vu = ±conj Φ_uv, and with single-class edges the
+supports must be symmetric, so d is even (p ≡ 1 mod 8) (EXACT).
+
+- *Cyclic, bipartite* (`bipcyc.c`; EXHAUSTIVE for the ansatz, both sign conventions): p = 13 none (as the general cyclic
+  search of round 44); p = 17: 55,296 structures (27,648 with the first row canonical); every one built and checked
+  is a conference matrix of order 154 (like the cyclic ones of §95; concurrent with Chen Wang's graph on 153 vertices).
+  The decoupled ones (one orientation per row, 1728 with the first row canonical) place a complementary pair of length
+  2 on translates of {1, 2} by 2, 8 and 10. p = 29: none. p = 37 and p = 41 (decoupled rows):
+  running (`r45/alam`).
+- *Alamouti sub-family* [[P₁, P₂], [−λP₂*tᵏ, λP₁*tᵏ]] (`alam.py`; supports forced into 2k·{1, …, (p − 1)/2}): p = 13
+  none, p = 17 twelve, p = 29, 37, 41 none.
+- *Odd multiplier groups* (`mulcyc.c`; all edge types, bipartite or not, phase twist when 3 | k; EXHAUSTIVE): p = 5,
+  k = 1 gives 576 (Mathon's order 46, the control); none for (p, k) = (13, 3), (29, 7), (37, 9), (53, 13), (61, 15),
+  (109, 27) and (73, 9) with the first sign convention (the second is running). Without a twist, X(1) ∈ kℤ[ω] needs
+  k² | d.
+- *Non-cyclic, clique and biclique components.* Four K_{d+1} and six K_{d,d} account for exactly the p(p − 1)/2 pairs and
+  4p flags for every p, and D-balance needs d odd (p ≡ 5 mod 8, the class where the cyclic ansatz fails). Templates
+  (`kn.c`, `kg.c`): K₄ 2 normalised solutions, K₆ 12, K₈ (p = 29) 1056, all K₈ in one switching class with D-labels
+  (Seidel spectrum ±√13, (±√5)³); on ℤ₂₉ there are 4466 placements (12 affine orbits, one D-labelling each). BH(7, 6):
+  in the 804,033 normalised matrices enumerated before the time cap (not complete), the 5040 distinct sign patterns form
+  one class, J − 2P; no pair of 7-sets of ℤ₂₉ has a Paley sign matrix in it, so the clique and biclique covers of ℤ₂₉
+  need other component types (UNKNOWN). With K₈'s through one point and bicliques between their other points, D-balance
+  fails for every p (EXACT).
+
+**FLC's engines** (digest of the branches, a Sonnet agent; the trees in `flcwt/`). w5 classifies circulant symmetric
+Williamson matrices and w5g good matrices of odd order n = q·m (q = 3, 5, 7, m ≤ 33): compression mod m, lists by the
+power spectrum, a 2 × 2 hash join of the compressed quadruples (step 4), then the fibres of each instance joined on the
+full autocorrelation (step 5). Both test suites pass on x86 (AVX-512), and the published instance fingerprints are
+reproduced. They reach no open Hadamard or skew order (4n ≤ 372), but they settle open cells of the classifications:
+
+- *Good matrices of order 55:* exactly one inequivalent class (w5g, q = 5, 10,773 instances, 297 CPU-s; the same class
+  without grouping). Row sums 1, 7, −13, −1; checked independently (own decoding and Goethals–Seidel array: A + Aᵀ =
+  2I, B, C, D symmetric, Σ X Xᵀ = 220 I, a skew-Hadamard matrix of order 220). Good matrices of order 55 were not in
+  the literature we read (Đoković–Kotsireas, arXiv:1802.00556: orders ≤ 39, 43, 45, 127; Bright et al.,
+  arXiv:1811.05094: multiples of 3 to 69), but the vxvware Goethals–Seidel challenge board (GitHub, 2026) lists one
+  class at 53, 55 and 61 from participants; the census (exactly one class) is new.
+- *Williamson matrices of order 65* (open: Kharaghani et al., arXiv:2605.08661, and the board) and *good matrices of
+  order 65* (the board has an unverified emptiness claim): running (`r45/flc`, PRODUCTION.md; 70,699 and 67,437
+  instances, fingerprints c7000a01e7b84192 and d2617b1ba87e7899 as published; chunks of 1500 instances, 0 hits so far).
+
+## 97. Round 46: the AG(2, 3) lift for Hadamard matrices, which reduces to a known plug-in; the order 4 · 1719 (October 25)
+
+Scratchpad `r46/`. The idea was to turn the ansatz of §95 and §96 from conference matrices to Hadamard matrices: for an
+Hadamard matrix K of order N, put H_ij = K_ij(J − 2M_ij) with M_ij a hyperplane {⟨a, x⟩ + ⟨b, y⟩ = c} of AG(2, 3)². If
+the construction worked in general, it would give H(36w) from H(4w). That would settle FRONTIER n = 1719 = 9 · 191 from
+Đoković's H(764), and the 29 census values v = 9w whose 4w is a known symmetric order: 369, 513, 621, 657, 693, 765,
+783, 891, 909, 927, 1017, 1089, 1125, 1143, 1269, 1341, 1359, 1539, 1557, 1593, 1647, 1719, 1773, 1845, 1953, 1989,
+2133, 2313 and 2349. It does not work in general. Its usable case is a known plug-in, and that plug-in needs an
+input we do not have ([search/x9split](x9split/README.md)).
+
+**The lift** (EXACT).
+- *Trivial character.* The block J − 2M has row sum 3, so the trivial character gives 3K, and (3K)(3K)ᵀ = 9N I holds
+  for every K.
+- *Nontrivial characters.* Each block maps one character class at j to one at i with modulus 6, as in §96. Every point
+  has N blocks over 4 directions.
+- *The condition.* With real phases and one orientation, H Hᵀ = 9N I is equivalent to the following. The matrix W of
+  order 4N, with W[(i, f_ij), (j, g_ij)] = K_ij and one entry in each 4 × 4 block, satisfies W Wᵀ = (N/4) I. With
+  cube-root phases, W becomes a unit weighing matrix over the sixth roots.
+- *The ℤ₃²-invariant case.* Take M_ij = {⟨a, x − y⟩ = 0}, so f = g. Then W is block diagonal and the condition reads:
+  K = K₀ + K₁ + K₂ + K₃ with disjoint weighing matrices W(N, N/4), and H = Σ K_a ⊗ Y_a.
+- *The blocks Y_a = J − 2L_a.* They satisfy Y_a Y_bᵀ = J for a ≠ b and Σ Y_a Y_aᵀ = 36I (checked). So the cross
+  terms collapse to (K Kᵀ − Σ K_a K_aᵀ) ⊗ J = 0.
+- *Status: Known.* The Y_a are a regular 4-set of order 9 (Seberry–Whiteman, Graphs Combin. 4 (1988), from Mathon's
+  construction; Seberry–Zhang, Graphs Combin. 9 (1993)). The plug-in of a regular s-set into an Hadamard matrix that is
+  a sum of s disjoint weighing matrices is theirs. A Baumert–Hall array, for example from T-matrices of order w,
+  supplies such a split. In that case the order 36w is also Cooper–Wallis with Williamson matrices of order 9.
+- *Symmetry.* H is symmetric if every K_a is (c = 0). A skew H is impossible: every diagonal block is ±Y_a, whose
+  diagonal is −1.
+
+**Other orders for the plug-in** (PROVED). Use a regular s-set of odd order m on a split of an Hadamard matrix of
+order 4w (w odd) into s disjoint W(4w, 4w/s). Then s | 4w, and W = Σ Y_a satisfies W Wᵀ = smI + s(s − 1)cJ with c odd.
+- *mod 4:* if s is even, W ≡ 0 (mod 2), so s(s − 1)c ≡ 0 (mod 4) and 4 | s. In particular there is no 2-split plug-in
+  of odd order (no order 12w from a 2-split).
+- *Determinant:* det(W)² = (sm)^m (1 + (s − 1)c), so sm(1 + (s − 1)c) must be a square.
+- *s = 4:* this leaves only the odd squares among m ≤ 51 (9, 25, 49). So there is no ×3, ×5 or ×7 analogue; for
+  example 1713 = 3 · 571, 2855 = 5 · 571 and 1981 = 7 · 283 are not reachable.
+- *Search over s ≤ 15, m ≤ 51:* checked against the 122 FRONTIER orders, every (s, m) that passes both tests reaches
+  only n = 1719 (s = 4, m = 9).
+- Brute force finds no regular s-set of order 3 for s = 2, 3, 4 and 6.
+
+**Splits found and not found.**
+- *Goethals–Seidel quadruples, circulant splits* (`csplit.py`, CP-SAT, one label per position of each sequence; each
+  layer needs Σ PAF = wδ).
+  - Found: Williamson order 3, and three random quadruples of order 11, in under 21 s each. The resulting H(108) and
+    H(396) were checked exactly.
+  - With SA (`sa_split.c`: 4 restarts of 3 · 10⁷ swaps, 120 s) on quadruples from `gsgen.c`: all three of order 13
+    split, and none of the three at each of orders 17, 19, 23 and 29.
+  - Hall's Williamson quadruples of orders 19 and 23: CP-SAT UNKNOWN after 600 s, and SA stops at energies 5 and 9.
+  - So neither method finds splits beyond order about 15, although the count below predicts many at order 19.
+- *Propus quadruples, symmetric circulant splits:* none for w = 5, 7, 9, 11 (three quadruples each; CP-SAT proves
+  infeasibility in at most 13 s).
+- *Explicit symmetric matrices of order 12:* no split of Paley II (q = 5), and no symmetric 4-split of any symmetric
+  H(12) (labels and signs free). Both UNKNOWN after 1200 s and 900 s. Symmetric W(4, 3), W(8, 3), W(12, 3), W(8, 5)
+  and W(20, 5) exist (CP-SAT), so there is no obstruction at the level of the parts.
+
+**n = 1719.** It needs a split of an Hadamard matrix of order 764. The only ones known are Đoković's two
+Goethals–Seidel quadruples (arXiv:math/0703312): ℤ₁₉₁, H = ⟨39⟩ of order 5, supports of sizes 85, 90, 90 and 100.
+Both were reconstructed (`dk764.py`) and checked: Σ PAF = 764δ.
+- *H-invariant splits.* Each layer holds exactly one of the four zero positions (weight 191 ≡ 1 mod 5) and 38 cosets.
+  CP-SAT ran 600 s with no answer. The best SA energy was 153 over the 76 shift classes.
+- *Free circulant splits* (764 labels, 380 equations): the best SA energy was 985.
+- *Count* (HEURISTIC). A layer's PAF at a shift has about 48 terms. Parity costs one bit per equation (the support
+  autocorrelation over GF(2)), and the size of a nonzero even sum costs about 3.1 bits.
+  - H-invariant: 2^292 balanced labellings against 76 · 4.1 bits gives about 2^−20 splits per quadruple.
+  - Free: about 2^−40 per quadruple.
+  - The same count gives about 2^60 splits at w = 19, where none were found.
+  - A joint search (the quadruple and its split, H-invariant) has about 2^49 solutions at a density of 2^−419.
+- *Not pursued.*
+
+**Other results since §96.**
+- The exact maximum packing of K₈ placements on ℤ₂₉ (`k8clique.py`, max clique on 4466 vertices and 2,492,028
+  compatibility edges) is 4. That is what the four K₈ of a clique-and-biclique cover need, but the bicliques have no
+  placement (§96).
+- The paused searches were not completed:
+  - `bipcyc3 37` (full bipartite, p = 37) and `mulcyc 73 9 1` are stopped; `bipcyc3d 41` (decoupled, p = 41) is
+    running again.
+  - The FLC Williamson-81 probe hit its time cap while stopped and was not resumed.
+- FLC at order 65: 16 of 47 Williamson chunks and 12 of 45 good chunks done, 0 hits (running).
+
+## 98. Round 46b: the sign classes of the bicliques and Lindsey's bound (October 25)
+
+Scratchpad `r46/cover`, programs in [search/flag9p](flag9p/README.md). §96 left the clique-and-biclique covers of
+ℤ₂₉ with one unchecked assumption, that the BH(7, 6) enumeration (stopped at a time cap) had found every sign class.
+This round removes it, does the same for p = 37 (C(334), whose C + iI is the smallest open complex order), and adds a
+spectral filter.
+
+**Sign classes** (EXACT).
+- *Why the inner products are ±3.* Seven sixth roots that sum to 0 form one triangle and two antipodal pairs. So every
+  row and column inner product of a BH(7, 6) sign pattern is ±3.
+- *BH(7, 6)* (`bh7signs.py`). The patterns with all inner products ±3 are 7 normalised matrices, all with Gram
+  4I + 3J. They form one class, J − 2P, and it admits cube-root phases.
+- *BH(9, 6)* (`bh9signs.py`). Nine sixth roots summing to 0 are three triangles, or one triangle and three pairs, so the
+  inner products are ±3 or ±9. The 1009 normalised patterns fall into exactly three classes, each admitting phases:
+  - rank one (cut norm 81);
+  - one class with row inner products 3 and 9 (cut norm 63);
+  - H′ ⊗ J₃ with H′ = [[1, 1, 1], [1, 1, −1], [1, −1, 1]] (cut norm 45).
+
+**Lindsey's bound** (PROVED).
+- *The bound.* For a conference core S of order p (eigenvalues ±√p and 0) and ±1 vectors x, y on disjoint d-sets,
+  |xᵀSy| ≤ d√p. So a K_{d,d} component whose sign class is M needs ‖M‖_{∞→1} ≤ d√p.
+- *J − 2P* (cut norm d(d − 2)) survives at p = 29 (35 ≤ 37.7) and fails for every d ≥ 9.
+- *p = 37:* only H′ ⊗ J₃ survives (45 ≤ 54.7).
+- *Rank one* needs d² ≤ p. Direct search (`rank1bic.py`) finds 144 such bicliques in the Paley two-graph of ℤ₁₃ (0 on
+  one side) and none at p = 29 or 37.
+
+**Paley cores** (EXACT within the clique-and-biclique family).
+- *Possible counts.* With components K_{d+1} and K_{d,d} only, the flag count (d + 1)a + 2db = 4p and the pair count
+  reduce to the same equation:
+  - p = 29: (a, b) = (4, 6) or (11, 2);
+  - p = 37: (4, 6) or (13, 1).
+  Every option contains a biclique.
+- *Placements* (`k99place.py`). Paley(37) has no K₉,₉ in the class H′ ⊗ J₃, and Paley(29) has none in J − 2P (§96).
+- *Conclusion.* Neither Paley core has a cover by cliques and bicliques.
+- *The combinatorics is not the obstruction* (`kkcover.py`, CP-SAT). D-balanced decompositions of K_p into four
+  K_{d+1} and six K_{d,d} exist for p = 13, 29 and 37 (1, 27 and 58 s); none is of the one-point type of §96. The
+  obstruction is in the signs.
+
+**Other cores.**
+- `srg_k77.py` asks whether any SRG(29, 14, 6, 7) contains a K₇,₇ in the class J − 2P. CP-SAT gave UNKNOWN after
+  1800 s; the p = 13 control is found at once.
+- The 41 conference graphs on 29 vertices and the 6760 on 37 could not be fetched (Spence's and Brouwer's pages
+  returned 503 on 25 October), so the non-Paley cores are untested.
+
+**Multipliers.** (73, 9) with the second sign convention has no solution either (0 of 254,803,968), so the odd
+multiplier groups of §96 are empty for every (p, k) listed there. `bipcyc3d 41` (decoupled bipartite, p = 41) is still
+running.
+
+## 99. Round 46c: the interval family behind p = 17, and symmetric quaternary matrices for n = 2571 (October 25)
+
+**The p = 17 solutions are one family.** The 1728 decoupled bipartite solutions of §96 (first row canonical) have
+exactly four support partitions:
+
+{1, 2, 3, 4} | {5, 6, 7, 8},  {1, 2, 4, 7} | {3, 5, 6, 8},  {2, 3, 5, 7} | {1, 4, 6, 8},  {3, 4, 5, 6} | {1, 2, 7, 8}.
+
+They are the images under the multipliers 1, 3, 5 and 9 of one interval structure, with 432 solutions each. Row A1 has
+atoms at the offsets 1, …, d and row A2 at −(d + 1), …, −2d. Each row is then a sixth-root complementary pair whose two
+supports split an interval, with the Legendre signs prescribed.
+
+- *Reduction* (EXACT). Every condition depends only on index differences (or sums) and on products χ(i)χ(j). So the
+  multiplier and the sign convention drop out, and one run per prime decides the family.
+- *Search* (`flag9p/intcyc.c`). The atoms are assigned alternately from both ends, so the long shifts close first.
+  - p = 17: 27 gauge-fixed solutions, rebuilt by `build_bip.py` into a conference matrix of order 154.
+  - p = 41 and 73: no row satisfies the row condition (0 s and 179 s).
+  - p = 89 and 97: not decided within the 900 s cap.
+
+So p = 17 looks like a small case: the Legendre pattern on [1, d] has no sixth-root complementary split at p = 41 or
+73.
+
+**Symmetric quaternary Hadamard matrices and n = 2571.** The literature agent's leading near miss, checked here
+against [hadamard/MIYAMOTO_BLOCKS.md](../hadamard/MIYAMOTO_BLOCKS.md#symmetric-williamson-type-matrices):
+- *The route.* Lemma 26 (Corollary 29) turns a symmetric quaternary Hadamard matrix of order (q − 1)/2 into symmetric
+  Williamson-type matrices of order q. For q = 857 that order is 428, and Cooper–Wallis with T-matrices of order 3
+  then gives n = 2571.
+- *Known sources do not apply.*
+  - Turyn's C ± I needs a symmetric conference matrix of order 428, impossible since 428 ≡ 0 (mod 4).
+  - A real symmetric H(428) is the open census value v = 107.
+  - A Kronecker product would need order 214, and Turyn's C + iI does not exist there: 213 is not a sum of two
+    squares.
+  - The repeated-block source would need symmetric Williamson-type matrices of order 107. A quadruple (Y, Z, X, X) of
+    odd order m gives a symmetric quaternary matrix of order 2m through M₃ = [[Y, X], [X, −Z]] and
+    M₄ = [[Z, X], [X, −Y]], but that order is again 2 (mod 4) (see below).
+- *A searched structure* (`flag9p/symq_mitm.py`, exhaustive): L = [[X, WR], [WR, −X̄]], with X a symmetric quaternary
+  circulant of order m and W real. L is symmetric, and L L̄ = 2mI reduces to PAF_X + PAF_W = 2mδ.
+  - Solutions exist for m = 3, 5, 7, 9, 13, 15 and 19 (24 to 5016 of them, checked exactly). There are none for m = 11
+    and 17, exactly the m where 2m − 1 is not a sum of two squares.
+  - Every solution has an imaginary part of weight 1 or m − 1. So the structure is Turyn's C + iE, and Belevitch's
+    condition explains the pattern.
+  - Circulant repeated-block quadruples are a special case. If (Y, Z, X, X) is such a quadruple, then
+    A = (Y + Z)/2, B = (Y − Z)/2 and W = X satisfy PAF_A + PAF_B + PAF_W = 2mδ. A direct search finds none for
+    m = 11 and 17.
+  - So every structured source of symmetric quaternary Hadamard matrices of order n ≡ 2 (mod 4) that we know needs
+    n − 1 to be a sum of two squares. Whether this holds in general is open here (CONJECTURE; an unrestricted CP-SAT
+    run at order 22 was stopped undecided).
+  - Calibrated on m = 19 (predicted 2^12 solutions, found 5016), the same count gives about 2^−74 for the order-428
+    version of this structure, so it was not run.
+- *What remains.* The route to 2571 needs a symmetric quaternary Hadamard matrix of order 428 directly; a real one is
+  the census value v = 107.
+
+Agent reports of this round (literature, combinations): no new verified route. The near misses match §95. The
+leading one is the order-107 object above, which settles n = 2571 and the census value 107. A further reference to
+check is Seberry–Finlayson (JCMCC 43, 2002, skew orders 4q < 4000), which was not reachable.
