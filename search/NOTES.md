@@ -6591,3 +6591,95 @@ against [hadamard/MIYAMOTO_BLOCKS.md](../hadamard/MIYAMOTO_BLOCKS.md#symmetric-w
 Agent reports of this round (literature, combinations): no new verified route. The near misses match §95. The
 leading one is the order-107 object above, which settles n = 2571 and the census value 107. A further reference to
 check is Seberry–Finlayson (JCMCC 43, 2002, skew orders 4q < 4000), which was not reachable.
+
+## 100. Round 47: the order-850 core as a cyclotomic family; exact tied joins over any abelian group (October 25)
+
+Scratchpad `r47/`; programs in [tiedcore](tiedcore/README.md).
+
+**Anatomy of the order-850 core** (`tiedcore/anat850.py`, CHECKED on the certificate of
+[hadamard/6796](../hadamard/6796)). Write x ∈ GF(25) (the certificate's ℤ₅² with M acting as multiplication by t, t² =
+2t + 1) and z ∈ ℤ₁₇ by their indices i = ind x, j = ind z (generators t + 1 and 3).
+- A is η₂₅ on the GF(25)-axis, η₁₇ on the ℤ₁₇-axis, and f((i + j) mod 4) inside with f of type (−, +, +, −), that is
+  Re((−1 − i) χ₄(x) χ₄′(z)) for the quartic characters.
+- B is 1 on both axes and η₂₅(x) η₁₇(z) inside.
+- C and D are constant on each axis (+ on GF(25), − on ℤ₁₇) and inside depend only on (i mod 8, j mod 8).
+- Power spectra (CHECKED; the Gauss sums are G₂₅(η) = −5 and G₁₇(η) = √17): |Â|² = 25 and 17 on the two kinds of axis
+  characters; |B̂|² = 15² and 23² there and 429 ± 20√17 elsewhere; |Ĉ|² + |D̂|² = 4 + 1444 and 576 + 576 on the axis
+  characters. So A and B are explicit character functions, and only C and D (octic cells, D = C ∘ n⁻¹) carry search.
+
+**Exact tied joins** (`tiedcore/gengroup.py`).
+- *Setting.* G is any product of fields F_q and rings ℤ_k, and the multiplier group H acts factorwise. PAFs are exact
+  integers on the orbits of ⟨H, −1⟩, computed from the power spectrum at dual orbit representatives. They are checked
+  against a direct FFT and against cyclotomic structure constants.
+- *The join.* PAF_A + PAF_B is matched against PAF_C + PAF_C ∘ n⁻¹ for every class n ∈ M/H by a random linear key. Every
+  match is re-checked on the full vector, and the first one over the whole group.
+- *Variants.* The zero-diagonal Szöllősi array, plain or bordered (Σ PAF = −4, row sums ±1, ±1, 0, 0). Goethals–Seidel
+  quadruples (A, B, C, C ∘ n⁻¹) with A, B ⟨H, n⟩-invariant (`gs_tied.py`) and (X, X ∘ n⁻¹, Y, Y ∘ n⁻¹) (`gs_dtied.py`).
+- *Validation.* GF(25) × GF(17) with H = ⟨(2, 6)⟩ (index coordinates, |H| = 24, 21 C-orbits) gives 1536 tied solutions
+  in 12 s, each a core of order 850. Controls: cores of orders 90 and 234 at (5, 9) and (9, 13); Goethals–Seidel
+  quadruples over ℤ₃ × ℤ₅, F₃ × F₁₃ and F₅ × F₁₃.
+- *Reach.* Lists of 2^bits per block, so at most about 23 C-orbits; that is the small-structure end of every target.
+
+**n = 2899 (core of order 1450 over GF(25) × GF(29))**: no core (EXHAUSTIVE within each class).
+- Tied joins over every subgroup of GF(25)* × GF(29)* with at most 23 C-orbits, A and B general or constant on quadratic
+  or quartic classes: 434 cases, 13 too large.
+- Untied (A + C) × (B + D) joins over every subgroup with at most 17 C-orbits: 865 cases.
+- Small field pairs, tied, at most 18 C-orbits: cores at (5, 9) and (9, 13). None at (5, 13), (5, 17), (13, 17), (5,
+  25), (9, 17), (9, 25), (5, 29), (9, 29), (13, 25), (13, 29), (17, 25), (17, 29). The order-850 structure itself needs
+  21 C-orbits, so it lies outside that bound.
+
+**Tied census of the complex Yamada–Kiyasu targets** (`census.py`, at most 22 C-orbits, A and B general or quadratic or
+quartic). No core so far, after 19 of 29 groups: 1813 cases solved, 398 too large.
+- Plain groups: F25 × F29 and ℤ₂₅ × F₂₉ (2899); F₁₇ × F₁₉ (1291); F₅ × F₇ × F₁₉ (2659); F₇₀₁, F₅₂₁, F₂₃₉, F₆₈₃ and F₇₄₃;
+  ℤ₂ × F₅ × F₄₇, ℤ₂ × F₂₇₇, ℤ₄ × F₁₄₉ and F₄ × F₁₄₉ (cores ≡ 0 mod 4: 1879, 2215, 2383).
+- Bordered groups: F₄ × F₁₈₁ and ℤ₄ × F₁₈₁ (2899); {F₄, ℤ₄} × {F₂₅, ℤ₂₅} × F₇ (2803).
+- Still running: the bordered groups of orders 520, 664, 238, 322, 682 and 742.
+- Round 25's tied search dropped the classes n that do not preserve its compression kernel (83% at m = 725, §80), so
+  most of these cases had not been covered.
+
+**Tied Goethals–Seidel census of the composite FRONTIER orders** (`gs_tied.py`, at most 20 C-orbits): no solution in 361
+structures over F_a × F_b for 32 groups. These cover 955, 669, 1115, 1169, 1257, 2171, 2327, 1795, 2095, 1437, 1473,
+2215, 2315, 1713, 2855, 1893, 1929, 1969, 1981, 2429, 2513, 2571, 2589, 2629, 2841, 2913, 2973, 2899, 2995, 1719 (F₉ and
+ℤ₉ × F₁₉₁) and 2865. For primes of this size only multiplier groups of order ≥ 74 fit under 20 orbits, so this closes
+the trivial end only. The doubly tied version (at most 24 orbits) is running.
+
+**Symmetric conference matrices of order 2n** (EXACT bookkeeping). Belevitch's doubling turns a symmetric conference
+matrix C(2n) into H(4n). This needs 2n − 1 to be a sum of two squares, which holds for 39 of the 122 FRONTIER n.
+- *The ℤ_p × AG(2, q) structure of §95–96 generalises to 2n − 1 = pq².* Use blocks f(⟨a, x⟩ + ⟨b, y⟩ + c), with f = 1 −
+  2·[square] for q ≡ 3 (mod 4).
+  - At the trivial character it needs block row sums ±q, which holds.
+  - On the nontrivial characters it gives the flag equation Ψ² = pI, with off-diagonal entries of modulus √(q + 1).
+  - So each flag meets (p − 1)/(q + 1) partners, and (q + 1) | (p − 1) is necessary.
+- *Consequence.* Among the FRONTIER n only q = 3 survives: 2n − 1 = 9p with p = 229, 293, 317, 349, 397, 653, that is n
+  = 1031, 1319, 1427, 1571, 1787, 2939. All six have p ≡ 5 (mod 8), the class where §96's cyclic ansätze fail. (37 · 7²
+  for 907, 109 · 7² for 2671 and 13 · 19² for 2347 fail divisibility.)
+- *Odd multiplier groups* (`flag9p/mulcyc.c` with k = (p − 1)/4, both sign conventions, EXHAUSTIVE): none for all six p.
+- *Clique and biclique components.* With d = (p − 1)/4 the only decomposition of the counts is four K_{d+1} and six
+  K_{d,d}, e.g. K₅₈ and K₅₇,₅₇ at p = 229. Not attempted.
+
+**8 · 599 (order 4792)** (`search/eightp`, the cheapest τ-alive Spence plug-in shape of §92: ℤ₉ × ℤ₁₉ × F₇, H_K = ⟨(2,
+4)⟩, 13 orbits, modelled 10^5.8 s, never run before).
+- The τ-exact row patterns give 170,118 allocation tokens.
+- A 1800 s pilot covered 72 of them with no level-1 instance.
+- A full pass at this rate would take about 4 · 10⁶ s. Without a per-allocation ranking the production is not worthwhile
+  (UNKNOWN).
+
+**Orders 4 · 941 · t beyond the tables** (an agent, from the symmetric Williamson-type matrices of order 235 of §95).
+- Eleven orders survive the closure (t = 11 to 53); four were checked densely: 41404, 48932, 63988, 71516.
+- They are recorded in [MIYAMOTO_BLOCKS.md](../hadamard/MIYAMOTO_BLOCKS.md#reach), not stored (3 to 70 GB for the stock
+  check).
+
+**Agent A** (algebraic constructions for the conference orders 262, 334, 478, 802 and the 9p + 1 family).
+- *Theorem A* (PROVED; re-derived here). Suppose a conference matrix of order gp + 1 is a g × g array of ℤ_p-circulants
+  and some block row lies in span{I, J, Q}. Then p ≤ g + 3. The proof: the I-coefficient of Σ_j B_ij² is Σ(γ_ij² +
+  pβ_ij²) = gp, with γ² ≤ 4 on J-type blocks and γ = 0 on the diagonal Q-type block. So for 9p + 1 with p ≥ 13 every
+  block row has a generic block. Verma's order-86 matrix has 42 of its 144 ℤ₇-blocks in that span.
+- *Two-orbit cyclic conference matrices* [[A, B], [Bᵀ, −A]] (CHECKED by the agent).
+  - The construction forces D = −A unless 2m − 1 is a square.
+  - For m ≤ 27 solutions exist exactly where 2m − 1 is a prime power (m = 3, 5, 7, 9, 13, 15, 19, 21, 27).
+  - None at m = 23 (order 46) with no multiplier.
+  - None at orders 262, 334, 478 and 802 with every odd multiplier group tried (478 with |H| = 7 not run).
+- *Local invariants.* The Hasse and Hermitian determinant conditions add nothing to the parity lemma of §73 at odd
+  primes (sketch).
+- *Regular s-sets.* No regular s-set Y_a = J − 2D_a, s ≥ 2, is group-developed over ℤ_g with g prime (PROVED).
+- *EKLO's Theorem 7 with k = 6, 8* (HEURISTIC, partial). No cyclic structure has both E ≥ 1 and pools under 2⁴⁰.
