@@ -362,6 +362,23 @@ symmetric Hadamard matrix of order 940 or Hadamard matrix of order 11292 was fou
 Seberry–Balonin's Corollary 1, so 940 is **Concurrent**, like the conference matrix itself; 11292 needs the Miyamoto
 blocks (or the repeated-block arrangement of [NOTES.md](NOTES.md) §7) on top of it and is **New**.
 
+**Orders 41404, 48932, 63988 and 71516** (checked on 25 October 2026): the blocks of 11292 with T-matrices of order 11,
+13, 17 and 19 (not stored here; certified and checked densely, [MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#reach)),
+n = 10351, 12233, 15997 and 17879. No table covers them: Table 1.53 of the Handbook stops at n = 9999 and
+Cati–Pasechnik's Table 4 at 2999. Paley I and II and Yamada–Kiyasu fail by number theory, Miyamoto needs a symmetric
+conference matrix of order n + 1 (impossible for n ≡ 3 mod 4, unknown to us otherwise), and the Paley-block route fails
+or needs T-matrices of order divisible by 941 ([MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#reach)). Cooper–Wallis
+needs Williamson-type matrices or T-matrices of order 941; the only Williamson-type matrices of order 941 we know are
+the repeated-block ones from the symmetric Williamson-type matrices of order 235, that is from the conference matrix of
+order 118. A closure of the known recursive theorems over the T-matrix orders we can build (Paley I and II,
+Williamson-type matrices and Cooper–Wallis with Yang and Golay T-sequences and Baumert–Hall factors, Paley and Miyamoto
+blocks, Miyamoto, Yamada, Yamada–Kiyasu in its real and complex form, 8q, doubling, with the orders of this repository
+and the objects of 2026) does not reach them. Not checked: SageMath's `hadamard_matrix(n, existence=True)` for these
+orders, and the literature after 25 October 2026. As for 11292, the matrices of order 235 need the conference matrix,
+Concurrent with Ho's, so the four orders are **New, beyond the tables**, not obtainable classically. The seven further
+orders 4 · 941 · t for t = 23 to 53 ([MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#reach)) are certified but not
+densely checked and are not claimed here.
+
 **Orders 2092, 3732, 4492, 5020 and 5932** (rechecked on 23 October 2026). The survey of Egan, Kotsireas, London and
 Ó Catháin (arXiv:2610.27175, 19 October 2026) states that 3732, 4492, 5020 and 5932 "were found by the present
 authors", by the Goethals–Seidel array with multiplier groups of orders 31, 33, 50 and 39, the groups our matrices use,

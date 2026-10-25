@@ -288,6 +288,46 @@ order 3 give [11292](11292) (n = 2823), and Seberry–Balonin's Corollary 1 give
 940 ([symmetric/940](../symmetric/940)). The repeated block also gives symmetric Williamson-type matrices of order
 941 = 4 · 235 + 1 (`cor29r`), hence Cooper–Wallis orders 941 · t.
 
+**Orders 4 · 941 · t.** The blocks of q = 941 with the symmetric Williamson-type matrices of order 235 take T-matrices
+of every order t and give Hadamard matrices of order 4 · 941 · t (n = 941t); t = 3 is [11292](11292). Of the odd t from
+5 to 53, t = 5, 7, 9, 15, 21, 25, 27, 29, 35, 37 and 49 give orders that Paley I or II or the Paley-block route reach
+already (checked), and t = 39, 45 and 51 have no T-matrices here. The other eleven give orders above Table 1.53 of the
+Handbook (n ≥ 10351 > 9999). Paley I and II, Miyamoto and Yamada–Kiyasu do not reach them, the Paley-block route fails
+or needs T-matrices of order 941 or a multiple of it, which are not known to us, and Cooper–Wallis reaches them only
+through the repeated-block matrices of order 941 above, that is through the same conference matrix of order 118. All
+eleven are certified by
+
+```
+python3 search/miyamoto_blocks.py certify 941 t 'wt:cor27c(233, "conference118_5fe566972f21790b.txt")' t-matrices/Tt.txt
+```
+
+(t = 13: built-in T-matrices, no file). We stopped at order 200000 (t = 53); T-matrices of order 55 and above give
+larger orders the same way, which we did not examine.
+
+| Order | n | t | T-matrices | SHA-256 of the matrix | Status |
+|------:|---|---:|---|---|---|
+| 41404 | 10351 = 11 · 941 | 11 | [T11](../t-matrices/T11.txt): Golay pair of length 10 | `68a4d200…` | H Hᵀ = 4nI checked |
+| 48932 | 12233 = 13 · 941 | 13 | built in (base sequences BS(7, 6)) | `096d5a5c…` | H Hᵀ = 4nI checked |
+| 63988 | 15997 = 17 · 941 | 17 | [T17](../t-matrices/T17.txt): Golay pair of length 16 | `e15b6cce…` | H Hᵀ = 4nI checked |
+| 71516 | 17879 = 19 · 941 | 19 | [T19](../t-matrices/T19.txt): `tmat_mult.py 19 7` | `fc3f3d9f…` | H Hᵀ = 4nI checked |
+| 86572 | 21643 = 23 · 941 | 23 | [T23](../t-matrices/T23.txt): SageMath | `d088897f…` | not densely checked |
+| 116684 | 29171 = 31 · 941 | 31 | [T31](../t-matrices/T31.txt): `tmat_mult.py 31 5` | `57700063…` | not densely checked |
+| 124212 | 31053 = 33 · 941 | 33 | [T33](../t-matrices/T33.txt): Golay pair of length 32 | `b82c4aac…` | not densely checked |
+| 154324 | 38581 = 41 · 941 | 41 | [T41](../t-matrices/T41.txt): `tmat_mult.py 41 10` | `877c7d91…` | not densely checked |
+| 161852 | 40463 = 43 · 941 | 43 | [T43](../t-matrices/T43.txt): `tmat_mult.py 43 6` | `403b581d…` | not densely checked |
+| 176908 | 44227 = 47 · 941 | 47 | [T47](../t-matrices/T47.txt): SageMath | `28735ed8…` | not densely checked |
+| 199492 | 49873 = 53 · 941 | 53 | [T53](../t-matrices/T53.txt): SageMath | `d9742c3a…` | not densely checked |
+
+The stock `certify` and `verify.py` assemble the matrix in int8 and need about 28n² bytes: 3.0 GB for 41404 and 70 GB
+for 199492. The first four were checked by running the stock checks (the four matrices of order 235, the T-matrices,
+`gram_is_scalar`, the SHA-256 of the canonical CSV) on a row-on-demand version of the Goethals–Seidel array, within
+3.5 GB (581 s to 5282 s on one core); its rows equal the stock builder's for t = 1, 3, 5 and 7, and it reproduces the
+SHA-256 of 11292. The other seven were certified by the same command, with the SHA-256 computed by streaming, but not
+checked densely: the Gram check costs about N³ operations (estimated 2.5 hours for 86572, more than 18 hours for 199492
+on one loaded core). For 86572 a second row generator reproduces the SHA-256 and finds all inner products among 1017
+random and boundary rows zero. None of the eleven is stored in this repository (the stock check of the smallest needs
+3 GB); the command above rebuilds each certificate.
+
 ## Status
 
 - Of the 11 orders of the first table with T-matrices of order 3, 5, 7 or 9, nine are **New, beyond the tables, but
@@ -309,10 +349,13 @@ order 3 give [11292](11292) (n = 2823), and Seberry–Balonin's Corollary 1 give
   (all but 3579, 5545 and 5965, that is q = 1109 and 1193) Cooper–Wallis also works once the corollary is used with a
   repeated block (above). SageMath 10.8 (passagemath 10.8.13) returns Unknown for nine of them and raises UnknownError
   in its Miyamoto test for the other seven.
-- SageMath's development version (17 October 2026) constructs none of the 19 orders of the first and last tables.
-  It returns Unknown for 14 and raises UnknownError in its Miyamoto test for 12260, 33380, 35780, 38660 and 39348
-  (no symmetric conference matrix of order n + 1 is known to it; with that Unknown treated as False it returns
-  Unknown).
+- 41404, 48932, 63988 and 71516 (not stored; q = 941, T-matrices of order 11, 13, 17 and 19) are **New, beyond the
+  tables**: n = 941t lies above Table 1.53, and the symmetric Williamson-type matrices of order 235 need the conference
+  matrix of order 118, Concurrent with J. Y. Z. Ho's ([11292](11292)), so the orders are not obtainable classically. The
+  seven further orders of the table in [Reach](#reach) are certified, not densely checked.
+- SageMath's development version (October 17, 2026) constructs none of the 19 orders of the first two tables. It
+  returns Unknown for 14 and raises UnknownError in its Miyamoto test for 12260, 33380, 35780, 38660 and 39348 (no
+  symmetric conference matrix of order n + 1 is known to it; with that Unknown treated as False it returns Unknown).
 
 The sources searched are listed in [NOVELTY.md](../NOVELTY.md).
 

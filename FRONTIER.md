@@ -98,6 +98,10 @@ one applies:
   Kharaghani et al. define those for odd w only) or a negaperiodic Golay pair of length 2w. Not listed in the table;
   the open cases are 2571 (w = 214) and 2677 (q = 2677, t = 1, which needs a Hadamard matrix of order 2676 = 4 · 669);
   2823 (w = 235) is settled ([hadamard/11292](hadamard/11292)).
+- Belevitch's doubling: a symmetric conference matrix of order 2n, possible only when 2n − 1 is a sum of two squares
+  (39 of the n below). Not listed in the table; the structure ℤ_p × AG(2, 3) of the conference matrix of order 118 fits
+  six of them, 2n − 1 = 9p with p = 229, 293, 317, 349, 397, 653 (n = 1031, 1319, 1427, 1571, 1787, 2939;
+  [search/NOTES.md](search/NOTES.md) §100).
 
 | 4n | n | GS: \|H\| | cosets | classes | log₁₀ E | log₁₀ W | Spence: group | log₁₀ W | Route |
 |---:|---:|---:|---:|---:|---:|---:|---|---:|---|
