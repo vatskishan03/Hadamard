@@ -19,6 +19,7 @@ Entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard mat
 | [3356](3356) | 839 | bordered Goethals–Seidel array over ℤ₄ × ℤ₄ × ℤ₄ × ℤ₁₃ with a subgroup of index 8 and a border of size 28, symmetry group of order 21 |
 | [3436](3436) | 859 | quaternary conference matrix of order 430 (zero-diagonal Szöllősi array over ℤ₂₁₅, multiplier subgroup of order 6) in the complex Yamada–Kiyasu template (q = 857), then Turyn's doubling |
 | [3732](3732) | 933 = 3 · 311 | Goethals–Seidel over ℤ₃ × GF(311), multiplier subgroup of order 31; the matrix is skew |
+| [3820](3820) | 955 = 5 · 191 | quaternary conference matrix of order 478 (zero-diagonal Szöllősi array over ℤ₂³ × ℤ₂₉ with a border of the seven nontrivial characters of ℤ₂³, symmetry group of order 7) in the complex Yamada–Kiyasu template (q = 953), then Turyn's doubling |
 | [3964](3964) | 991 | bordered Goethals–Seidel array over ℤ₂ × ℤ₂ × ℤ₂₄₇ with a border of size 12, symmetry group of order 27 |
 | [4204](4204) | 1051 | quaternary conference matrix of order 526 (bordered zero-diagonal Szöllősi array over ℤ₂₆₂, multiplier subgroup of order 5) in the complex Yamada–Kiyasu template (q = 1049), then Turyn's doubling |
 | [4492](4492) | 1123 | Goethals–Seidel over ℤ₁₁₂₃, multiplier subgroup of order 33 |
@@ -51,7 +52,7 @@ it also follows, by Turyn's doubling, from the quaternary Hadamard matrix of ord
 2010 through Seberry–Yamada's Corollary 8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7). 2092, 3732,
 4492, 5020 and 5932 are Concurrent, with Cooley's Middletownbooks/Hadamard (2092, 3732) and with Egan, Kotsireas, London
 and Ó Catháin, arXiv:2610.27175 (3732, 4492, 5020, 5932); our 3732 is also skew, which neither of the others is stated
-to be ([NOVELTY.md](../NOVELTY.md)). The other eleven are New; 6108, 7532 and 10180 use the near-Williamson matrices of
+to be ([NOVELTY.md](../NOVELTY.md)). The other twelve are New; 6108, 7532 and 10180 use the near-Williamson matrices of
 2026, and 11292 a symmetric conference matrix of order 118 found here, Concurrent with J. Y. Z. Ho's
 ([symmetric/940](../symmetric/940)).
 

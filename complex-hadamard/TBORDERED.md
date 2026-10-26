@@ -101,6 +101,18 @@ for every ℤ₆ compression tuple we gave it.
 that for the complex array a border made of single characters is contradictory. The border here is not a character
 ansatz: the rows of R̂ and the columns of Ĉ are arbitrary quaternary vectors in V_T, and Xb is determined by them.
 
+## Zero-diagonal form: quaternary conference matrices
+
+Keep the statement, but let A(0) = B(0) = 0 (A, B symmetric, ±1 elsewhere) and require Xb to be a quaternary
+conference matrix of order 2t (one zero in each row and column). Condition 2 is unchanged; at g = 0 it now reads
+Σ_k PAF_k(0) = 4m − 2. Then K = [[Xb, R], [R′, Kc]] is a quaternary conference matrix of order 2N: zero diagonal
+(after a permutation), units elsewhere, K K* = (2N − 1) I. The proof is the one above with 4N and 4t replaced by
+4N − 2 and 4t − 2: M = (2N − 1) I − 2m P, Mc* Mc = 2t − 1 on V_T, so Xb Xb* = (2t − 1) I, and the cross terms cancel as
+before. For t = 1 this is the bordered zero-diagonal array of [hadamard/4204](../hadamard/4204). With Q = ℤ₂³, T its
+seven nontrivial characters and G = ℤ₂³ × ℤ₂₉ it gives the conference matrix of order 478 behind
+[hadamard/3820](../hadamard/3820) and [C1910.json](C1910.json); `verify/verify.py` checks all the conditions
+(`_szollosi_zero_diagonal_core`, field `character_border`).
+
 ## Verification
 
 `python3 search/tbsz.py test` lists every core on ℤ₈ and ℤ₂ × ℤ₄ (N = 11) and ℤ₁₂ (N = 15) with Q = ℤ₄ and

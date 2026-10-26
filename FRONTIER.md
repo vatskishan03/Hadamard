@@ -1,7 +1,7 @@
 # Unresolved orders
 
-Table 4 of Cati and Pasechnik lists 195 odd n ≤ 2999 for which no Hadamard matrix of order 4n was known in 2025. 74
-of them are settled now, and the 121 that remain are listed below with the cheapest search structures known for each.
+Table 4 of Cati and Pasechnik lists 195 odd n ≤ 2999 for which no Hadamard matrix of order 4n was known in 2025. 75
+of them are settled now, and the 120 that remain are listed below with the cheapest search structures known for each.
 The smallest is n = 599, order 2396.
 
 Settled:
@@ -16,10 +16,11 @@ Settled:
   their Theorem 7 over ℤ₂² × F₁₉², with a border);
 - 2 by the GitHub repository Middletownbooks/Hadamard: n = 573 (order 2292, 9 October 2026; our independent matrix is
   [hadamard/2292](hadamard/2292)) and n = 647 (order 2588, 14 October 2026);
-- 33 in this repository:
-  - n = 523, 537, 571, 643, 659, 839, 859, 933, 991, 1051, 1123, 1255, 1483, 1699 and 2293 by searches and recursive
-    theorems (orders [2092](hadamard/2092), [2148](hadamard/2148), [2284](hadamard/2284), [2572](hadamard/2572),
-    [2636](hadamard/2636), [3356](hadamard/3356), [3436](hadamard/3436), [3732](hadamard/3732), [3964](hadamard/3964),
+- 34 in this repository:
+  - n = 523, 537, 571, 643, 659, 839, 859, 933, 955, 991, 1051, 1123, 1255, 1483, 1699 and 2293 by searches and
+    recursive theorems (orders [2092](hadamard/2092), [2148](hadamard/2148), [2284](hadamard/2284),
+    [2572](hadamard/2572), [2636](hadamard/2636), [3356](hadamard/3356), [3436](hadamard/3436), [3732](hadamard/3732),
+    [3820](hadamard/3820), [3964](hadamard/3964),
     [4204](hadamard/4204), [4492](hadamard/4492), [5020](hadamard/5020), [5932](hadamard/5932),
     [6796](hadamard/6796) and [9172](hadamard/9172)); concurrently with others: 571 (Zaitsev et al.), 523 (Cooley,
     Middletownbooks/Hadamard), 933 (Cooley, and Egan et al.), 1123, 1255 and 1483 (Egan et al.);
@@ -90,8 +91,8 @@ one applies:
 - Yamada: a symmetric conference matrix of order (n + 1)/2, which cannot exist when (n − 1)/2 is not a sum of two
   squares.
 - complex Yamada–Kiyasu: a quaternary conference matrix of order (n + 1)/2 (zero diagonal, entries ±1, ±i elsewhere),
-  when n − 2 is a prime power ≡ 1 (mod 4) (the builder takes primes). It has no sum-of-two-squares condition; it
-  settled 643, 859, 1051 and 1699 ([hadamard/2572](hadamard/2572), [hadamard/3436](hadamard/3436),
+  when n − 2 is a prime power. It has no sum-of-two-squares condition; it settled 643, 859, 955, 1051 and 1699
+  ([hadamard/2572](hadamard/2572), [hadamard/3436](hadamard/3436), [hadamard/3820](hadamard/3820),
   [hadamard/4204](hadamard/4204), [hadamard/6796](hadamard/6796), [NOTES.md](NOTES.md) §31, §34).
 - Cooper–Wallis: Williamson-type matrices of order w, for n = t·w with T-matrices of order t known. Listed for w = 191
   (t = 5, 9, 15), where neither T-matrices of order 191 nor near-Williamson matrices of order 191 with a multiplier
@@ -115,9 +116,8 @@ one applies:
 | 2956 | 739 | 9 | 83 | 41 | 33.5 | 22.7 | ℤ2 × ℤ3xℤ3 × ℤ41 | 42.4 |  |
 | 3004 | 751 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ5xℤ5xℤ5 | 46.0 |  |
 | 3452 | 863 | – | – | – | – | – | – | – |  |
-| 3628 | 907 | – | – | – | – | – | ℤ₂ × ℤ₃ × ℤ₁₅₁ | 33.3 |  |
-| 3788 | 947 | – | – | – | – | – | ℤ₂ × ℤ₁₁ × ℤ₄₃ | 37.4 |  |
-| 3820 | 955 | 19 | 55 | 27 | 2.9 | 28.8 | ℤ₂ × ℤ₃ × ℤ₃ × ℤ₅₃ | 52.8 | Yamada from a symmetric conference matrix of order 478 (or a quaternary one, complex Yamada–Kiyasu); Cooper–Wallis from Williamson-type matrices of order 191 |
+| 3628 | 907 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ151 | 33.3 |  |
+| 3788 | 947 | – | – | – | – | – | ℤ2 × ℤ11 × ℤ43 | 37.4 |  |
 | 3884 | 971 | – | – | – | – | – | – | – |  |
 | 4076 | 1019 | – | – | – | – | – | – | – |  |
 | 4124 | 1031 | – | – | – | – | – | ℤ₂ × ℤ₅ × ℤ₁₀₃ | 40.8 |  |

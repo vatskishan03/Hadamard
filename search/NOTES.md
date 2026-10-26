@@ -6893,3 +6893,74 @@ to any index and to levels given by arbitrary H-invariant subgroups (explicit co
 
 **Conference matrices of order 9p + 1** (§96). `bipcyc3` (the cyclic bipartite flag ansatz) is exhaustively empty at
 p = 37, for both sign conventions (3.5 · 10⁶ candidates, 3.9 · 10⁵ survivors, no canonical row). The run for p = 41 was not finished.
+
+## 103. Round 49: Spence over Galois rings; the conference matrix of order 478 and order 3820 (n = 955) (October 26)
+
+Scratchpad `r48/spgr`, `r49/`.
+
+**Spence's construction and index 2 over richer 2-parts** (`r48/spgr`; exact ladders CHECKED, estimates HEURISTIC).
+The 3356 mechanism (§102) was tried on Spence's construction (K = G, Σ PAF = −4 off 0, row sums (±2, 0, 0, 0)) and on
+Theorem 7 with k = 2, for the 19 unresolved n ≡ 1 (mod 4).
+- *Coverage.* Every partition of the 2-part (Galois rings, ℤ₄³, ℤ₈², …) and every multiplier group up to 110 orbits;
+  5129 distinct structures with 20 to 64 orbits.
+- *Result.* No structure with at most 64 orbits survives the exact quotient ladder. Almost all die at the quotient of
+  index 2. Spence prescribes no order-2 character sum, so the four sums dᵢ must satisfy Σ dᵢ² = 4n inside exact
+  orbit-weight sumsets, which become too sparse once |H| ≳ 20, and 64 orbits force |H| ≥ v/63.
+  - At n = 3356, by contrast, the coset-sum pattern prescribes these sums.
+  - The named lead n = 1473, G = GR(4, 3) × ℤ₂₃ with H = T₇ × ⟨2⟩ (30 orbits, 15 classes), is exactly empty at the
+    quotient ℤ₂³ (congruence mod 11).
+  - Survivors exist only at 104 to 108 orbits (1257 over ℤ₈ × ℤ₁₅₇, 1169 over ℤ₁₆ × ℤ₇₃), with log₁₀ W ≥ 38.
+- *Validation.* The ladder never killed one of the 34 small structures with solutions (958 cases with exact counts,
+  v ≤ 160), and the real Spence solution of 2292 passes it.
+
+**The quaternary conference matrix of order 478** ([hadamard/3820](../hadamard/3820),
+[complex-hadamard/C1910.json](../complex-hadamard/C1910.json), [tbcore](tbcore/README.md)). An ideation round (five
+lenses, each proposal tried by an adversarial judge) moved the Singer mechanism of 3356 to the complex Yamada–Kiyasu
+cores.
+- *Structure.* The zero-diagonal Szöllősi array with a border of characters (the zero-diagonal form of
+  [complex-hadamard/TBORDERED.md](../complex-hadamard/TBORDERED.md)) over G = ℤ₂³ × ℤ₂₉, N = 232 + 7 = 239.
+  - K₀ = 0 × ℤ₂₉, T the seven nontrivial characters of ℤ₂³, Σ PAF = −28 on K₀ \ 0 and +4 off K₀.
+  - H = ⟨(τ, ×16)⟩ of order 7, τ a Singer cycle of ℤ₂³ (29 ≡ 1 mod 7 allows the pairing). 34 orbits, 18 classes.
+  - The Singer action forces spike compressions. Of the two row-sum patterns only (21, 21, 6, 6) has a border invariant
+    under τ: 28,812 seed quadruples, with Xb a quaternary conference matrix of order 14. The other, (7, 21, 8, 20), has
+    none.
+- *Search.* The ℤ₂₉ level gives 3316 tuples (total weight 10^22.1). For one of them, A and B were enumerated (882 each),
+  C and D sampled (4 · 10⁵ from fibres of 5.9 · 10⁶ and 3.0 · 10⁶), and an exact join over 1.2 · 10¹⁷ combinations gave
+  two solutions in about four minutes.
+  - The conditioned Gaussian estimate, 10^5.3 solutions for the pattern, matched the measured hit rate to 10 %.
+  - The program `search/tbcore` regenerates both solutions bit for bit (seeded).
+- *Chain and verification.* The core gives a conference matrix of order 478 with K K* = 477 I. Complex Yamada–Kiyasu
+  with q = 953 gives a quaternary Hadamard matrix of order 1910, open on Zaitsev et al.'s list, and Turyn's doubling
+  gives H(3820), n = 955.
+  - `verify/verify.py` now checks cores with a character border (field `character_border`). The old verifier and the
+    new one agree on 185 certificates and on all 95 earlier complex certificates.
+  - The matrix passes `check_matrix` (0 violations) and an independent Gram check.
+- *Plain array.* The plain (non-zero-diagonal) array over the same group would give a complex Hadamard matrix of order
+  478, also open.
+  - Cores exist: 2 or 3 per first join for each of the four row-sum patterns.
+  - No border invariant under τ exists for any of the 32 sign variants. Two programs agree, and the same code finds 1176
+    borders for the zero-diagonal compressions. So 478 stays open; general borders were not tried.
+
+**What the judges killed** (each with its own computation, HEURISTIC unless marked).
+- *Partial character sets.* Q = ℤ₉ → ℤ₃ for 669: a Parseval wall at G/ℤ₃₇, PROVED. t = 5 over ℤ₂³ or F₁₆ (borders
+  exist): E ≤ 10⁻¹¹. Q = ℤ₂² × ℤ₃, t = 9, n ≡ 9 (mod 12) (§18): 1893 exactly empty; the others ≤ 10^−3.8.
+- *Other cores and recursion.*
+  - Complex cores with Q = ℤ₂², t = 3: dead at 955, 1291 and 2731; 10^−7.7 at 2971.
+  - Recursive closure: no unresolved order is reachable with the objects now known. The 31 composite n depend on 22
+    prime-order objects T(p) or WT(p); T(631) with d = 3 is the only one worth a pilot.
+  - LP(1893): impossible for |H| ≥ 14 (quotient ℤ₃).
+  - Reversible doubly regular tournaments (Lemma 26 with a T-lift): none at n₀ = 15.
+- *Larger structures.*
+  - 1223, the 70-orbit analogue of 3356 over GR(4, 3) × ℤ₁₉: about 10^15 solutions, but heavy-leaf fibres of
+    10^7.2–7.6 per block and a yield of 10^−4.1 per leaf. Infeasible.
+  - 1039 with 70 and 94 orbits: lists beyond any join.
+  - 2503 over ℤ₂² × F₂₅ × F₂₅: exactly empty, PROVED.
+  - 1103 over ℤ₂² × F₂₅ × ℤ₁₁ with a Singer element of order 3 on F₂₅ (110 orbits): log₁₀ W ≈ 47.
+- *Bordered arrays over ℤ₄ʳ with partial Teichmüller character sets* (T = {1} plus orbits of order-4 characters):
+  - 599 over ℤ₄² × ℤ₃₇ (t = 7, 70 orbits, 10^24.6): no border in any symmetric class tested.
+  - 669 over ℤ₄² × ℤ₄₁ (t = 13, the group of 2636): exactly empty at the first quotient.
+  - 719 and 739 over ℤ₄³ × ℤ₁₁: dead.
+  - The rule kept from this: test the border and the level-1 join over Q before any ladder.
+- *Screens worth keeping.* (a) If H is transitive on the nonzero points of a field block F_q, compress to it: the
+  compressions are two-valued (sᵢ, cᵢ) and the system reduces to Σ (sᵢ² + (q − 1)cᵢ²) = 4n. (b) For Legendre pairs of
+  length 3p, compress to ℤ₃ first. (c) A minimum-energy (Parseval) check at every quotient.

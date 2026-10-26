@@ -23,9 +23,12 @@ Ch[i q + phi(g), b].
 Certificates with construction "miyamoto-completion" give q, a primitive root g and an input file: the completion
 of Seberry-Yamada's Corollary 8.8(i) (completion_build, NOTES.md section 19).
 
-Certificates with construction "paley" give a prime power q = p^k = 3 (mod 4) (fields "q", "p", "k", and "poly" for
-k > 1) and the order (q + 1)/2: the quaternary matrix obtained from Paley's skew Hadamard matrix of order q + 1 and
-the signed permutation u -> -1/u that commutes with it (paley_build, complex-hadamard/PALEY.md).
+Certificates with construction "complex-yamada-kiyasu" give a prime q = 1 (mod 4), Yamada's parameters r, xi and a
+quaternary conference matrix of order (q + 3)/2 as the four sequences of a zero-diagonal Szollosi array, plain, with a
+single-unit border or with a character border (a quotient map, a set of characters of the quotient and the border
+matrices: the zero-diagonal analogue of complex-hadamard/TBORDERED.md); K of order 2(q + 2) is built by verify/verify.py
+(complex_yamada_kiyasu, NOTES.md section 31), which also builds the Hadamard matrices of order 4(q + 2) in hadamard/
+from the same data.
 
 Certificates with construction "complex-yamada-kiyasu" give a prime q = 1 (mod 4), Yamada's parameters r and xi and,
 under "core", a quaternary conference matrix of order (q + 3)/2 as the four sequences of a zero-diagonal Szöllősi
