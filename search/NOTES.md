@@ -6958,6 +6958,16 @@ exact computation, estimates HEURISTIC). The 955 mechanism was tried on every FR
   - Rule: rank structures by E divided by the number of images of a solution under the normalizer of H, not by E.
   - Procedure kept: a core of odd |G| with t = 1 must be certified through `character_border` with quotient "1"
     (checked on ℤ₉ and ℤ₁₃); the single-unit `border` field needs |G| even.
+- *What the template needs of q* (PROVED from the proof of `build_complex_yamada_kiyasu`; CHECKED numerically at
+  q = 13 with non-symmetric M, N). The field enters only through Yamada's circulants M, N of order n₀ = (q + 1)/2, and
+  the proof uses only M (zero diagonal) and N with entries ±1, M Mᵀ + N Nᵀ = qI and M Nᵀ = N Mᵀ; no symmetry, no
+  circulant structure, no primality. These conditions say exactly that [[M, N], [N, −M]] is a conference matrix of
+  order n − 1. So the route reaches an odd n precisely when (i) a quaternary conference matrix of order (n + 1)/2 and
+  (ii) a conference matrix of order n − 1 of this block form exist. By Belevitch (ii) needs n − 2 to be a sum of two
+  squares. Among the FRONTIER n this holds for the prime cases above and for 33 composite n − 2 (907, 1019, 1039, …,
+  2999), and no conference matrix of any of the orders n − 1 is known. Among the open complex orders, Mathon's
+  conference matrix of order 442 would serve 886, if it has this block form and a quaternary conference matrix of
+  order 222 exists.
 
 **Dihedral Golay sequences** (`r51/dcs`; Kamali and Kharaghani, Australas. J. Combin. 18 (1998) 139–145). A pair
 (a, b) of sequences over D = {±1, ±i, ±s, ±is} (s² = 1, is = −si) is a DCS if f_a, f_b, f_a*, f_b* commute and
