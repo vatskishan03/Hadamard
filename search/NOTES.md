@@ -6964,3 +6964,78 @@ cores.
 - *Screens worth keeping.* (a) If H is transitive on the nonzero points of a field block F_q, compress to it: the
   compressions are two-valued (sᵢ, cᵢ) and the system reduces to Σ (sᵢ² + (q − 1)cᵢ²) = 4n. (b) For Legendre pairs of
   length 3p, compress to ℤ₃ first. (c) A minimum-energy (Parseval) check at every quotient.
+
+## 104. Round 50–51: the remaining complex Yamada–Kiyasu targets; dihedral Golay sequences (October 26–27)
+
+Scratchpad `r50/cyk`, `r50/cyk_even`, `r51/dcs`.
+
+**Cores for the complex Yamada–Kiyasu targets** (the zero-diagonal character-bordered array of §103; kills CHECKED by
+exact computation, estimates HEURISTIC). The 955 mechanism was tried on every FRONTIER n with n − 2 a prime ≡ 1 (mod 4).
+- *Validation.* No structure with solutions was declared dead on 185 small cases (N = 7 to 19, t ≤ 7) and on 1005
+  further small cyclic and non-cyclic ones (61 + 10 with solutions); the 955 structure is re-derived (10^5.3) and the
+  certificates of 3820, 4204 and 6796 pass every level.
+- *n = 1291, 2731, 2971* (N = 323, 683, 743; 1789, 1190 and 10,495 structures over every abelian 2-part, Galois rings
+  included, every odd-order Levi automorphism and every unit tuple of the odd part). Dead within 6 to 120 orbits:
+  - almost all die at an invariant quotient by the exact Parseval identity Σ_y Σ_k s_k(y)² = ((r − τ)(4N − 2) +
+    τ(4t − 2))/r (r the quotient order, τ the number of its points under K₀); the rest by exact joins or row sums;
+  - the closest are 1291 over ℤ₈² × ℤ₅ = GR(8, 2) × ℤ₅ with a Teichmüller element of order 3 (20 classes, 10^−3.7)
+    and 2731, 2971 at 10^−17 and 10^−22.
+- *The pairing rule* (CHECKED on all three). The Singer element of order h = 2^a − 1 on Q must be paired with an element
+  of order h in the units of an odd prime p | m, p ≡ 1 (mod h) (29 ≡ 1 mod 7 at 955), so that H has no short orbits on
+  any quotient. For 1291 and 2731 (h = 3; p = 5, 17) and 2971 (h = 7, p = 23) no such p exists, and a pure Singer
+  element dies at once: at 2971 every fibre of ℤ₂ × ℤ₄₆ has |s| ≥ 6, energy ≥ 13,248 > 2970.
+- *n = 1879, 2215, 2383* (q ≡ 5 mod 8; even N = 470, 554, 596; about 31,000 structures, t ≤ 15). Dead within 15 to 64
+  orbits. For 2383, t = 0 and t = 1 are PROVED dead for every H with 6 to 200 orbits (row-sum DP). For even N no Singer
+  quotient exists at all (p^k | N + 1 = 471, 555, 597 is impossible, PROVED).
+  - The one family with E > 1 is t = 1 over ℤ₇ × ℤ₆₇ (1879) and ℤ₇ × ℤ₇₉ (2215), from 69 and 81 orbits upwards.
+  - A production agent re-derived the 69-orbit structure (|H| = 9, row sums (0, 0, ±1, ±1), 496 level-1 tuples over ℤ₇,
+    border CHECKED) and estimated about 0.03 inequivalent solutions (E ≈ 10^1.3 against 704 images), with fibres of
+    10^8.5 and 10^17.2 per tuple and no finer quotient. Not searched.
+  - Rule: rank structures by E divided by the number of images of a solution under the normalizer of H, not by E.
+  - Procedure kept: a core of odd |G| with t = 1 must be certified through `character_border` with quotient "1"
+    (checked on ℤ₉ and ℤ₁₃); the single-unit `border` field needs |G| even.
+- *What the template needs of q* (PROVED from the proof of `build_complex_yamada_kiyasu`; CHECKED numerically at
+  q = 13 with non-symmetric M, N). The field enters only through Yamada's circulants M, N of order n₀ = (q + 1)/2, and
+  the proof uses only M (zero diagonal) and N with entries ±1, M Mᵀ + N Nᵀ = qI and M Nᵀ = N Mᵀ; no symmetry, no
+  circulant structure, no primality. These conditions say exactly that [[M, N], [N, −M]] is a conference matrix of
+  order n − 1. So the route reaches an odd n precisely when (i) a quaternary conference matrix of order (n + 1)/2 and
+  (ii) a conference matrix of order n − 1 of this block form exist. By Belevitch (ii) needs n − 2 to be a sum of two
+  squares. Among the FRONTIER n this holds for the prime cases above and for 33 composite n − 2 (907, 1019, 1039, …,
+  2999), and no conference matrix of any of the orders n − 1 is known. Among the open complex orders, Mathon's
+  conference matrix of order 442 would serve 886, if it has this block form and a quaternary conference matrix of
+  order 222 exists.
+
+**Dihedral Golay sequences** (`r51/dcs`; Kamali and Kharaghani, Australas. J. Combin. 18 (1998) 139–145). A pair
+(a, b) of sequences over D = {±1, ±i, ±s, ±is} (s² = 1, is = −si) is a DCS if f_a, f_b, f_a*, f_b* commute and
+f_a f_a* + f_b f_b* = 2n. Their Corollary 9 gives H(8(g₁g + g₂)) for Golay lengths g₁, g₂ and a DCS length g free of ±is
+(they had 7, 9 and 15; 19 has ±is). Since 599 = 26 · 23 + 1, a DCS of length 23 would give 4792 = 8 · 599.
+- *Reduction* (PROVED). In the 2 × 2 real model (1, i, s ↦ I, J, S; the involution is the transpose), F_x F_y = F_y F_x
+  iff i_x s_y = s_x i_y as polynomials, i and s the components. So in a DCS free of ±is one sequence is real and the
+  other is b = r + i·ι + s·s (supports partitioning [0, n)), and the conditions are exactly
+  N_a + N_r + N_i + N_s = 2n δ, C_{r,i} symmetric, C_{r,s} and C_{i,s} antisymmetric (C the aperiodic
+  crosscorrelation). The commutation of f_b and f_b* follows from the others. The ε-palindromic ansatz (r and i
+  ε-palindromic, s (−ε)-palindromic) satisfies the three crosscorrelation conditions identically, and then a DCS is a
+  quadruple (a, a, r + i + s, r − i + s) of complementary ±1 sequences. A generic DCS is overdetermined by about 200
+  bits at n = 23, so structure is needed.
+- *Periodic analogue* (PROVED). For D-circulants over an abelian group, symmetric and skew functions have vanishing
+  symmetrised crosscorrelation, so a dihedral periodic complementary pair is exactly a Goethals–Seidel quadruple
+  (a, a, x₁, x₂): the dihedral signed group gives nothing new for 4p. Its only lever is Lemma 3 (DCS × Golay).
+- *Exhaustive search of the ansatz* (`dcs.c`, meet in the middle on N_a; every solution re-checked by an independent
+  2 × 2-matrix checker of commutation and complementarity). Solutions up to the signs of u and i, a up to negation:
+  n = 3: 2, 5: 4 (ε = −1), 7: 24, 9: 16 (ε = −1), 11: 4, 13: 8 + 4 (ε = −1), 15: 8, 17 to 23: none, 25: 16 (ε = −1),
+  27: none. For n = 23, 2n = 46 is not a sum of two squares, which forces ε = +1, and that case is empty: **no DCS of
+  length 23 of this kind**, so the route to 4792 through g = 23 is closed. Length 25 is new to our knowledge (it is not
+  a complex Golay length; Bright et al. 2019 exclude complex Golay pairs of length 25); it improves no entry of Table 4.
+- *The construction checked* (CHECKED). Our DCS(7) through Lemma 3, Theorem 7 (concatenation with a Golay pair), the
+  Craigen–Goethals–Seidel array of their Lemma 2 and the 2 × 2 representation times I ⊗ [[1, 1], [1, −1]] (their
+  Lemma 1) gives H H^T = nI exactly for 8(7 + g) with g = 1, 2, 10, 26 and for **6712 = 8 · (7 + 2⁵ · 26)** and **8248 =
+  8 · (7 + 2¹⁰)** (dense float32 products, exact below 2²⁴; SHA-256 of the CSVs a09c3ddc… and a90312bd…). These two
+  orders were already Known (§102, and the Hadamard Matrix Explorer posts matrices of both); the computation confirms
+  Kamali and Kharaghani's construction. With Lemma 3 (DCS × Golay, also checked as a DCS for g₁ ≤ 26) it gives
+  14344 = 8 · (2⁸ · 7 + 1) as well (`search/dcs`).
+- *Table 4* (Cati–Pasechnik) does not use Corollary 9. Within its range it lowers 17 entries n(m):
+  491(5→4), 839(4→3), 1031(6→3), 1223(6→5), 1439(8→5), 1571(7→5), 1793(4→3), 1795(5→4), 2039(7→5), 2063(7→3),
+  2087(4→3), 2287(7→6), 2371(6→4), 2543(6→5), 2677(6→4), 2879(7→5), 2913(6→3), with 2^{m−3}n = g₁g + g₂, for example
+  1223: 4 · 1223 = 26² · 7 + 160 and 2063 = 15 + 2¹¹. Kamali and Kharaghani's Table 1 lists thirteen of them. It lists
+  only improvements on Craigen's 1996 table, so the other four (1223, 1439, 2543, 2879) may have been known otherwise;
+  either way Table 4's values for them are not the least known.
