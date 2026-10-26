@@ -3,7 +3,7 @@
 The programs behind the paragraph "The orders 8p" of [../NOTES.md](../NOTES.md) §92. Egan, Kotsireas, London and Ó Catháin list six open orders 8p up to 10 000 ([../../FRONTIER.md](../../FRONTIER.md), "Orders 8p"):
 p = 599, 719, 739, 839, 1031, 1087, that is n = 2p = 1198, 1438, 1478, 1678, 2062, 2174 and the orders 4n = 4792, 5752, 5912, 6712, 8248, 8696. A Hadamard matrix of order 4n is a Goethals–Seidel array over a group of order n,
 or Spence's bordered array over a group of order n − 1 = 2p − 1 (odd for every p), or a bordered array over a group of order n − t, or a recursive construction. All of them were searched or decided
-as far as the tools below reach; **no matrix of any of the six orders was found, and none is claimed.** The labels are those of the repository: EXHAUSTIVE (a complete search of a stated class, validated against an
+as far as the tools below reach; **no matrix of any of the six orders was found, and none is claimed.** (Three of the six were in fact known: 8696 through Seberry–Yamada's key wi, and 6712 and 8248 through Kamali and Kharaghani's dihedral Golay sequences of 1998; see [../../FRONTIER.md](../../FRONTIER.md).) The labels are those of the repository: EXHAUSTIVE (a complete search of a stated class, validated against an
 independent brute force), EXACT (a proof or an exact computation), VALIDATED, HEURISTIC, UNKNOWN.
 
 ## What was searched

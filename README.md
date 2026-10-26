@@ -8,7 +8,7 @@ arithmetic.
 A Hadamard matrix of order n is an n × n matrix H with entries ±1 and H Hᵀ = n I. It can exist only for n = 1, 2 or
 n ≡ 0 (mod 4), and the Hadamard conjecture asserts that it exists for every multiple of 4. In August 2026 Alpöge,
 Voinov and Reynolds-Haertle constructed the twelve unresolved orders below 2000 [1], and Schneider constructed 2060 [2].
-This repository constructs 32 of the orders that Table 4 of Cati and Pasechnik [3] lists as unresolved, from 2092 to
+This repository constructs 33 of the orders that Table 4 of Cati and Pasechnik [3] lists as unresolved, from 2092 to
 11804. Six of them were found concurrently by other groups: 2092 by Cooley [16], 2284 by Zaitsev et al. [13], and 3732,
 4492, 5020 and 5932 by Egan, Kotsireas, London and Ó Catháin [18] (3732 also by Cooley). Our matrix of order 2292
 turned out to have been preceded by an independent one [16]. The smallest unresolved order is now 2396 = 4 · 599 ([FRONTIER.md](FRONTIER.md)).
@@ -27,7 +27,7 @@ give a theorem: a skew-Hadamard matrix of order 3(q + 1) exists for every prime 
 
 | Family | Orders | Status |
 |---|---|---|
-| Hadamard, unresolved in Table 4 [3] | [32](#unresolved-orders) | 10 New, 14 New but obtainable classically, 2 First explicit construction, 6 Concurrent |
+| Hadamard, unresolved in Table 4 [3] | [33](#unresolved-orders) | 11 New, 14 New but obtainable classically, 2 First explicit construction, 6 Concurrent |
 | Hadamard, omitted by Table 4 through Seberry–Yamada's Corollary 8.8(i) | [11](hadamard#orders-recorded-only-through-corollary-88i) | First explicit construction |
 | Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 New, 124 New but obtainable classically, 49 First explicit construction |
 | Skew-Hadamard (476 to 14384) | [111](skew) | 47 New, 62 New but obtainable classically, 2 First explicit construction |
@@ -76,6 +76,7 @@ For each order 4n, n is listed as unresolved in Table 4 of Cati and Pasechnik [3
 | [2572](hadamard/2572) | 643 | quaternary conference matrix of order 322 (zero-diagonal Szöllősi array over ℤ₁₆₁ = F₇ × ℤ₂₃, a Paley plug-in, multiplier subgroup of order 3), complex Yamada–Kiyasu template (q = 641), Turyn's doubling | New |
 | [2636](hadamard/2636) | 659 | bordered Goethals–Seidel array over ℤ₄ × ℤ₄ × ℤ₄₁, border of size 12 | New |
 | [3156](hadamard/3156) | 789 = 3 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks [14], T-matrices of order 3 [15] | New, but obtainable classically |
+| [3356](hadamard/3356) | 839 | bordered Goethals–Seidel array over ℤ₄ × ℤ₄ × ℤ₄ × ℤ₁₃ (Galois ring GR(4, 3) × ℤ₁₃), subgroup of index 8, border of size 28 | New |
 | [3436](hadamard/3436) | 859 | quaternary conference matrix of order 430 (zero-diagonal Szöllősi array over ℤ₂₁₅, multiplier subgroup of order 6), complex Yamada–Kiyasu template (q = 857), Turyn's doubling | New |
 | [3732](hadamard/3732) | 933 = 3 · 311 | Goethals–Seidel array over ℤ₃ × GF(311), multiplier subgroup of order 31; skew | Concurrent [16, 18]; skew: New |
 | [3964](hadamard/3964) | 991 | bordered Goethals–Seidel array over ℤ₂ × ℤ₂ × ℤ₂₄₇, border of size 12 | New |
@@ -167,7 +168,7 @@ settles the further open orders 5272, 7464, 18344, 36688 and 73376.
 |---|---|---|
 | Goethals–Seidel difference families invariant under a multiplier subgroup, found by an extended k-tree search | 2092, 3532, 4492, 5932 | [METHOD.md](METHOD.md) |
 | The same with blocks permuted by a multiplier of order 3 | 2284 | [METHOD.md](METHOD.md#block-symmetries) |
-| Bordered Goethals–Seidel arrays with exact compression chains | 2148, 2636, 3964 | [METHOD.md](METHOD.md#bordered-structures), [search/NOTES.md](search/NOTES.md) §18–19 (2148, 3964), [hadamard/2636](hadamard/2636) |
+| Bordered Goethals–Seidel arrays with exact compression chains (index 4, and index 8 over a Galois ring for 3356) | 2148, 2636, 3356, 3964 | [METHOD.md](METHOD.md#bordered-structures), [search/NOTES.md](search/NOTES.md) §18–19, §102, [search/bgschain](search/bgschain) |
 | Cyclotomic products ℤ_m × GF(q) of index 4 to 10 | 3732, 5020; skew 820, 1044, 1204, 1276, 3380, 5668 | [search/NOTES.md](search/NOTES.md) §16, §20 |
 | Spence's construction with blocks (A, B, B∘μ, B∘μ²) and a Legendre lift | 2292 | [NOTES.md](NOTES.md) §13, [search/spence_spin](search/spence_spin) |
 | Paley's matrix in sixteen circulant blocks, times T-matrices | 157 orders, 14 of them unresolved | [hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md) |

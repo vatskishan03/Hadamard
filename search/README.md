@@ -98,13 +98,14 @@ start-up, is close to the list size.
 | `d3_model.py`, `d3/prep1893.py`, `d3/walk.c` | the d = 3 structure (X₀, X₁, μX₁, μ²X₁): Gaussian model; for n = 1893, the tables and the tabu walk with lookups |
 | `gs_1719.py`, `gs_anti.py`, `gs_array_gf2.py` | individual structures and array tests |
 
-**Bordered arrays** (2148, 3964)
+**Bordered arrays** (2148, 3356, 3964)
 
 | Program | Role |
 |---|---|
 | `bordered.py`, `border3.c` | bordered Goethals–Seidel arrays with Q = ℤ₃ and a border of size 12, and their border solver |
 | `bgs.py`, `bgs_gauss.py`, `bgs_uw.py`, `bcp.py` | bordered cyclotomic products, their Gaussian estimates and the ℤ₂-split of order 2148 |
 | `border_probe.py`, `z4triage.py` | border problems over ℤ_q, and the families over ℤ₄ |
+| `bgschain/` | the exact compression chain for bordered Goethals–Seidel quadruples of any index over any abelian group, levels by arbitrary invariant subgroups (non-split groups), with the exact mod-8 screen (search/NOTES.md §102): order 3356 (index 8 over ℤ₄³ × ℤ₁₃), the control 3964 and the validation tests; see [bgschain/README.md](bgschain/README.md) |
 
 **Spence's construction** (2292)
 
