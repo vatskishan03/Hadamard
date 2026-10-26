@@ -6813,7 +6813,7 @@ H = ⟨(α, ×2, ×33), (1, 1, ×16)⟩ of order 27, 50 orbits, 25 classes, Gaus
   - The split analogue ℤ₂⁶ × ℤ₁₃ has 29 classes and 10^7.1. The sibling with |H| = 42 (30 orbits) is empty: the
     minimum compressed energy at ℤ₁₃ is 5204 > 3356.
 
-**Order 3356** ([hadamard/3356](../hadamard/3356)). The engine of 1039 was generalized
+**Order 3356** ([hadamard/3356](../hadamard/3356), [bgschain](bgschain/README.md)). The engine of 1039 was generalized
 to any index and to levels given by arbitrary H-invariant subgroups (explicit coset maps, so non-split groups work).
 - Its controls (CHECKED):
   - 3964 again;
@@ -6837,6 +6837,23 @@ to any index and to levels given by arbitrary H-invariant subgroups (explicit co
 - *8 · 839.* The order 6712 is not a consequence: Kamali and Kharaghani (Australas. J. Combin. 18 (1998), Table 1)
   gave it (and 8 · 1031 = 8248) through dihedral Golay sequences, which Table 4 (839(4), 1031(6)) and the 2026 survey's
   list of open orders 8p overlook. Three orders 8p remain open: 4792, 5752 and 5912 ([FRONTIER.md](../FRONTIER.md)).
+
+**Index 16 and 12: not live** (`r48/k16`, one agent; HEURISTIC estimates, CHECKED kills).
+- *Coverage.* k = 16 for the nine unresolved n with 16 | n + 1 and a 2-rich v (719, 1039, 1103, 1423, 1487, 1871,
+  2063, 2383, 2767; v = 1024 at 1039 and 2048 at 2063), 20,733 structures:
+  - G = P × ℤ_p with P built from Galois-ring blocks;
+  - H any abelian subgroup of the Teichmüller torus × ℤ_p* with Frobenius, unit and shear extras;
+  - every invariant S of index 16, so all five Q of order 16, split or not.
+- *k = 12.* Q = ℤ₂ × ℤ₆ for all 60 n with 12 | n + 1.
+- *Result.* No structure has log₁₀ E ≥ 1 with log₁₀ W ≤ 15.
+  - Estimates above 1 occur only at 48 or more orbits (n = 719: 10^7.4 with log₁₀ W 21.8; n = 1039: 10^3.9), and
+    exact quotient tests kill them.
+  - Every structure with an estimate of 10^−1.9 or better that reached the exact battery was killed (33 tested, none
+    passed), for example 1039 over ℤ₂⁸ × ℤ₄ (32 orbits, 10^0.0), which is empty at the quotient ℤ₄.
+  - Best for k = 12: 10^−7.3.
+- *Mechanism.* Orbits of large odd subgroups of H on 2-groups are subgroup-like, so the quotient fibre sums are
+  modularly rigid.
+- *Consequence.* For these orders a border for k ≥ 12 would not help; level 2 is the obstruction.
 
 **Conference matrices of order 9p + 1** (§96). `bipcyc3` (the cyclic bipartite flag ansatz) is exhaustively empty at
 p = 37, for both sign conventions (3.5 · 10⁶ candidates, 3.9 · 10⁵ survivors, no canonical row). The run for p = 41 was not finished.

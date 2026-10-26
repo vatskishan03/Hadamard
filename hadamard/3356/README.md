@@ -77,7 +77,7 @@ Every S-invariant quotient is non-empty. Corrected for the measured shortfall, t
 solutions, or 10^7 up to the symmetries. At n = 1031 (G of order 1024) the census found every structure with a
 positive estimate exactly empty.
 
-**The chain.** The search ([search/NOTES.md](../../search/NOTES.md) §102) is the compression chain of 3964,
+**The chain.** The search ([search/bgschain](../../search/bgschain/README.md)) is the compression chain of 3964,
 generalized to any index and to quotients by any S-invariant subgroup.
 
 1. **ℤ₁₃ level (N = ℤ₄³).** The lists have 13,930 / 7,852 / 7,852 / 13,741 compressed vectors. The join gives 80
@@ -91,7 +91,16 @@ generalized to any index and to quotients by any S-invariant subgroup.
 
 The restriction makes the search incomplete; it is not a classification. The first solution appeared in branch 72
 after about 12 core-minutes, and five distinct solutions in about 90 core-minutes. The matrix here comes from the
-first one.
+first one. It is reproduced from a fresh start in about a minute:
+
+```
+cd search/bgschain
+python3 hchain.py prepare configs/n839_P1.json --state state/n839_P1                        # 350 branches
+python3 hchain.py run configs/n839_P1.json --state state/n839_P1 --ids 72 --stop-first      # the first solution
+python3 e2e/cert839.py state/n839_P1/solutions.jsonl --out results/certificate_3356.json    # border, certificate, check
+```
+
+The border is the first one that `z7search` finds for these d, so the certificate is reproduced byte for byte.
 
 ## Status
 

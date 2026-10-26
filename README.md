@@ -166,7 +166,7 @@ gzip -dc hadamard/2092/H2092.csv.gz | ./check_matrix
 |---|---|---|
 | Goethals–Seidel difference families invariant under a multiplier subgroup, found by an extended k-tree search | 2092, 3532, 4492, 5932 | [METHOD.md](METHOD.md) |
 | The same with blocks permuted by a multiplier of order 3 | 2284 | [METHOD.md](METHOD.md#block-symmetries) |
-| Bordered Goethals–Seidel arrays with exact compression chains (index 4, and index 8 over a Galois ring for 3356) | 2148, 2636, 3356, 3964 | [METHOD.md](METHOD.md#bordered-structures), [search/NOTES.md](search/NOTES.md) §18–19, §102 |
+| Bordered Goethals–Seidel arrays with exact compression chains (index 4, and index 8 over a Galois ring for 3356) | 2148, 2636, 3356, 3964 | [METHOD.md](METHOD.md#bordered-structures), [search/NOTES.md](search/NOTES.md) §18–19, §102, [search/bgschain](search/bgschain) |
 | Cyclotomic products ℤ_m × GF(q) of index 4 to 10 | 3732, 5020; skew 820, 1044, 1204, 1276, 3380, 5668 | [search/NOTES.md](search/NOTES.md) §16, §20 |
 | Spence's construction with blocks (A, B, B∘μ, B∘μ²) and a Legendre lift | 2292 | [NOTES.md](NOTES.md) §13, [search/spence_spin](search/spence_spin) |
 | Paley's matrix in sixteen circulant blocks, times T-matrices | 157 orders, 14 of them unresolved | [hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md) |

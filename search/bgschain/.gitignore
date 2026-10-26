@@ -1,0 +1,4 @@
+# built on demand (hlib.py compiles hcore.c) and run output
+libhcore.so*
+state/
+results/
