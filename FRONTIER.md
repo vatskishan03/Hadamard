@@ -1,7 +1,7 @@
 # Unresolved orders
 
-Table 4 of Cati and Pasechnik lists 195 odd n ≤ 2999 for which no Hadamard matrix of order 4n was known in 2025. 73
-of them are settled now, and the 122 that remain are listed below with the cheapest search structures known for each.
+Table 4 of Cati and Pasechnik lists 195 odd n ≤ 2999 for which no Hadamard matrix of order 4n was known in 2025. 74
+of them are settled now, and the 121 that remain are listed below with the cheapest search structures known for each.
 The smallest is n = 599, order 2396.
 
 Settled:
@@ -16,10 +16,10 @@ Settled:
   their Theorem 7 over ℤ₂² × F₁₉², with a border);
 - 2 by the GitHub repository Middletownbooks/Hadamard: n = 573 (order 2292, 9 October 2026; our independent matrix is
   [hadamard/2292](hadamard/2292)) and n = 647 (order 2588, 14 October 2026);
-- 32 in this repository:
-  - n = 523, 537, 571, 643, 659, 859, 933, 991, 1051, 1123, 1255, 1483, 1699 and 2293 by searches and recursive
+- 33 in this repository:
+  - n = 523, 537, 571, 643, 659, 839, 859, 933, 991, 1051, 1123, 1255, 1483, 1699 and 2293 by searches and recursive
     theorems (orders [2092](hadamard/2092), [2148](hadamard/2148), [2284](hadamard/2284), [2572](hadamard/2572),
-    [2636](hadamard/2636), [3436](hadamard/3436), [3732](hadamard/3732), [3964](hadamard/3964),
+    [2636](hadamard/2636), [3356](hadamard/3356), [3436](hadamard/3436), [3732](hadamard/3732), [3964](hadamard/3964),
     [4204](hadamard/4204), [4492](hadamard/4492), [5020](hadamard/5020), [5932](hadamard/5932),
     [6796](hadamard/6796) and [9172](hadamard/9172)); concurrently with others: 571 (Zaitsev et al.), 523 (Cooley,
     Middletownbooks/Hadamard), 933 (Cooley, and Egan et al.), 1123, 1255 and 1483 (Egan et al.);
@@ -38,7 +38,11 @@ an open order 8n. Egan, Kotsireas, London and Ó Catháin (Table 5) list six ope
 has 1087(3), and 971(6), 1169(4) and 1223(6), whose orders 8n their list does not include. Table 4 is right about 1087:
 the survey takes Williamson-type matrices from Seberry–Yamada's Table A.1 "except 543", but A.1's matrices of order 543
 (key wi, their Corollary 27(i)) are valid, and with them the order-8q construction gives [hadamard/8696](hadamard/8696)
-(Known, first explicit matrix). So five orders 8p remain open: 4792, 5752, 5912, 6712 and 8248. A Hadamard matrix of
+(Known). Two more entries of their list were settled in 1998: Kamali and Kharaghani (*Dihedral Golay sequences*,
+Australas. J. Combin. 18, 139–145, Corollary 9 and Table 1) give Hadamard matrices of orders 8(g₁g + g₂) from Golay
+lengths g₁, g₂ and g = 7, 9, 15, among them 6712 = 8 · 839 (7 + 2⁵ · 26) and 8248 = 8 · 1031 (7 + 2¹⁰); Table 4's
+entries 839(4) and 1031(6) do not take this paper into account. The Hadamard Matrix Explorer (math74.com, version 53)
+posts matrices of orders 6712, 8248 and 8696. So three orders 8p remain open: 4792, 5752 and 5912. A Hadamard matrix of
 order 4p settles 8p by doubling. [search/NOTES.md](search/NOTES.md) §92 searches the orders 8p directly
 ([search/eightp](search/eightp/README.md)), and no matrix was found:
 - the plain Goethals–Seidel and negacyclic structures over ℤ₂ₚ and ℤ_p are dead, except for multiplier groups with at
@@ -49,8 +53,8 @@ order 4p settles 8p by doubling. [search/NOTES.md](search/NOTES.md) §92 searche
 - the plain cyclic structures with at most 22 orbits (24 for v = 1197, 1477, 1677) and the block-symmetric ones with at
   most 30 orbits are empty.
 
-What remains are the plug-in shapes with 8 to 21 orbits at p = 599, 739 and 839 (the cheapest three cost about 10⁶
-CPU-seconds each by the model, the others 10⁹ or more) and larger structures.
+What remains are the plug-in shapes with 8 to 21 orbits at p = 599 and 739 (the cheapest cost about 10⁶ CPU-seconds
+each by the model, the others 10⁹ or more) and larger structures.
 
 **Corollary 8.8(i).** Đoković (arXiv:1008.2043, Propositions 3.2–3.4) also claimed n = 1527, 2545 and 2571, through
 Williamson-type matrices of orders 509 and 857 that Seberry–Yamada's Corollary 8.8(i) would give. Its printed proof
@@ -109,7 +113,6 @@ one applies:
 | 2876 | 719 | – | – | – | – | – | – | – |  |
 | 2956 | 739 | 9 | 83 | 41 | 33.5 | 22.7 | ℤ2 × ℤ3xℤ3 × ℤ41 | 42.4 |  |
 | 3004 | 751 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ5xℤ5xℤ5 | 46.0 |  |
-| 3356 | 839 | – | – | – | – | – | ℤ2 × ℤ419 | 15.0 |  |
 | 3452 | 863 | – | – | – | – | – | – | – |  |
 | 3628 | 907 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ151 | 33.3 |  |
 | 3788 | 947 | – | – | – | – | – | ℤ2 × ℤ11 × ℤ43 | 37.4 |  |

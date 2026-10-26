@@ -42,8 +42,9 @@ different matrix; both checked H Hᵀ = 8696 I exactly.
 
 ## Status
 
-**Known**; to our knowledge the first explicit matrix. The order was recorded as known through a valid route that the
-2026 survey dropped:
+**Known.** The order was recorded as known through a valid route that the 2026 survey dropped. The Hadamard Matrix
+Explorer (math74.com, version 53, October 2026, not dated more precisely) also posts a matrix of this order built by the
+same route.
 
 - Seberry–Yamada's Table A.1 (1992) gives Williamson-type matrices of order 543 with key wi: order q + 2 for a prime
   power q ≡ 1 (mod 4) with (q + 1)/2 a prime power (Miyamoto), here q = 541 and (q + 1)/2 = 271, which is their

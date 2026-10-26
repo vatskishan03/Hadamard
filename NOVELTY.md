@@ -339,6 +339,22 @@ Concurrent with Ho's, so the four orders are **New, beyond the tables**, not obt
 orders 4 · 941 · t for t = 23 to 53 ([MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#reach)) are certified but not
 densely checked and are not claimed here.
 
+**Order 3356** ([hadamard/3356](hadamard/3356)). Checked on 26 October 2026:
+- *Tables.* Cati–Pasechnik, arXiv:2411.18897 v2 (Table 4: 839(4), read from the PDF); the survey of Egan, Kotsireas,
+  London and Ó Catháin, arXiv:2610.27175 (19 October 2026, the only version; Table 5 lists 4 · 839 among its open
+  orders, and also 8 · 839); the Hadamard Matrix Explorer (math74.com, version 53, October 2026: 3356 on its list of
+  unknown orders, "no construction known").
+- *Recent work.* Middletownbooks/Hadamard (last commit 20 October; 839 among its open orders; its report of 17 October
+  screened 839 with a subgroup of index 8 over other groups and built nothing); the JD-Jones-ASES repositories
+  (Hadamard-T, -M, -B, -formal); munimtechnologies/hadamard-orders; saramarkaidagarcia/Hadamard-matrices;
+  schneiderlo/hadamard-2060; the repositories of J. Kline; Zenodo (queries for 3356, 839 and 6712, and every
+  record titled Hadamard back to June 2026); the arXiv listings of math.CO, cs.IT and math.NT to 26 October; MathWorld
+  (updated 25 October); OEIS A007299 and A036297; SageMath's documentation and its Hadamard pull requests since August;
+  Epoch AI's problem page; web searches for 3356, 4 · 839 and 6712.
+- *Finding.* None gives a Hadamard matrix of order 3356. The order 8 · 839 = 6712, which the survey and Table 4 list
+  as open, was constructed by Kamali and Kharaghani, Australas. J. Combin. 18 (1998) 139–145, Table 1 (also 8 · 1031),
+  and the Explorer posts a matrix of that order ([FRONTIER.md](FRONTIER.md)). 3356 is **New**.
+
 **Orders 2092, 3732, 4492, 5020 and 5932** (rechecked on 23 October 2026). The survey of Egan, Kotsireas, London and
 Ó Catháin (arXiv:2610.27175, 19 October 2026) states that 3732, 4492, 5020 and 5932 "were found by the present
 authors", by the Goethals–Seidel array with multiplier groups of orders 31, 33, 50 and 39, the groups our matrices use,

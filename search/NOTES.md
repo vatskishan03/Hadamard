@@ -6734,3 +6734,109 @@ cosets, 29 classes).
   1667, 1787, 2971) are worse or at best one order cheaper than the plain estimate. Not run.
 - *So:* flatness explains how Alpöge et al.'s solutions look, not a large saving; generation is cheap and memory and the
   join are the bottleneck. `search/lowe_enum.c` cannot generate these pools (it visits all C(58, 29) leaves).
+
+## 102. Round 48: Theorem 7 of Egan et al. with larger index; order 3356 (n = 839) over a Galois ring (October 25–26)
+
+Scratchpad `r47/eklo_bigk`, `r48/`. Theorem 7 of Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175) is the
+family of §18 with T the k − 1 nontrivial characters of Q = G/K, |Q| = k: four ±1 sequences on G (|G| = v) with
+Σ PAF = −4(k − 1) on K \ 0 and +4 off K, n = v + k − 1, and a border of size 4(k − 1). k = 4 is the family of Alpöge
+et al. and of 2148, 2636 and 3964.
+
+**The border for spike compressions.** When H permutes the nonzero cosets transitively (a Singer cycle on Q), the
+compressions are yᵢ = aᵢ + dᵢ δ₀ with Σ dᵢ² = 4(k − 1). The border then depends only on k and d. Let Γ be the
+Goethals–Seidel matrix of the scalars dᵢ and W the block-balanced subspace of R⁴ ⊗ R^k (dimension 4(k − 1)). A border
+is a pair of orthogonal ±1 bases {eᵣ} and {zⱼ} of W with |⟨(Γ ⊗ I)eᵣ, zⱼ⟩| = 4k for all r, j. Then F = −Z, and
+K = E(Γᵀ ⊗ I)Z/4k is automatically Hadamard (CHECKED against §22's formulation and on real borders).
+- k = 4: random bases give a border at once. k = 8, d a signed permutation of (4, 2, 2, 2): an exhaustive search
+  over borders invariant under a Singer cycle of order 7 (`z7search.c`) finds 24 for every pattern. It also gives a
+  border for the compressions of Alpöge et al.'s 1436 = 4 · 359, which has k = 8. k = 6 and k ≥ 10: no border found.
+- **Single characters per block cannot work for k ≥ 12** (PROVED). Suppose every eᵣ and zⱼ is, block by block, one
+  signed nontrivial character (or one balanced row of a Hadamard matrix of order k). Then ⟨(Γ ⊗ I)eᵣ, zⱼ⟩ is k times
+  a signed sum of the entries Γ[c, b] over the pairs of blocks whose labels coincide, and it must be ±4k.
+  - Each label occurs four times per block in each basis. So the label coincidences over all 16(k − 1)² pairs (r, j)
+    number 256(k − 1), on average 16/(k − 1) per pair.
+  - k = 16, d = (6, 4, 2, 2): at least 3360 of the 3600 pairs have exactly one coincidence, which must be an entry
+    of size 4. Those entries account for at most 4 · 15 · 16 = 960 coincidences.
+  - k = 12, d = (6, 2, 2, 0): one coincidence gives ±6, ±2 or 0, never ±4, but the average is below 2.
+  - The Singer border at k = 8 is of this kind (2.3 coincidences per pair).
+
+**Census over cyclic factors** (`r47/eklo_bigk`, all 90 unresolved primes n ≡ 3 mod 4). G = Q × K₀ with K₀ a product of
+cyclic groups of prime order, H from the units and twists by Aut(Q), 8 to 64 orbits:
+- Z₂², k = 4 (2743 structures): log₁₀ E ≥ 0 only at n = 1039 (5.3) and 839 (0.2, log₁₀ W 30).
+- Z₂³, k = 8 (1960 structures): only n = 1039 (14.9), and that structure is exactly empty at the quotient Q × ℤ₃.
+- Z₄, Z₈, Z₂ × Z₄ and cyclic Q with k = 6 to 14: nothing above 10^−3.8.
+
+**n = 1039 is empty in the k = 4 lead** (CHECKED, two codes). The lead was G = ℤ₂² × ℤ₇ × ℤ₃₇,
+H = ⟨(α, ×2, ×33), (1, 1, ×16)⟩ of order 27, 50 orbits, 25 classes, Gaussian 10^5.3.
+- τ = ×16 acts only on ℤ₃₇, with order 9. So every sequence is constant on the ⟨16⟩-cosets inside each ℤ₃₇-fibre, and
+  the compression to G/ℤ₃₇ = Q × ℤ₇ is s + 18k, where s is the slice at 0 of ℤ₃₇.
+- The 28 equations of Q × ℤ₇ modulo 9 have no solution for any of the 8 live patterns. The same enumeration modulo 3
+  has 10⁷ solutions.
+- This is one of the ten "exact analogues of 3964" at n = 1039 that [NOTES.md](../NOTES.md) §3 had already found
+  empty at the fibre-side quotient.
+- The best other structure for 1039 (54 orbits, 27 classes, 10^5.6) needs about 10¹⁶ to 10¹⁷ operations.
+- Rule: when H has a kernel of order m ≥ 9 on a coarse quotient, test the quotient equations modulo m first.
+- The chain engine built for this lead reproduces 3964 exactly: 304 level-2 solutions and 124,416 leaves. It found
+  new quadruples of 3964, three of which were assembled to H Hᵀ = 3964 I.
+- In 67,000 sampled nodes of 1039 it saw no survivor at Q × ℤ₇.
+
+**Census over richer 2-parts** (`r48/eklo2`).
+- *Gap in the old census.* It never used a 2-part beyond Q with non-trivial automorphisms; for n = 1031 it had one
+  subgroup and no structure. Repaired here:
+  - all abelian 2-groups with an index-k subgroup, split or not (Smith normal form classes);
+  - H from Teichmüller elements of Galois rings GR(2^e, r), Singer and Frobenius maps, shears and units of the odd
+    part;
+  - 25 to 64 orbits.
+- *Why exponent 4 matters.* In an elementary abelian 2-part g = −g, so the PAF classes are not halved (compare
+  §3.2 and §9). With exponent 4 and an automorphism of odd order, g and −g lie in
+  different orbits off 2G.
+- *Estimator.* The Gaussian lattice estimate was validated on small exact counts: mean error 0.02 dex where the
+  count is positive, over 87 structure–pattern pairs.
+  - It is blind to exact emptiness: 440 of 527 empty small cases had finite estimates.
+  - Exact quotient ladders were therefore run on everything with log₁₀ E > 0. A Parseval screen also helps: the
+    minimum compressed energy of each pool, summed, must not exceed the target.
+- *k = 4* (24 targets with a 2-part ≥ 4 in K; about 33,000 structures plus 45,000 in an extension):
+  - Best: n = 1187, ℤ₄ × ℤ₄ × ℤ₂ × ℤ₃₇ (non-split), 60 orbits, 10^3.7, but log₁₀ W ≈ 26. Then 1987, ℤ₈² × ℤ₃₁,
+    10^1.4 / 10^21.
+  - 1795 was killed exactly at a quotient.
+  - 947, 1427, 1619, 1747, 2099, 2339, 2531, 2659 and 2899 have no structure with a feasible level 1 (PROVED for 947).
+- *k = 8* (11 targets; all 42 abelian groups of order 1024 for n = 1031):
+  - For 1031, three structures have a positive estimate (ℤ₄⁵ and two relatives, H = ℤ₂₁). All three are exactly empty
+    at the quotient ℤ₂², by a congruence modulo 7.
+  - Every other target is at or below 10^−8.5, except 839.
+- **n = 839**: G = ℤ₄³ × ℤ₁₃ = GR(4, 3) × ℤ₁₃ with K = 2ℤ₄³ × ℤ₁₃, non-split.
+  - H = ⟨(B, ×3)⟩ of order 21: B has order 7 and acts as a Singer cycle on Q = ℤ₂³; all subgroups of order 7 of
+    GL(3, ℤ₄) are conjugate. 50 orbits, 25 classes, Gaussian 10^11.3.
+  - Two independent checks counted the quotients exactly: ℤ₁₃ 10^40.71 (Gaussian 42.48); ℤ₂³ × ℤ₁₃ 10^39.08
+    (40.33); ℤ₄³ 10^39.2 (sampled, 38.6); the joint ℤ₂³ × ℤ₁₃ × ℤ₄³ 10^29.2 (sampled).
+  - Corrected expectation: 10^9.2 ± 0.5 ordered solutions.
+  - The split analogue ℤ₂⁶ × ℤ₁₃ has 29 classes and 10^7.1. The sibling with |H| = 42 (30 orbits) is empty: the
+    minimum compressed energy at ℤ₁₃ is 5204 > 3356.
+
+**Order 3356** ([hadamard/3356](../hadamard/3356)). The engine of 1039 was generalized
+to any index and to levels given by arbitrary H-invariant subgroups (explicit coset maps, so non-split groups work).
+- Its controls (CHECKED):
+  - 3964 again;
+  - brute-force equality on non-split ℤ₄² (n = 19, 8 patterns with 352 solutions each), ℤ₄² × ℤ₃, ℤ₄³ × ℤ₃ and
+    ℤ₄³ × ℤ₅ (planted);
+  - the full chain on ℤ₄² (order 76) through the repository's verify.py.
+- No small k = 8 structure of this type has solutions (ℤ₄³ × ℤ_p, p ≤ 23, and ℤ₂³ × ℤ_m, m ≤ 19, are empty), so
+  the k = 8 assembly was checked structurally on the real group before the hit.
+- *Tower.* ℤ₁₃ (lists 13,930 / 7,852 / 7,852 / 13,741; 80 solutions, 20 up to the normalizer of order 96 modulo H),
+  then ℤ₂³ × ℤ₁₃ (350 branches).
+- *Last level.* ℤ₄³, restricted to the 2000 heaviest compressed vectors per block in random order.
+  - Each combination is tested by an exact condition modulo 8: the target minus the fibre base point must lie in the
+    ℤ/8-span of the fibre differences. 91 % of the combinations fail it.
+  - The rest go to an exact join on all 25 equations: fibres of about 1.5 · 10⁴ per block, 4 · 10⁸ pair operations.
+- *Results.* Pattern (a, d) = ((2, 4, 4, 4), (4, −2, −2, 2)), row sums 20, 30, 30, 34.
+  - First solution in branch 72, after about 12 core-minutes. Five distinct solutions in 90 core-minutes.
+  - About one solution per 1140 core-seconds, 8 · 10⁻³ per join, as the estimate predicts.
+  - Branches whose block-0 vector at ℤ₂³ × ℤ₁₃ is the central one are almost always obstructed modulo 8.
+- *Verification* (CHECKED). Three codes agree on H Hᵀ = 3356 I and on SHA-256 235a0f68…: the engine's exact check
+  over G, an independent assembly, and the repository's `build_checked` (also `check_matrix`).
+- *8 · 839.* The order 6712 is not a consequence: Kamali and Kharaghani (Australas. J. Combin. 18 (1998), Table 1)
+  gave it (and 8 · 1031 = 8248) through dihedral Golay sequences, which Table 4 (839(4), 1031(6)) and the 2026 survey's
+  list of open orders 8p overlook. Three orders 8p remain open: 4792, 5752 and 5912 ([FRONTIER.md](../FRONTIER.md)).
+
+**Conference matrices of order 9p + 1** (§96). `bipcyc3` (the cyclic bipartite flag ansatz) is exhaustively empty at
+p = 37, for both sign conventions (3.5 · 10⁶ candidates, 3.9 · 10⁵ survivors, no canonical row). The run for p = 41 was not finished.
