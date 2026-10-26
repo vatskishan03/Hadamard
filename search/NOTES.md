@@ -6976,10 +6976,10 @@ f_a f_a* + f_b f_b* = 2n. Their Corollary 9 gives H(8(g₁g + g₂)) for Golay l
   (a, a, x₁, x₂): the dihedral signed group gives nothing new for 4p. Its only lever is Lemma 3 (DCS × Golay).
 - *Exhaustive search of the ansatz* (`dcs.c`, meet in the middle on N_a; every solution re-checked by an independent
   2 × 2-matrix checker of commutation and complementarity). Solutions up to the signs of u and i, a up to negation:
-  n = 3: 2, 5: 4 (ε = −1), 7: 24, 9: 16 (ε = −1), 11: 4, 13: 8 + 4 (ε = −1), 15: 8, 17 to 23: none, 25: 16 (ε = −1).
-  For n = 23, 2n = 46 is not a sum of two squares, which forces ε = +1, and that case is empty: **no DCS of length 23 of
-  this kind**, so the route to 4792 through g = 23 is closed. Length 25 is new to our knowledge (it is not a complex
-  Golay length; Bright et al. 2019 exclude complex Golay pairs of length 25); it improves no entry of Table 4.
+  n = 3: 2, 5: 4 (ε = −1), 7: 24, 9: 16 (ε = −1), 11: 4, 13: 8 + 4 (ε = −1), 15: 8, 17 to 23: none, 25: 16 (ε = −1),
+  27: none. For n = 23, 2n = 46 is not a sum of two squares, which forces ε = +1, and that case is empty: **no DCS of
+  length 23 of this kind**, so the route to 4792 through g = 23 is closed. Length 25 is new to our knowledge (it is not
+  a complex Golay length; Bright et al. 2019 exclude complex Golay pairs of length 25); it improves no entry of Table 4.
 - *The construction checked* (CHECKED). Our DCS(7) through Lemma 3, Theorem 7 (concatenation with a Golay pair), the
   Craigen–Goethals–Seidel array of their Lemma 2 and the 2 × 2 representation times I ⊗ [[1, 1], [1, −1]] (their
   Lemma 1) gives H H^T = nI exactly for 8(7 + g) with g = 1, 2, 10, 26 and for **6712 = 8 · (7 + 2⁵ · 26)** and **8248 =

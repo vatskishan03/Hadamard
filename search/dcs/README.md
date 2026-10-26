@@ -36,6 +36,6 @@ CSVs (rows of 1 and −1, comma-separated): 6712 `a09c3ddc1bc7b7a9325cc6ead799b8
 ## Results (CHECKED)
 
 Solutions of the ansatz, up to the signs of u and i and with a up to negation: n = 3: 2; 5: 4 (ε = −1); 7: 24;
-9: 16 (ε = −1); 11: 4; 13: 8 (ε = +1) and 4 (ε = −1); 15: 8; 17, 19, 21, 23: none; 25: 16 (ε = −1). For odd n,
+9: 16 (ε = −1); 11: 4; 13: 8 (ε = +1) and 4 (ε = −1); 15: 8; 17, 19, 21, 23: none; 25: 16 (ε = −1); 27: none. For odd n,
 ε = −1 needs 2n to be a sum of two squares (the sum of the antipalindromic i vanishes). Length 25 is not a complex
 Golay length.
