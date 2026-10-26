@@ -7,7 +7,7 @@ rebuilds it and checks it in exact arithmetic.
 A Hadamard matrix of order n is an n × n matrix H with entries ±1 and H Hᵀ = n I. It can exist only for n = 1, 2 or
 n ≡ 0 (mod 4), and the Hadamard conjecture asserts that it exists for every multiple of 4. In August 2026 Alpöge,
 Voinov and Reynolds-Haertle constructed the twelve unresolved orders below 2000 [1], and Schneider constructed 2060 [2].
-This repository constructs 33 of the orders that Table 4 of Cati and Pasechnik [3] lists as unresolved, from 2092 to
+This repository constructs 34 of the orders that Table 4 of Cati and Pasechnik [3] lists as unresolved, from 2092 to
 11804. Six of them were found concurrently by other groups: 2092 by Cooley [16], 2284 by Zaitsev et al. [13], and 3732,
 4492, 5020 and 5932 by Egan, Kotsireas, London and Ó Catháin [18] (3732 also by Cooley). Our matrix of order 2292
 turned out to have been preceded by an independent one [16]. The smallest unresolved order is now 2396 = 4 · 599 ([FRONTIER.md](FRONTIER.md)).
@@ -26,12 +26,12 @@ give a theorem: a skew-Hadamard matrix of order 3(q + 1) exists for every prime 
 
 | Family | Orders | Status |
 |---|---|---|
-| Hadamard, unresolved in Table 4 [3] | [33](#unresolved-orders) | 11 New, 14 New but obtainable classically, 2 First explicit construction, 6 Concurrent |
+| Hadamard, unresolved in Table 4 [3] | [34](#unresolved-orders) | 12 New, 14 New but obtainable classically, 2 First explicit construction, 6 Concurrent |
 | Hadamard, omitted by Table 4 through Seberry–Yamada's Corollary 8.8(i) | [11](hadamard#orders-recorded-only-through-corollary-88i) | First explicit construction |
 | Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 New, 124 New but obtainable classically, 49 First explicit construction |
 | Skew-Hadamard (476 to 14384) | [111](skew) | 47 New, 62 New but obtainable classically, 2 First explicit construction |
 | Symmetric Hadamard (260 to 9892) | [100](symmetric) | 38 New, 53 New but obtainable classically, 9 Concurrent |
-| Complex Hadamard (214 to 3398) | [19](complex-hadamard) | 5 New, 12 Concurrent, 2 First explicit construction |
+| Complex Hadamard (214 to 3398) | [20](complex-hadamard) | 6 New, 12 Concurrent, 2 First explicit construction |
 | T-matrices | [97, 109, 197](t-matrices) | New |
 
 The labels are defined in [NOVELTY.md](NOVELTY.md), which also lists the literature searched. "Obtainable
@@ -56,6 +56,7 @@ For each order 4n, n is listed as unresolved in Table 4 of Cati and Pasechnik [3
 | [3356](hadamard/3356) | 839 | bordered Goethals–Seidel array over ℤ₄ × ℤ₄ × ℤ₄ × ℤ₁₃ (Galois ring GR(4, 3) × ℤ₁₃), subgroup of index 8, border of size 28 | New |
 | [3436](hadamard/3436) | 859 | quaternary conference matrix of order 430 (zero-diagonal Szöllősi array over ℤ₂₁₅, multiplier subgroup of order 6), complex Yamada–Kiyasu template (q = 857), Turyn's doubling | New |
 | [3732](hadamard/3732) | 933 = 3 · 311 | Goethals–Seidel array over ℤ₃ × GF(311), multiplier subgroup of order 31; skew | Concurrent [16, 18]; skew: New |
+| [3820](hadamard/3820) | 955 = 5 · 191 | quaternary conference matrix of order 478 (zero-diagonal Szöllősi array over ℤ₂³ × ℤ₂₉ with a border of the seven nontrivial characters of ℤ₂³, symmetry group of order 7), complex Yamada–Kiyasu template (q = 953), Turyn's doubling | New |
 | [3964](hadamard/3964) | 991 | bordered Goethals–Seidel array over ℤ₂ × ℤ₂ × ℤ₂₄₇, border of size 12 | New |
 | [4204](hadamard/4204) | 1051 | quaternary conference matrix of order 526 (bordered zero-diagonal Szöllősi array over ℤ₂₆₂, multiplier subgroup of order 5), complex Yamada–Kiyasu template (q = 1049), Turyn's doubling | New |
 | [4492](hadamard/4492) | 1123 | Goethals–Seidel array over ℤ₁₁₂₃, multiplier subgroup of order 33 | Concurrent [18] |
@@ -178,7 +179,7 @@ gzip -dc hadamard/2092/H2092.csv.gz | ./check_matrix
 | Propus quadruples, the symmetric m(m − 1) and m(m + 3) constructions, Miyamoto's lemma in the propus array | symmetric orders | [symmetric](symmetric), [search/NOTES.md](search/NOTES.md) §17, §27–31 |
 | A Hadamard matrix of order (q − 1)/2 in the propus array; Yamada–Kiyasu in symmetric quaternary form; [[P, Q], [Q, P]] with Paley's matrices; a symmetric conference matrix in I ⊗ X + C ⊗ Y | symmetric orders | [symmetric](symmetric), [NOTES.md](NOTES.md) §29–31 |
 | Szöllősi's array and its bordered, character-bordered and twisted forms | complex orders | [complex-hadamard](complex-hadamard) |
-| Quaternary conference matrices from the zero-diagonal Szöllősi array, plain or bordered (two-level sampling in the manner of FLC [17] for 2572, 3436 and 4204; a Paley plug-in for 2572), in the complex Yamada–Kiyasu template, and Turyn's doubling | 2572, 3436, 4204, 6796 | [hadamard/6796](hadamard/6796), [NOTES.md](NOTES.md) §31, §34, [search/NOTES.md](search/NOTES.md) §76–83 |
+| Quaternary conference matrices from the zero-diagonal Szöllősi array, plain or bordered (two-level sampling in the manner of FLC [17] for 2572, 3436 and 4204; a Paley plug-in for 2572), in the complex Yamada–Kiyasu template, and Turyn's doubling; with a border of characters for 3820 | 2572, 3436, 3820, 4204, 6796 | [hadamard/6796](hadamard/6796), [NOTES.md](NOTES.md) §31, §34, [search/NOTES.md](search/NOTES.md) §76–83, §103, [search/tbcore](search/tbcore) |
 
 [NOTES.md](NOTES.md) and [search/NOTES.md](search/NOTES.md) are the research notebooks: the constructions, the
 structures that turned out to be empty, the obstructions, and calibrations of the solution-count estimates.

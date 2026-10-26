@@ -21,7 +21,9 @@ assembled in int8 (0.6 to 1.5 GB).
 
 Yamada certificates accept a prime q or a prime power q = p^k (fields "p" and "poly" give GF(q)).
 Complex Yamada-Kiyasu certificates ("complex-yamada-kiyasu") give the core as the four sequences of a zero-diagonal
-Szollosi array over an abelian group, from which the quaternary conference matrix is rebuilt and checked.
+Szollosi array over an abelian group, from which the quaternary conference matrix is rebuilt and checked; the array may
+carry a single-unit border ("border") or a character border ("character_border": a quotient map, a set of characters
+of the quotient and the border matrices, as in complex-hadamard/TBORDERED.md).
 Negacyclic Goethals-Seidel certificates ("goethals-seidel-negacyclic") give four +-1 sequences of even length n
 whose negaperiodic autocorrelations sum to 4n delta; the matrix has order 4n.
 
@@ -1593,8 +1595,17 @@ def build_symmetric_yamada_kiyasu(cert):
     return H, None
 
 
+def _spec_mods(spec):
+    """The cyclic factors of an abelian_group spec in its coordinate order, e.g. "2^3x29" -> [2, 2, 2, 29]."""
+    mods = []
+    for part in spec.split('x'):
+        n, k = (part.split('^') + ['1'])[:2]
+        mods += [int(n)] * int(k)
+    return mods
+
+
 def _szollosi_zero_diagonal_core(spec, seqs, rowsums=None, generators=None, group_order=None, border=None,
-                                 reflection=0):
+                                 reflection=0, character_border=None):
     """The zero-diagonal Szollosi array over an abelian group G of order m (abelian_group(spec)): A, B symmetric with
     A(0) = B(0) = 0 and +-1 elsewhere, C, D +-1, PAF_A + PAF_B + PAF_C + PAF_D = 0 off 0 (all checked). With
     w = (1 + i)/2 and R[g, h] = [g + h = c] (c = 0 unless the certificate names another element), X = w X_A + conj(w) X_B
@@ -1606,7 +1617,43 @@ def _szollosi_zero_diagonal_core(spec, seqs, rowsums=None, generators=None, grou
     PAF_A + PAF_B + PAF_C + PAF_D = -4 off 0 on G of even order n, which forces the row sums r_A, r_B = +-1 and
     r_C = r_D = 0. With rho = w r_A + conj(w) r_B (a unit), s = rho^2 conj(t), y = -rho conj(t) v and
     u = rho^2 conj(t)^2 v, the blocks X = [[0, s e], [t e^T, X']] and Y = [[y, u e], [v e^T, Y']] (X', Y' as X, Y above)
-    give the quaternary conference matrix [[X, Y], [Y*, -X*]] of order 2(n + 1)."""
+    give the quaternary conference matrix [[X, Y], [Y*, -X*]] of order 2(n + 1).
+
+    Character-bordered form (character_border = {"quotient", "phi", "T", "Rh", "Ch", "Xb"}; the zero-diagonal analogue
+    of the character-bordered array of complex-hadamard/TBORDERED.md, of which t = 1 is the form above). Let
+    phi: G -> Q be a surjective homomorphism onto an abelian group of order q ("quotient": its abelian_group spec;
+    "phi": an integer matrix acting on the coordinates of g, row j reduced modulo the j-th cyclic factor of Q), and T a
+    set of t characters of Q ("T": vectors u, chi_u(a) = exp(2 pi i sum_j u_j a_j / Q_j)) such that
+    Gamma(a) = 4 sum_{chi in T} chi(a) is an integer (T is closed under complex conjugation). The sequences satisfy
+
+        PAF_A + PAF_B + PAF_C + PAF_D = -Gamma(phi(g))   for every g != 0
+
+    (so -4t on ker(phi) minus 0). Let N = m + t, y_k(a) = sum_{phi(g) = a} x_k(g) the compressions, Mc
+    the array [[X, Y], [Y*, -X*]] built from the y_k over Q (same R, with c mapped by phi), V_T the space of functions
+    on Q whose Fourier transform vanishes off T and P_T[a, b] = Gamma(a - b)/(4q) the orthogonal projection onto V_T.
+    The border consists of exponent matrices (entry i^e, "Xb": -1 for a zero): Rh of size 2t x 2q whose 2t rows, both
+    halves of each in V_T, are mutually orthogonal; Ch of size 2q x 2t whose columns, both halves in V_T, are mutually
+    orthogonal; and Xb of size 2t x 2t with one zero in each row and column and Xb = -Rh Mc* Ch/(2q). With
+    R[a, (i, g)] = Rh[a, i q + phi(g)] (the block index i = 0, 1 of Kc, g in G) and R'[(i, g), b] = Ch[i q + phi(g), b],
+
+        K = [[Xb, R], [R', Kc]]      (Kc = [[X, Y], [Y*, -X*]] over G as above)
+
+    is a quaternary conference matrix of order 2N = 2m + 2t with K K* = (2N - 1) I. Proof sketch. Kc Kc* = I_2 (x) M,
+    M = X X* + Y Y* = (X_A^2 + X_B^2 + X_C^2 + X_D^2)/2 (group-developed matrices commute, R X R = X^T), with eigenvalue
+    (1/2) sum_g (sum_k PAF_k(g)) psi(g) = (1/2) (4m - 2 + Gamma(0) - 4m [psi in T o phi]) = 2N - 1 - 2m [psi in T o phi]
+    at a character psi of G (Gamma(0) = 4t, sum_g Gamma(phi(g)) psi(g) = 4m [psi in T o phi]), so
+    M = (2N - 1) I - 2m P, P the projection onto the lifts of T. The columns of Ch are an orthogonal basis of V_T
+    (norm^2 2q): R' R'* = I_2 (x) 2m P, hence Kc Kc* + R' R'* = (2N - 1) I. The rows of Rh give R R* = (m/q) Rh Rh* =
+    2m I. Mc is normal, Mc* Mc = Mc Mc* = I_2 (x) M_Q with M_Q the Q-developed matrix of eigenvalue
+    2N - 1 - 2m [chi in T] at chi (the same computation with the y_k), so Mc commutes with P_T, M_Q = 2t - 1 on V_T and
+    Xb Xb* = Rh Mc* P_T Mc Rh*/(2q) = (2t - 1) Rh Rh*/(2q) = (2t - 1) I, and Xb Xb* + R R* = (2N - 1) I. Summing a
+    group-developed matrix over a fibre of phi gives the Q-developed matrix of the compression, so
+    R Kc* = (Rh Mc*) o phi and Xb R'* = (Xb Ch*) o phi with Xb Ch* = -Rh Mc* P_T = -Rh Mc*: the cross terms cancel.
+    Hence K K* = (2N - 1) I.
+    Checked here: the symmetry and zero pattern of A, B, C, D, the PAF condition above, that phi is a surjective
+    homomorphism, that Gamma is an integer function (floating point, to 1e-9; nothing else uses floating point),
+    the membership in V_T and orthogonality of the rows of Rh and columns of Ch, Xb = -Rh Mc* Ch/(2q) and its zero
+    pattern, all in exact integer arithmetic; the caller then checks the assembled K directly."""
     m, add, neg = abelian_group(spec)
     A, B, C, D = (np.array([SIGN[ch] for ch in x], dtype=np.int64) for x in seqs)
     if rowsums is not None and [int(x.sum()) for x in (A, B, C, D)] != list(rowsums):
@@ -1647,7 +1694,13 @@ def _szollosi_zero_diagonal_core(spec, seqs, rowsums=None, generators=None, grou
         raise ValueError("A or B is not symmetric")
     XA, XB, XC, XD = (group_matrix(add, neg, x) for x in (A, B, C, D))
     paf = XA[0] @ XA.T + XB[0] @ XB.T + XC[0] @ XC.T + XD[0] @ XD.T   # (X X^T)[0, h] = sum_k x(k) x(k - h) = PAF(-h)
-    if np.any(np.delete(paf, 0) != (-4 if border is not None else 0)):
+    if character_border is not None:
+        if border is not None:
+            raise ValueError("a core has a border or a character_border, not both")
+        cb = _character_border_setup(character_border, spec, m, add)
+        if np.any(paf[1:] != -cb["gamma"][cb["phi"]][1:]):
+            raise ValueError("PAF_A + PAF_B + PAF_C + PAF_D != -Gamma(phi(g)) off 0")
+    elif np.any(np.delete(paf, 0) != (-4 if border is not None else 0)):
         raise ValueError("PAF_A + PAF_B + PAF_C + PAF_D != %d off 0" % (-4 if border is not None else 0))
     R = np.zeros((m, m), dtype=np.int64)          # R[g, h] = [g + h = c], c = the element with index `reflection`
     R[np.arange(m), add[reflection, neg]] = 1      # any c works: R X_f R = X_f^T
@@ -1678,7 +1731,89 @@ def _szollosi_zero_diagonal_core(spec, seqs, rowsums=None, generators=None, grou
         P_[2][0, 1:], P_[3][0, 1:] = ub
         P_[2][1:, 0], P_[3][1:, 0] = v
         Xr, Xi, Yr, Yi = P_
-    return np.block([[Xr, Yr], [Yr.T, -Xr.T]]), np.block([[Xi, Yi], [-Yi.T, Xi.T]])
+    Kr, Ki = np.block([[Xr, Yr], [Yr.T, -Xr.T]]), np.block([[Xi, Yi], [-Yi.T, Xi.T]])
+    if character_border is not None:
+        return _character_bordered_array(cb, (A, B, C, D), reflection, Kr, Ki)
+    return Kr, Ki
+
+
+_UNIT_RE, _UNIT_IM = np.array([1, 0, -1, 0], dtype=np.int64), np.array([0, 1, 0, -1], dtype=np.int64)
+
+
+def _character_border_setup(cb, spec, m, add):
+    """Reads and checks the group-theoretic part of a character_border (see _szollosi_zero_diagonal_core) for the
+    group G = abelian_group(spec) of order m with addition table add: the quotient Q, the homomorphism phi (a surjection
+    G -> Q, as the index of phi(g) in Q for each g) and the characters T; returns them with Gamma on Q."""
+    if set(cb) != {"quotient", "phi", "T", "Rh", "Ch", "Xb"}:
+        raise ValueError("character_border needs exactly the fields quotient, phi, T, Rh, Ch, Xb")
+    q, qadd, qneg = abelian_group(cb["quotient"])
+    mods, qmods = _spec_mods(spec), np.array(_spec_mods(cb["quotient"]), dtype=np.int64)
+    elts = np.array(list(itertools.product(*[range(d) for d in mods])), dtype=np.int64).reshape(-1, len(mods))
+    qelts = np.array(list(itertools.product(*[range(d) for d in qmods])), dtype=np.int64).reshape(-1, len(qmods))
+    radix = np.array([int(np.prod(qmods[i + 1:])) for i in range(len(qmods))], dtype=np.int64)
+    P = np.array(cb["phi"], dtype=np.int64)
+    if P.shape != (len(qmods), len(mods)):
+        raise ValueError("phi must be an integer matrix, one row per factor of Q and one column per factor of G")
+    phi = ((elts @ P.T) % qmods) @ radix
+    if not np.array_equal(phi[add], qadd[phi[:, None], phi[None, :]]):
+        raise ValueError("phi is not a homomorphism G -> Q")
+    if len(set(phi.tolist())) != q:
+        raise ValueError("phi is not onto Q")
+    T = np.array(cb["T"], dtype=np.int64).reshape(-1, len(qmods)) % qmods
+    if len({tuple(u) for u in T.tolist()}) != len(T) or len(T) == 0:
+        raise ValueError("T must be a nonempty set of distinct characters of Q")
+    e = int(np.lcm.reduce(qmods))
+    phase = (T[:, None, :] * qelts[None, :, :] * (e // qmods)).sum(axis=2) % e                # chi_u(a) = zeta_e^phase
+    chi = np.exp(2j * np.pi * phase / e).sum(axis=0)
+    gamma = np.rint(4 * chi.real).astype(np.int64)
+    if np.abs(4 * chi - gamma).max() > 1e-9:
+        raise ValueError("Gamma = 4 sum_{chi in T} chi is not an integer function (T is not closed under conjugation)")
+    return {"q": q, "qadd": qadd, "qneg": qneg, "phi": phi, "gamma": gamma, "t": len(T),
+            "Rh": cb["Rh"], "Ch": cb["Ch"], "Xb": cb["Xb"]}
+
+
+def _character_bordered_array(cb, seqs, reflection, Kcr, Kci):
+    """K = [[Xb, R], [R', Kc]] of _szollosi_zero_diagonal_core's character-bordered form, for the core Kc = Kcr + i Kci
+    over G and the data cb of _character_border_setup (the checks listed there are made here, in exact integers)."""
+    q, qadd, qneg, phi, gamma, t = (cb[k] for k in ("q", "qadd", "qneg", "phi", "gamma", "t"))
+    m = len(phi)
+    Rh, Ch, Xb = (np.array(cb[k], dtype=np.int64) for k in ("Rh", "Ch", "Xb"))
+    if Rh.shape != (2 * t, 2 * q) or Ch.shape != (2 * q, 2 * t) or Xb.shape != (2 * t, 2 * t):
+        raise ValueError("the border matrices must have sizes 2t x 2q, 2q x 2t and 2t x 2t")
+    if Kcr.shape[0] != 2 * m:
+        raise ValueError("the core does not have order 2m")
+    if (Rh < 0).any() or (Rh > 3).any() or (Ch < 0).any() or (Ch > 3).any() or (Xb < -1).any() or (Xb > 3).any():
+        raise ValueError("the border exponents must be 0..3 (Xb: or -1 for a zero)")
+    if (Xb < 0).sum(axis=0).tolist() != [1] * (2 * t) or (Xb < 0).sum(axis=1).tolist() != [1] * (2 * t):
+        raise ValueError("Xb must have one zero in each row and column")
+    gm = lambda a, b: (a[0] @ b[0] - a[1] @ b[1], a[0] @ b[1] + a[1] @ b[0])       # products of (real, imag) pairs
+    gs = lambda a: (a[0].T, -a[1].T)                                                    # conjugate transpose
+    Rg, Cg = (_UNIT_RE[Rh], _UNIT_IM[Rh]), (_UNIT_RE[Ch], _UNIT_IM[Ch])
+    # V_T: 4q f = Gamma-developed f for both halves of each row of Rh and each column of Ch; then orthogonality
+    G = gamma[qadd[:, qneg]]                                                              # G[a, b] = Gamma(a - b)
+    for f in (Rg[0].T, Rg[1].T, Cg[0], Cg[1]):                                          # columns: halves stacked
+        if any(not np.array_equal(4 * q * f[i * q:(i + 1) * q], G @ f[i * q:(i + 1) * q]) for i in (0, 1)):
+            raise ValueError("a row of Rh or a column of Ch does not lie in V_T")
+    rr, cc = gm(Rg, gs(Rg)), gm(gs(Cg), Cg)
+    if not (np.array_equal(rr[0], 2 * q * np.eye(2 * t, dtype=np.int64)) and not rr[1].any() and
+            np.array_equal(cc[0], 2 * q * np.eye(2 * t, dtype=np.int64)) and not cc[1].any()):
+        raise ValueError("the rows of Rh or the columns of Ch are not orthogonal")
+    # Mc over Q: 2 Mc = [[Xr, Yr], [Yr^T, -Xr^T]] + i [[Xi, Yi], [-Yi^T, Xi^T]] with Xr = YA + YB, Xi = YA - YB, ...
+    y = [np.bincount(phi, weights=x, minlength=q).astype(np.int64) for x in seqs]
+    YA, YB, YC, YD = (group_matrix(qadd, qneg, v) for v in y)
+    RQ = np.zeros((q, q), dtype=np.int64)
+    RQ[np.arange(q), qadd[phi[reflection], qneg]] = 1
+    Xr, Xi, Yr, Yi = YA + YB, YA - YB, YC + YD @ RQ, YC - YD @ RQ
+    M2 = (np.block([[Xr, Yr], [Yr.T, -Xr.T]]), np.block([[Xi, Yi], [-Yi.T, Xi.T]]))
+    w = gm(gm(Rg, gs(M2)), Cg)                                                           # Rh (2 Mc)* Ch = -4q Xb
+    zero = Xb < 0
+    xb = (np.where(zero, 0, _UNIT_RE[Xb]), np.where(zero, 0, _UNIT_IM[Xb]))
+    if not (np.array_equal(w[0], -4 * q * xb[0]) and np.array_equal(w[1], -4 * q * xb[1])):
+        raise ValueError("Xb != -Rh Mc* Ch/(2q)")
+    cols = np.concatenate([phi, q + phi])                                               # the index i q + phi(g)
+    Kr = np.block([[xb[0], Rg[0][:, cols]], [Cg[0][cols, :], Kcr]])
+    Ki = np.block([[xb[1], Rg[1][:, cols]], [Cg[1][cols, :], Kci]])
+    return Kr, Ki
 
 
 def complex_yamada_kiyasu(cert):
@@ -1729,7 +1864,8 @@ def _complex_yamada_kiyasu_K(cert):
     core = cert["core"]
     Cr, Ci = _szollosi_zero_diagonal_core(core["group"], core["sequences"], core.get("rowsums"),
                                           core.get("symmetry_generators"), core.get("symmetry_order"),
-                                          core.get("border"), core.get("reflection", 0))
+                                          core.get("border"), core.get("reflection", 0),
+                                          core.get("character_border"))
     c = Cr.shape[0]
     if c != n + 1:
         raise ValueError("the core must have order (q + 3)/2")

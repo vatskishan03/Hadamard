@@ -339,6 +339,20 @@ Concurrent with Ho's, so the four orders are **New, beyond the tables**, not obt
 orders 4 · 941 · t for t = 23 to 53 ([MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#reach)) are certified but not
 densely checked and are not claimed here.
 
+**Order 3820, the quaternary Hadamard matrix of order 1910 and the quaternary conference matrix of order 478**
+([hadamard/3820](hadamard/3820), [complex-hadamard/C1910.json](complex-hadamard/C1910.json)). Checked on 26 October 2026:
+- *Tables.* Cati–Pasechnik, arXiv:2411.18897 v2, Table 4: 955(3), so 8 · 955 = 7640 is known (Paley I, 7639 prime) and
+  3820 is not. The survey of Egan, Kotsireas, London and Ó Catháin (Table 5) lists 3820 as open. The Hadamard Matrix
+  Explorer (version 53) lists 3820 as unknown. Zaitsev et al.'s page (last updated 14 October 2026) lists 1910 and
+  478 among the unknown quaternary orders and has no matrix of either.
+- *Recent work.* Middletownbooks/Hadamard (955 among its open orders); the JD-Jones-ASES repositories; Zenodo; the arXiv
+  listings to 26 October; MathWorld; SageMath; Brouwer's table (srg(477, 238, 118, 119), a symmetric conference
+  matrix of order 478, is open); Fallon and Iverson, arXiv:2610.09169 (their numerical conference signal on ℤ₄₇₇ is
+  not equivalent to a quaternary matrix: its four-point invariants lie up to 0.77 away from the units); web searches
+  for 3820, 1910 and 478.
+- *Finding.* None gives any of the three objects. 3820, the quaternary matrix of order 1910 and the quaternary
+  conference matrix of order 478 are **New**.
+
 **Order 3356** ([hadamard/3356](hadamard/3356)). Checked on 26 October 2026:
 - *Tables.* Cati–Pasechnik, arXiv:2411.18897 v2 (Table 4: 839(4), read from the PDF); the survey of Egan, Kotsireas,
   London and Ó Catháin, arXiv:2610.27175 (19 October 2026, the only version; Table 5 lists 4 · 839 among its open

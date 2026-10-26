@@ -24,9 +24,11 @@ Certificates with construction "miyamoto-completion" give q, a primitive root g 
 of Seberry-Yamada's Corollary 8.8(i) (completion_build, NOTES.md section 19).
 
 Certificates with construction "complex-yamada-kiyasu" give a prime q = 1 (mod 4), Yamada's parameters r, xi and a
-quaternary conference matrix of order (q + 3)/2 as the four sequences of a zero-diagonal Szollosi array, plain or
-bordered; K of order 2(q + 2) is built by verify/verify.py (complex_yamada_kiyasu, NOTES.md section 31), which also
-builds the Hadamard matrices of order 4(q + 2) in hadamard/ from the same data.
+quaternary conference matrix of order (q + 3)/2 as the four sequences of a zero-diagonal Szollosi array, plain, with a
+single-unit border or with a character border (a quotient map, a set of characters of the quotient and the border
+matrices: the zero-diagonal analogue of complex-hadamard/TBORDERED.md); K of order 2(q + 2) is built by verify/verify.py
+(complex_yamada_kiyasu, NOTES.md section 31), which also builds the Hadamard matrices of order 4(q + 2) in hadamard/
+from the same data.
 
 This script rebuilds K from the sequences alone, checks every entry and K K* = n I exactly in integer arithmetic
 (real and imaginary parts separately), and compares the SHA-256 of the canonical text of K: n lines of n digits,
