@@ -6919,6 +6919,12 @@ cores.
     10^7.2–7.6 per block and a yield of 10^−4.1 per leaf. Infeasible.
   - 1039 with 70 and 94 orbits: lists beyond any join.
   - 2503 over ℤ₂² × F₂₅ × F₂₅: exactly empty, PROVED.
+  - 1103 over ℤ₂² × F₂₅ × ℤ₁₁ with a Singer element of order 3 on F₂₅ (110 orbits): log₁₀ W ≈ 47.
+- *Bordered arrays over ℤ₄ʳ with partial Teichmüller character sets* (T = {1} plus orbits of order-4 characters):
+  - 599 over ℤ₄² × ℤ₃₇ (t = 7, 70 orbits, 10^24.6): no border in any symmetric class tested.
+  - 669 over ℤ₄² × ℤ₄₁ (t = 13, the group of 2636): exactly empty at the first quotient.
+  - 719 and 739 over ℤ₄³ × ℤ₁₁: dead.
+  - The rule kept from this: test the border and the level-1 join over Q before any ladder.
 - *Screens worth keeping.* (a) If H is transitive on the nonzero points of a field block F_q, compress to it: the
   compressions are two-valued (sᵢ, cᵢ) and the system reduces to Σ (sᵢ² + (q − 1)cᵢ²) = 4n. (b) For Legendre pairs of
   length 3p, compress to ℤ₃ first. (c) A minimum-energy (Parseval) check at every quotient.
