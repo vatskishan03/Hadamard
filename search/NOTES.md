@@ -6856,7 +6856,9 @@ to any index and to levels given by arbitrary H-invariant subgroups (explicit co
 - *Consequence.* For these orders a border for k ≥ 12 would not help; level 2 is the obstruction.
 
 **Conference matrices of order 9p + 1** (§96). `bipcyc3` (the cyclic bipartite flag ansatz) is exhaustively empty at
-p = 37, for both sign conventions (3.5 · 10⁶ candidates, 3.9 · 10⁵ survivors, no canonical row). The run for p = 41 was not finished.
+p = 37, for both sign conventions (3.5 · 10⁶ candidates, 3.9 · 10⁵ survivors, no canonical row). At p = 41 the first
+sign convention is exhaustively empty too (2.97 · 10⁷ candidates, 2,977,224 survivors, 364,032 canonical rows, no
+solution); the second was cut off by a container restart after 11 hours and was restarted on October 27.
 
 ## 103. Round 49: Spence over Galois rings; the conference matrix of order 478 and order 3820 (n = 955) (October 26)
 
