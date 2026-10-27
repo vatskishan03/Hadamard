@@ -7248,3 +7248,24 @@ Scratchpad `r53/`. No new matrix. The round asked which multiplication theorems 
   has order n = (q + 1)/2, zero diagonal, unit entries elsewhere and ZZ* = nI − J. For even n, two distinct rows
   give −1 as a sum of n − 2 units, an even number of units, which is impossible modulo 1 + i. The variant
   Y′ = J₂ ⊗ Z + P ⊗ W forces W to be monomial and returns the same Z.
+
+**The open quaternary order 358** (N = 179; `r53/qh358`, round 51's census in `r51/plaincensus`). Round 51 ran a census
+of the plain character-bordered Szöllősi array over the open orders 2N. It kept four structures at N = 179, none at
+167, 223 or 251, and one out of reach at 659 (10^−1.8 solutions, 10^−22 per join).
+- *The cheap structure is empty* (CHECKED: two independent exhaustive programs, joins cross-checked against
+  `search/tbcore`'s join4, planted positive controls at p = 3 to 19 and p = 11). G = ℤ₄² × ℤ₁₁ with
+  H = ⟨σ⟩ × ⟨−1⟩ of order 6, σ = [[1, 1], [1, 2]], Q = ℤ₂², t = 3; 36 orbits for C, D and 24 classes for A, B.
+  - All nine row-sum patterns have a border at the level of Q.
+  - Pattern (14, 18, 0, 14) has no tuple that is consistent at both quotients, ℤ₂² and ℤ₁₁.
+  - The other eight were searched completely: 765 joint tuples, 10^16.1 quadruples, no solution (700 CPU-s).
+  - The estimate had been 10^−0.5 solutions, or about 0.06 up to the 40 images under the normalizer, so the empty
+    result was the expected one.
+- *The rest is out of reach* (HEURISTIC).
+  - H trivial on ℤ₁₁ (44 orbits) has 10^2.5 solutions, but only about 0.07 up to 4840 images. The best exact join
+    costs 10^16.8 pair operations, about 90 core-years.
+  - H of order 3 gives 10^11 solutions, at 10^−24 or 10^−19 per join.
+  - A census of the neighbours (2-parts ℤ₂⁴, ℤ₂² × ℤ₄, ℤ₁₆, ℤ₈ × ℤ₂; 360 structures) finds nothing cheaper.
+  - New lead: t = 9 over ℤ₁₇₀ with Q = ℤ₁₀ and H = ⟨89⟩ of order 4 (46 orbits). The estimate is 10^2.4 solutions,
+    about 0.3 to 4 up to the 128 images, but the border (a quaternary Hadamard matrix of order 18 inside it) is
+    undecided. A pilot join extrapolates to 10³ to 10⁴ CPU-hours per hit.
+  So 358 stays open.
