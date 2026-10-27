@@ -7164,3 +7164,13 @@ HEURISTIC). N = 1019, 1103, 1125, 1143, 1169, 1185, 1199, 1211, 1271, 1335, 1341
   by exact arithmetic (Paley I/II, doubling, Agayan, Craigen–Seberry–Zhang, Miyamoto I–III, Seberry–Yamada 8q,
   Yamada–Kiyasu, Kamali–Kharaghani, complex Golay, Cooper–Wallis, Paley and Miyamoto blocks) and no source stating the
   order or the theorem; Seberry–Yamada's 1992 Table A.2 agrees (2589: 4, key d1). **New**.
+
+**Table 4 and Craigen's asymptotic theorem** (`r52/asym`; arithmetic CHECKED, source: the abstract and first page of
+R. Craigen, J. Combin. Theory Ser. A 71 (1995) 241–254, as reproduced online; the 2024 survey of asymptotic bounds,
+arXiv:2401.15381, quotes the same result as t = 4⌊(1/16) log₂((m − 1)/2)⌋ + 6). For every odd p there is a Hadamard
+matrix of order 2ᵗp with t = 4⌈(1/16) log₂((p − 1)/2)⌉ + 2, which is 6 for every odd p ≤ 131073. Table 4 has nine
+entries above 6, and none of them is the least known value: 1499(7), 1987(7), 2399(8), 2671(7), 2683(7), 2687(9),
+2699(7) and 2999(9) drop to m = 6, and 1447(7) was settled in 2026. Kamali and Kharaghani's sequences lower six
+others further (1439, 1571, 2039, 2063, 2287, 2879). Craigen's second bound, t = 2N with N the number of binary
+digits 1 of p, and the Handbook's 2N − 1 for p ≡ 3 (mod 4) lower nothing here. Seberry–Yamada's 1992 Table A.2 and
+Table 4 evidently do not apply the asymptotic theorems.

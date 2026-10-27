@@ -41,7 +41,9 @@ through [hadamard/2284](hadamard/2284) and [hadamard/3964](hadamard/3964); and 2
 4's own data (Table 4 updates Seberry–Yamada's values only where it reaches m = 2) ([search/NOTES.md](search/NOTES.md)
 §104). Kamali and Kharaghani's dihedral Golay sequences of 1998 lower seventeen entries (the same section; 1793 among
 them, and two more below), [hadamard/12472](hadamard/12472) lowers 1559 and [hadamard/20712](hadamard/20712) lowers
-2589 (4 · 2589 and 4 · 863 stay open).
+2589 (4 · 2589 and 4 · 863 stay open). Craigen's asymptotic theorem (1995: an order 2ᵗn for every odd n with
+t = 4⌈(1/16) log₂((n − 1)/2)⌉ + 2, that is t = 6 for n ≤ 131073) makes every value of Table 4 above 6 too large:
+1499, 1987, 2399, 2671, 2683, 2687, 2699 and 2999 have m ≤ 6, not 7 to 9.
 
 **Orders 8p.** Table 4 records n(m), the least m with a known Hadamard matrix of order 2ᵐn; an entry with m ≥ 4 is also
 an open order 8n. Egan, Kotsireas, London and Ó Catháin (Table 5) list six open orders 8p up to 10 000: 4792, 5752,
