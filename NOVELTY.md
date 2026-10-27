@@ -449,6 +449,27 @@ settles 4 · 1447 = 5788 (its Theorem 7) and lists six open orders 8p ([FRONTIER
 - *Not read.* Miyamoto's paper itself (ScienceDirect refused the download), the 2020 book's §6.5 and Table A.7, and the
   Handbook's Table 1.53 row for n = 1559 (directly).
 
+**Order 20712 = 8 · 2589 and Miyamoto's quaternary array in commuting blocks** (checked on 27 October 2026).
+- *Sources.* Cati–Pasechnik, arXiv:2411.18897 v1 and v2 (Table 4: 2589(4), 863(3)); Seberry–Yamada 1992 survey
+  (Tables A.1 and A.2: 2589 with t = 4, key d1; 863 with t = 3, key m3) and JCMCC 7 (1990), Theorems 1–4 and 21,
+  Corollaries 5, 22, 36 and 39–41 (scanned pages); Kamali–Kharaghani (1998); Đoković, arXiv:0912.5091, 1008.2043; de
+  Launey–Gordon, arXiv:1004.4872; the survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (Table 5); the
+  Hadamard Matrix Explorer (version 53, list of unknown orders to 10 000: 3452 listed); Zaitsev's page (14 October:
+  quaternary 862 present, 1726 unknown); SageMath's hadamard_matrix sources (development branch, read); the 2026
+  repositories; the arXiv math.CO listing of 27 October; web searches for 20712, 10356, 3452 and for multiplication
+  theorems of Miyamoto's M-structure or quaternary blocks by T-matrices.
+- *Finding.* No source has a Hadamard matrix of order 20712, a quaternary one of order 3452 or 10356, or a statement
+  that multiplies Miyamoto's quaternary blocks by T-matrices. Every classical route to 8 · 2589 fails by exact
+  arithmetic ([hadamard/20712](hadamard/20712)). The objects are classical (Paley's quaternary matrix of order 862,
+  T-matrices of order 3); the border conditions that make the quaternary blocks commute, and the plug-in on their
+  Turyn doubles, are not in the sources we read. Seberry–Yamada's multiplication theorems for M-structures (Theorem 4:
+  circulant or type-one blocks; Theorem 21: sixteen matrices T_ij) do not cover these blocks, which are neither
+  amicable in rows nor symmetric. So 20712 is **New**; the quaternary matrix of order 3452 is **New** to our
+  knowledge (it adds no real order: 8 · 863 was known).
+- *Not read.* Miyamoto's paper (1991); the Handbook's Table 1.53 row for 2589; Seberry–Yamada (2020), §§6.4–6.5 and
+  Table A.17; Craigen–Seberry–Zhang and Craigen–Holzmann–Kharaghani beyond abstracts. Miyamoto's paper and the
+  Handbook row are the two that could change the label.
+
 **Order 9172** ([hadamard/9172](hadamard/9172); rechecked on 27 October 2026). The survey of Egan, Kotsireas, London
 and Ó Catháin (arXiv:2610.27175, 19 October 2026, p. 10) states that "order 9172 = 4 · 2293 follows from Cooley's
 matrix of order 2292 by Miyamoto I". Ours was committed on 14 October from our own matrix of order 2292 by the same

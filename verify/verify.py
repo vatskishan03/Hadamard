@@ -28,6 +28,8 @@ Complex Yamada-Kiyasu certificates ("complex-yamada-kiyasu") give the core as th
 Szollosi array over an abelian group, from which the quaternary conference matrix is rebuilt and checked; the array may
 carry a single-unit border ("border") or a character border ("character_border": a quotient map, a set of characters
 of the quotient and the border matrices, as in complex-hadamard/TBORDERED.md).
+Quaternary Miyamoto block certificates ("quaternary-miyamoto-blocks") give q, a primitive root, the first rows of the
+four circulant blocks of K, the border matrices and T-matrices; the matrix of order 8qt is assembled in int8.
 Negacyclic Goethals-Seidel certificates ("goethals-seidel-negacyclic") give four +-1 sequences of even length n
 whose negaperiodic autocorrelations sum to 4n delta; the matrix has order 4n.
 
@@ -2785,6 +2787,104 @@ def build_symmetric_conference_plug(cert):
     return H, None
 
 
+def build_quaternary_miyamoto_blocks(cert):
+    """Hadamard matrix of order 8qt from Miyamoto's quaternary array (hadamard/QUATERNARY_MIYAMOTO_BLOCKS.md) and
+    T-matrices of order t. q = 3 (mod 4) is a prime, m = (q - 1)/2, g a primitive root. Ingredients:
+    - K = [[K00, K01], [K10, K11]], a quaternary Hadamard matrix of order 2m with circulant blocks of order m (first
+      rows as digits e, entry i^e); K K* = 2m I is checked;
+    - A, B: 4 x 4 matrices of units (digits) with A A* = B B* = 4I, A B* + 2 B R* = 0 and A - 2R = B, where
+      R = [[0, i, 0, 0], [-i, 0, 0, 0], [0, 0, 0, i], [0, 0, -i, 0]] is the matrix of block row sums of the core;
+    - T: the first rows of four circulant T-matrices of order t (over +, -, 0).
+    With W = i [chi(y - x)] on the points g^(2j), g^(2j+1), U = diag(W, W) and V = [[I, K], [-K*, I]], cut into blocks
+    U_rc, V_rc of order m, the sixteen blocks N_rc = [[A_rc, B_rc e], [B_rc e^T, [[U+V, U-V], [U-V, U+V]]_rc]] form a
+    quaternary Hadamard matrix of order 4q whose blocks commute and satisfy R_B N_rc R_B = N_rc^T (R_B: j -> -j on
+    each half of the core, border fixed). Their Turyn doubles B_rc = [[X, Y], [-Y, X]] (X = Re N + Im N,
+    Y = Re N - Im N) commute and satisfy R' B_rc R' = B_rc^T, R' = diag(1, -1) (x) R_B, so A_j = sum_k T_k (x) B_kj in
+    the Goethals-Seidel array with R'' = R_t (x) R' (R_t: s -> -s) give a Hadamard matrix of order 8qt."""
+    q, g, m = cert["q"], cert["g"], (cert["q"] - 1) // 2
+    if q % 4 != 3 or not _is_prime(q) or not is_primitive_root(g, q):
+        raise ValueError("q must be a prime = 3 (mod 4) and g a primitive root")
+    if cert["order"] != 8 * q * len(cert["T"][0]):
+        raise ValueError("the order must be 8qt")
+    U4r, U4i = np.array([1, 0, -1, 0]), np.array([0, 1, 0, -1])
+    idx = (np.arange(m)[None, :] - np.arange(m)[:, None]) % m
+    Kd = [[np.array([int(c) for c in cert["K"][f"{a}{b}"]]) for b in range(2)] for a in range(2)]
+    if any(len(Kd[a][b]) != m for a in range(2) for b in range(2)):
+        raise ValueError("the blocks of K must have order (q - 1)/2")
+    Kr = np.block([[U4r[Kd[a][b]][idx] for b in range(2)] for a in range(2)]).astype(np.int64)
+    Ki = np.block([[U4i[Kd[a][b]][idx] for b in range(2)] for a in range(2)]).astype(np.int64)
+    E = np.eye(2 * m, dtype=np.int64)
+    if not (np.array_equal(Kr @ Kr.T + Ki @ Ki.T, 2 * m * E) and not np.any(Ki @ Kr.T - Kr @ Ki.T)):
+        raise ValueError("K K* != (q - 1)I")
+    unit = np.array([1, 1j, -1, -1j])
+    A, B = unit[np.array(cert["A"])], unit[np.array(cert["B"])]
+    R = np.array([[0, 1j, 0, 0], [-1j, 0, 0, 0], [0, 0, 0, 1j], [0, 0, -1j, 0]])
+    I4 = np.eye(4)
+    if not (np.allclose(A @ A.conj().T, 4 * I4) and np.allclose(B @ B.conj().T, 4 * I4)
+            and np.allclose(A @ B.conj().T + 2 * B @ R.conj().T, 0) and np.allclose(A - 2 * R, B)):
+        raise ValueError("border identities fail")
+    T = [[SIGN[c] for c in r] for r in cert["T"]]
+    t = len(T[0])
+    if len(T) != 4 or not np.all(np.count_nonzero(np.array(T), axis=0) == 1):
+        raise ValueError("T: expected four rows whose supports partition Z_t")
+    paf = paf_sum(T)
+    if paf[0] != t or np.any(paf[1:] != 0):
+        raise ValueError("T: autocorrelation condition fails")
+    chi = -np.ones(q, dtype=np.int64)
+    chi[0] = 0
+    chi[(np.arange(1, q, dtype=np.int64) ** 2) % q] = 1
+    pts = np.array([pow(g, 2 * j, q) for j in range(m)] + [pow(g, 2 * j + 1, q) for j in range(m)], dtype=np.int64)
+    Wi = chi[(pts[None, :] - pts[:, None]) % q]
+    Z2, I2 = np.zeros((2 * m, 2 * m), dtype=np.int64), np.eye(2 * m, dtype=np.int64)
+    Ui = np.block([[Wi, Z2], [Z2, Wi]])                                          # U = i Ui
+    Vr, Vi = np.block([[I2, Kr], [-Kr.T, I2]]), np.block([[Z2, Ki], [Ki.T, Z2]])
+    blk = lambda X, r, c: X[r * m:(r + 1) * m, c * m:(c + 1) * m]
+    Bk = [[None] * 4 for _ in range(4)]
+    for r in range(4):
+        for c in range(4):
+            Nr, Ni = np.zeros((q, q), dtype=np.int64), np.zeros((q, q), dtype=np.int64)
+            Nr[0, 0], Ni[0, 0] = round(A[r, c].real), round(A[r, c].imag)
+            Nr[0, 1:], Ni[0, 1:] = round(B[r, c].real), round(B[r, c].imag)
+            Nr[1:, 0], Ni[1:, 0] = round(B[r, c].real), round(B[r, c].imag)
+            ui, vr, vi = blk(Ui, r, c), blk(Vr, r, c), blk(Vi, r, c)
+            for h in range(2):
+                for k in range(2):
+                    s = 1 if h == k else -1
+                    rs, cs = slice(1 + h * m, 1 + (h + 1) * m), slice(1 + k * m, 1 + (k + 1) * m)
+                    Nr[rs, cs], Ni[rs, cs] = s * vr, ui + s * vi
+            if not np.all(np.abs(Nr) + np.abs(Ni) == 1):
+                raise ValueError("an entry of the quaternary array is not a unit")
+            X, Y = Nr + Ni, Nr - Ni
+            Bk[r][c] = np.block([[X, Y], [-Y, X]]).astype(np.int8)
+    perm = np.arange(q)
+    for h in range(2):
+        perm[1 + h * m:1 + (h + 1) * m] = 1 + h * m + (-np.arange(m)) % m
+    perm2 = np.concatenate([perm, q + perm])
+    sign2 = np.concatenate([np.ones(q, dtype=np.int8), -np.ones(q, dtype=np.int8)])
+    n2 = 2 * q
+    P = np.concatenate([((-s) % t) * n2 + perm2 for s in range(t)])
+    S = np.tile(sign2, t)
+    Ct = [circulant(r).astype(np.int8) for r in T]
+    Aj = [sum(np.kron(Ct[k], Bk[k][j]) for k in range(4)).astype(np.int8) for j in range(4)]
+    del Bk
+
+    def mulR(X):                                    # X R'': column i of X goes to column P[i], times S[i]
+        Y = np.empty_like(X)
+        Y[:, P] = X * S[None, :]
+        return Y
+
+    AR = [mulR(x) for x in Aj]
+    ATR = [mulR(np.ascontiguousarray(x.T)) for x in Aj]
+    rows = [[Aj[0], AR[1], AR[2], AR[3]], [-AR[1], Aj[0], ATR[3], -ATR[2]],
+            [-AR[2], -ATR[3], Aj[0], ATR[1]], [-AR[3], ATR[2], -ATR[1], Aj[0]]]
+    n = 2 * q * t
+    H = np.empty((4 * n, 4 * n), dtype=np.int8)
+    for i in range(4):
+        for j in range(4):
+            H[i * n:(i + 1) * n, j * n:(j + 1) * n] = rows[i][j]
+    return H, None
+
+
 BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": build_goethals_seidel_group,
             "goethals-seidel-negacyclic": build_goethals_seidel_negacyclic,
             "cooper-wallis": build_cooper_wallis,
@@ -2804,6 +2904,7 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "symmetric-propus-weighing": build_symmetric_propus_weighing,
             "symmetric-yamada-kiyasu": build_symmetric_yamada_kiyasu, "paley-skew": build_paley_skew,
             "complex-yamada-kiyasu": build_complex_yamada_kiyasu, "complex-miyamoto": build_complex_miyamoto,
+            "quaternary-miyamoto-blocks": build_quaternary_miyamoto_blocks,
             "two-block": build_two_block, "paley-blocks": build_paley_blocks,
             "symmetric-involution": build_symmetric_involution,
             "symmetric-conference-plug": build_symmetric_conference_plug}

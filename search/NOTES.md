@@ -7139,3 +7139,64 @@ and q = 223, 263, 331, 431, 1559 with the matrices of complex-hadamard).
   - *Why it fails.* A block's compression to a quotient is constant on H-orbits, so its granularity is the orbit
     weights; the flat spectrum at every character then fails exactly once |H| ≥ 8, and the survivors need 45 or more
     orbits (pools above 10¹⁰ per block).
+
+## 105. Round 52: Miyamoto's quaternary array in blocks times T-matrices, order 20712; QH(2N) for N > 1000 (October 27)
+
+Scratchpad `r52/blocks`, `r52/sweep_a`, `r52/sweep_b`.
+
+**Miyamoto's quaternary array in commuting blocks**
+([hadamard/QUATERNARY_MIYAMOTO_BLOCKS.md](../hadamard/QUATERNARY_MIYAMOTO_BLOCKS.md), `search/cmblocks`). The quaternary
+analogue of [hadamard/MIYAMOTO_BLOCKS.md](../hadamard/MIYAMOTO_BLOCKS.md).
+- *Which K* (PROVED, CHECKED). With the points of GF(q)* along a primitive root, the sixteen blocks commute for every
+  quaternary Hadamard matrix K of order q − 1 whose 2 × 2 blocks of order m = (q − 1)/2 are all circulant (or all
+  negacyclic); no special form [[A, B], [−B*, A*]] is needed. Paley's quaternary matrix of order (p + 1)/2 (p = 2q − 3)
+  has this form exactly, through the non-split torus of SL(2, p) (g = τ^m acts as i, ρ = τ⁴ is semiregular on the
+  pairs {f, gf} with two orbits), and so has C + iI with C Paley's conference matrix of order q − 1. The repository's
+  Szöllősi-type certificates do not: their second block contains the reversal.
+- *Borders* (PROVED, CHECKED). The borders of COMPLEX_MIYAMOTO.md fail (102 of 120 block pairs do not commute). The
+  conditions B′ = B, A − 2R = B, A A* = B B* = 4I, A B* + 2 B R* = 0 make the blocks commute (exactly: the commutator
+  of two bordered blocks lives on the border and vanishes iff (A_rc − 2R_rc)/B_rc is one constant λ = ±1) and give
+  R_B N R_B = Nᵀ; there are 128 pairs for each λ (CHECKED).
+- *The plug-in* (CHECKED). The linear Goethals–Seidel array with quaternary blocks fails (q = 7, t = 3: largest entry of
+  G G* − 84I is 42; an exhaustive search over arrays with ±X, ±Xᵀ, ±conj X, ±X* finds no Goethals–Seidel-type array for
+  generic quaternary blocks, while the real case has millions). Turyn's doubles of the sixteen blocks commute and are
+  transposed by the signed permutation diag(1, −1) ⊗ R_B, and with T-matrices of order t the real Goethals–Seidel array
+  is a Hadamard matrix of order 8qt. Checked exactly for q = 7, 11, 19, 23, 31 (both kinds of K) with t = 3, 5, and for
+  negacyclic K at q = 7, 11.
+- *Order 20712 = 8 · 3 · 863* ([hadamard/20712](../hadamard/20712)). q = 863, K from Paley's quaternary matrix of order
+  862 (p = 1723), t = 3. H Hᵀ = 20712 I exactly (blockwise float32 in `rebuild.py` and `verify/verify.py`, and a copy
+  of the repository's integer C checker on the streamed CSV: 214,503,828 row pairs, no violation). Table 4 records
+  2589(4), and 4 · 863 and 4 · 2589 are open, so Agayan's multiplication and doubling do not give it.
+- *Reach.* Among the q ≡ 3 (mod 4) with 4q open and K of the right form (751, 863, 907, 1103, 1187, 1291, 1367, …),
+  2589 is the only entry n(m ≥ 4) of Table 4 it lowers with 4q open (it reaches eleven more, 933 to 2973, that
+  Agayan's multiplication gives already); beyond Table 4 it gives 75 orders 8n with
+  3001 ≤ n ≤ 9999 and infinitely many above, not built (we have no copy of Handbook Table 1.53: no licensed online copy
+  was found on October 27).
+
+**QH(2N) for the eighteen Table 4 primes with N > 1000** (`r52/sweep_a`, `r52/sweep_b`; kills CHECKED, estimates
+HEURISTIC). N = 1019, 1103, 1125, 1143, 1169, 1185, 1199, 1211, 1271, 1335, 1341, 1343, 1349, 1439, 1443, 1451, 1469,
+1499. No quaternary matrix found.
+- *Tools* (`search/qhsweep`). The repository's Gray-code enumerator caps the reachable structures at 40 orbits, so the
+  agents wrote a pruned DFS enumerator (identical lists to `bnw_enum` on 253 lists), a join with a key-presence filter
+  and exact lattice normalisation (totals 96, 96, 16, 8352, 4704 on N = 779, 371, 143, 163, 119, as before), exact ℤ₂
+  and quotient screens and sliced joins; the pipeline rediscovers the matrix of order 1558 (N = 779, H = ⟨49⟩) as a
+  control. The chain rule-outs below were run with `search/cchain4.py`.
+- *Plain Szöllősi arrays* (all H with −1 ∉ H and at most 64 orbits, every row-sum pattern): every structure with lists
+  up to 2 · 10⁷ decided (0 solutions), e.g. 1271: 142 exact joins (pair work 5.2 · 10¹¹) and 352 chain rule-outs; the
+  primes 1019, 1439, 1451 and 1499 and the composites 1169 and 1211 admit no row-sum pattern at all. The undecided
+  structures all have at least 33 orbits and estimates of 10^−7 or less (best: 1271 at 47 orbits, 1349 at 33, 1199 at
+  39).
+- *Williamson-type region* (−1 ∈ H) for 1125, 1143, 1185, 1335: dead; 1443 mostly dead (248 undecided at 10^−38).
+- *Bordered arrays over ℤ_{N−1}*: killed at the ℤ₂ compression except 1103 (12 joined exactly, empty), 1271, 1211, 1343
+  and 1451 (survivors with lists above 10¹² and estimates below 10^−475 for 1451).
+- *Character-bordered arrays* (ℤ₄, ℤ₆, V₄ and the t = 3 families): dead at the quotient, except estimates of 10^−17 to
+  10^−33 for 1199, 1103 and 1499.
+- *Conclusion.* A hit from Szöllősi-type structures at these N is very unlikely (no live estimate above 10^−7).
+- *Review* (October 27; three independent agents). An independent rebuild from the certificate data reproduced the
+  matrix bit for bit (SHA-256) with an exact Gram check, and showed K entrywise equivalent to the matrix that
+  `verify_complex.py` builds from complex-hadamard/C862.json. A proof audit re-derived (i) to (iii), extended the
+  hypotheses to prime powers q (q = 27 checked) and any generator of the squares, found no counterexample in about
+  1000 cases and saw every deliberate violation fail. A novelty check found every classical route to 8 · 2589 closed
+  by exact arithmetic (Paley I/II, doubling, Agayan, Craigen–Seberry–Zhang, Miyamoto I–III, Seberry–Yamada 8q,
+  Yamada–Kiyasu, Kamali–Kharaghani, complex Golay, Cooper–Wallis, Paley and Miyamoto blocks) and no source stating the
+  order or the theorem; Seberry–Yamada's 1992 Table A.2 agrees (2589: 4, key d1). **New**.
