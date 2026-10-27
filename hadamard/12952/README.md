@@ -31,12 +31,19 @@ computation of round 44 ([search/NOTES.md](../../search/NOTES.md) §95).
 rests on Seberry–Yamada's Williamson-type matrices of order 809 (Table A.1, key wl), which come from Corollary 8.8(i),
 whose printed proof does not give Williamson-type matrices ([NOTES.md](../../NOTES.md) §7). Part (ii) of the corollary,
 used here, needs a symmetric Hadamard matrix of order 404 = 4 · 101, and 101 was undecided in the Đoković–Seberry
-census until [symmetric/404](../../symmetric/404). We found no other valid construction:
+census until [symmetric/404](../../symmetric/404). We found no other construction from ingredients published before
+2026:
 
 - Paley's constructions do not apply: 12951 = 3² · 1439 and 6475 = 5² · 7 · 37 are not prime powers.
 - No doubling: a Hadamard matrix of order 6476 = 4 · 1619 is not known (FRONTIER.md).
-- Miyamoto's theorem for order 8q would need 2q − 3 = 3235 = 5 · 647 to be a prime power, and the complex Golay
-  decomposition 8(x + y) would need two complex Golay lengths with sum 1619.
+- Miyamoto's theorem for order 8q, as tabulated, would need 2q − 3 = 3235 = 5 · 647 to be a prime power, and the
+  complex Golay decomposition 8(x + y) would need two complex Golay lengths with sum 1619.
+
+A second valid route came later and also rests on the matrix of order 404. Miyamoto's Theorem 7 in quaternary form
+([COMPLEX_MIYAMOTO.md](../COMPLEX_MIYAMOTO.md)), with the quaternary Hadamard matrix of order 1618
+([complex-hadamard/C1618.json](../../complex-hadamard/C1618.json), itself built from the symmetric matrix of order 404),
+gives a quaternary matrix of order 6476 and, by Turyn's doubling, another Hadamard matrix of order 12952 (checked
+exactly, H Hᵀ = 12952 I).
 
 The order lies above the range of the 2026 survey's list of open orders (up to 10 000). The sources searched are listed
 in [NOVELTY.md](../../NOVELTY.md).

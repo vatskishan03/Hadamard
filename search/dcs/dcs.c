@@ -75,6 +75,6 @@ int main(int argc,char**argv){
     }
   }
   fprintf(stderr,"n=%d eps=%d steps %.3g lookups %.3g solutions %ld\n",n,eps,nstep,nlook,nsol);
-  printf("# n=%d eps=%d solutions %ld (up to sign of u and i; a mod negation)\n",n,eps,nsol);
+  printf("# n=%d eps=%d solutions %ld (up to sign of u and i; a mod negation and reversal)\n",n,eps,nsol);
   return 0;
 }

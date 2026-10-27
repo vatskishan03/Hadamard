@@ -1838,6 +1838,110 @@ def _character_bordered_array(cb, seqs, reflection, Kcr, Kci):
     return Kr, Ki
 
 
+def complex_miyamoto(q, Kr, Ki, C=None):
+    """Miyamoto's construction in quaternary form (hadamard/COMPLEX_MIYAMOTO.md): for a prime q = 3 (mod 4) and a
+    quaternary Hadamard matrix K = Kr + i Ki of order q - 1 = 2m, the quaternary matrix H = Hr + i Hi of order 4q below
+    has H H* = 4qI (checked by the caller). With C, a skew conference matrix of order q + 1 for any odd q = 3 (mod 4),
+    C replaces Paley's matrix: normalised so that its row 0 is (0, 1, ..., 1), its row 1 gives the halves of the core
+    (points 2, ..., q) and the core itself replaces [chi(y - x)].
+
+    Paley's skew conference matrix on infinity, 0 and GF(q)* becomes Hermitian after multiplication by i; normalised so
+    that the row and column of infinity are all 1, its core on GF(q)* (the squares first, then the non-squares) is
+    W = i [chi(y - x)], with W W* = qI - J - d d*, d = i chi on the core. Put U = diag(W, W) and
+    V = [[I, K], [-K*, I]] (order 4m, V V* = qI), both cut into 4 x 4 blocks U_rc, V_rc of order m; their supports are
+    complementary. The block of H in block row r and block column c (order q = 1 + 2m) is
+
+        [[A_rc, B_rc e], [B'_rc e^T, [[U_rc + V_rc, U_rc - V_rc], [U_rc - V_rc, U_rc + V_rc]]]].
+
+    On the vectors x (x) (1, -1) the core acts through V only, on x (x) (1, 1) through U and the borders, and the two
+    parts never meet. The U part closes with any B' that is a quaternary Hadamard matrix of order 4, because
+    W W* has blocks qI - 2J on the diagonal and 0 off it. The rows of U_rc have constant sums R_rc: (0, i) for the
+    squares and (-i, 0) for the non-squares, so R is monomial with unit entries. The border rows close iff
+    A A* + 2m B B* = 4qI and A B'* + 2 B R* = 0: with B the Sylvester matrix of order 4, F = [[1, 1, 1, 1],
+    [1, 1, -1, -1], [1, -1, 1, -1], [-1, 1, 1, -1]], P the permutation (0 1)(2 3), B' = R P F and A = -B P F/2 (a
+    matrix of units) both hold (R* R = I)."""
+    if q % 4 != 3 or (C is None and not _is_prime(q)):
+        raise ValueError("q must be a prime = 3 (mod 4), or = 3 (mod 4) with a skew conference matrix C")
+    m = (q - 1) // 2
+    if Kr.shape != (2 * m, 2 * m) or Ki.shape != (2 * m, 2 * m):
+        raise ValueError("K must have order q - 1")
+    if C is None:
+        chi = -np.ones(q, dtype=np.int64)
+        chi[0] = 0
+        chi[(np.arange(1, q, dtype=np.int64) ** 2) % q] = 1
+        pts = np.concatenate([np.flatnonzero(chi == 1), np.flatnonzero(chi == -1)])
+        Wi = chi[(pts[None, :] - pts[:, None]) % q]                             # W = i Wi
+    else:
+        C = np.asarray(C, dtype=np.int64)
+        E = np.eye(q + 1, dtype=np.int64)
+        if (C.shape != (q + 1, q + 1) or not np.array_equal(C, -C.T) or np.any(np.diag(C))
+                or not np.all(np.abs(C + E) == 1) or not np.array_equal(C @ C.T, q * E)):
+            raise ValueError("C is not a skew conference matrix of order q + 1")
+        D = np.ones(q + 1, dtype=np.int64)
+        D[1:] = C[0, 1:]
+        C = D[:, None] * C * D[None, :]                                         # row 0 = (0, 1, ..., 1)
+        core = np.arange(2, q + 1)
+        pts = np.concatenate([core[C[1, core] == 1], core[C[1, core] == -1]])
+        if len(core[C[1, core] == 1]) != m:
+            raise ValueError("unequal halves")
+        Wi = C[np.ix_(pts, pts)]
+    Kr, Ki = Kr.astype(np.int64), Ki.astype(np.int64)
+    I2, Z2 = np.eye(2 * m, dtype=np.int64), np.zeros((2 * m, 2 * m), dtype=np.int64)
+    Vr, Vi = np.block([[I2, Kr], [-Kr.T, I2]]), np.block([[Z2, Ki], [Ki.T, Z2]])
+    Ui = np.block([[Wi, Z2], [Z2, Wi]])
+    blk = lambda X, r, c: X[r * m:(r + 1) * m, c * m:(c + 1) * m]
+    R = np.array([[1j * blk(Ui, r, c).sum(axis=1) for c in range(4)] for r in range(4)])
+    if np.any(R != R[:, :, :1]):
+        raise ValueError("block row sums are not constant")
+    R = R[:, :, 0]
+    if not np.array_equal(R, np.array([[0, 1j, 0, 0], [-1j, 0, 0, 0], [0, 0, 0, 1j], [0, 0, -1j, 0]])):
+        raise ValueError("unexpected block row sums")
+    B = np.array([[1, 1, 1, 1], [1, 1, -1, -1], [1, -1, 1, -1], [1, -1, -1, 1]], dtype=complex)
+    F = np.array([[1, 1, 1, 1], [1, 1, -1, -1], [1, -1, 1, -1], [-1, 1, 1, -1]], dtype=complex)
+    P = np.eye(4)[[1, 0, 3, 2]]
+    Bp, A = R @ P @ F, -B @ P @ F / 2
+    if not (np.allclose(np.abs(A), 1) and np.allclose(A @ A.conj().T, 4 * np.eye(4)) and
+            np.allclose(A @ Bp.conj().T + 2 * B @ R.conj().T, 0)):
+        raise ValueError("border identities fail")
+    Hr = np.zeros((4 * q, 4 * q), dtype=np.int8)
+    Hi = np.zeros((4 * q, 4 * q), dtype=np.int8)
+    for r in range(4):
+        for c in range(4):
+            o, p = r * q, c * q
+            Hr[o, p], Hi[o, p] = round(A[r, c].real), round(A[r, c].imag)
+            Hr[o, p + 1:p + q], Hi[o, p + 1:p + q] = round(B[r, c].real), round(B[r, c].imag)
+            Hr[o + 1:o + q, p], Hi[o + 1:o + q, p] = round(Bp[r, c].real), round(Bp[r, c].imag)
+            ui, vr, vi = blk(Ui, r, c), blk(Vr, r, c), blk(Vi, r, c)
+            for h in range(2):
+                for g in range(2):
+                    sg = 1 if h == g else -1
+                    rs, cs = slice(o + 1 + h * m, o + 1 + (h + 1) * m), slice(p + 1 + g * m, p + 1 + (g + 1) * m)
+                    Hr[rs, cs], Hi[rs, cs] = sg * vr, ui + sg * vi
+    if not np.all(np.abs(Hr.astype(np.int16)) + np.abs(Hi.astype(np.int16)) == 1):
+        raise ValueError("an entry is not in {1, -1, i, -i}")
+    return Hr, Hi
+
+
+def build_complex_miyamoto(cert):
+    """Hadamard matrix of order 8q, q = 3 (mod 4) a prime: Turyn's double [[Hr + Hi, Hr - Hi], [-(Hr - Hi), Hr + Hi]]
+    of the quaternary Hadamard matrix of order 4q of complex_miyamoto. cert["K"] is the complete complex certificate
+    of the quaternary Hadamard matrix of order q - 1 (as in complex-hadamard/), rebuilt and checked by
+    verify/verify_complex.py; its K K* = (q - 1)I is checked here as well."""
+    q = cert["q"]
+    if cert["order"] != 8 * q:
+        raise ValueError("the order must be 8q")
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import verify_complex
+    Kr, Ki = verify_complex.build(cert["K"])
+    verify_complex.check(Kr, Ki)
+    if Kr.shape[0] != q - 1:
+        raise ValueError("K must have order q - 1")
+    Hr, Hi = complex_miyamoto(q, Kr, Ki)
+    X, Y = Hr + Hi, Hr - Hi
+    del Hr, Hi
+    return np.block([[X, Y], [-Y, X]]), None
+
+
 def complex_yamada_kiyasu(cert):
     """The quaternary Hadamard matrix K = Kr + i Ki of order 2v of build_complex_yamada_kiyasu (int8 parts; K K* = 2vI
     is checked by the caller, verify/verify_complex.py). cert["order"] must be 2v = 2(q + 2)."""
@@ -2699,7 +2803,7 @@ BUILDERS = {"goethals-seidel": build_goethals_seidel, "goethals-seidel-group": b
             "symmetric-propus-skewcore": build_symmetric_propus_skewcore,
             "symmetric-propus-weighing": build_symmetric_propus_weighing,
             "symmetric-yamada-kiyasu": build_symmetric_yamada_kiyasu, "paley-skew": build_paley_skew,
-            "complex-yamada-kiyasu": build_complex_yamada_kiyasu,
+            "complex-yamada-kiyasu": build_complex_yamada_kiyasu, "complex-miyamoto": build_complex_miyamoto,
             "two-block": build_two_block, "paley-blocks": build_paley_blocks,
             "symmetric-involution": build_symmetric_involution,
             "symmetric-conference-plug": build_symmetric_conference_plug}

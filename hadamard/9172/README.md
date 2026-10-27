@@ -19,12 +19,16 @@ the SHA-256 of the result.
 
 ## Status
 
-**New.** The entry 2293(6) is unresolved in Cati–Pasechnik Table 4.
+**Concurrent.** The entry 2293(6) is unresolved in Cati–Pasechnik Table 4. So doubling this matrix also settles the
+orders 2³ · 2293 = 18344, 2⁴ · 2293 = 36688 and 2⁵ · 2293 = 73376.
 
 - Paley's constructions do not apply: 4 · 2293 − 1 = 9171 = 3² · 1019 and 2 · 2293 − 1 = 4585 = 5 · 7 · 131.
 - Miyamoto's theorem needed a Hadamard matrix of order 2292. Middletownbooks/Hadamard published one on 9 October 2026,
   before ours, and we learned of it on 19 October ([2292](../2292/README.md#status)). We found no matrix of order 9172
   published before ours of 14 October 2026.
+- The survey of Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175, 19 October 2026) states that "order
+  9172 = 4 · 2293 follows from Cooley's matrix of order 2292 by Miyamoto I". As with 2092, 3732, 4492, 5020 and 5932,
+  another group reached the order within days of ours, so we claim no priority.
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 

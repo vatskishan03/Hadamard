@@ -6970,7 +6970,8 @@ cores.
 Scratchpad `r50/cyk`, `r50/cyk_even`, `r51/dcs`.
 
 **Cores for the complex Yamada–Kiyasu targets** (the zero-diagonal character-bordered array of §103; kills CHECKED by
-exact computation, estimates HEURISTIC). The 955 mechanism was tried on every FRONTIER n with n − 2 a prime ≡ 1 (mod 4).
+exact computation, estimates HEURISTIC). The 955 mechanism was tried on every FRONTIER n with n − 2 a prime ≡ 1 (mod 4):
+2083, 2659, 2803 and 2899 in §§76–84 and §100, the other six here.
 - *Validation.* No structure with solutions was declared dead on 185 small cases (N = 7 to 19, t ≤ 7) and on 1005
   further small cyclic and non-cyclic ones (61 + 10 with solutions); the 955 structure is re-derived (10^5.3) and the
   certificates of 3820, 4204 and 6796 pass every level.
@@ -6982,8 +6983,9 @@ exact computation, estimates HEURISTIC). The 955 mechanism was tried on every FR
     and 2731, 2971 at 10^−17 and 10^−22.
 - *The pairing rule* (CHECKED on all three). The Singer element of order h = 2^a − 1 on Q must be paired with an element
   of order h in the units of an odd prime p | m, p ≡ 1 (mod h) (29 ≡ 1 mod 7 at 955), so that H has no short orbits on
-  any quotient. For 1291 and 2731 (h = 3; p = 5, 17) and 2971 (h = 7, p = 23) no such p exists, and a pure Singer
-  element dies at once: at 2971 every fibre of ℤ₂ × ℤ₄₆ has |s| ≥ 6, energy ≥ 13,248 > 2970.
+  any quotient. For 1291 and 2731 (h = 3; p = 5, 17) and for 2971 with Q = ℤ₂³ (h = 7, p = 23) no such p exists, and a
+  pure Singer element dies at once: at 2971 every fibre of ℤ₂ × ℤ₄₆ has |s| ≥ 6, energy ≥ 13,248 > 2970. At 2971 with
+  Q = ℤ₂² (h = 3) the pairing exists (m = 185, p = 37 ≡ 1 mod 3); that is the case estimated at 10^−7.7 in §103.
 - *n = 1879, 2215, 2383* (q ≡ 5 mod 8; even N = 470, 554, 596; about 31,000 structures, t ≤ 15). Dead within 15 to 64
   orbits. For 2383, t = 0 and t = 1 are PROVED dead for every H with 6 to 200 orbits (row-sum DP). For even N no Singer
   quotient exists at all (p^k | N + 1 = 471, 555, 597 is impossible, PROVED).
@@ -7001,7 +7003,7 @@ exact computation, estimates HEURISTIC). The 955 mechanism was tried on every FR
   order n − 1. So the route reaches an odd n precisely when (i) a quaternary conference matrix of order (n + 1)/2 and
   (ii) a conference matrix of order n − 1 of this block form exist. By Belevitch (ii) needs n − 2 to be a sum of two
   squares. Among the FRONTIER n this holds for the prime cases above and for 33 composite n − 2 (907, 1019, 1039, …,
-  2999), and no conference matrix of any of the orders n − 1 is known. Among the open complex orders, Mathon's
+  2999); for these 33 no conference matrix of order n − 1 is known to us. Among the open complex orders, Mathon's
   conference matrix of order 442 would serve 886, if it has this block form and a quaternary conference matrix of
   order 222 exists.
 
@@ -7009,27 +7011,33 @@ exact computation, estimates HEURISTIC). The 955 mechanism was tried on every FR
 (a, b) of sequences over D = {±1, ±i, ±s, ±is} (s² = 1, is = −si) is a DCS if f_a, f_b, f_a*, f_b* commute and
 f_a f_a* + f_b f_b* = 2n. Their Corollary 9 gives H(8(g₁g + g₂)) for Golay lengths g₁, g₂ and a DCS length g free of ±is
 (they had 7, 9 and 15; 19 has ±is). Since 599 = 26 · 23 + 1, a DCS of length 23 would give 4792 = 8 · 599.
-- *Reduction* (PROVED). In the 2 × 2 real model (1, i, s ↦ I, J, S; the involution is the transpose), F_x F_y = F_y F_x
-  iff i_x s_y = s_x i_y as polynomials, i and s the components. So in a DCS free of ±is one sequence is real and the
-  other is b = r + i·ι + s·s (supports partitioning [0, n)), and the conditions are exactly
+- *The ansatz* (PROVED within it). In the 2 × 2 real model (1, i, s ↦ I, J, S; the involution is the transpose),
+  F_x F_y = F_y F_x iff i_x s_y = s_x i_y as polynomials, i and s the components. We restrict to a real and
+  b = r + i·ι + s·σ (supports partitioning [0, n)). DCS free of ±is with both sequences non-real exist (complex Golay
+  pairs such as (1, i), (1, −i)) and are not covered. In the ansatz the conditions are exactly
   N_a + N_r + N_i + N_s = 2n δ, C_{r,i} symmetric, C_{r,s} and C_{i,s} antisymmetric (C the aperiodic
   crosscorrelation). The commutation of f_b and f_b* follows from the others. The ε-palindromic ansatz (r and i
   ε-palindromic, s (−ε)-palindromic) satisfies the three crosscorrelation conditions identically, and then a DCS is a
   quadruple (a, a, r + i + s, r − i + s) of complementary ±1 sequences. A generic DCS is overdetermined by about 200
   bits at n = 23, so structure is needed.
 - *Periodic analogue* (PROVED). For D-circulants over an abelian group, symmetric and skew functions have vanishing
-  symmetrised crosscorrelation, so a dihedral periodic complementary pair is exactly a Goethals–Seidel quadruple
-  (a, a, x₁, x₂): the dihedral signed group gives nothing new for 4p. Its only lever is Lemma 3 (DCS × Golay).
+  symmetrised crosscorrelation, so a dihedral periodic complementary pair (a real) gives a Goethals–Seidel quadruple
+  (a, a, x₁, x₂) (the converse fails: at n = 5 only 300 of the 500 quadruples lift): the dihedral signed group gives
+  nothing new for 4p. Its only lever is Lemma 3 (DCS × Golay).
 - *Exhaustive search of the ansatz* (`dcs.c`, meet in the middle on N_a; every solution re-checked by an independent
-  2 × 2-matrix checker of commutation and complementarity). Solutions up to the signs of u and i, a up to negation:
+  2 × 2-matrix checker of commutation and complementarity). Solutions up to the signs of u and i, with a up to negation
+  and reversal (classes of a with equal autocorrelation; with a up to negation only, the numbers double):
   n = 3: 2, 5: 4 (ε = −1), 7: 24, 9: 16 (ε = −1), 11: 4, 13: 8 + 4 (ε = −1), 15: 8, 17 to 23: none, 25: 16 (ε = −1),
   27: none. For n = 23, 2n = 46 is not a sum of two squares, which forces ε = +1, and that case is empty: **no DCS of
-  length 23 of this kind**, so the route to 4792 through g = 23 is closed. Length 25 is new to our knowledge (it is not
-  a complex Golay length; Bright et al. 2019 exclude complex Golay pairs of length 25); it improves no entry of Table 4.
+  length 23 in this ansatz** (reproduced by an independent program), so this search does not give Kamali and
+  Kharaghani's route to 4792 through g = 23; DCS outside the ansatz are not excluded. Length 25 is new to our
+  knowledge (it is not a complex Golay length; Bright et al. 2019 exclude complex Golay pairs of length 25); it improves
+  no entry of Table 4.
 - *The construction checked* (CHECKED). Our DCS(7) through Lemma 3, Theorem 7 (concatenation with a Golay pair), the
   Craigen–Goethals–Seidel array of their Lemma 2 and the 2 × 2 representation times I ⊗ [[1, 1], [1, −1]] (their
   Lemma 1) gives H H^T = nI exactly for 8(7 + g) with g = 1, 2, 10, 26 and for **6712 = 8 · (7 + 2⁵ · 26)** and **8248 =
-  8 · (7 + 2¹⁰)** (dense float32 products, exact below 2²⁴; SHA-256 of the CSVs a09c3ddc… and a90312bd…). These two
+  8 · (7 + 2¹⁰)** (dense float32 products, exact below 2²⁴; SHA-256 of the CSVs a09c3ddc… and a90312bd…, for the
+  DCS and commands of `search/dcs`). These two
   orders were already Known (§102, and the Hadamard Matrix Explorer posts matrices of both); the computation confirms
   Kamali and Kharaghani's construction. With Lemma 3 (DCS × Golay, also checked as a DCS for g₁ ≤ 26) it gives
   14344 = 8 · (2⁸ · 7 + 1) as well (`search/dcs`).
@@ -7039,3 +7047,66 @@ f_a f_a* + f_b f_b* = 2n. Their Corollary 9 gives H(8(g₁g + g₂)) for Golay l
   1223: 4 · 1223 = 26² · 7 + 160 and 2063 = 15 + 2¹¹. Kamali and Kharaghani's Table 1 lists thirteen of them. It lists
   only improvements on Craigen's 1996 table, so the other four (1223, 1439, 2543, 2879) may have been known otherwise;
   either way Table 4's values for them are not the least known.
+
+**Miyamoto's Theorem 7 in quaternary form** ([hadamard/COMPLEX_MIYAMOTO.md](../hadamard/COMPLEX_MIYAMOTO.md),
+`r51/cmiya`). We rederived it before finding the credit. A literature check (27 October) suggests that it is Miyamoto's
+Theorem 7 (1991). The Hadamard Matrix Explorer describes Theorem 7 as giving 8q from a complex Hadamard matrix of order
+q − 1, though only for one taken from Paley's matrix of order 2q − 2 with 2q − 3 a prime power, and the surveys state it
+with q and 2q − 3 prime powers (Seberry–Yamada, Brent–Osborn–Smith) or primes (Egan et al.). That Miyamoto allows any
+complex Hadamard matrix of order q − 1 is our inference; we could not read his paper, and the theorem is credited to him
+on this evidence. For q ≡ 3 (mod 4) prime, i times Paley's skew conference matrix is Hermitian, and its core on GF(q)*
+behaves like the symmetric core of Miyamoto's theorem (W W* = qI − J − χχᵀ). So Miyamoto's array of sixteen bordered
+blocks, with a quaternary Hadamard matrix K of order q − 1 in place of the real one, gives a quaternary Hadamard matrix
+of order 4q, and Turyn's doubling a real one of order 8q (PROVED; CHECKED for q = 7, 19, 31, 43 with Paley's complex K
+and q = 223, 263, 331, 431, 1559 with the matrices of complex-hadamard).
+- *The one change.* The block row sums of the Hermitian core are (0, i) on the squares and (−i, 0) on the non-squares,
+  on the opposite halves from the real case. The border identities A A* + 2m B B* = 4qI and A B′* + 2 B R* = 0 are
+  then satisfied by B′ = R P F and A = −B P F/2 (B Sylvester, P = (0 1)(2 3), F a fixed 4 × 4 Hadamard matrix), found
+  by a search over 4 × 4 quaternary Hadamard matrices. It is one choice among many: B′ = R F′ and A = −B F′/2 work for
+  exactly half of the 768² pairs (B, F′) of real Hadamard matrices of order 4, those with B F′/2 a ±1 matrix (CHECKED
+  by the review, with H H* = 4qI at q = 7, 19, 43).
+- *Why only 4q.* With two block rows (order 2q, which would give H(4q)) U = W has order 2m and the complementary
+  supports force V to be diagonal; the core rows are then not orthogonal (inner product −2 off the diagonal). So this
+  layout gives orders 8q only.
+- *Result.* q = 1559 with the quaternary matrix of order 1558 of this repository (Concurrent with Zaitsev's page, 2026)
+  gives **H(12472) = 8 · 1559** ([hadamard/12472](../hadamard/12472)); Table 4 has 1559(4), and no source we checked
+  lists the order. It also gives a quaternary Hadamard matrix of order 6236 = 4 · 1559, an order where no real Hadamard
+  matrix is known. Over Table 4's other entries n(m ≥ 4) with n prime ≡ 3 (mod 4), the only other quaternary matrix of
+  order n − 1 known to us is 490 (n = 491, already settled); Zaitsev's list and the 1992 tables stop below order 2000,
+  and above it we know only this repository's matrices. With the matrix of order 1618 (complex-hadamard) the theorem
+  also gives a second valid matrix of order 12952 = 8 · 1619 (Table 4: 1619(3); CHECKED by the review).
+- *q = 2683* (Table 4: 2683(7)). Seberry–Yamada's Table A.1 lists 1341 with key wb and no mark t = 3, which would mean
+  Williamson-type matrices of order 1341, hence a quaternary matrix of order 2682 and 8 · 2683. The 2026 sweep data
+  (`search/data/wt_known_1992.txt`) had taken it so. But key wb is Wallis's construction of Williamson matrices of even
+  order (l − 1)(4l + 1)/2 (p = 4l + 1 = 49 + 4t², (l − 3)/2 ≡ 1 mod 4 a prime power; reference [118], "Williamson
+  matrices of even order", 1974). Its only parameters with order 1341 or 2682 are l = 37, p = 149, giving order
+  2682; every other entry of that paper's keys (w7 at 303, w9 at 203, 333, 689, 915) carries t = 3. So the entry is a
+  misprint for t = 3 and gives nothing at 2683 (HEURISTIC: Wallis's paper not read). 1341 is removed from the data
+  file.
+- *Closure* (`r52/closure.py`, CHECKED against the data files of `search/data`, the certificates of complex-hadamard and
+  the recursive routes: Corollary 8.8(i) completion, Williamson-type, Paley conference and Paley complex, Seberry–Yamada
+  Corollaries 11.15 and 11.17, quaternary Legendre pairs). Among Table 4's entries n(m ≥ 4) with n ≡ 3 (mod 4) a prime
+  power, only 491 and 1559 have a known quaternary matrix of order n − 1. The quaternary form of Miyamoto I (q ≡ 1 mod
+  4, the symmetric Paley core with a quaternary K of order q − 1, giving 8q where H(q − 1) is unknown) reaches only
+  2293, already settled. Beyond Table 4 the theorem reaches many n (from n = 3203 on, through Table A.1's
+  Williamson-type matrices, Corollary 11.15, quaternary Legendre pairs and the Corollary 8.8(i) completion), but we
+  have no copy of Handbook Table 1.53's values of t to tell which orders 8n are open, and the matrices (orders above
+  25,000) were not built.
+- *Any skew conference matrix* (PROVED; CHECKED at q = 15, 39, 63, `search/cmiyamoto_check.py --general`). The proof
+  uses Paley's core only through its zero diagonal, W Wᵀ = qI − J − d dᵀ and the constant half-row sums, and all three
+  follow from orthogonality to the rows ∞ and 0 of any normalised skew conference matrix of order q + 1. So a
+  skew-Hadamard matrix of order q + 1 and a quaternary Hadamard matrix of order q − 1 give H(8q) for every q ≡ 3
+  (mod 4), not only prime powers (`verify.complex_miyamoto(..., C)`). Within Table 4 this reaches 2215(4) (skew 2216 of
+  this repository, Paley's conference matrix of order 2214) and 2327(4) (Paley's skew 1164 doubled, Paley's quaternary
+  2326), but both orders 8n already follow from Alpöge et al.'s H(1772) and H(716) (2026) by Agayan's multiplication
+  with H(20) and H(52); not built. The other composite n(m ≥ 4) ≡ 3 (mod 4) lack the skew matrix (2171, 2899, 2995:
+  v = 543, 725, 749 undecided) or the quaternary one (1795, 2119, 2315, 2855).
+- *Targets.* The entries n(m ≥ 4) with 4n open and N = (n − 1)/2 > 1000 have never been searched for a quaternary
+  matrix of order 2N: n = 2039, 2207, 2251, 2287, 2339, 2371, 2399, 2423, 2543, 2671, 2683, 2687, 2699, 2879, 2887,
+  2903, 2939 and 2999 (N = 1019, 1103, 1125, 1143, 1169, 1185, 1199, 1211, 1271, 1335, 1341, 1343, 1349, 1439, 1443,
+  1451, 1469, 1499). For none of them is N − 2 a prime power ≡ 1 (mod 4) (the complex Yamada–Kiyasu template) or
+  4N − 1 a prime power (Paley's complex matrix). Each quaternary matrix found would lower an entry to m = 3, as 1558
+  did for 1559.
+- *The open orders 8p.* 4792, 5752 and 5912 would follow from quaternary Hadamard matrices of orders 598, 718 and 738.
+  N = 299 has no live Singer-paired character-bordered structure (one at 10^−11.4); 738 (N = 369 = 9 · 41 admits the
+  cyclotomic-cell pairing of GF(9)* with ℤ₄₁*, as for the order-850 core of 6796) and 598 are being searched.
