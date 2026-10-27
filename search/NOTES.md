@@ -6979,7 +6979,8 @@ exact computation, estimates HEURISTIC). The 955 mechanism was tried on every FR
   order n − 1. So the route reaches an odd n precisely when (i) a quaternary conference matrix of order (n + 1)/2 and
   (ii) a conference matrix of order n − 1 of this block form exist. By Belevitch (ii) needs n − 2 to be a sum of two
   squares. Among the FRONTIER n this holds for the prime cases above and for 33 composite n − 2 (907, 1019, 1039, …,
-  2999); for these 33 no conference matrix of order n − 1 is known to us. Among the open complex orders, Mathon's
+  2999); for 32 of these 33 no conference matrix of order n − 1 is known to us, and for 2027 one is known but not in
+  this block form (§106). Among the open complex orders, Mathon's
   conference matrix of order 442 would serve 886, if it has this block form and a quaternary conference matrix of
   order 222 exists.
 
@@ -7184,3 +7185,41 @@ entries above 6, and none of them is the least known value: 1499(7), 1987(7), 23
 others further (1439, 1571, 2039, 2063, 2287, 2879). Craigen's second bound, t = 2N with N the number of binary
 digits 1 of p, and the Handbook's 2N − 1 for p ≡ 3 (mod 4) lower nothing here. Seberry–Yamada's 1992 Table A.2 and
 Table 4 evidently do not apply the asymptotic theorems.
+
+## 106. Round 53: what multiplication can reach; n = 2027 and Turyn's conference matrix of order 2026 (October 27)
+
+Scratchpad `r53/`. No new matrix. The round asked which multiplication theorems could still reach the open orders
+4n, and proved most of the candidates impossible.
+
+- *Quaternary 2 × 2 blocks* (PROVED). Turyn's double of a quaternary Hadamard matrix [[A, B], [C, D]] of order 2m
+  whose blocks are group-developed over one abelian group G of order m is a real H(4m) in sixteen G-developed blocks.
+  These blocks commute and inversion on G transposes them, so T-matrices of order t give H(4mt) by the
+  Goethals–Seidel plug-in of [PALEY_BLOCKS.md](../hadamard/PALEY_BLOCKS.md). Paley's complex matrix C + iI
+  (`search/cmblocks/conf_circ.py`, m = (q + 1)/2) is of this form, so Paley II multiplies by T-matrices too. On
+  FRONTIER this reaches nothing: every n = m·t with m = (q + 1)/2 or (q + 1)/4 needs T-matrices of a prime order of
+  at least 167 (`r53` scan, CHECKED).
+- *Uniform automorphisms* (PROVED). A real H(4m) is, up to equivalence, an array of sixteen circulants of order m
+  exactly when it has an automorphism (P, P) of order m acting freely on rows and columns with four orbits. A
+  Goethals–Seidel array has none for generic A, B, C, D: its back-circulant blocks force the row shift on the first
+  block row to be trivial. So the Goethals–Seidel matrices of 2026 (668, …, 1964) do not multiply this way, and
+  1169 = 7 · 167, 669 = 3 · 223 and the like stay open.
+- *Amicable T-matrices* (CHECKED, exhaustive). Cooper–Wallis multiplication of a Goethals–Seidel quadruple leaves the
+  cross terms (T_j T_kᵀ − T_k T_jᵀ) ⊗ (W W′ᵀ − W′ Wᵀ). They vanish for every quadruple only if the T-matrices are
+  pairwise amicable, and there are no such T-matrices of order 3, 5 or 7 (`search/amicable_tmatrices.py`).
+- *Complex Agayan* (PROVED impossible for odd a > 1). Agayan's proof with a quaternary H₁ = [S₁, S₂] of order 2a needs
+  S₂ = S₁ ∘ E with E a ±1 matrix. Then A = S₁ ∘ [E = 1] and B = S₁ ∘ [E = −1] have complementary supports and
+  satisfy A*A = B*B = aI and A*B = 0. Modulo 1 + i, the off-diagonal zeros of A*A make |A_j ∩ A_k| even, while
+  A*B = 0 makes |A_j ∖ A_k| even, so |A_j ∩ A_k| ≡ a is odd. So quaternary matrices of orders 2a and 2b give
+  nothing of order 2ab this way; for example QH(6) and QH(1286) do not give 4 · 1929.
+- *Multipliers without commutation* (PROVED impossible for odd n ≥ 3). A 4 × 4 block matrix C of order 4n over
+  {0, ±1} with C Cᵀ = nI, whose four blocks in each block column partition the n × n grid, would turn every H(4m)
+  into H(4mn) with no commutation hypothesis. Summing the parity conditions over a block column shows that every row
+  of C has even weight, against n odd.
+- *n = 2027* (FRONTIER; n − 2 = 2025 = 45²). Complex Yamada–Kiyasu (§104) needs two ingredients. The first is a
+  quaternary conference matrix of order (n + 1)/2 = 1014, and Paley's serves, since 1013 is a prime ≡ 1 (mod 4). The
+  second is a symmetric conference matrix of order 2026 with an R-structure (R² = −I, R C Rᵀ = −C; §60). A conference
+  matrix of order 2026 = 45² + 1 exists. R. J. Turyn (Canad. J. Math. 23 (1971) 531–535; Belevitch's case p = 2) gives
+  the core W⊗W − I⊗J + J⊗I from the core W of Mathon's matrix of order 46. No R-structure on it is known, and the
+  products of orders 50 and 226 built the same way have none (§61). A Yamada-type R-structure, two symmetric
+  circulants of the prime order 1013, has an expected count far below 1 for every multiplier group: 2^−76 with 23
+  orbits per sequence. So 2027 stays open.
