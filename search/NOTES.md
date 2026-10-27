@@ -7249,6 +7249,37 @@ Scratchpad `r53/`. No new matrix. The round asked which multiplication theorems 
   give −1 as a sum of n − 2 units, an even number of units, which is impossible modulo 1 + i. The variant
   Y′ = J₂ ⊗ Z + P ⊗ W forces W to be monomial and returns the same Z.
 
+**Ideation round 53** (`r53/ideas`; five lenses, each with an adversarial judge that re-ran the checks). None of
+the 16 proposals settles an open order, and the judges dropped all of them. What is worth keeping:
+- *Table 4 and complex Golay pairs* (CHECKED; Known). Craigen, Holzmann and Kharaghani (Discrete Math. 252 (2002)):
+  4-phase Golay pairs (A, B) and (C, D) of lengths x and y give the complementary quad (A|C), (A|−C), (B|D), (B|−D)
+  of length x + y, and the quaternary Goethals–Seidel array gives H(8(x + y)). Over the complex Golay lengths
+  2^(a+u) 3^b 5^c 11^d 13^e with b + c + d + e ≤ a + 2u + 1 and u ≤ c + e (Du and Jiang, arXiv:2401.15381), this
+  lowers 24 entries of Table 4 beyond §104.
+  - Seven reach m = 3: 971, 1223, 1259, 1451, 1571, 2039, 2423. The other 17 drop to 4 or 5 (FRONTIER lists the 29
+    entries left at m ≥ 4).
+  - The rule is in Egan et al.'s 2026 survey (Table 4, 1001 orders up to 10 000), which explains why their list of
+    open orders 8p omits 971 and 1223. So these orders are Known; Table 4 omits the rule.
+  - Ten of the matrices were built and checked exactly (7768, 10072, 11608, 11824, 12568, 16312, 19168, 19384, 19568,
+    23024), two of them again by the judge. The orders 8p = 4792, 5752 and 5912 are not reached.
+- *M-structures.* Paley's skew matrix for q ≡ 7 (mod 8) is an array of sixteen negacyclic blocks, and these multiply
+  by T-matrices too (PROVED, CHECKED for q ≤ 47 and t ≤ 7), but s·t is then even and nothing open is reached.
+  Complex Yamada–Kiyasu matrices multiply by T-matrices exactly when the core's real and imaginary parts commute and
+  one involution transposes them. That needs a commuting bordered quaternary core of order 142, 286, 322, 478 or 232
+  for the hooks 1713, 1929, 1981, 2315, 2855 and 2865. None is known, and the cell ansatz over GF(9) × GF(53) for
+  2865 is empty.
+- *Skew.* With a skew first block, the T-structures that multiply Paley's skew blocks are classified: nothing beyond
+  t = 3 (PROVED). Turyn's double of Paley's complex matrix is never skew.
+- *Symmetric.* v = 119 (order 476) would follow from symmetric Yamada–Kiyasu with an R-structure on a symmetric
+  conference matrix of order 118. The repository's C(118), both C(66) and the 16 graphs of `srg65_32_15_16_new16.g6`
+  have no anti-automorphism at all (nauty). Two-circulant symmetric pairs (M, N) with M² + N² = (2n − 1)I exist for
+  n ≤ 33 exactly when 2n − 1 is a prime power (exhaustive). A symmetric Miyamoto M-structure from an arbitrary
+  Hadamard matrix of order q − 1 is impossible: the corner trace has the wrong parity.
+- *Prime n ≡ 3 (mod 4).* Eight symmetric circulants in OD(8; 1⁸) give H(8p), but they are dominated by
+  Goethals–Seidel (same bits and constraints, lower density, weaker conclusion). Cocyclic matrices over groups of
+  order 4p lie inside the Goethals–Seidel space, and an automorphism of prime order p of H(4p) is fixed-point free.
+  For 2973 a plug-in would need a cyclic (991, 441, 196) difference set, and none is known.
+
 **The open quaternary order 358** (N = 179; `r53/qh358`, round 51's census in `r51/plaincensus`). Round 51 ran a census
 of the plain character-bordered Szöllősi array over the open orders 2N. It kept four structures at N = 179, none at
 167, 223 or 251, and one out of reach at 659 (10^−1.8 solutions, 10^−22 per join).
