@@ -38,8 +38,8 @@ Settled:
 (orders 2ˢp and 2ᵗq give 2^(s+t−1)pq) with them lowers fourteen entries to m = 3: 1169, 1437, 1795, 1969, 1981, 2171,
 2215, 2327, 2429, 2513 and 2899 through the matrices of Alpöge, Voinov and Reynolds-Haertle; 2855 = 5 · 571 and
 2973 = 3 · 991 through [hadamard/2284](hadamard/2284) and [hadamard/3964](hadamard/3964); and 2315, 1793 and 2119
-already from Table 4's own data, which applies the multiplication only in part ([search/NOTES.md](search/NOTES.md)
-§104). Kamali and Kharaghani's dihedral Golay sequences of 1998 lower seventeen more (the same section; two of them
+already from Table 4's own data (Table 4 updates Seberry–Yamada's values only where it reaches m = 2)
+([search/NOTES.md](search/NOTES.md) §104). Kamali and Kharaghani's dihedral Golay sequences of 1998 lower seventeen more (the same section; two of them
 below), and [hadamard/12472](hadamard/12472) lowers 1559.
 
 **Orders 8p.** Table 4 records n(m), the least m with a known Hadamard matrix of order 2ᵐn; an entry with m ≥ 4 is also

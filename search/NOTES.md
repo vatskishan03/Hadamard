@@ -7076,7 +7076,8 @@ and q = 223, 263, 331, 431, 1559 with the matrices of complex-hadamard).
     quaternary matrix of order 1142) and 2973 = 3 · 991 ([3964](../hadamard/3964), New);
   - from Table 4's own data: 2315 = 5 · 463 (463 is not an entry, so 4 · 463 was known; m = 3, not 4), and likewise
     1793 = 11 · 163 and 2119 = 13 · 163 (m = 3 against 4; 1793 is also one of Kamali–Kharaghani's) and 1437 (5 against
-    6 even before 2026). Table 4 seems to apply the multiplication theorems only in part.
+    6 even before 2026). Table 4 updates Seberry–Yamada's table only where it reaches m = 2 (its §6) and keeps their
+  other values, which miss these products.
   The matrices of orders 8n were not built; each is the Agayan product of two stored or published matrices.
 - *Targets.* The entries n(m ≥ 4) with 4n open and N = (n − 1)/2 > 1000 have never been searched for a quaternary
   matrix of order 2N: n = 2039, 2207, 2251, 2287, 2339, 2371, 2399, 2423, 2543, 2671, 2683, 2687, 2699, 2879, 2887,
