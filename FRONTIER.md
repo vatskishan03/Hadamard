@@ -43,7 +43,10 @@ through [hadamard/2284](hadamard/2284) and [hadamard/3964](hadamard/3964); and 2
 them, and two more below), [hadamard/12472](hadamard/12472) lowers 1559 and [hadamard/20712](hadamard/20712) lowers
 2589 (4 · 2589 and 4 · 863 stay open). Craigen's asymptotic theorem (1995: an order 2ᵗn for every odd n with
 t = 4⌈(1/16) log₂((n − 1)/2)⌉ + 2, that is t = 6 for n ≤ 131073) makes every value of Table 4 above 6 too large:
-1499, 1987, 2399, 2671, 2683, 2687, 2699 and 2999 have m ≤ 6, not 7 to 9.
+1499, 1987, 2399, 2671, 2683, 2687, 2699 and 2999 have m ≤ 6, not 7 to 9. After all of this, 36 entries keep
+m ≥ 4, so their orders 8n are open: 719, 1259, 1319, 1979, 2207, 2339, 2371, 2423, 2677 and 2903 (m = 4); 1223,
+1439, 1571, 1579, 2039, 2251, 2543, 2879 and 2887 (m = 5); 599, 739, 971, 1451, 1499, 1567, 1783, 1987, 2287, 2399,
+2671, 2683, 2687, 2699, 2939, 2995 and 2999 (m = 6).
 
 **Orders 8p.** Table 4 records n(m), the least m with a known Hadamard matrix of order 2ᵐn; an entry with m ≥ 4 is also
 an open order 8n. Egan, Kotsireas, London and Ó Catháin (Table 5) list six open orders 8p up to 10 000: 4792, 5752,
