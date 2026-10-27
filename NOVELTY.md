@@ -379,6 +379,30 @@ and lists 2092 under Cooley (Middletownbooks/Hadamard). That repository committe
 matrix of order 3732 is stated to be skew, so the skew-Hadamard matrix of order 3732 stays **New**. The same survey
 settles 4 · 1447 = 5788 (its Theorem 7) and lists six open orders 8p ([FRONTIER.md](FRONTIER.md)).
 
+**Order 12472, the quaternary matrix of order 6236 and Miyamoto's Theorem 7** (checked on 27 October 2026).
+- *Sources.*
+  - Seberry–Yamada (Kobe 1989 index, key m2; 1992 survey, §§8 and 11 read in full, Tables A.1 and A.2; JCMCC 7 (1990),
+    Corollary 36).
+  - Brent–Osborn–Smith, arXiv:1211.3248; the survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175
+    (Tables 3–5); Cati–Pasechnik, arXiv:2411.18897v2 (Table 4: 1559(4)).
+  - The Hadamard Matrix Explorer (version 53: its notation page and its list of unknown orders, which stops at 10 000
+    and lists 6236); Zaitsev's page (14 October 2026).
+  - Kharaghani–Mohammadian–Tayfeh-Rezaie–Zaitsev, arXiv:2605.08661v2; Szöllősi, arXiv:2603.09572; Kamali–Kharaghani
+    (1998); Egan (2019).
+  - The 2026 repositories (Middletownbooks/Hadamard, JD-Jones-ASES Hadamard-T, -M, -B, -formal, schneiderlo); Zenodo
+    and arXiv listings to 22 October 2026; Miyamoto's abstract and the zbMATH review.
+- *Finding.*
+  - Miyamoto's §6 builds Hadamard matrices of order 8q, q ≡ 3 (mod 4), from complex Hadamard matrices of order q − 1;
+    the Explorer describes his Theorem 7 that way.
+  - The tables apply it only with 2q − 3 a prime power (key m2, "Miyamoto III"), where Paley's matrix of order 2q − 2
+    gives the complex input. So the theorem of [hadamard/COMPLEX_MIYAMOTO.md](hadamard/COMPLEX_MIYAMOTO.md) is credited
+    to Miyamoto. We could not read §6; nobody states the intermediate quaternary matrix of order 4q.
+  - No source has a Hadamard matrix of order 12472 = 8 · 1559 or a quaternary one of order 6236. Their input, the
+    quaternary matrix of order 1558, exists only since 2026 (this repository and Zaitsev's page).
+  - So 12472 is **New**, from a known theorem and a 2026 input. If the Explorer extends its range past 10 000 with this
+    route it would be Concurrent.
+- *Not read.* Miyamoto's paper itself (ScienceDirect refused the download) and the 2020 book's §6.5 and Table A.7.
+
 ## Not checked
 
 - J. Seberry, M. Yamada, *Hadamard Matrices: Constructions using Number Theory and Linear Algebra* (Wiley, 2020):
@@ -387,7 +411,8 @@ settles 4 · 1447 = 5788 (its Theorem 7) and lists six open orders 8p ([FRONTIER
   contents, chapter 1 and index were seen. Its index puts "symmetric propus-type" on p. 154 and symmetric Hadamard
   matrices on pp. 211–214, the most likely places for a prior statement of the symmetric 4q family.
 - M. Miyamoto, A construction of Hadamard matrices, J. Combin. Theory Ser. A 57 (1991) 86–108, including its
-  Corollaries 2–5 on matrices of symmetric block form, to which Seberry and Yamada credit Table A.1's key wl, and the
+  §6 and Theorem 7 (orders 8q from complex Hadamard matrices, credited for 12472), its Corollaries 2–5 on matrices of
+  symmetric block form, to which Seberry and Yamada credit Table A.1's key wl, and the
   lists of its §7, which Cati and Pasechnik could not verify either. We know it through the census's remark, Seberry
   and Yamada's restatements, the zbMATH review (Zbl 0733.05017) and the transcription in the JD-Jones-ASES Hadamard-M
   note, by which list (2) contains 127 (unsupported by Miyamoto's Corollary 4, per that note), so that list (3) may

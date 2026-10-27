@@ -1,4 +1,4 @@
-# Miyamoto's construction in quaternary form
+# Miyamoto's Theorem 7 in quaternary form
 
 Miyamoto's theorem (J. Combin. Theory Ser. A 57 (1991) 86–108) builds a Hadamard matrix of order 4q from Paley's
 symmetric conference matrix of order q + 1 and a Hadamard matrix of order q − 1, for a prime power q ≡ 1 (mod 4). For
@@ -9,10 +9,20 @@ Hadamard matrices of order 2N, N odd, exist for many N ([complex-hadamard](../co
 **Theorem.** Let q ≡ 3 (mod 4) be a prime and K a quaternary Hadamard matrix of order q − 1. Then there is a quaternary
 Hadamard matrix of order 4q, and by Turyn's doubling a Hadamard matrix of order 8q.
 
-We found this statement nowhere ([NOVELTY.md](../NOVELTY.md)). `verify/verify.py` implements it (`complex_miyamoto`,
-certificate type `complex-miyamoto`); it is checked exactly for q = 7, 19, 31, 43 with K from Paley's complex
-construction, for q = 223, 263, 331 and 431 with the matrices of orders 222, 262, 330 and 430 of
-[complex-hadamard](../complex-hadamard/README.md), and for q = 1559 ([12472](12472)).
+**Credit.** This is very probably Miyamoto's own Theorem 7, stated here with the intermediate quaternary matrix:
+- His §6, "Hadamard matrices of order 8q and 16q", uses complex Hadamard matrices to obtain orders 8q.
+- The Hadamard Matrix Explorer (version 53, notation page) describes Theorem 7 as "a complex Hadamard matrix of order
+  q − 1 … gives order 8q".
+- Seberry and Yamada (1989, 1992, key m2), Brent–Osborn–Smith (2013) and Egan, Kotsireas, London and Ó Catháin (2026,
+  "Miyamoto III") cite it only when 2q − 3 is a prime power, where Paley's matrix of order 2q − 2 supplies the complex
+  input.
+
+We could not read §6 ([NOVELTY.md](../NOVELTY.md)). The construction and proof below are our own and self-contained.
+`verify/verify.py` implements them (`complex_miyamoto`, certificate type `complex-miyamoto`). They are checked exactly:
+- for q = 7, 19, 31 and 43 with K from Paley's complex construction;
+- for q = 223, 263, 331 and 431 with the matrices of orders 222, 262, 330 and 430 of
+  [complex-hadamard](../complex-hadamard/README.md);
+- for q = 1559 ([12472](12472)).
 
 ## Construction
 
@@ -70,8 +80,9 @@ Hermitian core sit on the opposite halves, so the border is R P F instead of a s
 ## Consequences
 
 Turyn's doubling of the quaternary matrix of order 4q gives a Hadamard matrix of order 8q. So every prime q ≡ 3 (mod 4)
-with a known quaternary Hadamard matrix of order q − 1 has a Hadamard matrix of order 8q. Against Cati–Pasechnik's
-Table 4 (entries n(m) with m ≥ 4, n prime ≡ 3 mod 4):
+with a known quaternary Hadamard matrix of order q − 1 has a Hadamard matrix of order 8q. The tables use the theorem
+only when 2q − 3 is a prime power; the quaternary matrices of 2026 widen it. Against Table 4 of Cati and Pasechnik
+(arXiv:2411.18897v2; entries n(m) with m ≥ 4, n prime ≡ 3 mod 4):
 
 | q | Table 4 | quaternary matrix of order q − 1 | result |
 |---:|---|---|---|

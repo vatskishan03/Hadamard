@@ -101,6 +101,9 @@ settles the further open orders 5272, 7464, 18344, 36688 and 73376.
   come from the two block decompositions, the rest from the recursive theorems of Miyamoto [8], Yamada–Kiyasu [9] and
   Cooper–Wallis [7] applied to matrices here and to objects published in 2026
   ([hadamard](hadamard#orders-beyond-the-tables)).
+- **An entry of Table 4 lowered**: 12472 = 8 · 1559 (Table 4: 1559(4)), from Miyamoto's Theorem 7 with the quaternary
+  Hadamard matrix of order 1558 of 2026, written out in quaternary form; on the way a quaternary Hadamard matrix of
+  order 6236 = 4 · 1559, an order with no known real one ([hadamard/COMPLEX_MIYAMOTO.md](hadamard/COMPLEX_MIYAMOTO.md)).
 - **Corollary 8.8(i).** 58 orders were claimed or recorded as known only through Seberry–Yamada's Corollary 8.8(i):
   ten that Table 4 omits (2076 to 10444), 6108 and 10180, and 46 beyond Table 4. We give the first valid constructions of all 58
   ([hadamard](hadamard#orders-recorded-only-through-corollary-88i)). The corollary's matrices still give a complex
@@ -172,7 +175,7 @@ gzip -dc hadamard/2092/H2092.csv.gz | ./check_matrix
 | Spence's construction with blocks (A, B, B∘μ, B∘μ²) and a Legendre lift | 2292 | [NOTES.md](NOTES.md) §13, [search/spence_spin](search/spence_spin) |
 | Paley's matrix in sixteen circulant blocks, times T-matrices | 157 orders, 14 of them unresolved | [hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md) |
 | Miyamoto's matrix in sixteen commuting bordered blocks, times T-matrices | 49 orders, 3 of them unresolved | [hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md) |
-| Recursive theorems of Miyamoto, Yamada–Kiyasu and Cooper–Wallis | 9172 and orders beyond Table 4 | [hadamard](hadamard), [williamson-type](williamson-type), [t-matrices](t-matrices) |
+| Recursive theorems of Miyamoto (Theorem 7 in quaternary form for 12472), Yamada–Kiyasu and Cooper–Wallis | 9172, 12472 and orders beyond Table 4 | [hadamard](hadamard), [williamson-type](williamson-type), [t-matrices](t-matrices) |
 | Skew difference families: compression chains, Paley products, low-energy k-trees | skew orders | [skew](skew), [search/NOTES.md](search/NOTES.md) §10–16, §20, §87–90 |
 | Goethals–Seidel arrays with negacyclic blocks of order 2v, as quaternary sequences on ℤ_v: multiplier groups and Paley plug-ins | skew 1528, 2216, 2392, 4712 | [skew/NEGACYCLIC.md](skew/NEGACYCLIC.md), [search/negaskew](search/negaskew), [search/NOTES.md](search/NOTES.md) §88–89 |
 | Paley's matrix in sixteen negacyclic blocks, Frobenius pairing, T-matrices of order 3 | skew orders 3(q + 1) | [skew/PALEY_SKEW.md](skew/PALEY_SKEW.md) |

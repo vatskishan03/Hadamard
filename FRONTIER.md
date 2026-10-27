@@ -44,7 +44,9 @@ Australas. J. Combin. 18, 139–145, Corollary 9 and Table 1) give Hadamard matr
 lengths g₁, g₂ and g = 7, 9, 15, among them 6712 = 8 · 839 (7 + 2⁵ · 26) and 8248 = 8 · 1031 (7 + 2¹⁰); Table 4's
 entries 839(4) and 1031(6) do not take this paper into account. The Hadamard Matrix Explorer (math74.com, version 53)
 posts matrices of orders 6712, 8248 and 8696. So three orders 8p remain open: 4792, 5752 and 5912. A Hadamard matrix of
-order 4p settles 8p by doubling. [search/NOTES.md](search/NOTES.md) §92 searches the orders 8p directly
+order 4p settles 8p by doubling, and so does a quaternary Hadamard matrix of order p − 1 through Miyamoto's Theorem 7
+([hadamard/COMPLEX_MIYAMOTO.md](hadamard/COMPLEX_MIYAMOTO.md)); the orders 598, 718 and 738 are open quaternary
+orders. [search/NOTES.md](search/NOTES.md) §92 searches the orders 8p directly
 ([search/eightp](search/eightp/README.md)), and no matrix was found:
 - the plain Goethals–Seidel and negacyclic structures over ℤ₂ₚ and ℤ_p are dead, except for multiplier groups with at
   least 2⁹⁴ sign vectors per block;
