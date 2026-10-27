@@ -1,6 +1,7 @@
 """H(8(g1*m + n)) from a DCS (a, b) of length m free of +-is (Kamali-Kharaghani, Lemma 3, Theorem 7, Lemmas 2 and 1).
 usage: python3 kk_big.py A B G1 N [OUT.npy]   (A, B comma-separated tokens 1, -1, i, -i, s, -s; G1, N Golay lengths)
-Checks H H^T = nI exactly (float32 products of +-1 matrices are exact below 2^24) and prints the SHA-256 of the CSV."""
+Checks H H^T = nI exactly (float32 products of +-1 matrices are exact below 2^24), prints the SHA-256 of the CSV
+(rows of 1 and -1, comma-separated) and saves H to OUT.npy if given."""
 import numpy as np, sys, os, hashlib, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from kk_build import el, golay, dcs_times_golay, I2, S
@@ -55,9 +56,9 @@ np.fill_diagonal(G, G.diagonal() - N)
 ok = not np.any(G)
 del G
 print('H H^T = %d I (float32 BLAS, exact for |entries|<2^24):'%N, ok, 'time',round(time.time()-t0,1))
+s=hashlib.sha256()
+for row in H:
+    s.update((','.join('1' if v>0 else '-1' for v in row)+'\n').encode())
+print('sha256 csv',s.hexdigest())
 if out:
-    s=hashlib.sha256()
-    for row in H:
-        s.update((','.join('1' if v>0 else '-1' for v in row)+'\n').encode())
-    print('sha256 csv',s.hexdigest())
     np.save(out,H)

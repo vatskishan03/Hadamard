@@ -26,7 +26,8 @@ give a theorem: a skew-Hadamard matrix of order 3(q + 1) exists for every prime 
 
 | Family | Orders | Status |
 |---|---|---|
-| Hadamard, unresolved in Table 4 [3] | [34](#unresolved-orders) | 12 New, 14 New but obtainable classically, 2 First explicit construction, 6 Concurrent |
+| Hadamard, unresolved in Table 4 [3] | [34](#unresolved-orders) | 11 New, 14 New but obtainable classically, 2 First explicit construction, 7 Concurrent |
+| Hadamard, entry of Table 4 lowered (12472) | [1](hadamard#an-entry-of-table-4-lowered) | New |
 | Hadamard, omitted by Table 4 through Seberry–Yamada's Corollary 8.8(i) | [11](hadamard#orders-recorded-only-through-corollary-88i) | First explicit construction |
 | Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 New, 124 New but obtainable classically, 49 First explicit construction |
 | Skew-Hadamard (476 to 14384) | [111](skew) | 47 New, 62 New but obtainable classically, 2 First explicit construction |
@@ -72,7 +73,7 @@ For each order 4n, n is listed as unresolved in Table 4 of Cati and Pasechnik [3
 | [7532](hadamard/7532) | 1883 = 7 · 269 | Miyamoto's matrix in sixteen bordered blocks with near-Williamson matrices of order 67, T-matrices of order 7 | New |
 | [7660](hadamard/7660) | 1915 = 5 · 383 | Paley's matrix of order 1532 in sixteen circulant blocks, T-matrices of order 5 | New, but obtainable classically |
 | [8620](hadamard/8620) | 2155 = 5 · 431 | Paley's matrix of order 1724 in sixteen circulant blocks, T-matrices of order 5 | New, but obtainable classically |
-| [9172](hadamard/9172) | 2293 | Miyamoto's theorem [8] from the matrix of order 2292 | New |
+| [9172](hadamard/9172) | 2293 | Miyamoto's theorem [8] from the matrix of order 2292 | Concurrent [18] |
 | [10060](hadamard/10060) | 2515 = 5 · 503 | Paley's matrix of order 2012 in sixteen circulant blocks, T-matrices of order 5 | New, but obtainable classically |
 | [10180](hadamard/10180) | 2545 = 5 · 509 | Miyamoto's matrix in sixteen bordered blocks with near-Williamson matrices of order 127, T-matrices of order 5 | First explicit construction |
 | [10644](hadamard/10644) | 2661 = 3 · 887 | Paley's matrix of order 3548 in sixteen circulant blocks, T-matrices of order 3 | New, but obtainable classically |
@@ -89,8 +90,10 @@ and we learned of it on 19 October [16] ([hadamard/2292](hadamard/2292/README.md
 2588 = 4 · 647 on 14 October 2026 [16], and committed independent matrices of orders 2092 and 3732 that day; our
 2092, 4492 and 5932 were committed on 11 October and 3732 and 5020 on 13 October. The survey of Egan, Kotsireas, London
 and Ó Catháin (19 October) constructs 3732, 4492, 5020 and 5932 with the multiplier subgroups of orders 31, 33, 50 and
-39 that ours use, credits Cooley with 2092, and credits this repository with 2148, 2284, 2636 and 3964 [18]. We claim
-no priority for the six Concurrent orders; neither other matrix of order 3732 is stated to be skew. Đoković claimed 1527 and 2545 in 2010 through Seberry–Yamada's Corollary 8.8(i),
+39 that ours use, credits Cooley with 2092, and credits this repository with 2148, 2284, 2636 and 3964 [18]. It also
+derives 9172 from Cooley's matrix of order 2292 by Miyamoto's theorem; ours, from our own matrix of order 2292, dates
+from 14 October. We claim no priority for the seven Concurrent orders; neither other matrix of order 3732 is stated to
+be skew. Đoković claimed 1527 and 2545 in 2010 through Seberry–Yamada's Corollary 8.8(i),
 whose printed proof does not give Williamson-type matrices ([NOTES.md](NOTES.md) §7). Doubling 2636, 3732 and 9172
 settles the further open orders 5272, 7464, 18344, 36688 and 73376.
 
@@ -101,11 +104,13 @@ settles the further open orders 5272, 7464, 18344, 36688 and 73376.
   come from the two block decompositions, the rest from the recursive theorems of Miyamoto [8], Yamada–Kiyasu [9] and
   Cooper–Wallis [7] applied to matrices here and to objects published in 2026
   ([hadamard](hadamard#orders-beyond-the-tables)).
-- **An entry of Table 4 lowered**: 12472 = 8 · 1559 (Table 4: 1559(4)), from Miyamoto's Theorem 7 with the quaternary
-  Hadamard matrix of order 1558 of 2026, written out in quaternary form; on the way a quaternary Hadamard matrix of
+- **An entry of Table 4 lowered**: 12472 = 8 · 1559 (Table 4: 1559(4)), from (very probably) Miyamoto's Theorem 7,
+  which the tables use only with 2q − 3 a prime power, and the quaternary Hadamard matrix of order 1558 of 2026, written
+  out in quaternary form; on the way a quaternary Hadamard matrix of
   order 6236 = 4 · 1559, an order with no known real one ([hadamard/COMPLEX_MIYAMOTO.md](hadamard/COMPLEX_MIYAMOTO.md)).
 - **Corollary 8.8(i).** 58 orders were claimed or recorded as known only through Seberry–Yamada's Corollary 8.8(i):
-  ten that Table 4 omits (2076 to 10444), 6108 and 10180, and 46 beyond Table 4. We give the first valid constructions of all 58
+  ten that Table 4 omits (2076 to 10444), 6108 and 10180, and 46 beyond Table 4. We give the first valid
+  constructions of all 58
   ([hadamard](hadamard#orders-recorded-only-through-corollary-88i)). The corollary's matrices still give a complex
   Hadamard matrix of order 2q from any quaternary Hadamard matrix of order (q − 1)/2 ([NOTES.md](NOTES.md) §19).
 - **Skew-Hadamard matrices** of 111 orders: Goethals–Seidel difference families with a skew block found by search,

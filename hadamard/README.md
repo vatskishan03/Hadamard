@@ -46,14 +46,15 @@ Entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard mat
 | [11804](11804) | 2951 = 13 · 227 | Paley's matrix of order 908 in sixteen circulant blocks, T-matrices of order 13 |
 
 The fourteen orders from Paley's matrix in sixteen circulant blocks are New, but obtainable classically: they follow
-from two published theorems that the tables did not combine ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)). 2284 is Concurrent:
-it also follows, by Turyn's doubling, from the quaternary Hadamard matrix of order 1142 on Zaitsev's page
+from two published theorems that the tables did not combine ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)). 2284 is Concurrent: it
+also follows, by Turyn's doubling, from the quaternary Hadamard matrix of order 1142 on Zaitsev's page
 ([2284](2284/README.md#status)). 6108 and 10180 are First explicit constructions: Đoković claimed n = 1527 and 2545 in
 2010 through Seberry–Yamada's Corollary 8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7). 2092, 3732,
 4492, 5020 and 5932 are Concurrent, with Cooley's Middletownbooks/Hadamard (2092, 3732) and with Egan, Kotsireas, London
 and Ó Catháin, arXiv:2610.27175 (3732, 4492, 5020, 5932); our 3732 is also skew, which neither of the others is stated
-to be ([NOVELTY.md](../NOVELTY.md)). The other twelve are New; 6108, 7532 and 10180 use the near-Williamson matrices of
-2026, and 11292 a symmetric conference matrix of order 118 found here, Concurrent with J. Y. Z. Ho's
+to be ([NOVELTY.md](../NOVELTY.md)). 9172 is Concurrent too: the same survey derives it from Cooley's matrix of order
+2292 by Miyamoto's theorem, five days after ours. The other eleven are New; 6108, 7532 and 10180 use the near-Williamson
+matrices of 2026, and 11292 a symmetric conference matrix of order 118 found here, Concurrent with J. Y. Z. Ho's
 ([symmetric/940](../symmetric/940)).
 
 Doubling the matrices of orders 2636 and 3732 gives orders 5272 and 7464, which were open as well, and doubling 9172
@@ -90,10 +91,10 @@ built from them, and they from the symmetric Hadamard matrix of order 404 of thi
 
 ## An entry of Table 4 lowered
 
-Cati–Pasechnik's Table 4 records 1559(4): order 16 · 1559 known, 8 · 1559 not. Miyamoto's Theorem 7, applied to the
-quaternary Hadamard matrix of order 1558 of 2026 (this repository and Zaitsev's page), gives 8 · 1559. It is written
-out in quaternary form in [COMPLEX_MIYAMOTO.md](COMPLEX_MIYAMOTO.md), and the tables use it only when 2q − 3 is a
-prime power.
+Cati–Pasechnik's Table 4 records 1559(4): order 16 · 1559 known, 8 · 1559 not. Miyamoto's Theorem 7 (very probably
+his; see [COMPLEX_MIYAMOTO.md](COMPLEX_MIYAMOTO.md), where it is written out in quaternary form), applied to the
+quaternary Hadamard matrix of order 1558 of 2026 (this repository and Zaitsev's page), gives 8 · 1559. The tables and
+surveys use the theorem only when 2q − 3 is a prime power or a prime.
 
 | Order | n | Construction | Status |
 |------:|---|---|---|

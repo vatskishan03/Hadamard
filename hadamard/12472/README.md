@@ -4,12 +4,13 @@
 
 ## Construction
 
-Miyamoto's Theorem 7 (1991, §6: complex Hadamard matrices of order q − 1 give orders 8q for q ≡ 3 mod 4), written out
-with its intermediate quaternary matrix ([COMPLEX_MIYAMOTO.md](../COMPLEX_MIYAMOTO.md)), then Turyn's doubling.
+Very probably Miyamoto's Theorem 7 (1991: a complex Hadamard matrix of order q − 1 gives order 8q for q ≡ 3 mod 4),
+written out with its intermediate quaternary matrix ([COMPLEX_MIYAMOTO.md](../COMPLEX_MIYAMOTO.md), which gives the
+evidence for the credit), then Turyn's doubling.
 
 1. **A quaternary Hadamard matrix of order 1558 = q − 1** from this repository
    ([complex-hadamard/C1558.json](../../complex-hadamard/C1558.json)). It is Szöllősi's array over ℤ₇₇₉ with a
-   multiplier subgroup of order 60; Zaitsev's page has a matrix of this order too.
+   multiplier subgroup of order 60. Zaitsev's page has a matrix of this order too, so this input is Concurrent.
 2. **A quaternary Hadamard matrix of order 4q = 6236.** Paley's skew conference matrix of order 1560, multiplied by i,
    is Hermitian. Its core on GF(1559)* goes into Miyamoto's array of sixteen bordered blocks together with the matrix
    of order 1558, and the border is chosen to match the row sums of the Hermitian core.
@@ -27,24 +28,28 @@ for the 4 × 4 border, solved once for all q ([COMPLEX_MIYAMOTO.md](../COMPLEX_M
 ## Status
 
 **New.** No source we checked has a Hadamard matrix of order 12472 ([NOVELTY.md](../../NOVELTY.md)). The theorem is
-Miyamoto's; the new ingredient is the quaternary matrix of order 1558, which exists only since 2026. The tables apply
-Theorem 7 only with 2q − 3 a prime power.
+very probably Miyamoto's; its input, the quaternary matrix of order 1558, is Concurrent with Zaitsev's page (2026).
+2284 is Concurrent because it follows from Zaitsev's quaternary matrix of order 1142 by doubling alone. 12472 needs
+Theorem 7 for a complex input that is not Paley's, and no source we checked states the theorem in that form or draws
+this consequence: the tables and surveys apply it only with 2q − 3 a prime power (Seberry–Yamada, Brent–Osborn–Smith)
+or a prime (Egan et al.).
 
 Table 4 of Cati and Pasechnik (arXiv:2411.18897v2) records 1559(4): order 16 · 1559 known, 8 · 1559 not. A Hadamard
 matrix of order 6236 = 4 · 1559 is unknown ([FRONTIER.md](../../FRONTIER.md)), so there is no doubling. Other routes:
 
 - Paley: 12471 = 3 · 4157 and 6235 = 5 · 29 · 43 are not prime powers.
-- Seberry–Yamada's order 8q needs Williamson-type matrices of order 779 = 19 · 41; their Table A.1 has 779 only with
-  matrices of even order (key wn).
-- Theorem 7 as tabulated (Seberry–Yamada's key m2, Egan et al.'s "Miyamoto III") needs 2q − 3 = 3115 = 5 · 7 · 89 to
-  be a prime power.
+- Seberry–Yamada's order 8q needs Williamson-type matrices of order 779 = 19 · 41. Their Table A.1 of Williamson-type
+  matrices records 779 only with t = 3 and key wn, that is, matrices of even order 1558 from Williamson-type matrices
+  of order w and a symmetric conference matrix of order n (order wn).
+- Theorem 7 as tabulated (Seberry–Yamada's key m2, "8q: q ≡ 3 (mod 4) and 2q − 3 prime powers"; Egan et al.'s
+  "Miyamoto III") needs 2q − 3 = 3115 = 5 · 7 · 89 to be a prime power.
 - The complex Golay decomposition 8(x + y), x + y = 1559, needs an odd complex Golay length x ∈ {1, 3, 5, 11, 13}, and
   1559 − x is not a complex Golay length.
 - Kamali and Kharaghani's 8(g₁g + g₂) with their dihedral Golay lengths g = 7, 9, 15 does not reach 1559
   ([search/NOTES.md](../../search/NOTES.md) §104).
 
 6236 is now an order with a quaternary Hadamard matrix but no known real one; no quaternary matrix of this order was
-known before.
+known to us before.
 
 ## Files
 

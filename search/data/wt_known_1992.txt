@@ -4,6 +4,8 @@
 # extraction merged columns (q = 421-429, 513-521, 605-613, 697-705, 789). Entries with t = 3 (only 8-Williamson
 # matrices, or Williamson-type matrices of order 2q) and blank entries are left out.
 # 1999 was removed on October 17: Table A.1 gives it as w#p (8-Williamson matrices only).
+# 1341 was removed on October 27: its key wb (Wallis, Williamson matrices of even order) gives order 2682 = 2 * 1341,
+# so the missing t = 3 is a misprint (search/NOTES.md section 104).
 1
 3
 5
@@ -332,7 +334,6 @@
 1323
 1329
 1339
-1341
 1345
 1347
 1357

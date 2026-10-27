@@ -1817,7 +1817,7 @@ def _character_bordered_array(cb, seqs, reflection, Kcr, Kci):
 
 
 def complex_miyamoto(q, Kr, Ki):
-    """Miyamoto's construction in quaternary form (complex-hadamard/MIYAMOTO.md): for a prime q = 3 (mod 4) and a
+    """Miyamoto's construction in quaternary form (hadamard/COMPLEX_MIYAMOTO.md): for a prime q = 3 (mod 4) and a
     quaternary Hadamard matrix K = Kr + i Ki of order q - 1 = 2m, the quaternary matrix H = Hr + i Hi of order 4q below
     has H H* = 4qI (checked by the caller).
 

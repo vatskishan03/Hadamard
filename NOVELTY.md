@@ -392,16 +392,28 @@ settles 4 · 1447 = 5788 (its Theorem 7) and lists six open orders 8p ([FRONTIER
   - The 2026 repositories (Middletownbooks/Hadamard, JD-Jones-ASES Hadamard-T, -M, -B, -formal, schneiderlo); Zenodo
     and arXiv listings to 22 October 2026; Miyamoto's abstract and the zbMATH review.
 - *Finding.*
-  - Miyamoto's §6 builds Hadamard matrices of order 8q, q ≡ 3 (mod 4), from complex Hadamard matrices of order q − 1;
-    the Explorer describes his Theorem 7 that way.
-  - The tables apply it only with 2q − 3 a prime power (key m2, "Miyamoto III"), where Paley's matrix of order 2q − 2
-    gives the complex input. So the theorem of [hadamard/COMPLEX_MIYAMOTO.md](hadamard/COMPLEX_MIYAMOTO.md) is credited
-    to Miyamoto. We could not read §6; nobody states the intermediate quaternary matrix of order 4q.
-  - No source has a Hadamard matrix of order 12472 = 8 · 1559 or a quaternary one of order 6236. Their input, the
-    quaternary matrix of order 1558, exists only since 2026 (this repository and Zaitsev's page).
-  - So 12472 is **New**, from a known theorem and a 2026 input. If the Explorer extends its range past 10 000 with this
-    route it would be Concurrent.
-- *Not read.* Miyamoto's paper itself (ScienceDirect refused the download) and the 2020 book's §6.5 and Table A.7.
+  - Miyamoto's Theorem 7 gives 8q for q ≡ 3 (mod 4) with q and 2q − 3 prime powers (Seberry–Yamada's key m2,
+    Brent–Osborn–Smith) or primes (Egan et al.'s "Miyamoto III"). The Explorer describes it as taking a complex
+    Hadamard matrix of order q − 1, taken from Paley's matrix of order 2q − 2. That the theorem allows any complex
+    Hadamard matrix of order q − 1 is our inference; on this evidence the theorem of
+    [hadamard/COMPLEX_MIYAMOTO.md](hadamard/COMPLEX_MIYAMOTO.md) is credited to Miyamoto.
+  - Among the sources we read, none states the intermediate quaternary matrix of order 4q; Miyamoto's paper and the
+    2020 book's §6.5 were not read.
+  - No source we checked has a Hadamard matrix of order 12472 = 8 · 1559 or a quaternary one of order 6236. Their
+    input, the quaternary matrix of order 1558, exists only since 2026 (this repository and Zaitsev's page, Concurrent).
+  - So 12472 is **New**, from a known theorem and a 2026 input. Unlike 2284, which follows from Zaitsev's quaternary
+    matrix of order 1142 by doubling alone and is Concurrent, it needs the theorem for a complex input that is not
+    Paley's, which no source we checked does. If the Explorer extends its range past 10 000 with this route, 12472
+    would be Concurrent. The quaternary matrix of order 6236 lies outside the complex family's reference range; it is
+    **New** to our knowledge.
+- *Not read.* Miyamoto's paper itself (ScienceDirect refused the download), the 2020 book's §6.5 and Table A.7, and the
+  Handbook's Table 1.53 row for n = 1559 (directly).
+
+**Order 9172** ([hadamard/9172](hadamard/9172); rechecked on 27 October 2026). The survey of Egan, Kotsireas, London
+and Ó Catháin (arXiv:2610.27175, 19 October 2026, p. 10) states that "order 9172 = 4 · 2293 follows from Cooley's
+matrix of order 2292 by Miyamoto I". Ours was committed on 14 October from our own matrix of order 2292 by the same
+theorem; Cooley's matrix of order 2292 had been public since 9 October. As for 2092–5932, another group reached the
+order within days, so 9172 is **Concurrent**.
 
 ## Not checked
 
@@ -411,7 +423,7 @@ settles 4 · 1447 = 5788 (its Theorem 7) and lists six open orders 8p ([FRONTIER
   contents, chapter 1 and index were seen. Its index puts "symmetric propus-type" on p. 154 and symmetric Hadamard
   matrices on pp. 211–214, the most likely places for a prior statement of the symmetric 4q family.
 - M. Miyamoto, A construction of Hadamard matrices, J. Combin. Theory Ser. A 57 (1991) 86–108, including its
-  §6 and Theorem 7 (orders 8q from complex Hadamard matrices, credited for 12472), its Corollaries 2–5 on matrices of
+  Theorem 7 (credited for 12472), its Corollaries 2–5 on matrices of
   symmetric block form, to which Seberry and Yamada credit Table A.1's key wl, and the
   lists of its §7, which Cati and Pasechnik could not verify either. We know it through the census's remark, Seberry
   and Yamada's restatements, the zbMATH review (Zbl 0733.05017) and the transcription in the JD-Jones-ASES Hadamard-M
