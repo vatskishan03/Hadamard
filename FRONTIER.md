@@ -34,6 +34,14 @@ Settled:
     of order 118 found here ([hadamard/11292](hadamard/11292); the conference matrix is Concurrent with J. Y. Z. Ho's,
     reported in October 2026 and not public).
 
+**Table 4 and the matrices of 2026.** Table 4's values m predate the orders 4n of 2026. Agayan's multiplication
+(orders 2ˢp and 2ᵗq give 2^(s+t−1)pq) with them lowers fourteen entries to m = 3: 1169, 1437, 1795, 1969, 1981, 2171,
+2215, 2327, 2429, 2513 and 2899 through the matrices of Alpöge, Voinov and Reynolds-Haertle; 2855 = 5 · 571 and
+2973 = 3 · 991 through [hadamard/2284](hadamard/2284) and [hadamard/3964](hadamard/3964); and 2315, 1793 and 2119
+already from Table 4's own data, which applies the multiplication only in part ([search/NOTES.md](search/NOTES.md)
+§104). Kamali and Kharaghani's dihedral Golay sequences of 1998 lower seventeen more (the same section; two of them
+below), and [hadamard/12472](hadamard/12472) lowers 1559.
+
 **Orders 8p.** Table 4 records n(m), the least m with a known Hadamard matrix of order 2ᵐn; an entry with m ≥ 4 is also
 an open order 8n. Egan, Kotsireas, London and Ó Catháin (Table 5) list six open orders 8p up to 10 000: 4792, 5752,
 5912, 6712, 8248 and 8696 (p = 599, 719, 739, 839, 1031, 1087). Their list differs from Table 4 at four entries: Table 4
@@ -57,7 +65,9 @@ orders. [search/NOTES.md](search/NOTES.md) §92 searches the orders 8p directly
 - the plain cyclic structures with at most 22 orbits (24 for v = 1197, 1477, 1677) and the block-symmetric ones with at
   most 30 orbits are empty.
 
-What remains are the plug-in shapes with 8 to 21 orbits at p = 599 and 739 (the cheapest cost about 10⁶ CPU-seconds
+Quaternary matrices of orders 598 and 738 were searched as well (round 51b, [search/NOTES.md](search/NOTES.md) §104):
+every structure with fewer than about 45 orbits dies at a quotient. What remains are the plug-in shapes with 8 to 21
+orbits at p = 599 and 739 (the cheapest cost about 10⁶ CPU-seconds
 each by the model, the others 10⁹ or more) and larger structures.
 
 **Corollary 8.8(i).** Đoković (arXiv:1008.2043, Propositions 3.2–3.4) also claimed n = 1527, 2545 and 2571, through

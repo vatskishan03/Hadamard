@@ -7065,6 +7065,19 @@ and q = 223, 263, 331, 431, 1559 with the matrices of complex-hadamard).
   2326), but both orders 8n already follow from Alpöge et al.'s H(1772) and H(716) (2026) by Agayan's multiplication
   with H(20) and H(52); not built. The other composite n(m ≥ 4) ≡ 3 (mod 4) lack the skew matrix (2171, 2899, 2995:
   v = 543, 725, 749 undecided) or the quaternary one (1795, 2119, 2315, 2855).
+- *Agayan's multiplication with the matrices of 2026* (`r52/agayan.py`, CHECKED arithmetic; Agayan: orders 2ˢp and
+  2ᵗq give 2^(s+t−1) pq). Table 4 predates the 2026 orders 4n; with them, and with the FRONTIER list as the orders 4n
+  still open, the closure m(ab) ≤ m(a) + m(b) − 1 lowers fourteen entries n(4 to 6) to m = 3:
+  - through Alpöge, Voinov and Reynolds-Haertle's orders 4 · 167, 4 · 179, 4 · 223, 4 · 283, 4 · 347, 4 · 359,
+    4 · 443 and 4 · 479: 1169 = 7 · 167, 1437 = 3 · 479 (6 → 3), 1795 = 5 · 359 (5 → 3), 1969 = 11 · 179,
+    1981 = 7 · 283, 2171 = 13 · 167, 2215 = 5 · 443, 2327 = 13 · 179, 2429 = 7 · 347, 2513 = 7 · 359 and
+    2899 = 13 · 223;
+  - through this repository's matrices: 2855 = 5 · 571 ([2284](../hadamard/2284), Concurrent with Zaitsev's
+    quaternary matrix of order 1142) and 2973 = 3 · 991 ([3964](../hadamard/3964), New);
+  - from Table 4's own data: 2315 = 5 · 463 (463 is not an entry, so 4 · 463 was known; m = 3, not 4), and likewise
+    1793 = 11 · 163 and 2119 = 13 · 163 (m = 3 against 4; 1793 is also one of Kamali–Kharaghani's) and 1437 (5 against
+    6 even before 2026). Table 4 seems to apply the multiplication theorems only in part.
+  The matrices of orders 8n were not built; each is the Agayan product of two stored or published matrices.
 - *Targets.* The entries n(m ≥ 4) with 4n open and N = (n − 1)/2 > 1000 have never been searched for a quaternary
   matrix of order 2N: n = 2039, 2207, 2251, 2287, 2339, 2371, 2399, 2423, 2543, 2671, 2683, 2687, 2699, 2879, 2887,
   2903, 2939 and 2999 (N = 1019, 1103, 1125, 1143, 1169, 1185, 1199, 1211, 1271, 1335, 1341, 1343, 1349, 1439, 1443,
@@ -7072,5 +7085,18 @@ and q = 223, 263, 331, 431, 1559 with the matrices of complex-hadamard).
   4N − 1 a prime power (Paley's complex matrix). Each quaternary matrix found would lower an entry to m = 3, as 1558
   did for 1559.
 - *The open orders 8p.* 4792, 5752 and 5912 would follow from quaternary Hadamard matrices of orders 598, 718 and 738.
-  N = 299 has no live Singer-paired character-bordered structure (one at 10^−11.4); 738 (N = 369 = 9 · 41 admits the
-  cyclotomic-cell pairing of GF(9)* with ℤ₄₁*, as for the order-850 core of 6796) and 598 are being searched.
+  N = 299 has no live Singer-paired character-bordered structure (one at 10^−11.4). Round 51b (`r51/qh738`, `r51/qh598`;
+  kills CHECKED, estimates HEURISTIC, the estimator validated on 173 small bordered and 14,957 small plain cases with no
+  wrong kill) searched both:
+  - *738* (N = 369 = 9 · 41). Plain arrays over ℤ₃₆₉ and F₉ × ℤ₄₁: every pattern with at most 55 (resp. 42) orbits dies
+    at a quotient (ℤ₃, ℤ₉, ℤ₄₁ or F₉); 20 classes with 43 to 62 orbits survive F₉, the best at 10^0.8 per symmetry
+    image with pools of 2⁴⁸ per block. Bordered arrays over P × ℤ₂₃ (|P| = 16, every 2-part): all dead at P, because
+    the ℤ₂₃-orbit granularity forces three fibre sums ±21. Character-bordered arrays with t = 3 (ℤ₃₆₆, three H joined
+    exactly, empty), t = 9, 41 and 123: dead or infeasible; the t = 9 sweep over cyclic Q is unfinished.
+  - *598* (N = 299 = 13 · 23). Plain: the twelve subgroups with |H| ≥ 11 PROVED dead by Parseval walls at ℤ₁₃ or ℤ₂₃;
+    bordered ℤ₂ × ℤ₁₄₉ exhaustively empty for |H| = 37, 74, 148; character-bordered t = 1 to 101 dead or weak (best
+    10^−6 at t = 5), t = 11 and 19 partly covered. The one structure with an engine, the plug-in F₁₃ × ℤ₂₃ (ordered
+    E = 10^3.6), produced 2 level-1 instances in 1613 s and no completion; a hit would need about 2 · 10⁴ CPU-hours.
+  - *Why it fails.* A block's compression to a quotient is constant on H-orbits, so its granularity is the orbit
+    weights; the flat spectrum at every character then fails exactly once |H| ≥ 8, and the survivors need 45 or more
+    orbits (pools above 10¹⁰ per block).
