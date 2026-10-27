@@ -6905,7 +6905,15 @@ cores.
   478, also open.
   - Cores exist: 2 or 3 per first join for each of the four row-sum patterns.
   - No border invariant under τ exists for any of the 32 sign variants. Two programs agree, and the same code finds 1176
-    borders for the zero-diagonal compressions. So 478 stays open; general borders were not tried.
+    borders for the zero-diagonal compressions. So 478 stays open.
+  - *General borders* (round 51, `r51/qh478`). For every row-sum pattern and sign variant the border problem is the
+    same one (PROVED; CHECKED by an explicit equivalence for all 64 variants). Find quaternary R̂ (14 × 16) and
+    Ĉ (16 × 14) with R̂R̂* = Ĉ*Ĉ = 16I, rows and columns in the 14-dimensional space of pairs of zero-sum functions
+    on ℤ₂³, such that −R̂ M* Ĉ/16 has all 196 entries in {±1, ±i}; M is fixed by K₀ = [[−2, −3 − i], [−3 + i, 2]].
+  - Its symmetry group is S₈ × ⟨Θ⟩ × ⟨D⟩, with Θ: r ↦ (−r̄₁, r̄₀) and D: (R̂, Ĉ) ↦ (Ĉ*, R̂*).
+  - No border is invariant under an element of order 2 (four classes), 3 or 5 of S₈, or under the Θ- and D-twisted
+    versions (exhaustive for each; two runs of order-2 type unfinished). The same code finds 24 borders of the
+    zero-diagonal problem with an element of order 7. Borders without symmetry were not searched.
 
 **What the judges killed** (each with its own computation, HEURISTIC unless marked).
 - *Partial character sets.* Q = ℤ₉ → ℤ₃ for 669: a Parseval wall at G/ℤ₃₇, PROVED. t = 5 over ℤ₂³ or F₁₆ (borders
