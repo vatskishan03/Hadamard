@@ -58,8 +58,8 @@ matrices of 2026, and 11292 a symmetric conference matrix of order 118 found her
 ([symmetric/940](../symmetric/940)).
 
 Doubling the matrices of orders 2636 and 3732 gives orders 5272 and 7464, which were open as well, and doubling 9172
-gives 18344, 36688 and 73376 (the table entry is 2293(6)). Agayan's multiplication with Hadamard matrices of orders 20 and 12 turns 2284
-and 3964 into orders 8 · 2855 and 8 · 2973, lowering the Table 4 entries 2855(4) and 2973(4) to 3
+gives 18344, 36688 and 73376 (the table entry is 2293(6)). Agayan's multiplication with Hadamard matrices of orders 20
+and 12 turns 2284 and 3964 into orders 8 · 2855 and 8 · 2973, lowering the Table 4 entries 2855(4) and 2973(4) to 3
 ([FRONTIER.md](../FRONTIER.md)).
 
 ## Orders recorded only through Corollary 8.8(i)
