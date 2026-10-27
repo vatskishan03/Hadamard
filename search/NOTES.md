@@ -6941,7 +6941,15 @@ cores.
   478, also open.
   - Cores exist: 2 or 3 per first join for each of the four row-sum patterns.
   - No border invariant under τ exists for any of the 32 sign variants. Two programs agree, and the same code finds 1176
-    borders for the zero-diagonal compressions. So 478 stays open; general borders were not tried.
+    borders for the zero-diagonal compressions. So 478 stays open.
+  - *General borders* (round 51, `r51/qh478`). For every row-sum pattern and sign variant the border problem is the
+    same one (PROVED; CHECKED by an explicit equivalence for all 64 variants). Find quaternary R̂ (14 × 16) and
+    Ĉ (16 × 14) with R̂R̂* = Ĉ*Ĉ = 16I, rows and columns in the 14-dimensional space of pairs of zero-sum functions
+    on ℤ₂³, such that −R̂ M* Ĉ/16 has all 196 entries in {±1, ±i}; M is fixed by K₀ = [[−2, −3 − i], [−3 + i, 2]].
+  - Its symmetry group is S₈ × ⟨Θ⟩ × ⟨D⟩, with Θ: r ↦ (−r̄₁, r̄₀) and D: (R̂, Ĉ) ↦ (Ĉ*, R̂*).
+  - No border is invariant under an element of order 2 (four classes), 3 or 5 of S₈, or under the Θ- and D-twisted
+    versions (exhaustive for each; two runs of order-2 type unfinished). The same code finds 24 borders of the
+    zero-diagonal problem with an element of order 7. Borders without symmetry were not searched.
 
 **What the judges killed** (each with its own computation, HEURISTIC unless marked).
 - *Partial character sets.* Q = ℤ₉ → ℤ₃ for 669: a Parseval wall at G/ℤ₃₇, PROVED. t = 5 over ℤ₂³ or F₁₆ (borders
@@ -6983,6 +6991,28 @@ exact computation, estimates HEURISTIC). The 955 mechanism was tried on every FR
     τ(4t − 2))/r (r the quotient order, τ the number of its points under K₀); the rest by exact joins or row sums;
   - the closest are 1291 over ℤ₈² × ℤ₅ = GR(8, 2) × ℤ₅ with a Teichmüller element of order 3 (20 classes, 10^−3.7)
     and 2731, 2971 at 10^−17 and 10^−22.
+  - *Census B* (`r50/cyk/censusB`, round 51). It covered plain, bordered and character-bordered cores: every
+    (Q, T) with T defined by character orders, |Q| ≤ 40 at 1291 and ≤ 24 at the other targets, every abelian G with Q
+    as a quotient, and cyclic-type H with at most 72 to 120 orbits. Of 29,770 structure records, 22,536 die by exact
+    joins or energy and 5,855 by the Gaussian estimate E. No structure is both alive and searchable. W below is the
+    meet-in-the-middle join work: 10^10.7 for 955 and 10^17.6 for 1051. The best E, Q-conditioned where the lists fit:
+    - 1291: ℤ₂ × ℤ₃² × ℤ₁₇ with Q = ℤ₁₇ and t = 17, 10^1.9 at W = 10^35; Q = ℤ₂₄, ℤ₃₈, ℤ₁₉: 10^0.5 to 10^−0.3 at
+      W ≥ 10^24.5;
+    - 2083: 10^−1.1 (W = 10^47); 2659 and 2899: 10^−4.0; 2971: 10^−5.4; 2731: 10^−7.9; 2803: 10^−9.2.
+    Borders are undecided for |Q| > 8.
+  - *Why the 955 template stops.* t is odd at every target, and a prime-order Q needs T = all characters, hence p | N
+    (PROVED). t ≤ |Q| ≤ m then gives m ≥ (N + 1)/2 = 333, 342, 351, 363, 372 for 2659, 2731, 2803, 2899, 2971
+    (PROVED). On the data, E > 1 needs m · |H| below about 2600, and a production needs at most about 45 orbits, so m
+    below about 340 (HEURISTIC). So the template has no searchable instance at these five targets.
+  - *Production on the closest 1291 structure* (`r50/cyk/prod_1291`): census A's ℤ₈² × ℤ₅ with H = ⟨(M, 1)⟩,
+    M = [[2, 7], [7, 1]] of order 6 on ℤ₈², Q = ℤ₂², t = 3. This H is half of census A's (more orbits, so a larger
+    space). A finer estimate gives 10^4.7 solutions (about 10^1.5 inequivalent) among 10^51 tuples, each a solution
+    with probability 10^−46.3. Eight rounds of joins over 1.8 · 10²¹ quadruples of the two halves (4 CPU-hours)
+    found none, against 4 · 10^−19 expected. The near misses follow the Gaussian prediction: 71,526 quadruples agree
+    on 12 of the 27 columns (predicted 44,600), 166 on 14 (predicted 100), the best on 17. The structure is alive
+    but out of reach: the joins covered 10^−23 of its space.
+  - *Controls.* The same workflow re-found 955 with an unmodified copy of `search/tbcore` (11 minutes per process),
+    and found 25 more solutions for 1051 over ℤ₂₆₂ with H = ⟨53⟩ (first after 271 s).
 - *The pairing rule* (CHECKED on all three). The Singer element of order h = 2^a − 1 on Q must be paired with an element
   of order h in the units of an odd prime p | m, p ≡ 1 (mod h) (29 ≡ 1 mod 7 at 955), so that H has no short orbits on
   any quotient. For 1291 and 2731 (h = 3; p = 5, 17) and for 2971 with Q = ℤ₂³ (h = 7, p = 23) no such p exists, and a
@@ -7005,7 +7035,8 @@ exact computation, estimates HEURISTIC). The 955 mechanism was tried on every FR
   order n − 1. So the route reaches an odd n precisely when (i) a quaternary conference matrix of order (n + 1)/2 and
   (ii) a conference matrix of order n − 1 of this block form exist. By Belevitch (ii) needs n − 2 to be a sum of two
   squares. Among the FRONTIER n this holds for the prime cases above and for 33 composite n − 2 (907, 1019, 1039, …,
-  2999); for these 33 no conference matrix of order n − 1 is known to us. Among the open complex orders, Mathon's
+  2999); for 32 of these 33 no conference matrix of order n − 1 is known to us, and for 2027 one is known but not in
+  this block form (§106). Among the open complex orders, Mathon's
   conference matrix of order 442 would serve 886, if it has this block form and a quaternary conference matrix of
   order 222 exists.
 
@@ -7200,3 +7231,108 @@ HEURISTIC). N = 1019, 1103, 1125, 1143, 1169, 1185, 1199, 1211, 1271, 1335, 1341
   by exact arithmetic (Paley I/II, doubling, Agayan, Craigen–Seberry–Zhang, Miyamoto I–III, Seberry–Yamada 8q,
   Yamada–Kiyasu, Kamali–Kharaghani, complex Golay, Cooper–Wallis, Paley and Miyamoto blocks) and no source stating the
   order or the theorem; Seberry–Yamada's 1992 Table A.2 agrees (2589: 4, key d1). **New**.
+
+**Table 4 and Craigen's asymptotic theorem** (`r52/asym`; arithmetic CHECKED, source: the abstract and first page of
+R. Craigen, J. Combin. Theory Ser. A 71 (1995) 241–254, as reproduced online; the 2024 survey of asymptotic bounds,
+arXiv:2401.15381, quotes the same result as t = 4⌊(1/16) log₂((m − 1)/2)⌋ + 6). For every odd p there is a Hadamard
+matrix of order 2ᵗp with t = 4⌈(1/16) log₂((p − 1)/2)⌉ + 2, which is 6 for every odd p ≤ 131073. Table 4 has nine
+entries above 6, and none of them is the least known value: 1499(7), 1987(7), 2399(8), 2671(7), 2683(7), 2687(9),
+2699(7) and 2999(9) drop to m = 6, and 1447(7) was settled in 2026. Kamali and Kharaghani's sequences lower six
+others further (1439, 1571, 2039, 2063, 2287, 2879). Craigen's second bound, t = 2N with N the number of binary
+digits 1 of p, and the Handbook's 2N − 1 for p ≡ 3 (mod 4) lower nothing here. Seberry–Yamada's 1992 Table A.2 and
+Table 4 evidently do not apply the asymptotic theorems.
+
+## 106. Round 53: what multiplication can reach; n = 2027 and Turyn's conference matrix of order 2026 (October 27)
+
+Scratchpad `r53/`. No new matrix. The round asked which multiplication theorems could still reach the open orders
+4n, and proved most of the candidates impossible.
+
+- *Quaternary 2 × 2 blocks* (PROVED). Turyn's double of a quaternary Hadamard matrix [[A, B], [C, D]] of order 2m
+  whose blocks are group-developed over one abelian group G of order m is a real H(4m) in sixteen G-developed blocks.
+  These blocks commute and inversion on G transposes them, so T-matrices of order t give H(4mt) by the
+  Goethals–Seidel plug-in of [PALEY_BLOCKS.md](../hadamard/PALEY_BLOCKS.md). Paley's complex matrix C + iI
+  (`search/cmblocks/conf_circ.py`, m = (q + 1)/2) is of this form, so Paley II multiplies by T-matrices too. On
+  FRONTIER this reaches nothing: every n = m·t with m = (q + 1)/2 or (q + 1)/4 needs T-matrices of a prime order of
+  at least 167 (`r53` scan, CHECKED).
+- *Uniform automorphisms* (PROVED). A real H(4m) is, up to equivalence, an array of sixteen circulants of order m
+  exactly when it has an automorphism (P, P) of order m acting freely on rows and columns with four orbits. A
+  Goethals–Seidel array has none for generic A, B, C, D: its back-circulant blocks force the row shift on the first
+  block row to be trivial. So the Goethals–Seidel matrices of 2026 (668, …, 1964) do not multiply this way, and
+  1169 = 7 · 167, 669 = 3 · 223 and the like stay open.
+- *Amicable T-matrices* (CHECKED, exhaustive). Cooper–Wallis multiplication of a Goethals–Seidel quadruple leaves the
+  cross terms (T_j T_kᵀ − T_k T_jᵀ) ⊗ (W W′ᵀ − W′ Wᵀ). They vanish for every quadruple only if the T-matrices are
+  pairwise amicable, and there are no such T-matrices of order 3, 5 or 7 (`search/amicable_tmatrices.py`).
+- *Complex Agayan* (PROVED impossible for odd a > 1). Agayan's proof with a quaternary H₁ = [S₁, S₂] of order 2a needs
+  S₂ = S₁ ∘ E with E a ±1 matrix. Then A = S₁ ∘ [E = 1] and B = S₁ ∘ [E = −1] have complementary supports and
+  satisfy A*A = B*B = aI and A*B = 0. Modulo 1 + i, the off-diagonal zeros of A*A make |A_j ∩ A_k| even, while
+  A*B = 0 makes |A_j ∖ A_k| even, so |A_j ∩ A_k| ≡ a is odd. So quaternary matrices of orders 2a and 2b give
+  nothing of order 2ab this way; for example QH(6) and QH(1286) do not give 4 · 1929.
+- *Multipliers without commutation* (PROVED impossible for odd n ≥ 3). A 4 × 4 block matrix C of order 4n over
+  {0, ±1} with C Cᵀ = nI, whose four blocks in each block column partition the n × n grid, would turn every H(4m)
+  into H(4mn) with no commutation hypothesis. Summing the parity conditions over a block column shows that every row
+  of C has even weight, against n odd.
+- *n = 2027* (FRONTIER; n − 2 = 2025 = 45²). Complex Yamada–Kiyasu (§104) needs two ingredients. The first is a
+  quaternary conference matrix of order (n + 1)/2 = 1014, and Paley's serves, since 1013 is a prime ≡ 1 (mod 4). The
+  second is a symmetric conference matrix of order 2026 with an R-structure (R² = −I, R C Rᵀ = −C; §60). A conference
+  matrix of order 2026 = 45² + 1 exists. R. J. Turyn (Canad. J. Math. 23 (1971) 531–535; Belevitch's case p = 2) gives
+  the core W⊗W − I⊗J + J⊗I from the core W of Mathon's matrix of order 46. No R-structure on it is known, and the
+  products of orders 50 and 226 built the same way have none (§61). A Yamada-type R-structure, two symmetric
+  circulants of the prime order 1013, has an expected count far below 1 for every multiplier group: 2^−76 with 23
+  orbits per sequence. So 2027 stays open.
+- *Complex Yamada–Kiyasu needs q ≡ 1 (mod 4)* (PROVED). With q ≡ 3 (mod 4) a skew conference matrix with a complex
+  structure would serve as (M, N), and q = 367 would give QH(738), hence 5912 = 8 · 739 by §104. But the core Z
+  has order n = (q + 1)/2, zero diagonal, unit entries elsewhere and ZZ* = nI − J. For even n, two distinct rows
+  give −1 as a sum of n − 2 units, an even number of units, which is impossible modulo 1 + i. The variant
+  Y′ = J₂ ⊗ Z + P ⊗ W forces W to be monomial and returns the same Z.
+
+**Ideation round 53** (`r53/ideas`; five lenses, each with an adversarial judge that re-ran the checks). None of
+the 16 proposals settles an open order, and the judges dropped all of them. What is worth keeping:
+- *Table 4 and complex Golay pairs* (CHECKED; Known). Craigen, Holzmann and Kharaghani (Discrete Math. 252 (2002)):
+  4-phase Golay pairs (A, B) and (C, D) of lengths x and y give the complementary quad (A|C), (A|−C), (B|D), (B|−D)
+  of length x + y, and the quaternary Goethals–Seidel array gives H(8(x + y)). Over the complex Golay lengths
+  2^(a+u) 3^b 5^c 11^d 13^e with b + c + d + e ≤ a + 2u + 1 and u ≤ c + e (Du and Jiang, arXiv:2401.15381), this
+  lowers 24 entries of Table 4 beyond §104.
+  - Seven reach m = 3: 971, 1223, 1259, 1451, 1571, 2039, 2423. The other 17 drop to 4 or 5 (FRONTIER lists the 29
+    entries left at m ≥ 4).
+  - The rule is in Egan et al.'s 2026 survey (Table 4, 1001 orders up to 10 000), which explains why their list of
+    open orders 8p omits 971 and 1223. So these orders are Known; Table 4 omits the rule.
+  - Ten of the matrices were built and checked exactly (7768, 10072, 11608, 11824, 12568, 16312, 19168, 19384, 19568,
+    23024), two of them again by the judge. The orders 8p = 4792, 5752 and 5912 are not reached.
+- *M-structures.* Paley's skew matrix for q ≡ 7 (mod 8) is an array of sixteen negacyclic blocks, and these multiply
+  by T-matrices too (PROVED, CHECKED for q ≤ 47 and t ≤ 7), but s·t is then even and nothing open is reached.
+  Complex Yamada–Kiyasu matrices multiply by T-matrices exactly when the core's real and imaginary parts commute and
+  one involution transposes them. That needs a commuting bordered quaternary core of order 142, 286, 322, 478 or 232
+  for the hooks 1713, 1929, 1981, 2315, 2855 and 2865. None is known, and the cell ansatz over GF(9) × GF(53) for
+  2865 is empty.
+- *Skew.* With a skew first block, the T-structures that multiply Paley's skew blocks are classified: nothing beyond
+  t = 3 (PROVED). Turyn's double of Paley's complex matrix is never skew.
+- *Symmetric.* v = 119 (order 476) would follow from symmetric Yamada–Kiyasu with an R-structure on a symmetric
+  conference matrix of order 118. The repository's C(118), both C(66) and the 16 graphs of `srg65_32_15_16_new16.g6`
+  have no anti-automorphism at all (nauty). Two-circulant symmetric pairs (M, N) with M² + N² = (2n − 1)I exist for
+  n ≤ 33 exactly when 2n − 1 is a prime power (exhaustive). A symmetric Miyamoto M-structure from an arbitrary
+  Hadamard matrix of order q − 1 is impossible: the corner trace has the wrong parity.
+- *Prime n ≡ 3 (mod 4).* Eight symmetric circulants in OD(8; 1⁸) give H(8p), but they are dominated by
+  Goethals–Seidel (same bits and constraints, lower density, weaker conclusion). Cocyclic matrices over groups of
+  order 4p lie inside the Goethals–Seidel space, and an automorphism of prime order p of H(4p) is fixed-point free.
+  For 2973 a plug-in would need a cyclic (991, 441, 196) difference set, and none is known.
+
+**The open quaternary order 358** (N = 179; `r53/qh358`, round 51's census in `r51/plaincensus`). Round 51 ran a census
+of the plain character-bordered Szöllősi array over the open orders 2N. It kept four structures at N = 179, none at
+167, 223 or 251, and one out of reach at 659 (10^−1.8 solutions, 10^−22 per join).
+- *The cheap structure is empty* (CHECKED: two independent exhaustive programs, joins cross-checked against
+  `search/tbcore`'s join4, planted positive controls at p = 3 to 19 and p = 11). G = ℤ₄² × ℤ₁₁ with
+  H = ⟨σ⟩ × ⟨−1⟩ of order 6, σ = [[1, 1], [1, 2]], Q = ℤ₂², t = 3; 36 orbits for C, D and 24 classes for A, B.
+  - All nine row-sum patterns have a border at the level of Q.
+  - Pattern (14, 18, 0, 14) has no tuple that is consistent at both quotients, ℤ₂² and ℤ₁₁.
+  - The other eight were searched completely: 765 joint tuples, 10^16.1 quadruples, no solution (700 CPU-s).
+  - The estimate had been 10^−0.5 solutions, or about 0.06 up to the 40 images under the normalizer, so the empty
+    result was the expected one.
+- *The rest is out of reach* (HEURISTIC).
+  - H trivial on ℤ₁₁ (44 orbits) has 10^2.5 solutions, but only about 0.07 up to 4840 images. The best exact join
+    costs 10^16.8 pair operations, about 90 core-years.
+  - H of order 3 gives 10^11 solutions, at 10^−24 or 10^−19 per join.
+  - A census of the neighbours (2-parts ℤ₂⁴, ℤ₂² × ℤ₄, ℤ₁₆, ℤ₈ × ℤ₂; 360 structures) finds nothing cheaper.
+  - New lead: t = 9 over ℤ₁₇₀ with Q = ℤ₁₀ and H = ⟨89⟩ of order 4 (46 orbits). The estimate is 10^2.4 solutions,
+    about 0.3 to 4 up to the 128 images, but the border (a quaternary Hadamard matrix of order 18 inside it) is
+    undecided. A pilot join extrapolates to 10³ to 10⁴ CPU-hours per hit.
+  So 358 stays open.

@@ -233,6 +233,7 @@ start-up, is close to the list size.
 | Program | Role |
 |---|---|
 | `tmatrix.py`, `tmat_mult.py`, `tmat_scan.py`, `tmat_composite.py`, `tmat_t3_model.py` | T-matrices by support splits and multiplier structures |
+| `amicable_tmatrices.py` | exhaustive search for pairwise amicable T-matrices of orders 3, 5, 7: none ([NOTES.md](NOTES.md) §106) |
 | `ng_mult.py`, `qw_mult.py` | negaperiodic Golay pairs over ℤ[y]/(y^v + 1) constant up to sign on multiplier orbits (spectral filter, exact NAF join), and quasi-Williamson matrices constant on the orbits of an odd-order multiplier group: the pairs that Miyamoto blocks need ([../hadamard/MIYAMOTO_BLOCKS.md](../hadamard/MIYAMOTO_BLOCKS.md)) |
 | `yang5.py` | T-sequences of length 5t from base sequences BS(m + 1, m), t = 2m + 1, by Yang's multiplication by 5 (Seberry–Yamada 1992, Theorem 5.23); `5 --turyn` writes [../t-matrices/T55.txt](../t-matrices/T55.txt) |
 | `bt/find_bt.py`, `bt/bordered_od.py` | bordered T-matrices of order t over an abelian group of order t − 1 (supports partitioning the group, row sums ±1, 0, 0, 0, autocorrelations summing to −1 off 0): vectorised exhaustive search (`find_bt.py`), and the orthogonal design OD(4t; t, t, t, t) built from them with a border, checked for random real arguments (`bordered_od.py`, small groups) |

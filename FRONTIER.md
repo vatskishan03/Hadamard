@@ -41,12 +41,24 @@ through [hadamard/2284](hadamard/2284) and [hadamard/3964](hadamard/3964); and 2
 4's own data (Table 4 updates Seberry–Yamada's values only where it reaches m = 2) ([search/NOTES.md](search/NOTES.md)
 §104). Kamali and Kharaghani's dihedral Golay sequences of 1998 lower seventeen entries (the same section; 1793 among
 them, and two more below), [hadamard/12472](hadamard/12472) lowers 1559 and [hadamard/20712](hadamard/20712) lowers
-2589 (4 · 2589 and 4 · 863 stay open).
+2589 (4 · 2589 and 4 · 863 stay open). Craigen's asymptotic theorem (1995: an order 2ᵗn for every odd n with
+t = 4⌈(1/16) log₂((n − 1)/2)⌉ + 2, that is t = 6 for n ≤ 131073) makes every value of Table 4 above 6 too large:
+1499, 1987, 2399, 2671, 2683, 2687, 2699 and 2999 have m ≤ 6, not 7 to 9. Craigen, Holzmann and Kharaghani's rule
+(Discrete Math. 252 (2002): complex Golay pairs of lengths x and y give H(8(x + y)); the 2026 survey of Egan et al.
+uses it) lowers 24 more entries. Seven of them reach m = 3: 971, 1223, 1259, 1451, 1571, 2039 and 2423. The other 17
+drop to 4 or 5 ([search/NOTES.md](search/NOTES.md) §106). After all of this, 29 entries keep m ≥ 4, so their
+orders 8n are open:
+- m = 4: 599, 719, 739, 1319, 1439, 1579, 1783, 1979, 1987, 2207, 2251, 2287, 2339, 2371, 2399, 2543, 2671, 2677,
+  2687, 2699, 2903 and 2939;
+- m = 5: 1567, 2683, 2879, 2887 and 2995;
+- m = 6: 1499 and 2999.
 
 **Orders 8p.** Table 4 records n(m), the least m with a known Hadamard matrix of order 2ᵐn; an entry with m ≥ 4 is also
 an open order 8n. Egan, Kotsireas, London and Ó Catháin (Table 5) list six open orders 8p up to 10 000: 4792, 5752,
 5912, 6712, 8248 and 8696 (p = 599, 719, 739, 839, 1031, 1087). Their list differs from Table 4 at four entries: Table 4
-has 1087(3), and 971(6), 1169(4) and 1223(6), whose orders 8n their list does not include. Table 4 is right about 1087:
+has 1087(3), and 971(6), 1169(4) and 1223(6), whose orders 8n their list does not include. The survey is right
+about 971 and 1223, whose orders 8n follow from Craigen–Holzmann–Kharaghani's rule (above), and about 1169
+(Agayan's multiplication with 4 · 167 of 2026). Table 4 is right about 1087:
 the survey takes Williamson-type matrices from Seberry–Yamada's Table A.1 "except 543", but A.1's matrices of order 543
 (key wi, their Corollary 27(i)) are valid, and with them the order-8q construction gives [hadamard/8696](hadamard/8696)
 (Known). Two more entries of their list were settled in 1998: Kamali and Kharaghani (*Dihedral Golay sequences*,
