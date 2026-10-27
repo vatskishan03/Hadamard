@@ -7047,6 +7047,21 @@ and q = 223, 263, 331, 431, 1559 with the matrices of complex-hadamard).
   2682; every other entry of that paper's keys (w7 at 303, w9 at 203, 333, 689, 915) carries t = 3. So the entry is a
   misprint for t = 3 and gives nothing at 2683 (HEURISTIC: Wallis's paper not read). 1341 is removed from the data
   file.
+- *Closure* (`r52/closure.py`, CHECKED against the data files of `search/data`, the certificates of complex-hadamard and
+  the recursive routes: Corollary 8.8(i) completion, Williamson-type, Paley conference and Paley complex, Seberry–Yamada
+  Corollaries 11.15 and 11.17, quaternary Legendre pairs). Among Table 4's entries n(m ≥ 4) with n ≡ 3 (mod 4) a prime
+  power, only 491 and 1559 have a known quaternary matrix of order n − 1. The quaternary form of Miyamoto I (q ≡ 1 mod
+  4, the symmetric Paley core with a quaternary K of order q − 1, giving 8q where H(q − 1) is unknown) reaches only
+  2293, already settled. Beyond Table 4 the theorem reaches many n (from n = 3203 on, through Table A.1's
+  Williamson-type matrices, Corollary 11.15, quaternary Legendre pairs and the Corollary 8.8(i) completion), but we
+  have no copy of Handbook Table 1.53's values of t to tell which orders 8n are open, and the matrices (orders above
+  25,000) were not built.
+- *Targets.* The entries n(m ≥ 4) with 4n open and N = (n − 1)/2 > 1000 have never been searched for a quaternary
+  matrix of order 2N: n = 2039, 2207, 2251, 2287, 2339, 2371, 2399, 2423, 2543, 2671, 2683, 2687, 2699, 2879, 2887,
+  2903, 2939 and 2999 (N = 1019, 1103, 1125, 1143, 1169, 1185, 1199, 1211, 1271, 1335, 1341, 1343, 1349, 1439, 1443,
+  1451, 1469, 1499). For none of them is N − 2 a prime power ≡ 1 (mod 4) (the complex Yamada–Kiyasu template) or
+  4N − 1 a prime power (Paley's complex matrix). Each quaternary matrix found would lower an entry to m = 3, as 1558
+  did for 1559.
 - *The open orders 8p.* 4792, 5752 and 5912 would follow from quaternary Hadamard matrices of orders 598, 718 and 738.
   N = 299 has no live Singer-paired character-bordered structure (one at 10^−11.4); 738 (N = 369 = 9 · 41 admits the
   cyclotomic-cell pairing of GF(9)* with ℤ₄₁*, as for the order-850 core of 6796) and 598 are being searched.
