@@ -6947,6 +6947,16 @@ exact computation, estimates HEURISTIC). The 955 mechanism was tried on every FR
     τ(4t − 2))/r (r the quotient order, τ the number of its points under K₀); the rest by exact joins or row sums;
   - the closest are 1291 over ℤ₈² × ℤ₅ = GR(8, 2) × ℤ₅ with a Teichmüller element of order 3 (20 classes, 10^−3.7)
     and 2731, 2971 at 10^−17 and 10^−22.
+  - *Census B* (`r50/cyk/censusB`, round 51; plain, bordered and character-bordered cores over every abelian group and
+    every H with a feasible quotient, 15,226 structures after deduplication; E the Gaussian estimate of the number of
+    solutions). Live structures: 237 (1291), 67 (2083), 59 (2659), 12 (2731), 33 (2803), 161 (2899), 4 (2971). Best
+    log₁₀ E: 4.4 (1291: ℤ₈² × ℤ₅, H = ⟨M⟩ with M = [[2, 7], [7, 1]] of order 6 on ℤ₈², Q = ℤ₂², t = 3), 2.1 (1291:
+    ℤ₂ × ℤ₃² × ℤ₁₇, Q = ℤ₁₇), −1.1 (2083), −3.3 (2899), −4.0 (2659), −5.4 (2971), −7.9 (2731), −9.2 (2803).
+  - *Production on the 1291 structure* (`r50/cyk/prod_1291`). A finer estimate gives 10^4.7 solutions among 10^51
+    tuples (probability 10^−46.3 each). Eight rounds of joins over 1.8 · 10²¹ quadruples of the two halves (4 CPU-hours)
+    found none. The expected number in what was joined was 4 · 10^−19. The near misses follow the Gaussian
+    prediction: 71,526 quadruples agree on 12 of the 27 columns (predicted 44,600), 166 on 14 (predicted 100), the best
+    on 17. The structure is not dead, but out of reach: the joins covered 10^−23 of its space.
 - *The pairing rule* (CHECKED on all three). The Singer element of order h = 2^a − 1 on Q must be paired with an element
   of order h in the units of an odd prime p | m, p ≡ 1 (mod h) (29 ≡ 1 mod 7 at 955), so that H has no short orbits on
   any quotient. For 1291 and 2731 (h = 3; p = 5, 17) and for 2971 with Q = ℤ₂³ (h = 7, p = 23) no such p exists, and a
