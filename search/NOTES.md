@@ -6947,16 +6947,28 @@ exact computation, estimates HEURISTIC). The 955 mechanism was tried on every FR
     τ(4t − 2))/r (r the quotient order, τ the number of its points under K₀); the rest by exact joins or row sums;
   - the closest are 1291 over ℤ₈² × ℤ₅ = GR(8, 2) × ℤ₅ with a Teichmüller element of order 3 (20 classes, 10^−3.7)
     and 2731, 2971 at 10^−17 and 10^−22.
-  - *Census B* (`r50/cyk/censusB`, round 51; plain, bordered and character-bordered cores over every abelian group and
-    every H with a feasible quotient, 15,226 structures after deduplication; E the Gaussian estimate of the number of
-    solutions). Live structures: 237 (1291), 67 (2083), 59 (2659), 12 (2731), 33 (2803), 161 (2899), 4 (2971). Best
-    log₁₀ E: 4.4 (1291: ℤ₈² × ℤ₅, H = ⟨M⟩ with M = [[2, 7], [7, 1]] of order 6 on ℤ₈², Q = ℤ₂², t = 3), 2.1 (1291:
-    ℤ₂ × ℤ₃² × ℤ₁₇, Q = ℤ₁₇), −1.1 (2083), −3.3 (2899), −4.0 (2659), −5.4 (2971), −7.9 (2731), −9.2 (2803).
-  - *Production on the 1291 structure* (`r50/cyk/prod_1291`). A finer estimate gives 10^4.7 solutions among 10^51
-    tuples (probability 10^−46.3 each). Eight rounds of joins over 1.8 · 10²¹ quadruples of the two halves (4 CPU-hours)
-    found none. The expected number in what was joined was 4 · 10^−19. The near misses follow the Gaussian
-    prediction: 71,526 quadruples agree on 12 of the 27 columns (predicted 44,600), 166 on 14 (predicted 100), the best
-    on 17. The structure is not dead, but out of reach: the joins covered 10^−23 of its space.
+  - *Census B* (`r50/cyk/censusB`, round 51). It covered plain, bordered and character-bordered cores: every
+    (Q, T) with T defined by character orders, |Q| ≤ 40 at 1291 and ≤ 24 at the other targets, every abelian G with Q
+    as a quotient, and cyclic-type H with at most 72 to 120 orbits. Of 29,770 structure records, 22,536 die by exact
+    joins or energy and 5,855 by the Gaussian estimate E. No structure is both alive and searchable. W below is the
+    meet-in-the-middle join work: 10^10.7 for 955 and 10^17.6 for 1051. The best E, Q-conditioned where the lists fit:
+    - 1291: ℤ₂ × ℤ₃² × ℤ₁₇ with Q = ℤ₁₇ and t = 17, 10^1.9 at W = 10^35; Q = ℤ₂₄, ℤ₃₈, ℤ₁₉: 10^0.5 to 10^−0.3 at
+      W ≥ 10^24.5;
+    - 2083: 10^−1.1 (W = 10^47); 2659 and 2899: 10^−4.0; 2971: 10^−5.4; 2731: 10^−7.9; 2803: 10^−9.2.
+    Borders are undecided for |Q| > 8.
+  - *Why the 955 template stops.* t is odd at every target, and a prime-order Q needs T = all characters, hence p | N
+    (PROVED). t ≤ |Q| ≤ m then gives m ≥ (N + 1)/2 = 333, 342, 351, 363, 372 for 2659, 2731, 2803, 2899, 2971
+    (PROVED). On the data, E > 1 needs m · |H| below about 2600, and a production needs at most about 45 orbits, so m
+    below about 340 (HEURISTIC). So the template has no searchable instance at these five targets.
+  - *Production on the closest 1291 structure* (`r50/cyk/prod_1291`): census A's ℤ₈² × ℤ₅ with H = ⟨(M, 1)⟩,
+    M = [[2, 7], [7, 1]] of order 6 on ℤ₈², Q = ℤ₂², t = 3. This H is half of census A's (more orbits, so a larger
+    space). A finer estimate gives 10^4.7 solutions (about 10^1.5 inequivalent) among 10^51 tuples, each a solution
+    with probability 10^−46.3. Eight rounds of joins over 1.8 · 10²¹ quadruples of the two halves (4 CPU-hours)
+    found none, against 4 · 10^−19 expected. The near misses follow the Gaussian prediction: 71,526 quadruples agree
+    on 12 of the 27 columns (predicted 44,600), 166 on 14 (predicted 100), the best on 17. The structure is alive
+    but out of reach: the joins covered 10^−23 of its space.
+  - *Controls.* The same workflow re-found 955 with an unmodified copy of `search/tbcore` (11 minutes per process),
+    and found 25 more solutions for 1051 over ℤ₂₆₂ with H = ⟨53⟩ (first after 271 s).
 - *The pairing rule* (CHECKED on all three). The Singer element of order h = 2^a − 1 on Q must be paired with an element
   of order h in the units of an odd prime p | m, p ≡ 1 (mod h) (29 ≡ 1 mod 7 at 955), so that H has no short orbits on
   any quotient. For 1291 and 2731 (h = 3; p = 5, 17) and for 2971 with Q = ℤ₂³ (h = 7, p = 23) no such p exists, and a
