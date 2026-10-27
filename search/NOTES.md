@@ -7139,10 +7139,11 @@ analogue of [hadamard/MIYAMOTO_BLOCKS.md](../hadamard/MIYAMOTO_BLOCKS.md).
 **QH(2N) for the eighteen Table 4 primes with N > 1000** (`r52/sweep_a`, `r52/sweep_b`; kills CHECKED, estimates
 HEURISTIC). N = 1019, 1103, 1125, 1143, 1169, 1185, 1199, 1211, 1271, 1335, 1341, 1343, 1349, 1439, 1443, 1451, 1469,
 1499. No quaternary matrix found.
-- *Tools.* The repository's Gray-code enumerator caps the reachable structures at 40 orbits, so the agents wrote a
-  pruned DFS enumerator (identical lists to `bnw_enum` on 120 cases), a join with a key-presence filter and exact
-  lattice normalisation (join totals 96, 96, 16, 8352, 4704 on N = 779, 371, 143, 163, 119, as before), exact quotient
-  screens and sliced joins; the whole pipeline rediscovered the matrix of order 1558 (N = 779, H = ⟨49⟩) as a control.
+- *Tools* (`search/qhsweep`). The repository's Gray-code enumerator caps the reachable structures at 40 orbits, so the
+  agents wrote a pruned DFS enumerator (identical lists to `bnw_enum` on 253 lists), a join with a key-presence filter
+  and exact lattice normalisation (totals 96, 96, 16, 8352, 4704 on N = 779, 371, 143, 163, 119, as before), exact ℤ₂
+  and quotient screens and sliced joins; the pipeline rediscovers the matrix of order 1558 (N = 779, H = ⟨49⟩) as a
+  control. The chain rule-outs below were run with `search/cchain4.py`.
 - *Plain Szöllősi arrays* (all H with −1 ∉ H and at most 64 orbits, every row-sum pattern): every structure with lists
   up to 2 · 10⁷ decided (0 solutions), e.g. 1271: 142 exact joins (pair work 5.2 · 10¹¹) and 352 chain rule-outs; the
   primes 1019, 1439, 1451 and 1499 and the composites 1169 and 1211 admit no row-sum pattern at all. The undecided
