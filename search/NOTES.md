@@ -7243,3 +7243,8 @@ Scratchpad `r53/`. No new matrix. The round asked which multiplication theorems 
   products of orders 50 and 226 built the same way have none (§61). A Yamada-type R-structure, two symmetric
   circulants of the prime order 1013, has an expected count far below 1 for every multiplier group: 2^−76 with 23
   orbits per sequence. So 2027 stays open.
+- *Complex Yamada–Kiyasu needs q ≡ 1 (mod 4)* (PROVED). With q ≡ 3 (mod 4) a skew conference matrix with a complex
+  structure would serve as (M, N), and q = 367 would give QH(738), hence 5912 = 8 · 739 by §104. But the core Z
+  has order n = (q + 1)/2, zero diagonal, unit entries elsewhere and ZZ* = nI − J. For even n, two distinct rows
+  give −1 as a sum of n − 2 units, an even number of units, which is impossible modulo 1 + i. The variant
+  Y′ = J₂ ⊗ Z + P ⊗ W forces W to be monomial and returns the same Z.
