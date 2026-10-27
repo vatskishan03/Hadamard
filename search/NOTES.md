@@ -7056,6 +7056,15 @@ and q = 223, 263, 331, 431, 1559 with the matrices of complex-hadamard).
   Williamson-type matrices, Corollary 11.15, quaternary Legendre pairs and the Corollary 8.8(i) completion), but we
   have no copy of Handbook Table 1.53's values of t to tell which orders 8n are open, and the matrices (orders above
   25,000) were not built.
+- *Any skew conference matrix* (PROVED; CHECKED at q = 15, 39, 63, `search/cmiyamoto_check.py --general`). The proof
+  uses Paley's core only through its zero diagonal, W Wᵀ = qI − J − d dᵀ and the constant half-row sums, and all three
+  follow from orthogonality to the rows ∞ and 0 of any normalised skew conference matrix of order q + 1. So a
+  skew-Hadamard matrix of order q + 1 and a quaternary Hadamard matrix of order q − 1 give H(8q) for every q ≡ 3
+  (mod 4), not only prime powers (`verify.complex_miyamoto(..., C)`). Within Table 4 this reaches 2215(4) (skew 2216 of
+  this repository, Paley's conference matrix of order 2214) and 2327(4) (Paley's skew 1164 doubled, Paley's quaternary
+  2326), but both orders 8n already follow from Alpöge et al.'s H(1772) and H(716) (2026) by Agayan's multiplication
+  with H(20) and H(52); not built. The other composite n(m ≥ 4) ≡ 3 (mod 4) lack the skew matrix (2171, 2899, 2995:
+  v = 543, 725, 749 undecided) or the quaternary one (1795, 2119, 2315, 2855).
 - *Targets.* The entries n(m ≥ 4) with 4n open and N = (n − 1)/2 > 1000 have never been searched for a quaternary
   matrix of order 2N: n = 2039, 2207, 2251, 2287, 2339, 2371, 2399, 2423, 2543, 2671, 2683, 2687, 2699, 2879, 2887,
   2903, 2939 and 2999 (N = 1019, 1103, 1125, 1143, 1169, 1185, 1199, 1211, 1271, 1335, 1341, 1343, 1349, 1439, 1443,

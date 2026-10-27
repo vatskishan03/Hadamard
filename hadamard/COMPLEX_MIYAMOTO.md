@@ -80,6 +80,32 @@ So H H* = 4qI. The construction is the M-structure of Miyamoto's theorem (Seberr
 `miyamoto`) with a Hermitian core in place of the symmetric one. The difference is fact 3: the row sums of the
 Hermitian core sit on the opposite halves, so the border is R P F instead of a sign pattern.
 
+## Any skew conference matrix
+
+The proof uses Paley's matrix only through three facts about its core W: zero diagonal, fact 2 and fact 3. All three
+hold for every skew conference matrix C of order q + 1, q ≡ 3 (mod 4), prime power or not. Normalise C (D C D, D a
+diagonal ±1 matrix) so that its row ∞ is (0, 1, …, 1), and let d be its row 0 on the core. Orthogonality of a core row
+x to row ∞ and to row 0 gives Σ_y W[x, y] = d_x and Σ_y d_y W[x, y] = −1, so the core row sums over the halves
+d = +1 and d = −1 are (0, 1) for d_x = 1 and (−1, 0) for d_x = −1, as for Paley's matrix. Row 0 against row ∞ gives
+Σ d_y = 0 (equal halves), and C Cᵀ = qI on the core gives W Wᵀ = qI − J − d dᵀ. So:
+
+**Theorem′.** If a skew-Hadamard matrix of order q + 1 and a quaternary Hadamard matrix of order q − 1 exist (q ≡ 3
+mod 4), then a quaternary Hadamard matrix of order 4q and a Hadamard matrix of order 8q exist.
+
+The same argument with a symmetric conference matrix gives Miyamoto's real theorem for any conference matrix of order
+q + 1 (q ≡ 1 mod 4) in place of Paley's; Miyamoto's Theorem 5 is reported to be stated with "a conference matrix of
+order q + 1" ([symmetric/PROPUS_MIYAMOTO.md](../symmetric/PROPUS_MIYAMOTO.md)), so the general form may well be his.
+`verify.complex_miyamoto` takes such a C, and `search/cmiyamoto_check.py --general` checks q = 15, 39 and 63 (not
+prime powers) with doubled Paley skew matrices under random signed permutations.
+
+Within Table 4 the general form reaches two more entries n(4) with n composite: 2215 = 5 · 443 (the skew-Hadamard
+matrix of order [2216](../skew/2216) and Paley's conference matrix of order 2214 plus iI) and 2327 = 13 · 179 (Paley's
+skew matrix of order 1164 doubled, and Paley's quaternary matrix of order 2326). Both orders 8n already follow from the
+Hadamard matrices of orders 1772 = 4 · 443 and 716 = 4 · 179 of Alpöge, Voinov and Reynolds-Haertle (2026) by
+Agayan's multiplication with orders 20 and 52, so we did not build them. Beyond Table 4 the general form reaches odd
+composite n whose factors do not all have known Hadamard matrices of order 4p; we have not assessed those against
+the Handbook.
+
 ## Consequences
 
 Turyn's doubling of the quaternary matrix of order 4q gives a Hadamard matrix of order 8q. So every prime q ≡ 3 (mod 4)

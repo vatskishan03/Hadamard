@@ -1816,10 +1816,12 @@ def _character_bordered_array(cb, seqs, reflection, Kcr, Kci):
     return Kr, Ki
 
 
-def complex_miyamoto(q, Kr, Ki):
+def complex_miyamoto(q, Kr, Ki, C=None):
     """Miyamoto's construction in quaternary form (hadamard/COMPLEX_MIYAMOTO.md): for a prime q = 3 (mod 4) and a
     quaternary Hadamard matrix K = Kr + i Ki of order q - 1 = 2m, the quaternary matrix H = Hr + i Hi of order 4q below
-    has H H* = 4qI (checked by the caller).
+    has H H* = 4qI (checked by the caller). With C, a skew conference matrix of order q + 1 for any odd q = 3 (mod 4),
+    C replaces Paley's matrix: normalised so that its row 0 is (0, 1, ..., 1), its row 1 gives the halves of the core
+    (points 2, ..., q) and the core itself replaces [chi(y - x)].
 
     Paley's skew conference matrix on infinity, 0 and GF(q)* becomes Hermitian after multiplication by i; normalised so
     that the row and column of infinity are all 1, its core on GF(q)* (the squares first, then the non-squares) is
@@ -1836,16 +1838,31 @@ def complex_miyamoto(q, Kr, Ki):
     A A* + 2m B B* = 4qI and A B'* + 2 B R* = 0: with B the Sylvester matrix of order 4, F = [[1, 1, 1, 1],
     [1, 1, -1, -1], [1, -1, 1, -1], [-1, 1, 1, -1]], P the permutation (0 1)(2 3), B' = R P F and A = -B P F/2 (a
     matrix of units) both hold (R* R = I)."""
-    if q % 4 != 3 or not _is_prime(q):
-        raise ValueError("q must be a prime = 3 (mod 4)")
+    if q % 4 != 3 or (C is None and not _is_prime(q)):
+        raise ValueError("q must be a prime = 3 (mod 4), or = 3 (mod 4) with a skew conference matrix C")
     m = (q - 1) // 2
     if Kr.shape != (2 * m, 2 * m) or Ki.shape != (2 * m, 2 * m):
         raise ValueError("K must have order q - 1")
-    chi = -np.ones(q, dtype=np.int64)
-    chi[0] = 0
-    chi[(np.arange(1, q, dtype=np.int64) ** 2) % q] = 1
-    pts = np.concatenate([np.flatnonzero(chi == 1), np.flatnonzero(chi == -1)])
-    Wi = chi[(pts[None, :] - pts[:, None]) % q]                                 # W = i Wi
+    if C is None:
+        chi = -np.ones(q, dtype=np.int64)
+        chi[0] = 0
+        chi[(np.arange(1, q, dtype=np.int64) ** 2) % q] = 1
+        pts = np.concatenate([np.flatnonzero(chi == 1), np.flatnonzero(chi == -1)])
+        Wi = chi[(pts[None, :] - pts[:, None]) % q]                             # W = i Wi
+    else:
+        C = np.asarray(C, dtype=np.int64)
+        E = np.eye(q + 1, dtype=np.int64)
+        if (C.shape != (q + 1, q + 1) or not np.array_equal(C, -C.T) or np.any(np.diag(C))
+                or not np.all(np.abs(C + E) == 1) or not np.array_equal(C @ C.T, q * E)):
+            raise ValueError("C is not a skew conference matrix of order q + 1")
+        D = np.ones(q + 1, dtype=np.int64)
+        D[1:] = C[0, 1:]
+        C = D[:, None] * C * D[None, :]                                         # row 0 = (0, 1, ..., 1)
+        core = np.arange(2, q + 1)
+        pts = np.concatenate([core[C[1, core] == 1], core[C[1, core] == -1]])
+        if len(core[C[1, core] == 1]) != m:
+            raise ValueError("unequal halves")
+        Wi = C[np.ix_(pts, pts)]
     Kr, Ki = Kr.astype(np.int64), Ki.astype(np.int64)
     I2, Z2 = np.eye(2 * m, dtype=np.int64), np.zeros((2 * m, 2 * m), dtype=np.int64)
     Vr, Vi = np.block([[I2, Kr], [-Kr.T, I2]]), np.block([[Z2, Ki], [Ki.T, Z2]])
