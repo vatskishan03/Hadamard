@@ -91,16 +91,21 @@ built from them, and they from the symmetric Hadamard matrix of order 404 of thi
 | [10444](10444) | 2611 = 7 · 373 | Miyamoto's matrix of order 1492 in sixteen bordered blocks with near-Williamson matrices of order 93, T-matrices of order 7 ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#near-williamson-matrices)) |
 | [12952](12952) | 3238 = 2 · 1619 | Seberry–Yamada's order 8q (q = 1619) with symmetric Williamson-type matrices of order 809 from the symmetric Hadamard matrix of order 404 (Corollary 8.8(ii)) |
 
-## An entry of Table 4 lowered
+## Entries of Table 4 lowered
 
-Cati–Pasechnik's Table 4 records 1559(4): order 16 · 1559 known, 8 · 1559 not. Miyamoto's Theorem 7 (very probably
-his; see [COMPLEX_MIYAMOTO.md](COMPLEX_MIYAMOTO.md), where it is written out in quaternary form), applied to the
-quaternary Hadamard matrix of order 1558 of 2026 (this repository and Zaitsev's page), gives 8 · 1559. The tables and
-surveys use the theorem only when 2q − 3 is a prime power or a prime.
+Cati–Pasechnik's Table 4 records 1559(4) and 2589(4): orders 16n known, 8n not.
+
+12472: Miyamoto's Theorem 7 (very probably his; see [COMPLEX_MIYAMOTO.md](COMPLEX_MIYAMOTO.md), where it is written out
+in quaternary form), applied to the quaternary Hadamard matrix of order 1558 of 2026 (this repository and Zaitsev's
+page), gives 8 · 1559. The tables and surveys use the theorem only when 2q − 3 is a prime power or a prime.
 
 | Order | n | Construction | Status |
 |------:|---|---|---|
 | [12472](12472) | 3118 = 2 · 1559 | Miyamoto's Theorem 7 (q = 1559) with the quaternary Hadamard matrix of order 1558, through a quaternary matrix of order 6236, then Turyn's doubling | New |
+| [20712](20712) | 5178 = 2 · 3 · 863 | Miyamoto's quaternary array (q = 863, Paley's quaternary matrix of order 862 with circulant blocks) in sixteen commuting blocks, their Turyn doubles times T-matrices of order 3 ([QUATERNARY_MIYAMOTO_BLOCKS.md](QUATERNARY_MIYAMOTO_BLOCKS.md)) | New |
+
+20712: 4 · 863 is open, so Agayan's multiplication cannot give 8 · 3 · 863; the quaternary array of order 4 · 863 can,
+once its blocks are made to commute and are doubled ([QUATERNARY_MIYAMOTO_BLOCKS.md](QUATERNARY_MIYAMOTO_BLOCKS.md)).
 
 ## Orders beyond the tables
 

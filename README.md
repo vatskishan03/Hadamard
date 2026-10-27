@@ -27,7 +27,7 @@ give a theorem: a skew-Hadamard matrix of order 3(q + 1) exists for every prime 
 | Family | Orders | Status |
 |---|---|---|
 | Hadamard, unresolved in Table 4 [3] | [34](#unresolved-orders) | 11 New, 14 New but obtainable classically, 2 First explicit construction, 7 Concurrent |
-| Hadamard, entry of Table 4 lowered (12472) | [1](hadamard#an-entry-of-table-4-lowered) | New |
+| Hadamard, entries of Table 4 lowered (12472, 20712) | [2](hadamard#entries-of-table-4-lowered) | New |
 | Hadamard, omitted by Table 4 through Seberry–Yamada's Corollary 8.8(i) | [11](hadamard#orders-recorded-only-through-corollary-88i) | First explicit construction |
 | Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 New, 124 New but obtainable classically, 49 First explicit construction |
 | Skew-Hadamard (476 to 14384) | [111](skew) | 47 New, 62 New but obtainable classically, 2 First explicit construction |
@@ -104,10 +104,12 @@ settles the further open orders 5272, 7464, 18344, 36688 and 73376.
   come from the two block decompositions, the rest from the recursive theorems of Miyamoto [8], Yamada–Kiyasu [9] and
   Cooper–Wallis [7] applied to matrices here and to objects published in 2026
   ([hadamard](hadamard#orders-beyond-the-tables)).
-- **An entry of Table 4 lowered**: 12472 = 8 · 1559 (Table 4: 1559(4)), from (very probably) Miyamoto's Theorem 7,
+- **Entries of Table 4 lowered**: 12472 = 8 · 1559 (Table 4: 1559(4)), from (very probably) Miyamoto's Theorem 7,
   which the tables use only with 2q − 3 a prime power, and the quaternary Hadamard matrix of order 1558 of 2026, written
-  out in quaternary form; on the way a quaternary Hadamard matrix of
-  order 6236 = 4 · 1559, an order with no known real one ([hadamard/COMPLEX_MIYAMOTO.md](hadamard/COMPLEX_MIYAMOTO.md)).
+  out in quaternary form; on the way a quaternary Hadamard matrix of order 6236 = 4 · 1559, an order with no known real
+  one ([hadamard/COMPLEX_MIYAMOTO.md](hadamard/COMPLEX_MIYAMOTO.md)). 20712 = 8 · 3 · 863 (Table 4: 2589(4)), from a new
+  multiplication: Miyamoto's quaternary array in sixteen commuting blocks, doubled, times T-matrices
+  ([hadamard/QUATERNARY_MIYAMOTO_BLOCKS.md](hadamard/QUATERNARY_MIYAMOTO_BLOCKS.md)).
 - **Corollary 8.8(i).** 58 orders were claimed or recorded as known only through Seberry–Yamada's Corollary 8.8(i):
   ten that Table 4 omits (2076 to 10444), 6108 and 10180, and 46 beyond Table 4. We give the first valid
   constructions of all 58

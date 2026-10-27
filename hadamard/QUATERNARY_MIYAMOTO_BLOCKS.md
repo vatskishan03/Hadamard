@@ -7,9 +7,11 @@ transposed by one permutation, so that T-matrices multiply them. Here the quater
 The sixteen quaternary blocks can be made to commute, but T-matrices cannot multiply them linearly. Their Turyn doubles
 can be multiplied, and the product is a real Hadamard matrix of order 8qt.
 
-**Theorem.** Let q ≡ 3 (mod 4) be a prime, m = (q − 1)/2, and let K be a quaternary Hadamard matrix of order q − 1
-whose four blocks of order m are circulant (or all negacyclic). If T-matrices of order t exist, a Hadamard matrix of
-order 8qt exists.
+**Theorem.** Let q ≡ 3 (mod 4) be a prime power, m = (q − 1)/2, and let K be a quaternary Hadamard matrix of order
+q − 1 whose four blocks of order m are circulant (or all negacyclic). If T-matrices of order t exist, a Hadamard matrix
+of order 8qt exists.
+
+(`verify/verify.py` and `search/cmblocks` implement prime q; an independent review checked q = 27 = 3³ as well.)
 
 The ingredients for K:
 - *Paley's quaternary matrix of order (p + 1)/2*, p = 2q − 3 a prime
@@ -33,8 +35,8 @@ The quaternary matrices of order q − 1 found by search in this repository (Sz�
        A A* = B B* = 4I,   A B* + 2 B R* = 0,   A − 2R = B,
        R = [[0, i, 0, 0], [−i, 0, 0, 0], [0, 0, 0, i], [0, 0, −i, 0]],
 
-   R being the matrix of block row sums of U. A search over 4 × 4 unit matrices finds 512 such pairs
-   (`search/cmblocks/border_search.py`); the certificates use A = [[1, i, 1, 1], [−i, −1, i, −i], [−i, 1, i, i],
+   R being the matrix of block row sums of U. There are 128 such pairs, and 128 more with A − 2R = −B, which work as
+   well (`search/cmblocks/border_search.py`); the certificates use A = [[1, i, 1, 1], [−i, −1, i, −i], [−i, 1, i, i],
    [−i, −1, −i, i]], B = [[1, −i, 1, 1], [i, −1, i, −i], [−i, 1, i, −i], [−i, −1, i, i]]. The borders of
    COMPLEX_MIYAMOTO.md (B′ = R P F ≠ B) do not work here: 102 of the 120 pairs of blocks fail to commute.
 3. *Turyn doubles.* X_rc = Re N_rc + Im N_rc, Y_rc = Re N_rc − Im N_rc, B_rc = [[X_rc, Y_rc], [−Y_rc, X_rc]]
@@ -52,12 +54,10 @@ The quaternary matrices of order q − 1 found by search in this repository (Sz�
 - *(N_rc) is a quaternary Hadamard matrix of order 4q.* This is the proof of COMPLEX_MIYAMOTO.md with B′ = B: the
   border identities there are A A* + 2m B B* = 4qI and A B′* + 2 B R* = 0, and the core rows close with any border
   B′ of unit entries with B′B′* = 4I.
-- *The sixteen blocks commute.* All circulant matrices of order m commute, and so do U_rc and V_rc for all r, c. On
-  the vectors x ⊗ (1, −1) of the core a block acts through 2V_rc. On x ⊗ (1, 1) it acts through 2U_rc and the
-  border; on the trivial character there (the border coordinate and the constant vector of the core) it acts by
-  Θ_rc = [[A_rc, √(2m) B_rc], [√(2m) B_rc, 2R_rc]]. With A − 2R = B the traceless part of Θ_rc is
-  B_rc · [[1/2, √(2m)], [√(2m), −1/2]], so all sixteen Θ_rc lie in one commutative algebra. The other characters see
-  only 2Û_rc.
+- *The sixteen blocks commute.* Write N = [[a, b eᵀ], [b e, C]] with C = J₂ ⊗ U_rc + D₂ ⊗ V_rc. All the circulants U_rc,
+  V_rc commute, so C C′ = C′ C, and C has equal row and column sums 2ρ (ρ = R_rc). Then N N′ − N′ N is zero except on
+  the border, where it is (a b′ + 2 b ρ′ − a′ b − 2 b′ ρ) eᵀ: the blocks commute exactly when (A_rc − 2R_rc)/B_rc is one
+  constant λ (necessarily ±1). The certificates take λ = 1.
 - *One permutation transposes them.* R_B reverses every circulant and fixes the border, and the border row and
   column carry the same B_rc, so R_B N_rc R_B = N_rcᵀ (a linear transposition, not a conjugate one).
 - *The linear plug-in fails.* With quaternary blocks the Goethals–Seidel array of A_j = Σ_k T_k ⊗ N_kj leaves cross
@@ -76,6 +76,9 @@ The quaternary matrices of order q − 1 found by search in this repository (Sz�
 border identities and the T-matrices, assembles the matrix and checks H Hᵀ = 8qt I. `search/cmblocks` checks the
 intermediate claims (unit entries and H H* = 4qI of the quaternary array, commutation and R′-transposition of the
 real blocks) exactly for q = 7, 11, 19, 23, 31 with both kinds of K and t = 3, 5, and for negacyclic K at q = 7, 11.
+An independent review (October 27) re-derived the proof and checked about 1000 further cases (q = 7 to 43 and 27, six
+sources of K, every primitive root, all 256 borders at q = 7 and 11, t = 1 to 13); every deliberate violation of a
+hypothesis (points out of order, non-circulant K, borders with non-constant λ, R_B without the sign) breaks it.
 
 ## Consequences
 
@@ -87,6 +90,8 @@ right form, 751, 863, 907, 1103, 1187, 1291, 1367, 1423, 1427, 1471, 1487, … (
 |------:|---|---:|---:|---|---|
 | [20712](20712) | 2589 = 3 · 863 | 863 | 3 | Paley's quaternary matrix of order 862 (p = 1723) | 2589(4) |
 
-2589 is the only entry n(m ≥ 4) of Table 4 that the theorem lowers. Beyond Table 4 it gives 75 orders 8n with
+Within Table 4 the theorem reaches twelve entries n(m ≥ 4) = q t, but for eleven of them (933, 1169, 1793, 1981, 2171,
+2215, 2315, 2429, 2855, 2899, 2973) H(4q) is known, so Agayan's multiplication gives them already (FRONTIER.md); 2589
+is the only one with 4q open. Beyond Table 4 it gives 75 orders 8n with
 3001 ≤ n ≤ 9999 (for example 8 · 3 · 1103, 8 · 5 · 751, 8 · 5 · 863), and infinitely many above; without
 Handbook Table 1.53's values of t we cannot tell which of them were open, so they are not built.

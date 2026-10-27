@@ -32,10 +32,24 @@ found after the linear (quaternary) Goethals–Seidel plug-in had failed.
 
 ## Status
 
-Cati–Pasechnik's Table 4 records 2589(4): order 16 · 2589 known, 8 · 2589 not; 4 · 2589 = 10356 and 4 · 863 = 3452
-are open ([FRONTIER.md](../../FRONTIER.md)), so neither doubling nor Agayan's multiplication gives this order. The
-literature check and an independent review are in progress (27 October); the label will be recorded in
-[NOVELTY.md](../../NOVELTY.md).
+**New.** Cati–Pasechnik's Table 4 records 2589(4): order 16 · 2589 known, 8 · 2589 not; Seberry–Yamada's 1992
+Table A.2 agrees (2589: 4, key d1). 4 · 2589 = 10356 and 4 · 863 = 3452 are open ([FRONTIER.md](../../FRONTIER.md)),
+so neither doubling nor Agayan's multiplication gives this order, and no source we checked has it
+([NOVELTY.md](../../NOVELTY.md)). The objects are classical (Paley's quaternary matrix of order 862, T-matrices of order
+3); the construction is new to our knowledge.
+
+Other routes, each closed by exact arithmetic:
+
+- Paley I and II: 20711 = 139 · 149, 10355 = 5 · 19 · 109 and 5177 = 31 · 167 are not prime powers.
+- Miyamoto I needs a conference matrix of order 2590, impossible since 2589 = 3 · 863 is not a sum of two squares;
+  Miyamoto's Theorem 7 and Seberry–Yamada's 8q need q = 2589 to be a prime power (at q = 863 they give 6904 only).
+- Yamada–Kiyasu needs 2587 = 13 · 199 or 5176 to be a prime power; Kamali–Kharaghani's 8(g₁g + g₂) and the complex
+  Golay decomposition 8(x + y) have no solution for 2589.
+- Cooper–Wallis and the Paley and Miyamoto block routes need T-matrices or Williamson-type matrices of an order
+  divisible by 863 (863, 1726, 2589, 5178), none of which is known.
+
+An independent rebuild reproduced the matrix bit for bit, and a proof audit confirmed the theorem
+([search/NOTES.md](../../search/NOTES.md) §105). Handbook Table 1.53's row for 2589 was not seen.
 
 ## Files
 

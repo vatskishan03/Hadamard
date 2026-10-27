@@ -7118,9 +7118,9 @@ analogue of [hadamard/MIYAMOTO_BLOCKS.md](../hadamard/MIYAMOTO_BLOCKS.md).
   pairs {f, gf} with two orbits), and so has C + iI with C Paley's conference matrix of order q − 1. The repository's
   Szöllősi-type certificates do not: their second block contains the reversal.
 - *Borders* (PROVED, CHECKED). The borders of COMPLEX_MIYAMOTO.md fail (102 of 120 block pairs do not commute). The
-  conditions B′ = B, A − 2R = B, A A* = B B* = 4I, A B* + 2 B R* = 0 make the blocks commute (their action on the
-  trivial character is Θ = [[A_rc, √(2m) B_rc], [√(2m) B_rc, 2R_rc]], whose traceless parts are all proportional) and
-  give R_B N R_B = Nᵀ; 512 such pairs exist per sign variant of R.
+  conditions B′ = B, A − 2R = B, A A* = B B* = 4I, A B* + 2 B R* = 0 make the blocks commute (exactly: the commutator
+  of two bordered blocks lives on the border and vanishes iff (A_rc − 2R_rc)/B_rc is one constant λ = ±1) and give
+  R_B N R_B = Nᵀ; there are 128 pairs for each λ (CHECKED).
 - *The plug-in* (CHECKED). The linear Goethals–Seidel array with quaternary blocks fails (q = 7, t = 3: largest entry of
   G G* − 84I is 42; an exhaustive search over arrays with ±X, ±Xᵀ, ±conj X, ±X* finds no Goethals–Seidel-type array for
   generic quaternary blocks, while the real case has millions). Turyn's doubles of the sixteen blocks commute and are
@@ -7132,7 +7132,8 @@ analogue of [hadamard/MIYAMOTO_BLOCKS.md](../hadamard/MIYAMOTO_BLOCKS.md).
   of the repository's integer C checker on the streamed CSV: 214,503,828 row pairs, no violation). Table 4 records
   2589(4), and 4 · 863 and 4 · 2589 are open, so Agayan's multiplication and doubling do not give it.
 - *Reach.* Among the q ≡ 3 (mod 4) with 4q open and K of the right form (751, 863, 907, 1103, 1187, 1291, 1367, …),
-  2589 is the only entry n(m ≥ 4) of Table 4 the theorem lowers; beyond Table 4 it gives 75 orders 8n with
+  2589 is the only entry n(m ≥ 4) of Table 4 it lowers with 4q open (it reaches eleven more, 933 to 2973, that
+  Agayan's multiplication gives already); beyond Table 4 it gives 75 orders 8n with
   3001 ≤ n ≤ 9999 and infinitely many above, not built (we have no copy of Handbook Table 1.53: no licensed online copy
   was found on October 27).
 
@@ -7155,3 +7156,11 @@ HEURISTIC). N = 1019, 1103, 1125, 1143, 1169, 1185, 1199, 1211, 1271, 1335, 1341
 - *Character-bordered arrays* (ℤ₄, ℤ₆, V₄ and the t = 3 families): dead at the quotient, except estimates of 10^−17 to
   10^−33 for 1199, 1103 and 1499.
 - *Conclusion.* A hit from Szöllősi-type structures at these N is very unlikely (no live estimate above 10^−7).
+- *Review* (October 27; three independent agents). An independent rebuild from the certificate data reproduced the
+  matrix bit for bit (SHA-256) with an exact Gram check, and showed K entrywise equivalent to the matrix that
+  `verify_complex.py` builds from complex-hadamard/C862.json. A proof audit re-derived (i) to (iii), extended the
+  hypotheses to prime powers q (q = 27 checked) and any generator of the squares, found no counterexample in about
+  1000 cases and saw every deliberate violation fail. A novelty check found every classical route to 8 · 2589 closed
+  by exact arithmetic (Paley I/II, doubling, Agayan, Craigen–Seberry–Zhang, Miyamoto I–III, Seberry–Yamada 8q,
+  Yamada–Kiyasu, Kamali–Kharaghani, complex Golay, Cooper–Wallis, Paley and Miyamoto blocks) and no source stating the
+  order or the theorem; Seberry–Yamada's 1992 Table A.2 agrees (2589: 4, key d1). **New**.

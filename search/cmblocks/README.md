@@ -8,7 +8,7 @@ Programs behind [hadamard/QUATERNARY_MIYAMOTO_BLOCKS.md](../../hadamard/QUATERNA
 |---|---|
 | `paley_circ.py` | Paley's quaternary Hadamard matrix of order (p + 1)/2 (p ≡ 3 mod 8 a prime) in 2 × 2 block-circulant form, through the non-split torus of SL(2, p) |
 | `conf_circ.py` | K = C + iI (C Paley's symmetric conference matrix of order p + 1, p ≡ 1 mod 4 a prime) in the same form; run alone, it checks the theorem for p = 5, 17, 29, 41 |
-| `border_search.py` | all 4 × 4 unit border pairs (A, B) with A A* = B B* = 4I, A B* + 2 B R* = 0 and A − 2R = B (512 per sign variant of R) |
+| `border_search.py` | all 4 × 4 unit border pairs (A, B) with A A* = B B* = 4I, A B* + 2 B R* = 0 and A − 2R = λB (128 for each of λ = ±1 with B′ = B; the search also lists B′ = κB) |
 | `cmb.py` | the sixteen quaternary bordered blocks, T-matrices from base sequences, and checks of H H* = 4qI, commutation and R_B-transposition |
 | `gsplug.py` | Turyn doubles of the blocks, the signed permutation R′, and the real Goethals–Seidel plug-in |
 | `make_cert.py` | `python3 make_cert.py p t OUT.json [paley|conf]`: a certificate for verify/verify.py (construction `quaternary-miyamoto-blocks`, without the SHA-256) |
