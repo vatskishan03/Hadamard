@@ -7003,3 +7003,23 @@ f_a f_a* + f_b f_b* = 2n. Their Corollary 9 gives H(8(g₁g + g₂)) for Golay l
   1223: 4 · 1223 = 26² · 7 + 160 and 2063 = 15 + 2¹¹. Kamali and Kharaghani's Table 1 lists thirteen of them. It lists
   only improvements on Craigen's 1996 table, so the other four (1223, 1439, 2543, 2879) may have been known otherwise;
   either way Table 4's values for them are not the least known.
+
+**Miyamoto's construction in quaternary form** ([hadamard/COMPLEX_MIYAMOTO.md](../hadamard/COMPLEX_MIYAMOTO.md),
+`r51/cmiya`). For q ≡ 3 (mod 4) prime, i times Paley's skew conference matrix is Hermitian, and its core on GF(q)*
+behaves like the symmetric core of Miyamoto's theorem (W W* = qI − J − χχᵀ). So Miyamoto's array of sixteen bordered
+blocks, with a quaternary Hadamard matrix K of order q − 1 in place of the real one, gives a quaternary Hadamard matrix
+of order 4q, and Turyn's doubling a real one of order 8q (PROVED; CHECKED for q = 7, 19, 31, 43 with Paley's complex K
+and q = 223, 263, 331, 431, 1559 with the matrices of complex-hadamard).
+- *The one change.* The block row sums of the Hermitian core are (0, i) on the squares and (−i, 0) on the non-squares,
+  on the opposite halves from the real case. The border identities A A* + 2m B B* = 4qI and A B′* + 2 B R* = 0 then
+  need B′ = R P F and A = −B P F/2 (B Sylvester, P = (0 1)(2 3), F a fixed 4 × 4 Hadamard matrix), found by a search
+  over 4 × 4 quaternary Hadamard matrices.
+- *Why only 4q.* A version with two block rows (order 2q, which would give H(4q)) would need V V* = (q/2)I with the
+  core of K, impossible for odd q. So the theorem reaches orders 8q only.
+- *Result.* q = 1559 with the quaternary matrix of order 1558 of this repository gives **H(12472) = 8 · 1559**
+  ([hadamard/12472](../hadamard/12472)); Table 4 has 1559(4). It also gives a quaternary Hadamard matrix of order 6236 =
+  4 · 1559, an order where no real Hadamard matrix is known. Over Table 4's other entries n(m ≥ 4) with n prime ≡ 3
+  (mod 4), the only other known quaternary matrix of order n − 1 is 490 (n = 491, already settled).
+- *The open orders 8p.* 4792, 5752 and 5912 would follow from quaternary Hadamard matrices of orders 598, 718 and 738.
+  N = 299 has no live Singer-paired character-bordered structure (one at 10^−11.4); 738 (N = 369 = 9 · 41 admits the
+  cyclotomic-cell pairing of GF(9)* with ℤ₄₁*, as for the order-850 core of 6796) and 598 are being searched.
