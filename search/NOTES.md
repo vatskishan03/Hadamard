@@ -7300,3 +7300,36 @@ of the plain character-bordered Szöllősi array over the open orders 2N. It kep
     about 0.3 to 4 up to the 128 images, but the border (a quaternary Hadamard matrix of order 18 inside it) is
     undecided. A pilot join extrapolates to 10³ to 10⁴ CPU-hours per hit.
   So 358 stays open.
+
+## 107. Round 54: the plain character-bordered array over every t for the 111 open quaternary orders (October 27–28)
+
+Scratchpad `r54/` (censuses `censusA` for N < 600 and `censusB` for N ≥ 600, productions `prod0` and `prod1`).
+Round 51's census of the array of [complex-hadamard/TBORDERED.md](../complex-hadamard/TBORDERED.md) ran t = 3 only. At
+N = 179 a structure with t = 9 was the one alive (§106), so both censuses ran every admissible t: t odd, |Q| ≤ 40,
+every abelian G of order N − t, H of cyclic type with at most about 100 orbits.
+- *Coverage.* Census A analysed about 29,000 structures for the 45 open N < 600; 28,600 died by the exact screens
+  (Parseval energy at every invariant quotient, exact Q-level joins). The base enumeration of H finished for 234 of
+  the 443 pairs (N, t). Census B finished 78% of its group-type enumerations for N ≥ 600. Everything below rests on
+  the Gaussian estimate E (HEURISTIC), divided by the number of images of a solution under the normalizer of H
+  (E_orb), and on a join-cost model W.
+- *N = 167 (order 334, the smallest open quaternary order).* G = ℤ₂² × ℤ₃ × ℤ₁₃, Q = ℤ₂ × ℤ₆, T all nontrivial
+  characters (t = 11):
+  - with H of order 3: E_orb = 10^6.3 at W = 10^12.2;
+  - with H of order 6 (36 orbits): E_orb = 10^1.7 at W = 10^8.2. The census's production engine found 3 exact
+    cores (CHECKED by an independent script). The border, with q = 12, is undecided.
+  - Also alive: t = 23 over ℤ₄² × ℤ₉ and ℤ₂⁴ × ℤ₉ with Q = ℤ₂ × ℤ₁₈ and H of order 6, E_orb = 10^1.3 to 10^2.2 at a
+    birthday cost of 10^3.8 to 10^4.7, border (q = 36) undecided.
+- *Other live structures.*
+  - N = 239 (order 478): t = 7 over ℤ₂³ × ℤ₂₉ with the Singer H of order 7, E_orb = 10^4.2, W = 10^8.9. This is
+    the structure of §103, whose cores exist and whose border is the problem K₀.
+  - N = 249: t = 3, E_orb = 10^2.8, W = 10^13.2; a border was found for three tuples.
+  - N = 179: t = 19 over ℤ₁₆₀. With Q = ℤ₄₀ there is no border (PROVED: every quaternary vector of V_T factors
+    through ℤ₄). With Q = ℤ₃₂, E_orb = 10^−0.7, border undecided.
+  - N = 223: t = 15 over ℤ₁₆ × ℤ₁₃, E_orb ≈ 1, W = 10^8.7, border (q = 16) undecided.
+- *The orders 8p.* Nothing reaches QH(598), QH(718) or QH(738) (orders 4792, 5752, 5912 through §104). The best are:
+  - N = 299: t = 5 over ℤ₇² × ℤ₃ × ℤ₂ with Q = ℤ₆, E_orb = 10^−2.3 at W = 10^19.0;
+  - N = 359: t = 19, E_orb = 10^−15.6;
+  - N = 369: t = 3, E_orb = 10^−7.6.
+- *N ≥ 600.* The best E_orb is 10^−4.1 (N = 659, t = 3, W = 10^18.8); everything else is below 10^−6.
+- *Productions.* The two production agents were killed by a container restart before they reported; both were
+  relaunched from their directories (results below when they arrive).
