@@ -93,7 +93,8 @@ built from them, and they from the symmetric Hadamard matrix of order 404 of thi
 
 ## Entries of Table 4 lowered
 
-Cati–Pasechnik's Table 4 records 739(4), 1559(4) and 2589(4): orders 16n known, 8n not.
+Cati–Pasechnik's Table 4 records 1559(4) and 2589(4), and 739(6), which Craigen–Holzmann–Kharaghani's rule lowers to
+739(4): orders 16n known, 8n not.
 
 5912: one of the six open orders 8p of the 2026 survey of Egan et al. (Table 5); found by a search
 ([search/NOTES.md](../search/NOTES.md) §108).

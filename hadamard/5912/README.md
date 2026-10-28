@@ -1,8 +1,9 @@
 # Hadamard matrix of order 5912
 
-5912 = 8 · 739, with 739 a prime ≡ 3 (mod 4). Cati–Pasechnik's Table 4 records 739(4): the smallest known order
-2ᵐ · 739 was 16 · 739. It is one of the six orders 8p up to 10 000 that the survey of Egan, Kotsireas, London and
-Ó Catháin (arXiv:2610.27175, October 2026, Table 5) lists as open.
+5912 = 8 · 739, with 739 a prime ≡ 3 (mod 4). Cati–Pasechnik's Table 4 records 739(6); Craigen–Holzmann–Kharaghani's
+rule, which the table omits, gives 16 · 739 = 8(26 + 1452), so the smallest known order 2ᵐ · 739 was 16 · 739. It is
+one of the six orders 8p up to 10 000 that the survey of Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175,
+October 2026, Table 5) lists as open.
 
 ## Construction
 
@@ -53,12 +54,14 @@ without products) and an exact bit-packed Gram test, with negative controls.
 - Doubling needs a Hadamard matrix of order 2956 = 4 · 739, which is not known ([FRONTIER.md](../../FRONTIER.md)).
 - Miyamoto's theorem for order 8q needs 2q − 3 = 1475 = 5² · 59 to be a prime power; his Theorem 7 (see
   [COMPLEX_MIYAMOTO.md](../COMPLEX_MIYAMOTO.md)) needs a quaternary Hadamard matrix of order 738, which is open.
-- Seberry–Yamada's order 8q needs Williamson-type matrices of order 369, which their Table A.1 does not give.
+- Seberry–Yamada's order 8q needs Williamson-type matrices of order 369; their Table A.1 gives row 369 only for
+  Williamson-type matrices of even order 738.
 - Craigen–Holzmann–Kharaghani's 8(x + y) needs complex Golay lengths x, y with x + y = 739, and Kamali–Kharaghani's
   dihedral Golay sequences give 8(g₁g + g₂) for Golay lengths g₁, g₂ and g = 7, 9, 15; neither reaches 739.
 
-The survey of 2026 lists 5912 as open, and no public list or repository of 2026 that we read gives it. The sources
-searched are listed in [NOVELTY.md](../../NOVELTY.md).
+The survey of 2026 lists 5912 as open, and so does the Hadamard Matrix Explorer (math74.com, version 57); SageMath
+returns Unknown. No public list or repository of 2026 that we read gives it. The sources searched are listed in
+[NOVELTY.md](../../NOVELTY.md).
 
 ## Files
 

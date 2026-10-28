@@ -104,9 +104,10 @@ settles the further open orders 5272, 7464, 18344, 36688 and 73376.
   come from the two block decompositions, the rest from the recursive theorems of Miyamoto [8], Yamada–Kiyasu [9] and
   Cooper–Wallis [7] applied to matrices here and to objects published in 2026
   ([hadamard](hadamard#orders-beyond-the-tables)).
-- **Entries of Table 4 lowered**: 5912 = 8 · 739 (Table 4: 739(4); one of the six open orders 8p of the 2026 survey
-  [18]), from Spence's bordered construction over the group ℤ₂₁₁ × F₇ of odd order 1477, found by a calibrated search
-  ([hadamard/5912](hadamard/5912)); two orders 8p remain open, 4792 and 5752. 12472 = 8 · 1559 (Table 4: 1559(4)), from
+- **Entries of Table 4 lowered**: 5912 = 8 · 739 (Table 4: 739(6), 739(4) by Craigen–Holzmann–Kharaghani's rule; one
+  of the six open orders 8p of the 2026 survey [18]), from Spence's bordered construction over the group ℤ₂₁₁ × F₇ of
+  odd order 1477, found by a calibrated search ([hadamard/5912](hadamard/5912)); two orders 8p remain open, 4792 and
+  5752. 12472 = 8 · 1559 (Table 4: 1559(4)), from
   (very probably) Miyamoto's Theorem 7, which the tables use only with 2q − 3 a prime power, and the quaternary Hadamard
   matrix of order 1558 of 2026, written out in quaternary form; on the way a quaternary Hadamard matrix of order
   6236 = 4 · 1559, an order with no known real one ([hadamard/COMPLEX_MIYAMOTO.md](hadamard/COMPLEX_MIYAMOTO.md)).
