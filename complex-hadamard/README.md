@@ -165,6 +165,20 @@ Table 11.2.
 |---:|---|---|---|---|
 | 418 | 209 = 11 · 19 | ℤ₁₉ × F₁₁, Paley plug-in, defects A: 0; B: 0; C: 1, 7; D: 7, 10, 13 | 1, 21, −15, 13 | [C418.json](C418.json) |
 
+**Orders 358 and 498 from the character-bordered array** (New; [search/NOTES.md](../search/NOTES.md) §107). The
+array of [TBORDERED.md](TBORDERED.md) with t = 3: four ±1 sequences on a group of order N − 3, A and B symmetric, all
+four constant on the orbits of a group H of automorphisms, and a border of size 6 from three characters of a
+quotient Q. A census of this array over every t for the open orders (round 54) found both structures. In each the
+border exists at the level of Q and the expected number of solutions is large. An exact tower of quotients then found
+the sequences in under an hour of CPU time ([search/tbplain](../search/tbplain)). Both orders are on the list of
+unknown orders of Zaitsev et al.'s page (read on 28 October 2026) and blank in the 1992 table, and no source we checked
+gives them. The search for 358 found four solutions; the certificate stores the first.
+
+| order 2N | N | structure | row sums | file |
+|---:|---|---|---|---|
+| 358 | 179 | ℤ₂⁴ × ℤ₁₁, Q = ℤ₂² with its three nontrivial characters, H of order 3 (a Singer element of GF(4) on each ℤ₂²) | 18, 0; 14, 14 | [C358.json](C358.json) |
+| 498 | 249 = 3 · 83 | ℤ₂ × ℤ₃ × ℤ₄₁, Q = ℤ₃ with all three characters, H = ⟨10⟩ on ℤ₄₁, order 5 | 2, 0; 2, 2 | [C498.json](C498.json) |
+
 **Orders from quaternary conference matrices** (complex Yamada–Kiyasu template, [NOTES.md](../NOTES.md) §31, §34).
 A quaternary conference matrix of order (q + 3)/2, q ≡ 1 (mod 4) a prime, gives a quaternary Hadamard matrix of order
 2(q + 2). The real Hadamard matrices of twice these orders in [hadamard](../hadamard) are their Turyn doubles, and
@@ -358,13 +372,19 @@ sequences has the PAF spectrum of any of ours, a spectrum unchanged by shifts, m
 the matrices differ. The orders are Concurrent; this directory gives a second, independent construction of each, with
 a certificate that `verify/verify_complex.py` checks from the four sequences alone.
 
-**What remains open** (`python3 search/complex_status.py`): 111 orders 2N below 2000 with N odd have no quaternary
-Hadamard matrix known to us: the list of unknown orders on Zaitsev's page, minus 418, 1286, 1718 and 1910. The smallest are
-334, 358, 438, 446, 478, 498 and 502. Order 334 (N = 167) is out of reach of every structure we have: ℤ₁₆₇ has no
-usable multiplier group, and on ℤ₁₆₆ = ℤ₂ × ℤ₈₃ the only one has order 41 and six orbits. Order 358 (N = 179) is
-similar: the cyclic array has no structure in our range of orbit counts, and the bordered array's best has an estimate
-of 10⁻⁵ solutions. For 418 the multiplier structures had estimates of one to three solutions in pools of 10¹¹–10¹⁵
-members (the Paley plug-in above settled it); for 438, 446, 478 and 498 every estimate is below one. The one open
+**What remains open** (`python3 search/complex_status.py`): 109 orders 2N below 2000 with N odd have no quaternary
+Hadamard matrix known to us: the list of unknown orders on Zaitsev's page, minus 358, 418, 498, 1286, 1718 and 1910.
+The smallest are 334, 438, 446, 478, 502, 506 and 550.
+- *334* (N = 167). The plain arrays are out of reach. ℤ₁₆₇ has no usable multiplier group, and on ℤ₁₆₆ = ℤ₂ × ℤ₈₃
+  the only one has order 41 and six orbits. The character-bordered array with t = 11 over ℤ₂² × ℤ₃ × ℤ₁₃ has three
+  cores, but whether a border of order 24 completes them is undecided. With t = 23 no border exists (PROVED;
+  [search/NOTES.md](../search/NOTES.md) §107).
+- *478*. The character-bordered array over ℤ₂³ × ℤ₂₉ with t = 7 has many cores and no border (§107).
+- *418* was settled by the Paley plug-in above. Its multiplier structures had estimates of one to three solutions in
+  pools of 10¹¹–10¹⁵ members.
+- *438 and 446*: every estimate of the cyclic arrays is below one.
+
+The one open
 order where the array has strong structures is 682 (N = 341 = 11 · 31): eight multiplier groups of order 10 with
 estimates of 10^1.7–10^3.0 solutions. The two best joins found no solution in 97% and 95% of their collision mass,
 which the estimate gave a chance of 2–5% each ([search/NOTES.md](../search/NOTES.md) §57–59).

@@ -7345,3 +7345,37 @@ every abelian G of order N − t, H of cyclic type with at most about 100 orbits
     amounts to a pair of quaternary Hadamard matrices of order 24 containing two given rows (PROVED). The first row
     already has 4.8 · 10⁹ compatible columns, so an exact search needs a structure or a classification of order 22.
     Borders are plentiful for q ≤ 6 (the q = 6 analogue at N = 161 has thousands); at q = 8 (order 478) there are none.
+
+**Orders 358 and 498 found** (round 55, `r55/qh358`, `r55/qh498`; code in [search/tbplain](tbplain)). Two structures of
+the census with a border already decided at q ≤ 4 were run with pilot-calibrated productions.
+- *Why the cost estimates disagreed.* Census A's join cost W_birthday (10^13 to 10^15) is the cost of a complete join
+  with unlimited memory divided by the solutions of one Q-level tuple, not a plan. Its production cost rested on a
+  quantile of 4000 sampled energies, taken at a fraction of 10⁻¹⁴, which returns the sample minimum: retention of
+  0.04 to 0.2 where the true value is about 10⁻¹². Round 53's "hits per capped join" of 10^−19 to 10^−24 was the right
+  order for plain joins (CHECKED by exact pilot joins at real size, 1.6 · 10¹⁷ to 10²⁰ quadruples, observed/predicted
+  1.3 to 2.2).
+- *What changes the cost is an exact tower, not larger lists.* Each exact level multiplies the hit density by its
+  retention while the fibres stay enumerable. For 358, over ℤ₂⁴ × ℤ₁₁:
+  - the level G/ℤ₁₁ has 5.7 · 10⁴ tuples per pattern;
+  - the ℤ₁₁ level adds six PAF columns (retention 10^−11);
+  - two further "line" levels split the C-fibres;
+  - a final exact join on all 35 columns.
+  Pilots at each level matched the Gaussian prediction within a factor 0.3 to 4. The production (35 minutes on two
+  cores, 1.5 · 10¹⁴ quadruples covered) found 4 solutions against 11.6 predicted: about 17 core-minutes per hit,
+  10¹¹ below the plain-join cost.
+- *358* (N = 179): G = ℤ₂⁴ × ℤ₁₁, H of order 3 (a Singer element of GF(4) on each ℤ₂²), Q = ℤ₂², the three nontrivial
+  characters, row sums (18, 0, 14, 14), border of size 6 from the exhaustive Q-level search.
+  - The four solutions give four matrices, all CHECKED. One differs from the first only by D ↦ D(−g + c); by pair
+    invariants at most three are inequivalent (HEURISTIC).
+  - Round 53's version with H of order 6 is exactly empty (§106); the order-3 version is what works.
+- *498* (N = 249): G = ℤ₂ × ℤ₃ × ℤ₄₁, H = ⟨10⟩ of order 5 on ℤ₄₁, Q = ℤ₃ with all three characters, row sums
+  (2, 0, 2, 2).
+  - Each block X splits as X(0) = p + m, X(1) = p − m over ℤ₂. The tuples of balanced ternary slices p satisfy 14
+    exact columns; the fibre of m is a set of free signs. An exhaustive band of canonical objects with 16 free signs
+    in C and D found the solution after 24 minutes of one core. Random capped lists cost about 19 CPU-hours per
+    expected class.
+- *Checks* (CHECKED). Each matrix was verified by `verify/verify_complex.py` and, independently, by an exact
+  integer-arithmetic checker that rebuilds K from the certificate. Negative controls fail as they should.
+- *Novelty.* Both orders are on the list of unknown orders of Zaitsev et al.'s page (read live on 28 October 2026,
+  last updated 14 October) and blank in Seberry–Yamada's Table 11.2. No route by Paley, Ito–Egan, Turyn or a
+  conference matrix exists, and no source checked gives either order (NOVELTY.md). **New.**
