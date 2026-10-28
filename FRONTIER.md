@@ -46,10 +46,10 @@ t = 4⌈(1/16) log₂((n − 1)/2)⌉ + 2, that is t = 6 for n ≤ 131073) makes
 1499, 1987, 2399, 2671, 2683, 2687, 2699 and 2999 have m ≤ 6, not 7 to 9. Craigen, Holzmann and Kharaghani's rule
 (Discrete Math. 252 (2002): complex Golay pairs of lengths x and y give H(8(x + y)); the 2026 survey of Egan et al.
 uses it) lowers 24 more entries. Seven of them reach m = 3: 971, 1223, 1259, 1451, 1571, 2039 and 2423. The other 17
-drop to 4 or 5 ([search/NOTES.md](search/NOTES.md) §106). After all of this, 29 entries keep m ≥ 4, so their
-orders 8n are open:
-- m = 4: 599, 719, 739, 1319, 1439, 1579, 1783, 1979, 1987, 2207, 2251, 2287, 2339, 2371, 2399, 2543, 2671, 2677,
-  2687, 2699, 2903 and 2939;
+drop to 4 or 5 ([search/NOTES.md](search/NOTES.md) §106). [hadamard/5912](hadamard/5912) lowers 739 to m = 3. After
+all of this, 28 entries keep m ≥ 4, so their orders 8n are open:
+- m = 4: 599, 719, 1319, 1439, 1579, 1783, 1979, 1987, 2207, 2251, 2287, 2339, 2371, 2399, 2543, 2671, 2677, 2687,
+  2699, 2903 and 2939;
 - m = 5: 1567, 2683, 2879, 2887 and 2995;
 - m = 6: 1499 and 2999.
 
@@ -65,11 +65,13 @@ the survey takes Williamson-type matrices from Seberry–Yamada's Table A.1 "exc
 Australas. J. Combin. 18, 139–145, Corollary 9 and Table 1) give Hadamard matrices of orders 8(g₁g + g₂) from Golay
 lengths g₁, g₂ and g = 7, 9, 15, among them 6712 = 8 · 839 (7 + 2⁵ · 26) and 8248 = 8 · 1031 (7 + 2¹⁰); Table 4's
 entries 839(4) and 1031(6) do not take this paper into account. The Hadamard Matrix Explorer (math74.com, version 53)
-posts matrices of orders 6712, 8248 and 8696. So three orders 8p remain open: 4792, 5752 and 5912. A Hadamard matrix of
-order 4p settles 8p by doubling, and so does a quaternary Hadamard matrix of order p − 1 through Miyamoto's Theorem 7
-([hadamard/COMPLEX_MIYAMOTO.md](hadamard/COMPLEX_MIYAMOTO.md)); the orders 598, 718 and 738 are open quaternary
-orders. [search/NOTES.md](search/NOTES.md) §92 searches the orders 8p directly
-([search/eightp](search/eightp/README.md)), and no matrix was found:
+posts matrices of orders 6712, 8248 and 8696. That left three orders 8p open: 4792, 5752 and 5912.
+[hadamard/5912](hadamard/5912) is constructed here, by Spence's construction over the group ℤ₂₁₁ × F₇ of odd order
+1477 = 2 · 739 − 1 with a multiplier group of order 45 ([search/NOTES.md](search/NOTES.md) §108). Two orders 8p remain
+open: 4792 and 5752. A Hadamard matrix of order 4p settles 8p by doubling, and so does a quaternary Hadamard matrix of
+order p − 1 through Miyamoto's Theorem 7 ([hadamard/COMPLEX_MIYAMOTO.md](hadamard/COMPLEX_MIYAMOTO.md)); the orders
+598 and 718 are open quaternary orders. [search/NOTES.md](search/NOTES.md) §92 searches the orders 8p directly
+([search/eightp](search/eightp/README.md)); for 4792 and 5752 no matrix was found:
 - the plain Goethals–Seidel and negacyclic structures over ℤ₂ₚ and ℤ_p are dead, except for multiplier groups with at
   least 2⁹⁴ sign vectors per block;
 - none of the recursive theorems listed in the survey applies;
@@ -79,9 +81,11 @@ orders. [search/NOTES.md](search/NOTES.md) §92 searches the orders 8p directly
   most 30 orbits are empty.
 
 Quaternary matrices of orders 598 and 738 were searched as well (round 51b, [search/NOTES.md](search/NOTES.md) §104):
-every structure with fewer than about 45 orbits dies at a quotient. What remains are the plug-in shapes with 8 to 21
-orbits at p = 599 and 739 (the cheapest cost about 10⁶ CPU-seconds
-each by the model, the others 10⁹ or more) and larger structures.
+every structure with fewer than about 45 orbits dies at a quotient. For p = 599 what remains are Spence plug-in shapes
+with 8 to 21 orbits; the cheapest by the old model, ℤ₉ × ℤ₁₉ × F₇, is exactly empty, and the best live one, ℤ₇ × ℤ₁₉ ×
+F₉ with a multiplier group of order 36, costs about 1.5 · 10³ core-hours by the calibrated estimate of §107. The
+plug-in shape of p = 739 that gave 5912 had been modelled at 10⁶ CPU-seconds; the calibrated estimate of §107 was
+about 4 core-hours, and the production took 4.4.
 
 **Corollary 8.8(i).** Đoković (arXiv:1008.2043, Propositions 3.2–3.4) also claimed n = 1527, 2545 and 2571, through
 Williamson-type matrices of orders 509 and 857 that Seberry–Yamada's Corollary 8.8(i) would give. Its printed proof
