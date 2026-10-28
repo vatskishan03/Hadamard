@@ -7336,3 +7336,48 @@ of the plain character-bordered Szöllősi array over the open orders 2N. It kep
     about 0.3 to 4 up to the 128 images, but the border (a quaternary Hadamard matrix of order 18 inside it) is
     undecided. A pilot join extrapolates to 10³ to 10⁴ CPU-hours per hit.
   So 358 stays open.
+
+## 107. Round 54: the plain character-bordered array over every t for the 111 open quaternary orders (October 27–28)
+
+Scratchpad `r54/` (censuses `censusA` for N < 600 and `censusB` for N ≥ 600, productions `prod0` and `prod1`).
+Round 51's census of the array of [complex-hadamard/TBORDERED.md](../complex-hadamard/TBORDERED.md) ran t = 3 only. At
+N = 179 a structure with t = 9 was the one alive (§106), so both censuses ran every admissible t: t odd, |Q| ≤ 40,
+every abelian G of order N − t, H of cyclic type with at most about 100 orbits.
+- *Coverage.* Census A analysed about 29,000 structures for the 45 open N < 600; 28,600 died by the exact screens
+  (Parseval energy at every invariant quotient, exact Q-level joins). The base enumeration of H finished for 234 of
+  the 443 pairs (N, t). Census B finished 78% of its group-type enumerations for N ≥ 600. Everything below rests on
+  the Gaussian estimate E (HEURISTIC), divided by the number of images of a solution under the normalizer of H
+  (E_orb), and on a join-cost model W.
+- *N = 167 (order 334, the smallest open quaternary order).* G = ℤ₂² × ℤ₃ × ℤ₁₃, Q = ℤ₂ × ℤ₆, T all nontrivial
+  characters (t = 11):
+  - with H of order 3: E_orb = 10^6.3 at W = 10^12.2;
+  - with H of order 6 (36 orbits): E_orb = 10^1.7 at W = 10^8.2. The census's production engine found 3 exact
+    cores (CHECKED by an independent script). The border, with q = 12, is undecided.
+  - Also alive: t = 23 over ℤ₄² × ℤ₉ and ℤ₂⁴ × ℤ₉ with Q = ℤ₂ × ℤ₁₈ and H of order 6, E_orb = 10^1.3 to 10^2.2 at a
+    birthday cost of 10^3.8 to 10^4.7, border (q = 36) undecided.
+- *Other live structures.*
+  - N = 239 (order 478): t = 7 over ℤ₂³ × ℤ₂₉ with the Singer H of order 7, E_orb = 10^4.2, W = 10^8.9. This is
+    the structure of §103, whose cores exist and whose border is the problem K₀.
+  - N = 249: t = 3, E_orb = 10^2.8, W = 10^13.2; a border was found for three tuples.
+  - N = 179: t = 19 over ℤ₁₆₀. With Q = ℤ₄₀ there is no border (PROVED: every quaternary vector of V_T factors
+    through ℤ₄). With Q = ℤ₃₂, E_orb = 10^−0.7, border undecided.
+  - N = 223: t = 15 over ℤ₁₆ × ℤ₁₃, E_orb ≈ 1, W = 10^8.7, border (q = 16) undecided.
+- *The orders 8p.* Nothing reaches QH(598), QH(718) or QH(738) (orders 4792, 5752, 5912 through §104). The best are:
+  - N = 299: t = 5 over ℤ₇² × ℤ₃ × ℤ₂ with Q = ℤ₆, E_orb = 10^−2.3 at W = 10^19.0;
+  - N = 359: t = 19, E_orb = 10^−15.6;
+  - N = 369: t = 3, E_orb = 10^−7.6.
+- *N ≥ 600.* The best E_orb is 10^−4.1 (N = 659, t = 3, W = 10^18.8); everything else is below 10^−6.
+- *Productions* (`r54/prod0`, `r54/prod1`; first runs killed by a container restart, then resumed).
+  - *478: the border problem K₀ of §103 has no solution* (CHECKED). Xb is a quaternary Hadamard matrix of order 14
+    (PROVED), and a border is an 8-clique of compatible "positions" for a fixed Xb. Over all 752 classes of BH(14, 4)
+    (Lampio, Szöllősi and Östergård, Discrete Math. 313 (2013); re-confirmed in Math. Comp. 2020 – the classification
+    is cited, not re-derived) the largest clique has 3 to 6 positions, never 8. Every spike pattern and sign variant
+    reduces to K₀ (PROVED). Controls: the zero-diagonal sibling's 48 known borders and an exhaustive q = 4 case. So the
+    t = 7 Singer family over ℤ₂³ × ℤ₂₉ cannot give QH(478), whatever its cores.
+  - *334, t = 23: no border for any tuple* (PROVED, with a CP-SAT certificate): the quaternary vectors of V_T span only
+    21 of the 23 dimensions needed. A span test of this kind decided 49 of the census's 245 (Q, T) types against a
+    border and passed 164.
+  - *334, t = 11: the border is undecided.* All three cores have the Q-tuple of spikes (0, −2, 6, −2), and the border
+    amounts to a pair of quaternary Hadamard matrices of order 24 containing two given rows (PROVED). The first row
+    already has 4.8 · 10⁹ compatible columns, so an exact search needs a structure or a classification of order 22.
+    Borders are plentiful for q ≤ 6 (the q = 6 analogue at N = 161 has thousands); at q = 8 (order 478) there are none.
