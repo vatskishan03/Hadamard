@@ -7331,5 +7331,17 @@ every abelian G of order N − t, H of cyclic type with at most about 100 orbits
   - N = 359: t = 19, E_orb = 10^−15.6;
   - N = 369: t = 3, E_orb = 10^−7.6.
 - *N ≥ 600.* The best E_orb is 10^−4.1 (N = 659, t = 3, W = 10^18.8); everything else is below 10^−6.
-- *Productions.* The two production agents were killed by a container restart before they reported; both were
-  relaunched from their directories (results below when they arrive).
+- *Productions* (`r54/prod0`, `r54/prod1`; first runs killed by a container restart, then resumed).
+  - *478: the border problem K₀ of §103 has no solution* (CHECKED). Xb is a quaternary Hadamard matrix of order 14
+    (PROVED), and a border is an 8-clique of compatible "positions" for a fixed Xb. Over all 752 classes of BH(14, 4)
+    (Lampio, Szöllősi and Östergård, Discrete Math. 313 (2013); re-confirmed in Math. Comp. 2020 – the classification
+    is cited, not re-derived) the largest clique has 3 to 6 positions, never 8. Every spike pattern and sign variant
+    reduces to K₀ (PROVED). Controls: the zero-diagonal sibling's 48 known borders and an exhaustive q = 4 case. So the
+    t = 7 Singer family over ℤ₂³ × ℤ₂₉ cannot give QH(478), whatever its cores.
+  - *334, t = 23: no border for any tuple* (PROVED, with a CP-SAT certificate): the quaternary vectors of V_T span only
+    21 of the 23 dimensions needed. A span test of this kind decided 49 of the census's 245 (Q, T) types against a
+    border and passed 164.
+  - *334, t = 11: the border is undecided.* All three cores have the Q-tuple of spikes (0, −2, 6, −2), and the border
+    amounts to a pair of quaternary Hadamard matrices of order 24 containing two given rows (PROVED). The first row
+    already has 4.8 · 10⁹ compatible columns, so an exact search needs a structure or a classification of order 22.
+    Borders are plentiful for q ≤ 6 (the q = 6 analogue at N = 161 has thousands); at q = 8 (order 478) there are none.
