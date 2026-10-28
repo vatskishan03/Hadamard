@@ -268,6 +268,21 @@ order 111, which is therefore New.
 - *Finding.* None gives a quaternary Hadamard matrix of order 418.
 - *Not read.* As for 6796. Zaitsev et al. search these orders at present; their page lists 418 as unknown.
 
+**Complex orders 358 and 498** ([complex-hadamard](complex-hadamard/README.md)). Checked on 28 October 2026:
+- *Tables and recursions.* Seberry–Yamada 1992, Table 11.2 (N = 179 and 249 blank). Neither order is divisible by 4,
+  so no real matrix exists. Paley's complex route and Ito–Egan need 4N − 1 = 715 = 5 · 11 · 13 or 995 = 5 · 199 to
+  be a prime power. Turyn's route needs 2N − 1 = 357 = 3 · 7 · 17 or 497 = 7 · 71 to be a prime power. A symmetric
+  conference matrix of order 358 or 498 would need 357 or 497 to be a sum of two squares, and neither is. A
+  Kronecker product would need a quaternary factor of odd order.
+- *Recent work.* Zaitsev's page (read live on 28 October; last updated 14 October 2026): both on its list of unknown
+  orders, no QH358 or QH498. Searched: Szöllősi, arXiv:2603.09572; Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev,
+  arXiv:2605.08661; arXiv:2608.14858; arXiv:2609.04589 (quaternary Legendre pairs up to length 80, orders up to 162);
+  Egan et al., arXiv:2610.27175; an arXiv listing of quaternary and Butson Hadamard papers to 20 October 2026; web
+  searches for quaternary, complex and Butson BH(358, 4) and BH(498, 4) matrices.
+- *Finding.* None gives a quaternary Hadamard matrix of order 358 or 498.
+- *Not read.* As for 6796; Seberry and Yamada's 2020 book; the Handbook's tables. Zaitsev et al. search these orders at
+  present.
+
 **Skew order 476 and symmetric order 7612** ([skew/476](skew/476), [symmetric/7612](symmetric/7612)). Checked on
 22–23 October 2026:
 - *Tables.* The Đoković–Seberry census (119 and 1903 undecided, for skew and symmetric matrices); Cati–Pasechnik
