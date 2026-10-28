@@ -7395,3 +7395,30 @@ cost figure left one structure for an open order 8p: N = 299, t = 5, G = ℤ₂ 
 - *Side check.* The complex Miyamoto builder with q = 599 takes an order-598 certificate directly; run with C358 and
   C498 it gives exact H(2872) and H(3992), both known orders.
 So 4792 stays open. The cheapest known route remains the Spence plug-in of §92 (about 1100 core-hours, E unknown).
+
+**Re-screen of the earlier censuses with exact towers** (round 57, `r57/real`, `r57/skewsym`; one core each, about 6
+hours). Every structure of rounds 18–56 with an estimated E ≥ 1 on a group with quotients was re-costed. Where possible,
+the pairs and triples of quotient levels were first decided exactly.
+- *Exactly empty* (CHECKED, `search/bgschain` engine, exhaustive at the decisive level):
+  - EKLO k = 4 for 1987 over ℤ₈² × ℤ₃₁ (E = 10^1.4; the main tower candidate of §102): the chain ℤ₄² → ℤ₃₁ →
+    ℤ₂² × ℤ₃₁ leaves no tuple of the 3136 nodes, in 347 s. Taking the last level after ℤ₈² would have cost 24.5 core-hours
+    to see the same, and 18,400 sampled nodes there gave none against 11.7 predicted.
+  - EKLO k = 4 for 1187, all three patterns.
+  - The Spence plug-ins for 599 over ℤ₉ × ℤ₁₉ × F₇ (H = ⟨(2, 4)⟩ or ⟨(2, 5)⟩): this is the shape whose cost was modelled
+    at 10^5.8 s in §92 and §101, and it is dead at ℤ₉ and ℤ₃ (two codes).
+  - Two other 599 shapes dead at ℤ₁₉, and two 739 shapes dead at ℤ₇.
+  - Lesson: of the structures with E ≥ 1 that could be tested exactly, every one so far was empty (4 of 4 EKLO entries,
+    3 of 4 first-ranked plug-in shapes). The Gaussian E says where to look; it is not a rate. The order in which the
+    levels are decided changes the cost by orders of magnitude.
+- *Alive, ranked by estimated core-hours per hit* (HEURISTIC):
+  - 5912 = 8 · 739: the Spence plug-in over ℤ₂₁₁ × F₇ with |H| = 45, E = 10^10, about 4 core-hours. The census
+    model's 350 came from allocations that are not τ-feasible. Both quotient levels are alive, and 2.3 core-hours
+    found nothing against 0.7 expected.
+  - 4792 = 8 · 599: ℤ₇ × ℤ₁₉ × F₉ with |H| = 36, alive at F₉, ℤ₁₉ and the triple (10¹⁰ tuples), about 1.5 · 10³ core-hours.
+  - Skew census: 1123 about 20 core-hours (low-energy k-tree); 761, 1657, 1801 about 10² (k-tree and spin tabu);
+    883, 661, 1483 about 10³.
+  - The cyclic Goethals–Seidel structures of composite n (1257, 1713, 1893, 2215) have no exact tower: their quotients
+    act trivially or are prime.
+- *Tower method, scope.* The tower of §107 needs several quotient levels with enumerable fibres. Open orders with prime
+  n have none, and for the skew and symmetric census values either H acts on every factor (no letters) or one prime
+  field gives a single line.
