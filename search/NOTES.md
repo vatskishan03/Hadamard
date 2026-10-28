@@ -7379,3 +7379,19 @@ the census with a border already decided at q ≤ 4 were run with pilot-calibrat
 - *Novelty.* Both orders are on the list of unknown orders of Zaitsev et al.'s page (read live on 28 October 2026,
   last updated 14 October) and blank in Seberry–Yamada's Table 11.2. No route by Paley, Ito–Egan, Turyn or a
   conference matrix exists, and no source checked gives either order (NOVELTY.md). **New.**
+
+**QH(598) for 4792 = 8 · 599: alive but out of reach** (round 56, `r56/qh598`). Re-screening census A without its faulty
+cost figure left one structure for an open order 8p: N = 299, t = 5, G = ℤ₂ × ℤ₃ × ℤ₄₉, Q = ℤ₆, T = all characters but
+χ₃, H of order 6 (68 C/D orbits, 36 A/B classes).
+- *The structure is alive.* There are 896 ordered Q-tuples in 7 symmetry classes. The exhaustive q = 6 border exists
+  for each class (CHECKED). The estimate is 10^4.8 solutions, about 5 inequivalent (HEURISTIC).
+- *But the tower does not help here* (CHECKED by real-size pilots, a planted control and a QH(22) analogue).
+  - The exact ℤ₇ level keeps 10^−6.1 (1.1 · 10⁵ tuples per class), and the solutions are spread flat over the tuples:
+    the best has E = 0.05.
+  - The C and D fibres stay at 10^12.5 to 10^13 per tuple, and the Gaussian over-predicts deeper columns by about 0.85
+    per column.
+  - Cost per hit is 10^17.2 to 10^17.9 pair operations for the best tuples, at least 1.4 · 10⁴ core-hours. The ±
+    band of 498 does not concentrate E either.
+- *Side check.* The complex Miyamoto builder with q = 599 takes an order-598 certificate directly; run with C358 and
+  C498 it gives exact H(2872) and H(3992), both known orders.
+So 4792 stays open. The cheapest known route remains the Spence plug-in of §92 (about 1100 core-hours, E unknown).
