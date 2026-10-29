@@ -45,7 +45,7 @@ The Handbook tables were read from a copy available online and not checked again
 
 ## Sources searched
 
-The searches were made between 12 and 22 October 2026; each section below gives its own dates.
+The searches were made between 12 and 28 October 2026; each section below gives its own dates.
 
 **For every order.**
 
@@ -258,263 +258,295 @@ order 111, which is therefore New.
 - *Labels.* Hadamard order 2572: New. Complex order 1286 (N = 643): New.
 
 **Complex order 418** ([complex-hadamard](complex-hadamard/README.md)). Checked on 22 October 2026:
-- *Tables and recursions.* Seberry–Yamada 1992, Table 11.2 (N = 209 blank). Turyn's route needs 417 = 3 · 139, and
-  Ito's dicyclic groups with Egan's Theorem 4.5 need 835 = 5 · 167, to be a prime power. A Kronecker product would
-  need a quaternary factor of odd order 11, 19 or 209.
+- *Tables and recursions.* Seberry–Yamada 1992, Table 11.2 (N = 209 blank). Turyn's route needs 417 = 3 · 139, and Ito's
+  dicyclic groups with Egan's Theorem 4.5 need 835 = 5 · 167, to be a prime power. A Kronecker product would need a
+  quaternary factor of odd order 11, 19 or 209.
 - *Recent work.* Zaitsev's page (last modified 15 October, read on 22 October: 418 on its unknown list, no QH418);
-  Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev, arXiv:2605.08661; Szöllősi's talk at IWDMA 2026 (17 March
-  2026: complex Hadamard matrices up to order 94, next open case 118); Munim's status report of 14 October
-  2026 on dev.to (real orders only); web searches for a quaternary Hadamard matrix of order 418.
+  Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev, arXiv:2605.08661; Szöllősi's talk at IWDMA 2026 (17 March 2026:
+  complex Hadamard matrices up to order 94, next open case 118); Munim's status report of 14 October 2026 on dev.to
+  (real orders only); web searches for a quaternary Hadamard matrix of order 418.
 - *Finding.* None gives a quaternary Hadamard matrix of order 418.
-- *Not read.* As for 6796. Zaitsev et al. search these orders at present; their page lists 418 as unknown.
+- *Not read.* As for 6796. Zaitsev et al. search these orders at present.
+- *Labels.* Complex order 418 (N = 209): New.
 
 **Complex orders 358 and 498** ([complex-hadamard](complex-hadamard/README.md)). Checked on 28 October 2026:
-- *Tables and recursions.* Seberry–Yamada 1992, Table 11.2 (N = 179 and 249 blank). Neither order is divisible by 4,
-  so no real matrix exists. Paley's complex route and Ito–Egan need 4N − 1 = 715 = 5 · 11 · 13 or 995 = 5 · 199 to
-  be a prime power. Turyn's route needs 2N − 1 = 357 = 3 · 7 · 17 or 497 = 7 · 71 to be a prime power. A symmetric
-  conference matrix of order 358 or 498 would need 357 or 497 to be a sum of two squares, and neither is. A
-  Kronecker product would need a quaternary factor of odd order.
+- *Tables and recursions.* Seberry–Yamada 1992, Table 11.2 (N = 179 and 249 blank). Neither order is divisible by 4, so
+  no real matrix exists. Paley's complex route and Ito–Egan need 4N − 1 = 715 = 5 · 11 · 13 or 995 = 5 · 199 to be a
+  prime power. Turyn's route needs 2N − 1 = 357 = 3 · 7 · 17 or 497 = 7 · 71 to be a prime power. A symmetric conference
+  matrix of order 358 or 498 would need 357 or 497 to be a sum of two squares, and neither is. A Kronecker product would
+  need a quaternary factor of odd order.
 - *Recent work.* Zaitsev's page (read live on 28 October; last updated 14 October 2026): both on its list of unknown
-  orders, no QH358 or QH498. Searched: Szöllősi, arXiv:2603.09572; Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev,
-  arXiv:2605.08661; arXiv:2608.14858; arXiv:2609.04589 (quaternary Legendre pairs up to length 80, orders up to 162);
-  Egan et al., arXiv:2610.27175; an arXiv listing of quaternary and Butson Hadamard papers to 20 October 2026; web
+  orders, no QH358 or QH498. Also searched: Szöllősi, arXiv:2603.09572; Kharaghani, Mohammadian, Tayfeh-Rezaie and
+  Zaitsev, arXiv:2605.08661; arXiv:2608.14858; arXiv:2609.04589 (quaternary Legendre pairs up to length 80, orders up to
+  162); Egan et al., arXiv:2610.27175; an arXiv listing of quaternary and Butson Hadamard papers to 20 October 2026; web
   searches for quaternary, complex and Butson BH(358, 4) and BH(498, 4) matrices.
 - *Finding.* None gives a quaternary Hadamard matrix of order 358 or 498.
-- *Not read.* As for 6796; Seberry and Yamada's 2020 book; the Handbook's tables. Zaitsev et al. search these orders at
-  present.
+- *Not read.* As for 6796; the Handbook's tables. Zaitsev et al. search these orders at present.
+- *Labels.* Quaternary Hadamard matrices of orders 358 and 498 (N = 179 and 249): New.
 
-**Skew order 476 and symmetric order 7612** ([skew/476](skew/476), [symmetric/7612](symmetric/7612)). Checked on
-22–23 October 2026:
-- *Tables.* The Đoković–Seberry census (119 and 1903 undecided, for skew and symmetric matrices); Cati–Pasechnik
-  Table 5 (119(4), so the smallest skew order known with odd part 119 was 1904) and Table 3 (no skew construction at
-  119); SageMath's `unknown_skew_hadamard` (it contains 476) and the development thread of SageMath issue 34848.
-- *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (smallest open skew order 356,
-  no construction named at 476 or 7612; its entry “4n for odd n < 250” under known skew orders contradicts its own
-  356 and the census); the 2026 sources of "For every order"; web searches for skew 476 and symmetric 7612.
+**Skew order 476 and symmetric order 7612** ([skew/476](skew/476), [symmetric/7612](symmetric/7612)). Checked on 22–23
+October 2026:
+- *Tables and recursions.* The Đoković–Seberry census (119 and 1903 undecided, for skew and symmetric matrices);
+  Cati–Pasechnik Table 5 (119(4), so the smallest skew order known with odd part 119 was 1904) and Table 3 (no skew
+  construction at 119); SageMath's `unknown_skew_hadamard` (it contains 476) and the development thread of SageMath
+  issue 34848.
+- *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (smallest open skew order 356, no
+  construction named at 476 or 7612; its entry "4n for odd n < 250" under known skew orders contradicts its own 356 and
+  the census); the 2026 sources of "For every order"; web searches for skew 476 and symmetric 7612.
 - *Finding.* None gives a skew-Hadamard matrix of order 476 or 952 or a symmetric Hadamard matrix of order 7612.
-- *Not read.* As for 6796; work after the census was found only through the survey and web searches.
+- *Not read.* As for 6796. Work after the census was found only through the survey and web searches.
+- *Labels.* Skew order 476: New as a skew-Hadamard matrix. Symmetric order 7612: New as a symmetric Hadamard matrix.
 
-**Skew orders 1528, 1892, 2216, 2392 and 4712** ([skew/1528](skew/1528), [skew/1892](skew/1892),
-[skew/2216](skew/2216), [skew/2392](skew/2392), [skew/4712](skew/4712)). Checked on 23 October 2026:
-- *Tables.* Cati–Pasechnik Table 5, v1 and v2 (191(226), 277(5), 299(4), 473(4), 589(5)); the Đoković–Seberry census
-  (191, 277, 299, 473 and 589 undecided, which concerns orders 4v and is not settled here except for 473); SageMath's
-  development source of 21 October 2026, `skew_hadamard_matrix` read branch by branch, not run (Paley, Spence,
-  complementary difference sets, Spence 1975, the orthogonal-design branch, doubling, Williamson's product and the
-  stored skew difference families give none of the five orders, so they are Unknown).
-- *Classical routes* (each README lists them): Paley I needs 1527 = 3 · 509, 1891 = 31 · 61, 2215 = 5 · 443,
-  2391 = 3 · 797 or 4711 = 7 · 673 to be a prime power; Szekeres and Momihara–Xiang 2(qᵉ + 1) need 763, 945, 1107, 1195
-  or 2355; Wallis–Whiteman and Momihara–Xiang 2ᵘ(qᵉ + 1) need 381 or 190, 472, 553 or 276, 597, 1177; Spence
-  4(q² + q + 1) and Turyn (p − 1)ᵘ + 1 do not apply; Seberry's mn(n − 1) needs a skew-type OD(44; 1, 1, 42) for 1892
-  (there are no G-matrices of order 11) and an OD(mn; 1, m, mn − m − 1) with n = 2 otherwise; doubling needs skew orders 764,
-  946 (not a multiple of 4), 1108, 1196 or 2356; skew × amicable products have a factor that is not a Hadamard order,
-  apart from the doubling case 2 · (n/2).
+**Skew orders 1528, 1892, 2216, 2392 and 4712** ([skew/1528](skew/1528), [skew/1892](skew/1892), [skew/2216](skew/2216),
+[skew/2392](skew/2392), [skew/4712](skew/4712)). Checked on 23 October 2026:
+- *Tables and recursions.*
+  - *Tables.* Cati–Pasechnik Table 5, v1 and v2 (191(226), 277(5), 299(4), 473(4), 589(5)); the Đoković–Seberry census
+    (191, 277, 299, 473 and 589 undecided, which concerns orders 4v and is not settled here except for 473); SageMath's
+    development source of 21 October 2026, `skew_hadamard_matrix` read branch by branch, not run (Paley, Spence,
+    complementary difference sets, Spence 1975, the orthogonal-design branch, doubling, Williamson's product and the
+    stored skew difference families give none of the five orders, so they are Unknown).
+  - *Classical routes* (each README lists them): Paley I needs 1527 = 3 · 509, 1891 = 31 · 61, 2215 = 5 · 443,
+    2391 = 3 · 797 or 4711 = 7 · 673 to be a prime power; Szekeres and Momihara–Xiang 2(qᵉ + 1) need 763, 945, 1107,
+    1195 or 2355; Wallis–Whiteman and Momihara–Xiang 2ᵘ(qᵉ + 1) need 381 or 190, 472, 553 or 276, 597, 1177; Spence 4(q²
+    + q + 1) and Turyn (p − 1)ᵘ + 1 do not apply; Seberry's mn(n − 1) needs a skew-type OD(44; 1, 1, 42) for 1892 (there
+    are no G-matrices of order 11) and an OD(mn; 1, m, mn − m − 1) with n = 2 otherwise; doubling needs skew orders 764,
+    946 (not a multiple of 4), 1108, 1196 or 2356; skew × amicable products have a factor that is not a Hadamard order,
+    apart from the doubling case 2 · (n/2).
 - *Negacyclic arrays.* Finlayson and Seberry, Orthogonal designs from negacyclic matrices, Australas. J. Combin. 30
-  (2004) 319–330 (the negacyclic Goethals–Seidel array, Theorem 4, with blocks of odd order 3, 5, 7: orders 12, 20,
-  28); Balonin and Đoković, arXiv:1508.00640 (negaperiodic Golay pairs, two blocks, not skew); Kotsireas and
-  Koukouvinos, New skew-Hadamard matrices via computational algebra, Australas. J. Combin. 41 (2008) 235–248 (orders
-  60 to 416).
-- *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (no skew construction at
-  these orders; 191 appears only in its table of open ordinary orders 4 · 5p and 4 · 9p); Đoković, arXiv:2301.02751
-  (191 among the undecided skew v); the GitHub repositories of the 2026 Hadamard announcements (munimtechnologies,
-  Middletownbooks: no skew orders); web searches for the five orders and for negacyclic or quaternary skew
-  Goethals–Seidel arrays.
+  (2004) 319–330 (the negacyclic Goethals–Seidel array, Theorem 4, with blocks of odd order 3, 5, 7: orders 12, 20, 28);
+  Balonin and Đoković, arXiv:1508.00640 (negaperiodic Golay pairs, two blocks, not skew); Kotsireas and Koukouvinos, New
+  skew-Hadamard matrices via computational algebra, Australas. J. Combin. 41 (2008) 235–248 (orders 60 to 416).
+- *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (no skew construction at these
+  orders; 191 appears only in its table of open ordinary orders 4 · 5p and 4 · 9p); Đoković, arXiv:2301.02751 (191 among
+  the undecided skew v); the GitHub repositories of the 2026 Hadamard announcements (munimtechnologies, Middletownbooks:
+  no skew orders); web searches for the five orders and for negacyclic or quaternary skew Goethals–Seidel arrays.
 - *Finding.* None gives a skew-Hadamard matrix of order 1528, 1892, 2216, 2392 or 4712, or a multiplier search over
   negacyclic Goethals–Seidel arrays.
 - *Not read.* As for 6796.
+- *Labels.* Skew orders 1528, 1892, 2216, 2392 and 4712: New as skew-Hadamard matrices.
 
 **Skew order 2156** ([skew/2156](skew/2156)). Checked on 23 October 2026:
-- *Tables.* The Đoković–Seberry census (539 undecided); Cati–Pasechnik Table 5, v1 and v2 (539(4)) and Table 4 (539 not
-  listed, so an ordinary Hadamard matrix of order 2156 is known); SageMath's development source of 21 October 2026,
-  `skew_hadamard_matrix` read branch by branch, not run (none of its branches gives 2156).
-- *Classical routes.* Paley I needs 2155 = 5 · 431, Szekeres and Momihara–Xiang 2(qᵉ + 1) need 1077 = 3 · 359,
-  Wallis–Whiteman 4(q + 1) needs 538; Spence 4(q² + q + 1), Turyn (p − 1)ᵘ + 1 and Seberry's mn(n − 1) (only n = 2)
-  do not apply; 2156 ≡ 4 (mod 8) rules out doubling, and every product of a skew and an amicable order has a factor
-  that is not a Hadamard order. Momihara and Xiang's skew Hadamard difference families (arXiv:1801.08776) live on
-  F_{qᵉ}, and 539 is not a prime power.
+- *Tables and recursions.*
+  - *Tables.* The Đoković–Seberry census (539 undecided); Cati–Pasechnik Table 5, v1 and v2 (539(4)) and Table 4 (539
+    not listed, so an ordinary Hadamard matrix of order 2156 is known); SageMath's development source of 21 October
+    2026, `skew_hadamard_matrix` read branch by branch, not run (none of its branches gives 2156).
+  - *Classical routes.* Paley I needs 2155 = 5 · 431, Szekeres and Momihara–Xiang 2(qᵉ + 1) need 1077 = 3 · 359,
+    Wallis–Whiteman 4(q + 1) needs 538; Spence 4(q² + q + 1), Turyn (p − 1)ᵘ + 1 and Seberry's mn(n − 1) (only n = 2) do
+    not apply; 2156 ≡ 4 (mod 8) rules out doubling, and every product of a skew and an amicable order has a factor that
+    is not a Hadamard order. Momihara and Xiang's skew Hadamard difference families (arXiv:1801.08776) live on F_{qᵉ},
+    and 539 is not a prime power.
 - *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175; Đoković, arXiv:2301.02751 and
   arXiv:1511.08734; web searches for the order.
 - *Finding.* None gives a skew-Hadamard matrix of order 2156.
 - *Not read.* As for 6796.
+- *Labels.* Skew order 2156: New as a skew-Hadamard matrix.
 
 **Skew order 1540** ([skew/1540](skew/1540)). Checked on 23 October 2026:
-- *Tables.* The Đoković–Seberry census (385 undecided); Cati–Pasechnik Table 5 (385(3)) and Table 4 (385 not listed,
-  so an ordinary Hadamard matrix of order 1540 is known); SageMath's development source of 21 October 2026,
-  `skew_hadamard_matrix` and its difference-set tables read, not run (no entry for 385 or 1540).
-- *Classical routes.* Paley I needs 1539 = 3⁴ · 19; the two-block families of order 2(q + 1) need q = 769 ≡ 5 (mod 8)
-  (769 ≡ 1); Momihara–Xiang's families (arXiv:1801.08776) give 2ᵘ⁻¹(qᵉ + 1) with q ≡ 2ᵘ + 1 (mod 2ᵘ⁺¹), which would need
-  qᵉ = 769 with u = 2 or qᵉ = 384 with u = 3; Wallis–Whiteman 4(q + 1), Spence 4(q² + q + 1), Turyn and the family
-  3(q + 1) do not apply; every product of a skew and an amicable order has a factor that is not a Hadamard order.
+- *Tables and recursions.*
+  - *Tables.* The Đoković–Seberry census (385 undecided); Cati–Pasechnik Table 5 (385(3)) and Table 4 (385 not listed,
+    so an ordinary Hadamard matrix of order 1540 is known); SageMath's development source of 21 October 2026,
+    `skew_hadamard_matrix` and its difference-set tables read, not run (no entry for 385 or 1540).
+  - *Classical routes.* Paley I needs 1539 = 3⁴ · 19; the two-block families of order 2(q + 1) need q = 769 ≡ 5 (mod 8)
+    (769 ≡ 1); Momihara–Xiang's families (arXiv:1801.08776) give 2ᵘ⁻¹(qᵉ + 1) with q ≡ 2ᵘ + 1 (mod 2ᵘ⁺¹), which would
+    need qᵉ = 769 with u = 2 or qᵉ = 384 with u = 3; Wallis–Whiteman 4(q + 1), Spence 4(q² + q + 1), Turyn and the
+    family 3(q + 1) do not apply; every product of a skew and an amicable order has a factor that is not a Hadamard
+    order.
 - *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (no skew matrix of this order);
   Đoković, arXiv:2301.02751 and arXiv:1511.08734; Middletownbooks/Hadamard; web searches for the order.
 - *Finding.* None gives a skew-Hadamard matrix of order 1540.
 - *Not read.* As for 6796.
+- *Labels.* Skew order 1540: New as a skew-Hadamard matrix.
 
 **Skew orders 980 and 3124** ([skew/980](skew/980), [skew/3124](skew/3124)). Checked on 24 October 2026:
-- *Tables.* The Đoković–Seberry census (245 and 781 undecided; 245 also on Đoković's list of 2007, arXiv:0706.1973);
-  Cati–Pasechnik Table 5 (245(4), 781(3)) and Table 4 (neither listed, so ordinary Hadamard matrices of orders 980 and
-  3124 are known); SageMath's development source of 21 October 2026 lists 980 among its unknown skew orders.
-- *Classical routes.* Paley I needs 979 = 11 · 89 and 3123 = 3² · 347; the orders 2(q + 1) need q = 489 = 3 · 163 and
-  1561 = 7 · 223; Momihara–Xiang's 2ᵘ⁻¹(qᵉ + 1) would need qᵉ = 489 or 244, and 1561 or 780; Wallis–Whiteman 4(q + 1),
-  Spence 4(q² + q + 1), Turyn and the family 3(q + 1) do not apply; every product of a skew and an amicable order has a
-  factor that is not a Hadamard order.
-- *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (neither order); Middletownbooks/
-  Hadamard; web searches for both orders.
+- *Tables and recursions.*
+  - *Tables.* The Đoković–Seberry census (245 and 781 undecided; 245 also on Đoković's list of 2007, arXiv:0706.1973);
+    Cati–Pasechnik Table 5 (245(4), 781(3)) and Table 4 (neither listed, so ordinary Hadamard matrices of orders 980 and
+    3124 are known); SageMath's development source of 21 October 2026 lists 980 among its unknown skew orders.
+  - *Classical routes.* Paley I needs 979 = 11 · 89 and 3123 = 3² · 347; the orders 2(q + 1) need q = 489 = 3 · 163 and
+    1561 = 7 · 223; Momihara–Xiang's 2ᵘ⁻¹(qᵉ + 1) would need qᵉ = 489 or 244, and 1561 or 780; Wallis–Whiteman 4(q + 1),
+    Spence 4(q² + q + 1), Turyn and the family 3(q + 1) do not apply; every product of a skew and an amicable order has
+    a factor that is not a Hadamard order.
+- *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (neither order);
+  Middletownbooks/Hadamard; web searches for both orders.
 - *Finding.* None gives a skew-Hadamard matrix of order 980 or 3124.
 - *Not read.* As for 6796.
+- *Labels.* Skew orders 980 and 3124: New as skew-Hadamard matrices.
 
-**Orders 8696 and 12952** (checked on 24 October 2026). Seberry–Yamada (1992), Tables A.1 (keys wi and wl), A.2,
-Lemma 8.12 and Corollaries 8.8, 8.14 and 8.18; Cati–Pasechnik's Table 4 (1087(3), 1619(3)); the survey of Egan,
-Kotsireas, London and Ó Catháin, arXiv:2610.27175 (its Table 5 lists 8696 as open, after excluding Williamson-type
-matrices of order 543); Đoković, arXiv:0912.5091 and arXiv:1008.2043; SageMath. 8696 is **Known** (A.1's key wi is a
-valid route and A.2 records the order); 12952 is a **First explicit construction** (key wl is Corollary 8.8(i)).
+**Orders 8696 and 12952** ([hadamard/8696](hadamard/8696), [hadamard/12952](hadamard/12952)). Checked on 24 October
+2026:
+- *Tables and recursions.* Seberry–Yamada (1992), Tables A.1 (keys wi and wl), A.2, Lemma 8.12 and Corollaries 8.8, 8.14
+  and 8.18; Cati–Pasechnik's Table 4 (1087(3), 1619(3)); Đoković, arXiv:0912.5091 and arXiv:1008.2043; SageMath.
+- *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175: its Table 5 lists 8696 as open,
+  after excluding Williamson-type matrices of order 543.
+- *Finding.* The tables record both orders as known. For 8696, key wi of Table A.1 is a valid route and Table A.2
+  records the order; for 12952, key wl is Corollary 8.8(i).
+- *Labels.* Order 8696: Known. Order 12952: First explicit construction.
 
-**The conference matrix of order 118, symmetric 940 and order 11292** (checked on 24–25 October 2026). Brouwer's table
-of strongly regular graphs (read on 17 October 2026: SRG(117, 58, 28, 29) exists, J. Y. Z. Ho, email, October 2026,
-not public); Mathon, Canad. J. Math. 30 (1978) (order pq² + 1 for p = q + 2, which excludes 117 = 13 · 3²);
-Seberry–Whiteman (1988); the census (235 undecided) and Seberry–Balonin (2017); Cati–Pasechnik's Table 4 (2823 open);
-the survey of Egan et al. (2026); SageMath; the 2026 sources listed above. No published conference matrix of order 118,
-symmetric Hadamard matrix of order 940 or Hadamard matrix of order 11292 was found. Ho's graph gives 940 through
-Seberry–Balonin's Corollary 1, so 940 is **Concurrent**, like the conference matrix itself; 11292 needs the Miyamoto
-blocks (or the repeated-block arrangement of [NOTES.md](NOTES.md) §7) on top of it and is **New**.
+**The conference matrix of order 118, symmetric 940 and order 11292** ([symmetric/940](symmetric/940),
+[hadamard/11292](hadamard/11292)). Checked on 24–25 October 2026:
+- *Tables and recursions.* Brouwer's table of strongly regular graphs (read on 17 October 2026: SRG(117, 58, 28, 29)
+  exists, attributed to J. Y. Z. Ho, personal communication, October 2026; the matrix is not public); Mathon, Canad. J.
+  Math. 30 (1978) (order pq² + 1 for p = q + 2, which excludes 117 = 13 · 3²); Seberry–Whiteman (1988); the census (235
+  undecided) and Seberry–Balonin (2017); Cati–Pasechnik's Table 4 (2823 open); SageMath.
+- *Recent work.* The survey of Egan et al. (2026); the 2026 sources listed above.
+- *Finding.* No published conference matrix of order 118, symmetric Hadamard matrix of order 940 or Hadamard matrix of
+  order 11292 was found.
+- *Labels.* Ho's graph gives 940 through Seberry–Balonin's Corollary 1, so 940 is Concurrent, like the conference matrix
+  itself. 11292 needs the Miyamoto blocks (or the repeated-block arrangement of [NOTES.md](NOTES.md) §7) on top of it
+  and is New.
 
-**Orders 41404, 48932, 63988 and 71516** (checked on 25 October 2026): the blocks of 11292 with T-matrices of order 11,
-13, 17 and 19 (not stored here; certified and checked densely, [MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#reach)),
-n = 10351, 12233, 15997 and 17879. No table covers them: Table 1.53 of the Handbook stops at n = 9999 and
-Cati–Pasechnik's Table 4 at 2999. Paley I and II and Yamada–Kiyasu fail by number theory, Miyamoto needs a symmetric
-conference matrix of order n + 1 (impossible for n ≡ 3 mod 4, unknown to us otherwise), and the Paley-block route fails
-or needs T-matrices of order divisible by 941 ([MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#reach)). Cooper–Wallis
-needs Williamson-type matrices or T-matrices of order 941; the only Williamson-type matrices of order 941 we know are
-the repeated-block ones from the symmetric Williamson-type matrices of order 235, that is from the conference matrix of
-order 118. A closure of the known recursive theorems over the T-matrix orders we can build (Paley I and II,
-Williamson-type matrices and Cooper–Wallis with Yang and Golay T-sequences and Baumert–Hall factors, Paley and Miyamoto
-blocks, Miyamoto, Yamada, Yamada–Kiyasu in its real and complex form, 8q, doubling, with the orders of this repository
-and the objects of 2026) does not reach them. Not checked: SageMath's `hadamard_matrix(n, existence=True)` for these
-orders, and the literature after 25 October 2026. As for 11292, the matrices of order 235 need the conference matrix,
-Concurrent with Ho's, so the four orders are **New, beyond the tables**, not obtainable classically. The seven further
-orders 4 · 941 · t for t = 23 to 53 ([MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#reach)) are certified but not
-densely checked and are not claimed here.
+**Orders 41404, 48932, 63988 and 71516** (n = 10351, 12233, 15997 and 17879;
+[MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#reach)). These are the blocks of 11292 with T-matrices of order 11, 13,
+17 and 19, not stored here but certified and checked densely. Checked on 25 October 2026:
+- *Tables and recursions.* No table covers these orders: Table 1.53 of the Handbook stops at n = 9999 and
+  Cati–Pasechnik's Table 4 at 2999. Paley I and II and Yamada–Kiyasu fail by number theory. Miyamoto needs a symmetric
+  conference matrix of order n + 1 (impossible for n ≡ 3 mod 4, unknown to us otherwise). The Paley-block route fails or
+  needs T-matrices of order divisible by 941 ([MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#reach)). Cooper–Wallis
+  needs Williamson-type matrices or T-matrices of order 941; the only Williamson-type matrices of order 941 we know are
+  the repeated-block ones from the symmetric Williamson-type matrices of order 235, that is from the conference matrix
+  of order 118. A closure of the known recursive theorems over the T-matrix orders we can build (Paley I and II,
+  Williamson-type matrices and Cooper–Wallis with Yang and Golay T-sequences and Baumert–Hall factors, Paley and
+  Miyamoto blocks, Miyamoto, Yamada, Yamada–Kiyasu in its real and complex form, 8q, doubling, with the orders of this
+  repository and the objects of 2026) does not reach them.
+- *Not read.* SageMath's `hadamard_matrix(n, existence=True)` for these orders, and the literature after 25 October
+  2026.
+- *Labels.* As for 11292, the matrices of order 235 need the conference matrix, Concurrent with Ho's, so the four orders
+  are New, beyond the tables, not obtainable classically. The seven further orders 4 · 941 · t for t = 23 to 53
+  ([MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#reach)) are certified but not densely checked and are not claimed
+  here.
 
 **Order 3820, the quaternary Hadamard matrix of order 1910 and the quaternary conference matrix of order 478**
-([hadamard/3820](hadamard/3820), [complex-hadamard/C1910.json](complex-hadamard/C1910.json)). Checked on 26 October 2026:
-- *Tables.* Cati–Pasechnik, arXiv:2411.18897 v2, Table 4: 955(3), so 8 · 955 = 7640 is known (Paley I, 7639 prime) and
-  3820 is not. The survey of Egan, Kotsireas, London and Ó Catháin (Table 5) lists 3820 as open. The Hadamard Matrix
-  Explorer (version 53) lists 3820 as unknown. Zaitsev et al.'s page (last updated 14 October 2026) lists 1910 and
-  478 among the unknown quaternary orders and has no matrix of either.
+([hadamard/3820](hadamard/3820), [complex-hadamard/C1910.json](complex-hadamard/C1910.json)). Checked on 26 October
+2026:
+- *Tables and recursions.* Cati–Pasechnik, arXiv:2411.18897 v2, Table 4: 955(3), so 8 · 955 = 7640 is known (Paley I,
+  7639 prime) and 3820 is not. The survey of Egan, Kotsireas, London and Ó Catháin (Table 5) lists 3820 as open. The
+  Hadamard Matrix Explorer (version 53) lists 3820 as unknown. Zaitsev et al.'s page (last updated 14 October 2026)
+  lists 1910 and 478 among the unknown quaternary orders and has no matrix of either.
 - *Recent work.* Middletownbooks/Hadamard (955 among its open orders); the JD-Jones-ASES repositories; Zenodo; the arXiv
-  listings to 26 October; MathWorld; SageMath; Brouwer's table (srg(477, 238, 118, 119), a symmetric conference
-  matrix of order 478, is open); Fallon and Iverson, arXiv:2610.09169 (their numerical conference signal on ℤ₄₇₇ is
-  not equivalent to a quaternary matrix: its four-point invariants lie up to 0.77 away from the units); web searches
-  for 3820, 1910 and 478.
-- *Finding.* None gives any of the three objects. 3820, the quaternary matrix of order 1910 and the quaternary
-  conference matrix of order 478 are **New**.
+  listings to 26 October; MathWorld; SageMath; Brouwer's table (srg(477, 238, 118, 119), a symmetric conference matrix
+  of order 478, is open); Fallon and Iverson, arXiv:2610.09169 (their numerical conference signal on ℤ₄₇₇ is not
+  equivalent to a quaternary matrix: its four-point invariants lie up to 0.77 away from the units); web searches for
+  3820, 1910 and 478.
+- *Finding.* None gives any of the three objects.
+- *Labels.* Order 3820, the quaternary Hadamard matrix of order 1910 and the quaternary conference matrix of order 478:
+  New.
 
 **Order 3356** ([hadamard/3356](hadamard/3356)). Checked on 26 October 2026:
-- *Tables.* Cati–Pasechnik, arXiv:2411.18897 v2 (Table 4: 839(4), read from the PDF); the survey of Egan, Kotsireas,
-  London and Ó Catháin, arXiv:2610.27175 (19 October 2026, the only version; Table 5 lists 4 · 839 among its open
-  orders, and also 8 · 839); the Hadamard Matrix Explorer (math74.com, version 53, October 2026: 3356 on its list of
-  unknown orders, "no construction known").
+- *Tables and recursions.* Cati–Pasechnik, arXiv:2411.18897 v2 (Table 4: 839(4), read from the PDF); the survey of Egan,
+  Kotsireas, London and Ó Catháin, arXiv:2610.27175 (19 October 2026, the only version; Table 5 lists 4 · 839 among its
+  open orders, and also 8 · 839); the Hadamard Matrix Explorer (math74.com, version 53, October 2026: 3356 on its list
+  of unknown orders, "no construction known").
 - *Recent work.* Middletownbooks/Hadamard (last commit 20 October; 839 among its open orders; its report of 17 October
   screened 839 with a subgroup of index 8 over other groups and built nothing); the JD-Jones-ASES repositories
   (Hadamard-T, -M, -B, -formal); munimtechnologies/hadamard-orders; saramarkaidagarcia/Hadamard-matrices;
-  schneiderlo/hadamard-2060; the repositories of J. Kline; Zenodo (queries for 3356, 839 and 6712, and every
-  record titled Hadamard back to June 2026); the arXiv listings of math.CO, cs.IT and math.NT to 26 October; MathWorld
-  (updated 25 October); OEIS A007299 and A036297; SageMath's documentation and its Hadamard pull requests since August;
-  Epoch AI's problem page; web searches for 3356, 4 · 839 and 6712.
-- *Finding.* None gives a Hadamard matrix of order 3356. The order 8 · 839 = 6712, which the survey and Table 4 list
-  as open, was constructed by Kamali and Kharaghani, Australas. J. Combin. 18 (1998) 139–145, Table 1 (also 8 · 1031),
-  and the Explorer posts a matrix of that order ([FRONTIER.md](FRONTIER.md)). 3356 is **New**.
+  schneiderlo/hadamard-2060; the repositories of J. Kline; Zenodo (queries for 3356, 839 and 6712, and every record
+  titled Hadamard back to June 2026); the arXiv listings of math.CO, cs.IT and math.NT to 26 October; MathWorld (updated
+  25 October); OEIS A007299 and A036297; SageMath's documentation and its Hadamard pull requests since August; Epoch
+  AI's problem page; web searches for 3356, 4 · 839 and 6712.
+- *Finding.* None gives a Hadamard matrix of order 3356. The order 8 · 839 = 6712, which the survey and Table 4 list as
+  open, was constructed by Kamali and Kharaghani, Australas. J. Combin. 18 (1998) 139–145, Table 1 (also 8 · 1031), and
+  the Explorer posts a matrix of that order ([FRONTIER.md](FRONTIER.md)).
+- *Labels.* Order 3356: New.
 
-**Orders 2092, 3732, 4492, 5020 and 5932** (rechecked on 23 October 2026). The survey of Egan, Kotsireas, London and
-Ó Catháin (arXiv:2610.27175, 19 October 2026) states that 3732, 4492, 5020 and 5932 "were found by the present
-authors", by the Goethals–Seidel array with multiplier groups of orders 31, 33, 50 and 39, the groups our matrices use,
-and lists 2092 under Cooley (Middletownbooks/Hadamard). That repository committed matrices of orders 2092 and 3732 on
-14 October 2026 and calls ours independent. Ours were committed on 11 October (2092, 4492, 5932) and 13 October (3732,
-5020). The survey cites this repository at commit 2d45dbb (18 October), which already held all five, for 2148, 2284,
-2636 and 3964. With three groups working within days of each other, the five orders are **Concurrent**; neither other
-matrix of order 3732 is stated to be skew, so the skew-Hadamard matrix of order 3732 stays **New**. The same survey
-settles 4 · 1447 = 5788 (its Theorem 7) and lists six open orders 8p ([FRONTIER.md](FRONTIER.md)).
+**Orders 2092, 3732, 4492, 5020 and 5932** ([hadamard/2092](hadamard/2092), [hadamard/3732](hadamard/3732),
+[hadamard/4492](hadamard/4492), [hadamard/5020](hadamard/5020), [hadamard/5932](hadamard/5932)). Rechecked on 23 October
+2026:
+- *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175, 19 October 2026) states that
+  3732, 4492, 5020 and 5932 "were found by the present authors", by the Goethals–Seidel array with multiplier groups of
+  orders 31, 33, 50 and 39, the groups our matrices use, and lists 2092 under Cooley (Middletownbooks/Hadamard). That
+  repository committed matrices of orders 2092 and 3732 on 14 October 2026 and calls ours independent. The survey cites
+  this repository at commit 2d45dbb (18 October), which already held all five, for 2148, 2284, 2636 and 3964.
+- *Finding.* Ours were committed on 11 October (2092, 4492, 5932) and 13 October (3732, 5020). Neither of the other
+  matrices of order 3732 is stated to be skew. The same survey settles 4 · 1447 = 5788 (its Theorem 7) and lists six
+  open orders 8p ([FRONTIER.md](FRONTIER.md)).
+- *Labels.* With three groups working within days of each other, the five orders are Concurrent. The skew-Hadamard
+  matrix of order 3732 stays New.
 
-**Order 12472, the quaternary matrix of order 6236 and Miyamoto's Theorem 7** (checked on 27 October 2026).
-- *Sources.*
-  - Seberry–Yamada (Kobe 1989 index, key m2; 1992 survey, §§8 and 11 read in full, Tables A.1 and A.2; JCMCC 7 (1990),
-    Corollary 36).
-  - Brent–Osborn–Smith, arXiv:1211.3248; the survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175
-    (Tables 3–5); Cati–Pasechnik, arXiv:2411.18897v2 (Table 4: 1559(4)).
-  - The Hadamard Matrix Explorer (version 53: its notation page and its list of unknown orders, which stops at 10 000
-    and lists 6236); Zaitsev's page (14 October 2026).
-  - Kharaghani–Mohammadian–Tayfeh-Rezaie–Zaitsev, arXiv:2605.08661v2; Szöllősi, arXiv:2603.09572; Kamali–Kharaghani
-    (1998); Egan (2019).
-  - The 2026 repositories (Middletownbooks/Hadamard, JD-Jones-ASES Hadamard-T, -M, -B, -formal, schneiderlo); Zenodo
-    and arXiv listings to 22 October 2026; Miyamoto's abstract and the zbMATH review.
+**Order 12472, the quaternary matrix of order 6236 and Miyamoto's Theorem 7** ([hadamard/12472](hadamard/12472)).
+Checked on 27 October 2026:
+- *Tables and recursions.* Seberry–Yamada (Kobe 1989 index, key m2; 1992 survey, §§8 and 11 read in full, Tables A.1 and
+  A.2; JCMCC 7 (1990), Corollary 36); Brent–Osborn–Smith, arXiv:1211.3248; the survey of Egan, Kotsireas, London and
+  Ó Catháin, arXiv:2610.27175 (Tables 3–5); Cati–Pasechnik, arXiv:2411.18897v2 (Table 4: 1559(4)); the Hadamard Matrix
+  Explorer (version 53: its notation page and its list of unknown orders, which stops at 10 000 and lists 6236);
+  Kamali–Kharaghani (1998); Egan (2019); Miyamoto's abstract and the zbMATH review.
+- *Recent work.* Zaitsev's page (14 October 2026); Kharaghani–Mohammadian–Tayfeh-Rezaie–Zaitsev, arXiv:2605.08661v2;
+  Szöllősi, arXiv:2603.09572; the 2026 repositories (Middletownbooks/Hadamard, JD-Jones-ASES Hadamard-T, -M, -B,
+  -formal, schneiderlo); Zenodo and arXiv listings to 22 October 2026.
 - *Finding.*
   - Miyamoto's Theorem 7 gives 8q for q ≡ 3 (mod 4) with q and 2q − 3 prime powers (Seberry–Yamada's key m2,
-    Brent–Osborn–Smith) or primes (Egan et al.'s "Miyamoto III"). The Explorer describes it as taking a complex
-    Hadamard matrix of order q − 1, taken from Paley's matrix of order 2q − 2. That the theorem allows any complex
-    Hadamard matrix of order q − 1 is our inference; on this evidence the theorem of
+    Brent–Osborn–Smith) or primes (Egan et al.'s "Miyamoto III"). The Explorer describes it as taking a complex Hadamard
+    matrix of order q − 1, taken from Paley's matrix of order 2q − 2. That the theorem allows any complex Hadamard
+    matrix of order q − 1 is our inference; on this evidence the theorem of
     [hadamard/COMPLEX_MIYAMOTO.md](hadamard/COMPLEX_MIYAMOTO.md) is credited to Miyamoto.
-  - Among the sources we read, none states the intermediate quaternary matrix of order 4q; Miyamoto's paper and the
-    2020 book's §6.5 were not read.
-  - No source we checked has a Hadamard matrix of order 12472 = 8 · 1559 or a quaternary one of order 6236. Their
-    input, the quaternary matrix of order 1558, exists only since 2026 (this repository and Zaitsev's page, Concurrent).
-  - So 12472 is **New**, from a known theorem and a 2026 input. Unlike 2284, which follows from Zaitsev's quaternary
-    matrix of order 1142 by doubling alone and is Concurrent, it needs the theorem for a complex input that is not
-    Paley's, which no source we checked does. If the Explorer extends its range past 10 000 with this route, 12472
-    would be Concurrent. The quaternary matrix of order 6236 lies outside the complex family's reference range; it is
-    **New** to our knowledge.
+  - Among the sources we read, none states the intermediate quaternary matrix of order 4q; Miyamoto's paper and the 2020
+    book's §6.5 were not read.
+  - No source we checked has a Hadamard matrix of order 12472 = 8 · 1559 or a quaternary one of order 6236. Their input,
+    the quaternary matrix of order 1558, exists only since 2026 (this repository and Zaitsev's page, Concurrent).
 - *Not read.* Miyamoto's paper itself (ScienceDirect refused the download), the 2020 book's §6.5 and Table A.7, and the
   Handbook's Table 1.53 row for n = 1559 (directly).
+- *Labels.*
+  - Order 12472: New, from a known theorem and a 2026 input. Unlike 2284, which follows from Zaitsev's quaternary matrix
+    of order 1142 by doubling alone and is Concurrent, it needs the theorem for a complex input that is not Paley's,
+    which no source we checked does. If the Explorer extends its range past 10 000 with this route, 12472 would be
+    Concurrent.
+  - The quaternary matrix of order 6236 lies outside the complex family's reference range: New to our knowledge.
 
-**Order 20712 = 8 · 2589 and Miyamoto's quaternary array in commuting blocks** (checked on 27 October 2026).
-- *Sources.* Cati–Pasechnik, arXiv:2411.18897 v1 and v2 (Table 4: 2589(4), 863(3)); Seberry–Yamada 1992 survey
-  (Tables A.1 and A.2: 2589 with t = 4, key d1; 863 with t = 3, key m3) and JCMCC 7 (1990), Theorems 1–4 and 21,
+**Order 20712 = 8 · 2589 and Miyamoto's quaternary array in commuting blocks** ([hadamard/20712](hadamard/20712)).
+Checked on 27 October 2026:
+- *Tables and recursions.* Cati–Pasechnik, arXiv:2411.18897 v1 and v2 (Table 4: 2589(4), 863(3)); Seberry–Yamada 1992
+  survey (Tables A.1 and A.2: 2589 with t = 4, key d1; 863 with t = 3, key m3) and JCMCC 7 (1990), Theorems 1–4 and 21,
   Corollaries 5, 22, 36 and 39–41 (scanned pages); Kamali–Kharaghani (1998); Đoković, arXiv:0912.5091, 1008.2043; de
   Launey–Gordon, arXiv:1004.4872; the survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (Table 5); the
-  Hadamard Matrix Explorer (version 53, list of unknown orders to 10 000: 3452 listed); Zaitsev's page (14 October:
-  quaternary 862 present, 1726 unknown); SageMath's hadamard_matrix sources (development branch, read); the 2026
-  repositories; the arXiv math.CO listing of 27 October; web searches for 20712, 10356, 3452 and for multiplication
-  theorems of Miyamoto's M-structure or quaternary blocks by T-matrices.
+  Hadamard Matrix Explorer (version 53, list of unknown orders to 10 000: 3452 listed); SageMath's hadamard_matrix
+  sources (development branch, read).
+- *Recent work.* Zaitsev's page (14 October: quaternary 862 present, 1726 unknown); the 2026 repositories; the arXiv
+  math.CO listing of 27 October; web searches for 20712, 10356, 3452 and for multiplication theorems of Miyamoto's
+  M-structure or quaternary blocks by T-matrices.
 - *Finding.* No source has a Hadamard matrix of order 20712, a quaternary one of order 3452 or 10356, or a statement
   that multiplies Miyamoto's quaternary blocks by T-matrices. Every classical route to 8 · 2589 fails by exact
   arithmetic ([hadamard/20712](hadamard/20712)). The objects are classical (Paley's quaternary matrix of order 862,
-  T-matrices of order 3); the border conditions that make the quaternary blocks commute, and the plug-in on their
-  Turyn doubles, are not in the sources we read. Seberry–Yamada's multiplication theorems for M-structures (Theorem 4:
-  circulant or type-one blocks; Theorem 21: sixteen matrices T_ij) do not cover these blocks, which are neither
-  amicable in rows nor symmetric. So 20712 is **New**; the quaternary matrix of order 3452 is **New** to our
-  knowledge (it adds no real order: 8 · 863 was known).
+  T-matrices of order 3); the border conditions that make the quaternary blocks commute, and the plug-in on their Turyn
+  doubles, are not in the sources we read. Seberry–Yamada's multiplication theorems for M-structures (Theorem 4:
+  circulant or type-one blocks; Theorem 21: sixteen matrices T_ij) do not cover these blocks, which are neither amicable
+  in rows nor symmetric.
 - *Not read.* Miyamoto's paper (1991); the Handbook's Table 1.53 row for 2589; Seberry–Yamada (2020), §§6.4–6.5 and
-  Table A.17; Craigen–Seberry–Zhang and Craigen–Holzmann–Kharaghani beyond abstracts. Miyamoto's paper and the
-  Handbook row are the two that could change the label.
+  Table A.17; Craigen–Seberry–Zhang and Craigen–Holzmann–Kharaghani beyond abstracts. Miyamoto's paper and the Handbook
+  row are the two that could change the label.
+- *Labels.* Order 20712: New. The quaternary matrix of order 3452: New to our knowledge (it adds no real order: 8 · 863
+  was known).
 
-**Order 9172** ([hadamard/9172](hadamard/9172); rechecked on 27 October 2026). The survey of Egan, Kotsireas, London
-and Ó Catháin (arXiv:2610.27175, 19 October 2026, p. 10) states that "order 9172 = 4 · 2293 follows from Cooley's
-matrix of order 2292 by Miyamoto I". Ours was committed on 14 October from our own matrix of order 2292 by the same
-theorem; Cooley's matrix of order 2292 had been public since 9 October. As for 2092–5932, another group reached the
-order within days, so 9172 is **Concurrent**.
+**Order 9172** ([hadamard/9172](hadamard/9172)). Rechecked on 27 October 2026:
+- *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175, 19 October 2026, p. 10) states
+  that "order 9172 = 4 · 2293 follows from Cooley's matrix of order 2292 by Miyamoto I". Ours was committed on 14
+  October from our own matrix of order 2292 by the same theorem; Cooley's matrix of order 2292 had been public since 9
+  October.
+- *Labels.* As for 2092–5932, another group reached the order within days: Concurrent.
 
 **Order 5912** ([hadamard/5912](hadamard/5912)). Checked on 28 October 2026:
-- *Tables.* Cati–Pasechnik, arXiv:2411.18897 v1 and v2, Table 4 (same rows): 739(6). Craigen–Holzmann–Kharaghani's
-  rule, which the table omits, gives 16 · 739 = 8(26 + 1452), so m = 4 was known and m = 3 was not. Seberry–Yamada
-  (1992), Table A.2: 739 with t = 16; Table A.1, row 369 is "3 wn" (Williamson-type matrices of even order 738 only).
-  The survey of Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175, v1 of 19 October 2026), Table 5, lists 8 · 739
-  and 4 · 739 as open. The Hadamard Matrix Explorer (math74.com, version 57; its unknown list read again before the
-  release) lists 5912 and 2956 as unknown; its notation implements Paley, Miyamoto, Craigen–Holzmann–Kharaghani,
-  Kamali–Kharaghani, Seberry–Yamada's 8q and Agaian. SageMath (passagemath 10.8.13, run; the development source of
-  28 October, read) returns Unknown for 5912 and 2956.
-- *Classical routes.* Paley I, II: 5911 = 23 · 257, 2955 = 3 · 5 · 197. Doubling, Kronecker, Agaian: need H(2956).
-  Miyamoto's 8q: 2q − 3 = 1475 = 5² · 59; his Theorem 7 needs a quaternary matrix of order 738 (unknown on Zaitsev's
-  page, last modified 15 October). Seberry–Yamada's Corollary 8.18 needs Williamson-type matrices of order 369.
-  Cooper–Wallis and the block constructions need WT(739), T(739) or T(1478). Craigen–Holzmann–Kharaghani: no complex
-  Golay lengths with x + y = 739. Kamali–Kharaghani (1998): 739 ≠ g₁g + g₂. Du and Jiang's CBS(s + 1, s) needs
-  s = 369 (arXiv:2401.15381, 2204.09372). The asymptotic theorems give 2ᵗ · 739 with t ≥ 6.
+- *Tables and recursions.*
+  - *Tables.* Cati–Pasechnik, arXiv:2411.18897 v1 and v2, Table 4 (same rows): 739(6). Craigen–Holzmann–Kharaghani's
+    rule, which the table omits, gives 16 · 739 = 8(26 + 1452), so m = 4 was known and m = 3 was not. Seberry–Yamada
+    (1992), Table A.2: 739 with t = 16; Table A.1, row 369 is "3 wn" (Williamson-type matrices of even order 738 only).
+    The survey of Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175, v1 of 19 October 2026), Table 5, lists
+    8 · 739 and 4 · 739 as open. The Hadamard Matrix Explorer (math74.com, version 57) lists 5912 and 2956 as unknown;
+    its notation implements Paley, Miyamoto, Craigen–Holzmann–Kharaghani, Kamali–Kharaghani, Seberry–Yamada's 8q and
+    Agaian. SageMath (passagemath 10.8.13, run; the development source of 28 October, read) returns Unknown for 5912 and
+    2956.
+  - *Classical routes.* Paley I, II: 5911 = 23 · 257, 2955 = 3 · 5 · 197. Doubling, Kronecker, Agaian: need H(2956).
+    Miyamoto's 8q: 2q − 3 = 1475 = 5² · 59; his Theorem 7 needs a quaternary matrix of order 738 (unknown on Zaitsev's
+    page, last modified 15 October). Seberry–Yamada's Corollary 8.18 needs Williamson-type matrices of order 369.
+    Cooper–Wallis and the block constructions need WT(739), T(739) or T(1478). Craigen–Holzmann–Kharaghani: no complex
+    Golay lengths with x + y = 739. Kamali–Kharaghani (1998): 739 ≠ g₁g + g₂. Du and Jiang's CBS(s + 1, s) needs s = 369
+    (arXiv:2401.15381, 2204.09372). The asymptotic theorems give 2ᵗ · 739 with t ≥ 6.
 - *Recent work.* Middletownbooks/Hadamard (README of two branches; a commit search shows only screens of 2956);
-  JD-Jones-ASES Hadamard-T, -M, -B and -formal; schneiderlo/hadamard-2060; Zenodo (Schumer, Kline); the arXiv API to
-  27 October and the full text of 25 papers; OEIS A019442 and A007299; MathWorld.
-- *Finding.* None gives a Hadamard matrix of order 5912 or 2956, or a quaternary matrix of order 738. So 5912 is
-  **New**: the sequences are new, and the construction is Spence's over a group of odd order.
+  JD-Jones-ASES Hadamard-T, -M, -B and -formal; schneiderlo/hadamard-2060; Zenodo (Schumer, Kline); the arXiv API to 27
+  October and the full text of 25 papers; OEIS A019442 and A007299; MathWorld.
+- *Finding.* None gives a Hadamard matrix of order 5912 or 2956, or a quaternary matrix of order 738.
 - *Spence over an odd group.* The survey states Spence's construction (its Theorem 5) for even m only. We found no
   source for the odd case but did not search for one specifically.
-- *Not read.* Miyamoto 1991; Seberry and Yamada's 2020 book; the Handbook's Table 1.53. The survey's authors, Cooley
-  and the Explorer's author work on these orders at present.
+- *Not read.* Miyamoto 1991; Seberry and Yamada's 2020 book; the Handbook's Table 1.53. The survey's authors, Cooley and
+  the Explorer's author work on these orders at present.
+- *Labels.* Order 5912: New. The sequences are new, and the construction is Spence's over a group of odd order.
 
 ## Not checked
 
@@ -523,13 +555,12 @@ order within days, so 9172 is **Concurrent**.
   Corollaries via M-structures), the most likely place for a prior statement of the Miyamoto-block route; only its
   contents, chapter 1 and index were seen. Its index puts "symmetric propus-type" on p. 154 and symmetric Hadamard
   matrices on pp. 211–214, the most likely places for a prior statement of the symmetric 4q family.
-- M. Miyamoto, A construction of Hadamard matrices, J. Combin. Theory Ser. A 57 (1991) 86–108, including its
-  Theorem 7 (credited for 12472), its Corollaries 2–5 on matrices of
-  symmetric block form, to which Seberry and Yamada credit Table A.1's key wl, and the
-  lists of its §7, which Cati and Pasechnik could not verify either. We know it through the census's remark, Seberry
-  and Yamada's restatements, the zbMATH review (Zbl 0733.05017) and the transcription in the JD-Jones-ASES Hadamard-M
-  note, by which list (2) contains 127 (unsupported by Miyamoto's Corollary 4, per that note), so that list (3) may
-  record 1527 = 3 · 509.
+- M. Miyamoto, A construction of Hadamard matrices, J. Combin. Theory Ser. A 57 (1991) 86–108, including its Theorem 7
+  (credited for 12472), its Corollaries 2–5 on matrices of symmetric block form, to which Seberry and Yamada credit
+  Table A.1's key wl, and the lists of its §7, which Cati and Pasechnik could not verify either. We know it through the
+  census's remark, Seberry and Yamada's restatements, the zbMATH review (Zbl 0733.05017) and the transcription in the
+  JD-Jones-ASES Hadamard-M note, by which list (2) contains 127 (unsupported by Miyamoto's Corollary 4, per that note),
+  so that list (3) may record 1527 = 3 · 509.
 - Yang's 1989 paper (Proc. Amer. Math. Soc. 107); Whiteman, Discrete Math. 2 (1972); Haviland's thesis (2023) and
   Anderson–Haviland–Holmes–Humphries–Magland, Graphs Combin. 39 (2023), on skew relative difference sets in dicyclic
   groups (by its abstract one infinite family from Ito's and Schmidt's results; our matrices of orders 60 and 132 have
@@ -557,6 +588,8 @@ Statements and labels of the first release (14 October 2026) that have changed:
 - 2284: **Concurrent**, through Zaitsev et al.'s quaternary matrix of order 1142 and Turyn's doubling.
 - 2092, 3732, 4492, 5020 and 5932: **Concurrent** (23 October), with Cooley (2092, 3732) and with Egan, Kotsireas,
   London and Ó Catháin (3732, 4492, 5020, 5932); the skew-Hadamard matrix of order 3732 stays New.
+- 9172: **Concurrent** (27 October), with Egan, Kotsireas, London and Ó Catháin, who derive it from Cooley's matrix of
+  order 2292 by Miyamoto's theorem.
 - 2292: **Known**. The GitHub repository Middletownbooks/Hadamard published an independent matrix of this order on
   9 October 2026, before ours of 14 October; we learned of it on 19 October.
 - 31316: **Known**; SageMath's development version builds it since 3 October 2026.

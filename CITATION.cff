@@ -4,10 +4,10 @@ title: "New Hadamard matrices"
 abstract: "Explicit Hadamard, skew-Hadamard, symmetric Hadamard and complex Hadamard matrices of orders for which no construction was published, or none could be traced, with exact verifiers."
 authors:
   - given-names: Kishan
-version: 2.0.0
+version: 2.1.0
 repository-code: "https://github.com/vatskishan03/Hadamard"
 license: Apache-2.0
-date-released: 2026-10-22
+date-released: 2026-10-29
 keywords:
   - Hadamard matrices
   - skew-Hadamard matrices

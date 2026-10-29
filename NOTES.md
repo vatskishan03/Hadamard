@@ -250,19 +250,19 @@ H((q−1)/2) exists, then WT(q) exists.
 - **Kronecker products.** Lemma 26 asks only for a symmetric quaternary Hadamard matrix (M₃ + M₄)/2 + i(M₄ − M₃)/2 of
   order (q − 1)/2 (§19). Paley's symmetric conference matrices give one (C ± I), symmetric Hadamard matrices give (H,
   H), the repeated-block arrangement gives one from (Y, Z, X, X), and Kronecker products of these are again of this kind
-  (`symwt.py "cor29q(q, …)"`). This repairs 521 (260 = 10 · 26, conference matrices of orders 10 and 26), 953 (476 = 14
-  · 34, with Williamson-type matrices of order 17 from Corollary 8.8(ii) with a symmetric H(8)) and 1993 (996 = 6 · 166,
-  Corollary 31 with p = 41), and Đoković's 2729, 2953 and 3209 (§26), all checked exactly. The primes of the list still
-  without a route are 373, 613, 757, 1109, 1301 and 1493 (1753 was settled by H(876) above, 809 and 1193 at the end of
-  this item). For all six (q − 1)/2 = 186, 306, 378, 554, 650 and 746 is twice an odd number, so it has no factorisation
+  (`symwt.py "cor29q(q, …)"`). This repairs 521 (260 = 10 · 26, conference matrices of orders 10 and 26), 953
+  (476 = 14 · 34, with Williamson-type matrices of order 17 from Corollary 8.8(ii) with a symmetric H(8)) and 1993
+  (996 = 6 · 166, Corollary 31 with p = 41), and Đoković's 2729, 2953 and 3209 (§26), all checked exactly. The primes of
+  the list still without a route are 373, 613, 757, 1109, 1301 and 1493 (1753 was settled by H(876) above, 809 and 1193
+  below). For all six (q − 1)/2 = 186, 306, 378, 554, 650 and 746 is twice an odd number, so it has no factorisation
   into even orders (a quaternary Hadamard matrix of order > 1 has even order), and no conference matrix (185, 305, 377,
   553, 649 and 745 are not prime powers) or repeated-block Williamson-type matrix of half that order is known. For 809
-  and 1193, (q − 1)/2 = 404 = 4 · 101 and 596 = 4 · 149, and the symmetric Hadamard matrices of these orders,
-  census-undecided when this was first written, are now [symmetric/404](symmetric/404) and
-  [symmetric/596](symmetric/596): Corollary 8.8(ii) gives the Williamson-type matrices of orders 809 and 1193 (`symwt.py
-  "cor29h(809, …)"`, checked exactly), and with them [hadamard/12952](hadamard/12952) (search/NOTES.md §95). A search
-  for circulant Williamson matrices (A, B, C, C) of orders 43, 93, 153, 189, 277, 325 and 373 over the multiplier groups
-  containing −1 with at most 18 orbits (some row-sum classes skipped as too large) found none.
+  and 1193, (q − 1)/2 = 404 = 4 · 101 and 596 = 4 · 149. The symmetric Hadamard matrices of these orders, which the
+  census lists as undecided, are [symmetric/404](symmetric/404) and [symmetric/596](symmetric/596). Corollary 8.8(ii)
+  then gives the Williamson-type matrices of orders 809 and 1193 (`symwt.py "cor29h(809, …)"`, checked exactly), and
+  with them [hadamard/12952](hadamard/12952) ([search/NOTES.md](search/NOTES.md) §95). A search for circulant Williamson
+  matrices (A, B, C, C) of orders 43, 93, 153, 189, 277, 325 and 373 over the multiplier groups containing −1 with at
+  most 18 orbits (some row-sum classes skipped as too large) found none.
 
 **Spence-W: Williamson-type matrices from Spence sequences.** Take four ±1 sequences on ℤ₂ × ℤ_n with ΣPAF = −4 off
 zero (Spence's condition for order 4(2n+1)), one invariant under a multiplier group H and three under ⟨H, −1⟩.
@@ -1359,16 +1359,16 @@ hadamard/MIYAMOTO_BLOCKS.md), all First explicit constructions: 3579 and 5965 (q
 729), 8859 (2953, w = 738 = 2 · 9 · 41) and 9627 (3209, w = 802 = 2 · 1 · 401), with T-matrices of order 3, 5, 7 or 11
 (hadamard/MIYAMOTO_BLOCKS.md). Among the 85 other reach orders not built here none lies outside Δ and Đoković's 2010
 propositions. FRONTIER.md gains nothing: 2571 and 2823 would need order 214 = 2 · 107 or 235, which none of the
-corollaries gives.
+corollaries gives (2823 was reached later, [hadamard/11292](hadamard/11292)).
 
 The search for inputs showed that the corollary itself can be repaired for seven primes: Seberry–Yamada's symmetric
 matrices from Corollaries 8.8(ii) with M₃ = M₄, 27 and 31 have X₃ = X₄, and the repeated-block form of Lemma 26 (§7)
 gives symmetric Williamson-type matrices of orders 293, 773, 1453, 1637, 1693, 1733 and 2917, checked exactly. §7 says
 which entries this repairs (also the complex order 1546). Kronecker products of symmetric quaternary Hadamard matrices
-(§7) repair 521, 953, 1993, 2729, 2953 and 3209 as well, and the symmetric Hadamard matrix of order 596 repairs 3579
-and 5965 (q = 1193, search/NOTES.md §95); of the sixteen orders only 5545 (q = 1109) keeps no Williamson-type route
-that we know. All sixteen keep the label First explicit construction
-(NOVELTY.md): the tables' printed route fails, and the repairs were found here.
+(§7) repair 521, 953, 1993, 2729, 2953 and 3209 as well, and the symmetric Hadamard matrix of order 596 repairs 3579 and
+5965 (q = 1193, [search/NOTES.md](search/NOTES.md) §95); of the sixteen orders only 5545 (q = 1109) keeps no
+Williamson-type route that we know. All sixteen keep the label First explicit construction (NOVELTY.md): the tables'
+printed route fails, and the repairs were found here.
 
 An independent rebuild of the four near-Williamson orders of §25 reproduced their SHA-256 values. Verma's symmetric
 conference matrix of order 86 (arXiv:2610.08893, 6 October 2026) gives Williamson-type matrices of order 173 through
@@ -1502,8 +1502,9 @@ odd v ≤ 2499. Its theorems:
   - 16 · 879 and 16 · 921 (skew 1172 or 1228 times amicable 12).
 
   This supports reading the blanks as errors ([skew/2652](skew/2652), [skew/3516](skew/3516)).
-- **Four orders below Table 5.** With the 2026 objects known on 17 October, the only further improvements of Table 5
-  are 16v for v = 589, 611 and 817, from Wallis's product of a skew order 4p with our amicable pairs of orders 52 and 76:
+- **Four orders below Table 5.** With the 2026 objects known on 17 October 2026, the only further improvements of
+  Table 5 are 16v for v = 589, 611 and 817, from Wallis's product of a skew order 4p with our amicable pairs of orders
+  52 and 76:
   - 9424 = 124 · 76;
   - 9776 = 188 · 52, with Đoković's skew 188 (arXiv:0704.0640);
   - 13072 = 172 · 76.
@@ -1525,9 +1526,11 @@ odd v ≤ 2499. Its theorems:
 
   Every split into a skew order and a classical amicable order fails for these orders. For instance, 9424 = h m with m
   = 2 or 4 needs the open skew orders 4712 or 2356, and every larger classical amicable divisor (8, 16, 152, 248, 304,
-  496) leaves h ≢ 0 (mod 4). (Since 23 October 4712 is in [skew/4712](skew/4712), so 9424 is also its doubling, and
-  the searches of search/NOTES.md §87–89 improve 119, 191, 277, 299, 473 and 589 further.) The orders are built in [skew/9424](skew/9424), [skew/9776](skew/9776) and
+  496) leaves h ≢ 0 (mod 4). The orders are built in [skew/9424](skew/9424), [skew/9776](skew/9776) and
   [skew/13072](skew/13072) (`search/skew_wallis.py`, `verify.py` construction `skew-amicable-product`).
+
+  Since then 4712 has been constructed ([skew/4712](skew/4712)), so 9424 is also its doubling. The searches of
+  [search/NOTES.md](search/NOTES.md) §87–89 improve Table 5 further at v = 119, 191, 277, 299, 473 and 589.
 - **Paley plus three blocks.** The skew factors of orders 124 and 172 were found in about a second as Goethals–Seidel
   quadruples. The first block is Paley's (−1 on the nonzero squares, PAF −1 off zero), and the other three are unions
   of orbits of a subgroup of the squares (⟨2⟩ of order 5 mod 31, ⟨4⟩ of order 7 mod 43) with PAF sum +1 off zero.
@@ -1687,9 +1690,9 @@ anti-automorphism of the skew matrix is used, which is what §29 needed.
   known for 28 of them, v = 295 to 2335 (orders 1180 to 9340): Paley's matrices and doublings (9), Szekeres's and
   Whiteman's complementary difference sets (3), published Goethals–Seidel data (good matrices of order 29,
   Fletcher–Koukouvinos–Seberry's 236, Đoković's 67, 103, 163, 247; 6), quick multiplier searches for orders 148, 196,
-  292, 532 (5), our skew matrices of orders 820, 836, 1036, 1148 (4), and our skew matrix of order 476, doubled (1; added
-  23 October, [symmetric/7612](symmetric/7612)). The other six, v = 1711, 1879, 2215, 2359, 2383 and 2391, need the
-  undecided skew orders 4w, w = 107, 235, 277, 295, 149 and 299 (or twice them).
+  292, 532 (5), our skew matrices of orders 820, 836, 1036, 1148 (4), and our skew matrix of order 476, doubled (1,
+  [symmetric/7612](symmetric/7612)). The other six, v = 1711, 1879, 2215, 2359, 2383 and 2391, need the undecided skew
+  orders 4w, w = 107, 235, 277, 295, 149 and 299 (or twice them).
 - **Zaitsev et al.** The quaternary matrices QH590, QH638, QH782, QH926, QH1310, QH1358, QH1646 and QH1886 of Zaitsev,
   Kharaghani, Mohammadian and Tayfeh-Rezaie (page of 14 October 2026, "unpublished approaches") are of this kind; for
   each, a monomial matrix found with nauty makes it symmetric (checked: same rows, columns up to units, symmetric,

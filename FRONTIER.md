@@ -9,11 +9,10 @@ Settled:
 
 - 12 by Alpöge, Voinov and Reynolds-Haertle (2026);
 - 19 by other public constructions of 2026 (Schneider; the JD-Jones-ASES repositories Hadamard-T and Hadamard-M;
-  Schumer). Five of them, n = 131 · t with t = 7, 11, 13, 17, 19, were already reachable in 2025: Cooper–Wallis with
-  the T-matrices of order 131 that London and Kotsireas's Turyn-type sequences TT(44) give ([NOTES.md](NOTES.md) §28);
+  Schumer). Five of them, n = 131 · t with t = 7, 11, 13, 17, 19, were already reachable in 2025: Cooper–Wallis with the
+  T-matrices of order 131 that London and Kotsireas's Turyn-type sequences TT(44) give ([NOTES.md](NOTES.md) §28);
 - 6 by Đoković in 2010: n = 823, 883, 1063, 1303, 2143 and 2335 (arXiv:1008.2043, Propositions 3.1 and 3.4);
-- 1 in 1988: n = 1823, from Seberry and Whiteman's symmetric conference matrix of order 3646
-  ([NOTES.md](NOTES.md) §7);
+- 1 in 1988: n = 1823, from Seberry and Whiteman's symmetric conference matrix of order 3646 ([NOTES.md](NOTES.md) §7);
 - 1 by Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175, 19 October 2026): n = 1447 (order 5788 = 4(4 · 19² + 3),
   their Theorem 7 over ℤ₂² × F₁₉², with a border);
 - 2 by the GitHub repository Middletownbooks/Hadamard: n = 573 (order 2292, 9 October 2026; our independent matrix is
@@ -22,72 +21,83 @@ Settled:
   - n = 523, 537, 571, 643, 659, 839, 859, 933, 955, 991, 1051, 1123, 1255, 1483, 1699 and 2293 by searches and
     recursive theorems (orders [2092](hadamard/2092), [2148](hadamard/2148), [2284](hadamard/2284),
     [2572](hadamard/2572), [2636](hadamard/2636), [3356](hadamard/3356), [3436](hadamard/3436), [3732](hadamard/3732),
-    [3820](hadamard/3820), [3964](hadamard/3964),
-    [4204](hadamard/4204), [4492](hadamard/4492), [5020](hadamard/5020), [5932](hadamard/5932),
-    [6796](hadamard/6796) and [9172](hadamard/9172)); concurrently with others: 571 (Zaitsev et al.), 523 (Cooley,
-    Middletownbooks/Hadamard), 933 (Cooley, and Egan et al.), 1123, 1255 and 1483 (Egan et al.), 2293 (Egan et al.,
-    from Cooley's matrix of order 2292);
+    [3820](hadamard/3820), [3964](hadamard/3964), [4204](hadamard/4204), [4492](hadamard/4492), [5020](hadamard/5020),
+    [5932](hadamard/5932), [6796](hadamard/6796) and [9172](hadamard/9172)); concurrently with others: 571 (Zaitsev et
+    al.), 523 (Cooley, Middletownbooks/Hadamard), 933 (Cooley, and Egan et al.), 1123, 1255 and 1483 (Egan et al.), 2293
+    (Egan et al., from Cooley's matrix of order 2292);
   - n = 789, 1315, 1509, 1589, 1689, 1841, 1915, 2155, 2515, 2661, 2733, 2815, 2893 and 2951 by Paley's matrix in
     sixteen circulant blocks times T-matrices, two published theorems that the tables did not combine
     ([hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md));
-  - n = 1527, 1883 and 2545 by Miyamoto's matrix in sixteen bordered blocks with near-Williamson matrices of 2026,
-    times T-matrices ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#near-williamson-matrices));
+  - n = 1527, 1883 and 2545 by Miyamoto's matrix in sixteen bordered blocks with near-Williamson matrices of 2026, times
+    T-matrices ([hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md#near-williamson-matrices));
   - n = 2823 by the same blocks with symmetric Williamson-type matrices of order 235 from a symmetric conference matrix
     of order 118 found here ([hadamard/11292](hadamard/11292); the conference matrix is Concurrent with J. Y. Z. Ho's,
     reported in October 2026 and not public).
 
-**Table 4 and the matrices of 2026.** Table 4's values m predate the orders 4n of 2026. Agayan's multiplication (orders
-2ˢp and 2ᵗq give 2^(s+t−1)pq) with them lowers fourteen entries to m = 3: 1169, 1437, 1795, 1969, 1981, 2171, 2215,
-2327, 2429, 2513 and 2899 through the matrices of Alpöge, Voinov and Reynolds-Haertle; 2855 = 5 · 571 and 2973 = 3 · 991
-through [hadamard/2284](hadamard/2284) and [hadamard/3964](hadamard/3964); and 2315, 1793 and 2119 already from Table
-4's own data (Table 4 updates Seberry–Yamada's values only where it reaches m = 2) ([search/NOTES.md](search/NOTES.md)
-§104). Kamali and Kharaghani's dihedral Golay sequences of 1998 lower seventeen entries (the same section; 1793 among
-them, and two more below), [hadamard/12472](hadamard/12472) lowers 1559 and [hadamard/20712](hadamard/20712) lowers
-2589 (4 · 2589 and 4 · 863 stay open). Craigen's asymptotic theorem (1995: an order 2ᵗn for every odd n with
-t = 4⌈(1/16) log₂((n − 1)/2)⌉ + 2, that is t = 6 for n ≤ 131073) makes every value of Table 4 above 6 too large:
-1499, 1987, 2399, 2671, 2683, 2687, 2699 and 2999 have m ≤ 6, not 7 to 9. Craigen, Holzmann and Kharaghani's rule
-(Discrete Math. 252 (2002): complex Golay pairs of lengths x and y give H(8(x + y)); the 2026 survey of Egan et al.
-uses it) lowers 24 more entries. Seven of them reach m = 3: 971, 1223, 1259, 1451, 1571, 2039 and 2423. The other 17
-drop to 4 or 5 ([search/NOTES.md](search/NOTES.md) §106). [hadamard/5912](hadamard/5912) lowers 739 to m = 3. After
-all of this, 28 entries keep m ≥ 4, so their orders 8n are open:
-- m = 4: 599, 719, 1319, 1439, 1579, 1783, 1979, 1987, 2207, 2251, 2287, 2339, 2371, 2399, 2543, 2671, 2677, 2687,
-  2699, 2903 and 2939;
+**Table 4 and the matrices of 2026.** Table 4 records n(m), the least m with a known Hadamard matrix of order 2ᵐn; an
+entry with m ≥ 4 is also an open order 8n. Its values m predate the orders 4n settled in 2026. Since then entries have
+been lowered by:
+- Agaian's multiplication (orders 2ˢp and 2ᵗq give 2^(s+t−1)pq), which lowers sixteen entries to m = 3
+  ([search/NOTES.md](search/NOTES.md) §104):
+  - 1169, 1437, 1795, 1969, 1981, 2171, 2215, 2327, 2429, 2513 and 2899 through the matrices of Alpöge, Voinov and
+    Reynolds-Haertle;
+  - 2855 = 5 · 571 and 2973 = 3 · 991 through [hadamard/2284](hadamard/2284) and [hadamard/3964](hadamard/3964);
+  - 2315, 1793 and 2119 already from Table 4's own data (Table 4 updates Seberry–Yamada's values only where it reaches
+    m = 2);
+- Kamali and Kharaghani's dihedral Golay sequences of 1998, which lower seventeen entries (the same section; 1793 among
+  them, and two more below);
+- Three matrices of this repository: [hadamard/12472](hadamard/12472) lowers 1559, [hadamard/20712](hadamard/20712)
+  lowers 2589 (4 · 2589 and 4 · 863 stay open) and [hadamard/5912](hadamard/5912) lowers 739 to m = 3;
+- Craigen's asymptotic theorem (1995: an order 2ᵗn for every odd n with t = 4⌈(1/16) log₂((n − 1)/2)⌉ + 2, that is t = 6
+  for n ≤ 131073), which makes every value of Table 4 above 6 too large: 1499, 1987, 2399, 2671, 2683, 2687, 2699 and
+  2999 have m ≤ 6, not 7 to 9;
+- Craigen, Holzmann and Kharaghani's rule (Discrete Math. 252 (2002): complex Golay pairs of lengths x and y give
+  H(8(x + y)); the 2026 survey of Egan et al. uses it), which lowers 24 more entries. Seven of them reach m = 3: 971,
+  1223, 1259, 1451, 1571, 2039 and 2423. The other 17 drop to 4 or 5 ([search/NOTES.md](search/NOTES.md) §106).
+
+After all of this, 28 entries keep m ≥ 4, so their orders 8n are open:
+- m = 4: 599, 719, 1319, 1439, 1579, 1783, 1979, 1987, 2207, 2251, 2287, 2339, 2371, 2399, 2543, 2671, 2677, 2687, 2699,
+  2903 and 2939;
 - m = 5: 1567, 2683, 2879, 2887 and 2995;
 - m = 6: 1499 and 2999.
 
-**Orders 8p.** Table 4 records n(m), the least m with a known Hadamard matrix of order 2ᵐn; an entry with m ≥ 4 is also
-an open order 8n. Egan, Kotsireas, London and Ó Catháin (Table 5) list six open orders 8p up to 10 000: 4792, 5752,
-5912, 6712, 8248 and 8696 (p = 599, 719, 739, 839, 1031, 1087). Their list differs from Table 4 at four entries: Table 4
-has 1087(3), and 971(6), 1169(4) and 1223(6), whose orders 8n their list does not include. The survey is right
-about 971 and 1223, whose orders 8n follow from Craigen–Holzmann–Kharaghani's rule (above), and about 1169
-(Agayan's multiplication with 4 · 167 of 2026). Table 4 is right about 1087:
-the survey takes Williamson-type matrices from Seberry–Yamada's Table A.1 "except 543", but A.1's matrices of order 543
-(key wi, their Corollary 27(i)) are valid, and with them the order-8q construction gives [hadamard/8696](hadamard/8696)
-(Known). Two more entries of their list were settled in 1998: Kamali and Kharaghani (*Dihedral Golay sequences*,
-Australas. J. Combin. 18, 139–145, Corollary 9 and Table 1) give Hadamard matrices of orders 8(g₁g + g₂) from Golay
-lengths g₁, g₂ and g = 7, 9, 15, among them 6712 = 8 · 839 (7 + 2⁵ · 26) and 8248 = 8 · 1031 (7 + 2¹⁰); Table 4's
-entries 839(4) and 1031(6) do not take this paper into account. The Hadamard Matrix Explorer (math74.com, version 53)
-posts matrices of orders 6712, 8248 and 8696. That left three orders 8p open: 4792, 5752 and 5912.
-[hadamard/5912](hadamard/5912) is constructed here, by Spence's construction over the group ℤ₂₁₁ × F₇ of odd order
-1477 = 2 · 739 − 1 with a multiplier group of order 45 ([search/NOTES.md](search/NOTES.md) §108). Two orders 8p remain
-open: 4792 and 5752. A Hadamard matrix of order 4p settles 8p by doubling, and so does a quaternary Hadamard matrix of
-order p − 1 through Miyamoto's Theorem 7 ([hadamard/COMPLEX_MIYAMOTO.md](hadamard/COMPLEX_MIYAMOTO.md)); the orders
-598 and 718 are open quaternary orders. [search/NOTES.md](search/NOTES.md) §92 searches the orders 8p directly
-([search/eightp](search/eightp/README.md)); apart from 5912 no matrix was found. What §92 established, for all six p:
-- the plain Goethals–Seidel and negacyclic structures over ℤ₂ₚ and ℤ_p are dead, except for multiplier groups with at
-  least 2⁹⁴ sign vectors per block;
+**Orders 8p.** Egan, Kotsireas, London and Ó Catháin (Table 5) list six open orders 8p up to 10 000: 4792, 5752, 5912,
+6712, 8248 and 8696 (p = 599, 719, 739, 839, 1031, 1087). Their list differs from Table 4 at four entries: Table 4 has
+1087(3), and 971(6), 1169(4) and 1223(6), whose orders 8n their list does not include.
+- The survey is right about 971 and 1223, whose orders 8n follow from Craigen–Holzmann–Kharaghani's rule (above), and
+  about 1169 (Agaian's multiplication with 4 · 167 of 2026).
+- Table 4 is right about 1087. The survey takes Williamson-type matrices from Seberry–Yamada's Table A.1 "except 543",
+  but A.1's matrices of order 543 (key wi, their Corollary 27(i)) are valid, and with them the order-8q construction
+  gives [hadamard/8696](hadamard/8696) (Known).
+- Two more entries of their list were settled in 1998. Kamali and Kharaghani (*Dihedral Golay sequences*, Australas. J.
+  Combin. 18, 139–145, Corollary 9 and Table 1) give Hadamard matrices of orders 8(g₁g + g₂) from Golay lengths g₁, g₂
+  and g = 7, 9, 15, among them 6712 = 8 · 839 (7 + 2⁵ · 26) and 8248 = 8 · 1031 (7 + 2¹⁰). Table 4's entries 839(4) and
+  1031(6) do not take this paper into account. The Hadamard Matrix Explorer (math74.com, version 53) posts matrices of
+  orders 6712, 8248 and 8696.
+
+That left three orders 8p open: 4792, 5752 and 5912. [hadamard/5912](hadamard/5912) is constructed here, by Spence's
+construction over the group ℤ₂₁₁ × F₇ of odd order 1477 = 2 · 739 − 1 with a multiplier group of order 45
+([search/NOTES.md](search/NOTES.md) §108). Two orders 8p remain open: 4792 and 5752. A Hadamard matrix of order 4p
+settles 8p by doubling, and so does a quaternary Hadamard matrix of order p − 1 through Miyamoto's Theorem 7
+([hadamard/COMPLEX_MIYAMOTO.md](hadamard/COMPLEX_MIYAMOTO.md)); the orders 598 and 718 are open quaternary orders.
+
+[search/NOTES.md](search/NOTES.md) §92 searches the orders 8p directly ([search/eightp](search/eightp/README.md)); apart
+from 5912 no matrix was found. What §92 established, for all six p:
+- the plain Goethals–Seidel and negacyclic structures over ℤ₂ₚ and ℤ_p are ruled out, except for multiplier groups with
+  at least 2⁹⁴ sign vectors per block;
 - none of the recursive theorems listed in the survey applies;
 - Spence's construction also works over a group of odd order 2p − 1. There the Paley plug-in shapes with at most 20
-  orbits are all dead at p = 719, 1031 and 1087, and 14 shapes at p = 599, 719, 739 and 1031 are exhaustively empty;
+  orbits are all ruled out at p = 719, 1031 and 1087, and 14 shapes at p = 599, 719, 739 and 1031 are exhaustively
+  empty;
 - the plain cyclic structures with at most 22 orbits (24 for v = 1197, 1477, 1677) and the block-symmetric ones with at
   most 30 orbits are empty.
 
-Quaternary matrices of orders 598 and 738 were searched as well (round 51b, [search/NOTES.md](search/NOTES.md) §104):
-every structure with fewer than about 45 orbits dies at a quotient. For p = 599 what remains are Spence plug-in shapes
-with 8 to 21 orbits; the cheapest by the old model, ℤ₉ × ℤ₁₉ × F₇, is exactly empty, and the best live one, ℤ₇ × ℤ₁₉ ×
-F₉ with a multiplier group of order 36, costs about 1.5 · 10³ core-hours by the calibrated estimate of §107. The
-plug-in shape of p = 739 that gave 5912 had been modelled at 10⁶ CPU-seconds; the calibrated estimate of §107 was
-about 4 core-hours, and the production took 4.3.
+Quaternary matrices of orders 598 and 738 were searched as well ([search/NOTES.md](search/NOTES.md) §104): every
+structure with fewer than about 45 orbits is ruled out at a quotient. For p = 599 what remains are Spence plug-in shapes
+with 8 to 21 orbits; the cheapest by the old model, ℤ₉ × ℤ₁₉ × F₇, is exactly empty, and the best remaining one,
+ℤ₇ × ℤ₁₉ × F₉ with a multiplier group of order 36, costs about 1.5 · 10³ core-hours by the calibrated estimate of §107.
+The plug-in shape of p = 739 that gave 5912 had been modelled at 10⁶ CPU-seconds; the calibrated estimate of §107 was
+about 4 core-hours, and the production took 4.3 core-hours.
 
 **Corollary 8.8(i).** Đoković (arXiv:1008.2043, Propositions 3.2–3.4) also claimed n = 1527, 2545 and 2571, through
 Williamson-type matrices of orders 509 and 857 that Seberry–Yamada's Corollary 8.8(i) would give. Its printed proof
@@ -123,10 +133,10 @@ one applies:
 - Yamada: a symmetric conference matrix of order (n + 1)/2, which cannot exist when (n − 1)/2 is not a sum of two
   squares.
 - complex Yamada–Kiyasu: a quaternary conference matrix of order (n + 1)/2 (zero diagonal, entries ±1, ±i elsewhere),
-  when n − 2 is a prime power ≡ 1 (mod 4) (the builder takes primes). It has no sum-of-two-squares condition; it
-  settled 643, 859, 955, 1051 and 1699 ([hadamard/2572](hadamard/2572), [hadamard/3436](hadamard/3436),
-  [hadamard/3820](hadamard/3820),
-  [hadamard/4204](hadamard/4204), [hadamard/6796](hadamard/6796), [NOTES.md](NOTES.md) §31, §34).
+  when n − 2 is a prime power ≡ 1 (mod 4) (the builder takes primes). It has no sum-of-two-squares condition; it settled
+  643, 859, 955, 1051 and 1699 ([hadamard/2572](hadamard/2572), [hadamard/3436](hadamard/3436),
+  [hadamard/3820](hadamard/3820), [hadamard/4204](hadamard/4204), [hadamard/6796](hadamard/6796), [NOTES.md](NOTES.md)
+  §31, §34).
 - Cooper–Wallis: Williamson-type matrices of order w, for n = t·w with T-matrices of order t known. Listed for w = 191
   (t = 5, 9, 15), where neither T-matrices of order 191 nor near-Williamson matrices of order 191 with a multiplier
   symmetry exist ([search/NOTES.md](search/NOTES.md) §6, §37). Also listed for w = 857, whose Williamson-type matrices
