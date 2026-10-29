@@ -71,7 +71,7 @@ posts matrices of orders 6712, 8248 and 8696. That left three orders 8p open: 47
 open: 4792 and 5752. A Hadamard matrix of order 4p settles 8p by doubling, and so does a quaternary Hadamard matrix of
 order p − 1 through Miyamoto's Theorem 7 ([hadamard/COMPLEX_MIYAMOTO.md](hadamard/COMPLEX_MIYAMOTO.md)); the orders
 598 and 718 are open quaternary orders. [search/NOTES.md](search/NOTES.md) §92 searches the orders 8p directly
-([search/eightp](search/eightp/README.md)); for 4792 and 5752 no matrix was found:
+([search/eightp](search/eightp/README.md)); apart from 5912 no matrix was found. What §92 established, for all six p:
 - the plain Goethals–Seidel and negacyclic structures over ℤ₂ₚ and ℤ_p are dead, except for multiplier groups with at
   least 2⁹⁴ sign vectors per block;
 - none of the recursive theorems listed in the survey applies;

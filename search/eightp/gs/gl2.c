@@ -204,7 +204,10 @@ int main(int argc, char **argv) {
     for (int j = 0; j < 2 * MAXK; j++) rc[j] = rnd() | 1;
 #ifdef NEARMISS
     { const char *e = getenv("GL2_OMIT"); char *cp = e ? strdup(e) : NULL;
-      for (char *tk = cp ? strtok(cp, ",") : NULL; tk; tk = strtok(NULL, ",")) { int j = atoi(tk); if (j >= 0 && j < nk) { OMITF[j] = 1; rc[j] = 0; } }
+      for (char *tk = cp ? strtok(cp, ",") : NULL; tk; tk = strtok(NULL, ",")) {
+          char *end; long j = strtol(tk, &end, 10);
+          if (end == tk || *end || j < 0 || j >= nk) { fprintf(stderr, "GL2_OMIT: bad index '%s'\n", tk); return 4; }
+          OMITF[j] = 1; rc[j] = 0; }
       free(cp); if (getenv("GL2_NOPSD")) NOPSD = atoi(getenv("GL2_NOPSD")); if (getenv("GL2_NMCAP")) NMCAP = atoi(getenv("GL2_NMCAP")); }
 #endif
     for (int inst = 0; inst < ninst; inst++) {

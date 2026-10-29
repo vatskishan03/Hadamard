@@ -469,7 +469,8 @@ order within days, so 9172 is **Concurrent**.
 - *Recent work.* Middletownbooks/Hadamard (README of two branches; a commit search shows only screens of 2956);
   JD-Jones-ASES Hadamard-T, -M, -B and -formal; schneiderlo/hadamard-2060; Zenodo (Schumer, Kline); the arXiv API to
   27 October and the full text of 25 papers; OEIS A019442 and A007299; MathWorld.
-- *Finding.* None gives a Hadamard matrix of order 5912 or 2956, or a quaternary matrix of order 738.
+- *Finding.* None gives a Hadamard matrix of order 5912 or 2956, or a quaternary matrix of order 738. So 5912 is
+  **New**: the sequences are new, and the construction is Spence's over a group of odd order.
 - *Spence over an odd group.* The survey states Spence's construction (its Theorem 5) for even m only. We found no
   source for the odd case but did not search for one specifically.
 - *Not read.* Miyamoto 1991; Seberry and Yamada's 2020 book; the Handbook's Table 1.53. The survey's authors, Cooley

@@ -2,7 +2,7 @@
  mode gs     -> construction "goethals-seidel-group"   (order 4|G|)
  mode spence -> construction "spence"                  (order 4|G| + 4; row sums normalised to (2,0,0,0) by negations/reordering; P, Q as in hadamard/2292)
  mode bord   -> construction "bordered-goethals-seidel" (order 4(|G| + t); border solved with search/bordered.py (Q = Z_3, T = all characters: border3.c); other (Q, T): unsupported -> raises)
-ODD |G| (search/NOTES.md section 92): row sums (+-1, +-1, +-1, +-1), P = Q = S, K = -S built by verify.py after oddspence/verify_odd_spence.patch (the repository's verify.py accepts only (2, 0, 0, 0)).
+ODD |G| (search/NOTES.md sections 92, 108): row sums (+-1, +-1, +-1, +-1), P = Q = S, K = -S, built by verify/verify.py (accepted since round 58; copies older than that need oddspence/verify_odd_spence.patch).
 The certificate is written into a SCRATCH copy of the repository (`repo_copy` in this directory, see README.md; it needs verify/ and search/), built and checked there with python3 verify/verify.py <order>; the repository itself is never modified.
 """
 import os, sys, json, hashlib, subprocess, importlib.util, itertools
@@ -54,7 +54,7 @@ def build_cert(sh, blocks):
         if am: cert['automorphisms'] = am
         return cert
     if sh.mode == 'spence' and all(abs(int(x.sum())) == 1 for x in seqs):
-        # ODD |G|: row sums (+-1)^4, no normalisation needed; the patched verify.py builds P = Q = S (search/NOTES.md section 92)
+        # ODD |G|: row sums (+-1)^4, no normalisation needed; verify.py builds P = Q = S (search/NOTES.md sections 92 and 108)
         return dict(order=4 * v + 4, construction='spence', group=mods, P=[[0] * 4] * 4, Q=[[0] * 4] * 4, sequences=[seq_str(x) for x in seqs])
     if sh.mode == 'spence':
         sums = [int(x.sum()) for x in seqs]

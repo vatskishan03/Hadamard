@@ -985,7 +985,8 @@ def build_cooper_wallis_bordered(cert):
 def build_spence(cert):
     """Spence's bordered construction. Four +-1 sequences on an abelian group G of order v
     (elements in mixed-radix order of `group`) whose autocorrelations sum to -4 off the
-    identity, with row sums (2, 0, 0, 0), give a Hadamard matrix of order 4v + 4:
+    identity, with row sums (2, 0, 0, 0) (v even) or (+-1, +-1, +-1, +-1) (v odd, see below),
+    give a Hadamard matrix of order 4v + 4:
 
         H = [ K        Q (x) 1^T ]
             [ P (x) 1  M         ]
@@ -995,14 +996,14 @@ def build_spence(cert):
 
     For odd v the row sums are (+-1, +-1, +-1, +-1) instead; then P = Q = S, the
     Goethals-Seidel array of the row sums (S S^T = 4I), and K = -S, and the certificate's
-    P and Q are not used (search/eightp/README.md, odd |G|)."""
+    P and Q are not used (search/eightp/README.md, "Spence's construction over an odd group")."""
     mods = cert["group"]
     v = int(np.prod(mods))
     coords = np.array(np.unravel_index(np.arange(v), mods)).T
     index = lambda c: np.ravel_multi_index(tuple(np.moveaxis(c % mods, -1, 0)), mods)
     seqs = [np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["sequences"]]
     rs = [int(x.sum()) for x in seqs]
-    odd = all(abs(r) == 1 for r in rs)
+    odd = len(rs) == 4 and all(abs(r) == 1 for r in rs)
     if rs != [2, 0, 0, 0] and not odd:
         raise ValueError("row sums must be (2, 0, 0, 0) or (+-1, +-1, +-1, +-1)")
     total = np.zeros(v, dtype=np.int64)

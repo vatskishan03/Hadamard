@@ -104,15 +104,15 @@ settles the further open orders 5272, 7464, 18344, 36688 and 73376.
   come from the two block decompositions, the rest from the recursive theorems of Miyamoto [8], Yamada–Kiyasu [9] and
   Cooper–Wallis [7] applied to matrices here and to objects published in 2026
   ([hadamard](hadamard#orders-beyond-the-tables)).
-- **Entries of Table 4 lowered**: 5912 = 8 · 739 (Table 4: 739(6), 739(4) by Craigen–Holzmann–Kharaghani's rule; one
-  of the six open orders 8p of the 2026 survey [18]), from Spence's bordered construction over the group ℤ₂₁₁ × F₇ of
-  odd order 1477, found by a calibrated search ([hadamard/5912](hadamard/5912)); two orders 8p remain open, 4792 and
-  5752. 12472 = 8 · 1559 (Table 4: 1559(4)), from
-  (very probably) Miyamoto's Theorem 7, which the tables use only with 2q − 3 a prime power, and the quaternary Hadamard
-  matrix of order 1558 of 2026, written out in quaternary form; on the way a quaternary Hadamard matrix of order
-  6236 = 4 · 1559, an order with no known real one ([hadamard/COMPLEX_MIYAMOTO.md](hadamard/COMPLEX_MIYAMOTO.md)).
-  20712 = 8 · 3 · 863 (Table 4: 2589(4)), from a new multiplication: Miyamoto's quaternary array in sixteen commuting
-  blocks, doubled, times T-matrices ([hadamard/QUATERNARY_MIYAMOTO_BLOCKS.md](hadamard/QUATERNARY_MIYAMOTO_BLOCKS.md)).
+- **Entries of Table 4 lowered**: 5912 = 8 · 739 (Table 4: 739(6); 739(4) by Craigen–Holzmann–Kharaghani's rule,
+  which the table omits; one of the six open orders 8p of the 2026 survey [18]), from Spence's bordered construction
+  over the group ℤ₂₁₁ × F₇ of odd order 1477, found by a calibrated search ([hadamard/5912](hadamard/5912)); two orders
+  8p remain open, 4792 and 5752. 12472 = 8 · 1559 (Table 4: 1559(4)), from (very probably) Miyamoto's Theorem 7, which
+  the tables use only with 2q − 3 a prime power, and the quaternary Hadamard matrix of order 1558 of 2026, written out
+  in quaternary form; on the way a quaternary Hadamard matrix of order 6236 = 4 · 1559, an order with no known real
+  one ([hadamard/COMPLEX_MIYAMOTO.md](hadamard/COMPLEX_MIYAMOTO.md)). 20712 = 8 · 3 · 863 (Table 4: 2589(4)), from a
+  new multiplication: Miyamoto's quaternary array in sixteen commuting blocks, doubled, times T-matrices
+  ([hadamard/QUATERNARY_MIYAMOTO_BLOCKS.md](hadamard/QUATERNARY_MIYAMOTO_BLOCKS.md)).
 - **Corollary 8.8(i).** 58 orders were claimed or recorded as known only through Seberry–Yamada's Corollary 8.8(i):
   ten that Table 4 omits (2076 to 10444), 6108 and 10180, and 46 beyond Table 4. We give the first valid
   constructions of all 58
@@ -185,6 +185,7 @@ gzip -dc hadamard/2092/H2092.csv.gz | ./check_matrix
 | Bordered Goethals–Seidel arrays with exact compression chains (index 4, and index 8 over a Galois ring for 3356) | 2148, 2636, 3356, 3964 | [METHOD.md](METHOD.md#bordered-structures), [search/NOTES.md](search/NOTES.md) §18–19, §102, [search/bgschain](search/bgschain) |
 | Cyclotomic products ℤ_m × GF(q) of index 4 to 10 | 3732, 5020; skew 820, 1044, 1204, 1276, 3380, 5668 | [search/NOTES.md](search/NOTES.md) §16, §20 |
 | Spence's construction with blocks (A, B, B∘μ, B∘μ²) and a Legendre lift | 2292 | [NOTES.md](NOTES.md) §13, [search/spence_spin](search/spence_spin) |
+| Spence's construction over a group of odd order 2p − 1, a Paley plug-in with a multiplier group of order 45, calibrated by near misses | 5912 | [hadamard/5912](hadamard/5912), [search/eightp](search/eightp/README.md#order-5912), [search/NOTES.md](search/NOTES.md) §108 |
 | Paley's matrix in sixteen circulant blocks, times T-matrices | 157 orders, 14 of them unresolved | [hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md) |
 | Miyamoto's matrix in sixteen commuting bordered blocks, times T-matrices | 49 orders, 3 of them unresolved | [hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md) |
 | Recursive theorems of Miyamoto (Theorem 7 in quaternary form for 12472), Yamada–Kiyasu and Cooper–Wallis | 9172, 12472 and orders beyond Table 4 | [hadamard](hadamard), [williamson-type](williamson-type), [t-matrices](t-matrices) |

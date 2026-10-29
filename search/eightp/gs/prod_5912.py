@@ -52,6 +52,9 @@ def main():
     sh = make_shape(*SHAPE); l1 = L1(sh); allocs = parse_allocs(TOKENS, LA, LC); pcache = {}
     st_path = outp + '.state.json'
     state = json.load(open(st_path)) if os.path.exists(st_path) else dict(round=0, inst=0, uniq=0, compl=0, cpu=0.0, hits=0)
+    if os.path.exists(outp + '.jsonl'):                       # a kill between the record and the state leaves a repeated round: drop it
+        keep = [l for l in open(outp + '.jsonl') if l.strip() and json.loads(l)['round'] < state['round']]
+        open(outp + '.jsonl', 'w').writelines(keep)
     t0 = time.time(); fo = open(outp + '.jsonl', 'a')
     print('resume at round', state['round'], flush=True)
     while time.time() - t0 < secs and not os.path.exists(outp + '.STOP'):

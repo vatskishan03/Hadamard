@@ -54,6 +54,7 @@ search/negaskew/octic/exsmall
 !search/negaskew/tri/data/*.log
 search/eightp/gs/libgl1.so
 search/eightp/gs/gl2_*
+search/eightp/gs/gl2n_*
 search/eightp/gs/runs/
 search/eightp/gs/tmp/
 search/eightp/gs/out/

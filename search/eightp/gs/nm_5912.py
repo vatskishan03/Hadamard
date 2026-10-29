@@ -24,8 +24,10 @@ def run_gl2n(sh, insts, omit, seed):
         f.write(hdr); f.write(f'{len(insts)}\n')
         for blocks in insts: f.write(instance_text(sh, blocks))
     env = dict(os.environ, GL2_OMIT=','.join(map(str, omit)), GL2_NOPSD='1')
-    try: out = subprocess.run([exe, path, '5', '1e9', str(seed), '1500000', '0'], capture_output=True, text=True, env=env).stdout
+    try: res = subprocess.run([exe, path, '5', '1e9', str(seed), '1500000', '0'], capture_output=True, text=True, env=env)
     finally: os.unlink(path)
+    if res.returncode: raise RuntimeError(f'gl2n exit {res.returncode}: {res.stderr[:200]}')
+    out = res.stdout
     nm, compl, NM, sols = {}, {}, {}, []
     for line in out.splitlines():
         p = line.split()

@@ -3,7 +3,7 @@
 The programs behind the paragraph "The orders 8p" of [../NOTES.md](../NOTES.md) §92. Egan, Kotsireas, London and Ó Catháin list six open orders 8p up to 10 000 ([../../FRONTIER.md](../../FRONTIER.md), "Orders 8p"):
 p = 599, 719, 739, 839, 1031, 1087, that is n = 2p = 1198, 1438, 1478, 1678, 2062, 2174 and the orders 4n = 4792, 5752, 5912, 6712, 8248, 8696. A Hadamard matrix of order 4n is a Goethals–Seidel array over a group of order n,
 or Spence's bordered array over a group of order n − 1 = 2p − 1 (odd for every p), or a bordered array over a group of order n − t, or a recursive construction. All of them were searched or decided
-as far as the tools below reach; **For 5912 = 8 · 739 the sampler of `gs/` found a matrix ([Order 5912](#order-5912), [../../hadamard/5912](../../hadamard/5912)); for the other five orders no matrix was found by these programs.** (Three of the six were in fact known: 8696 through Seberry–Yamada's key wi, and 6712 and 8248 through Kamali and Kharaghani's dihedral Golay sequences of 1998; see [../../FRONTIER.md](../../FRONTIER.md).) The labels are those of the repository: EXHAUSTIVE (a complete search of a stated class, validated against an
+as far as the tools below reach. **For 5912 = 8 · 739 the sampler of `gs/` found a matrix ([Order 5912](#order-5912), [../../hadamard/5912](../../hadamard/5912)); for the other five orders no matrix was found by these programs.** (Three of the six were in fact known: 8696 through Seberry–Yamada's key wi (constructed in [../../hadamard/8696](../../hadamard/8696)), and 6712 and 8248 through Kamali and Kharaghani's dihedral Golay sequences of 1998; see [../../FRONTIER.md](../../FRONTIER.md).) The labels are those of the repository: EXHAUSTIVE (a complete search of a stated class, validated against an
 independent brute force), EXACT (a proof or an exact computation), VALIDATED, HEURISTIC, UNKNOWN.
 
 ## What was searched
@@ -34,8 +34,8 @@ is a Hadamard matrix of order 4(v + 1) = 4n, n = 2p. H Hᵀ = nI was checked for
 
 Certificate path. A hit of a sampler (`gs/gs_samp.py`) is verified at G level (exact integer PAF = −4 off 0, all row sums ±1) and passed to `gs/gs_cert.py`, which for odd \|G\| writes the certificate
 `{order: 4v + 4, construction: spence, group, sequences}` (P and Q are placeholders). `verify/verify.py` of the repository accepts the row sums (2, 0, 0, 0) and, since round 58 (§108), also (±1, ±1, ±1, ±1), building P = Q = S, K = −S; the patch
-[`oddspence/verify_odd_spence.patch`](oddspence/verify_odd_spence.patch) made that change and is kept for copies of `verify/` older than it.
-A hit would be checked by that patched `verify.py`, by the independent construction in `check/odd_spence_build.py` (`build`), and against Cati–Pasechnik's Table 4, [../../FRONTIER.md](../../FRONTIER.md) and the survey's Table 5. The three certificates of
+[`oddspence/verify_odd_spence.patch`](oddspence/verify_odd_spence.patch) made an equivalent change and is kept for copies of `verify/` older than it.
+A hit is checked by `verify/verify.py` (which accepts (±1)⁴ since round 58), by the independent construction in `check/odd_spence_build.py` (`build`), and against Cati–Pasechnik's Table 4, [../../FRONTIER.md](../../FRONTIER.md) and the survey's Table 5. The three certificates of
 `oddspence/` (orders 88, 112, 144 = 4 · 22, 4 · 28, 4 · 36: G = ℤ₇ × F₃, ℤ₉ × F₃, ℤ₅ × F₇, found by the sampler in seconds) pass `verify.py` and are refused by its version before the patch.
 
 ## Programs
@@ -109,7 +109,7 @@ the d = 2 counts are 64-bit-hash matches, every printed solution is verified exa
 ```
 cd search/eightp/gs && gcc -O3 -march=haswell -shared -fPIC -o libgl1.so gl1.c -lm && for ps in 32 64 128; do gcc -O3 -march=haswell -DPS=$ps -o gl2_$ps gl2.c -lm; done && mkdir -p runs tmp out work
 cd search/eightp/spin && gcc -O3 -march=haswell -o spin3 spin3.c && gcc -O3 -march=haswell -o spinD spinD.c && mkdir -p runs
-cd search/eightp/gs && mkdir -p repo_copy && cp -r ../../../verify repo_copy/verify && ln -sfn ../../.. repo_copy/search && (cd repo_copy && (grep -q 'odd = all' verify/verify.py || patch -p1 < ../../oddspence/verify_odd_spence.patch))     # the scratch repository of gs_cert.py
+cd search/eightp/gs && rm -rf repo_copy && mkdir repo_copy && cp -r ../../../verify repo_copy/verify && ln -sfn ../../.. repo_copy/search && (cd repo_copy && (grep -qF 'or (+-1, +-1, +-1, +-1)' verify/verify.py || patch -p1 < ../../oddspence/verify_odd_spence.patch))     # the scratch repository of gs_cert.py
 cd search/eightp/gs && for ps in 32 64 128; do gcc -O3 -march=haswell -DPS=$ps -DNEARMISS -o gl2n_$ps gl2.c -lm; done     # the near-miss builds of Order 5912
 ```
 
@@ -216,7 +216,7 @@ cd ../gs && python3 gs_samp.py spence '[7]' 3 '[]' null "1.0:1.0:2.0:2.0,0.0:2.0
 cd repo_copy && for o in 88 112 144; do mkdir -p hadamard/rec$o; cp ../../oddspence/cert_$o.json hadamard/rec$o/certificate.json; python3 verify/verify.py hadamard/rec$o; done    # 'ok  H H^T = 88 I  sha256 dd090020...', 112 (d0e3198b...), 144 (31a5a620...)
 ```
 
-The unpatched `verify/verify.py` answers `FAIL  row sums must be (2, 0, 0, 0)` on the same certificates.
+A copy of `verify/verify.py` from before round 58 (§108) answers `FAIL  row sums must be (2, 0, 0, 0)` on the same certificates; the repository's own accepts them.
 
 **Judge's independent checkers**
 
@@ -322,7 +322,7 @@ rounds, 34,402 distinct instances, and completed round 33, where the hit instanc
 distinct instance of the worker). Together 75,726 distinct instances in 75 rounds (the four tokens 20, 19, 18, 18
 times). The `cpu` field of the 67 later rounds gives 0.203 s of CPU per distinct instance (166 to 244 s per round,
 mean 204 s; the hit round 192 s), level 1 included; the field of the first eight rounds (worker 1: 0 to 6, worker 2:
-0) is about 30 times too small and was replaced by that rate, so the total is 15,400 s, about 4.3 core-hours; the two
+0) is about 40 times too small (19 to 111 per round) and was replaced by that rate, so the total is 15,400 s, about 4.3 core-hours; the two
 workers ran 3.7 h and 3.1 h of wall time, at about 0.63 of a core each. At 2.3 · 10⁻⁵ per instance 1.7 hits were
 expected (P(no hit) = 17%), one was found. One expected hit costs 43,500 distinct instances, 2.5 core-hours; worker 2
 alone reached its hit after 1.9 core-hours. The near-miss campaigns (about 1 core-hour: 4,500 s of `gl2n` wall time at
@@ -372,7 +372,7 @@ K-level blocks of the hit `prod_w2.HIT_1793224543.json` (the reference of `repro
 * The full validation battery of §86 (`VALIDATION.txt`: gs 30 MATCH shapes (20 nonzero), spence 47 (9), bord 30 (23); battery 2 with the final binaries 22 + 32 + 22 MATCH; 0 MISMATCH), `run_validate.sh`, `run_validate2.sh`; the full `val_odd.py` (166 shapes, hours), and `calib_odd.py` (`est4` on the 35 nonzero and 124 empty odd-\|G\| shapes: estimate − exact between −315 and +2.8 decades on the nonzero ones, 43 of the 124 empty shapes get log₁₀ E > 0, at most 7.2: HEURISTIC with false alarms up to 10⁷).
 * `t_identity.py` (the defect and row-sum identities on 300 solutions of each of six spence and bordered shapes: 0 violations; 251 s, in the long smoke group), the 8-orbit exhaustive verdict ℤ₇ × ℤ₁₉, r = 9, H = ⟨(3, 1), (1, 8)⟩ (246 s in the recorded run), the full τ sweep (588 CPU s in all; `tau_check.py 12` re-derives the shapes up to 12 orbits).
 * The sampling production (HEURISTIC; `prod_tau.py`, `small_alive.sh`, `data/gs/runs/`): on the eight smallest alive shapes, 360 s each (seven of p = 599 completed; the eighth, p = 839, ℤ₁₃ × ℤ₄₃, r = 3, produced no output in its 420 s): sa_1198_0 (ℤ₃ × ℤ₃ × ℤ₇, r = 19) 372 of 374 allocation tokens EXHAUSTED, 0 instances; the first production attempt at p = 739 (`p739a`) stalled on huge pattern lists and was killed. No round of any sampler produced a complete instance at p = 599, 739, 839: the sampled coverage of the alive space is about 0 (UNKNOWN, not evidence of absence).
-  The modelled cost of the best alive shapes (`alive_ranked.json`, HEURISTIC): p = 599, ℤ₉ × ℤ₁₉, r = 7, |H| = 18, 13 orbits: 10⁵·⁸ s on one core; p = 739, ℤ₂₁₁, r = 7, |H| = 15, 15 orbits: 10⁶·¹ s.
+  The modelled cost of the best alive shapes (`alive_ranked.json`, HEURISTIC): p = 599, ℤ₉ × ℤ₁₉, r = 7, |H| = 18, 13 orbits: 10⁵·⁸ s on one core; p = 739, ℤ₂₁₁, r = 7, |H| = 15, 15 orbits: 10⁶·¹ s. Until round 58 no round of any sampler had produced a complete instance at p = 599, 739, 839 (UNKNOWN, not evidence of absence). At p = 739 the production of [Order 5912](#order-5912) found a solution after about 4.3 core-hours; the 10⁶·¹ s is the model of §92, replaced by the calibrated estimate of §107.
 * The ℤ₃² × ℤ₁₃₃ sample (3076 s of solver time: the recorded log `data/plain/r3_nc_z3z3_133.log`; a 3000-sample subset is re-run above), and the spin runs of v = 1197 with 27 ≤ O_H ≤ 30 (2970 s and 4822 s) and the other long spin logs of `data/spin`.
 
 
@@ -395,7 +395,7 @@ cd ../spin
 OMAX=26 bash run_spin.sh; OMIN=2 OMAX=26 bash run_spinD.sh; OMIN=27 OMAX=30 bash run_spin_hi.sh; OMIN=27 OMAX=30 bash run_spinD.sh     # all block-symmetric structures up to O_H = 30 (about 3 hours in all, dominated by v = 1197)
 ```
 
-Hit handling: the independent numpy check H Hᵀ = nI of the final matrix (G-level exact integer PAF = −4 off 0, row sums ±1), the patched `verify.py` (above), and the order against Cati–Pasechnik's Table 4, [../../FRONTIER.md](../../FRONTIER.md) and the survey's Table 5.
+Hit handling: the independent numpy check H Hᵀ = nI of the final matrix (G-level exact integer PAF = −4 off 0, row sums ±1), the repository's `verify/verify.py` (above), and the order against Cati–Pasechnik's Table 4, [../../FRONTIER.md](../../FRONTIER.md) and the survey's Table 5.
 
 ## Deviations from the sources
 
