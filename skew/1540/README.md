@@ -47,7 +47,7 @@ gives a Hadamard matrix of order 1540, and H + Hᵀ = 2I because A + Aᵀ = 2I.
    units of ℤ₃₅. It then joins every row-sum pattern of a slot exactly (`gl1.c`) and sends the new classes to the exact
    level 2. It runs about 100 classes per second against 2 to 3 for the sampler. The slot (6, 1, 1, 4) / (0, 0, 0, 1)
    is the 7th of the 2747 row-sum-feasible slots of the shape in the order of the estimated completions per class
-   (logE −1.54, logρ −7.49; HEURISTIC), below the reachability threshold of §90. 2 of its 100 classes complete; the
+   (logE −1.54, logρ −7.49; heuristic), below the reachability threshold of §90. 2 of its 100 classes complete; the
    second gives a different matrix with the same row sums.
 
 **Reproduction.**

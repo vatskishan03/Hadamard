@@ -2,11 +2,15 @@
 
 A Hadamard matrix H is symmetric if H = Hᵀ. The Đoković–Seberry census (2025-05-28) lists 595 odd v < 2500 for which
 no symmetric Hadamard matrix of order 4v was known; Đoković settled three of them, 189, 473 and 1139, in August 2025
-(arXiv:2508.17141). The 102 orders here decide 102 more, leaving 490. For 84 of them no published construction gives a
-symmetric matrix; 9 are Concurrent: 8 also follow from quaternary matrices published on Zaitsev et al.'s page of
-14 October 2026, and 940 (v = 235) from the conference graph on 117 vertices that J. Y. Z. Ho reported in October 2026; 9 follow from published theorems that the census omits: 1804 and 3532 from Seberry–Balonin's
-Corollary 1, and 612, 1300, 1740, 2812, 4732, 4900 and 7564 from Spence's Corollary 3 (1977). Among them is 260, the
-census's smallest value v = 65.
+(arXiv:2508.17141). The 102 orders here decide 102 more, leaving 490:
+
+- 84 have no published construction that gives a symmetric matrix;
+- 9 are Concurrent: 8 also follow from quaternary matrices published on Zaitsev et al.'s page of 14 October 2026, and
+  940 (v = 235) from the conference graph on 117 vertices that J. Y. Z. Ho reported in October 2026;
+- 9 follow from published theorems that the census omits: 1804 and 3532 from Seberry–Balonin's Corollary 1, and 612,
+  1300, 1740, 2812, 4732, 4900 and 7564 from Spence's Corollary 3 (1977).
+
+The 102 include 260, the census's smallest value v = 65.
 
 Each directory holds one order with its certificate, its README and, for the orders found by search, the matrix.
 Status labels are defined in [NOVELTY.md](../NOVELTY.md). The orders by construction:
@@ -179,9 +183,9 @@ orders here, 612, 1300, 1740, 4900 and 7564 (q = 17, 25, 29, 49, 61), are Known:
 order of the core of a symmetric conference matrix, Lemma 26 with Paley's or that core and Yamada's circulants gives
 Williamson-type matrices of order q + 2 with a repeated block, hence a symmetric Hadamard matrix of order 4(q + 2).
 The census lists neither of the orders that the cores of orders 225 and 441 give, 1804 and 3532
-(`search/sym_propus_sb.py`, `verify.py` construction `symmetric-propus-sb`). With the symmetric conference matrix of order 118 found
-here (`search/conference118`, [search/NOTES.md](../search/NOTES.md) §95) it gives 940 (q = 233), Concurrent with the
-conference graph on 117 vertices that J. Y. Z. Ho reported in October 2026.
+(`search/sym_propus_sb.py`, `verify.py` construction `symmetric-propus-sb`). With the symmetric conference matrix of
+order 118 found here (`search/conference118`, [search/NOTES.md](../search/NOTES.md) §95) it gives 940 (q = 233),
+Concurrent with the conference graph on 117 vertices that J. Y. Z. Ho reported in October 2026.
 
 **Order m(m − 1).** A skew-Hadamard matrix S = I + C of order m with an involutive signed permutation P such that
 PCP = −C is the same as a symmetric orthogonal design xP + yN of type (1, m − 1), with N = CP. Replacing x by J and y

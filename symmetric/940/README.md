@@ -10,11 +10,11 @@ A Hadamard matrix H is symmetric if H = Hᵀ. This one is Seberry and Balonin's 
 of order (q + 3)/2, here 118.
 
 - **The conference matrix of order 118.** A symmetric conference matrix C of order 118 (zero diagonal, entries ±1
-  elsewhere, C² = 117 I), found here (round 44, [search/NOTES.md](../../search/NOTES.md) §95) on the point set
-  ℤ₁₃ × ℤ₃² plus one point: its 9 × 9 blocks are hyperplane matrices of AG(2, 3) or their complements, and the block
-  pattern is an exact cover of the 78 pairs of points of ℤ₁₃ by 13 "K₄ components" (the lines of PG(2, 3)), with
-  Paley signs on ℤ₁₃. The matrix is `search/data/conference118_5fe566972f21790b.txt` (normalised: first row and column
-  +, zero diagonal); its core Q of order 117 is in the certificate. Its signed automorphism group is {±I}.
+  elsewhere, C² = 117 I), found here ([search/NOTES.md](../../search/NOTES.md) §95) on the point set ℤ₁₃ × ℤ₃² plus one
+  point: its 9 × 9 blocks are hyperplane matrices of AG(2, 3) or their complements, and the block pattern is an exact
+  cover of the 78 pairs of points of ℤ₁₃ by 13 "K₄ components" (the lines of PG(2, 3)), with Paley signs on ℤ₁₃. The
+  matrix is `search/data/conference118_5fe566972f21790b.txt` (normalised: first row and column +, zero diagonal); its
+  core Q of order 117 is in the certificate. Its signed automorphism group is {±I}.
 - **Yamada's circulants.** M and N of order 117 with M² + N² = 233 I (Yamada's Lemma 3 over GF(233²), r = 3 a
   non-square, ξ as in the certificate).
 - **Williamson-type matrices.** Seberry–Yamada's Lemma 26 with U = (I, 0, Q, Q) and V = (M, N, I, I) gives symmetric,
@@ -24,26 +24,33 @@ of order (q + 3)/2, here 118.
 
 ## Search
 
-The conference matrix came from an exact cover (search/NOTES.md §95): the point pairs of ℤ₁₃ are covered by components
-of a cubic graph on 104 flag vertices, each component a K₄ with signs, ±1 diagonal and cube-root phases chosen from 48
-solvable classes; the first cover appears after 13,589 nodes (0.09 s). The rest is deterministic.
+The conference matrix came from an exact cover ([search/NOTES.md](../../search/NOTES.md) §95, `search/conference118`):
+the point pairs of ℤ₁₃ are covered by components of a cubic graph on 104 flag vertices, each component a K₄ with signs,
+±1 diagonal and cube-root phases chosen from 48 solvable classes. The first cover appears after 13,589 nodes (0.09 s).
+The rest is deterministic.
 
-| Code | Command | Randomness and caps | Result |
-|---|---|---|---|
-| `search/sym_propus_sb.py`, `verify/verify.py` construction `symmetric-propus-sb` | `python3 -c "import numpy as np; np.save('CONF.npy', np.array([[{'0': 0, '+': 1, '-': -1}[c] for c in r] for r in open('search/data/conference118_5fe566972f21790b.txt').read().split()]))"`, then `python3 search/sym_propus_sb.py certify 235 CONF.npy` | none | `certificate.json`, matrix SHA-256 `dad8b704…` |
+**Reproduction.**
+
+| | |
+|---|---|
+| Code | `search/sym_propus_sb.py`, `verify/verify.py` (construction `symmetric-propus-sb`) |
+| Command | `python3 -c "import numpy as np; np.save('CONF.npy', np.array([[{'0': 0, '+': 1, '-': -1}[c] for c in r] for r in open('search/data/conference118_5fe566972f21790b.txt').read().split()]))"`, then `python3 search/sym_propus_sb.py certify 235 CONF.npy` |
+| Randomness and caps | none |
+| Result | `certificate.json`, matrix SHA-256 `dad8b704…` |
 
 ## Status
 
-**Concurrent.** The Đoković–Seberry census (2025-05-28) lists 235 among its undecided values, and we found no
-construction of order 940 by anyone else.
+**Concurrent** as a symmetric Hadamard matrix. The Đoković–Seberry census (2025-05-28) lists 235 among its undecided
+values, and we found no construction of order 940 by anyone else.
 
 - The census's Seberry–Balonin series needs (q + 1)/2 = 117 to be a prime power or the order of the core of a symmetric
   conference matrix of order 118. Brouwer's table of strongly regular graphs (read on 17 October 2026) marks the
-  conference graph SRG(117, 58, 28, 29) as existing, citing J. Y. Z. Ho (email, October 2026); that matrix is not
-  public, and we do not know whether Ho derived this order. Ours was found independently. Since Ho's graph gives this
-  order through the published Corollary 1, we label it Concurrent and claim no priority, as for
-  [hadamard/2284](../../hadamard/2284/README.md#status). [hadamard/MIYAMOTO_BLOCKS.md](../../hadamard/MIYAMOTO_BLOCKS.md)
-  wrote this chain down before the conference matrix was known to us.
+  conference graph SRG(117, 58, 28, 29) as existing, citing J. Y. Z. Ho (personal communication, October 2026). That
+  matrix is not public, and we do not know whether Ho derived this order. Ours was found independently. Since Ho's
+  graph gives this order through the published Corollary 1, we label it Concurrent and claim no priority, as for
+  [hadamard/2284](../../hadamard/2284/README.md#status).
+  [hadamard/MIYAMOTO_BLOCKS.md](../../hadamard/MIYAMOTO_BLOCKS.md) wrote this chain down before the conference matrix
+  was known to us.
 - No other route that we know: the propus searches of [search/NOTES.md](../../search/NOTES.md) §17 and §29 and the
   plug-in searches of §87 and §94 found nothing for v = 235. 235 = 5 · 47 is not a prime power, so the constructions of
   order 4q of this directory ([PROPUS_MIYAMOTO.md](../PROPUS_MIYAMOTO.md), [PROPUS_WEIGHING.md](../PROPUS_WEIGHING.md),

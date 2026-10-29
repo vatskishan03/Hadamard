@@ -19,9 +19,10 @@ Here 1483 − 1 = 38 · 39, so sequences constant on the cosets of H have row su
 
 ## Status
 
-**Concurrent.** The entry 1483(3) is unresolved in Cati–Pasechnik Table 4. Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175, 19 October 2026) constructed a Hadamard matrix of
-order 5932 independently, by a Goethals–Seidel array with a multiplier group of order 39 as here; ours was committed on
-11 October 2026. We claim no priority. None of the standard recursive constructions applies:
+**Concurrent.** The entry 1483(3) is unresolved in Cati–Pasechnik Table 4. Egan, Kotsireas, London and Ó Catháin
+(arXiv:2610.27175, 19 October 2026) constructed a Hadamard matrix of order 5932 independently, by a Goethals–Seidel
+array with a multiplier group of order 39 as here; ours was committed on 11 October 2026. We claim no priority. None of
+the standard recursive constructions applies:
 
 - Paley: 5931 = 3² · 659 and 2965 = 5 · 593 are not prime powers.
 - Miyamoto: 1483 ≡ 3 (mod 4).

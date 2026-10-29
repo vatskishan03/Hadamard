@@ -59,13 +59,13 @@ sequences and the certificate.
 
 - *Targets.* The census-undecided v ≤ 2499 that the repository has not settled, for v ≤ 999 only those with a Table 5
   entry v(m), m ≥ 4.
-- *Multiplier shapes.* 373 shapes with at most 13 orbits when the sweep ran (371 now, without 473 and 933): 2 hits
-  (191 with 11 orbits, found in 4 s; 277 with 13 orbits, about 3 to 4 minutes), 370 EXHAUSTIVELY empty, and one
+- *Multiplier shapes.* 373 shapes with at most 13 orbits (371 without 473 and 933, which the repository now settles):
+  2 hits (191 with 11 orbits, found in 4 s; 277 with 13 orbits, about 3 to 4 minutes), 370 exhaustively empty, and one
   (ℤ₂₁₉₇, 13 orbits) unfinished. The real class with the same H is empty at 191 and 277, as are all 510 real shapes
-  with up to 17 orbits (508 now).
+  with up to 17 orbits (508 without those two targets).
 - *Plug-in shapes* (Table 5 targets, H_K with 5 to 9 orbits on K, so 15 to 27 orbits per block). Hits at 299 (ℤ₁₃,
   q = 23, H_K = ⟨3⟩: 13,056 solutions, exhaustive, 11 s) and 589 (ℤ₁₉, q = 31, ⟨7⟩: 3.3% of the level-1 instances
-  complete). EXHAUSTIVELY empty: 539 (ℤ₄₉, q = 11, ⟨2⟩), 667, 707, 851, 899, 589 (ℤ₃₁, q = 19), 817 (two shapes),
+  complete). Exhaustively empty: 539 (ℤ₄₉, q = 11, ⟨2⟩), 667, 707, 851, 899, 589 (ℤ₃₁, q = 19), 817 (two shapes),
   989 and 413. The defect costs cannot add up to 4|K| at 295, 335, 515, 611, 655, 695, 927 and 995. Sampled without a
   hit: 721, 737, 869, 973 and four shapes with 9 orbits on K; 597 and the other shapes with 9 orbits on K were not
   run.
@@ -83,7 +83,7 @@ are therefore infeasible at the Table 5 entries with m ≥ 5
 
 ## Status
 
-**New.** Table 5 gives 191(226) (from Paley's construction with a prime 2^{226} · 191 − 1), 277(5), 299(4) and 589(5).
+**New.** Table 5 gives 191(226) (from Paley's construction with the prime 2²²⁶ · 191 − 1), 277(5), 299(4) and 589(5).
 The four v are also undecided in the census (order 4v), which these matrices do not settle. We found the negacyclic
 Goethals–Seidel array for skew matrices only in Finlayson and Seberry (2004), with blocks of odd order, and the
 quaternary multiplier search and the plug-ins nowhere. Doubling gives the skew orders 3056, 4432, 4784, 9424, …

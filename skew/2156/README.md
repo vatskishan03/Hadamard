@@ -42,14 +42,14 @@ gives a Hadamard matrix of order 2156, and H + Hᵀ = 2I because A + Aᵀ = 2I.
    counting identity of §15 reads 12 N_w − 4 N₋ = 196.
 2. **The solution.** The first block has no w-position; the others have 6, 7 and 7 (N_w = 20), of which 3, 4 and 4
    are of the second type (N₋ = 11): 240 − 44 = 196. The compressions to ℤ₇² take the values ±1, ±9 and ±11.
-3. **Sampler** (`search/skewplug`, `prod_dedup.py`). Each round draws a slot (an allocation of w-positions with its
-   split into the two types) and an exact row-sum pattern, joins the complete list of skew first blocks against sampled
-   lists of the other three, reduces the level-1 instances modulo the exact symmetries of the K-level system (only new
-   classes go on), and completes them by the exact level 2 `sl2`. The slot weights come from the Gaussian estimate on
-   all 2265 slots of the top energy window (`est_extend.py`, minutes); an earlier run had estimated only 16 of them
-   and spent 25 minutes on this shape. The hit came in round 7 of the job with seed base 5 (slot (0, 6, 7, 7) /
-   (0, 3, 4, 4), the third-best of 266 by the estimate), after 35,188 distinct level-2 classes over all jobs of the three
-   K-symmetric shapes of 539 (13,334 of them from the earlier run).
+3. **Sampler** (`search/skewplug`, `prod_dedup.py`). Each iteration draws a slot (an allocation of w-positions with
+   its split into the two types) and an exact row-sum pattern, joins the complete list of skew first blocks against
+   sampled lists of the other three, reduces the level-1 instances modulo the exact symmetries of the K-level system
+   (only new classes go on), and completes them by the exact level 2 `sl2`. The slot weights come from the Gaussian
+   estimate on all 2265 slots of the top energy window (`est_extend.py`, minutes); an earlier run had estimated only 16
+   of them and spent 25 minutes on this shape. The hit came in iteration 7 with seed base 5 (slot (0, 6, 7, 7) /
+   (0, 3, 4, 4), the third-best of 266 by the estimate), after 35,188 distinct level-2 classes over all runs on the
+   three K-symmetric shapes of 539 (13,334 of them from the earlier run).
 
 **Reproduction.**
 
@@ -57,8 +57,8 @@ gives a Hadamard matrix of order 2156, and H + Hᵀ = 2I because A + Aᵀ = 2I.
 |---|---|
 | Code | `search/skewplug` (`prod_dedup.py`; build commands in its README) |
 | Command | copy `data/repro539/c539_q11_K7x7_h2-2_s5.jsonl` and `.seen` to `runs/` and `est_c539_q11_K7x7_h2-2_s5.jsonl` to `est/c539_q11_K7x7_h2-2_s5.jsonl`, then `PROD_EREL=5 PROD_NEST=60 PROD_MAXOUT=30000 PROD_L2CAP=3000 python3 -u prod_dedup.py c539_q11_K7x7_h2-2_s5 5 420 "[7,7]" 11 "[[2,2]]" EST 40 10000 60000 60000 sl2` |
-| Randomness and caps | rounds are seeded by the seed base 5 and the round index; the log of rounds 0–6, the set of classes already run and the slot file are the state of the original job; lists of 10000, 60000 and 60000 sampled members; at most 3000 level-2 instances per round |
-| Result | the loop resumes at round 7 (94 level-1 instances, 40 new classes, 3 completions) and writes `out/skew_2156_c539_q11_K7x7_h2-2_s5.json`, which is `certificate.json` without the fields `structure` and `subgroup_order`, in about 11 s. A fresh run is not bit-reproducible: in this mode the slot weights use measured times |
+| Randomness and caps | each iteration is seeded by the seed base 5 and its index; the log of iterations 0–6, the set of classes already run and the slot file are the state of the original run; lists of 10000, 60000 and 60000 sampled members; at most 3000 level-2 instances per iteration |
+| Result | the loop resumes at iteration 7 (94 level-1 instances, 40 new classes, 3 completions) and writes `out/skew_2156_c539_q11_K7x7_h2-2_s5.json`, which is `certificate.json` without the fields `structure` and `subgroup_order`, in about 11 s. A fresh run is not bit-reproducible: in this mode the slot weights use measured times |
 
 ## Status
 

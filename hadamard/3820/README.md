@@ -61,23 +61,33 @@ conference matrix into a quaternary Hadamard matrix K of order 2(q + 2) = 1910 w
 
 ## Search
 
-*The structure.* The Singer cycle on Q forces the coset sums to be constant on the seven nonzero cosets, the same
+**The structure.** The Singer cycle on Q forces the coset sums to be constant on the seven nonzero cosets, the same
 mechanism as in [3356](../3356). With 29 ≡ 1 (mod 7), a multiplier of order 7 on ℤ₂₉ can be paired with it. Only 34
 orbits remain per block, and the odd factor keeps g and −g apart.
 
-*The search* ([search/tbcore](../../search/tbcore/README.md); [search/NOTES.md](../../search/NOTES.md) §103) is an
+**The search** ([search/tbcore](../../search/tbcore/README.md); [search/NOTES.md](../../search/NOTES.md) §103) is an
 exact compression tower.
-- *Q level.* Of the two row-sum patterns, only (21, 21, 6, 6) has a border invariant under τ. Each pattern has
+
+- **Q level.** Of the two row-sum patterns, only (21, 21, 6, 6) has a border invariant under τ. Each pattern has
   exactly one tuple of coset sums.
-- *ℤ₂₉ level.* There are 3316 feasible tuples, with total weight 10^22.1.
-- *Join.* In the fibre of the tuple used, A and B were enumerated completely (882 each). For C and D, 4 · 10⁵ vectors
+- **ℤ₂₉ level.** There are 3316 feasible tuples, with total weight 10^22.1.
+- **Join.** In the fibre of the tuple used, A and B were enumerated completely (882 each). For C and D, 4 · 10⁵ vectors
   were sampled from fibres of 5.9 · 10⁶ and 3.0 · 10⁶. An exact join on all the class equations then covered
   1.2 · 10¹⁷ combinations and gave two solutions in about four minutes.
-- *Border.* A search over borders invariant under τ gave 28,812 seed quadruples; the certificate uses the first.
+- **Border.** A search over borders invariant under τ gave 28,812 seed quadruples; the certificate uses the first.
 
 A Gaussian estimate conditioned on the coset sums predicts about 10^5.3 solutions for this pattern, and the hit rate
 of the join matched it to within 10 %. Both solutions give Hadamard matrices of order 3820. The certificate holds one
 of them; its C and D are stored reflected (C(−x), D(−x)), which is how the program assembled the matrix.
+
+**Reproduction.**
+
+| | |
+|---|---|
+| Code | `search/tbcore` (`s1_prod.py`, `join4.c`, `border8.py`, `assemble_K.py`, `cyk955.py`) |
+| Command | from `search/tbcore`: `bash reproduce.sh OUT --border`; the sampling run alone is `python3 s1_prod.py 400000 4 101 5 900 --out OUT` |
+| Randomness and caps | seed 101 (numpy `default_rng`); 4 · 10⁵ samples each of C and D, A and B exhaustive; the border search is deterministic |
+| Result | the first iteration, tuple 60 of the 3316, gives two solutions in about four minutes |
 
 ## Status
 

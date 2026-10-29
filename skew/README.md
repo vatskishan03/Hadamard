@@ -61,10 +61,10 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 
 ## Negacyclic Goethals–Seidel arrays
 
-Four ±1 sequences of length 2v (v odd) whose negaperiodic autocorrelations sum to 8v δ, the first of skew type, in
-the Goethals–Seidel array with negacyclic blocks; searched as quaternary sequences on ℤᵥ constant on the orbits of a
-multiplier group H of odd order (for 2392 and 4712 as Paley plug-ins over ℤ_m × F_q). The array gives a
-skew-Hadamard matrix of order 8v; see [NEGACYCLIC.md](NEGACYCLIC.md).
+Four ±1 sequences of length 2v (v odd), the first of skew type, whose negaperiodic autocorrelations sum to 8v δ, give
+a skew-Hadamard matrix of order 8v in the Goethals–Seidel array with negacyclic blocks
+([NEGACYCLIC.md](NEGACYCLIC.md)). They are searched as quaternary sequences on ℤᵥ that are constant on the orbits of a
+multiplier group H of odd order (for 2392 and 4712 as Paley plug-ins over ℤ_m × F_q).
 
 | Order | v | Symmetry H | Sums of the sequences | Before | Status |
 |------:|---|---|---|---|---|
@@ -193,14 +193,21 @@ stored; `verify/verify.py skew/<order>` rebuilds them.
 ## How they were found
 
 The orders 3(q + 1) need no search (`search/paley_blocks.py skew q`). The Goethals–Seidel families come from searches
-over multiplier structures: exact joins of complete block lists for small structures, exact compression chains
-(`search/chain.py`, run over the census by `search/census_screen.py` and `search/screen_chain.py`), Paley-product and
-cyclotomic-product configurations (`search/paley_config.py`, `search/cyclo_product.py`), the two-level sampler for
-Paley products with many w-positions (`search/skewplug`, for 476, 980, 1540, 1892, 2156 and 3124), the quaternary search over negacyclic
-arrays and its Paley plug-ins (`search/negaskew`, for 1528, 2216, 2392 and 4712), low-energy k-trees on lists too large to store
-(`search/cp_lowe.py`, `search/skew_lowE.py`) and, for 3676, a spin structure (`search/spin_skew.py`). The orthogonal
-designs come from `search/odm_engine.py` and `search/odm_join.py`. [search/NOTES.md](../search/NOTES.md) §10–§16, §20,
-§23, §31 and §87–90 describe the methods, and each README records the command, code commit, seed and caps of its
-search.
+over multiplier structures:
+
+- exact joins of complete block lists for small structures;
+- exact compression chains (`search/chain.py`, run over the census by `search/census_screen.py` and
+  `search/screen_chain.py`);
+- Paley-product and cyclotomic-product configurations (`search/paley_config.py`, `search/cyclo_product.py`);
+- the two-level sampler for Paley products with many w-positions (`search/skewplug`, for 476, 980, 1540, 1892, 2156
+  and 3124);
+- the quaternary search over negacyclic arrays and its Paley plug-ins (`search/negaskew`, for 1528, 2216, 2392 and
+  4712);
+- low-energy k-trees on lists too large to store (`search/cp_lowe.py`, `search/skew_lowE.py`);
+- for 3676, a spin structure (`search/spin_skew.py`).
+
+The orthogonal designs come from `search/odm_engine.py` and `search/odm_join.py`. [search/NOTES.md](../search/NOTES.md)
+§10–§16, §20, §23, §31 and §87–90 describe the methods, and each README records the command, code commit, seed and caps
+of its search.
 
 `python3 verify/verify.py skew/<order>` rebuilds a matrix from its certificate and checks H Hᵀ = nI and H + Hᵀ = 2I.

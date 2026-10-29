@@ -13,7 +13,8 @@ data are put in quaternary form, as a symmetric matrix L with entries ±1, ±i a
 1992, Lemma 11.3 with a = b = 1, symmetric whenever L is).
 
 The theorem settles 28 values of the Đoković–Seberry census (2025-05-28), from v = 295 to 2335. For 295 the skew-propus
-route of NOTES.md §29 had failed (no skew-propus quadruple of length 37, search/NOTES.md §49).
+route ([NOTES.md](../NOTES.md) §29) had failed: there is no skew-propus quadruple of length 37
+([search/NOTES.md](../search/NOTES.md) §49).
 
 | Order | v = q + 2 | (q + 3)/2 | Skew-Hadamard input | Status |
 |------:|---:|---:|---|---|
@@ -142,20 +143,20 @@ for 28:
 
 The other six, v = 1711, 1879, 2215, 2359, 2383 and 2391, need skew-Hadamard matrices of orders 856 = 8 · 107,
 940 = 4 · 235, 1108 = 4 · 277, 1180 = 4 · 295, 1192 = 8 · 149 and 1196 = 4 · 299, all undecided in the skew census
-(as are the skew orders 428 and 596 whose doublings would serve). A skew matrix of any of these orders
-would decide one more symmetric value.
+(as are the skew orders 428 and 596 whose doublings would serve). A skew matrix of any of these orders would decide one
+more symmetric value.
 
 ## Status
 
-- 18 orders are **New**, 8 are **Concurrent** (below) and 2 are **Known**: Spence's Corollary 3 (J. Austral. Math.
-  Soc. Ser. A 24 (1977) 252–256) gives symmetric Hadamard matrices of orders 2812 (q = 37, r = 1) and 4732 (q = 13,
-  r = 2) by another construction. All 28 census values are undecided, and we found the symmetric form of Yamada's
-  matrix nowhere. Hadamard matrices of all these orders except 7612 were known. For 23 of them Yamada's Theorem 4
-  (announced in Proc. Japan Acad. 63 (1987)) gives one from the same skew input, and Đoković (arXiv:1008.2043) applies
-  it to 823, 1063, 1303, 2143 and 2335. For 6556, 6684, 8284 and 9180 the skew input is ours (2026), but n = 1639,
-  1671, 2071 and 2295 are not among the open n of Cati–Pasechnik's Table 4. The ordinary matrix of order 7612 is a
-  first explicit construction ([hadamard/7612](../hadamard/7612)): Theorem 4 reaches it only through our skew matrix
-  of order 476. The symmetry is what is new.
+- 18 orders are **New**, 8 are **Concurrent** (below) and 2 are **Known**: Spence's Corollary 3 (J. Austral. Math. Soc.
+  Ser. A 24 (1977) 252–256) gives symmetric Hadamard matrices of orders 2812 (q = 37, r = 1) and 4732 (q = 13, r = 2) by
+  another construction. All 28 census values are undecided, and we found the symmetric form of Yamada's matrix nowhere.
+  Hadamard matrices of all these orders except 7612 were known. For 23 of them Yamada's Theorem 4 (announced in Proc.
+  Japan Acad. 63 (1987)) gives one from the same skew input, and Đoković (arXiv:1008.2043) applies it to 823, 1063,
+  1303, 2143 and 2335. For 6556, 6684, 8284 and 9180 the skew input is ours (2026), but n = 1639, 1671, 2071 and 2295
+  are not among the open n of Cati–Pasechnik's Table 4. The ordinary matrix of order 7612 is a first explicit
+  construction ([hadamard/7612](../hadamard/7612)): Theorem 4 reaches it only through our skew matrix of order 476. The
+  symmetry is what is new.
   - The symmetric case published so far is Paley's skew core: Seberry–Yamada's Corollary 27(i) (JCMCC 7 (1990); 1992
     survey, Corollary 8.7; book of 2020, Corollary 6.3) gives Williamson-type matrices with a repeated block when
     (q + 1)/2 is a prime power, and Seberry–Balonin's propus array (2017; the order corrected by Balonin–Đoković,

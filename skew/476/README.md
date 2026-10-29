@@ -45,11 +45,10 @@ is then a Hadamard matrix of order 476. Because A + Aᵀ = 2I, it satisfies H + 
    F₇) take the values ±1, ±7 and ±5, and their autocorrelations sum to 476 δ.
 4. **Two-level search** (`search/skewplug`, [search/NOTES.md](../../search/NOTES.md) §87). Level 1 joins the complete
    list of skew first blocks against sampled lists of the other three blocks (one allocation of w-positions and one
-   exact row-sum pattern per round) on the compressed equation over ℤ₁₇. Level 2 fixes the signs of z off the
-   w-positions by a meet in the middle. The first round gave the matrix. Solutions are plentiful in this structure:
-   three more were found in other allocations of w-positions and a fifth (counting the first) by an independent judge
-   with its own code,
-   and the estimated total is 10¹⁹ to 10²⁰ ordered quadruples (HEURISTIC).
+   exact row-sum pattern per iteration) on the compressed equation over ℤ₁₇. Level 2 fixes the signs of z off the
+   w-positions by a meet in the middle. The first iteration gave the matrix. Solutions are plentiful in this
+   structure: five are known, namely the first, three from other allocations of w-positions and one from an
+   independently written program. The estimated total is 10¹⁹ to 10²⁰ ordered quadruples (heuristic).
 
 **Reproduction.**
 
@@ -57,8 +56,8 @@ is then a Hadamard matrix of order 476. Because A + Aᵀ = 2I, it satisfies H + 
 |---|---|
 | Code | `search/skewplug` (build commands in its README) |
 | Command | `python3 -u sk_worker.py w119a 1 900 "[17]" 7 "[[2,2,2,3]]" 2000 20000 20000 30 1.0`, then `python3 cyclic.py out/skew_476_w119a.json out/skew_476_cyclic.json` |
-| Randomness and caps | rounds are seeded by the seed base 1 and the round index; lists of 2000, 20000 and 20000 sampled members for the second, third and fourth blocks; 30 level-1 instances per round go to level 2 |
-| Result | the first round hits, in about 20 s on an idle core (35–40 s on a loaded machine); the output over ℤ₁₇ × ℤ₇ (SHA-256 of its matrix `1f4f883c…`) becomes this certificate under x ↦ (x mod 17, x mod 7) |
+| Randomness and caps | each iteration is seeded by the seed base 1 and its index; lists of 2000, 20000 and 20000 sampled members for the second, third and fourth blocks; 30 level-1 instances per iteration go to level 2 |
+| Result | the first iteration hits, in about 20 s on an idle core (35–40 s on a loaded machine); the output over ℤ₁₇ × ℤ₇ (SHA-256 of its matrix `1f4f883c…`) becomes this certificate under x ↦ (x mod 17, x mod 7) |
 
 ## Status
 

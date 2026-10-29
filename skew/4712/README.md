@@ -4,12 +4,14 @@
 
 ## Construction
 
-A negacyclic Goethals–Seidel array ([NEGACYCLIC.md](../NEGACYCLIC.md)): four ±1 sequences of length 1178 = 2 · 589
-(`sequences.txt`) whose negaperiodic autocorrelations sum to 4712 at shift 0 and to 0 elsewhere, the first palindromic
-with first entry 1 (so its negacyclic matrix A satisfies A + Aᵀ = 2I). The sums of the four sequences are −10, 34,
-−46, 12 (negacyclic blocks have no constant row sum).
+A skew-Hadamard matrix is a Hadamard matrix H with H + Hᵀ = 2I.
 
-In quaternary form the four sequences are u_X on ℤ₅₈₉ with values in {1, i, −1, −i}, constant on the orbits of
+**Sequences.** Four ±1 sequences of length 1178 = 2 · 589 (`sequences.txt`) whose negaperiodic autocorrelations sum to
+4712 at shift 0 and to 0 elsewhere. The first is palindromic with first entry 1, so its negacyclic matrix A satisfies
+A + Aᵀ = 2I. The sums of the four sequences are −10, 34, −46, 12 (negacyclic blocks have no constant row sum). The
+negacyclic Goethals–Seidel array of [NEGACYCLIC.md](../NEGACYCLIC.md) then gives the matrix.
+
+**Quaternary form.** The four sequences are u_X on ℤ₅₈₉ with values in {1, i, −1, −i}, constant on the orbits of
 H = ⟨311, 381⟩ ≤ ℤ₅₈₉*, of order 45 (21 orbits), with Σ u_X u_X* = 2356 δ, u_A(−g) = i · conj(u_A(g)) for g ≠ 0 and
 u_A(0) = 1. Over ℤ₅₈₉ = ℤ₁₉ × F₃₁, H is ⟨7⟩ (order 3) on ℤ₁₉ times the squares of F₃₁* (order 15): 311 = (7, 1) and
 381 = (1, 9) mod (19, 31). The block sums are 19 + 18i, 31, −5 and −26 + 3i (685 + 961 + 25 + 685 = 2356).

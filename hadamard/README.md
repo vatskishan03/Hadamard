@@ -45,20 +45,21 @@ Entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard mat
 | [11572](11572) | 2893 = 11 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks, T-matrices of order 11 |
 | [11804](11804) | 2951 = 13 · 227 | Paley's matrix of order 908 in sixteen circulant blocks, T-matrices of order 13 |
 
-The fourteen orders from Paley's matrix in sixteen circulant blocks are New, but obtainable classically: they follow
-from two published theorems that the tables did not combine ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)). 2284 is Concurrent: it
-also follows, by Turyn's doubling, from the quaternary Hadamard matrix of order 1142 on Zaitsev's page
-([2284](2284/README.md#status)). 6108 and 10180 are First explicit constructions: Đoković claimed n = 1527 and 2545 in
-2010 through Seberry–Yamada's Corollary 8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7). 2092, 3732,
-4492, 5020, 5932 and 9172 are Concurrent: Cooley's Middletownbooks/Hadamard has 2092 and 3732, and Egan, Kotsireas,
-London and Ó Catháin (arXiv:2610.27175) construct 3732, 4492, 5020 and 5932 and derive 9172 from Cooley's matrix of
-order 2292 by Miyamoto's theorem ([NOVELTY.md](../NOVELTY.md)). Our 3732 is also skew, which neither of the others is
-stated to be. The other eleven are New. 7532 uses the near-Williamson matrices of 2026, as do the First explicit
-constructions 6108 and 10180, and 11292 uses a symmetric conference matrix of order 118 found here, Concurrent with
-J. Y. Z. Ho's ([symmetric/940](../symmetric/940)).
+Labels of the orders above:
 
-Agayan's multiplication with Hadamard matrices of orders 20 and 12 turns 2284 and 3964 into orders 8 · 2855 and
-8 · 2973, lowering the Table 4 entries 2855(4) and 2973(4) to 3 ([FRONTIER.md](../FRONTIER.md)).
+- The fourteen orders from Paley's matrix in sixteen circulant blocks are New, but obtainable classically: they follow
+  from two published theorems that the tables did not combine ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)).
+- 2284 is Concurrent: it also follows, by Turyn's doubling, from the quaternary Hadamard matrix of order 1142 on
+  Zaitsev's page ([2284](2284/README.md#status)).
+- 6108 and 10180 are First explicit constructions: Đoković claimed n = 1527 and 2545 in 2010 through Seberry–Yamada's
+  Corollary 8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7).
+- 2092, 3732, 4492, 5020, 5932 and 9172 are Concurrent. Cooley's Middletownbooks/Hadamard has 2092 and 3732, and Egan,
+  Kotsireas, London and Ó Catháin (arXiv:2610.27175) construct 3732, 4492, 5020 and 5932 and derive 9172 from Cooley's
+  matrix of order 2292 by Miyamoto's theorem ([NOVELTY.md](../NOVELTY.md)). Our 3732 is also skew, which neither of the
+  others is stated to be.
+- The other eleven are New. 7532 uses the near-Williamson matrices of 2026, as do the First explicit constructions 6108
+  and 10180, and 11292 uses a symmetric conference matrix of order 118 found here, Concurrent with J. Y. Z. Ho's
+  ([symmetric/940](../symmetric/940)).
 
 ## Orders recorded only through Corollary 8.8(i)
 
@@ -71,8 +72,8 @@ matrix in sixteen bordered blocks with a periodic Golay pair
 ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#near-williamson-matrices)). All are First explicit constructions. For 293 and
 173 the Williamson-type matrices themselves now have valid constructions: Lemma 26 with a repeated block for 293, and
 Verma's symmetric conference matrix of order 86 (arXiv:2610.08893, October 2026) for 173 ([NOTES.md](../NOTES.md) §7).
-Table 4's entry 1619(3), order 8 · 1619 = 12952, rests on the Williamson-type matrices of order 809 as well; 12952 is
-built from them, and they from the symmetric Hadamard matrix of order 404 of this repository by Corollary 8.8(ii)
+Table 4's entry 1619(3), order 8 · 1619 = 12952, rests on the Williamson-type matrices of order 809 as well. Here they
+are built from the symmetric Hadamard matrix of order 404 of this repository by Corollary 8.8(ii), and 12952 from them
 ([12952](12952/README.md)).
 
 | Order | n | Construction |
@@ -94,21 +95,22 @@ built from them, and they from the symmetric Hadamard matrix of order 404 of thi
 Cati–Pasechnik's Table 4 records 1559(4) and 2589(4), and 739(6), which Craigen–Holzmann–Kharaghani's rule lowers to
 739(4): orders 16n known, 8n not.
 
-5912: one of the six open orders 8p of the 2026 survey of Egan et al. (Table 5); found by a search
-([search/NOTES.md](../search/NOTES.md) §108).
-
-12472: Miyamoto's Theorem 7 (very probably his; see [COMPLEX_MIYAMOTO.md](COMPLEX_MIYAMOTO.md), where it is written out
-in quaternary form), applied to the quaternary Hadamard matrix of order 1558 of 2026 (this repository and Zaitsev's
-page), gives 8 · 1559. The tables and surveys use the theorem only when 2q − 3 is a prime power or a prime.
-
 | Order | n | Construction | Status |
 |------:|---|---|---|
 | [5912](5912) | 1478 = 2 · 739 | Spence's bordered construction over the odd group ℤ₂₁₁ × F₇ (order 1477), a Paley plug-in with symmetry group of order 45 | New |
 | [12472](12472) | 3118 = 2 · 1559 | Miyamoto's Theorem 7 (q = 1559) with the quaternary Hadamard matrix of order 1558, through a quaternary matrix of order 6236, then Turyn's doubling | New |
 | [20712](20712) | 5178 = 2 · 3 · 863 | Miyamoto's quaternary array (q = 863, Paley's quaternary matrix of order 862 with circulant blocks) in sixteen commuting blocks, their Turyn doubles times T-matrices of order 3 ([QUATERNARY_MIYAMOTO_BLOCKS.md](QUATERNARY_MIYAMOTO_BLOCKS.md)) | New |
 
-20712: 4 · 863 is open, so Agayan's multiplication cannot give 8 · 3 · 863; the quaternary array of order 4 · 863 can,
-once its blocks are made to commute and are doubled ([QUATERNARY_MIYAMOTO_BLOCKS.md](QUATERNARY_MIYAMOTO_BLOCKS.md)).
+- 5912 is one of the six open orders 8p of the 2026 survey of Egan et al. (Table 5). It was found by a search
+  ([search/NOTES.md](../search/NOTES.md) §108).
+- 12472 = 8 · 1559 comes from Miyamoto's Theorem 7 (very probably his; see [COMPLEX_MIYAMOTO.md](COMPLEX_MIYAMOTO.md),
+  where it is written out in quaternary form), applied to the quaternary Hadamard matrix of order 1558 of 2026 (this
+  repository and Zaitsev's page). The tables and surveys use the theorem only when 2q − 3 is a prime power or a prime.
+- 20712: 4 · 863 is open, so Agaian's multiplication cannot give 8 · 3 · 863. The quaternary array of order 4 · 863 can,
+  once its blocks are made to commute and are doubled ([QUATERNARY_MIYAMOTO_BLOCKS.md](QUATERNARY_MIYAMOTO_BLOCKS.md)).
+
+Agaian's multiplication with Hadamard matrices of orders 20 and 12 turns 2284 and 3964 into orders 8 · 2855 and
+8 · 2973, lowering the Table 4 entries 2855(4) and 2973(4) to 3 ([FRONTIER.md](../FRONTIER.md)).
 
 ## Orders beyond the tables
 
@@ -210,7 +212,7 @@ matrices are not stored (up to 7 GB as CSV); `python3 verify/verify.py <order>` 
 | [24772](24772) | 6193 = 11 · 563 | Paley's matrix of order 2252 in sixteen circulant blocks, T-matrices of order 11 | New, beyond the tables, but obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [24836](24836) | 6209 = 7 · 887 | Paley's matrix of order 3548 in sixteen circulant blocks, T-matrices of order 7 | New, beyond the tables, but obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [25332](25332) | 6333 = 3 · 2111 | Paley's matrix of order 8444 in sixteen circulant blocks, T-matrices of order 3 | New, beyond the tables, but obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
-| [25364](25364) | 6341 = 17 · 373 | Miyamoto's matrix of order 1492 in sixteen bordered blocks with near-Williamson matrices of order 93, T-matrices of order 17 | First explicit construction (Đoković's Δ through Corollary 8.8(i)) ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#near-williamson-matrices)) |
+| [25364](25364) | 6341 = 17 · 373 | Miyamoto's matrix of order 1492 in sixteen bordered blocks with near-Williamson matrices of order 93, T-matrices of order 17 | First explicit construction (Đoković's Δ through Corollary 8.8(i); [MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#near-williamson-matrices)) |
 | [25508](25508) | 6377 = 7 · 911 | Paley's matrix of order 3644 in sixteen circulant blocks, T-matrices of order 7 | New, beyond the tables, but obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [25676](25676) | 6419 = 7² · 131 | Paley's matrix of order 524 in sixteen circulant blocks, T-matrices of order 49 | New, beyond the tables, but obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [25828](25828) | 6457 = 11 · 587 | Paley's matrix of order 2348 in sixteen circulant blocks, T-matrices of order 11 | New, beyond the tables, but obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
@@ -223,7 +225,7 @@ matrices are not stored (up to 7 GB as CSV); `python3 verify/verify.py <order>` 
 | [26156](26156) | 6539 = 13 · 503 | Paley's matrix of order 2012 in sixteen circulant blocks, T-matrices of order 13 | New, beyond the tables, but obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [26300](26300) | 6575 = 5² · 263 | Paley's matrix of order 1052 in sixteen circulant blocks, T-matrices of order 25 | New, beyond the tables, but obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [26332](26332) | 6583 = 29 · 227 | Paley's matrix of order 908 in sixteen circulant blocks, T-matrices of order 29 | New, beyond the tables, but obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
-| [26468](26468) | 6617 = 13 · 509 | Miyamoto's matrix of order 2036 in sixteen bordered blocks with near-Williamson matrices of order 127, T-matrices of order 13 | First explicit construction (Đoković 2010 through Corollary 8.8(i)) ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#near-williamson-matrices)) |
+| [26468](26468) | 6617 = 13 · 509 | Miyamoto's matrix of order 2036 in sixteen bordered blocks with near-Williamson matrices of order 127, T-matrices of order 13 | First explicit construction (Đoković 2010 through Corollary 8.8(i); [MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#near-williamson-matrices)) |
 | [26604](26604) | 6651 = 3² · 739 | Paley's matrix of order 8868 in sixteen circulant blocks, T-matrices of order 3 (Goethals–Seidel array over ℤ₃ × ℤ₂₂₁₇) | New, beyond the tables, but obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [26740](26740) | 6685 = 5 · 7 · 191 | Paley's matrix of order 5348 in sixteen circulant blocks, T-matrices of order 5 | New, beyond the tables, but obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [26972](26972) | 6743 = 11 · 613 | Miyamoto's matrix of order 2452 in sixteen bordered blocks with a negaperiodic Golay pair of length 306 (Williamson matrices of order 153), T-matrices of order 11 ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md)) | First explicit construction ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#orders-recorded-only-through-corollary-88i)) |
@@ -277,9 +279,9 @@ matrices are not stored (up to 7 GB as CSV); `python3 verify/verify.py <order>` 
 | [34012](34012) | 8503 = 11 · 773 | Miyamoto's matrix of order 3092 in sixteen bordered blocks with symmetric Williamson-type matrices of order 193, T-matrices of order 11 | First explicit construction ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#symmetric-williamson-type-matrices)) |
 | [34196](34196) | 8549 = 83 · 103 | Cooper–Wallis: T-matrices of order 103, bordered Williamson-type matrices of order 83 | New, beyond the tables |
 | [34204](34204) | 8551 = 17 · 503 | Paley's matrix of order 2012 in sixteen circulant blocks, T-matrices of order 17 | New, beyond the tables, but obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
-| [34316](34316) | 8579 = 23 · 373 | Miyamoto's matrix of order 1492 in sixteen bordered blocks with near-Williamson matrices of order 93, T-matrices of order 23 | First explicit construction (Đoković's Δ through Corollary 8.8(i)) ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#near-williamson-matrices)) |
+| [34316](34316) | 8579 = 23 · 373 | Miyamoto's matrix of order 1492 in sixteen bordered blocks with near-Williamson matrices of order 93, T-matrices of order 23 | First explicit construction (Đoković's Δ through Corollary 8.8(i); [MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#near-williamson-matrices)) |
 | [34556](34556) | 8639 = 53 · 163 | Paley's matrix of order 212 in sixteen circulant blocks, T-matrices of order 163 | New, beyond the tables |
-| [34612](34612) | 8653 = 17 · 509 | Miyamoto's matrix of order 2036 in sixteen bordered blocks with near-Williamson matrices of order 127, T-matrices of order 17 | First explicit construction (Đoković 2010 through Corollary 8.8(i)) ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#near-williamson-matrices)) |
+| [34612](34612) | 8653 = 17 · 509 | Miyamoto's matrix of order 2036 in sixteen bordered blocks with near-Williamson matrices of order 127, T-matrices of order 17 | First explicit construction (Đoković 2010 through Corollary 8.8(i); [MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#near-williamson-matrices)) |
 | [34660](34660) | 8665 = 5 · 1733 | Miyamoto's matrix of order 6932 in sixteen bordered blocks with symmetric Williamson-type matrices of order 433, T-matrices of order 5 | First explicit construction ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#symmetric-williamson-type-matrices)) |
 | [35004](35004) | 8751 = 3 · 2917 | Miyamoto's matrix of order 11668 in sixteen bordered blocks with symmetric Williamson-type matrices of order 729, T-matrices of order 3 | First explicit construction ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#symmetric-williamson-type-matrices)) |
 | [35236](35236) | 8809 = 23 · 383 | Paley's matrix of order 1532 in sixteen circulant blocks, T-matrices of order 23 | New, beyond the tables, but obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
@@ -312,7 +314,7 @@ matrices are not stored (up to 7 GB as CSV); `python3 verify/verify.py <order>` 
 | [38508](38508) | 9627 = 3 · 3209 | Miyamoto's matrix of order 12836 in sixteen bordered blocks with symmetric Williamson-type matrices of order 802, T-matrices of order 3 | First explicit construction ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#symmetric-williamson-type-matrices)) |
 | [38636](38636) | 9659 = 13 · 743 | Paley's matrix of order 2972 in sixteen circulant blocks, T-matrices of order 13 | New, beyond the tables, but obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [38660](38660) | 9665 = 5 · 1933 | Miyamoto's matrix of order 7732 in sixteen bordered blocks, T-matrices of order 5 ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md)) | New, beyond the tables, but obtainable classically ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md)) |
-| [38684](38684) | 9671 = 19 · 509 | Miyamoto's matrix of order 2036 in sixteen bordered blocks with near-Williamson matrices of order 127, T-matrices of order 19 | First explicit construction (Đoković 2010 through Corollary 8.8(i)) ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#near-williamson-matrices)) |
+| [38684](38684) | 9671 = 19 · 509 | Miyamoto's matrix of order 2036 in sixteen bordered blocks with near-Williamson matrices of order 127, T-matrices of order 19 | First explicit construction (Đoković 2010 through Corollary 8.8(i); [MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md#near-williamson-matrices)) |
 | [39012](39012) | 9753 = 3 · 3251 | Paley's matrix of order 13004 in sixteen circulant blocks, T-matrices of order 3 | New, beyond the tables, but obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [39028](39028) | 9757 = 11 · 887 | Paley's matrix of order 3548 in sixteen circulant blocks, T-matrices of order 11 | New, beyond the tables, but obtainable classically ([PALEY_BLOCKS.md](PALEY_BLOCKS.md)) |
 | [39036](39036) | 9759 = 3 · 3253 | Miyamoto's matrix of order 13012 in sixteen bordered blocks, T-matrices of order 3 ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md)) | New, beyond the tables, but obtainable classically ([MIYAMOTO_BLOCKS.md](MIYAMOTO_BLOCKS.md)) |

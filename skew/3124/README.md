@@ -41,9 +41,9 @@ gives a Hadamard matrix of order 3124, and H + Hᵀ = 2I because A + Aᵀ = 2I.
    25, 33, 35, 44, 54, 57 and the fourth 0, 6, 8, 11, 26, 30, 40, 55, 58, 59, 62, five of each of the last two of the
    second type (N_w = 27, N₋ = 10): 324 − 40 = 284. The compressions to ℤ₇₁ take the values ±1, ±9 and ±11. The slot
    (0, 6, 10, 11) / (0, 0, 5, 5) has the lowest row-sum-feasible energy of the shape, E = 27.
-3. **Engine** (`search/skewplug`, `exh38.py`, NOTES §91). The sweep of round 40 enumerated the lowest-energy slots of
-   every open real skew census shape. This slot is heavy (block specifications with up to 6 · 10⁶ raw
-   configurations): its 1841 classes of level-1 instances give one completion.
+3. **Engine** (`search/skewplug`, `exh38.py`; [search/NOTES.md](../../search/NOTES.md) §91 and §93). A sweep
+   enumerated the lowest-energy slots of every open real skew census shape. This slot is heavy (block specifications
+   with up to 6 · 10⁶ raw configurations): its 1841 classes of level-1 instances give one completion.
 
 **Reproduction.**
 

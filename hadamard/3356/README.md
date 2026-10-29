@@ -65,7 +65,8 @@ every abelian 2-group with a subgroup of index 8, multiplier groups built from T
 shear automorphisms, and units of the odd part. It ranked about 34,000 structures by a Gaussian lattice estimate and
 tested the best ones by exact compression.
 
-This structure predicts about 10^11.2 solutions. Two independent re-checks counted the compressed sequences exactly:
+This structure predicts about 10^11.2 solutions. Two independent computations counted the compressed sequences
+exactly:
 
 | Quotient | Exact count | Gaussian |
 |---|---:|---:|
@@ -90,17 +91,17 @@ generalized to any index and to quotients by any S-invariant subgroup.
      sequences per block.
 
 The restriction makes the search incomplete; it is not a classification. The first solution appeared in branch 72
-after about 12 core-minutes, and five distinct solutions in about 90 core-minutes. The matrix here comes from the
-first one. It is reproduced from a fresh start in about a minute:
+after about 12 core-minutes, and five distinct solutions in about 90 core-minutes. The matrix here comes from the first
+one.
 
-```
-cd search/bgschain
-python3 hchain.py prepare configs/n839_P1.json --state state/n839_P1                        # 350 branches
-python3 hchain.py run configs/n839_P1.json --state state/n839_P1 --ids 72 --stop-first      # the first solution
-python3 e2e/cert839.py state/n839_P1/solutions.jsonl --out results/certificate_3356.json    # border, certificate, check
-```
+**Reproduction.**
 
-The border is the first one that `z7search` finds for these d, so the certificate is reproduced byte for byte.
+| | |
+|---|---|
+| Code | `search/bgschain` ([README](../../search/bgschain/README.md)): `hchain.py`, `e2e/cert839.py`, `e2e/z7search.c` |
+| Command | from `search/bgschain`: `python3 hchain.py prepare configs/n839_P1.json --state state/n839_P1` (350 branches); `python3 hchain.py run configs/n839_P1.json --state state/n839_P1 --ids 72 --stop-first` (the first solution); `python3 e2e/cert839.py state/n839_P1/solutions.jsonl --out results/certificate_3356.json` (border, certificate, check) |
+| Randomness and caps | the ℤ₄³ level takes the 2000 heaviest compressed vectors of each block, combined in random order; the border is the first one `z7search` finds for these d |
+| Result | the first solution, from a fresh start in about a minute; the certificate is reproduced byte for byte |
 
 ## Status
 

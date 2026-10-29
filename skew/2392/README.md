@@ -4,12 +4,14 @@
 
 ## Construction
 
-A negacyclic Goethals–Seidel array ([NEGACYCLIC.md](../NEGACYCLIC.md)): four ±1 sequences of length 598 = 2 · 299
-(`sequences.txt`) whose negaperiodic autocorrelations sum to 2392 at shift 0 and to 0 elsewhere, the first palindromic
-with first entry 1 (so its negacyclic matrix A satisfies A + Aᵀ = 2I). The sums of the four sequences are −60, −8, 12,
-68 (negacyclic blocks have no constant row sum).
+A skew-Hadamard matrix is a Hadamard matrix H with H + Hᵀ = 2I.
 
-In quaternary form the four sequences are u_X on ℤ₂₉₉ with values in {1, i, −1, −i}, constant on the orbits of
+**Sequences.** Four ±1 sequences of length 598 = 2 · 299 (`sequences.txt`) whose negaperiodic autocorrelations sum to
+2392 at shift 0 and to 0 elsewhere. The first is palindromic with first entry 1, so its negacyclic matrix A satisfies
+A + Aᵀ = 2I. The sums of the four sequences are −60, −8, 12, 68 (negacyclic blocks have no constant row sum). The
+negacyclic Goethals–Seidel array of [NEGACYCLIC.md](../NEGACYCLIC.md) then gives the matrix.
+
+**Quaternary form.** The four sequences are u_X on ℤ₂₉₉ with values in {1, i, −1, −i}, constant on the orbits of
 H = ⟨185, 209⟩ ≤ ℤ₂₉₉*, of order 33 (15 orbits), with Σ u_X u_X* = 1196 δ, u_A(−g) = i · conj(u_A(g)) for g ≠ 0 and
 u_A(0) = 1. Over ℤ₂₉₉ = ℤ₁₃ × F₂₃, H is ⟨3⟩ (order 3) on ℤ₁₃ times the squares of F₂₃* (order 11): 209 = (1, 2) and
 185 = (3, 1) mod (13, 23). The block sums are −10 − 11i, 4 − 3i, −24 − 3i and −2 − 19i (221 + 25 + 585 + 365 = 1196).
@@ -27,7 +29,7 @@ u_A(0) = 1. Over ℤ₂₉₉ = ℤ₁₃ × F₂₃, H is ⟨3⟩ (order 3) on 
 3. **Exhaustive count.** `search/negaskew/qp` lists all 64 skew first blocks and 2303 other blocks, joins them into
    36,000 level-1 instances and completes 4800 of them: 13,056 solutions with B, C, D normalised to u(0) = 1
    (835,584 ordered quadruples), in 11 s on one core. This one is the 7361st printed.
-4. **Independent searches.** A second program (a K-level pattern join written separately) found a different solution
+4. **Independent checks.** A second program (a K-level pattern join written separately) found a different solution
    of the same class, and an independent reimplementation of both levels gave the same 13,056 solutions as a set.
 
 **Reproduction.**

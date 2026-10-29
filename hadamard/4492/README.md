@@ -23,9 +23,10 @@ The search space is small, 2³⁵ sequences, and rich in solutions. The search f
 
 ## Status
 
-**Concurrent.** The entry 1123(3) is unresolved in Cati–Pasechnik Table 4. Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175, 19 October 2026) constructed a Hadamard matrix of
-order 4492 independently, by a Goethals–Seidel array with a multiplier group of order 33 as here; ours was committed on
-11 October 2026. We claim no priority. None of the standard recursive constructions applies:
+**Concurrent.** The entry 1123(3) is unresolved in Cati–Pasechnik Table 4. Egan, Kotsireas, London and Ó Catháin
+(arXiv:2610.27175, 19 October 2026) constructed a Hadamard matrix of order 4492 independently, by a Goethals–Seidel
+array with a multiplier group of order 33 as here; ours was committed on 11 October 2026. We claim no priority. None of
+the standard recursive constructions applies:
 
 - Paley: 4491 = 3² · 499 and 2245 = 5 · 449 are not prime powers.
 - Miyamoto and Yamada: 1123 ≡ 3 (mod 4), and q = 1121 = 19 · 59 is not a prime power.

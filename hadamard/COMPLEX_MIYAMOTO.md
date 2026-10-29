@@ -9,7 +9,10 @@ Hadamard matrices of order 2N, N odd, exist for many N ([complex-hadamard](../co
 **Theorem.** Let q ≡ 3 (mod 4) be a prime and K a quaternary Hadamard matrix of order q − 1. Then there is a quaternary
 Hadamard matrix of order 4q, and by Turyn's doubling a Hadamard matrix of order 8q.
 
-**Credit.** This is very probably Miyamoto's Theorem 7 (1991), stated here with the intermediate quaternary matrix:
+## Credit
+
+This is very probably Miyamoto's Theorem 7 (1991), stated here with the intermediate quaternary matrix:
+
 - The Hadamard Matrix Explorer (version 53, notation page) describes Theorem 7 as: "A complex Hadamard matrix of order
   q − 1, taken from Paley I of order n = 2q − 2 (q ≡ 3 (mod 4), n − 1 a prime power), gives order 8q = 4(n + 2)."
 - Seberry and Yamada (1989, 1992: key m2 of their tables, "8q: q ≡ 3 (mod 4) is a prime power; 2q − 3 is a prime
@@ -18,13 +21,8 @@ Hadamard matrix of order 4q, and by Turyn's doubling a Hadamard matrix of order 
   input.
 
 That Miyamoto's theorem takes any complex Hadamard matrix of order q − 1 is our inference from the Explorer's
-description; we could not read his paper ([NOVELTY.md](../NOVELTY.md)). The construction and proof below are our own
-and self-contained. `verify/verify.py` implements them (`complex_miyamoto`, certificate type `complex-miyamoto`), and
-`search/cmiyamoto_check.py` repeats the smaller cases. They are checked exactly:
-- for q = 7, 19, 31 and 43 with K from Paley's complex construction;
-- for q = 223, 263, 331 and 431 with the matrices of orders 222, 262, 330 and 430 of
-  [complex-hadamard](../complex-hadamard/README.md);
-- for q = 1559 ([12472](12472)).
+description; we could not read his paper ([NOVELTY.md](../NOVELTY.md)). The construction and proof below are our own and
+self-contained.
 
 ## Construction
 
@@ -80,6 +78,16 @@ So H H* = 4qI. The construction is the M-structure of Miyamoto's theorem (Seberr
 `miyamoto`) with a Hermitian core in place of the symmetric one. The difference is fact 3: the row sums of the
 Hermitian core sit on the opposite halves, so the border is R P F instead of a sign pattern.
 
+## Checks
+
+`verify/verify.py` implements the construction (`complex_miyamoto`, certificate type `complex-miyamoto`), and
+`search/cmiyamoto_check.py` repeats the smaller cases. The construction is checked exactly:
+
+- for q = 7, 19, 31 and 43 with K from Paley's complex construction;
+- for q = 223, 263, 331 and 431 with the matrices of orders 222, 262, 330 and 430 of
+  [complex-hadamard](../complex-hadamard/README.md);
+- for q = 1559 ([12472](12472)).
+
 ## Any skew conference matrix
 
 The proof uses Paley's matrix only through three facts about its core W: zero diagonal, fact 2 and fact 3. All three
@@ -102,7 +110,7 @@ Within Table 4 the general form reaches two more entries n(4) with n composite: 
 matrix of order [2216](../skew/2216) and Paley's conference matrix of order 2214 plus iI) and 2327 = 13 · 179 (Paley's
 skew matrix of order 1164 doubled, and Paley's quaternary matrix of order 2326). Both orders 8n already follow from the
 Hadamard matrices of orders 1772 = 4 · 443 and 716 = 4 · 179 of Alpöge, Voinov and Reynolds-Haertle (2026) by
-Agayan's multiplication with orders 20 and 52, so we did not build them. Beyond Table 4 the general form reaches odd
+Agaian's multiplication with orders 20 and 52, so we did not build them. Beyond Table 4 the general form reaches odd
 composite n whose factors do not all have known Hadamard matrices of order 4p; we have not assessed those against
 the Handbook.
 
@@ -122,11 +130,11 @@ For the other such q no quaternary matrix of order q − 1 is known to us (Zaits
 orders below 2000; above that we know only this repository's matrices). That includes the open orders 8p of Egan,
 Kotsireas, London and Ó Catháin: 4792 and 5752 would follow from quaternary Hadamard matrices of orders 598 and 718,
 both open ([complex-hadamard/README.md](../complex-hadamard/README.md)). 5912 would follow from one of order 738, also
-open, but it was found directly ([5912](5912)). Seberry–Yamada's Table A.1
-seems to give one for q = 2683 (Williamson-type matrices of order 1341, key wb), but the key's formula gives order
-2682 = 2 · 1341: the entry lacks its mark t = 3 ([search/NOTES.md](../search/NOTES.md) §104).
+open, but it was found directly ([5912](5912)). Seberry–Yamada's Table A.1 seems to give one for q = 2683
+(Williamson-type matrices of order 1341, key wb), but the key's formula gives order 2682 = 2 · 1341: the entry lacks its
+mark t = 3 ([search/NOTES.md](../search/NOTES.md) §104).
 
-Below Table 4's m ≥ 4, the theorem also applies to q = 1619 (Table 4: 1619(3)). With the quaternary matrix of order
-1618 ([C1618.json](../complex-hadamard/C1618.json), from the symmetric Hadamard matrix of order 404) it gives a second
-valid matrix of order 12952 = 8 · 1619 ([12952](12952)); Table 4 records that order through the broken Corollary
-8.8(i).
+Outside the entries with m ≥ 4, the theorem also applies to q = 1619 (Table 4: 1619(3)). With the quaternary matrix of
+order 1618 ([C1618.json](../complex-hadamard/C1618.json), from the symmetric Hadamard matrix of order 404) it gives a
+second valid matrix of order 12952 = 8 · 1619 ([12952](12952)). Table 4 records that order through Corollary 8.8(i),
+whose printed proof fails ([NOTES.md](../NOTES.md) §7).

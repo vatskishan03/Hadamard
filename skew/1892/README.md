@@ -40,13 +40,13 @@ is then a Hadamard matrix of order 1892. Because A + Aᵀ = 2I, it satisfies H +
 2. **The solution.** The first block has no w-position; the others have 4, 7 and 10 (orbits of ⟨6⟩ together with 0).
    All 21 are of type u = −2w except one in the third block: N_w = 21, N₋ = 20. The compressions to ℤ₄₃ take the
    values ±1, ±9 and 11, and their autocorrelations sum to 1892 δ.
-3. **Two-level search** (`search/skewplug`, `prod_ks.py`): rounds draw an allocation of w-positions, weighted by
-   estimated completions per second, and an exact row-sum pattern. Level 1 joins the complete list of skew first
+3. **Two-level search** (`search/skewplug`, `prod_ks.py`): each iteration draws an allocation of w-positions, weighted
+   by estimated completions per second, and an exact row-sum pattern. Level 1 joins the complete list of skew first
    blocks against sampled lists of the other three; level 2 fixes the signs of z by a meet in the middle. The first
-   hit came in the tenth round (allocation (0, 4, 7, 10)), after about 5 minutes on one core.
+   hit came in the tenth iteration (allocation (0, 4, 7, 10)), after about 5 minutes on one core.
 4. **Rate.** Four more matrices of this order came from the same loop with other seeds (allocations (6, 1, 3, 10),
    (0, 3, 7, 7) twice and (6, 1, 7, 7)), about one per 2 · 10⁴ to 3 · 10⁴ level-2 runs. The estimators of this
-   repository put the class 3 to 4 decades lower (HEURISTIC).
+   repository put the class 3 to 4 decades lower (heuristic).
 
 **Reproduction.**
 
@@ -54,8 +54,8 @@ is then a Hadamard matrix of order 1892. Because A + Aᵀ = 2I, it satisfies H +
 |---|---|
 | Code | `search/skewplug` (build commands in its README) |
 | Command | `python3 -u prod_ks.py k473a 1 9000 "[43]" 11 "[6]" data/cost473.jsonl 40 10000 60000 60000 sl2`, then `python3 cyclic.py out/skew_1892_k473a.json out/skew_1892_cyclic.json` |
-| Randomness and caps | rounds are seeded by the seed base and the round index; 19 slots (15 allocations of w-positions with their splits into the two types) are drawn with weights equal to the Gaussian estimate of completions divided by the measured seconds per instance (`data/cost473.jsonl`); lists of 10000, 60000 and 60000 sampled members; every level-1 instance goes to level 2 |
-| Result | the tenth round hits (6390 level-1 instances, 6058 level-2 runs in all, about 5 minutes on one core), and `cyclic.py` gives this certificate without its `sha256` field |
+| Randomness and caps | each iteration is seeded by the seed base and its index; 19 slots (15 allocations of w-positions with their splits into the two types) are drawn with weights equal to the Gaussian estimate of completions divided by the measured seconds per instance (`data/cost473.jsonl`); lists of 10000, 60000 and 60000 sampled members; every level-1 instance goes to level 2 |
+| Result | the tenth iteration hits (6390 level-1 instances, 6058 level-2 runs in all, about 5 minutes on one core), and `cyclic.py` gives this certificate without its `sha256` field |
 
 ## Status
 

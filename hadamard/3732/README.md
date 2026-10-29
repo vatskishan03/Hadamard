@@ -94,7 +94,7 @@ Hadamard matrices of order 3732 independently: Egan, Kotsireas, London and Ó Ca
 we claim no priority for the order. The matrix here is skew, and neither of the others is stated to be skew; no
 skew-Hadamard matrix of order 3732 was known.
 
-- Seberry–Yamada (1992, Table A.2: "933 4 d1", Agayan multiplication) and the Handbook of Combinatorial Designs (2007,
+- Seberry–Yamada (1992, Table A.2: "933 4 d1", Agaian multiplication) and the Handbook of Combinatorial Designs (2007,
   Table 1.53: 933 → 4 and 311 → 3) give the same entry. Seberry–Yamada Table A.1 has no Williamson or Williamson-type
   matrices of order 311 or 933.
 - Cati–Pasechnik mark no update at this entry, and 933 is not among the entries dropped from Seberry–Yamada (2020),

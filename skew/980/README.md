@@ -43,13 +43,14 @@ gives a Hadamard matrix of order 980, and H + Hᵀ = 2I because A + Aᵀ = 2I.
    second (all three of the second type) and 8, 18, 21, 23 in the third (N_w = 19, N₋ = 3): 152 − 12 = 140. The
    compressions to ℤ₃₅ take the values ±1, ±5 and ±7. The slot (6, 3, 4, 6) / (0, 3, 0, 0) has energy E = 19, one
    above the lowest row-sum-feasible energy of the shape.
-3. **Engine** (`search/skewplug`, `exh38.py`, NOTES §91). The sweep of round 40 enumerated the lowest-energy slots of
-   every open real skew census shape in increasing order of their number of classes. This slot holds 11,812 classes of
-   level-1 instances, and 3 of them complete. Other slots of the shape gave seven more matrices, with different row
-   sums or level-1 classes (certificates in `search/skewplug/data/repro245`; the seventh, from the slot
-   (6, 4, 4, 5) / (0, 0, 1, 2) with row sums 1, 3, 21, 23, was found by the judge's re-run). The ten quadruples are
-   pairwise inequivalent under the automorphisms of G, translation, reflection and negation of B, C, D and their
-   permutations (matrix-level equivalence not tested), so ten is a lower bound.
+3. **Engine** (`search/skewplug`, `exh38.py`; [search/NOTES.md](../../search/NOTES.md) §91 and §93). A sweep
+   enumerated the lowest-energy slots of every open real skew census shape in increasing order of their number of
+   classes. This slot holds 11,812 classes of level-1 instances, and 3 of them complete. Other slots of the shape gave
+   seven more matrices, with different row sums or level-1 classes (certificates in
+   `search/skewplug/data/repro245`; the seventh, from the slot (6, 4, 4, 5) / (0, 0, 1, 2) with row sums 1, 3, 21, 23,
+   was found in an independent re-run). The ten quadruples are pairwise inequivalent under the automorphisms of G,
+   translation, reflection and negation of B, C, D and their permutations (matrix-level equivalence not tested), so
+   ten is a lower bound.
 
 **Reproduction.**
 

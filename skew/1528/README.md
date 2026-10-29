@@ -4,15 +4,17 @@
 
 ## Construction
 
-A negacyclic Goethals–Seidel array ([NEGACYCLIC.md](../NEGACYCLIC.md)): four ±1 sequences of length 382 = 2 · 191
-(`sequences.txt`) whose negaperiodic autocorrelations sum to 1528 at shift 0 and to 0 elsewhere, the first palindromic
-with first entry 1 (so its negacyclic matrix A satisfies A + Aᵀ = 2I). The sums of the four sequences are 6, −6, −22,
-18 (negacyclic blocks have no constant row sum).
+A skew-Hadamard matrix is a Hadamard matrix H with H + Hᵀ = 2I.
 
-In quaternary form the four sequences are u_X on ℤ₁₉₁ with values in {1, i, −1, −i}, constant on the orbits of H =
-⟨180⟩ ≤ ℤ₁₉₁*, of order 19 (11 orbits), with Σ u_X u_X* = 764 δ and u_A(−g) = i · conj(u_A(g)) for g ≠ 0, u_A(0) = −i; the squared
-moduli of their sums are 761, 1, 1 and 1 (761 = 19² + 20²). `certificate.json` records the orbit values as exponents
-of i (`quaternary_orbit_exponents`).
+**Sequences.** Four ±1 sequences of length 382 = 2 · 191 (`sequences.txt`) whose negaperiodic autocorrelations sum to
+1528 at shift 0 and to 0 elsewhere. The first is palindromic with first entry 1, so its negacyclic matrix A satisfies
+A + Aᵀ = 2I. The sums of the four sequences are 6, −6, −22, 18 (negacyclic blocks have no constant row sum). The
+negacyclic Goethals–Seidel array of [NEGACYCLIC.md](../NEGACYCLIC.md) then gives the matrix.
+
+**Quaternary form.** The four sequences are u_X on ℤ₁₉₁ with values in {1, i, −1, −i}, constant on the orbits of
+H = ⟨180⟩ ≤ ℤ₁₉₁*, of order 19 (11 orbits), with Σ u_X u_X* = 764 δ and u_A(−g) = i · conj(u_A(g)) for g ≠ 0,
+u_A(0) = −i; the squared moduli of their sums are 761, 1, 1 and 1 (761 = 19² + 20²). `certificate.json` records the
+orbit values as exponents of i (`quaternary_orbit_exponents`).
 
 ## Search
 

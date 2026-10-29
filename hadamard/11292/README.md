@@ -7,10 +7,12 @@
 Miyamoto's Hadamard matrix of order 3764 (q = 941, a prime ≡ 1 mod 4) is built from Paley's conference matrix of order
 942 and a Hadamard matrix K of order 940. Here K is the Williamson array of four symmetric, pairwise commuting ±1
 matrices of order w = 235 (symmetric Williamson-type matrices), which come from a symmetric conference matrix of order
-118 found here. The four quadrants of K then lie in a commutative algebra, so Miyamoto's matrix is a 4 × 4 array of
-bordered blocks of order 941 that commute and are transposed by one permutation. Multiplying it by T-matrices of order
-3 in the Goethals–Seidel array gives the Hadamard matrix of order 4 · 941 · 3 = 11292. The construction and its proof
-are in [MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md#symmetric-williamson-type-matrices).
+118 found in this repository. The four quadrants of K then lie in a commutative algebra, so Miyamoto's matrix is a 4 × 4
+array of bordered blocks of order 941 that commute and are transposed by one permutation. Multiplying it by T-matrices
+of order 3 in the Goethals–Seidel array gives the Hadamard matrix of order 4 · 941 · 3 = 11292. The construction and its
+proof are in [MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md#symmetric-williamson-type-matrices).
+
+The ingredients:
 
 - Paley's conference matrix of order 942, its points listed as ∞, 0, g^(2j), g^(2j+1) (j < 470) with the primitive root
   g = 2.
@@ -28,31 +30,40 @@ are in [MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md#symmetric-williamson-type-matr
 
 ## Search
 
-The conference matrix of order 118 came from an exact cover ([search/NOTES.md](../../search/NOTES.md) §95); the rest
-is determined by q, the recipe and the T-matrices.
+The conference matrix of order 118 came from an exact cover
+([search/conference118](../../search/conference118/README.md) and [search/NOTES.md](../../search/NOTES.md) §95). The
+rest is determined by q, the recipe and the T-matrices.
 
-| Code | Command | Randomness and caps | Result |
-|---|---|---|---|
-| `search/miyamoto_blocks.py`, `search/symwt.py`, `verify/verify.py` construction `miyamoto-blocks` | `python3 search/miyamoto_blocks.py certify 941 3 'wt:cor27c(233, "conference118_5fe566972f21790b.txt")'` | none | `certificate.json`, matrix SHA-256 `03b29b37…` |
+**Reproduction.**
+
+| | |
+|---|---|
+| Code | `search/miyamoto_blocks.py`, `search/symwt.py`, `verify/verify.py` (construction `miyamoto-blocks`) |
+| Command | `python3 search/miyamoto_blocks.py certify 941 3 'wt:cor27c(233, "conference118_5fe566972f21790b.txt")'` |
+| Randomness and caps | none |
+| Result | `certificate.json`; matrix SHA-256 `03b29b37…` |
 
 ## Status
 
 **New.** Cati–Pasechnik's Table 4 lists n = 2823 as open, and we found no later construction.
 
-- [MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md#reach) wrote down this route before the conference matrix was known to us.
-  It needs symmetric Williamson-type matrices of order 235 or a negaperiodic Golay pair of length 470. Corollary 27
-  gives the matrices from a symmetric conference matrix of order (233 + 3)/2 = 118, whose existence was open until
-  Brouwer's table of strongly regular graphs (read on 17 October 2026) cited J. Y. Z. Ho (email, October 2026) for the
-  conference graph SRG(117, 58, 28, 29). Ho's matrix is not public. Ours was found independently and is Concurrent with
-  it ([symmetric/940](../../symmetric/940)). We know of no construction of order 11292 by Ho or anyone else.
+The route is described in [MIYAMOTO_BLOCKS.md](../MIYAMOTO_BLOCKS.md#reach). It needs symmetric Williamson-type matrices
+of order 235 or a negaperiodic Golay pair of length 470. Corollary 27 gives the matrices from a symmetric conference
+matrix of order (233 + 3)/2 = 118, whose existence was open until Brouwer's table of strongly regular graphs (read on
+17 October 2026) cited J. Y. Z. Ho (email, October 2026) for the conference graph SRG(117, 58, 28, 29). Ho's matrix is
+not public. Ours was found independently and is Concurrent with it ([symmetric/940](../../symmetric/940)). We know of
+no construction of order 11292 by Ho or anyone else.
+
+Other routes:
+
 - Paley's constructions do not apply: 4n − 1 = 11291 = 7 · 1613 and 2n − 1 = 5645 = 5 · 1129 are not prime powers.
 - Miyamoto's theorem does not apply: it needs a symmetric conference matrix of order n + 1, which cannot exist for n ≡ 3
   (mod 4).
 - Yamada–Kiyasu does not apply: n − 2 = 2821 = 7 · 13 · 31 is not a prime power.
-- Cooper–Wallis needs Williamson-type matrices of order 941 or T-matrices of order 941. Before this construction
-  neither was known to us. The repeated block of the matrices of order 235 now gives symmetric Williamson-type
-  matrices of order 941 = 4 · 235 + 1 by Corollary 8.8(ii) (`symwt.py 'cor29r(941, cor27c(233, …))'`, checked), so
-  Cooper–Wallis gives the order too, from the same conference matrix.
+- Cooper–Wallis needs Williamson-type matrices of order 941 or T-matrices of order 941. Neither was known to us before
+  this construction. The repeated block of the matrices of order 235 gives symmetric Williamson-type matrices of order
+  941 = 4 · 235 + 1 by Corollary 8.8(ii) (`symwt.py 'cor29r(941, cor27c(233, …))'`, checked), so Cooper–Wallis gives the
+  order too, from the same conference matrix.
 - The Paley-block route does not reach it: for the divisors s of 2823, 4s − 1 = 3763 = 53 · 71 and 11291 are not
   prime powers, and s = 1 and 3 need T-matrices of order 2823 or 941, which are not known to us.
 - No negaperiodic or periodic Golay pair of length 470 is known to us; a periodic one cannot exist (940 = 2² · 5 · 47
@@ -72,7 +83,7 @@ matrices that commute pairwise and have X₁² + X₂² + X₃² + X₄² = 4wI.
 ## Verification
 
 ```
-python3 verify/verify.py hadamard/11292
+python3 verify/verify.py 11292
 ```
 
 SHA-256 of `H11292.csv`: `03b29b373d81e48a7d7b0fbc180988342b8bb63f78e1d7c25d31a2510d1fea53`

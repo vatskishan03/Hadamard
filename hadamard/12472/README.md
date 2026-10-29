@@ -4,9 +4,9 @@
 
 ## Construction
 
-Very probably Miyamoto's Theorem 7 (1991: a complex Hadamard matrix of order q − 1 gives order 8q for q ≡ 3 mod 4),
-written out with its intermediate quaternary matrix ([COMPLEX_MIYAMOTO.md](../COMPLEX_MIYAMOTO.md), which gives the
-evidence for the credit), then Turyn's doubling.
+The construction is very probably Miyamoto's Theorem 7 (1991: a complex Hadamard matrix of order q − 1 gives order 8q
+for q ≡ 3 mod 4), written out with its intermediate quaternary matrix and followed by Turyn's doubling.
+[COMPLEX_MIYAMOTO.md](../COMPLEX_MIYAMOTO.md) gives the evidence for the credit.
 
 1. **A quaternary Hadamard matrix of order 1558 = q − 1** from this repository
    ([complex-hadamard/C1558.json](../../complex-hadamard/C1558.json)). It is Szöllősi's array over ℤ₇₇₉ with a
@@ -22,17 +22,17 @@ H Hᵀ = 12472 I.
 
 ## Search
 
-None. The route is Miyamoto's theorem applied to a quaternary matrix of 2026; our explicit form needed only a search
-for the 4 × 4 border, solved once for all q ([COMPLEX_MIYAMOTO.md](../COMPLEX_MIYAMOTO.md)).
+None. The route is Miyamoto's theorem applied to a quaternary matrix of 2026. The explicit form needed only a search
+for the 4 × 4 border, which was solved once for all q ([COMPLEX_MIYAMOTO.md](../COMPLEX_MIYAMOTO.md)).
 
 ## Status
 
-**New.** No source we checked has a Hadamard matrix of order 12472 ([NOVELTY.md](../../NOVELTY.md)). The theorem is
-very probably Miyamoto's; its input, the quaternary matrix of order 1558, is Concurrent with Zaitsev's page (2026).
-2284 is Concurrent because it follows from Zaitsev's quaternary matrix of order 1142 by doubling alone. 12472 needs
-Theorem 7 for a complex input that is not Paley's, and no source we checked states the theorem in that form or draws
-this consequence: the tables and surveys apply it only with 2q − 3 a prime power (Seberry–Yamada, Brent–Osborn–Smith)
-or a prime (Egan et al.).
+**New.** No source we checked has a Hadamard matrix of order 12472 ([NOVELTY.md](../../NOVELTY.md)). The theorem is very
+probably Miyamoto's, and its input, the quaternary matrix of order 1558, is Concurrent with Zaitsev's page (2026). Order
+2284 is Concurrent because it follows from Zaitsev's quaternary matrix of order 1142 by doubling alone. Order 12472
+needs Theorem 7 for a complex input that is not Paley's, and no source we checked states the theorem in that form or
+draws this consequence. The tables and surveys apply it only with 2q − 3 a prime power (Seberry–Yamada,
+Brent–Osborn–Smith) or a prime (Egan et al.).
 
 Table 4 of Cati and Pasechnik (arXiv:2411.18897v2) records 1559(4): order 16 · 1559 known, 8 · 1559 not. A Hadamard
 matrix of order 6236 = 4 · 1559 is unknown ([FRONTIER.md](../../FRONTIER.md)), so there is no doubling. Other routes:
@@ -48,8 +48,8 @@ matrix of order 6236 = 4 · 1559 is unknown ([FRONTIER.md](../../FRONTIER.md)), 
 - Kamali and Kharaghani's 8(g₁g + g₂) with their dihedral Golay lengths g = 7, 9, 15 does not reach 1559
   ([search/NOTES.md](../../search/NOTES.md) §104).
 
-6236 is now an order with a quaternary Hadamard matrix but no known real one; no quaternary matrix of this order was
-known to us before.
+Order 6236 has a quaternary Hadamard matrix, constructed here, but no known real one. No quaternary matrix of this
+order was known to us before.
 
 ## Files
 

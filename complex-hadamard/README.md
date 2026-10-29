@@ -6,6 +6,7 @@ and real Hadamard matrices are known for every multiple of 4 below 2000 since Au
 The open cases below 2000 are therefore orders 2N with N odd.
 
 Recent progress at the bottom of that range:
+
 - Szöllősi constructed order 94 (arXiv:2603.09572, March 2026), noting that "the next outstanding order seems to be"
   118.
 - Kharaghani, Mohammadian, Tayfeh-Rezaie and Zaitsev (A search for Hadamard matrices of near-Williamson type,
@@ -22,11 +23,13 @@ Recent progress at the bottom of that range:
   22 October), gives explicit matrices of 122 orders 2N: 62 by a Paley-type construction, 28 from Szöllősi-type arrays
   (five of them near-Williamson), 27 by unpublished methods and five that were known before.
 
-This directory constructs 16 orders that had no construction in the published work we checked. Twelve of them, 214,
+This directory constructs 20 orders that had no construction in the published work we checked. Twelve of them, 214,
 238, 302, 326, 366, 382, 426, 494, 518, 534, 754 and 1558, are on Zaitsev's page, found concurrently and
-independently; we claim no priority. Four come from quaternary conference matrices of orders 322, 430, 526 and 850 and
-the Yamada–Kiyasu template ([CONFERENCE.md](CONFERENCE.md)): 1286 and 1718, which are on Zaitsev's list of unknown
-orders, are New, and 2102 and 3398, above the 1992 table and Zaitsev's range, are New, beyond the tables. The
+independently; we claim no priority. Three, 358, 418 and 498, are on Zaitsev's list of unknown orders and are New: 418
+comes from a Paley plug-in in Szöllősi's array, 358 and 498 from the character-bordered array with three characters.
+Five come from quaternary conference matrices of orders 322, 430, 478, 526 and 850 and the Yamada–Kiyasu template
+([CONFERENCE.md](CONFERENCE.md)): 1286, 1718 and 1910, which are on Zaitsev's list of unknown orders, are New, and 2102
+and 3398, above the 1992 table and Zaitsev's range, are New, beyond the tables. The
 directory also gives explicit matrices of 76 orders that are blank in the 1992 table but known: for q ≡ 3 (mod 4) a
 prime power, Paley's matrix of order q + 1 makes the dicyclic group of order 2(q + 1) a Hadamard group (Ito), and Egan
 (Des. Codes Cryptogr. 87 (2019) 67–74, Theorem 4.5) turns this into a complex Hadamard matrix of order (q + 1)/2. So
@@ -137,7 +140,9 @@ into a two-list search, are in [TWISTED.md](TWISTED.md).
 
 The zero-diagonal form of the array and its bordered form output quaternary conference matrices, and the Yamada–Kiyasu
 template turns one of order (q + 3)/2 into a quaternary Hadamard matrix of order 2(q + 2). All are stated and proved
-in [CONFERENCE.md](CONFERENCE.md). Orders 1286, 1718, 2102 and 3398 come from them.
+in [CONFERENCE.md](CONFERENCE.md). Orders 1286, 1718, 2102 and 3398 come from them. Order 1910 comes from the
+zero-diagonal form of the character-bordered array ([search/NOTES.md](../search/NOTES.md) §103); its proof is in the
+docstring of `_szollosi_zero_diagonal_core` in `verify/verify.py`.
 
 ## Matrices
 
@@ -163,25 +168,25 @@ row-wise version; the two may be equivalent ([NOTES.md](../NOTES.md) §20). 1558
 | 754 | 377 = 13 · 29 | ⟨9⟩, order 42 | 27, 27; 5, 5 | [C754.json](C754.json) |
 | 1558 | 779 = 19 · 41 | ⟨49⟩, order 60 | 5, 7; 39, 39 | [C1558.json](C1558.json) |
 
-**Order 418 from a Paley plug-in** (New; [search/NOTES.md](../search/NOTES.md) §85). Szöllősi's array over
-G = ℤ₁₉ × F₁₁ (= ℤ₂₀₉). The four sequences are constant on the orbits of the squares of F₁₁* (57 orbits each). Off
-7 *defect* positions of ℤ₁₉ their values on the squares and the non-squares are opposite, so there each block is
-x₀ ⊗ δ + t ⊗ χ, with χ the Legendre symbol of F₁₁; at a defect it is constant on F₁₁*. The two-level sampler of
-[search/plugh](../search/plugh) found it in about 0.6 CPU-hours. 418 is open on Zaitsev et al.'s list and blank in
-Table 11.2.
+**Order 418 from a Paley plug-in** (New; [search/NOTES.md](../search/NOTES.md) §85). Szöllősi's array over G = ℤ₁₉ × F₁₁
+(= ℤ₂₀₉). The four sequences are constant on the orbits of the squares of F₁₁* (57 orbits each). Away from the 7
+*defect* positions of ℤ₁₉ (over the four blocks, listed below) their values on the squares and the non-squares are
+opposite, so there each block is x₀ ⊗ δ + t ⊗ χ, with χ the Legendre symbol of F₁₁; at a defect it is constant on F₁₁*.
+The two-level sampler of [search/plugh](../search/plugh) found it in about 0.6 CPU-hours. 418 is open on Zaitsev et
+al.'s list and blank in Table 11.2.
 
 | order 2N | N | structure | row sums | file |
 |---:|---|---|---|---|
 | 418 | 209 = 11 · 19 | ℤ₁₉ × F₁₁, Paley plug-in, defects A: 0; B: 0; C: 1, 7; D: 7, 10, 13 | 1, 21, −15, 13 | [C418.json](C418.json) |
 
-**Orders 358 and 498 from the character-bordered array** (New; [search/NOTES.md](../search/NOTES.md) §107). The
-array of [TBORDERED.md](TBORDERED.md) with t = 3: four ±1 sequences on a group of order N − 3, A and B symmetric, all
-four constant on the orbits of a group H of automorphisms, and a border of size 6 from three characters of a
-quotient Q. A census of this array over every t for the open orders found both structures. In each the
-border exists at the level of Q and the expected number of solutions is large. An exact tower of quotients then found
-the sequences in under an hour of CPU time ([search/tbplain](../search/tbplain)). Both orders are on the list of
-unknown orders of Zaitsev et al.'s page (read on 28 October 2026) and blank in the 1992 table, and no source we checked
-gives them. The search for 358 found four solutions; the certificate stores the first.
+**Orders 358 and 498 from the character-bordered array** (New; [search/NOTES.md](../search/NOTES.md) §107). The array of
+[TBORDERED.md](TBORDERED.md) with t = 3: four ±1 sequences on a group of order N − 3, A and B symmetric, all four
+constant on the orbits of a group H of automorphisms, and a border of size 6 from three characters of a quotient Q. A
+census of this array over every t for the open orders found both structures. In each the border exists at the level of Q
+and the expected number of solutions is large. An exact tower of quotients then found the sequences in under an hour of
+CPU time ([search/tbplain](../search/tbplain)). Both orders are on the list of unknown orders of Zaitsev et al.'s page
+(read on 28 October 2026) and blank in the 1992 table, and no source we checked gives them. The search for 358 found
+four solutions; the certificate stores the first.
 
 | order 2N | N | structure | row sums | file |
 |---:|---|---|---|---|
@@ -313,7 +318,7 @@ of order 773, which Lemma 26 gives from Seberry–Yamada's symmetric ones of ord
 Each certificate gives N, the multiplier group, the row sums, the first rows of A, B, C, D (`+`, `-`) (for the
 bordered array also the group of order N − 1 and the border; for the character-bordered array the group, the fibre
 labels of φ and the three border matrices; for Paley's matrix only q, and the modulus of GF(q) when q is not prime;
-for the orders 1286, 1718, 2102 and 3398 the prime q, the non-square r and ξ for Yamada's circulants and the core,
+for the orders 1286, 1718, 1910, 2102 and 3398 the prime q, the non-square r and ξ for Yamada's circulants and the core,
 described in [CONFERENCE.md](CONFERENCE.md#certificates-and-verification)) and the SHA-256 of the canonical text of K:
 2N lines of 2N digits, digit e standing for the entry iᵉ.
 
@@ -323,10 +328,10 @@ python3 verify/verify_complex.py --write 142 # also writes complex-hadamard/C142
 ```
 
 This rebuilds K from the four sequences alone (from q, with its own arithmetic in GF(q), for Paley's matrix; the
-orders 1286, 1718, 2102 and 3398 also use q, r and ξ and the builder of `verify/verify.py`) and checks every entry and
-K K* = 2N I exactly. The products are float64 matrix products of the real and imaginary parts, which are exact: every
-entry is 0 or ±1 and every partial sum is an integer of absolute value at most 2N, far below 2⁵³. All 94 certificates
-take about three minutes.
+orders 1286, 1718, 1910, 2102 and 3398 also use q, r and ξ and the builder of `verify/verify.py`) and checks every
+entry and K K* = 2N I exactly. The products are float64 matrix products of the real and imaginary parts, which are
+exact: every entry is 0 or ±1 and every partial sum is an integer of absolute value at most 2N, far below 2⁵³. All 98
+certificates take about three minutes.
 
 ## Status
 
@@ -373,7 +378,7 @@ concurrent ones:
   matrix has a quaternary form of order 2(q + 2) ([NOTES.md](../NOTES.md) §31,
   [symmetric/YAMADA_KIYASU.md](../symmetric/YAMADA_KIYASU.md)); it gives 206, 302 and 366 (q = 101, 149, 181;
   skew-Hadamard matrices of orders 52, 76, 92). With a quaternary conference matrix of order (q + 3)/2, q ≡ 1 (mod 4)
-  prime, it gives 1286, 1718, 2102 and 3398 (table above, [CONFERENCE.md](CONFERENCE.md)). Zaitsev's QH590, QH638,
+  prime, it gives 1286, 1718, 1910, 2102 and 3398 (table above, [CONFERENCE.md](CONFERENCE.md)). Zaitsev's QH590, QH638,
   QH782, QH926, QH1310, QH1358, QH1646 and QH1886 have the first form and QH470, QH566, QH806, QH1142 and QH1526 the
   second; the page states no method. For no open N is N − 2 a prime power ≡ 5 (mod 8), so the skew-core form settles
   no open order.
@@ -401,6 +406,7 @@ construction of each, with a certificate that `verify/verify_complex.py` checks 
 **What remains open** (`python3 search/complex_status.py`): 109 orders 2N below 2000 with N odd have no quaternary
 Hadamard matrix known to us: the list of unknown orders on Zaitsev's page, minus 358, 418, 498, 1286, 1718 and 1910.
 The smallest are 334, 438, 446, 478, 502, 506 and 550.
+
 - *334* (N = 167). The plain arrays are out of reach. ℤ₁₆₇ has no usable multiplier group, and on ℤ₁₆₆ = ℤ₂ × ℤ₈₃
   the only one has order 41 and six orbits. The character-bordered array with t = 11 over ℤ₂² × ℤ₃ × ℤ₁₃ has three
   cores (three more in a class whose border problem is pointwise), but whether a border of order 24 completes them is
@@ -412,7 +418,6 @@ The smallest are 334, 438, 446, 478, 502, 506 and 550.
   pools of 10¹¹–10¹⁵ members.
 - *438 and 446*: every estimate of the cyclic arrays is below one.
 
-The one open order where the array has strong structures is 682 (N = 341 = 11 · 31): eight multiplier groups of order 10 with
-estimates of 10^1.7–10^3.0 solutions. The two best joins found no solution in 97% and 95% of their collision mass,
+The one open order where the array has strong structures is 682 (N = 341 = 11 · 31): eight multiplier groups of order 10
+with estimates of 10^1.7–10^3.0 solutions. The two best joins found no solution in 97% and 95% of their collision mass,
 which the estimate gave a chance of 2–5% each ([search/NOTES.md](../search/NOTES.md) §57–59).
-
