@@ -25,7 +25,7 @@ assembled in int8 (0.6 to 1.5 GB).
 
 Yamada certificates accept a prime q or a prime power q = p^k (fields "p" and "poly" give GF(q)).
 Complex Yamada-Kiyasu certificates ("complex-yamada-kiyasu") give the core as the four sequences of a zero-diagonal
-Szollosi array over an abelian group, from which the quaternary conference matrix is rebuilt and checked; the array may
+Szöllősi array over an abelian group, from which the quaternary conference matrix is rebuilt and checked; the array may
 carry a single-unit border ("border") or a character border ("character_border": a quotient map, a set of characters
 of the quotient and the border matrices, as in complex-hadamard/TBORDERED.md).
 Quaternary Miyamoto block certificates ("quaternary-miyamoto-blocks") give q, a primitive root, the first rows of the
@@ -1629,7 +1629,7 @@ def _spec_mods(spec):
 
 def _szollosi_zero_diagonal_core(spec, seqs, rowsums=None, generators=None, group_order=None, border=None,
                                  reflection=0, character_border=None):
-    """The zero-diagonal Szollosi array over an abelian group G of order m (abelian_group(spec)): A, B symmetric with
+    """The zero-diagonal Szöllősi array over an abelian group G of order m (abelian_group(spec)): A, B symmetric with
     A(0) = B(0) = 0 and +-1 elsewhere, C, D +-1, PAF_A + PAF_B + PAF_C + PAF_D = 0 off 0 (all checked). With
     w = (1 + i)/2 and R[g, h] = [g + h = c] (c = 0 unless the certificate names another element),
     X = w X_A + conj(w) X_B and Y = w X_C + conj(w) X_D R give the quaternary conference matrix [[X, Y], [Y*, -X*]] of
@@ -1688,7 +1688,13 @@ def _szollosi_zero_diagonal_core(spec, seqs, rowsums=None, generators=None, grou
         raise ValueError("A or B is not symmetric")
     XA, XB, XC, XD = (group_matrix(add, neg, x) for x in (A, B, C, D))
     paf = XA[0] @ XA.T + XB[0] @ XB.T + XC[0] @ XC.T + XD[0] @ XD.T   # (X X^T)[0, h] = sum_k x(k) x(k - h) = PAF(-h)
-    if np.any(np.delete(paf, 0) != (-4 if border is not None else 0)):
+    if character_border is not None:
+        if border is not None:
+            raise ValueError("a core has a border or a character_border, not both")
+        cb = _character_border_setup(character_border, spec, m, add)
+        if np.any(paf[1:] != -cb["gamma"][cb["phi"]][1:]):
+            raise ValueError("PAF_A + PAF_B + PAF_C + PAF_D != -Gamma(phi(g)) off 0")
+    elif np.any(np.delete(paf, 0) != (-4 if border is not None else 0)):
         raise ValueError("PAF_A + PAF_B + PAF_C + PAF_D != %d off 0" % (-4 if border is not None else 0))
     if rowsums is not None and [int(x.sum()) for x in (A, B, C, D)] != list(rowsums):
         raise ValueError("row sums differ from the certificate")
@@ -1722,22 +1728,8 @@ def _szollosi_zero_diagonal_core(spec, seqs, rowsums=None, generators=None, grou
             frontier = nxt
         if group_order is not None and len(group) != group_order:
             raise ValueError(f"the symmetry group has order {len(group)}, not {group_order}")
-    if any(len(x) != m for x in (A, B, C, D)):
-        raise ValueError("sequence length differs from the group order")
-    if A[0] or B[0] or (A[1:] == 0).any() or (B[1:] == 0).any() or (C == 0).any() or (D == 0).any():
-        raise ValueError("A, B must vanish exactly at 0 and C, D nowhere")
-    if not (np.array_equal(A, A[neg]) and np.array_equal(B, B[neg])):
-        raise ValueError("A or B is not symmetric")
-    XA, XB, XC, XD = (group_matrix(add, neg, x) for x in (A, B, C, D))
-    paf = XA[0] @ XA.T + XB[0] @ XB.T + XC[0] @ XC.T + XD[0] @ XD.T   # (X X^T)[0, h] = sum_k x(k) x(k - h) = PAF(-h)
-    if character_border is not None:
-        if border is not None:
-            raise ValueError("a core has a border or a character_border, not both")
-        cb = _character_border_setup(character_border, spec, m, add)
-        if np.any(paf[1:] != -cb["gamma"][cb["phi"]][1:]):
-            raise ValueError("PAF_A + PAF_B + PAF_C + PAF_D != -Gamma(phi(g)) off 0")
-    elif np.any(np.delete(paf, 0) != (-4 if border is not None else 0)):
-        raise ValueError("PAF_A + PAF_B + PAF_C + PAF_D != %d off 0" % (-4 if border is not None else 0))
+    if not (isinstance(reflection, int) and 0 <= reflection < m):
+        raise ValueError("reflection must be the index of an element of G (0 <= reflection < the group order)")
     R = np.zeros((m, m), dtype=np.int64)          # R[g, h] = [g + h = c], c = the element with index `reflection`
     R[np.arange(m), add[reflection, neg]] = 1      # any c works: R X_f R = X_f^T
     XDR = XD @ R

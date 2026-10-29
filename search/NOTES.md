@@ -5419,10 +5419,10 @@ row-sum class τ_C² + τ_D² = 10 of the allocation (3, 3, 4, 4).
 - *Novelty* ([NOVELTY.md](../NOVELTY.md)). No construction of H(2572), of a quaternary H(1286) or of a quaternary
   conference matrix of order 322 was found.
 
-**Reading.** The Paley plug-in turned a class that round 23 had sampled without success (completions per instance
-about 10⁻⁷ at 1–10 s per instance) into one that yields a core in half a CPU-day. The gain came from four sources:
-the defect identity fixes the defect counts; R0, R1 and the mod-3 filter cut the level-1 population exactly; the
-row-sum class is chosen by calibration at p = 13 and 17; and both levels are 5–14× faster.
+**Reading.** The Paley plug-in turned a class that §78 had sampled without success (completions per instance about
+10⁻⁷ at 1–10 s per instance) into one that yields a core in about 15 CPU-hours. The gain came from four sources: the
+defect identity fixes the defect counts; R0, R1 and the mod-3 filter cut the level-1 population exactly; the row-sum
+class is chosen by calibration at p = 13 and 17; and both levels are 5–14× faster.
 
 ## 84. Rounds 28–29: bordered plug-ins, the limits of Yamada–Kiyasu-type templates, the transfer theorem (October 21–22)
 

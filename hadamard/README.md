@@ -50,17 +50,15 @@ from two published theorems that the tables did not combine ([PALEY_BLOCKS.md](P
 also follows, by Turyn's doubling, from the quaternary Hadamard matrix of order 1142 on Zaitsev's page
 ([2284](2284/README.md#status)). 6108 and 10180 are First explicit constructions: Đoković claimed n = 1527 and 2545 in
 2010 through Seberry–Yamada's Corollary 8.8(i), whose printed proof fails ([NOTES.md](../NOTES.md) §7). 2092, 3732,
-4492, 5020 and 5932 are Concurrent, with Cooley's Middletownbooks/Hadamard (2092, 3732) and with Egan, Kotsireas, London
-and Ó Catháin, arXiv:2610.27175 (3732, 4492, 5020, 5932); our 3732 is also skew, which neither of the others is stated
-to be ([NOVELTY.md](../NOVELTY.md)). 9172 is Concurrent too: the same survey derives it from Cooley's matrix of order
-2292 by Miyamoto's theorem, five days after ours. The other eleven are New; 6108, 7532 and 10180 use the near-Williamson
-matrices of 2026, and 11292 a symmetric conference matrix of order 118 found here, Concurrent with J. Y. Z. Ho's
-([symmetric/940](../symmetric/940)).
+4492, 5020, 5932 and 9172 are Concurrent: Cooley's Middletownbooks/Hadamard has 2092 and 3732, and Egan, Kotsireas,
+London and Ó Catháin (arXiv:2610.27175) construct 3732, 4492, 5020 and 5932 and derive 9172 from Cooley's matrix of
+order 2292 by Miyamoto's theorem ([NOVELTY.md](../NOVELTY.md)). Our 3732 is also skew, which neither of the others is
+stated to be. The other eleven are New. 7532 uses the near-Williamson matrices of 2026, as do the First explicit
+constructions 6108 and 10180, and 11292 uses a symmetric conference matrix of order 118 found here, Concurrent with
+J. Y. Z. Ho's ([symmetric/940](../symmetric/940)).
 
-Doubling the matrices of orders 2636 and 3732 gives orders 5272 and 7464, which were open as well, and doubling 9172
-gives 18344, 36688 and 73376 (the table entry is 2293(6)). Agayan's multiplication with Hadamard matrices of orders 20
-and 12 turns 2284 and 3964 into orders 8 · 2855 and 8 · 2973, lowering the Table 4 entries 2855(4) and 2973(4) to 3
-([FRONTIER.md](../FRONTIER.md)).
+Agayan's multiplication with Hadamard matrices of orders 20 and 12 turns 2284 and 3964 into orders 8 · 2855 and
+8 · 2973, lowering the Table 4 entries 2855(4) and 2973(4) to 3 ([FRONTIER.md](../FRONTIER.md)).
 
 ## Orders recorded only through Corollary 8.8(i)
 

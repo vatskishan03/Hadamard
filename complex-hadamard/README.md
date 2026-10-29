@@ -177,7 +177,7 @@ Table 11.2.
 **Orders 358 and 498 from the character-bordered array** (New; [search/NOTES.md](../search/NOTES.md) §107). The
 array of [TBORDERED.md](TBORDERED.md) with t = 3: four ±1 sequences on a group of order N − 3, A and B symmetric, all
 four constant on the orbits of a group H of automorphisms, and a border of size 6 from three characters of a
-quotient Q. A census of this array over every t for the open orders (round 54) found both structures. In each the
+quotient Q. A census of this array over every t for the open orders found both structures. In each the
 border exists at the level of Q and the expected number of solutions is large. An exact tower of quotients then found
 the sequences in under an hour of CPU time ([search/tbplain](../search/tbplain)). Both orders are on the list of
 unknown orders of Zaitsev et al.'s page (read on 28 October 2026) and blank in the 1992 table, and no source we checked
@@ -188,10 +188,12 @@ gives them. The search for 358 found four solutions; the certificate stores the 
 | 358 | 179 | ℤ₂⁴ × ℤ₁₁, Q = ℤ₂² with its three nontrivial characters, H of order 3 (a Singer element of GF(4) on each ℤ₂²) | 18, 0; 14, 14 | [C358.json](C358.json) |
 | 498 | 249 = 3 · 83 | ℤ₂ × ℤ₃ × ℤ₄₁, Q = ℤ₃ with all three characters, H = ⟨10⟩ on ℤ₄₁, order 5 | 2, 0; 2, 2 | [C498.json](C498.json) |
 
-**Orders from quaternary conference matrices** (complex Yamada–Kiyasu template, [NOTES.md](../NOTES.md) §31, §34).
-A quaternary conference matrix of order (q + 3)/2, q ≡ 1 (mod 4) a prime, gives a quaternary Hadamard matrix of order
-2(q + 2). The real Hadamard matrices of twice these orders in [hadamard](../hadamard) are their Turyn doubles, and
-`verify/verify.py` builds them from the same certificate data.
+**Orders from quaternary conference matrices** (New: 1286, 1718, 1910; New, beyond the tables: 2102, 3398). A quaternary
+conference matrix of order c has zero diagonal, entries 1, −1, i, −i elsewhere and Q Q* = (c − 1) I. For a prime q ≡ 1
+(mod 4), one of order (q + 3)/2 gives a quaternary Hadamard matrix of order 2(q + 2) by the Yamada–Kiyasu template
+([CONFERENCE.md](CONFERENCE.md); [NOTES.md](../NOTES.md) §31, §34). The template has the form of Zaitsev et al.'s
+QH470, QH566, QH806, QH1142 and QH1526, whose page states no method. The real Hadamard matrices of twice these orders
+in [hadamard](../hadamard) are their Turyn doubles, and `verify/verify.py` builds them from the same certificate data.
 - 1286, 1718 and 1910 are open orders below 2000.
 - 2102 and 3398 lie above the range of the 1992 table and of Zaitsev's page. Since any such matrix gives a real
   Hadamard matrix of twice its order, and those real orders were open, none was known.
@@ -402,24 +404,15 @@ The smallest are 334, 438, 446, 478, 502, 506 and 550.
 - *334* (N = 167). The plain arrays are out of reach. ℤ₁₆₇ has no usable multiplier group, and on ℤ₁₆₆ = ℤ₂ × ℤ₈₃
   the only one has order 41 and six orbits. The character-bordered array with t = 11 over ℤ₂² × ℤ₃ × ℤ₁₃ has three
   cores (three more in a class whose border problem is pointwise), but whether a border of order 24 completes them is
-  undecided. A border would have no automorphism of odd prime order (PROVED, all 12 compression classes), and no
+  undecided. A border would have no automorphism of odd prime order (proved for all 12 compression classes), and no
   border invariant under the symmetry groups that the exact solver could decide exists. With t = 23 no border
-  exists (PROVED; [search/NOTES.md](../search/NOTES.md) §107, §109).
+  exists (proved; [search/NOTES.md](../search/NOTES.md) §107, §109).
 - *478*. The character-bordered array over ℤ₂³ × ℤ₂₉ with t = 7 has many cores and no border (§107).
 - *418* was settled by the Paley plug-in above. Its multiplier structures had estimates of one to three solutions in
   pools of 10¹¹–10¹⁵ members.
 - *438 and 446*: every estimate of the cyclic arrays is below one.
 
-The one open
-order where the array has strong structures is 682 (N = 341 = 11 · 31): eight multiplier groups of order 10 with
+The one open order where the array has strong structures is 682 (N = 341 = 11 · 31): eight multiplier groups of order 10 with
 estimates of 10^1.7–10^3.0 solutions. The two best joins found no solution in 97% and 95% of their collision mass,
 which the estimate gave a chance of 2–5% each ([search/NOTES.md](../search/NOTES.md) §57–59).
 
-**Yamada–Kiyasu in quaternary form (17 October 2026).** The symmetric quaternary matrix L of
-[NOTES.md](../NOTES.md) §31 ([symmetric/YAMADA_KIYASU.md](../symmetric/YAMADA_KIYASU.md)) is a complex Hadamard matrix
-of order 2(q + 2) for every prime power q ≡ 5 (mod 8) with a skew-Hadamard matrix of order (q + 3)/2. It gives 206
-(q = 101), 302 (q = 149) and 366 (q = 181) from Szekeres's good matrices of orders 13, 19 and 23 (checked exactly), and
-Zaitsev's QH590, QH638, QH782, QH926, QH1310, QH1358, QH1646 and QH1886 are of this kind, and their QH470, QH566,
-QH806, QH1142 and QH1526 use the same template with non-real quaternary conference matrices in place of the skew core
-([NOTES.md](../NOTES.md) §31). For no open N is N − 2 a prime power ≡ 5 (mod 8), so it
-settles no open complex order.

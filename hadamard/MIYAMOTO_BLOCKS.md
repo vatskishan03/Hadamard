@@ -278,9 +278,10 @@ squares. Symmetric Williamson-type matrices of order 214 would do as well; the c
 (mod 4) that is not p + 2 or (p + 1)/2 for a prime power p ≡ 1 (mod 4) (105 and 213 are not), nor 2p + 1 with 2p − 1 a
 prime power (2 · 53 − 1 = 105). 2823 = 3 · 941 needed symmetric Williamson-type matrices of order 235 or a negaperiodic
 Golay pair of length 470; 235 = 233 + 2 needs, by Corollary 27, (233 + 1)/2 = 117 to be a prime power or a symmetric
-conference matrix of order 118. Brouwer's table of strongly regular graphs (read on 17 October 2026) marks the
-conference graph SRG(117, 58, 28, 29) as existing, citing "Jose Yip Zheng Ho, Existence of conference graphs on 117
-vertices and 153 vertices, email, Oct. 2026"; that matrix is not public. We found one independently by an exact cover
+conference matrix of order 118. Brouwer's table of strongly regular graphs (read on 22 October 2026) lists the
+conference graph SRG(117, 58, 28, 29), and so such a matrix, as existing (credited to Jose Yip Zheng Ho); Egan,
+Kotsireas, London and Ó Catháin (arXiv:2610.27175) report that it was communicated to Brouwer in October 2026 and is
+not publicly available. We found one independently by an exact cover
 ([search/conference118](../search/conference118/README.md), [search/NOTES.md](../search/NOTES.md) §95). With it
 Corollary 27 (U = (I, 0, Q, Q), V = (M, N, I, I), Yamada's circulants for q = 233) gives symmetric Williamson-type
 matrices of order 235 with a repeated block (`symwt.py 'cor27c(233, …)'`), the Miyamoto blocks with T-matrices of
@@ -353,7 +354,7 @@ random and boundary rows zero. None of the eleven is stored in this repository (
   tables**: n = 941t lies above Table 1.53, and the symmetric Williamson-type matrices of order 235 need the conference
   matrix of order 118, Concurrent with J. Y. Z. Ho's ([11292](11292)), so the orders are not obtainable classically. The
   seven further orders of the table in [Reach](#reach) are certified, not densely checked.
-- SageMath's development version (October 17, 2026) constructs none of the 19 orders of the first two tables. It
+- SageMath's development version (17 October 2026) constructs none of the 19 orders of the first two tables. It
   returns Unknown for 14 and raises UnknownError in its Miyamoto test for 12260, 33380, 35780, 38660 and 39348 (no
   symmetric conference matrix of order n + 1 is known to it; with that Unknown treated as False it returns Unknown).
 

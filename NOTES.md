@@ -1698,7 +1698,8 @@ anti-automorphism of the skew matrix is used, which is what §29 needed.
 - **Checks.** `verify.py` construction `symmetric-yamada-kiyasu` (nested skew certificate; 2X and 2Y built in integers;
   X, Y symmetric with complementary supports; H = Hᵀ, H Hᵀ = 4vI); q = 5, 13, 29 (Paley's skew matrix of order 8,
   doubled), 37, 53, 61, 125 (over GF(125)) and 317; the C checker on 1180 and 2716.
-- **Labels.** 20 New, 8 Concurrent ([symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md#status)).
+- **Labels.** 18 New, 8 Concurrent, 2 Known (2812 and 4732, Spence 1977)
+  ([symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md#status)).
 - **Zaitsev's other quaternary matrices.** A monomial matrix making a quaternary Hadamard matrix of order 2N symmetric
   would give a symmetric Hadamard matrix of order 4N by Turyn's map. Of the 27 matrices on the page with N among the
   500 remaining census values, nauty (side-swapping automorphisms of the phase graph, then the column phases; program

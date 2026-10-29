@@ -2,7 +2,8 @@
 
 Table 4 of Cati and Pasechnik lists 195 odd n ≤ 2999 for which no Hadamard matrix of order 4n was known in 2025. 75
 of them are settled now, and the 120 that remain are listed below with the cheapest search structures known for each.
-The smallest is n = 599, order 2396.
+The smallest is n = 599, order 2396. Of the 120, 83 have 4n < 10000. Both counts treat n = 573 and 647 (orders 2292
+and 2588, Middletownbooks/Hadamard) as settled; if they are not, 122 remain and 85 have 4n < 10000.
 
 Settled:
 
@@ -11,7 +12,8 @@ Settled:
   Schumer). Five of them, n = 131 · t with t = 7, 11, 13, 17, 19, were already reachable in 2025: Cooper–Wallis with
   the T-matrices of order 131 that London and Kotsireas's Turyn-type sequences TT(44) give ([NOTES.md](NOTES.md) §28);
 - 6 by Đoković in 2010: n = 823, 883, 1063, 1303, 2143 and 2335 (arXiv:1008.2043, Propositions 3.1 and 3.4);
-- 1 in 1988: n = 1823, from Seberry and Whiteman's symmetric conference matrix of order 3646 ([NOTES.md](NOTES.md) §7);
+- 1 in 1988: n = 1823, from Seberry and Whiteman's symmetric conference matrix of order 3646
+  ([NOTES.md](NOTES.md) §7);
 - 1 by Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175, 19 October 2026): n = 1447 (order 5788 = 4(4 · 19² + 3),
   their Theorem 7 over ℤ₂² × F₁₉², with a border);
 - 2 by the GitHub repository Middletownbooks/Hadamard: n = 573 (order 2292, 9 October 2026; our independent matrix is
@@ -121,8 +123,9 @@ one applies:
 - Yamada: a symmetric conference matrix of order (n + 1)/2, which cannot exist when (n − 1)/2 is not a sum of two
   squares.
 - complex Yamada–Kiyasu: a quaternary conference matrix of order (n + 1)/2 (zero diagonal, entries ±1, ±i elsewhere),
-  when n − 2 is a prime power. It has no sum-of-two-squares condition; it settled 643, 859, 955, 1051 and 1699
-  ([hadamard/2572](hadamard/2572), [hadamard/3436](hadamard/3436), [hadamard/3820](hadamard/3820),
+  when n − 2 is a prime power ≡ 1 (mod 4) (the builder takes primes). It has no sum-of-two-squares condition; it
+  settled 643, 859, 955, 1051 and 1699 ([hadamard/2572](hadamard/2572), [hadamard/3436](hadamard/3436),
+  [hadamard/3820](hadamard/3820),
   [hadamard/4204](hadamard/4204), [hadamard/6796](hadamard/6796), [NOTES.md](NOTES.md) §31, §34).
 - Cooper–Wallis: Williamson-type matrices of order w, for n = t·w with T-matrices of order t known. Listed for w = 191
   (t = 5, 9, 15), where neither T-matrices of order 191 nor near-Williamson matrices of order 191 with a multiplier
@@ -143,11 +146,11 @@ one applies:
 | 2396 | 599 | – | – | – | – | – | ℤ₂ × ℤ₁₃ × ℤ₂₃ | 36.4 |  |
 | 2676 | 669 | – | – | – | – | – | – | – |  |
 | 2876 | 719 | – | – | – | – | – | – | – |  |
-| 2956 | 739 | 9 | 83 | 41 | 33.5 | 22.7 | ℤ2 × ℤ3xℤ3 × ℤ41 | 42.4 |  |
-| 3004 | 751 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ5xℤ5xℤ5 | 46.0 |  |
+| 2956 | 739 | 9 | 83 | 41 | 33.5 | 22.7 | ℤ₂ × ℤ₃ × ℤ₃ × ℤ₄₁ | 42.4 |  |
+| 3004 | 751 | – | – | – | – | – | ℤ₂ × ℤ₃ × ℤ₅ × ℤ₅ × ℤ₅ | 46.0 |  |
 | 3452 | 863 | – | – | – | – | – | – | – |  |
-| 3628 | 907 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ151 | 33.3 |  |
-| 3788 | 947 | – | – | – | – | – | ℤ2 × ℤ11 × ℤ43 | 37.4 |  |
+| 3628 | 907 | – | – | – | – | – | ℤ₂ × ℤ₃ × ℤ₁₅₁ | 33.3 |  |
+| 3788 | 947 | – | – | – | – | – | ℤ₂ × ℤ₁₁ × ℤ₄₃ | 37.4 |  |
 | 3884 | 971 | – | – | – | – | – | – | – |  |
 | 4076 | 1019 | – | – | – | – | – | – | – |  |
 | 4124 | 1031 | – | – | – | – | – | ℤ₂ × ℤ₅ × ℤ₁₀₃ | 40.8 |  |
@@ -169,9 +172,9 @@ one applies:
 | 5708 | 1427 | – | – | – | – | – | – | – |  |
 | 5748 | 1437 | – | – | – | – | – | – | – |  |
 | 5756 | 1439 | – | – | – | – | – | – | – |  |
-| 5804 | 1451 | – | – | – | – | – | ℤ2 × ℤ5xℤ5 × ℤ29 | 55.2 |  |
-| 5884 | 1471 | – | – | – | – | – | ℤ2 × ℤ3 × ℤ5 × ℤ7xℤ7 | 61.1 |  |
-| 5892 | 1473 | – | – | – | – | – | ℤ8xℤ8 × ℤ23 | 35.4 |  |
+| 5804 | 1451 | – | – | – | – | – | ℤ₂ × ℤ₅ × ℤ₅ × ℤ₂₉ | 55.2 |  |
+| 5884 | 1471 | – | – | – | – | – | ℤ₂ × ℤ₃ × ℤ₅ × ℤ₇ × ℤ₇ | 61.1 |  |
+| 5892 | 1473 | – | – | – | – | – | ℤ₈ × ℤ₈ × ℤ₂₃ | 35.4 |  |
 | 5948 | 1487 | – | – | – | – | – | – | – |  |
 | 5996 | 1499 | – | – | – | – | – | – | – |  |
 | 6172 | 1543 | – | – | – | – | – | – | – |  |
