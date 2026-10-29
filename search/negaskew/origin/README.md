@@ -1,9 +1,15 @@
 # Origin-defect shapes of the quaternary Paley plug-in: the K-level analysis
 
-The programs behind the theory part of [../../NOTES.md](../../NOTES.md) §90. The plug-in of §89 (G = K × F_q, q ≡ 3 mod 4, H = H_K × squares, quaternary blocks U = s ⊗ δ + t ⊗ Q + e ⊗ J, A twisted-skew) has *origin-defect*
-shapes: every position off k = 0 is of type E (x₂ = −x₁, e = 0, s and t unit-valued) and the defects ε_X δ₀ of the blocks sit at the origin of K. For these the K-level system reduces to a problem on ℤ_m with unit-valued sequences
-(the identities (d), (Q), (J) of §90, the 'Lock' u_B = λ u_A for the rigid pair, the row-sum identity); the programs analyse the solution sets of `../qp.c` on them, scan the family `d1=1` over K = ℤ_m, q, H_K, and
+The programs behind the theory part of [../../NOTES.md](../../NOTES.md) §90. The plug-in of §89 (G = K × F_q, q ≡ 3 mod
+4, H = H_K × squares, quaternary blocks U = s ⊗ δ + t ⊗ Q + e ⊗ J, A twisted-skew) has *origin-defect* shapes: every
+position off k = 0 is of type E (x₂ = −x₁, e = 0, s and t unit-valued) and the defects ε_X δ₀ of the blocks sit at the
+origin of K. For these the K-level system reduces to a problem on ℤ_m with unit-valued sequences (the identities (d),
+(Q), (J) of §90, the "Lock" u_B = λ u_A for the rigid pair, the row-sum identity).
+
+The programs analyse the solution sets of `../qp.c` on such shapes, scan the family `d1=1` over K = ℤ_m, q, H_K, and
 enumerate exactly the rigid shape of 517 = 11 · 47.
+
+## Contents
 
 | File | Contents |
 |---|---|
@@ -15,28 +21,34 @@ enumerate exactly the rigid shape of 517 = 11 · 47.
 | `rowid.py`, `rowsums.py`, `z1vals.py`, `anpat.py`, `zchar.py` | the row-sum identity Σ(\|R^s\|² − \|S\|²), Σ(\|R^t\|² − \|τ\|²) = (4(m − 1) + qZ, 4(m − 1) − Z); the row sums by block type; Z₁; the patterns (type and cost of the origin defects of A, B, C, D); the Legendre-affine blocks (z = 1) |
 | `sym299.py`, `sym589.py`, `tA_rel.py`, `rigid_rel.py`, `overlap13.py`, `overlap5_13.py` | the symmetry group of the 299 solutions (13,056 = 136 classes of 96) and of the 589 sample; t_A against a multiplier image of s_A; block relations in the rigid solutions; the class values shared between (5, 11), (13, 19), (13, 23), (13, 27) |
 | `lockcount.py`, `sstage.py`, `sstage2.py`, `sstage3.py`, `sstage_scan.py`, `sstage_rigid.py` | the local states of the Lock equation per pair ±O (library `states`), the (Lock + S) stage of the K-level problem for a defect pattern (counts of s-quadruples, against the engine's level-1 instances at 299), and its counts over shapes and for the rigid pattern |
-| `rowfeas.py`, `rowfeas_scan.py` | the row-sum (trivial character) feasibility of origin-defect shapes (EXACT necessary condition): kills every shape with \|H_K\| ≥ 11 and most with |H_K| = 9, 13, 15 at ν ≤ 7 |
+| `rowfeas.py`, `rowfeas_scan.py` | the row-sum (trivial character) feasibility of origin-defect shapes (EXACT necessary condition): kills every shape with \|H_K\| ≥ 11 and most with \|H_K\| = 9, 13, 15 at ν ≤ 7 |
 | `heur.py` | the Gaussian model of the expected number of solution classes per origin variant (HEURISTIC) with the row-sum filter: `python3 heur.py MMAX NUMAX` |
 | `unif_test.py`, `unif_test2.py`, `unif_test_all.py` | the uniform cyclotomic conjecture (class values independent of the prime m) tested by extending solutions to other primes m': falsified |
-| `rigid_s.py`, `rigid_s_check.py`, `rigid_s_check2.py`, `rigid_s_test.py` | the exact (Lock + S) count for the rigid pattern (A, M \| E, E), K = ℤ_m, H_K = 1 (`rigid_s.py m q`: all skew A, all C, D modulo translation and unit, exact linear-key meet in the middle); an independent reimplementation (FFT, full D, no linear keys: `rigid_s_check.py m q NSAMPLE SEED`, NSAMPLE ≤ 0 for all A; `rigid_s_check2.py` for the other origin variants); the planted-solution test of the meet in the middle |
+| `rigid_s.py` | the exact (Lock + S) count for the rigid pattern (A, M \| E, E), K = ℤ_m, H_K = 1: all skew A, all C, D modulo translation and unit, exact linear-key meet in the middle; `python3 rigid_s.py m q` |
+| `rigid_s_check.py`, `rigid_s_check2.py` | an independent reimplementation (FFT, full D, no linear keys): `rigid_s_check.py m q NSAMPLE SEED` (NSAMPLE ≤ 0: all A); `rigid_s_check2.py` covers the other origin variants |
+| `rigid_j.py` | a third implementation: Gaussian-integer meet in the middle with 64-bit linear hashes and exact verification of every key match; `rigid_j.py m q [maxA] [variant]` |
+| `rigid_s_test.py` | the planted-solution test of the meet in the middle |
 | `rig_mod.py`, `rig_lags.py`, `rig7_struct.py`, `rig7_paf.py` | diagnostics of the rigid shapes: the 2-adic structure of the equation (none), counts per A and per lag (why the Gaussian heuristic fails there), the structure of the m = 7 solutions |
 | `cpsat_plug.py` | a CP-SAT model of the K-level system (accepts the known 299 solution, does not find one at 13 × 23: a negative result; needs OR-Tools) |
 | `real2156.py`, `g_check27.py` | the anatomy of the real solution 2156 (`data/c539_hit.json`: defect support and costs, the level-1 and (d) identities) and a G-level check of the (13, 27) solutions over ℤ₁₃ × F₂₇ |
-| `data/` | `runs_*.jsonl`: the logs of the family scans (`runs_nu3`: the 109 shapes with 3 orbits, `runs_oo5`, `runs_oo7`, `runs_oo7long`, `runs_nu9`, `runs_q27`, `runs_pp`, `runs_small`, `runs_m3`, `runs_m9`), `results_table.txt`, `claims_log.txt`, `heur_out.txt`, `nu3_list_all.txt`, `pp_list.txt`, `c539_hit.json` |
+| `data/` | recorded outputs: the logs `runs_*.jsonl` of the family scans (`runs_nu3`: the 109 shapes with 3 orbits; `runs_oo5`, `runs_oo7`, `runs_oo7long`, `runs_nu9`, `runs_q27`, `runs_pp`, `runs_small`, `runs_m3`, `runs_m9`, `runs_m9_d1`), `results_table.txt`, `claims_log.txt`, `heur_out.txt`, `nu3_list_all.txt`, `pp_list.txt`, and `c539_hit.json` (the solution file of skew order 2156) |
 
-Build (in this directory, after `gcc -O3 -march=haswell -o ../qp ../qp.c -lm`; Python 3 with NumPy, SymPy):
+## Build
+
+In this directory, after `gcc -O3 -march=haswell -o ../qp ../qp.c -lm` (Python 3 with NumPy and SymPy):
 
 ```
 patch -o qp_oo.c ../qp.c qp_oo.patch && gcc -O3 -march=haswell -o qp_oo qp_oo.c -lm
 mkdir -p shapes runs out
 ```
 
-The scripts read solution files made by `../qp` (SOL lines, one digit per K-orbit for each of x₀, x₁, x₂ of the four blocks); `QPBIN` names the engine of `run_list.py`/`run_oo.py` (default `../qp`; `qp_oo` for `d1=2`).
-Certificates: `python3 ../plugcert.py m q "[H_K]" "SOL …"` (order 8mq, `../out/cert_<8mq>.json` with its sha256).
+The scripts read solution files made by `../qp` (SOL lines, one digit per K-orbit for each of x₀, x₁, x₂ of the four
+blocks). `QPBIN` names the engine of `run_list.py` and `run_oo.py` (default `../qp`; `qp_oo` for `d1=2`). Certificates:
+`python3 ../plugcert.py m q "[H_K]" "SOL …"` (order 8mq, `../out/cert_<8mq>.json` with its sha256).
 
-## Reproduction of search/NOTES.md §90 (origin-defect shapes)
+## Reproduction
 
-Run here after the build; times are wall times on one core of a loaded machine.
+Run in this directory after the build. Times are wall times on one core of a machine under load.
 
 **The solution sets** (EXACT counts, normalised: B, C, D with x₀(0) = 1):
 
@@ -47,9 +59,12 @@ python3 ../qshape.py '[13]' 27 '[3]' shapes/o_13_27_3.txt; ../qp shapes/o_13_27_
 python3 ../plugcert.py 13 19 "[3]" "02332|32310|20132 01110|30322|32100 00303|20123|32301 00131|33103|31321"      # 2 s   skew 1976 = 8 · 247, sha256 8bddfe35…, rowsums -28, -20, 8, 48
 ```
 
-The (589) sample of the notes (`../qp shapes/p589.txt l2c=1 l2p=0.02 maxprint=3000 seed=5`, 338 solutions, about 10 minutes) and the full H_K = 1 set at (5, 11) (7.6 MB) were not regenerated for this README (`sym589.py`, `unif_test2.py`, `overlap5_13.py` need them).
+Two inputs are not regenerated by these commands: the sample of 589
+(`../qp shapes/p589.txt l2c=1 l2p=0.02 maxprint=3000 seed=5`, 338 solutions, about 10 minutes, as `runs/589_sample.out`)
+and the full H_K = 1 solution set at (5, 11) (7.6 MB, as `runs/5_11_full.out`). `sym589.py`, `unif_test2.py` and
+`overlap5_13.py` need them.
 
-**Identities and structure of the sets** (every line is a run here; counts of the notes in brackets):
+**Identities and structure of the sets** (each line is a run; the counts of §90 are in brackets):
 
 ```
 python3 sym299.py                                   # 2 s    classes 136 Counter({96: 136})   (symmetry group of order 96: multiplier Z13*/H_K, x1<->x2, conjugation, reflection, S3 on B, C, D; all 'bad' counts 0)
@@ -72,7 +87,7 @@ python3 rigid_s.py 3 11; python3 rigid_s.py 5 23; python3 rigid_s.py 7 31   # TO
 python3 sstage_rigid.py 7 "[1]" 31                  # 5 s   30576 for z = 0 and both signs of eps_B, 0 for z = 1
 ```
 
-**The family scan** (EXHAUSTIVE per shape in the class `d1=1`; the scan of the notes covers m up to 160 with ν = 5):
+**The family scan** (EXHAUSTIVE per shape in the class `d1=1`; the scan of §90 covers m up to 160 with ν = 5):
 
 ```
 python3 oo_shapes.py 3 130 7                        # the shape list (first lines: 3 x 7, 3 x 11, 3 x 23, 7 x 11, 7 x 19, 11 x 19, 7 x 31, 11 x 23, 11 x 31, 7 x 59 with 3 orbits)
@@ -83,26 +98,46 @@ python3 heur.py 60 5                                # the heuristic counts: E_pr
 python3 make_table.py                               # 62 rows -> runs/results_table.txt
 ```
 
-**517 = 11 · 47: the quaternary Paley plug-in class over ℤ₁₁ × F₄₇ is empty for every H_K** (EXHAUSTIVE; the reduction to the rigid pattern is a hand proof, see NOTES §90):
+**517 = 11 · 47: the quaternary Paley plug-in class over ℤ₁₁ × F₄₇ is empty for every H_K** (EXHAUSTIVE; the reduction
+to the rigid pattern is a proof by hand, in [../../NOTES.md](../../NOTES.md) §90):
 
 ```
 python3 rigid_s.py 11 47                            # 52 s   cost cases [(22, 22)]; (Lock+S) solutions with D canonical: 0 in each of the 4 origin variants; TOTAL 0
 python3 rigid_s_test.py                             # 20 s   planted-solution test: found 5 of 5
 python3 rigid_s_check.py 3 11 0 1; python3 rigid_s_check.py 7 31 0 1    # full-D (Lock+S) count over all A: 144; 30576
-python3 rigid_s_check.py 11 47 6 1                  # 27 s   6 sampled A states: 0     (all 1024 A of origin variant 0: 0, 1831 s on the loaded machine; rigid_s_check2.py for the other variants: 100 A states each, 0)
+python3 rigid_s_check.py 11 47 6 1                  # 27 s   6 sampled A states: 0     (all 1024 A of origin variant 0: 0, 1831 s under load; rigid_s_check2.py for the other variants: 100 A states each, 0)
 ```
 
-`rigid_s_check.py` prints a harmless `ComplexWarning` (an unused cast). The independent judge's third implementation (`rigid_j.py`: Gaussian-integer meet in the middle with 64-bit linear hashes and exact verification of every key match) agrees on m = 3, 5, 7 (re-run here: `python3 rigid_j.py 3 11` 0.5 s: 144 for each of the four (M, M) variants of `rigid_s.py`, plus two variants with a full defect on B, 288 each, outside that pattern, TOTAL 1152; `python3 rigid_j.py 5 23`: 0; `python3 rigid_j.py 7 31` 1.2 s: 30,576 for each of four variants, TOTAL 122,304; the usage is `rigid_j.py m q [maxA] [variant]`) and
-gives 0 for all four variants at (11, 47) (re-run here: `python3 rigid_j.py 11 47`, all 1024 A states of each of the four variants, 0 solutions, 7 min 12 s CPU, 25 min wall on a loaded core; the 1.05 million C sequences are tabulated once, 7.7 s).
+`rigid_s_check.py` prints a harmless `ComplexWarning` (an unused cast). The independent implementation `rigid_j.py`
+agrees with `rigid_s.py` for m = 3, 5, 7 and gives 0 for all four variants at (11, 47):
 
-### What the verdicts cover
+```
+python3 rigid_j.py 3 11     # 0.5 s  144 for each of the four (M, M) variants of rigid_s.py, plus two variants with a full defect on B, 288 each (outside that pattern); TOTAL 1152
+python3 rigid_j.py 5 23     # 0
+python3 rigid_j.py 7 31     # 1.2 s  30,576 for each of the four variants; TOTAL 122,304
+python3 rigid_j.py 11 47    # 0 solutions in all four variants (all 1024 A states of each); 7 min 12 s CPU, 25 min wall under load; the 1.05 million C sequences are tabulated once, 7.7 s
+```
 
-All verdicts are for the quaternary Paley plug-in with H = H_K × squares(F_q\*) (with the stated H_K, or every H_K for 517); they say nothing about other multiplier groups on the same v. EXHAUSTIVE per shape for `d1=1`: complete in the class of origin-defect solutions; for H_K of order ≥ 5 (29 × \*, 37 × 59,
-43 × 59, 43 × 71, 19 × 79, 13 × 103/107, …) a defect off the origin costs at least |H_K|(q − 3)/2 > 4m, so the origin-defect run is exhaustive for the whole plug-in class with that H_K. HEURISTIC: the model E(m, p) and the statement that the family is finite. UNKNOWN: the shapes with
-9 orbits (21 × 43, 25 × 43: 8% and 2% of the chunks; 25 × 67), 9 × 11, 9 × 23, 9 × 19 with H_K = 1, 19 × 27 (58% of the chunks, 34,368 level-1 instances, no solution: the model predicted 10 classes), 31 × 83, 19 × 23, and every shape with 11 or more orbits.
+## Scope of the verdicts
 
-### Deviations from the round-37 sources
+All verdicts are for the quaternary Paley plug-in with H = H_K × squares(F_q\*), with the stated H_K, or every H_K
+for 517. They say nothing about other multiplier groups on the same v.
 
-The code is the code of round 37 except: `qp_oo.c` is carried as a patch of `../qp.c` (the original is `qp.c` with its two `d1` lines changed); `common.py`, `cpsat_plug.py`, `sstage.py`, `sstage_rigid.py` import `qshape` from `..` instead of `src/`; `run_oo.py` and `run_list.py` build shapes with `../qshape.py`, take the engine from `QPBIN` (default `../qp`) and
-create `shapes/`; the solution files are read from `runs/` (`299_all.out`, `13_19_all.out`, `13_27_all.out`, `589_sample.out`, `5_11_full.out`) in `sym299.py`, `sym589.py`, `sstage2.py`, `overlap13.py`, `overlap5_13.py`, and the jsonl logs for `make_table.py` from `data/`; `real2156.py` reads `data/c539_hit.json` (the HIT file of the run that found 2156) or a path argument and
-has a docstring; the exploratory scripts `an299*.py`, `cover.py`, `colsum.py`, `constblocks.py`, `mchar.py`, `scan.py`, `heur.py`'s callers `queue*.sh` and `cert_hit.py` are not carried over (`cert_hit.py` is `../plugcert.py` plus a scratch repository check). Not regenerated: `runs/589_sample.out`.
+- EXHAUSTIVE per shape for `d1=1`: complete in the class of origin-defect solutions. For H_K of order ≥ 5 (29 × \*, 37 ×
+  59, 43 × 59, 43 × 71, 19 × 79, 13 × 103/107, …) a defect off the origin costs at least |H_K|(q − 3)/2 > 4m, so the
+  origin-defect run is exhaustive for the whole plug-in class with that H_K.
+- HEURISTIC: the model E(m, p) and the statement that the family is finite.
+- UNKNOWN: the shapes with 9 orbits (21 × 43 and 25 × 43, where 8% and 2% of the chunks ran; 25 × 67), 9 × 11, 9 × 23,
+  9 × 19 with H_K = 1, 19 × 27 (58% of the chunks, 34,368 level-1 instances, no solution; the model predicted 10
+  classes), 31 × 83, 19 × 23, and every shape with 11 or more orbits.
+
+## Notes on the code
+
+- `qp_oo.c` is not stored: it is `../qp.c` with `qp_oo.patch` applied (see Build).
+- `common.py`, `cpsat_plug.py`, `sstage.py` and `sstage_rigid.py` import `qshape` from `..`.
+- `run_oo.py` and `run_list.py` build shapes with `../qshape.py`, take the engine from `QPBIN` (default `../qp`) and
+  create `shapes/`.
+- `sym299.py`, `sym589.py`, `sstage2.py`, `overlap13.py` and `overlap5_13.py` read the solution files from `runs/`
+  (`299_all.out`, `13_19_all.out`, `13_27_all.out`, `589_sample.out`, `5_11_full.out`); `make_table.py` reads the jsonl
+  logs from `data/`.
+- `real2156.py` reads `data/c539_hit.json` or a path given as argument.

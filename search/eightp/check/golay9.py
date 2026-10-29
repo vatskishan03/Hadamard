@@ -1,4 +1,4 @@
-# Complex (quaternary) Golay pairs of length n = 2..9 by exhaustive search over 4^n sequences (independent code of the judge of search/NOTES.md section 92): none of length 9, which disposes of the 'closure of the
+# Complex (quaternary) Golay pairs of length n = 2..9 by exhaustive search over 4^n sequences (independent code, search/NOTES.md section 92): none of length 9, which disposes of the 'closure of the
 # complex Golay lengths under products' route of ../census/recursive8p.py
 import numpy as np, itertools, sys, collections
 def golay(n):

@@ -121,5 +121,5 @@ for sol in sols:
     good &= (a[0] == 1 and all(a[j] == a[n // 2 - j] for j in range(1, n // 2)))
     centre_pal &= all(b[k] == b[n // 2 - 1 - k] for k in range(n // 2))
     if tested >= 400: break
-check(f'v=3: {tested} theta-paired octic solutions give F1 quadruples (a skew, b centre-palindromic, sum NPAF_{{2v}} = 4*2v delta)', good and centre_pal and tested > 0)
+check(f'v=3: {tested} theta-paired octic solutions give order-8v quadruples (a skew, b centre-palindromic, sum NPAF_{{2v}} = 4*2v delta)', good and centre_pal and tested > 0)
 print('ALL PASS' if ok_all else 'SOME FAIL')

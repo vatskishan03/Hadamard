@@ -1,6 +1,6 @@
 """K = Z_p^2 with a MATRIX group H_K <= GL(2,p) of odd order (Singer subgroups, diagonal tori, unipotent products): shape file for qp37r in the same format as qshape37 (units = the diagonal units that NORMALISE H_K, group perms = translations by H_K-fixed points + reflections).
-Correction (search/NOTES.md section 90): the version used in round 37 wrote ALL diagonal unit pairs (u1, u2); diag(u1, u2) acts on the K-orbits only if it normalises H_K, which fails for u1 != u2 and a Singer group, so uA=1 removed solutions (the EMPTY verdicts of 575, 1183, 1083 were re-run unreduced and stand).
-usage: python3 qshape_mat.py p q '[[a,b],[c,d]]' '[[...]]' ... OUT.txt   (generators as 2x2 matrices, acting on column vectors (x, y))"""
+Note (search/NOTES.md section 90): diag(u1, u2) acts on the K-orbits only if it normalises H_K, which fails for u1 != u2 and a Singer group; writing all diagonal unit pairs would let uA=1 remove solutions.  Only the normalising units are written (the EMPTY verdicts of 575, 1183, 1083 agree with the unreduced runs).
+usage: python3 qshape37m.py p q '[[a,b],[c,d]]' '[[...]]' ... OUT.txt   (generators as 2x2 matrices, acting on column vectors (x, y))"""
 import os, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.join(HERE, '..')); sys.path.insert(0, HERE)      # ../qshape.py is the base shape code
 import itertools, math, cmath, sys, json

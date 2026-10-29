@@ -1,5 +1,5 @@
 #!/bin/bash
-# re-validation with the FINAL binaries (after dedupe / class sampler / MAXN changes): 22 shapes per mode, >= 8 nonzero.  Resume-safe.
+# second validation battery with the final binaries: 22 shapes per mode, >= 8 nonzero.  Resume-safe.
 cd "$(dirname "$0")"; mkdir -p runs
 export OMP_NUM_THREADS=1
 ulimit -v 3500000

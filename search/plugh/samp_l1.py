@@ -2,7 +2,7 @@
  level 1 (l1.c): exact A,B lists x LC random C,D configs per round (regenerated from seeds), class-sorted hash join on the U features;
  level 2 (pl2.c): exact t-sign completion of every level-1 instance (row-sum filter, PSD, MITM).
 Every completion is verified in python against the K-level equations (pk.Shape.eqvec == T) and certified at once (certify.py: G-level sequences, K K* = 2|G| I,
-verify_complex.py on the scratch repository copy).
+verify_complex.py of the repository given by HADAMARD_REPO).
 usage: samp_l1.py Kmods(json) q hg(json) allocs(nA:nB:nC:nD,...) LC secs seed outprefix
 Appends one JSON line per round to <outprefix>.jsonl; on a verified hit writes <outprefix>.FOUND (json with the certificate info) and <outprefix>_sols.pkl and exits 0."""
 import sys, os, json, math, time, pickle

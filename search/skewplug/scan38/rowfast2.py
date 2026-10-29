@@ -3,7 +3,7 @@ import numpy as np
 from collections import defaultdict
 from gsk import block_classes
 def _classes(sh, n, m):
-    # The cache lives on the shape object.  Correction (search/NOTES.md section 91): the round-38 version kept module-level caches keyed by id(sh); id() is reused after a shape object is freed, so a worker
+    # The cache lives on the shape object.  Correction (search/NOTES.md section 91): an earlier version kept module-level caches keyed by id(sh); id() is reused after a shape object is freed, so a worker
     # that ran several shapes in one process used the block classes of another shape and flagged feasible slots as having no row-sum pattern (575, 627, 957, 385 over Z55 x F7, ...).
     cc = sh.__dict__.setdefault('_rf2_cc', {})
     k = (n, m)

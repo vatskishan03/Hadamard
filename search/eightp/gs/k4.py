@@ -2,7 +2,7 @@
 
 G = K x F_r (r odd prime power), blocks X = s I + t Q + e J (Q Paley matrix of F_r), all four blocks free (kind 'CD' of pk.py).
 Target (all modes):  sum_i PAF_i(g) = 4|G| delta_g - (1 - delta_g) Gamma(pi(g)),  pi: G -> Q = K/L,  Gamma = 4 sum_{chi in T} chi,
-so on K-level  phi(k) = -Gamma(k mod L)  (phi(0) is the value on {0} x F_r^*).  Group ring: F = phi (x) J + (4|G| - phi(0)) delta, hence (PROVED below, checked by brute force)
+so on K-level  phi(k) = -Gamma(k mod L)  (phi(0) is the value on {0} x F_r^*).  Group ring: F = phi (x) J + (4|G| - phi(0)) delta, hence (proved below, checked by brute force)
    (I)  sum (s s~ + r t t~)                       = (4|G| - phi(0)) delta_K
    (J)  sum (r e e~ + s e~ + e s~ - t t~)         = phi(k)
    (Q)  sum (t s~ + eps s t~)                     = 0              eps = chi(-1) = +1 (r = 1 mod 4), -1 (r = 3 mod 4)

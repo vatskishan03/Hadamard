@@ -1,4 +1,4 @@
-"""Numerical and exact checks of the statements proved in PROOFS.md (search/NOTES.md section 92): P1 to P7.  New in the port: every check tests a PROVED statement on real data or by exact integer computation; it does not replace the proof.
+"""Numerical and exact checks of the statements proved in PROOFS.md (search/NOTES.md section 92): P1 to P7.  Every check tests a proved statement on real data or by exact integer computation; it does not replace the proof.
 usage: python3 proofs_check.py [P1 P2 ...]        (default: all; needs ./tri2 built, see README.md; about 15 seconds)
   P1  parity of the PAF (Re odd, Im even) on random unit sequences over several odd moduli (also composite)
   P2  row sums |R|^2 = (4v-3, 1, 1, 1) on the exact solution sets of v = 29, 67 (tri2), on the recorded sample of v = 379 and the reduced list of v = 277; at v = 7 (k = 3) there are two patterns

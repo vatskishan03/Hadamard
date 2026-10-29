@@ -4,7 +4,7 @@
 // (time per probe: README.md), every hit is verified in integer arithmetic, and red=1 (below) divides the work by the symmetry group of PROOFS.md P5.
 // mode 3 (k = 3 mod 8): A = twisted-skew BIG block (u0 in {1,-i}, S_A = m(1+i), m = +-1 aligned), B,C,D free small (u0 = 1, S = 0).      left pairs (A,B), right pairs (C,D)
 // mode 7 (k = 7 mod 8): A = twisted-skew SMALL block (S_A = 0), B = free BIG (u0 = 1, S = 1+i), C,D free small.  left pairs (A,B), right pairs (C,D)
-// (the row-sum pattern 4v-3, 1, 1, 1 is PROVED in PROOFS.md, P2; it assigns the big block.)
+// (the row-sum pattern 4v-3, 1, 1, 1 is proved in PROOFS.md, P2; it assigns the big block.)
 // red=1 (modes 3 and 7): A over representatives of the Z_e shift orbits (weight = orbit size), C,D over tilde-class representatives (tilde: c_j -> conj c_{j+e/2}),
 //   unordered {C,D}; B only S = 1+i (tilde gives S = 1-i).  Total normalised count = (position of the big block: 3) * 2 * sum of weights  (in mode 7);
 //   in mode 3 and in mode 7 with red=0 every solution (ordered A,B,C,D as in qskew's normalised count) is counted once with weight 1

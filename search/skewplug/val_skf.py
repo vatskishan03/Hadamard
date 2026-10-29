@@ -2,7 +2,7 @@
 solutions must be identical (all completions, no time limit).  Instances are sampled by the level 1 of sk_samp for one slot of a shape.
 usage (from search/skewplug):  python3 val_skf.py 'K' q 'hunits' 'alloc' 'ms' LB LC LD NINST SEED
 Last line: RESULT ... N instances, W with completions, C completions, count/status mismatches 0, solution-set mismatches 0, time sl2 .. skf .. (speedup ..x).
-val_skf.sh runs the battery of 22 slots of seven shapes (7500 instances in the original run: 0 mismatches; skf2 1.8 to 6.7 times faster than sl2)."""
+val_skf.sh runs the battery of 22 slots of seven shapes (7500 instances in the recorded run: 0 mismatches; skf2 1.8 to 6.7 times faster than sl2)."""
 import os, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import json, time, random

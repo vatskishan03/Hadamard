@@ -1,4 +1,4 @@
-"""Independent re-implementation (by the judge of round 37, derived from the K-level algebra, not copied) of the rigid (A,M|E,E) K-level 'Lock + S' count (derived from the K-level algebra, not copied):
+"""Independent implementation (derived from the K-level algebra, not copied from rigid_s.py) of the rigid (A,M|E,E) K-level 'Lock + S' count:
  K = Z_m, H_K trivial.  Blocks X in {A,B,C,D}: s_X(k) = x0 (unit) off the origin for E-type, s_X(0) = x0 - eps_X;  A skew:  u_A(-k) = i conj u_A(k) (k != 0), x0_A in {1,-i}.
  A and B carry half defects at the origin (eps_X = (x1+x2)/2, cost (q-1)/2 + 2 Re(x0 conj eps)); C, D are E-type (eps = 0).
  Level-2 locking: Phi_A(k) + Phi_B(k) = 0 with Phi_X(k) = eps_X conj u_X(k) + conj eps_X u_X(-k)  (enumerated locally per +- pair, NOT assuming u_B = lambda u_A).

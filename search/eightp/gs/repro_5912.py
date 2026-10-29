@@ -1,4 +1,4 @@
-"""repro_5912.py -- deterministic replay of the hit of H(5912): round 33 of the production with base seed 1002 (worker w2), token (0, 30, 30, 60) (README, "Order 5912").
+"""repro_5912.py -- deterministic replay of the hit of H(5912): the round (1002, 33) of the production (base seed 1002, worker w2), token (0, 30, 30, 60) (README, "Order 5912").
 Regenerates the level-1 instances of that round (prod_5912.round_instances), runs level 2, compares the solution with the recorded K-level blocks, checks it at G level (exact integer PAF),
 writes the certificate (construction spence, group [211, 7]) with gs_cert.certify_solution (H built by the verify.py of repo_copy, a copy of verify/verify.py; H H^T = 5912 I, sha256, then the CLI verify/verify.py) and compares its
 sequences with REF.   Needs the builds and repo_copy of the README (Build).
@@ -32,7 +32,7 @@ def main():
     print(f'round {ROUND} of base seed {BASE}, token {al}: {cnt} level-1 instances, {len(S)} distinct ({time.time()-t0:.0f} s)', flush=True)
     if fast:
         i = next((i for i in range(len(S)) if all(np.array_equal(S[i, b], hit[b][0]) and np.array_equal(E[i, b], hit[b][2]) for b in range(4))), None)
-        assert i is not None, 'recorded instance not regenerated: level 1 of round 33 differs from the production'
+        assert i is not None, 'recorded instance not regenerated: level 1 of the recorded round differs from the production'
         S, E = S[i:i + 1], E[i:i + 1]; print(f'recorded instance: number {i}', flush=True)
     ncomp, sols, stat, tl = process_instances(sh, S, E, rng, tl2=30.0)
     print(f'level 2: {len(S)} instances, {ncomp} completions (one solution, doubled by t -> -t), {len(sols)} solutions kept ({tl:.0f} s)', flush=True)

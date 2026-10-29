@@ -3,8 +3,8 @@
 The programs behind the conference matrix `search/data/conference118_5fe566972f21790b.txt` ([../NOTES.md](../NOTES.md)
 §95), which gives [symmetric/940](../../symmetric/940) and [hadamard/11292](../../hadamard/11292). A symmetric
 conference matrix C of order 118 (zero diagonal, ±1 elsewhere, C² = 117I) is the same as a conference graph
-SRG(117, 58, 28, 29). Its existence was open in the literature we read; Brouwer's table now cites J. Y. Z. Ho (email,
-October 2026) for one, which is not public. Ours was found independently.
+SRG(117, 58, 28, 29). Its existence was open in the literature consulted. Brouwer's table now cites J. Y. Z. Ho
+(personal communication, October 2026) for one, which is not public. The matrix here was found independently.
 
 ## The ansatz
 

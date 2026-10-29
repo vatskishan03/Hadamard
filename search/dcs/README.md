@@ -5,7 +5,7 @@ call a pair (a, b) of sequences over D = {±1, ±i, ±s, ±is} (s² = 1, is = �
 polynomials f_a, f_b, f_a*, f_b* commute and f_a f_a* + f_b f_b* = 2n. A DCS of length g free of ±is, Golay lengths g₁
 and g₂ and their Lemmas 1–3 and Theorem 7 give a Hadamard matrix of order 8(g₁g + g₂) (their Corollary 9).
 
-Labels: PROVED = argument in NOTES §104; CHECKED = exact computation here.
+Labels: CHECKED = exact computation here. The arguments are in [NOTES.md](../NOTES.md) §104.
 
 ## Files
 

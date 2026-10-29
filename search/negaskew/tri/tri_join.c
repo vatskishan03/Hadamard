@@ -1,4 +1,4 @@
-// tri_join.c: partitioned four-list join for the triangular F1 family v = 1 + k(k+1)/2 (search/NOTES.md section 88; section 92).
+// tri_join.c: partitioned four-list join for the triangular family v = 1 + k(k+1)/2 (search/NOTES.md section 88; section 92).
 // v prime = 1 + k(k+1)/2, H <= Z_v* of order k, e = (v-1)/k cosets C_j = g^j H; quaternary blocks constant on cosets.
 // Pattern: A twisted-skew (u(-x) = i conj u(x), u(0) in {1,-i}) with coset sum S_A = m(1+i), m = +-1 aligned (big, |R_A|^2 = 4v-3),
 // B, C, D with u(0) = 1 and coset sum 0 (small).  Condition: sum of the four complex PAFs = 0 at every s != 0.

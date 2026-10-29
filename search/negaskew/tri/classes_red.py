@@ -26,4 +26,4 @@ for l in open(fn):
     cl[canon(tuple(bl))]+=1; cw[canon(tuple(bl))]+=float(p[3][2:])
 print('reduced hits',n,'weighted sum',wsum,'distinct classes under the full group (Z_e x tilde^3 x S_3 x negA):',len(cl),'; reduced hits per class',sorted(collections.Counter(cl.values()).items()))
 print('implied normalised count if all orbits regular (order 2*e*8*6 =',2*e*48,'):',len(cl)*2*e*48,' vs 6*wsum =',6*wsum)
-print('class weight sums (orbit size / 6 in mode 7, / 1 in mode 3; a regular class has 16 * 12 = 192 at e = 12):',sorted(collections.Counter(cw.values()).items()),' total',sum(cw.values()))   # new in the port: output only
+print('class weight sums (orbit size / 6 in mode 7, / 1 in mode 3; a regular class has 16 * 12 = 192 at e = 12):',sorted(collections.Counter(cw.values()).items()),' total',sum(cw.values()))

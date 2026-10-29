@@ -1,10 +1,11 @@
 # The flag equation for symmetric conference matrices of order 9p + 1
 
-The programs behind [../NOTES.md](../NOTES.md) §96. They extend the ansatz of [../conference118](../conference118/README.md)
-(points ℤ_p × AG(2, 3) and ∞, blocks −χ(j − i)(J − 2M) with M a hyperplane of AG(2, 3)², diagonal blocks J − I − 2R)
-from p = 13 to every prime p ≡ 1 (mod 4). A symmetric conference matrix of order 9p + 1 is a conference graph on 9p
-vertices; Brouwer's table (read 25 October 2026) lists those on 117 (J. Y. Z. Ho) and 153 (Chen Wang) vertices as
-existing and those on 261, 333, 369, 477, 549, 657 and 801 vertices (p = 29, 37, 41, 53, 61, 73, 89) as open.
+The programs behind [../NOTES.md](../NOTES.md) §96. They extend the ansatz of
+[../conference118](../conference118/README.md) (points ℤ_p × AG(2, 3) and ∞, blocks −χ(j − i)(J − 2M) with M a
+hyperplane of AG(2, 3)², diagonal blocks J − I − 2R) from p = 13 to every prime p ≡ 1 (mod 4). A symmetric conference
+matrix of order 9p + 1 is a conference graph on 9p vertices; Brouwer's table (read 25 October 2026) lists those on 117
+(J. Y. Z. Ho) and 153 (Chen Wang) vertices as existing and those on 261, 333, 369, 477, 549, 657 and 801 vertices (p =
+29, 37, 41, 53, 61, 73, 89) as open.
 
 ## The equation
 
@@ -17,10 +18,10 @@ onto each other. Every connected component of the flag graph must satisfy Ψ_C²
 - a bipartite component (edges only between D = +1 and D = −1 flags) is X X* = d I, d = (p − 1)/4, for its biadjacency
   matrix X; a complete bipartite component K_{a,a} has D constant on each side and X is a Butson matrix BH(a, 6) whose
   sign pattern is the Paley pattern;
-- a structure invariant under ℤ_p is an 8 × 8 matrix over ℤ[ω][ℤ_p] (fs3's formalism), bipartite ones a 4 × 4 matrix X
+- a structure invariant under ℤ_p is an 8 × 8 matrix over ℤ[ω][ℤ_p], bipartite ones a 4 × 4 matrix X
   with a real structure;
-- if a multiplier group K of odd order k (k | p − 1) is an automorphism, every orbit of differences carries one edge type,
-  with a cube-root phase twist when 3 | k (without a twist, X(1) has entries in kℤ[ω], which needs k² | d).
+- if a multiplier group K of odd order k (k | p − 1) is an automorphism, every orbit of differences carries one edge
+  type, with a cube-root phase twist when 3 | k (without a twist, X(1) has entries in kℤ[ω], which needs k² | d).
 
 ## Programs
 
@@ -44,13 +45,20 @@ onto each other. Every connected component of the flag graph must satisfy Ψ_C²
 ## Validation
 
 - p = 5 (`mulcyc 5 1`): 576 structures, Mathon's order 46.
-- p = 13: no ℤ₁₃-invariant structure (`bipcyc`, `mulcyc 13 3`, and the general search of round 44); the matrix of
+- p = 13: no ℤ₁₃-invariant structure (`bipcyc`, `mulcyc 13 3`, and the general search of §95); the matrix of
   [../conference118](../conference118/README.md) is not cyclic.
 - p = 17: 55,296 bipartite cyclic structures (27,648 with the first row canonical); every one built and checked with
   `build_bip.py` is a symmetric conference matrix of order 154.
 
 ## Results
 
-See [../NOTES.md](../NOTES.md) §96. Bipartite cyclic: p = 29 none; Alamouti: p = 29, 37, 41 none; odd multiplier groups:
-none for (p, k) = (13, 3), (29, 7), (37, 9), (53, 13), (61, 15), (109, 27), (73, 9) (both sign conventions). K₈ templates: one class, 4466
-placements on ℤ₂₉, at most 4 of them pairwise compatible (exact maximum clique, §97); BH(7, 6): one sign class, J − 2P (exhaustive, §98), with no placement on ℤ₂₉; Paley(37) has no K₉,₉ component (§98), so neither core has a clique-and-biclique cover.
+See [../NOTES.md](../NOTES.md) §96.
+
+- Bipartite cyclic structures: none for p = 29.
+- Alamouti sub-family: none for p = 29, 37, 41.
+- Odd multiplier groups: none for (p, k) = (13, 3), (29, 7), (37, 9), (53, 13), (61, 15), (109, 27), (73, 9), with both
+  sign conventions.
+- K₈ templates: one class, with 4466 placements on ℤ₂₉, at most 4 of them pairwise compatible
+  (exact maximum clique, §97).
+- BH(7, 6): one sign class, J − 2P (exhaustive, §98), with no placement on ℤ₂₉.
+- Paley(37) has no K₉,₉ component (§98), so neither core has a clique-and-biclique cover.

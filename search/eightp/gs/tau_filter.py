@@ -5,7 +5,7 @@ Block X = s I + t Q + e J on K x F_r (kind 'CD' of pk.py).  Per H_K-orbit o (siz
    non-defect (orbit not forced): s = +-1, t = +-1 free, e = 0 :  c += 0,           sigma += s*ell,       eps += 0,        tau += t*T
    p-defect  (s = 0, e = +-1)                                   :  c += (r+1)*ell,   sigma += 0,           eps += e*ell,    tau += 0
    m-defect  (s = -2e, e = +-1)                                 :  c += (r-3)*ell,   sigma += -2e*ell,     eps += e*ell,    tau += 0
-(forced orbits are defects only.)  The identities (PROVED in search/NOTES.md section 86, checked by brute force there and in t_identity.py):
+(forced orbits are defects only.)  The identities (proved in search/NOTES.md section 86, checked by brute force there and in t_identity.py):
    sum_X c_X = 4|K| + phi(0)                                  (defect identity J(0))
    sum_X (sigma_X^2 + r tau_X^2) = T2 = 4|G| - phi(0)         (I(0) summed: sum of the row sums of I)
    sum_X sigma_X tau_X = 0                                    (only if eps = +1, r = 1 mod 4: Q(0)-sum)

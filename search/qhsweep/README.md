@@ -13,12 +13,10 @@ long for memory is joined slice by slice. Python 3 with NumPy and a C compiler w
 are built on first use into `$HADAMARD_WORK/qhsweep/bin`). Lists, logs and hits are written below
 `$HADAMARD_WORK/qhsweep` ([search/workdir.py](../workdir.py)), nothing inside the repository.
 
-Labels: CHECKED = exact computation by `validate.py` in this directory.
+The sweeps covered N = 1019, 1103, 1125, 1143, 1169, 1185, 1199, 1211, 1271, 1335, 1341, 1343, 1349, 1439, 1443, 1451,
+1469 and 1499.
 
-Written in round 52 by two sweep runs (N = 1019, 1103, 1169, 1199, 1211, 1271, 1343, 1349, 1469 and N = 1125, 1143,
-1185, 1335, 1341, 1439, 1443, 1451, 1499), which share the enumerator, the join, `z2fast.py` and the scheduler; the
-prefix slices and `sliced.py` come from the first run, the joint quotient screen, the Williamson-type region and the
-screen-only pass from the second.
+Labels: CHECKED = exact computation by `validate.py` in this directory.
 
 ## What is exact
 
@@ -89,10 +87,13 @@ one thread, `ulimit -v 3000000`; 2 min 56 s):
   one): `join4x`, `join4y` and `join4y` after the lattice normalisation give the same total. The five structures with
   known solution sets (NOTES §52 for 163, 119, 371):
 
-  | N | H | rows | list sizes | solutions | |---:|---|---|---|---:| | 779 | ⟨49⟩ | 5, 7, 39, 39 | 120, 120, 18480, 18480
-  | 96 | | 371 | ⟨13⟩ | 3, 3, 25, 29 | 120, 120, 20592, 20592 | 96 | | 143 | ⟨3⟩ | 3, 9, 11, 19 | 6, 12, 560, 448 | 16 |
-  | 163 | ⟨38⟩ | 17, 19, 1, 1 | 126, 126, 48620, 48620 | 8352 | | 119 | ⟨8⟩ | 1, 5, 15, 15 | 120, 40, 105105, 105105 |
-  4704 |
+  | N | H | rows | list sizes | solutions |
+  |---:|---|---|---|---:|
+  | 779 | ⟨49⟩ | 5, 7, 39, 39 | 120, 120, 18480, 18480 | 96 |
+  | 371 | ⟨13⟩ | 3, 3, 25, 29 | 120, 120, 20592, 20592 | 96 |
+  | 143 | ⟨3⟩ | 3, 9, 11, 19 | 6, 12, 560, 448 | 16 |
+  | 163 | ⟨38⟩ | 17, 19, 1, 1 | 126, 126, 48620, 48620 | 8352 |
+  | 119 | ⟨8⟩ | 1, 5, 15, 15 | 120, 40, 105105, 105105 | 4704 |
 
   `join4x`, `join4y` raw, `join4y` normalised, the normalised join with an out-of-memory failure forced on the first
   level (the halves add up) and `qhlib.solve` give these totals, and the first solution of each is a complex Hadamard
@@ -113,16 +114,18 @@ one thread, `ulimit -v 3000000`; 2 min 56 s):
   (the SHA-256 differs). The same chain on N = 11 in each mode (`plain`, `wt` with H = {±1}, `bord` with H = ⟨9⟩ and its
   border) ends in a matrix of order 92 (q = 23), and `sliced.py 163 --maxslice 20000` finds a verified hit in 4 slices.
 
-The full output is `validation.log` (not part of the repository; the command is `python3 validate.py` with
-`$HADAMARD_WORK` set).
+The full output is not included; `python3 validate.py` with `$HADAMARD_WORK` set reproduces it.
 
-## Not ported
+## Not included
 
-The round-52 runs also used the repository's `cchain4.py` through a driver (`chainsweep.py`, the same kind of sweep as
-`search/cchain_sweep.py` that skips the jobs already decided; `chain2.py` patched `cchain4.final_join` to use the
-normalised join), the hybrid estimates of the undecided structures (`gauss_mc`, HEURISTIC, nothing depends on them), the
-character-bordered ranks and searches of `tbsz.py` (`run_rank.sh`, `tb_batch.py`), and private table and cache scripts
-(`final_report.py`, `final_table*.py`, `janitor.py`; `sched.py status` and `qhlib.clear` replace them). The chain
-rule-outs of NOTES §105 are therefore not reproduced here: the quotient screen is only the level-1 test of the chain. In
-the original, `sliced.py` took the patterns the chain left open; here it takes every undecided job whose largest list
-exceeds `--maxslice` and whose second-largest is at most `--second`, after the quotient screen.
+The sweeps recorded in [../NOTES.md](../NOTES.md) §105 also used programs that are not part of this directory:
+
+- a driver around `cchain4.py` (`chainsweep.py`, the same kind of sweep as `search/cchain_sweep.py` that skips the jobs
+  already decided; `chain2.py` patches `cchain4.final_join` to use the normalised join);
+- the hybrid estimates of the undecided structures (`gauss_mc`; HEURISTIC, nothing depends on them);
+- the character-bordered ranks and searches of `tbsz.py`;
+- table and cache scripts, replaced here by `sched.py status` and `qhlib.clear`.
+
+The chain rule-outs of §105 are therefore not reproduced here: the quotient screen is only the level-1 test of the
+chain. In the sweeps, `sliced.py` took the patterns that the chain left open; here it takes every undecided job whose
+largest list exceeds `--maxslice` and whose second-largest is at most `--second`, after the quotient screen.

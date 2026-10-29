@@ -1,6 +1,6 @@
-"""Independent check of skew/1540 (written by the judge of round 38, no repository code): rebuilds the matrix from certificate.json with its own group arithmetic and Goethals-Seidel array and checks +-1, H H^T = 1540 I, H + H^T = 2I, the row sums, and (optionally) the canonical CSV hash.
+"""Independent check of skew/1540 (no repository code): rebuilds the matrix from certificate.json with its own group arithmetic and Goethals-Seidel array and checks +-1, H H^T = 1540 I, H + H^T = 2I, the row sums, and (optionally) the canonical CSV hash.
 usage (in search/skewplug): python3 scan38/indep1540.py ../../skew/1540/certificate.json [../../skew/1540/H1540.csv.gz [sequences.txt]]"""
-# Independent check, written by the judge (no repository code): rebuild skew-Hadamard 1540 from certificate.json
+# Independent check (no repository code): rebuild skew-Hadamard 1540 from certificate.json
 import json, gzip, sys, hashlib, io
 import numpy as np
 cert_path = sys.argv[1]

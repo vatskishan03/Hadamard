@@ -1,4 +1,4 @@
-"""Anatomy of the hit that found skew/1892: re-runs round 9 (the tenth round) of the seeded loop of prod_ks.py (K = Z43, q = 11, H_K = <6>, slots of data/cost473.jsonl, seed 1) and gives ALL level-1
+"""Anatomy of the hit that found skew/1892: re-runs the tenth round (index 9) of the seeded loop of prod_ks.py (K = Z43, q = 11, H_K = <6>, slots of data/cost473.jsonl, seed 1) and gives ALL level-1
 instances of that round to level 2 (skf) with all completions: which instances complete, how many completions each (expected: 8 instances, 2 completions each = one t-solution up to t -> -t), and how the
 completing instances share blocks (the 2 x 2 x 2 combinations of two A, two B, two C and one D: ONE solution cluster, not eight independent solutions).
 usage (from search/skewplug):  python3 estimates/hit_analysis.py        (about 1 minute; writes runs/hit_analysis.json)"""

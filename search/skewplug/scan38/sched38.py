@@ -1,6 +1,6 @@
 """queue worker (in search/skewplug): python3 scan38/sched38.py SHAPES.json QUEUE.json SECS PASSNAME [EREL] [M]
 QUEUE.json = ordered list of shape indices.  Each worker claims the next unclaimed index (mkdir claims/PASSNAME/idx), runs scan38.run_shape with the CUMULATIVE budget SECS (resumable: a shape whose
-hdr says scan_secs >= SECS or COMPLETE is skipped), and goes on.  Several workers (<= 3 in total) may run the same queue.  Restart after a container restart: rm -rf claims/PASSNAME and relaunch."""
+hdr says scan_secs >= SECS or COMPLETE is skipped), and goes on.  Several workers (<= 3 in total) may run the same queue.  After an interrupted run: rm -rf claims/PASSNAME and relaunch."""
 import sys, os, json, time
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(HERE, '..'))      # scan38/ and the modules of search/skewplug
 DATA = os.path.join(HERE, 'data')

@@ -1,5 +1,5 @@
 #!/bin/bash
-# exhaustive plain cyclic Spence shapes (odd v = 2p-1), all subgroups H <= Z_v^* with 2..OMAX orbits (corrected solver plain_spence3.py); resumable per v (a finished v writes runs/vV.O<OMAX>.done)
+# exhaustive plain cyclic Spence shapes (odd v = 2p-1), all subgroups H <= Z_v^* with 2..OMAX orbits (solver plain_spence3.py); resumable per v (a finished v writes runs/vV.O<OMAX>.done)
 cd "$(dirname "$0")"
 mkdir -p runs
 export OMP_NUM_THREADS=1

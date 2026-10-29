@@ -17,7 +17,7 @@ for f in sorted(glob.glob(D + '/spin/v*.log')):
     hdr = open(f).readline().strip(); rs = list(rows(f))
     live = [r for r in rs if r.get('NA', 0) > 0]
     print(f.split('/')[-1], '|', hdr[:60], '| done pairs', len(rs), 'live', len(live), 'maxOH_live', max([r['OH'] for r in live], default=0), 'count', sum(r['count'] for r in rs), 'secs', round(sum(r['secs'] for r in rs)))
-print('== plain (corrected solver r3/r4)')
+print('== plain (final solver; logs r3, r4)')
 for f in sorted(glob.glob(D + '/plain/r[34]_*.log')):
     rs = list(rows(f)); st = {}
     for r in rs: st[r['status']] = st.get(r['status'], 0) + 1

@@ -1,8 +1,11 @@
 # Spin shapes in the negacyclic Goethals–Seidel problem
 
-The quaternary skew problem of [../README.md](../README.md) with the spin structure C = B ∘ μ, D = B ∘ μ² (μ ∈ ℤ_v*, μ ∉ H,
-μ³ ∈ H): a skew block A and one free block B, i.e. a two-list problem of 2^(n−1) · 4^(n−1) quadruples instead of four lists
-([../../NOTES.md](../../NOTES.md) §88, §89). Each program reads the shape files and tables of the parent directory.
+The quaternary skew problem of [../README.md](../README.md) with the spin structure C = B ∘ μ, D = B ∘ μ², where μ ∈
+ℤ_v*, μ ∉ H and μ³ ∈ H. The problem reduces to a skew block A and one free block B: a two-list problem of 2^(n−1) ·
+4^(n−1) quadruples instead of four lists ([../../NOTES.md](../../NOTES.md) §88, §89). The programs read the shape files
+and tables of the parent directory.
+
+## Contents
 
 | File | Contents |
 |---|---|
@@ -13,7 +16,9 @@ The quaternary skew problem of [../README.md](../README.md) with the spin struct
 | `spin_sweep.py` | runs the engine on a shape list (resumable, one json line per shape) |
 | `spin_cert.py` | a solution (A, B) to the four orbit-exponent strings and `../certify.py` |
 
-Build (in this directory) and the two positive controls:
+## Build and controls
+
+In this directory:
 
 ```
 gcc -O3 -march=haswell -o qspin qspin.c
@@ -23,6 +28,10 @@ python3 spin_drv.py 7 "[]" 2        # COUNT 1820, real skew matrix of order 56
 python3 spin_drv.py 13 "[]" 3       # COUNT 110448, order 104 (3 s; the plain qspin takes 30 s)
 ```
 
-The commands that reproduce the spin results of [../../NOTES.md](../../NOTES.md) §88 and §89 are in the block
-"Reproduction of search/NOTES.md §88–89" of [../README.md](../README.md). `SPIN_ENGINE=./qspin` selects the plain engine in
-`spin_drv.py`; the shape files go to `shapes/`, the shape lists and logs to `runs/` (neither is committed).
+`SPIN_ENGINE=./qspin` selects the plain engine in `spin_drv.py`. Shape files go to `shapes/`, shape lists and logs to
+`runs/`; neither is stored in the repository.
+
+## Reproduction
+
+The commands that reproduce the spin results of [../../NOTES.md](../../NOTES.md) §88 and §89 are in the section
+[Reproduction](../README.md#reproduction) of [../README.md](../README.md).

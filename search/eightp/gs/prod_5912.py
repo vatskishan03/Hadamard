@@ -1,7 +1,7 @@
 """prod_5912.py -- restartable sampling production for H(5912) = 8 * 739 (README, "Order 5912"): Spence's construction over G = Z211 x F7 with blocks invariant under
 H = <(19, 1)> x squares(F7*) (|H| = 45, 15 K-orbits, all row sums +1).  One round = level 1 of one allocation token (gl1.c: class-restricted join of block lists of 2000 x 200000,
 at most 2000 instances), the removal of instances that are block reversals of each other, and level 2 (gl2.c) on the rest.  Round r of base seed b is a function of (b, r) alone
-(rng = default_rng([b, r])): a restart repeats at most the round in progress, and repro_5912.py regenerates round 33 of base seed 1002, the hit.
+(rng = default_rng([b, r])): a restart repeats at most the round in progress, and repro_5912.py regenerates the round (1002, 33), the hit.
 usage: prod_5912.py BASE_SEED OUTPREFIX SECS     state OUTPREFIX.state.json, one JSON line per round in OUTPREFIX.jsonl; stop at a round boundary: touch OUTPREFIX.STOP
 A verified hit (K-level and exact G-level check) writes OUTPREFIX.HIT_<time>.json, is certified (gs_cert.certify_solution) and stops the run."""
 import sys, os, json, time, hashlib

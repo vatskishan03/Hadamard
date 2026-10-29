@@ -1,19 +1,22 @@
+# editor and Python caches
 .claude/
 .DS_Store
 __pycache__/
+
+# CSV matrices and the compiled matrix checker
 *.csv
 check_matrix
 
 # verify_complex.py --write
 complex-hadamard/C*.txt
 
-# search programs: C programs compiled by hand next to the sources, list files, logs and hit logs
+# search programs: build products and run output
 search/**/*.bin
 search/**/*.log
 search/**/*_hits.json
 search/tmp*/
-search/d3/orb.npy
-search/d3/walk
+
+# search programs: C programs compiled by hand next to the sources
 search/count4
 search/find4
 search/find4b
@@ -22,52 +25,68 @@ search/skew_gen
 search/spin_ls
 search/spin_ls_gls
 search/spin_walk
+search/d3/walk
+search/dcs/dcs
 search/ls/bs_tabu
 search/ls/gs_rsa
 search/ls/gs_sa
 search/ls/gs_tabu
 search/ls/gs_tabu_l1
 search/ls/orb_tabu
-search/skewplug/runs/
-search/skewplug/out/
-search/skewplug/tmp/
+search/flatpool/flat2
+search/flatpool/flatbig32
+search/flatpool/flatbig64
+search/flatpool/rj
+search/flatpool/rj2
+search/plugh/*.so
+search/plugh/pl2_*
+search/x9split/sa_split
 search/skewplug/*.so
 search/skewplug/sl2_*
-search/skewplug/val.jsonl
+search/skewplug/skf2_*
+search/eightp/gs/libgl1.so
+search/eightp/gs/gl2_*
+search/eightp/gs/gl2n_*
+search/eightp/spin/spin3
+search/eightp/spin/spinD
 search/negaskew/qskew
 search/negaskew/qskew2
-search/negaskew/shapes/
-search/negaskew/out/
-search/negaskew/runs/
-search/negaskew/enum_n*.json
-search/skewplug/skf2_*
-search/skewplug/est/
 search/negaskew/qp
 search/negaskew/qjoin
 search/negaskew/qsa
-search/negaskew/*/shapes/
-search/negaskew/*/runs/
-search/negaskew/*/out/
 search/negaskew/spin/qspin
 search/negaskew/spin/qspin_fast
 search/negaskew/octic/oskew
 search/negaskew/octic/exsmall
-# recorded verdict logs are data, not run output
-!search/eightp/data/**/*.log
-!search/negaskew/tri/data/*.log
-search/eightp/gs/libgl1.so
-search/eightp/gs/gl2_*
-search/eightp/gs/gl2n_*
-search/eightp/gs/runs/
-search/eightp/gs/tmp/
+search/negaskew/tri/tri_join
+search/negaskew/tri/tri2
+
+# search programs: run directories and generated lists
+search/d3/orb.npy
+search/plugh/runs/
+search/plugh/out/
+search/plugh/tmp
+search/flatpool/w/
+search/skewplug/runs/
+search/skewplug/out/
+search/skewplug/tmp
+search/skewplug/est/
+search/skewplug/val.jsonl
+search/negaskew/shapes/
+search/negaskew/out/
+search/negaskew/runs/
+search/negaskew/enum_n*.json
+search/negaskew/*/shapes/
+search/negaskew/*/runs/
+search/negaskew/*/out/
+search/eightp/*/runs/
+search/eightp/gs/tmp
 search/eightp/gs/out/
 search/eightp/gs/work/
 search/eightp/gs/repo_copy/
-search/eightp/spin/spin3
-search/eightp/spin/spinD
-search/eightp/*/runs/
-search/negaskew/tri/tri_join
-search/negaskew/tri/tri2
-search/negaskew/tri/runs/
-search/eightp/spin/tmp*.txt
 search/eightp/gs/calib_odd.json
+search/eightp/spin/tmp*.txt
+
+# recorded verdict logs are data, not run output
+!search/eightp/data/**/*.log
+!search/negaskew/tri/data/*.log

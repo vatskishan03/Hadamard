@@ -7,7 +7,7 @@ Ingredients of the certificate (all exact integer data):
   q          prime = 3 (mod 4), m = (q - 1)/2 odd, g a primitive root mod q
   K          quaternary Hadamard matrix of order 2m = q - 1, as 2 x 2 blocks of order m; each block is circulant, and
              the certificate gives the first row of each block as digits e (entry i^e, i = sqrt(-1))
-  A, B       the 4 x 4 border matrices of units (digits e); R = rows sums of the core, see MIYAMOTO_BLOCKS_Q.md
+  A, B       the 4 x 4 border matrices of units (digits e); R = rows sums of the core, see hadamard/QUATERNARY_MIYAMOTO_BLOCKS.md
   T          four first rows over + - 0 of circulant T-matrices of order t
 Construction (all steps checked here):
   1. W = i [chi(y - x)] on the points g^(2j), g^(2j+1) (j in Z_m); U = diag(W, W); V = [[I, K], [-K*, I]] (order 4m);

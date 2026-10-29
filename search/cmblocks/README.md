@@ -11,7 +11,7 @@ Programs behind [hadamard/QUATERNARY_MIYAMOTO_BLOCKS.md](../../hadamard/QUATERNA
 | `border_search.py` | all 4 × 4 unit border pairs (A, B) with A A* = B B* = 4I, A B* + 2 B R* = 0 and A − 2R = λB (128 for each of λ = ±1 with B′ = B; the search also lists B′ = κB) |
 | `cmb.py` | the sixteen quaternary bordered blocks, T-matrices from base sequences, and checks of H H* = 4qI, commutation and R_B-transposition |
 | `gsplug.py` | Turyn doubles of the blocks, the signed permutation R′, and the real Goethals–Seidel plug-in |
-| `make_cert.py` | `python3 make_cert.py p t OUT.json [paley|conf]`: a certificate for verify/verify.py (construction `quaternary-miyamoto-blocks`, without the SHA-256) |
+| `make_cert.py` | `python3 make_cert.py p t OUT.json [paley\|conf]`: a certificate for verify/verify.py (construction `quaternary-miyamoto-blocks`, without the SHA-256) |
 | `rebuild.py` | `python3 rebuild.py CERT.json`: rebuilds and checks a certificate independently of verify.py, including the intermediate claims (about 6 minutes and 1 GB for 20712); `--csv` streams the matrix |
 | `test_small.py`, `test_gs.py`, `test_nega.py` | exact checks for q = 7, 11, 23 (both K sources, t = 3, 5) and for negacyclic K |
 | `old_border_test.py` | the borders of COMPLEX_MIYAMOTO.md: 102 of the 120 block pairs do not commute |

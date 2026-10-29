@@ -4,8 +4,9 @@ sum_X PAF_X(g) = -4 for every g != 0  (=> Hadamard matrix of order 4(v+1) = 8p; 
 Algorithm: orbits of H on Z_v; classes of nonzero orbits under +-H; per class a quadratic form PAF_c(x) = x^T M_c x on the orbit signs; list L = {x : row sum = +1};
 exact 4-sum on L (hash join of pair sums by bucket).  Counts ordered quadruples exactly (up to the block-negation gauge: all row sums +1).
 usage: plain_spence3.py v [Omax [Omin [maxL]]]   -> enumerates every subgroup H of Z_v^* with Omin <= #orbits <= Omax and reports L and the exact count.
-This is the CORRECTED solver of search/NOTES.md section 92: the first version split a large pair bucket by (64-bit hash mod nparts) with nparts not a power of two, and the int64 hash sums wrap around, so the
-residues of A + B were not those of the target and matches were lost (a false EMPTY was possible); here the residue is that of an exact small-integer linear form, which is additive, and the pairs are generated in chunks.
+A large pair bucket is split by the residue of an exact small-integer linear form, which is additive, and the pairs are generated in chunks.  (A residue of the 64-bit hash would not be additive: the int64 hash sums
+wrap around, so the residues of A + B would differ from those of the target and matches would be lost.  An earlier version split by (64-bit hash mod nparts) with nparts not a power of two; the shapes it could have
+affected were re-solved with this one, search/NOTES.md section 92.)
 Validated against an independent dictionary join (test_plain.py) with and without forced splitting.
 """
 import sys, math, itertools, time

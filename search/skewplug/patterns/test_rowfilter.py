@@ -1,5 +1,5 @@
 """Soundness of the exact row-sum pattern filter (sk_pat.row_patterns_skew): for actual K-level solutions (up to 300 per shape from the exact pipeline) the (allocation, m-split) class of the
-solution must have at least one exact row-sum pattern.  Prints, for nine shapes, the number of solutions and the number of classes rejected (always 0: 1,900 solutions in the original run).
+solution must have at least one exact row-sum pattern.  Prints, for nine shapes, the number of solutions and the number of classes rejected (always 0: 1,900 solutions in the recorded run).
 usage (from search/skewplug):  python3 patterns/test_rowfilter.py [i ...]       shapes by index 0..8"""
 import os, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.join(HERE, '..')); sys.path.insert(0, HERE)

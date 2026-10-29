@@ -20,7 +20,7 @@ REPO = os.environ.get('REPO', os.path.join(HERE, '..', '..', '..'))      # the r
 def targets():
     und = [int(l) for l in open(REPO + '/search/data/skew_census_undecided.txt') if l.strip() and not l.startswith('#')]
     sk = [int(d) for d in os.listdir(REPO + '/skew') if d.isdigit()]
-    settled = {N // 4 for N in sk if N % 8 == 4} | {933, 919}      # 933: hadamard/3732, 919: settled by the repository (r37 list)
+    settled = {N // 4 for N in sk if N % 8 == 4} | {933, 919}      # 933: hadamard/3732, 919: settled by the repository
     return [v for v in und if v not in settled]
 
 def qlist(v):

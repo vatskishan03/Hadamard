@@ -1,5 +1,5 @@
 # Independent DC (row-sum / Z_2-compression) census for the plain multiplier structures at p = 599, 719, 739, 839, 1031, 1087, for ALL subgroup orders d | p-1 (odd and even;
-# ../census/c8p_basic.py lists the odd orders only).  Real Goethals-Seidel over Z_2p and quaternary (negacyclic) over Z_p.  Independent code of the judge of search/NOTES.md section 92.
+# ../census/c8p_basic.py lists the odd orders only).  Real Goethals-Seidel over Z_2p and quaternary (negacyclic) over Z_p.  Independent code (search/NOTES.md section 92).
 import math
 from sympy import divisors
 def real_live(p,d):

@@ -1,5 +1,5 @@
 // gl2.c : fast exact level-2 (t-sign) completion for the REAL Goethals-Seidel-type Paley plug-ins (four FREE blocks), ANY abelian K (shift/character tables are input),
-// any odd q (prime power), any K-symmetric orbit structure, any target T = 4|G| - phi(0) (gs / spence / bordered).  Derived from r30 pl2.c (plain Szollosi array).
+// any odd q (prime power), any K-symmetric orbit structure, any target T = 4|G| - phi(0) (gs / spence / bordered).  Derived from pl2.c of search/plugh (plain Szollosi array).
 // Generalisation of search/plug7_l2.c (NOTES sec 82) to the Hadamard (plain, no zero position) array: given the four (s, defect-flag) of a level-1
 // instance, find all t-sign assignments (t = tau * sigma on non-defect orbits, 0 on defects) with
 //    (I)  sum_X [PAF_s(k) + q PAF_t(k)] = 0   for k in repsI (k != 0)

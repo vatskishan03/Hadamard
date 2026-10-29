@@ -1,5 +1,5 @@
 # Independent census of the plain cyclic Spence shapes at v = 2p-1: all subgroups H of Z_v^* (own enumeration: joins of cyclic subgroups), orbit counts, row-sum feasibility (+1)
-# (independent code of the judge of search/NOTES.md section 92).  usage: plain_shapes.py OMAX v [v ...]
+# (independent code, search/NOTES.md section 92).  usage: plain_shapes.py OMAX v [v ...]
 import math, sys, itertools, collections, json
 import numpy as np
 def units(v): return [u for u in range(1,v) if math.gcd(u,v)==1]

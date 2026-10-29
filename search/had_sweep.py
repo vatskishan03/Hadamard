@@ -1,7 +1,7 @@
 """Exact sweep of Goethals-Seidel multiplier structures for the unresolved Hadamard orders 4n.
 
 The repository's earlier sweep (FRONTIER.md) searched every structure with at most 18 cosets and
-left those with more than 22 orbits unsearched. The skew campaign (NOTES section 10) found
+left those with more than 22 orbits unsearched. The skew search (NOTES section 10) found
 solutions in several structures that the Gaussian model put at 0.1-0.2. So this sweep ignores the
 model.
 - It takes every subgroup H of Z_n^* whose structure has MINO..MAXO orbits.

@@ -61,7 +61,7 @@ for v in und2:
         p = list(factorint(q))[0]
         # family A / C: K = Z_m cyclic (gcd(m,q) may be > 1, q may be a prime power)
         fam = 'A' if isprime(q) else 'C'
-        if gcd(m, q) == 1 and isprime(q): pass     # r36 family
+        if gcd(m, q) == 1 and isprime(q): pass     # K cyclic, q prime, gcd(m, q) = 1: covered by ../sweep_real_census.py
         else:
             for H, gens in odd_subgroups_cyclic(m).items():
                 nu = n_orbits_cyclic(m, H)

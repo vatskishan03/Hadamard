@@ -2,8 +2,8 @@
  mode gs     -> construction "goethals-seidel-group"   (order 4|G|)
  mode spence -> construction "spence"                  (order 4|G| + 4; row sums normalised to (2,0,0,0) by negations/reordering; P, Q as in hadamard/2292)
  mode bord   -> construction "bordered-goethals-seidel" (order 4(|G| + t); border solved with search/bordered.py (Q = Z_3, T = all characters: border3.c); other (Q, T): unsupported -> raises)
-ODD |G| (search/NOTES.md sections 92, 108): row sums (+-1, +-1, +-1, +-1), P = Q = S, K = -S, built by verify/verify.py (accepted since round 58; copies older than that need oddspence/verify_odd_spence.patch).
-The certificate is written into a SCRATCH copy of the repository (`repo_copy` in this directory, see README.md; it needs verify/ and search/), built and checked there with python3 verify/verify.py <order>; the repository itself is never modified.
+ODD |G| (search/NOTES.md sections 92, 108): row sums (+-1, +-1, +-1, +-1), P = Q = S, K = -S, built by verify/verify.py (accepted by the current version; copies of verify/ that predate it need oddspence/verify_odd_spence.patch).
+The certificate is written into a temporary copy of the repository (`repo_copy` in this directory, see README.md; it needs verify/ and search/), built and checked there with python3 verify/verify.py <order>; the repository itself is never modified.
 """
 import os, sys, json, hashlib, subprocess, importlib.util, itertools
 import numpy as np

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Semi-analytic cost model for flat-pool rotation-virtual k-trees (calibrated against measurements; see PRODUCTION.md).
+"""Semi-analytic cost model for flat-pool rotation-virtual k-trees (calibrated against measurements; see README.md).
 
 Quantities (all per structure v, |U|, row-sum pattern):
   m = (v-1)/|U| cosets, C = m/2 classes, rotation group Z_C acts on keys by cyclic shift (rotation by C = reflection).

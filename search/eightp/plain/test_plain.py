@@ -1,4 +1,4 @@
-"""test_plain.py -- validation of the corrected solver plain_spence3.solve (search/NOTES.md section 92) on small odd v:
+"""test_plain.py -- validation of the solver plain_spence3.solve (search/NOTES.md section 92) on small odd v:
  (a) the solver as shipped, (b) the solver with forced bucket splitting (maxpairs = 77: nparts > 1), (c) the same with forced chunked pair generation (CH = 40 in place of 1,500,000: the source text is edited at run time,
  so the shipped file is not changed), and (d) an independent count: PAF vectors of the +1-row-sum sequences by direct rolling on Z_v, ordered pairs in a dictionary, no hashing, no buckets (only for lists L <= 400).
 All four must give the same number of ordered quadruples (A, B, C, D) of H-invariant +-1 sequences with all row sums +1 and PAF = -4 off 0 (the printed 'count_rho_plus' of plain_spence3.py).

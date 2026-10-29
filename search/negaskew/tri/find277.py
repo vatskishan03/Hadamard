@@ -40,7 +40,7 @@ for a in range(e):
 HERE=os.path.dirname(os.path.abspath(__file__)); os.makedirs(os.path.join(HERE,'runs'),exist_ok=True)
 open(os.path.join(HERE,'runs','cand277.txt'),'w').write(repr(best))
 print('candidate',best)
-if len(sys.argv)>1:     # new in the port: look the candidate up in a reduced tri2 run (SOL lines: A B {C, D} in tri2's digit strings)
+if len(sys.argv)>1:     # with a log file: look the candidate up in a reduced tri2 run (SOL lines: A B {C, D} in tri2's digit strings)
     dig=lambda x:''.join(str((x>>(2*a))&3) for a in range(e+1))
     cA,cB,cCD=dig(best[0]),dig(best[1]),set(dig(x) for x in best[2]); found=0
     for l in open(sys.argv[1]):

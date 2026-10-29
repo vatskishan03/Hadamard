@@ -1,4 +1,4 @@
-// pl2f.c : FAST exact level-2 (t-sign) completion for PLAIN Paley plug-in shapes (drop-in replacement of r31/sl1/pl2.c: same input, same output format, same set of completions).
+// pl2f.c : FAST exact level-2 (t-sign) completion for PLAIN Paley plug-in shapes (drop-in replacement of pl2.c: same input, same output format, same set of completions).
 // Differences to pl2.c (all exact / sound; the solution set is mathematically defined by the key equations, see "EXACTNESS" below):
 //  * the pair filter is a transposed (structure-of-arrays) SIMD kernel: for a fixed outer element x, 32 inner elements are tested at once, channel by channel, with the exact same byte quantisation
 //    and limits as pl2.c (p_x + p_y <= L per channel, L from the minima of the other pair of fibres);  elements x with p_x[c] > L[c] for some channel are dropped (sound);

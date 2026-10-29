@@ -1,17 +1,18 @@
 # Paley plug-ins in the plain Szöllősi array
 
-The sampler that found the quaternary Hadamard matrix of order 418 ([../../complex-hadamard/C418.json](../../complex-hadamard/C418.json);
-[../NOTES.md](../NOTES.md) §85). It searches the plain (not zero-diagonal) Szöllősi array over G = K × F_q, K cyclic,
-with A, B, C, D = ±1, A and B symmetric and Σ PAF = 4|G| δ, in the Paley plug-in class: each block is
-s ⊗ I + t ⊗ Q + e ⊗ J with Q the Paley matrix of F_q and a few defects (positions of K where the block is constant on
-F_q*). The K-level system and the defect identity e₊(q + 1) + e₋(q − 3) = 4|K| are as in §81–85.
+The sampler that found the quaternary Hadamard matrix of order 418
+([../../complex-hadamard/C418.json](../../complex-hadamard/C418.json); [../NOTES.md](../NOTES.md) §85). It searches the
+plain (not zero-diagonal) Szöllősi array over G = K × F_q, K cyclic, with A, B, C, D = ±1, A and B symmetric and Σ PAF =
+4|G| δ, in the Paley plug-in class: each block is s ⊗ I + t ⊗ Q + e ⊗ J with Q the Paley matrix of F_q and a few defects
+(positions of K where the block is constant on F_q*). The K-level system and the defect identity e₊(q + 1) + e₋(q − 3) =
+4|K| are as in §81–85.
 
 | File | Contents |
 |---|---|
 | `l1.c`, `l1.py` | level 1: exact A, B lists against random C, D configurations of a given defect weight, class-sorted hash join on the trivial-F_q-character features |
 | `pl2.c`, `l2io.py` | level 2: exact completion of the signs t off the defects (row-sum filter, spectral filter, meet in the middle); any odd q |
 | `samp_l1.py`, `prod_worker.sh` | one level-1 and level-2 round per process; the restartable production loop |
-| `certify.py` | a K-level solution to the four sequences on G, the exact checks, and the certificate C<2|G|>.json |
+| `certify.py` | a K-level solution to the four sequences on G, the exact checks, and the certificate C<2\|G\|>.json |
 | `pk.py`, `probe.py`, `est.py`, `exact2.py`, `samp.py`, `idx.py`, `buildq.py`, `mitm.py`, `cmitm.c` | shapes, the K-level equations, exact small-case solvers and estimators |
 
 Build (in this directory):

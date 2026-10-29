@@ -8,7 +8,7 @@ Orbit data per block, per orbit O (weight w = |O|):
    defect    : t = 0, e = +-1, type p (s = 0, x0 = e) or m (s = -2e, x0 = -e)     -> 2*2 choices
    A/B at k = 0 (zero diagonal x0(0) = 0): non-defect s = 0, t = tau (only if the orbit is t-consistent), defect type z (s = -e).
    Orbits whose stabiliser contains an element with phi = -1 have t = 0 forced: forced defect.
-K-level system (PROVED, search/NOTES.md 81):  (I) sum (s s~ + q t t~) = N2 delta,  (J) sum (q e e~ + s e~ + e s~ - t t~) = 0,
+K-level system (proved in search/NOTES.md 81):  (I) sum (s s~ + q t t~) = N2 delta,  (J) sum (q e e~ + s e~ + e s~ - t t~) = 0,
 (Q) sum (t s~ + eps s t~) = 0;  equivalent triple used here: (U) sum PAF_u = N2 delta - 4q b,  u = s + q e;  (I);  (Q).
 N2 = 4|G| - 2 (unbordered), 4|G| + 2 (bordered, b = 1), |G| = |K| q.
 """

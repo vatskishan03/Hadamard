@@ -2,7 +2,7 @@
 usage: python3 check379.py FILE [NMAX [v k]]        (NMAX = number of solutions printed, default 5; v k default 379 27, e.g. 277 23 for the reduced 277 log)"""
 import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from trilib import *
-v,k=(int(sys.argv[3]),int(sys.argv[4])) if len(sys.argv)>4 else (379,27)      # optional v k (new in the port; the source was fixed to 379 27)
+v,k=(int(sys.argv[3]),int(sys.argv[4])) if len(sys.argv)>4 else (379,27)      # optional v k (default 379 27)
 fn=sys.argv[1]; nmax=int(sys.argv[2]) if len(sys.argv)>2 else 5
 d=setup(v,k); e=d['e']; print('g',d['g'],'e',e)
 okc=0; n=0; pats=collections.Counter()

@@ -1,5 +1,5 @@
 #!/bin/sh
-# Reproduce search/data/conference118_5fe566972f21790b.txt in a scratch directory (about 10 s).
+# Reproduce search/data/conference118_5fe566972f21790b.txt in a temporary directory (about 10 s).
 set -e
 SRC=$(cd "$(dirname "$0")" && pwd)
 W=${1:-$(mktemp -d)}

@@ -1,4 +1,4 @@
-# The odd-|G| Spence construction rebuilt independently of ../oddspence/oddspence_test.py (independent code of the judge of search/NOTES.md section 92). For cyclic Z_v (v odd): four +-1 sequences with
+# The odd-|G| Spence construction rebuilt independently of ../oddspence/oddspence_test.py (independent code, search/NOTES.md section 92). For cyclic Z_v (v odd): four +-1 sequences with
 # sum PAF = -4 off 0; H = [[-S, S x 1^T],[S x 1, M]], M = Goethals-Seidel array with circulant blocks; checks H H^T = 4(v+1) I for v = 3, 5, 7, 9, 11.
 import numpy as np, itertools, sys, collections
 def circ(a):

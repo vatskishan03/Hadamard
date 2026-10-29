@@ -1,8 +1,8 @@
 """Regression test of the correction of rowfast2.py (search/NOTES.md section 91): the vectorised row-sum count must not depend on which shapes the process built before.
 Builds the shapes 575 (K = Z25 and Z5^2, H_K = 1), 1081 (Z23 x F47), 1139 (Z17 x F67) and 1207 (Z17 x F71), several times in alternation, in ONE process (each freed before the next), takes the slots of their top windows
 (at most 25 each, the reference is slow for larger shapes) and compares `rowfast2.row_count_fast(sh, a, ms) > 0` with the reference `sk_pat.row_patterns_skew`.
-The round-38 module kept its caches in module-level dictionaries keyed by id(sh); id() is reused after a shape is freed, so it used the block classes of another shape and reported feasible slots as infeasible.
-usage (in search/skewplug): python3 scan38/test_rowfast2.py [path of another rowfast2.py to test, e.g. the round-38 original]   -> prints the number of mismatches (0 for the corrected module)"""
+The uncorrected module kept its caches in module-level dictionaries keyed by id(sh); id() is reused after a shape is freed, so it used the block classes of another shape and reported feasible slots as infeasible.
+usage (in search/skewplug): python3 scan38/test_rowfast2.py [path of another rowfast2.py to test, e.g. the uncorrected original]   -> prints the number of mismatches (0 for the corrected module)"""
 import sys, os, json, gc, random, importlib.util, warnings
 warnings.filterwarnings('ignore')
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(HERE, '..'))

@@ -1,5 +1,5 @@
 # Table 4 of M. Cati and D. V. Pasechnik, "A database of constructions of Hadamard matrices", arXiv:2411.18897v2
-# (2025-08-30): the odd n <= 2999 for which no Hadamard matrix of order 4n was known to them, each with the least m such
+# (30 August 2025): the odd n <= 2999 for which no Hadamard matrix of order 4n was known to them, each with the least m such
 # that a Hadamard matrix of order 2^m n was known ("n(m)"; an n not listed has m = 2). Parsed from the text of the PDF.
 # One line per entry: n m
 167 3

@@ -1,5 +1,5 @@
 #!/bin/bash
-# one-core queue: v = 2061, 2173 at O = 23..24 with the final plain_spence3.py (exact additive residues mod nparts; chunked pairs); the first attempts of run_plain_hi.sh ended in MemoryError at these two v.  WAITPID = pid to wait for.
+# one-core queue: v = 2061, 2173 at O = 23..24 with the final plain_spence3.py (exact additive residues mod nparts; chunked pairs); an earlier solver ran out of memory (MemoryError) at these two v.  WAITPID = pid to wait for.
 cd "$(dirname "$0")"
 export OMP_NUM_THREADS=1
 ulimit -v 3500000

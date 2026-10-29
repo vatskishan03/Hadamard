@@ -19,7 +19,7 @@ def two_squares(n):
         b2 = n - a * a; b = isqrt(b2)
         if b * b == b2: return True
     return False
-# shapes decided in the prose of NOTES 88/89/90 or r34-r37 STATUS (matched by hand on (v, q, K, order, nu)); the automatic match only sees job names
+# shapes decided in the prose of NOTES 88/89/90 or in the status files of those sweeps (matched by hand on (v, q, K, order, nu)); the automatic match only sees job names
 PROSE = {(201, 3, (67,), 11, 7): 'r38: Z67 x F3 <9> EXHAUSTIVELY EMPTY (r37 ic 0-19 + r38 resume ic 19-53, identical lists; 2.28e9 level-1, 2.5e8 level-2 instances, 0 solutions)', (575, 23, (5, 5), 3, 9): 'r34 sec.C / r37: Z5^2 x F23 Singer-3 EXHAUSTIVELY EMPTY', (575, 23, (5, 5), 5, 9): 'r34 sec.C (r33): Z5^2 x F23 order 5 EXHAUSTIVELY EMPTY',
          (1183, 7, (13, 13), 21, 9): 'r37: Z13^2 x F7 Singer-21 EXHAUSTIVELY EMPTY (4905 level-1 instances)', (1083, 3, (19, 19), 45, 9): 'r37: Z19^2 x F3 Singer-45 EXHAUSTIVELY EMPTY (no A list)',
          (1859, 11, (13, 13), 21, 9): 'r34: Z13^2 x F11 Singer-21 EXACTLY EMPTY (weights)', (2375, 19, (5, 5, 5), 31, 5): 'r34: Z5^3 x F19 Singer-31 EXACTLY EMPTY (weights)',
@@ -46,7 +46,7 @@ for r in shapes:
     p = PROSE.get((r['v'], r['q'], kt, r['order'], r['nu']))
     if p and not r['decided']: st = 'DECIDED(prose)'; note = p
     if not st:
-        # lemmas of NOTES 15 / 88 and the r34 big-big filter (hk1_batch.jsonl: H_K = 1, every pattern dead)
+        # lemmas of NOTES 15 / 88 and the big-big filter of NOTES 88 (hk1_batch.jsonl: H_K = 1, every pattern dead)
         if r['order'] == 1 and (r['v'], r['q'], r['m']) in {(361, 19, 19), (529, 23, 23), (899, 31, 29), (961, 31, 31), (1269, 27, 47), (1763, 43, 41)}: st = 'EXACT_DEAD(r34 big-big filter, H_K = 1, NOTES 88)'
         elif r.get('Emax') == 1 and not two_squares(2 * r['m'] - 1): st = 'EXACT_DEAD(N_w=1 lemma, 2m-1 not a sum of two squares)'
         elif r['v'] in (1081, 1711) and r.get('Emax') == 2: st = 'EXACT_DEAD(N_w=2 lemma, NOTES 88)'
@@ -77,7 +77,7 @@ with open('runs/TABLE38.txt', 'w') as f:
 print(open('runs/TABLE38.txt').read()[:6000])
 
 with open('runs/TABLE38_decided.txt', 'w') as f:
-    f.write('DECIDED / EXACT-DEAD shapes of the enumeration (not scanned; verdicts of rounds 34-37 or exact filters of this round)\n')
+    f.write('DECIDED / EXACT-DEAD shapes of the enumeration (not scanned; verdicts of the sweeps of NOTES 88-90 or exact filters)\n')
     for o in sorted(out, key=lambda o: (o['v'], o['q'], o['order'])):
         if o['status'] != 'SCANNED' and o['status'] != 'NOT_SCANNED':
             f.write('%-5s v=%-5s q=%-3s K=%-10s ord=%-5s nu=%-3s %s  %s\n' % (o['idx'], o['v'], o['q'], 'x'.join(map(str, o['kmods'])), o['order'], o['nu'], o['status'], o['note']))
