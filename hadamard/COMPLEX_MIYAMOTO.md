@@ -119,9 +119,10 @@ and Pasechnik (arXiv:2411.18897v2; entries n(m) with m ≥ 4, n prime ≡ 3 mod 
 | 491 | 491(5) | 490, on Zaitsev's page | order 8 · 491 = 3928, already known by doubling: 491 is no longer open ([FRONTIER.md](../FRONTIER.md)) |
 
 For the other such q no quaternary matrix of order q − 1 is known to us (Zaitsev's list and the 1992 tables cover
-orders below 2000; above that we know only this repository's matrices). That includes the three open orders 8p of
-Egan, Kotsireas, London and Ó Catháin: 4792, 5752 and 5912 would follow from quaternary Hadamard matrices of orders
-598, 718 and 738, all open ([complex-hadamard/README.md](../complex-hadamard/README.md)). Seberry–Yamada's Table A.1
+orders below 2000; above that we know only this repository's matrices). That includes the open orders 8p of Egan,
+Kotsireas, London and Ó Catháin: 4792 and 5752 would follow from quaternary Hadamard matrices of orders 598 and 718,
+both open ([complex-hadamard/README.md](../complex-hadamard/README.md)). 5912 would follow from one of order 738, also
+open, but it was found directly ([5912](5912)). Seberry–Yamada's Table A.1
 seems to give one for q = 2683 (Williamson-type matrices of order 1341, key wb), but the key's formula gives order
 2682 = 2 · 1341: the entry lacks its mark t = 3 ([search/NOTES.md](../search/NOTES.md) §104).
 

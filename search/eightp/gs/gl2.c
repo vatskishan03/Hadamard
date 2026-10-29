@@ -18,6 +18,9 @@
 //   per instance: s_0[0..n-1] s_1 s_2 s_3 ; then defect flags d_0[0..nuAB-1] d_1[..] d_2[0..nuCD-1] d_3[..]
 // output: "INST i nv=.. fib=.. pairs=.. surv=.. matches=.. compl=.. t=.." and "SOL i | t_0 | t_1 | t_2 | t_3" (full length n each)
 // usage: pl2 file [maxsol_print] [tlimit_per_instance] [seed]
+// -DNEARMISS (near-miss mode, search/eightp/README.md "Order 5912"): the coordinates of the environment variable GL2_OMIT (comma list of 0 .. nk-1, I-lags first) are dropped from the
+//   hash; every candidate that satisfies all the other coordinates prints "NM inst r_j ..." (its residuals on the dropped ones, at most GL2_NMCAP lines per instance, default 300)
+//   and is counted in "NMTOT inst count"; GL2_NOPSD=1 switches off all PSD filters.  Without -DNEARMISS the program is unchanged.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -35,6 +38,13 @@
 static int n, q, eps, T, nI, nQ, nk, nch;
 static int ipp[MAXK][MAXN], imm[MAXK][MAXN], qpp[MAXK][MAXN], qmm[MAXK][MAXN];
 static long MAXFIB = 1500000;
+#ifdef NEARMISS
+static int OMITF[2 * MAXK], NOPSD, NMCAP = 300;
+#define OMITTED(j) OMITF[j]
+#else
+#define NOPSD 0
+#define OMITTED(j) 0
+#endif
 static int STOPFIRST = 0;
 static int nu[2];
 static int omm[2][MAXN], opos[2][MAXN][MAXN], osg[2][MAXN][MAXN];
@@ -109,9 +119,9 @@ static void build_fibre(int b, Fib *F, int fixfirst) {
         if (!allowT[b][tau + MAXN]) continue;
         uint8_t *ps = F->psd + (size_t)F->n * PS;
         int ok = 1; float vv[PS];
-        for (int c = 0; c < nch; c++) { double v = ar[c] * ar[c] + ai[c] * ai[c]; if (v > T + 0.01) { ok = 0; break; } vv[c] = (float)v; }
+        for (int c = 0; c < nch; c++) { double v = ar[c] * ar[c] + ai[c] * ai[c]; if (!NOPSD && v > T + 0.01) { ok = 0; break; } vv[c] = (float)v; }
         if (!ok) continue;
-        for (int c = 0; c < nch; c++) { ps[c] = (uint8_t)(vv[c] / DV); if (vv[c] < F->fmin[c]) F->fmin[c] = vv[c]; }
+        for (int c = 0; c < nch; c++) { ps[c] = NOPSD ? 0 : (uint8_t)(vv[c] / DV); if (vv[c] < F->fmin[c]) F->fmin[c] = vv[c]; }
         for (int c = nch; c < PS; c++) ps[c] = 0;
         int32_t *k = F->key + (size_t)F->n * nk; uint64_t hs = 0;
         for (int a = 0; a < nI; a++) k[a] = (int32_t)(pafS[a] + q * P[a]);
@@ -192,6 +202,14 @@ int main(int argc, char **argv) {
     if (n > MAXN || nk > 2 * MAXK) { fprintf(stderr, "n or nk too large\n"); return 4; }
     DV = (T + 249) / 250; if (DV < 1) DV = 1;
     for (int j = 0; j < 2 * MAXK; j++) rc[j] = rnd() | 1;
+#ifdef NEARMISS
+    { const char *e = getenv("GL2_OMIT"); char *cp = e ? strdup(e) : NULL;
+      for (char *tk = cp ? strtok(cp, ",") : NULL; tk; tk = strtok(NULL, ",")) {
+          char *end; long j = strtol(tk, &end, 10);
+          if (end == tk || *end || j < 0 || j >= nk) { fprintf(stderr, "GL2_OMIT: bad index '%s'\n", tk); return 4; }
+          OMITF[j] = 1; rc[j] = 0; }
+      free(cp); if (getenv("GL2_NOPSD")) NOPSD = atoi(getenv("GL2_NOPSD")); if (getenv("GL2_NMCAP")) NMCAP = atoi(getenv("GL2_NMCAP")); }
+#endif
     for (int inst = 0; inst < ninst; inst++) {
         for (int b = 0; b < 4; b++) for (int z = 0; z < n; z++) if (fscanf(f, "%d", &S[b][z]) != 1) return 2;
         for (int b = 0; b < 4; b++) { int kd = b < 2 ? 0 : 1; for (int o = 0; o < nu[kd]; o++) if (fscanf(f, "%d", &Dfl[b][o]) != 1) return 2; }
@@ -230,7 +248,7 @@ int main(int argc, char **argv) {
         }
         int anyok = 1; for (int b = 0; b < 4; b++) { int a = 0; for (int x = 0; x <= 2 * MAXN; x++) a |= allowT[b][x]; if (!a) anyok = 0; }
         Fib F[4]; memset(F, 0, sizeof(F));
-        long long compl = 0, matches = 0, surv1 = 0, surv2 = 0; int timed_out = 0; double npairs1 = 0, npairs2 = 0;
+        long long compl = 0, matches = 0, surv1 = 0, surv2 = 0, nmcnt = 0; int timed_out = 0; double npairs1 = 0, npairs2 = 0;
         int big = 0; for (int b = 0; b < 4; b++) if (nvar[b] - (b == fixk ? 1 : 0) > 26) big = 1;
         if (!anyok) { printf("INST %d rowfilter\n", inst); fflush(stdout); continue; }
         if (big) { printf("INST %d TOOBIG nv=%d,%d,%d,%d\n", inst, nvar[0], nvar[1], nvar[2], nvar[3]); fflush(stdout); continue; }
@@ -254,6 +272,7 @@ int main(int argc, char **argv) {
                     lim1[c] = (uint8_t)(l1 < 0 ? 0 : (l1 / DV > 255 ? 255 : (int)(l1 / DV)));
                     lim2[c] = (uint8_t)(l2 < 0 ? 0 : (l2 / DV > 255 ? 255 : (int)(l2 / DV)));
                 } else { lim1[c] = lim2[c] = 255; }
+                if (NOPSD) lim1[c] = lim2[c] = 255;
             }
             double bigp = npairs1 > npairs2 ? npairs1 : npairs2;
             int lgM = 0; while ((bigp / (double)(1L << lgM)) > 20000.0 && lgM < 26) lgM++;
@@ -313,8 +332,11 @@ int main(int argc, char **argv) {
                                 matches++;
                                 long xo = SX.orig[tab[pos].i], yo = SY.orig[tab[pos].j], zo = SZ.orig[i], wo = SW.orig[qq];
                                 const int32_t *kx = F[sx].key + xo * nk, *ky = F[sy].key + yo * nk, *kz = F[sz].key + zo * nk, *kw = F[sw].key + wo * nk;
-                                int good = 1;
-                                for (int j = 0; j < nk; j++) if (kx[j] + ky[j] + kz[j] + kw[j] != 0) { good = 0; break; }
+                                int good = 1, nmok = 1;
+                                for (int j = 0; j < nk; j++) if (kx[j] + ky[j] + kz[j] + kw[j] != 0) { good = 0; if (!OMITTED(j)) { nmok = 0; break; } }
+#ifdef NEARMISS
+                                if (nmok) { if (nmcnt++ < NMCAP) { printf("NM %d", inst); for (int j = 0; j < nk; j++) if (OMITF[j]) printf(" %d", kx[j] + ky[j] + kz[j] + kw[j]); printf("\n"); } }
+#endif
                                 if (good) {
                                     compl++;
                                     if (nsol_print < maxsol_print) { nsol_print++; const Fib *Fs[4] = {&F[0], &F[1], &F[2], &F[3]}; long idx[4]; idx[sx] = xo; idx[sy] = yo; idx[sz] = zo; idx[sw] = wo; emit_solution(inst, Fs, idx); }
@@ -334,6 +356,9 @@ int main(int argc, char **argv) {
         printf("INST %d nv=%d,%d,%d,%d fib=%ld,%ld,%ld,%ld pairs=%.3g,%.3g surv=%lld,%lld matches=%lld completions=%lld%s t=%.3f tfib=%.3f\n",
                inst, nvar[0], nvar[1], nvar[2], nvar[3], F[0].n, F[1].n, F[2].n, F[3].n, npairs1, npairs2, surv1, surv2, matches,
                compl * mult, timed_out ? " TIMEOUT" : "", now() - t0, tfib);
+#ifdef NEARMISS
+        printf("NMTOT %d %lld\n", inst, nmcnt * mult);
+#endif
         fflush(stdout);
         for (int b = 0; b < 4; b++) fib_free(&F[b]);
     }

@@ -93,7 +93,11 @@ built from them, and they from the symmetric Hadamard matrix of order 404 of thi
 
 ## Entries of Table 4 lowered
 
-Cati–Pasechnik's Table 4 records 1559(4) and 2589(4): orders 16n known, 8n not.
+Cati–Pasechnik's Table 4 records 1559(4) and 2589(4), and 739(6), which Craigen–Holzmann–Kharaghani's rule lowers to
+739(4): orders 16n known, 8n not.
+
+5912: one of the six open orders 8p of the 2026 survey of Egan et al. (Table 5); found by a search
+([search/NOTES.md](../search/NOTES.md) §108).
 
 12472: Miyamoto's Theorem 7 (very probably his; see [COMPLEX_MIYAMOTO.md](COMPLEX_MIYAMOTO.md), where it is written out
 in quaternary form), applied to the quaternary Hadamard matrix of order 1558 of 2026 (this repository and Zaitsev's
@@ -101,6 +105,7 @@ page), gives 8 · 1559. The tables and surveys use the theorem only when 2q − 
 
 | Order | n | Construction | Status |
 |------:|---|---|---|
+| [5912](5912) | 1478 = 2 · 739 | Spence's bordered construction over the odd group ℤ₂₁₁ × F₇ (order 1477), a Paley plug-in with symmetry group of order 45 | New |
 | [12472](12472) | 3118 = 2 · 1559 | Miyamoto's Theorem 7 (q = 1559) with the quaternary Hadamard matrix of order 1558, through a quaternary matrix of order 6236, then Turyn's doubling | New |
 | [20712](20712) | 5178 = 2 · 3 · 863 | Miyamoto's quaternary array (q = 863, Paley's quaternary matrix of order 862 with circulant blocks) in sixteen commuting blocks, their Turyn doubles times T-matrices of order 3 ([QUATERNARY_MIYAMOTO_BLOCKS.md](QUATERNARY_MIYAMOTO_BLOCKS.md)) | New |
 

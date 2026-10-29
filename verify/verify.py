@@ -989,20 +989,27 @@ def build_cooper_wallis_bordered(cert):
 def build_spence(cert):
     """Spence's bordered construction. Four +-1 sequences on an abelian group G of order v
     (elements in mixed-radix order of `group`) whose autocorrelations sum to -4 off the
-    identity, with row sums (2, 0, 0, 0), give a Hadamard matrix of order 4v + 4:
+    identity, with row sums (2, 0, 0, 0) (v even) or (+-1, +-1, +-1, +-1) (v odd, see below),
+    give a Hadamard matrix of order 4v + 4:
 
         H = [ K        Q (x) 1^T ]
             [ P (x) 1  M         ]
 
     where M is the group-developed Goethals-Seidel array, P and Q are the 4 x 4 Hadamard
-    matrices in the certificate, and K = -QP/2."""
+    matrices in the certificate, and K = -QP/2.
+
+    For odd v the row sums are (+-1, +-1, +-1, +-1) instead; then P = Q = S, the
+    Goethals-Seidel array of the row sums (S S^T = 4I), and K = -S, and the certificate's
+    P and Q are not used (search/eightp/README.md, "Spence's construction over an odd group")."""
     mods = cert["group"]
     v = int(np.prod(mods))
     coords = np.array(np.unravel_index(np.arange(v), mods)).T
     index = lambda c: np.ravel_multi_index(tuple(np.moveaxis(c % mods, -1, 0)), mods)
     seqs = [np.array([SIGN[c] for c in s], dtype=np.int64) for s in cert["sequences"]]
-    if [int(x.sum()) for x in seqs] != [2, 0, 0, 0]:
-        raise ValueError("row sums must be (2, 0, 0, 0)")
+    rs = [int(x.sum()) for x in seqs]
+    odd = len(rs) == 4 and all(abs(r) == 1 for r in rs)
+    if rs != [2, 0, 0, 0] and not odd:
+        raise ValueError("row sums must be (2, 0, 0, 0) or (+-1, +-1, +-1, +-1)")
     total = np.zeros(v, dtype=np.int64)
     for s in range(v):
         shift = index(coords + coords[s])
@@ -1017,9 +1024,14 @@ def build_spence(cert):
                   [-B @ R, A, D.T @ R, -C.T @ R],
                   [-C @ R, -D.T @ R, A, B.T @ R],
                   [-D @ R, C.T @ R, -B.T @ R, A]])
-    P, Q = np.array(cert["P"], dtype=np.int64), np.array(cert["Q"], dtype=np.int64)
     one = np.ones((1, v), dtype=np.int64)
-    K = -(Q @ P) // 2
+    if odd:
+        a, b, c, d = rs
+        S = np.array([[a, b, c, d], [-b, a, d, -c], [-c, -d, a, b], [-d, c, -b, a]], dtype=np.int64)
+        P, Q, K = S, S, -S
+    else:
+        P, Q = np.array(cert["P"], dtype=np.int64), np.array(cert["Q"], dtype=np.int64)
+        K = -(Q @ P) // 2
     return np.vstack([np.hstack([K, np.kron(Q, one)]), np.hstack([np.kron(P, one.T), M])]), None
 
 

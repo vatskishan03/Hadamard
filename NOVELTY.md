@@ -491,6 +491,31 @@ matrix of order 2292 by Miyamoto I". Ours was committed on 14 October from our o
 theorem; Cooley's matrix of order 2292 had been public since 9 October. As for 2092–5932, another group reached the
 order within days, so 9172 is **Concurrent**.
 
+**Order 5912** ([hadamard/5912](hadamard/5912)). Checked on 28 October 2026:
+- *Tables.* Cati–Pasechnik, arXiv:2411.18897 v1 and v2, Table 4 (same rows): 739(6). Craigen–Holzmann–Kharaghani's
+  rule, which the table omits, gives 16 · 739 = 8(26 + 1452), so m = 4 was known and m = 3 was not. Seberry–Yamada
+  (1992), Table A.2: 739 with t = 16; Table A.1, row 369 is "3 wn" (Williamson-type matrices of even order 738 only).
+  The survey of Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175, v1 of 19 October 2026), Table 5, lists 8 · 739
+  and 4 · 739 as open. The Hadamard Matrix Explorer (math74.com, version 57; its unknown list read again before the
+  release) lists 5912 and 2956 as unknown; its notation implements Paley, Miyamoto, Craigen–Holzmann–Kharaghani,
+  Kamali–Kharaghani, Seberry–Yamada's 8q and Agaian. SageMath (passagemath 10.8.13, run; the development source of
+  28 October, read) returns Unknown for 5912 and 2956.
+- *Classical routes.* Paley I, II: 5911 = 23 · 257, 2955 = 3 · 5 · 197. Doubling, Kronecker, Agaian: need H(2956).
+  Miyamoto's 8q: 2q − 3 = 1475 = 5² · 59; his Theorem 7 needs a quaternary matrix of order 738 (unknown on Zaitsev's
+  page, last modified 15 October). Seberry–Yamada's Corollary 8.18 needs Williamson-type matrices of order 369.
+  Cooper–Wallis and the block constructions need WT(739), T(739) or T(1478). Craigen–Holzmann–Kharaghani: no complex
+  Golay lengths with x + y = 739. Kamali–Kharaghani (1998): 739 ≠ g₁g + g₂. Du and Jiang's CBS(s + 1, s) needs
+  s = 369 (arXiv:2401.15381, 2204.09372). The asymptotic theorems give 2ᵗ · 739 with t ≥ 6.
+- *Recent work.* Middletownbooks/Hadamard (README of two branches; a commit search shows only screens of 2956);
+  JD-Jones-ASES Hadamard-T, -M, -B and -formal; schneiderlo/hadamard-2060; Zenodo (Schumer, Kline); the arXiv API to
+  27 October and the full text of 25 papers; OEIS A019442 and A007299; MathWorld.
+- *Finding.* None gives a Hadamard matrix of order 5912 or 2956, or a quaternary matrix of order 738. So 5912 is
+  **New**: the sequences are new, and the construction is Spence's over a group of odd order.
+- *Spence over an odd group.* The survey states Spence's construction (its Theorem 5) for even m only. We found no
+  source for the odd case but did not search for one specifically.
+- *Not read.* Miyamoto 1991; Seberry and Yamada's 2020 book; the Handbook's Table 1.53. The survey's authors, Cooley
+  and the Explorer's author work on these orders at present.
+
 ## Not checked
 
 - J. Seberry, M. Yamada, *Hadamard Matrices: Constructions using Number Theory and Linear Algebra* (Wiley, 2020):

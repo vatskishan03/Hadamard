@@ -6100,7 +6100,8 @@ was found and none is claimed.
   matrix of the row sums, P = Q = S, K = −S and M the group-developed Goethals–Seidel array, [[K, Q ⊗ 1ᵀ], [P ⊗ 1, M]]
   is a Hadamard matrix of order 4(v + 1) (H Hᵀ = nI checked for ℤ_v, v = 3 to 13, orders 16 to 56, and by the judge for
   v ≤ 11). `verify.py` accepts only the row sums (2, 0, 0, 0), so a hit needs the patch in `eightp/oddspence/`; sampler
-  hits at |G| = 21, 27, 35 (orders 88, 112, 144) pass the patched builder. Consequence (EXACT): the row sums allow
+  hits at |G| = 21, 27, 35 (orders 88, 112, 144) pass the patched builder (since round 58, §108, `verify/verify.py`
+  accepts (±1)⁴ itself). Consequence (EXACT): the row sums allow
   balanced blocks, so for odd |G| the multiplier group is not bounded by a row-sum condition as in the plain structures.
 - *The plug-in census* (EXACT filters). G = K × F_r of order 2p − 1, blocks sI + tQ + eJ constant on the orbits of H_K ×
   squares(F_r*) (cyclic and product H_K, twists, 2 to 40 orbits), the defect identity (r + 1)e₊ + (r − 3)e₋ = 4(|K| − 1)
@@ -7459,3 +7460,48 @@ the pairs and triples of quotient levels were first decided exactly.
 - *Tower method, scope.* The tower of §107 needs several quotient levels with enumerable fibres. Open orders with prime
   n have none, and for the skew and symmetric census values either H acts on every factor (no letters) or one prime
   field gives a single line.
+
+## 108. Round 58: order 5912 = 8 · 739 by Spence's construction over an odd group (October 28)
+
+Scratchpad `r58/p5912` (calibration and production), `r58/verify_5912` and `r58/rebuild3` (independent checks); code in
+[search/eightp](eightp/README.md). The shape ranked first by the re-screen of §107 gave a Hadamard matrix of order
+5912 = 8 · 739 ([hadamard/5912](../hadamard/5912)).
+- *Shape.* G = ℤ₂₁₁ × F₇ of order v = 1477 = 2 · 739 − 1, H = ⟨19⟩ × ⟨2⟩ of order 45 (19 has order 15 in ℤ₂₁₁*, ⟨2⟩
+  is the group of squares of F₇*), 15 orbits on ℤ₂₁₁ and 45 on G. A block is X(k, x) = e(k) + t(k) χ₇(x) + s(k)[x = 0]:
+  on each fibre {k} × F₇ either a signed quadratic character with a free sign at 0, or a constant. The numbers of
+  constant fibres in the four blocks (the token) are 0, 30, 30 and 60; the row sums are (1, 1, 1, 1).
+- *Calibration before the production* (HEURISTIC unless marked).
+  - Near misses: `gl2n` omits 4 or 5 of the 14 level-2 constraints and counts the instances that satisfy the rest. The
+    ratio observed/predicted (prediction from the exact fibre means and covariances and the exact lattice volume) is
+    0.64 with 9 constraints satisfied (26,568 events), 0.59 with 10, 0.52 with 11 (campaigns 0.51 and 0.54), 0.52 with
+    12 (0.49 and 0.55), and 0.50 ± 0.15 with 13 (12 observed, 24 predicted). No omitted coordinate has a hole at
+    residual 0. Extrapolated: a completion probability of 2.3 · 10⁻⁵ per distinct level-1 instance (± 35%), against
+    10^−4.8 from est4.
+  - The level-1 pool of the token (30, 30, 30, 30) with the sampler's row-sum pattern, measured by Monte Carlo of
+    sampled joins: 10^9.22 ordered instances (est4 gives 10^11.74 without the pattern; the unrestricted Monte Carlo,
+    one event, 10^11.1). With the measured completion rate and the 192 symmetries it reproduces est4's E: 10^6.87
+    against 10^6.93.
+  - Reversing one block, X ↦ X(−·), is an exact symmetry of the condition. The instances of one sampling round were
+    1.8 times redundant under it, so the production removes duplicates.
+  - Small analogues ℤ_m × F₇ (exhaustive `gs_exh` against est4, CHECKED counts): ℤ₂₉ ⟨7⟩ and ℤ₆₁ ⟨12⟩ are exactly
+    empty where est4 says 10^5.8 and 10^4.3; ℤ₃₁ ⟨2⟩, ℤ₄₃ ⟨4⟩ and ℤ₄₁ ⟨10⟩ have 10^6.74, 10^6.27 and at least 10^7.12
+    solutions where est4 says 10^8.81, 10^7.97 and 10^10.75. On small shapes est4 is 1.7 to 2.1 decades too high and
+    gives false alarms on empty ones; for the 15-orbit shape the direct near-miss measurement replaced it.
+- *Production.* Two workers, the tokens (30, 30, 30, 30), (0, 30, 30, 60), (0, 0, 60, 60) and (0, 0, 30, 90) in turn,
+  2000 level-1 instances per round, about 0.2 s of CPU per distinct instance. The hit came after 75,726 distinct
+  instances (about 4.3 core-hours, level 1 included) against 1.7 expected: worker 2, base seed 1002, round 33, token
+  (0, 30, 30, 60). A replay of that round regenerates it.
+- *Checks* (CHECKED). Exact integer PAF over ℤ₁₄₇₇: 5908 at 0 and −4 at the 1476 other elements; row sums (1, 1, 1, 1);
+  every block constant on the orbits of H. H Hᵀ = 5912 I by the repository's `verify/verify.py`, by the producer's
+  circulant build after the Chinese remainder map, and by an independent verifier with two builds of its own (matrix
+  products, and entry formulas without products), an exact float32 Gram and a bit-packed integer Gram test, with
+  negative controls. A second verifier (`r58/rebuild3`, its own code) computed the PAF three ways without FFT, built H
+  in ℤ₁₄₇₇ coordinates and directly, checked H Hᵀ by int32 products and XOR/popcount, and reproduced the SHA-256;
+  swapping two sequences still gives a Hadamard matrix (another hash), so that is not a negative control.
+- *verify.py.* `build_spence` now accepts the row sums (±1)⁴ of an odd group, with P = Q = S and K = −S (the patch of
+  `search/eightp/oddspence`). The even-order Spence certificates (2292, 9172) and the odd test certificates of orders
+  88, 112 and 144 still pass.
+- *Lesson.* §92's model put this shape at 10^6.1 CPU-seconds; the calibrated estimate of §107 (about 4 core-hours) was
+  right within a factor of two. For shapes whose quotient levels are alive and whose completion rate is measured
+  directly by near misses, the Gaussian rate held. The shapes that failed in §107 were the ones decided exactly empty.
+- *Next.* The same census for the 26 entries of FRONTIER.md's list of 28 other than 599 and 719 (round 60).
