@@ -377,8 +377,10 @@ Hadamard matrix known to us: the list of unknown orders on Zaitsev's page, minus
 The smallest are 334, 438, 446, 478, 502, 506 and 550.
 - *334* (N = 167). The plain arrays are out of reach. ℤ₁₆₇ has no usable multiplier group, and on ℤ₁₆₆ = ℤ₂ × ℤ₈₃
   the only one has order 41 and six orbits. The character-bordered array with t = 11 over ℤ₂² × ℤ₃ × ℤ₁₃ has three
-  cores, but whether a border of order 24 completes them is undecided. With t = 23 no border exists (PROVED;
-  [search/NOTES.md](../search/NOTES.md) §107).
+  cores (three more in a class whose border problem is pointwise), but whether a border of order 24 completes them is
+  undecided. A border would have no automorphism of odd prime order (PROVED, all 12 compression classes), and no
+  border invariant under the symmetry groups that the exact solver could decide exists. With t = 23 no border
+  exists (PROVED; [search/NOTES.md](../search/NOTES.md) §107, §109).
 - *478*. The character-bordered array over ℤ₂³ × ℤ₂₉ with t = 7 has many cores and no border (§107).
 - *418* was settled by the Paley plug-in above. Its multiplier structures had estimates of one to three solutions in
   pools of 10¹¹–10¹⁵ members.

@@ -7469,3 +7469,52 @@ Scratchpad `r58/p5912` (calibration and production), `r58/verify_5912` and `r58/
   right within a factor of two. For shapes whose quotient levels are alive and whose completion rate is measured
   directly by near misses, the Gaussian rate held. The shapes that failed in §107 were the ones decided exactly empty.
 - *Next.* The same census for the 26 entries of FRONTIER.md's list of 28 other than 599 and 719 (round 60).
+
+## 109. Round 59: the border of order 24 for QH(334) (October 28–29)
+
+Scratchpad `r59/sym`, `r59/alg`, `r59/var`, `r59/herm`. The character-bordered array with t = 11 over
+ℤ₂² × ℤ₃ × ℤ₁₃ (N = 167, Q = ℤ₂ × ℤ₆, T all nontrivial characters) has exact cores (§107); the open question is a
+border: quaternary R̂ (22 × 24) and Ĉ (24 × 22) with orthogonal rows and columns in V_T and Xb = −R̂ Mc* Ĉ/24
+quaternary, so that Xb is a BH(22, 4). No border was found, and none was excluded. What was established:
+- *Reductions* (PROVED, identities CHECKED in exact arithmetic). The 16 shift and sign variants of the three cores
+  reduce to two problems: R_d with four fixed points (A) or fixed-point-free (B). On V_T, Mc* = S − i s_B I with S
+  Hermitian and S² = 21 (in general S² = 2t − 1). So a border is a pair of orthogonal quaternary frames of V_T that
+  are mutually unbiased under S; with Ĉ = R̂* the frame matrix B = R̂ S R̂*/24 would be a Hermitian quaternary
+  conference matrix of order 22 (B² = 21 I).
+- *No automorphism of odd prime order* (PROVED, with exact finite checks). Order 3 is excluded in the 16 variants
+  by an orbit-averaging lemma and an exact enumeration of the (3, 3) type; order 5 (type 5² 1²) by an exact test of
+  the fixed rows and columns; 7 and primes ≥ 13 by the lemma; ℤ₁₁ with a fixed point by an exact scan (47,784
+  orbits, no compatible pair of row and column orbits). The same holds for all 12 coarse classes of compression
+  tuples in all 128 variants each. So the automorphism group of a border is a 2-group. At q = 6, where borders are
+  plentiful, every border class has a nontrivial symmetry (stabilisers of order 2, 4, 8 and 20).
+- *2-group symmetry* (CHECKED, exact solver `r59/sym/c/solve.cpp` with a sound filter from representation theory
+  and an 11-adic lemma; calibrated on q = 4 (complete), q = 6 (all 5046 stored borders found) and q = 8 (none)).
+  Exactly empty: 206 of 448 tried classes of linear subgroups of order 8 for problem A and 74 of 155 sampled for B,
+  28 + 7 more by representation theory, the dihedral group of order 8 and a group of order 16 of translations, the
+  swap and a sign (hence all their overgroups), and every decided sampled group of order 16, 32 and 64. For the
+  pointwise class below, involutions with 1, 2 or 3 transpositions are impossible (PROVED). Not decided: groups of
+  order 2 and 4 (orbit lists of 10⁸ to 10¹⁰), groups of order 8 with an antilinear element, and about 770 classes
+  of linear groups of order 8.
+- *R-symmetric borders* (CHECKED for the tested families): exact structure of the odd sector (an 8 × 8 matrix over
+  {0, 2e, (1 ± i)e} with ΘΘ* = 22); at q = 6 the pipeline reproduces 196,608 R-symmetric borders; at q = 12 none of
+  the 141 tested odd solutions extends (the search dies at depth 2). Odd solutions beyond the cap and the other
+  row types are not covered.
+- *Other compression classes* (CHECKED). The class with tuple pattern (10, 10, 12, 18) gives a pointwise operator,
+  W = I ⊗ m with |x|² = 4 and |y|² = 18, whose symmetry group is all of Sym(12); three exact cores of that class were
+  found in 107 s. All flat-spectrum classes have the same core estimate and the same compatibility density 1/151,
+  so only symmetry distinguishes them. At q = 6 every pointwise operator has borders (complete classification:
+  3744 to 51,264 borders).
+- *Hermitian conference matrices* (CHECKED, `r59/herm`). Quaternary Hermitian conference matrices exist in orders 6
+  (72 normalised, 60 not real) and 10 (685,440, 680,400 not real), and two-circulant ones in orders 6 to 18, but
+  none of order 22 in the two-circulant and bordered-cyclic families; the literature gives (2k, k) frames with
+  fourth-root Seidel matrices only for 2k − 1 a prime power and k ≤ 9 (Et-Taoui, arXiv:1409.5720). At q = 6 the
+  self-compatible border Ĉ = R̂* does not occur, so this family is not the natural one.
+- *Other t for N = 167.* t = 23: no border (§107). t = 7 over ℤ₂₀ with T = {0, 5, 15, 2, 6, 14, 18}: dead (rank 3,
+  PROVED); with T = {0, 5, 15, 4, 8, 12, 16} the span test passes, but every census structure carries a lattice
+  obstruction (HEURISTIC: the lattice comes from sampled differences), so no core is known. t = 17 (BH(34, 4)) and
+  t = 27 (BH(54, 4)): the span test passes; no exact method reaches these borders.
+- *Heuristic searches.* Simulated annealing plateaus at an energy of about 4100 at q = 12 (710 at q = 8, where no
+  border exists; q = 6 is solved in seconds). With no positive control above q = 6 this says nothing either way.
+- *Status.* UNKNOWN. A border, if it exists, has a 2-group of automorphisms and none of the larger decided ones; the
+  generic, nearly asymmetric case is beyond the exact methods here, and a first-row search meets about 10⁹
+  compatible columns. QH(334) stays the smallest open quaternary order.
