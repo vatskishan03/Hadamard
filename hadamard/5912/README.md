@@ -36,15 +36,16 @@ autocorrelations; level 2 chooses the signs t off the defects by a meet in the m
 filters. The shape ranked first in the re-screen of §107; before the production a near-miss calibration (level 2 with
 4 or 5 of its 14 constraints left out) predicted 2.3 · 10⁻⁵ completions per distinct level-1 instance. Two workers
 sampled level-1 instances of four row-sum tokens in turn, removing duplicates under the reversal of a block (an exact
-symmetry of the condition). The hit came after 75,726 distinct instances, about 4.4 core-hours, against 1.7 expected.
+symmetry of the condition). The hit came after 75,726 distinct instances, about 4.3 core-hours, against 1.7 expected.
 
 | Code | Command | Randomness and caps | Result |
 |---|---|---|---|
-| `search/eightp/gs` (production and replay; see its README) | see [search/eightp](../../search/eightp/README.md#order-5912) | deterministic rounds from a base seed and the round index; the hit is round 33 of base seed 1002, token (0, 30, 30, 60) | `certificate.json`; matrix SHA-256 `b4846b8e…` |
+| `search/eightp/gs/prod_5912.py`, `repro_5912.py` ([search/eightp](../../search/eightp/README.md#order-5912)) | `cd search/eightp/gs; python3 repro_5912.py` (after the Build steps; `--fast`: 9 s) | rounds are functions of (base seed, round); the hit is round 33 of base seed 1002, token (0, 30, 30, 60) | `certificate.json`, identical; matrix SHA-256 `b4846b8e…` |
 
 The matrix was checked by `verify/verify.py`, by the producer's circulant build after the Chinese remainder map
-ℤ₂₁₁ × ℤ₇ ≅ ℤ₁₄₇₇, and by an independent verifier with two builds of its own (matrix products, and entry formulas
-without products) and an exact bit-packed Gram test, with negative controls.
+ℤ₂₁₁ × ℤ₇ ≅ ℤ₁₄₇₇, and by two independent verifiers with their own code (matrix products, entry formulas without
+products, int32 and bit-packed Gram tests), with negative controls; the second reproduced the SHA-256 from its own
+build.
 
 ## Status
 

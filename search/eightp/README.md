@@ -3,7 +3,7 @@
 The programs behind the paragraph "The orders 8p" of [../NOTES.md](../NOTES.md) §92. Egan, Kotsireas, London and Ó Catháin list six open orders 8p up to 10 000 ([../../FRONTIER.md](../../FRONTIER.md), "Orders 8p"):
 p = 599, 719, 739, 839, 1031, 1087, that is n = 2p = 1198, 1438, 1478, 1678, 2062, 2174 and the orders 4n = 4792, 5752, 5912, 6712, 8248, 8696. A Hadamard matrix of order 4n is a Goethals–Seidel array over a group of order n,
 or Spence's bordered array over a group of order n − 1 = 2p − 1 (odd for every p), or a bordered array over a group of order n − t, or a recursive construction. All of them were searched or decided
-as far as the tools below reach; **no matrix of any of the six orders was found, and none is claimed.** (Three of the six were in fact known: 8696 through Seberry–Yamada's key wi, and 6712 and 8248 through Kamali and Kharaghani's dihedral Golay sequences of 1998; see [../../FRONTIER.md](../../FRONTIER.md).) The labels are those of the repository: EXHAUSTIVE (a complete search of a stated class, validated against an
+as far as the tools below reach; **For 5912 = 8 · 739 the sampler of `gs/` found a matrix ([Order 5912](#order-5912), [../../hadamard/5912](../../hadamard/5912)); for the other five orders no matrix was found by these programs.** (Three of the six were in fact known: 8696 through Seberry–Yamada's key wi, and 6712 and 8248 through Kamali and Kharaghani's dihedral Golay sequences of 1998; see [../../FRONTIER.md](../../FRONTIER.md).) The labels are those of the repository: EXHAUSTIVE (a complete search of a stated class, validated against an
 independent brute force), EXACT (a proof or an exact computation), VALIDATED, HEURISTIC, UNKNOWN.
 
 ## What was searched
@@ -33,10 +33,10 @@ is a Hadamard matrix of order 4(v + 1) = 4n, n = 2p. H Hᵀ = nI was checked for
 (±1)⁴ allow balanced blocks, so for odd |G| there is no row-sum bound on the multiplier group, unlike (a) and (b); there is no character of order 2 to compress to, and the Parseval sum of a character ψ ≠ 1 is only Σ_X \|X̂(ψ)\|² = 4v + 4.
 
 Certificate path. A hit of a sampler (`gs/gs_samp.py`) is verified at G level (exact integer PAF = −4 off 0, all row sums ±1) and passed to `gs/gs_cert.py`, which for odd \|G\| writes the certificate
-`{order: 4v + 4, construction: spence, group, sequences}` (P and Q are placeholders). `verify/verify.py` of the repository accepts only the row sums (2, 0, 0, 0); the patch
-[`oddspence/verify_odd_spence.patch`](oddspence/verify_odd_spence.patch) (apply it to a scratch copy of `verify/`, `patch -p1` from the copy's root) lets the `spence` builder accept (±1, ±1, ±1, ±1) and build P = Q = S, K = −S. It is not applied to the repository.
+`{order: 4v + 4, construction: spence, group, sequences}` (P and Q are placeholders). `verify/verify.py` of the repository accepts the row sums (2, 0, 0, 0) and, since round 58 (§108), also (±1, ±1, ±1, ±1), building P = Q = S, K = −S; the patch
+[`oddspence/verify_odd_spence.patch`](oddspence/verify_odd_spence.patch) made that change and is kept for copies of `verify/` older than it.
 A hit would be checked by that patched `verify.py`, by the independent construction in `check/odd_spence_build.py` (`build`), and against Cati–Pasechnik's Table 4, [../../FRONTIER.md](../../FRONTIER.md) and the survey's Table 5. The three certificates of
-`oddspence/` (orders 88, 112, 144 = 4 · 22, 4 · 28, 4 · 36: G = ℤ₇ × F₃, ℤ₉ × F₃, ℤ₅ × F₇, found by the sampler in seconds) pass the patched `verify.py` and are refused by the unpatched one.
+`oddspence/` (orders 88, 112, 144 = 4 · 22, 4 · 28, 4 · 36: G = ℤ₇ × F₃, ℤ₉ × F₃, ℤ₅ × F₇, found by the sampler in seconds) pass `verify.py` and are refused by its version before the patch.
 
 ## Programs
 
@@ -63,6 +63,7 @@ The shape is G = K × F_r, K abelian, r an odd prime power, a block is X = s ⊗
 | `val_odd.py`, `calib_odd.py`, `validate.py`, `run_validate.sh`, `run_validate2.sh` | validation of the engine on odd-\|G\| Spence shapes (`val_odd.py`: K-level engine against the G-level brute force; **new in §92**), calibration of `est4` on the same exact counts, and the battery of §86 (gs, spence, bord) |
 | `t_eq.py`, `t_l1.py`, `t_l1b.py`, `t_l2.py`, `t_identity.py`, `t_pp.py`, `test_samp.py`, `test_samp2.py`, `run_tests.sh` | unit tests: K-level equations against G-level PAF, level 1 against a numpy pair join, level 2 against brute force over all t, the defect and row-sum identities on 300 solutions of each of six shapes, prime-power r, the sampler and its certificates; `run_tests.sh` is the quick regression of the stack |
 | `t_bigN.py` … `t_bigN5.py` | large K (66 to 330 points, 3 to 5 orbits): the exhaustive engine against the G-level brute force, positive controls, and at \|K\| = 283 a pure-numpy level 2 (no `gl2.c`, no filters) on sampled level-1 instances; not part of the quick tests |
+| `prod_5912.py`, `repro_5912.py`, `nm_5912.py`, `nm_cmp.py`, `analog_est4.py`, `tokens_est4.py` | the production of the order 5912 (deduplicated rounds that are functions of (base seed, round)), its deterministic replay, the near-miss calibration (`gl2n_*`, the `-DNEARMISS` build of `gl2.c`), est4 against exact small analogues and per token ([Order 5912](#order-5912)) |
 
 ### `census/`: the plain multiplier census, the recursive theorems, the plug-in shape census and its estimates
 
@@ -97,8 +98,10 @@ the d = 2 counts are 64-bit-hash matches, every printed solution is verified exa
 | `oddspence/oddspence_test.py` | the odd-\|G\| construction for ℤ_v, v = 3, 5, 7, 9, 11, 13: sequences by an exhaustive join, H Hᵀ = nI |
 | `oddspence/verify_odd_spence.patch`, `cert_88.json`, `cert_112.json`, `cert_144.json` | the patch of `verify/verify.py` and three certificates (sampler hits at \|G\| = 21, 27, 35) |
 | `check/dc_all.py`, `golay9.py`, `odd_spence_build.py`, `gcount.py`, `plain_shapes.py` | independent checkers (code of the judge of §92, sharing nothing with the engines): the DC census for all subgroup orders; the complex Golay pairs of length 2 to 9 by exhaustive search (none of length 7 and 9); the odd-\|G\| construction for ℤ_v, v = 3 to 11; a chunked G-level count of Spence quadruples over ∏ ℤ_d with a multiplier group (re-counts the shapes of p = 719 and 739 and two controls); the census of plain cyclic shapes (subgroups, orbit counts, +1 row-sum vectors) |
+| `check/odd_spence_cert.py` | independent exact check of a `spence` certificate over an odd abelian group with coprime moduli: integer PAF, row sums, circulant build after the Chinese remainder map, H Hᵀ = nI (6 s for 5912) |
 | `data/census/` | `cens*_<n>.jsonl` (outputs of `census_a.py`, 30 files), the merged `cand*.jsonl`, the estimates `est*.jsonl` (`est8p`, `est3only`, `est3Ponly`, `estC8p`, `est_all8p`), `basic_census.txt` |
 | `data/gs/` | `val_odd.jsonl` (166 odd-\|G\| Spence shapes: 159 MATCH, 7 partial), `VALIDATION.txt` (battery of §86), `tau_sweep2.jsonl` (the sweep of the exact τ filter: 213 shapes), `tau_sweep_v1.jsonl` (an earlier, weaker run of the filter, kept as the origin of `cand_alive.jsonl`; superseded), `cand_alive.jsonl` (the 139 shapes alive in that earlier run; the input of the `exh_alive` run), `exh_small.jsonl`, `exh_r3.jsonl`, `exh_alive.jsonl` (+ `.log`: the records of `exh_sweep.py`), `alive_ranked.json` (the 99 τ-alive shapes with the modelled cost of the sampler; the script that ranked them was not kept), `calib_odd.json`, `alloc_1478_o11*.txt` (`alloc_scan.py` on ℤ₂₁₁, r = 7, H_K = ⟨34⟩, 11 orbits), `runs/sa_1198_*` (the small-alive production), `runs/p739a`, `runs/pilot*` (sampler pilots at p = 739) |
+| `data/gs/p5912/` | the records of the 5912 production: per-round lines of both workers, the K-level blocks of the hit, near-miss counts, small analogues, token estimates |
 | `data/plain/`, `data/spin/` | the logs of every verdict: `v<v>.O22.log` (all subgroups with at most 22 orbits), `r3_*.log` (corrected solver: 1477 up to 22, 1197 and 1677 at 23 to 24 orbits, 2061, 2173, ℤ₃² × ℤ₁₃₃), `cal*.log` (positive controls v = 105 to 255), `D*.log` and `v*.log` (spin d = 2, 4 and d = 3: `O26` = O_H ≤ 26, `O27-30` = 27 to 30) |
 
 ## Build
@@ -106,7 +109,8 @@ the d = 2 counts are 64-bit-hash matches, every printed solution is verified exa
 ```
 cd search/eightp/gs && gcc -O3 -march=haswell -shared -fPIC -o libgl1.so gl1.c -lm && for ps in 32 64 128; do gcc -O3 -march=haswell -DPS=$ps -o gl2_$ps gl2.c -lm; done && mkdir -p runs tmp out work
 cd search/eightp/spin && gcc -O3 -march=haswell -o spin3 spin3.c && gcc -O3 -march=haswell -o spinD spinD.c && mkdir -p runs
-cd search/eightp/gs && mkdir -p repo_copy && cp -r ../../../verify repo_copy/verify && ln -sfn ../../.. repo_copy/search && (cd repo_copy && patch -p1 < ../../oddspence/verify_odd_spence.patch)     # the scratch repository of gs_cert.py
+cd search/eightp/gs && mkdir -p repo_copy && cp -r ../../../verify repo_copy/verify && ln -sfn ../../.. repo_copy/search && (cd repo_copy && (grep -q 'odd = all' verify/verify.py || patch -p1 < ../../oddspence/verify_odd_spence.patch))     # the scratch repository of gs_cert.py
+cd search/eightp/gs && for ps in 32 64 128; do gcc -O3 -march=haswell -DPS=$ps -DNEARMISS -o gl2n_$ps gl2.c -lm; done     # the near-miss builds of Order 5912
 ```
 
 Rules for every job: `nice -n 5`, `OMP_NUM_THREADS=1`, `ulimit -v 3500000`; detach long jobs with `setsid nohup`, record the PID, kill only recorded PIDs.
@@ -221,6 +225,147 @@ cd check
 python3 gcount.py                                       # 0.6 s  A  p=719 K=[479] r=3 <2>: (9, 9, 0, 239); B  p=739 K=[211] r=7 <4>: (9, 9, 0, 315): count 0; controls Z3 x F3 trivial (9, 10, 6259194, 1) and 16 * 6259194 = 100,147,104, Z3 x F7 (9, 9, 62208, 3)
 python3 plain_shapes.py 22 1197 1437 1477 1677 2061 2173    # 33 s  the shape censuses 55, 5, 33, 45, 26, 22 and the shapes with a +1 row-sum vector 12, 2, 6, 2, 2, 4
 ```
+
+## Order 5912
+
+The sampler of `gs/` found a Hadamard matrix of order 5912 = 8 · 739 = 4(1477 + 1), one of the six open orders 8p
+(p = 739, n = 2p = 1478): Spence's bordered array over the odd group G = ℤ₂₁₁ × F₇, |G| = 1477 = 2p − 1, with the four
+blocks invariant under a multiplier group of order 45 ([../../hadamard/5912](../../hadamard/5912)). This section
+describes the production, its deterministic replay and the calibration that preceded it. Labels: PROVED (a
+derivation), CHECKED (an exact recomputation: integer arithmetic, or the matrix built and multiplied), HEURISTIC (a
+statistical estimate or an extrapolation), UNKNOWN. The certificate `hadamard/5912/certificate.json` is CHECKED: its
+four sequences (1477 signs each, index 7k + x for (k, x) ∈ ℤ₂₁₁ × ℤ₇) have row sums (1, 1, 1, 1), and the sum of their
+periodic autocorrelations is 5908 at 0 and exactly −4 at the other 1476 elements; `python3 verify/verify.py 5912`
+builds H and finds H Hᵀ = 5912 I, sha256 `b4846b8e76f059552a232a4a6d0f815022c3b178d9103d044965894b6f9c4aa6`.
+
+| Code | Command | Randomness and caps | Result |
+|---|---|---|---|
+| `gs/gl2.c` with `-DNEARMISS` | `for ps in 32 64 128; do gcc -O3 -march=haswell -DPS=$ps -DNEARMISS -o gl2n_$ps gl2.c -lm; done` | environment: `GL2_OMIT` (comma list of the dropped constraints, 0 to 13), `GL2_NOPSD=1`, `GL2_NMCAP` (events printed per instance, default 300) | CHECKED: without `-DNEARMISS` the `gl2_32`, `gl2_64`, `gl2_128` are byte-identical to the builds of the previous `gl2.c` (gcc 13.3), so the production binary is unchanged; `gl2n_*` print for every t-quadruple that satisfies the other constraints its residuals on the dropped ones (`NM`, `NMTOT` lines), and agree with the prototype of the recorded campaigns on 15 instances (events, residuals, completions) |
+| `gs/prod_5912.py` | `python3 prod_5912.py 1001 runs/p5912_w1 400000` and `python3 prod_5912.py 1002 runs/p5912_w2 400000`: two workers, one core each | round r of base seed b is a function of (b, r): `default_rng([b, r])`; token = r mod 4; block lists 2000 and 200,000 regenerated from seeds; at most 2000 level-1 instances per round, then deduplicated; level 2: 30 s, 20 solutions, 1,500,000 fibre vectors per instance, first completion stops an instance; restart-safe (`.state.json`); stops at a hit or when `.STOP` exists | HEURISTIC coverage: 75 rounds, 150,000 level-1 instances, 75,726 distinct, 4.3 core-hours (3.7 and 3.1 h of wall time); one hit: worker 2, round 33. CHECKED: the port reproduces the recorded numbers of level-1 and distinct instances of 10 rounds of the two workers, and the completions of rounds 0 and 33 of base seed 1002 (the blocks of the hit included) |
+| `gs/repro_5912.py` | `python3 repro_5912.py` (`--fast`: level 2 on the recorded instance only; `--no-build`: no matrix; optional argument: the reference certificate) | none: round 33 of base seed 1002 is a function of (1002, 33); the caps of the production | CHECKED: the same K-level blocks as the recorded hit, and the same certificate (sequences and sha256) as `hadamard/5912`; 9 s with `--fast`, 6 min without the matrix, 25 min in all (16 min of CPU) on a busy machine |
+| `gs/nm_5912.py`, `gs/nm_cmp.py` | `python3 nm_5912.py runs/nm1 1 5 4 1000`, then `python3 nm_cmp.py runs/nm1 10` | `default_rng([seed, round])`; 5 of the 14 level-2 constraints dropped at random for each chunk of 100 instances, PSD filters off, the four tokens in turn, 1000 instances per round, no deduplication; the prediction uses 10 instances per chunk and at most 500 difference rows per fibre | HEURISTIC: observed / predicted near-miss counts 0.64, 0.59, 0.52, 0.52, 0.50 with 9 to 13 constraints satisfied; per-instance completion 2.3 · 10⁻⁵ (below) |
+| `gs/analog_est4.py` | `python3 analog_est4.py 31 7 2 600 runs/analog.jsonl` | `gs_exh.exhaust` (exact), `est4` with M = 600; one analogue ℤ_m × F₇, H_K = ⟨h⟩ per call | CHECKED counts, HEURISTIC estimates: est4 exceeds the exact K-level count by 1.7 and 2.1 decades (below) |
+| `gs/tokens_est4.py` | `python3 tokens_est4.py '[211]' 7 '[[[19], 1]]' runs/tokenE_739.json` | `est4` with M = 1000, seed 1 | HEURISTIC: log₁₀ E and log₁₀ N₁ of the 83 τ-feasible tokens (`data/gs/p5912/tokenE_739.json`) |
+| `check/odd_spence_cert.py` | `python3 odd_spence_cert.py ../../../hadamard/5912/certificate.json` | none | CHECKED: exact integer PAF over G, row sums, and the circulant build after the Chinese remainder map with H Hᵀ = 5912 I; 6 s |
+
+**Structure** (CHECKED). G = ℤ₂₁₁ × F₇ has the multiplier group H = ⟨(19, 1)⟩ × ⟨(1, 2)⟩ of order 45: 19 has order 15
+in ℤ₂₁₁* and acts on ℤ₂₁₁, and ⟨2⟩ is the group of squares of F₇*, of order 3. H has 15 orbits on K = ℤ₂₁₁ (the origin
+and 14 of size 15) and 45 on G (three over each K-orbit: x = 0, the squares, the non-squares). A block is x(k,
+f) = e(k) + t(k) χ(f) + s(k) [f = 0], χ the quadratic character of F₇, with s, t, e constant on the K-orbits: one sign
+per H-orbit, 45 per block, 180 in all. A K-orbit is a defect when x is constant on its F₇* part (t = 0, e = ±1; of
+m-type when s = −2e); otherwise e = 0 and s, t = ±1. All four blocks have 738 minus signs, row sum +1, that is Σs = 1
+and Σe = 0 (the only exact row-sum pattern of the four tokens below, from `gsk.row_patterns`). An allocation token
+n₀.m₀ : n₁.m₁ : n₂.m₂ : n₃.m₃ gives block i the total weight n_i of its defects (K-orbit sizes 15 and 1) and the
+weight m_i of the m-type ones (`gs_samp.py`). The defect identity 8e₊ + 4e₋ = 840 (PROVED, `gsk.py`) forces Σm_i = 30
+when Σn_i = E = 120, the smallest total defect weight of a τ-feasible token. There are 12 τ-feasible tokens with
+E = 120, of five allocations (`data/gs/p5912/tokenE_739.json`; 83 tokens in all, E = 120 to 210). Four were sampled,
+one m-split of each of four allocations: (30, 30, 30, 30) as 30.0:30.0:30.15:30.15, (0, 30, 30, 60) as
+0.0:30.0:30.0:60.30, (0, 0, 60, 60) as 0.0:0.0:60.0:60.30 and (0, 0, 30, 90) as 0.0:0.0:30.0:90.30 (est4 log₁₀
+E = 6.93, 7.01, 5.62, 5.26). The allocation (0, 0, 0, 120) (est4 2.4) and the other m-splits were not sampled
+(UNKNOWN). The hit has the allocation (0, 30, 30, 60): 0, 2, 2 and 4 defect K-orbits of size 15 in the blocks, t-sums
+Στ = (29, −1, −1, 1) (CHECKED on the certificate), and 4 + 7(29² + 3) = 5912.
+
+**Levels of the engine** (`gl1.c`, `gl2.c`; descriptions of `gs/` above). Level 1 fixes (s, e) of the four blocks: a
+block is a list of (s, e) configurations with the token's defect weight and m-weight and the row-sum pattern (Σs,
+Σe) = (1, 0), which also fixes its sign; the lists of blocks 0 and 1 have 2000 entries and those of blocks 2 and 3
+have 200,000, regenerated from seeds and never stored. The class-restricted hash join keeps the quadruples with Σ_X
+PAF_u(k) = −28 at the seven classes k ≠ 0, u = s + 7e the compression of a block to K; the first 2000 found are the
+instances of the round. Level 2 puts the t signs on the defect-free orbits (52 bits at E = 120; 252 to 12,870 vectors
+per block after the exact row-sum filter on the t-sums, measured in the near-miss runs, then the PSD filter |ŝ +
+γt̂|² ≤ 5912 on 14 characters) and joins the four fibres by a meet in the middle, (A, D) × (B, C), on 14 integer keys:
+Σ_X (PAF_s + 7 PAF_t) = 0 at 7 lags and Σ_X Q_X = 0 at 7 lags. Every candidate is verified on the 14 keys, then at K
+level (`check_klevel`) and by the exact integer PAF over G (`verify_g`). A completion is counted twice (the gauge t →
+−t): the hit round had 2 completions, one solution.
+
+**Deduplication by block reversal** (PROVED, counts CHECKED). The reversal x ↦ x(−·) of one block keeps its periodic
+autocorrelation and its row sum, and its H-invariance (G is abelian); on (s, t, e) it is (s(−k), −t(−k), e(−k)), since
+χ(−f) = −χ(f) in F₇. So the 16 images of a level-1 instance under the independent reversals of the four blocks are
+equivalent, and one per class suffices. `prod_5912.py` keeps one instance per class (the key of a block is a 64-bit
+hash of (s, e), minimised over the reversal): of the 2000 instances of a round 771 to 1164 are distinct (mean 1010;
+22,247 of 40,000 for the token (30, 30, 30, 30), 14,328 of 36,000 for (0, 0, 30, 90)), 75,726 of 150,000 in all. The
+near-miss campaigns below were not deduplicated.
+
+**Near-miss calibration** (HEURISTIC). With `gl2n` the PSD filters are off and OMIT of the 14 level-2 constraints are
+dropped from the hash, so every t-quadruple that satisfies the other ones is an event and its residuals on the dropped
+constraints are recorded; an event with all residuals 0 is a solution. `nm_cmp.py` predicts the number of events from
+the exact fibres: the key vectors of the t-sign vectors that pass the row-sum filter form four fibres in ℤ¹⁴, and the
+number of quadruples with sum 0 on a set C of coordinates is predicted as n₁n₂n₃n₄ · det(L_C) · N(0; μ_C, Σ_C), μ and
+Σ the exact mean and covariance of the sum of four independent draws from the fibres and L_C the lattice generated by
+the differences inside the fibres (sampled), projected to C. The events with residual 0 on any subset Z of the dropped
+constraints are counted and compared with the prediction for C = (kept) + Z. The recorded campaigns were run with an
+earlier prototype of `nm_5912.py` and `nm_cmp.py` whose seeds were not kept, so they cannot be replayed bit for bit
+(`data/gs/p5912/cmpzero_nmA.json`, `cmpzero_nmB.json`): nmA dropped 5 constraints on 4000 instances, nmB dropped 4 on
+6000, 10,000 instances in all. The predictions of `nm_cmp.py` equal those of the prototype to 15 digits on three
+recorded instances (CHECKED).
+
+| constraints satisfied | 9 | 10 | 11 | 12 | 13 | 14 |
+|---|---|---|---|---|---|---|
+| observed events | 26,568 | 12,626 | 2,435 | 253 | 12 | 0 |
+| predicted | 41,774 | 21,481 | 4,641 | 488.4 | 24.1 | 0.46 |
+| observed / predicted | 0.636 | 0.588 | 0.525 | 0.518 | 0.497 | n/a |
+
+The ratio decreases slowly (0.64 to 0.50 over five points; the point at 13 has 12 events), and the predicted number of
+completions at 14 constraints is 0.46 on the 10,000 instances, 4.6 · 10⁻⁵ per instance. Extrapolating the ratio one
+step to 0.5 gives the probability of a completion per distinct level-1 instance, 2.3 · 10⁻⁵ (HEURISTIC, about ±35%);
+no completion was seen in the 10,000 instances (0.2 expected after the ratio). A re-run of the port with seed 1
+(`nm_5912.py runs/nm1 1 5 1 200`, 200 instances) gives the ratios 0.63 and 0.64 at 9 and 10 constraints (2113 and 1245
+events), 0.55 at 11 (170 events), and too few events beyond (4 observed against 22 predicted at 12, none at 13). est4
+is not refuted at the level-2 step (HEURISTIC): its E for the token (30, 30, 30, 30) is 10^6.93, and the measured
+level-1 pool of that token with the sampler's row-sum pattern, 10^9.22 ordered instances (six sampled joins, ±0.01),
+times 2.3 · 10⁻⁵, times 192 (6 orderings of the m-split, 16 block signs, 2 for t → −t) gives 10^6.87. The pool of
+(0, 30, 30, 60) is 10^8.42 (est4: E = 10^7.01, N₁ = 10^11.80 without the pattern; the unrestricted Monte Carlo of the
+first token, one event, 10^11.1 against est4's 10^11.74).
+
+**Totals and cost** (CHECKED from the per-round records `data/gs/p5912/prod_w{1,2}.jsonl`, the core-hours HEURISTIC).
+Worker 1 (base seed 1001) ran 41 rounds, 41,324 distinct instances, no completion; worker 2 (base seed 1002) ran 34
+rounds, 34,402 distinct instances, and completed round 33, where the hit instance is the 342nd of 987 (the 33,757th
+distinct instance of the worker). Together 75,726 distinct instances in 75 rounds (the four tokens 20, 19, 18, 18
+times). The `cpu` field of the 67 later rounds gives 0.203 s of CPU per distinct instance (166 to 244 s per round,
+mean 204 s; the hit round 192 s), level 1 included; the field of the first eight rounds (worker 1: 0 to 6, worker 2:
+0) is about 30 times too small and was replaced by that rate, so the total is 15,400 s, about 4.3 core-hours; the two
+workers ran 3.7 h and 3.1 h of wall time, at about 0.63 of a core each. At 2.3 · 10⁻⁵ per instance 1.7 hits were
+expected (P(no hit) = 17%), one was found. One expected hit costs 43,500 distinct instances, 2.5 core-hours; worker 2
+alone reached its hit after 1.9 core-hours. The near-miss campaigns (about 1 core-hour: 4,500 s of `gl2n` wall time at
+about 0.65 of a core, level 1 and the predictions) are not included.
+
+**Small analogues** (exact counts CHECKED, estimates HEURISTIC; `data/gs/p5912/analog.jsonl`). The shapes ℤ_m × F₇
+with H_K = ⟨h⟩, solved exhaustively by `gs_exh.py` and estimated by `est4` (log₁₀ of the number of K-level solutions):
+
+| m, h (K-orbits) | exact | est4 | est4 − exact |
+|---|---|---|---|
+| 31, 2 (7) | 6.74 | 8.81 | 2.07 |
+| 43, 4 (7) | 6.27 | 7.97 | 1.70 |
+| 29, 7 (5) | 0 | 5.81 | false alarm |
+| 61, 12 (5) | 0 | 4.26 | false alarm |
+| 41, 10 (9) | ≥ 7.12 (296 allocations skipped) | 10.75 | not exhaustive |
+
+est4 over-estimates the two analogues with solutions by 1.7 to 2.1 decades and gives false alarms of 5.8 and 4.3
+decades on the two empty ones (ℤ₇₁ with h = 20 ran out of memory). Two analogues are a thin basis (HEURISTIC), with 5
+to 9 K-orbits against the 15 of the 5912 shape, and they do not test the level-2 quantity measured above, where est4
+was not refuted.
+
+**Commands** (after the builds of Build, plus the near-miss line of the table; `repo_copy` as in Build, with the
+odd-|G| patch unless `verify/verify.py` already accepts the row sums (±1)⁴). Times are wall-clock times on one core of
+a machine whose four cores were busy.
+
+```
+cd gs
+python3 repro_5912.py --fast --no-build    # 9 s    level 1 of round 33, level 2 on instance 341 of 987
+python3 repro_5912.py --no-build           # 6 min  the whole round (level 2: 357 s): 2 completions, no matrix
+python3 repro_5912.py                      # 25 min (16 min CPU)  then H built and verified (1.5 GB): 'identical = True'
+python3 ../check/odd_spence_cert.py ../../../hadamard/5912/certificate.json    # 6 s  exact PAF, H H^T = 5912 I
+# the production: two workers, one core each
+setsid nohup nice -n 5 python3 prod_5912.py 1001 runs/p5912_w1 400000 >> runs/p5912_w1.log 2>&1 &
+setsid nohup nice -n 5 python3 prod_5912.py 1002 runs/p5912_w2 400000 >> runs/p5912_w2.log 2>&1 &
+python3 nm_5912.py runs/nm1 1 5 1 200      # 99 s   one round of 200 instances (2 chunks), 5 constraints dropped
+python3 nm_cmp.py runs/nm1 10              # 23 s   observed / predicted by the number of satisfied constraints
+python3 analog_est4.py 29 7 7 600 runs/analog_test.jsonl    # 1 s   est4 5.81, exact 0 (31 7 2: 100 s, 8.81, 6.74)
+python3 tokens_est4.py '[211]' 7 '[[[19], 1]]' runs/tokenE_739.json    # 3 s    identical to the recorded file
+```
+
+The records of the production are in `data/gs/p5912/`: the per-round lines `prod_w1.jsonl`, `prod_w2.jsonl`, the
+K-level blocks of the hit `prod_w2.HIT_1793224543.json` (the reference of `repro_5912.py`), `cmpzero_nmA.json`,
+`cmpzero_nmB.json`, `analog.jsonl` and `tokenE_739.json`.
 
 ## Recorded runs that were not re-run (labelled 'from the recorded log')
 

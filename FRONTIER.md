@@ -85,7 +85,7 @@ every structure with fewer than about 45 orbits dies at a quotient. For p = 599 
 with 8 to 21 orbits; the cheapest by the old model, ℤ₉ × ℤ₁₉ × F₇, is exactly empty, and the best live one, ℤ₇ × ℤ₁₉ ×
 F₉ with a multiplier group of order 36, costs about 1.5 · 10³ core-hours by the calibrated estimate of §107. The
 plug-in shape of p = 739 that gave 5912 had been modelled at 10⁶ CPU-seconds; the calibrated estimate of §107 was
-about 4 core-hours, and the production took 4.4.
+about 4 core-hours, and the production took 4.3.
 
 **Corollary 8.8(i).** Đoković (arXiv:1008.2043, Propositions 3.2–3.4) also claimed n = 1527, 2545 and 2571, through
 Williamson-type matrices of orders 509 and 857 that Seberry–Yamada's Corollary 8.8(i) would give. Its printed proof

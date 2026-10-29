@@ -7449,13 +7449,15 @@ Scratchpad `r58/p5912` (calibration and production), `r58/verify_5912` and `r58/
     gives false alarms on empty ones; for the 15-orbit shape the direct near-miss measurement replaced it.
 - *Production.* Two workers, the tokens (30, 30, 30, 30), (0, 30, 30, 60), (0, 0, 60, 60) and (0, 0, 30, 90) in turn,
   2000 level-1 instances per round, about 0.2 s of CPU per distinct instance. The hit came after 75,726 distinct
-  instances (about 4.4 core-hours of level 2) against 1.7 expected: worker 2, base seed 1002, round 33, token
+  instances (about 4.3 core-hours of level 2) against 1.7 expected: worker 2, base seed 1002, round 33, token
   (0, 30, 30, 60). A replay of that round regenerates it.
 - *Checks* (CHECKED). Exact integer PAF over ℤ₁₄₇₇: 5908 at 0 and −4 at the 1476 other elements; row sums (1, 1, 1, 1);
   every block constant on the orbits of H. H Hᵀ = 5912 I by the repository's `verify/verify.py`, by the producer's
   circulant build after the Chinese remainder map, and by an independent verifier with two builds of its own (matrix
   products, and entry formulas without products), an exact float32 Gram and a bit-packed integer Gram test, with
-  negative controls.
+  negative controls. A second verifier (`r58/rebuild3`, its own code) computed the PAF three ways without FFT, built H
+  in ℤ₁₄₇₇ coordinates and directly, checked H Hᵀ by int32 products and XOR/popcount, and reproduced the SHA-256;
+  swapping two sequences still gives a Hadamard matrix (another hash), so that is not a negative control.
 - *verify.py.* `build_spence` now accepts the row sums (±1)⁴ of an odd group, with P = Q = S and K = −S (the patch of
   `search/eightp/oddspence`). The even-order Spence certificates (2292, 9172) and the odd test certificates of orders
   88, 112 and 144 still pass.
