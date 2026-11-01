@@ -39,7 +39,7 @@ give a theorem: a skew-Hadamard matrix of order 3(q + 1) exists for every prime 
 | Hadamard, recorded only through Seberry–Yamada's Corollary 8.8(i) | [11](hadamard#orders-recorded-only-through-corollary-88i) | | | 11 | | |
 | Hadamard, beyond Table 4 (12052 to 51580) | [207](hadamard#orders-beyond-the-tables) | 34 | 124 | 49 | | |
 | Hadamard, independent matrices of known orders | [8](hadamard#known-orders-independent-matrices) | | | | | 8 |
-| Skew-Hadamard (476 to 14384) | [114](skew) | 47 | 62 | 2 | | 3 |
+| Skew-Hadamard (476 to 14384) | [116](skew) | 49 | 62 | 2 | | 3 |
 | Symmetric Hadamard (260 to 9892) | [102](symmetric) | 36 | 48 | | 9 | 9 |
 | Complex Hadamard (142 to 3398) | [98](complex-hadamard) | 8 | | 2 | 12 | 76 |
 | T-matrices (97, 109, 197) | [3](t-matrices) | 3 | | | | |
@@ -99,7 +99,7 @@ For each order 4n, n is listed as unresolved in Table 4 of Cati and Pasechnik [3
 | [3820](hadamard/3820) | 955 = 5 · 191 | quaternary conference matrix of order 478 (zero-diagonal Szöllősi array over ℤ₂³ × ℤ₂₉ with a border of the seven nontrivial characters of ℤ₂³, symmetry group of order 7), complex Yamada–Kiyasu template (q = 953), Turyn's doubling | New |
 | [3964](hadamard/3964) | 991 | bordered Goethals–Seidel array over ℤ₂ × ℤ₂ × ℤ₂₄₇, border of size 12 | New |
 | [4204](hadamard/4204) | 1051 | quaternary conference matrix of order 526 (bordered zero-diagonal Szöllősi array over ℤ₂₆₂, multiplier subgroup of order 5), complex Yamada–Kiyasu template (q = 1049), Turyn's doubling | New |
-| [4492](hadamard/4492) | 1123 | Goethals–Seidel array over ℤ₁₁₂₃, multiplier subgroup of order 33 | Concurrent [18] |
+| [4492](hadamard/4492) | 1123 | Goethals–Seidel array over ℤ₁₁₂₃, multiplier subgroup of order 33; a skew matrix of this order is in [skew/4492](skew/4492) | Concurrent [18]; skew: New |
 | [5020](hadamard/5020) | 1255 = 5 · 251 | Goethals–Seidel array over ℤ₅ × GF(251), multiplier subgroup of order 50 | Concurrent [18] |
 | [5260](hadamard/5260) | 1315 = 5 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks, T-matrices of order 5 | New, but obtainable classically |
 | [5932](hadamard/5932) | 1483 | Goethals–Seidel array over ℤ₁₄₈₃, multiplier subgroup of order 39 | Concurrent [18] |
@@ -137,7 +137,8 @@ Priority, where other groups are involved:
   with 2148, 2284, 2636 and 3964 [18]. It also derives 9172 from Cooley's matrix of order 2292 by Miyamoto's theorem;
   ours, from our own matrix of order 2292, dates from 14 October.
 - We claim no priority for the seven Concurrent orders. Neither of the other matrices of order 3732 is stated to be
-  skew.
+  skew, and the survey does not state that its matrix of order 4492 is skew; we did not inspect that matrix. Our skew
+  matrix of order 4492 is a separate one ([skew/4492](skew/4492/README.md#status)).
 - Đoković claimed 1527 and 2545 in 2010 through Seberry–Yamada's Corollary 8.8(i), whose printed proof does not give
   Williamson-type matrices ([NOTES.md](NOTES.md) §7).
 
@@ -164,12 +165,14 @@ Priority, where other groups are involved:
   17916, 23996, 27252, 33308, 36428 and 37708, that is n = 2571, 3903, 4285, 4479, 5999, 6813, 8327, 9107 and 9427)
   have no valid construction known to us ([NOTES.md](NOTES.md) §7). The corollary's matrices still give a complex
   Hadamard matrix of order 2q from any quaternary Hadamard matrix of order (q − 1)/2 ([NOTES.md](NOTES.md) §19).
-- **Skew-Hadamard matrices** of 111 orders: Goethals–Seidel difference families with a skew block found by search,
+- **Skew-Hadamard matrices** of 113 orders: Goethals–Seidel difference families with a skew block found by search,
   Goethals–Seidel arrays with negacyclic blocks searched over ℤ[i] (orders 8v: 1528, 2216, 2392 and 4712), Seberry's
   theorem with new amicable pairs and orthogonal designs, Wallis's product, and the 3(q + 1) theorem, which settles 52
   values v < 2500 that the Đoković–Seberry census [4] lists as undecided ([skew](skew)). The smallest of these orders
   is 476 (v = 119, the census's fourth smallest undecided value), from a Paley product with many w-positions; 980
   (v = 245), 1540 (v = 385), 2156 (v = 539) and 3124 (v = 781) come from the same structure with a multiplier on K.
+  2212 (v = 553) and 4492 (v = 1123), also undecided in the census, come from low-energy k-trees with multiplier groups
+  of orders 13 and 33.
 - **Symmetric Hadamard matrices** of 93 orders that the census lists as undecided:
   - 260 (v = 65, the census's smallest value), from Verma's quaternary Legendre pair of length 64 (2026);
   - 532, 732, 876, 4828 and 5700, from searches and plug-in constructions;
@@ -214,17 +217,17 @@ Priority, where other groups are involved:
 
 | Construction | Orders | Details |
 |---|---|---|
-| Goethals–Seidel difference families invariant under a multiplier subgroup, found by an extended k-tree search | 2092, 3532, 4492, 5932 | [METHOD.md](METHOD.md) |
+| Goethals–Seidel difference families invariant under a multiplier subgroup, found by an extended k-tree search | 2092, 3532, 4492, 5932; skew 4492 | [METHOD.md](METHOD.md), [search/NOTES.md](search/NOTES.md) §110 |
 | The same with blocks permuted by a multiplier of order 3 | 2284 | [METHOD.md](METHOD.md#block-symmetries) |
 | Bordered Goethals–Seidel arrays with exact compression chains (index 4, and index 8 over a Galois ring for 3356) | 2148, 2636, 3356, 3964 | [METHOD.md](METHOD.md#bordered-structures), [search/NOTES.md](search/NOTES.md) §18–19, §102, [search/bgschain](search/bgschain) |
-| Cyclotomic products ℤ_m × GF(q) of index 4 to 10 | 3732, 5020; skew 820, 1044, 1204, 1276, 3380, 5668 | [search/NOTES.md](search/NOTES.md) §16, §20 |
+| Cyclotomic products ℤ_m × GF(q) of index 4 to 10 | 3732, 5020; skew 820, 1044, 1204, 1276, 2212, 3380, 5668 | [search/NOTES.md](search/NOTES.md) §16, §20, §110 |
 | Spence's construction with blocks (A, B, B∘μ, B∘μ²) and a Legendre lift | 2292 | [NOTES.md](NOTES.md) §13, [search/spence_spin](search/spence_spin) |
 | Spence's construction over a group of odd order 2p − 1, a Paley plug-in with a multiplier group of order 45, calibrated by near misses | 5912 | [hadamard/5912](hadamard/5912), [search/eightp](search/eightp/README.md#order-5912), [search/NOTES.md](search/NOTES.md) §108 |
 | Paley's matrix in sixteen circulant blocks, times T-matrices | 157 orders, 14 of them unresolved | [hadamard/PALEY_BLOCKS.md](hadamard/PALEY_BLOCKS.md) |
 | Miyamoto's matrix in sixteen commuting bordered blocks, times T-matrices | 50 orders, 4 of them unresolved | [hadamard/MIYAMOTO_BLOCKS.md](hadamard/MIYAMOTO_BLOCKS.md) |
 | Miyamoto's quaternary array in sixteen commuting blocks, doubled, times T-matrices | 20712 | [hadamard/QUATERNARY_MIYAMOTO_BLOCKS.md](hadamard/QUATERNARY_MIYAMOTO_BLOCKS.md) |
 | Recursive theorems of Miyamoto (Theorem 7 in quaternary form for 12472), Yamada–Kiyasu and Cooper–Wallis | 9172, 12472 and orders beyond Table 4 | [hadamard](hadamard), [williamson-type](williamson-type), [t-matrices](t-matrices) |
-| Skew difference families: compression chains, Paley products, low-energy k-trees | skew orders | [skew](skew), [search/NOTES.md](search/NOTES.md) §10–16, §20, §87–90 |
+| Skew difference families: compression chains, Paley products, low-energy k-trees | skew orders | [skew](skew), [search/NOTES.md](search/NOTES.md) §10–16, §20, §87–90, §110 |
 | Goethals–Seidel arrays with negacyclic blocks of order 2v, as quaternary sequences on ℤ_v: multiplier groups and Paley plug-ins | skew 1528, 2216, 2392, 4712 | [skew/NEGACYCLIC.md](skew/NEGACYCLIC.md), [search/negaskew](search/negaskew), [search/NOTES.md](search/NOTES.md) §88–89 |
 | Paley's matrix in sixteen negacyclic blocks, Frobenius pairing, T-matrices of order 3 | skew orders 3(q + 1) | [skew/PALEY_SKEW.md](skew/PALEY_SKEW.md) |
 | Propus quadruples, the symmetric m(m − 1) and m(m + 3) constructions, Miyamoto's lemma in the propus array | symmetric orders | [symmetric](symmetric), [search/NOTES.md](search/NOTES.md) §17, §27–31 |

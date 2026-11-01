@@ -3,7 +3,8 @@
 A Hadamard matrix H is skew if H + Hᵀ = 2I. Skew-Hadamard matrices are conjectured to exist for every order divisible
 by 4. Each directory here holds one order: a certificate, the matrix (where it is small enough to store) and a README
 with the construction, the search and the evidence that the order is new. The order 3732 is in
-[hadamard/3732](../hadamard/3732), since it was also an unresolved Hadamard order.
+[hadamard/3732](../hadamard/3732), since it was also an unresolved Hadamard order. The ordinary matrix of order 4492,
+which was also unresolved, is a different matrix, in [hadamard/4492](../hadamard/4492).
 
 **Before** gives the entry of Cati–Pasechnik Table 5 (v ≤ 999): v(t) means that the smallest skew-Hadamard order known
 with odd part v was 2ᵗv. **Census** is the status of v in the Đoković–Seberry census of skew orders 4v, odd v < 2500.
@@ -46,6 +47,7 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 | [1892](1892) | 473 = 11 · 43 | ⟨345, 221⟩, order 15 (Paley product with a multiplier of order 3 on ℤ₄₃) | 1, −9, 17, −39 | 473(4) | New |
 | [2052](2052) | 513 = 3³ · 19, group ℤ₁₉ × GF(27) | the squares of GF(27)*, order 13 (Paley product) | 1, 27, 19, 31 | 513(4) | New |
 | [2156](2156) | 539 = 7² · 11, group ℤ₇ × ℤ₇ × ℤ₁₁ | order 15: the scalar 2 (order 3) on ℤ₇², and the squares ⟨4⟩ (order 5) on ℤ₁₁ (Paley product with a multiplier on ℤ₇²) | 1, −29, 15, 33 | 539(4) | New |
+| [2212](2212) | 553 = 7 · 79 | ⟨176⟩, order 13 (cyclotomic product of index 6) | 1, 31, −25, −25 | 553(3) | New |
 | [2404](2404) | 601, prime | ⟨2⟩, order 25 | 1, 1, 49, 1 | 601(5) | New |
 | [2452](2452) | 613, prime | ⟨37⟩, order 17 | 1, 1, 35, 35 | 613(3) | New |
 | [2812](2812) | 703 = 19 · 37 | ⟨16, 26⟩, order 27 | 1, 1, 1, 53 | 703(3) | New |
@@ -56,6 +58,7 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 | [3612](3612) | 903 = 3 · 7 · 43 | ⟨568⟩, order 21 (Paley product) | 1, 43, 41, −9 | 903(4) | New |
 | [3676](3676) | 919, prime | ⟨58⟩, order 17, blocks related by a multiplier of order 3 | 1, 35, 35, 35 | — | Known (Schumer 2026) |
 | [3732](../hadamard/3732) | 933 = 3 · 311 | ⟨7⟩, order 31 (cyclotomic product of index 10) | 1, 61, 3, 1 | 933(10) | New |
+| [4492](4492) | 1123, prime | ⟨691⟩, order 33 | 1, 1, 1, 67 | beyond Table 5; 143744 = 128 · 1123 | New |
 | [5668](5668) | 1417 = 13 · 109 | ⟨1405, 328⟩, order 81 (cyclotomic product of index 4 with ⟨3⟩ on ℤ₁₃) | 1, 7, −53, −53 | beyond Table 5; 45344 = 32 · 1417 | New |
 | [6004](6004) | 1501 = 19 · 79 | ⟨799⟩, order 39 (Paley product) | 1, 77, 7, −5 | beyond Table 5; 12008 = 8 · 1501 | New |
 
@@ -207,7 +210,7 @@ over multiplier structures:
 - for 3676, a spin structure (`search/spin_skew.py`).
 
 The orthogonal designs come from `search/odm_engine.py` and `search/odm_join.py`. [search/NOTES.md](../search/NOTES.md)
-§10–§16, §20, §23, §31 and §87–90 describe the methods, and each README records the command, code commit, seed and caps
-of its search.
+§10–§16, §20, §23, §31, §87–90 and §110 describe the methods, and each README records the command, code commit, seed
+and caps of its search.
 
 `python3 verify/verify.py skew/<order>` rebuilds a matrix from its certificate and checks H Hᵀ = nI and H + Hᵀ = 2I.

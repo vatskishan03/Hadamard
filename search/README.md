@@ -94,7 +94,7 @@ start-up, is close to the list size.
 | `gs_sweep.py`, `gs_sweep_subgroups.py`, `gs_exhaustive.py`, `had_sweep.py` | exhaustive sweeps of small multiplier structures |
 | `lottery_rank.py` | ranks small structures by Gaussian estimate and exact pair work |
 | `had_chain_sweep.py` | the compression chain of `chain.py` for plain Goethals–Seidel structures |
-| `cyclo_product.py`, `cp_lowe.py`, `cp_enum.c`, `cp_field.py`, `cp_sweep.py`, `cp_hunt.py`, `cp_breadth.py` | cyclotomic products ℤ_m × GF(q) and the low-energy k-tree (3732, 5020, skew orders) |
+| `cyclo_product.py`, `cp_lowe.py`, `cp_enum.c`, `cp_field.py`, `cp_sweep.py`, `cp_hunt.py`, `cp_breadth.py` | cyclotomic products ℤ_m × GF(q) and the low-energy k-tree (3732, 5020, skew orders including 2212 and 4492; [NOTES.md](NOTES.md) §110) |
 | `spin_walk.c` | the walk with neighbour lookups of [METHOD.md](../METHOD.md) (2284) |
 | `d3_model.py`, `d3/prep1893.py`, `d3/walk.c` | the d = 3 structure (X₀, X₁, μX₁, μ²X₁): Gaussian model; for n = 1893, the tables and the tabu walk with lookups |
 | `gs_1719.py`, `gs_anti.py`, `gs_array_gf2.py` | individual structures and array tests |

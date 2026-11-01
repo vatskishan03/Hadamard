@@ -22,7 +22,7 @@ Entries n of Cati–Pasechnik Table 4 (odd n ≤ 2999) for which no Hadamard mat
 | [3820](3820) | 955 = 5 · 191 | quaternary conference matrix of order 478 (zero-diagonal Szöllősi array over ℤ₂³ × ℤ₂₉ with a border of the seven nontrivial characters of ℤ₂³, symmetry group of order 7) in the complex Yamada–Kiyasu template (q = 953), then Turyn's doubling |
 | [3964](3964) | 991 | bordered Goethals–Seidel array over ℤ₂ × ℤ₂ × ℤ₂₄₇ with a border of size 12, symmetry group of order 27 |
 | [4204](4204) | 1051 | quaternary conference matrix of order 526 (bordered zero-diagonal Szöllősi array over ℤ₂₆₂, multiplier subgroup of order 5) in the complex Yamada–Kiyasu template (q = 1049), then Turyn's doubling |
-| [4492](4492) | 1123 | Goethals–Seidel over ℤ₁₁₂₃, multiplier subgroup of order 33 |
+| [4492](4492) | 1123 | Goethals–Seidel over ℤ₁₁₂₃, multiplier subgroup of order 33; a skew matrix of this order is in [skew/4492](../skew/4492) |
 | [5020](5020) | 1255 = 5 · 251 | Goethals–Seidel over ℤ₅ × GF(251), multiplier subgroup of order 50 |
 | [5260](5260) | 1315 = 5 · 263 | Paley's matrix of order 1052 in sixteen circulant blocks, T-matrices of order 5 |
 | [5932](5932) | 1483 | Goethals–Seidel over ℤ₁₄₈₃, multiplier subgroup of order 39 |
@@ -56,7 +56,8 @@ Labels of the orders above:
 - 2092, 3732, 4492, 5020, 5932 and 9172 are Concurrent. Cooley's Middletownbooks/Hadamard has 2092 and 3732, and Egan,
   Kotsireas, London and Ó Catháin (arXiv:2610.27175) construct 3732, 4492, 5020 and 5932 and derive 9172 from Cooley's
   matrix of order 2292 by Miyamoto's theorem ([NOVELTY.md](../NOVELTY.md)). Our 3732 is also skew, which neither of the
-  others is stated to be.
+  others is stated to be. Our matrix of order 4492 has no skew block; a separate skew matrix of that order is New
+  ([skew/4492](../skew/4492/README.md#status)).
 - The other eleven are New. 7532 uses the near-Williamson matrices of 2026, as do the First explicit constructions 6108
   and 10180, and 11292 uses a symmetric conference matrix of order 118 found here, Concurrent with J. Y. Z. Ho's
   ([symmetric/940](../symmetric/940)).

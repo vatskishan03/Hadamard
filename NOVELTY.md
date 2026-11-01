@@ -45,7 +45,7 @@ The Handbook tables were read from a copy available online and not checked again
 
 ## Sources searched
 
-The searches were made between 12 and 28 October 2026; each section below gives its own dates.
+The searches were made between 12 October and 1 November 2026; each section below gives its own dates.
 
 **For every order.**
 
@@ -457,10 +457,12 @@ October 2026:
   repository committed matrices of orders 2092 and 3732 on 14 October 2026 and calls ours independent. The survey cites
   this repository at commit 2d45dbb (18 October), which already held all five, for 2148, 2284, 2636 and 3964.
 - *Finding.* Ours were committed on 11 October (2092, 4492, 5932) and 13 October (3732, 5020). Neither of the other
-  matrices of order 3732 is stated to be skew. The same survey settles 4 · 1447 = 5788 (its Theorem 7) and lists six
-  open orders 8p ([FRONTIER.md](FRONTIER.md)).
+  matrices of order 3732 is stated to be skew. We found no statement in the survey that its matrix of order 4492 is
+  skew, and did not inspect it. The same survey settles 4 · 1447 = 5788 (its Theorem 7) and lists six open orders 8p
+  ([FRONTIER.md](FRONTIER.md)).
 - *Labels.* With three groups working within days of each other, the five orders are Concurrent. The skew-Hadamard
-  matrix of order 3732 stays New.
+  matrix of order 3732 stays New, and so is the separate skew-Hadamard matrix of order 4492 found on 1 November 2026
+  ([skew/4492](skew/4492); entry below).
 
 **Order 12472, the quaternary matrix of order 6236 and Miyamoto's Theorem 7** ([hadamard/12472](hadamard/12472)).
 Checked on 27 October 2026:
@@ -547,6 +549,36 @@ Checked on 27 October 2026:
 - *Not read.* Miyamoto 1991; Seberry and Yamada's 2020 book; the Handbook's Table 1.53. The survey's authors, Cooley and
   the Explorer's author work on these orders at present.
 - *Labels.* Order 5912: New. The sequences are new, and the construction is Spence's over a group of odd order.
+
+**Skew orders 2212 and 4492** ([skew/2212](skew/2212), [skew/4492](skew/4492)). Checked on 1 November 2026:
+- *Tables and recursions.*
+  - *Tables.* The Đoković–Seberry census (553 and 1123 among its 737 undecided v, in none of its series and not among
+    its sporadic values); Cati–Pasechnik Table 5, v2 (553(3); 1123 is above its range v ≤ 999); Seberry–Yamada (1992)
+    Table 7.1 (to 999) and Utilitas Math. (1991) (to 499); Koukouvinos–Stylianou (2008), Table 1 (odd v up to 493);
+    SageMath's `skew_hadamard_matrix` (Paley I, Spence 1975 and 1977, complementary difference sets, orthogonal
+    designs, doubling, Williamson, stored small cases; none gives either order).
+  - *Ordinary matrices.* 2212 is classical: Seberry (1973), 14(q + 1) with q = 157; the Hadamard Matrix Explorer builds
+    it as `G(T(7), W(79))`. 4492 is Concurrent (above); the Explorer builds it as `G(A(1123))`, from supplementary
+    difference sets, not from its skew-type sequences `SK`.
+  - *Classical routes.* Paley I needs 2211 = 3 · 11 · 67 or 4491 = 3² · 499 to be a prime power; Szekeres, Whiteman,
+    Spence and Momihara–Xiang 2(qᵉ + 1) need 1105 = 5 · 13 · 17 or 2245 = 5 · 449; Wallis–Whiteman and Momihara–Xiang
+    4(qᵉ + 1) need 552 = 2³ · 3 · 23 or 1122 = 2 · 3 · 11 · 17. Spence 4(q² + q + 1) has the shape of both orders, 553 =
+    23² + 23 + 1 and 1123 = 33² + 33 + 1. For 553 the theorem needs 553 prime or 3 + 2 · 23 + 2 · 23² = 1107 = 3³ · 41 a
+    prime power, and its general form needs two complementary difference sets in ℤ₅₅₃, none known; for 1123, 33 is not a
+    prime power. The 3(q + 1) theorem needs 3 | 4v, and neither v = 553 nor v = 1123 is divisible by 3; the known
+    Blatt–Szekeres families need 1105 or 2211 (for 2212), 2245 or 4491 (for 4492) to be a prime power; the Williamson
+    construction h(pᵏ + 1) needs a skew matrix of odd order 553, 79 or 1123. Turyn (h − 1)ᵘ + 1, doubling (it needs skew
+    orders 1106 and 2246, not multiples of 4), Seberry's mn(n − 1) (only n = 2, with an OD(2212; 1, 1106, 1105) or an
+    OD(4492; 1, 2246, 2245)) and products of a skew and an amicable order (a factor 553, 1106, 7, 14, 79 or 158, or 1123
+    or 2246, that is not a Hadamard order) do not apply.
+- *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (Table 3, known skew orders:
+  Paley's q + 1, doubling, Spence's family, 4n for odd n < 250, 276 and 292, with 356 the smallest open order; neither
+  2212 nor 553 occurs anywhere in the paper, and we found no statement that its matrix of order 4492 is skew).
+- *Finding.* None gives a skew-Hadamard matrix of order 2212 or 4492.
+- *Not read.* As for 6796. The matrix files of Egan et al. and of the Hadamard Matrix Explorer for order 4492 were not
+  inspected: if either is skew, the skew matrix of order 4492 would be Concurrent as well.
+- *Labels.* Skew orders 2212 and 4492: New as skew-Hadamard matrices. The ordinary matrix of order 2212 is classical,
+  and that of order 4492 is Concurrent (above).
 
 ## Not checked
 

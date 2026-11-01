@@ -33,6 +33,10 @@ the standard recursive constructions applies:
 - Mathon: 2245 is not of the form q²(q + 2).
 - Spence's construction of order 4(q² + q + 1) needs q to be a prime power, and q = 33 is not.
 
+The matrix here has no skew block. A separate matrix of order 4492, a Goethals–Seidel matrix over ℤ₁₁₂₃ with the same
+multiplier group and a skew first block, is in [skew/4492](../../skew/4492/README.md); it is New as a skew-Hadamard
+matrix.
+
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 
 ## Files
