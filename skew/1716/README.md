@@ -62,8 +62,11 @@ a ×3-invariant CW(13, 9) is impossible here, for a row-sum reason given in [sea
 
 ## Status
 
-**New** as a skew-Hadamard matrix. Cati–Pasechnik Table 5 gives 429(3): the smallest known skew order with odd part
-429 was 8 · 429 = 3432. The OD(156; 1, 13, 142) is, to our knowledge, the first orthogonal design of that type.
+**New, but obtainable classically** as a skew-Hadamard matrix. The 3(q + 1) theorem of
+[PALEY_SKEW.md](../PALEY_SKEW.md) with q = 571 also gives a skew-Hadamard matrix of order 3 · 572 = 1716 from published
+ingredients; the matrix of this directory, from Seberry's theorem, is a separate matrix. Cati–Pasechnik Table 5 gives
+429(3): the smallest known skew order with odd part 429 was 8 · 429 = 3432. The OD(156; 1, 13, 142) is, to our
+knowledge, the first orthogonal design of that type.
 
 - The Đoković–Seberry census lists 429 among its 737 undecided skew values. It is not undecided in the symmetric list.
 - Seberry–Yamada (1992, Table 7.1) also gives "429 3". That entry is explained by Momihara–Xiang (arXiv:1801.08776;

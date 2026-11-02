@@ -44,6 +44,8 @@ them combined nowhere.
   form" for every q ≡ 1 (mod 4) with a conference matrix of order q + 1 and a symmetric Hadamard matrix of order
   q − 1, which would include this order; the census says his proof does not give it
   ([PROPUS_MIYAMOTO.md](../PROPUS_MIYAMOTO.md#status)).
+- The table of orders of known symmetric Hadamard matrices in Seberry–Yamada (2020), Table 9.4, has an entry at 233
+  whose basis we could not establish ([PROPUS_MIYAMOTO.md](../PROPUS_MIYAMOTO.md#status)).
 - Ordinary Hadamard matrices of order 932 are classical (Miyamoto's theorem, from a Hadamard matrix of order q − 1 =
   232); the symmetry is what is new.
 

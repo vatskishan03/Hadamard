@@ -1,0 +1,48 @@
+p3: v=397 C=18 OA=19 OB=37 rows=(1,23,23) NS=3 W=202 threads=12 shard 0/1 canonB=1(perms 35) canonD=1 psd=(1,1,1) energy=(0,0)
+  A: pass 1: 48620 leaves, 19226 kept [0.0s]
+COUNT A 48620 19226
+  A: list of 19226 members [1.0s]
+  B: pass 1: 8597496600 leaves, 1787139 kept [124.3s]
+COUNT B 8597496600 1787139
+  B: list of 1787139 members [247.8s]
+  D: pass 1: 8597496600 leaves, 3298649676 kept [144.3s]
+COUNT D 8597496600 3298649676
+  D: list of 3298649676 members [309.7s]
+p3: lists A=19226 B=1787139 D=3298649676 [558.5s]  (D keys with 0 hash: checked in join)
+LISTS 19226 1787139 3298649676
+p3: join: 33942 sigma groups in 2122 batches
+  join: 64/2122 batches [0s]
+  join: 128/2122 batches [0s]
+  join: 192/2122 batches [0s]
+  join: 256/2122 batches [1s]
+  join: 320/2122 batches [1s]
+  join: 384/2122 batches [1s]
+  join: 448/2122 batches [2s]
+  join: 512/2122 batches [2s]
+  join: 576/2122 batches [3s]
+  join: 640/2122 batches [4s]
+  join: 704/2122 batches [5s]
+  join: 768/2122 batches [6s]
+  join: 832/2122 batches [7s]
+  join: 896/2122 batches [9s]
+  join: 960/2122 batches [11s]
+  join: 1024/2122 batches [12s]
+  join: 1088/2122 batches [13s]
+  join: 1152/2122 batches [15s]
+  join: 1216/2122 batches [17s]
+  join: 1280/2122 batches [19s]
+  join: 1344/2122 batches [21s]
+  join: 1408/2122 batches [22s]
+  join: 1472/2122 batches [23s]
+  join: 1536/2122 batches [24s]
+  join: 1600/2122 batches [24s]
+  join: 1664/2122 batches [25s]
+  join: 1728/2122 batches [26s]
+  join: 1792/2122 batches [26s]
+  join: 1856/2122 batches [26s]
+  join: 1920/2122 batches [26s]
+  join: 1984/2122 batches [27s]
+  join: 2048/2122 batches [27s]
+  join: 2112/2122 batches [27s]
+p3: done: 31513110939 pairs in 26.9s (1.17e+09 pairs/s over 12 threads)
+DONE hits=0 matches=0 badmatches=0 pairs=31513110939 join_seconds=26.90 total_seconds=585.41

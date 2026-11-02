@@ -82,12 +82,12 @@ conference matrix of order 526 with Qᵀ = Q; the core here has Qᵀ ≠ Q as bu
   ancillary library (arXiv:2610.09169) has a certified conference signal over ℤ₅₂₅, which gives a complex conference
   matrix of order 526. Its invariants Q_ij Q_kl Q̄_il Q̄_kj reach 0.77 from {±1, ±i}, so it is not equivalent to a
   quaternary one.
-- The quaternary Hadamard matrix of order 2102 lies above Seberry–Yamada's table (N < 1000) and Zaitsev et al.'s page
+- The quaternary Hadamard matrix of order 2102 lies above Seberry–Yamada's table (N < 1000) and Zaitsev's page
   (orders below 2000). Any such matrix gives H(4204) by Turyn's doubling, so none was known while 4204 was open. Its
   other routes fail: 4203 and 2101 are not prime powers, no Williamson or Williamson-type matrices of order 1051 are
   known, and ℓ = 1050 lies in neither of Jedwab and Pender's families of quaternary Legendre pairs.
 
-**Risk.** Zaitsev et al.'s page stops below 2000. Middletownbooks/Hadamard does not reach 1051; its open list stops at
+**Risk.** Zaitsev's page stops below 2000. Middletownbooks/Hadamard does not reach 1051; its open list stops at
 971, and its last commit (20 October) changed only the README. The Seberry–Yamada book of 2020 was not read; by Cati
 and Pasechnik's account its Table A.17 also has m > 2 at 1051. Miyamoto's lists of 1991 were not read. The sources
 searched are listed in [NOVELTY.md](../../NOVELTY.md).

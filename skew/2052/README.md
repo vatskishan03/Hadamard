@@ -56,8 +56,11 @@ is a Hadamard matrix of order 2052 with H + Hᵀ = 2I.
 
 ## Status
 
-**New** as a skew-Hadamard matrix, and so is its doubling, of order 4104 = 8 · 513. An ordinary Hadamard matrix of
-order 2052 is known (Cooper–Wallis, listed by Piza on Zenodo as "2052 = CW (19, 27)"). It is not skew.
+**New, but obtainable classically** as a skew-Hadamard matrix, and so is its doubling, of order 4104 = 8 · 513: the
+3(q + 1) theorem of [PALEY_SKEW.md](../PALEY_SKEW.md) with q = 683 also gives a skew-Hadamard matrix of order
+3 · 684 = 2052 from published ingredients. The Goethals–Seidel matrix of this directory, found by search, is a separate
+matrix. An ordinary Hadamard matrix of order 2052 is known (Cooper–Wallis, listed by Piza on Zenodo as "2052 = CW
+(19, 27)"). It is not skew.
 
 - Cati–Pasechnik Table 5 lists 513(4) in plain type, an entry inherited from Seberry–Yamada (2020, Table 9.2) and not
   updated. Seberry–Yamada (1992, Table 7.1) has "513 4". The smallest known skew order of the form 2ᵐ · 513 was 8208,

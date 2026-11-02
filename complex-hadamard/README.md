@@ -18,10 +18,10 @@ Recent progress at the bottom of that range:
   Hadamard matrix of order ℓ + 1. LP(93) (Balonin–Đoković, arXiv:2010.02829, 2020) and LP(117) and LP(129)
   (Kotsireas–Koutschan, arXiv:2101.03116, 2021) give 94, 118 and 130 in this way (checked here); LP(133) of the same
   paper should give 134 (not checked). None of the open orders has a known Legendre pair.
-- V. Zaitsev's page [Quaternary Hadamard matrices](https://www.cs.uleth.ca/~zaitsevv/quaternary.html), by Zaitsev with
-  Kharaghani, Mohammadian and Tayfeh-Rezaie ("Zaitsev et al." below; last updated 14 October 2026, unchanged on
-  22 October), gives explicit matrices of 122 orders 2N: 62 by a Paley-type construction, 28 from Szöllősi-type arrays
-  (five of them near-Williamson), 27 by unpublished methods and five that were known before.
+- V. Zaitsev's page [Quaternary Hadamard matrices](https://www.cs.uleth.ca/~zaitsevv/quaternary.html) ("Zaitsev's page"
+  below; last updated 14 October 2026, unchanged on 22 October), gives explicit matrices of 122 orders 2N: 62 by a
+  Paley-type construction, 28 from Szöllősi-type arrays (five of them near-Williamson), 27 by unpublished methods and
+  five that were known before.
 
 This directory constructs 20 orders that had no construction in the published work we checked. Twelve of them, 214,
 238, 302, 326, 366, 382, 426, 494, 518, 534, 754 and 1558, are on Zaitsev's page, found concurrently and
@@ -146,7 +146,7 @@ docstring of `_szollosi_zero_diagonal_core` in `verify/verify.py`.
 
 ## Matrices
 
-**Constructed here and concurrently by Zaitsev et al.** (Concurrent). For none of them is 4N − 1 or 2N − 1 a prime
+**Constructed here and concurrently by Zaitsev** (Concurrent). For none of them is 4N − 1 or 2N − 1 a prime
 power, and none is covered by the published sources we checked (Status section). Zaitsev's page has matrices of all
 12. For 10 of the first 11 ours is inequivalent to theirs: the multiset over row pairs of the counts
 #{c : K[a,c] K̄[b,c] = iᵏ}, k = 0..3, taken up to rotation and reversal, is invariant under row and column
@@ -172,8 +172,8 @@ row-wise version; the two may be equivalent ([NOTES.md](../NOTES.md) §20). 1558
 (= ℤ₂₀₉). The four sequences are constant on the orbits of the squares of F₁₁* (57 orbits each). Away from the 7
 *defect* positions of ℤ₁₉ (over the four blocks, listed below) their values on the squares and the non-squares are
 opposite, so there each block is x₀ ⊗ δ + t ⊗ χ, with χ the Legendre symbol of F₁₁; at a defect it is constant on F₁₁*.
-The two-level sampler of [search/plugh](../search/plugh) found it in about 0.6 CPU-hours. 418 is open on Zaitsev et
-al.'s list and blank in Table 11.2.
+The two-level sampler of [search/plugh](../search/plugh) found it in about 0.6 CPU-hours. 418 is open on Zaitsev's list
+and blank in Table 11.2.
 
 | order 2N | N | structure | row sums | file |
 |---:|---|---|---|---|
@@ -184,7 +184,7 @@ al.'s list and blank in Table 11.2.
 constant on the orbits of a group H of automorphisms, and a border of size 6 from three characters of a quotient Q. A
 census of this array over every t for the open orders found both structures. In each the border exists at the level of Q
 and the expected number of solutions is large. An exact tower of quotients then found the sequences in under an hour of
-CPU time ([search/tbplain](../search/tbplain)). Both orders are on the list of unknown orders of Zaitsev et al.'s page
+CPU time ([search/tbplain](../search/tbplain)). Both orders are on the list of unknown orders of Zaitsev's page
 (read on 28 October 2026) and blank in the 1992 table, and no source we checked gives them. The search for 358 found
 four solutions; the certificate stores the first.
 
@@ -196,7 +196,7 @@ four solutions; the certificate stores the first.
 **Orders from quaternary conference matrices** (New: 1286, 1718, 1910; New, beyond the tables: 2102, 3398). A quaternary
 conference matrix of order c has zero diagonal, entries 1, −1, i, −i elsewhere and Q Q* = (c − 1) I. For a prime q ≡ 1
 (mod 4), one of order (q + 3)/2 gives a quaternary Hadamard matrix of order 2(q + 2) by the Yamada–Kiyasu template
-([CONFERENCE.md](CONFERENCE.md); [NOTES.md](../NOTES.md) §31, §34). The template has the form of Zaitsev et al.'s
+([CONFERENCE.md](CONFERENCE.md); [NOTES.md](../NOTES.md) §31, §34). The template has the form of Zaitsev's
 QH470, QH566, QH806, QH1142 and QH1526, whose page states no method. The real Hadamard matrices of twice these orders
 in [hadamard](../hadamard) are their Turyn doubles, and `verify/verify.py` builds them from the same certificate data.
 - 1286, 1718 and 1910 are open orders below 2000.

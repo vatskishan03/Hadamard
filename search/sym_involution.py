@@ -10,7 +10,8 @@ A directory that already holds a certificate is never overwritten.
 The pairs: length 50 over Z_2 x Z_5^2, from an exhaustive enumeration over GF(25) of ternary quadruples constant
 on the cosets of the subgroup of index 8 (program not included); length 74 over Z_74, Dokovic and Kotsireas (Numer.
 Algorithms 69 (2015) 523-530, arXiv:1310.5773), parameter set (74; 36, 31; 30), the sets as unions of orbits of
-H = {1, 47, 63}.
+H = {1, 47, 63}; length 194 over Z_194 = Z_2 x Z_97 (t = 97), from the exhaustive search of search/pgp over the pairs
+invariant under H = {1, 35, 61} (search/NOTES.md section 113).
 """
 import hashlib, json, sys
 from pathlib import Path
@@ -43,6 +44,15 @@ PAIRS = {
               a=_signs(_orbit_seq(74, [1, 47, 63], [1, 4, 6, 7, 9, 12, 22, 23, 28, 29, 34, 42])),
               b=_signs(_orbit_seq(74, [1, 47, 63], [1, 2, 4, 6, 9, 12, 17, 21, 22, 37, 55])),
               source="Dokovic-Kotsireas, arXiv:1310.5773, (74; 36, 31; 30)"),
+    389: dict(group="194", t=97,
+              a="+++-+-+--++--+++++-+--+++---++---+-++---+-+--+++-++----+-++-+++-+--+-++-++-+--++--++---+--+-++"
+                "+-+++---++--+-+-+-+++-+---+++-+-++----++-+-+-++-++-------++-+++-++++-++---+---+----+++++---+++"
+                "++--++",
+              b="+-+---++---++++++++-+--+++-+-++-+----+-++-++-+--++-+-+--+------++--+-++++--++-+++++-+--+++-++-"
+                "-+--++-++++-+--++-+++-+-+++-+++-+-++++++-+++++--+----++++-+-+--+++---+++-+-++++-+-----+-------"
+                "---+++",
+              source="exhaustive search over pairs invariant under H = {1, 35, 61} (search/pgp,"
+                     " search/NOTES.md section 113)"),
 }
 
 

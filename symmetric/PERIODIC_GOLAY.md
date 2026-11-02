@@ -5,10 +5,10 @@ then a symmetric Hadamard matrix of order 4q exists. Such a K exists whenever th
 (q − 1)/2 over an abelian group.
 
 For q ≡ 1 (mod 8) and q < 4000 the theorem adds nothing to [PROPUS_WEIGHING.md](PROPUS_WEIGHING.md), since Hadamard
-matrices of order (q − 1)/2 are known there. For q ≡ 5 (mod 8) it is the first construction we know of symmetric
-Hadamard matrices of order 4q. Of the 57 prime powers q ≡ 5 (mod 8) that the Đoković–Seberry census (2025-05-28)
-leaves undecided, it settles 101 and 149 ([404](404), [596](596)). For eleven more it would need an input of order
-388, 772, …, 2340 (see [Which q](#which-q)), and for the other 44 no input exists.
+matrices of order (q − 1)/2 are known there. For q ≡ 5 (mod 8) it is the first proved general construction we know of
+symmetric Hadamard matrices of order 4q. Of the 57 prime powers q ≡ 5 (mod 8) that the Đoković–Seberry census
+(2025-05-28) leaves undecided, it settles 101, 149 and 389 ([404](404), [596](596), [1556](1556)). For ten more it would
+need an input of order 772, 820, …, 2340 (see [Which q](#which-q)), and for the other 44 no input exists.
 
 The matrices have an involutory automorphism with 2q − 2 fixed points ([search/NOTES.md](../search/NOTES.md) §63,
 §65). The proof below was re-derived independently, and the builder in [verify/verify.py](../verify/verify.py)
@@ -91,7 +91,8 @@ order the indices first by position in the orbit (u before u + t) and then by or
 
 **A necessary condition.** K = [[P, Q], [Q, P]] is Hadamard exactly when X = (P + Q)/2 and Y = (P − Q)/2 are weighing
 matrices W(n, n/2) with complementary supports. Indeed KKᵀ = [[2(XXᵀ + YYᵀ), 2(XXᵀ − YYᵀ)], …]. For q ≡ 5 (mod 8),
-n = (q − 1)/2 ≡ 2 (mod 4), and a weighing matrix of order n ≡ 2 (mod 4) has weight a sum of two squares. So (q − 1)/4
+n = (q − 1)/2 ≡ 2 (mod 4), and a weighing matrix of order n ≡ 2 (mod 4) has weight a sum of two squares (Raghavarao,
+Ann. Math. Statist. 31 (1960) 878–884; Geramita and Seberry, *Orthogonal Designs*, Marcel Dekker, 1979). So (q − 1)/4
 must be a sum of two squares. The same holds for every Hadamard matrix of order q − 1 with a fixed-point-free
 involutory automorphism, by a Hasse–Minkowski argument ([search/NOTES.md](../search/NOTES.md) §65). Periodic Golay
 pairs of length ℓ need ℓ to be a sum of two squares as well.
@@ -104,28 +105,38 @@ pairs of length ℓ need ℓ to be a sum of two squares as well.
 |---:|---:|---:|---|
 | 101 | [404](404) | 100 | periodic Golay pair of length 50 (published; ours over ℤ₂ × ℤ₅², from classes of index 8 in GF(25)) |
 | 149 | [596](596) | 148 | periodic Golay pair of length 74 (Đoković–Kotsireas, arXiv:1310.5773) |
-| 389 | 1556 | 388 | needs a K of order 388; periodic Golay pairs of length 194 are undecided (Đoković–Kotsireas' list) |
+| 389 | [1556](1556) | 388 | periodic Golay pair of length 194 (ours: exhaustive search over ℤ₂ × ℤ₉₇ with a multiplier group of order 3, [search/pgp](../search/pgp/README.md), [search/NOTES.md](../search/NOTES.md) §113) |
 | 773, 821, 1109, 1493, 1621, 1733, 1973, 2197, 2309, 2341 | | 772 … 2340 | no K known (periodic Golay pairs of lengths 386, 410, 554, 746, 810, 866, 986, 1098, 1154, 1170 are not known; cyclic ones of length 810 do not exist, by Arasu–Xiang) |
 
-K was also built for orders 36, 52, 164, 244 and 452, and symmetric H(148), H(212) of known orders (q = 37, 53). An
-exhaustive multiplier search found no K for the other census orders in the structures it covered
-([search/NOTES.md](../search/NOTES.md) §65).
+K was also built for orders 36, 52, 164, 244, 292 and 452 (292 from a periodic Golay pair of length 146 found by
+[search/pgp](../search/pgp/README.md); it gives a symmetric H(1172), q = 293, a known order that is not stored), and
+symmetric H(148), H(212) of known orders (q = 37, 53). An exhaustive multiplier search found no K for the other census
+orders in the structures it covered ([search/NOTES.md](../search/NOTES.md) §65).
 
 ## Status
 
-Both orders are **New**: v = 101 and v = 149 are undecided in the census, and we found no symmetric Hadamard matrix of
-order 404 or 596 and no statement of this construction in the sources we read.
+All three orders are **New**: v = 101, v = 149 and v = 389 are undecided in the census, and we found no symmetric
+Hadamard matrix of order 404, 596 or 1556 and no statement of this construction in the sources we read.
 
 - Miyamoto (1991, Theorem 5) claimed a Hadamard matrix of order 4q "of symmetric block form" from a conference matrix
-  of order q + 1 and a symmetric Hadamard matrix of order q − 1, which would cover both orders. The census says his
-  proof does not give it ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md#status)). The input here is different: K need not
-  be symmetric, but must have the form [[P, Q], [Q, P]].
-- Ordinary Hadamard matrices of orders 404 and 596 are classical (Miyamoto's theorem with any H(q − 1)). The symmetry
-  is what is new.
+  of order q + 1 and a symmetric Hadamard matrix of order q − 1, which would cover all three orders; Seberry and
+  Yamada restate the claim (JCMCC 7 (1990), Corollary 35; the 1992 survey, Corollary 8.11). For q = 389 both inputs
+  exist: Paley's conference matrix of order 390, and a symmetric Hadamard matrix of order 388 (Paley II with q = 193;
+  v = 97 is in the census's Paley series). The census says his proof does not give the claim
+  ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md#status)), and it lists 389 as undecided. The input here is different: K need
+  not be symmetric, but must have the form [[P, Q], [Q, P]].
+- Ordinary Hadamard matrices of orders 404, 596 and 1556 are classical (Miyamoto's theorem with any H(q − 1); for 1556,
+  H(388) from Paley II with q = 193). The symmetry is what is new.
 - The periodic Golay pair of length 74 is Đoković and Kotsireas'. Periodic Golay pairs of length 50 were published
   earlier (Đoković, Ann. Comb. 15 (2011) 233–254; Kotsireas and Koukouvinos, Int. J. Appl. Math. 21 (2008) 509–514;
   both as listed in arXiv:1310.5773); the one used here is from our own search. A published cyclic pair of length 50
   gives K as well.
+- The periodic Golay pair of length 194 is from our own exhaustive search ([search/pgp](../search/pgp/README.md)): the
+  family with a multiplier group of order 3 over ℤ₂ × ℤ₉₇ has one class of pairs. Pairs of length 194 were undecided in
+  Đoković and Kotsireas's list ([search/NOTES.md](../search/NOTES.md) §65), and the smallest undecided length was still
+  106 in Lumsden, Kotsireas and Bright (arXiv:2408.15611, Math. Comp. 95 (2026)); we found no source that gives a pair
+  of length 194 or 146. The same search gives four classes of length 146 (over ℤ₂ × ℤ₇₃), also on that list. They
+  give a K of order 292 and a symmetric H(1172), q = 293, a known order that is not stored.
 - Symmetric matrices of orders 148 (q = 37) and 212 (q = 53) were also built this way; those orders were known.
 
 The sources searched are listed in [NOVELTY.md](../NOVELTY.md).
@@ -134,15 +145,16 @@ The sources searched are listed in [NOVELTY.md](../NOVELTY.md).
 
 ```
 python3 search/sym_involution.py targets          # the census primes q = 5 (mod 8) and the input K each needs
-python3 search/sym_involution.py certify 101 149  # writes symmetric/404 and symmetric/596
+python3 search/sym_involution.py certify 101 149 389  # writes symmetric/404, symmetric/596 and symmetric/1556
 python3 verify/verify.py symmetric/404            # rebuilds H and checks it
 ```
 
 `certify` writes a certificate only into a directory that has none: if `symmetric/<4q>/certificate.json` exists it
-stops with `<directory> exists`. The two certificates are committed, so to regenerate one, move its `certificate.json`
-away first and compare the new file with the old. The two pairs are stored in `search/sym_involution.py` (`PAIRS`):
+stops with `<directory> exists`. The three certificates are committed, so to regenerate one, move its `certificate.json`
+away first and compare the new file with the old. The three pairs are stored in `search/sym_involution.py` (`PAIRS`):
 q = 101 as two ±1 strings of length 50 over ℤ₂ × ℤ₅², q = 149 as unions of orbits of {1, 47, 63} on ℤ₇₄ (Đoković and
-Kotsireas).
+Kotsireas), q = 389 as two ±1 strings of length 194 over ℤ₁₉₄, the CRT index of ℤ₂ × ℤ₉₇ (from
+[search/pgp](../search/pgp/README.md)).
 
 `verify/verify.py` (construction `symmetric-involution`) does the following.
 - From the pair: it checks that (a, b) is a periodic Golay pair over the stated group and that t has order 2, and

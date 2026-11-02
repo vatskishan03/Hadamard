@@ -62,6 +62,10 @@ search/negaskew/octic/oskew
 search/negaskew/octic/exsmall
 search/negaskew/tri/tri_join
 search/negaskew/tri/tri2
+search/pgp/src/pgp
+search/pgp/src/oracle
+search/propus3/p3
+search/propus3/group/p3
 
 # search programs: run directories and generated lists
 search/d3/orb.npy
@@ -88,7 +92,12 @@ search/eightp/gs/work/
 search/eightp/gs/repo_copy/
 search/eightp/gs/calib_odd.json
 search/eightp/spin/tmp*.txt
+search/pgp/work/
+search/pgp/out/
+search/propus3/work/
 
 # recorded verdict logs are data, not run output
 !search/eightp/data/**/*.log
 !search/negaskew/tri/data/*.log
+!search/propus3/logs/*.log
+!search/propus3/group/logs/*.log

@@ -8,9 +8,9 @@ A Hadamard matrix H is symmetric if H = Hᵀ. This one is the case q = 1301 of t
 [YAMADA_KIYASU.md](../YAMADA_KIYASU.md): Yamada's (Kiyasu's) Lemma 26 data put in quaternary form, which is symmetric
 for any skew input, and Turyn's map to a real matrix.
 
-- **The skew input.** Đoković's skew supplementary difference sets over ℤ₁₆₃ (1992; as stored in SageMath), a skew
-  Goethals–Seidel matrix of order 652. Normalised to first row all +1, its core S of order 651 has Sᵀ = −S, Se = 0 and
-  S² = J − 651I.
+- **The skew input.** Đoković's skew supplementary difference sets over ℤ₁₆₃ (Bull. Austral. Math. Soc. 45 (1992)
+  327–332; as stored in SageMath), a skew Goethals–Seidel matrix of order 652. Normalised to first row all +1, its core
+  S of order 651 has Sᵀ = −S, Se = 0 and S² = J − 651I.
 - **Yamada's circulants.** M and N of order 651, with first rows β and α of Yamada's Lemma 3 over
   GF(1301²) = GF(1301)[w]/(w² − 2) and ξ = 3 + w primitive: symmetric, M of zero diagonal,
   M² + N² = 1301I.

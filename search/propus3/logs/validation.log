@@ -1,0 +1,239 @@
+
+################ environment
+Darwin <host> 27.2.0 Darwin Kernel Version 27.2.0: Wed Oct 14 23:47:07 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T8132 arm64
+Python 3.11.14
+Apple clang version 21.0.0 (clang-2100.1.1.101)
+numpy 1.26.4
+Sun Nov  1 18:14:59 IST 2026
+
+################ compile p3.c (-Wall -Wextra: no output = no warnings)
+real 0.30
+user 0.30
+sys 0.02
+
+################ p3struct.selfcheck: class tables and PSD matrix against direct PAF/FFT (v = 239, 133, 219)
+239 selfcheck True | C 17 OA 18 OB 35 patterns [(15, 1, 27)]
+133 selfcheck True | C 13 OA 14 OB 26 patterns [(1, 1, 23), (1, 11, 17), (11, 5, 19), (11, 11, 13), (13, 1, 19), (13, 11, 11), (13, 13, 5), (23, 1, 1)]
+219 selfcheck True | C 13 OA 14 OB 27 patterns [(3, 17, 17)]
+real 0.14
+user 0.48
+sys 0.62
+
+################ p3test: engine vs independent reference solver on all small structures (v <= 75, pools <= 40000)
+336 (v, H, rows) cases
+  v= 15 |H|= 2 OA= 6 OB= 9 rows=(3, 1, 7): ref 72 solutions, canonical 12
+  v= 31 |H|= 3 OA= 6 OB=11 rows=(5, 5, 7): ref 180 solutions, canonical 9
+  v= 37 |H|= 3 OA= 7 OB=13 rows=(11, 1, 5): ref 144 solutions, canonical 6
+  v= 39 |H|= 3 OA= 8 OB=15 rows=(3, 7, 7): ref 144 solutions, canonical 9
+  v= 43 |H|= 3 OA= 8 OB=15 rows=(5, 7, 7): ref 504 solutions, canonical 18
+  v= 49 |H|= 3 OA= 9 OB=17 rows=(11, 5, 5): ref 1120 solutions, canonical 40
+total reference solutions over all cases: 7060; failures: 0; python cpu 54.8s
+real 24.16
+user 40.79
+sys 27.51
+
+################ p3validate: repository orders 532 and 876
+=== order 532 (v=133, H=[26], rows=(11, 5, 19))
+  |H|=6 OA=14 OB=26 C=13 |Mult|=18 pools=[966, 2855320, 2368236]
+  repository solution as orbit masks: ('0x296c', '0x20b037e', '0x3023feb')
+  [unreduced+psd] lists A,B,D = (396, 48186, 1466892), hits 72, pairs 17115272, matches 72, badmatches 0, wall 0.3s
+  [reduced+psd] lists A,B,D = (396, 2677, 733446), hits 2, pairs 934827, matches 2, badmatches 0, wall 0.2s
+  [unreduced, psd off] lists A,B,D = (966, 2855320, 2368236), hits 72, pairs 2105421978, matches 72, badmatches 0, wall 2.0s
+  unreduced count 72 (expected 72): ok
+  PSD filters lossless (same set with filters off): True
+  repository solution found: True
+  reduced run == canonical members of the full set: True  (count 2, expected 2)
+  Gamma-expansion of the reduced hits == full set: True; |Gamma| generic = 36
+  Gamma-orbit of the repository solution has 36 members; subset of hits: True
+=== order 876 (v=219, H=[4], rows=(3, 17, 17))
+  |H|=9 OA=14 OB=27 C=13 |Mult|=16 pools=[924, 7488432, 7488432]
+  repository solution as orbit masks: ('0x287d', '0x4527f16', '0x2687b4d')
+  [unreduced+psd] lists A,B,D = (216, 99504, 2033376), hits 288, pairs 19252284, matches 288, badmatches 0, wall 0.9s
+  [reduced+psd] lists A,B,D = (216, 6232, 1016688), hits 9, pairs 1206824, matches 9, badmatches 0, wall 0.7s
+  unreduced count 288 (expected 288): ok
+  repository solution found: True
+  reduced run == canonical members of the full set: True  (count 9, expected 9)
+  Gamma-expansion of the reduced hits == full set: True; |Gamma| generic = 288
+  Gamma-orbit of the repository solution has 288 members; subset of hits: True
+ALL OK
+real 4.56
+user 15.91
+sys 0.42
+
+################ p3cert_test: hit -> matrix -> certificate; repository verify/verify.py as subprocess
+532: certificate dict identical True, certificate.json text identical True, matrix identical to verify.build_propus True, sequences.txt identical True
+  repository verify.py on the engine-derived certificate: out/symmetric/532_from_engine  ok    H H^T = 532 I   sha256 0ca324f91b2b5ac7abdad04b486a7b2ef91e07c5c6ae2ef172542eb34d6a21ea  (symmetric: H = H^T) 
+  repository verify.py on the regenerated repository certificate: out/symmetric/532  ok    H H^T = 532 I   sha256 b071e7f8fab6bf616e81acf98f23cf481d8380a6779b89b4ca27a71d9950ad58  (symmetric: H = H^T)
+876: certificate dict identical True, certificate.json text identical True, matrix identical to verify.build_propus True, sequences.txt identical True
+  repository verify.py on the engine-derived certificate: out/symmetric/876_from_engine  ok    H H^T = 876 I   sha256 01b65d0a51f3210500f4d9f45593e8c6f95aa98fc92d6be8cd0ac38f995a46cf  (symmetric: H = H^T) 
+  repository verify.py on the regenerated repository certificate: out/symmetric/876  ok    H H^T = 876 I   sha256 e09d8d2c93e49a361fc3e3c2188f409da338c697f64e03bdcc967be8198cbaf9  (symmetric: H = H^T)
+ALL OK
+real 2.74
+user 7.27
+sys 2.76
+
+################ p3plant: planted solution at the full dimensions of v = 239, with negative control
+planted target [-28, -72, -36, -4, 32, 40, -20, 48, -100, 36, 52, -36, 52, 48, -44, 56, -24]
+ns=1 shards=1: lists (24310, 20001, 300001) pairs 4.635e+08 hits 1 planted found and alone: True [0.8s]
+ns=2 shards=1: lists (24310, 20001, 300001) pairs 1.219e+08 hits 1 planted found and alone: True [0.3s]
+ns=3 shards=1: lists (24310, 20001, 300001) pairs 3.605e+07 hits 1 planted found and alone: True [0.5s]
+ns=2 shards=3: lists (24310, 20001, 99827) pairs 1.219e+08 hits 1 planted found and alone: True [0.6s]
+negative control (target + 4 in class 3): hits 0 (must be 0): True
+ALL OK
+real 2.68
+user 8.02
+sys 1.80
+
+################ p3scale_test: production configuration (O = 35, C = 17): filters and DFS leaf counts
+python side 3.6s
+  filters [PSD only]: engine kept B 5401 D 233311; numpy B 5401 D 233311: ok
+  filters [canonical only (B: first 200k masks)]: engine kept B 5936 D 150127; numpy B 5936 D 150127: ok
+  filters [PSD + canonical]: engine kept B 176 D 116685; numpy B 176 D 116685: ok
+  DFS leaves B, slice 5/64 (prefix depth 10, 512 tasks): engine 37442160, dynamic program 37442160: ok
+  DFS leaves D, slice 5/64 (prefix depth 10, 512 tasks): engine 37442160, dynamic program 37442160: ok
+ALL OK
+real 9.74
+user 15.41
+sys 6.23
+
+################ p3resume_test: checkpoint / resume
+uninterrupted: 72 hits, 1426459818 pairs
+killed after ~1.6 s: 1464 batches checkpointed, 4 hits so far
+resumed run stderr: ['p3: resume: 1464/4129 batches already done', 'p3: done: 1017586084 pairs in 1.8s (5.7e+08 pairs/s over 2 threads)']
+union of hits 72 == uninterrupted 72: True
+resume with different options refused: True
+ALL OK
+real 6.90
+user 11.91
+sys 0.50
+
+################ p3lowe checkc: C energy filter == numpy energy filter
+v=49 rows=(11, 5, 5) f=0.3: lists C (49, 518, 3192) vs numpy (49, 518, 3192) ok; hits C 168 vs numpy-subset 168 of 1120 ok
+v=43 rows=(7, 1, 11) f=0.2: lists C (35, 114, 392) vs numpy (35, 114, 392) ok; hits C 84 vs numpy-subset 84 of 896 ok
+v=31 rows=(5, 5, 7) f=0.5: lists C (10, 40, 135) vs numpy (10, 40, 135) ok; hits C 120 vs numpy-subset 120 of 180 ok
+ALL OK
+real 0.31
+user 1.05
+sys 1.30
+
+################ p3lowe study: retention of solution orbits under low-energy cuts
+v=49 |H|=3 rows=(11, 5, 5): PSD pools A 49 B 1638 D 10612; 40 solution orbits (canonical reps); |Gamma|=28
+   f_B=f_D :   0.50   0.30   0.20   0.10   0.05   0.02
+   retention  :   0.33   0.15   0.15   0.05   0.05   0.03
+   gain r/f^2 :    1.3    1.7    3.7    5.0   20.0   62.5
+v=49 |H|=3 rows=(13, 1, 5): PSD pools A 49 B 1848 D 10612; 48 solution orbits (canonical reps); |Gamma|=28
+   f_B=f_D :   0.50   0.30   0.20   0.10   0.05   0.02
+   retention  :   0.58   0.42   0.33   0.08   0.00   0.00
+   gain r/f^2 :    2.3    4.6    8.3    8.3    0.0    0.0
+v=43 |H|=3 rows=(7, 1, 11): PSD pools A 35 B 562 D 1946; 32 solution orbits (canonical reps); |Gamma|=28
+   f_B=f_D :   0.50   0.30   0.20   0.10   0.05   0.02
+   retention  :   0.78   0.28   0.09   0.09   0.03   0.00
+   gain r/f^2 :    3.1    3.1    2.3    9.4   12.5    0.0
+v=43 |H|=3 rows=(5, 7, 7): PSD pools A 28 B 504 D 2863; 18 solution orbits (canonical reps); |Gamma|=28
+   f_B=f_D :   0.50   0.30   0.20   0.10   0.05   0.02
+   retention  :   0.39   0.22   0.22   0.00   0.00   0.00
+   gain r/f^2 :    1.6    2.5    5.6    0.0    0.0    0.0
+v=43 |H|=3 rows=(7, 7, 5): PSD pools A 35 B 504 D 2884; 14 solution orbits (canonical reps); |Gamma|=28
+   f_B=f_D :   0.50   0.30   0.20   0.10   0.05   0.02
+   retention  :   0.86   0.57   0.57   0.43   0.29   0.00
+   gain r/f^2 :    3.4    6.3   14.3   42.9  114.3    0.0
+v=31 |H|=3 rows=(5, 5, 7): PSD pools A 10 B 70 D 210; 9 solution orbits (canonical reps); |Gamma|=20
+   f_B=f_D :   0.50   0.30   0.20   0.10   0.05   0.02
+   retention  :   0.67   0.00   0.00   0.00   0.00   0.00
+   gain r/f^2 :    2.7    0.0    0.0    0.0    0.0    0.0
+v=37 |H|=3 rows=(1, 7, 7): PSD pools A 14 B 156 D 768; 7 solution orbits (canonical reps); |Gamma|=24
+   f_B=f_D :   0.50   0.30   0.20   0.10   0.05   0.02
+   retention  :   0.71   0.14   0.14   0.14   0.00   0.00
+   gain r/f^2 :    2.9    1.6    3.6   14.3    0.0    0.0
+v=37 |H|=3 rows=(11, 1, 5): PSD pools A 9 B 234 D 780; 6 solution orbits (canonical reps); |Gamma|=24
+   f_B=f_D :   0.50   0.30   0.20   0.10   0.05   0.02
+   retention  :   0.33   0.33   0.17   0.00   0.00   0.00
+   gain r/f^2 :    1.3    3.7    4.2    0.0    0.0    0.0
+v=39 |H|=3 rows=(3, 7, 7): PSD pools A 10 B 372 D 1620; 9 solution orbits (canonical reps); |Gamma|=144
+   f_B=f_D :   0.50   0.30   0.20   0.10   0.05   0.02
+   retention  :   0.00   0.00   0.00   0.00   0.00   0.00
+   gain r/f^2 :    0.0    0.0    0.0    0.0    0.0    0.0
+v=71 |H|=5 rows=(11, 9, 1): PSD pools A 28 B 546 D 3320; 11 solution orbits (canonical reps); |Gamma|=28
+   f_B=f_D :   0.50   0.30   0.20   0.10   0.05   0.02
+   retention  :   0.64   0.64   0.64   0.64   0.00   0.00
+   gain r/f^2 :    2.5    7.1   15.9   63.6    0.0    0.0
+pooled over all solution orbits above:
+   keep 0.50 of each list: 105/194 = 0.54 of the solution orbits retained; a random cut would keep 0.2500; gain 2.2x; join work x0.2500 (pairs)
+   keep 0.30 of each list: 57/194 = 0.29 of the solution orbits retained; a random cut would keep 0.0900; gain 3.3x; join work x0.0900 (pairs)
+   keep 0.20 of each list: 46/194 = 0.24 of the solution orbits retained; a random cut would keep 0.0400; gain 5.9x; join work x0.0400 (pairs)
+   keep 0.10 of each list: 23/194 = 0.12 of the solution orbits retained; a random cut would keep 0.0100; gain 11.9x; join work x0.0100 (pairs)
+   keep 0.05 of each list: 7/194 = 0.04 of the solution orbits retained; a random cut would keep 0.0025; gain 14.4x; join work x0.0025 (pairs)
+   keep 0.02 of each list: 1/194 = 0.01 of the solution orbits retained; a random cut would keep 0.0004; gain 12.9x; join work x0.0004 (pairs)
+real 0.57
+user 2.72
+sys 2.28
+
+################ PSD retention: sampled vs exact
+v=133: PSD retention sampled (A,B,D) = (0.4112, 0.0166, 0.6203)  exact from the engine = (0.4099, 0.0169, 0.6194)
+v=219: PSD retention sampled (A,B,D) = (0.2344, 0.0133, 0.2689)  exact from the engine = (0.2338, 0.0133, 0.2715)
+real 1.23
+user 7.15
+sys 3.65
+
+################ Gaussian estimate of the 239 structure (repository estimator, read-only import)
+seed 1: log10 E = 1.38  (E = 23.9 solutions), rank 16; |Gamma| = 34*2 = 68 -> 0.35 expected orbits; P(>=1 orbit) = 0.30 if Poisson
+seed 2: log10 E = 1.38  (E = 23.8 solutions), rank 16; |Gamma| = 34*2 = 68 -> 0.35 expected orbits; P(>=1 orbit) = 0.29 if Poisson
+real 0.30
+user 2.03
+sys 0.54
+
+################ other odd-order multiplier groups of Z_239* (orders 17, 119): exhaustive
+v=239 H=<6> order 17 OA=8 OB=15 C=7 |Mult|=14 |Gamma|=28
+total reduced hits (Gamma-orbit representatives, up to the translation symmetry of Fix(H)): 0
+real 0.11
+user 0.49
+sys 0.33
+v=239 H=<2> order 119 OA=2 OB=3 C=1 |Mult|=2 |Gamma|=4
+total reduced hits (Gamma-orbit representatives, up to the translation symmetry of Fix(H)): 0
+real 0.10
+user 0.15
+sys 0.52
+
+################ v = 67, H of order 3 (Balonin-Djokovic propus structure): exhaustive reduced search
+v=67 H=<29> order 3 OA=12 OB=23 C=11 |Mult|=22 |Gamma|=44
+  rows (5, 11, 1): pools (462, 497420, 705432)  lists(A,B,D) (242, 1480, 304283)  pairs 3.078e+05  reduced hits 44  [0.1s]
+  rows (7, 5, 13): pools (462, 646646, 497420)  lists(A,B,D) (242, 1521, 221518)  pairs 3.093e+05  reduced hits 29  [0.1s]
+  rows (7, 7, 11): pools (462, 646646, 497420)  lists(A,B,D) (242, 1638, 219681)  pairs 3.339e+05  reduced hits 41  [0.1s]
+total reduced hits (Gamma-orbit representatives, up to the translation symmetry of Fix(H)): 114
+real 0.31
+user 0.89
+sys 0.36
+
+################ cost preview (p3plan) for 239
+v=239 H=<10> |H|=7 OA=18 OB=35 C=17 |Mult|=34 |Gamma|=68
+  rows (15, 1, 27): pools A 2.431e+04 B 2.334e+09 D 1.856e+09; PSD retention A 0.4579 B 0.00899 D 0.7770
+     lists A' 1.113e+04 B' 6.170e+05 D' 7.211e+08; pairs 6.869e+09; DFS leaves (2 passes) 8.379e+09; D memory 11.5 GB; M4 core-seconds ~412 (6.9 core-min)
+  TOTAL over patterns: leaves 8.379e+09, pairs 6.869e+09, peak D memory 11.5 GB, M4 core-seconds ~412 (0.11 core-h)
+real 0.58
+user 2.76
+sys 2.01
+
+################ throughput at the 239 dimensions (single thread, Apple M4): DFS slices (pass 1 only) and the join kernel
+  A: pass 1: 24310 leaves, 11118 kept [0.0s]
+  B: pass 1: 21474180 leaves, 12755 kept [0.9s]
+  D: pass 1: 37442160 leaves, 19310190 kept [1.7s]
+real 2.66
+user 2.65
+  A: pass 1: 24310 leaves, 11118 kept [0.0s]
+  B: pass 1: 40116600 leaves, 8451 kept [1.6s]
+  D: pass 1: 30421755 leaves, 14931334 kept [1.4s]
+real 3.01
+user 2.96
+nd     2000  slots     8192 (   0.1 MB keys)  3.13 ns/probe  (3.19e+08 probes/s)  found 0
+nd    18000  slots   131072 (   1.0 MB keys)  1.91 ns/probe  (5.24e+08 probes/s)  found 0
+nd    70000  slots   524288 (   4.2 MB keys)  2.00 ns/probe  (5e+08 probes/s)  found 0
+nd   200000  slots  1048576 (   8.4 MB keys)  2.80 ns/probe  (3.57e+08 probes/s)  found 0
+nd   600000  slots  4194304 (  33.6 MB keys)  3.47 ns/probe  (2.88e+08 probes/s)  found 0
+nd  2400000  slots 16777216 ( 134.2 MB keys)  4.71 ns/probe  (2.12e+08 probes/s)  found 0
+real 0.75
+user 0.73
+sys 0.01
+
+################ done
+Sun Nov  1 18:16:01 IST 2026
+sh run_all_tests.sh  124.43s user 52.07s system 286% cpu 1:01.56 total

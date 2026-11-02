@@ -2,15 +2,15 @@
 
 A Hadamard matrix H is symmetric if H = Hᵀ. The Đoković–Seberry census (2025-05-28) lists 595 odd v < 2500 for which
 no symmetric Hadamard matrix of order 4v was known; Đoković settled three of them, 189, 473 and 1139, in August 2025
-(arXiv:2508.17141). The 102 orders here decide 102 more, leaving 490:
+(arXiv:2508.17141). The 103 orders here decide 103 more, leaving 489:
 
-- 84 have no published construction that gives a symmetric matrix;
-- 9 are Concurrent: 8 also follow from quaternary matrices published on Zaitsev et al.'s page of 14 October 2026, and
+- 85 have no published construction that gives a symmetric matrix;
+- 9 are Concurrent: 8 also follow from quaternary matrices published on Zaitsev's page of 14 October 2026, and
   940 (v = 235) from the conference graph on 117 vertices that J. Y. Z. Ho reported in October 2026;
 - 9 follow from published theorems that the census omits: 1804 and 3532 from Seberry–Balonin's Corollary 1, and 612,
   1300, 1740, 2812, 4732, 4900 and 7564 from Spence's Corollary 3 (1977).
 
-The 102 include 260, the census's smallest value v = 65.
+The 103 include 260, the census's smallest value v = 65.
 
 Each directory holds one order with its certificate, its README and, for the orders found by search, the matrix.
 Status labels are defined in [NOVELTY.md](../NOVELTY.md). The orders by construction:
@@ -22,11 +22,11 @@ Status labels are defined in [NOVELTY.md](../NOVELTY.md). The orders by construc
 | Miyamoto's lemma in the propus array | [PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md) | 48 orders from [356](356) to [9892](9892) | 48 | 1 New; 47 New, but obtainable classically |
 | Any Hadamard matrix in the propus array | [PROPUS_WEIGHING.md](PROPUS_WEIGHING.md) | 10 orders from [3236](3236) to [9764](9764) | 10 | 10 New |
 | Yamada–Kiyasu in quaternary form | [YAMADA_KIYASU.md](YAMADA_KIYASU.md) | 28 orders from [1180](1180) to [9340](9340) | 28 | 18 New; 8 Concurrent; 2 Known |
-| [[P, Q], [Q, P]] with Paley's matrices | [PERIODIC_GOLAY.md](PERIODIC_GOLAY.md) | [404](404), [596](596) | 2 | 2 New |
+| [[P, Q], [Q, P]] with Paley's matrices | [PERIODIC_GOLAY.md](PERIODIC_GOLAY.md) | [404](404), [596](596), [1556](1556) | 3 | 3 New |
 | Spence's recursion | [CONFERENCE_PLUG.md](CONFERENCE_PLUG.md) | [612](612), [1300](1300), [1740](1740), [4900](4900), [7564](7564) | 5 | 5 Known |
 | Seberry and Balonin's Corollary 1 | `search/sym_propus_sb.py` | [940](940), [1804](1804), [3532](3532) | 3 | 1 Concurrent; 2 Known |
-| Orders m(m − 1) and m(m + 3) | `search/sym_mm1.py` | [4828](4828), [5700](5700) | 2 | 1 New; 1 New, but obtainable classically |
-| Total | | | 102 | 36 New; 48 New, but obtainable classically; 9 Concurrent; 9 Known |
+| Orders m(m − 1) and m(m + 3) | `search/sym_mm1.py` | [4828](4828), [5700](5700) | 2 | 2 New, but obtainable classically |
+| Total | | | 103 | 36 New; 49 New, but obtainable classically; 9 Concurrent; 9 Known |
 
 | Order | v | Construction | Census | Status |
 |------:|---|---|---|---|
@@ -48,6 +48,7 @@ Status labels are defined in [NOVELTY.md](../NOVELTY.md). The orders by construc
 | [1300](1300) | 325 = 5² · 13 | symmetric conference matrix of order n in I ⊗ X + C ⊗ Y ([CONFERENCE_PLUG.md](CONFERENCE_PLUG.md)), Paley's matrix of order n = 26 (q = 25) | undecided (omitted) | Known |
 | [1412](1412) | 353 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = H₂^⊗2 ⊗ Paley I, order 44 (q′ = 43) | undecided | New, but obtainable classically |
 | [1444](1444) | 361 = 19² | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 180 (q′ = 179) | undecided | New, but obtainable classically |
+| [1556](1556) | 389 | a Hadamard matrix [[P, Q], [Q, P]] of order q − 1 with Paley's matrices of order q + 1 ([PERIODIC_GOLAY.md](PERIODIC_GOLAY.md)), K from a periodic Golay pair of length 194 (ours: exhaustive search over ℤ₂ × ℤ₉₇ with a multiplier group of order 3, [search/pgp](../search/pgp/README.md)) | undecided | New |
 | [1564](1564) | 391 = 17 · 23 | Yamada–Kiyasu in symmetric quaternary form ([YAMADA_KIYASU.md](YAMADA_KIYASU.md)), skew input of order 196: Goethals–Seidel over ℤ₄₉ | undecided | Concurrent |
 | [1604](1604) | 401 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 200 (q′ = 199) | undecided | New, but obtainable classically |
 | [1636](1636) | 409 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley II, order 204 (q′ = 101) | undecided | New, but obtainable classically |
@@ -82,13 +83,13 @@ Status labels are defined in [NOVELTY.md](../NOVELTY.md). The orders by construc
 | [4612](4612) | 1153 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = H₂^⊗3 ⊗ Paley I, order 72 (q′ = 71) | undecided | New, but obtainable classically |
 | [4732](4732) | 1183 = 7 · 13² | Yamada–Kiyasu in symmetric quaternary form ([YAMADA_KIYASU.md](YAMADA_KIYASU.md)), skew input of order 592: Goethals–Seidel over ℤ₃₇, doubled twice | undecided (omitted) | Known |
 | [4772](4772) | 1193 | any Hadamard matrix of order (q − 1)/2 in the propus array ([PROPUS_WEIGHING.md](PROPUS_WEIGHING.md)), K = Miyamoto (q′ = 149) with T-matrices of order 37, order 596 | undecided | New |
-| [4828](4828) | 1207 = 17 · 71 | m(m + 3) with m = 68: Paley's symmetric OD(68; 1, 67), x ↦ J − 2I, y ↦ the core of a symmetric Hadamard matrix of order 72 | undecided | New |
+| [4828](4828) | 1207 = 17 · 71 | m(m + 3) with m = 68: Paley's symmetric OD(68; 1, 67), x ↦ J − 2I, y ↦ the core of a symmetric Hadamard matrix of order 72 | undecided | New, but obtainable classically |
 | [4868](4868) | 1217 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 608 (q′ = 607) | undecided | New, but obtainable classically |
 | [4900](4900) | 1225 = 5² · 7² | symmetric conference matrix of order n in I ⊗ X + C ⊗ Y ([CONFERENCE_PLUG.md](CONFERENCE_PLUG.md)), Paley's matrix of order n = 50 (q = 49) | undecided (omitted) | Known |
 | [4924](4924) | 1231 | Yamada–Kiyasu in symmetric quaternary form ([YAMADA_KIYASU.md](YAMADA_KIYASU.md)), skew input of order 616: Paley (p = 307), doubled once | undecided | New |
 | [4996](4996) | 1249 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = H₂ ⊗ Paley I, order 312 (q′ = 311) | undecided | New, but obtainable classically |
 | [5156](5156) | 1289 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 644 (q′ = 643) | undecided | New, but obtainable classically |
-| [5212](5212) | 1303 | Yamada–Kiyasu in symmetric quaternary form ([YAMADA_KIYASU.md](YAMADA_KIYASU.md)), skew input of order 652: Goethals–Seidel over ℤ₁₆₃ (Đoković 1992) | undecided | New |
+| [5212](5212) | 1303 | Yamada–Kiyasu in symmetric quaternary form ([YAMADA_KIYASU.md](YAMADA_KIYASU.md)), skew input of order 652: Goethals–Seidel over ℤ₁₆₃ (Đoković, Bull. Austral. Math. Soc. 45 (1992)) | undecided | New |
 | [5284](5284) | 1321 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 660 (q′ = 659) | undecided | New, but obtainable classically |
 | [5476](5476) | 1369 = 37² | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 684 (q′ = 683) | undecided | New, but obtainable classically |
 | [5636](5636) | 1409 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = H₂^⊗4 ⊗ Paley I, order 44 (q′ = 43) | undecided | New, but obtainable classically |
@@ -105,7 +106,7 @@ Status labels are defined in [NOVELTY.md](../NOVELTY.md). The orders by construc
 | [7108](7108) | 1777 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 888 (q′ = 887) | undecided | New, but obtainable classically |
 | [7204](7204) | 1801 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley II, order 900 (q′ = 449) | undecided | New, but obtainable classically |
 | [7492](7492) | 1873 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = H₂ ⊗ Paley I, order 468 (q′ = 467) | undecided | New, but obtainable classically |
-| [7556](7556) | 1889 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = H₂^⊗2 ⊗ propus, order 236 (Đoković) | undecided | New, but obtainable classically |
+| [7556](7556) | 1889 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = H₂^⊗2 ⊗ propus, order 236 (Abuzin–Balonin–Đoković–Kotsireas) | undecided | New, but obtainable classically |
 | [7564](7564) | 1891 = 31 · 61 | symmetric conference matrix of order n in I ⊗ X + C ⊗ Y ([CONFERENCE_PLUG.md](CONFERENCE_PLUG.md)), Paley's matrix of order n = 62 (q = 61) | undecided (omitted) | Known |
 | [7612](7612) | 1903 = 11 · 173 | Yamada–Kiyasu in symmetric quaternary form ([YAMADA_KIYASU.md](YAMADA_KIYASU.md)), skew input of order 952: our skew matrix of order 476, doubled once | undecided | New |
 | [7652](7652) | 1913 | any Hadamard matrix of order (q − 1)/2 in the propus array ([PROPUS_WEIGHING.md](PROPUS_WEIGHING.md)), K = Đoković–Kotsireas's skew matrix of order 956, order 956 | undecided | New |
@@ -118,7 +119,7 @@ Status labels are defined in [NOVELTY.md](../NOVELTY.md). The orders by construc
 | [8324](8324) | 2081 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 1040 (q′ = 1039) | undecided | New, but obtainable classically |
 | [8452](8452) | 2113 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = H₂^⊗2 ⊗ Paley I, order 264 (q′ = 263) | undecided | New, but obtainable classically |
 | [8516](8516) | 2129 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 1064 (q′ = 1063) | undecided | New, but obtainable classically |
-| [8572](8572) | 2143 | Yamada–Kiyasu in symmetric quaternary form ([YAMADA_KIYASU.md](YAMADA_KIYASU.md)), skew input of order 1072: Goethals–Seidel over ℤ₆₇ (Đoković 1992), doubled twice | undecided | New |
+| [8572](8572) | 2143 | Yamada–Kiyasu in symmetric quaternary form ([YAMADA_KIYASU.md](YAMADA_KIYASU.md)), skew input of order 1072: Goethals–Seidel over ℤ₆₇ (Đoković, Bull. Austral. Math. Soc. 45 (1992)), doubled twice | undecided | New |
 | [8612](8612) | 2153 | any Hadamard matrix of order (q − 1)/2 in the propus array ([PROPUS_WEIGHING.md](PROPUS_WEIGHING.md)), K = Miyamoto (q′ = 269) with T-matrices of order 67, order 1076 | undecided | New |
 | [8644](8644) | 2161 | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = H₂ ⊗ Paley II, order 540 (q′ = 269) | undecided | New, but obtainable classically |
 | [8836](8836) | 2209 = 47² | Miyamoto's lemma in the propus array ([PROPUS_MIYAMOTO.md](PROPUS_MIYAMOTO.md)), M = Paley I, order 1104 (q′ = 1103) | undecided | New, but obtainable classically |
@@ -142,9 +143,9 @@ exact joins (`search/propus.py`, [search/NOTES.md](../search/NOTES.md) §17), th
 (`search/propus_chain.py`, §25 and §28), and by the row search `search/prow.c` for 732 (§30 and §31).
 
 **Quaternary Legendre pair.** Verma's quaternary Legendre pair (A, B) of length 64 (arXiv:2609.25573) has A real and B
-symmetric. Writing B = ((1 + i)p + (1 − i)q)/2 with p, q = ±1 gives a bordered propus quadruple (p, A, A, q) over ℤ₆₄,
-which fills the bordered propus array (`search/sym_qlp.py`, `verify.py` construction `propus-bordered`,
-[NOTES.md](../NOTES.md) §32): order 260 ([260](260)).
+symmetric (the paper notes that A is binary, not the symmetry of B). Writing B = ((1 + i)p + (1 − i)q)/2 with p, q = ±1
+gives a bordered propus quadruple (p, A, A, q) over ℤ₆₄, which fills the bordered propus array (`search/sym_qlp.py`,
+`verify.py` construction `propus-bordered`, [NOTES.md](../NOTES.md) §32): order 260 ([260](260)).
 
 **Miyamoto's lemma in the propus array.** For a prime power q ≡ 1 (mod 8) and a symmetric Hadamard matrix M of order
 (q − 1)/2, Seberry and Yamada's Williamson-type matrices of order q (Corollary 29(ii), 1990) have two equal blocks and
@@ -171,7 +172,7 @@ corollary; six more need a skew order that is undecided.
 of order q − 1, for example one built from a periodic Golay pair of length (q − 1)/2, Paley's conference matrix of
 order q + 1 gives a symmetric Hadamard matrix of order 4q with an involutory automorphism with 2q − 2 fixed points
 ([PERIODIC_GOLAY.md](PERIODIC_GOLAY.md), `search/sym_involution.py`, `verify.py` construction `symmetric-involution`).
-This settles v = 101 and 149 (q = 101, 149).
+This settles v = 101, 149 and 389 (q = 101, 149, 389).
 
 **Spence's recursion.** From a symmetric conference matrix C of order n, H = I ⊗ X + C ⊗ Y is a symmetric Hadamard
 matrix of order 2n(n − 1) ([CONFERENCE_PLUG.md](CONFERENCE_PLUG.md), `search/sym_conference_plug.py`, `verify.py`
@@ -190,12 +191,17 @@ Concurrent with the conference graph on 117 vertices that J. Y. Z. Ho reported i
 **Order m(m − 1).** A skew-Hadamard matrix S = I + C of order m with an involutive signed permutation P such that
 PCP = −C is the same as a symmetric orthogonal design xP + yN of type (1, m − 1), with N = CP. Replacing x by J and y
 by the core D of the symmetric Hadamard matrix P + N gives the symmetric Hadamard matrix P ⊗ J + N ⊗ D of order
-m(m − 1) ([search/NOTES.md](../search/NOTES.md) §31, `search/sym_mm1.py`). Đoković's theorem (arXiv:2508.17141) is the
-case m − 1 = q ≡ 3 (mod 8) a prime power. The design can also come from a skew-propus quadruple of any odd length n
-(m = 4n), found here by exhaustive search, or from a Legendre pair with one skew and one symmetric block.
+m(m − 1) ([search/NOTES.md](../search/NOTES.md) §31, `search/sym_mm1.py`). Paley's symmetric OD(q + 1; 1, q) (Seberry,
+Australas. J. Combin. 55 (2013), Theorem 2; Geramita–Seberry 1979), with this plug, gives a symmetric Hadamard matrix of
+order q(q + 1) for every prime power q ≡ 3 (mod 4). This contains Đoković's Theorem 2 (arXiv:2508.17141), the case
+q ≡ 3 (mod 8), which he obtains from a symmetric design built from difference families. The design can also come from a
+skew-propus quadruple of any odd length n (m = 4n), found here by exhaustive search, or from a Legendre pair with one
+skew and one symmetric block.
 
 **Order m(m + 3).** Replacing x by J − 2I instead of J, with the core of a symmetric Hadamard matrix of order m + 4,
-gives order m(m + 3) ([search/NOTES.md](../search/NOTES.md) §31). This is the symmetric form of Wallis's construction
-of Hadamard and Williamson-type matrices of order m(m + 3) (1970, 1975).
+gives order m(m + 3) ([search/NOTES.md](../search/NOTES.md) §31). This is the symmetric form of Williamson's
+construction of Hadamard matrices of order m(m + 3) (Bull. Amer. Math. Soc. 53 (1947), Corollary 1) and of Wallis's
+generalisation to Hadamard and Williamson-type matrices (1970, 1975). The symmetric matrix is a signed column
+permutation of the classical one, so for 4828 the label is New, but obtainable classically.
 
 `python3 verify/verify.py symmetric/<order>` rebuilds a matrix from its certificate and checks H Hᵀ = nI and H = Hᵀ.

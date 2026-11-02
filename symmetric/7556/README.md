@@ -9,8 +9,9 @@ A Hadamard matrix H is symmetric if H = Hᵀ. This one is the case q = 1889 of t
 (their Corollary 29(ii), 1990), placed in the propus array.
 
 - **The input.** A symmetric Hadamard matrix M of order 944: the Kronecker product of Sylvester's H₂^⊗2, H₂ = [[1, 1],
-  [1, −1]], with the symmetric Hadamard matrix of order 236 of Đoković (arXiv:2101.05429v2, §4, the first PDF for v =
-  59): a propus quadruple (A, B, B, D) over ℤ_59, whose blocks the certificate lists.
+  [1, −1]], with the symmetric Hadamard matrix of order 236 of Abuzin, Balonin, Đoković and Kotsireas (Inform. Upravl.
+  Sist. 2019, no. 5, 2–9), whose blocks we transcribed from the first PDF for v = 59 in §4 of Đoković
+  (arXiv:2101.05429v2): a propus quadruple (A, B, B, D) over ℤ_59, which the certificate lists.
 - **The field.** GF(1889) = ℤ_1889, g = 3; χ is the quadratic character, s_i = g²ⁱ and t_j = g¹⁻²ʲ (i, j < 944).
 - **Williamson-type matrices.** U₁ = −[χ(s_i − s_j)], U₂ = [χ(s_i − t_j)], U₃ = U₄ = 0 and V = (I, 0, M, M) give W₁ =
   [[1, −e], [−eᵀ, S₁]] and W_k = [[1, e], [eᵀ, S_k]] (k > 1), with S_k = U_k ⊗ J₂ + V_k ⊗ [[1, −1], [−1, 1]]. They are

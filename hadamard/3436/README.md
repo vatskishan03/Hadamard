@@ -80,11 +80,11 @@ needs no such symmetry, and the core here has Qᵀ ≠ Q as built. The sampler a
   matrix of order 430. That matrix is not equivalent to a quaternary one: some of its invariants Q_ij Q_kl Q̄_il Q̄_kj
   lie 0.77 from {±1, ±i}, the largest distance possible.
 - The quaternary Hadamard matrix of order 1718 settles an order that is blank in Seberry–Yamada's Table 11.2 (1992)
-  and on the unknown list of Zaitsev et al.'s page (last updated 14 October 2026, unchanged on 22 October). Its other
+  and on the unknown list of Zaitsev's page (last updated 14 October 2026, unchanged on 22 October). Its other
   routes fail: 3435 and 1717 are not prime powers (Ito–Egan, Turyn), no Williamson or Williamson-type matrices of
   order 859 are known, and ℓ = 858 lies in neither of Jedwab and Pender's families of quaternary Legendre pairs.
 
-**Risk.** Zaitsev et al. use the same template and do not date their matrices; their page stops below 2000 and lists
+**Risk.** Zaitsev uses the same template and does not date the matrices; the page stops below 2000 and lists
 1718 as unknown. Middletownbooks/Hadamard lists 859 as open (last commit 20 October, README only). Its flat-pool
 report (`report/b0_flatpool_ladder.md`, §6) estimates a Goethals–Seidel structure over ℤ₈₅₉ with a multiplier group of
 order 13, which its authors consider out of reach. The Seberry–Yamada book of 2020 was not read; by Cati and

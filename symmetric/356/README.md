@@ -45,7 +45,9 @@ them combined nowhere.
 - Seberry and Balonin's list of propus orders from Turyn's matrices (arXiv:1512.01732, p. 4; Australas. J. Combin. 69
   (2017), p. 352) contains 89 by mistake (it needs 177 = 3 · 59 to be a prime power); Balonin and Đoković removed it
   (arXiv:1803.08787, p. 2: "The cases 59, 89, 119, 127 are still unresolved"). Balonin's online catalogue of propus
-  matrices lists 356 without a matrix.
+  matrices lists 356 ("356 Common Propus") without a matrix. The table of orders of known symmetric Hadamard matrices in
+  Seberry–Yamada (2020), Table 9.4, has an entry at 89 whose basis we could not establish
+  ([PROPUS_MIYAMOTO.md](../PROPUS_MIYAMOTO.md#status)).
 - Ordinary Hadamard matrices of order 356 are classical (Miyamoto's theorem, from a Hadamard matrix of order q − 1 =
   88); the symmetry is what is new.
 

@@ -51,9 +51,11 @@ is then a Hadamard matrix of order 1140. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Status
 
-**New** as a skew-Hadamard matrix: the first on record for order 1140. The order was obtainable classically, since
-Seberry's theorem of 1978 gives it from an OD(60; 1, 3, 56) (see below). The matrix here comes from an independent
-method, the ℤ₁₅ × ℤ₁₉ Paley product.
+**New, but obtainable classically** as a skew-Hadamard matrix: the first on record for order 1140. The order was
+obtainable classically in two ways: the 3(q + 1) theorem of [PALEY_SKEW.md](../PALEY_SKEW.md) with q = 379 gives a
+skew-Hadamard matrix of order 3 · 380 = 1140 from published ingredients, and Seberry's theorem of 1978 gives it from an
+OD(60; 1, 3, 56) (see below), which a search without symmetry finds. The matrix here comes from an independent method,
+the ℤ₁₅ × ℤ₁₉ Paley product, and is a separate matrix.
 
 - Every list we found has 1140 as unknown. Cati–Pasechnik Table 5 lists 285(3): the smallest known skew order with odd
   part 285 was 2280 (Wallis–Whiteman 4(q + 1) with q = 569). 1140 is one of the 41 skew orders ≤ 1208 that their

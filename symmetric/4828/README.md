@@ -7,18 +7,21 @@
 A symmetric Hadamard matrix is a Hadamard matrix H with H = Hᵀ. This one comes from the symmetric form of a classical
 plug-in: a symmetric orthogonal design of type (1, m − 1) and a symmetric Hadamard matrix of order m + 4 give a
 symmetric Hadamard matrix of order m(m + 3). Here m = 68. The non-symmetric version, a skew-Hadamard matrix of order m
-and the symmetric core of a Hadamard matrix of order m + 4 plugged in with J − 2I, is Wallis's (J. Austral. Math. Soc.
-11 (1970), Corollary 10 (iv); Linear and Multilinear Algebra 3 (1975), Corollary 4, which lists 1207 among new orders
-of Williamson-type matrices). Our matrix is a signed row permutation of that one:
-P ⊗ X + N ⊗ D = (P ⊗ I)(I ⊗ X + C ⊗ D) with C = PN Paley's skew core. What is new is that the symmetric design makes
-it symmetric.
+and the symmetric core of a Hadamard matrix of order m + 4 plugged in with J − 2I, is classical: Williamson (Bull. Amer.
+Math. Soc. 53 (1947), Corollary 1) gives a Hadamard matrix of order m(m + 3) when m − 1 and m + 3 are prime powers
+≡ 3 (mod 4), as here (67 and 71); Wallis generalised it (J. Austral. Math. Soc. 11 (1970), Corollary 10 (iv); Linear
+and Multilinear Algebra 3 (1975), Corollary 4, which lists 1207 among new orders of Williamson-type matrices). Our
+matrix is a signed column permutation of that one: P ⊗ X + N ⊗ D = (I ⊗ X + C ⊗ D)(P ⊗ I) with C = NP Paley's skew
+core. What is new is that the symmetric design makes it symmetric.
 
 **1. A symmetric OD(68; 1, 67).** Let q = 67, a prime ≡ 3 (mod 4), and let S = I + C be Paley's skew-Hadamard matrix
 of order 68 (index ∞ and the elements of GF(67); C[∞, x] = 1, C[x, ∞] = −1, C[x, y] = χ(y − x) with χ the quadratic
 character). P = (−1) ⊕ (x ↦ −x), a symmetric signed permutation matrix with P² = I, satisfies PCP = −C (the sign
 at ∞ is needed). Hence N = CP is symmetric, has zeros exactly where P is non-zero, N² = 67 I and PN + NP = 0:
-xP + yN is a symmetric orthogonal design of type (1, 67) (the same object as in Đoković, arXiv:2508.17141, Theorem 1,
-where it is built from difference families).
+xP + yN is a symmetric orthogonal design of type (1, 67). It is classical: Paley's design, a symmetric OD(q + 1; 1, q)
+for every prime power q ≡ 3 (mod 4) (Seberry, Australas. J. Combin. 55 (2013), Theorem 2, quoted there from Geramita and
+Seberry 1979); it is also the object of Đoković, arXiv:2508.17141, Theorem 1, where it is built from difference
+families.
 
 **2. A core of order 71.** M = H₂ ⊗ M₃₆, with M₃₆ = [[C₁₈ + I, C₁₈ − I], [C₁₈ − I, −C₁₈ − I]] built from Paley's
 symmetric conference matrix C₁₈ of order 18 (q = 17), is a symmetric Hadamard matrix of order 72. Moving its first
@@ -51,8 +54,11 @@ Nothing was searched: the matrix is determined by q = 67 and the symmetric Hadam
 
 ## Status
 
-**New** as a symmetric Hadamard matrix. An ordinary Hadamard matrix of order 4828 has been known since Wallis
-(1970, 1975); the symmetry is what is new.
+**New, but obtainable classically** as a symmetric Hadamard matrix. An ordinary Hadamard matrix of order 4828 has been
+known since Williamson (1947, Corollary 1, with m = 68), and Wallis (1975, Corollary 4) lists the Williamson-type
+order 1207. Our symmetric matrix is a signed column permutation of the classical one, P ⊗ X + N ⊗ D =
+(I ⊗ X + C ⊗ D)(P ⊗ I), and the symmetric OD(68; 1, 67) it uses is classical (Paley's design, above). What is new is
+that this equivalence class contains a symmetric matrix.
 
 - The Đoković–Seberry census lists 1207 among its 595 undecided v for symmetric matrices. 1207 is in none of its
   symmetric series (Paley's 2(q + 1) needs q = 2413 = 19 · 127; XXSW needs q = 4827 = 3 · 1609; Seberry–Balonin needs
@@ -60,10 +66,12 @@ Nothing was searched: the matrix is determined by q = 67 and the symmetric Hadam
   arithmetic) and not among its 12 sporadic values.
 - Đoković (arXiv:2508.17141) builds symmetric matrices of order q(q + 1) only. No follow-up was found
   (OpenAlex lists no citing work).
-- The non-symmetric constructions are classical: Wallis, J. Combin. Theory 6 (1969), Corollary 7
-  (orders (pᵏ + 1)(pᵏ + 4)); Wallis, J. Austral. Math. Soc. 11 (1970), Corollary 10 (iv) ("a skew-Hadamard matrix of
-  order x − 3 … an Hadamard matrix of order x(x − 3)"); Wallis, Linear and Multilinear Algebra 3 (1975), Corollary 4
-  ("Put X = J − 2I, Y = E … new Williamson type matrices of order 1207, 1827, 2185, 2575", with E the symmetric core).
+- The non-symmetric constructions are classical: Williamson, Bull. Amer. Math. Soc. 53 (1947), Corollary 1 (order
+  m(m + 3) when m − 1 and m + 3 are prime powers ≡ 3 (mod 4); with m = 68 it gives order 4828); Wallis, J. Combin.
+  Theory 6 (1969), Corollary 7 (orders (pᵏ + 1)(pᵏ + 4)); Wallis, J. Austral. Math. Soc. 11 (1970), Corollary 10 (iv)
+  ("a skew-Hadamard matrix of order x − 3 … an Hadamard matrix of order x(x − 3)"); Wallis, Linear and Multilinear
+  Algebra 3 (1975), Corollary 4 ("Put X = J − 2I, Y = E … new Williamson type matrices of order 1207, 1827, 2185,
+  2575", with E the symmetric core).
   None of them states a symmetric version, and neither do the later surveys and papers we read (Seberry–Yamada 1992,
   Seberry 2013 on strong amicable designs).
 - No classical route gives a symmetric matrix of order 4828:
@@ -73,7 +81,8 @@ Nothing was searched: the matrix is determined by q = 67 and the symmetric Hadam
   - q(q + 1) = 4828 and m(m − 1) = 4828 have no integer solution.
   - Regular symmetric matrices need a square order.
 
-We did not read Williamson (1947), Hall's book or Wallis's Lecture Notes in Mathematics 292.
+Of Williamson (1947), the introduction, Theorem 1 and Corollary 1 were read; Hall's book and Wallis's Lecture Notes in
+Mathematics 292 were not.
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 

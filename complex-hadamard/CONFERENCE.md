@@ -230,12 +230,12 @@ The array [[X, Y], [Y*, −X*]] with A, B symmetric circulants is Szöllősi's (
 modification of Kharaghani and Seberry's block construction). Its zero-diagonal form over an abelian group, which
 outputs conference matrices, and its bordered form (Theorems 1 and 2) are ours ([search/NOTES.md](../search/NOTES.md)
 §74–75). The template is the form of the quaternary matrices QH470, QH566, QH806, QH1142 and QH1526 on [V. Zaitsev's
-page](https://www.cs.uleth.ca/~zaitsevv/quaternary.html) (with Kharaghani, Mohammadian and Tayfeh-Rezaie; "Zaitsev et
-al."), which states no method; we found it stated nowhere else. With a skew-Hadamard core (q ≡ 5 (mod 8)) it is built
-from the data of Yamada's theorem ([symmetric/YAMADA_KIYASU.md](../symmetric/YAMADA_KIYASU.md)), and Zaitsev et al.'s
-QH590, QH638, QH782, QH926, QH1310, QH1358, QH1646 and QH1886 are of that kind ([NOTES.md](../NOTES.md) §31).
-Miyamoto's Corollary 4 (1991, as transcribed in the JD-Jones-ASES Hadamard-M note) reaches the same orders from a
-symmetric quaternary conference matrix. The cores here have Qᵀ ≠ Q as built.
+page](https://www.cs.uleth.ca/~zaitsevv/quaternary.html), which states no method; we found it stated nowhere else. With
+a skew-Hadamard core (q ≡ 5 (mod 8)) it is built from the data of Yamada's theorem
+([symmetric/YAMADA_KIYASU.md](../symmetric/YAMADA_KIYASU.md)), and Zaitsev's QH590, QH638, QH782, QH926, QH1310, QH1358,
+QH1646 and QH1886 are of that kind ([NOTES.md](../NOTES.md) §31). Miyamoto's Corollary 4 (1991, as transcribed in the
+JD-Jones-ASES Hadamard-M note) reaches the same orders from a symmetric quaternary conference matrix. The cores here
+have Qᵀ ≠ Q as built.
 
 The template reaches further orders once a core is found: the FRONTIER orders 4n for n = 955, 1291, 1879, 2083, 2215,
 2383, 2659, 2731, 2803, 2899 and 2971 (cores of order (n + 1)/2 = 478 to 1486; for n = 1879, 2215 and 2383 (q ≡ 5

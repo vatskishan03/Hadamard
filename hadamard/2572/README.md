@@ -104,11 +104,11 @@ classifier, to sampling.
   order 322. That matrix is not equivalent to a quaternary one: some of its invariants Q_ij Q_kl Q̄_il Q̄_kj lie 0.77
   from {±1, ±i}, the largest distance possible.
 - The quaternary Hadamard matrix of order 1286 settles an order that is blank in Seberry–Yamada's Table 11.2 (1992)
-  and on the unknown list of Zaitsev et al.'s page (last updated 14 October 2026, unchanged on 21 October). Its other
+  and on the unknown list of Zaitsev's page (last updated 14 October 2026, unchanged on 21 October). Its other
   routes fail: 1285 and 2571 are not prime powers (Turyn, Ito–Egan), and no Williamson or Williamson-type matrices of
   order 643 are known.
 
-**Risk.** Zaitsev et al. use the same template and do not date their matrices; their page lists 1286 as unknown.
+**Risk.** Zaitsev uses the same template and does not date the matrices; the page lists 1286 as unknown.
 Middletownbooks/Hadamard lists 643 as open (last commit 20 October, README only) and records a screen of
 Goethals–Seidel and Legendre-quadruple structures over ℤ₆₄₃ (6 October 2026) without a hit. The Seberry–Yamada book
 of 2020, the Handbook's Table 1.53 row for 643 and Miyamoto's lists of 1991 were not read; his Corollary 4 at m = 321

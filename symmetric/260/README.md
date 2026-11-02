@@ -8,9 +8,9 @@ symmetric matrices.
 A symmetric Hadamard matrix is a Hadamard matrix H with H = Hᵀ.
 
 **The input.** H. Verma's quaternary Legendre pair (A, B) of length 64 (arXiv:2609.25573, 22 September 2026,
-Table 1): sequences of fourth roots of unity on ℤ₆₄ with PAF_A + PAF_B = −2 at every nonzero shift. Two properties
-that the paper does not mention make it usable here: A is real (its digits are 0 and 2, i.e. ±1), and B is symmetric,
-B(−g) = B(g).
+Table 1): sequences of fourth roots of unity on ℤ₆₄ with PAF_A + PAF_B = −2 at every nonzero shift. Verma notes that
+A is binary (its digits are 0 and 2, i.e. ±1). The symmetry of B, B(−g) = B(g), and the propus consequence are not
+remarked there, and they make the pair usable here.
 
 **Sequences.** Write B(g) = ((1 + i) p(g) + (1 − i) q(g))/2 with p, q = ±1 (digit 0: p = q = 1; 2: p = q = −1; 1:
 p = 1, q = −1; 3: p = −1, q = 1). Since A is real, PAF_A + PAF_B = −2 becomes
@@ -47,10 +47,10 @@ is new.
 - The Đoković–Seberry census (2025-05-28) lists 65 among its 595 undecided v for symmetric matrices, as its smallest
   value. Đoković (arXiv:2101.05429v2) lists 65 first among the open v < 200, and the Handbook (2007, Table V.1.52, as
   quoted there) lists it as open.
-- The input is from 2026. Verma states only the pair; Kotsireas and Winterhof's link from quaternary Legendre pairs
-  gives quaternary and ordinary Hadamard matrices of orders 130 and 260, and no source we found notes that this pair
-  gives a symmetric one.
-- Zaitsev et al.'s quaternary matrix QH130 (page of 14 October 2026) has no anti-automorphism (nauty), so it is not
+- The input is from 2026. Verma notes that A is binary but not the symmetry of B; Kotsireas and Winterhof's link from
+  quaternary Legendre pairs gives quaternary and ordinary Hadamard matrices of orders 130 and 260, and no source we
+  found notes that this pair gives a symmetric one.
+- Zaitsev's quaternary matrix QH130 (page of 14 October 2026) has no anti-automorphism (nauty), so it is not
   equivalent to a symmetric matrix and does not give this order.
 - Lebedev (arXiv:2609.04589) reports unsuccessful searches for quaternary Legendre pairs of length 64; other
   published pairs (lengths up to 34, Jedwab–Pender's families, Lebedev's lengths 42–80) give no remaining census value

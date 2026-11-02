@@ -1,0 +1,53 @@
+p3: v=239 C=17 OA=18 OB=35 rows=(15,1,27) NS=3 W=122 threads=32 shard 0/1 canonB=0(perms 0) canonD=0 psd=(1,1,1) energy=(0,0)
+  A: pass 1: 24310 leaves, 11118 kept [0.0s]
+COUNT A 24310 11118
+  A: list of 11118 members [0.7s]
+  B: pass 1: 2333606220 leaves, 20331290 kept [15.4s]
+COUNT B 2333606220 20331290
+  B: list of 20331290 members [31.2s]
+  D: pass 1: 1855967520 leaves, 1442389124 kept [18.6s]
+COUNT D 1855967520 1442389124
+  D: list of 1442389124 members [39.9s]
+p3: lists A=11118 B=20331290 D=1442389124 [71.8s]  (D keys with 0 hash: checked in join)
+LISTS 11118 20331290 1442389124
+p3: join: 14724 sigma groups in 921 batches
+  join: 64/921 batches [1s]
+  join: 128/921 batches [2s]
+  join: 192/921 batches [4s]
+  join: 256/921 batches [7s]
+  join: 320/921 batches [12s]
+  join: 384/921 batches [18s]
+  join: 448/921 batches [25s]
+  join: 512/921 batches [30s]
+  join: 576/921 batches [38s]
+  join: 640/921 batches [44s]
+  join: 704/921 batches [49s]
+  join: 768/921 batches [52s]
+  join: 832/921 batches [54s]
+  join: 896/921 batches [55s]
+p3: done: 204206380194 pairs in 55.3s (3.7e+09 pairs/s over 32 threads)
+DONE hits=0 matches=0 badmatches=0 pairs=204206380194 join_seconds=55.27 total_seconds=127.08
+	Command being timed: "./p3 prob239_noreduce.txt -t 32 -ns 3 -ckpt work/ck239_noreduce.txt -hits work/hits239_noreduce.txt"
+	User time (seconds): 3231.69
+	System time (seconds): 18.49
+	Percent of CPU this job got: 2501%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:09.93
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 28019972
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 8068913
+	Voluntary context switches: 211
+	Involuntary context switches: 6230
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 48
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+EXIT 0

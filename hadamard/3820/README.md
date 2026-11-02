@@ -108,11 +108,11 @@ settles nothing further. None of the standard recursive constructions applies:
 - The quaternary conference matrix of order 478 is new to our knowledge. Paley-type constructions need 477 = 3² · 53
   to be a prime power. Fallon and Iverson's numerical conference signal on ℤ₄₇₇ (arXiv:2610.09169) is not equivalent
   to a quaternary matrix.
-- The quaternary Hadamard matrix of order 1910 is on the list of unknown orders of Zaitsev et al.'s page (last updated
+- The quaternary Hadamard matrix of order 1910 is on the list of unknown orders of Zaitsev's page (last updated
   14 October 2026), and no other source constructs it.
 
 **Credits.** As for [6796](../6796): the array goes back to Seberry–Whiteman and Szöllősi, and the complex
-Yamada–Kiyasu template is the form of Zaitsev et al.'s matrices QH470 to QH1526. The character set T of the border is
+Yamada–Kiyasu template is the form of Zaitsev's matrices QH470 to QH1526. The character set T of the border is
 that of Theorem 7 of Egan et al.; the character-bordered array is [TBORDERED.md](../../complex-hadamard/TBORDERED.md).
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 

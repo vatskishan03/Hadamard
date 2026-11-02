@@ -1,0 +1,4 @@
+sym343_S38: v=343 |H|=9 OA=20 OB=39 C=19 |mult|=114 |fix|=1 |Gamma_amb|=228 patterns=[(17, 19, 19), (19, 19, 17)]
+  rows (17, 19, 19) shard 0/1: lists(A,B,D) (20691, 39068598, 206610930) done {'hits': '0', 'matches': '0', 'badmatches': '0', 'pairs': '691740550512', 'join_seconds': '350.99', 'total_seconds': '3260.41'} hits 0 [3261s]
+  rows (19, 19, 17) shard 0/1: lists(A,B,D) (20691, 39068598, 213811381) done {'hits': '0', 'matches': '0', 'badmatches': '0', 'pairs': '703067645096', 'join_seconds': '365.45', 'total_seconds': '3146.37'} hits 0 [3147s]
+sym343_S38: finished; verified hits 0

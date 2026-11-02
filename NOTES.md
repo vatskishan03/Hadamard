@@ -6,8 +6,8 @@ of October 2026. Section 7 treats table entries that are wrong or unproved and t
 8–12 the complex Hadamard matrices, section 13 the Spence spin structures behind order 2292, section 14 the complex
 orders 330 and 426, section 15 the compressions that decide which row patterns live, with the complex orders 342, 366,
 430 and 454, section 16 the character-bordered array and the complex order 214, section 17 its ℤ₆ form and the complex
-order 322, section 18 Paley's matrix halves, section 19 Miyamoto's lemma with symmetric inputs, section 20 the page of
-Zaitsev et al. and section 21 the quaternion type of Paley's matrix. Sections 22–26 treat Paley's and Miyamoto's
+order 322, section 18 Paley's matrix halves, section 19 Miyamoto's lemma with symmetric inputs, section 20 Zaitsev's
+page and section 21 the quaternion type of Paley's matrix. Sections 22–26 treat Paley's and Miyamoto's
 matrices in sixteen blocks times T-matrices, section 27 the skew-Hadamard matrices of order 3(q + 1), section 28 the
 closure of the published constructions, sections 29–32 the symmetric Hadamard matrices (order 4q from Miyamoto's
 lemma, from any Hadamard matrix of order (q − 1)/2, order 4(q + 2) from any skew-Hadamard matrix of order (q + 3)/2,
@@ -18,7 +18,7 @@ and order 260), section 33 why Miyamoto's V-part admits no symmetric decoupling,
 **Status of the complex orders.** The orders 142, 154, 222, 262, 286, 310, 322, 330, 342, 370, 430, 454 and 742,
 constructed here by search, are Known: 4N − 1 is a prime power for each, and Ito's Hadamard groups with Egan 2019,
 Theorem 4.5, give them (§18). The other 12 orders constructed here, 214, 238, 302, 326, 366, 382, 426, 494, 518, 534,
-754 and 1558, are Concurrent: Zaitsev et al. have matrices of all of them (§20). 1618 and 1906 (§19) are First
+754 and 1558, are Concurrent: Zaitsev has matrices of all of them (§20). 1618 and 1906 (§19) are First
 explicit constructions. The quaternary orders 1286 and 1718 (New), 2102 and 3398 (New, beyond the tables) are in §34.
 
 ## 1. Why some structures have many solutions
@@ -802,7 +802,7 @@ blank. Of the blanks:
 
 All 76 are known, from Ito and Egan 2019 (below). That leaves 143 open N < 1000 (115 after §19 and §20). None of the
 smallest open orders (334, 358, 418, 438, 446, 478, 498, …) has 4N − 1 a prime power. The 12 orders found by search that
-do not follow (214, 238, 302, 326, 366, 382, 426, 494, 518, 534, 754 and 1558) were found concurrently by Zaitsev et al.
+do not follow (214, 238, 302, 326, 366, 382, 426, 494, 518, 534, 754 and 1558) were found concurrently by Zaitsev
 (§20).
 
 **Novelty: Known.** These orders follow from Ito's Hadamard groups. Ito showed that Paley's matrix makes the dicyclic
@@ -1002,10 +1002,10 @@ every ordered pair of seeds, every unit μ, translation and sign. Each seed is i
 of its search: orders 3, 3, 5, 15, 12, 9 and 7 for the last seven, none for 668 and 716. No seed is ±μ-related to a
 different seed, and no seed goes to its negative. So these matrices carry no complex structure of this kind.
 
-## 20. The page of Zaitsev et al.: the complex orders are concurrent
+## 20. Zaitsev's page: the complex orders are concurrent
 
-V. Zaitsev's page [Quaternary Hadamard matrices](https://www.cs.uleth.ca/~zaitsevv/quaternary.html), with Kharaghani,
-Mohammadian and Tayfeh-Rezaie, says "Last updated: 14 October 2026" (HTTP Last-Modified 15 October 2026, 02:50 UTC).
+V. Zaitsev's page [Quaternary Hadamard matrices](https://www.cs.uleth.ca/~zaitsevv/quaternary.html) says "Last updated:
+14 October 2026" (HTTP Last-Modified 15 October 2026, 02:50 UTC).
 We first read it on 15 October (fetched at 17:00 UTC). It has matrices of 122 orders 2N; we downloaded every one and
 checked it exactly (entries in {±1, ±i}, K K* = 2N I;
 [search/data/complex_zaitsev_2026.txt](search/data/complex_zaitsev_2026.txt)). It attributes 23 orders to Szöllősi's
@@ -1396,15 +1396,17 @@ element to SL(2, q) has order 2s), and the construction runs over ℤ₃ × N_s 
 
 - **Reach.** 59 census values v < 2500 have v = 3(q + 1)/4 with q ≡ 3 (mod 8) a prime power. Seven were already in this
   repository (261, 285, 429, 465, 513, 663, 2475); the other 52 are certified, from 996 = 4 · 249 to 9996 = 4 · 2499.
-  879 is one of the census values that Seberry–Yamada's Table 7.1 and Cati–Pasechnik's Table 5 record as known (like
-  663, [skew/2652](skew/2652)), so 3516 is a first explicit construction. For q ≡ 7 (mod 8) the orders are 8v or 16v,
-  and six of them lie below the smallest power of two in Table 5: 1800 (225(4)), 4344 (543(4)), 4632 (579(5)), 7272
-  (909(4)), 7656 (957(4)) and 14352 = 16 · 897 (897(5)). Five more such values (345, 369, 513, 693, 765) are already
-  settled at 4v. Table 5 misses Wallis–Whiteman's 4(q + 1) for q = 1913 ≡ 9 (mod 16), so 7656 is Known, and the family
-  (|t| + 1)(q + 1) for 765 (8 · 765 with q = 509). 14352 equals Đoković's skew 276 times our amicable pair of order 52.
-  The pairing is in print: Yamada (1991), restated as Theorem 1 of Seberry–Yamada (JCMCC 13, 1993), puts Paley's matrix
-  (q ≡ 3 mod 8) in a sixteen-block form with A skew and B₁ = −B₀ᵀ. The new orders are therefore New, but obtainable
-  classically: every ingredient was published, and we found the combination nowhere.
+  879 is one of the census values for which Cati–Pasechnik's Table 5 has no entry, which by its convention records the
+  order as known (like 663, [skew/2652](skew/2652)), so 3516 is a first explicit construction. For q ≡ 7 (mod 8) the
+  orders are 8v or 16v, and six of them lie below the smallest power of two in Table 5: 1800 (225(4)), 4344 (543(4)),
+  4632 (579(5)), 7272 (909(4)), 7656 (957(4)) and 14352 = 16 · 897 (897(5)). Five more such values (345, 369, 513, 693,
+  765) are already settled at 4v. Table 5 misses Wallis–Whiteman's 4(q + 1) for q = 1913 ≡ 9 (mod 16), so 7656 is Known,
+  and the family (|t| + 1)(q + 1) for 765 (8 · 765 with q = 509). 14352 equals Đoković's skew 276 times our amicable
+  pair of order 52. For q ≡ 3 (mod 8) the pairing is in print: Yamada (1991), restated as Theorem 1 of Seberry–Yamada
+  (JCMCC 13, 1993), puts Paley's matrix in a sixteen-block form with A skew and B₁ = −B₀ᵀ; for q ≡ 7 (mod 8) the
+  negacyclic analogue is derived here (a short computation, [skew/PALEY_SKEW.md](skew/PALEY_SKEW.md), Construction, step
+  3). The new orders are labelled New, but obtainable classically: every ingredient except that negacyclic pairing was
+  published, and we found the combination nowhere.
 - **Checks.** `verify.py` rebuilds all 58 matrices from Paley's matrix and checks H Hᵀ = nI and H + Hᵀ = 2I densely
   (the paley-blocks builder gained optional shifts, a column order and negacyclic blocks; the 45 earlier paley-blocks
   certificates up to order 17000 and 25132 rebuild with unchanged SHA-256). `search/skew_3q.py` builds the family from
@@ -1520,9 +1522,11 @@ odd v ≤ 2499. Its theorems:
   The amicable pairs are first explicit rather than new objects: Abuzin, Balonin, Đoković and Kotsireas (Inform. Control
   Syst. 2019, no. 5, 2–9, Table 1) publish skew-propus difference families of lengths 13, 19, 25 and 31 (those of 19, 25
   and 31 equivalent to ours), and Đoković's Balonin array (arXiv:2508.17141) turns each into a symmetric orthogonal
-  design of type (1, n − 1); only the step to the amicable pair (I + PN, P + N) is not in print. The four orders above
-  and skew 5700 and 9900 are therefore labelled New, but obtainable classically, and so is symmetric 5700. Their Table 3
-  reports length 37 only with the fourth block neither symmetric nor skew.
+  design of type (1, n − 1), and the step to the amicable pair (I + PN, P + N) is Robinson and Seberry's (J. Austral.
+  Math. Soc. Ser. A 25 (1978) 118–128, Theorems 8 and 9; see also Seberry, Australas. J. Combin. 55 (2013), strong
+  amicable orthogonal designs). The four orders above and skew 5700 and 9900 are therefore labelled New, but obtainable
+  classically, and so is symmetric 5700. Their Table 3 reports length 37 only with the fourth block neither symmetric
+  nor skew.
 
   Every split into a skew order and a classical amicable order fails for these orders. For instance, 9424 = h m with m
   = 2 or 4 needs the open skew orders 4712 or 2356, and every larger classical amicable divisor (8, 16, 152, 248, 304,
@@ -1693,8 +1697,8 @@ anti-automorphism of the skew matrix is used, which is what §29 needed.
   292, 532 (5), our skew matrices of orders 820, 836, 1036, 1148 (4), and our skew matrix of order 476, doubled (1,
   [symmetric/7612](symmetric/7612)). The other six, v = 1711, 1879, 2215, 2359, 2383 and 2391, need the undecided skew
   orders 4w, w = 107, 235, 277, 295, 149 and 299 (or twice them).
-- **Zaitsev et al.** The quaternary matrices QH590, QH638, QH782, QH926, QH1310, QH1358, QH1646 and QH1886 of Zaitsev,
-  Kharaghani, Mohammadian and Tayfeh-Rezaie (page of 14 October 2026, "unpublished approaches") are of this kind; for
+- **Zaitsev.** The quaternary matrices QH590, QH638, QH782, QH926, QH1310, QH1358, QH1646 and QH1886 of Zaitsev (page of
+  14 October 2026, "unpublished approaches") are of this kind; for
   each, a monomial matrix found with nauty makes it symmetric (checked: same rows, columns up to units, symmetric,
   Hadamard), so they too give symmetric matrices of orders 1180, 1276, 1564, 1852, 2620, 2716, 3292 and 3772. The page
   does not mention symmetry; we label those eight orders Concurrent.
@@ -1715,7 +1719,7 @@ anti-automorphism of the skew matrix is used, which is what §29 needed.
   circulants M, N, the matrices X′ = ωA + ω̄B and Y′ = J₂ ⊗ Z + P ⊗ I (A = P ⊗ M + J₂ ⊗ I, B = P ⊗ N, ω = (1 + i)/2)
   with a border give a quaternary Hadamard matrix K = [[X, Y], [Y*, −X*]] of order 2(q + 2); the statement and proof
   are in [complex-hadamard/CONFERENCE.md](complex-hadamard/CONFERENCE.md) (checked exactly for 17 prime powers q and
-  non-real Ĉ of orders 14 to 286). It is not ours: Zaitsev et al.'s QH470, QH566, QH806, QH1142 and QH1526 (q = 233,
+  non-real Ĉ of orders 14 to 286). It is not ours: Zaitsev's QH470, QH566, QH806, QH1142 and QH1526 (q = 233,
   281, 401, 569, 761) have exactly this form, with non-real cores of orders 118, 142, 202, 286 and 382 (no real
   conference matrix exists at 142, 202, 286 or 382), although the page states no method. It gives the quaternary
   orders 1286, 1718, 2102 and 3398 (§34). It would give the open complex orders 1046, 1190, 1910 and 1958 and the
@@ -1729,11 +1733,11 @@ anti-automorphism of the skew matrix is used, which is what §29 needed.
 
 **A symmetric Hadamard matrix of order 260 = 4 · 65**, the smallest undecided value of the symmetric census
 ([symmetric/260](symmetric/260)). Verma's quaternary Legendre pair (A, B) of length 64 (arXiv:2609.25573, September
-2026) has A real and B symmetric, which the paper does not note. Writing B = ((1 + i)p + (1 − i)q)/2 with p, q = ±1,
-PAF_A + PAF_B = −2 becomes PAF_p + 2 PAF_A + PAF_q = −4 with p, q symmetric: a bordered propus quadruple (p, A, A, q)
-over ℤ₆₄ (search/NOTES.md §27), and the bordered propus array gives the matrix (`search/sym_qlp.py`). The quadruple
-has no multiplier symmetry, which is why the multiplier-invariant searches of search/NOTES.md §27–28 (every structure
-up to 25–30 orbits on the groups of order 64) found nothing.
+2026) has A real and B symmetric; the paper notes that A is binary, but not the symmetry of B or its propus consequence.
+Writing B = ((1 + i)p + (1 − i)q)/2 with p, q = ±1, PAF_A + PAF_B = −2 becomes PAF_p + 2 PAF_A + PAF_q = −4 with p, q
+symmetric: a bordered propus quadruple (p, A, A, q) over ℤ₆₄ (search/NOTES.md §27), and the bordered propus array gives
+the matrix (`search/sym_qlp.py`). The quadruple has no multiplier symmetry, which is why the multiplier-invariant
+searches of search/NOTES.md §27–28 (every structure up to 25–30 orbits on the groups of order 64) found nothing.
 
 - **General principle.** A quaternary (or complex) complementary pair (x, y) on a group G with x symmetric and y
   real gives, through the Turyn-type array and the monomial diag(I, −I), a symmetric quaternary Hadamard matrix and
@@ -1745,7 +1749,7 @@ up to 25–30 orbits on the groups of order 64) found nothing.
 - **Other published pairs.** Lengths up to 34 (Kotsireas–Winterhof, Kotsireas–Koutschan–Winterhof), Jedwab–Pender's
   families (lengths (q − 1)/2 and 2p) and Lebedev's lengths 42–80 (arXiv:2609.04589) give v ≤ 81 or v covered by
   Paley's series, none of the remaining census values.
-- **Label.** New: the input is from 2026, and no source we found notes the symmetric matrix. Zaitsev et al.'s QH130
+- **Label.** New: the input is from 2026, and no source we found notes the symmetric matrix. Zaitsev's QH130
   has no anti-automorphism, so it does not give it.
 
 ## 33. Miyamoto's V-part cannot be decoupled symmetrically

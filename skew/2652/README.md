@@ -60,23 +60,21 @@ arXiv:0903.5053, Table 1); only the amicable pair of order 52 is new.
 
 ## Status
 
-**First explicit construction.** The Đoković–Seberry census lists 663 as undecided for skew matrices, but two older
-tables imply that a skew-Hadamard matrix of order 4 · 663 = 2652 is known, and we found no construction behind either
-entry. We know of no earlier skew-Hadamard matrix of order 2652, so this is the weakest of our skew novelty claims.
+**First explicit construction.** The Đoković–Seberry census lists 663 as undecided for skew matrices, but
+Cati–Pasechnik's Table 5 has no entry for it, which by the convention of that table records that a skew-Hadamard
+matrix of order 4 · 663 = 2652 is known, and we found no construction behind the omission. We know of no earlier
+skew-Hadamard matrix of order 2652, so this is the weakest of our skew novelty claims.
 The pair of order 52 is, to our knowledge, the first explicit amicable pair of that order; skew-propus families of
 length 13, from which it follows in one step, were published in 2019 (see below). A symmetric Hadamard matrix of order
 2652 is known: 663 is not undecided in the symmetric list of the census.
 
 - The census lists 663 among its 737 undecided skew values ("… 659, 661, 663, 667, 669, …").
-- Seberry–Yamada, "Hadamard matrices, sequences, and block designs" (Contemporary Design Theory, Wiley 1992),
-  Table 7.1 (p. 500), leaves the t of q = 663 blank, and "a blank represents 2" (p. 498). The same table also leaves
-  783 and 879 blank, which the census lists as undecided too.
 - Cati–Pasechnik Table 5 ("Pairs n(m) where m is minimal, s.t. a skew Hadamard matrix of order 2^m n is known,
   n ≤ 999. The case m = 2 is not shown") has no entry for 663 (the row reads "655(4) 657(4) 659(…) 661(9) 667(6)
   669(3)"). It also omits 451, 783, 879 and 921, all undecided in the census. Its footnote lists the entries of
   Seberry–Yamada's book (2020, Table 9.2) with m > 2 that it dropped; 663 is not among them, which suggests (not
   checked) that the book has 663 at m = 2 as well.
-- We found no construction behind these entries. Every classical family fails for 2652 by arithmetic:
+- We found no construction behind that omission. Every classical family fails for 2652 by arithmetic:
   - Paley: 2651 = 11 · 241.
   - 2(q + 1): q = 1325 = 5² · 53.
   - 4(q + 1), q ≡ 9 (mod 16): q = 662.
@@ -87,15 +85,20 @@ length 13, from which it follows in one step, were published in 2019 (see below)
   - Seberry's theorem itself needs amicable matrices of order 52, which her tables (1978, 1991, 1992) do not have
     (t = 3 for q = 13), or an OD(884; 1, 221, 662) for n = 4, for which we found no source.
 - SageMath's source (development version of 2026-10-11) gives `Unknown`.
-- The census is the most recent of the three sources and Seberry co-wrote both it and the 1992 table, so we read the
-  two table entries as errors, but we could not confirm that.
+- Neither Cati–Pasechnik nor the census gives a construction, and the census lists 663 as undecided. We read the
+  omission as a transcription gap, as for 451 ([skew/1804](../1804#status)), but could not confirm that. We did not
+  verify what Seberry–Yamada's Table 7.1 (1992) has at 663.
+- The 3(q + 1) theorem of [PALEY_SKEW.md](../PALEY_SKEW.md) with q = 883 also gives a skew-Hadamard matrix of order
+  2652; it is a separate matrix, from the sixteen-block form of Paley's matrix.
 - The skew tables of Seberry, Ars Combin. 6 (1978) and of Seberry–Yamada, Utilitas Math. 40 (1991) stop at q = 499.
   No source we searched mentions a skew-Hadamard matrix of order 2652 or amicable Hadamard matrices of order 52.
 - Abuzin, Balonin, Đoković and Kotsireas (Inform. Control Syst. 2019, no. 5, 2–9, Table 1;
   doi:10.31799/1684-8853-2019-5-2-9) publish skew-propus difference families of length 13, (13; 6, 6, 6, 3; 8) and (13;
   6, 4, 4, 6; 7); ours has the parameters of the second (equivalence not checked). Đoković's Balonin array
-  (arXiv:2508.17141, proof of Theorem 1) and the elementary step (I + PN, P + N), which we found nowhere in print, turn
-  either into an amicable pair of order 52, so this order was within reach of published ingredients.
+  (arXiv:2508.17141, proof of Theorem 1) and the step (I + PN, P + N) of Robinson and Seberry (J. Austral. Math. Soc.
+  Ser. A 25 (1978) 118–128, Theorems 8 and 9; see also Seberry, Australas. J. Combin. 55 (2013), strong amicable
+  orthogonal designs) turn either into an amicable pair of order 52, so this order was within reach of published
+  ingredients.
 - The Handbook of Combinatorial Designs and Koukouvinos–Stylianou (Discrete Math. 308 (2008); abstract only) were not
   checked.
 

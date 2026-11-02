@@ -139,6 +139,6 @@ Kharaghani, Mohammadian and Tayfeh-Rezaie (arXiv:2605.08661) do not cite Egan, a
 order, 118, from that table.
 
 The 12 orders constructed here by search with 4N − 1 not a prime power (214, 238, 302, 326, 366, 382, 426, 494, 518,
-534, 754 and 1558) are Concurrent: Zaitsev et al. have matrices of all of them ([README.md](README.md#status)). 334 is
-the smallest open order. Their page also has the 62 halves of Paley's matrix of orders up to 1966, attributed to "a
+534, 754 and 1558) are Concurrent: Zaitsev has matrices of all of them ([README.md](README.md#status)). 334 is
+the smallest open order. The page also has the 62 halves of Paley's matrix of orders up to 1966, attributed to "a
 construction utilizing Paley-type matrices".

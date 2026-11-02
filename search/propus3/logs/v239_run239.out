@@ -1,0 +1,57 @@
+threads=32 ns=3 shard=0/1 
+p3: v=239 C=17 OA=18 OB=35 rows=(15,1,27) NS=3 W=122 threads=32 shard 0/1 canonB=1(perms 33) canonD=1 psd=(1,1,1) energy=(0,0)
+  A: pass 1: 24310 leaves, 11118 kept [0.0s]
+COUNT A 24310 11118
+  A: list of 11118 members [0.7s]
+  B: pass 1: 2333606220 leaves, 597980 kept [12.9s]
+COUNT B 2333606220 597980
+  B: list of 597980 members [25.9s]
+  D: pass 1: 1855967520 leaves, 721194562 kept [14.8s]
+COUNT D 1855967520 721194562
+  D: list of 721194562 members [30.9s]
+p3: lists A=11118 B=597980 D=721194562 [57.6s]  (D keys with 0 hash: checked in join)
+LISTS 11118 597980 721194562
+p3: join: 14724 sigma groups in 921 batches
+  join: 64/921 batches [0s]
+  join: 128/921 batches [0s]
+  join: 192/921 batches [0s]
+  join: 256/921 batches [0s]
+  join: 320/921 batches [0s]
+  join: 384/921 batches [1s]
+  join: 448/921 batches [1s]
+  join: 512/921 batches [1s]
+  join: 576/921 batches [1s]
+  join: 640/921 batches [2s]
+  join: 704/921 batches [2s]
+  join: 768/921 batches [2s]
+  join: 832/921 batches [2s]
+  join: 896/921 batches [2s]
+p3: done: 6014289982 pairs in 2.1s (2.88e+09 pairs/s over 32 threads)
+DONE hits=0 matches=0 badmatches=0 pairs=6014289982 join_seconds=2.09 total_seconds=59.65
+finished. Hits (orbit masks, one line per Gamma-orbit representative) are in work/hits239_0_1.txt
+If it is non-empty:  python3 p3cert.py --v 239 --gens 10 --hits work/hits239_0_1.txt --out work/cert --matrix
+                     python3 /path/to/Hadamard/verify/verify.py $PWD/work/cert/symmetric/956
+	Command being timed: "env THREADS=32 NS=3 sh run239.sh"
+	User time (seconds): 1261.63
+	System time (seconds): 9.53
+	Percent of CPU this job got: 2081%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:01.07
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 14122056
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 4177793
+	Voluntary context switches: 306
+	Involuntary context switches: 2596
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 40
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+EXIT 0

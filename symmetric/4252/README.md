@@ -10,8 +10,8 @@ for any skew input, and Turyn's map to a real matrix.
 
 - **The skew input.** A skew Goethals–Seidel matrix of order 532 over ℤ₁₃₃ found by `search/skew_exhaustive.py 133 9`
   (blocks invariant under a multiplier subgroup of order 9; skew-Hadamard matrices of order 532 are classical, e.g.
-  Đoković's supplementary difference sets of 1992). Normalised to first row all +1, its core S of order 531 has
-  Sᵀ = −S, Se = 0 and S² = J − 531I.
+  Đoković, Publ. Elektrotehn. Fak. Univ. Beograd Ser. Mat. 3 (1992) 47–59). Normalised to first row all +1, its core S
+  of order 531 has Sᵀ = −S, Se = 0 and S² = J − 531I.
 - **Yamada's circulants.** M and N of order 531, with first rows β and α of Yamada's Lemma 3 over
   GF(1061²) = GF(1061)[w]/(w² − 2) and ξ = 2 + w primitive: symmetric, M of zero diagonal,
   M² + N² = 1061I.

@@ -17,10 +17,12 @@ order 876 ([876](876)).
 H₂ = [[1, 1], [1, −1]]. Paley I is the symmetric member P + N of Paley's amicable pair of order q′ + 1 (q′ ≡ 3 mod 4),
 Paley II is Paley's symmetric matrix of order 2(q′ + 1) (q′ ≡ 1 mod 4). The propus matrices are those of Di Matteo,
 Đoković and Kotsireas (order 116 = 4 · 29, Spec. Matrices 3 (2015), arXiv:1503.04226v2, §4, the first of fifteen
-SDSs), Đoković (236 = 4 · 59, arXiv:2101.05429v2, §4, the first PDF for v = 59; the census credits v = 59 to Abuzin,
-Balonin, Đoković and Kotsireas, 2019) and Balonin and Đoković (604 = 4 · 151, Inf. Control Syst. 2018 no. 4,
-arXiv:1803.08787, Table 1); the certificates list their blocks, transcribed from the LaTeX sources, and `verify.py`
-rebuilds them in the propus array of [532](532) and checks them.
+SDSs), Abuzin, Balonin, Đoković and Kotsireas (236 = 4 · 59, *Hadamard matrices from Goethals–Seidel difference
+families with a repeated block*, Inform. Upravl. Sist. 2019, no. 5, 2–9; the census credits v = 59 to them; the blocks
+are transcribed from the first PDF for v = 59 in §4 of Đoković, *Some new symmetric Hadamard matrices*,
+arXiv:2101.05429v2) and Balonin and Đoković (604 = 4 · 151, Inf. Control Syst. 2018 no. 4, arXiv:1803.08787, Table 1);
+the certificates list their blocks, transcribed from the LaTeX sources, and `verify.py` rebuilds them in the propus
+array of [532](532) and checks them.
 
 | Order | q | (q − 1)/2 | M | Status |
 |------:|---:|---:|---|---|
@@ -62,7 +64,7 @@ rebuilds them in the propus array of [532](532) and checks them.
 | [7108](7108) | 1777 | 888 | Paley I, order 888 (q′ = 887) | New, but obtainable classically |
 | [7204](7204) | 1801 | 900 | Paley II, order 900 (q′ = 449) | New, but obtainable classically |
 | [7492](7492) | 1873 | 936 | H₂ ⊗ Paley I, order 468 (q′ = 467) | New, but obtainable classically |
-| [7556](7556) | 1889 | 944 | H₂^⊗2 ⊗ propus, order 236 (Đoković) | New, but obtainable classically |
+| [7556](7556) | 1889 | 944 | H₂^⊗2 ⊗ propus, order 236 (Abuzin–Balonin–Đoković–Kotsireas) | New, but obtainable classically |
 | [8068](8068) | 2017 | 1008 | H₂ ⊗ Paley I, order 504 (q′ = 503) | New, but obtainable classically |
 | [8324](8324) | 2081 | 1040 | Paley I, order 1040 (q′ = 1039) | New, but obtainable classically |
 | [8452](8452) | 2113 | 1056 | H₂^⊗2 ⊗ Paley I, order 264 (q′ = 263) | New, but obtainable classically |
@@ -148,7 +150,8 @@ are not prime powers, and 16 · 133 + 1 = 2129 already has a Paley input.
   q ≡ 1 (mod 4), a conference matrix of order q + 1 and a symmetric Hadamard matrix of order q − 1 exist. Such a
   matrix gives the symmetric Hadamard matrix [[X, −Y], [−Y, −X]], so the claim covers all 48 orders (with H₂ ⊗ M of
   order q − 1). The census says the claim is ignored in Miyamoto's proof and that his displayed blocks are not
-  symmetric, and lists the orders as undecided. We could not read Miyamoto's paper. For q ≡ 1 (mod 8) and an input
+  symmetric, and lists the orders as undecided. Seberry and Yamada restate the claim without proof (JCMCC 7 (1990),
+  Corollary 35; the 1992 survey, Corollary 8.11). We could not read Miyamoto's paper. For q ≡ 1 (mod 8) and an input
   H₂ ⊗ M, the theorem here proves the claim in symmetric form.
 - **Earlier lists.** The census lists all 48 values as undecided, and so do the lists before it that reach them:
   Handbook Table V.1.52 (2007, as quoted by Đoković, arXiv:2101.05429), Balonin–Đoković (arXiv:1803.08787) and
@@ -156,6 +159,12 @@ are not prime powers, and 16 · 133 + 1 = 2129 already has a Paley input.
   census's Seberry–Balonin series is v = q + 2 with (q + 1)/2 a prime power or the order of the core of a symmetric
   conference matrix (their Corollary 1, which prints the order as 4(2q + 1) with q in place of (q + 1)/2); it is ≡ 3
   (mod 4), disjoint from the values here.
+- **Listings of v = 89 without a matrix.** The value v = 89 (order 356) appears without a matrix in the list of orders
+  on p. 352 of Seberry–Balonin (Australas. J. Combin. 69 (2017)), which Balonin–Đoković (arXiv:1803.08787, Section 1)
+  removes again, and in Balonin's online catalogue ("356 Common Propus"). The table of orders of known symmetric
+  Hadamard matrices in Seberry–Yamada (2020), Table 9.4, has entries at 89 and 233 whose basis we could not establish.
+  We found no matrix in these sources. Đoković (arXiv:2101.05429, 2301.02751) lists v = 89 as open, and the census lists
+  v = 89 and v = 233 as undecided.
 - **The Williamson-type matrices were classical.** The proof of Seberry and Yamada's Corollary 29 prints "V3 = V4 = H"
   (1990, p. 120; Corollary 16(ii) of the Kobe version of 1989), and their Remark 30 (Remark 17 in the Kobe version)
   lists every q ≤ 1873 of the table among the orders of symmetric Williamson-type matrices that it gives, and 233,
@@ -164,7 +173,8 @@ are not prime powers, and 16 · 133 + 1 = 2129 already has a Paley input.
   Seberry and Balonin's propus paper applies its Theorem 3 only to the inputs of their Corollary 1.
 - **Not read.** Seberry and Yamada's book (Wiley, 2020) indexes "symmetric propus-type" on p. 154, in its section on
   Miyamoto's theorem (§6.5, pp. 151–158), and symmetric Hadamard matrices on pp. 211–214; we could not read those
-  pages. The census of 2025, co-authored by Seberry and citing the book, lists all 48 values as undecided.
+  pages, and the entries of Table 9.4 quoted above are as they appear in a text copy that we did not check against the
+  printed pages. The census of 2025, co-authored by Seberry and citing the book, lists all 48 values as undecided.
 - Ordinary Hadamard matrices of all these orders are classical (Miyamoto's theorem). Doubling gives symmetric matrices
   of orders 8q, 16q, ….
 

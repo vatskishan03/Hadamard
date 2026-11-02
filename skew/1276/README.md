@@ -37,7 +37,7 @@ is then a Hadamard matrix of order 1276. Because A + Aᵀ = 2I, it satisfies H +
    GF(29) as the classes of index e = 4 (class size F = 7) and trivially on ℤ₁₁. A block is given at each position
    a ∈ ℤ₁₁ by its value f(a) at (a, 0) and its values on the four classes (a, C_j): 55 H-orbits per block.
 2. **Stage 1: the compressions to ℤ₁₁.** The compression is y(a) = f(a) + 7 s(a), and Σ_k Σ_a y_k(a)² = 4 · 319
-   becomes Σ over the 44 positions of (7 s² + 2 f s) = 160. Stage 1 is sampled by `cp_lowe.stage1_sample` (seed 1);
+   becomes Σ over the 44 positions of (7 s² + 2 f s) = 176. Stage 1 is sampled by `cp_lowe.stage1_sample` (seed 1);
    its first quadruple is y = (1, −1, −1, 1, −1, −1, 1, 1, −1, 1, 1), (−1, −1, −1, 1, 1, 29, −1, −1, −1, 1, −1),
    (1, 1, 1, 1, −1, 1, 1, 1, 13, 1, −1), (1, 1, 1, 1, 1, −1, 15, −1, −1, 1, −1).
 3. **Lists.** The blocks of this class have 31,104 (skew block), 60,466,176, 241,864,704 and 241,864,704 members.

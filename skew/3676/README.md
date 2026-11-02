@@ -72,6 +72,7 @@ explicit witness.
 
 - Schumer's witness has the same spin structure: H = ⟨703⟩ of order 17, μ = 866 of order 3, the first block skew, and
   row sums (1, 35, 35, 35).
+- Cati–Pasechnik Table 5 gives 919(3): the smallest skew-Hadamard order known with odd part 919 was 8 · 919 = 7352.
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md).
 

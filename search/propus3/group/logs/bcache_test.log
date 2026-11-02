@@ -1,0 +1,5 @@
+25 [(0, 1)] (1, 7, 1) plain 110 sharded+Bcache 110 OK B file 110 masks
+27 [(0, 1)] (9, 1, 5) plain 162 sharded+Bcache 162 OK B file 36 masks
+49 [(2, 1)] (13, 1, 5) plain 21 sharded+Bcache 21 OK B file 30 masks
+25 [(8, 0)] (1, 7, 1) plain 9 sharded+Bcache 9 OK B file 4 masks
+ALL OK

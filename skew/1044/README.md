@@ -61,8 +61,12 @@ is then a Hadamard matrix of order 1044. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Status
 
-**New** as a skew-Hadamard matrix. An ordinary (and a symmetric) Hadamard matrix of order 1044 is classical (Paley II
-with q = 521); the skew property is what is new.
+**New, but obtainable classically** as a skew-Hadamard matrix. The 3(q + 1) theorem of
+[PALEY_SKEW.md](../PALEY_SKEW.md) with q = 347 also gives a skew-Hadamard matrix of order 3 · 348 = 1044 from published
+ingredients (Yamada's block form of Paley's matrix and Seberry and Yamada's multiplication by T-matrices). The
+Goethals–Seidel matrix of this directory, found by search, is a separate matrix and does not come from that
+construction. An ordinary (and a symmetric) Hadamard matrix of order 1044 is classical (Paley II with q = 521); the
+skew property is what is new.
 
 - The Đoković–Seberry census lists 261 among its 737 undecided v. 261 is in none of its Paley, Szekeres,
   Szekeres–Whiteman or Spence series, nor among its 41 sporadic values.
@@ -76,7 +80,7 @@ with q = 521); the skew property is what is new.
 - SageMath lists 1044 in `unknown_skew_hadamard`, and no branch of `skew_hadamard_matrix` applies.
 - Piza's deposit lists "1044 = 2(521 + 1)", which is Paley II. Zenodo metadata and GitHub code searches found only
   copies of Sage's file, where 1044 is listed as unknown.
-- No classical construction gives skew 1044:
+- No construction published before this repository gives skew 1044:
   - Paley I: 1043 = 7 · 149. Szekeres 2(q + 1), Spence's G-matrices and Momihara–Xiang need q = 521 ≡ 5 (mod 8), but
     521 ≡ 1 (mod 8).
   - Wallis–Whiteman 4(q + 1) needs q = 260; q = 521 ≡ 9 (mod 16) gives 2088.

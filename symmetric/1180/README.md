@@ -10,7 +10,7 @@ for any skew input, and Turyn's map to a real matrix.
 
 - **The skew input.** A skew Goethals–Seidel matrix of order 148 over ℤ₃₇ found by `search/skew_exhaustive.py 37 10`
   (blocks invariant under a multiplier subgroup of order 3; skew-Hadamard matrices of order 148 are classical, e.g.
-  Đoković's supplementary difference sets of 1992). Normalised to first row all +1, its core S of order 147 has
+  Đoković, J. Combin. Theory Ser. A 61 (1992) 319–321). Normalised to first row all +1, its core S of order 147 has
   Sᵀ = −S, Se = 0 and S² = J − 147I.
 - **Yamada's circulants.** M and N of order 147, with first rows β and α of Yamada's Lemma 3 over
   GF(293²) = GF(293)[w]/(w² − 2) and ξ = 3 + w primitive: symmetric, M of zero diagonal,
@@ -35,8 +35,8 @@ The skew input comes from `search/skew_exhaustive.py 37 10` (see Construction); 
 
 ## Status
 
-**Concurrent** as a symmetric Hadamard matrix; we claim no priority for the order. Zaitsev, Kharaghani, Mohammadian
-and Tayfeh-Rezaie's page of quaternary Hadamard matrices (last updated 14 October 2026, unchanged on 22 October) lists
+**Concurrent** as a symmetric Hadamard matrix; we claim no priority for the order. Zaitsev's page of quaternary
+Hadamard matrices (last updated 14 October 2026, unchanged on 22 October) lists
 QH590 under "unpublished approaches". It is a quaternary Yamada–Kiyasu matrix of order 590, a monomial matrix takes it
 to a symmetric one (found with nauty and checked exactly: same rows, columns up to units, symmetric, Hadamard; the
 programs for this check are not included in this repository), and Turyn's map then gives a symmetric Hadamard matrix

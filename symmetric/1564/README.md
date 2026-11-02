@@ -10,8 +10,8 @@ for any skew input, and Turyn's map to a real matrix.
 
 - **The skew input.** A skew Goethals–Seidel matrix of order 196 over ℤ₄₉ found by `search/skew_exhaustive.py 49 18`
   (blocks invariant under a multiplier subgroup of order 3; skew-Hadamard matrices of order 196 are classical, e.g.
-  Đoković's supplementary difference sets of 1992). Normalised to first row all +1, its core S of order 195 has
-  Sᵀ = −S, Se = 0 and S² = J − 195I.
+  Đoković, Publ. Elektrotehn. Fak. Univ. Beograd Ser. Mat. 3 (1992) 47–59). Normalised to first row all +1, its core S
+  of order 195 has Sᵀ = −S, Se = 0 and S² = J − 195I.
 - **Yamada's circulants.** M and N of order 195, with first rows β and α of Yamada's Lemma 3 over
   GF(389²) = GF(389)[w]/(w² − 2) and ξ = 6 + w primitive: symmetric, M of zero diagonal,
   M² + N² = 389I.
@@ -35,8 +35,8 @@ input.
 
 ## Status
 
-**Concurrent** as a symmetric Hadamard matrix; we claim no priority for the order. Zaitsev, Kharaghani, Mohammadian
-and Tayfeh-Rezaie's page of quaternary Hadamard matrices (last updated 14 October 2026, unchanged on 22 October) lists
+**Concurrent** as a symmetric Hadamard matrix; we claim no priority for the order. Zaitsev's page of quaternary
+Hadamard matrices (last updated 14 October 2026, unchanged on 22 October) lists
 QH782 under "unpublished approaches". It is a quaternary Yamada–Kiyasu matrix of order 782, a monomial matrix takes it
 to a symmetric one (found with nauty and checked exactly: same rows, columns up to units, symmetric, Hadamard; the
 programs for this check are not included in this repository), and Turyn's map then gives a symmetric Hadamard matrix

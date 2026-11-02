@@ -43,6 +43,15 @@ We also read the older tables these replace: Seberry–Yamada (1992), Tables 7.1
 Koukouvinos–Stylianou, Discrete Math. 308 (2008), Tables 1 and 3. A README says so where one of these was not read.
 The Handbook tables were read from a copy available online and not checked against the printed edition.
 
+Table 5 of Cati–Pasechnik has no entry for the skew values v = 451, 663, 783, 879 and 921, which by the convention of
+that table ("The case m = 2 is not shown") records skew-Hadamard matrices of orders 4v as known. The census lists all
+five as undecided, and neither source gives a construction for them. We read the omissions as transcription gaps.
+Skew order 1804 (v = 451) is labelled New ([skew/1804](skew/1804#status)); 2652 (v = 663) and 3516 (v = 879), which this
+repository constructs, are labelled First explicit construction ([skew/2652](skew/2652#status),
+[skew/3516](skew/3516#status)); 783 and 921 are counted as undecided. Read literally, the omissions would make 1804 a
+First explicit construction as well and would reduce the number of undecided skew values from 633 to 631
+([README.md](README.md)).
+
 ## Sources searched
 
 The searches were made between 12 October and 2 November 2026; each section below gives its own dates.
@@ -51,8 +60,13 @@ The searches were made between 12 October and 2 November 2026; each section belo
 
 - Đoković's updates of the Hadamard tables (arXiv:0912.5091, arXiv:1008.2043), Đoković–Golubitsky–Kotsireas
   (arXiv:1301.3671), and the papers of Đoković and coauthors on skew and symmetric matrices, among them
-  arXiv:1511.08734, arXiv:2404.14375, arXiv:2508.17141, Đoković–Kotsireas, Math. Comput. Sci. 12 (2018) 373–388, and
-  Abuzin–Balonin–Đoković–Kotsireas, Inform. Control Syst. 2019, no. 5, 2–9 (Table 1, skew-propus families).
+  Đoković–Kotsireas, *A class of cyclic (v; k₁, k₂, k₃; λ) difference families with v ≡ 3 (mod 4) a prime*, Spec.
+  Matrices 4 (2016) 317–325 (arXiv:1511.08734), Đoković, *Some new symmetric Hadamard matrices*, Inform. Upravl. Sist.
+  2022, no. 2 (arXiv:2101.05429; orders 4 · 127 and 4 · 191), arXiv:2404.14375, arXiv:2508.17141, Đoković–Kotsireas,
+  *Goethals–Seidel difference families with symmetric or skew base blocks*, Math. Comput. Sci. 12 (2018) 373–388
+  (arXiv:1802.00556), and Abuzin–Balonin–Đoković–Kotsireas, *Hadamard matrices from Goethals–Seidel difference families
+  with a repeated block*, Inform. Upravl. Sist. 2019, no. 5, 2–9 (the first symmetric Hadamard matrices of order 236;
+  Table 1, skew-propus families).
 - SageMath, development version of October 2026: `hadamard_matrix(n, existence=True)`,
   `skew_hadamard_matrix(n, existence=True)` and the list `unknown_skew_hadamard`.
 - The constructions published in 2026: Alpöge, Voinov and Reynolds-Haertle (2026-08-12); Schneider (2026-08-23); the
@@ -72,8 +86,8 @@ The searches were made between 12 October and 2 November 2026; each section belo
 
 **Complex orders.** Ito's papers on Hadamard groups (1994–2000); B. Schmidt, Des. Codes Cryptogr. 17 (1999) 61–68;
 R. Egan, Des. Codes Cryptogr. 87 (2019) 67–74, Theorem 4.5, which gives every order 2N with 4N − 1 a prime power;
-V. Zaitsev's page Quaternary Hadamard matrices (https://www.cs.uleth.ca/~zaitsevv/quaternary.html, with Kharaghani,
-Mohammadian and Tayfeh-Rezaie, last updated 14 October 2026), with matrices of 122 orders 2N; Czifra, Matolcsi and
+V. Zaitsev's page Quaternary Hadamard matrices (https://www.cs.uleth.ca/~zaitsevv/quaternary.html, last updated 14
+October 2026), with matrices of 122 orders 2N; Czifra, Matolcsi and
 Szöllősi, arXiv:2511.11230 (Butson matrices BH(n, q) for q = 6, 10 and 14, none quaternary); the quaternary Legendre
 pairs of arXiv:2609.04589 and arXiv:2609.25573 (lengths 42 to 80); the skew-regular quaternary Hadamard matrices of
 order 1 + p² of arXiv:2510.06489; Đoković's Williamson-type matrices of orders 509, 857 and 883 (arXiv:1008.2043).
@@ -114,10 +128,12 @@ with Table 1.51 (online copy); Koukouvinos–Stylianou (2008), first pages only;
 13; the census; Đoković, arXiv:2508.17141 (XXSW at order q + 1 only) and his earlier skew papers; SageMath
 (`unknown_skew_hadamard`, and the cases of `skew_hadamard_matrix`, Unknown for all 58 orders); the arXiv
 skew-Hadamard records and the Hadamard records of 2025–2026, Zenodo, the JD-Jones-ASES repositories and Schumer's
-deposit. None gives skew matrices of order 3(q + 1) in general or of any of the 58 orders; Seberry–Yamada's Table 7.1
-and Cati–Pasechnik's Table 5 record 663 and 879 as known without a construction. JCMCC 13 (1993), Theorem 1 (after
-Yamada 1991) contains the sixteen-block form with the transposed pair, so the orders are New, but obtainable
-classically. Wallis–Whiteman (1972), as stated by Momihara–Xiang (arXiv:1801.08776), gives 7656.
+deposit. None gives skew matrices of order 3(q + 1) in general or of any of the 58 orders; Cati–Pasechnik's Table 5 has
+no entry for 663 and 879, which by its convention records skew matrices of orders 4 · 663 and 4 · 879 as known, without
+a construction. JCMCC 13 (1993), Theorem 1 (after Yamada 1991) contains the sixteen-block form with the transposed pair
+for q ≡ 3 (mod 8), so those orders are New, but obtainable classically; for q ≡ 7 (mod 8) the negacyclic analogue of
+the pairing is derived in PALEY_SKEW.md. Wallis–Whiteman (1972), as stated by Momihara–Xiang (arXiv:1801.08776),
+gives 7656.
 
 **Symmetric Hadamard matrices of order 4q** ([symmetric/PROPUS_MIYAMOTO.md](symmetric/PROPUS_MIYAMOTO.md)).
 Seberry–Yamada, JCMCC 7 (1990), Lemma 26, Corollary 29 and Remarks 19 and 30, and its Kobe version (Corollary 16,
@@ -127,8 +143,11 @@ as quoted by Đoković; Balonin–Đoković, arXiv:1803.08787; Đoković, arXiv:
 2508.17141; Balonin–Đoković–Karbovskiy, arXiv:1708.05098 and 1710.03037; Di Matteo–Đoković–Kotsireas,
 arXiv:1503.04226; chapter 1 and the index of Seberry–Yamada (2020); Yamada, J. Austral. Math. Soc. A 46 (1989);
 Seberry, Australas. J. Combin. 55 (2013); SageMath; Balonin's online catalogue (propus pages); arXiv, Semantic Scholar
-and OpenAlex for Miyamoto 1991 and its citations. None states the family; Miyamoto's claim of 1991 is discussed in
-PROPUS_MIYAMOTO.md.
+and OpenAlex for Miyamoto 1991 and its citations. None states the family. Miyamoto's claim of 1991, which Seberry–Yamada
+restate (1990, Corollary 35; 1992, Corollary 8.11), is discussed in PROPUS_MIYAMOTO.md, together with three listings of
+the value v = 89 without a matrix (Seberry–Balonin 2017, p. 352; Balonin's online catalogue; the table of orders of
+known symmetric Hadamard matrices in Seberry–Yamada 2020, Table 9.4, whose entries at 89 and 233 we could not
+trace to a construction).
 
 **Symmetric Hadamard matrices without a symmetric input**
 ([symmetric/PROPUS_WEIGHING.md](symmetric/PROPUS_WEIGHING.md),
@@ -144,7 +163,7 @@ Acevedo–Dietrich, Australas. J. Combin. 73 (2019); Cati–Pasechnik; Balonin's
 symmetric weighing matrices; and Zaitsev's page, whose quaternary matrices QH590, QH638, QH782, QH926, QH1310, QH1358,
 QH1646 and QH1886 are of the Yamada–Kiyasu kind and monomially equivalent to symmetric ones, so 1180, 1276, 1564,
 1852, 2620, 2716, 3292 and 3772 are labelled Concurrent. None states either construction or a symmetric matrix of any
-of the 37 orders of PROPUS_WEIGHING.md and YAMADA_KIYASU.md, except that Spence (1977), Corollary 3, gives symmetric
+of the 38 orders of PROPUS_WEIGHING.md and YAMADA_KIYASU.md, except that Spence (1977), Corollary 3, gives symmetric
 Hadamard matrices of orders 2812 and 4732 by another construction, so those two are labelled Known. The eight
 equivalences were found with nauty and checked exactly; no script for them is included in this repository. Of the 27
 matrices on the page whose order 2v has v among the census values still undecided when the check was made, nauty finds
@@ -152,7 +171,7 @@ no symmetric form for 20: QH130, QH214, QH238, QH326, QH426, QH470, QH490, QH494
 QH686, QH754, QH806, QH890, QH1142, QH1462 and QH1526 (QH538 has 16 side-swaps, none of which gives a symmetric
 matrix). QH1018 has 16 side-swaps, none of which gives one either, checked without conjugation only. QH1306 and QH1466
 timed out, and QH1558, QH1690, QH1706 and QH1882 were not tested. QH266, QH366 and QH1714 (v = 133, 183 and 857, which
-this repository settles by the orders 532, 732 and 3428) were not tested.
+this repository settles by the orders 532, 732 and 3428) were not tested then; see the last entry below.
 
 **Symmetric orders 404 and 596** ([symmetric/PERIODIC_GOLAY.md](symmetric/PERIODIC_GOLAY.md)). Checked on 18 October
 2026: the census (both v undecided); Miyamoto's claim of 1991 as the census reports it (a symmetric input of order q −
@@ -266,7 +285,7 @@ order 111, which is therefore New.
   complex Hadamard matrices up to order 94, next open case 118); Munim's status report of 14 October 2026 on dev.to
   (real orders only); web searches for a quaternary Hadamard matrix of order 418.
 - *Finding.* None gives a quaternary Hadamard matrix of order 418.
-- *Not read.* As for 6796. Zaitsev et al. search these orders at present.
+- *Not read.* As for 6796. Zaitsev searches these orders at present.
 - *Labels.* Complex order 418 (N = 209): New.
 
 **Complex orders 358 and 498** ([complex-hadamard](complex-hadamard/README.md)). Checked on 28 October 2026:
@@ -281,7 +300,7 @@ order 111, which is therefore New.
   162); Egan et al., arXiv:2610.27175; an arXiv listing of quaternary and Butson Hadamard papers to 20 October 2026; web
   searches for quaternary, complex and Butson BH(358, 4) and BH(498, 4) matrices.
 - *Finding.* None gives a quaternary Hadamard matrix of order 358 or 498.
-- *Not read.* As for 6796; the Handbook's tables. Zaitsev et al. search these orders at present.
+- *Not read.* As for 6796; the Handbook's tables. Zaitsev searches these orders at present.
 - *Labels.* Quaternary Hadamard matrices of orders 358 and 498 (N = 179 and 249): New.
 
 **Skew order 476 and symmetric order 7612** ([skew/476](skew/476), [symmetric/7612](symmetric/7612)). Checked on 22–23
@@ -313,9 +332,11 @@ October 2026:
     946 (not a multiple of 4), 1108, 1196 or 2356; skew × amicable products have a factor that is not a Hadamard order,
     apart from the doubling case 2 · (n/2).
 - *Negacyclic arrays.* Finlayson and Seberry, Orthogonal designs from negacyclic matrices, Australas. J. Combin. 30
-  (2004) 319–330 (the negacyclic Goethals–Seidel array, Theorem 4, with blocks of odd order 3, 5, 7: orders 12, 20, 28);
-  Balonin and Đoković, arXiv:1508.00640 (negaperiodic Golay pairs, two blocks, not skew); Kotsireas and Koukouvinos, New
-  skew-Hadamard matrices via computational algebra, Australas. J. Combin. 41 (2008) 235–248 (orders 60 to 416).
+  (2004) 319–330 (the negacyclic Goethals–Seidel array with the skew conclusion for negacyclic blocks of any order,
+  Theorem 4); Armario and Flannery, Cryptogr. Commun. 12 (2020) 757–768 (arXiv:1911.08828; the correspondence between
+  negaperiodic binary sequences of length 2v and quaternary sequences of length v); Balonin and Đoković,
+  arXiv:1508.00640 (negaperiodic Golay pairs, two blocks, not skew); Kotsireas and Koukouvinos, New skew-Hadamard
+  matrices via computational algebra, Australas. J. Combin. 41 (2008) 235–248 (orders 60 to 416).
 - *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (no skew construction at these
   orders; 191 appears only in its table of open ordinary orders 4 · 5p and 4 · 9p); Đoković, arXiv:2301.02751 (191 among
   the undecided skew v); the GitHub repositories of the 2026 Hadamard announcements (munimtechnologies, Middletownbooks:
@@ -420,7 +441,7 @@ October 2026:
 2026:
 - *Tables and recursions.* Cati–Pasechnik, arXiv:2411.18897 v2, Table 4: 955(3), so 8 · 955 = 7640 is known (Paley I,
   7639 prime) and 3820 is not. The survey of Egan, Kotsireas, London and Ó Catháin (Table 5) lists 3820 as open. The
-  Hadamard Matrix Explorer (version 53) lists 3820 as unknown. Zaitsev et al.'s page (last updated 14 October 2026)
+  Hadamard Matrix Explorer (version 53) lists 3820 as unknown. Zaitsev's page (last updated 14 October 2026)
   lists 1910 and 478 among the unknown quaternary orders and has no matrix of either.
 - *Recent work.* Middletownbooks/Hadamard (955 among its open orders); the JD-Jones-ASES repositories; Zenodo; the arXiv
   listings to 26 October; MathWorld; SageMath; Brouwer's table (srg(477, 238, 118, 119), a symmetric conference matrix
@@ -458,8 +479,8 @@ October 2026:
   this repository at commit 2d45dbb (18 October), which already held all five, for 2148, 2284, 2636 and 3964.
 - *Finding.* Ours were committed on 11 October (2092, 4492, 5932) and 13 October (3732, 5020). Neither of the other
   matrices of order 3732 is stated to be skew. We found no statement in the survey that its matrix of order 4492 is
-  skew, and did not inspect it. The same survey settles 4 · 1447 = 5788 (its Theorem 7) and lists six open orders 8p
-  ([FRONTIER.md](FRONTIER.md)).
+  skew, and did not inspect it (inspected on 2 November 2026: it is not skew; see the last entry below). The same
+  survey settles 4 · 1447 = 5788 (its Theorem 7) and lists six open orders 8p ([FRONTIER.md](FRONTIER.md)).
 - *Labels.* With three groups working within days of each other, the five orders are Concurrent. The skew-Hadamard
   matrix of order 3732 stays New, and so is the separate skew-Hadamard matrix of order 4492 found on 1 November 2026
   ([skew/4492](skew/4492); entry below).
@@ -576,7 +597,8 @@ Checked on 27 October 2026:
   2212 nor 553 occurs anywhere in the paper, and we found no statement that its matrix of order 4492 is skew).
 - *Finding.* None gives a skew-Hadamard matrix of order 2212 or 4492.
 - *Not read.* As for 6796. The matrix files of Egan et al. and of the Hadamard Matrix Explorer for order 4492 were not
-  inspected: if either is skew, the skew matrix of order 4492 would be Concurrent as well.
+  inspected: if either is skew, the skew matrix of order 4492 would be Concurrent as well. (Decoded from the Explorer's
+  image on 2 November 2026, the matrix of Egan et al. is not skew; see the last entry below.)
 - *Labels.* Skew orders 2212 and 4492: New as skew-Hadamard matrices. The ordinary matrix of order 2212 is classical,
   and that of order 4492 is Concurrent (above).
 
@@ -630,6 +652,157 @@ Checked on 27 October 2026:
 - *Labels.* Skew orders 1004 and 3044: New as skew-Hadamard matrices. The ordinary matrix of order 1004 is Known
   (Đoković, Golubitsky and Kotsireas, 2014), and that of order 3044 is classical (Seberry 1971).
 
+**Skew order 3364** ([skew/3364](skew/3364)). Checked on 2 November 2026:
+- *Tables and recursions.*
+  - *Tables.* The Đoković–Seberry census (841 among its 737 undecided v for skew matrices, in none of its series and not
+    among its sporadic values; for symmetric matrices 841 is decided, in the Paley series with q = 1681); Cati–Pasechnik
+    Table 5, v2 (841(6), so the smallest skew order with odd part 841 that the table records is 2⁶ · 841 = 53824;
+    Momihara–Xiang and Wallis–Whiteman are not among its 60 references); Momihara–Xiang, arXiv:1801.08776 (read: the
+    abstract, §1 with Propositions 1.1–1.4, Theorem 1.5 and Corollaries 1.6 and 1.7), whose Corollary 1.7 with q = 41 ≡
+    9 (mod 16), e = 2 gives order 4(41² + 1) = 6728 = 2³ · 841 ([NOTES.md](NOTES.md) §28 records the omission);
+    Koukouvinos–Stylianou (2008), Table 1 (odd m < 500, no entry for 841); Seberry–Yamada (1992), the list of the skew
+    families SI–SXI and the keys s1–s9 of its appendix; SageMath's development documentation (docstrings of
+    `skew_hadamard_matrix` and its branches read, not run; `unknown_skew_hadamard` stops at 1196).
+  - *Ordinary matrices.* 3364 is classical: Paley II with q = 1681 = 41² (the Hadamard Matrix Explorer lists
+    `P2(3364)`); Turyn (J. Combin. Theory Ser. A 12 (1972) 319–321), Williamson matrices of order (q + 1)/2 = 841 for q
+    = 1681; Xia and Liu (J. Combin. Theory Ser. A 58 (1991) 310–317), Williamson-type matrices of order 4q² over GF(q²)⁺
+    for prime powers q ≡ 1 (mod 4), which we know from Xia–Xia–Seberry (WSEAS Trans. Math. 5 (2006)) and
+    Leung–Momihara–Xiang (arXiv:1907.02623); Wallis–Whiteman (1972, Theorem 16, regular symmetric matrices of order 4(2m
+    + 1)², from its abstract and a snippet); Miyamoto's theorem with q = 841 and a Hadamard matrix of order 840. All
+    have symmetric blocks or are symmetric, so none is skew.
+  - *Classical routes.* Paley I needs 3363 = 3 · 19 · 59 to be a prime power; Szekeres, Whiteman, Spence and
+    Momihara–Xiang 2(qᵉ + 1) need qᵉ = 1681 = 41², and 41 ≡ 1 (mod 8); Wallis–Whiteman and Momihara–Xiang 4(qᵉ + 1) need
+    840 (they give 6728); Spence 4(q² + q + 1) needs q² + q + 1 = 841 (discriminant 3361, not a square); Turyn (h − 1)ᵘ
+    + 1 needs 3363 to be a perfect power; Yamada's (|t| + 1)(q + 1) needs a divisor of 3364 that is ≡ 6 (mod 8);
+    Seberry's 2ᵗq with q ≡ 5 (mod 8) needs q = 841 ≡ 1 (mod 8); Yamada's 4(q + 2) with q ≡ 5 (mod 8) needs q = 839 ≡ 7
+    (mod 8); the 3(q + 1) theorem needs 3 | 3364; Blatt–Szekeres needs complementary difference sets in a group of order
+    1681 = 41² (SageMath's `complementary_difference_sets` needs p ≡ 5 (mod 8)) or 3363; Williamson's h(pᵏ + 1) needs a
+    skew matrix of odd order 841 or pᵏ = 115 or 3363; doubling needs a skew matrix of order 1682; Seberry's mn(n − 1)
+    works only with n = 2 and an OD(3364; 1, 1682, 1681); skew × amicable products have a factor 29, 58, 841 or 1682
+    that is not a Hadamard order. A skew Hadamard difference set (Paley–Todd, Ding–Yuan, Feng–Xiang, Muzychuk, Momihara)
+    in a group of order 3363 would need a prime-power order (Johnsen 1966, as quoted in Xiang's survey, Finite Fields
+    Appl. 11 (2005), Theorem 6.1, for abelian groups; Australas. J. Combin. 95, Corollary 2.7, for any group), and 3363
+    is squarefree and not prime.
+- *Computational controls* (programs not included in this repository; each has positive controls that find solutions).
+  The bordered two-block skew family of order 2(1681 + 1) with unions of 16th-power classes of GF(1681) (256 skew first
+  blocks, 12,870 second blocks, matched through the cyclotomic-number count vector): no hit; the same code finds 16 hits
+  over GF(841) and GF(169) with 8th-power classes and 256 over GF(625) with 16th-power classes (Karoui's order 1252).
+  The skew Goethals–Seidel family over GF(841)⁺ with blocks that are unions of 8th-power classes and the point 0 (16
+  skew first blocks against 512³ others, a meet in the middle on autocorrelation vectors): no hit; the same code finds
+  112 hits over ℤ₁₃ with 4th-power classes and 2080 over ℤ₄₁ with 8th-power classes. Index 16 does not divide 840, and
+  indices 24 and 40 were not searched this way; the family of this matrix has index 40.
+- *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (3364 is not among its open
+  ordinary orders, the smallest of which is 2396, and no skew construction is named at 841 or 3364; its Theorem 7 over
+  ℤ₂² × GF(q²) gives 4(4q² + 3), not 4q²); Middletownbooks/Hadamard (its README of 2 November 2026 lists eight ordinary
+  orders from 2092 to 3732 and omits 841 from its open list below 4000; no skew matrix of order 3364); Schumer's deposit
+  (skew 3676, v = 919, nothing at 841); Karoui, arXiv:2602.16089 (order 1252 only); Zaitsev's page (quaternary
+  matrices up to order 1966); Đoković, arXiv:2508.17141, arXiv:2404.14375 and arXiv:2301.02751, and Đoković–Kotsireas
+  (cyclic groups, v ≤ 631); web searches for a skew matrix of order 3364 or 4 · 841 and for skew Goethals–Seidel
+  families over GF(p²).
+- *Finding.* None gives a skew-Hadamard matrix of order 3364 or a skew Goethals–Seidel family over ℤ₂₉ × ℤ₂₉.
+- *Not read.* As for 6796. The rows for 841 of Seberry–Yamada's Table 7.1 (1992; its body was not available) and Table
+  9.2 (2020); Wallis–Whiteman (1972) beyond the abstract and a snippet; Xia–Liu (1991) and Xia (1992); Momihara–Xiang's
+  proofs and the theorem list of its journal version (European J. Combin. 2018, which we take to be the same paper);
+  Johnsen (1966); SageMath was not run; the Hadamard Matrix Explorer stores skew-type sequences `SK(n)` that no page
+  enumerates, and its label `P2(3364)` would not show a stored `SK(841)`; MathSciNet and zbMATH. If any of them holds a
+  skew matrix of order 3364, that order would be Known or Concurrent.
+- *Labels.* Skew order 3364: New as a skew-Hadamard matrix. The ordinary matrix is classical.
+
+**Symmetric order 1556 and periodic Golay pairs of lengths 194 and 146** ([symmetric/1556](symmetric/1556),
+[search/pgp](search/pgp/README.md)). Checked on 2 November 2026:
+- *Tables and recursions.*
+  - *Census.* 389 is among the 595 values undecided for symmetric matrices (and among the skew ones). At v = 389 the
+    Paley series needs q = 777 = 3 · 7 · 37, Xia–Xia–Seberry–Wu needs q = 1555 = 5 · 311 and Seberry–Balonin needs q =
+    387 = 3² · 43; Turyn's two series, Mathon's, Seberry–Whiteman's and Muzichuk–Xiang's (v = m⁴) do not give 389, and
+    389 is not among the sporadic values 29, 43, 47, 59, 67, 73, 93, 103, 109, 127, 151 and 191.
+  - *Other tables.* Handbook Table V.1.52 stops at v < 200 (as quoted by Đoković, arXiv:2101.05429); Seberry–Yamada
+    (2020), Table 9.4, was not read; Cati–Pasechnik plan a symmetric programme for SageMath, and we found no
+    symmetric construction in it beyond Paley's; the Hadamard Matrix Explorer lists `M(P2(388))` for 1556 (an ordinary
+    matrix; its notation page lists `M(a)`, and `G(T(t), M(X))` with stored periodic Golay pairs `PG(m)`, ordinary
+    matrices only; the image of 1556 was not decoded); Balonin's catalogue pages on propus matrices, on Đoković's
+    supplementary difference sets (n ≤ 196) and on the Turyn series (q ≤ 197) list no order 1556 and no v = 389.
+- *Miyamoto's claim.* Miyamoto (1991, Theorem 5, last sentence, as the census reports it) and Seberry–Yamada (JCMCC 7
+  (1990), Corollary 35 (statement and the start of the proof); the 1992 survey, Corollary 8.11 (as quoted; that part of
+  the text was missing from the copy we read)) claim a Hadamard matrix of order 4q of symmetric block form from a
+  symmetric conference matrix of order q + 1 and a symmetric Hadamard matrix of order q − 1. For q = 389 both exist
+  (Paley's matrix of order 390, and Paley II of order 388 with q = 193, v = 97 being in the census's Paley series), so
+  the claim, if valid, would give a symmetric Hadamard matrix of order 1556 as it would for 404 and 596
+  ([symmetric/PERIODIC_GOLAY.md](symmetric/PERIODIC_GOLAY.md#status)). The census says that it is ignored in the proof
+  and that the diagonal blocks displayed on p. 93 are not symmetric, and keeps 389 undecided. A Python port (not
+  included) of the R package HadamardR's `had_miyamoto` and `miyamotoC`, third-party code for the first part of Theorem
+  5, gives for q = 5, 13, 17, 29, 37 (symmetric inputs of orders 4, 12, 16, 28, 36) and for q = 389 (Paley II of order
+  388) Hadamard matrices of order 4q whose two diagonal blocks are equal and not symmetric; this agrees with the census
+  and is not Miyamoto's text.
+- *A symmetric quaternary route.* A symmetric quaternary Hadamard matrix of order 778 would give a symmetric Hadamard
+  matrix of order 1556 by Turyn's map ([symmetric/YAMADA_KIYASU.md](symmetric/YAMADA_KIYASU.md)). Zaitsev's page
+  (updated 14 October 2026) lists 778 neither among the new orders nor among the unknown ones below 2000, so a
+  quaternary matrix of order 778 was known, and none is stated to be symmetric; 778 has no symmetric conference matrix
+  (777 is not a sum of two squares).
+- *Periodic Golay pairs.* Đoković and Kotsireas, Numer. Algorithms 69 (2015) 523–530 (arXiv:1310.5773, read in full:
+  Section 5 lists the open lengths below 300, 90, 106, 130, 146, 170, 178, 180, 194, 212, 218, 234, 250, 274, 290, 292
+  and 298; we recomputed this list as the lengths ≤ 300 that are even, are a sum of two squares, meet Arasu–Xiang's
+  condition on primes ≡ 3 (mod 4), and are not 2ᵃ10ᵇ26ᶜ times a known length 1, 34, 50, 58, 72, 74, 82, 122, 202 or 226)
+  and their arXiv:1409.5969 (the same list); Lumsden, Kotsireas and Bright, arXiv:2408.15611v3 (Math. Comp. 95 (2026);
+  full text searched for these lengths: only 106 occurs, as the smallest undecided length; first pairs of length 90; its
+  data, Zenodo 12792345, cover lengths up to 72); Kotsireas's slides at Hadamard 2025 (PG(106) open); the paper
+  "Computing Periodic Golay Pairs Using SAT Solvers" (ICMS 2026, paper 80: existence settled below 106, SAT reaches n ≤
+  40); Balonin and Đoković, Inf. Control Syst. 2015, no. 3 (lists the known periodic Golay numbers below 200 without 146
+  and 194; its Hypothesis 2 says that 2p is one for every prime p ≡ 1 (mod 4), and the pairs here are two more
+  instances); Crnković, Dumičić Danilović, Egan and Švob, J. Algebraic Combin. 55 (2022) 245–257 (no length above 90
+  reported); Balonin's catalogue of two-circulant Hadamard matrices (146 and 194 marked open); the survey
+  arXiv:2610.27175 (no table of periodic Golay pairs; it cites Đoković–Kotsireas for a pair used in a Miyamoto-type
+  arrangement); Cati–Pasechnik has no table of pairs, and the Explorer names stored pairs `PG(m)` in some constructions
+  of ordinary matrices but has no table of them. The multiplication theorems give lengths g · v with g in {2ᵃ10ᵇ26ᶜ} and
+  v a known length, and 146 = 2 · 73 and 194 = 2 · 97 have odd cofactors. Đoković, Australas. J. Combin. 15 (1997)
+  221–231, builds D-optimal designs of order 194 from supplementary difference sets over ℤ₉₇ with the same group {1, 35,
+  61}: a different object. Aperiodic Golay pairs of lengths 146 and 194 are open too (non-existence is proved only to
+  length 100), which is a different question.
+- *Checks of the objects.* An independent rebuild from the written proof, using only the pair, the group and t (pair, K
+  = [[P, Q], [Q, P]], Q-part, V and H, exact bitset products), gives a symmetric ±1 matrix of order 1556 with H Hᵀ =
+  1556 I, in 2.3 s. The periodic autocorrelations of the pair of length 194 and of the four pairs of length 146 sum to
+  zero at every nonzero shift in exact integer arithmetic. Taking the smaller sign class of each sequence, they are
+  supplementary difference sets with parameters (194; 93, 88; 84) and (146; 70, 65; 62) (λ = k₁ + k₂ − n/2), and the
+  sums, 8 and 18, and ±16 and ±6, are the only splits of 388 and 292 into two squares. A separate canonical form under
+  the operations that Đoković and Kotsireas and Balonin and Đoković list (translation, reversal and negation of each
+  sequence, decimation by units, alternation, swap), computed with a program that is not included, keeps the four pairs
+  of length 146 distinct. The orders 292 and 388, of the two-circulant matrices that the pairs give, are known (skew
+  matrices: Cati–Pasechnik; Đoković, arXiv:0704.0640).
+- *Finding.* None gives a symmetric Hadamard matrix of order 1556, a periodic Golay pair of length 194 or 146, or a
+  symmetric quaternary matrix of order 778.
+- *Not read.* As for 6796. Miyamoto (1991) beyond the abstract and the review (Zbl 0733.05017); Seberry–Yamada 1990,
+  Lemma 9, Theorem 34 and the proof of Corollary 35, and the 1992 survey's sections 5, 7 and 8 including Corollary 8.11;
+  the 2020 book's Table 9.4 and §9.10; the survey arXiv:2610.27175 was scanned by keywords, not read line by line; the
+  Explorer's image of 1556 and its stored pairs `PG(m)`; the Hadamard 2025 book of abstracts; Handbook Table V.1.52
+  beyond Đoković's quotation; papers that cite Đoković–Kotsireas or Lumsden–Kotsireas–Bright since March 2025 (Semantic
+  Scholar and OpenAlex could not be reached); work of the groups of Kotsireas, Bright and Lumsden that is not indexed by
+  the searches. Whether a known Hadamard matrix of order 388 has the form [[P, Q], [Q, P]], which would give the matrix
+  without the pair, was not tested.
+- *Labels.* Symmetric order 1556: New as a symmetric Hadamard matrix. The ordinary matrix is classical (Miyamoto's
+  theorem with Paley II of order 388; Williamson-type matrices of order 389 in Seberry–Yamada's Table A.1, key wk, read
+  from a damaged extraction). Periodic Golay pairs of lengths 194 and 146: New, as far as we know the first of these
+  lengths.
+
+**Two checks of 2 November 2026** (nauty and direct decoding).
+- *Zaitsev's QH266, QH366 and QH1714* (v = 133, 183 and 857, the quaternary matrices of the Yamada–Kiyasu kind on
+  Zaitsev's page of 14 October 2026 whose order this repository settles by the symmetric matrices 532, 732 and 3428 and
+  which the paragraph above on symmetric matrices without a symmetric input lists as not tested). A symmetric matrix S
+  has S = Sᵀ, so a matrix L that is monomially equivalent to a symmetric one is monomially equivalent to its transpose.
+  With nauty on the graph of the monomial equivalence, none of the three is: the canonical forms of the graphs of L and
+  of Lᵀ differ (QH266 and QH366 with the exact graph, where the automorphism groups have orders 12 and 40, and without a
+  side swap; QH1714 with a cheaper invariant graph, automorphism group of order 64). The method agrees with brute force
+  on small matrices (n = 4 to 10), finds the symmetric form of Paley's quaternary matrices of orders 6, 14, 18 and 30,
+  and the cheaper graph agrees with the exact one on small matrices (n = 6 to 30). So these three matrices do not make
+  532, 732 and 3428 Concurrent: the labels stay New. The programs are not included in this repository.
+- *The ordinary matrices of orders 3732 and 4492 posted with Egan et al.* (arXiv:2610.27175), decoded from the images of
+  the Hadamard Matrix Explorer. Both are Goethals–Seidel matrices of the array of this repository on the posted
+  sequences (H Hᵀ = nI exactly), with multiplier groups of orders 31 and 33. H + Hᵀ has 1,858,536 and 2,371,776 nonzero
+  off-diagonal entries, so neither is skew. For every block and every centre c of ℤ_v (v = 933 and 1123) the number of
+  pairs {c + y, c − y} with equal entries is at least 125 (of 466) and 165 (of 561); a skew-type block about c has none.
+  Translation, multiplier and sign only permute the centres and leave these numbers unchanged, so no block can be made
+  skew-type; the row sums, (−1, −1, −3, −61) and (−1, −1, −1, −67), include blocks that are not ±1. Whether either
+  matrix is Hadamard equivalent to a skew matrix was not tested. This replaces the statements above that these matrices
+  were not inspected; our skew-Hadamard matrices of orders 3732 and 4492 are not affected.
+
 ## Not checked
 
 - J. Seberry, M. Yamada, *Hadamard Matrices: Constructions using Number Theory and Linear Algebra* (Wiley, 2020):
@@ -655,6 +828,12 @@ Checked on 27 October 2026:
   m ≠ 9. 197 is not of the form 6m + 1.
 - Kharaghani and Seberry, Congr. Numer. 75 (1990); Seberry and Wallis, LNM 292, pp. 349–353; Seberry and Zhang (1993):
   sources for symmetric matrices of order 2n(n − 1), not read.
+- For the entries of 2 November 2026: Xia and Liu, J. Combin. Theory Ser. A 58 (1991) 310–317, and Xia (1992), on
+  Williamson-type matrices of order 4q²; Wallis and Whiteman (1972) beyond its abstract; the proofs of Momihara and
+  Xiang (arXiv:1801.08776); the rows for 841 of Seberry–Yamada's Tables 7.1 and 9.2 and for 389 of their Tables A.1 (a
+  damaged text extraction) and 9.4; the pairs that the Hadamard Matrix Explorer stores as `PG(m)`; and the papers that
+  cite Đoković–Kotsireas (2015) or Lumsden–Kotsireas–Bright since March 2025. A skew matrix of order 3364, a symmetric
+  matrix of order 1556 or a periodic Golay pair of length 146 or 194 in one of them would change a label.
 - The skew table of the Handbook (Table 1.51) beyond the online copy.
 - MathSciNet, zbMATH, and the full texts of paywalled journals from 2025–2026.
 
@@ -666,8 +845,8 @@ Statements and labels of the first release (14 October 2026) that have changed:
 
 - Complex orders 142, 154, 222, 262, 286, 310, 370 and 742: **Known**. For each, 4N − 1 is prime, and Ito's dicyclic
   Hadamard groups with Egan's Theorem 4.5 give the order ([complex-hadamard/PALEY.md](complex-hadamard/PALEY.md)).
-- Complex orders 238, 302, 326, 382, 494, 518, 534 and 754: **Concurrent**, with Zaitsev et al.
-- 2284: **Concurrent**, through Zaitsev et al.'s quaternary matrix of order 1142 and Turyn's doubling.
+- Complex orders 238, 302, 326, 382, 494, 518, 534 and 754: **Concurrent**, with Zaitsev's page.
+- 2284: **Concurrent**, through Zaitsev's quaternary matrix of order 1142 and Turyn's doubling.
 - 2092, 3732, 4492, 5020 and 5932: **Concurrent** (23 October), with Cooley (2092, 3732) and with Egan, Kotsireas,
   London and Ó Catháin (3732, 4492, 5020, 5932); the skew-Hadamard matrix of order 3732 stays New.
 - 9172: **Concurrent** (27 October), with Egan, Kotsireas, London and Ó Catháin, who derive it from Cooley's matrix of
@@ -687,3 +866,48 @@ Statements and labels of the first release (14 October 2026) that have changed:
   1168, 1985) of Hadamard matrices of orders 12 and 1244, the latter by Alpöge, Voinov and Reynolds-Haertle (2026),
   gives 7464 = 8 · 933. Egan, Kotsireas, London and Ó Catháin (arXiv:2610.27175) list none of them as open. The
   matrices of orders 2636, 3732 and 9172 are unaffected.
+
+Corrections of 2 November 2026, after a review of the skew and symmetric entries:
+
+- Symmetric 4828: **New, but obtainable classically**. Williamson (Bull. Amer. Math. Soc. 53 (1947), Corollary 1) gives
+  an ordinary Hadamard matrix of order m(m + 3) = 4828 for m = 68, and Wallis (1975, Corollary 4) lists the
+  Williamson-type order 1207. Our symmetric matrix P ⊗ X + N ⊗ Y equals (I ⊗ X + C ⊗ Y)(P ⊗ I), a signed column
+  permutation of the classical matrix, and Paley's symmetric OD(68; 1, 67) is classical (Seberry, Australas. J. Combin.
+  55 (2013), Theorem 2; Geramita–Seberry 1979). With the same plug, Paley's symmetric OD(q + 1; 1, q) gives symmetric
+  Hadamard matrices of order q(q + 1) for every prime power q ≡ 3 (mod 4), which contains Đoković's Theorem 2
+  (arXiv:2508.17141) ([symmetric/README.md](symmetric/README.md)).
+- Skew 1044, 1140, 1716, 1860 and 2052 (v = 261, 285, 429, 465, 513): **New, but obtainable classically**. The 3(q + 1) theorem
+  with q = 347, 379, 571, 619 and 683 ([skew/PALEY_SKEW.md](skew/PALEY_SKEW.md)) also gives these orders. The
+  matrices of this repository (Goethals–Seidel families found by search, and for 1716 Seberry's theorem) are separate
+  matrices.
+- The passage from a symmetric orthogonal design xP + yN of type (1, n − 1) to the amicable pair (I + PN, P + N), which
+  the READMEs of skew 2652, 5700, 9424, 9776, 9900, 13072 and 14384 said we found nowhere in print, is Robinson and
+  Seberry's (J. Austral. Math. Soc. Ser. A 25 (1978) 118–128, Theorems 8 and 9; see also Seberry, Australas. J. Combin.
+  55 (2013), strong amicable orthogonal designs). The labels of these orders are unchanged.
+- Skew 2652 and 3516 (v = 663, 879): the claim that Seberry–Yamada's Table 7.1 (1992) leaves these values blank was not
+  verified and is withdrawn. The status First explicit construction rests on the missing entries of Cati–Pasechnik's
+  Table 5 (see Reference tables).
+- Symmetric 7556: the propus matrix of order 236 is from Abuzin, Balonin, Đoković and Kotsireas (Inform. Upravl. Sist.
+  2019, no. 5, 2–9), not from Đoković (arXiv:2101.05429), in whose §4 we found its blocks.
+- arXiv:1511.08734 is Đoković and Kotsireas, *A class of cyclic (v; k₁, k₂, k₃; λ) difference families with v ≡ 3 (mod
+  4) a prime*, Spec. Matrices 4 (2016) 317–325, the source of the skew matrix of order 956 and of the skew families with
+  a Paley first block; Math. Comput. Sci. 12 (2018) 373–388 is another paper (arXiv:1802.00556).
+- Đoković's skew matrices of order 148 (ℤ₃₇) and 172 are in J. Combin. Theory Ser. A 61 (1992) 319–321, those of orders
+  196 (ℤ₄₉) and 532 (ℤ₁₃₃) in Publ. Elektrotehn. Fak. Univ. Beograd Ser. Mat. 3 (1992) 47–59, and Bull. Austral. Math.
+  Soc. 45 (1992) 327–332 covers n = 67, 113, 127, 157, 163, 181 and 241.
+- Zaitsev's page of quaternary Hadamard matrices is by V. Zaitsev alone. Earlier versions of these documents named
+  Kharaghani, Mohammadian and Tayfeh-Rezaie as co-authors; they are co-authors of the near-Williamson paper,
+  arXiv:2605.08661.
+- Skew 1528, 2216, 2392 and 4712: Finlayson and Seberry (2004), Theorem 4, gives the negacyclic Goethals–Seidel array
+  with the skew conclusion for blocks of any order, not only of orders 12, 20 and 28; the correspondence between
+  negaperiodic binary sequences of length 2v and quaternary sequences of length v is Armario and Flannery's
+  (Cryptogr. Commun. 12 (2020) 757–768).
+- Symmetric 260: Verma's paper notes that one sequence of his pair is binary; only the symmetry of the other and the
+  propus consequence are not remarked there.
+- Symmetric 404, 596 and 1556: this is the first proved general construction we know of for q ≡ 5 (mod 8), not the first
+  construction; the sum-of-two-squares condition on (q − 1)/4 is classical (Raghavarao 1960; Geramita–Seberry 1979).
+- Symmetric 356 and 932: Seberry and Yamada restate Miyamoto's claim (1990, Corollary 35; 1992, Corollary 8.11); v = 89
+  appears without a matrix in Seberry–Balonin (2017, p. 352), which Balonin and Đoković (2018) remove again, and in
+  Balonin's online catalogue ("356 Common Propus"); Table 9.4 of Seberry–Yamada (2020) has entries at 89 and 233 whose
+  basis we could not establish. The labels are unchanged ([symmetric/PROPUS_MIYAMOTO.md](symmetric/PROPUS_MIYAMOTO.md)).
+- Misprints: the stage-1 budget in skew/1276 is 176 (not 160), and the Cati–Pasechnik entry of skew 3676 is 919(3).

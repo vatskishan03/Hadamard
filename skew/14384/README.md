@@ -52,19 +52,18 @@ with odd part 899 was 64 · 899. The Đoković–Seberry census lists 899 as und
   the entry over ([NOTES.md](../../NOTES.md) §28).
 - The route here needs amicable Hadamard matrices of order 124. No source states them, but they come in one step
   from the 2019 family above: Đoković's Balonin array (arXiv:2508.17141, proof of Theorem 1) gives a symmetric
-  orthogonal design xP + yN of type (1, 123), and (I + PN, P + N) is an amicable pair; this step, which puts the
-  design in Seberry's strong amicable form (Australas. J. Combin. 55 (2013), Definition 5), we found nowhere in
-  print. Classically the smallest amicable order
-  with odd part 31 is 248, and with odd part 29 it is 464 (Paley with q = 463 gives 4 · 29 · 4). Every split
-  14384 = h m into a skew order h and a classical amicable order m fails. m = 2 and m = 4 need the open skew orders
-  7192 and 3596. m = 8, 16, 248 and 496 leave h ≢ 0 (mod 4), and m = 464 leaves h = 31.
+  orthogonal design xP + yN of type (1, 123), and (I + PN, P + N) is an amicable pair; this step is Robinson and
+  Seberry's (J. Austral. Math. Soc. Ser. A 25 (1978) 118–128, Theorems 8 and 9; see also Seberry, Australas. J. Combin.
+  55 (2013), Definition 5, strong amicable orthogonal designs). Classically the smallest amicable order with odd part 31
+  is 248, and with odd part 29 it is 464 (Paley with q = 463 gives 4 · 29 · 4). Every split 14384 = h m into a skew
+  order h and a classical amicable order m fails. m = 2 and m = 4 need the open skew orders 7192 and 3596. m = 8, 16,
+  248 and 496 leave h ≢ 0 (mod 4), and m = 464 leaves h = 31.
 - In SageMath's development version of 2026-10-17, `skew_hadamard_matrix(n, existence=True)` is `Unknown` for
   n = 14384 and for 28768 = 32 · 899.
 - Every ingredient was published before 2026 (Wallis's theorem, the good matrices of order 29, the family of length
-  31 and the Balonin-array design); only their combination, with the elementary step above, is new, hence the
-  label. The amicable pair of order 124 is, as far as we know, the first explicit one: 123 is not a prime power,
-  Wallis's 2(q + 1) for q ≡ 5 (mod 8) needs q = s² + 4, which 61 = 5² + 4 · 3² is not (it gives 248), and
-  Seberry–Yamada's Table 6.1 gives t = 3 for q = 31.
+  31 and the Balonin-array design); only their combination is new, hence the label. The amicable pair of order 124 is,
+  as far as we know, the first explicit one: 123 is not a prime power, Wallis's 2(q + 1) for q ≡ 5 (mod 8) needs q = s²
+  + 4, which 61 = 5² + 4 · 3² is not (it gives 248), and Seberry–Yamada's Table 6.1 gives t = 3 for q = 31.
 
 Doubling (Seberry) gives skew-Hadamard matrices of all orders 2ᵏ · 14384. The sources searched are listed in
 [NOVELTY.md](../../NOVELTY.md).

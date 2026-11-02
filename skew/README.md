@@ -26,9 +26,9 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 | [1004](1004) | 251, prime | ⟨219⟩, order 5 | 1, 9, 9, 29 | 251(6) | New |
 | [1012](1012) | 253 = 11 · 23 | ⟨12⟩, order 11 (Paley product) | 1, 5, 19, 25 | 253(4) | New |
 | [1036](1036) | 259 = 7 · 37 | ⟨9⟩, order 9 | 1, 7, 31, 5 | 259(4) | New |
-| [1044](1044) | 261 = 3² · 29 | ⟨190⟩, order 7 (cyclotomic product of index 4) | 1, 9, −1, 31 | 261(3) | New |
+| [1044](1044) | 261 = 3² · 29 | ⟨190⟩, order 7 (cyclotomic product of index 4) | 1, 9, −1, 31 | 261(3) | New, but obtainable classically |
 | [1100](1100) | 275 = 5² · 11, group ℤ₅ × ℤ₅ × ℤ₁₁ | order 15: an element of order 3 of the Singer cycle of ℤ₅², and ⟨3⟩ on ℤ₁₁ | 1, 3, 33, 1 | 275(4) | New |
-| [1140](1140) | 285 = 3 · 5 · 19 | ⟨61⟩, order 9 (Paley product) | 1, 17, 15, 25 | 285(3) | New |
+| [1140](1140) | 285 = 3 · 5 · 19 | ⟨61⟩, order 9 (Paley product) | 1, 17, 15, 25 | 285(3) | New, but obtainable classically |
 | [1148](1148) | 287 = 7 · 41 | ⟨16⟩, order 15 | 1, 3, 33, 7 | 287(4) | New |
 | [1204](1204) | 301 = 7 · 43 | ⟨127⟩, order 7 (cyclotomic product of index 6) | 1, −11, −11, −31 | 301(3) | New |
 | [1236](1236) | 309 = 3 · 103 | ⟨13⟩, order 17 | 1, 3, 35, 1 | 309(3) | New |
@@ -43,10 +43,10 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 | [1612](1612) | 403 = 13 · 31 | ⟨100⟩, order 15 | 1, 5, 25, 31 | 403(5) | New |
 | [1804](1804) | 451 = 11 · 41 | ⟨16, 42⟩, order 25 | 1, 1, 11, 41 | none; see its README | New |
 | [1852](1852) | 463, prime | ⟨33⟩, order 21 | 1, 1, 43, 1 | 463(7), out of date | Known (Đoković 1994) |
-| [1860](1860) | 465 = 3 · 5 · 31 | ⟨226⟩, order 15 (Paley product) | 1, 25, 35, −3 | 465(3) | New |
+| [1860](1860) | 465 = 3 · 5 · 31 | ⟨226⟩, order 15 (Paley product) | 1, 25, 35, −3 | 465(3) | New, but obtainable classically |
 | [1876](1876) | 469 = 7 · 67 | ⟨9⟩, order 33 | 1, 1, 5, 43 | 469(3) | New |
 | [1892](1892) | 473 = 11 · 43 | ⟨345, 221⟩, order 15 (Paley product with a multiplier of order 3 on ℤ₄₃) | 1, −9, 17, −39 | 473(4) | New |
-| [2052](2052) | 513 = 3³ · 19, group ℤ₁₉ × GF(27) | the squares of GF(27)*, order 13 (Paley product) | 1, 27, 19, 31 | 513(4) | New |
+| [2052](2052) | 513 = 3³ · 19, group ℤ₁₉ × GF(27) | the squares of GF(27)*, order 13 (Paley product) | 1, 27, 19, 31 | 513(4) | New, but obtainable classically |
 | [2156](2156) | 539 = 7² · 11, group ℤ₇ × ℤ₇ × ℤ₁₁ | order 15: the scalar 2 (order 3) on ℤ₇², and the squares ⟨4⟩ (order 5) on ℤ₁₁ (Paley product with a multiplier on ℤ₇²) | 1, −29, 15, 33 | 539(4) | New |
 | [2212](2212) | 553 = 7 · 79 | ⟨176⟩, order 13 (cyclotomic product of index 6) | 1, 31, −25, −25 | 553(3) | New |
 | [2404](2404) | 601, prime | ⟨2⟩, order 25 | 1, 1, 49, 1 | 601(5) | New |
@@ -55,14 +55,19 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 | [3044](3044) | 761, prime | ⟨498⟩, order 19 | 1, 1, 39, 39 | 761(22) | New |
 | [3052](3052) | 763 = 7 · 109 | ⟨9⟩, order 27 | 1, 1, 5, 55 | 763(4) | New |
 | [3124](3124) | 781 = 11 · 71 | ⟨356, 309⟩, order 25 (Paley product with a multiplier on ℤ₇₁) | 1, −51, 9, 21 | 781(3) | New |
+| [3364](3364) | 841 = 29², group ℤ₂₉ × ℤ₂₉ = GF(841)⁺ | ⟨w⁴⁰⟩ on GF(841), order 21 (cyclotomic product of index 40) | 1, 1, 41, 41 | 841(6); 8·841 by Momihara–Xiang | New |
 | [3380](3380) | 845 = 5 · 13², group ℤ₅ × GF(169) | ⟨w⁸⟩ on GF(169), order 21 (cyclotomic product of index 8) | 1, 43, −3, −39 | 845(4) | New |
 | [3556](3556) | 889 = 7 · 127 | ⟨2, 25⟩, order 63 | 1, 5, 41, 43 | 889(4) | New |
 | [3612](3612) | 903 = 3 · 7 · 43 | ⟨568⟩, order 21 (Paley product) | 1, 43, 41, −9 | 903(4) | New |
-| [3676](3676) | 919, prime | ⟨58⟩, order 17, blocks related by a multiplier of order 3 | 1, 35, 35, 35 | — | Known (Schumer 2026) |
+| [3676](3676) | 919, prime | ⟨58⟩, order 17, blocks related by a multiplier of order 3 | 1, 35, 35, 35 | 919(3) | Known (Schumer 2026) |
 | [3732](../hadamard/3732) | 933 = 3 · 311 | ⟨7⟩, order 31 (cyclotomic product of index 10) | 1, 61, 3, 1 | 933(10) | New |
 | [4492](4492) | 1123, prime | ⟨691⟩, order 33 | 1, 1, 1, 67 | beyond Table 5; 143744 = 128 · 1123 | New |
 | [5668](5668) | 1417 = 13 · 109 | ⟨1405, 328⟩, order 81 (cyclotomic product of index 4 with ⟨3⟩ on ℤ₁₃) | 1, 7, −53, −53 | beyond Table 5; 45344 = 32 · 1417 | New |
 | [6004](6004) | 1501 = 19 · 79 | ⟨799⟩, order 39 (Paley product) | 1, 77, 7, −5 | beyond Table 5; 12008 = 8 · 1501 | New |
+
+The orders 1044, 1140, 1716, 1860 and 2052 (v = 261, 285, 429, 465, 513) are also given by the 3(q + 1) theorem below,
+with q = 347, 379, 571, 619 and 683 ([PALEY_SKEW.md](PALEY_SKEW.md)), so their order-level status is New, but obtainable classically.
+The Goethals–Seidel matrices found by search are separate matrices of these orders, and each README says so.
 
 ## Negacyclic Goethals–Seidel arrays
 
@@ -83,16 +88,19 @@ multiplier group H of odd order (for 2392 and 4712 as Paley plug-ins over ℤ_m 
 Seberry (1978): amicable Hadamard matrices of order n and a skew-type orthogonal design OD(mn; 1, m, mn − m − 1) give a
 skew-Hadamard matrix of order mn(n − 1). The orders below use amicable pairs or orthogonal designs that no source
 states. The amicable pairs of orders 52, 76 and 100 come from skew-propus quadruples, that is from symmetric orthogonal
-designs of type (1, n − 1) ([search/NOTES.md](../search/NOTES.md) §31). Seberry's tables of amicable orders 2ᵗq (1978,
-1991, 1992) give t = 3 for q = 13, 19 and 25, and no source we know states amicable pairs of these orders, but the
-skew-propus difference families behind them were published by Abuzin, Balonin, Đoković and Kotsireas (Inform. Control
-Syst. 2019, no. 5, 2–9, Table 1; doi:10.31799/1684-8853-2019-5-2-9), so the pairs are first explicit, not new objects.
+designs xP + yN of type (1, n − 1) ([search/NOTES.md](../search/NOTES.md) §31), by the passage to the amicable pair
+(I + PN, P + N) that Robinson and Seberry (J. Austral. Math. Soc. Ser. A 25 (1978) 118–128, Theorems 8 and 9; see also
+Seberry, Australas. J. Combin. 55 (2013), strong amicable orthogonal designs) already give. Seberry's tables of
+amicable orders 2ᵗq (1978, 1991, 1992) give t = 3 for q = 13, 19 and 25, and no source we know states amicable pairs of
+these orders, but the skew-propus difference families behind them were published by Abuzin, Balonin, Đoković and
+Kotsireas (*Hadamard matrices from Goethals–Seidel difference families with a repeated block*, Inform. Upravl. Sist.
+2019, no. 5, 2–9, Table 1; doi:10.31799/1684-8853-2019-5-2-9), so the pairs are first explicit, not new objects.
 For m = 1 the skew-type designs come from G-matrices, which are known for these orders. The designs for m ≥ 3 were found
 here.
 
 | Order | v | Amicable pair | Skew-type orthogonal design | Census | Status |
 |------:|---|---|---|---|---|
-| [1716](1716) | 429 = 13 · 3 · 11 | order 12, Paley (q = 11) | OD(156; 1, 13, 142) over ℤ₃₉, new | undecided; Table 5: 429(3) | New |
+| [1716](1716) | 429 = 13 · 3 · 11 | order 12, Paley (q = 11) | OD(156; 1, 13, 142) over ℤ₃₉, new | undecided; Table 5: 429(3) | New, but obtainable classically |
 | [1900](1900) | 475 = 5 · 5 · 19 | order 20, Paley (q = 19) | OD(100; 1, 5, 94) over ℤ₂₅, new | undecided; Table 5: 475(4) | New |
 | [2652](2652) | 663 = 13 · 51 | order 52, first explicit (skew-propus family of length 13) | G-matrices of order 13 | undecided; Table 5 implies known | First explicit construction |
 | [2772](2772) | 693 = 21 · 3 · 11 | order 12, Paley (q = 11) | OD(252; 1, 21, 230) over ℤ₆₃, new | undecided; Table 5: 693(4) | New |
@@ -110,14 +118,15 @@ m give the skew-Hadamard matrix I ⊗ A + S ⊗ M of order hm. With the pairs of
 124 from the skew-propus quadruple of length 31 ([search/NOTES.md](../search/NOTES.md) §31; classically the smallest
 amicable order with odd part 31 is 248), four orders 16v fall below Cati–Pasechnik's Table 5 ([NOTES.md](../NOTES.md)
 §28). The skew factors are classical or published, and so are the skew-propus families of lengths 13, 19 and 31 behind
-the amicable pairs (Abuzin–Balonin–Đoković–Kotsireas 2019); the one step we found nowhere in print is the passage from
-such a family to the amicable pair, so the orders are labelled New, but obtainable classically.
+the amicable pairs (Abuzin–Balonin–Đoković–Kotsireas 2019) and the passage from such a family to the amicable pair
+(Robinson and Seberry 1978, Theorems 8 and 9). The amicable pairs themselves are first explicit and every ingredient of
+the orders is published, so they are labelled New, but obtainable classically.
 
 | Order | v | Skew factor | Amicable pair | Before | Status |
 |------:|---|---|---|---|---|
 | [9424](9424) | 589 = 19 · 31 | 124 = 4 · 31: Paley plus three blocks under ⟨2⟩ (Szekeres 1969 has this order) | 76 | 589(5) | New, but obtainable classically |
 | [9776](9776) | 611 = 13 · 47 | 188 = 4 · 47: Đoković (2008) | 52 | 611(5) | New, but obtainable classically |
-| [13072](13072) | 817 = 19 · 43 | 172 = 4 · 43: Paley plus three blocks under ⟨4⟩ (Đoković 1992 has this order) | 76 | 817(5) | New, but obtainable classically |
+| [13072](13072) | 817 = 19 · 43 | 172 = 4 · 43: Paley plus three blocks under ⟨4⟩ (Đoković, J. Combin. Theory Ser. A 61 (1992) 319–321, has this order) | 76 | 817(5) | New, but obtainable classically |
 | [14384](14384) | 899 = 29 · 31 | 116 = 4 · 29: good matrices of order 29 (Szekeres 1988) | 124 | 899(6) | New, but obtainable classically |
 
 The matrices are not stored; `verify/verify.py` rebuilds them.
@@ -129,10 +138,12 @@ matrix of order q + 1 = 4s is a 4 × 4 array of negacyclic s × s blocks, Froben
 and T-matrices of order 3 in the Goethals–Seidel array then give a skew-type first block. No search is involved. The
 orders below are the 52 values v = 3(q + 1)/4 < 2500 that the census lists as undecided and that were not already in
 this repository, and six orders 8v and 16v (q ≡ 7 mod 8), five of which improve Cati–Pasechnik Table 5; 7656 is Known
-(Wallis–Whiteman). The block form and its pairing are Yamada's (1991) and the multiplication is Seberry and Yamada's
-(1990), so the new orders were obtainable classically ([status](PALEY_SKEW.md#status)). The family also contains
-the census values 261, 285, 429, 465, 513, 663 and 2475, which are above with other constructions. The matrices are not
-stored; `verify/verify.py skew/<order>` rebuilds them.
+(Wallis–Whiteman). For q ≡ 3 (mod 8) the block form and its pairing are Yamada's (1991; Theorem 1 of Seberry–Yamada
+1993) and the multiplication is Seberry and Yamada's (1990), so the new orders were obtainable classically
+([status](PALEY_SKEW.md#status)); for q ≡ 7 (mod 8) the negacyclic analogue of the pairing is derived in PALEY_SKEW.md.
+The family also contains the census values 261, 285, 429, 465, 513, 663 and 2475 (q = 347, 379, 571, 619, 683, 883 and
+3299), which are above with other constructions. The matrices are not stored; `verify/verify.py skew/<order>` rebuilds
+them.
 
 | Order | v | q | s | Census; Table 5 | Status |
 |------:|---|---:|---:|---|---|
@@ -214,7 +225,7 @@ over multiplier structures:
 - for 3676, a spin structure (`search/spin_skew.py`).
 
 The orthogonal designs come from `search/odm_engine.py` and `search/odm_join.py`. [search/NOTES.md](../search/NOTES.md)
-§10–§16, §20, §23, §31, §87–90, §110 and §111 describe the methods, and each README records the command, code commit,
-seed and caps of its search.
+§10–§16, §20, §23, §31, §87–90, §110, §111 and §112 describe the methods, and each README records the command, code
+commit, seed and caps of its search.
 
 `python3 verify/verify.py skew/<order>` rebuilds a matrix from its certificate and checks H Hᵀ = nI and H + Hᵀ = 2I.

@@ -1,0 +1,546 @@
+v=25 cyc e=[8] |H|=3 OA=5 OB=9 C=4 |mult|=8 fix=1 rows=(1, 5, 7) pools=(6, 56, 56): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=25 cyc e=[8] |H|=3 OA=5 OB=9 C=4 |mult|=8 fix=1 rows=(1, 7, 1) pools=(6, 56, 70): brute 160 canon 11 | p3 nr/np 160 nr 160 red 11 red3t 11 shards 11 gamma-exp 160 -> OK
+v=25 semi gens=[(0, 1)] |H|=2 OA=9 OB=15 C=8 |mult|=4 fix=5 rows=(1, 3, 9) pools=(44, 3480, 1635): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=25 semi gens=[(0, 1)] |H|=2 OA=9 OB=15 C=8 |mult|=4 fix=5 rows=(1, 5, 7) pools=(44, 2952, 2295): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=25 semi gens=[(0, 1)] |H|=2 OA=9 OB=15 C=8 |mult|=4 fix=5 rows=(1, 7, 1) pools=(44, 2295, 3780): brute 800 canon 110 | p3 nr/np 800 nr 800 red 110 red3t 110 shards 110 gamma-exp 800 -> OK
+v=25 semi gens=[(0, 1)] |H|=2 OA=9 OB=15 C=8 |mult|=4 fix=5 rows=(5, 5, 5) pools=(40, 2952, 2952): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=25 semi gens=[(0, 1)] |H|=2 OA=9 OB=15 C=8 |mult|=4 fix=5 rows=(7, 1, 7) pools=(31, 3780, 2295): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=25 semi gens=[(0, 1)] |H|=2 OA=9 OB=15 C=8 |mult|=4 fix=5 rows=(7, 5, 1) pools=(31, 2952, 3780): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=25 semi gens=[(0, 1)] |H|=2 OA=9 OB=15 C=8 |mult|=4 fix=5 rows=(9, 3, 1) pools=(31, 3480, 3780): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=25 semi gens=[(8, 0)] |H|=3 OA=5 OB=9 C=4 |mult|=16 fix=1 rows=(1, 5, 7) pools=(6, 56, 56): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=25 semi gens=[(8, 0)] |H|=3 OA=5 OB=9 C=4 |mult|=16 fix=1 rows=(1, 7, 1) pools=(6, 56, 70): brute 160 canon 9 | p3 nr/np 160 nr 160 red 9 red3t 9 shards 9 gamma-exp 160 -> OK
+v=25 semi gens=[(0, 1), (8, 0)] |H|=6 OA=5 OB=7 C=4 |mult|=4 fix=1 rows=(1, 5, 7) pools=(6, 12, 12): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=25 semi gens=[(0, 1), (8, 0)] |H|=6 OA=5 OB=7 C=4 |mult|=4 fix=1 rows=(1, 7, 1) pools=(6, 12, 14): brute 8 canon 2 | p3 nr/np 8 nr 8 red 2 red3t 2 shards 2 gamma-exp 8 -> OK
+v=27 semi gens=[(0, 1)] |H|=3 OA=6 OB=11 C=5 |mult|=2 fix=3 rows=(1, 7, 3) pools=(6, 168, 126): brute 324 canon 90 | p3 nr/np 324 nr 324 red 90 red3t 90 shards 90 gamma-exp 324 -> OK
+v=27 semi gens=[(0, 1)] |H|=3 OA=6 OB=11 C=5 |mult|=2 fix=3 rows=(3, 3, 9) pools=(6, 126, 84): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=27 semi gens=[(0, 1)] |H|=3 OA=6 OB=11 C=5 |mult|=2 fix=3 rows=(3, 5, 7) pools=(6, 168, 168): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=27 semi gens=[(0, 1)] |H|=3 OA=6 OB=11 C=5 |mult|=2 fix=3 rows=(3, 7, 1) pools=(6, 168, 210): brute 108 canon 36 | p3 nr/np 108 nr 108 red 36 red3t 36 shards 36 gamma-exp 108 -> OK
+v=27 semi gens=[(0, 1)] |H|=3 OA=6 OB=11 C=5 |mult|=2 fix=3 rows=(9, 1, 5) pools=(4, 210, 168): brute 648 canon 162 | p3 nr/np 648 nr 648 red 162 red3t 162 shards 162 gamma-exp 648 -> OK
+v=27 semi gens=[(0, 1)] |H|=3 OA=6 OB=11 C=5 |mult|=2 fix=3 rows=(9, 3, 3) pools=(4, 126, 126): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=49 semi gens=[(2, 1)] |H|=6 OA=6 OB=10 C=5 |mult|=2 fix=1 rows=(11, 5, 5) pools=(6, 70, 70): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=49 semi gens=[(2, 1)] |H|=6 OA=6 OB=10 C=5 |mult|=2 fix=1 rows=(13, 1, 5) pools=(6, 70, 70): brute 78 canon 21 | p3 nr/np 78 nr 78 red 21 red3t 21 shards 21 gamma-exp 78 -> OK
+v=45 cyc e=[1, 0] |H|=8 OA=6 OB=10 C=5 |mult|=4 fix=5 rows=(3, 5, 11) pools=(2, 50, 50): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[1, 0] |H|=8 OA=6 OB=10 C=5 |mult|=4 fix=5 rows=(3, 9, 3) pools=(2, 100, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[1, 0] |H|=8 OA=6 OB=10 C=5 |mult|=4 fix=5 rows=(7, 5, 9) pools=(4, 50, 100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[1, 0] |H|=8 OA=6 OB=10 C=5 |mult|=4 fix=5 rows=(9, 3, 9) pools=(4, 10, 100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[1, 0] |H|=8 OA=6 OB=10 C=5 |mult|=4 fix=5 rows=(9, 5, 7) pools=(4, 50, 100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[1, 0] |H|=8 OA=6 OB=10 C=5 |mult|=4 fix=5 rows=(11, 5, 3) pools=(2, 50, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[1, 1] |H|=8 OA=5 OB=7 C=4 |mult|=4 fix=1 rows=(3, 5, 11) pools=(2, 10, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[1, 1] |H|=8 OA=5 OB=7 C=4 |mult|=4 fix=1 rows=(11, 5, 3) pools=(2, 10, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[1, 2] |H|=8 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(3, 5, 11) pools=(2, 10, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[1, 2] |H|=8 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(3, 9, 3) pools=(2, 20, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[1, 2] |H|=8 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(7, 5, 9) pools=(4, 10, 20): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[1, 2] |H|=8 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(9, 3, 9) pools=(4, 10, 20): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[1, 2] |H|=8 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(9, 5, 7) pools=(4, 10, 20): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[1, 2] |H|=8 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(11, 5, 3) pools=(2, 10, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 0] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(1, 7, 9) pools=(24, 2100, 2100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 0] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(3, 1, 13) pools=(22, 2520, 810): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 0] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(3, 5, 11) pools=(22, 1302, 1170): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 0] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(3, 9, 3) pools=(22, 2100, 1470): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 0] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(7, 5, 9) pools=(20, 1302, 2100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 0] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(9, 3, 9) pools=(20, 1470, 2100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 0] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(9, 5, 7) pools=(20, 1302, 2100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 0] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(9, 7, 1) pools=(20, 2100, 2520): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 0] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(11, 5, 3) pools=(18, 1302, 1470): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 0] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(13, 1, 3) pools=(18, 2520, 1470): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 2] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(1, 7, 9) pools=(24, 420, 420): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 2] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(3, 1, 13) pools=(22, 504, 330): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 2] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(3, 5, 11) pools=(22, 462, 330): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 2] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(3, 9, 3) pools=(22, 420, 462): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 2] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(7, 5, 9) pools=(20, 462, 420): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 2] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(9, 3, 9) pools=(20, 462, 420): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 2] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(9, 5, 7) pools=(20, 462, 420): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 2] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(9, 7, 1) pools=(20, 420, 504): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 2] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(11, 5, 3) pools=(18, 462, 462): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[2, 2] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(13, 1, 3) pools=(18, 504, 462): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[4, 1] |H|=4 OA=10 OB=14 C=9 |mult|=8 fix=1 rows=(1, 7, 9) pools=(48, 840, 840): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[4, 1] |H|=4 OA=10 OB=14 C=9 |mult|=8 fix=1 rows=(3, 1, 13) pools=(46, 1008, 666): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[4, 1] |H|=4 OA=10 OB=14 C=9 |mult|=8 fix=1 rows=(3, 5, 11) pools=(46, 966, 666): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[4, 1] |H|=4 OA=10 OB=14 C=9 |mult|=8 fix=1 rows=(3, 9, 3) pools=(46, 840, 966): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[4, 1] |H|=4 OA=10 OB=14 C=9 |mult|=8 fix=1 rows=(7, 5, 9) pools=(40, 966, 840): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[4, 1] |H|=4 OA=10 OB=14 C=9 |mult|=8 fix=1 rows=(9, 3, 9) pools=(40, 966, 840): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[4, 1] |H|=4 OA=10 OB=14 C=9 |mult|=8 fix=1 rows=(9, 5, 7) pools=(40, 966, 840): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[4, 1] |H|=4 OA=10 OB=14 C=9 |mult|=8 fix=1 rows=(9, 7, 1) pools=(40, 840, 1008): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[4, 1] |H|=4 OA=10 OB=14 C=9 |mult|=8 fix=1 rows=(11, 5, 3) pools=(34, 966, 966): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 cyc e=[4, 1] |H|=4 OA=10 OB=14 C=9 |mult|=8 fix=1 rows=(13, 1, 3) pools=(34, 1008, 966): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 1, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=4 fix=3 rows=(1, 7, 9) pools=(24, 1764, 1596): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 1, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=4 fix=3 rows=(3, 1, 13) pools=(22, 2016, 1242): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 1, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=4 fix=3 rows=(3, 5, 11) pools=(22, 1890, 1422): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 1, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=4 fix=3 rows=(3, 9, 3) pools=(22, 1596, 1974): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 1, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=4 fix=3 rows=(7, 5, 9) pools=(20, 1890, 1596): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 1, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=4 fix=3 rows=(9, 3, 9) pools=(20, 1974, 1596): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 1, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=4 fix=3 rows=(9, 5, 7) pools=(20, 1890, 1764): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 1, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=4 fix=3 rows=(9, 7, 1) pools=(20, 1764, 2016): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 1, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=4 fix=3 rows=(11, 5, 3) pools=(18, 1890, 1974): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 1, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=4 fix=3 rows=(13, 1, 3) pools=(18, 2016, 1974): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 0, 0)] |H|=8 OA=6 OB=10 C=5 |mult|=8 fix=5 rows=(3, 5, 11) pools=(2, 50, 50): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 0, 0)] |H|=8 OA=6 OB=10 C=5 |mult|=8 fix=5 rows=(3, 9, 3) pools=(2, 100, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 0, 0)] |H|=8 OA=6 OB=10 C=5 |mult|=8 fix=5 rows=(7, 5, 9) pools=(4, 50, 100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 0, 0)] |H|=8 OA=6 OB=10 C=5 |mult|=8 fix=5 rows=(9, 3, 9) pools=(4, 10, 100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 0, 0)] |H|=8 OA=6 OB=10 C=5 |mult|=8 fix=5 rows=(9, 5, 7) pools=(4, 50, 100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 0, 0)] |H|=8 OA=6 OB=10 C=5 |mult|=8 fix=5 rows=(11, 5, 3) pools=(2, 50, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(1, 7, 9) pools=(24, 2100, 2100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(3, 1, 13) pools=(22, 2520, 810): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(3, 5, 11) pools=(22, 1302, 1170): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(3, 9, 3) pools=(22, 2100, 1470): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(7, 5, 9) pools=(20, 1302, 2100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(9, 3, 9) pools=(20, 1470, 2100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(9, 5, 7) pools=(20, 1302, 2100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(9, 7, 1) pools=(20, 2100, 2520): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(11, 5, 3) pools=(18, 1302, 1470): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 1, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(13, 1, 3) pools=(18, 2520, 1470): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 1, 0, 0)] |H|=8 OA=5 OB=7 C=4 |mult|=4 fix=1 rows=(3, 5, 11) pools=(2, 10, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 1, 0, 0)] |H|=8 OA=5 OB=7 C=4 |mult|=4 fix=1 rows=(11, 5, 3) pools=(2, 10, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 2, 0, 0)] |H|=8 OA=6 OB=8 C=5 |mult|=8 fix=1 rows=(3, 5, 11) pools=(2, 10, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 2, 0, 0)] |H|=8 OA=6 OB=8 C=5 |mult|=8 fix=1 rows=(3, 9, 3) pools=(2, 20, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 2, 0, 0)] |H|=8 OA=6 OB=8 C=5 |mult|=8 fix=1 rows=(7, 5, 9) pools=(4, 10, 20): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 2, 0, 0)] |H|=8 OA=6 OB=8 C=5 |mult|=8 fix=1 rows=(9, 3, 9) pools=(4, 10, 20): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 2, 0, 0)] |H|=8 OA=6 OB=8 C=5 |mult|=8 fix=1 rows=(9, 5, 7) pools=(4, 10, 20): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 2, 0, 0)] |H|=8 OA=6 OB=8 C=5 |mult|=8 fix=1 rows=(11, 5, 3) pools=(2, 10, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 2, 1, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(1, 7, 9) pools=(24, 420, 420): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 2, 1, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(3, 1, 13) pools=(22, 504, 330): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 2, 1, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(3, 5, 11) pools=(22, 462, 330): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 2, 1, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(3, 9, 3) pools=(22, 420, 462): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 2, 1, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(7, 5, 9) pools=(20, 462, 420): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 2, 1, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(9, 3, 9) pools=(20, 462, 420): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 2, 1, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(9, 5, 7) pools=(20, 462, 420): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 2, 1, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(9, 7, 1) pools=(20, 420, 504): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 2, 1, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(11, 5, 3) pools=(18, 462, 462): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 2, 1, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=8 fix=1 rows=(13, 1, 3) pools=(18, 504, 462): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 0, 0, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=16 fix=5 rows=(1, 7, 9) pools=(24, 2100, 2100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 0, 0, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=16 fix=5 rows=(3, 1, 13) pools=(22, 2520, 810): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 0, 0, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=16 fix=5 rows=(3, 5, 11) pools=(22, 1302, 1170): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 0, 0, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=16 fix=5 rows=(3, 9, 3) pools=(22, 2100, 1470): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 0, 0, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=16 fix=5 rows=(7, 5, 9) pools=(20, 1302, 2100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 0, 0, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=16 fix=5 rows=(9, 3, 9) pools=(20, 1470, 2100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 0, 0, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=16 fix=5 rows=(9, 5, 7) pools=(20, 1302, 2100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 0, 0, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=16 fix=5 rows=(9, 7, 1) pools=(20, 2100, 2520): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 0, 0, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=16 fix=5 rows=(11, 5, 3) pools=(18, 1302, 1470): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 0, 0, 0)] |H|=4 OA=9 OB=15 C=8 |mult|=16 fix=5 rows=(13, 1, 3) pools=(18, 2520, 1470): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 2, 0, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=16 fix=1 rows=(1, 7, 9) pools=(24, 420, 420): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 2, 0, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=16 fix=1 rows=(3, 1, 13) pools=(22, 504, 330): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 2, 0, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=16 fix=1 rows=(3, 5, 11) pools=(22, 462, 330): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 2, 0, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=16 fix=1 rows=(3, 9, 3) pools=(22, 420, 462): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 2, 0, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=16 fix=1 rows=(7, 5, 9) pools=(20, 462, 420): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 2, 0, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=16 fix=1 rows=(9, 3, 9) pools=(20, 462, 420): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 2, 0, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=16 fix=1 rows=(9, 5, 7) pools=(20, 462, 420): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 2, 0, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=16 fix=1 rows=(9, 7, 1) pools=(20, 420, 504): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 2, 0, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=16 fix=1 rows=(11, 5, 3) pools=(18, 462, 462): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(2, 2, 0, 0)] |H|=4 OA=9 OB=13 C=8 |mult|=16 fix=1 rows=(13, 1, 3) pools=(18, 504, 462): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(4, 1, 0, 0)] |H|=4 OA=10 OB=14 C=9 |mult|=16 fix=1 rows=(1, 7, 9) pools=(48, 840, 840): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(4, 1, 0, 0)] |H|=4 OA=10 OB=14 C=9 |mult|=16 fix=1 rows=(3, 1, 13) pools=(46, 1008, 666): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(4, 1, 0, 0)] |H|=4 OA=10 OB=14 C=9 |mult|=16 fix=1 rows=(3, 5, 11) pools=(46, 966, 666): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(4, 1, 0, 0)] |H|=4 OA=10 OB=14 C=9 |mult|=16 fix=1 rows=(3, 9, 3) pools=(46, 840, 966): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(4, 1, 0, 0)] |H|=4 OA=10 OB=14 C=9 |mult|=16 fix=1 rows=(7, 5, 9) pools=(40, 966, 840): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(4, 1, 0, 0)] |H|=4 OA=10 OB=14 C=9 |mult|=16 fix=1 rows=(9, 3, 9) pools=(40, 966, 840): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(4, 1, 0, 0)] |H|=4 OA=10 OB=14 C=9 |mult|=16 fix=1 rows=(9, 5, 7) pools=(40, 966, 840): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(4, 1, 0, 0)] |H|=4 OA=10 OB=14 C=9 |mult|=16 fix=1 rows=(9, 7, 1) pools=(40, 840, 1008): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(4, 1, 0, 0)] |H|=4 OA=10 OB=14 C=9 |mult|=16 fix=1 rows=(11, 5, 3) pools=(34, 966, 966): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(4, 1, 0, 0)] |H|=4 OA=10 OB=14 C=9 |mult|=16 fix=1 rows=(13, 1, 3) pools=(34, 1008, 966): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=8 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(1, 7, 9) pools=(8, 180, 172): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=8 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(3, 1, 13) pools=(8, 192, 150): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=8 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(3, 5, 11) pools=(8, 186, 162): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=8 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(3, 9, 3) pools=(8, 172, 190): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=8 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(7, 5, 9) pools=(8, 186, 172): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=8 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(9, 3, 9) pools=(8, 190, 172): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=8 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(9, 5, 7) pools=(8, 186, 180): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=8 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(9, 7, 1) pools=(8, 180, 192): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=8 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(11, 5, 3) pools=(8, 186, 190): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=8 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(13, 1, 3) pools=(8, 192, 190): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (1, 0, 0, 0)] |H|=16 OA=6 OB=10 C=5 |mult|=4 fix=5 rows=(3, 5, 11) pools=(2, 50, 50): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (1, 0, 0, 0)] |H|=16 OA=6 OB=10 C=5 |mult|=4 fix=5 rows=(3, 9, 3) pools=(2, 100, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (1, 0, 0, 0)] |H|=16 OA=6 OB=10 C=5 |mult|=4 fix=5 rows=(7, 5, 9) pools=(4, 50, 100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (1, 0, 0, 0)] |H|=16 OA=6 OB=10 C=5 |mult|=4 fix=5 rows=(9, 3, 9) pools=(4, 10, 100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (1, 0, 0, 0)] |H|=16 OA=6 OB=10 C=5 |mult|=4 fix=5 rows=(9, 5, 7) pools=(4, 50, 100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (1, 0, 0, 0)] |H|=16 OA=6 OB=10 C=5 |mult|=4 fix=5 rows=(11, 5, 3) pools=(2, 50, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (1, 2, 0, 0)] |H|=16 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(3, 5, 11) pools=(2, 10, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (1, 2, 0, 0)] |H|=16 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(3, 9, 3) pools=(2, 20, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (1, 2, 0, 0)] |H|=16 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(7, 5, 9) pools=(4, 10, 20): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (1, 2, 0, 0)] |H|=16 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(9, 3, 9) pools=(4, 10, 20): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (1, 2, 0, 0)] |H|=16 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(9, 5, 7) pools=(4, 10, 20): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (1, 2, 0, 0)] |H|=16 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(11, 5, 3) pools=(2, 10, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 0, 0, 0)] |H|=8 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(1, 7, 9) pools=(24, 2100, 2100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 0, 0, 0)] |H|=8 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(3, 1, 13) pools=(22, 2520, 810): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 0, 0, 0)] |H|=8 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(3, 5, 11) pools=(22, 1302, 1170): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 0, 0, 0)] |H|=8 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(3, 9, 3) pools=(22, 2100, 1470): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 0, 0, 0)] |H|=8 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(7, 5, 9) pools=(20, 1302, 2100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 0, 0, 0)] |H|=8 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(9, 3, 9) pools=(20, 1470, 2100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 0, 0, 0)] |H|=8 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(9, 5, 7) pools=(20, 1302, 2100): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 0, 0, 0)] |H|=8 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(9, 7, 1) pools=(20, 2100, 2520): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 0, 0, 0)] |H|=8 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(11, 5, 3) pools=(18, 1302, 1470): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 0, 0, 0)] |H|=8 OA=9 OB=15 C=8 |mult|=8 fix=5 rows=(13, 1, 3) pools=(18, 2520, 1470): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 2, 0, 0)] |H|=8 OA=9 OB=11 C=8 |mult|=4 fix=1 rows=(1, 7, 9) pools=(24, 92, 92): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 2, 0, 0)] |H|=8 OA=9 OB=11 C=8 |mult|=4 fix=1 rows=(3, 1, 13) pools=(22, 104, 78): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 2, 0, 0)] |H|=8 OA=9 OB=11 C=8 |mult|=4 fix=1 rows=(3, 5, 11) pools=(22, 98, 78): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 2, 0, 0)] |H|=8 OA=9 OB=11 C=8 |mult|=4 fix=1 rows=(3, 9, 3) pools=(22, 92, 98): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 2, 0, 0)] |H|=8 OA=9 OB=11 C=8 |mult|=4 fix=1 rows=(7, 5, 9) pools=(20, 98, 92): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 2, 0, 0)] |H|=8 OA=9 OB=11 C=8 |mult|=4 fix=1 rows=(9, 3, 9) pools=(20, 98, 92): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 2, 0, 0)] |H|=8 OA=9 OB=11 C=8 |mult|=4 fix=1 rows=(9, 5, 7) pools=(20, 98, 92): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 2, 0, 0)] |H|=8 OA=9 OB=11 C=8 |mult|=4 fix=1 rows=(9, 7, 1) pools=(20, 92, 104): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 2, 0, 0)] |H|=8 OA=9 OB=11 C=8 |mult|=4 fix=1 rows=(11, 5, 3) pools=(18, 98, 98): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (2, 2, 0, 0)] |H|=8 OA=9 OB=11 C=8 |mult|=4 fix=1 rows=(13, 1, 3) pools=(18, 104, 98): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (4, 1, 0, 0)] |H|=8 OA=8 OB=10 C=7 |mult|=2 fix=1 rows=(1, 7, 9) pools=(8, 44, 44): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (4, 1, 0, 0)] |H|=8 OA=8 OB=10 C=7 |mult|=2 fix=1 rows=(3, 1, 13) pools=(8, 48, 38): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (4, 1, 0, 0)] |H|=8 OA=8 OB=10 C=7 |mult|=2 fix=1 rows=(3, 5, 11) pools=(8, 46, 38): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (4, 1, 0, 0)] |H|=8 OA=8 OB=10 C=7 |mult|=2 fix=1 rows=(3, 9, 3) pools=(8, 44, 46): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (4, 1, 0, 0)] |H|=8 OA=8 OB=10 C=7 |mult|=2 fix=1 rows=(7, 5, 9) pools=(8, 46, 44): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (4, 1, 0, 0)] |H|=8 OA=8 OB=10 C=7 |mult|=2 fix=1 rows=(9, 3, 9) pools=(8, 46, 44): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (4, 1, 0, 0)] |H|=8 OA=8 OB=10 C=7 |mult|=2 fix=1 rows=(9, 5, 7) pools=(8, 46, 44): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (4, 1, 0, 0)] |H|=8 OA=8 OB=10 C=7 |mult|=2 fix=1 rows=(9, 7, 1) pools=(8, 44, 48): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (4, 1, 0, 0)] |H|=8 OA=8 OB=10 C=7 |mult|=2 fix=1 rows=(11, 5, 3) pools=(8, 46, 46): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 0, 1, 0), (4, 1, 0, 0)] |H|=8 OA=8 OB=10 C=7 |mult|=2 fix=1 rows=(13, 1, 3) pools=(8, 48, 46): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 2, 1, 0), (4, 0, 0, 0)] |H|=4 OA=12 OB=14 C=11 |mult|=8 fix=1 rows=(1, 7, 9) pools=(208, 840, 840): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 2, 1, 0), (4, 0, 0, 0)] |H|=4 OA=12 OB=14 C=11 |mult|=8 fix=1 rows=(3, 1, 13) pools=(202, 1008, 666): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 2, 1, 0), (4, 0, 0, 0)] |H|=4 OA=12 OB=14 C=11 |mult|=8 fix=1 rows=(3, 5, 11) pools=(202, 966, 666): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 2, 1, 0), (4, 0, 0, 0)] |H|=4 OA=12 OB=14 C=11 |mult|=8 fix=1 rows=(3, 9, 3) pools=(202, 840, 966): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 2, 1, 0), (4, 0, 0, 0)] |H|=4 OA=12 OB=14 C=11 |mult|=8 fix=1 rows=(7, 5, 9) pools=(184, 966, 840): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 2, 1, 0), (4, 0, 0, 0)] |H|=4 OA=12 OB=14 C=11 |mult|=8 fix=1 rows=(9, 3, 9) pools=(184, 966, 840): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 2, 1, 0), (4, 0, 0, 0)] |H|=4 OA=12 OB=14 C=11 |mult|=8 fix=1 rows=(9, 5, 7) pools=(184, 966, 840): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 2, 1, 0), (4, 0, 0, 0)] |H|=4 OA=12 OB=14 C=11 |mult|=8 fix=1 rows=(9, 7, 1) pools=(184, 840, 1008): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 2, 1, 0), (4, 0, 0, 0)] |H|=4 OA=12 OB=14 C=11 |mult|=8 fix=1 rows=(11, 5, 3) pools=(158, 966, 966): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(0, 2, 1, 0), (4, 0, 0, 0)] |H|=4 OA=12 OB=14 C=11 |mult|=8 fix=1 rows=(13, 1, 3) pools=(158, 1008, 966): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 1, 0), (2, 2, 0, 0)] |H|=8 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(3, 5, 11) pools=(2, 10, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 1, 0), (2, 2, 0, 0)] |H|=8 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(3, 9, 3) pools=(2, 20, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 1, 0), (2, 2, 0, 0)] |H|=8 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(7, 5, 9) pools=(4, 10, 20): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 1, 0), (2, 2, 0, 0)] |H|=8 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(9, 3, 9) pools=(4, 10, 20): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 1, 0), (2, 2, 0, 0)] |H|=8 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(9, 5, 7) pools=(4, 10, 20): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=45 semi gens=[(1, 0, 1, 0), (2, 2, 0, 0)] |H|=8 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(11, 5, 3) pools=(2, 10, 10): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[0, 1] |H|=6 OA=10 OB=18 C=9 |mult|=8 fix=9 rows=(1, 11, 3) pools=(30, 5292, 10710): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[0, 1] |H|=6 OA=10 OB=18 C=9 |mult|=8 fix=9 rows=(3, 3, 15) pools=(30, 10710, 7182): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[0, 1] |H|=6 OA=10 OB=18 C=9 |mult|=8 fix=9 rows=(3, 9, 9) pools=(30, 10668, 10668): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[0, 1] |H|=6 OA=10 OB=18 C=9 |mult|=8 fix=9 rows=(3, 11, 1) pools=(30, 5292, 5670): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[0, 1] |H|=6 OA=10 OB=18 C=9 |mult|=8 fix=9 rows=(5, 1, 15) pools=(36, 5670, 7182): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[0, 1] |H|=6 OA=10 OB=18 C=9 |mult|=8 fix=9 rows=(9, 1, 13) pools=(28, 5670, 4158): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[0, 1] |H|=6 OA=10 OB=18 C=9 |mult|=8 fix=9 rows=(9, 9, 3) pools=(28, 10668, 10710): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[0, 1] |H|=6 OA=10 OB=18 C=9 |mult|=8 fix=9 rows=(13, 1, 9) pools=(22, 5670, 10668): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[0, 1] |H|=6 OA=10 OB=18 C=9 |mult|=8 fix=9 rows=(15, 1, 5) pools=(22, 5670, 15876): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[0, 1] |H|=6 OA=10 OB=18 C=9 |mult|=8 fix=9 rows=(15, 3, 3) pools=(22, 10710, 10710): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 0] |H|=8 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(1, 11, 3) pools=(3, 735, 245): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 0] |H|=8 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(3, 3, 15) pools=(3, 245, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 0] |H|=8 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(3, 9, 9) pools=(3, 1225, 1225): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 0] |H|=8 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(3, 11, 1) pools=(3, 735, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 0] |H|=8 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(5, 1, 15) pools=(9, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 0] |H|=8 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(9, 1, 13) pools=(9, 35, 245): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 0] |H|=8 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(9, 5, 11) pools=(9, 735, 735): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 0] |H|=8 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(9, 9, 3) pools=(9, 1225, 245): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 0] |H|=8 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(11, 5, 9) pools=(9, 735, 1225): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 0] |H|=8 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(13, 1, 9) pools=(3, 35, 1225): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 0] |H|=8 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(15, 1, 5) pools=(3, 35, 735): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 0] |H|=8 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(15, 3, 3) pools=(3, 245, 245): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 3] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(1, 11, 3) pools=(3, 105, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 3] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(3, 3, 15) pools=(3, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 3] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(3, 9, 9) pools=(3, 105, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 3] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(3, 11, 1) pools=(3, 105, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 3] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(5, 1, 15) pools=(9, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 3] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(9, 1, 13) pools=(9, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 3] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(9, 5, 11) pools=(9, 105, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 3] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(9, 9, 3) pools=(9, 105, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 3] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(11, 5, 9) pools=(9, 105, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 3] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(13, 1, 9) pools=(3, 35, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 3] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(15, 1, 5) pools=(3, 35, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[1, 3] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(15, 3, 3) pools=(3, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[2, 1] |H|=12 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(1, 11, 3) pools=(2, 4, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[2, 1] |H|=12 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(3, 3, 15) pools=(2, 6, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[2, 1] |H|=12 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(3, 9, 9) pools=(2, 4, 4): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[2, 1] |H|=12 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(3, 11, 1) pools=(2, 4, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[2, 1] |H|=12 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(5, 1, 15) pools=(4, 6, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[2, 1] |H|=12 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(13, 1, 9) pools=(2, 6, 4): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[2, 1] |H|=12 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(15, 1, 5) pools=(2, 6, 12): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[2, 1] |H|=12 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(15, 3, 3) pools=(2, 6, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[2, 2] |H|=12 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(1, 11, 3) pools=(2, 4, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[2, 2] |H|=12 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(3, 3, 15) pools=(2, 6, 14): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[2, 2] |H|=12 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(3, 9, 9) pools=(2, 16, 16): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[2, 2] |H|=12 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(3, 11, 1) pools=(2, 4, 30): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[2, 2] |H|=12 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(5, 1, 15) pools=(4, 30, 14): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[2, 2] |H|=12 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(13, 1, 9) pools=(2, 30, 16): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[2, 2] |H|=12 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(15, 1, 5) pools=(2, 30, 12): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[2, 2] |H|=12 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(15, 3, 3) pools=(2, 6, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[4, 2] |H|=6 OA=10 OB=15 C=9 |mult|=8 fix=1 rows=(1, 11, 3) pools=(30, 1260, 1302): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[4, 2] |H|=6 OA=10 OB=15 C=9 |mult|=8 fix=1 rows=(3, 3, 15) pools=(30, 1302, 966): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[4, 2] |H|=6 OA=10 OB=15 C=9 |mult|=8 fix=1 rows=(3, 9, 9) pools=(30, 1176, 1176): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[4, 2] |H|=6 OA=10 OB=15 C=9 |mult|=8 fix=1 rows=(3, 11, 1) pools=(30, 1260, 1470): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[4, 2] |H|=6 OA=10 OB=15 C=9 |mult|=8 fix=1 rows=(5, 1, 15) pools=(36, 1470, 966): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[4, 2] |H|=6 OA=10 OB=15 C=9 |mult|=8 fix=1 rows=(9, 1, 13) pools=(28, 1470, 1134): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[4, 2] |H|=6 OA=10 OB=15 C=9 |mult|=8 fix=1 rows=(9, 5, 11) pools=(28, 1428, 1260): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[4, 2] |H|=6 OA=10 OB=15 C=9 |mult|=8 fix=1 rows=(9, 9, 3) pools=(28, 1176, 1302): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[4, 2] |H|=6 OA=10 OB=15 C=9 |mult|=8 fix=1 rows=(11, 5, 9) pools=(28, 1428, 1176): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[4, 2] |H|=6 OA=10 OB=15 C=9 |mult|=8 fix=1 rows=(13, 1, 9) pools=(22, 1470, 1176): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[4, 2] |H|=6 OA=10 OB=15 C=9 |mult|=8 fix=1 rows=(15, 1, 5) pools=(22, 1470, 1428): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 cyc e=[4, 2] |H|=6 OA=10 OB=15 C=9 |mult|=8 fix=1 rows=(15, 3, 3) pools=(22, 1302, 1302): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 0, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=16 fix=9 rows=(1, 11, 3) pools=(30, 5292, 10710): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 0, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=16 fix=9 rows=(3, 3, 15) pools=(30, 10710, 7182): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 0, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=16 fix=9 rows=(3, 9, 9) pools=(30, 10668, 10668): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 0, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=16 fix=9 rows=(3, 11, 1) pools=(30, 5292, 5670): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 0, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=16 fix=9 rows=(5, 1, 15) pools=(36, 5670, 7182): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 0, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=16 fix=9 rows=(9, 1, 13) pools=(28, 5670, 4158): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 0, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=16 fix=9 rows=(9, 9, 3) pools=(28, 10668, 10710): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 0, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=16 fix=9 rows=(13, 1, 9) pools=(22, 5670, 10668): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 0, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=16 fix=9 rows=(15, 1, 5) pools=(22, 5670, 15876): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 0, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=16 fix=9 rows=(15, 3, 3) pools=(22, 10710, 10710): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(1, 11, 3) pools=(36, 1008, 1386): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(3, 3, 15) pools=(36, 1386, 966): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(3, 9, 9) pools=(36, 1344, 1344): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(3, 11, 1) pools=(36, 1008, 1134): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(5, 1, 15) pools=(24, 1134, 966): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(9, 1, 13) pools=(34, 1134, 882): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(9, 5, 11) pools=(34, 1512, 1008): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(9, 9, 3) pools=(34, 1344, 1386): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(11, 5, 9) pools=(34, 1512, 1344): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(13, 1, 9) pools=(32, 1134, 1344): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(15, 1, 5) pools=(32, 1134, 1512): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(15, 3, 3) pools=(32, 1386, 1386): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 2, 1, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=4 fix=3 rows=(1, 11, 3) pools=(36, 9756, 12262): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 2, 1, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=4 fix=3 rows=(3, 9, 9) pools=(36, 10936, 10936): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 2, 1, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=4 fix=3 rows=(3, 11, 1) pools=(36, 9756, 11874): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 2, 1, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=4 fix=3 rows=(5, 1, 15) pools=(24, 11874, 8682): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 2, 1, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=4 fix=3 rows=(9, 5, 11) pools=(34, 11400, 9756): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 2, 1, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=4 fix=3 rows=(9, 9, 3) pools=(34, 10936, 12262): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 2, 1, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=4 fix=3 rows=(11, 5, 9) pools=(34, 11400, 10936): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 2, 1, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=4 fix=3 rows=(13, 1, 9) pools=(32, 11874, 10936): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 2, 1, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=4 fix=3 rows=(15, 1, 5) pools=(32, 11874, 11400): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 2, 1, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=4 fix=3 rows=(15, 3, 3) pools=(32, 12262, 12262): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 0, 0)] |H|=8 OA=8 OB=14 C=7 |mult|=12 fix=7 rows=(1, 11, 3) pools=(3, 735, 245): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 0, 0)] |H|=8 OA=8 OB=14 C=7 |mult|=12 fix=7 rows=(3, 3, 15) pools=(3, 245, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 0, 0)] |H|=8 OA=8 OB=14 C=7 |mult|=12 fix=7 rows=(3, 9, 9) pools=(3, 1225, 1225): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 0, 0)] |H|=8 OA=8 OB=14 C=7 |mult|=12 fix=7 rows=(3, 11, 1) pools=(3, 735, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 0, 0)] |H|=8 OA=8 OB=14 C=7 |mult|=12 fix=7 rows=(5, 1, 15) pools=(9, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 0, 0)] |H|=8 OA=8 OB=14 C=7 |mult|=12 fix=7 rows=(9, 1, 13) pools=(9, 35, 245): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 0, 0)] |H|=8 OA=8 OB=14 C=7 |mult|=12 fix=7 rows=(9, 5, 11) pools=(9, 735, 735): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 0, 0)] |H|=8 OA=8 OB=14 C=7 |mult|=12 fix=7 rows=(9, 9, 3) pools=(9, 1225, 245): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 0, 0)] |H|=8 OA=8 OB=14 C=7 |mult|=12 fix=7 rows=(11, 5, 9) pools=(9, 735, 1225): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 0, 0)] |H|=8 OA=8 OB=14 C=7 |mult|=12 fix=7 rows=(13, 1, 9) pools=(3, 35, 1225): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 0, 0)] |H|=8 OA=8 OB=14 C=7 |mult|=12 fix=7 rows=(15, 1, 5) pools=(3, 35, 735): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 0, 0)] |H|=8 OA=8 OB=14 C=7 |mult|=12 fix=7 rows=(15, 3, 3) pools=(3, 245, 245): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 1, 1, 0)] |H|=12 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(1, 11, 3) pools=(2, 4, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 1, 1, 0)] |H|=12 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(3, 3, 15) pools=(2, 6, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 1, 1, 0)] |H|=12 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(3, 9, 9) pools=(2, 4, 4): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 1, 1, 0)] |H|=12 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(3, 11, 1) pools=(2, 4, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 1, 1, 0)] |H|=12 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(5, 1, 15) pools=(4, 6, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 1, 1, 0)] |H|=12 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(13, 1, 9) pools=(2, 6, 4): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 1, 1, 0)] |H|=12 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(15, 1, 5) pools=(2, 6, 12): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 1, 1, 0)] |H|=12 OA=6 OB=8 C=5 |mult|=4 fix=1 rows=(15, 3, 3) pools=(2, 6, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 2, 1, 0)] |H|=12 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(1, 11, 3) pools=(2, 4, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 2, 1, 0)] |H|=12 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(3, 3, 15) pools=(2, 6, 14): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 2, 1, 0)] |H|=12 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(3, 9, 9) pools=(2, 16, 16): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 2, 1, 0)] |H|=12 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(3, 11, 1) pools=(2, 4, 30): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 2, 1, 0)] |H|=12 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(5, 1, 15) pools=(4, 30, 14): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 2, 1, 0)] |H|=12 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(13, 1, 9) pools=(2, 30, 16): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 2, 1, 0)] |H|=12 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(15, 1, 5) pools=(2, 30, 12): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 2, 1, 0)] |H|=12 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(15, 3, 3) pools=(2, 6, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=12 fix=1 rows=(1, 11, 3) pools=(3, 105, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=12 fix=1 rows=(3, 3, 15) pools=(3, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=12 fix=1 rows=(3, 9, 9) pools=(3, 105, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=12 fix=1 rows=(3, 11, 1) pools=(3, 105, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=12 fix=1 rows=(5, 1, 15) pools=(9, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=12 fix=1 rows=(9, 1, 13) pools=(9, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=12 fix=1 rows=(9, 5, 11) pools=(9, 105, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=12 fix=1 rows=(9, 9, 3) pools=(9, 105, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=12 fix=1 rows=(11, 5, 9) pools=(9, 105, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=12 fix=1 rows=(13, 1, 9) pools=(3, 35, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=12 fix=1 rows=(15, 1, 5) pools=(3, 35, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=12 fix=1 rows=(15, 3, 3) pools=(3, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(2, 1, 0, 0)] |H|=12 OA=6 OB=8 C=5 |mult|=8 fix=1 rows=(1, 11, 3) pools=(2, 4, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(2, 1, 0, 0)] |H|=12 OA=6 OB=8 C=5 |mult|=8 fix=1 rows=(3, 3, 15) pools=(2, 6, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(2, 1, 0, 0)] |H|=12 OA=6 OB=8 C=5 |mult|=8 fix=1 rows=(3, 9, 9) pools=(2, 4, 4): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(2, 1, 0, 0)] |H|=12 OA=6 OB=8 C=5 |mult|=8 fix=1 rows=(3, 11, 1) pools=(2, 4, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(2, 1, 0, 0)] |H|=12 OA=6 OB=8 C=5 |mult|=8 fix=1 rows=(5, 1, 15) pools=(4, 6, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(2, 1, 0, 0)] |H|=12 OA=6 OB=8 C=5 |mult|=8 fix=1 rows=(13, 1, 9) pools=(2, 6, 4): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(2, 1, 0, 0)] |H|=12 OA=6 OB=8 C=5 |mult|=8 fix=1 rows=(15, 1, 5) pools=(2, 6, 12): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(2, 1, 0, 0)] |H|=12 OA=6 OB=8 C=5 |mult|=8 fix=1 rows=(15, 3, 3) pools=(2, 6, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(2, 2, 0, 0)] |H|=12 OA=6 OB=9 C=5 |mult|=8 fix=1 rows=(1, 11, 3) pools=(2, 4, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(2, 2, 0, 0)] |H|=12 OA=6 OB=9 C=5 |mult|=8 fix=1 rows=(3, 3, 15) pools=(2, 6, 14): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(2, 2, 0, 0)] |H|=12 OA=6 OB=9 C=5 |mult|=8 fix=1 rows=(3, 9, 9) pools=(2, 16, 16): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(2, 2, 0, 0)] |H|=12 OA=6 OB=9 C=5 |mult|=8 fix=1 rows=(3, 11, 1) pools=(2, 4, 30): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(2, 2, 0, 0)] |H|=12 OA=6 OB=9 C=5 |mult|=8 fix=1 rows=(5, 1, 15) pools=(4, 30, 14): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(2, 2, 0, 0)] |H|=12 OA=6 OB=9 C=5 |mult|=8 fix=1 rows=(13, 1, 9) pools=(2, 30, 16): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(2, 2, 0, 0)] |H|=12 OA=6 OB=9 C=5 |mult|=8 fix=1 rows=(15, 1, 5) pools=(2, 30, 12): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(2, 2, 0, 0)] |H|=12 OA=6 OB=9 C=5 |mult|=8 fix=1 rows=(15, 3, 3) pools=(2, 6, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(4, 2, 0, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=16 fix=1 rows=(1, 11, 3) pools=(30, 1260, 1302): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(4, 2, 0, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=16 fix=1 rows=(3, 3, 15) pools=(30, 1302, 966): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(4, 2, 0, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=16 fix=1 rows=(3, 9, 9) pools=(30, 1176, 1176): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(4, 2, 0, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=16 fix=1 rows=(3, 11, 1) pools=(30, 1260, 1470): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(4, 2, 0, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=16 fix=1 rows=(5, 1, 15) pools=(36, 1470, 966): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(4, 2, 0, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=16 fix=1 rows=(9, 1, 13) pools=(28, 1470, 1134): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(4, 2, 0, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=16 fix=1 rows=(9, 5, 11) pools=(28, 1428, 1260): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(4, 2, 0, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=16 fix=1 rows=(9, 9, 3) pools=(28, 1176, 1302): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(4, 2, 0, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=16 fix=1 rows=(11, 5, 9) pools=(28, 1428, 1176): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(4, 2, 0, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=16 fix=1 rows=(13, 1, 9) pools=(22, 1470, 1176): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(4, 2, 0, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=16 fix=1 rows=(15, 1, 5) pools=(22, 1470, 1428): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(4, 2, 0, 0)] |H|=6 OA=10 OB=15 C=9 |mult|=16 fix=1 rows=(15, 3, 3) pools=(22, 1302, 1302): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(1, 11, 3) pools=(6, 102, 132): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(3, 3, 15) pools=(6, 132, 112): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(3, 9, 9) pools=(6, 130, 130): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(3, 11, 1) pools=(6, 102, 108): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(5, 1, 15) pools=(4, 108, 112): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(9, 1, 13) pools=(6, 108, 96): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(9, 5, 11) pools=(6, 144, 102): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(9, 9, 3) pools=(6, 130, 132): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(11, 5, 9) pools=(6, 144, 130): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(13, 1, 9) pools=(6, 108, 130): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(15, 1, 5) pools=(6, 108, 144): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (0, 1, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=2 fix=3 rows=(15, 3, 3) pools=(6, 132, 132): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 0, 0, 0)] |H|=16 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(1, 11, 3) pools=(3, 735, 245): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 0, 0, 0)] |H|=16 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(3, 3, 15) pools=(3, 245, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 0, 0, 0)] |H|=16 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(3, 9, 9) pools=(3, 1225, 1225): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 0, 0, 0)] |H|=16 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(3, 11, 1) pools=(3, 735, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 0, 0, 0)] |H|=16 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(5, 1, 15) pools=(9, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 0, 0, 0)] |H|=16 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(9, 1, 13) pools=(9, 35, 245): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 0, 0, 0)] |H|=16 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(9, 5, 11) pools=(9, 735, 735): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 0, 0, 0)] |H|=16 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(9, 9, 3) pools=(9, 1225, 245): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 0, 0, 0)] |H|=16 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(11, 5, 9) pools=(9, 735, 1225): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 0, 0, 0)] |H|=16 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(13, 1, 9) pools=(3, 35, 1225): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 0, 0, 0)] |H|=16 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(15, 1, 5) pools=(3, 35, 735): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 0, 0, 0)] |H|=16 OA=8 OB=14 C=7 |mult|=6 fix=7 rows=(15, 3, 3) pools=(3, 245, 245): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 3, 0, 0)] |H|=16 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(1, 11, 3) pools=(3, 105, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 3, 0, 0)] |H|=16 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(3, 3, 15) pools=(3, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 3, 0, 0)] |H|=16 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(3, 9, 9) pools=(3, 105, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 3, 0, 0)] |H|=16 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(3, 11, 1) pools=(3, 105, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 3, 0, 0)] |H|=16 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(5, 1, 15) pools=(9, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 3, 0, 0)] |H|=16 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(9, 1, 13) pools=(9, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 3, 0, 0)] |H|=16 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(9, 5, 11) pools=(9, 105, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 3, 0, 0)] |H|=16 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(9, 9, 3) pools=(9, 105, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 3, 0, 0)] |H|=16 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(11, 5, 9) pools=(9, 105, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 3, 0, 0)] |H|=16 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(13, 1, 9) pools=(3, 35, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 3, 0, 0)] |H|=16 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(15, 1, 5) pools=(3, 35, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (1, 3, 0, 0)] |H|=16 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(15, 3, 3) pools=(3, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 1, 0, 0)] |H|=24 OA=6 OB=7 C=5 |mult|=2 fix=1 rows=(1, 11, 3) pools=(2, 2, 2): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 1, 0, 0)] |H|=24 OA=6 OB=7 C=5 |mult|=2 fix=1 rows=(3, 3, 15) pools=(2, 2, 2): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 1, 0, 0)] |H|=24 OA=6 OB=7 C=5 |mult|=2 fix=1 rows=(3, 9, 9) pools=(2, 2, 2): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 1, 0, 0)] |H|=24 OA=6 OB=7 C=5 |mult|=2 fix=1 rows=(3, 11, 1) pools=(2, 2, 2): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 1, 0, 0)] |H|=24 OA=6 OB=7 C=5 |mult|=2 fix=1 rows=(5, 1, 15) pools=(4, 2, 2): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 1, 0, 0)] |H|=24 OA=6 OB=7 C=5 |mult|=2 fix=1 rows=(13, 1, 9) pools=(2, 2, 2): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 1, 0, 0)] |H|=24 OA=6 OB=7 C=5 |mult|=2 fix=1 rows=(15, 1, 5) pools=(2, 2, 4): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 1, 0, 0)] |H|=24 OA=6 OB=7 C=5 |mult|=2 fix=1 rows=(15, 3, 3) pools=(2, 2, 2): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 2, 0, 0)] |H|=24 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(1, 11, 3) pools=(2, 4, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 2, 0, 0)] |H|=24 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(3, 3, 15) pools=(2, 6, 14): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 2, 0, 0)] |H|=24 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(3, 9, 9) pools=(2, 16, 16): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 2, 0, 0)] |H|=24 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(3, 11, 1) pools=(2, 4, 30): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 2, 0, 0)] |H|=24 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(5, 1, 15) pools=(4, 30, 14): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 2, 0, 0)] |H|=24 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(13, 1, 9) pools=(2, 30, 16): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 2, 0, 0)] |H|=24 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(15, 1, 5) pools=(2, 30, 12): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 2, 0, 0)] |H|=24 OA=6 OB=9 C=5 |mult|=4 fix=1 rows=(15, 3, 3) pools=(2, 6, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=12 OB=15 C=11 |mult|=6 fix=1 rows=(1, 11, 3) pools=(155, 1217, 1379): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=12 OB=15 C=11 |mult|=6 fix=1 rows=(3, 3, 15) pools=(155, 1379, 1067): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=12 OB=15 C=11 |mult|=6 fix=1 rows=(3, 9, 9) pools=(155, 1217, 1217): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=12 OB=15 C=11 |mult|=6 fix=1 rows=(3, 11, 1) pools=(155, 1217, 1379): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=12 OB=15 C=11 |mult|=6 fix=1 rows=(5, 1, 15) pools=(145, 1379, 1067): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=12 OB=15 C=11 |mult|=6 fix=1 rows=(9, 1, 13) pools=(135, 1379, 1067): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=12 OB=15 C=11 |mult|=6 fix=1 rows=(9, 5, 11) pools=(135, 1321, 1217): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=12 OB=15 C=11 |mult|=6 fix=1 rows=(9, 9, 3) pools=(135, 1217, 1379): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=12 OB=15 C=11 |mult|=6 fix=1 rows=(11, 5, 9) pools=(135, 1321, 1217): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=12 OB=15 C=11 |mult|=6 fix=1 rows=(13, 1, 9) pools=(125, 1379, 1217): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=12 OB=15 C=11 |mult|=6 fix=1 rows=(15, 1, 5) pools=(125, 1379, 1321): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=12 OB=15 C=11 |mult|=6 fix=1 rows=(15, 3, 3) pools=(125, 1379, 1379): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (4, 2, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=4 fix=1 rows=(1, 11, 3) pools=(6, 120, 158): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (4, 2, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=4 fix=1 rows=(3, 3, 15) pools=(6, 158, 130): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (4, 2, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=4 fix=1 rows=(3, 9, 9) pools=(6, 148, 148): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (4, 2, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=4 fix=1 rows=(3, 11, 1) pools=(6, 120, 134): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (4, 2, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=4 fix=1 rows=(5, 1, 15) pools=(4, 134, 130): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (4, 2, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=4 fix=1 rows=(9, 1, 13) pools=(6, 134, 114): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (4, 2, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=4 fix=1 rows=(9, 5, 11) pools=(6, 132, 120): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (4, 2, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=4 fix=1 rows=(9, 9, 3) pools=(6, 148, 158): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (4, 2, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=4 fix=1 rows=(11, 5, 9) pools=(6, 132, 148): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (4, 2, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=4 fix=1 rows=(13, 1, 9) pools=(6, 134, 148): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (4, 2, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=4 fix=1 rows=(15, 1, 5) pools=(6, 134, 132): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 0, 1, 0), (4, 2, 0, 0)] |H|=12 OA=8 OB=12 C=7 |mult|=4 fix=1 rows=(15, 3, 3) pools=(6, 158, 158): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0), (4, 0, 0, 0)] |H|=12 OA=8 OB=9 C=7 |mult|=4 fix=1 rows=(1, 11, 3) pools=(6, 16, 18): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0), (4, 0, 0, 0)] |H|=12 OA=8 OB=9 C=7 |mult|=4 fix=1 rows=(3, 3, 15) pools=(6, 18, 14): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0), (4, 0, 0, 0)] |H|=12 OA=8 OB=9 C=7 |mult|=4 fix=1 rows=(3, 9, 9) pools=(6, 16, 16): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0), (4, 0, 0, 0)] |H|=12 OA=8 OB=9 C=7 |mult|=4 fix=1 rows=(3, 11, 1) pools=(6, 16, 18): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0), (4, 0, 0, 0)] |H|=12 OA=8 OB=9 C=7 |mult|=4 fix=1 rows=(5, 1, 15) pools=(4, 18, 14): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0), (4, 0, 0, 0)] |H|=12 OA=8 OB=9 C=7 |mult|=4 fix=1 rows=(9, 1, 13) pools=(6, 18, 14): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0), (4, 0, 0, 0)] |H|=12 OA=8 OB=9 C=7 |mult|=4 fix=1 rows=(9, 5, 11) pools=(6, 12, 16): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0), (4, 0, 0, 0)] |H|=12 OA=8 OB=9 C=7 |mult|=4 fix=1 rows=(9, 9, 3) pools=(6, 16, 18): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0), (4, 0, 0, 0)] |H|=12 OA=8 OB=9 C=7 |mult|=4 fix=1 rows=(11, 5, 9) pools=(6, 12, 16): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0), (4, 0, 0, 0)] |H|=12 OA=8 OB=9 C=7 |mult|=4 fix=1 rows=(13, 1, 9) pools=(6, 18, 16): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0), (4, 0, 0, 0)] |H|=12 OA=8 OB=9 C=7 |mult|=4 fix=1 rows=(15, 1, 5) pools=(6, 18, 12): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(0, 1, 1, 0), (4, 0, 0, 0)] |H|=12 OA=8 OB=9 C=7 |mult|=4 fix=1 rows=(15, 3, 3) pools=(6, 18, 18): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(1, 11, 3) pools=(3, 105, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(3, 3, 15) pools=(3, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(3, 9, 9) pools=(3, 105, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(3, 11, 1) pools=(3, 105, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(5, 1, 15) pools=(9, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(9, 1, 13) pools=(9, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(9, 5, 11) pools=(9, 105, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(9, 9, 3) pools=(9, 105, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(11, 5, 9) pools=(9, 105, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(13, 1, 9) pools=(3, 35, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(15, 1, 5) pools=(3, 35, 105): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=63 semi gens=[(1, 0, 1, 0), (2, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(15, 3, 3) pools=(3, 35, 35): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 cyc e=[0, 3] |H|=8 OA=8 OB=12 C=7 |mult|=6 fix=3 rows=(9, 7, 11) pools=(12, 378, 126): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 cyc e=[0, 3] |H|=8 OA=8 OB=12 C=7 |mult|=6 fix=3 rows=(11, 7, 9) pools=(12, 378, 378): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 cyc e=[1, 3] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(9, 7, 11) pools=(12, 126, 126): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 cyc e=[1, 3] |H|=8 OA=8 OB=11 C=7 |mult|=6 fix=1 rows=(11, 7, 9) pools=(12, 126, 126): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 cyc e=[1, 8] |H|=6 OA=10 OB=18 C=9 |mult|=8 fix=1 rows=(3, 1, 17) pools=(44, 8092, 5328): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 cyc e=[1, 8] |H|=6 OA=10 OB=18 C=9 |mult|=8 fix=1 rows=(3, 11, 7) pools=(44, 6728, 7728): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 cyc e=[1, 8] |H|=6 OA=10 OB=18 C=9 |mult|=8 fix=1 rows=(9, 5, 13) pools=(40, 7728, 6728): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 cyc e=[1, 8] |H|=6 OA=10 OB=18 C=9 |mult|=8 fix=1 rows=(9, 7, 11) pools=(40, 7728, 6728): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 cyc e=[1, 8] |H|=6 OA=10 OB=18 C=9 |mult|=8 fix=1 rows=(11, 7, 9) pools=(40, 7728, 14456): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 cyc e=[1, 8] |H|=6 OA=10 OB=18 C=9 |mult|=8 fix=1 rows=(13, 5, 9) pools=(40, 7728, 14456): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 cyc e=[1, 8] |H|=6 OA=10 OB=18 C=9 |mult|=8 fix=1 rows=(15, 5, 5) pools=(40, 7728, 7728): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 1, 0, 1)] |H|=8 OA=8 OB=12 C=7 |mult|=4 fix=3 rows=(9, 7, 11) pools=(12, 378, 126): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 1, 0, 1)] |H|=8 OA=8 OB=12 C=7 |mult|=4 fix=3 rows=(11, 7, 9) pools=(12, 378, 378): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 3, 0, 0)] |H|=8 OA=8 OB=12 C=7 |mult|=12 fix=3 rows=(9, 7, 11) pools=(12, 378, 126): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 3, 0, 0)] |H|=8 OA=8 OB=12 C=7 |mult|=12 fix=3 rows=(11, 7, 9) pools=(12, 378, 378): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(1, 1, 0, 1)] |H|=8 OA=8 OB=11 C=7 |mult|=4 fix=1 rows=(9, 7, 11) pools=(12, 126, 126): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(1, 1, 0, 1)] |H|=8 OA=8 OB=11 C=7 |mult|=4 fix=1 rows=(11, 7, 9) pools=(12, 126, 126): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(1, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=12 fix=1 rows=(9, 7, 11) pools=(12, 126, 126): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(1, 3, 0, 0)] |H|=8 OA=8 OB=11 C=7 |mult|=12 fix=1 rows=(11, 7, 9) pools=(12, 126, 126): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(1, 8, 0, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=16 fix=1 rows=(3, 1, 17) pools=(44, 8092, 5328): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(1, 8, 0, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=16 fix=1 rows=(3, 11, 7) pools=(44, 6728, 7728): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(1, 8, 0, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=16 fix=1 rows=(9, 5, 13) pools=(40, 7728, 6728): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(1, 8, 0, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=16 fix=1 rows=(9, 7, 11) pools=(40, 7728, 6728): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(1, 8, 0, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=16 fix=1 rows=(11, 7, 9) pools=(40, 7728, 14456): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(1, 8, 0, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=16 fix=1 rows=(13, 5, 9) pools=(40, 7728, 14456): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(1, 8, 0, 0)] |H|=6 OA=10 OB=18 C=9 |mult|=16 fix=1 rows=(15, 5, 5) pools=(40, 7728, 7728): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (0, 3, 0, 0)] |H|=16 OA=6 OB=9 C=5 |mult|=2 fix=3 rows=(9, 7, 11) pools=(2, 36, 12): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (0, 3, 0, 0)] |H|=16 OA=6 OB=9 C=5 |mult|=2 fix=3 rows=(11, 7, 9) pools=(2, 36, 36): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (0, 6, 0, 0)] |H|=8 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(3, 1, 17) pools=(28, 1740, 1368): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (0, 6, 0, 0)] |H|=8 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(3, 11, 7) pools=(28, 546, 1638): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (0, 6, 0, 0)] |H|=8 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(5, 5, 15) pools=(26, 546, 1368): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (0, 6, 0, 0)] |H|=8 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(7, 11, 3) pools=(26, 546, 580): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (0, 6, 0, 0)] |H|=8 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(9, 5, 13) pools=(26, 546, 456): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (0, 6, 0, 0)] |H|=8 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(9, 7, 11) pools=(26, 1638, 546): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (0, 6, 0, 0)] |H|=8 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(11, 7, 9) pools=(26, 1638, 1638): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (0, 6, 0, 0)] |H|=8 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(13, 5, 9) pools=(24, 546, 1638): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (0, 6, 0, 0)] |H|=8 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(15, 5, 5) pools=(24, 546, 546): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (0, 6, 0, 0)] |H|=8 OA=10 OB=15 C=9 |mult|=4 fix=3 rows=(17, 1, 3) pools=(24, 1740, 580): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 3, 0, 0)] |H|=16 OA=6 OB=8 C=5 |mult|=2 fix=1 rows=(9, 7, 11) pools=(2, 12, 12): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 3, 0, 0)] |H|=16 OA=6 OB=8 C=5 |mult|=2 fix=1 rows=(11, 7, 9) pools=(2, 12, 12): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=14 C=9 |mult|=4 fix=1 rows=(3, 1, 17) pools=(28, 580, 456): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=14 C=9 |mult|=4 fix=1 rows=(3, 11, 7) pools=(28, 546, 546): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=14 C=9 |mult|=4 fix=1 rows=(5, 5, 15) pools=(26, 546, 456): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=14 C=9 |mult|=4 fix=1 rows=(7, 11, 3) pools=(26, 546, 580): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=14 C=9 |mult|=4 fix=1 rows=(9, 5, 13) pools=(26, 546, 456): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=14 C=9 |mult|=4 fix=1 rows=(9, 7, 11) pools=(26, 546, 546): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=14 C=9 |mult|=4 fix=1 rows=(11, 7, 9) pools=(26, 546, 546): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=14 C=9 |mult|=4 fix=1 rows=(13, 5, 9) pools=(24, 546, 546): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=14 C=9 |mult|=4 fix=1 rows=(15, 5, 5) pools=(24, 546, 546): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=14 C=9 |mult|=4 fix=1 rows=(17, 1, 3) pools=(24, 580, 580): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 8, 0, 0)] |H|=12 OA=10 OB=14 C=9 |mult|=4 fix=1 rows=(3, 1, 17) pools=(44, 404, 312): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 8, 0, 0)] |H|=12 OA=10 OB=14 C=9 |mult|=4 fix=1 rows=(3, 11, 7) pools=(44, 360, 392): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 8, 0, 0)] |H|=12 OA=10 OB=14 C=9 |mult|=4 fix=1 rows=(9, 5, 13) pools=(40, 392, 360): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 8, 0, 0)] |H|=12 OA=10 OB=14 C=9 |mult|=4 fix=1 rows=(9, 7, 11) pools=(40, 392, 360): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 8, 0, 0)] |H|=12 OA=10 OB=14 C=9 |mult|=4 fix=1 rows=(11, 7, 9) pools=(40, 392, 752): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 8, 0, 0)] |H|=12 OA=10 OB=14 C=9 |mult|=4 fix=1 rows=(13, 5, 9) pools=(40, 392, 752): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 0, 0, 1), (1, 8, 0, 0)] |H|=12 OA=10 OB=14 C=9 |mult|=4 fix=1 rows=(15, 5, 5) pools=(40, 392, 392): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 1, 0, 1), (1, 3, 0, 0)] |H|=16 OA=6 OB=7 C=5 |mult|=2 fix=1 rows=(9, 7, 11) pools=(2, 6, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 1, 0, 1), (1, 3, 0, 0)] |H|=16 OA=6 OB=7 C=5 |mult|=2 fix=1 rows=(11, 7, 9) pools=(2, 6, 6): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 2, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=12 C=9 |mult|=4 fix=1 rows=(3, 1, 17) pools=(28, 140, 112): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 2, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=12 C=9 |mult|=4 fix=1 rows=(3, 11, 7) pools=(28, 126, 126): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 2, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=12 C=9 |mult|=4 fix=1 rows=(5, 5, 15) pools=(26, 126, 112): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 2, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=12 C=9 |mult|=4 fix=1 rows=(7, 11, 3) pools=(26, 126, 140): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 2, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=12 C=9 |mult|=4 fix=1 rows=(9, 5, 13) pools=(26, 126, 112): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 2, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=12 C=9 |mult|=4 fix=1 rows=(9, 7, 11) pools=(26, 126, 126): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 2, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=12 C=9 |mult|=4 fix=1 rows=(11, 7, 9) pools=(26, 126, 126): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 2, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=12 C=9 |mult|=4 fix=1 rows=(13, 5, 9) pools=(24, 126, 126): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 2, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=12 C=9 |mult|=4 fix=1 rows=(15, 5, 5) pools=(24, 126, 126): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 2, 0, 1), (1, 6, 0, 0)] |H|=8 OA=10 OB=12 C=9 |mult|=4 fix=1 rows=(17, 1, 3) pools=(24, 140, 140): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 8, 0, 0), (1, 0, 0, 1)] |H|=6 OA=12 OB=16 C=11 |mult|=8 fix=1 rows=(3, 1, 17) pools=(196, 1932, 1320): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 8, 0, 0), (1, 0, 0, 1)] |H|=6 OA=12 OB=16 C=11 |mult|=8 fix=1 rows=(3, 11, 7) pools=(196, 1632, 1848): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 8, 0, 0), (1, 0, 0, 1)] |H|=6 OA=12 OB=16 C=11 |mult|=8 fix=1 rows=(9, 5, 13) pools=(176, 1848, 1632): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 8, 0, 0), (1, 0, 0, 1)] |H|=6 OA=12 OB=16 C=11 |mult|=8 fix=1 rows=(9, 7, 11) pools=(176, 1848, 1632): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 8, 0, 0), (1, 0, 0, 1)] |H|=6 OA=12 OB=16 C=11 |mult|=8 fix=1 rows=(11, 7, 9) pools=(176, 1848, 3480): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 8, 0, 0), (1, 0, 0, 1)] |H|=6 OA=12 OB=16 C=11 |mult|=8 fix=1 rows=(13, 5, 9) pools=(176, 1848, 3480): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+v=75 semi gens=[(0, 8, 0, 0), (1, 0, 0, 1)] |H|=6 OA=12 OB=16 C=11 |mult|=8 fix=1 rows=(15, 5, 5) pools=(176, 1848, 1848): brute 0 canon 0 | p3 nr/np 0 nr 0 red 0 red3t 0 shards 0 gamma-exp 0 -> OK
+cases 545, solutions in total 2286, passed 545, failed 0

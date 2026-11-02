@@ -1,0 +1,288 @@
+p3: v=247 C=17 OA=18 OB=35 rows=(5,1,31) NS=3 W=126 threads=8 shard 0/1 canonB=1(perms 23) canonD=1 psd=(1,1,1) energy=(0,0)
+  A: pass 1: 10032 leaves, 3376 kept [0.0s]
+COUNT A 10032 3376
+  A: list of 3376 members [0.1s]
+  B: pass 1: 906100272 leaves, 71259 kept [21.1s]
+COUNT B 906100272 71259
+  B: list of 71259 members [42.4s]
+  D: pass 1: 727180236 leaves, 97718190 kept [18.8s]
+COUNT D 727180236 97718190
+  D: list of 97718190 members [38.3s]
+p3: lists A=3376 B=71259 D=97718190 [80.8s]  (D keys with 0 hash: checked in join)
+LISTS 3376 71259 97718190
+p3: join: 9528 sigma groups in 596 batches
+  join: 64/596 batches [0s]
+  join: 128/596 batches [0s]
+  join: 192/596 batches [0s]
+  join: 256/596 batches [0s]
+  join: 320/596 batches [0s]
+  join: 384/596 batches [0s]
+  join: 448/596 batches [0s]
+  join: 512/596 batches [0s]
+  join: 576/596 batches [0s]
+p3: done: 206751164 pairs in 0.2s (9.47e+08 pairs/s over 8 threads)
+DONE hits=0 matches=0 badmatches=0 pairs=206751164 join_seconds=0.22 total_seconds=81.07
+p3: v=247 C=17 OA=18 OB=35 rows=(5,13,25) NS=3 W=126 threads=8 shard 0/1 canonB=1(perms 23) canonD=1 psd=(1,1,1) energy=(0,0)
+  A: pass 1: 10032 leaves, 3376 kept [0.0s]
+COUNT A 10032 3376
+  A: list of 3376 members [0.1s]
+  B: pass 1: 870797664 leaves, 62194 kept [20.1s]
+COUNT B 870797664 62194
+  B: list of 62194 members [40.5s]
+  D: pass 1: 787890024 leaves, 106437338 kept [20.2s]
+COUNT D 787890024 106437338
+  D: list of 106437338 members [41.1s]
+p3: lists A=3376 B=62194 D=106437338 [81.8s]  (D keys with 0 hash: checked in join)
+LISTS 3376 62194 106437338
+p3: join: 9817 sigma groups in 614 batches
+  join: 64/614 batches [0s]
+  join: 128/614 batches [0s]
+  join: 192/614 batches [0s]
+  join: 256/614 batches [0s]
+  join: 320/614 batches [0s]
+  join: 384/614 batches [0s]
+  join: 448/614 batches [0s]
+  join: 512/614 batches [0s]
+  join: 576/614 batches [0s]
+p3: done: 181725598 pairs in 0.2s (7.28e+08 pairs/s over 8 threads)
+DONE hits=0 matches=0 badmatches=0 pairs=181725598 join_seconds=0.25 total_seconds=82.03
+p3: v=247 C=17 OA=18 OB=35 rows=(7,7,29) NS=3 W=126 threads=8 shard 0/1 canonB=1(perms 23) canonD=1 psd=(1,1,1) energy=(0,0)
+  A: pass 1: 10032 leaves, 2500 kept [0.0s]
+COUNT A 10032 2500
+  A: list of 2500 members [0.1s]
+  B: pass 1: 894332736 leaves, 65720 kept [20.4s]
+COUNT B 894332736 65720
+  B: list of 65720 members [41.2s]
+  D: pass 1: 727180236 leaves, 92604096 kept [21.8s]
+COUNT D 727180236 92604096
+  D: list of 92604096 members [44.1s]
+p3: lists A=2500 B=65720 D=92604096 [85.4s]  (D keys with 0 hash: checked in join)
+LISTS 2500 65720 92604096
+p3: join: 9512 sigma groups in 595 batches
+  join: 64/595 batches [0s]
+  join: 128/595 batches [0s]
+  join: 192/595 batches [0s]
+  join: 256/595 batches [0s]
+  join: 320/595 batches [0s]
+  join: 384/595 batches [0s]
+  join: 448/595 batches [0s]
+  join: 512/595 batches [0s]
+  join: 576/595 batches [0s]
+p3: done: 141343595 pairs in 0.2s (8.12e+08 pairs/s over 8 threads)
+DONE hits=0 matches=0 badmatches=0 pairs=141343595 join_seconds=0.17 total_seconds=85.55
+p3: v=247 C=17 OA=18 OB=35 rows=(7,17,19) NS=3 W=126 threads=8 shard 0/1 canonB=1(perms 23) canonD=1 psd=(1,1,1) energy=(0,0)
+  A: pass 1: 10032 leaves, 2500 kept [0.0s]
+COUNT A 10032 2500
+  A: list of 2500 members [0.1s]
+  B: pass 1: 838971828 leaves, 58575 kept [20.9s]
+COUNT B 838971828 58575
+  B: list of 58575 members [42.2s]
+  D: pass 1: 838971828 leaves, 111567562 kept [22.4s]
+COUNT D 838971828 111567562
+  D: list of 111567562 members [45.4s]
+p3: lists A=2500 B=58575 D=111567562 [87.7s]  (D keys with 0 hash: checked in join)
+LISTS 2500 58575 111567562
+p3: join: 9804 sigma groups in 613 batches
+  join: 64/613 batches [0s]
+  join: 128/613 batches [0s]
+  join: 192/613 batches [0s]
+  join: 256/613 batches [0s]
+  join: 320/613 batches [0s]
+  join: 384/613 batches [0s]
+  join: 448/613 batches [0s]
+  join: 512/613 batches [0s]
+  join: 576/613 batches [0s]
+p3: done: 127749955 pairs in 0.2s (6.61e+08 pairs/s over 8 threads)
+DONE hits=0 matches=0 badmatches=0 pairs=127749955 join_seconds=0.19 total_seconds=87.89
+p3: v=247 C=17 OA=18 OB=35 rows=(17,13,19) NS=3 W=126 threads=8 shard 0/1 canonB=1(perms 23) canonD=1 psd=(1,1,1) energy=(0,0)
+  A: pass 1: 8580 leaves, 2018 kept [0.0s]
+COUNT A 8580 2018
+  A: list of 2018 members [0.1s]
+  B: pass 1: 870797664 leaves, 62194 kept [16.7s]
+COUNT B 870797664 62194
+  B: list of 62194 members [35.9s]
+  D: pass 1: 838971828 leaves, 111567562 kept [20.2s]
+COUNT D 838971828 111567562
+  D: list of 111567562 members [41.3s]
+p3: lists A=2018 B=62194 D=111567562 [77.3s]  (D keys with 0 hash: checked in join)
+LISTS 2018 62194 111567562
+p3: join: 9804 sigma groups in 613 batches
+  join: 64/613 batches [0s]
+  join: 128/613 batches [0s]
+  join: 192/613 batches [0s]
+  join: 256/613 batches [0s]
+  join: 320/613 batches [0s]
+  join: 384/613 batches [0s]
+  join: 448/613 batches [0s]
+  join: 512/613 batches [0s]
+  join: 576/613 batches [0s]
+p3: done: 109334899 pairs in 0.2s (5.91e+08 pairs/s over 8 threads)
+DONE hits=0 matches=0 badmatches=0 pairs=109334899 join_seconds=0.18 total_seconds=77.52
+p3: v=247 C=17 OA=18 OB=35 rows=(17,17,11) NS=3 W=126 threads=8 shard 0/1 canonB=1(perms 23) canonD=1 psd=(1,1,1) energy=(0,0)
+  A: pass 1: 8580 leaves, 2018 kept [0.0s]
+COUNT A 8580 2018
+  A: list of 2018 members [0.1s]
+  B: pass 1: 838971828 leaves, 58575 kept [18.7s]
+COUNT B 838971828 58575
+  B: list of 58575 members [35.0s]
+  D: pass 1: 870797664 leaves, 108830204 kept [21.6s]
+COUNT D 870797664 108830204
+  D: list of 108830204 members [44.8s]
+p3: lists A=2018 B=58575 D=108830204 [80.0s]  (D keys with 0 hash: checked in join)
+LISTS 2018 58575 108830204
+p3: join: 9745 sigma groups in 610 batches
+  join: 64/610 batches [0s]
+  join: 128/610 batches [0s]
+  join: 192/610 batches [0s]
+  join: 256/610 batches [0s]
+  join: 320/610 batches [0s]
+  join: 384/610 batches [0s]
+  join: 448/610 batches [0s]
+  join: 512/610 batches [0s]
+  join: 576/610 batches [0s]
+p3: done: 102884853 pairs in 0.2s (5.85e+08 pairs/s over 8 threads)
+DONE hits=0 matches=0 badmatches=0 pairs=102884853 join_seconds=0.18 total_seconds=80.17
+p3: v=247 C=17 OA=18 OB=35 rows=(19,1,25) NS=3 W=126 threads=8 shard 0/1 canonB=1(perms 23) canonD=1 psd=(1,1,1) energy=(0,0)
+  A: pass 1: 8580 leaves, 2150 kept [0.0s]
+COUNT A 8580 2150
+  A: list of 2150 members [0.2s]
+  B: pass 1: 906100272 leaves, 71259 kept [20.7s]
+COUNT B 906100272 71259
+  B: list of 71259 members [41.7s]
+  D: pass 1: 787890024 leaves, 106437338 kept [22.4s]
+COUNT D 787890024 106437338
+  D: list of 106437338 members [44.1s]
+p3: lists A=2150 B=71259 D=106437338 [86.0s]  (D keys with 0 hash: checked in join)
+LISTS 2150 71259 106437338
+p3: join: 9817 sigma groups in 614 batches
+  join: 64/614 batches [0s]
+  join: 128/614 batches [0s]
+  join: 192/614 batches [0s]
+  join: 256/614 batches [0s]
+  join: 320/614 batches [0s]
+  join: 384/614 batches [0s]
+  join: 448/614 batches [0s]
+  join: 512/614 batches [0s]
+  join: 576/614 batches [0s]
+p3: done: 133266310 pairs in 0.2s (7.48e+08 pairs/s over 8 threads)
+DONE hits=0 matches=0 badmatches=0 pairs=133266310 join_seconds=0.18 total_seconds=86.22
+p3: v=247 C=17 OA=18 OB=35 rows=(19,7,23) NS=3 W=126 threads=8 shard 0/1 canonB=1(perms 23) canonD=1 psd=(1,1,1) energy=(0,0)
+  A: pass 1: 8580 leaves, 2150 kept [0.0s]
+COUNT A 8580 2150
+  A: list of 2150 members [0.1s]
+  B: pass 1: 894332736 leaves, 65720 kept [20.1s]
+COUNT B 894332736 65720
+  B: list of 65720 members [40.0s]
+  D: pass 1: 787890024 leaves, 101347000 kept [22.1s]
+COUNT D 787890024 101347000
+  D: list of 101347000 members [42.3s]
+p3: lists A=2150 B=65720 D=101347000 [82.4s]  (D keys with 0 hash: checked in join)
+LISTS 2150 65720 101347000
+p3: join: 9639 sigma groups in 603 batches
+  join: 64/603 batches [0s]
+  join: 128/603 batches [0s]
+  join: 192/603 batches [0s]
+  join: 256/603 batches [0s]
+  join: 320/603 batches [0s]
+  join: 384/603 batches [0s]
+  join: 448/603 batches [0s]
+  join: 512/603 batches [0s]
+  join: 576/603 batches [0s]
+p3: done: 122013268 pairs in 0.2s (6e+08 pairs/s over 8 threads)
+DONE hits=0 matches=0 badmatches=0 pairs=122013268 join_seconds=0.20 total_seconds=82.61
+p3: v=247 C=17 OA=18 OB=35 rows=(19,13,17) NS=3 W=126 threads=8 shard 0/1 canonB=1(perms 23) canonD=1 psd=(1,1,1) energy=(0,0)
+  A: pass 1: 8580 leaves, 2150 kept [0.0s]
+COUNT A 8580 2150
+  A: list of 2150 members [0.1s]
+  B: pass 1: 870797664 leaves, 62194 kept [19.5s]
+COUNT B 870797664 62194
+  B: list of 62194 members [38.5s]
+  D: pass 1: 838971828 leaves, 106282246 kept [19.6s]
+COUNT D 838971828 106282246
+  D: list of 106282246 members [41.7s]
+p3: lists A=2150 B=62194 D=106282246 [80.3s]  (D keys with 0 hash: checked in join)
+LISTS 2150 62194 106282246
+p3: join: 9682 sigma groups in 606 batches
+  join: 64/606 batches [0s]
+  join: 128/606 batches [0s]
+  join: 192/606 batches [0s]
+  join: 256/606 batches [0s]
+  join: 320/606 batches [0s]
+  join: 384/606 batches [0s]
+  join: 448/606 batches [0s]
+  join: 512/606 batches [0s]
+  join: 576/606 batches [0s]
+p3: done: 116052565 pairs in 0.2s (6.66e+08 pairs/s over 8 threads)
+DONE hits=0 matches=0 badmatches=0 pairs=116052565 join_seconds=0.17 total_seconds=80.51
+p3: v=247 C=17 OA=18 OB=35 rows=(19,17,7) NS=3 W=126 threads=8 shard 0/1 canonB=1(perms 23) canonD=1 psd=(1,1,1) energy=(0,0)
+  A: pass 1: 8580 leaves, 2150 kept [0.0s]
+COUNT A 8580 2150
+  A: list of 2150 members [0.1s]
+  B: pass 1: 838971828 leaves, 58575 kept [18.2s]
+COUNT B 838971828 58575
+  B: list of 58575 members [35.3s]
+  D: pass 1: 894332736 leaves, 113692225 kept [19.6s]
+COUNT D 894332736 113692225
+  D: list of 113692225 members [42.2s]
+p3: lists A=2150 B=58575 D=113692225 [77.6s]  (D keys with 0 hash: checked in join)
+LISTS 2150 58575 113692225
+p3: join: 9776 sigma groups in 611 batches
+  join: 64/611 batches [0s]
+  join: 128/611 batches [0s]
+  join: 192/611 batches [0s]
+  join: 256/611 batches [0s]
+  join: 320/611 batches [0s]
+  join: 384/611 batches [0s]
+  join: 448/611 batches [0s]
+  join: 512/611 batches [0s]
+  join: 576/611 batches [0s]
+p3: done: 109743196 pairs in 0.2s (6.1e+08 pairs/s over 8 threads)
+DONE hits=0 matches=0 badmatches=0 pairs=109743196 join_seconds=0.18 total_seconds=77.80
+p3: v=247 C=17 OA=18 OB=35 rows=(29,7,7) NS=3 W=126 threads=8 shard 0/1 canonB=1(perms 23) canonD=1 psd=(1,1,1) energy=(0,0)
+  A: pass 1: 8844 leaves, 1996 kept [0.0s]
+COUNT A 8844 1996
+  A: list of 1996 members [0.2s]
+  B: pass 1: 894332736 leaves, 65720 kept [20.8s]
+COUNT B 894332736 65720
+  B: list of 65720 members [41.1s]
+  D: pass 1: 894332736 leaves, 113692225 kept [20.8s]
+COUNT D 894332736 113692225
+  D: list of 113692225 members [43.1s]
+p3: lists A=1996 B=65720 D=113692225 [84.4s]  (D keys with 0 hash: checked in join)
+LISTS 1996 65720 113692225
+p3: join: 9776 sigma groups in 611 batches
+  join: 64/611 batches [0s]
+  join: 128/611 batches [0s]
+  join: 192/611 batches [0s]
+  join: 256/611 batches [0s]
+  join: 320/611 batches [0s]
+  join: 384/611 batches [0s]
+  join: 448/611 batches [0s]
+  join: 512/611 batches [0s]
+  join: 576/611 batches [0s]
+p3: done: 113364869 pairs in 0.2s (6.39e+08 pairs/s over 8 threads)
+DONE hits=0 matches=0 badmatches=0 pairs=113364869 join_seconds=0.18 total_seconds=84.61
+p3: v=247 C=17 OA=18 OB=35 rows=(31,1,5) NS=3 W=126 threads=8 shard 0/1 canonB=1(perms 23) canonD=1 psd=(1,1,1) energy=(0,0)
+  A: pass 1: 8844 leaves, 2260 kept [0.0s]
+COUNT A 8844 2260
+  A: list of 2260 members [0.1s]
+  B: pass 1: 906100272 leaves, 71259 kept [20.8s]
+COUNT B 906100272 71259
+  B: list of 71259 members [42.2s]
+  D: pass 1: 894332736 leaves, 111666626 kept [22.5s]
+COUNT D 894332736 111666626
+  D: list of 111666626 members [45.6s]
+p3: lists A=2260 B=71259 D=111666626 [87.9s]  (D keys with 0 hash: checked in join)
+LISTS 2260 71259 111666626
+p3: join: 9698 sigma groups in 607 batches
+  join: 64/607 batches [0s]
+  join: 128/607 batches [0s]
+  join: 192/607 batches [0s]
+  join: 256/607 batches [0s]
+  join: 320/607 batches [0s]
+  join: 384/607 batches [0s]
+  join: 448/607 batches [0s]
+  join: 512/607 batches [0s]
+  join: 576/607 batches [0s]
+p3: done: 139271370 pairs in 0.2s (6.6e+08 pairs/s over 8 threads)
+DONE hits=0 matches=0 badmatches=0 pairs=139271370 join_seconds=0.21 total_seconds=88.13

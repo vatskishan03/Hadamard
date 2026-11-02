@@ -35,8 +35,9 @@ SPORADIC = {
           "v": 29, "multipliers": [1], "subgroup_order": 1,
           "blocks": [[0, 4, 5, 6, 7, 9, 13, 16, 20, 22, 23, 24, 25], [0, 1, 2, 5, 6, 8, 11, 12, 14, 16, 22],
                      [0, 1, 2, 3, 5, 8, 10, 13, 14, 15, 18, 22, 25]]},
-    236: {"source": "Djokovic, arXiv:2101.05429v2, section 4, the first PDF for v = 59, (59; 28, 29, 29, 22; 49) (s**): "
-                    "X_1 = X_1' + (-X_1'), X_2 = X_3, X_4",
+    236: {"source": "Abuzin, Balonin, Djokovic, Kotsireas, Inform. Upravl. Sist. 2019 no. 5, 2-9 (order 236); blocks "
+                    "transcribed from Djokovic, arXiv:2101.05429v2, section 4, the first PDF for v = 59, "
+                    "(59; 28, 29, 29, 22; 49) (s**): X_1 = X_1' + (-X_1'), X_2 = X_3, X_4",
           "v": 59, "multipliers": [1], "subgroup_order": 1,
           "blocks": [_sym([1, 3, 5, 8, 10, 11, 13, 15, 16, 20, 21, 22, 26, 29], 59),
                      [0, 1, 3, 7, 8, 9, 10, 12, 13, 15, 16, 19, 21, 22, 25, 27, 29, 34, 35, 36, 37, 38, 39, 40, 44, 51,

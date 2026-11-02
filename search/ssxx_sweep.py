@@ -33,8 +33,8 @@ This is our reading of the literature, not a complete table (the tables of Seber
 available to us; the 2026 papers cite Table 11.2 of the 1992 survey).
 
 Separately, concurrent_reason(N) gives the orders constructed on V. Zaitsev's page "Quaternary Hadamard matrices"
-(https://www.cs.uleth.ca/~zaitsevv/quaternary.html, last updated 14 Oct 2026; with Kharaghani, Mohammadian and
-Tayfeh-Rezaie), found independently of this repository. The page's matrices of 122 orders were downloaded and checked
+(https://www.cs.uleth.ca/~zaitsevv/quaternary.html, last updated 14 Oct 2026), found independently of this
+repository. The page's matrices of 122 orders were downloaded and checked
 exactly here. search/data/complex_zaitsev_2026.txt lists them with the page's attributions (near-Williamson matrices,
 constructions of Szöllősi type, unpublished approaches, Paley-type matrices) and its list of orders for which no
 quaternary Hadamard matrix is known; the page's Mathon and Williamson-type orders (it claims nothing for them) are

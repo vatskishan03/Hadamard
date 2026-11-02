@@ -4,14 +4,16 @@
 
 Paley's skew-Hadamard matrix of order q + 1 = 4s is a 4 × 4 array of negacyclic s × s blocks. An anti-automorphism of
 Paley's matrix (Frobenius) pairs two blocks of one block column, and this pairing is exactly what the T-matrices of
-order 3 need to make the first Goethals–Seidel block skew-type. The block form and the pairing are Yamada's (1991; for
-q ≡ 3 mod 8 it is Theorem 1 of Seberry–Yamada 1993: a skew A and B₁ = −B₀ᵀ), and the multiplication by T-matrices is
-Seberry and Yamada's (1990); what we add is that the product keeps a skew-type block, which no source we found states.
+order 3 need to make the first Goethals–Seidel block skew-type. For q ≡ 3 (mod 8) the block form and the pairing are
+Yamada's (1991; Theorem 1 of Seberry–Yamada 1993: a skew A and B₁ = −B₀ᵀ); for q ≡ 7 (mod 8) the blocks are negacyclic
+and we derived the analogue directly (steps 2 and 3 of the Construction). The multiplication by T-matrices is Seberry
+and Yamada's (1990); what we add is that the product keeps a skew-type block, which no source we found states.
 The construction gives skew-Hadamard matrices of 52 orders 4v that the Đoković–Seberry census lists as undecided
 (q ≡ 3 mod 8), and of six orders 8v and 16v (q ≡ 7 mod 8), five of them below the smallest power of two in
 Cati–Pasechnik Table 5; the sixth, 7656 = 8 · 957, is Known (Wallis–Whiteman, see the Status). Seven more census
-values in the family, 261, 285, 429, 465, 513, 663 and 2475, were already settled in this repository by searches
-([index](README.md)).
+values in the family, 261, 285, 429, 465, 513, 663 and 2475 (q = 347, 379, 571, 619, 683, 883 and 3299), were settled
+in this repository by searches ([index](README.md)). The theorem also gives their orders 1044, 1140, 1716, 1860, 2052,
+2652 and 9900; the matrices found by search are separate matrices.
 
 | Order | v | q | s | Census; Table 5 | Status |
 |------:|---|---:|---:|---|---|
@@ -156,10 +158,12 @@ its blocks are negacyclic and the certificate says so.
 **New, but obtainable classically** for 51 orders 4v and five orders 8v and 16v; **First explicit construction** for
 3516 = 4 · 879; **Known** for 7656 = 8 · 957. Ordinary Hadamard matrices of all these orders are obtainable classically
 (the multiplication without the pairing; for 3156, 6036 and 6756 this repository built the first ones,
-[PALEY_BLOCKS.md](../hadamard/PALEY_BLOCKS.md)); what is new is the skew property. Every ingredient is published: the
-sixteen-block form with the transposed pair (Yamada 1991, restated as Theorem 1 of Seberry–Yamada, JCMCC 13, 1993,
-whose Theorem 6 multiplies such matrices by T-matrices under amicability conditions that T-matrices of order 3 fail),
-the multiplication (Seberry–Yamada 1990, Theorem 4) and the Goethals–Seidel criterion for skew matrices. Balonin and
+[PALEY_BLOCKS.md](../hadamard/PALEY_BLOCKS.md)); what is new is the skew property. For q ≡ 3 (mod 8) every ingredient
+is published: the sixteen-block form with the transposed pair (Yamada 1991, restated as Theorem 1 of Seberry–Yamada,
+JCMCC 13, 1993, whose Theorem 6 multiplies such matrices by T-matrices under amicability conditions that T-matrices of
+order 3 fail), the multiplication (Seberry–Yamada 1990, Theorem 4) and the Goethals–Seidel criterion for skew
+matrices. For q ≡ 7 (mod 8), where the blocks are negacyclic, the pairing is derived here (Construction, steps 2 and
+3). Balonin and
 Đoković (2015, §9) noticed for q = 139 that one block of the array is skew-type and that two others are reverses of
 each other. We found no source that combines these into a skew matrix of order 3(q + 1).
 
@@ -173,10 +177,11 @@ each other. We found no source that combines these into a skew matrix of order 3
   Paley, Szekeres, Szekeres–Whiteman and Spence series and 41 sporadic values, and all 59 values v = 3(q + 1)/4 of the
   family (q ≡ 3 mod 8) as undecided. Cati–Pasechnik Table 5 gives t ≥ 3 for the 18 of them below 1000 except 663 and
   879, and t = 4 or 5 for the six values of the q ≡ 7 (mod 8) orders. Seberry–Yamada (1992), Table 7.1, Seberry (1978),
-  Seberry–Yamada (1991) and Table 1.51 of the Handbook (2007) agree for the values they cover. 663 and 879 are blank
-  (t = 2) in Seberry–Yamada's Table 7.1, and hence absent from Cati–Pasechnik's Table 5, with no construction cited; we
-  read these blanks as errors (also 783; for all three, 2v − 1 ≡ 5 (mod 8) is composite, which suggests a misapplied
-  Szekeres entry), so 3516 is labelled First explicit construction, as [2652](2652) is.
+  Seberry–Yamada (1991) and Table 1.51 of the Handbook (2007) agree for the values they cover. Cati–Pasechnik's Table 5
+  has no entry for 663 and 879 (nor for 451, 783 and 921), which by the convention of that table ("The case m = 2 is
+  not shown") records skew-Hadamard matrices of orders 4 · 663 and 4 · 879 as known. We found no construction behind
+  that, and the census lists both values as undecided, so 3516 is labelled First explicit construction, as
+  [2652](2652) is. We did not verify what Seberry–Yamada's Table 7.1 has at these values.
 - **The families.** None of the skew families listed by Seberry (1978), Seberry–Yamada (1992, SI–SXI), the Handbook,
   Koukouvinos–Stylianou (2008, first pages) or the census gives order 3(q + 1) except when an unrelated number happens
   to qualify (3q + 2 a prime power for Paley, (3q + 1)/2 for Szekeres), which happens for none of the 58 orders here.
@@ -184,7 +189,7 @@ each other. We found no source that combines these into a skew matrix of order 3
   3(q + 1)/4 − 1); we found no source that constructs these designs.
 - **The ingredients.** The four-orbit structure of Paley's matrix is classical (Whiteman 1972 for the Goethals–Seidel
   form, as summarized by Seberry–Yamada 1992; Yamada 1991 and Seberry–Yamada 1993 for the generalized quaternion type,
-  with the transposed pair;
+  with the transposed pair, for q ≡ 3 (mod 8); the negacyclic analogue for q ≡ 7 (mod 8) is derived here;
   Ito's dicyclic Hadamard groups; Xia–Xia–Seberry 2005 for an infinite family of Goethals–Seidel arrays at order q + 1),
   and so is the multiplication by T-matrices (Seberry–Yamada 1990, Theorem 4; 1992, Theorem 3.10), which gives an
   ordinary Hadamard matrix of order 3(q + 1). Xia, Xia, Seberry and Wu (2006) multiply negacyclic Goethals–Seidel

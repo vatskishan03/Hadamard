@@ -89,7 +89,8 @@ what is new.
   (arXiv:2610.27175, 19 October 2026). We found no statement in the survey that its matrix is skew, and its list of
   known skew orders (Paley's q + 1, doubling, Spence's family, 4n for odd n < 250, 276 and 292, with 356 the smallest
   open order) does not reach 4492. The Hadamard Matrix Explorer builds 4492 as `G(A(1123))`, from supplementary
-  difference sets, and not from its skew-type sequences `SK`. We did not inspect their matrix file.
+  difference sets, and not from its skew-type sequences `SK`. Decoded from the Explorer's image on 2 November 2026,
+  their matrix is a Goethals–Seidel matrix that is not skew ([NOVELTY.md](../../NOVELTY.md)).
 - No classical construction gives a skew matrix of order 4492:
   - Paley I: 4491 = 3² · 499 is not a prime power.
   - Szekeres, Whiteman, Spence and Momihara–Xiang 2(qᵉ + 1): 2245 = 5 · 449 is not a prime power.

@@ -102,7 +102,8 @@ classical (Williamson's theorem, see Construction); the symmetry is what is new.
     squares.
 
 The sources searched are listed in [NOVELTY.md](../../NOVELTY.md). The same design also gives amicable Hadamard
-matrices of order 76 (S = I + PN and P + N), and through Seberry's 1978 theorem a skew-Hadamard matrix of order 5700:
+matrices of order 76 (S = I + PN and P + N, the passage of Robinson and Seberry, J. Austral. Math. Soc. Ser. A 25 (1978)
+118–128, Theorems 8 and 9), and through Seberry's 1978 theorem a skew-Hadamard matrix of order 5700:
 [skew/5700](../../skew/5700).
 
 ## Files

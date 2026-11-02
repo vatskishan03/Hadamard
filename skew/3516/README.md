@@ -29,16 +29,17 @@ and checks it.
 ## Status
 
 **First explicit construction** ([PALEY_SKEW.md](../PALEY_SKEW.md#status)). The Đoković–Seberry census lists 879 as
-undecided, but two older tables imply that a skew-Hadamard matrix of order 4 · 879 = 3516 is known, and we found no
-construction behind either entry, as for [2652](../2652).
+undecided, but Cati–Pasechnik's Table 5 has no entry for it, which by the convention of that table records that a
+skew-Hadamard matrix of order 4 · 879 = 3516 is known, and we found no construction behind the omission, as for
+[2652](../2652).
 
 - The census lists 879 among its 737 undecided v, in none of its Paley, Szekeres, Szekeres–Whiteman or Spence series and
   not among its 41 sporadic values.
-- Seberry–Yamada (1992), Table 7.1, leaves 879 blank, and "a blank represents 2"; Cati–Pasechnik Table 5 (which omits m
-  = 2, and whose footnote lists its own changes to Seberry–Yamada's 2020 table) has no entry for 879. Both tables treat
-  663 and 783 the same way. No construction is cited, and none of the classical families gives 3516: 4 · 879 − 1 = 3515
-  = 5 · 19 · 37 and 2 · 879 − 1 = 1757 = 7 · 251 are not prime powers. For all three values 2v − 1 ≡ 5 (mod 8) is
-  composite, which suggests (but does not prove) a misapplied Szekeres entry 2(q + 1).
+- Cati–Pasechnik Table 5 (which omits m = 2, and whose footnote lists its own changes to Seberry–Yamada's 2020 table)
+  has no entry for 879; it omits 451, 663, 783 and 921 as well. No construction is cited, and none of the classical
+  families gives 3516: 4 · 879 − 1 = 3515 = 5 · 19 · 37 and 2 · 879 − 1 = 1757 = 7 · 251 are not prime powers. We
+  read the omission as a transcription gap, as for 451 ([skew/1804](../1804#status)), but could not confirm that, and
+  we did not verify what Seberry–Yamada's Table 7.1 (1992) has at 879.
 
 Doubling (Seberry) gives skew-Hadamard matrices of all orders 2ᵏ · 3516. The sources searched are listed in
 [NOVELTY.md](../../NOVELTY.md).

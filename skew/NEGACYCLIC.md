@@ -28,13 +28,15 @@ H = [ -BR    A     DᵀR   -CᵀR ]
 with A, B, C, D = N(a), N(b), N(c), N(d) is a Hadamard matrix of order 4n exactly when the negaperiodic
 autocorrelations Σ_i x_i x_{i+s} (with x_{i+n} = −x_i) of the four sequences sum to 4n at s = 0 and to 0 elsewhere.
 If a₀ = 1 and a_j = a_{n−j} for 0 < j < n, then A + Aᵀ = 2I and H is skew-Hadamard. Finlayson and Seberry
-(Orthogonal designs from negacyclic matrices, Australas. J. Combin. 30 (2004) 319–330, Theorem 4) gave this array with
-negacyclic blocks of odd order 3, 5 and 7, that is for orders 12, 20 and 28.
+(Orthogonal designs from negacyclic matrices, Australas. J. Combin. 30 (2004) 319–330, Theorem 4) gave this array,
+with the skew conclusion, for negacyclic blocks of arbitrary order.
 
 **The quaternary form.** Since v is odd, x ↦ i·g is an isomorphism ℤ[x]/(x^{2v} + 1) → ℤ[i][ℤ_v] (g a generator of
 ℤ_v). A ±1 sequence of length 2v becomes (1 + i)·u with u a sequence on ℤ_v with values in {1, i, −1, −i}, the
 negaperiodic condition becomes Σ u_X u_X* = 4v δ (complex periodic autocorrelations over ℤ_v), and the skew condition
-on A becomes u(−g) = i · conj(u(g)) for g ≠ 0, with u(0) ∈ {1, −i}.
+on A becomes u(−g) = i · conj(u(g)) for g ≠ 0, with u(0) ∈ {1, −i}. The correspondence between negaperiodic binary
+sequences of length 2v and quaternary sequences of length v is Armario and Flannery's (Cryptogr. Commun. 12 (2020)
+757–768, arXiv:1911.08828); we use it to impose multipliers.
 
 **Symmetry.** The search takes the four quaternary sequences constant on the orbits of a multiplier group H ≤ ℤ_v* of
 odd order (so −1 ∉ H), with n_H orbits. A skew block then has 2^{n_H} choices and a free block 4^{n_H}, against
@@ -85,8 +87,9 @@ are therefore infeasible at the Table 5 entries with m ≥ 5
 
 **New.** Table 5 gives 191(226) (from Paley's construction with the prime 2²²⁶ · 191 − 1), 277(5), 299(4) and 589(5).
 The four v are also undecided in the census (order 4v), which these matrices do not settle. We found the negacyclic
-Goethals–Seidel array for skew matrices only in Finlayson and Seberry (2004), with blocks of odd order, and the
-quaternary multiplier search and the plug-ins nowhere. Doubling gives the skew orders 3056, 4432, 4784, 9424, …
+Goethals–Seidel array with its skew criterion in Finlayson and Seberry (2004), Theorem 4, for blocks of any order, and
+the correspondence with quaternary sequences in Armario and Flannery (2020); the multiplier search over the quaternary
+form and the Paley plug-ins we found nowhere. Doubling gives the skew orders 3056, 4432, 4784, 9424, …
 
 ## Verification
 

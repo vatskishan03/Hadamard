@@ -53,7 +53,7 @@ X = [[1, e], [−eᵀ, X′]],   Y = [[1, i e], [−i eᵀ, Y′]],   K = [[X, Y
 
 K has entries ±1, ±i and K K* = 3398 I ([complex-hadamard/C3398.json](../../complex-hadamard/C3398.json)). This is the
 complex form of the Yamada–Kiyasu template ([NOTES.md](../../NOTES.md) §31). It works for any quaternary conference
-matrix of order (q + 3)/2 and uses no symmetry of the core. Zaitsev et al.'s quaternary matrices QH470, QH566, QH806,
+matrix of order (q + 3)/2 and uses no symmetry of the core. Zaitsev's quaternary matrices QH470, QH566, QH806,
 QH1142 and QH1526 have this form.
 
 **3. Turyn's doubling.** With K = K_r + i K_i,
@@ -110,7 +110,7 @@ reaches 6796. None of the standard recursive constructions applies:
 **Credits.** The array [[X, Y], [Y*, −X*]] with A, B symmetric circulants is Szöllősi's (arXiv:2603.09572, Theorem 4,
 a modification of Kharaghani and Seberry's block construction). Its zero-diagonal form over an abelian group, with
 A(0) = B(0) = 0 and conference matrices as output, and the bordered form are ours
-([search/NOTES.md](../../search/NOTES.md) §74–75). The complex Yamada–Kiyasu template is the form of Zaitsev et al.'s
+([search/NOTES.md](../../search/NOTES.md) §74–75). The complex Yamada–Kiyasu template is the form of Zaitsev's
 quaternary matrices QH470, QH566, QH806, QH1142 and QH1526, whose page states no method; we found it stated nowhere
 else ([NOTES.md](../../NOTES.md) §31). Miyamoto's Corollary 4 (1991, as transcribed in the JD-Jones-ASES Hadamard-M
 note) reaches the same orders from a C₂-matrix, which in his displayed form is a quaternary conference matrix with
@@ -120,10 +120,10 @@ Qᵀ = Q; the core here has Qᵀ ≠ Q as built, and the template needs no symme
 - The quaternary conference matrix of order 850 is new to our knowledge. Seberry–Whiteman's, the BGW and GC families
   and Et-Taoui's all need 849 to be a prime power. Fallon and Iverson (arXiv:2610.09169) give a complex conference
   matrix of order 3p + 1 = 850, but its entries are not fourth roots of unity, in any equivalent form.
-- The quaternary Hadamard matrix of order 3398 lies above Seberry–Yamada's table (N < 1000) and Zaitsev et al.'s page
+- The quaternary Hadamard matrix of order 3398 lies above Seberry–Yamada's table (N < 1000) and Zaitsev's page
   (orders below 2000). Any such matrix gives H(6796) by Turyn's doubling, so none was known while 6796 was open.
 
-**Risk.** Zaitsev et al. use the same template and do not date their matrices; their page stops below 2000.
+**Risk.** Zaitsev uses the same template and does not date the matrices; the page stops below 2000.
 Middletownbooks/Hadamard does not reach 1699. The Seberry–Yamada book of 2020 and Miyamoto's lists of 1991 were not
 read; his Corollary 4 at m = 849 would need a symmetric quaternary conference matrix of order 850. The sources
 searched are listed in [NOVELTY.md](../../NOVELTY.md).

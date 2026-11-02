@@ -33,8 +33,8 @@ None: the matrix is determined by q, r, ξ and the skew input.
 
 ## Status
 
-**Concurrent** as a symmetric Hadamard matrix; we claim no priority for the order. Zaitsev, Kharaghani, Mohammadian
-and Tayfeh-Rezaie's page of quaternary Hadamard matrices (last updated 14 October 2026, unchanged on 22 October) lists
+**Concurrent** as a symmetric Hadamard matrix; we claim no priority for the order. Zaitsev's page of quaternary
+Hadamard matrices (last updated 14 October 2026, unchanged on 22 October) lists
 QH1646 under "unpublished approaches". It is a quaternary Yamada–Kiyasu matrix of order 1646, a monomial matrix takes
 it to a symmetric one (found with nauty and checked exactly: same rows, columns up to units, symmetric, Hadamard; the
 programs for this check are not included in this repository), and Turyn's map then gives a symmetric Hadamard matrix

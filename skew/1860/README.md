@@ -56,8 +56,10 @@ is then a Hadamard matrix of order 1860. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Status
 
-**New** as a skew-Hadamard matrix. A symmetric Hadamard matrix of order 1860 is known (Paley II with q = 929); it is
-not skew.
+**New, but obtainable classically** as a skew-Hadamard matrix: the 3(q + 1) theorem of
+[PALEY_SKEW.md](../PALEY_SKEW.md) with q = 619 also gives a skew-Hadamard matrix of order 3 · 620 = 1860 from published
+ingredients. The Goethals–Seidel matrix of this directory, found by search, is a separate matrix. A symmetric Hadamard
+matrix of order 1860 is known (Paley II with q = 929); it is not skew.
 
 - Cati–Pasechnik Table 5 lists 465(3), an entry inherited from the older tables; Koukouvinos–Stylianou (2008) also has
   465(3). The smallest known skew order of the form 2ᵐ · 465 was 2³ · 465 = 3720 (Paley I: 3719 is prime), so 1860 was

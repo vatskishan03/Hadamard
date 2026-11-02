@@ -22,8 +22,8 @@ Settled:
     recursive theorems (orders [2092](hadamard/2092), [2148](hadamard/2148), [2284](hadamard/2284),
     [2572](hadamard/2572), [2636](hadamard/2636), [3356](hadamard/3356), [3436](hadamard/3436), [3732](hadamard/3732),
     [3820](hadamard/3820), [3964](hadamard/3964), [4204](hadamard/4204), [4492](hadamard/4492), [5020](hadamard/5020),
-    [5932](hadamard/5932), [6796](hadamard/6796) and [9172](hadamard/9172)); concurrently with others: 571 (Zaitsev et
-    al.), 523 (Cooley, Middletownbooks/Hadamard), 933 (Cooley, and Egan et al.), 1123, 1255 and 1483 (Egan et al.), 2293
+    [5932](hadamard/5932), [6796](hadamard/6796) and [9172](hadamard/9172)); concurrently with others: 571 (Zaitsev),
+    523 (Cooley, Middletownbooks/Hadamard), 933 (Cooley, and Egan et al.), 1123, 1255 and 1483 (Egan et al.), 2293
     (Egan et al., from Cooley's matrix of order 2292);
   - n = 789, 1315, 1509, 1589, 1689, 1841, 1915, 2155, 2515, 2661, 2733, 2815, 2893 and 2951 by Paley's matrix in
     sixteen circulant blocks times T-matrices, two published theorems that the tables did not combine

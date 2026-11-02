@@ -47,11 +47,12 @@ is 8 · 611 = 4888.
   Syst. 2019, no. 5, 2–9, Table 1; doi:10.31799/1684-8853-2019-5-2-9) published two, (13; 6, 6, 6, 3; 8) and (13; 6, 4,
   4, 6; 7); ours has the parameters of the second (we did not check equivalence). Đoković's Balonin array
   (arXiv:2508.17141, proof of Theorem 1) turns such a family into a symmetric orthogonal design xP + yN of type (1, n −
-  1), and (I + PN, P + N) is then an amicable pair; this last step, which puts the design in Seberry's strong amicable
-  form (Australas. J. Combin. 55 (2013), Definition 5), we found nowhere in print. Every split 9776 = h m into a skew
-  order h and a classical amicable order m fails. m = 2 and m = 4 need the open skew orders 4888 and 2444. m = 8, 16,
-  104, 208 and 752 leave h ≢ 0 (mod 4). The smallest classical amicable orders with odd parts 13 and 47 are 104 and 752
-  (Seberry–Yamada (1992), Table 6.1; Paley with q = 103 and 751).
+  1), and (I + PN, P + N) is then an amicable pair; this last step is Robinson and Seberry's (J. Austral. Math. Soc.
+  Ser. A 25 (1978) 118–128, Theorems 8 and 9; see also Seberry, Australas. J. Combin. 55 (2013), Definition 5, strong
+  amicable orthogonal designs). Every split 9776 = h m into a skew order h and a classical amicable order m fails. m = 2
+  and m = 4 need the open skew orders 4888 and 2444. m = 8, 16, 104, 208 and 752 leave h ≢ 0 (mod 4). The smallest
+  classical amicable orders with odd parts 13 and 47 are 104 and 752 (Seberry–Yamada (1992), Table 6.1; Paley with q =
+  103 and 751).
 - Our closure of the classical skew theorems also stops at 2⁵ · 611, as Table 5 does. It covers Paley, Szekeres,
   Whiteman, Wallis–Whiteman, Spence, Turyn, Seberry's theorems with classical amicable orders and orthogonal designs,
   Wallis's product and doubling ([NOTES.md](../../NOTES.md) §28). It does not cover Seberry–Yamada's SX, or Seberry's
@@ -59,7 +60,7 @@ is 8 · 611 = 4888.
 - In SageMath's development version of 2026-10-17, `skew_hadamard_matrix(9776, existence=True)` is `Unknown`; it is
   `True` for 19552. Its product branch uses only amicable orders d with d − 1 a prime power.
 - Every ingredient was published before 2026 (Wallis's theorem, Đoković's skew order 188, the families of length 13
-  and the Balonin-array design); only their combination, with the elementary step above, is new, hence the label.
+  and the Balonin-array design); only their combination is new, hence the label.
   The amicable pair of order 52 is, as far as we know, the first explicit one.
 
 Doubling (Seberry) gives skew-Hadamard matrices of all orders 2ᵏ · 9776. The sources searched are listed in

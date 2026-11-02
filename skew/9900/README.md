@@ -68,10 +68,10 @@ pair of order 100 is, to our knowledge, the first explicit amicable pair of that
   difference family of length 25, (25; 12, 11, 11, 8; 17) of Abuzin, Balonin, Đoković and Kotsireas (Inform. Control
   Syst. 2019, no. 5, 2–9, Table 1; doi:10.31799/1684-8853-2019-5-2-9), equivalent to ours under a multiplier. Đoković's
   Balonin array (arXiv:2508.17141, proof of Theorem 1) turns the family into the symmetric orthogonal design, and the
-  step to the amicable pair (I + PN, P + N), which puts the design in Seberry's strong amicable form (Australas. J.
-  Combin. 55 (2013), Definition 5), we found nowhere in print. Only the combination is new, hence the label. A symmetric
-  Hadamard matrix of order 9900 is known: 2475 is not
-undecided in the symmetric list of the census.
+  step to the amicable pair (I + PN, P + N) is Robinson and Seberry's (J. Austral. Math. Soc. Ser. A 25 (1978) 118–128,
+  Theorems 8 and 9; see also Seberry, Australas. J. Combin. 55 (2013), Definition 5, strong amicable orthogonal
+  designs). Only the combination is new, hence the label. A symmetric Hadamard matrix of order 9900 is known: 2475 is
+  not undecided in the symmetric list of the census.
 
 - The census lists 2475 among the undecided cases ("… 2469, 2473, 2475, 2485, 2489, …"). 2475 is in none of its skew
   series and not among its 41 sporadic values.
