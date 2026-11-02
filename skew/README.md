@@ -23,6 +23,7 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 | [820](820) | 205 = 5 · 41 | ⟨51⟩, order 5 (cyclotomic product of index 8) | 1, 1, −17, −23 | 205(3) | New |
 | [836](836) | 209 = 11 · 19 | ⟨26⟩, order 15 | 1, 9, 15, 23 | 209(4) | New |
 | [980](980) | 245 = 5 · 7², group ℤ₃₅ × ℤ₇ | order 9: ⟨11⟩ (order 3) on ℤ₃₅ and the squares ⟨2⟩ of F₇* (Paley product with a multiplier on ℤ₃₅) | 1, −9, −27, 13 | 245(4) | New |
+| [1004](1004) | 251, prime | ⟨219⟩, order 5 | 1, 9, 9, 29 | 251(6) | New |
 | [1012](1012) | 253 = 11 · 23 | ⟨12⟩, order 11 (Paley product) | 1, 5, 19, 25 | 253(4) | New |
 | [1036](1036) | 259 = 7 · 37 | ⟨9⟩, order 9 | 1, 7, 31, 5 | 259(4) | New |
 | [1044](1044) | 261 = 3² · 29 | ⟨190⟩, order 7 (cyclotomic product of index 4) | 1, 9, −1, 31 | 261(3) | New |
@@ -51,6 +52,7 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 | [2404](2404) | 601, prime | ⟨2⟩, order 25 | 1, 1, 49, 1 | 601(5) | New |
 | [2452](2452) | 613, prime | ⟨37⟩, order 17 | 1, 1, 35, 35 | 613(3) | New |
 | [2812](2812) | 703 = 19 · 37 | ⟨16, 26⟩, order 27 | 1, 1, 1, 53 | 703(3) | New |
+| [3044](3044) | 761, prime | ⟨498⟩, order 19 | 1, 1, 39, 39 | 761(22) | New |
 | [3052](3052) | 763 = 7 · 109 | ⟨9⟩, order 27 | 1, 1, 5, 55 | 763(4) | New |
 | [3124](3124) | 781 = 11 · 71 | ⟨356, 309⟩, order 25 (Paley product with a multiplier on ℤ₇₁) | 1, −51, 9, 21 | 781(3) | New |
 | [3380](3380) | 845 = 5 · 13², group ℤ₅ × GF(169) | ⟨w⁸⟩ on GF(169), order 21 (cyclotomic product of index 8) | 1, 43, −3, −39 | 845(4) | New |
@@ -207,10 +209,12 @@ over multiplier structures:
 - the quaternary search over negacyclic arrays and its Paley plug-ins (`search/negaskew`, for 1528, 2216, 2392 and
   4712);
 - low-energy k-trees on lists too large to store (`search/cp_lowe.py`, `search/skew_lowE.py`);
+- the same k-tree with generated lists (Metropolis chains for the blocks too large to enumerate, 1004) or with reversal
+  twins removed (3044) (`search/listgen`);
 - for 3676, a spin structure (`search/spin_skew.py`).
 
 The orthogonal designs come from `search/odm_engine.py` and `search/odm_join.py`. [search/NOTES.md](../search/NOTES.md)
-§10–§16, §20, §23, §31, §87–90 and §110 describe the methods, and each README records the command, code commit, seed
-and caps of its search.
+§10–§16, §20, §23, §31, §87–90, §110 and §111 describe the methods, and each README records the command, code commit,
+seed and caps of its search.
 
 `python3 verify/verify.py skew/<order>` rebuilds a matrix from its certificate and checks H Hᵀ = nI and H + Hᵀ = 2I.

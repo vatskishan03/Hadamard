@@ -45,7 +45,7 @@ The Handbook tables were read from a copy available online and not checked again
 
 ## Sources searched
 
-The searches were made between 12 October and 1 November 2026; each section below gives its own dates.
+The searches were made between 12 October and 2 November 2026; each section below gives its own dates.
 
 **For every order.**
 
@@ -579,6 +579,56 @@ Checked on 27 October 2026:
   inspected: if either is skew, the skew matrix of order 4492 would be Concurrent as well.
 - *Labels.* Skew orders 2212 and 4492: New as skew-Hadamard matrices. The ordinary matrix of order 2212 is classical,
   and that of order 4492 is Concurrent (above).
+
+**Skew orders 1004 and 3044** ([skew/1004](skew/1004), [skew/3044](skew/3044)). Checked on 2 November 2026:
+- *Tables and recursions.*
+  - *Tables.* The Đoković–Seberry census (251 and 761 among its 737 undecided v, in none of its series and not among its
+    sporadic values; 761 is in its Turyn C-series of symmetric matrices, 2 · 761 = 1 + 39²); Cati–Pasechnik Table 5, v2
+    (251(6) and 761(22): the smallest known skew orders with these odd parts were 2⁶ · 251 = 16064 and 2²² · 761 =
+    3,191,865,344, both from Paley I; Table 5 updates Table 9.2 of Seberry–Yamada's 2020 book and does not list 761
+    among the 14 entries it fills in); Seberry–Yamada (1992) Table 7.1 (to 999), through its families SI–SXI, none of
+    which gives either order; Utilitas Math. (1991), whose printed skew table stops at 499; Koukouvinos–Stylianou
+    (2008), Table 1 (251(6); odd m up to 493); SageMath's `skew_hadamard_matrix` (1004 is in `unknown_skew_hadamard`,
+    and no branch of the function reaches 1004 or 3044).
+  - *Ordinary matrices.* 1004 is Known: Đoković, Golubitsky and Kotsireas, J. Combin. Des. 22 (2014) 270–277
+    (arXiv:1301.3671) give two supplementary difference sets 4-{251; 125, 120, 115, 115; 224} over ℤ₂₅₁ with the same
+    multiplier group and row sums (1, 11, 21, 21); we rebuilt both from the printed index sets, and none of their eight
+    blocks is skew about any centre. Ours has the row sums (1, 9, 9, 29), which translation, multipliers, complement,
+    reversal and reordering of the blocks do not change, and a skew first block, so it is a different matrix. The
+    Hadamard Matrix Explorer builds 1004 as `G(A(251))`. 3044 is classical: Seberry (Wallis), J. Combin. Theory Ser. B
+    10 (1971) 1–11, lists it (a symmetric matrix from the n-type matrix of order 1522 = 39² + 1 that the skew matrix of
+    order 40 gives; its abstract names 3044), Turyn (Canad. J. Math. 23 (1971) 531–535) gives the same conference
+    matrix, and Miyamoto's theorem with q = 761 and the doubled Paley matrix of order 380 gives it again (the Explorer
+    builds it as `M(K(S(2), P1(380)))`).
+  - *Classical routes.* For 1004: Paley I needs 1003 = 17 · 59 to be a prime power; Szekeres, Whiteman, Spence and
+    Momihara–Xiang 2(qᵉ + 1) need 501 = 3 · 167; Wallis–Whiteman and Momihara–Xiang 4(qᵉ + 1) need 250 = 2 · 5³; Spence
+    4(q² + q + 1) needs q² + q + 1 = 251, which has no integer solution (15² + 15 + 1 = 241, 16² + 16 + 1 = 273);
+    Yamada's (|t| + 1)(q + 1) with q ≡ 5 (mod 8) needs q = 501, and Seberry's 2ᵗq with q ≡ 5 (mod 8) needs q = 251,
+    which is ≡ 3 (mod 8); the 3(q + 1) theorem needs 3 | 1004; the known Blatt–Szekeres families need 501 or 1003 to be
+    a prime power; Turyn (h − 1)ᵘ + 1 needs 1003 to be a perfect power; doubling needs a skew matrix of order 502;
+    Seberry's mn(n − 1) is possible only with n = 2, with an OD(1004; 1, 502, 501); Williamson's h(pᵏ + 1) needs a skew
+    matrix of odd order 251, or 1003 to be a prime power; products of a skew and an amicable order need a factor 251 or
+    502 that is not a Hadamard order. For 3044: Paley I needs 3043 = 17 · 179; 2(qᵉ + 1) needs 1521 = 3² · 13²;
+    4(qᵉ + 1) needs 760 = 2³ · 5 · 19; Spence 4(q² + q + 1) needs q² + q + 1 = 761, which has no integer solution
+    (discriminant 3041; 27² + 27 + 1 = 757, 28² + 28 + 1 = 813); 2ᵗq needs q ≡ 5 (mod 8) and 761 ≡ 1 (mod 8); the
+    3(q + 1) theorem needs 3 | 3044; Blatt–Szekeres needs 1521 or 3043; Turyn needs 3043 to be a perfect power; doubling
+    needs a skew matrix of order 1522; mn(n − 1) with n = 2 needs an OD(3044; 1, 1522, 1521); h(pᵏ + 1) needs a skew
+    matrix of odd order 761, or 3043 to be a prime power; the sporadic list of 4m of Seberry–Yamada does not contain
+    761.
+- *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (Table 3, known skew orders:
+  Paley's q + 1, doubling, Spence's family, 4n for odd n < 250, 276 and 292, with 356 the smallest open order; neither
+  3044 nor 761 occurs in the text of the PDF, which we searched on 2 November 2026, and 1004 only as the ordinary
+  sporadic order of Đoković and coauthors). Đoković and Kotsireas, Special Matrices 4 (2016) 317–325 (arXiv:1511.08734)
+  give the class of the matrix of order 1004 (Paley's block and a 3-{v; k₁, k₂, k₃; λ} difference family), tabulate it
+  for v ≤ 131 and construct v = 239; they have no family for v = 251. Đoković, arXiv:2301.02751, arXiv:2404.14375 and
+  arXiv:2508.17141, Karoui, arXiv:2602.16089 (order 1252) and Schumer (order 3676) do not give either order.
+- *Finding.* None gives a skew-Hadamard matrix of order 1004 or 3044.
+- *Not read.* As for 6796. The rows for 251 and 761 of Seberry–Yamada's tables (1992 Table 7.1, 2020 Table 9.2), the
+  1991 paper itself (its abstract promises tables to q ≤ 2000), the matrix files of Egan et al. and of the Hadamard
+  Matrix Explorer, MathSciNet and zbMATH. If any of them holds a skew matrix of order 1004 or 3044, that order would be
+  Known or Concurrent.
+- *Labels.* Skew orders 1004 and 3044: New as skew-Hadamard matrices. The ordinary matrix of order 1004 is Known
+  (Đoković, Golubitsky and Kotsireas, 2014), and that of order 3044 is classical (Seberry 1971).
 
 ## Not checked
 

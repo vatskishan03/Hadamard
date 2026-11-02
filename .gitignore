@@ -14,6 +14,7 @@ complex-hadamard/C*.txt
 search/**/*.bin
 search/**/*.log
 search/**/*_hits.json
+HIT_*.json
 search/tmp*/
 
 # search programs: C programs compiled by hand next to the sources
@@ -33,6 +34,7 @@ search/ls/gs_sa
 search/ls/gs_tabu
 search/ls/gs_tabu_l1
 search/ls/orb_tabu
+search/listgen/lg_pt
 search/flatpool/flat2
 search/flatpool/flatbig32
 search/flatpool/flatbig64

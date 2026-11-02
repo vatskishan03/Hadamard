@@ -4,11 +4,11 @@ Notes on the searches for the unresolved orders of [FRONTIER.md](../FRONTIER.md)
 complex orders: structures, obstructions, estimates and negative results. §1–§36, §38–§40, §48–§49 and §53:
 Goethals–Seidel, Spence, skew and symmetric structures; §37 (in part), §41–§47, §50–§52 and §54–§59: complex orders
 (Szöllősi arrays); §60–§83: decoupling constructions, conference-matrix cores and their obstructions (§74–§83 for the
-complex Yamada–Kiyasu targets); §84–§110: plug-ins and bordered arrays for the remaining complex and quaternary orders
+complex Yamada–Kiyasu targets); §84–§111: plug-ins and bordered arrays for the remaining complex and quaternary orders
 (§84–§86, §100, §103–§107, §109), skew Paley products and negacyclic arrays for the census values (§87–§91, §93–§94),
-low-energy k-trees for the skew census values 553 and 1123 (§110), the orders 8p (§92, §108), conference matrices of
-orders 118 and 9p + 1 (§95–§99), Williamson and good matrices of order 65 (§101), and the orders 3356, 12472 and 20712
-(§102, §104–§105). Statements are proved here or measured with a program named in the text or listed in
+low-energy k-trees for the skew census values 251, 553, 761 and 1123 (§110–§111), the orders 8p (§92, §108), conference
+matrices of orders 118 and 9p + 1 (§95–§99), Williamson and good matrices of order 65 (§101), and the orders 3356, 12472
+and 20712 (§102, §104–§105). Statements are proved here or measured with a program named in the text or listed in
 [README.md](README.md). Results marked (program not included), and computations with no program named, which include
 most of §60–§83, rest on code that is not in this repository. §k alone refers to this file; [NOTES.md](../NOTES.md) §k
 to the structural notebook.
@@ -1167,7 +1167,8 @@ prunes on the reachable tag range and buckets the last group's patterns by tag. 
   829 (36), 929 (32), 1051 (42), 1103 (38), 1117 (36), 1303 (42), 1321 (40) and 1471 (42). 883 (e = 42) ran out of
   memory building the pair tables of 4 groups.
 - 761 (e = 40, F = 19): the best class has 10^9.5 solutions, but only 10^−0.2 inside lists of 10⁷ members, at a
-  predicted 10^14.2 pairs per solution. Not run. 1483 (e = 38): 10^6.35 and 10^−1.7. Not run.
+  predicted 10^14.2 pairs per solution. Not run. (Settled with larger lists and the reversal twins removed: skew order
+  3044, §111.) 1483 (e = 38): 10^6.35 and 10^−1.7. Not run.
 - 1123 (e = 34, F = 33, rows 1, 1, 1, 67, one class): 10^6.63 for the class and 10^2.24 inside lists of 6 · 10⁷, 10⁷
   and 10⁷ members (all 131,072 members of the skew block). Predicted 10^11.8 pairs per solution. A run with lists of 3
   · 10⁷, 10⁷ and 10⁷ found no solution in 6000 split values (§22); the run with 6 · 10⁷ ran out of memory after 72
@@ -3137,7 +3138,9 @@ All other undecided primes up to 1500 give densities below 10⁻³⁴.
 **Local search does not reach them.** Simulated annealing and tabu search over the orbit signs (C, scratch) solve 71/5
 within a second. They do not solve 239/7 in about ten CPU-minutes: the best energy was 48, a few classes off. The
 undecided structures are at least 10⁵·⁵ sparser. The 2 + 1 join with sampled lists costs about density^(−2/3), which
-is 10¹⁶ for 1123/33. So this class does not settle any census value without a better matcher.
+is 10¹⁶ for 1123/33. So this class does not settle any census value without a better matcher. (251/5 was settled by the
+four-list k-tree with generated lists of §111: skew order 1004, whose first block is Paley's and whose other three
+blocks lie in this class.)
 
 ## 49. Symmetric matrices of order 4q: inputs, census omissions, and no odd multiplier
 
@@ -7545,7 +7548,7 @@ the pairs and triples of quotient levels were first decided exactly.
   - 4792 = 8 · 599: ℤ₇ × ℤ₁₉ × F₉ with |H| = 36, alive at F₉, ℤ₁₉ and the triple (10¹⁰ tuples), about 1.5 · 10³
     core-hours.
   - Skew census: 1123 about 20 core-hours (low-energy k-tree; done in §110); 761, 1657, 1801 about 10² (k-tree and
-    spin tabu); 883, 661, 1483 about 10³.
+    spin tabu; 761 done in §111, 33 core-hours); 883, 661, 1483 about 10³.
   - The cyclic Goethals–Seidel structures of composite n (1257, 1713, 1893, 2215) have no exact tower: their quotients
     act trivially or are prime.
 - *Scope of the tower method.* The tower needs several quotient levels with enumerable fibres. Open orders with prime n
@@ -7707,3 +7710,95 @@ stated orbit structure, the skew first block, and periodic autocorrelations that
 The ordinary matrix of order 4492 here ([hadamard/4492](../hadamard/4492)) has no skew block and is Concurrent. Not
 inspected: the matrix files of Egan et al. and of the Hadamard Matrix Explorer for order 4492, either of which could
 be skew.
+
+## 111. Skew 1004 and 3044, the census values 251 and 761
+
+The low-energy k-tree of §20 and §110 gives skew-Hadamard matrices of orders 1004 = 4 · 251 and 3044 = 4 · 761
+([skew/1004](../skew/1004), [skew/3044](../skew/3044)), with two changes to how the lists are made. For 251 the blocks
+have 10¹³ to 10¹⁴ members, too many for `cp_enum.c`, so the low-energy members are generated by Metropolis chains. For
+761 the lists are enumerated as in §110, with the reversal twins removed. The programs are in
+[listgen](listgen/README.md); `cp_lowe.py`, `cp_enum.c`, `kt4.c`, `cyclo_product.py` and `workdir.py` are those of
+commit `919e73d`, and `skew_certify.py` writes the certificates. Both runs were made on the 32-core machine of §110 on
+1 November 2026.
+
+**Skew 1004, v = 251 (prime).**
+- *Structure* (checked). H = ⟨219⟩, the 50th powers modulo 251, of order 5 (e = 50, F = 5): 50 nonzero orbits and {0}.
+  A block constant on the orbits has row sum ≡ ±1 (mod 10), and 1004 = 1 + b² + c² + d² has three solutions in odd
+  numbers, (7, 15, 27), (9, 9, 29) and (11, 21, 21); the first is excluded. The class searched has the row sums
+  (1, 9, 9, 29); the other, (1, 11, 21, 21), is the class of the ordinary matrix of Đoković, Golubitsky and Kotsireas.
+  The blocks are 2²⁵ skew blocks (2²⁴ up to reversal), C(50, 24) = 1.2 · 10¹⁴ for each of B and C and C(50, 22) =
+  8.9 · 10¹³ for D; a key has 25 autocorrelations (rank 24).
+- *Lists.* The energy is that of §20, from 4 · 10⁵ samples per block. The 2²⁴ skew blocks up to reversal are enumerated
+  by Gray code and the 343,764 of energy at most 10.69 kept. `lg_pt.c` runs 12 Metropolis chains at T = 0.42 (swaps of a
+  +1 and a −1 orbit sign) and collects 14,000,000 distinct members of B below energy 3.677 (452 s, 1.6 · 10¹¹
+  proposals, 2.2 · 10⁹ accepted) and 10,000,008 of D below 4.504 (27 s). C is the 4,000,000 members of lowest energy of
+  B (B and C have the same row sum), D keeps the 3,000,000 of lowest energy (cut 3.884). The lists took 557 s and 5,617
+  CPU seconds. The Gaussian estimate of key-quadruples inside [343,764; 14,000,000; 4,000,000; 3,000,000] is 10^1.18
+  (15; heuristic). On smaller lists of the same kind (7.5 · 10⁹ random quadruples) the number within squared whitened
+  distance 4 of the target was 0.066 of the Gaussian count (0.07 to 0.08 between 2.5 and 5), and an isotropic-ball
+  calculation gives 0.029, so about 1 and 0.4 quadruples are expected inside the lists (heuristic).
+- *Join.* 6,000 split values of five merge classes (0, 7, 11, 14, 22) chosen from 143,967 and ranked by expected
+  solutions per unit of work (a share of 0.579, 8.8 of the 15). The first 52 took 1323 s (2.8 · 10⁹ AB and 1.07 · 10¹¹
+  CD pairs) and were empty; the 53rd held one solution (checked: autocorrelations, skew first block, invariance under
+  H). Rebuilding the ranking from the saved lists puts the hit's split value, (−2, −6, −6, −2, −6), at rank 53. The
+  first 53 carry 1.8 % of the share, 0.27 of the Gaussian expectation (about 0.02 with the factor above): luck, or a
+  pessimistic correction. The solution came 1918 s after the start on 12 threads, 6.4 core-hours counted as 12 times the
+  wall time, about 4.2 GB.
+- *Run.* `lg_lowe.py 251 50 0 --LA 3e5 --LB 7e7 --LC 7e7 --LD 4e8 --nB 1.4e7 --nD 1e7 --kC 4e6 --kD 3e6 --share-bc
+  --resume --keep-lists --secs-gen 1800 --threads 12 --T 0.42 --nsig 6000 --mcpairs 4000000 --maxpairs 3e8
+  --join-core-h 120 --K 1 --seed 2` ([listgen/README.md](listgen/README.md)). An earlier run with seed 1 and lists of
+  about the same sizes joined 17 of 100 split values (merge classes 1, 6, 7, 10, 11) in 810 s and found nothing.
+- *The class of §48.* The first block of the solution is Paley's: x₁ = −1 exactly on the 125 nonzero squares modulo
+  251 (25 orbits, since H has odd order and lies in the squares), with autocorrelation −1 at every nonzero shift
+  (checked). The other three blocks are then a 3-{251; 121, 121, 111; 165} difference family with autocorrelations
+  summing to +1, the class of Đoković and Kotsireas (arXiv:1511.08734), with λ = 121 + 121 + 111 − (3 · 251 − 1)/4 =
+  165 and Σ k(k − 1) = 41,250 = 165 · 250 (checked). §48 rated the structure 251/5 at 10^14.2 ordered triples and a
+  density of 10^−28.7 and concluded that the class settles no census value without a better matcher; the search here
+  did not impose the Paley block (the first list holds the 343,764 skew blocks of lowest energy, and it is among
+  them).
+
+**Skew 3044, v = 761 (prime).**
+- *Structure* (checked). H = ⟨498⟩, the 40th powers modulo 761, of order 19 (e = 40, F = 19): 40 nonzero orbits and {0};
+  −1 is a 20th power but not a 40th, so negation pairs the orbits j and j + 20. A block has row sum x(0) + 19 · (an even
+  number), and 3044 = 1 + b² + c² + d² has one solution in numbers ≡ ±1 (mod 38), (1, 39, 39), which forces x(0) = +1 in
+  every block: one class of row sums, (1, 1, 39, 39). The blocks are 2²⁰ skew blocks, C(40, 20) = 137,846,528,820 for B
+  and C(40, 19) = 131,282,408,400 for each of C and D. The Gaussian estimate of the class is 10^9.50 (heuristic).
+- *Reversal twins.* Reversing a block, x(t) → x(−t), leaves its autocorrelations unchanged, so every solution has up to
+  16 twins; on the 40 class signs, reversal is the rotation by 20. `cp_lowe_dd.py` (`cp_lowe.py` with `--dedup`) keeps
+  one member of each twin in every list: for B, C and D the member whose class mask is at most its rotation by 20, for
+  the skew block the 524,288 members with sign + on the first class.
+- *Lists and join.* `cp_enum.c` with `--groups 5` keeps 590,647,863, 33,937,598 and 30,532,180 members of B, C and D
+  (energy at most 6.57, 4.63 and 4.57, rank 19), 295,323,935, 16,968,798 and 15,266,090 after the reduction. The
+  Gaussian estimate inside is 10^1.21 per twin class (10^2.41 before; heuristic). The lists took 1076 s. `kt4.c` joins
+  10⁵ split values of five merge classes (2, 7, 8, 12, 14), chosen from 1,087,935 and ranked by expected solutions per
+  unit of work (a share of 0.442; 4.0 · 10¹² AB and 3.9 · 10¹³ CD pairs predicted in all). The first 2702 were empty.
+  The 2703rd held two solutions; kt4 printed the first (its limit is 1), which was verified. By then it had used 4.77 ·
+  10¹⁰ AB and 1.70 · 10¹² CD pairs, 1.2 % and 4.4 % of the predicted totals.
+- *Run.* `dd_run.sh $W 761 --q 761 --e 40 --config 0 --L 6e8,3e7,3e7 --dedup --stream --groups 5 --samples 2000000
+  --mcpairs 10000000 --maxpairs 300000000 --nsig 100000 --K 1 --seed 1 --threads 12`: 9955 s (2.77 h) on 12 threads,
+  33 core-hours counted as 12 times the wall time, 30.7 GB. Split values took 3.2 s each.
+- *Earlier runs, same class without the reduction.* Lists of about 10⁸ members per non-skew block (100,007,217,
+  92,730,345 and 102,496,968, all 1,048,576 skew blocks, estimate 10^2.60 inside): 44 split values in 4614 s, 23 GB,
+  stopped. The lists above before the reduction (estimate 10^2.41): 377 split values in 11,116 s, 2.8 · 10¹⁰ AB and
+  1.1 · 10¹² CD pairs, 46 GB, stopped with no solution; 29.5 s per split value against 3.2 s, 4.2 times the AB pairs and
+  4.6 times the CD pairs.
+- *Against §20 and §107.* §20 gave 10^9.5 for the class but 10^−0.2 inside lists of 10⁷ members and 10^14.2 pairs per
+  solution, and left 761 not run; §107 put it at about 10² core-hours. The lists here hold 3 · 10⁷ to 6 · 10⁸ members
+  per non-skew block, 1.5 · 10⁷ to 3 · 10⁸ after the twin reduction, which cuts the pair work per split value by a
+  factor of about 4; the solution took 33 core-hours (a comparison of heuristics, not a calibration).
+
+**Checks** (checked). `verify/verify.py skew/1004` and `skew/3044` rebuild both matrices from their certificates: H Hᵀ =
+nI exactly, H + Hᵀ = 2I, and the SHA-256 digests in the READMEs. `check_matrix` reads the stored matrices (504,510 and
+4,634,490 row pairs, no violation). A direct recheck of the sequences confirms the orbit structure (51 and 41 orbits of
+H, the point 0 and orbits of size 5 and 19), the skew first block, the row sums, and periodic autocorrelations that sum
+to 4v at shift 0 and to zero at every other shift. The programs of `listgen/` reproduce a skew family for v = 79 (rows
+1, 1, 5, 17) in a few seconds (both `lg_lowe.py` and `cp_lowe_dd.py`, controls in
+[listgen/README.md](listgen/README.md)).
+
+**Status.** Both are New as skew-Hadamard matrices ([skew/1004](../skew/1004/README.md#status),
+[skew/3044](../skew/3044/README.md#status)); 251 and 761 are among the 737 values that the census lists as undecided.
+The ordinary matrix of order 1004 is known (Đoković, Golubitsky and Kotsireas, J. Combin. Des. 22 (2014) 270–277: a
+Goethals–Seidel matrix over ℤ₂₅₁ with the same multiplier group, row sums (1, 11, 21, 21), no skew block), and that of
+order 3044 is classical (Seberry 1971, symmetric, from the skew matrix of order 40; Miyamoto's theorem with q = 761).
+Not inspected: the printed rows of Seberry–Yamada's tables for 251 and 761, and the matrix files of Egan et al. and of
+the Hadamard Matrix Explorer, any of which could hold a skew matrix of these orders.

@@ -5,17 +5,17 @@ The programs for most of the matrices in this repository, and for the experiment
 of searches and is documented by its docstring and by the notes. Some programs cited in the notes are not included.
 No certificate depends on any program; `verify/` checks every matrix on its own.
 
-**Requirements.** Python 3 with NumPy; SciPy for `tbcore/`; SymPy for `symwt.py`, `tiedcore/` and several sweeps;
-pynauty for `check_conf66.py`; JAX for `generate.py`; SageMath (`passagemath-graphs`) for `sym_propus_sb.py mathon`; a C
-compiler with OpenMP, and a C++ compiler for `conference118/`. A few experiments use OR-Tools (PySAT is cited in the
-notes; that program is not included). The C helpers that Python programs call are compiled on first use by `workdir.py`.
-The other C programs, such as `dedupe.c` and `match.c` below, are compiled by hand with `cc -O3 -march=native`, adding
-`-fopenmp` or `-lm` where the source needs them.
+**Requirements.** Python 3 with NumPy; SciPy for `tbcore/` and `listgen/`; SymPy for `symwt.py`, `tiedcore/` and several
+sweeps; pynauty for `check_conf66.py`; JAX for `generate.py`; SageMath (`passagemath-graphs`) for
+`sym_propus_sb.py mathon`; a C compiler with OpenMP, and a C++ compiler for `conference118/`. A few experiments use
+OR-Tools (PySAT is cited in the notes; that program is not included). The C helpers that Python programs call are
+compiled on first use by `workdir.py`. The other C programs, such as `dedupe.c` and `match.c` below, are compiled by
+hand with `cc -O3 -march=native`, adding `-fopenmp` or `-lm` where the source needs them.
 
 **Output.** Hit logs, temporary list files and binaries go to `$HADAMARD_WORK` (default `<tmp>/hadamard-work`). Apart
 from the certificate writers (see Certificates), programs write only there or to paths given on the command line; the
-scripts in `d3/`, `dm/`, `spence_spin/`, `bgschain/`, `flatpool/`, `plugh/` and `x9split/` write into the working
-directory. A certificate writer refuses to overwrite an existing certificate.
+scripts in `d3/`, `dm/`, `spence_spin/`, `bgschain/`, `flatpool/`, `listgen/`, `plugh/` and `x9split/` write into the
+working directory. A certificate writer refuses to overwrite an existing certificate.
 
 **Commit hashes.** The order READMEs give the commit at which each search was run. Until commit `b7bfde3` this
 directory was named `attack/`, so in a checkout of an earlier commit read `attack/` for `search/`.
@@ -94,7 +94,7 @@ start-up, is close to the list size.
 | `gs_sweep.py`, `gs_sweep_subgroups.py`, `gs_exhaustive.py`, `had_sweep.py` | exhaustive sweeps of small multiplier structures |
 | `lottery_rank.py` | ranks small structures by Gaussian estimate and exact pair work |
 | `had_chain_sweep.py` | the compression chain of `chain.py` for plain Goethals–Seidel structures |
-| `cyclo_product.py`, `cp_lowe.py`, `cp_enum.c`, `cp_field.py`, `cp_sweep.py`, `cp_hunt.py`, `cp_breadth.py` | cyclotomic products ℤ_m × GF(q) and the low-energy k-tree (3732, 5020, skew orders including 2212 and 4492; [NOTES.md](NOTES.md) §110) |
+| `cyclo_product.py`, `cp_lowe.py`, `cp_enum.c`, `cp_field.py`, `cp_sweep.py`, `cp_hunt.py`, `cp_breadth.py` | cyclotomic products ℤ_m × GF(q) and the low-energy k-tree (3732, 5020, skew orders including 1004, 2212, 3044 and 4492; [NOTES.md](NOTES.md) §110–111) |
 | `spin_walk.c` | the walk with neighbour lookups of [METHOD.md](../METHOD.md) (2284) |
 | `d3_model.py`, `d3/prep1893.py`, `d3/walk.c` | the d = 3 structure (X₀, X₁, μX₁, μ²X₁): Gaussian model; for n = 1893, the tables and the tabu walk with lookups |
 | `gs_1719.py`, `gs_anti.py`, `gs_array_gf2.py` | individual structures and array tests |
@@ -143,6 +143,7 @@ start-up, is close to the list size.
 | `make_yamada.py` | the Yamada–Kiyasu certificates (24124, 24412, 29404, 51580; from a certificate file: 15292, with Đoković–Kotsireas's skew 956 in `data/skew956_dk.json`) |
 | `skewplug/` | the two-level sampler for skew Paley products in the Goethals–Seidel array with many w-positions (G = K × F_q, q ≡ 3 mod 4, optionally with a multiplier on K), with its validation battery, the explicit-list sweep `exh38.py` and, in `scan38/`, the enumeration and the scans of the K-symmetric real census shapes; it found [../skew/476](../skew/476), [../skew/980](../skew/980), [../skew/1540](../skew/1540), [../skew/1892](../skew/1892), [../skew/2156](../skew/2156) and [../skew/3124](../skew/3124) ([NOTES.md](NOTES.md) §87–88, §90–91; [skewplug/README.md](skewplug/README.md), [skewplug/scan38/README.md](skewplug/scan38/README.md)) |
 | `negaskew/` | skew Goethals–Seidel arrays with negacyclic blocks of order 2v, searched as quaternary sequences on ℤᵥ under a multiplier group of odd order (exact orbit-level join, shape enumeration, certification; [NOTES.md](NOTES.md) §88), and their Paley plug-ins over ℤ_m × F_q (`qp.c`, two-level exact engine; §89); it found [../skew/1528](../skew/1528), [../skew/2216](../skew/2216), [../skew/2392](../skew/2392) and [../skew/4712](../skew/4712). The subdirectories `real37/`, `quat37/` and `origin/` hold the exhaustive real and quaternary plug-in engines with exact symmetry reductions and the K-level analysis of the origin-defect shapes (§90); `tri/` holds the triangular family v = 1 + k(k + 1)/2, with the matrix of order 3032 (§92) ([negaskew/README.md](negaskew/README.md)) |
+| `listgen/` | lists of low-energy members generated by Metropolis chains (`lg_pt.c`, `lg_lowe.py`, `lg_lib.py`, `gen_run.py`) for blocks too large to enumerate, and the k-tree with reversal twins removed (`cp_lowe_dd.py`, `dd_run.sh`); they found [../skew/1004](../skew/1004) (v = 251) and [../skew/3044](../skew/3044) (v = 761) ([NOTES.md](NOTES.md) §111; [listgen/README.md](listgen/README.md)) |
 
 **Symmetric Hadamard matrices**
 
