@@ -8112,3 +8112,33 @@ certified by `p3cert.py` and `verify/verify.py`; none occurred.
 **Status.** Negative: nothing is added to the census lists. Not determined: the compile command of the binaries, a
 logged run of the validation suite on the machine, the choice of structures (the planner's files were not used), and the
 overlap with the sweep of §28 and §40 (above).
+
+## 115. Skew 2300, 6628 and 7204, the census values 575, 1657 and 1801
+
+The census scheduler of §110–114 (32-core machine) found three skew Goethals–Seidel families between 2 and 4 November
+2026. Each was verified exactly on the machine and again from its certificate by `verify/verify.py`, and the families
+were rebuilt and checked by independent code (H Hᵀ = nI and H + Hᵀ = 2I; for 7204 the stored matrix equals the rebuilt
+one, and the SHA-256 of 6628 and 7204 agree between the two machines).
+
+**2300 = 4 · 575** (`cp_575_paley`, `search/cp_lowe.py`). Paley product over ℤ₂₅ × ℤ₂₃ (q = 23, e = 2, m = 25), H =
+⟨301⟩ of order 11, layout `config 5` with N_w = N₋ = 5 (the counting identity 24 N_w − 4 N₋ = 100). Lists of 4.2 · 10⁶,
+3.2 · 10⁶ and 3.2 · 10⁶ members for the three non-skew blocks, seed 1. Started 2 November 06:13 UTC, one solution at
+19:48 UTC (13.6 h wall, 8 threads); rows (1, 43, −3, 21). Cati–Pasechnik Table 5: 575(4).
+
+**6628 = 4 · 1657 and 7204 = 4 · 1801** (`spin_1657`, `spin_1801`; the structures of the table in §14). Spin structures
+(§10): H = ⟨16⟩ of order 23 with μ = 27, and H = ⟨2⟩ of order 25 with μ = 21, μ ∉ H, μ³ ∈ H, the first block fixed by
+μ; rows (1, 47, 47, 47) and (1, 49, 49, 49), the only admissible patterns. Tabu search `spin_ls2.c` (§33), six workers
+per value, each `spin_ls2 input.bin 5000 3000 <seed>` with distinct seeds, plus the idle-cycle soaker on 1657 and 1801.
+- 1801: hit 2 November 10:50 UTC after 102.5 core-hours and 1.66 · 10⁷ restarts of 3000 steps (scheduler status).
+- 1657: hit 4 November 10:31 UTC. The scheduler status of 3 November 15:05 UTC recorded 274.8 core-hours and 4.53 · 10⁷
+  restarts; the total at the hit was not read (the machine became unreachable before the final state was copied), and
+  at six workers it is about 390 core-hours.
+
+**Negative in the same round** (heuristic searches; nothing is excluded). Skew 661 (`dd_ktree_661`, k-tree with reversal
+twins removed, §111): its 30 h budget ran out on 3 November with no solution. Skew 883 (`dd_ktree_883`): its 44 h budget
+ran out on 5 November with no solution. Symmetric 341: the four propus structures `sp_v341_H10_g2`, `_g32x47`, `_g32x70` and
+`_g32x35` (§114), each joined in full, no solution.
+
+**Zaitsev's quaternary matrices.** The nauty check of the eight matrices QH590 … QH1886 confirmed that QH590,
+QH638, QH782, QH926, QH1310 and QH1358 (v = 295, 319, 391, 463, 655, 679) are monomially equivalent to symmetric
+quaternary matrices; QH1646 and QH1886 (v = 823, 943) had not been checked when the machine was restarted on 4 November.

@@ -41,7 +41,7 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 | [1540](1540) | 385 = 5 · 7 · 11 | ⟨246, 221⟩, order 15 (Paley product with a multiplier on ℤ₃₅) | 1, −7, 31, 23 | 385(3) | New |
 | [1564](1564) | 391 = 17 · 23 | ⟨324⟩, order 11 (Paley product) | 1, 19, 19, 29 | 391(4) | New |
 | [1612](1612) | 403 = 13 · 31 | ⟨100⟩, order 15 | 1, 5, 25, 31 | 403(5) | New |
-| [1804](1804) | 451 = 11 · 41 | ⟨16, 42⟩, order 25 | 1, 1, 11, 41 | none; see its README | New |
+| [1804](1804) | 451 = 11 · 41 | ⟨16, 42⟩, order 25 | 1, 1, 11, 41 | none; Table 5 implies known | First explicit construction |
 | [1852](1852) | 463, prime | ⟨33⟩, order 21 | 1, 1, 43, 1 | 463(7), out of date | Known (Đoković 1994) |
 | [1860](1860) | 465 = 3 · 5 · 31 | ⟨226⟩, order 15 (Paley product) | 1, 25, 35, −3 | 465(3) | New, but obtainable classically |
 | [1876](1876) | 469 = 7 · 67 | ⟨9⟩, order 33 | 1, 1, 5, 43 | 469(3) | New |
@@ -49,6 +49,7 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 | [2052](2052) | 513 = 3³ · 19, group ℤ₁₉ × GF(27) | the squares of GF(27)*, order 13 (Paley product) | 1, 27, 19, 31 | 513(4) | New, but obtainable classically |
 | [2156](2156) | 539 = 7² · 11, group ℤ₇ × ℤ₇ × ℤ₁₁ | order 15: the scalar 2 (order 3) on ℤ₇², and the squares ⟨4⟩ (order 5) on ℤ₁₁ (Paley product with a multiplier on ℤ₇²) | 1, −29, 15, 33 | 539(4) | New |
 | [2212](2212) | 553 = 7 · 79 | ⟨176⟩, order 13 (cyclotomic product of index 6) | 1, 31, −25, −25 | 553(3) | New |
+| [2300](2300) | 575 = 5² · 23 | ⟨301⟩, order 11 (Paley product) | 1, 43, −3, 21 | 575(4) | New |
 | [2404](2404) | 601, prime | ⟨2⟩, order 25 | 1, 1, 49, 1 | 601(5) | New |
 | [2452](2452) | 613, prime | ⟨37⟩, order 17 | 1, 1, 35, 35 | 613(3) | New |
 | [2812](2812) | 703 = 19 · 37 | ⟨16, 26⟩, order 27 | 1, 1, 1, 53 | 703(3) | New |
@@ -64,6 +65,8 @@ skew-Hadamard matrix of order 4v. The group is ℤᵥ unless stated.
 | [4492](4492) | 1123, prime | ⟨691⟩, order 33 | 1, 1, 1, 67 | beyond Table 5; 143744 = 128 · 1123 | New |
 | [5668](5668) | 1417 = 13 · 109 | ⟨1405, 328⟩, order 81 (cyclotomic product of index 4 with ⟨3⟩ on ℤ₁₃) | 1, 7, −53, −53 | beyond Table 5; 45344 = 32 · 1417 | New |
 | [6004](6004) | 1501 = 19 · 79 | ⟨799⟩, order 39 (Paley product) | 1, 77, 7, −5 | beyond Table 5; 12008 = 8 · 1501 | New |
+| [6628](6628) | 1657, prime | ⟨16⟩, order 23, blocks related by the spin multiplier 27 | 1, 47, 47, 47 | beyond Table 5 | New |
+| [7204](7204) | 1801, prime | ⟨2⟩, order 25, blocks related by the spin multiplier 21 | 1, 49, 49, 49 | beyond Table 5; 14408 = 8 · 1801 | New |
 
 The orders 1044, 1140, 1716, 1860 and 2052 (v = 261, 285, 429, 465, 513) are also given by the 3(q + 1) theorem below,
 with q = 347, 379, 571, 619 and 683 ([PALEY_SKEW.md](PALEY_SKEW.md)), so their order-level status is New, but obtainable classically.
@@ -222,10 +225,11 @@ over multiplier structures:
 - low-energy k-trees on lists too large to store (`search/cp_lowe.py`, `search/skew_lowE.py`);
 - the same k-tree with generated lists (Metropolis chains for the blocks too large to enumerate, 1004) or with reversal
   twins removed (3044) (`search/listgen`);
-- for 3676, a spin structure (`search/spin_skew.py`).
+- for 3676, 6628 and 7204, a spin structure (`search/spin_skew.py`, with the tabu search `search/spin_ls.c` or
+  `search/spin_ls2.c`).
 
 The orthogonal designs come from `search/odm_engine.py` and `search/odm_join.py`. [search/NOTES.md](../search/NOTES.md)
-§10–§16, §20, §23, §31, §87–90, §110, §111 and §112 describe the methods, and each README records the command, code
+§10–§16, §20, §23, §31, §87–90, §110, §111, §112 and §115 describe the methods, and each README records the command, code
 commit, seed and caps of its search.
 
 `python3 verify/verify.py skew/<order>` rebuilds a matrix from its certificate and checks H Hᵀ = nI and H + Hᵀ = 2I.

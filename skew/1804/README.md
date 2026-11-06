@@ -57,8 +57,10 @@ is then a Hadamard matrix of order 1804. Because A + Aᵀ = 2I, it satisfies H +
 
 ## Status
 
-**New** as a skew-Hadamard matrix. The Đoković–Seberry census lists 451 among its 737 undecided values, but
-Cati–Pasechnik's Table 5 has no entry for 451 (see the caveat below).
+**First explicit construction.** The Đoković–Seberry census lists 451 among its 737 undecided values, but
+Cati–Pasechnik's Table 5 has no entry for 451, which by that table's convention records order 1804 as known (see the
+caveat below). The label is the one used for [2652](../2652) and [3516](../3516), whose values 663 and 879 Table 5 omits
+in the same way.
 
 - 451 is in none of the census's Paley, Szekeres, Szekeres–Whiteman or Spence series nor among its 41 sporadic values.
 - Seberry–Yamada (1992), Table 7.1, and Koukouvinos–Stylianou (Discrete Math. 2008), Table 1, both list 451(3): the
@@ -66,7 +68,7 @@ Cati–Pasechnik's Table 5 has no entry for 451 (see the caveat below).
 - **Caveat.** Cati–Pasechnik's Table 5 (arXiv:2411.18897, v1 and v2) has no entry for 451. By that table's convention
   a missing value means m = 2, i.e. that order 1804 is known. We found nothing behind this: the paper gives no
   construction or citation for it, 1804 lies outside their verified range (orders ≤ 1208), the census lists 451 as
-  undecided, and the older tables give 451(3). We read the omission as a transcription gap, not as a known matrix.
+  undecided, and the older tables give 451(3). The omission may be a transcription gap; we label the order as the table records it.
 - SageMath has no route to skew order 1804: no Goethals–Seidel or difference-family data for v = 451, no Paley or
   Spence parameters, and 8 ∤ 1804 rules out doubling.
 - Piza's deposit lists 1804 as "CW(11, 41)", an ordinary Cooper–Wallis matrix.

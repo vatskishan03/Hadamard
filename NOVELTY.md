@@ -45,12 +45,11 @@ The Handbook tables were read from a copy available online and not checked again
 
 Table 5 of Cati–Pasechnik has no entry for the skew values v = 451, 663, 783, 879 and 921, which by the convention of
 that table ("The case m = 2 is not shown") records skew-Hadamard matrices of orders 4v as known. The census lists all
-five as undecided, and neither source gives a construction for them. We read the omissions as transcription gaps.
-Skew order 1804 (v = 451) is labelled New ([skew/1804](skew/1804#status)); 2652 (v = 663) and 3516 (v = 879), which this
-repository constructs, are labelled First explicit construction ([skew/2652](skew/2652#status),
-[skew/3516](skew/3516#status)); 783 and 921 are counted as undecided. Read literally, the omissions would make 1804 a
-First explicit construction as well and would reduce the number of undecided skew values from 633 to 631
-([README.md](README.md)).
+five as undecided, and neither source gives a construction for them. The omissions may be transcription gaps.
+The three of them that this repository constructs, 1804 (v = 451), 2652 (v = 663) and 3516 (v = 879), are labelled
+First explicit construction ([skew/1804](skew/1804#status), [skew/2652](skew/2652#status),
+[skew/3516](skew/3516#status)); 783 and 921 are counted as undecided. Read literally, the omissions would reduce the
+number of undecided skew values from 630 to 628 ([README.md](README.md)).
 
 ## Sources searched
 
@@ -707,6 +706,30 @@ Checked on 27 October 2026:
   enumerates, and its label `P2(3364)` would not show a stored `SK(841)`; MathSciNet and zbMATH. If any of them holds a
   skew matrix of order 3364, that order would be Known or Concurrent.
 - *Labels.* Skew order 3364: New as a skew-Hadamard matrix. The ordinary matrix is classical.
+
+**Skew orders 2300, 6628 and 7204** ([skew/2300](skew/2300), [skew/6628](skew/6628), [skew/7204](skew/7204)). Checked
+on 3–6 November 2026:
+- *Tables.* The Đoković–Seberry census lists 575, 1657 and 1801 among its 737 undecided v for skew matrices, in none
+  of its series and not among its sporadic values. Cati–Pasechnik Table 5 (v2) gives 575(4), so the smallest skew order
+  with odd part 575 that it records is 2⁴ · 575 = 9200 (Paley I, 9199 prime); 1657 and 1801 lie beyond the table
+  (v ≤ 999), as they lie beyond Seberry–Yamada (1992) Table 7.1 and Koukouvinos–Stylianou (2008) Table 1.
+- *Classical routes.* Paley I needs 4v − 1 to be a prime power: 2299 = 11² · 19, 6627 = 3 · 47², 7203 = 3 · 7⁴.
+  Szekeres, Whiteman, Spence and Momihara–Xiang 2(qᵉ + 1) need qᵉ = 2v − 1 ≡ 5 (mod 8): 1149 = 3 · 383, and 3313
+  (prime) and 3601 = 13 · 277 are ≡ 1 (mod 8). Wallis–Whiteman and Momihara–Xiang 4(qᵉ + 1) need v − 1 to be a prime
+  power: 574, 1656 and 1800 are not. Spence 4(q² + q + 1) needs q² + q + 1 = v (discriminants 2297, 6625 and 7201,
+  not squares). Seberry's 2ᵗq with q ≡ 5 (mod 8) needs v ≡ 5 (mod 8) (575 ≡ 7, 1657 ≡ 1801 ≡ 1). Turyn (h − 1)ᵘ + 1
+  needs 4v − 1 to be a perfect power. The 3(q + 1) theorem needs 3 | 4v. Doubling needs a skew matrix of order 2v.
+  Products of a skew and an amicable order need two Hadamard orders with product 4v, so 16 | 4v, which fails.
+- *Recent work.* The survey of Egan, Kotsireas, London and Ó Catháin, arXiv:2610.27175 (none of 575, 1657, 1801, 2300,
+  6628 and 7204 occurs in the text of the PDF); Đoković, arXiv:2404.14375 (spin families for v ≤ 631, the skew 4 · 397);
+  Schumer's deposit (skew 3676, v = 919); Karoui, arXiv:2602.16089 (order 1252 only); the arXiv listing for "skew
+  Hadamard", newest first, read on 3 November 2026 (nothing on these orders since the census).
+- *Finding.* None gives a skew-Hadamard matrix of order 2300, 6628 or 7204.
+- *Not read.* As for 3364. The web search engine used for the other entries was unavailable on 3–6 November 2026, so the
+  broader web searches of the other entries were not repeated for these three orders. If a source not read holds a skew
+  matrix of one of these orders, that order would be Known or Concurrent.
+- *Labels.* Skew orders 2300, 6628 and 7204: New as skew-Hadamard matrices. Ordinary Hadamard matrices of these orders were
+  known: Cati–Pasechnik's Table 4 has no entry for 575, 1657 or 1801.
 
 **Symmetric order 1556 and periodic Golay pairs of lengths 194 and 146** ([symmetric/1556](symmetric/1556),
 [search/pgp](search/pgp/README.md)). Checked on 2 November 2026:
